@@ -1,0 +1,2 @@
+for c in ( mr ) return encode( coverage histogram over abstract n in (0:255) values   count( c = n ), "csv" )
+

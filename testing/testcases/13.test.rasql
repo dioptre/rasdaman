@@ -1,0 +1,1 @@
+select jpeg(s) from rgb AS s

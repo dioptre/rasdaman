@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<processCoverage xmlns="http://www.opengis.net/wcps/1.0.0" service="WCPS" version="1.0.0">
+<coverageIterator>
+        <iteratorVar>clouds</iteratorVar>
+        <coverageName>climate_clouds</coverageName>
+    </coverageIterator>
+    <coverageIterator>
+        <iteratorVar>mask</iteratorVar>
+        <coverageName>climate_earth</coverageName>
+    </coverageIterator>
+    <encode>
+        <format>png</format>
+        <cast>
+            <type>char</type>
+            <mult>
+                <slice>
+                    <sliceAxisSpec>
+                        <axis>t</axis>
+                        <coord>0</coord>
+                    </sliceAxisSpec>
+                    <coverage>clouds</coverage>
+                </slice>
+                <equals>
+                    <slice>
+                        <sliceAxisSpec>
+                            <axis>t</axis>
+                            <coord>0</coord>
+                        </sliceAxisSpec>
+                        <coverage>mask</coverage>
+                    </slice>
+                    <scalar>0</scalar>
+                </equals>
+            </mult>
+        </cast>
+    </encode>
+</processCoverage>

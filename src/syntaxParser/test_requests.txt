@@ -1,0 +1,101 @@
+for F in (CD, C) return encode( A, B)
+
+for F in (CD, C), C in (Q,S,R) return encode( A, B)
+
+for F in (CD, C), C in (Q,S,R) return encode( A, B, blah)
+
+
+
+for F in (CD, C), C in (Q,S,R) return res( simple )
+
+for F in (CD, C), C in (Q,S,R) return dim( simple )
+
+for F in (CD, C), C in (Q,S,R) return null( simple ) 
+
+for F in (CD, C), C in (Q,S,R) return cellType( simple )
+
+for F in (CD, C), C in (Q,S,R) return crs( simple )
+
+
+
+
+for F in (CD, C), C in (Q,S,R) return crs( encode( A, B) )
+
+for F in (CD, C), C in (Q,S,R) return crs( encode( A, B, param) )
+
+
+
+
+for F in (CD, C), C in (Q,S,R) return ( crs( encode( A, B) ) )
+
+for F in (CD, C), C in (Q,S,R) return (( crs( encode( A, B) ) ))
+
+
+
+
+
+
+
+for F in (CD, C), C in (Q,S,R) return crs( setNull( simple, 454 ) )
+
+for F in (CD, C), C in (Q,S,R) return crs( setNull( simple, 41.6666 ) )
+
+for F in (CD, C), C in (Q,S,R) return crs( setNull( simple, TRUE ) )
+
+
+
+
+for F in (CD, C), C in (Q,S,R) return crs( setInterpolation( simple, nearest-neighbor ) )
+
+for F in (CD, C), C in (Q,S,R) return crs( setInterpolation( simple, bilinear ) )
+
+for F in (CD, C), C in (Q,S,R) return crs( setInterpolation( simple, lost-area ) )
+
+for F in (CD, C), C in (Q,S,R) return crs( setInterpolation( simple, bicubic ) )
+
+for F in (CD, C), C in (Q,S,R) return crs( setInterpolation( simple, barycentric ) )
+
+for F in (CD, C), C in (Q,S,R) return crs( setInterpolation( setNull( simple, 41.6666 ), barycentric ) )
+
+
+
+
+
+// wont take it now because of the crsName given as a simple String
+for F in (CD, C), C in (Q,S,R) return crs( setCrs( tan(angle), WGS:84 ) 
+
+// instead (plain String)
+for F in (CD, C), C in (Q,S,R) return crs( setCrs( tan(angle), CRSNAME ) 
+
+
+
+for F in (CD, C), C in (Q,S,R) return crs( setAxis( tan(angle), x, 3.3, 5.5432 ) )
+
+for F in (CD, C), C in (Q,S,R) return crs( setAxis( tan(angle), y, 345.3, 12.5432 ) )
+
+
+
+
+for F in (CD, C), C in (Q,S,R) return crs( setAxis( tan(cos(sin(arctan(arccos(arcsin(sinh(tanh(cosh(angle))))))))), x, 3.3, 5.5432 ) )
+
+
+for F in (CD, C), C in (Q,S,R) return crs( setAxis( ln(exp(log(valuevalue))), y, 345.3, 12.5432 ) )
+
+
+
+
+for F in (CD, C), C in (Q,S,R) return encode ( FGF + A * WE, format)
+
+for F in (CD, C), C in (Q,S,R) return encode ( FGF + A * WE and this or that xor those, format)
+
+
+
+
+
+for F in (CD, C), C in (Q,S,R) return encode ( trim(FGF + A * WE, z,4,78888), format)
+
+for F in (CD, C), C in (Q,S,R) return encode ( sect(FGF + A * WE, y, 4), format, extraP)
+
+
+
+

@@ -1,0 +1,415 @@
+/*
+Author: *, Sorin Stancu-Mara
+Date (last update): 7 Feb 2007
+History: 
+07 02 2007 smsorin Updated to WCPS 1.0.0
+This file contains the Java CUP implementation for the WCPS language parser and ProcessCoverage XML request
+generator.
+Sections include:
+	* Terminal symbols declaration from the JLex Lexycal declaration file
+	* Non Terminal symbols definitions
+	* Precedence rules to avoid Shift/Reduce conflicts in the grammar projections
+	* The grammar specification itself
+	
+	
+	
+things to check / todo :
+	* crsName production : its now just as a simple string; CRS NAMES have certain formats, eg: EPSG:NNN
+	* axisName production : its now just as a simple integer; this was adapted from the example XML processCoverage request available for
+				testing.
+	* structSelection one item missing ???? 
+	* condende expression not specified in the grammar as current implementation in WCPS is not usable
+	* String are not specified by using "" characters ("string"). The parser will work anyways as a string with "" characters will 
+			  be recognized as a string anyway
+			  
+Terminals (tokens returned by the lexycal scanner). */
+package syntaxParser;
+import java_cup.runtime.*;
+import syntaxParser.SyntaxErrorException;
+
+parser code {:
+/*    public void syntax_error(Symbol cur_token) {
+        report_error("Syntax error at line " + (cur_token.left+1) +
+                ", column " + cur_token.right, 
+           new SyntaxErrorException(cur_token.left + 1, cur_token.right +1));
+    }*/
+    public void report_fatal_error(String message,
+            Object token) throws Exception {
+        report_error(message, null);
+        Symbol sym = (Symbol) token;
+        throw new SyntaxErrorException(sym.left + 1, sym.right + 1, message);
+    }
+:}
+
+terminal String ID,  LPAREN, RPAREN, PLUS, MULTI, MINUS, DIVIDE, FOR, IN, RETURN, COMMA, ENCODE, STORE, CONDENSE, OVER, USING, MAX, MIN, AND, OR, COLON, 
+STRUCT, LBRACE, RBRACE, NEAREST, CTRANSFORM,
+SIN , COS , TAN , SINH , COSH , TANH , ARCSIN , ARCCOS , ARCTAN,EXP , LOG , LN, ABS, SQRT, DOT, BOOL, CHAR, 
+UNSIGNEDCHAR, SHORT, UNSIGNEDSHORT, LONG, UNSIGNEDLONG, FLOAT, DOUBLE, NOT, BIT, XOR, EQUALS, NOTEQUALS, OVERLAY, GT,LT,GTE,LTE, LBRACKET, RBRACKET, TRIM,
+SCALE, SOME, ADD, ALL, COUNT, AVG,TRUE, FALSE, WHERE, IDENTIFIER, IMAGECRS, IMAGECRSDOMAIN, CRSSET, GENERALDOMAIN, NULLDEFAULT, NULLSET,
+INTERPOLATIONDEFAULT, INTERPOLATIONSET, STRING, SETNULLDEFAULT, SETNULLSET, SETINTERPOLATIONDEFAULT, SETINTERPOLATIONSET, COMPLEX, COMPLEX2, SLICE, EXTEND,
+LINEAR, QUADRATIC, CUBIC, FULL, NONE, HALF, OTHER, COVERAGE, VALUES, X, Y, Z, TIME, ABSTRACT, SETCRSSET;
+
+terminal Integer  NUMBER;
+terminal Float FLOATNUMBER;
+
+/* Non terminals */
+non terminal WCPSRequest wcpsRequest ;
+non terminal ForClause forClause;
+non terminal ForClauseElements forClauseElements;
+non terminal WhereClause whereClause;
+non terminal ReturnClause returnClause;
+non terminal CoverageList coverageList;
+non terminal ProcessingExpr processingExpr;
+non terminal EncodedCoverageExpr encodedCoverageExpr;
+non terminal StoreExpr storeExpr;
+non terminal ScalarExpr scalarExpr;
+non terminal GetMetaDataExpr getMetaDataExpr;
+non terminal BooleanScalarExpr booleanScalarExpr;
+non terminal String booleanLiteral;
+non terminal NumericScalarExpr numericScalarExpr;
+non terminal CoverageExpr coverageExpr;
+non terminal SetMetaDataExpr setMetaDataExpr;
+non terminal InducedExpr inducedExpr;
+non terminal UnaryInducedExpr unaryInducedExpr;
+non terminal UnaryArithMeticExpr unaryArithMeticExpr;
+non terminal ExponentialExpr exponentialExpr;
+non terminal TrigonometricExpr trigonometricExpr;
+non terminal BooleanExpr booleanExpr;
+non terminal CastExpr castExpr;
+non terminal SelectExpr fieldExpr;
+non terminal BinaryInducedExpr binaryInducedExpr;
+non terminal String binaryInducedOp;
+non terminal SubsetExpr subsetExpr;
+non terminal TrimExpr trimExpr;
+non terminal SliceExpr sliceExpr;
+non terminal ExtendExpr extendExpr;
+non terminal ScaleExpr scaleExpr;
+non terminal CrsTransformExpr crsTransformExpr;
+non terminal AxisIntervalList axisIntervalList;
+non terminal AxisIntervalElement axisIntervalElement;
+non terminal AxisPointList axisPointList;
+non terminal AxisPointList axisPointEnum;
+non terminal AxisPointElement axisPointElement;
+non terminal String axisPoint;
+non terminal AxisCrsList axisCrsList;
+non terminal AxisCrsList axisCrsEnum;
+non terminal AxisCrsElement axisCrsElement;
+non terminal FieldInterpolationList fieldInterpolationList;
+non terminal FieldInterpolationList fieldInterpolationEnum;
+non terminal FieldInterpolationElement fieldInterpolationElement;
+non terminal InterpolationMethodList interpolationMethodList;
+non terminal InterpolationMethodList interpolationMethodEnum;
+non terminal FieldInterpolationMethod interpolationMethod;
+non terminal String interpolationType;
+non terminal String nullResistence;
+non terminal CoverageConstructorExpr coverageConstructorExpr;
+non terminal VariableList variableList;
+non terminal String axisType;
+non terminal CondenseExpr condenseExpr;
+non terminal ReduceExpr reduceExpr;
+non terminal GeneralCondenseExpr generalCondenseExpr;
+non terminal String condenseOpType;
+non terminal RangeValue rangeValue;
+non terminal StructuredLiteral structuredLiteral;
+non terminal RangeValueList rangeValueList;
+non terminal String atomicLiteral;
+non terminal String complexLiteral;
+non terminal String fieldName;
+non terminal CrsList crsList;
+non terminal CrsList crsEnum;
+non terminal String cellType;
+non terminal String generalId;
+
+//non terminal CoverageConstExpr converageConstExpr; // TODO(smsorin): not defined in WCPS !!
+
+
+
+/*	Precedence rules to avoid Shift/Reduce conflicts*/
+precedence left		AND, OR, XOR;
+precedence left		PLUS, MINUS;
+precedence left		MULTI, DIVIDE;
+precedence nonassoc	EQUALS, LT, GT, LTE, GTE, NOTEQUALS;
+precedence nonassoc	NOT, DOT, OVERLAY;
+precedence left		LBRACKET, LBRACE, COMMA, RBRACKET, RBRACE;
+
+/* 	The grammar specification */
+
+wcpsRequest   		::=  forClause:e1 returnClause:e2 {: RESULT = new WCPSRequest(e1,e2); :}	
+			    | forClause:e1 whereClause:e2 returnClause:e3 {: RESULT = new WCPSRequest(e1,e2,e3); :}
+			    ;
+forClause		::= FOR forClauseElements:e1 {: RESULT = new ForClause(e1); :}
+			    ;
+forClauseElements	::= ID:e1 IN LPAREN coverageList:e2 RPAREN {: RESULT = new ForClauseElements(e1,e2); :}
+			    | ID:e1 IN LPAREN coverageList:e2 RPAREN COMMA forClauseElements:e3  {: RESULT = new ForClauseElements(e1,e2,e3); :}
+			    ;
+whereClause		::= WHERE booleanScalarExpr:e1 {: RESULT = new WhereClause(e1); :}
+			    ;
+returnClause		::= RETURN processingExpr:e1 {: RESULT = new ReturnClause(e1);  :}
+			    ;
+coverageList		::= ID:e1 {: RESULT  = new CoverageList(e1); :}
+			    | ID:e1 COMMA coverageList:e2 {: RESULT = new CoverageList(e1,e2); :}
+			    ;
+processingExpr		::= encodedCoverageExpr:e1 {:  RESULT = new ProcessingExpr(e1);  :}
+			    | storeExpr:e1 {: RESULT = new ProcessingExpr(e1); :}
+			    | scalarExpr:e1 {:  RESULT = new ProcessingExpr(e1);  :}
+			    ;
+encodedCoverageExpr  	::= ENCODE LPAREN coverageExpr:e1 COMMA ID:e2 RPAREN {: RESULT = new EncodedCoverageExpr(e1,e2);  :}
+			    | ENCODE LPAREN coverageExpr:e1 COMMA ID:e2 COMMA ID:e3 RPAREN {: RESULT = new EncodedCoverageExpr(e1,e2,e3);  :}
+			    ;
+storeExpr		::= STORE LPAREN encodedCoverageExpr:e1 RPAREN {: RESULT = new StoreExpr(e1); :}
+			    ;			    
+scalarExpr		::= getMetaDataExpr:e1 {:  RESULT = new ScalarExpr(e1);  :} 
+			    | condenseExpr:e1 {: RESULT = new ScalarExpr(e1); :}
+			    | booleanScalarExpr:e1  {:  RESULT = new ScalarExpr(e1);  :}
+			    | numericScalarExpr:e1 {:  RESULT = new ScalarExpr(e1);  :}
+			    | LPAREN scalarExpr:e1 RPAREN {:  RESULT = new ScalarExpr(e1);  :}  
+			    ;			    
+getMetaDataExpr		::= IDENTIFIER:op LPAREN coverageExpr:e1 RPAREN {: RESULT = new GetMetaDataExpr(op, e1); :}
+			    | IMAGECRS:op LPAREN coverageExpr:e1 RPAREN {: RESULT = new GetMetaDataExpr(op, e1); :}
+			    | IMAGECRSDOMAIN:op LPAREN coverageExpr:e1 RPAREN {: RESULT = new GetMetaDataExpr(op, e1); :}
+			    | CRSSET:op LPAREN coverageExpr:e1 RPAREN {: RESULT = new GetMetaDataExpr(op, e1); :}
+			    | GENERALDOMAIN:op LPAREN coverageExpr:e1 RPAREN {: RESULT = new GetMetaDataExpr(op, e1); :}
+			    | NULLDEFAULT:op LPAREN coverageExpr:e1 RPAREN {: RESULT = new GetMetaDataExpr(op, e1); :}
+			    | NULLSET:op LPAREN coverageExpr:e1 RPAREN {: RESULT = new GetMetaDataExpr(op,e1); :}
+			    | INTERPOLATIONDEFAULT:op LPAREN coverageExpr:e1 COMMA fieldName:f1 RPAREN {: RESULT = new GetMetaDataExpr(op,e1,f1); :}
+			    | INTERPOLATIONSET:op LPAREN coverageExpr:e1 COMMA fieldName:f1 RPAREN	{: RESULT = new GetMetaDataExpr(op, e1,f1); :}
+				;
+booleanScalarExpr	::= booleanLiteral:e {: RESULT = new BooleanScalarExpr(e); :}
+			    | NOT:op booleanScalarExpr:e {: RESULT = new  BooleanScalarExpr(op,e); :}
+			    | booleanScalarExpr:e1 AND:op booleanScalarExpr:e2 {: RESULT = new  BooleanScalarExpr(op,e1,e2); :}
+			    | booleanScalarExpr:e1 OR:op booleanScalarExpr:e2 {: RESULT = new  BooleanScalarExpr(op,e1,e2); :}
+			    | booleanScalarExpr:e1 XOR:op booleanScalarExpr:e2 {: RESULT = new  BooleanScalarExpr(op,e1,e2); :}
+			    ;
+booleanLiteral		::= TRUE:e {: RESULT = new String(e); :}
+			    | FALSE:e {: RESULT = new String(e); :}
+			    ;
+			    
+numericScalarExpr	::= NUMBER:e {: RESULT = new NumericScalarExpr(e.toString());  :}
+			    | FLOATNUMBER:e {: RESULT = new NumericScalarExpr(e.toString());  :}
+			    | MINUS:op numericScalarExpr:e1 {: RESULT = new NumericScalarExpr(op, e1); :}
+			    | PLUS:op numericScalarExpr:e1 {: RESULT = new NumericScalarExpr(op,e1); :}
+			    | numericScalarExpr:e1 PLUS:op numericScalarExpr:e2 {: RESULT = new NumericScalarExpr(op,e1,e2);  :}
+			    | numericScalarExpr:e1 MINUS:op numericScalarExpr:e2 {: RESULT = new NumericScalarExpr(op,e1,e2);  :}
+			    | numericScalarExpr:e1 DIVIDE:op numericScalarExpr:e2 {: RESULT = new NumericScalarExpr(op,e1,e2);  :}
+			    | numericScalarExpr:e1 MULTI:op numericScalarExpr:e2 {: RESULT = new NumericScalarExpr(op,e1,e2);  :}
+			    | ABS:op LPAREN numericScalarExpr:e1 RPAREN {: RESULT = new NumericScalarExpr(op,e1); :}			
+			    ;
+coverageExpr		::= ID:e1 {: RESULT = new CoverageExpr(e1);  :}
+			    | setMetaDataExpr:e2 {: RESULT = new CoverageExpr(e2); :}
+			    | inducedExpr:e2 {: RESULT = new CoverageExpr(e2); :}
+			    | subsetExpr:e2 {: RESULT = new CoverageExpr(e2); :}			    
+			    | crsTransformExpr:e2 {: RESULT = new CoverageExpr(e2); :}
+			    | scaleExpr:e2 {: RESULT = new CoverageExpr(e2); :}
+// TODO(smsorin): Update once the definition is available.			    | coverageConstExpr:e1 {: RESULT = new CoverageExpr(e1); :}
+			    | coverageConstructorExpr:e1 {: RESULT = new CoverageExpr(e1); :}
+			    | LPAREN coverageExpr:e2 RPAREN {: RESULT = new CoverageExpr(e2); :}
+			    ;
+setMetaDataExpr 	::= SETNULLDEFAULT:op LPAREN coverageExpr:e1 COMMA rangeValue:r1 RPAREN {: RESULT = new SetMetaDataExpr(op, e1,r1); :}
+			    | SETNULLSET:op LPAREN coverageExpr:e1 COMMA rangeValueList:r1 RPAREN {: RESULT = new SetMetaDataExpr(op,e1,r1); :}
+			    | SETINTERPOLATIONDEFAULT:op LPAREN coverageExpr:e1 COMMA fieldName:f1 COMMA interpolationMethod:i1 RPAREN 
+				{: RESULT = new SetMetaDataExpr(op, e1,(IParseTreeNode)i1, f1); :}
+			    | SETINTERPOLATIONSET:op LPAREN coverageExpr:e1 COMMA fieldName:f1 COMMA interpolationMethodList:i1 RPAREN
+				{: RESULT = new SetMetaDataExpr(op, e1,(IParseTreeNode)i1, f1); :}
+			    | SETCRSSET:op LPAREN coverageExpr:e1 COMMA crsList:cs1 RPAREN {: RESULT = new SetMetaDataExpr(op, e1,cs1); :}
+			    ;
+crsList		::= LBRACE crsEnum:list RBRACE {: RESULT = list; :}
+				;
+crsEnum		::= ID:crs {: RESULT = new CrsList(crs); :}
+				| ID:crs COMMA crsEnum:n {: RESULT = new CrsList(crs, n); :}
+				;
+inducedExpr		::= unaryInducedExpr:e1 {: RESULT = new InducedExpr(e1);  :}
+			    | binaryInducedExpr:e1 {: RESULT = new InducedExpr(e1);  :}
+			    ;
+unaryInducedExpr	::= unaryArithMeticExpr:e1 {: RESULT = new UnaryInducedExpr(e1); :}
+			    | exponentialExpr:e1 {: RESULT = new UnaryInducedExpr(e1); :}
+			    | trigonometricExpr:e1 {: RESULT = new UnaryInducedExpr(e1); :}
+			    | booleanExpr:e1 {: RESULT = new UnaryInducedExpr(e1); :}
+			    | castExpr:e1 {: RESULT = new UnaryInducedExpr(e1); :}
+			    | fieldExpr:e1 {: RESULT = new UnaryInducedExpr(e1); :}
+			    ;
+unaryArithMeticExpr	::= PLUS:e coverageExpr:e1 {: RESULT = new UnaryArithMeticExpr(e1,e); :}
+			    | MINUS:e coverageExpr:e1 {: RESULT = new UnaryArithMeticExpr(e1,e); :}
+			    | SQRT:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new UnaryArithMeticExpr(e1,e); :}
+			    | ABS:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new UnaryArithMeticExpr(e1,e); :}
+			    ;
+exponentialExpr		::= EXP:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new ExponentialExpr(e1,e); :}
+			    | LOG:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new ExponentialExpr(e1,e); :}
+			    | LN:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new ExponentialExpr(e1,e); :}
+			    ;
+trigonometricExpr	::= SIN:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new TrigonometricExpr(e1,e); :}
+		   	    | COS:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new TrigonometricExpr(e1,e); :}
+			    | TAN:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new TrigonometricExpr(e1,e); :}
+			    | SINH:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new TrigonometricExpr(e1,e); :}
+			    | COSH:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new TrigonometricExpr(e1,e); :}
+			    | TANH:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new TrigonometricExpr(e1,e); :}
+			    | ARCSIN:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new TrigonometricExpr(e1,e); :}
+			    | ARCCOS:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new TrigonometricExpr(e1,e); :}
+			    | ARCTAN:e LPAREN coverageExpr:e1 RPAREN {: RESULT = new TrigonometricExpr(e1,e); :}
+			    ;
+booleanExpr		::= NOT:e coverageExpr:e1 {: RESULT = new BooleanExpr(e1,e); :}
+			    | BIT:e LPAREN coverageExpr:e1 COMMA NUMBER:e2 RPAREN {: RESULT = new BooleanExpr(e1,e2,e);  :}
+			    ;
+castExpr		::= LPAREN cellType:e1 RPAREN coverageExpr:e2 {: RESULT = new CastExpr(e2,e1); :}
+			    ;
+cellType		::= BOOL:e {: RESULT = new String(e); :}
+		    	    | CHAR:e {: RESULT = new String(e); :}
+			    | UNSIGNEDCHAR:e {: RESULT = new String(e); :}
+			    | SHORT:e {: RESULT = new String(e); :}
+			    | UNSIGNEDSHORT:e {: RESULT = new String(e); :}
+			    | LONG:e {: RESULT = new String(e); :}
+			    | UNSIGNEDLONG:e {: RESULT = new String(e); :}
+			    | FLOAT:e {: RESULT = e.toString(); :}
+			    | DOUBLE:e {: RESULT = new String(e); :}
+			    | COMPLEX:e {: RESULT = new String(e); :}
+			    | COMPLEX2:e {: RESULT = new String(e); :}
+			    ;						    
+fieldExpr		::= coverageExpr:e1 DOT fieldName:e2 {: RESULT = new SelectExpr(e1,e2); :}
+			    ;
+fieldName		::= NUMBER:e {: RESULT = e.toString(); :}
+			    | ID:e {: RESULT = new String(e); :}
+			    ;
+binaryInducedExpr	::= coverageExpr:e1 binaryInducedOp:op coverageExpr:e2 {: RESULT = new BinaryInducedExpr(op, e1, e2); :}
+			    | coverageExpr:e1 binaryInducedOp:op rangeValue:rv1 {: RESULT = new BinaryInducedExpr(op, e1, rv1, 1); :}
+			    | rangeValue:rv1 binaryInducedOp:op coverageExpr:e1 {: RESULT = new BinaryInducedExpr(op, rv1, e1, -1); :}
+			    ;
+binaryInducedOp		::= PLUS {: RESULT = new String("plus"); :}
+			    | MINUS {: RESULT = new String("minus"); :}
+			    | MULTI {: RESULT = new String("mult"); :}
+			    | DIVIDE {: RESULT = new String("div"); :}
+			    | AND {: RESULT = new String("and"); :}
+			    | OR {: RESULT = new String("or"); :}
+			    | XOR {: RESULT = new String("xor"); :}			    
+			    | EQUALS {: RESULT = new String("equals"); :}
+			    | LT {: RESULT = new String("lessThan"); :}
+			    | GT {: RESULT = new String("greaterThan"); :}
+				| LTE {: RESULT = new String("lessOrEqual"); :}
+				| GTE {: RESULT = new String("greaterOrEqual"); :}
+			    | NOTEQUALS {: RESULT = new String("notEqual"); :}			    
+			    | OVERLAY {: RESULT = new String("overlay"); :}
+			    ;    
+subsetExpr		::= trimExpr:e1 {: RESULT = new SubsetExpr(e1); :}
+			    | sliceExpr:e1 {: RESULT = new SubsetExpr(e1); :}
+			    | extendExpr:e1 {: RESULT = new SubsetExpr(e1); :}
+			    ;
+trimExpr		::= coverageExpr:e1 LBRACKET axisIntervalList:ail RBRACKET {: RESULT = new TrimExpr(e1, ail); :}
+			    | TRIM LPAREN coverageExpr:e1 COMMA axisIntervalList:ail RPAREN {: RESULT = new TrimExpr(e1,ail); :}
+			    ;
+sliceExpr		::= coverageExpr:e1 LBRACKET axisPointList:apl RBRACKET {: RESULT = new SliceExpr(e1, apl); :}
+			    | SLICE LPAREN coverageExpr:e1 COMMA LBRACE axisPointList:apl RBRACE RPAREN {: RESULT = new SliceExpr(e1, apl); :}
+			    ;
+extendExpr		::= EXTEND LPAREN coverageExpr:e1 COMMA axisIntervalList:ail RPAREN {: RESULT = new ExtendExpr(e1, ail); :}
+			    ;
+scaleExpr		::= SCALE LPAREN coverageExpr:e1 COMMA axisIntervalList:ail COMMA fieldInterpolationList:fil RPAREN 
+				    {: RESULT = new ScaleExpr(e1,ail,fil); :}
+			    ;
+crsTransformExpr	::= CTRANSFORM LPAREN coverageExpr:e1 COMMA axisCrsList:ail COMMA fieldInterpolationList:fil RPAREN
+				    {: RESULT = new CrsTransformExpr(e1,ail,fil); :}
+			    ;			    			    
+axisIntervalList    ::= axisIntervalElement:elem COMMA axisIntervalList:n {: RESULT = new AxisIntervalList(elem, n); :}
+                | axisIntervalElement:elem {: RESULT = new AxisIntervalList(elem); :}                
+			    ;
+axisIntervalElement	::= generalId:name LPAREN axisPoint:lo COLON axisPoint:hi RPAREN {: RESULT = new AxisIntervalElement(name, lo, hi); :}
+			    | generalId:name COLON ID:crsName LPAREN axisPoint:lo COLON axisPoint:hi RPAREN {: RESULT = new AxisIntervalElement(name, crsName, lo, hi); :}
+			    ;
+axisPointList		::= axisPointElement:elem {: RESULT = new AxisPointList(elem); :}
+			    | axisPointElement:elem COMMA axisPointList:n {: RESULT = new AxisPointList(elem, n); :}
+				;
+axisPointElement	::= generalId:axisName LPAREN axisPoint:ap RPAREN {: RESULT = new AxisPointElement(axisName, ap); :}
+			    | generalId:axisName COLON ID:crsName LPAREN axisPoint:ap RPAREN {: RESULT = new AxisPointElement(axisName, crsName, ap); :}
+			    ;
+axisPoint		::= NUMBER:e {: RESULT = e.toString(); :} 
+// numericScalarExpr:e {: RESULT = e.toXML(); :} The schema doesn't actually allow this
+//			    | STRING:e {: RESULT = new String(e); :}
+			    ;
+			    
+axisCrsList		::= LBRACE axisCrsEnum:ace RBRACE {: RESULT = ace; :}
+			    ;
+axisCrsEnum		::= axisCrsElement:elem {: RESULT = new AxisCrsList(elem); :}
+			    | axisCrsElement:elem COMMA axisCrsEnum:n {: RESULT = new AxisCrsList(elem, n); :}
+			    ;
+axisCrsElement		::= ID:axis COLON ID:crs {: RESULT = new AxisCrsElement(axis, crs); :}
+			    ;			    			    
+fieldInterpolationList	::= LBRACE fieldInterpolationEnum:fie RBRACE {: RESULT = fie; :}
+			    ;
+fieldInterpolationEnum	::= fieldInterpolationElement:elem {: RESULT = new FieldInterpolationList(elem); :}
+			    | fieldInterpolationElement:elem COMMA fieldInterpolationEnum:n {: RESULT = new FieldInterpolationList(elem, n); :}
+			    ;
+fieldInterpolationElement ::= fieldName:name COLON interpolationMethod:method {: RESULT = new FieldInterpolationElement(name, method); :}
+			    ;			    
+interpolationMethodList ::= LBRACE interpolationMethodEnum:list RBRACE {: RESULT = list; :}
+						;
+interpolationMethodEnum ::= interpolationMethod:elem {: RESULT = new InterpolationMethodList(elem); :}
+						| interpolationMethod:elem COMMA interpolationMethodEnum:n {: RESULT = new InterpolationMethodList(elem,n); :}
+						;
+interpolationMethod	::= LPAREN interpolationType:type COLON nullResistence:resistence RPAREN {: RESULT = new FieldInterpolationMethod(type, resistence); :}
+			    ;
+interpolationType	::= NEAREST:e {: RESULT = new String(e); :}
+			    | LINEAR:e {: RESULT = new String(e); :}
+			    | QUADRATIC:e {: RESULT = new String(e); :}
+			    | CUBIC:e {: RESULT = new String(e); :}
+			    ;
+nullResistence		::= FULL:e {: RESULT = new String(e); :}
+			    | NONE:e {: RESULT = new String(e); :}
+			    | HALF:e {: RESULT = new String(e); :}
+			    | OTHER:e {: RESULT = new String(e); :}
+			    ;
+coverageConstructorExpr	::= COVERAGE fieldName:f OVER variableList:vl VALUES scalarExpr:se {: RESULT = new CoverageConstructorExpr(f, vl, se); :}
+			    ;
+variableList		::= axisType:at ID:varName IN LPAREN NUMBER:lo COLON NUMBER:hi RPAREN COMMA variableList:n
+				    {: RESULT = new VariableList(at,varName, lo.toString(), hi.toString(), n); :}
+                | axisType:at ID:varName IN LPAREN NUMBER:lo COLON NUMBER:hi RPAREN
+					{: RESULT = new VariableList(at,varName, lo.toString(), hi.toString()); :}
+
+			    ;
+axisType		::= X:t {: RESULT = new String(t); :}
+			    | Y:t {: RESULT = new String(t); :}
+			    | Z:t {: RESULT = new String(t); :}
+			    | TIME:t {: RESULT = new String(t); :}
+			    | ABSTRACT:t {: RESULT = new String(t); :}
+			    ;
+condenseExpr		::= reduceExpr:e {: RESULT = new CondenseExpr(e); :}
+			    | generalCondenseExpr:e {: RESULT = new CondenseExpr(e); :}
+			    ;
+reduceExpr		::= ALL:e1 LPAREN coverageExpr:e RPAREN {: RESULT = new ReduceExpr(e,e1); :}
+			    | SOME:e1 LPAREN coverageExpr:e RPAREN {: RESULT = new ReduceExpr(e,e1); :}
+			    | ADD:e1 LPAREN coverageExpr:e RPAREN {: RESULT = new ReduceExpr(e,e1); :}
+			    | COUNT:e1 LPAREN coverageExpr:e RPAREN {: RESULT = new ReduceExpr(e,e1); :}
+			    | AVG:e1 LPAREN coverageExpr:e RPAREN {: RESULT = new ReduceExpr(e,e1); :}
+			    | MIN:e1 LPAREN coverageExpr:e RPAREN {: RESULT = new ReduceExpr(e,e1); :}
+			    | MAX:e1 LPAREN coverageExpr:e RPAREN {: RESULT = new ReduceExpr(e,e1); :}
+			    ;
+generalCondenseExpr	::= CONDENSE condenseOpType:op OVER variableList:vl USING scalarExpr:se {: RESULT = new GeneralCondenseExpr(op, vl, se); :}
+			    | CONDENSE condenseOpType:op OVER variableList:vl WHERE booleanScalarExpr:be USING scalarExpr:se 
+				    {: RESULT = new GeneralCondenseExpr(op, vl, be, se); :}
+			    ;
+condenseOpType		::= PLUS:op {: RESULT = new String(op); :}
+			    | MULTI:op {: RESULT = new String(op); :}
+			    | MAX:op {: RESULT = new String(op); :}
+			    | MIN:op {: RESULT = new String(op); :}
+			    | AND:op {: RESULT = new String(op); :}
+			    | OR:op {: RESULT = new String(op); :}
+			    ;
+rangeValue		::= structuredLiteral:sl {: RESULT = new RangeValue(sl); :}
+			    | atomicLiteral:al {: RESULT = new RangeValue(al); :}
+			    ;
+structuredLiteral	::= LBRACE rangeValueList:rvl RBRACE {: RESULT = new StructuredLiteral(rvl); :}
+			    | STRUCT LBRACE rangeValueList:rvl RBRACE {: RESULT = new StructuredLiteral(rvl); :}
+			    ;
+rangeValueList		::= rangeValue:elem {: RESULT = new RangeValueList(elem); :}
+			    | rangeValue:elem COMMA rangeValueList:next {: RESULT = new RangeValueList(elem, next); :}
+				;
+atomicLiteral		::= booleanLiteral:e {: RESULT = new String(e); :}
+			    | NUMBER:e {: RESULT = e.toString(); :}
+			    | FLOATNUMBER:e {: RESULT = e.toString(); :}
+			    | complexLiteral:e {: RESULT = new String(e); :}
+//			    | STRING:e {: RESULT = new String(e); :}
+			    ;
+complexLiteral		::= COMPLEX LPAREN FLOATNUMBER:f1 COMMA FLOATNUMBER:f2 RPAREN {: RESULT = new String(f1 + " + " + f2 + "i"); :}
+			   	;
+
+generalId		::= ID:s {: RESULT = new String(s); :}
+			    | X:s {: RESULT = new String(s); :}
+			    | Y:s {: RESULT = new String(s); :}
+			    | Z:s {: RESULT = new String(s); :}
+			    | TIME:s {: RESULT = new String(s); :}
+			    ;

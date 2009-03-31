@@ -1,0 +1,11 @@
+<web-app>
+    <display-name>Web Coverage Service</display-name>
+    <servlet>
+        <servlet-name>wcs</servlet-name>
+        <servlet-class>wcs.server.servlet.newWcsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+	    <servlet-name>wcs</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+</web-app>

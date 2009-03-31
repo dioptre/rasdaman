@@ -1,0 +1,1 @@
+for m in (climate_temperature) return encode (  m , png )

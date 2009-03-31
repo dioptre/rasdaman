@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GetCoverage xmlns="http://www.opengis.net/wcs/1.1" xmlns:ows="http://www.opengis.net/ows" xmlns:owcs="http://www.opengis.net/wcs/1.1/ows" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wcs/1.1 ../wcsGetCoverage.xsd http://www.opengis.net/gml ../../../gml/3.1.1/base/gml.xsd" service="WCS" version="1.1.0">
+	<owcs:Identifier>rgb</owcs:Identifier>
+	<DomainSubset>
+		<ows:BoundingBox crs="urn:ogc:def:crs:EPSG::26910">
+			<ows:LowerCorner>0 0</ows:LowerCorner>
+			<ows:UpperCorner>300 300</ows:UpperCorner>
+		</ows:BoundingBox>
+	</DomainSubset>
+	<RangeSubset>
+		<FieldSubset>
+			<owcs:Identifier>Wavelength</owcs:Identifier>
+			<InterpolationType>nearest</InterpolationType>
+			<AxisSubset>
+			    <Identifier>Band</Identifier>
+		        <Key>band1</Key>
+		        <Key>band2</Key>
+		        <Key>band3</Key>
+			</AxisSubset>
+		</FieldSubset>
+	</RangeSubset>
+	<Output format="image/GeoTIFF" store="true" />
+</GetCoverage>

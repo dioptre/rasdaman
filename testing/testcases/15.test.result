@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<processCoverage xmlns="http://www.opengis.net/wcps/1.0.0" service="WCPS" version="1.0.0">
+<coverageIterator>
+        <iteratorVar>c</iteratorVar>
+        <coverageName>rgb</coverageName>
+    </coverageIterator>
+    <encode>
+        <format>jpeg</format>
+        <cast>
+            <type>char</type>
+            <construct>
+                <coverage>greyImage</coverage>
+                <axisIterator>
+                    <axisType>abstract</axisType>
+                    <iteratorVar>first</iteratorVar>
+                    <coord>0</coord>
+                    <coord>99</coord>
+                </axisIterator>
+                <axisIterator>
+                    <axisType>abstract</axisType>
+                    <iteratorVar>second</iteratorVar>
+                    <coord>0</coord>
+                    <coord>99</coord>
+                </axisIterator>
+                <scalar>127</scalar>
+            </construct>
+        </cast>
+    </encode>
+</processCoverage>

@@ -1,0 +1,1 @@
+select jpeg(m[100,*:*,*:*]) from mowglie AS m

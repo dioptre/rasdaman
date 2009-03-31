@@ -1,0 +1,1 @@
+for m in ( mowglie ) return encode( m.red, "jpeg" )

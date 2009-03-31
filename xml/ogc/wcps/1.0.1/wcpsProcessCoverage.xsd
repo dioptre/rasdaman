@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns="http://www.opengis.net/wcps/1.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" targetNamespace="http://www.opengis.net/wcps/1.0.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0" xml:lang="en">
+
+    <xs:annotation>
+        <xs:appinfo>wcpsProcessCoverage.xsd</xs:appinfo>
+        <xs:documentation>This schema defines the ProcessCoverage operation request and response XML elements and types, used by an OGC Web Coverage Processing Service (WCPS).</xs:documentation>
+    </xs:annotation>
+
+<!--<xs:import namespace="http://www.opengis.net/wcs/1.1" schemaLocation="../../wcs/1.1.0/wcsAll.xsd"/> -->
+
+    <xs:element name="processCoverage">
+        <xs:complexType>
+            <xs:annotation>
+                <xs:documentation>Request to a WCPS to perform the ProcessCoverage operation.</xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+                <xs:element name="coverageIterator" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+    <!--                        <xs:element name="iteratorVar" type="wcs:IdentifierType"/> -->
+                                <xs:element name="iteratorVar" type="xs:string"/>
+    <!--                        <xs:element name="coverageName" type="wcs:IdentifierType" maxOccurs="unbounded"/> -->
+                                <xs:element name="coverageName" type="xs:string" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="where" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:group ref="BooleanScalarExprType"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:group ref="DataExprType"/>
+            </xs:sequence>
+            <xs:attribute name="service" type="xs:string" use="required" fixed="WCPS"/>
+            <xs:attribute name="version" type="xs:string" use="required" fixed="1.0.0"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:group name="DataExprType">
+        <xs:choice>
+            <xs:element name="encode" type="EncodeDataExprType"/>			
+        </xs:choice>
+    </xs:group>
+
+    <xs:complexType name="EncodeDataExprType">
+        <xs:sequence>
+            <xs:element name="format" type="xs:string"/>
+            <xs:element name="extraParameters" type="xs:string" minOccurs="0"/>
+            <xs:group ref="CoverageExprType"/>
+        </xs:sequence>
+        <xs:attribute name="store" type="xs:boolean"/>
+    </xs:complexType>
+
+    <xs:group name="ScalarExprType">
+        <xs:choice>
+            <xs:element name="scalar" type="xs:double"/>
+            <xs:element name="scalarUnaryPlus">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="ScalarExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="scalarUnaryMinus">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="ScalarExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="scalarPlus">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="ScalarExprType"/>
+                        <xs:group ref="ScalarExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="scalarMinus">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="ScalarExprType"/>
+                        <xs:group ref="ScalarExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="scalarMult">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="ScalarExprType"/>
+                        <xs:group ref="ScalarExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="scalarDiv">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="ScalarExprType"/>
+                        <xs:group ref="ScalarExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="scalarAbs">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="ScalarExprType"/>
+                        <xs:group ref="ScalarExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:group ref="BooleanScalarExprType"/>
+            <xs:group ref="GetMetadataScalarExprType"/>
+            <xs:group ref="ReduceScalarExprType"/>
+            <xs:element name="condense" type="CondenseScalarExprType"/>
+        </xs:choice>
+    </xs:group>
+
+    <xs:group name="BooleanScalarExprType">
+        <xs:choice>
+            <xs:element name="boolean" type="xs:boolean"/>
+            <xs:element name="scalarNot">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="BooleanScalarExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="scalarAnd">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="BooleanScalarExprType"/>
+                        <xs:group ref="BooleanScalarExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="scalarOr">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="BooleanScalarExprType"/>
+                        <xs:group ref="BooleanScalarExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="scalarXor">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="BooleanScalarExprType"/>
+                        <xs:group ref="BooleanScalarExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:group>
+
+    <xs:complexType name="CondenseScalarExprType">
+        <xs:sequence>
+            <xs:group ref="CondenseOperationType"/>
+            <xs:element name="valueIterator" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="iteratorVar" type="xs:string"/>
+<!--                    <xs:element name="axis" type="wcs:IdentifierType"/> -->
+                        <xs:element name="axis" type="xs:string"/>
+                        <xs:group ref="CoordinateType" minOccurs="2" maxOccurs="2"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="where" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="BooleanScalarExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:group ref="ScalarExprType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:group name="CoordinateType">
+        <xs:choice>
+            <xs:element name="cellCoord" type="xs:integer"/>
+            <xs:element name="domainCoord" type="xs:string"/>
+        </xs:choice>
+    </xs:group>
+
+    <xs:group name="CondenseOperationType">
+        <xs:choice>
+            <xs:element name="opPlus"/>
+            <xs:element name="opMinus"/>
+            <xs:element name="opMax"/>
+            <xs:element name="opMin"/>
+            <xs:element name="opAnd"/>
+            <xs:element name="opOr"/>
+        </xs:choice>
+    </xs:group>
+
+    <xs:group name="GetMetadataScalarExprType">
+        <xs:choice>
+            <xs:element name="getIdentifier">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getImageCrs">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getImageCrsDomain">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+<!--                    <xs:element name="axis" type="wcs:IdentifierType"/> -->
+                        <xs:element name="axis" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="crsSet">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getGeneralDomain">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+<!--                    <xs:element name="axis" type="wcs:IdentifierType"/> -->
+                        <xs:element name="axis" type="xs:string"/>
+<!--                    <xs:element name="crs" type="gml:srsName" minOccurs="0" maxOccurs="unbounded"/> -->
+                        <xs:element name="crs" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getNullDefault">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getNullSet">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getInterpolationDefault">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                        <xs:element name="field" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getInterpolationSet">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                        <xs:element name="field" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:group>
+
+    <xs:group name="SetMetadataCoverageExprType">
+        <xs:choice>
+            <xs:element name="setNullDefault">
+                <xs:complexType>
+                    <xs:sequence>
+<!--                    <xs:element name="null" type="ows:CodeType"/> -->
+                        <xs:element name="null" type="xs:string"/>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="setNullSet">
+                <xs:complexType>
+                    <xs:sequence>
+<!--                    <xs:element name="null" type="ows:CodeType" maxOccurs="unbounded"/> -->
+                        <xs:element name="null" type="xs:string" maxOccurs="unbounded"/>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="setInterpolationDefault">
+                <xs:complexType>
+                    <xs:sequence>
+<!--                    <xs:element name="field" type="wcs:IdentifierType"/> -->
+                        <xs:element name="field" type="xs:string"/>
+<!--                    <xs:element name="interpolationMethod" type="owcs:InterpolationMethodBaseType"/> -->
+                        <xs:element name="interpolationMethod" type="xs:string"/>
+<!--                    <xs:element name="nullResistance" type="ows:CodeType"/> -->
+                        <xs:element name="nullResistance" type="xs:string"/>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="setInterpolationSet">
+                <xs:complexType>
+                    <xs:sequence>
+<!--                    <xs:element name="field" type="wcs:IdentifierType"/> -->
+                        <xs:element name="field" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="setCrsSet">
+                <xs:complexType>
+                    <xs:sequence>
+<!--                    <xs:element name="axis" type="wcs:IdentifierType"/> -->
+                        <xs:element name="axis" type="xs:string"/>
+<!--                    <xs:element name="crs" type="gml:srsName" minOccurs="0" maxOccurs="unbounded"/> -->
+                        <xs:element name="crs" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                        <xs:sequence maxOccurs="unbounded">
+<!--                        <xs:element name="interpolationMethod" type="owcs:InterpolationMethodBaseType"/> -->
+                            <xs:element name="interpolationMethod" type="xs:string"/>
+<!--                        <xs:element name="nullResistance" type="ows:CodeType"/> -->
+                            <xs:element name="nullResistance" type="xs:string"/>
+                        </xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:group>
+
+    <xs:group name="CoverageExprType">
+        <xs:choice>
+<!--        <xs:element name="coverage" type="wcs:IdentifierType"/> -->
+            <xs:element name="coverage" type="xs:string"/>
+            <xs:element name="trim" type="TrimCoverageExprType"/>
+            <xs:element name="extend" type="ExtendCoverageExprType"/>
+            <xs:element name="slice" type="SliceCoverageExprType"/>
+            <xs:element name="scale" type="ScaleCoverageExprType"/>
+            <xs:element name="combine" type="CombineRangeCoverageExprType"/>
+            <xs:element name="crsTransform" type="CrsTransformCoverageExprType"/>
+            <xs:element name="construct" type="ConstructCoverageExprType"/>
+            <xs:group ref="UnaryOperationCoverageExprType"/>
+            <xs:group ref="BinaryOperationCoverageExprType"/>
+            <xs:group ref="SetMetadataCoverageExprType"/>
+        </xs:choice>
+    </xs:group>
+
+    <xs:complexType name="ConstructCoverageExprType">
+        <xs:sequence>
+            <xs:element name="coverage" type="xs:string"/>
+            <xs:element name="axisIterator" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="axisType" type="AxisTypeType"/>
+                        <xs:element name="iteratorVar" type="xs:string"/>
+<!--                    <xs:element name="axis" type="wcs:IdentifierType"/> -->
+                        <xs:element name="axis" type="xs:string"/>
+                        <xs:group ref="CoordinateType" minOccurs="2" maxOccurs="2"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:group ref="ScalarExprType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:group name="UnaryOperationCoverageExprType">
+        <xs:choice>
+            <xs:element name="unaryPlus">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="unaryMinus">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="sqrt">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="abs">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="exp">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="log">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ln">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="sin">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="cos">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="tan">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="sinh">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="cosh">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="tanh">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="arcsin">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="arccos">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="arctan">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="not">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="bit">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="position" type="xs:integer"/>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="cast">
+                <xs:complexType>
+                    <xs:sequence>
+                        <!-- FIXME: adapt RangeFieldType to WCS (PB) -->
+                        <xs:element name="type" type="RangeFieldType"/>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="select">
+                <xs:complexType>
+                    <xs:sequence>
+                        <!-- FIXME: replace with WCS range selection concept (PB) -->
+                        <xs:element name="field" type="xs:string"/>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:group>
+
+    <xs:group name="BinaryOperationCoverageExprType">
+        <xs:choice>
+            <xs:element name="plus">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="minus">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="mult">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="div">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="and">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="or">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="xor">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="equals">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="lessThan">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="greaterThan">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="lessOrEqual">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="greaterOrEqual">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="notEqual">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="overlay">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="OperandPairType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:group>
+
+    <xs:group name="OperandPairType">
+        <xs:choice>
+            <xs:sequence>
+                <xs:group ref="CoverageExprType"/>
+                <xs:choice>
+                    <xs:group ref="CoverageExprType"/>
+                    <xs:group ref="ScalarExprType"/>
+                </xs:choice>
+            </xs:sequence>
+            <xs:sequence>
+                <xs:group ref="ScalarExprType"/>
+                <xs:group ref="CoverageExprType"/>
+            </xs:sequence>
+        </xs:choice>
+    </xs:group>
+
+    <!-- FIXME: adapt to WCS (PB) -->
+    <xs:simpleType name="RangeFieldType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="bool"/>
+            <xs:enumeration value="char"/>
+            <xs:enumeration value="unsigned char"/>
+            <xs:enumeration value="short"/>
+            <xs:enumeration value="unsigned short"/>
+            <xs:enumeration value="long"/>
+            <xs:enumeration value="unsigned long"/>
+            <xs:enumeration value="float"/>
+            <xs:enumeration value="double"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="AxisTypeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="x"/>
+            <xs:enumeration value="y"/>
+            <xs:enumeration value="z"/>
+            <xs:enumeration value="time"/>
+            <xs:enumeration value="abstract"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="CombineRangeCoverageExprType">
+        <xs:sequence>
+            <xs:element name="component" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+<!--                    <xs:element name="field" type="wcs:IdentifierType"/> -->
+                        <xs:element name="field" type="xs:string"/>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TrimCoverageExprType">
+        <xs:sequence>
+            <xs:element name="trimAxisSpec" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+<!--                    <xs:element name="axis" type="wcs:IdentifierType"/> -->
+                        <xs:element name="axis" type="xs:string"/>
+<!--                    <xs:element name="crs" type="gml:srsName"/> -->
+                        <xs:element name="crs" type="xs:string"/>
+                        <xs:group ref="CoordinateType" minOccurs="2" maxOccurs="2"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:group ref="CoverageExprType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ExtendCoverageExprType">
+        <xs:sequence>
+            <xs:element name="extendAxisSpec" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+<!--                    <xs:element name="axis" type="wcs:IdentifierType"/> -->
+                        <xs:element name="axis" type="xs:string"/>
+<!--                    <xs:element name="crs" type="gml:srsName"/> -->
+                        <xs:element name="crs" type="xs:string"/>
+                        <xs:group ref="CoordinateType" minOccurs="2" maxOccurs="2"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:group ref="CoverageExprType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SliceCoverageExprType">
+        <xs:sequence>
+            <xs:element name="sliceAxisSpec" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+<!--                    <xs:element name="axis" type="wcs:IdentifierType"/> -->
+                        <xs:element name="axis" type="xs:string"/>
+<!--                    <xs:element name="crs" type="gml:srsName"/> -->
+                        <xs:element name="crs" type="xs:string"/>
+                        <xs:group ref="CoordinateType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:group ref="CoverageExprType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ScaleCoverageExprType">
+        <xs:sequence>
+            <xs:element name="scaleAxisSpec" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+<!--                    <xs:element name="axis" type="wcs:IdentifierType"/> -->
+                        <xs:element name="axis" type="xs:string"/>
+                        <xs:element name="lowerBound" type="xs:integer"/>
+                        <xs:element name="upperBound" type="xs:integer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="scaleFieldSpec" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+<!--                    <xs:element name="field" type="wcs:IdentifierType"/> -->
+                        <xs:element name="field" type="xs:string"/>
+<!--                    <xs:element name="interpolationMethod" type="owcs:InterpolationMethodBaseType"/> -->
+                        <xs:element name="interpolationMethod" type="xs:string"/>
+<!--                    <xs:element name="nullResistance" type="ows:CodeType"/> -->
+                        <xs:element name="nullResistance" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:group ref="CoverageExprType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CrsTransformCoverageExprType">
+        <xs:sequence>
+            <xs:element name="crsTransformAxisSpec" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+<!--                    <xs:element name="axis" type="wcs:IdentifierType"/> -->
+                        <xs:element name="axis" type="xs:string"/>
+<!--                    <xs:element name="crs" type="gml:srsName"/> -->
+                        <xs:element name="crs" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="crsTransformFieldSpec" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+<!--                    <xs:element name="field" type="wcs:IdentifierType"/> -->
+                        <xs:element name="field" type="xs:string"/>
+<!--                    <xs:element name="interpolationMethod" type="owcs:InterpolationMethodBaseType"/> -->
+                        <xs:element name="interpolationMethod" type="xs:string"/>
+<!--                    <xs:element name="nullResistance" type="ows:CodeType"/> -->
+                        <xs:element name="nullResistance" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:group ref="CoverageExprType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:group name="ReduceScalarExprType">
+        <xs:choice>
+            <xs:element name="all">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="some">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="count">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="add">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="avg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="min">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="max">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="CoverageExprType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:group>
+
+</xs:schema>

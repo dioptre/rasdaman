@@ -1,0 +1,11 @@
+<web-app>
+    <display-name>Web Coverage Processing Service</display-name>
+    <servlet>
+        <servlet-name>wcps</servlet-name>
+        <servlet-class>wcps.server.servlet.WCPService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>wcps</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>

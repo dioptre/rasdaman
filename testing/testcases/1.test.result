@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<processCoverage xmlns="http://www.opengis.net/wcps/1.0.0" service="WCPS" version="1.0.0">
+<coverageIterator>
+        <iteratorVar>c</iteratorVar>
+        <coverageName>rgb</coverageName>
+    </coverageIterator>
+    <encode>
+        <format>png</format>
+        <trim>
+            <trimAxisSpec>
+                <axis>x</axis>
+                <coord>0</coord>
+                <coord>450</coord>
+            </trimAxisSpec>
+            <trimAxisSpec>
+                <axis>y</axis>
+                <coord>0</coord>
+                <coord>300</coord>
+            </trimAxisSpec>
+            <coverage>c</coverage>
+        </trim>
+    </encode>
+</processCoverage>

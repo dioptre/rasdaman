@@ -1,0 +1,1 @@
+for m in ( mowglie ) return encode( slice( m, {x(100)} ), "jpeg" )

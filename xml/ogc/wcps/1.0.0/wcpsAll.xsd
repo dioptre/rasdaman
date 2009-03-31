@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.opengis.net/wcps/1.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.opengis.net/wcps/1.0.0" attributeFormDefault="unqualified" version="1.0.0" xml:lang="en">
+    <xs:annotation>
+        <xs:appinfo>wcpsAll.xsd</xs:appinfo>
+        <xs:documentation>This XML Schema Document includes, directly and indirectly, all the XML Schema Documents defined by the OGC Web Coverage Processing Service (WCPS). Copyright (c) 2006 Open Geospatial Consortium, Inc, All Rights Reserved.</xs:documentation>
+    </xs:annotation>
+    <!-- ==============================================================
+           includes and imports
+    ============================================================== -->
+    <include schemaLocation="wcpsProcessCoverage.xsd"/>
+</schema>

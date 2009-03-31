@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExceptionReport xmlns="http://www.opengis.net/ows" xmlns:ns2="http://www.w3.org/1999/xlink" language="en" version="1.0.0">
+    <Exception locator="Currently, the Output-&gt;GridCRS node is not supported !" exceptionCode="NoApplicableCode"/>
+</ExceptionReport>

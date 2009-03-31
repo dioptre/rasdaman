@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<processCoverage xmlns="http://www.opengis.net/wcps/1.0.0" service="WCPS" version="1.0.0">
+<coverageIterator>
+        <iteratorVar>s</iteratorVar>
+        <coverageName>rgb</coverageName>
+        <coverageName>rgb</coverageName>
+        <coverageName>rgb</coverageName>
+    </coverageIterator>
+    <coverageIterator>
+        <iteratorVar>r</iteratorVar>
+        <coverageName>rgb</coverageName>
+    </coverageIterator>
+    <count>
+        <mult>
+            <div>
+                <minus>
+                    <select>
+                        <field>0</field>
+                        <coverage>s</coverage>
+                    </select>
+                    <select>
+                        <field>1</field>
+                        <coverage>s</coverage>
+                    </select>
+                </minus>
+                <greaterThan>
+                    <plus>
+                        <select>
+                            <field>0</field>
+                            <coverage>s</coverage>
+                        </select>
+                        <select>
+                            <field>1</field>
+                            <coverage>s</coverage>
+                        </select>
+                    </plus>
+                    <scalar>0.6</scalar>
+                </greaterThan>
+            </div>
+            <coverage>r</coverage>
+        </mult>
+    </count>
+</processCoverage>

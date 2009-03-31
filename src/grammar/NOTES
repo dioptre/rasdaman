@@ -1,0 +1,17 @@
+- SetMetaDataExpr -> SetIdentifier is inconsistent:
+    * DONE - update the schema
+    * TODO - update the abstract syntax in the specification document (08-068r2)
+
+- UnaryOperationCoverageExprType ?should? have operations "re", "im" ?
+    * DONE - Add the complex number operations to the XML schema
+        ** re and im ARE in the wcps.g file
+        ** NOT present in the abstract syntax grammar
+
+- CondenseScalarExprType should contain the node "ReduceScalarExprType"
+    * DONE - update the XML schema
+        ** It is so in the abstract syntax grammar
+        ** NOT in the XML schema
+
+- Bad choice of node name (GeneralCondenseExpr -> iteratorVar -> iteratorVar)
+    * DONE - Rename the top level node into "iterator"
+        ** GeneralCondenseExpr -> iterator -> list of "iteratorVar" nodes is now ok.

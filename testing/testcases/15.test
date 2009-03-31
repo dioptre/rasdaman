@@ -1,0 +1,1 @@
+for c in ( rgb ) return encode( (char) coverage greyImage over abstract first in (0:99), abstract second in (0:99) values 127, "jpeg" )

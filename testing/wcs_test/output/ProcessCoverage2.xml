@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<processCoverage xmlns="http://www.opengis.net/wcps/1.0.0" version="1.0.0" service="WCPS">
+    <coverageIterator>
+        <iteratorVar>var</iteratorVar>
+        <coverageName>TBD</coverageName>
+    </coverageIterator>
+    <encode store="false">
+        <format>image/gif</format>
+        <trim>
+            <trimAxisSpec>
+                <axis>x</axis>
+                <domainCoord>9999.0</domainCoord>
+                <domainCoord>23.0</domainCoord>
+            </trimAxisSpec>
+            <trim>
+                <trimAxisSpec>
+                    <axis>y</axis>
+                    <domainCoord>56.0</domainCoord>
+                    <domainCoord>9999.0</domainCoord>
+                </trimAxisSpec>
+                <setInterpolationDefault>
+                    <field>TBDField</field>
+                    <interpolationMethod>nearest neighbor</interpolationMethod>
+                    <nullResistance>full</nullResistance>
+                    <combine>
+                        <component>
+                            <field>TBDField</field>
+                            <coverage>var</coverage>
+                        </component>
+                    </combine>
+                </setInterpolationDefault>
+            </trim>
+        </trim>
+    </encode>
+</processCoverage>

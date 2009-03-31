@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<processCoverage xmlns="http://www.opengis.net/wcps/1.0.0" service="WCPS" version="1.0.0">
+<coverageIterator>
+        <iteratorVar>m</iteratorVar>
+        <coverageName>mowglie</coverageName>
+    </coverageIterator>
+    <encode>
+        <format>jpeg</format>
+        <select>
+            <field>red</field>
+            <coverage>m</coverage>
+        </select>
+    </encode>
+</processCoverage>

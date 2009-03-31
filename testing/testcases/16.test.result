@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<processCoverage xmlns="http://www.opengis.net/wcps/1.0.0" service="WCPS" version="1.0.0">
+<coverageIterator>
+        <iteratorVar>c</iteratorVar>
+        <coverageName>mr</coverageName>
+    </coverageIterator>
+    <encode>
+        <format>csv</format>
+        <construct>
+            <coverage>histogram</coverage>
+            <axisIterator>
+                <axisType>abstract</axisType>
+                <iteratorVar>n</iteratorVar>
+                <coord>0</coord>
+                <coord>255</coord>
+            </axisIterator>
+            <count>
+                <equals>
+                    <coverage>c</coverage>
+                    <coverage>n</coverage>
+                </equals>
+            </count>
+        </construct>
+    </encode>
+</processCoverage>

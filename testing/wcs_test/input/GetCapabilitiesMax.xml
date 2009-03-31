@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GetCapabilities xmlns="http://www.opengis.net/wcs/1.1" 
+xmlns:owcs="http://www.opengis.net/wcs/1.1/ows" 
+service="WCS">
+	<owcs:AcceptVersions>
+		<owcs:Version>1.0.0</owcs:Version>
+		<owcs:Version>0.8.3</owcs:Version>
+	</owcs:AcceptVersions>
+	<owcs:Sections>
+		<owcs:Section>Contents</owcs:Section>
+	</owcs:Sections>
+	<owcs:AcceptFormats>
+		<owcs:OutputFormat>text/xml</owcs:OutputFormat>
+	</owcs:AcceptFormats>
+</GetCapabilities>

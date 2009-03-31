@@ -1,0 +1,345 @@
+lexer.java:3: package java_cup.runtime does not exist
+import java_cup.runtime.Symbol;
+                        ^
+lexer.java:350: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+  protected static Symbol do_code_string() throws java.io.IOException
+                   ^
+lexer.java:384: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+  protected static Symbol do_id() throws java.io.IOException
+                   ^
+lexer.java:425: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+  public static Symbol next_token() throws java.io.IOException
+                ^
+lexer.java:436: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+  public static Symbol debug_next_token() throws java.io.IOException
+                ^
+lexer.java:449: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+  protected static Symbol real_next_token() throws java.io.IOException
+                   ^
+parser.java:9: package java_cup.runtime does not exist
+import java_cup.runtime.*;
+^
+parser.java:15: package java_cup.runtime does not exist
+public class parser extends java_cup.runtime.lr_parser {
+                                            ^
+parser.java:21: package java_cup.runtime does not exist
+  public parser(java_cup.runtime.Scanner s) {super(s);}
+                                ^
+parser.java:340: package java_cup.runtime does not exist
+    java_cup.runtime.lr_parser parser,
+                    ^
+parser.java:338: package java_cup.runtime does not exist
+  public java_cup.runtime.Symbol do_action(
+                         ^
+parser.java:368: package java_cup.runtime does not exist
+  public java_cup.runtime.Symbol scan()
+                         ^
+parser.java:497: package java_cup.runtime does not exist
+    java_cup.runtime.lr_parser CUP$parser$parser,
+                    ^
+parser.java:495: package java_cup.runtime does not exist
+  public final java_cup.runtime.Symbol CUP$parser$do_action(
+                               ^
+lexer.java:374: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+      return new Symbol(sym.CODE_STRING, result.toString());
+                 ^
+lexer.java:410: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+	return new Symbol(keyword_num.intValue());
+                   ^
+lexer.java:413: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+      return new Symbol(sym.ID, result_str);
+                 ^
+lexer.java:438: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+      Symbol result = real_next_token();
+      ^
+lexer.java:470: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+	      return new Symbol(sym_num);
+                         ^
+lexer.java:480: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+		  return new Symbol(sym.COLON);
+                             ^
+lexer.java:488: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+		  return new Symbol(sym.COLON_COLON_EQUALS);
+                             ^
+lexer.java:493: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+		  return new Symbol(sym.COLON);
+                             ^
+lexer.java:507: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+	      return new Symbol(sym.PERCENT_PREC);
+                         ^
+lexer.java:529: cannot find symbol
+symbol  : class Symbol
+location: class java_cup.lexer
+	  if (next_char == EOF_CHAR) return new Symbol(sym.EOF);
+                                                ^
+Main.java:440: cannot find symbol
+symbol  : method debug_parse()
+location: class java_cup.parser
+          parser_obj.debug_parse();
+                    ^
+Main.java:442: cannot find symbol
+symbol  : method parse()
+location: class java_cup.parser
+          parser_obj.parse();
+                    ^
+parser.java:25: cannot find symbol
+symbol  : method unpackFromStrings(java.lang.String[])
+location: class java_cup.parser
+    unpackFromStrings(new String[] {
+    ^
+parser.java:66: cannot find symbol
+symbol  : method unpackFromStrings(java.lang.String[])
+location: class java_cup.parser
+    unpackFromStrings(new String[] {
+    ^
+parser.java:252: cannot find symbol
+symbol  : method unpackFromStrings(java.lang.String[])
+location: class java_cup.parser
+    unpackFromStrings(new String[] {
+    ^
+parser.java:382: cannot find symbol
+symbol  : method done_parsing()
+location: class java_cup.parser
+      done_parsing();
+      ^
+parser.java:503: package java_cup.runtime does not exist
+      java_cup.runtime.Symbol CUP$parser$result;
+                      ^
+parser.java:513: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(29/*empty*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:513: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(29/*empty*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                             ^
+parser.java:513: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(29/*empty*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                            ^
+parser.java:522: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(7/*opt_semi*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:522: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(7/*opt_semi*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                               ^
+parser.java:522: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(7/*opt_semi*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                             ^
+parser.java:531: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(7/*opt_semi*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:531: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(7/*opt_semi*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                               ^
+parser.java:531: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(7/*opt_semi*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                              ^
+parser.java:540: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(8/*non_terminal*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:540: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(8/*non_terminal*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                   ^
+parser.java:540: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(8/*non_terminal*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                                 ^
+parser.java:549: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(8/*non_terminal*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:549: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(8/*non_terminal*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                   ^
+parser.java:549: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(8/*non_terminal*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                                 ^
+parser.java:561: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:561: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:561: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:570: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:570: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:570: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:579: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:579: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:579: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:588: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:588: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:588: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:597: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:597: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:597: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:606: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:606: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:606: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:615: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:615: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:615: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:624: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:624: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:624: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:633: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:633: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:633: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:642: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:642: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:642: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:651: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:651: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:651: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:660: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:660: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:660: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:669: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:669: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:669: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:678: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:678: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:678: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:687: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:687: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:687: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:695: package java_cup.runtime does not exist
+		int the_idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left;
+                                                   ^
+parser.java:696: package java_cup.runtime does not exist
+		int the_idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right;
+                                                    ^
+parser.java:697: package java_cup.runtime does not exist
+		String the_id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-0)).value;
+                                                          ^
+parser.java:699: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                      ^
+parser.java:699: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                 ^
+parser.java:699: package java_cup.runtime does not exist
+              CUP$parser$result = new java_cup.runtime.Symbol(42/*robust_id*/, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right, RESULT);
+                                                                                                                                                                               ^
+parser.java:707: package java_cup.runtime does not exist
+		int the_idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).left;
+                                                   ^
+parser.java:708: package java_cup.runtime does not exist
+		int the_idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-0)).right;
+                                                    ^
+parser.java:709: package java_cup.runtime does not exist
+		String the_id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-0)).value;
+                                                          ^
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+100 errors

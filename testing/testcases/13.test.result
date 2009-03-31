@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<processCoverage xmlns="http://www.opengis.net/wcps/1.0.0" service="WCPS" version="1.0.0">
+<coverageIterator>
+        <iteratorVar>s</iteratorVar>
+        <coverageName>rgb</coverageName>
+        <coverageName>rgb</coverageName>
+        <coverageName>rgb</coverageName>
+    </coverageIterator>
+    <encode>
+        <format>jpeg</format>
+        <coverage>s</coverage>
+    </encode>
+</processCoverage>
