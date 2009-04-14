@@ -1,3 +1,25 @@
+/*
+ * This file is part of %PACKAGENAME%.
+ *
+ * %PACKAGENAME% is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of
+ * the License, or (at your option) any later version.
+ *
+ * %PACKAGENAME% is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with %PACKAGENAME%. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * For more information please see <http://www.%PACKAGENAME%.org>
+ * or contact Peter Baumann via <baumann@rasdaman.com>.
+ *
+ * Copyright 2009 Jacobs University Bremen, Peter Baumann.
+ */
+
 package wcps.server.servlet;
 
 import java.io.File;
@@ -27,6 +49,7 @@ import syntaxParser.WCPSRequest;
 import syntaxParser.SyntaxErrorException;
 import java.io.StringBufferInputStream;
 import org.xml.sax.InputSource;
+
 // This is the servlet interface of WCPS. It mostly consists of sanity checks ana initialization, the meat is onyl a few lines. The WCPS class does the actual work.
 
 // Note an important limitation: this will only return the first result if several are available. The reason is that WCPS currently has no standardized way to return multiple byte streams to the user.
