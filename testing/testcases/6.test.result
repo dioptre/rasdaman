@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<processCoverage xmlns="http://www.opengis.net/wcps/1.0.0" service="WCPS" version="1.0.0">
-<coverageIterator>
-        <iteratorVar>c</iteratorVar>
-        <coverageName>rgb</coverageName>
-    </coverageIterator>
-    <encode>
-        <format>jpeg</format>
-        <trim>
-            <trimAxisSpec>
-                <axis>x</axis>
-                <coord>50</coord>
-                <coord>150</coord>
-            </trimAxisSpec>
-            <trimAxisSpec>
-                <axis>y</axis>
-                <coord>50</coord>
-                <coord>150</coord>
-            </trimAxisSpec>
-            <minus>
-                <scalar>255</scalar>
-                <select>
-                    <field>red</field>
-                    <coverage>c</coverage>
-                </select>
-            </minus>
-        </trim>
-    </encode>
-</processCoverage>
+<ns1:ProcessCoveragesRequest 
+         xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
+       xmlns:ns1='http://www.opengis.net/wcps/1.0' 
+          xsi:schemaLocation='http://www.opengis.net/wcps/1.0 wcpsProcessCoverage.xsd' service="WCS" version="1.1.2"> 
+        <ns1:query>
+            <ns1:xmlSyntax>
+<ns1:coverageIterator>
+        <ns1:iteratorVar>c</ns1:iteratorVar>
+        <ns1:coverageName>rgb</ns1:coverageName>
+    </ns1:coverageIterator>
+    <ns1:encode>
+        <ns1:format>jpeg</ns1:format>
+        <ns1:trim>
+            <ns1:trimAxisSpec>
+                <ns1:axis>x</ns1:axis>
+                <ns1:coord>50</ns1:coord>
+                <ns1:coord>150</ns1:coord>
+            </ns1:trimAxisSpec>
+            <ns1:trimAxisSpec>
+                <ns1:axis>y</ns1:axis>
+                <ns1:coord>50</ns1:coord>
+                <ns1:coord>150</ns1:coord>
+            </ns1:trimAxisSpec>
+            <ns1:minus>
+                <ns1:scalar>255</ns1:scalar>
+                <ns1:select>
+                    <ns1:field>red</ns1:field>
+                    <ns1:coverage>c</ns1:coverage>
+                </ns1:select>
+            </ns1:minus>
+        </ns1:trim>
+    </ns1:encode>
+      </ns1:xmlSyntax>
+    </ns1:query>
+</ns1:ProcessCoveragesRequest>

@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<processCoverage xmlns="http://www.opengis.net/wcps/1.0.0" service="WCPS" version="1.0.0">
-<coverageIterator>
-        <iteratorVar>clouds</iteratorVar>
-        <coverageName>climate_clouds</coverageName>
-    </coverageIterator>
-    <coverageIterator>
-        <iteratorVar>mask</iteratorVar>
-        <coverageName>climate_earth</coverageName>
-    </coverageIterator>
-    <encode>
-        <format>png</format>
-        <cast>
-            <type>char</type>
-            <mult>
-                <slice>
-                    <sliceAxisSpec>
-                        <axis>t</axis>
-                        <coord>0</coord>
-                    </sliceAxisSpec>
-                    <coverage>clouds</coverage>
-                </slice>
-                <equals>
-                    <slice>
-                        <sliceAxisSpec>
-                            <axis>t</axis>
-                            <coord>0</coord>
-                        </sliceAxisSpec>
-                        <coverage>mask</coverage>
-                    </slice>
-                    <scalar>0</scalar>
-                </equals>
-            </mult>
-        </cast>
-    </encode>
-</processCoverage>
+<ns1:ProcessCoveragesRequest 
+         xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
+       xmlns:ns1='http://www.opengis.net/wcps/1.0' 
+          xsi:schemaLocation='http://www.opengis.net/wcps/1.0 wcpsProcessCoverage.xsd' service="WCS" version="1.1.2"> 
+        <ns1:query>
+            <ns1:xmlSyntax>
+<ns1:coverageIterator>
+        <ns1:iteratorVar>clouds</ns1:iteratorVar>
+        <ns1:coverageName>climate_clouds</ns1:coverageName>
+    </ns1:coverageIterator>
+    <ns1:coverageIterator>
+        <ns1:iteratorVar>mask</ns1:iteratorVar>
+        <ns1:coverageName>climate_earth</ns1:coverageName>
+    </ns1:coverageIterator>
+    <ns1:encode>
+        <ns1:format>png</ns1:format>
+        <ns1:cast>
+            <ns1:type>char</ns1:type>
+            <ns1:mult>
+                <ns1:slice>
+                    <ns1:sliceAxisSpec>
+                        <ns1:axis>t</ns1:axis>
+                        <ns1:coord>0</ns1:coord>
+                    </ns1:sliceAxisSpec>
+                    <ns1:coverage>clouds</ns1:coverage>
+                </ns1:slice>
+                <ns1:equals>
+                    <ns1:slice>
+                        <ns1:sliceAxisSpec>
+                            <ns1:axis>t</ns1:axis>
+                            <ns1:coord>0</ns1:coord>
+                        </ns1:sliceAxisSpec>
+                        <ns1:coverage>mask</ns1:coverage>
+                    </ns1:slice>
+                    <ns1:scalar>0</ns1:scalar>
+                </ns1:equals>
+            </ns1:mult>
+        </ns1:cast>
+    </ns1:encode>
+      </ns1:xmlSyntax>
+    </ns1:query>
+</ns1:ProcessCoveragesRequest>

@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<processCoverage xmlns="http://www.opengis.net/wcps/1.0.0" service="WCPS" version="1.0.0">
-<coverageIterator>
-        <iteratorVar>c</iteratorVar>
-        <coverageName>mr</coverageName>
-    </coverageIterator>
-    <encode>
-        <format>csv</format>
-        <construct>
-            <coverage>histogram</coverage>
-            <axisIterator>
-                <axisType>abstract</axisType>
-                <iteratorVar>n</iteratorVar>
-                <coord>0</coord>
-                <coord>255</coord>
-            </axisIterator>
-            <count>
-                <equals>
-                    <coverage>c</coverage>
-                    <coverage>n</coverage>
-                </equals>
-            </count>
-        </construct>
-    </encode>
-</processCoverage>
+<ns1:ProcessCoveragesRequest 
+         xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
+       xmlns:ns1='http://www.opengis.net/wcps/1.0' 
+          xsi:schemaLocation='http://www.opengis.net/wcps/1.0 wcpsProcessCoverage.xsd' service="WCS" version="1.1.2"> 
+        <ns1:query>
+            <ns1:xmlSyntax>
+<ns1:coverageIterator>
+        <ns1:iteratorVar>c</ns1:iteratorVar>
+        <ns1:coverageName>mr</ns1:coverageName>
+    </ns1:coverageIterator>
+    <ns1:encode>
+        <ns1:format>csv</ns1:format>
+        <ns1:construct>
+            <ns1:coverage>histogram</ns1:coverage>
+            <ns1:axisIterator>
+                <ns1:axisType>abstract</ns1:axisType>
+                <ns1:iteratorVar>n</ns1:iteratorVar>
+                <ns1:coord>0</ns1:coord>
+                <ns1:coord>255</ns1:coord>
+            </ns1:axisIterator>
+            <ns1:count>
+                <ns1:equals>
+                    <ns1:coverage>c</ns1:coverage>
+                    <ns1:coverage>n</ns1:coverage>
+                </ns1:equals>
+            </ns1:count>
+        </ns1:construct>
+    </ns1:encode>
+      </ns1:xmlSyntax>
+    </ns1:query>
+</ns1:ProcessCoveragesRequest>
