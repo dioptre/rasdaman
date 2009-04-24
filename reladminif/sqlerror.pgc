@@ -1,0 +1,198 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+// This is -*- C++ -*-
+/*************************************************************************
+ *
+ *
+ * PURPOSE:
+ * process base DBMS errors (PostgreSQL) by printing messages and throwing exceptions.
+ *
+ *
+ * COMMENTS:
+ * - different from other implementations in that no distinction between
+ *   error and warning
+ * - the whole module should be redesigned for all DBMSs - very unconcise
+ * - no function printSQLError() as eg in Informix
+ * - FIXME: generateException() should be declared r_Ebase_dbms instead of r_Error
+ *
+ ***********************************************************************/
+
+static const char rcsid[] = "@(#)reladminif,SQLError: $Id: sqlerror.ec,v 1.4 2003/12/27 23:11:43 rasdev Exp $";
+
+// #define SQLCA_STORAGE_CLASS extern 
+
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
+#include "sqlerror.hh"
+#include "externs.h"
+
+#include "raslib/rmdebug.hh"
+#include "raslib/error.hh"
+#include "debug-srv.hh"
+
+// general embedded SQL related definitions
+EXEC SQL include "sqlglobals.h";
+
+// SQLSTATE not available in PGSQL (SQLCODE is, funny enough)
+#define SQLSTATE sqlca.sqlstate
+
+// error codes
+EXEC SQL define SUCCESS 0;
+EXEC SQL define WARNING 1;
+EXEC SQL define NODATA 100;
+EXEC SQL define RTERROR -1;
+
+// general message buffer size
+#define BUFFER_SIZE	4000
+
+// SQL error message max size
+// FIXME: is this really enough?
+const int MSG_MAXLEN=BUFFER_SIZE;
+
+// length of buffer for remembering last message
+#define LASTERRORMSGLEN BUFFER_SIZE
+char lastErrorMsg[LASTERRORMSGLEN];
+
+/*
+ * The sqlstate_err() function checks the SQLSTATE status variable to see
+ * if an error or warning has occurred following an SQL statement.
+ */
+int sqlstate_err()
+{
+	int err_code = RTERROR;
+
+	if (SQLSTATE[0] == '0') /* trap '00', '01', '02' */
+	{
+		switch(SQLSTATE[1])
+		{
+			case '0': /* success - return 0 */
+				err_code = SUCCESS;
+				break;
+			case '1': /* warning - return 1 */
+				err_code = WARNING;
+				break;
+			case '2': /* end of data - return 100 */
+				err_code = NODATA;
+				break;
+			default: /* error - return SQLCODE */
+				break;
+		}
+	}
+	return err_code;
+} // sqlstate_err()
+
+
+/*
+ * The disp_sqlstate_err() function prints details into msgbuf.
+ */
+void disp_sqlstate_err(char* msgbuf, size_t length)
+{
+	char error_buffer[BUFFER_SIZE];
+	size_t characters_written = 0;
+
+	snprintf(error_buffer, BUFFER_SIZE, "SQLSTATE: %5s SQLCODE: %d\n", SQLSTATE, SQLCODE);
+	characters_written = strlen(error_buffer);
+	if (characters_written > length)
+	{
+		RMInit::logOut << "error message didn't fit into buffer: " << error_buffer << endl;
+	}
+	else
+	{
+		strcat(msgbuf, error_buffer);
+	}
+} // disp_sqlstate_err()
+
+/*
+ * disp_error(): print statement and error/warning text into buffer
+ */
+void disp_error(const char* stmt, char* msgbuf, size_t length)
+{
+	char error_buffer[BUFFER_SIZE];
+	snprintf(error_buffer, BUFFER_SIZE, "Warning/error in %s:\n", stmt);
+
+	size_t error_len = strlen(error_buffer);
+
+	if (error_len > length)
+		RMInit::logOut << "error message didn't fit into buffer: " << error_buffer << endl;
+	else
+	{
+		strcat(msgbuf, error_buffer);
+		length = length - error_len;
+	}
+	disp_sqlstate_err(msgbuf, length);
+} // disp_error()
+
+/*
+ * disp_exception(): if sql_errcode says there was an error,
+ * allocate msg buffer and copy error msg
+ */
+char* disp_exception(const char* stmt, int sqlerr_code)
+{
+	char* msgbuf = NULL;
+	switch (sqlerr_code)
+	{
+		case SUCCESS:
+		case NODATA:
+			break;
+		case WARNING:
+		case RTERROR:
+			msgbuf = new char[BUFFER_SIZE];
+			memset(msgbuf, 0, BUFFER_SIZE);
+			disp_error(stmt, msgbuf, BUFFER_SIZE);
+			break;
+		default:
+			RMInit::logOut << "Invalid exception state for " << stmt << " " << sqlerr_code << endl;
+		break;
+	}
+	return msgbuf;
+} // disp_exception()
+
+/*
+ * check(): check base DBMS for any error occurred during last
+ * database access and print message into log if so.
+ */
+int
+check(const char* stmt) throw (r_Error)
+{
+	char* msg = disp_exception(stmt, sqlstate_err());
+	if (msg != NULL)
+	{
+		RMInit::logOut << msg << endl;
+		snprintf(lastErrorMsg, LASTERRORMSGLEN, msg);
+		delete [] msg;
+		msg = NULL;
+	}
+	return SQLCODE;
+}
+
+// generate r_Ebase_dbms exception using SQL error code and message
+void
+generateException() throw (r_Error)
+{
+	TALK( "Throwing Exception (SQLCODE=" << SQLCODE << "): " << lastErrorMsg );
+	RMInit::dbgOut << "Throwing Exception (SQLCODE=" << SQLCODE << "): " << lastErrorMsg << endl;
+	throw r_Ebase_dbms( SQLCODE, lastErrorMsg );
+} // generateException()
+

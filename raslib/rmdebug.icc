@@ -1,0 +1,120 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+
+// -*-C++-*- (for Emacs)
+
+inline
+RMTimer::RMTimer(const char* newClass, const char* newFunc, int newBmLevel)
+  : myClass(newClass), myFunc(newFunc), bmLevel(newBmLevel), running(0)
+{
+#ifdef __VISUALC__
+  /* Set time zone from TZ environment variable.If TZ is not set,
+   * the operating system is queried to obtain the default value
+   * for the variable
+   */
+  _tzset();
+#endif
+  start();
+}
+
+inline
+RMTimer::~RMTimer()
+{
+  stop();
+}
+
+inline void
+RMTimer::setOutput(int newOutput)
+{
+  output = newOutput;
+}
+
+inline void
+RMTimer::start()
+{
+  // reset accu
+  accuTime = 0;
+  // set output to TRUE
+  output = 1;
+  resume();
+}
+
+inline void
+RMTimer::pause()
+{
+  if( running )
+  {
+#ifdef __VISUALC__
+    // save start time
+    oldsec = acttime;
+    oldusec = 0;           // Windows only counts the seconds (too slow??!!)
+
+    // get stop time
+    time(&acttime);
+
+    // add new time to accu
+    accuTime += (acttime-oldsec)*1000000; 
+#else
+    // save start time
+    oldsec  = acttime.tv_sec;
+    oldusec = acttime.tv_usec;
+
+    // get stop time
+    gettimeofday(&acttime, &dummy);
+
+    // add new time to accu
+    accuTime += (acttime.tv_sec-oldsec)*1000000 + acttime.tv_usec - oldusec; 
+
+    // reset acttime.tv_usec which means that no timer is running
+    acttime.tv_usec = 0;
+#endif  
+    // timer is not running
+    running = 0;
+  }
+}
+
+inline void
+RMTimer::resume()
+{
+#ifdef __VISUALC__
+  time(&acttime);
+#else
+  gettimeofday(&acttime, &dummy);
+#endif
+
+  // timer is running
+  running = 1;
+}
+
+inline void
+RMTimer::stop()
+{
+  pause();
+
+  if(output && RManBenchmark >= bmLevel ) {
+    RMInit::bmOut << "T: " << myClass << "::" << myFunc << ": " 
+		  << accuTime << "us" << std::endl;
+    // set output to FALSE
+    output = 0;
+  }
+}

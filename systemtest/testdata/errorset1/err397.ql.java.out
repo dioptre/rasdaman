@@ -1,0 +1,2 @@
+
+ ODMGException: Execution error 397 in line 0, column 0, near token : Operand of minterval selection must be of type integer.

@@ -1,0 +1,2 @@
+
+ ODMGException: Parsing error 302 in line 3, column 8, token <: Number of cells specified does not match the number of cells of the given spatial domain.

@@ -1,0 +1,8 @@
+/if.*clnt.*SUCCESS.*/	{
+		split($0, parts, ",");
+		print parts[1] ", " parts[2] ", (xdrproc_t)" parts[3] ", (caddr_t)" parts[4] ", (xdrproc_t)" parts[5] ", (caddr_t)" parts[6] ", " parts[7]
+		next;
+		}
+		{
+		print $0;
+		}

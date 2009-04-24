@@ -1,0 +1,6 @@
+-- Testbed line: result_type=set<double>
+-- Testbed line: result_elements=2
+-- Testbed start block:
+Element 1: -8.74228e-08
+Element 2: -8.74228e-08
+-- Testbed end block:

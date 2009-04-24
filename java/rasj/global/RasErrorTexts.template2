@@ -1,0 +1,72 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+/** ***********************************************************
+ * <pre>
+ *
+ * PURPOSE:
+ * third part of three constituting RasErrorTexts.java:
+ * - part 1: Java src
+ * - part 2: generated from errtxts file
+ * - part 3: Java src
+ *
+ *
+ * COMMENTS:
+ *
+ * </pre>
+ *********************************************************** */
+
+// end of error code array, start of RasErrorTexts.template2
+
+    ""	// this last, empty string is needed because the last one, generated from errtxts, has a "," at the end
+    };
+
+    public static String getErrorMessage( int errNo )
+    {
+	StringBuffer buf;
+	String prefix = String.valueOf(errNo)+":";
+	int index = 0;
+	String retVal = null;
+
+	while(index < errorMessages.length-1)	// last string is empty, see above
+	    {
+		if(errorMessages[index].startsWith(prefix))
+		    {
+			buf = new StringBuffer(errorMessages[index]);
+     	                index = errorMessages[index].indexOf(":");
+	                buf.delete(0,index+1);
+			retVal = buf.toString();
+			index = errorMessages.length+1;
+		    }
+                else
+		    index++;
+
+	    }
+	if(retVal == null)
+	    retVal = "No error message available for error number " + errNo + ".";
+
+    return retVal;
+    }
+
+}
+
+

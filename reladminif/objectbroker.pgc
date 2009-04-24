@@ -1,0 +1,1029 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+// This is -*- C++ -*-
+
+/*************************************************************************
+ *
+ *
+ * PURPOSE:
+ *      Code with embedded SQL for PostgreSQL DBMS
+ *
+ *
+ * COMMENTS:
+ *      none
+ *
+ ***********************************************************************/
+
+static const char rcsid[] = "@(#)reladminif,ObjectBroker: $Id: objectbroker.ec,v 1.4 2003/12/27 23:11:43 rasdev Exp $";
+
+#include "debug-srv.hh"
+
+// general embedded SQL related definitions
+EXEC SQL include "sqlglobals.h";
+
+#include "objectbroker.hh"
+#include "raslib/rmdebug.hh"
+#include "sqlerror.hh"
+#include "relindexif/dbtcindex.hh"
+#include "relindexif/indexid.hh"
+#include "adminif.hh"
+#include "relindexif/dbrcindexds.hh"
+#include "relblobif/inlinetile.hh"
+#include "dbref.hh"
+#include "dbnamedobject.hh"
+#include "externs.h"
+#include "catalogmgr/typefactory.hh"
+
+DBObject*
+ObjectBroker::loadInlineTile(const OId& id) throw (r_Error)
+{
+	RMDBGENTER(11, RMDebug::module_adminif, "ObjectBroker", "loadInlineTile(" << id << ")");
+	ENTER( "ObjectBroker::loadInlineTile, oid=" << id );
+
+	DBObject* retval = 0;
+	OIdMap::iterator i = theTileIndexMappings.find(id);
+	if (i != theTileIndexMappings.end())
+	{
+		DBTCIndexId dbtc((*i).second);
+		retval = (DBObject*)dbtc->getInlineTile(id);
+	}
+	else   
+	{
+		try    
+		{
+			retval = new InlineTile(id);
+			RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "found in db");
+		}
+		catch (r_Error& error)
+		{
+			RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "not found in db");
+			if(retval)
+ 			{
+				delete retval;
+				retval=0;
+			}
+		}
+		if (retval == 0)
+		{
+			EXEC SQL BEGIN DECLARE SECTION;
+				long    indexid;
+				long    inlineid;
+			EXEC SQL END DECLARE SECTION;
+ 
+			indexid = 0;
+			inlineid = id.getCounter();
+ 
+			EXEC SQL SELECT
+				        IndexId
+				 INTO
+				        :indexid
+				 FROM
+				        RAS_ITMAP
+				 WHERE
+				        TileId = :inlineid;
+			if (SQLCODE == SQLOK)
+			{
+				DBTCIndexId dbtc(OId(indexid, OId::DBTCINDEXOID));
+				retval = (DBObject*)dbtc->getInlineTile(id);
+			}
+			else   
+			{
+				if (SQLCODE == SQLNODATAFOUND)
+				{
+					RMDBGEXIT(11, RMDebug::module_adminif, "ObjectBroker", "db error not found in db");
+					throw r_Error(r_Error::r_Error_ObjectUnknown);
+				}
+				else
+				{
+					check("ObjectBroker::loadInlineTile SELECT FROM RAS_ITMAP");
+					generateException();
+				}
+			}
+		}
+		DBObjectPPair myPair(retval->getOId(), retval);
+		theInlineTiles.insert(myPair);
+	}
+
+	LEAVE( "ObjectBroker::loadInlineTile, retval=" << retval );
+	RMDBGEXIT(11, RMDebug::module_adminif, "ObjectBroker", "loadInlineTile(" << id << ")");
+	return retval;
+}
+
+
+OId
+ObjectBroker::getOIdOfSetType(const char* name) throw (r_Error)
+{
+	ENTER( "ObjectBroker::getOIdOfSetType, name=" << name );
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		char	setname[STRING_MAXLEN];
+		long	setoid;
+	EXEC SQL END DECLARE SECTION;
+
+	OId retval;
+	int len = strlen(name);
+	if (len > DBNamedObject::MAXNAMELENGTH)
+	{
+		throw r_Error(TYPENAMEISTOOLONG);
+	}
+	(void) strncpy( setname, (char*) name, (size_t) sizeof(setname) );
+
+	EXEC SQL SELECT
+			SetTypeId
+		INTO
+			:setoid
+		FROM
+			RAS_SETTYPES
+		WHERE
+			SetTypeName = :setname;
+	
+	if (SQLCODE != SQLOK)
+	{
+		if (SQLCODE == SQLNODATAFOUND)
+		{
+			RMDBGONCE(11, RMDebug::module_adminif, "ObjectBroker", "is not in db");
+			throw r_Error(r_Error::r_Error_ObjectUnknown);
+		}
+		else
+		{
+			check("ObjectBroker::getOIdOfSetType()\0");
+			generateException();
+		}
+	}
+	else
+	{
+		retval = OId(setoid, OId::SETTYPEOID);
+		RMDBGONCE(11, RMDebug::module_adminif, "ObjectBroker", "is in db with " << retval);
+	}
+
+	LEAVE( "ObjectBroker::getOIdOfSetType, retval=" << retval );
+	return retval;
+}
+
+MDDType*
+ObjectBroker::getMDDTypeByName(const char* name) throw (r_Error)
+{
+	ENTER( "ObjectBroker::getMDDTypeByName, name=" << name );
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		char	mddtnamev[STRING_MAXLEN];
+		double	mddtoidv;
+	EXEC SQL END DECLARE SECTION;
+
+	MDDType* retval = 0;
+	DBObjectPMap* theMaps[] = {&theMDDTypes, &theMDDBaseTypes, &theMDDDimensionTypes, &theMDDDomainTypes};
+
+	// FIXME: why do we iterate 5 times?
+	for (int a = 0; a < 4; a++)
+	{
+		DBObjectPMap& theMap = *theMaps[a];
+		//check if there is an object with that name already in memory
+		for (DBObjectPMap::iterator iter = theMap.begin(); iter != theMap.end(); iter++)
+		{
+			if (strcmp(((DBNamedObject*)(*iter).second)->getName(), name) == 0)
+			{
+				//RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", name << " equals " << ((DBNamedObject*)(*iter).second)->getName());
+				retval = (MDDType*)(*iter).second;
+				break;
+			}
+			else
+			{
+				//RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", name << " equals NOT " << ((DBNamedObject*)(*iter).second)->getName());
+			}
+		}
+		if (retval != 0)
+			break;
+	}
+
+	if (retval == 0)
+	{
+		int len = strlen(name);
+		if (len > DBNamedObject::MAXNAMELENGTH)
+		{
+			LEAVE( "ObjectBroker::getMDDTypeByName(): type name exceeding max length: " << name );
+			throw r_Error(TYPENAMEISTOOLONG);
+		}
+		(void) strncpy( mddtnamev, (char*) name, (size_t) sizeof(mddtnamev) );
+
+		TALK( "EXEC SQL SELECT MDDTypeOId INTO :mddtoidv FROM RAS_MDDTYPES_VIEW WHERE MDDTypeName = " << mddtnamev );
+		EXEC SQL SELECT MDDTypeOId
+			INTO :mddtoidv
+			FROM RAS_MDDTYPES_VIEW
+			WHERE MDDTypeName = :mddtnamev;
+		
+		if (SQLCODE != SQLOK)
+		{
+			if (SQLCODE == SQLNODATAFOUND)
+			{
+				RMDBGONCE(11, RMDebug::module_adminif, "ObjectBroker", "is not in db");
+				LEAVE( "ObjectBroker::getMDDTypeByName(): object not found" );
+				throw r_Error(r_Error::r_Error_ObjectUnknown);
+			}
+			else
+			{
+				check("ObjectBroker::getMDDTypeByName()\0");
+				LEAVE( "ObjectBroker::getMDDTypeByName(): database access error: " << SQLCODE );
+				generateException();
+			}
+		}
+		else
+		{
+			retval = (MDDType*)getObjectByOId(OId(mddtoidv));
+		}
+	}
+
+	LEAVE( "ObjectBroker::getMDDTypeByName, retval=" << retval );
+	return retval;
+}
+
+OId
+ObjectBroker::getOIdOfMDDType(const char* name) throw (r_Error)
+{
+	ENTER( "ObjectBroker::getOIdOfMDDType, name=" << name );
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		char	mddtname[STRING_MAXLEN];
+		long	mddtoid;
+	EXEC SQL END DECLARE SECTION;
+
+	OId retval;
+	int len = strlen(name);
+	if (len > DBNamedObject::MAXNAMELENGTH)
+	{
+		LEAVE( "ObjectBroker::getOIdOfMDDType(): name exceeds max length:" << name );
+		throw r_Error(TYPENAMEISTOOLONG);
+	}
+	(void) strncpy( mddtname, (char*) name, (size_t) sizeof(mddtname) );
+
+	TALK( "EXEC SQL SELECT MDDTypeOId INTO :mddtoid FROM RAS_MDDTYPES WHERE MDDTypeName = " << mddtname );
+	EXEC SQL SELECT MDDTypeOId
+		INTO :mddtoid
+		FROM RAS_MDDTYPES
+		WHERE MDDTypeName = :mddtname;
+	
+	if (SQLCODE != SQLOK)
+	{
+		if (SQLCODE == SQLNODATAFOUND)
+		{
+			RMDBGONCE(11, RMDebug::module_adminif, "ObjectBroker", "is not in db");
+			LEAVE( "ObjectBroker::getOIdOfMDDType(): object not in db" );
+			throw r_Error(r_Error::r_Error_ObjectUnknown);
+		}
+		else
+		{
+			check("ObjectBroker::getOIdOfMDDType()\0");
+			LEAVE( "ObjectBroker::getOIdOfMDDType(): db access error: " << SQLCODE );
+			generateException();
+		}
+	}
+	else
+	{
+		retval = OId(mddtoid,OId::MDDTYPEOID);
+	}
+
+	LEAVE( "ObjectBroker::getOIdOfMDDType, retval=" << retval );
+	return retval;
+}
+
+OId
+ObjectBroker::getOIdOfMDDBaseType(const char* name) throw (r_Error)
+{
+	ENTER( "ObjectBroker::getOIdOfMDDBaseType, name=" << name );
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		char	mddbname[STRING_MAXLEN];
+		long	mddboid;
+	EXEC SQL END DECLARE SECTION;
+
+	OId retval;
+	int len = strlen(name);
+	if (len > DBNamedObject::MAXNAMELENGTH)
+	{
+		LEAVE( "ObjectBroker::getOIdOfMDDBaseType(): name exceeds max length:" << name );
+		throw r_Error(TYPENAMEISTOOLONG);
+	}
+	(void) strncpy( mddbname, (char*) name, (size_t) sizeof(mddbname) );
+
+	TALK( "EXEC SQL SELECT MDDBaseTypeOId INTO :mddboid FROM RAS_MDDBASETYPES WHERE MDDTypeName = " << mddbname );
+	EXEC SQL SELECT MDDBaseTypeOId
+		INTO :mddboid
+		FROM RAS_MDDBASETYPES
+		WHERE MDDTypeName = :mddbname;
+	
+	if (SQLCODE != SQLOK)
+	{
+		if (SQLCODE == SQLNODATAFOUND)
+		{
+			RMDBGONCE(11, RMDebug::module_adminif, "ObjectBroker", "is not in db");
+			LEAVE( "ObjectBroker::getOIdOfMDDBaseType(): object not in db" );
+			throw r_Error(r_Error::r_Error_ObjectUnknown);
+		}
+		else
+		{
+			check("ObjectBroker::getOIdOfMDDBaseType()\0");
+			LEAVE( "ObjectBroker::getOIdOfMDDBaseType(): db access error: " << SQLCODE );
+			generateException();
+		}
+	}
+	else
+	{
+		retval = OId(mddboid,OId::MDDBASETYPEOID);
+	}
+
+	LEAVE( "ObjectBroker::getOIdOfMDDBaseType, retval=" << retval );
+	return retval;
+}
+
+OId
+ObjectBroker::getOIdOfMDDDimensionType(const char* name) throw (r_Error)
+{
+	ENTER( "ObjectBroker::getOIdOfMDDDimensionType, name=" << name );
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		char	mdddiname[STRING_MAXLEN];
+		long	mdddioid;
+	EXEC SQL END DECLARE SECTION;
+
+	OId retval;
+	int len = strlen(name);
+	if (len > DBNamedObject::MAXNAMELENGTH)
+	{
+		LEAVE( "ObjectBroker::getOIdOfMDDDimensionType(): name exceeds max length:" << name );
+		throw r_Error(TYPENAMEISTOOLONG);
+	}
+	(void) strncpy( mdddiname, (char*) name, (size_t) sizeof(mdddiname) );
+
+	TALK( "EXEC SQL SELECT MDDDimTypeOId INTO :mdddioid FROM RAS_MDDDIMTYPES WHERE MDDTypeName = " << mdddiname );
+	EXEC SQL SELECT MDDDimTypeOId
+		INTO :mdddioid
+		FROM RAS_MDDDIMTYPES
+		WHERE MDDTypeName = :mdddiname;
+	
+	if (SQLCODE != SQLOK)
+	{
+		if (SQLCODE == SQLNODATAFOUND)
+		{
+			RMDBGONCE(11, RMDebug::module_adminif, "ObjectBroker", "is not in db");
+			LEAVE( "ObjectBroker::getOIdOfMDDDimensionType(): object not in db" );
+			throw r_Error(r_Error::r_Error_ObjectUnknown);
+		}
+		else
+		{
+			check("ObjectBroker::getOIdOfMDDDimensionType()\0");
+			LEAVE( "ObjectBroker::getOIdOfMDDDimensionType(): db access error: " << SQLCODE );
+			generateException();
+		}
+	}
+	else
+	{
+		retval = OId(mdddioid,OId::MDDDIMTYPEOID);
+	}
+
+	LEAVE( "ObjectBroker::getOIdOfMDDDimensionType, retval=" << retval );
+	return retval;
+}
+
+OId
+ObjectBroker::getOIdOfMDDDomainType(const char* name) throw (r_Error)
+{
+	ENTER( "ObjectBroker::getOIdOfMDDDomainType, name=" << name );
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		char	mdddoname[STRING_MAXLEN];
+		long	mdddooid;
+	EXEC SQL END DECLARE SECTION;
+
+	OId retval;
+	int len = strlen(name);
+	if (len > DBNamedObject::MAXNAMELENGTH)
+	{
+		LEAVE( "ObjectBroker::getOIdOfMDDDomainType(): name exceeds max length:" << name );
+		throw r_Error(TYPENAMEISTOOLONG);
+	}
+	(void) strncpy( mdddoname, (char*) name, (size_t) sizeof(mdddoname) );
+
+	TALK( "EXEC SQL SELECT MDDDomTypeOId INTO :mdddooid FROM RAS_MDDDOMTYPES WHERE MDDTypeName =  " << mdddoname );
+	EXEC SQL SELECT MDDDomTypeOId
+		INTO :mdddooid
+		FROM RAS_MDDDOMTYPES
+		WHERE MDDTypeName = :mdddoname;
+	
+	if (SQLCODE != SQLOK)
+	{
+		if (SQLCODE == SQLNODATAFOUND)
+		{
+			RMDBGONCE(11, RMDebug::module_adminif, "ObjectBroker", "is not in db");
+			LEAVE( "ObjectBroker::getOIdOfMDDDomainType(): object not in db" );
+			throw r_Error(r_Error::r_Error_ObjectUnknown);
+		}
+		else
+		{
+			check("ObjectBroker::getOIdOfMDDDomainType()\0");
+			LEAVE( "ObjectBroker::getOIdOfMDDDomainType(): db access error: " << SQLCODE );
+			generateException();
+		}
+	}
+	else
+	{
+		retval = OId(mdddooid,OId::MDDDOMTYPEOID);
+	}
+
+	LEAVE( "ObjectBroker::getOIdOfMDDDomainType, retval=" << retval );
+	return retval;
+}
+
+OId
+ObjectBroker::getOIdOfStructType(const char* name) throw (r_Error)
+{
+	ENTER( "ObjectBroker::getOIdOfStructType, name=" << name );
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		char	structname[STRING_MAXLEN];
+		long	structoid;
+	EXEC SQL END DECLARE SECTION;
+
+	OId retval;
+	int len = strlen(name);
+	if (len > DBNamedObject::MAXNAMELENGTH)
+	{
+		LEAVE( "ObjectBroker::getOIdOfStructType(): name exceeds max length:" << name );
+		throw r_Error(TYPENAMEISTOOLONG);
+	}
+	(void) strncpy( structname, (char*) name, (size_t) sizeof(structname) );
+
+	TALK( "EXEC SQL SELECT BaseTypeId INTO :structoid FROM RAS_BASETYPENAMES WHERE BaseTypeName = " << structname );
+	EXEC SQL SELECT BaseTypeId
+		INTO :structoid
+		FROM RAS_BASETYPENAMES
+		WHERE BaseTypeName = :structname;
+	
+	if (SQLCODE != SQLOK)
+	{
+		RMDBGONCE(11, RMDebug::module_adminif, "ObjectBroker", "is not in db");
+		if (SQLCODE == SQLNODATAFOUND)
+		{
+			RMDBGONCE(11, RMDebug::module_adminif, "ObjectBroker", "is not in db");
+			LEAVE( "ObjectBroker::getOIdOfStructType(): object not in db" );
+			throw r_Error(r_Error::r_Error_ObjectUnknown);
+		}
+		else
+		{
+			check("ObjectBroker::getOIdOfStructType()\0");
+			LEAVE( "ObjectBroker::getOIdOfStructType(): db access error: " << SQLCODE );
+			generateException();
+		}
+	}
+	else
+	{
+		retval = OId(structoid, OId::STRUCTTYPEOID);
+		RMDBGONCE(11, RMDebug::module_adminif, "ObjectBroker", "is in db with " << retval);
+	}
+
+	LEAVE( "ObjectBroker::getOIdOfStructType, retval=" << retval );
+	return retval;
+}
+
+OId
+ObjectBroker::getOIdOfMDDSet(const char* name) throw (r_Error)
+{
+	ENTER( "ObjectBroker::getOIdOfMDDSet, name=" << name );
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		char	collname[STRING_MAXLEN];
+		long	colloid;
+	EXEC SQL END DECLARE SECTION;
+
+	OId retval;
+	int len = strlen(name);
+	if (len > DBNamedObject::MAXNAMELENGTH)
+	{
+		LEAVE( "ObjectBroker::getOIdOfMDDSet(): name exceeds max length:" << name );
+		throw r_Error(TYPENAMEISTOOLONG);
+	}
+	(void) strncpy( collname, (char*) name, (size_t) sizeof(collname) );
+
+	TALK( "EXEC SQL SELECT MDDCollId INTO :colloid FROM RAS_MDDCOLLNAMES WHERE MDDCollName = " << collname );
+	EXEC SQL SELECT MDDCollId
+		INTO :colloid
+		FROM RAS_MDDCOLLNAMES
+		WHERE MDDCollName = :collname;
+	
+	if (SQLCODE != SQLOK)
+	{
+		if (SQLCODE == SQLNODATAFOUND)
+		{
+			RMDBGONCE(11, RMDebug::module_adminif, "ObjectBroker", "is not in db");
+			LEAVE( "ObjectBroker::getOIdOfMDDSet(): object not in db" );
+			throw r_Error(r_Error::r_Error_ObjectUnknown);
+		}
+		else
+		{
+			check("ObjectBroker::getOIdOfMDDSet()\0");
+			LEAVE( "ObjectBroker::getOIdOfMDDSet(): db access error: " << SQLCODE );
+			generateException();
+		}
+	}
+	else
+	{
+		retval = OId(colloid, OId::MDDCOLLOID);
+		RMDBGONCE(11, RMDebug::module_adminif, "ObjectBroker", "is in db with " << retval);
+	}
+
+	LEAVE( "ObjectBroker::getOIdOfMDDSet, retval=" << retval );
+	return retval;
+}
+
+OIdSet*
+ObjectBroker::getAllSetTypes() throw (r_Error)
+{
+	RMDBGENTER(11, RMDebug::module_adminif, "ObjectBroker", "getAllSetTypes()");
+	ENTER( "ObjectBroker::getAllSetTypes" );
+
+	OIdSet* retval = new OIdSet();
+	DBObjectPMap& theMap = ObjectBroker::getMap(OId::SETTYPEOID);
+	for (DBObjectPMap::iterator i = theMap.begin(); i != theMap.end(); i++)
+	{
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "inserted from memory " << (*i).first);
+		retval->insert((*i).first);
+	}
+	OId id;
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	settoid1;
+	EXEC SQL END DECLARE SECTION;
+
+	TALK( "EXEC SQL DECLARE setcursor CURSOR FOR SELECT SetTypeId FROM RAS_SETTYPES ORDER BY SetTypeId" );
+	EXEC SQL DECLARE setcursor CURSOR FOR
+		SELECT SetTypeId
+		FROM RAS_SETTYPES
+		ORDER BY SetTypeId;
+
+	TALK( "EXEC SQL OPEN setcursor" );
+	EXEC SQL OPEN setcursor;
+	
+	do
+	{
+		TALK( "EXEC SQL FETCH setcursor INTO :settoid1" ); 
+		EXEC SQL FETCH setcursor INTO :settoid1; 
+		if (SQLCODE != SQLOK)
+		{
+			if (SQLCODE != SQLNODATAFOUND)
+			{
+				check("ObjectBroker::getAllSetTypes\0");
+				TALK( "EXEC SQL CLOSE setcursor" );
+				EXEC SQL CLOSE setcursor;
+				delete retval;
+				retval = 0;
+				LEAVE( "ObjectBroker::getAllSetTypes(): db access error: " << SQLCODE );
+				generateException();
+			}
+			break;
+		}
+		id = OId(settoid1, OId::SETTYPEOID);
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "read " << id << " " << id.getType());
+		TALK( "got object " << id << " " << id.getType());
+		retval->insert(id);
+	} while (1);
+
+	TALK( "EXEC SQL CLOSE setcursor" );
+	EXEC SQL CLOSE setcursor;
+
+	LEAVE( "ObjectBroker::getAllSetTypes, SQLCODE=" << SQLCODE );
+	RMDBGEXIT(11, RMDebug::module_adminif, "ObjectBroker", "getAllSetTypes() ");
+	return retval;
+}
+
+OIdSet*
+ObjectBroker::getAllMDDTypes() throw (r_Error)
+{
+	RMDBGENTER(11, RMDebug::module_adminif, "ObjectBroker", "getAllMDDTypes()");
+	ENTER( "ObjectBroker::getAllMDDTypes" );
+
+	OIdSet* retval = new OIdSet();
+	DBObjectPMap& theMap = ObjectBroker::getMap(OId::MDDTYPEOID);
+	for (DBObjectPMap::iterator i = theMap.begin(); i != theMap.end(); i++)
+	{
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "inserted from memory " << (*i).first);
+		retval->insert((*i).first);
+	}
+	OId id;
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	mddtoid1;
+	EXEC SQL END DECLARE SECTION;
+
+	TALK( "EXEC SQL DECLARE mddtcursor CURSOR FOR SELECT MDDTypeOId FROM RAS_MDDTYPES ORDER BY MDDTypeOId" );
+	EXEC SQL DECLARE mddtcursor CURSOR FOR
+		SELECT MDDTypeOId
+		FROM RAS_MDDTYPES
+		ORDER BY MDDTypeOId;
+
+	TALK( "EXEC SQL OPEN mddtcursor" );
+	EXEC SQL OPEN mddtcursor;
+	
+	do
+	{
+		TALK( "EXEC SQL FETCH mddtcursor INTO :mddtoid1" ) ;
+		EXEC SQL FETCH mddtcursor INTO :mddtoid1; 
+		if (SQLCODE != SQLOK)
+		{
+			if (SQLCODE != SQLNODATAFOUND)
+			{
+				check("ObjectBroker::getAllMDDTypes()\0");
+				EXEC SQL CLOSE mddtcursor;
+				delete retval;
+				retval = 0;
+				LEAVE( "ObjectBroker::getAllMDDTypes(): db access error: " << SQLCODE );
+				generateException();
+			}
+			break;
+		}
+		id = OId(mddtoid1, OId::MDDTYPEOID);
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "read " << id << " " << id.getType());
+		TALK( "got object " << id << " " << id.getType() );
+		retval->insert(id);
+	} while (1);
+
+	TALK( "EXEC SQL CLOSE mddtcursor" );
+	EXEC SQL CLOSE mddtcursor;
+
+	LEAVE( "ObjectBroker::getAllMDDTypes, retval=" << retval );
+	RMDBGEXIT(11, RMDebug::module_adminif, "ObjectBroker", "getAllMDDTypes() ");
+	return retval;
+}
+
+OIdSet*
+ObjectBroker::getAllMDDBaseTypes() throw (r_Error)
+{
+	RMDBGENTER(11, RMDebug::module_adminif, "ObjectBroker", "getAllMDDBaseTypes()");
+	ENTER( "ObjectBroker::getAllMDDBaseTypes" );
+
+	OIdSet* retval = new OIdSet();
+	DBObjectPMap& theMap = ObjectBroker::getMap(OId::MDDBASETYPEOID);
+	for (DBObjectPMap::iterator i = theMap.begin(); i != theMap.end(); i++)
+	{
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "inserted from memory " << (*i).first);
+		retval->insert((*i).first);
+	}
+	OId id;
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	mddboid1;
+	EXEC SQL END DECLARE SECTION;
+
+	TALK( "EXEC SQL DECLARE mddbcursor CURSOR FOR SELECT MDDBaseTypeOId FROM RAS_MDDBASETYPES ORDER BY MDDBaseTypeOId" );
+	EXEC SQL DECLARE mddbcursor CURSOR FOR
+		SELECT MDDBaseTypeOId
+		FROM RAS_MDDBASETYPES
+		ORDER BY MDDBaseTypeOId;
+
+	TALK( "EXEC SQL OPEN mddbcursor" );
+	EXEC SQL OPEN mddbcursor;
+	
+	do
+	{
+		TALK( "EXEC SQL FETCH mddbcursor INTO :mddboid1" ); 
+		EXEC SQL FETCH mddbcursor INTO :mddboid1; 
+		if (SQLCODE != SQLOK)
+		{
+			if (SQLCODE != SQLNODATAFOUND)
+			{
+				check("ObjectBroker::getAllMDDBaseTypes()\0");
+				EXEC SQL CLOSE mddbcursor;
+				delete retval;
+				retval = 0;
+				LEAVE( "ObjectBroker::getAllMDDBaseTypes(): db access error: " << SQLCODE );
+				generateException();
+			}
+			break;
+		}
+		id = OId(mddboid1, OId::MDDBASETYPEOID);
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "read " << id << " " << id.getType());
+		TALK( "got object " << id << " " << id.getType() );
+		retval->insert(id);
+	} while (1);
+
+	TALK( "EXEC SQL CLOSE mddbcursor" );
+	EXEC SQL CLOSE mddbcursor;
+
+	LEAVE( "ObjectBroker::getAllMDDBaseTypes, retval=" << retval );
+	RMDBGEXIT(11, RMDebug::module_adminif, "ObjectBroker", "getAllMDDBaseTypes() ");
+	return retval;
+}
+
+OIdSet*
+ObjectBroker::getAllMDDDimensionTypes() throw (r_Error)
+{
+	RMDBGENTER(11, RMDebug::module_adminif, "ObjectBroker", "getAllMDDDimensionTypes()");
+	ENTER( "ObjectBroker::getAllMDDDimensionTypes" );
+
+	OIdSet* retval = new OIdSet();
+	DBObjectPMap& theMap = ObjectBroker::getMap(OId::MDDDIMTYPEOID);
+	for (DBObjectPMap::iterator i = theMap.begin(); i != theMap.end(); i++)
+	{
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "inserted from memory " << (*i).first);
+		retval->insert((*i).first);
+	}
+	OId id;
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	mdddioid1;
+	EXEC SQL END DECLARE SECTION;
+
+	TALK( "EXEC SQL DECLARE mdddicursor CURSOR FOR SELECT MDDDimTypeOId FROM RAS_MDDDIMTYPES ORDER BY MDDDimTypeOId" );
+	EXEC SQL DECLARE mdddicursor CURSOR FOR
+		SELECT MDDDimTypeOId
+		FROM RAS_MDDDIMTYPES
+		ORDER BY MDDDimTypeOId;
+
+	TALK( "EXEC SQL OPEN mdddicursor" );
+	EXEC SQL OPEN mdddicursor;
+	
+	do
+	{
+		TALK( "EXEC SQL FETCH mdddicursor INTO :mdddioid1" ); 
+		EXEC SQL FETCH mdddicursor INTO :mdddioid1; 
+		if (SQLCODE != SQLOK)
+		{
+			if (SQLCODE != SQLNODATAFOUND)
+			{
+				check("ObjectBroker::getAllMDDDimensionTypes()\0");
+				EXEC SQL CLOSE mdddicursor;
+				delete retval;
+				retval = 0;
+				LEAVE( "ObjectBroker::getAllMDDDimensionTypes(): db access error: " << SQLCODE );
+				generateException();
+			}
+			break;
+		}
+		id = OId(mdddioid1, OId::MDDDIMTYPEOID);
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "read " << id << " " << id.getType());
+		TALK( "got object " << id << " " << id.getType() );
+		retval->insert(id);
+	} while (1);
+	
+	TALK( "EXEC SQL CLOSE mdddicursor" );
+	EXEC SQL CLOSE mdddicursor;
+
+	LEAVE( "ObjectBroker::getAllMDDDimensionTypes, retval=" << retval );
+	RMDBGEXIT(11, RMDebug::module_adminif, "ObjectBroker", "getAllMDDDimensionTypes() ");
+	return retval;
+}
+
+OIdSet*
+ObjectBroker::getAllMDDDomainTypes() throw (r_Error)
+{
+	RMDBGENTER(11, RMDebug::module_adminif, "ObjectBroker", "getAllMDDDomainTypes()");
+	ENTER( "ObjectBroker::getAllMDDDomainTypes" );
+
+	OIdSet* retval = new OIdSet();
+	DBObjectPMap& theMap = ObjectBroker::getMap(OId::MDDDOMTYPEOID);
+	for (DBObjectPMap::iterator i = theMap.begin(); i != theMap.end(); i++)
+	{
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "inserted from memory " << (*i).first);
+		retval->insert((*i).first);
+	}
+	OId id;
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	mdddooid1;
+	EXEC SQL END DECLARE SECTION;
+
+	TALK( "EXEC SQL DECLARE mdddocursor CURSOR FOR SELECT MDDDomTypeOId FROM RAS_MDDDOMTYPES ORDER BY MDDDomTypeOId" );
+	EXEC SQL DECLARE mdddocursor CURSOR FOR
+		SELECT MDDDomTypeOId
+		FROM RAS_MDDDOMTYPES
+		ORDER BY MDDDomTypeOId;
+
+	TALK( "EXEC SQL OPEN mdddocursor" );
+	EXEC SQL OPEN mdddocursor;
+	
+	do
+	{
+		TALK( "EXEC SQL FETCH mdddocursor INTO :mdddooid1" ); 
+		EXEC SQL FETCH mdddocursor INTO :mdddooid1; 
+		if (SQLCODE != SQLOK)
+		{
+			if (SQLCODE != SQLNODATAFOUND)
+			{
+				check("ObjectBroker::getAllMDDDomainTypes()\0");
+				EXEC SQL CLOSE mdddocursor;
+				delete retval;
+				retval = 0;
+				LEAVE( "ObjectBroker::getAllMDDDomainTypes(): db access error: " << SQLCODE );
+				generateException();
+			}
+			break;
+		}
+		id = OId(mdddooid1, OId::MDDDOMTYPEOID);
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "read " << id << " " << id.getType());
+		TALK( "got object " << id << " " << id.getType() );
+		retval->insert(id);
+	} while (1);
+	TALK( "EXEC SQL CLOSE mdddocursor" );
+	EXEC SQL CLOSE mdddocursor;
+
+	LEAVE( "ObjectBroker::getAllMDDDomainTypes" );
+	RMDBGEXIT(11, RMDebug::module_adminif, "ObjectBroker", "getAllMDDDomainTypes() ");
+	return retval;
+}
+
+OIdSet*
+ObjectBroker::getAllStructTypes() throw (r_Error)
+{
+	RMDBGENTER(11, RMDebug::module_adminif, "ObjectBroker", "getAllStructTypes()");
+	ENTER( "ObjectBroker::getAllStructTypes" );
+
+	OIdSet* retval = new OIdSet();
+	DBObjectPMap& theMap = ObjectBroker::getMap(OId::STRUCTTYPEOID);
+	for (DBObjectPMap::iterator i = theMap.begin(); i != theMap.end(); i++)
+	{
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "inserted from memory " << (*i).first);
+		retval->insert((*i).first);
+	}
+	OId id;
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	structoid1;
+		short	maxbuiltin;
+	EXEC SQL END DECLARE SECTION;
+
+	maxbuiltin = TypeFactory::MaxBuiltInId;
+
+	TALK( "EXEC SQL DECLARE structcursor CURSOR FOR SELECT BaseTypeId FROM RAS_BASETYPENAMES ORDER BY BaseTypeId" );
+	EXEC SQL DECLARE structcursor CURSOR FOR
+		SELECT BaseTypeId
+		FROM RAS_BASETYPENAMES
+		ORDER BY BaseTypeId;
+
+	TALK( "EXEC SQL OPEN structcursor" );
+	EXEC SQL OPEN structcursor;
+	
+	do
+	{
+		TALK( "EXEC SQL FETCH structcursor INTO :structoid1" ); 
+		EXEC SQL FETCH structcursor INTO :structoid1; 
+		if (SQLCODE != SQLOK)
+		{
+			if (SQLCODE != SQLNODATAFOUND)
+			{
+				check("ObjectBroker::getAllStructTypes()\0");
+				EXEC SQL CLOSE structcursor;
+				delete retval;
+				retval = 0;
+				LEAVE( "ObjectBroker::getAllStructTypes(): db access error: " << SQLCODE );
+				generateException();
+			}
+			break;
+		}
+		id = OId(structoid1, OId::STRUCTTYPEOID);
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "read " << id << " " << id.getType());
+		TALK( "got object " << id << " " << id.getType() );
+		retval->insert(id);
+	} while (1);
+	TALK( "EXEC SQL CLOSE structcursor" );
+	EXEC SQL CLOSE structcursor;
+
+	LEAVE( "ObjectBroker::getAllStructTypes, retval=" << retval );
+	RMDBGEXIT(11, RMDebug::module_adminif, "ObjectBroker", "getAllStructTypes() ");
+	return retval;
+}
+
+OIdSet*
+ObjectBroker::getAllMDDObjects() throw (r_Error)
+{
+	RMDBGENTER(11, RMDebug::module_adminif, "ObjectBroker", "getAllMDDObjects()");
+	ENTER( "ObjectBroker::getAllMDDObjects" );
+
+	OIdSet* retval = new OIdSet();
+	DBObjectPMap& theMap = ObjectBroker::getMap(OId::MDDOID);
+	for (DBObjectPMap::iterator i = theMap.begin(); i != theMap.end(); i++)
+	{
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "inserted from memory " << (*i).first);
+		retval->insert((*i).first);
+	}
+	OId id;
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	mddobjoid1;
+	EXEC SQL END DECLARE SECTION;
+
+	TALK(" EXEC SQL DECLARE mddobjcursor CURSOR FOR SELECT MDDId FROM RAS_MDDOBJECTS ORDER BY MDDId" );
+	EXEC SQL DECLARE mddobjcursor CURSOR FOR
+		SELECT MDDId
+		FROM RAS_MDDOBJECTS
+		ORDER BY MDDId;
+
+	TALK( "EXEC SQL OPEN mddobjcursor" );
+	EXEC SQL OPEN mddobjcursor;
+	
+	do
+	{
+		TALK( "EXEC SQL FETCH mddobjcursor INTO :mddobjoid1" ); 
+		EXEC SQL FETCH mddobjcursor INTO :mddobjoid1; 
+		if (SQLCODE != SQLOK)
+		{
+			if (SQLCODE != SQLNODATAFOUND)
+			{
+				check("ObjectBroker::getAllMDDObjects()\0");
+				EXEC SQL CLOSE mddobjcursor;
+				delete retval;
+				retval = 0;
+				RMDBGEXIT(11, RMDebug::module_adminif, "ObjectBroker", "Database Failed");
+				LEAVE( "ObjectBroker::getAllMDDObjects(): db access error: " << SQLCODE );
+				generateException();
+			}
+			break;
+		}
+		id = OId(mddobjoid1, OId::MDDOID);
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "read " << id << " " << id.getType());
+		TALK( "got object " << id << " " << id.getType() );
+		retval->insert(id);
+	} while (1);
+	TALK( "EXEC SQL CLOSE mddobjcursor" );
+	EXEC SQL CLOSE mddobjcursor;
+
+	LEAVE( "ObjectBroker::getAllMDDObjects, retval=" << retval );
+	RMDBGEXIT(11, RMDebug::module_adminif, "ObjectBroker", "getAllMDDObjects() ");
+	return retval;
+}
+
+OIdSet*
+ObjectBroker::getAllMDDSets() throw (r_Error)
+{
+	RMDBGENTER(11, RMDebug::module_adminif, "ObjectBroker", "getAllMDDSets()");
+	ENTER( "ObjectBroker::getAllMDDSets" );
+
+	OIdSet* retval = new OIdSet();
+	DBObjectPMap& theMap = ObjectBroker::getMap(OId::MDDCOLLOID);
+	for (DBObjectPMap::iterator i = theMap.begin(); i != theMap.end(); i++)
+	{
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "inserted from memory " << (*i).first);
+		retval->insert((*i).first);
+	}
+	OId id;
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	colloid1;
+	EXEC SQL END DECLARE SECTION;
+
+	TALK( "EXEC SQL DECLARE collcursor CURSOR FOR SELECT MDDCollId FROM RAS_MDDCOLLNAMES ORDER BY MDDCollId" );
+	EXEC SQL DECLARE collcursor CURSOR FOR
+		SELECT MDDCollId
+		FROM RAS_MDDCOLLNAMES
+		ORDER BY MDDCollId;
+
+	TALK(" EXEC SQL OPEN collcursor" );
+	EXEC SQL OPEN collcursor;
+	
+	do
+	{
+		TALK( "EXEC SQL FETCH collcursor INTO :colloid1" ); 
+		EXEC SQL FETCH collcursor INTO :colloid1; 
+		if (SQLCODE != SQLOK)
+		{
+			if (SQLCODE != SQLNODATAFOUND)
+			{
+				check("ObjectBroker::getAllMDDSets()\0");
+				EXEC SQL CLOSE collcursor;
+				delete retval;
+				retval = 0;
+				RMDBGEXIT(11, RMDebug::module_adminif, "ObjectBroker", "Database Failed");
+				LEAVE( "ObjectBroker::getAllMDDSets(): db access error: " << SQLCODE );
+				generateException();
+			}
+			break;
+		}
+		id = OId(colloid1, OId::MDDCOLLOID);
+		RMDBGMIDDLE(11, RMDebug::module_adminif, "ObjectBroker", "read " << id << " " << id.getType());
+		TALK( "got object " << id << " " << id.getType() );
+		retval->insert(id);
+	} while (1);
+	TALK( "EXEC SQL CLOSE collcursor" );
+	EXEC SQL CLOSE collcursor;
+
+	LEAVE( "ObjectBroker::getAllMDDSets, retval=" << retval );
+	RMDBGEXIT(11, RMDebug::module_adminif, "ObjectBroker", "getAllMDDSets() ");
+	return retval;
+}
+

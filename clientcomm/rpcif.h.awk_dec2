@@ -1,0 +1,46 @@
+BEGIN			{
+			print "#ifndef _RPCIF_H_RPCGEN";
+			print "#define _RPCIF_H_RPCGEN";
+			print "#include <rpc/rpc.h>";
+			}
+/\*rpc[^(]*/			{
+				if (FILENAME == "rpcif.h.tmp")
+					{
+					headerLine = $0;
+					startMethodName = index(headerLine, "*") + 1;
+					methodNameLength = length(headerLine) - 2 - startMethodName;
+					methodName = substr(headerLine, startMethodName, methodNameLength);
+					#print "method name " methodName;
+					startOfLine = substr(headerLine, 1, startMethodName - 1);
+					#print "start of line " startOfLine;
+					#print "method name to replace " methodNameToReplace;
+					startInMethod = index(theMethods, methodName);
+					methodIsFirst = substr(theMethods, startInMethod);
+					#print "methodIsFirst " methodIsFirst;
+					endInMethod = index(methodIsFirst, ":");
+					endInMethod--;
+					methodIsOnly = substr(methodIsFirst, 1, endInMethod);
+					#print "methodIsOnly " methodIsOnly;
+					correctLine = startOfLine methodIsOnly ";";
+					print correctLine;
+					next;
+					}
+				}
+/^rpc[^(]*/			{
+				if (FILENAME != "rpcif.h.tmp")
+					{
+					theMethods = $0 ":" theMethods;
+					#print "theMethods " theMethods;
+					}
+				next;
+				}
+				{
+				if (FILENAME == "rpcif.h.tmp")
+					{
+					print $0;
+					}
+				}
+
+END				{
+				print "#endif"
+				}

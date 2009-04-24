@@ -1,0 +1,62 @@
+# ----------------------------------------------------------------------------
+#
+# rasmgr.conf.template: rasmgr configuration file sample
+#
+# PURPOSE:
+# define server processes for rasdaman;
+# this configuration file is read by rasmgr upon system start;
+# settings can be changed during runtime via rascontrol.
+# Adapt it and rename it to rasmgr.conf in directory $RMANHOME
+# (which usually will be ~rasdaman).
+#
+# COMMENTS:
+# - this is a sample file and will NOT WORK
+#   in your environment without adaptation!
+# - do not edit while rasmgr is running, may be overwritten!
+# - see Installation Guide for a complete list of options
+#
+# Copyright (c) 2005 rasdaman GmbH
+# ----------------------------------------------------------------------------
+
+# define symbolic name for database host
+# the MYHOST name is just a symbolic one, does not have to correspond with
+# any ame outside rasdaman; however MUST NOT BE EQUAL to any other name used
+# in this file!
+# parameters:
+#	-connect c	server connect information (RDBMS login, database
+#			name, or similar - depends on the base DBMS used;
+#			eg, can be "/" for Oracle, "RASBASE" for PostgreSQL)
+define dbh rasdaman_host -connect RASBASE
+# define database
+# parameters:
+#	-dbh d		this database's server runs on host d
+define db RASBASE -dbh rasdaman_host
+
+# define a rasdaman database server process with name N1
+# parameters:
+#	-host h		name of the host machine the server runs on
+#			(cf: man 1 hostname)
+#	-type t		communication protocol type is t
+#			(one of: 'r' for RPC, 'h' for HTTP, 'n' for RNP);
+#			recommended: use 'n', all others are deprecated
+# 	-port p		port number for contacting this server is p
+#			(rasmgr by default uses 7001, so you may simply count up)
+#	-dbh d		use database host d (see "define dbh" for allowed names)
+define srv N1 -host @hostname@ -type n -port 7002 -dbh rasdaman_host
+# change settings for this server
+# parameters:
+#	-countdown n	server will automatically restart after n requests
+#			(beware of long-running transactions!)
+#	-autorestart r	r is on or off; if on, automatically restart server
+#			upon any termination (recommended: on)
+#	-xp p		"extra parameters" passed to the rasserver binary as is
+#			(see rasserver -h); all up to end of line, including
+#			all whitespace, will be packed into p.
+#			In particular (like in the example here) you can
+#			provide a specific timeout in seconds determining
+#			after how many seconds of inactivity the server will 
+#			detach from the client, aborting any open transaction
+change srv N1 -countdown 1000 -autorestart on -xp --timeout 300
+
+# end of rasmgr.conf.template
+

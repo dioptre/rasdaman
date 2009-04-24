@@ -1,0 +1,1 @@
+select complex(10d, 20d) * complex(3.0d, 4.0d) from ImgCharD	-- complex2(-50, 100)

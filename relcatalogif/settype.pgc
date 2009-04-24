@@ -1,0 +1,140 @@
+// This is -*- C++ -*-
+
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+/*************************************************************
+ *
+ *
+ * PURPOSE:
+ *   Code with embedded SQL for PostgreSQL DBMS
+ *
+ *
+ * COMMENTS:
+ *   uses embedded SQL
+ *
+ ************************************************************/
+
+#include "debug-srv.hh"
+
+// general embedded SQL related definitions
+EXEC SQL include "../reladminif/sqlglobals.h";
+
+#include "settype.hh"
+#include "mddtype.hh"
+#include "reladminif/sqlerror.hh"
+#include "raslib/rmdebug.hh"
+#include "reladminif/objectbroker.hh"
+
+void
+SetType::insertInDb() throw (r_Error)
+{
+	RMDBGENTER(5, RMDebug::module_catalogif, "SetType", "insertInDb() " << myOId << " " << getTypeName());
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		double	mddtypeid;
+		char	settypename[VARCHAR_MAXLEN];
+		long	settypeid;
+	EXEC SQL END DECLARE SECTION;
+	
+	(void) strncpy( settypename, (char*) getTypeName(), (size_t) sizeof(settypename) );
+	settypeid = myOId.getCounter();
+	mddtypeid = getMDDType()->getOId();
+	
+	// TALK( "EXEC SQL INSERT INTO RAS_SETTYPES ( SetTypeId, SetTypeName, MDDTypeOId) VALUES( " << settypeid << ", " << settypename << ", " << mddtypeid << " )" );
+	EXEC SQL INSERT INTO RAS_SETTYPES ( SetTypeId, SetTypeName, MDDTypeOId)
+		VALUES	( :settypeid, :settypename, :mddtypeid);
+	if (SQLCODE != SQLOK)
+	{
+		check("SetType::insertInDb()");
+		LEAVE("SetType::insertInDb() error: " << SQLCODE );
+		generateException();
+	}
+
+	DBObject::insertInDb();
+
+	RMDBGEXIT(5, RMDebug::module_catalogif, "SetType", "insertInDb() " << myOId);
+}
+
+void
+SetType::deleteFromDb() throw (r_Error)
+{
+	RMDBGENTER(5, RMDebug::module_catalogif, "SetType", "deleteFromDb() " << myOId << " " << getTypeName());
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	settypeid3;
+	EXEC SQL END DECLARE SECTION;
+
+	settypeid3 = myOId.getCounter();
+
+	TALK( "EXEC SQL DELETE FROM RAS_SETTYPES WHERE RAS_SETTYPES.SetTypeId = " << settypeid3 );
+	EXEC SQL DELETE FROM RAS_SETTYPES WHERE RAS_SETTYPES.SetTypeId = :settypeid3;
+	if (SQLCODE != SQLOK)
+	{
+		check("SetType::deleteFromDb()");
+		LEAVE("SetType::deleteFromDb() error: " << SQLCODE );
+		generateException();
+	}
+	DBObject::deleteFromDb();
+	RMDBGEXIT(5, RMDebug::module_catalogif, "SetType", "deleteFromDb() " << myOId);
+}
+
+void
+SetType::readFromDb() throw (r_Error)
+{
+	RMDBGENTER(5, RMDebug::module_catalogif, "SetType", "readFromDb() " << myOId);
+#ifdef RMANBENCHMARK
+	DBObject::readTimer.resume();
+#endif
+	EXEC SQL BEGIN DECLARE SECTION;
+		double	mddtypeid1;
+		char	settypename1[VARCHAR_MAXLEN];
+		long	settypeid1;
+	EXEC SQL END DECLARE SECTION;
+
+	settypeid1 = myOId.getCounter();
+	mddtypeid1 = 0;
+	
+	TALK( "EXEC SQL SELECT SetTypeName, MDDTypeOId INTO :settypename1, :mddtypeid1 FROM RAS_SETTYPES WHERE SetTypeId = " << settypeid1 );
+	EXEC SQL SELECT SetTypeName, MDDTypeOId
+		INTO :settypename1, :mddtypeid1
+		FROM RAS_SETTYPES
+		WHERE SetTypeId = :settypeid1;
+	if (check("SetType::readFromDb()") != 0)
+	{
+		if (SQLCODE == SQLNODATAFOUND)	// was: 100 -- PB 2005-feb-13
+			throw r_Error(r_Error::r_Error_ObjectUnknown); 
+		else
+			generateException();
+	}
+
+	setName(settypename1);
+	myType = SETTYPE;
+	myMDDType = (MDDType*)ObjectBroker::getObjectByOId(OId(mddtypeid1));
+	DBObject::readFromDb();
+
+#ifdef RMANBENCHMARK
+	DBObject::readTimer.pause();
+#endif
+
+	RMDBGEXIT(5, RMDebug::module_catalogif, "SetType", "readFromDb() " << myOId);
+}
+

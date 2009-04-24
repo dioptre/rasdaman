@@ -1,0 +1,262 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+#include "mymalloc/mymalloc.h"
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "adminif.hh"
+#include "transactionif.hh"
+#include "databaseif.hh"
+#include "raslib/rmdebug.hh"
+#include "indexmgr/mddstorage.hh"
+#include "raslib/mddtypes.hh"
+#include "oidif.hh"
+#include "inlineminterval.hh"
+#include "externs.h"
+
+
+
+RMINITGLOBALS('C')
+
+unsigned int size = 0;
+r_Dimension dimension = 0;
+MDDStorage::IndexType myType = 0;
+int _isNode = 0;
+OId myOId = (double)0;
+OId parent = (double)0;
+
+void
+readFromDb()
+	{
+	RMDBGOUT(8, "(relindexif)" << "\tDBHierIndex::readFromDb() " << myOId);
+	EXEC SQL BEGIN DECLARE SECTION;
+		double	id1;
+		double	parentid1;
+		short	indextype1;
+		long	dimension1;
+		long	size1;
+		short	indexsubtype1;
+		short	lowerfind;
+		struct	{
+			short	length;
+			char	data[3990];
+			}	dyndata1;
+		short	dyndataind1;
+	EXEC SQL END DECLARE SECTION;
+
+	id1 = myOId;
+
+	EXEC SQL SELECT
+			IndexType,
+			NumEntries,
+			Dimension,
+			ParentOId,
+			IndexSubType
+		INTO
+			:indextype1,
+			:size1,
+			:dimension1,
+			:parentid1,
+			:indexsubtype1
+		FROM
+			RAS_HIERIX
+		WHERE
+			MDDObjIxOId = :id1;
+	if (SQLCODE != 0)
+		{
+		check("DBHierIndex::readFromDb() RAS_HIERIX\0");
+		if (SQLCODE == 100)
+			throw r_Error(r_Error::r_Error_ObjectUnknown);
+		else
+			throw r_Error(r_Error::r_Error_BaseDBMSFailed);
+		}
+
+	switch (indextype1)
+		{
+		case 0:
+			myType = MDDStorage::AutoIx;
+			break;
+		case 1:
+			myType = MDDStorage::DirTilesIx;
+			break;
+		case 2:
+			myType = MDDStorage::RegDirIx;
+			break;
+		case 3:
+			myType = MDDStorage::RPlusTreeNode;
+			break;
+		case 4:
+			myType = MDDStorage::RegRPlusTreeNode;
+			break;
+		default:
+			RMDBGOUT(0, "DBHierIndex::readFromDb() UNKNOWN INDEXTYPE " << indextype1 << "\t " << myOId << " " << myOId.getType());
+			break;
+		}
+	cout << "myType\t\t" << myType << endl;
+
+	size = size1;
+
+	cout << "size\t\t" << size << endl;
+
+	_isNode = indexsubtype1;
+
+	cout << "node\t\t" << _isNode << endl;
+
+	dimension = dimension1;
+
+	cout << "dimension\t\t" << dimension << endl;
+
+	if (parentid1)
+		parent = OId(parentid1);
+	else
+		parent = OId(0, OId::INVALID);
+
+	cout << "parent\t\t" << parent << " " << parent.getIdAsLong() << " " << parent.getType() << endl;
+
+	//number of bytes for bounds for "size" entries and mydomain
+	unsigned long boundssize = sizeof(r_Range) * (size + 1) * dimension;
+	//number of bytes for fixes for "size" entries and mydomain
+	unsigned long fixessize = sizeof(char) * (size + 1) * dimension;
+	//number of bytes for ids of entries
+	unsigned long idssize = sizeof(OId::Id) * size;
+	//number of bytes for types of entries
+	unsigned long typessize = sizeof(char) * size;
+	//number of bytes for the dynamic data
+	unsigned long completesize = boundssize * 2 + fixessize * 2 + idssize + typessize;
+
+	char* completebuffer = (char*)mymalloc(completesize);
+	r_Range* upperboundsbuf = (r_Range*)mymalloc(boundssize);
+	r_Range* lowerboundsbuf = (r_Range*)mymalloc(boundssize);
+	char* upperfixedbuf = (char*)mymalloc(fixessize);
+	char* lowerfixedbuf = (char*)mymalloc(fixessize);
+	OId::Id* entryidsbuf = (OId::Id*)mymalloc(idssize);
+	char* entrytypesbuf = (char*)mymalloc(typessize);
+
+	RMDBGOUT(8, "(relindexif)" << "\t\tcomplete " << completesize << " bounds " << boundssize << " fixes " << fixessize << " ids " << idssize << " types " << typessize);
+	//counter which keeps track of the bytes that have been read from the db
+	unsigned long bytesdone = 0;
+	//counter which keeps track of the bytes that have to be read from the db
+	unsigned long bytestogo = 0;
+
+	int i = 0;
+	currentDbRows = 0;
+
+	EXEC SQL DECLARE C CURSOR FOR
+		SELECT
+			DynData
+		FROM
+			RAS_HIERIXDYN
+		WHERE
+			MDDObjIxOId = :id1
+		ORDER BY
+			Count;
+	
+	EXEC SQL OPEN C;
+	
+	do	{
+		EXEC SQL FETCH C INTO :dyndata1 :dyndataind1;
+		if (SQLCODE != 0)
+			{
+			if (SQLCODE != 100)
+				{
+				check("DBHierIndex::readFromDb() FETCH\0");
+				RMDBGOUT(7, "(relindexif)" << "\t\tSQLCODE " << SQLCODE);
+				free(upperboundsbuf);
+				free(lowerboundsbuf);
+				free(upperfixedbuf);
+				free(lowerfixedbuf);
+				free(entryidsbuf);
+				free(entrytypesbuf);
+				free(completebuffer);
+
+				throw r_Error(r_Error::r_Error_BaseDBMSFailed);
+				}
+			break;
+			}
+		RMDBGOUT(7, "(relindexif)" << "\t\tbytes allready read " << bytesdone << " bytes read now " << dyndata1.length);
+		memcpy(&completebuffer[bytesdone], dyndata1.data, dyndata1.length);
+		bytesdone = dyndata1.length + bytesdone;
+		currentDbRows = currentDbRows + 1;
+		}
+	while (1);
+
+	//all dynamic data is in completebuffer
+	//put that stuff in the correct buffers
+	memcpy(lowerboundsbuf, completebuffer, boundssize);
+	memcpy(upperboundsbuf, &completebuffer[boundssize], boundssize);
+	memcpy(lowerfixedbuf, &completebuffer[boundssize * 2], fixessize);
+	memcpy(upperfixedbuf, &completebuffer[boundssize * 2 + fixessize], fixessize);
+	memcpy(entryidsbuf, &completebuffer[boundssize * 2 + fixessize * 2], idssize);
+	memcpy(entrytypesbuf, &completebuffer[boundssize * 2 + fixessize * 2 + idssize], typessize);
+	//all dynamic data is in its buffer
+	free (completebuffer);
+
+	//rebuild the attributes from the buffers
+	myDomain = InlineMinterval(dimension, &(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[i*dimension]));
+	cout << "myDomain\t\t" << myDomain << endl;
+	
+	for (i = 0; i < size; i++)
+		{
+		domainList.push_back(InlineMinterval(dimension, &(lowerboundsbuf[(i+1)*dimension]), &(upperboundsbuf[(i+1)*dimension]), &(lowerfixedbuf[(i+1)*dimension]), &(upperfixedbuf[(i+1)*dimension])));
+		entryOIdList.push_back(OId(entryidsbuf[i], (OId::OIdType)entrytypesbuf[i]));
+		RMDBGOUT(8, "(relindexif)" << "\t\tentry " << entryidsbuf[i] << " " << (OId::OIdType)entrytypesbuf[i] << " at " << InlineMinterval(dimension, &(lowerboundsbuf[(i+1)*dimension]), &(upperboundsbuf[(i+1)*dimension]), &(lowerfixedbuf[(i+1)*dimension]), &(upperfixedbuf[(i+1)*dimension])));
+		}
+
+	free(upperboundsbuf);
+	free(lowerboundsbuf);
+	free(upperfixedbuf);
+	free(lowerfixedbuf);
+	free(entryidsbuf);
+	free(entrytypesbuf);
+	EXEC SQL CLOSE C;
+	RMDBGOUT(8, "(relindexif)" << "\t\tDBHierIndex::readFromDb() END " << myOId);
+	}
+
+int
+main(int argc, char** argv)
+	{	
+	AdminIf* myAdmin = AdminIf::instance();
+	DatabaseIf database;
+	TransactionIf ta;
+	
+	if (!myAdmin)
+		{
+		cout << "Error at connecting " << endl;
+		cout << "Goodbye "<< endl;
+		exit (-1);
+		}
+ 
+	if (!database.open("RASBASE"))
+		{
+		cout << "could not open database" << endl;
+		}
+	if (argc == 2)
+		{
+		myOId = (double)a2l(argv[1]);
+		cout << "myOId " << myOId << endl;
+		readFromDb();
+		}
+	}
+
+

@@ -1,0 +1,336 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.61)
+AC_INIT(Rasdaman, 8.0.0, p.baumann@jacobs-university.de)
+RMANVERSION=8000
+AM_INIT_AUTOMAKE()
+# Define CXXFLAGS before AC_PROG_CXX or it will automatically add -g -O2 on some systems
+CXXFLAGS=
+GCJFLAGS=
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_AWK
+#AC_PROG_YACC
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_LEX
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
+AC_PROG_RANLIB
+AC_PROG_RPCGEN
+AC_PROG_SED
+dnl we preffer java
+AC_PROG_JAVA_CC
+dnl we need bison not yacc
+AC_CHECK_PROGS(YACC, bison, [${am_missing_run} bison])
+
+# Checks for libraries.
+# FIXME: Replace `main' with a function in `-lcrypt':
+AC_CHECK_LIB([crypt], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([crypto], [EVP_DigestFinal], , [AC_MSG_FAILURE([Library not found! Please install...])])
+# FIXME: Replace `main' with a function in `-lcurses':
+AC_CHECK_LIB([curses], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+# FIXME: Replace `main' with a function in `-ldf':
+AC_CHECK_LIB([df], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+# FIXME: Replace `main' with a function in `-ldl':
+AC_CHECK_LIB([dl], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+# FIXME: Replace `main' with a function in `-lfl':
+AC_CHECK_LIB([fl], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+# FIXME: Replace `main' with a function in `-ljpeg':
+AC_CHECK_LIB([jpeg], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+# FIXME: Replace `main' with a function in `-lm':
+AC_CHECK_LIB([m], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+# FIXME: Replace `main' with a function in `-lmfhdf':
+AC_CHECK_LIB([mfhdf], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+# FIXME: Replace `main' with a function in `-lncurses':
+AC_CHECK_LIB([ncurses], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([png], [png_write_row], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([netpbm], [ppm_readppm], , [AC_MSG_FAILURE([Library not found! Please install...])])
+# FIXME: Replace `main' with a function in `-lreadline':
+AC_CHECK_LIB([readline], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+# FIXME: Replace `main' with a function in `-lsocket':
+AC_CHECK_LIB([socket], [main])
+# FIXME: Replace `main' with a function in `-lssl':
+AC_CHECK_LIB([storagemgr], [main])
+AC_CHECK_LIB([tiff], [TIFFGetField], , [AC_MSG_FAILURE([Library not found! Please install...])])
+# FIXME: Replace `main' with a function in `-lz':
+AC_CHECK_LIB([z], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+
+
+# Checks for header files.
+AC_PATH_X
+AC_HEADER_DIRENT
+AC_HEADER_STDC
+AC_HEADER_SYS_WAIT
+AC_CHECK_HEADERS([arpa/inet.h fcntl.h float.h limits.h malloc.h memory.h netdb.h netinet/in.h stdlib.h string.h strings.h sys/socket.h sys/time.h unistd.h values.h hdf.h mfhdf hdf/hdf.h hdf/mfhdf.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_C_CONST
+AC_C_INLINE
+AC_TYPE_INT32_T
+AC_TYPE_PID_T
+AC_C_RESTRICT
+AC_TYPE_SIZE_T
+AC_HEADER_TIME
+AC_STRUCT_TM
+AC_TYPE_UINT32_T
+AC_C_VOLATILE
+
+# Checks for library functions.
+AC_FUNC_ALLOCA
+AC_FUNC_CLOSEDIR_VOID
+AC_FUNC_ERROR_AT_LINE
+AC_REPLACE_FNMATCH
+AC_FUNC_FORK
+AC_FUNC_MALLOC
+AC_FUNC_MEMCMP
+AC_FUNC_MKTIME
+AC_FUNC_REALLOC
+AC_FUNC_SELECT_ARGTYPES
+AC_TYPE_SIGNAL
+AC_FUNC_STAT
+AC_FUNC_STRFTIME
+AC_FUNC_STRTOD
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS([alarm bzero clock_gettime dup2 floor getcwd gethostbyaddr gethostbyname gethostname getpass gettimeofday inet_ntoa localtime_r memmove memset mkdir pathconf pow rint select socket sqrt strcasecmp strchr strdup strerror strncasecmp strrchr strstr strtol strtoul])
+
+AC_CONFIG_FILES([Makefile
+                 catalogmgr/Makefile         
+                 relblobif/Makefile
+                 relindexif/Makefile
+                 relmddif/Makefile
+                 relcatalogif/Makefile
+                 reladminif/Makefile
+                 relstorageif/Makefile
+                 indexmgr/Makefile
+                 tilemgr/Makefile
+                 storagemgr/Makefile
+                 compression/Makefile
+                 commline/Makefile
+                 network/Makefile
+                 raslib/Makefile
+                 clientcomm/Makefile
+                 servercomm/Makefile
+                 rnprotocol/Makefile
+                 rasodmg/Makefile
+                 qlparser/Makefile
+                 conversion/Makefile
+                 mddmgr/Makefile
+                 httpserver/Makefile
+                 mymalloc/Makefile
+                 time/Makefile
+                 server/Makefile
+                 rasmgr/Makefile
+                 rascontrol/Makefile
+                 rasdl/Makefile
+                 applications/Makefile
+                 applications/rasql/Makefile
+                 bin/Makefile
+                 manuals_and_examples/Makefile
+                 insertutils/Makefile
+          ])
+
+# --------------- Header Template Definitions ----------------------
+####################################################################
+AH_TEMPLATE([DEBUG], [Enables debug functionality])
+AH_TEMPLATE([RMANDEBUG], [Enables debug functionality])
+AH_TEMPLATE([RMANVERSION], [The version of Rasdaman currently compiled])
+AH_TEMPLATE([BASEDB_PGSQL], [If defined we are compiling over PostgreSQL])
+AH_TEMPLATE([__NO_MATH_INLINES], [Used by some performance implementaion of math libraries.])   
+AH_TEMPLATE([EARLY_TEMPLATE], [When set allows templates to be instantiated earlier.])    
+AH_TEMPLATE([BIG_ENDIAN], [The host system uses big endian encoding.])    
+AH_TEMPLATE([LITTLE_ENDIAN], [The host system uses little endian encoding.])    
+AH_TEMPLATE([CPPSTDLIB], [Use the std.])    
+AH_TEMPLATE([RASARCHITECTURE], [The name of the architecture for which the system is compiling.])    
+AH_TEMPLATE([X86], [Compile for a X86 based system.])
+AH_TEMPLATE([NO_in_addr_t], [Don't use addr_t.])
+AH_TEMPLATE([COMPDATE], [Date of the build (of the configure not the actual build)])
+AH_TEMPLATE([BASEDBSTRING], [Name of the database that supports the compiled version of rasdaman.])    
+AH_TEMPLATE([RASSCHEMAVERSION], [The version of the schema the database uses.])
+AH_TEMPLATE([NO_OFFICIAL_RELEASE], [activate this if you generate a "non-official" release, i.e.: without license check])
+AH_TEMPLATE([CONFDIR], [The directory where the installed programs will find their configuration])
+# --------------- Parameter Definition -----------------------------
+####################################################################
+AC_PRESERVE_HELP_ORDER
+AC_ARG_WITH([default-rasmgr-port],
+            [AS_HELP_STRING([--with-default-rasmgr-port], 
+                            [change the default RasMgr port (7001)])],
+            [RASMGR_PORT=$withval],
+            [RASMGR_PORT=7001])
+
+AC_ARG_WITH([static-libs],
+            [AS_HELP_STRING([--with-static-libs],
+                            [try to compile using statically linked DBMS libraries])],
+            [],
+            [with_static_libs=no])
+# postgres is automatically defined in m4/ct_check_postgres_db.m4
+AC_ARG_WITH([default-basedb],
+            [AS_HELP_STRING([--with-basedb],
+                            [change the default Base DBMS])],
+            [], 
+            [with_default_basedb=check])
+AC_ARG_ENABLE([debug],
+              [AS_HELP_STRING([--enable-debug],
+                              [this feature enables generation of binaries that contain extra code for debug output. The output is usually very verbose. It's not recommended for production use.])],
+              [RMANDEBUG=on],
+              [RMANDEBUG=])
+
+AC_ARG_WITH([test-server],
+            [AS_HELP_STRING([--with-test-server=ADDRESS],
+                            [server used for testing])],
+            [SERVER="$withval"],
+            [SERVER=localhost])
+AC_ARG_WITH([test-database],
+            [AS_HELP_STRING([--with-test-database=NAME],
+                            [database name used for testing])],
+            [DATABASE="$withval"],
+            [DATABASE=PEBAU])
+AC_ARG_WITH([test-port],
+            [AS_HELP_STRING([--with-test-port=PORT],
+                            [port on which the test server is listening])],
+            [PORT="$withval"],
+            [PORT="$RASMGRPORT"])
+AC_ARG_WITH([test-user],
+            [AS_HELP_STRING([--with-test-user=USERNAME],
+                            [username used for connecting to the test server])],
+            [USER="$withval"],
+            [USER=rasadmin])
+AC_ARG_WITH([test-passwd],
+            [AS_HELP_STRING([--with-test-passwd=PASSWORD],
+                            [password used for connecting to the test server])],
+            [USER="$withval"],
+            [USER=rasadmin])
+AC_ARG_WITH([logdir],
+            [AS_HELP_STRING([--with-logdir=PATH],
+                            [the path where the servers will store their logs])],
+            [logdir="$withval"],
+            [AS_IF([test "x$prefix" = "x/usr/local"],
+                   [logdir="/var/log/rasdaman"],
+                   [logdir="${prefix}/log"])])
+
+# --------------- Database Specific Configuration ------------------
+####################################################################
+
+AS_IF([test "x$with_default_basedb" == xcheck],
+      [with_default_basedb=postgresql])
+
+AC_MSG_NOTICE([Using database $with_default_basedb.])
+
+AS_IF([test "$with_default_basedb" == postgresql],
+      # PostgreSQL definitions
+      [VERSIONDB=7.4.6
+       AX_LIB_POSTGRESQL([7.4.6])
+       AC_MSG_NOTICE([using PotgreSQL version $POSTGRESQL_VERSION])
+       AC_DEFINE([BASEDB_PGSQL])    
+
+       EMBEDDEDSQLEXT="pgc"
+       EMBEDDEDSQLOUT="cc"
+
+       BASEDBCXXFLAGS=" $POSTGRESQL_CFLAGS"
+       BASEDBLDFLAGS="$POSTGRESQL_LDFLAGS -lz -lecpg"
+       STATICBASEDBFLAGS="$BASEDBLDFLAGS"
+       LDFLAGS="$LDFLAGS $POSTGRESQL_LDFLAGS"
+       
+       AC_PROG_ECPG       
+       #AC_CHECK_LIB([ecpg], [main])
+       #AC_CHECK_HEADERS([ecpgerrno.h])
+       # TODO: change main to something sensible
+       AC_CHECK_LIB([pq], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+       AC_CHECK_LIB([pgtypes], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+       EMBEDDEDSQLPRECOMPILER="$ECPG -o"
+       BASEDBSTRING=pgsql
+      ],
+      [AC_MSG_ERROR([unsupported base DBMS: $with_default_basedb])])
+
+# --------------- General Configuration ----------------------------
+####################################################################
+
+abs_top_srcdir=`pwd`
+RMANBASE=$abs_top_srcdir
+
+# Optional packages
+
+# If rasgeo is present then delegate configure to it.    
+if test -d "$srcdir/rasgeo"; then
+    echo rasgeo
+#    AC_CONFIGURE_SUBDIRS([rasgeo])
+fi    
+
+# General definitions.
+AS_IF([test "x$RMANDEBUG" != x],
+      [AC_DEFINE([RMANDEBUG])
+       AC_DEFINE([DEBUG])
+       CXXFLAGS+=" -g"
+      ], 
+      [
+       AC_DEFINE([__NO_MATH_INLINES])
+       CXXFLAGS+=" -O2"
+      ])
+# CXXFLAGS+= -fPIC  ???NEEDED???
+AC_DEFINE_UNQUOTED([RMANVERSION], [$RMANVERSION])
+AC_DEFINE_UNQUOTED([BASEDBSTRING], ["$BASEDBSTRING"])
+AC_DEFINE([EARLY_TEMPLATE])    
+AC_C_BIGENDIAN([AC_DEFINE([BIG_ENDIAN])], [AC_DEFINE([LITTLE_ENDIAN])])
+AC_DEFINE([CPPSTDLIB])
+AC_DEFINE([X86]) # Currently, but the code supports multiple platforms
+AC_DEFINE([RASARCHITECTURE], ["X86"])
+AC_DEFINE([RASSCHEMAVERSION], [5])
+AC_DEFINE([NO_OFFICIAL_RELEASE])
+AC_DEFINE([NOPRE])
+# if not on DEC Alpha
+BASEDBLDFLAGS+=" -lnsl"
+STATICBASEDBLDFLAGS+=" -lnsl"
+# endif
+AC_DEFINE([NO_in_addr_t])
+BASEDBCXXFLAGS+=" $DBIF_INC"
+
+CLIENTCXXFLAGS=$CXXFLAGS
+CLIENTLDFLAGS=$CXXLDFLAGS
+
+COMPDATE=`date +"%d.%m.%Y %H:%M:%S"`
+AC_DEFINE_UNQUOTED([COMPDATE], ["$COMPDATE"])
+
+CXXFLAGS+=" -I$abs_top_srcdir -I$abs_top_srcdir/debug -I$abs_top_srcdir/include"
+
+# --------------- System Test Settings -----------------------------
+####################################################################
+
+
+
+# --------------- Makefile Substitutions --------------------------
+####################################################################
+
+AC_SUBST(EMBEDDEDSQLPRECOMPILER)
+AC_SUBST(EMBEDDEDSQLEXT)
+AC_SUBST(EMBEDDEDSQLOUT)
+AC_SUBST(BASEDBCXXFLAGS)
+AC_SUBST(BASEDBLDFLAGS)
+AC_SUBST(CLIENTCXXFLAGS)
+AC_SUBST(CLIENTLDFLAGS)
+AC_SUBST(DB2_INC)
+AC_SUBST(DB2_INSTANCEPATH)
+AC_SUBST(DB2_CPPLIBS)
+AC_SUBST(DBIF_INC) 
+AC_SUBST(INFORMIX_INC)       
+AC_SUBST(ORA_INC)
+AC_SUBST(ORA_PROC)
+AC_SUBST(ORA_PROCPPFLAGS)
+AC_SUBST(ORALDFLAGS)
+AC_SUBST(RASMGR_PORT)
+AC_SUBST(REL_STATIC_LIBS)   
+AC_SUBST(RMANBASE)
+AC_SUBST(STATICBASEDBFLAGS)
+AC_SUBST(logdir)    
+
+#Directories used in the source-code
+CXXFLAGS="$CXXFLAGS -DSHARE_DATA_DIR=\\\"\$(pkgdatadir)/\\\""
+CXXFLAGS="$CXXFLAGS -DCONFDIR=\\\"\$(sysconfdir)/\\\""
+CXXFLAGS="$CXXFLAGS -DBINDIR=\\\"\$(bindir)/\\\""
+CXXFLAGS="$CXXFLAGS -DABSOLUTE_LOG_DIR=\\\"\$(logdir)/\\\""
+
+AC_OUTPUT
+
+AC_MSG_NOTICE([Rasdaman succesfully configured.])

@@ -1,0 +1,29 @@
+
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:10]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 11
+ 0 0 0 0 0 0 0 0 0 0 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:10]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 11
+ 1 1 1 1 1 1 1 1 1 1 1

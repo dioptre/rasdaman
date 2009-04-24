@@ -1,0 +1,18 @@
+test server memleaks by invoking a large number of operations using rasql.
+
+RASQL=rasql
+
+REPETITIONS=100
+
+- subsetting
+
+QUERY_TRIM="select a[sdom(a)[0].lo+1:sdom(a)[0].hi-1,sdom(a)[1].lo+1:sdom(a)[1].hi-1] from $TESTCOLL_2D as a"
+
+
+
+for n in ($REPETITIONS)
+do
+	echo performing run $n...
+	$RASQL -q $UERY_TRIM	# ignore result
+done
+

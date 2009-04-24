@@ -1,0 +1,69 @@
+./test_insertppm.sh: testing insertppm start
+Usage: ../insertppm [-h|--help|-c <name>|--collection <name>] [options] files...
+Options:
+ -h, --help                      this help
+ -c, --collection <name>         collection to store image; will be created if nonexistent (required)
+ -t, --type <t>                  store as pixel type t where t is one of: bin, grey, color (default: color)
+ -r, --rescale                   rescale pixel values to 8 bit = 0:255 (default: no rescale)
+ --tiled <t>                     store object in tiles of size t where t = [min0:max0,min1:max1,...,minn:maxn] (default: 1 tile)
+ -s, --server <name>             server host (default: localhost)
+ --port <p>                      server port (default: 7001)
+ -d, --database <name>           database name (default: RASBASE)
+ -u, --user <name>               user name (default: rasguest)
+ -p, --passwd <passwd>           password (default: rasguest)
+
+ --transferformat <fmt>          transfer format. default: Array)
+ --transferformatparams <params> transfer format parameters.(default: '')
+ --storageformat <fmt>           storage format (default: Array)
+ --storageformatparams <params>  storage format parameters.(default: '')
+ -v, --verbose                   be verbose (default: be brief)
+Note: If one file is passed, then a 2D object will be generated. 
+      If several files are passed, then a 3D object will be generated (in the sequence passed),
+      In this case all files must have same pixel type and x/y extent.
+exit code 254
+Usage: ../insertppm [-h|--help|-c <name>|--collection <name>] [options] files...
+Options:
+ -h, --help                      this help
+ -c, --collection <name>         collection to store image; will be created if nonexistent (required)
+ -t, --type <t>                  store as pixel type t where t is one of: bin, grey, color (default: color)
+ -r, --rescale                   rescale pixel values to 8 bit = 0:255 (default: no rescale)
+ --tiled <t>                     store object in tiles of size t where t = [min0:max0,min1:max1,...,minn:maxn] (default: 1 tile)
+ -s, --server <name>             server host (default: localhost)
+ --port <p>                      server port (default: 7001)
+ -d, --database <name>           database name (default: RASBASE)
+ -u, --user <name>               user name (default: rasguest)
+ -p, --passwd <passwd>           password (default: rasguest)
+
+ --transferformat <fmt>          transfer format. default: Array)
+ --transferformatparams <params> transfer format parameters.(default: '')
+ --storageformat <fmt>           storage format (default: Array)
+ --storageformatparams <params>  storage format parameters.(default: '')
+ -v, --verbose                   be verbose (default: be brief)
+Note: If one file is passed, then a 2D object will be generated. 
+      If several files are passed, then a 3D object will be generated (in the sequence passed),
+      In this case all files must have same pixel type and x/y extent.
+exit code 254
+Usage: ../insertppm [-h|--help|-c <name>|--collection <name>] [options] files...
+Options:
+ -h, --help                      this help
+ -c, --collection <name>         collection to store image; will be created if nonexistent (required)
+ -t, --type <t>                  store as pixel type t where t is one of: bin, grey, color (default: color)
+ -r, --rescale                   rescale pixel values to 8 bit = 0:255 (default: no rescale)
+ --tiled <t>                     store object in tiles of size t where t = [min0:max0,min1:max1,...,minn:maxn] (default: 1 tile)
+ -s, --server <name>             server host (default: localhost)
+ --port <p>                      server port (default: 7001)
+ -d, --database <name>           database name (default: RASBASE)
+ -u, --user <name>               user name (default: rasguest)
+ -p, --passwd <passwd>           password (default: rasguest)
+
+ --transferformat <fmt>          transfer format. default: Array)
+ --transferformatparams <params> transfer format parameters.(default: '')
+ --storageformat <fmt>           storage format (default: Array)
+ --storageformatparams <params>  storage format parameters.(default: '')
+ -v, --verbose                   be verbose (default: be brief)
+Note: If one file is passed, then a 2D object will be generated. 
+      If several files are passed, then a 3D object will be generated (in the sequence passed),
+      In this case all files must have same pixel type and x/y extent.
+exit code 254
+exit code 255
+exit code 255

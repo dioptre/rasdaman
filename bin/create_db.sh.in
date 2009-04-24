@@ -1,0 +1,116 @@
+#!/bin/bash
+#
+# This file is part of rasdaman community.
+#
+# Rasdaman community is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Rasdaman community is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+# rasdaman GmbH.
+#
+# For more information please see <http://www.rasdaman.org>
+# or contact Peter Baumann via <baumann@rasdaman.com>.      
+#
+#
+# PURPOSE:
+#   This script creates a CREATE_DB.sql script for
+#   generating a rasdaman database with PostgreSQL.
+#   This script must be executed by the user which
+#   runs the PostgreSQL server.
+#
+#
+# COMMENTS:
+#   List environment dependencies, known bugs, specialities etc.
+#   -------------------------------------------------------------------
+#
+########################################################################
+
+# --- constants & routines
+
+# script name
+PROG=`basename $0`
+VERSION=5.2
+
+# script return codes
+RC_OK=0
+RC_ERROR=1
+
+# Unix user name under which rasdaman server is expected to run
+RASDAMAN_USER=rasdaman
+
+# default database name
+# (if you change this, then a _lot_ of tools and configs
+# have to get the new database name explicitly, so you may
+# want to seriously consider whether you really want this)
+DATABASE_NAME=RASBASE
+
+# rasdaman base type definition file
+DEFINITION_FILE=@pkgdatadir@examples/rasdl/basictypes.dl
+
+# error termination routine
+error() {
+	echo "$PROG: $1"
+	exit $RC_ERROR
+}
+
+# --- checking preconditions
+echo "$PROG: Creating database, rasdaman v$VERSION on base DBMS PostgreSQL"
+
+# - are we user 'rasdaman'?
+if [ $USER != $RASDAMAN_USER ]
+then
+        echo "Warning: script should be run as user '$RASDAMAN_USER', not '$USER'; will try nevertheless."
+fi
+
+# - Can I find utilities?
+psql --help 2>&1 1>/dev/null || \
+	error "Error: cannot find psql - PostgreSQL not installed or PATH variable does not contain PostgreSQL path?"
+
+@bindir@rasdl --help 2>&1 1>/dev/null
+if [[ $? != 2 ]]
+then
+	error "Error: cannot find rasdl - PATH variable does not contain rasdaman path?"
+fi
+
+if [[ ! -f $DEFINITION_FILE ]]
+then
+	error "Error: cannot find rasdaman basic type definition file '$DEFINITION_FILE'"
+fi
+
+# --- action: create database directory & cluster if needed
+
+echo -n "$PROG: PostgreSQL database generation...\c"
+
+# - PostgreSQL part
+createdb $DATABASE_NAME
+if [[ $? != 0 ]]
+then
+	error "createdb failed."
+fi
+
+# - rasdaman part
+
+echo -n "$PROG: rasdaman dictionnary initialization...\c"
+@bindir@rasdl -c --connect $DATABASE_NAME && @bindir@rasdl -r $DEFINITION_FILE -i --connect $DATABASE_NAME
+if [[ $? != 0 ]]
+then
+	error "rasdl failed."
+fi
+
+# --- action end 
+
+echo "$PROG: done."
+exit $RC_OK
+
+# --- end of script
+

@@ -1,0 +1,166 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+/* ------------------------------------------------------------------------ */
+// r_MiterDirect inline functions
+
+inline bool r_MiterDirect::isDone( void ) const
+{
+  return done;
+}
+
+inline void *r_MiterDirect::getData( void )
+{
+  return id[dim-1].data;
+}
+
+inline void *r_MiterDirect::getData( unsigned int *order )
+{
+  return id[order[0]].data;
+}
+
+inline r_Range r_MiterDirect::getDimStep( r_Dimension d ) const
+{
+  return id[d].step;
+}
+
+inline r_Bytes r_MiterDirect::getDimBaseStep( r_Dimension d ) const
+{
+  return id[d].baseStep;
+}
+
+inline r_Range r_MiterDirect::getExtent( r_Dimension d ) const
+{
+  return id[d].extent;
+}
+
+inline r_MiterDirect&
+r_MiterDirect::operator++(void)
+{
+  int d = (int)dim-1;
+
+  while (d >= 0)
+  {
+    id[d].pos += length;
+    id[d].data = (void*)(((char*)(id[d].data)) + id[d].step);
+    if (id[d].pos <= id[d].high) break;
+    id[d].pos = id[d].low;
+    d--;
+  }
+  if (d >= 0)
+  {
+    int i;
+
+    for (i=d+1; i < (int)dim; i++)
+    {
+      id[i].data = id[d].data;
+    }
+  }
+  else
+    done = true;
+
+  return *this;
+}
+
+inline r_MiterDirect&
+r_MiterDirect::iterateUserOrder(const unsigned int *order, const int *step)
+{
+  r_Dimension d = 0;
+
+  while (d < dim)
+  {
+    r_miter_direct_data *idp = id + order[d];
+
+    idp->pos += step[d];
+    idp->data = (void*)(((char*)(idp->data)) + step[d] * idp->baseStep);
+    if (idp->pos <= idp->high) break;
+    idp->pos = idp->low;
+    d++;
+  }
+  if (d < dim)
+  {
+    r_Dimension i;
+    void *newData = id[order[d]].data;
+
+    for (i=d; i > 0; i--)
+    {
+      id[order[i-1]].data = newData;
+    }
+  }
+  else
+    done = true;
+
+  return *this;
+}
+
+inline r_MiterDirect&
+r_MiterDirect::iterateUserOrder(const r_Dimension *order, const unsigned int *step)
+{
+  r_Dimension d = 0;
+
+  while (d < dim)
+  {
+    r_miter_direct_data *idp = id + order[d];
+
+    idp->pos += step[d];
+    idp->data = (void*)(((char*)(idp->data)) + step[d] * idp->baseStep);
+    if (step[d] > 0)
+    {
+      if (idp->pos <= idp->high) break;
+      idp->pos = idp->low;
+    }
+    else
+    {
+      if (idp->pos >= idp->low) break;
+      idp->pos = idp->high;
+    }
+    d++;
+  }
+  if (d < dim)
+  {
+    r_Dimension i;
+    void *newData = id[order[d]].data;
+
+    for (i=d; i>0; i--)
+    {
+      id[order[i-1]].data = newData;
+    }
+  }
+  else
+    done = true;
+
+  return *this;
+}
+
+
+inline void
+r_MiterDirect::posChanged( void )
+{
+  r_Range offset = 0;
+  r_Dimension i = 0;
+
+  for (i=0; i<dim; i++)
+    offset += id[i].step * (id[i].pos - id[i].origin);
+
+  for (i=0; i<dim; i++)
+    id[i].data = (void*)(((char*)baseAddress) + offset);
+}

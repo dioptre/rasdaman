@@ -1,0 +1,267 @@
+205
+# Increment the number above every time you add a new exception
+# (no of error codes - 1)
+#
+# CHANGES:
+# 2003-jun-28  PB     created from Didier Richard's translation (thanks!)
+#                     added 420, 421, 422
+#
+# This file contains types and textual descriptions of RasDaMan errors.
+# The ascending error numbers are used as index to the descriptions. Each 
+# line follows the following syntax:
+# 
+# number^type^description.
+#
+# The character '^' is used as delimiter and with '#' a comment line is
+# started. Empty lines are not allowed.
+#
+#
+66^E^Exception: echec de l'allocation memoire.
+100^E^Exception: erreur interne: erreur d'analyse DL.
+200^E^Exception: le resultat n'est pas un point.
+201^E^Exception: le resultat n'est pas un intervalle.
+202^E^Exception: violation d'index ( intervalle d'index [$low,$high], index $index ).
+203^E^Exception: incoherence des Dimension entre $dim1 et $dim2.
+204^E^Exception: Bourage du flux d'ecriture.
+205^E^Exception: le resultat n'est pas une cellule.
+206^E^Exception d'ecriture r_Ebase_dbms: erreur dans la base DBMS.
+207^E^Exception du client interne pour la classe $class, methode $method: $code.
+208^E^Exception: type d'acces $aType ne correspond au type de la base $bType.
+209^E^Exception: RasType $type est inconnu.
+210^E^Exception: Type de base $type n'est pas encore supporte.
+211^E^Exception: base de donnees non accessible.
+212^E^Exception: Connexion a la couche RPC de RasDaMan echouee.
+213^E^Exception: Fromat d'URL incorrect (devrait etre http://address:port)
+214^E^Exception: Valeur illegale du type java long $val pour le type de la base ULong.
+215^E^Exception: Valeur illegale du type java integer $val pour le type de la base UShort.
+216^E^Exception: La collection systeme n'est pas inscriptible.
+217^E^Exception: La collection systeme n'a pas d'identificateur.
+218^E^Exception: Conversion de format non supportee.
+219^E^Exception: La taille specifiee pour la dalle est plus petite que la longueur du type de la base mdd.
+220^E^Exception: La strategie de dallage pour le stockage de la couche n'est pas compatible avec marray.
+221^E^Exception: Le domaine fourni comme argument n'a pas ete initialise correctement (dimension vaut 0).
+222^E^Exception: Le type name ou structure ne represente pas un type marray.
+223^E^Exception: L'index rc necessite un type marray qui a un domaine specifie (avec the bordure fixees dans toutes les dimensions).
+224^E^Exception: La configuration du dallage est incompatible avec le domaine marray.
+229^E^Exception: Le parametre format de la requete est invalide.
+230^E^Exception: Le r_Object a deja ete affecte a un type.
+231^E^Exception: Le Marray n'a pas de type de base.
+232^E^Exception: L'intervalle est semi-ouvert.
+233^E^Exception: Les intervalles n'ont pas la meme dimension.
+234^E^Exception: La chaine fournie pour la dalle n'est pas correcte.
+235^E^Exception: La connexion au serveur a deja ete fermee.
+236^E^Exception: Erreur dans le moteur de compression
+237^E^Exception: Echec dans la communication avec le client
+238^E^Exception: Type de base non supporte par le module de conversion/compression.
+239^E^Exception: Superposition standard utilisant des types plus grand que 16 octets non supportee.
+240^E^Exception: Insertion dans l'index RC n'est pas autorisee.
+241^E^Exception: Aucun dallage fourni pour cette zone.  Mise a jour impossible.
+#
+300^E^Erreur d'analyse $errorNo a la ligne $lineNo, colonne $columnNo: mot inattendu $token.
+301^E^Erreur d'analyse $errorNo a la ligne $lineNo, colonne $columnNo, mot $token: toutes les valeurs de cellule d'un MDD doivent etre du meme type. 
+302^E^Erreur d'analyse $errorNo a la ligne $lineNo, colonne $columnNo, mot $token: le nombre de cellule specifie ne correspond as au nombre de cellules du domaine spatial fourni.
+303^E^Erreur d'analyse $errorNo a la ligne $lineNo, colonne $columnNo, mot $token: l'identificateur n'est pas valide.
+308^E^Erreur d'analyse: fin de requere inattendu
+309^E^Erreur d'analyse: erreur inconnue.
+310^E^Erreur d'analyse lexicale $errorNo a la ligne $lineNo, colonne $columnNo: caracteres inattendus $token.
+311^E^Erreur d'analyse $errorNo a la ligne $lineNo, colonne $columnNo, token $token: le constructeur complexe doivent avoir ses deux arguments du meme type (i.e. float ou double). 
+312^E^Erreur d'analyse $errorNo a la ligne $lineNo, colonne $columnNo, token $token: Variable deja definie. 
+313^E^Erreur d'analyse $errorNo a la ligne $lineNo, colonne $columnNo, token $token: seules des valeurs contantes d'intervalle sont acceptees. 
+#
+330^E^Erreur de pre-traitement $errorNo a la ligne $lineNo, colonne $columnNo: mot inattendu $token: 
+331^E^Erreur de pre-traitement $errorNo a la ligne $lineNo, colonne $columnNo, mot $token: atentative de redefinition d'une fonction.
+332^E^Erreur de pre-traitement $errorNo a la ligne $lineNo, colonne $columnNo, mot $token: nombre de parametres actuels pour la fonction appelee distincts du nombre parametres formels.
+333^E^Erreur de pre-traitement $errorNo a la ligne $lineNo, colonne $columnNo, mot $token: la fonction appeles est ambigue, essaie avec le nom pleienement qualifie.
+#
+349^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: depassement de capacite de l'operande.
+350^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: General. 
+351^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: domaines spatiaux du binaire induits par les operandes sont incompatibles.
+352^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: type d'operandes incompatibles.
+353^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: l'operande du quantifieur doit etre multidimensionnel.
+354^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: l'operande du quantifieur doit etre du type r_Marray<d_Boolean>.
+355^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: nom de la collection inconnu.
+356^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: le domaine specifie n'intersecte pas le domaine spatial du MDD.
+357^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Variable inconnue.
+358^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: l'operande de la projection n'est pas du type r_Marray<T>.
+359^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: resultat du clause where doit etre du type boolean.
+360^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: type d'operande non supporte.
+361^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: resultats de requete multiple non supportes.
+362^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: la dimension du domaine specifie n'est pas egale a celle du MDD.
+#
+363^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: les types des cellules induisent que l'operation binaire est incompatible.
+364^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: le type de cellule et le type scalaire induisent que l'operation binaire est incompatible.
+365^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: les types scalaire de l'operation binaire sont incompatible.
+366^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: le type de cellule d'une operation binaire unaire n'est pas supporte.
+367^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: le type scalaire d'une operation binaire unaire n'est pas supporte.
+368^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: le type de cellule pour l'operation doit etre complexe.
+369^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: le type scalaire pour l'operation doit etre complexe.
+370^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: selecteur de structure invalide.
+371^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: une recherche doit debuter par le mot clef SELECT.
+372^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: une mise a jour doit debuter avec l'un des mots clefs suivants INSERT, UPDATE, DELETE, DROP ou CREATE.
+373^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: parametre constant MDD non satisfait.
+380^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Les donnees ne peuvent pas etre converties dans le format selectionne.
+381^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Erreur dans la conversion dans le format selectionne.
+382^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Format de conversion inconnu.
+383^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le parametre de la fonction oid dans etre un parametre de type MDD persistant.
+384^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'identificateur n'est pas valide.
+385^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'operation n'est pas supportee sur des chaines de caracteres.
+386^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'espace de nommage des identificateurs ne correspond pas a celui couramment ouvert.
+387^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le systeme de nommage des identificateurs ne correspond pas a celui en cours.
+388^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: La borne doit etre soit une expression entiere soit *.
+389^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Aucun intervalle (dans le cas de bornes fixes, la borne superieure doit etre plus grande que la borne inferieure).
+390^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Les specifications de la dimension Minterval doivent etre de type interval ou integer.
+391^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: iL'operation spatiale doit etre de l'un des types suivants : minterval, point, ou integer.
+393^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'operande de l'operation lo/hidoit etre de type interval.
+394^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'operation lo/hi ne peut pas etre utilisee sur un intervalle ouvert.
+395^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: l'operande de la fonction sdom() doit etre de type MDD.
+396^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'operation de selection n'est pas supportee sur ce type de donnees.
+397^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'operande de la selection minterval doit etre de type integer.
+398^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'index de la secltion minterval est hors des bornes.
+399^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'operand de la selection point doit etre de type integer.
+#
+#
+#
+400^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le domaine du constructor de MDD doit etre defini.
+401^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Impossible d'evaluer l'expression domain en minterval.
+402^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: La cellule projetee n'est pas definie.
+403^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'operation binaire n'est pas supportee sur ces types de donnees.
+404^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le type d'expression cell n'est pas supporte.
+405^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le premier operande de la fonction shift doit etre de type MDD.
+406^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le second operande de la fonction shift doit etre de type Point.
+407^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Les dimensions du MDD et du point ne correspondent pas.
+408^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le second operande de la fonction shift doit etre une exporession constante.
+409^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le deplacement d'un domaine spatial sur un intervalle ouvert n'est pas supporte.
+#
+#
+#
+410^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'operande d'une expression point doit etre de type integer.
+411^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'index d'une selection de point selection est hors intervalle.
+412^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: La valeur de l'expression doit etre soit de type atomic, soit complex.
+413^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: l'expression conditionnelle doit etre de type boolean.
+415^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'operande de count_cells doit etre de type r_Marray<d_Boolean>.
+#
+416^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le premier operande de la fonction scale function doit etre de type MDD.
+417^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le second operande de la fonction scale doit etre de l'un des types suivants : Point, Integer ou Float.
+#
+418^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le second operande d'une fonction bit a bit doit etre de type entier.
+419^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Impossible de mettre le domaine a l'echelle.
+#
+499^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le concept Language n'est pas supporte.
+#
+510^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'argument est hors du domaine de la fonction.
+511^E^Erreur d'execution $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le resultat de la fonction depasse l'intervalle autorise.
+#
+# 7XX errors for problems with Administration (some Oracle specific)
+#
+700^E^Erreur d'administration: General error creating RasDaMan database.
+701^E^Erreur d'administration: Error creating table in tablespace RAS_DB_SCHEMA.
+702^E^Erreur d'administration: Error inserting into table RAS_COUNTERS.
+703^E^Erreur d'administration: Error creating table in tablespace RAS_DB_BLOB.
+704^E^Erreur d'administration: Error creating index in tablespace RAS_DB_INDEX.
+705^E^Erreur d'administration: Error inserting into table RAS_BASETYPENAMES.
+706^E^Erreur d'administration: Error creating table in default tablespace.
+707^E^Erreur d'administration: Error on COMMIT creating RasDaMan database.
+708^E^Erreur d'administration: Database to be created already exists.
+#
+# 80x errors for RasManager problems
+#
+800^E^Erreur de RasManager: Impossible de se connecter a RasServer $url.
+801^E^Erreur de RasManager: Systeme surcharge, re-essayer plus tard.
+802^E^Erreur de RasManager: Acces refuse, utilisateur/mot de passe incorrect.
+803^E^Erreur de RasManager: Acces refuse, aucune permission pour l'operation.
+804^E^Erreur de RasManager: Acces refuse a la description des metadonnees.
+805^E^Erreur de RasManager: Aucun serveur trouve, contacter l'administrateur.
+806^E^Erreur de RasManager: Transaction d'ecriture en cours, re-essayer plus tard.
+807^E^Erreur de RasManager: Base de donnees inconnue.
+808^E^Erreur de RasManager: Demande de format en erreur.
+#
+# 82x errors for RNP administrative problems
+#
+820^E^Erreur RNP: Le premier parametre doit etre le client ID (clientcomm interne).
+821^E^Erreur RNP: Client ID invalide, un depassement s'est probablement passe.
+822^E^Erreur RNP: Commande inconnue pour la requete au client.
+#
+# 83x errors for base DBMS connections
+#
+830^E^Erreur DBMS: Impossible de se connecter a serveur RDBMS (chaine de connexion incorrecte dans le configuration?).
+#
+# 9xx errors: Evaluation errors
+#
+900^E^Erreur d'evaluation $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Type de la definition typedef non supporte.
+901^E^Erreur d'evaluation $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le type de l'ensemble generique doit etre un type reference.
+902^E^Erreur d'evaluation $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Type reference non trouve.
+903^E^Erreur d'evaluation $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le type de base MDD doit etre un type reference ou un type atomique.
+904^E^Erreur d'evaluation $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le type MDD doit avoir un domaine de specification.
+905^E^Erreur d'evaluation $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Structure deja existante.
+906^E^Erreur d'evaluation $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Type MDD deja existant.
+907^E^Erreur d'evaluation $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Type d'ensemble deja existant.
+#
+950^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: La cible de mise a jour doit etre une variable iterator.
+951^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: La source de mise a jour doit etre un expression r_Marray<>.
+952^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le type de mise a jour ne correspond pas au type MDD.
+953^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le domaine de mise a jour n'est pas dans le domaine de definition du MDD.
+954^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'expression de mise a jour doit etre une l-value (affectable).
+955^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le nom de la collection existe deja.
+956^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Type de la collection inconnu.
+957^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Nom de la collection inconnu.
+958^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Allocation d'un nouvel identificateur echouee.
+959^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Les types MDD et collection sont incompatibles.
+960^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: L'expression d'insertion doit etre de type MDD.
+961^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le domaine de mise a juor doit etre de type Minterval.
+962^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Le nombre d'intervalles de mise a jour doit correspondre aux dimensions de la source.
+963^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: La dimension du domaine de mise a jour doit correspondre aux dimensions du MDD cible.
+964^E^Erreur de mise a jour $errorNo a la ligne $lineNo, colonne $columnNo, proche du mot $token: Type non persistant.
+965^E^Erreur de mise a jour: MDD type $token unknown.
+966^E^Erreur de mise a jour: MDD type is missing.
+#
+# 1xxx errors: General errors
+#
+1000^E^Erreur generale: Tables RasDaMan inconsistantes.
+1001^E^Erreur generale: Serveur RasDaMan incompatible avec le serveur RDBMS.
+1002^E^Erreur generale: Blob vide retourne.
+1003^E^Erreur generale: Tuile d'index TC non trouvee.
+1004^E^Erreur generale: Index de l'objet MDD non defini.
+1005^E^Erreur generale: Structure de stockage de l'objet MDD non definie.
+1006^E^Erreur generale: Type d'index demande inconnu.
+1007^E^Erreur generale: Type d'index demande invalide.
+1008^E^Erreur generale: Aucun collection valide fournie a la collection MDD.
+1009^E^Erreur generale: Objet MDD non valide ou non persistant.
+1010^E^Erreur generale: Aucun type MDD valide fourni a l'objet MDD.
+1011^E^Erreur generale: Etat de calcul illegal (Boggue du compilateur ou de la bibliotheque).
+1012^E^Erreur generale: Type de collection fourni a la collection MDD invalide.
+1013^E^Erreur generale: Le nom du type est trop long.
+1014^E^Erreur generale: Le nom de l'objet est invalide, il ne peut contenir que [a-zA-Z0-9_]
+#
+# 2xxx errors: Internal errors
+#
+2000^E^Erreur interne Il semble qu'un autre RDBMS soit ouvert.
+2001^E^Erreur interne Type d'identificateur invalide.
+2002^E^Erreur interne Type utilisateur non trouve.
+2003^E^Erreur interne Type utilisateur hors de l'intervalle.
+2004^E^Erreur interne Index volatile utilise au lieu d'un index persistant.
+2005^E^Erreur interne L'index renvoie des tuiles a plusieurs reprises.
+2006^E^Erreur interne Tuile non inseree dans l'index.
+2007^E^Erreur interne Acces hors de l'intervalle d'un index volatile.
+2008^E^Erreur interne L'objet MDD existe plusieurs fois dans le cache.
+2009^E^Erreur interne Ceraine(s) tuile(s) n'ont pas ete inserees dans l'objet MDD.
+2010^E^Erreur interne Un module de conversion a retourne un type de base incorrect.
+2011^E^Erreur interne Le type collection n'a aucun element.
+2012^E^Erreur interne Le type marray type n'a pas de type de base.
+2013^E^Erreur interne L'attribut n'a pas de type de base.
+2014^E^Erreur interne La valeur scalaire est NULL.
+2015^E^Erreur interne Le noeud de l'index qui a fragmente n'a ete retrouve dans son noeud pere.
+2016^E^Erreur interne L'index a retourn plus de cellules qu'autorise.
+2017^E^Erreur interne La couche de stockage est incompatible avec les entrees de l'index.
+2018^E^Erreur interne L'objet ne supporte pas le swapping.
+2019^E^Erreur interne Erreur lors d'un swapping.
+2020^E^Erreur interne L'export binaire de l'objet n'est pas supporte.
+2021^E^Erreur interne L'import binaire de l'objet n'est pas supporte.
+#
+# 3xxx errors: Data format conversion errors
+#
+3000^E^Erreur de conversionde format: la zone MNE contient des valeurs nulles, une resultat vide a ete genere.
+
+#
+# The last, the unexpected error in server
+#
+10000^E^Erreur interne du serveur inattendue.

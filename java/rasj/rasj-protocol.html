@@ -1,0 +1,109 @@
+<H1>rasdaman c/s protocol</H1>
+(taken from rasdaman/java/rasj/clientcomm/RasHttpRequest.java)
+<P>
+
+<B>Request structure</B><P>
+
+<UL>
+The rasj HTTP request to the rasdaman server uses the HTTP POST-Format with the following
+parameters:
+<P>
+<TABLE BORDER=1 WIDTH=100%>
+<TR><TH>Parameter:</TH><TH>Description:</TH><TH>Required for</TH></TR>
+<TR><TD>Command</TD>
+<TD>Integer value specifying the desired action (e.g. OpenDB, BT, CT, CloseDB ...)</TD>
+<TD>all requests</TD></TR>
+<TR><TD>Database</TD>
+<TD>String value specifying the database</TD>
+<TD>OpenDB, CloseDB</TD></TR>
+<TR><TD>ClientType</TD>
+<TD>Integer value defining the type of the client (at the moment always RasClient)</TD>
+<TD>all requests</TD></TR>
+<TR><TD>ClientID</TD>
+<TD>Integer value specifying the ClientID (currently set to 1 for every client)</TD>
+<TD>all requests</TD></TR>
+<TR><TD>QueryString</TD>
+<TD>String value containing the RasQL query</TD>
+<TD>executeQuery</TD></TR>
+<TR><TD>Endianess</TD>
+<TD>Integer value containing the Client Endianess</TD>
+<TD>only insert queries</TD></TR>
+<TR><TD>NumberOfQueryParameters</TD>
+<TD>Integer value specifying the number of query parameters</TD>
+<TD>only insert queries</TD></TR>
+<TR><TD>QueryParameters</TD>
+<TD>Byte Array containing the query parameters (MDDs) using the following format:<BR>
+<TABLE BORDER=1>
+<TR><TH>Integer</TH><TH>String</TH><TH>String</TH><TH>Integer</TH><TH>String</TH><TH>String</TH>
+<TH>String</TH><TH>Long</TH><TH>Byte[]</TH>
+</TR>
+<TR><TD>objectType</TD><TD>objectTypeName</TD><TD>typeStructure</TD><TD>typeLength</TD>
+<TD>domain</TD><TD>storageLayout</TD><TD>OID</TD><TD>dataSize</TD><TD>binary data</TD></TR>
+</TABLE>
+/TD>
+<TD>only insert queries</TD></TR>
+</TABLE>
+</P>
+</UL><P>
+
+<B>Result formats / internal representation:</B><P><UL>
+The result of a HTTP request has one of the following forms:<P>
+MDD Collections:<BR>
+<TABLE BORDER=1><TR><TH ROWSPAN=2>Byte</TH><TH ROWSPAN=2>Byte</TH>
+<TH ROWSPAN=2>String</TH><TH ROWSPAN=2>Long(4Bytes)</TH>
+<TH COLSPAN=5>resultElement 1</TH><TH ROWSPAN=3> ... </TH></TR>
+<TR><TD>String</TD><TD>String</TD><TD>String</TD><TD>Long(4Bytes)</TD><TD>Byte[]</TD></TR>
+<TR><TD>Result type<P>1=MDDCollection</TD>
+<TD>Endianess</TD>
+<TD>Collection type</TD>
+<TD>Number of results</TD>
+<TD>BaseType description</TD>
+<TD>Spatial domain</TD>
+<TD>OID</TD>
+<TD>Size of the Binary Data Block</TD>
+<TD>Binary Data Block</TD></TR>
+</TABLE><P>
+
+Skalar Collections:<BR>
+<TABLE BORDER=1><TR><TH ROWSPAN=2>Byte</TH><TH ROWSPAN=2>Byte</TH>
+<TH ROWSPAN=2>String</TH><TH ROWSPAN=2>Long(4Bytes)</TH>
+<TH COLSPAN=4>resultElement 1</TH><TH ROWSPAN=3> ... </TH></TR>
+<TR><TD>String</TD><TD>Long(4Bytes)</TD><TD>Byte[]</TD></TR>
+<TR><TD>Result type<P>2=SkalarCollection</TD>
+<TD>Endianess</TD>
+<TD>Collection type</TD>
+<TD>Number of results</TD>
+<TD>ElementType description</TD>
+<TD>Size of the Binary Data Block</TD>
+<TD>Binary Data Block</TD></TR>
+</TABLE><P>
+
+Errors:<BR>
+<TABLE BORDER=1><TR><TH>Byte</TH><TH>Byte</TH>
+<TH>Long(4Bytes)</TH><TH>Long(4Bytes)</TH><TH>Long(4Bytes)</TH>
+<TH>String</TH></TR>
+<TR><TD>Result type<P>0=Error</TD>
+<TD>Endianess</TD>
+<TD>Error number</TD>
+<TD>Line number</TD>
+<TD>Column number</TD>
+<TD>Token</TD>
+</TABLE><P>
+
+Single Integer Value:<BR>
+<TABLE BORDER=1><TR><TH>Byte</TH><TH>Integer</TH></TR>
+<TR><TD>Result type<P>3=Integer</TD><TD>Value</TD></TR>
+</TABLE><P>
+
+OID:<BR>
+<TABLE BORDER=1><TR><TH>Byte</TH><TH>String</TH><TH>String</TH><TH>Double</TH></TR>
+<TR><TD>Result type<P>4=OID</TD><TD>system</TD><TD>basename</TD><TD>localOID</TD></TR>
+</TABLE><P>
+
+Acknowledgement:<BR>
+<TABLE BORDER=1><TR><TH>Byte</TH></TR>
+<TR><TD>Result type<P>99=OK</TD></TR>
+</TABLE><P>
+
+</UL>
+

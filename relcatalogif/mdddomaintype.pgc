@@ -1,0 +1,143 @@
+#include "mymalloc/mymalloc.h"
+// This is -*- C++ -*-
+
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+/*************************************************************
+ *
+ *
+ * PURPOSE:
+ *   Code with embedded SQL for PostgreSQL DBMS
+ *
+ *
+ * COMMENTS:
+ *   uses embedded SQL
+ *
+ ************************************************************/
+
+// general embedded SQL related definitions
+EXEC SQL include "../reladminif/sqlglobals.h";
+
+#include "mdddomaintype.hh"
+#include "raslib/rmdebug.hh"
+#include "reladminif/objectbroker.hh"
+#include "reladminif/sqlerror.hh"
+#include "dbminterval.hh"
+
+
+void
+MDDDomainType::insertInDb() throw (r_Error)
+{
+	RMDBGENTER(5, RMDebug::module_catalogif, "MDDDomainType", "insertInDb() " << myOId << " " << getTypeName());
+
+	char* domstr = 0;
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	mddtypeid;
+		double	mddbasetypeid;
+		char	mddtypename[VARCHAR_MAXLEN];
+		long	domainid;
+	EXEC SQL END DECLARE SECTION;
+
+	(void) strncpy( mddtypename, (char*) getName(), (size_t) sizeof(mddtypename) );
+	DBObject* obj = (DBObject*)getBaseType();
+	mddbasetypeid = obj->getOId();
+	mddtypeid = myOId.getCounter();
+	domainid = myDomain->getOId().getCounter();
+
+	EXEC SQL INSERT INTO RAS_MDDDOMTYPES ( MDDDomTypeOId, MDDTypeName, BaseTypeId, DomainId)
+		VALUES	( :mddtypeid, :mddtypename, :mddbasetypeid, :domainid);
+	if (check("MDDDomainType::insertInDb()\0"))
+		generateException();
+
+	DBObject::insertInDb();	
+
+	RMDBGEXIT(5, RMDebug::module_catalogif, "MDDDomainType", "insertInDb() " << myOId);
+}
+
+void
+MDDDomainType::readFromDb() throw (r_Error)
+{
+	RMDBGENTER(5, RMDebug::module_catalogif, "MDDDomainType", "readFromDb() " << myOId);
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	mddtypeid1;
+		struct	{
+			short	length;
+			char	data[STRING_MAXLEN];
+			}	mddtypename1;
+		double	mddbasetypeid1;
+		long	domainid1;
+	EXEC SQL END DECLARE SECTION;
+
+	mddtypeid1 = myOId.getCounter();
+	mddbasetypeid1 = 0;
+
+	EXEC SQL SELECT BaseTypeId, MDDTypeName, DomainId
+		INTO :mddbasetypeid1, :mddtypename1, :domainid1
+		FROM RAS_MDDDOMTYPES
+		WHERE MDDDomTypeOId = :mddtypeid1;
+	if (check("MDDDomainType::MDDDomainType() SELECT FROM RAS_MDDDOMTYPES\0") != 0)
+	{
+		if (SQLCODE == 100)
+			throw r_Error(r_Error::r_Error_ObjectUnknown);
+		else 
+			generateException();
+	}
+
+	setName(mddtypename1.length, mddtypename1.data);
+	myBaseType = (BaseType*)ObjectBroker::getObjectByOId(OId(mddbasetypeid1)); 
+	myDomain = (DBMinterval*)ObjectBroker::getObjectByOId(OId(domainid1, OId::DBMINTERVALOID));
+	myDomain->setCached(true);
+
+#ifdef RMANBENCHMARK
+	DBObject::readTimer.pause();
+#endif
+
+	DBObject::readFromDb();
+
+	RMDBGEXIT(5, RMDebug::module_catalogif, "MDDDomainType", "readFromDb() " << myOId);
+}
+
+void
+MDDDomainType::deleteFromDb() throw (r_Error)
+{
+	RMDBGENTER(5, RMDebug::module_catalogif, "MDDDomainType", "deleteFromDb() " << myOId << " " << getTypeName());
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	mddtypeid2;
+	EXEC SQL END DECLARE SECTION;
+
+	mddtypeid2 = myOId.getCounter();
+
+	EXEC SQL DELETE FROM RAS_MDDDOMTYPES
+		WHERE MDDDomTypeOId = :mddtypeid2;
+	if (check("MDDDomainType::deleteFromDb()\0"))
+		generateException();
+
+	myDomain->setPersistent(false);
+	myDomain->setCached(false);
+
+	DBObject::deleteFromDb();	
+
+	RMDBGEXIT(5, RMDebug::module_catalogif, "MDDDomainType", "deleteFromDb() " << myOId);
+}

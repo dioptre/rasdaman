@@ -1,0 +1,6 @@
+-- Testbed line: result_type=set <marray <char, [0:103]>>
+-- Testbed line: result_elements=2
+-- Testbed start block:
+Image 1 written to image1.bmp
+Image 2 written to image2.bmp
+-- Testbed end block:

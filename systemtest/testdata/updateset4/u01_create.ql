@@ -1,0 +1,1 @@
+CREATE COLLECTION UpdateFloat1 FloatSet

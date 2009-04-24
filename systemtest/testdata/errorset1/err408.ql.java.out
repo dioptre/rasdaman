@@ -1,0 +1,2 @@
+
+ ODMGException: Execution error 408 in line 5, column 8, near token shift: Second operand of shift function must be a constant expression.

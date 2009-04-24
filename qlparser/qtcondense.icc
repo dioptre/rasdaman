@@ -1,0 +1,197 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+/*************************************************************
+ *
+ *
+ * COMMENTS:
+ *
+ ************************************************************/
+
+
+inline const char* 
+QtCondense::getClassName() const
+{
+  return "QtCondense";
+}
+
+
+inline const char* 
+QtCondense::getAlgebraicName() const
+{
+  return "condense_cells";
+}
+
+
+
+inline const QtNode::QtNodeType
+QtSome::getNodeType() const
+{
+  return nodeType;
+}
+
+
+inline const char* 
+QtSome::getClassName() const
+{
+  return "QtSome";
+}
+
+
+inline const char* 
+QtSome::getAlgebraicName() const
+{
+  return "some_cells";
+}
+
+
+
+inline const QtNode::QtNodeType
+QtAll::getNodeType() const
+{
+  return nodeType;
+}
+
+
+inline const char* 
+QtAll::getClassName() const
+{
+  return "QtAll";
+}
+
+
+inline const char* 
+QtAll::getAlgebraicName() const
+{
+  return "all_cells";
+}
+
+
+inline const QtNode::QtNodeType
+QtCountCells::getNodeType() const
+{
+  return nodeType;
+}
+
+
+inline const char* 
+QtCountCells::getClassName() const
+{
+  return "QtCountCells";
+}
+
+
+inline const char* 
+QtCountCells::getAlgebraicName() const
+{
+  return "count_cells";
+}
+
+
+inline const QtNode::QtNodeType
+QtAddCells::getNodeType() const
+{
+  return nodeType;
+}
+
+
+inline const char* 
+QtAddCells::getClassName() const
+{
+  return "QtAddCells";
+}
+
+
+inline const char* 
+QtAddCells::getAlgebraicName() const
+{
+  return "add_cells";
+}
+
+
+inline const QtNode::QtNodeType
+QtAvgCells::getNodeType() const
+{
+  return nodeType;
+}
+
+
+inline const char* 
+QtAvgCells::getClassName() const
+{
+  return "QtAvgCells";
+}
+
+
+inline const char* 
+QtAvgCells::getAlgebraicName() const
+{
+  return "avg_cells";
+}
+
+
+
+inline const QtNode::QtNodeType
+QtMinCells::getNodeType() const
+{
+  return nodeType;
+}
+
+
+inline const char* 
+QtMinCells::getClassName() const
+{
+  return "QtMinCells";
+}
+
+
+inline const char* 
+QtMinCells::getAlgebraicName() const
+{
+  return "min_cells";
+}
+
+
+
+inline const QtNode::QtNodeType
+QtMaxCells::getNodeType() const
+{
+  return nodeType;
+}
+
+
+inline const char* 
+QtMaxCells::getClassName() const
+{
+  return "QtMaxCells";
+}
+
+
+inline const char* 
+QtMaxCells::getAlgebraicName() const
+{
+  return "max_cells";
+}
+
+
+
+

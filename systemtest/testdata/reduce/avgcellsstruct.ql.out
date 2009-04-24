@@ -1,0 +1,14 @@
+-- Testbed line: result_type=set <marray <struct { double 0, double 1 }, [0:0]>>
+-- Testbed line: result_elements=1
+-- Testbed start block:
+Image 1
+GMarray
+  Type Structure........: marray <struct { double 0, double 1 }, [0:0]>
+  Type Schema...........: marray< struct{ double 0, double 1 } >
+  Domain................: [0:0]
+  Base Type Schema......: struct{ double 0, double 1 }
+  Base Type Length......: 16
+  Data format.......... : Array
+  Data size (bytes).... : 16
+{    12,    12}     
+-- Testbed end block:

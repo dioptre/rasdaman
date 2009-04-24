@@ -1,0 +1,276 @@
+208
+# Increment the number above every time you add a new exception
+# (no of error codes - 1)
+#
+# CHANGES:
+# 2003-jul-02  PB     corrected some typos in error texts
+# 2003-aug-31  PB     corrected some typos in error texts
+#                     added 830
+# 2003-dec-03  PB     added 3000
+# 2005-jun-19  PB     added 420, 421, 422
+#
+# This file contains types and textual descriptions of RasDaMan errors.
+# The ascending error numbers are used as index to the descriptions. Each 
+# line follows the following syntax:
+# 
+# number^type^description.
+#
+# The character '^' is used as delimiter and with '#' a comment line is
+# started. Empty lines are not allowed.
+#
+#
+66^E^Exception: Memory allocation failed.
+100^E^Exception: Internal error: DL parse error.
+200^E^Exception: The result is no point.
+201^E^Exception: The result is no interval.
+202^E^Exception: Index violation ( index range [$low,$high], index $index ).
+203^E^Exception: Dimension mismatch between $dim1 and $dim2.
+204^E^Exception: Stream initialization overflow.
+205^E^Exception: Result is no cell.
+206^E^Serialisable exception r_Ebase_dbms: error in base DBMS.
+207^E^Internal client exception in class $class, method $method: $code.
+208^E^Exception: Access type $aType does not fit base type $bType.
+209^E^Exception: RasType $type is unknown.
+210^E^Exception: Base type $type is not supported yet.
+211^E^Exception: Database is not open.
+212^E^Exception: RPC layer connection to RasDaMan failed.
+213^E^Exception: Wrong URL format (should be http://address:port)
+214^E^Exception: Illegal java long value $val for server base type ULong.
+215^E^Exception: Illegal java integer value $val for server base type UShort.
+216^E^Exception: System collection is not writable.
+217^E^Exception: System collection has no OID.
+218^E^Exception: Conversion format is not supported.
+219^E^Exception: The specified tile size is smaller than the length of the base type of the mdd object.
+220^E^Exception: The tiling strategy in the storage layout is not compatible with the marray.
+221^E^Exception: The domain passed as an argument was not initialised correctly (dimension is 0).
+222^E^Exception: The type name or type structure does not represent a marray type.
+223^E^Exception: The rc index requires a marray type that has a specified domain (with fixed borders in all dimensions).
+224^E^Exception: The tile configuration is incompatible to the marray domain.
+229^E^Exception: The parameterized query has invalid parameter format.
+230^E^Exception: The r_Object was already assigned a type.
+231^E^Exception: The Marray has no base type.
+232^E^Exception: The interval has at least one open bound.
+233^E^Exception: The intervals don't have the same dimension.
+234^E^Exception: The string passed to the tiling object was not correct.
+235^E^Exception: Connection to server already closed.
+236^E^Exception: Error in compression engine
+237^E^Exception: Client communication failure
+238^E^Exception: Base type not supported by conversion/compression module.
+239^E^Exception: Standard overlay using types larger than 16 bytes is not supported.
+240^E^Exception: Insert into a RC index is not allowed.
+241^E^Exception: No tiling defined at that region.  Update not possible.
+#
+300^E^Parsing error $errorNo in line $lineNo, column $columnNo: Unexpected name $token.
+301^E^Parsing error $errorNo in line $lineNo, column $columnNo, token $token: All cell values of an MDD must be of the same type. 
+302^E^Parsing error $errorNo in line $lineNo, column $columnNo, token $token: Number of cells specified does not match the number of cells of the given spatial domain.
+303^E^Parsing error $errorNo in line $lineNo, column $columnNo, token $token: OId is not valid.
+308^E^Parsing error: Unexpected end of query.
+309^E^Parsing error: Unknown error.
+310^E^Lexical analysing error $errorNo in line $lineNo, column $columnNo: Unexpected characters $token.
+311^E^Parsing error $errorNo in line $lineNo, column $columnNo, token $token: Complex constructor must have both arguments of the same type (i.e. float or double). 
+312^E^Parsing error $errorNo in line $lineNo, column $columnNo, token $token: Variable already defined. 
+313^E^Parsing error $errorNo in line $lineNo, column $columnNo, token $token: Only constant interval bounds allowed. 
+#
+330^E^Preprocessing error $errorNo in line $lineNo, column $columnNo: Unexpected name $token: 
+331^E^Preprocessing error $errorNo in line $lineNo, column $columnNo, token $token: attempt to redefine function.
+332^E^Preprocessing error $errorNo in line $lineNo, column $columnNo, token $token: number of actual arguments for the called function differs from the number of formal arguments.
+333^E^Preprocessing error $errorNo in line $lineNo, column $columnNo, token $token: the called function name is ambiguous, try the full qualified name.
+#
+349^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Operand out of range.
+350^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: General. 
+351^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Spatial domains of the binary induce operands are incompatible.
+352^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Operand types are incompatible.
+353^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Operand of quantifier must be multidimensional.
+354^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Operand of quantifier must be of type r_Marray<d_Boolean>.
+355^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Collection name is unknown.
+356^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Specified domain does not intersect with spatial domain of MDD.
+357^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Variable is unknown.
+358^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Projection operand is not of type r_Marray<T>.
+359^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Result of the where clause must be of type boolean.
+360^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Type of operand is not supported.
+361^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Multiple query targets are not supported.
+362^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Specified domain dimensionality does not equal defined dimensionality of MDD.
+#
+363^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Cell base types of binary induce operation are incompatible.
+364^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Cell base type and scalar type of binary induce operation are incompatible.
+365^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Scalar types of binary operation are incompatible.
+366^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Cell base type of unary induce operation is not supported.
+367^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Scalar type of unary operation is not supported.
+368^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Cell base type for induced dot operation must be complex.
+369^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Scalar type for dot operation must be complex.
+370^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Struct selector is not valid.
+371^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Retrieval query must start with a SELECT statement.
+372^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Update query must start with an INSERT, UPDATE, DELETE, DROP or CREATE statement.
+373^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Unsatisfied MDD constant parameter.
+380^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Data type can not be converted to selected data exchange format.
+381^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Error in convertor of the selected data exchange format.
+382^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Unknown conversion format.
+383^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Parameter of oid function must be a persistent object of type MDD.
+384^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: OId is not valid.
+385^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Operation is not supported on strings.
+386^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Base name of oid is not matching the currently opened one.
+387^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: System name of oid is not matching the currently used one.
+388^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Interval bound must be either an integer expression or an asterisk.
+389^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: No interval (in case of fixed bounds, the upper one can not be smaller than the lower one).
+390^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Minterval dimension specifications must be either of type interval or integer.
+391^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Spatial operation must be either of type minterval, point, or integer.
+393^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Operand of operation lo/hi must be of type interval.
+394^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Operation lo/hi can not be used for an open bound.
+395^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Operand of function sdom() must be of type MDD.
+396^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Selection operation is not supported on this data type.
+397^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Operand of minterval selection must be of type integer.
+398^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Index for minterval selection is out of range.
+399^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Operand of point selection must be of type integer.
+#
+#
+#
+400^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Domain of MDD constructor has to be defined.
+401^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Can not evaluate domain expression to an minterval.
+402^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Projected cell is not defined.
+403^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Binary operation is not supported on these data types.
+404^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Type of cell expression is not supported.
+405^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: First operand of shift function must be of type MDD.
+406^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Second operand of shift function must be of type Point.
+407^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Dimensionality of MDD and point expression are not matching.
+408^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Second operand of shift function must be a constant expression.
+409^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Spatial domain shift of open bounds is not supported.
+#
+#
+#
+410^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Operand of point expression must be of type integer.
+411^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Index for point selection is out of range.
+412^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Value expression must be either of type atomic or complex.
+413^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Condition expression must be of type boolean.
+415^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Operand of count_cells must be of type r_Marray<d_Boolean>.
+#
+416^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: First operand of scale function must be of type MDD.
+417^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Second operand of scale function must be either of type Point, Integer or Float.
+#
+418^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Second operand of bit function must be of integral type.
+419^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Could not scale the domain.
+420^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Extend operation with open bounds is not supported.
+421^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Target interval of extend operation does not cover MDD to be extended.
+422^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Second operand of extend function must be an minterval.
+#
+499^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: Language feature is not supported.
+#
+# 5XX errors for overflow situations
+#
+510^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: The argument is outside the function domain.
+511^E^Execution error $errorNo in line $lineNo, column $columnNo, near token $token: The function result exceeds the allowed range.
+#
+# 7XX errors for problems with Administration (some Oracle specific)
+#
+700^E^Admin error: General error creating RasDaMan database.
+701^E^Admin error: Error creating table in tablespace RAS_DB_SCHEMA.
+702^E^Admin error: Error inserting into table RAS_COUNTERS.
+703^E^Admin error: Error creating table in tablespace RAS_DB_BLOB.
+704^E^Admin error: Error creating index in tablespace RAS_DB_INDEX.
+705^E^Admin error: Error inserting into table RAS_BASETYPENAMES.
+706^E^Admin error: Error creating table in default tablespace.
+707^E^Admin error: Error on COMMIT creating RasDaMan database.
+708^E^Admin error: Database to be created already exists.
+#
+# 80x errors for RasManager problems
+#
+800^E^RasManager Error: Could not connect to RasServer $url.
+801^E^RasManager Error: System overloaded, please try again later.
+802^E^RasManager Error: Access denied, incorrect user/password.
+803^E^RasManager Error: Access denied, no permission for operation.
+804^E^RasManager Error: Access denied, capability refused.
+805^E^RasManager Error: No suitable servers started, call administrator.
+806^E^RasManager Error: Write transaction in progress, please retry again later.
+807^E^RasManager Error: Requested database unknown.
+808^E^RasManager Error: Request format error.
+#
+# 82x errors for RNP administrative problems
+#
+820^E^RNP Error: First parameter has to be the clientID (clientcomm internal).
+821^E^RNP Error: Client ID invalid, probably a timeout occurred.
+822^E^RNP Error: Unknown command in client request.
+#
+# 83x errors for base DBMS connections
+#
+830^E^base DBMS Error: Cannot connect to base DBMS server (invalid connect string in rasmgr config file?).
+#
+# 9xx errors: Evaluation errors
+#
+900^E^Evaluation error $errorNo in line $lineNo, column $columnNo, near token $token: Type in typedef definition not supported.
+901^E^Evaluation error $errorNo in line $lineNo, column $columnNo, near token $token: Set template type has to be a type reference.
+902^E^Evaluation error $errorNo in line $lineNo, column $columnNo, near token $token: Type reference not found.
+903^E^Evaluation error $errorNo in line $lineNo, column $columnNo, near token $token: MDD base type has to be a type reference or an atomic type.
+904^E^Evaluation error $errorNo in line $lineNo, column $columnNo, near token $token: MDD type must have a domain specification.
+905^E^Evaluation error $errorNo in line $lineNo, column $columnNo, near token $token: Struct type name exists already.
+906^E^Evaluation error $errorNo in line $lineNo, column $columnNo, near token $token: MDD type name exists already.
+907^E^Evaluation error $errorNo in line $lineNo, column $columnNo, near token $token: Set type name exists already.
+#
+950^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Update target must be an iterator variable.
+951^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Update source must be an expression resulting in an r_Marray<>.
+952^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Update base type does not match MDD base type.
+953^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Update domain is not within MDD definition domain.
+954^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Update target expression must be an assignable value (l-value).
+955^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Collection name exists already.
+956^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Unknown collection type.
+957^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Unknown collection name.
+958^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Allocation of new oid failed.
+959^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: MDD and collection types are incompatible.
+960^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Insert expression must be of type MDD.
+961^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Update domain must be of type Minterval.
+962^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Number of update intervals must match source dimensionaltiy.
+963^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Update domain dimensionality must match target MDD dimensionaltiy.
+964^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Type is not persistent.
+965^E^Update error $errorNo: MDD type $token unknown.
+966^E^Update error $errorNo: MDD type is missing.
+#
+# 1xxx errors: General errors
+#
+1000^E^General error: RasDaMan tables inconsistent.
+1001^E^General error: RasDaMan server incompatible with database.
+1002^E^General error: Blob with zero length encountered.
+1003^E^General error: Tile container for TC index not found.
+1004^E^General error: Index of MDD Object is not defined.
+1005^E^General error: Storage structure of MDD Object is not defined.
+1006^E^General error: Unknown index type requested.
+1007^E^General error: Illegal index type requested.
+1008^E^General error: No valid collection type passed to MDD collection.
+1009^E^General error: MDD object not valid or not persistent.
+1010^E^General error: No valid MDD type passed to MDD object.
+1011^E^General error: An illegal state has been reached.  This is caused by a compiler bug or a library bug.
+1012^E^General error: Invalid collection type passed to MDD collection.
+1013^E^General error: The name of the type is too long.
+1014^E^General error: Invalid name of the object, should contain only [a-zA-Z0-9_]
+#
+# 2xxx errors: Internal errors
+#
+2000^E^Internal error: There seems to be another database open.
+2001^E^Internal error: Invalid OId type encountered.
+2002^E^Internal error: Entry in user defined type not found.
+2003^E^Internal error: Entry in user defined type out of bounds.
+2004^E^Internal error: Transient index used instead of persistent index.
+2005^E^Internal error: Index returned tiles multiple times.
+2006^E^Internal error: Tile was not inserted into index.
+2007^E^Internal error: Transient index access out of bounds.
+2008^E^Internal error: MDD object exists multiple times in cache.
+2009^E^Internal error: Some tile(s) were not inserted into the MDD object.
+2010^E^Internal error: A conversion module returned an incorrect base type.
+2011^E^Internal error: The collection type has no element type.
+2012^E^Internal error: The marray type has no base type.
+2013^E^Internal error: The property has no base type.
+2014^E^Internal error: The scalar was passed a NULL value.
+2015^E^Internal error: The index node that had to be split was not found in its parent.
+2016^E^Internal error: The index found more cells than allowed.
+2017^E^Internal error: The storage layout is incompatible with the index entries.
+2018^E^Internal error: Object does not support swapping.
+2019^E^Internal error: Error encountered during swapping.
+2020^E^Internal error: Binary export for object is not supported.
+2021^E^Internal error: Binary import for object is not supported.
+2022^E^Internal error: Operands and result types don't match.
+#
+# 3xxx errors: Data format conversion errors
+#
+3000^E^Format conversion error: DEM area does not contain any non-null value, empty result generated.
+
+#
+# The last, the unexpected error in server
+#
+10000^E^Unexpected internal server error.

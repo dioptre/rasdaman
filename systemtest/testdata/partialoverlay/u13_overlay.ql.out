@@ -1,0 +1,84 @@
+-- Testbed line: result_type=set <marray <ulong, [0:10,0:10]>>
+-- Testbed line: result_elements=4
+-- Testbed start block:
+Image 1
+GMarray
+  Type Structure........: marray <ulong, [0:10,0:10]>
+  Type Schema...........: marray< ulong >
+  Domain................: [0:10,0:10]
+  Base Type Schema......: ulong
+  Base Type Length......: 4
+  Data format.......... : Array
+  Data size (bytes).... : 484
+    1       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+Image 2
+GMarray
+  Type Structure........: marray <ulong, [0:10,0:10]>
+  Type Schema...........: marray< ulong >
+  Domain................: [0:10,0:10]
+  Base Type Schema......: ulong
+  Base Type Length......: 4
+  Data format.......... : Array
+  Data size (bytes).... : 484
+    1       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+Image 3
+GMarray
+  Type Structure........: marray <ulong, [0:10,0:10]>
+  Type Schema...........: marray< ulong >
+  Domain................: [0:10,0:10]
+  Base Type Schema......: ulong
+  Base Type Length......: 4
+  Data format.......... : Array
+  Data size (bytes).... : 484
+    1       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+Image 4
+GMarray
+  Type Structure........: marray <ulong, [0:10,0:10]>
+  Type Schema...........: marray< ulong >
+  Domain................: [0:10,0:10]
+  Base Type Schema......: ulong
+  Base Type Length......: 4
+  Data format.......... : Array
+  Data size (bytes).... : 484
+    1       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+-- Testbed end block:

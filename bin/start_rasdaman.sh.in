@@ -1,0 +1,123 @@
+#!/bin/bash
+#
+# This file is part of rasdaman community.
+#
+# Rasdaman community is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Rasdaman community is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+# rasdaman GmbH.
+#
+# For more information please see <http://www.rasdaman.org>
+# or contact Peter Baumann via <baumann@rasdaman.com>.      
+#
+
+#
+# start_rasdaman.sh - start rasdaman server complex
+#
+# SYNTAX
+#	start_rasdaman.sh [servers...]
+#
+# DESCRIPTION
+#	This script starts rasdaman.
+#	Which rasdaman servers are started depends on the 'server' name(s) provided:
+#	* If no server name is provided then the environment variable $RASSERVERS is
+#	  inspected to obtain a list of servers to be started. If $RASSERVERS is not
+#	  set, then all rasdaman servers defined will be attempted to start.
+#	* If at least one parameter is provided then all parameters 
+#	  will be treated as a server name which is tried to be started.
+#
+#	One possible reason while not all servers may come up is that more servers
+#	might be defined than your licence model allows to run in parallel.
+#
+#	To log in to the server, the external variable $RASLOGIN is expected to hold
+#	an ID string (see rasdaman manual). If not found, a desperate last attempt is 
+#	made to login as rasadmin/rasadmin. If this fails, no servers are started at all.
+#
+# PRECONDITIONS
+#	- need to have a rasdaman admin login either from $RASLOGIN or as rasadmin/rasadmin
+#	- need to have an id that allows to write into $RMANHOME/log
+#	- need to have a valid rasdaman installation + key
+#
+# RETURN CODES
+	RC_OK=0		# everything went fine
+	RC_ERROR=1	# something went wrong
+
+# --- CONSTANTS -----------------------------------------------------
+
+# sleep time to let rasmgr establish before spawning servers
+WAIT_FOR_CHILDREN=5
+
+# get script name
+MYNAME=`basename $0`
+
+# error messages:
+ERROR_PARAM="ERS001 Error: illegal parameter: $1"
+
+# --- END CONSTANTS -------------------------------------------------
+
+# --- ACTION --------------------------------------------------------
+
+echo $MYNAME: starting rasdaman server complex...
+
+# --- start rasmgr: -------------------------------------------------
+
+# here we want to put all log files
+cd @logdir@
+
+# clear previous log file
+rm -f nohup.out
+
+# start rasdaman server manager as demon; log will go into nohup.out
+nohup @bindir@rasmgr & 2>&1
+
+# --- start servers: -------------------------------------------------
+
+# allow process to establish
+sleep $WAIT_FOR_CHILDREN
+
+# these servers will be started:
+if [ $1 ]
+then
+	# parameters provided, take them as server names
+	SERVERS=$*
+else
+	if [ "$RASSERVERS" ]; then
+		SERVERS=$RASSERVERS
+	else
+		SERVERS=""
+	fi
+fi
+
+# determine rascontrol login
+if [ -z "$RASLOGIN" ]; then
+	export RASLOGIN=rasadmin:d293a15562d3e70b6fdc5ee452eaed40
+fi
+
+# ...then spawn server workers
+if [ "$SERVERS" ]; then
+	for SRV in $SERVERS
+	do
+		echo -n $MYNAME: starting server $SRV...
+		@bindir@rascontrol -e -q -x up srv $SRV || exit $!
+	done
+else
+	echo $MYNAME: starting all rasdaman servers...
+	@bindir@rascontrol -e -q -x up srv -all || exit $!
+fi
+
+echo $MYNAME: done.
+exit $RC_OK
+
+# --- END ACTION ----------------------------------------------------
+

@@ -1,0 +1,24 @@
+-- Testbed line: result_type=set <marray <octet, [0:0]>>
+-- Testbed line: result_elements=2
+-- Testbed start block:
+Image 1
+GMarray
+  Type Structure........: marray <octet, [0:0]>
+  Type Schema...........: marray< octet >
+  Domain................: [0:0]
+  Base Type Schema......: octet
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 1
+    0   
+Image 2
+GMarray
+  Type Structure........: marray <octet, [0:0]>
+  Type Schema...........: marray< octet >
+  Domain................: [0:0]
+  Base Type Schema......: octet
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 1
+  121   
+-- Testbed end block:

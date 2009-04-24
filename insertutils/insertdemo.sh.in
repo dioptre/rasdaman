@@ -1,0 +1,118 @@
+#!/bin/bash
+#
+# This file is part of rasdaman community.
+#
+# Rasdaman community is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Rasdaman community is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+# rasdaman GmbH.
+#
+# For more information please see <http://www.rasdaman.org>
+# or contact Peter Baumann via <baumann@rasdaman.com>.      
+#
+##########################################################################
+#
+# SOURCE: insertdemo.sh
+#
+# PURPOSE:
+# create the demo collections used in the rasdaman manuals.
+# Currently these are: mr, mr2, rgb.
+# Data are taken from the images directory; they are small enough not to
+# eat away remarkable disk space.
+# The script returns a nonzero exit code upon error.
+#
+# COMMENTS:
+# - insertppm needs the ppm library installed.
+#
+#######################################################################
+
+
+# --- parameter evaluation --------------------------------------------
+
+if [ $# != 5 ]
+then
+	echo "Usage: $0 host port imagedir user passwd"
+	echo "   host        host name of rasdaman server"
+	echo "   port        port where rasdaman server listens (usually: 7001)"
+	echo "   imagedir    source image directory"
+	echo "   user        rasdaman database login name (needs write access)"
+	echo "   passwd      rasdaman password"
+	echo "Example: $0 localhost 7001 @pkgdatadir@examples/images rasadmin rasadmin"
+	exit 0
+fi
+
+    HOST=$1
+    PORT=$2
+IMAGEDIR=$3
+    USER=$4
+  PASSWD=$5
+
+
+# --- global defines --------------------------------------------------
+
+# script name
+PROG=`basename $0`
+
+# database to be used
+DB=RASBASE
+
+# shorthand: insertppm parameters
+INSERTPPM_ARGS="--server $HOST --port $PORT --database $DB --user $USER --passwd $PASSWD"
+
+# --- check prerequisites ---------------------------------------------
+
+echo "$PROG: rasdaman demo data insert script v2.0"
+echo "$PROG: using host $HOST, image directory $IMAGEDIR, and user/passwd $USER/$PASSWD"
+
+# --- evaluate cmd line parameters ------------------------------------
+
+# is insertppm compiled already?
+if [ -f @bindir@insertppm ]
+then
+	INSERTPPM="@bindir@insertppm"
+else
+	echo "$PROG: insertppm not found. Trying to compile it...\c"
+	make --directory=@pkgdatadir@examples/c++ insertppm
+	if [ -f @pkgdatadir@examples/c++/insertppm ]
+	then
+		 echo "ok"
+		 INSERTPPM="@pkgdatadir@examples/c++/insertppm"    
+	else
+		echo "$PROG: Error: Failed to compile insertppm."
+		exit 1
+	fi
+fi
+
+# does $IMAGEDIR point to a good directory?
+if [ ! -d $IMAGEDIR ]
+then
+	echo "$PROG: Illegal package path $IMAGEDIR."
+	exit 1
+fi
+
+# insert packages
+echo -n "mr..."
+for i in $IMAGEDIR/mr_?.pgm;
+do
+	$INSERTPPM $INSERTPPM_ARGS --type grey --collection mr $i || exit 1
+done
+echo -n "mr2..."
+$INSERTPPM $INSERTPPM_ARGS --type grey --collection mr2 $IMAGEDIR/mr_1.pgm || exit 1
+echo -n "rgb..."
+$INSERTPPM $INSERTPPM_ARGS --type color --collection rgb $IMAGEDIR/anthur.ppm || exit 1
+
+echo "$PROG: done."
+
+# end of insertdemo.sh
+

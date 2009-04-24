@@ -1,0 +1,451 @@
+# Text used in rview
+#
+# Commentary lines have a '#' as the first non-white character.
+# Non-empty lines where the first character differs from '#'
+# are interpreted as "identifier:text" combinations. If the colon
+# is missing an error is generated.
+
+# Window titles
+titleRview:rView
+titleCollLook:Lookup a collection
+titleLookScaleColl:Lookup scaled collection
+titleCollDel:Delete a collection
+titleCollCrt:Create a collection
+titleInsertMdd:Insert MDD object
+titleInsertMddPro:Insert projected MDD object
+titleResult:Results
+titlePrefs:Edit preferences
+titleImageFlat:Flat image viewer
+titleImageVolume:Volumetric image viewer
+titleImageHeight:Height field image viewer
+titleImageScaled:Scaled image viewer
+titleImageOrtho:Orthosection viewer
+titleChart:Chart display mode
+titleTable:Tabular display mode
+titleThumb:Thumbnail images
+titleSound:Sound player
+titleQuery:Query Editor
+titleQueryLoad:Load query
+titleQuerySave:Save query
+titleImgSetup:Image settings
+titleColourspace:Colourspace setup
+titleAbout:About rView...
+titleRendererCtrl:Renderer controls
+titleRendererView:Renderer view
+titleStringSet:String result set
+titleTypeMan:Type manager
+titleEnterType:Resolve unknown base type
+titleOrthoLook:Lookup orthosection
+
+# Menu items in the main frame menu
+menMainFile:File
+menMainView:Viewers
+menMainColl:Collections
+menMainHelp:Help
+
+menMainFileQuery:&Query
+menMainFilePrefs:&Prefs
+menMainFileExit:E&xit
+
+menMainViewOpen:&Open
+menMainViewClose:&Close all
+
+menMainCollLook:&Lookup
+menMainCollLkScale:LU &scaled
+menMainCollLkOrtho:LU &ortho
+menMainCollCrt:&Create
+menMainCollDel:&Delete
+
+menMainHelpAbt:&About
+
+# Help text for those menu items
+helpMainFileQuery:Opens a query dialogue box.
+helpMainFilePrefs:Edit the preferences.
+helpMainFileExit:Exit rView.
+
+helpMainViewOpen:Opens a viewer from a file.
+helpMainViewClose:Close all viewers.
+
+helpMainCollLook:Lookup a collection.
+helpMainCollLkScale:Lookup a scaled collection.
+helpMainCollLkOrtho:Lookup an orthosection (3D)
+helpMainCollCrt:Create a collection.
+helpMainCollDel:Delete a collection.
+
+helpMainHelpAbt:Information about this program.
+
+
+# Menu items in the results frame menu
+menRsltItem:Item
+menRsltSlct:Selection
+
+menRsltItemOpAll:Open &All
+menRsltItemThumbAll:&Thumbnail All
+menRsltItemClose:&Close
+
+menRsltSlctSlctAll:Select &All
+menRsltSlctClear:&Clear
+menRsltSlctOpen:&Open
+menRsltSlctThumb:&Thumbnails
+menRsltSlctDel:&Delete
+menRsltSlctEndian:&Endian change
+menRsltSlctTypeMan:Type &Manager
+menRsltSlctInfo:&Info
+
+# Help text for those menu items
+helpRsltItemOpAll:Open all objects.
+helpRsltItemThumbAll:Display all images as thumbnails.
+helpRsltItemClose:Close this window.
+
+helpRsltSlctSlctAll:Select all objects.
+helpRsltSlctClear:Clears the selection.
+helpRsltSlctOpen:Open the selected objects.
+helpRsltSlctThumb:Display thumbnails of the selected object(s).
+helpRsltSlctDel:Delete the selected object(s).
+helpRsltSlctEndian:Change the endianness of the selected object(s).
+helpRsltSlctTypeMan:Call type manager for the selected object(s).
+helpRsltSlctInfo:Display information about the selected object(s).
+
+
+# Menu items in the display window menus
+menDispData:Data
+menDispDataIsrt:&Insert
+menDispDataIsrtPro:Insert &Proj
+menDispDataSave:&Save
+menDispDataSaveTIFF:Save &TIFF
+menDispDataClose:&Close
+menDispView:View
+menDispViewSave:Save
+menDispViewLoad:Load
+menDispViewShow:Show
+
+# Additional menus in chart mode
+menChartMode:Modes
+menChartModeBar:Bar
+menChartModeLine:Line
+menChartModeSpline:Spline
+
+# Additional menus in image mode
+menImgMode:Modes
+menImgModeFlat:Flat
+menImgModeSurf:Surface
+menImgModeVoxel:Voxel
+menImgModeHeight:Height
+menImgSetup:Settings
+menImgSetupRender:Renderer...
+menImgSetupMovie:Movie playback
+menImgMovieOnce:Once
+menImgMovieStart:Same direction
+menImgMovieSwitch:Switch direction
+menImgSetupRctrl:Renderer controls...
+
+# Additional menus in table mode
+menTabMode:Base
+menTabModeDec:Decimal
+menTabModeOct:Octal
+menTabModeHex:Hex
+
+
+# Menu items in query window
+menQueryFile:File
+menQueryEdit:Edit
+menQueryHotlist:List
+menQueryHelp:Help
+menQueryFileOpen:&Open
+menQueryFileSave:&Save
+menQueryFileClose:&Close
+menQueryEditCut:Cu&t
+menQueryEditCopy:&Copy
+menQueryEditPaste:&Paste
+menQueryHelpHelp:&Help
+helpQueryFileOpen:Load a query from disc.
+helpQueryFileSave:Save this query to disc.
+helpQueryFileClose:Close this window.
+helpQueryEditCut:Cut the selected area.
+helpQueryEditCopy:Copy the selected area.
+helpQueryEditPaste:Insert copy buffer at cursor position.
+helpQueryHelpHelp:Information about queries.
+
+
+# Thumbnails menu
+menThumbData:Data
+menThumbDataClose:&Close
+menThumbSetup:Setup
+
+
+# colourspace submenu
+menCspaceTitle:Colourspace
+menCspaceOn:Enable
+menCspaceFull:Full range
+menCspaceProj:Proj range
+menCspaceEdit:Editor...
+
+
+# Text in widgets
+serverName:Server name:
+serverPort:Server port:
+dbName:Database name:
+userName:User:
+userPassword:Password:
+
+# General text in buttons
+textOpen:Open
+textClose:Close
+textOK:OK
+textCancel:Cancel
+textApply:Apply
+textDefaults:Defaults
+textResult:Results
+textProjString:Projection
+textClear:Clear
+textExec:Execute
+textUpdt:Update Data
+textStepx:Step X
+textStepy:Step Y
+textStepC:Step
+textCosys:CO-System
+textCoStep:Y markers
+textDataStep:X markers
+textScale:Scale
+textBaseType:Base type
+textThumb:Thumbnails
+textThumbWidth:ThumbWidth
+textThumbColumns:ThumbCols
+textThumbProjDim:ProjDim
+textThumbProjStep:ProjStep
+textBBox:BBox
+textImages:Images
+textImageMode:Image mode
+textCharts:Charts
+textChartMode:Chart mode
+textTables:Tables
+textTableMode:Table mode
+textMiscPrefs:Misc prefs
+textResample:Resample
+textCspace:RGB space
+textCrange:Full range
+textRotX:Rot X
+textRotY:Rot Y
+textRotZ:Rot Z
+textOff:Off
+textStart:Start
+textStop:Stop
+textTime:Time
+textConvert:Convert
+textOpTime:Time taken for
+textScaleFactor:Scaling factor
+textZoomBox:To box
+textLastZoom:Back
+textZoomIn:Zoom in
+textZoomOut:Zoom out
+textCommunication:Communication
+textTransferFormats:Transfer format
+textTransferParams:Transfer parameters
+textStorageFormats:Storage format
+textStorageParams:Storage parameters
+textSliceX:Slice xy
+textSliceY:Slice yz
+textSliceZ:Slice zx
+textOrthoThickness:Thick
+textOrthoDragRelease:Auto
+textOrthoFireButton:Load
+textZOffset:Z Offset
+
+# Sound window
+soundStart:Start
+soundStop:Stop
+soundOff:Off
+soundPlayTime:Play time
+soundFrequency:Frequency
+soundLatency:Latency
+soundFormat:Format
+soundFmtLin8:8 bit sl
+soundFmtUlin8:8 bit usl
+soundFmtUlaw8:8 bit ulaw
+soundFmtLin16:16 bit sl
+
+# Collection group box in results window
+textCollHeader:Collection:
+textCollName:Name
+textCollType:Type
+
+# Text in lookup scaled window
+lkScaleName:Collection name
+lkScaleScale:Scaling factor
+
+# MDD operations (results window)
+operationUpsamp:Upsample
+operationDownsamp:Downsample
+operationScale:Simple scale
+operationTypeProj:Type project
+operationEndian:Change endian
+
+# Text for display modes
+dispModeLabel:Display mode
+dispModeImage:Flat image
+dispModeVolume:Volumetric
+dispModeOrtho:Orthosection
+dispModeHeight:Height field
+dispModeChart:Chart
+dispModeTable:Table
+dispModeSound:Sound
+dispModeString:String
+
+# Text in preferences window
+prefsFilePath:Pathname of data files
+prefsQueryPath:Pathname of query files
+prefsQueryFont:Font used for queries
+prefsImgDither:Dithering
+prefsDitherBest:Dither best
+prefsMaxDWidth:Maximum width
+prefsMaxDHeight:Maximum height
+prefsVffParams:Convertor parameters
+prefsCspace:RGB space
+prefsCspaceEdit:Edit
+prefsCspaceAct:Cube range
+prefsCspaceFull:Full range
+prefsCspaceProj:Proj range
+prefsMovieMode:Movie mode
+prefsMovieOnce:Once
+prefsMovieStart:Same dir
+prefsMovieSwitch:Switch dir
+prefsSound:Sound defaults
+prefsSndLoop:Loop sound
+prefsLight:Lights
+prefsLightAngle:Light angle
+prefsLightAmbient:Ambient light
+prefsLightGain:Light gain
+prefsKernSize:Kernel size
+prefsKernType:Kernel type
+prefsLightScAngle:Scint angle
+prefsLightDir:Direction
+prefsLightDist:Distance
+prefsUseVCol:Ignore voxel colour
+prefsVoxColour:Voxel colour
+prefsHeightGroup:Height fields
+prefsHgtGrid:Grid size
+prefsHgtScale:Height scale
+prefsOrthoGroup:Orthosections
+prefsOrthoDragRel:On release
+prefsOrthoThick:Thickness
+
+# Text in image settings window
+imgSetRender:Renderer settings
+imgSetVoxel:Voxel settings
+imgSetHeight:Height field
+imgSetRenZpro:Proj plane
+imgSetRenClipz:Clip Z
+imgSetRenUseLight:Use lighting
+imgSetRenLightAn:lAngle
+imgSetRenLightSc:sAngle
+imgSetRenLightAm:Ambient
+imgSetRenLightGn:Gain
+imgSetRenLightDr:Direction
+imgSetRenLightDs:Distance
+imgSetVoxPixThreshLow:Pixel threshold Low
+imgSetVoxPixThreshHigh:Pixel threshold High
+imgSetVoxWgtThresh:Weight threshold
+imgSetVoxWgtQuant:Weight quantisation
+imgSetVoxRgbBright:RGB brightness
+imgSetVoxForType:For type
+imgSetKernSize:K-size
+imgSetKernType:K-type
+imgSetUseVCol:Ignore colours
+imgSetVoxCol:Voxel colour
+imgSetGridSize:Grid
+imgSetHgtScale:Height
+kernelTypeAvg:Average
+kernelTypeLin:Linear
+kernelTypeGauss:Gauss
+
+# text in colourspace mapper window
+cspacePeakRed:E(r)
+cspacePeakGreen:E(g)
+cspacePeakBlue:E(b)
+cspaceSigmaRed:s(r)
+cspaceSigmaGreen:s(g)
+cspaceSigmaBlue:s(b)
+cspaceImmUpdt:Update
+cspaceDrawSum:Draw sum
+cspaceMinVal:Min
+cspaceMaxVal:Max
+cspaceTypeGauss:Gaussian
+cspaceTypeLin:Linear
+cspaceTypeRect:Rectangle
+cspaceTypeAsympt:Asymptotic
+
+loadFile:Load a file
+saveTIFF:Save as TIFF
+saveView:Save current view to file
+loadView:Load a view from file
+
+# Prompting messages
+promptEnterColl:Please enter the collection name.
+promptEnterType:Please enter a base type name for type
+promptEnterOrtho:Please enter the orthosection collection name.
+
+
+# Text appearing in the About window
+rviewAboutLineNum:4
+rviewAboutLine0:*** rView 2.0
+rviewAboutLine1:
+rviewAboutLine2:Visual frontend for the RasDaMan DBMS.
+rviewAboutLine3:(C) 1999-2001 Active Knowledge GmbH.
+
+
+# Text appearing in the StrinSet window
+strSetList:Result set
+
+
+# Errors
+errorFrom:Error from rView:
+
+# RasDaMan errors:
+errorUnknown:Object unknown error.
+errorHostInvalid:Host invalid.
+errorServerInvalid:Server invalid.
+errorClientUnknown:Client unknown.
+errorDatabaseUnknown:Database unknown.
+errorDatabaseOpen:Database is already open.
+errorRpcInterface:RPC Interface is incompatible with server.
+errorDatabaseClosed:Database closed.
+errorCollCreate:Error creating collection.
+errorCollDelete:Error deleting collection.
+errorInsertObj:Error inserting object into collection.
+errorChangeOpen:You can't change the database while it's open.
+errorMemory:Not enough memory left for this operation.
+errorQueryFailed:Error executing query
+errorQueryUnknown:Collection doesn't exist.
+errorQueryParamNum:Number of query parameters is invalid.
+errorTransferFailed:The transfer failed.
+errorProjection:Error in projection string.
+errorProjFree:Projection incompatible with display mode.
+errorTypeSize:Unsupported base type size error.
+errorBaseType:Unsupported base type.
+errorUnknownBase:Unknown base type.
+errorModeDim:Unsupported number of dimensions for this mode.
+errorModeBase:Unsupported base type for this mode.
+errorProjectFree:Bad number of free dimensions in projection string.
+errorUpdtObject:Missing object for update query.
+errorFileOpen:Error opening file
+errorFileWrite:Error writing to file
+errorFileRead:Error reading from file
+errorQueryFile:Unrecognized query file format.
+errorProjThumb:Error building thumbnail.
+errorSoundFormat:Unsupported sound sample format.
+errorSoundDevice:Unable to open sound device.
+errorScaledObjType:Unsupported base type for scaled object.
+errorScaledObjSize:Object scaled to empty spatial domain.
+errorOrthoViewer:Unable to open orthosection viewer on object.
+errorViewType:Wrong viewer type
+
+# Progress reports
+messageFrom:Message from rView
+
+progOpenDb:Opening database...
+progCloseDb:Closing database...
+progLookup:Looking up collection...
+progInsert:Inserting object into collection...
+progDelete:Deleting collection...
+progCreate:Creating collection...
+progQuery:Executing query...

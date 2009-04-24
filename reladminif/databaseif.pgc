@@ -1,0 +1,1382 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+// This is -*- C++ -*-
+/*************************************************************************
+ *
+ *
+ * PURPOSE:
+ * Code with embedded SQL for PostgreSQL DBMS
+ *
+ *
+ * COMMENTS:
+ * - need connection via ECPG and libqg, use non-public interface to
+ *   obtain libpq style connection ptr from ECPG structure
+ * - global variable globalConnectId used for DB server identification, maybe better as constructor parameter
+ * - dbName parameter not evaluated
+ * - PG: no CLUSTER index available
+ * - PG: index always in same schema as table
+ * - replaced "if ((SQLCODE != SQLOK) && (SQLCODE != SQLNULLFETCHED))"
+ *   by       "if (SQLCODE < 0 || SQLCODE == SQLNODATAFOUND)"
+ * - databaseExists() not used
+ * - attribute name 'OId' -> 'UOId' (for UDFs), 'OId' -> 'Id' (for IXs)
+ *   to avoid PG name clash with attr type
+ * - except for RAS_COUNTERS, "no data" means no error, but that we need to initialize the empty table
+ *
+ ***********************************************************************/
+
+static const char rcsid[] = "@(#)reladminif,DatabaseIf: $Id: databaseif.ec,v 1.9 2003/12/27 23:11:43 rasdev Exp $";
+
+#include "debug/debug.hh"
+
+// general embedded SQL related definitions
+EXEC SQL include sqlglobals.h;
+
+// SQL error codes:
+EXEC SQL include "externs.h"
+
+// PG stuff
+#include "libpq-fe.h"	// C interface to PgSQL
+// libq-style connection ptr taken from ECPG connect (needed for libq functions):
+// (currently used by relblobif/blobtile.pgc)
+PGconn *pgConn = NULL;
+
+// we use a non-public interface to obtain the connection ptr
+// defs are taken from PG's /src/interfaces/ecpg/ecpglib/extern.h
+// --- START non-public PG
+struct ECPGtype_information_cache
+{
+    struct ECPGtype_information_cache *next;
+    int         oid;
+    bool        isarray;
+};
+
+struct connection
+{
+    char       *name;
+    PGconn     *conn;	// changed name to avoid component name clash of gcc3 -- PB 2005-feb-08
+    bool        committed;
+    int         autocommit;
+    struct ECPGtype_information_cache *cache_head;
+    struct connection *next;
+};
+
+
+// need to safeguard this from C++ name mangling -- PB 2005-feb-09
+//#ifdef __cplusplus
+//extern "C" {
+//#endif
+//	struct connection *ECPGget_connection(const char *);
+//#ifdef __cplusplus
+//}
+//#endif
+
+// --- END non-public PG
+
+#include "databaseif.hh"
+#include "raslib/rmdebug.hh"
+#include "sqlerror.hh"
+#include "oidif.hh"
+#include "adminif.hh"
+
+extern char globalConnectId[256];
+// size of ARCHITECTURE attribute in RAS_ADMIN:
+#define SIZE_ARCH_RASADMIN 20
+
+
+void
+DatabaseIf::disconnect() throw (r_Error)
+{
+	RMDBGENTER(4, RMDebug::module_adminif, "DatabaseIf", "disconnect()");
+	ENTER( "DatabaseIf::disconnect" );
+
+	TALK( "EXEC SQL ROLLBACK WORK" );
+	EXEC SQL ROLLBACK WORK;
+	// 'ok' or 'no begin work issued' (which happens at a close database)
+	if (SQLCODE != SQLOK && SQLCODE != -255)
+	{
+		check("DatabaseIf::disconnect() ROLLBACK\0");
+		TALK( "Error while issuing ROLLBACK");  
+		RMDBGMIDDLE(4, RMDebug::module_adminif, "DatabaseIf", "error occured while issuing a ROLLBACK");  
+	}
+
+#ifndef FASTCONNECT
+	TALK( "EXEC SQL DISCONNECT CURRENT" );
+	EXEC SQL DISCONNECT CURRENT;
+	if (SQLCODE != SQLOK)
+	{
+		check("DatabaseIf::disconnect() DISCONNECT\0");
+		TALK( "Error while issuing DISCONNECT");  
+		RMDBGMIDDLE(4, RMDebug::module_adminif, "DatabaseIf", "error occured while issuing a DISCONNECT");  
+	}
+        pgConn = NULL;
+#endif
+
+	LEAVE( "DatabaseIf::disconnect, SQLCODE=" << SQLCODE );
+	RMDBGEXIT(4, RMDebug::module_adminif, "DatabaseIf", "disconnect() SQLCODE=" << SQLCODE);
+}
+
+void
+DatabaseIf::connect() throw (r_Error)
+{
+	RMDBGENTER(4, RMDebug::module_adminif, "DatabaseIf", "connect()");
+	ENTER( "DatabaseIf::connect" );
+
+#ifndef FASTCONNECT
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		char	id[STRING_MAXLEN];
+	EXEC SQL END DECLARE SECTION;
+
+    
+	strcpy((char *)&id, globalConnectId);
+    TALK( "EXEC SQL CONNECT TO " << id );
+	EXEC SQL CONNECT TO :id AS rasdaConn;		// "AS" param must be same as down in ECPGget_connection()
+	if (SQLCODE != SQLOK)
+	{
+		check("DatabaseIf::connect() CONNECT");
+		RMDBGMIDDLE(4, RMDebug::module_adminif, "DatabaseIf", "connect() SQLCODE=" << SQLCODE);
+		TALK( "error in connect, SQLCODE=" << SQLCODE );
+		generateException();
+    }
+    char newConnectId[256];
+    sprintf(newConnectId, "dbname='%s'", id);
+    pgConn = PQconnectdb(newConnectId);
+    if (pgConn == NULL || PQstatus(pgConn) == CONNECTION_BAD) {
+		RMDBGMIDDLE(4, RMDebug::module_adminif, "DatabaseIf", "Error: cannot obtain libpq connection" );
+		TALK( "Error: cannot obtain libpq connection" );
+		generateException();
+    }
+
+	/*
+
+        // get connection ptr for libpq based access
+    struct connection *interimConn = NULL;
+        interimConn = ECPGget_connection( "rasdaConn" );	// param must be same as up in CONNECT ... AS
+	if (interimConn == NULL || interimConn->conn == NULL)
+	{
+	}
+	pgConn = interimConn->conn;*/
+
+#endif
+
+	LEAVE( "DatabaseIf::connect, SQLCODE=" << SQLCODE );
+	RMDBGEXIT(4, RMDebug::module_adminif, "DatabaseIf", "connect()");
+}
+
+void
+DatabaseIf::checkCompatibility() throw (r_Error)
+{
+	RMDBGENTER(4, RMDebug::module_adminif, "DatabaseIf", "checkCompatibility()");
+	ENTER( "DatabaseIf::checkCompatibility" );
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		long rasver1;				// rasdaman version as stored in db
+		long schemaver1;			// schema version as stored in db
+		char* arch1[SIZE_ARCH_RASADMIN];	// used for reading architecture from db
+		char *myArchitecture = RASARCHITECTURE;	// used for architecture selection
+	EXEC SQL END DECLARE SECTION;
+
+	TALK( "EXEC SQL SELECT ServerVersion, IFVersion INTO :rasver1, :schemaver1 FROM RAS_ADMIN WHERE Architecture = " << myArchitecture );
+	EXEC SQL SELECT
+			ServerVersion, IFVersion
+		INTO
+			:rasver1, :schemaver1
+		FROM
+			RAS_ADMIN
+		WHERE
+			Architecture = :myArchitecture;
+	TALK( "-> rasver1=" << rasver1 << ", schemaver1=" << schemaver1 );
+	if (SQLCODE != SQLOK)
+	{
+		check("DatabaseIf::baseDBMSOpen() check schema\0");
+		// this error is not supported by PG -- PB 2005-jan-07
+		// if (SQLCODE == SQLTABLEUNKNOWN)...
+
+		if (SQLCODE == SQLNODATAFOUND)
+		{
+			RMInit::logOut << "The Database is incompatible with the current RasServer." << std::endl \
+			<< "Database has no entry for the current platform." << std::endl \
+			<< "You are using rasserver:" << std::endl \
+			<< "\tversion	" << RMANVERSION << std::endl \
+			<< "\tschema	" << RASSCHEMAVERSION << std::endl \
+			<< "\tplatform " << RASARCHITECTURE << std::endl;
+			EXEC SQL DECLARE admincursor CURSOR FOR
+				SELECT
+					ServerVersion, IFVersion, Architecture
+				FROM
+					RAS_ADMIN;
+			EXEC SQL OPEN admincursor;
+			do
+			{
+				(void) memset( arch1, '\0', (size_t) sizeof(arch1) );	// just to make sure string is terminated
+				EXEC SQL FETCH admincursor INTO :rasver1, :schemaver1, :arch1; 
+				if (SQLCODE != SQLOK)
+				{
+					if (SQLCODE != SQLNODATAFOUND)
+					{
+						check("DatabaseIf::checkCompatibility()\0");
+						RMInit::logOut << "DBMS Error occured during compatibility check." << std::endl \
+						<< "Please see Debug Log for additional information." << std::endl;
+						EXEC SQL CLOSE admincursor;
+						generateException();
+					}
+					break;
+				}
+				RMInit::logOut << "Found database entries for rasserver:" << std::endl \
+				<< "\tversion	" << rasver1 << std::endl \
+				<< "\tschema	" << schemaver1 << std::endl \
+				<< "\tplatform " << arch1 << std::endl << std::endl \
+				<< "Please see Migration Documentation." << std::endl;
+			} while (true);
+
+			EXEC SQL CLOSE admincursor;
+			throw r_Error(DATABASE_INCOMPATIBLE);
+		}
+		else
+		{
+			RMInit::logOut << "DBMS Error occured during compatibility check." << std::endl \
+			<< "Please see Debug Log for additional information." << std::endl;
+			generateException();
+		}
+	}
+	else
+	{
+		if (schemaver1 != RASSCHEMAVERSION)
+		{
+			RMInit::logOut << "The Database is incompatible with the current RasServer." << std::endl \
+			<< "The database was generated with:" << std::endl \
+			<< "\tversion	" << rasver1 << std::endl \
+			<< "\tschema	" << schemaver1 << std::endl \
+			<< "\tplatform " << arch1 << std::endl << std::endl \
+			<< "You are using rasserver:" << std::endl \
+			<< "\tversion	" << RMANVERSION << std::endl \
+			<< "\tschema	" << RASSCHEMAVERSION << std::endl \
+			<< "\tplatform " << RASARCHITECTURE << std::endl \
+			<< "Please see Migration Documentation." << std::endl;
+			throw r_Error(DATABASE_INCOMPATIBLE);
+		}
+#if 0 // do not check against release, v6 has same schema as v5! -- PB 2005-sep-18
+		// check only against major release number -- PB 2003-sep-08
+		if (rasver1/1000 != RMANVERSION/1000)
+		{
+			RMInit::logOut << "The Database is incompatible with the current RasServer." << std::endl \
+			<< "The database was generated with:" << std::endl \
+			<< "\tversion	" << rasver1 << std::endl \
+			<< "\tschema	" << schemaver1 << std::endl \
+			<< "\tplatform " << arch1 << std::endl << std::endl \
+			<< "You are using rasserver:" << std::endl \
+			<< "\tversion	" << RMANVERSION << std::endl \
+			<< "\tschema	" << RASSCHEMAVERSION << std::endl \
+			<< "\tplatform " << RASARCHITECTURE << std::endl \
+			<< "Please see Migration Documentation." << std::endl;
+			throw r_Error(DATABASE_INCOMPATIBLE);
+		}
+#endif // 0
+	}
+
+	LEAVE( "DatabaseIf::checkCompatibility" );
+	RMDBGEXIT(4, RMDebug::module_adminif, "DatabaseIf", "checkComptatibility()");
+}
+
+bool
+DatabaseIf::isConsistent() throw (r_Error)
+{
+	RMDBGENTER(4, RMDebug::module_adminif, "DatabaseIf", "isConsistent()");   
+	ENTER( "DatabaseIf::isConsistent" );
+
+	bool retval=true;
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	nextoid;
+		long	checkoid;	// was: double -- PB 2005-jul-12
+		short	oidind;
+		char    name2[255];	// must be able to hold counterNames elements, see oidif.cc
+	EXEC SQL END DECLARE SECTION;
+	nextoid = 0;
+	checkoid = 0;
+	oidind = 0;
+
+	(void) strncpy( name2, (char*) OId::counterNames[OId::DBMINTERVALOID], (size_t) sizeof(name2) );
+	TALK( "EXEC SQL SELECT NextValue INTO :nextoid FROM RAS_COUNTERS WHERE CounterName = " << name2 );
+	EXEC SQL SELECT NextValue INTO :nextoid
+		FROM
+			RAS_COUNTERS
+		WHERE
+			CounterName = :name2;
+	TALK( "-> nextoid=" << nextoid );
+	if (check("DatabaseIf::isConsistent() SELECT DBMINTERVALOID"))
+		generateException();
+
+	// replaced MAX() (which ignores index) by ORDER BY variant -- PB 2005-jul-12
+	// EXEC SQL SELECT MAX(DomainId) INTO :checkoid INDICATOR :oidind
+	// 	FROM RAS_DOMAINS;
+	checkoid = 0;
+	TALK( "SELECT DomainId..." );
+	EXEC SQL SELECT DomainId INTO :checkoid INDICATOR :oidind
+		FROM RAS_DOMAINS
+		ORDER BY DomainId DESC LIMIT 1;
+	TALK( "-> SQLCODE=" << SQLCODE );
+	// now "no data" means no error, but that we need to initialize the empty table
+	if (SQLCODE < 0)
+	{
+		check("DatabaseIf::isConsistent() SELECT MAX(DomainId)");
+		generateException();
+	}
+	if ((checkoid > nextoid) && (oidind == 0))
+	{
+		RMInit::logOut << "The administrative tables for Domain Data is inconsistent.	Please call support." << std::endl;
+		RMInit::dbgOut << std::endl << "Counter in RAS_DOMAINS : " << checkoid << std::endl << "Counter in RAS_COUNTERS : " << nextoid << std::endl;
+		retval=false;
+	}
+	checkoid = 0;
+	nextoid=0;
+	oidind=0;
+	
+	if(retval)
+	{
+		(void) strncpy( name2, (char*) OId::counterNames[OId::MDDOID], (size_t) sizeof(name2) );
+		TALK( "SELECT NextValue FROM RAS_COUNTERS..." );
+		EXEC SQL SELECT NextValue INTO :nextoid
+			FROM RAS_COUNTERS
+			WHERE CounterName = :name2;
+		if (check("DatabaseIf::isConsistent() SELECT MDDOID"))
+			generateException();
+		// replaced MAX() (which ignores index) by ORDER BY variant -- PB 2005-jul-12
+		// EXEC SQL SELECT MAX(MDDId) INTO :checkoid INDICATOR :oidind
+		// 	FROM RAS_MDDOBJECTS;
+		checkoid = 0;
+		TALK( "SELECT MDDId FROM RAS_MDDOBJECTS..." );
+		EXEC SQL SELECT MDDId INTO :checkoid INDICATOR :oidind
+			FROM RAS_MDDOBJECTS
+			ORDER BY MDDId DESC LIMIT 1;
+		// now "no data" means no error, but that we need to initialize the empty table
+		if (SQLCODE < 0)
+		{
+			check("DatabaseIf::isConsistent() SELECT MAX(MDDId)");
+			generateException();
+		}
+
+		if ((checkoid > nextoid) && (oidind == 0))
+		{
+			RMInit::logOut << "The administrative tables for MDD Objects is inconsistent.	Please call support." << std::endl;
+			RMInit::dbgOut << std::endl << "Counter in RAS_MDDOBJECTS : " << checkoid << std::endl << "Counter in RAS_COUNTERS : " << nextoid << std::endl;
+			retval=false;
+		}
+		checkoid = 0;
+		nextoid=0;
+		oidind=0;
+	}
+
+	if(retval)
+	{
+		(void) strncpy( name2, (char*) OId::counterNames[OId::MDDCOLLOID], (size_t) sizeof(name2) );
+		EXEC SQL SELECT NextValue INTO :nextoid
+			FROM RAS_COUNTERS
+			WHERE CounterName = :name2;
+		if (check("DatabaseIf::isConsistent() SELECT MDDCollOId"))
+			generateException();
+		// replaced MAX() (which ignores index) by ORDER BY variant -- PB 2005-jul-12
+		// EXEC SQL SELECT MAX(MDDCollId) INTO :checkoid INDICATOR :oidind
+		// 	FROM RAS_MDDCOLLNAMES;
+		checkoid = 0;
+		TALK( "SELECT MDDCollId FROM RAS_MDDCOLLNAMES..." );
+		EXEC SQL SELECT MDDCollId INTO :checkoid INDICATOR :oidind
+			FROM RAS_MDDCOLLNAMES
+			ORDER BY MDDCollId DESC LIMIT 1;
+		// now "no data" means no error, but that we need to initialize the empty table
+		if (SQLCODE < 0)
+		{
+			check("DatabaseIf::isConsistent() SELECT MAX(MDDCollId)");
+			generateException();
+		}
+
+		if ((checkoid > nextoid) && (oidind == 0))
+		{
+			RMInit::logOut << "The administrative tables for MDD Collections is inconsistent.	Please call support." << std::endl;
+			RMInit::dbgOut << std::endl << "Counter in RAS_MDDCOLLNAMES : " << checkoid << std::endl << "Counter in RAS_COUNTERS : " << nextoid << std::endl;
+			retval=false;
+		}
+		checkoid = 0;
+ 		nextoid=0;
+		oidind=0;
+	}
+
+	if(retval)
+	{
+		(void) strncpy( name2, (char*) OId::counterNames[OId::MDDTYPEOID], (size_t) sizeof(name2) );
+		EXEC SQL SELECT NextValue INTO :nextoid
+			FROM RAS_COUNTERS
+			WHERE CounterName = :name2;
+		if (check("DatabaseIf::isConsistent() SELECT MDDTYPEOID"))
+			generateException();
+		// replaced MAX() (which ignores index) by ORDER BY variant -- PB 2005-jul-12
+		// EXEC SQL SELECT MAX(MDDTypeOId) INTO :checkoid INDICATOR :oidind
+		// 	FROM RAS_MDDTYPES;
+		checkoid = 0;
+		TALK( "SELECT MDDTypeOId FROM RAS_MDDTYPES..." );
+		EXEC SQL SELECT MDDTypeOId INTO :checkoid INDICATOR :oidind
+			FROM RAS_MDDTYPES
+			ORDER BY MDDTypeOId DESC LIMIT 1;
+		TALK( "SELECT MDDTypeOId FROM RAS_MDDTYPES..." );
+		// now "no data" means no error, but that we need to initialize the empty table
+		if (SQLCODE < 0)
+		{
+			check("DatabaseIf::isConsistent() SELECT MAX(MDDTypeOId)");
+			generateException();
+		}
+
+		if (checkoid > nextoid)
+		{
+			RMInit::logOut << "The administrative tables for MDDTypes is inconsistent.	Please call support." << std::endl;
+			RMInit::dbgOut << std::endl << "Counter in RAS_MDDTYPES : " << checkoid << std::endl << "Counter in RAS_COUNTERS : " << nextoid << " real " << nextoid << std::endl;
+			retval=false;
+		}
+		checkoid = 0;
+        	nextoid=0;
+        	oidind=0;
+        }
+
+	if(retval)
+	{
+		(void) strncpy( name2, (char*) OId::counterNames[OId::MDDBASETYPEOID], (size_t) sizeof(name2) );
+		EXEC SQL SELECT NextValue INTO :nextoid
+			FROM RAS_COUNTERS
+			WHERE CounterName = :name2;
+		if (check("DatabaseIf::isConsistent() SELECT MDDBASETYPEOID"))
+			generateException();
+		// replaced MAX() (which ignores index) by ORDER BY variant -- PB 2005-jul-12
+		// EXEC SQL SELECT MAX(MDDBaseTypeOId) INTO :checkoid INDICATOR :oidind
+		// 	FROM RAS_MDDBASETYPES;
+		checkoid = 0;
+		TALK( "SELECT MDDBaseTypeOId FROM RAS_MDDBASETYPES..." );
+		EXEC SQL SELECT MDDBaseTypeOId INTO :checkoid INDICATOR :oidind
+			FROM RAS_MDDBASETYPES
+			ORDER BY MDDBaseTypeOId DESC LIMIT 1;
+		// now "no data" means no error, but that we need to initialize the empty table
+		if (SQLCODE < 0)
+		{
+			check("DatabaseIf::isConsistent() SELECT MAX(MDDBaseTypeOId)");
+			generateException();
+		}
+
+		if (checkoid > nextoid)
+		{
+			RMInit::logOut << "The administrative tables for MDDBaseTypes is inconsistent.	Please call support." << std::endl;
+			RMInit::dbgOut << std::endl << "Counter in RAS_MDDBASETYPES : " << checkoid << std::endl << "Counter in RAS_COUNTERS : " << nextoid << " real " << nextoid << std::endl;
+			retval=false;
+		}
+		checkoid = 0;
+		nextoid=0;
+        	oidind=0;
+	}
+
+	if(retval)
+	{
+		(void) strncpy( name2, (char*) OId::counterNames[OId::MDDDIMTYPEOID], (size_t) sizeof(name2) );
+		EXEC SQL SELECT NextValue INTO :nextoid
+			FROM RAS_COUNTERS
+			WHERE CounterName = :name2;
+		if (check("DatabaseIf::isConsistent() SELECT MDDDIMTYPEOID"))
+			generateException();
+		// replaced MAX() (which ignores index) by ORDER BY variant -- PB 2005-jul-12
+		// EXEC SQL SELECT MAX(MDDDimTypeOId) INTO :checkoid INDICATOR :oidind
+		// 	FROM RAS_MDDDIMTYPES;
+		checkoid = 0;
+		TALK( "SELECT MDDDimTypeOId FROM RAS_MDDDIMTYPES..." );
+		EXEC SQL SELECT MDDDimTypeOId INTO :checkoid INDICATOR :oidind
+			FROM RAS_MDDDIMTYPES
+			ORDER BY MDDDimTypeOId DESC LIMIT 1;
+		// now "no data" means no error, but that we need to initialize the empty table
+		if (SQLCODE < 0)
+		{
+			check("DatabaseIf::isConsistent() SELECT MAX(MDDDimTypeOId)");
+			generateException();
+		}
+
+		if (checkoid > nextoid)
+		{
+			RMInit::logOut << "The administrative tables for MDDDimensionTypes is inconsistent.	Please call support." << std::endl;
+			RMInit::dbgOut << std::endl << "Counter in RAS_MDDDIMTYPES : " << checkoid << std::endl << "Counter in RAS_COUNTERS : " << nextoid << " real " << nextoid << std::endl;
+			retval=false;
+		}
+		checkoid = 0;
+		nextoid=0;
+        	oidind=0;
+	}
+
+	if(retval)
+	{
+		(void) strncpy( name2, (char*) OId::counterNames[OId::MDDDOMTYPEOID], (size_t) sizeof(name2) );
+		EXEC SQL SELECT NextValue INTO :nextoid
+			FROM RAS_COUNTERS
+			WHERE CounterName = :name2;
+		if (check("DatabaseIf::isConsistent() SELECT MDDDOMTYPEOID"))
+			generateException();
+		// replaced MAX() (which ignores index) by ORDER BY variant -- PB 2005-jul-12
+		// EXEC SQL SELECT MAX(MDDDomTypeOId) INTO :checkoid INDICATOR :oidind
+		// 	FROM RAS_MDDDOMTYPES;
+		checkoid = 0;
+		TALK( "SELECT MDDDomTypeOId FROM RAS_MDDDOMTYPES..." );
+		EXEC SQL SELECT MDDDomTypeOId INTO :checkoid INDICATOR :oidind
+			FROM RAS_MDDDOMTYPES
+			ORDER BY MDDDomTypeOId DESC LIMIT 1;
+		// now "no data" means no error, but that we need to initialize the empty table
+		if (SQLCODE < 0)
+		{
+			check("DatabaseIf::isConsistent() SELECT MAX(MDDDomTypeId)");
+			generateException();
+		}
+
+		if (checkoid > nextoid)
+		{
+			RMInit::logOut << "The administrative tables for MDDDomainTypes is inconsistent.	Please call support." << std::endl;
+			RMInit::dbgOut << std::endl << "Counter in RAS_MDDDOMTYPES : " << checkoid << std::endl << "Counter in RAS_COUNTERS : " << nextoid << " real " << nextoid << std::endl;
+			retval=false;
+		}
+		checkoid = 0;
+		nextoid=0;
+        	oidind=0;
+	}
+
+	if(retval)
+	{
+		(void) strncpy( name2, (char*) OId::counterNames[OId::STRUCTTYPEOID], (size_t) sizeof(name2) );
+		EXEC SQL SELECT NextValue INTO :nextoid
+			FROM RAS_COUNTERS
+			WHERE CounterName = :name2;
+		if (check("DatabaseIf::isConsistent() SELECT STRUCTTYPEOID"))
+			generateException();
+		// replaced MAX() (which ignores index) by ORDER BY variant -- PB 2005-jul-12
+  		// EXEC SQL SELECT MAX(BaseTypeId) INTO :checkoid INDICATOR :oidind
+		// 	FROM RAS_BASETYPENAMES;
+		checkoid = 0;
+		TALK( "SELECT BaseTypeId FROM RAS_BASETYPENAMES..." );
+		EXEC SQL SELECT BaseTypeId INTO :checkoid INDICATOR :oidind
+			FROM RAS_BASETYPENAMES
+			ORDER BY BaseTypeId DESC LIMIT 1;
+		// now "no data" means no error, but that we need to initialize the empty table
+		if (SQLCODE < 0)
+		{
+			check("DatabaseIf::isConsistent() SELECT MAX(BaseTypeId)");
+			generateException();
+		}
+
+		if ((checkoid > nextoid) && (oidind == 0))
+		{
+			RMInit::logOut << "The administrative tables for StructTypes is inconsistent.	Please call support." << std::endl;
+			RMInit::dbgOut << std::endl << "Counter in RAS_BASETYPENAMES : " << checkoid << std::endl << "Counter in RAS_COUNTERS : " << nextoid << std::endl;
+			retval=false;
+		}
+		checkoid = 0;
+		nextoid=0;
+        	oidind=0;
+	}
+
+	if(retval)
+	{
+		(void) strncpy( name2, (char*) OId::counterNames[OId::SETTYPEOID], (size_t) sizeof(name2) );
+		EXEC SQL SELECT NextValue INTO :nextoid
+			FROM RAS_COUNTERS
+			WHERE CounterName = :name2;
+		if (check("DatabaseIf::isConsistent() SELECT SETTYPEOID"))
+			generateException();
+		// replaced MAX() (which ignores index) by ORDER BY variant -- PB 2005-jul-12
+		// EXEC SQL SELECT MAX(SetTypeId) INTO :checkoid INDICATOR :oidind
+		// 	FROM RAS_SETTYPES;
+		checkoid = 0;
+		TALK( "SELECT SetTypeId FROM RAS_SETTYPES..." );
+		EXEC SQL SELECT SetTypeId INTO :checkoid INDICATOR :oidind
+			FROM RAS_SETTYPES
+			ORDER BY SetTypeId DESC LIMIT 1;
+		// now "no data" means no error, but that we need to initialize the empty table
+		if (SQLCODE < 0)
+		{
+			check("DatabaseIf::isConsistent() SELECT MAX(SetTypeId)");
+			generateException();
+		}
+
+		if ((checkoid > nextoid) && (oidind == 0))
+		{
+			RMInit::logOut << "The administrative tables for MDDTypes is inconsistent.	Please call support." << std::endl;
+			RMInit::dbgOut << std::endl << "Counter in RAS_SETTYPES : " << checkoid << std::endl << "Counter in RAS_COUNTERS : " << nextoid << std::endl;
+			retval=false;
+		}
+		checkoid = 0;
+		nextoid=0;
+        	oidind=0;
+	}
+
+	if(retval)
+	{
+		(void) strncpy( name2, (char*) OId::counterNames[OId::BLOBOID], (size_t) sizeof(name2) );
+		EXEC SQL SELECT NextValue INTO :nextoid
+			FROM RAS_COUNTERS
+			WHERE CounterName = :name2;
+		if (check("DatabaseIf::isConsistent() SELECT BLOBOID"))
+			generateException();
+		// replaced MAX() (which ignores index) by ORDER BY variant -- PB 2005-jul-12
+		// EXEC SQL SELECT MAX(BlobId) INTO :checkoid INDICATOR :oidind
+		// 	FROM RAS_TILES;
+		checkoid = 0;
+		TALK( "SELECT BlobId FROM RAS_TILES..." );
+		EXEC SQL SELECT BlobId INTO :checkoid INDICATOR :oidind
+			FROM RAS_TILES
+			ORDER BY BlobId DESC LIMIT 1;
+		// now "no data" means no error, but that we need to initialize the empty table
+		if (SQLCODE < 0)
+	 	{
+			check("DatabaseIf::isConsistent() SELECT MAX(BlobId)");
+			generateException();
+		}
+
+		if ((checkoid > nextoid) && (oidind == 0))
+		{
+			RMInit::logOut << "The administrative tables for BLOB Data is inconsistent.	Please call support." << std::endl;
+			RMInit::dbgOut << std::endl << "Counter in RAS_TILES : " << checkoid << std::endl << "Counter in RAS_COUNTERS : " << nextoid << std::endl;
+			retval=false;
+		}
+		checkoid = 0;
+		nextoid=0;
+        	oidind=0;
+	}
+	
+	if(retval)
+	{
+		(void) strncpy( name2, (char*) OId::counterNames[OId::MDDHIERIXOID], (size_t) sizeof(name2) );
+		EXEC SQL SELECT NextValue INTO :nextoid
+			FROM RAS_COUNTERS
+			WHERE CounterName = :name2;
+		if (check("DatabaseIf::isConsistent() SELECT MDDHIERIXOID"))
+			generateException();
+		// replaced MAX() (which ignores index) by ORDER BY variant -- PB 2005-jul-12
+		// EXEC SQL SELECT MAX(MDDObjIxOId) INTO :checkoid INDICATOR :oidind
+		// 	FROM RAS_HIERIX;
+		checkoid = 0;
+		TALK( "SELECT MDDObjIxOId FROM RAS_HIERIX..." );
+		EXEC SQL SELECT MDDObjIxOId INTO :checkoid INDICATOR :oidind
+			FROM RAS_HIERIX
+			ORDER BY MDDObjIxOId DESC LIMIT 1;
+		// now "no data" means no error, but that we need to initialize the empty table
+		if (SQLCODE < 0)
+		{
+			check("DatabaseIf::isConsistent() SELECT MAX(MDDObjIxOId)");
+			generateException();
+		}
+
+		if (checkoid > (nextoid * 512 + OId::MDDHIERIXOID))
+		{
+			RMInit::logOut << "The administrative tables for hierarchical MDD indexes is inconsistent.	Please call support." << std::endl;
+			RMInit::dbgOut << std::endl << "Counter in RAS_HIERIX : " << checkoid << std::endl << "Counter in RAS_COUNTERS : " << nextoid << " real " << (nextoid * 512 + OId::MDDHIERIXOID) << std::endl;
+			retval=false;
+		}
+		checkoid = 0;
+        	nextoid=0;
+        	oidind=0;
+	}
+
+	if(retval)
+	{
+		(void) strncpy( name2, (char*) OId::counterNames[OId::STORAGEOID], (size_t) sizeof(name2) );
+		EXEC SQL SELECT NextValue INTO :nextoid
+			FROM RAS_COUNTERS
+			WHERE CounterName = :name2;
+		if (check("DatabaseIf::isConsistent() SELECT STORAGEOID"))
+			generateException();
+		// replaced MAX() (which ignores index) by ORDER BY variant -- PB 2005-jul-12
+		// EXEC SQL SELECT MAX(StorageId) INTO :checkoid INDICATOR :oidind
+		// 	FROM RAS_STORAGE;
+	 	checkoid=0;
+		TALK( "SELECT StorageId FROM RAS_STORAGE..." );
+		EXEC SQL SELECT StorageId INTO :checkoid INDICATOR :oidind
+			FROM RAS_STORAGE
+			ORDER BY StorageId DESC LIMIT 1;
+		// now "no data" means no error, but that we need to initialize the empty table
+		if (SQLCODE < 0)
+	 	{
+			check("DatabaseIf::isConsistent() SELECT MAX(StorageId)");
+			generateException();
+		}
+
+		if ((checkoid > nextoid) && (oidind == 0))
+		{
+			RMInit::logOut << "Fatal error: administrative tables for MDD storage structures are inconsistent.	Please call support." << std::endl;
+			RMInit::dbgOut << std::endl << "Counter in RAS_STORAGE : " << checkoid << std::endl << "Counter in RAS_COUNTERS : " << nextoid << std::endl;
+			retval=false;
+		}
+	 	checkoid=0;
+	 	nextoid=0;
+         	oidind=0;
+	}
+
+	LEAVE( "DatabaseIf::isConsistent, retval=" << retval );
+	RMDBGEXIT(4, RMDebug::module_adminif, "DatabaseIf", "isConsistent() " << retval);
+	return retval;
+}
+
+void 
+DatabaseIf::createDB(const char* dbName, const char* schemaName, const char* volumeName) throw(r_Error)
+{
+	RMDBGENTER(4, RMDebug::module_adminif, "DatabaseIf", "create(" << dbName << ", " << schemaName << ", " << volumeName << ")");
+	ENTER( "DatabaseIf::createDB, dbName=" << dbName << ", schemaName=" << schemaName << ", volumeName=" << volumeName );
+
+	int i=0;
+	EXEC SQL BEGIN DECLARE SECTION;
+		long id;
+		long idd;
+		char name[255];
+	EXEC SQL END DECLARE SECTION;
+
+	name[0] = '\0';		// initialize to empty string
+
+	try
+	{		
+		if (AdminIf::getCurrentDatabaseIf() != 0)
+		{
+			RMDBGMIDDLE(5, RMDebug::module_adminif, "DatabaseIf", "another database is open");
+			TALK( "Error: another database is open" );
+			throw r_Error(r_Error::r_Error_DatabaseOpen);
+		}
+		connect();
+		TALK( "EXEC SQL BEGIN WORK;");
+		EXEC SQL BEGIN WORK;
+		if(check("DatabaseIf::create() BEGIN WORK\0"))
+			generateException();
+
+/* not used, see comment with databaseExists()
+		// does database exist already?
+		if (databaseExists(dbName))
+		{
+			RMDBGMIDDLE(5, RMDebug::module_adminif, "DatabaseIf", "database already exists");
+			RMInit::logOut << "Database creation failed: database exists already." << std::endl;
+			TALK( "Error: database exists." );
+			throw r_Error(DATABASE_EXISTS);
+		}
+*/
+
+		// --- start table/index creation ------------------------------
+
+		// no index here because there is only one entry in the table
+		TALK( "EXEC SQL CREATE TABLE RAS_ADMIN ( IFVersion INTEGER NOT NULL, Architecture VARCHAR(20) NOT NULL, ServerVersion INTEGER NOT NULL) " );
+		EXEC SQL CREATE TABLE RAS_ADMIN (
+			IFVersion INTEGER NOT NULL,
+			Architecture VARCHAR(20) NOT NULL,
+			ServerVersion INTEGER NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_ADMIN\0"))
+			generateException();
+
+		id = RASSCHEMAVERSION;
+		idd = RMANVERSION;
+		(void) strncpy( name, RASARCHITECTURE, (size_t) sizeof(name) );
+
+		TALK( "EXEC SQL INSERT INTO RAS_ADMIN (IFVersion, Architecture, ServerVersion) VALUES (" << id << ", " << name << ", " << idd << ")" );
+		EXEC SQL INSERT INTO RAS_ADMIN (IFVersion, Architecture, ServerVersion) VALUES (:id, :name, :idd);
+		if(check("DatabaseIf::create() INSERT INTO RAS_ADMIN\0"))
+			generateException();
+	
+		// no index here because there is only 20 entries in the table
+		TALK( "EXEC SQL CREATE TABLE RAS_COUNTERS ( NextValue INTEGER NOT NULL, CounterName VARCHAR(20) NOT NULL)" );
+		EXEC SQL CREATE TABLE RAS_COUNTERS (
+			NextValue INTEGER NOT NULL,
+			CounterName VARCHAR(20) NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_COUNTERS\0"))
+			generateException();
+
+		// initialising RAS_COUNTERS
+		for(i = 1; i < OId::maxCounter; i++) 
+		{
+			(void) strncpy( name, (char*) OId::counterNames[i], (size_t) sizeof(name) );
+			id = 1;
+			TALK( "EXEC SQL INSERT INTO RAS_COUNTERS (CounterName, NextValue) VALUES (" << name << "," << id << ")" );
+			EXEC SQL INSERT INTO RAS_COUNTERS (CounterName, NextValue) VALUES (:name, :id);
+			if(check("DatabaseIf::create() INSERT INTO RAS_COUNTERS\0"))
+				generateException();
+		}
+
+		TALK( "...and several more tables..." );
+
+		// relblobif
+		EXEC SQL CREATE TABLE RAS_TILES (
+			BlobId INTEGER NOT NULL,
+			DataFormat INTEGER,
+			Tile oid	
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_TILES\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_TILES_IX
+			ON RAS_TILES (BlobId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_TILES_IX\0"))
+			generateException();
+
+		//ras_itiles
+		EXEC SQL CREATE TABLE RAS_ITILES (
+			ITileId INTEGER NOT NULL,
+			ITile oid
+			);
+		if (check("DatabaseIf::create() CREATE TABLE RAS_ITILES\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_ITILES_IX
+			ON RAS_ITILES (ITileId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_ITILES_IX\0"))
+			generateException();
+
+		// relcatalogif
+		EXEC SQL CREATE TABLE RAS_MDDTYPES (
+			MDDTypeOId DEC(15,0) NOT NULL,
+			MDDTypeName VARCHAR(254) NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_MDDTYPES\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_MDDTYPES_IX
+			ON RAS_MDDTYPES (MDDTypeOId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_MDDTYPES_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE TABLE RAS_ITMAP (
+			TileId INTEGER NOT NULL,
+			IndexId INTEGER NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_ITMAP\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_ITMAP_IX
+			ON RAS_ITMAP (TileId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_ITMAP_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE TABLE RAS_MDDBASETYPES (
+			MDDBaseTypeOId DEC(15,0) NOT NULL,
+			BaseTypeId DEC(15,0) NOT NULL,
+			MDDTypeName VARCHAR(254) NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_MDDBASETYPES\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_MDDBASETYPES_IX
+			ON RAS_MDDBASETYPES (MDDBaseTypeOId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_MDDBASETYPES_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE TABLE RAS_MDDDIMTYPES (
+			MDDDimTypeOId DEC(15,0) NOT NULL,
+			BaseTypeId DEC(15,0) NOT NULL,
+			Dimension INTEGER NOT NULL,
+			MDDTypeName VARCHAR(254) NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_MDDDIMTYPES\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_MDDDIMTYPES_IX
+			ON RAS_MDDDIMTYPES (MDDDimTypeOId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_MDDDIMTYPES_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE TABLE RAS_MDDDOMTYPES (
+			MDDDomTypeOId DEC(15,0) NOT NULL,
+			BaseTypeId DEC(15,0) NOT NULL,
+			DomainId INTEGER NOT NULL,
+			MDDTypeName VARCHAR(254) NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_MDDDOMAINTYPES\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_MDDDOMTYPES_IX
+			ON RAS_MDDDOMTYPES (MDDDomTypeOId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_MDDDOMTYPES_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE TABLE RAS_SETTYPES (
+			SetTypeId INTEGER NOT NULL,
+			MDDTypeOId DEC(15,0) NOT NULL,
+			SetTypeName VARCHAR(254) NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_SETTYPES\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_SETTYPES_IX
+			ON RAS_SETTYPES (SetTypeId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_SETTYPES_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE TABLE RAS_BASETYPENAMES (
+			BaseTypeId SMALLINT NOT NULL,
+			BaseTypeName VARCHAR (254) NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_BASETYPENAMES\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_BASETYPENAMES_IX
+			ON RAS_BASETYPENAMES (BaseTypeId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_BASETYPENAMES_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE TABLE RAS_BASETYPES (
+			BaseTypeId INTEGER NOT NULL,
+			Count SMALLINT NOT NULL,
+			ContentType DEC(15,0) NOT NULL,
+			ContentTypeName VARCHAR (254) NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_BASETYPES\0"))
+			generateException();
+		
+		EXEC SQL CREATE INDEX RAS_BASETYPESC_IX
+			ON RAS_BASETYPES (BaseTypeId);
+		if(check("DatabaseIf::create() CREATE INDEX RAS_BASETYPES_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_BASETYPES_IX
+			ON RAS_BASETYPES (BaseTypeId, Count);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_BASETYPES_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE TABLE RAS_DOMAINS (
+			DomainId INTEGER NOT NULL,
+			Dimension INTEGER NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_DOMAINS\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_DOMAINS_IX
+			ON RAS_DOMAINS (DomainId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_DOMAINS_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE TABLE RAS_DOMAINVALUES (
+			DomainId INTEGER NOT NULL,
+			DimensionCount INTEGER NOT NULL,
+			Low INTEGER,
+			High INTEGER
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_DOMAINVALUES\0"))
+			generateException();
+
+		EXEC SQL CREATE INDEX RAS_DOMAINVALUESC_IX
+ 			ON RAS_DOMAINVALUES (DomainId);
+		if(check("DatabaseIf::create() CREATE INDEX RAS_DOMAINVALUESC_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_DOMAINVALUES_IX
+ 			ON RAS_DOMAINVALUES (DomainId, DimensionCount);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_DOMAINVALUES_IX\0"))
+			generateException();
+
+		// relmddif
+		EXEC SQL CREATE TABLE RAS_MDDCOLLECTIONS (
+			MDDId INTEGER NOT NULL,
+			MDDCollId INTEGER NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_MDDCOLLECTIONS\0"))
+			generateException();
+		
+		EXEC SQL CREATE INDEX RAS_COLLECTIONSC_IX
+			ON RAS_MDDCOLLECTIONS (MDDCOllId);
+		if(check("DatabaseIf::create() CREATE INDEX RAS_COLLECTIONSC_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_COLLECTIONS_IX
+			ON RAS_MDDCOLLECTIONS (MDDCOllId, MDDId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_COLLECTIONS_IX\0"))
+			generateException();
+
+		// referes to MDDSet
+		EXEC SQL CREATE TABLE RAS_MDDCOLLNAMES (
+			MDDCollId INTEGER NOT NULL,
+			SetTypeId INTEGER NOT NULL,
+			MDDCollName VARCHAR(254)
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_MDDCOLLNAMES\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_MDDCOLLNAMES_IX
+			ON RAS_MDDCOLLNAMES (MDDCollId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_MDDCOLLNAMES_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE TABLE RAS_MDDOBJECTS (
+			MDDId INTEGER NOT NULL,
+			BaseTypeOId DEC(15,0) NOT NULL,
+			DomainId INTEGER NOT NULL,
+			PersRefCount INTEGER NOT NULL,
+			StorageOId DEC(15,0) NOT NULL,
+			NodeOId DEC(15,0)
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_MDDOBJECTS\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_MDDOBJECTS_IX
+			ON RAS_MDDOBJECTS (MDDId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_MDDOBJECTS_IX\0"))
+			generateException();
+
+		//relstorageif
+		EXEC SQL CREATE TABLE RAS_STORAGE (
+			StorageId	INTEGER NOT NULL,
+			DomainId	INTEGER,
+			TileSize	INTEGER,
+			PCTMin		INTEGER,
+			PCTMax		INTEGER,
+			IndexSize	INTEGER,
+			IndexType	SMALLINT,
+			TilingScheme	SMALLINT,
+			DataFormat	SMALLINT
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_MDDOBJECTS\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_STORAGE_IX
+			ON RAS_STORAGE (StorageId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_STORAGE_IX\0"))
+			generateException();
+
+		// relindexif
+		// may not be needed
+		EXEC SQL CREATE TABLE RAS_HIERIX (
+			MDDObjIxOId	DEC(15,0) NOT NULL,
+			NumEntries	SMALLINT NOT NULL,
+			Dimension	SMALLINT NOT NULL,
+			ParentOId	DEC(15,0) NOT NULL,
+			IndexSubType	SMALLINT NOT NULL,
+			DynData		OID
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_HIERIX\0"))
+			generateException();
+
+		// Note: table RAS_HIERIXDYN is not needed, we put each index node into the above DynData blob
+
+		EXEC SQL CREATE TABLE RAS_UDFBODY (
+			UOId		DEC(15,0) NOT NULL,
+			Name		VARCHAR(254) NOT NULL,
+			Body		CHAR(3700) NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_UDFBODY\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_UDFBODY_IX
+			ON RAS_UDFBODY (UOId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_UDFBODY_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE TABLE RAS_UDFARGS (
+			UOId		DEC(15,0) NOT NULL,
+			ArgNum		SMALLINT NOT NULL,
+			ArgName		VARCHAR(254) NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_UDFARGS\0"))
+			generateException();
+
+		EXEC SQL CREATE INDEX RAS_UDFARGSC_IX
+			ON RAS_UDFARGS(UOId);
+		if(check("DatabaseIf::create() CREATE INDEX RAS_UDFARGSC_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_UDFARGS_IX
+			ON RAS_UDFARGS(UOId, ArgNum);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_UDFARGS_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE TABLE RAS_UDFPACKAGE (
+			UOId		DEC(15,0) NOT NULL,
+			Name		VARCHAR(254) NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_UDFPACKAGE\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_UDFPACKAGEN_IX
+			ON RAS_UDFPACKAGE (Name);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_UDFPACKAGEN_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_UDFPACKAGEO_IX
+			ON RAS_UDFPACKAGE (UOId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_UDFPACKAGEO_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE TABLE RAS_UDFNSCONTENT (
+			UOId		DEC(15,0) NOT NULL,
+			UDFOId		DEC(15,0) NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_UDFNSCONTENT\0"))
+			generateException();
+
+		EXEC SQL CREATE INDEX RAS_UDFNSCONTENTC_IX
+			ON RAS_UDFNSCONTENT(UOId);
+		if(check("DatabaseIf::create() CREATE INDEX RAS_UDFNSCONTENTC_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_UDFNSCONTENT_IX
+			ON RAS_UDFNSCONTENT(UOId, UDFOId);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_UDFNSCONTENT_IX\0"))
+			generateException();
+
+		// We need 1 byte more because the first character may not be a \0 -> the first byte is always 13
+		// note: this does not hold for PG, but we keep it to remain cross-platform consistent in data
+		// note2: we use blob instead of varchar because the latter can hold only ascii data in PG
+		EXEC SQL CREATE TABLE RAS_RCINDEXDYN (
+			Id		DEC(15,0) NOT NULL,
+			Count		DEC(3,0) NOT NULL,
+			DynData		oid
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_RCINDEXDYN\0"))
+			generateException();
+			
+		EXEC SQL CREATE INDEX RAS_RCINDEXDYNC_IX
+			ON RAS_RCINDEXDYN (Id);
+		if(check("DatabaseIf::create() CREATE INDEX RAS_RCINDEXDYNC_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE UNIQUE INDEX RAS_RCINDEXDYN_IX
+			ON RAS_RCINDEXDYN (Id, Count);
+		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_RCINDEXDYN_IX\0"))
+			generateException();
+
+		EXEC SQL CREATE VIEW RAS_MDDTYPES_VIEW
+				(MDDTypeOId, MDDTypeName)
+			AS
+				SELECT
+						MDDTypeOId * 512 + 3, MDDTypeName
+					FROM
+						RAS_MDDTYPES
+			UNION
+				SELECT
+						MDDBaseTypeOId * 512 + 4, MDDTypeName
+					FROM
+						RAS_MDDBASETYPES
+			UNION
+				SELECT
+						MDDDimTypeOId * 512 + 5, MDDTypeName
+					FROM
+						RAS_MDDDIMTYPES
+			UNION
+				SELECT
+						MDDDomTypeOId * 512 + 6, MDDTypeName
+					FROM
+						RAS_MDDDOMTYPES;
+		if(check("DatabaseIf::create() CREATE VIEW"))
+			generateException();
+
+		TALK( "EXEC SQL COMMIT WORK" );
+		EXEC SQL COMMIT WORK;
+		if(check("DatabaseIf::create() COMMIT WORK"))
+			generateException();
+
+		disconnect();
+	}
+	catch (r_Error& err)
+	{
+		// abort TA, ignore any error there
+		TALK( "EXEC SQL ABORT WORK;");
+		EXEC SQL ABORT WORK;
+
+		RMDBGMIDDLE(0, RMDebug::module_adminif, "DatabaseIf", "create(" << dbName << ", " << schemaName << ", " << volumeName << ") error caught " << err.what() << " " << err.get_errorno());
+		throw; // rethrow exception
+	}
+
+	LEAVE( "DatabaseIf::createDB, SQLCODE=" << SQLCODE );
+	RMDBGEXIT(4, RMDebug::module_adminif, "DatabaseIf", "create(" << dbName << ", " << schemaName << ", "	<< volumeName << ")");
+}
+
+void
+DatabaseIf::destroyDB(const char* dbName) throw(r_Error)
+{
+	RMDBGENTER(4, RMDebug::module_adminif, "DatabaseIf", "destroyDB(" << dbName << ")");
+	ENTER( "DatabaseIf::destroyDB, dbName=" << dbName );
+
+	if (AdminIf::getCurrentDatabaseIf() != 0)
+	{
+		RMDBGMIDDLE(5, RMDebug::module_adminif, "DatabaseIf", "another database is already open");
+		LEAVE( "Error: another database is already open" );
+		RMInit::logOut << "Another database is already open." << std::endl << "Cannot destroy database " << dbName << "." << std::endl;
+		throw r_Error(r_Error::r_Error_DatabaseOpen);
+	}
+	connect();
+
+/* this check is omitted, see databaseExists() comment
+	// terminate processing of database was not found -- PB 2003-sep-05
+	// try
+	// {
+	 	if (!databaseExists(dbName))
+	 	{
+	 		RMDBGMIDDLE(5, RMDebug::module_adminif, "DatabaseIf", "unknown database");
+	 		LEAVE( "Error: Database unknown" );
+	 		RMInit::logOut << "Database " << dbName << " not found." << std::endl << "Cannot destroy database " << dbName << "." << std::endl;
+	 		throw r_Error(r_Error::r_Error_DatabaseUnknown);
+	 	}
+	// }
+	// catch (r_Error& err)
+	// {
+	// 	RMInit::logOut << "Caught exception while trying to check for existence of database: " << err.what() << " " << err.get_errorno() << " " << err.get_kind() << endl;
+	// 	RMInit::logOut << "Continuing with destruction of the database" << endl;
+	// 	TALK( "Continuing destruction of the database after error " << err.get_errorno() << " " << err.get_kind() );
+	// }
+*/
+
+	EXEC SQL BEGIN WORK;
+	check("DatabaseIf::destroyDB() BEGIN WORK\0");
+
+	EXEC SQL DROP VIEW RAS_MDDTYPES_VIEW;
+	check("DatabaseIf::destroyDB() DROP VIEW RAS_MDDTYPES_VIEW\0");
+	
+	// relblobif
+	EXEC SQL DROP TABLE RAS_TILES;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_TILES\0");
+		
+	EXEC SQL DROP TABLE RAS_ITILES;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_ITILES\0");
+
+	// relcatalogif
+	EXEC SQL DROP TABLE RAS_MDDTYPES;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_MDDTYPES\0");
+
+	EXEC SQL DROP TABLE RAS_ITMAP;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_ITMAP\0");	
+
+	EXEC SQL DROP TABLE RAS_MDDBASETYPES;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_MDDBASETYPES\0");
+	
+	EXEC SQL DROP TABLE RAS_MDDDIMTYPES;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_MDDDIMENSIONTYPES\0");
+
+	EXEC SQL DROP TABLE RAS_MDDDOMTYPES;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_MDDDOMAINTYPES\0");
+
+	EXEC SQL DROP TABLE RAS_SETTYPES;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_SETTYPES\0");
+
+	EXEC SQL DROP TABLE RAS_BASETYPENAMES;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_BASETYPENAMES\0");
+
+	EXEC SQL DROP INDEX RAS_BASETYPES_IX;
+	check("DatabaseIf::destroyDB() DROP INDEX RAS_BASETYPES_IX\0");
+		
+	EXEC SQL DROP TABLE RAS_BASETYPES;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_BASETYPES\0");
+
+	EXEC SQL DROP TABLE RAS_DOMAINS;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_DOMAINS\0");
+
+	EXEC SQL DROP TABLE RAS_DOMAINVALUES;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_DOMAINVALUES\0");
+
+	// relmddif
+	// referes to DBMDDCollOIdEntry
+	EXEC SQL DROP TABLE RAS_MDDCOLLECTIONS;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_MDDCOLLECTIONS\0");
+
+	// referes to MDDSet
+	EXEC SQL DROP TABLE RAS_MDDCOLLNAMES;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_MDDCOLLNAMES\0");
+
+	EXEC SQL DROP TABLE RAS_MDDOBJECTS;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_MDDOBJECTS\0");
+
+	// relindexif
+	// may not be needed
+	EXEC SQL DROP TABLE RAS_HIERIX;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_HIERIX\0");
+
+	EXEC SQL DROP INDEX RAS_HIERIXDYN_IX;
+	check("DatabaseIf::destroyDB() DROP INDEX RAS_HIERIXDYN_IX\0");
+
+	EXEC SQL DROP TABLE RAS_HIERIXDYN;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_HIERIXDYN\0");
+
+	EXEC SQL DROP TABLE RAS_STORAGE;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_STORAGE\0");
+
+	EXEC SQL DROP TABLE RAS_COUNTERS;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_COUNTERS\0");
+		
+	EXEC SQL DROP TABLE RAS_UDFBODY;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_UDFBODY");
+
+	EXEC SQL DROP TABLE RAS_UDFARGS;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_UDFARGS");
+
+	EXEC SQL DROP TABLE RAS_UDFPACKAGE;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_UDFPACKAGE");
+
+	EXEC SQL DROP TABLE RAS_UDFNSCONTENT;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_UDFNSCONTENT");
+
+	EXEC SQL DROP INDEX RAS_RCINDEXDYN_IX;
+	check("DatabaseIf::destroyDB() DROP INDEX RAS_RCINDEXDYN_IX\0");
+
+	EXEC SQL DROP TABLE RAS_RCINDEXDYN;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_RCINDEXDYN\0");
+		
+	EXEC SQL DROP TABLE RAS_ADMIN;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_ADMIN\0");
+
+	EXEC SQL COMMIT WORK;
+	check("DatabaseIf::destroyDB() COMMIT\0");
+		
+	disconnect();
+
+	LEAVE( "DatabaseIf::destroyDB" );
+	RMDBGEXIT(4, RMDebug::module_adminif, "DatabaseIf", "destroyDB(" << dbName << ")");
+}
+
+/**
+This test is omitted because in PG it would fail the transaction,
+hence making continuation impossible.
+On the other hand, if the database really doesn't exist
+/ exists already (whatever is the erroneous situation)
+the transaction will fail for the very same reason.
+And here we can't decide what situation is good / not good!
+The only thing we lose is an appropriate error message
+on the top-level situation of the whole database.
+
+To make sure that no invocation of this function leads to erroneous results, we disable it.
+**/ 
+
+#if 0 // disable function to avoid invocation -- PB 2005-feb05
+bool
+DatabaseIf::databaseExists(const char* dbname) throw (r_Error)
+{
+	RMDBGENTER(4, RMDebug::module_adminif, "DatabaseIf", "databaseExists(" << dbname << ")");
+	ENTER( "DatabaseIf::databaseExists, dbName(ignored)=" << dbname );
+
+	EXEC SQL BEGIN DECLARE SECTION;
+		long	nextoid;
+		short	oidind;
+		char    name1[255];	// must be large enough to hold counterNames, see oidif.cc
+	EXEC SQL END DECLARE SECTION;
+	bool retval = true;
+
+	(void) strncpy( name1, (char*) OId::counterNames[OId::DBMINTERVALOID], (size_t) sizeof(name1) );
+	TALK( "EXEC SQL SELECT NextValue INTO :nextoid FROM RAS_COUNTERS WHERE CounterName = " << name1 << ";" )
+	EXEC SQL SELECT NextValue INTO :nextoid
+		FROM RAS_COUNTERS
+		WHERE CounterName = :name1;
+	retval = (SQLCODE == SQLOK) ? true : false;
+
+	LEAVE( "DatabaseIf::databaseExists, SQLCODE=" << SQLCODE << ", retval=" << retval );
+	RMDBGEXIT(4, RMDebug::module_adminif, "DatabaseIf", "databaseExists(" << dbname << ") retval " << retval);
+
+	return retval;
+}
+#endif // 0

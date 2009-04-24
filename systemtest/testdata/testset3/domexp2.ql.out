@@ -1,0 +1,42 @@
+-- Testbed line: result_type=set <marray <char, [0:10,0:9]>>
+-- Testbed line: result_elements=2
+-- Testbed start block:
+Image 1
+GMarray
+  Type Structure........: marray <char, [0:10,0:9]>
+  Type Schema...........: marray< char >
+  Domain................: [0:10,0:9]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 110
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+    0       0       0       0       0       0       0       0       0       0       0   
+Image 2
+GMarray
+  Type Structure........: marray <char, [0:10,0:9]>
+  Type Schema...........: marray< char >
+  Domain................: [0:10,0:9]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 110
+    1       1       1       1       1       1       1       1       1       1       1   
+    1       1       1       1       1       1       1       1       1       1       1   
+    1       1       1       1       1       1       1       1       1       1       1   
+    1       1       1       1       1       1       1       1       1       1       1   
+    1       1       1       1       1       1       1       1       1       1       1   
+    1       1       1       1       1       1       1       1       1       1       1   
+    1       1       1       1       1       1       1       1       1       1       1   
+    1       1       1       1       1       1       1       1       1       1       1   
+    1       1       1       1       1       1       1       1       1       1       1   
+    1       1       1       1       1       1       1       1       1       1       1   
+-- Testbed end block:

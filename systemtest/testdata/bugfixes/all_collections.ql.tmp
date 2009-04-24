@@ -1,0 +1,164 @@
+-- Testbed line: result_type=set <marray <char, [0:8]>>
+-- Testbed line: result_elements=16
+-- Testbed start block:
+Image 1
+GMarray
+  Type Structure........: marray <char, [0:8]>
+  Type Schema...........: marray< char >
+  Domain................: [0:8]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 9
+   73     109     103      67     104      97     114      65       0   
+Image 2
+GMarray
+  Type Structure........: marray <char, [0:8]>
+  Type Schema...........: marray< char >
+  Domain................: [0:8]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 9
+   73     109     103      67     104      97     114      66       0   
+Image 3
+GMarray
+  Type Structure........: marray <char, [0:8]>
+  Type Schema...........: marray< char >
+  Domain................: [0:8]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 9
+   73     109     103      67     104      97     114      67       0   
+Image 4
+GMarray
+  Type Structure........: marray <char, [0:8]>
+  Type Schema...........: marray< char >
+  Domain................: [0:8]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 9
+   73     109     103      67     104      97     114      68       0   
+Image 5
+GMarray
+  Type Structure........: marray <char, [0:11]>
+  Type Schema...........: marray< char >
+  Domain................: [0:11]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 12
+   73     109     103      67     104      97     114      77      97     115     107       0   
+Image 6
+GMarray
+  Type Structure........: marray <char, [0:9]>
+  Type Schema...........: marray< char >
+  Domain................: [0:9]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 10
+   73     109     103      85      76     111     110     103      67       0   
+Image 7
+GMarray
+  Type Structure........: marray <char, [0:7]>
+  Type Schema...........: marray< char >
+  Domain................: [0:7]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 8
+   73     109     103      82      71      66      65       0   
+Image 8
+GMarray
+  Type Structure........: marray <char, [0:9]>
+  Type Schema...........: marray< char >
+  Domain................: [0:9]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 10
+   79     108      97     112      67     104      97     114      65       0   
+Image 9
+GMarray
+  Type Structure........: marray <char, [0:11]>
+  Type Schema...........: marray< char >
+  Domain................: [0:11]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 12
+   83     116     114     105     110     103      67     104      97     114      65       0   
+Image 10
+GMarray
+  Type Structure........: marray <char, [0:9]>
+  Type Schema...........: marray< char >
+  Domain................: [0:9]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 10
+   67     117      98     101      67     104      97     114      65       0   
+Image 11
+GMarray
+  Type Structure........: marray <char, [0:7]>
+  Type Schema...........: marray< char >
+  Domain................: [0:7]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 8
+   79     118     108      82      71      66      65       0   
+Image 12
+GMarray
+  Type Structure........: marray <char, [0:7]>
+  Type Schema...........: marray< char >
+  Domain................: [0:7]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 8
+   79     118     108      82      71      66      66       0   
+Image 13
+GMarray
+  Type Structure........: marray <char, [0:7]>
+  Type Schema...........: marray< char >
+  Domain................: [0:7]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 8
+   79     118     108      82      71      66      67       0   
+Image 14
+GMarray
+  Type Structure........: marray <char, [0:8]>
+  Type Schema...........: marray< char >
+  Domain................: [0:8]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 9
+   79     118     108      67     104      97     114      65       0   
+Image 15
+GMarray
+  Type Structure........: marray <char, [0:8]>
+  Type Schema...........: marray< char >
+  Domain................: [0:8]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 9
+   79     118     108      67     104      97     114      66       0   
+Image 16
+GMarray
+  Type Structure........: marray <char, [0:8]>
+  Type Schema...........: marray< char >
+  Domain................: [0:8]
+  Base Type Schema......: char
+  Base Type Length......: 1
+  Data format.......... : Array
+  Data size (bytes).... : 9
+   79     118     108      67     104      97     114      67       0   
+-- Testbed end block:

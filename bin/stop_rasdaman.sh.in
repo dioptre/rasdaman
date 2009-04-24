@@ -1,0 +1,88 @@
+#!/bin/bash
+#
+# This file is part of rasdaman community.
+#
+# Rasdaman community is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Rasdaman community is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+# rasdaman GmbH.
+#
+# For more information please see <http://www.rasdaman.org>
+# or contact Peter Baumann via <baumann@rasdaman.com>.      
+#
+#
+# stop_rasdaman.sh - shut down rasdaman server complex
+#
+# SYNTAX
+#       stop_rasdaman.sh
+#
+# DESCRIPTION
+#       This script terminates rasdaman.
+#	First, all server processes are terminated. Then, the server
+#	manager (rasmgr) is shut down.
+#       To log in to the server, the external variable $RASLOGIN is expected to hold
+#       an ID string (see rasdaman manual). If not found, a desperate last attempt is
+#       made to login as rasadmin/rasadmin. If this fails, no servers are stopped at all.
+#
+# BE CAREFUL
+#	By terminating rasdaman, all open transactions are aborted,
+#	and their contents will be irretrievably lost!
+#
+# PRECONDITIONS
+#       - need to have a rasdaman admin login either from $RASLOGIN or as rasadmin/rasadmin
+#	- no open transactions or databases, they will be killed and transactions aborted
+#
+
+# --- CONSTANTS -----------------------------------------------------
+
+MYNAME=`basename $0`
+
+# --- END CONSTANTS -------------------------------------------------
+
+# --- ACTION --------------------------------------------------------
+
+echo $MYNAME: terminating all rasdaman servers
+
+# --- stop rasdaman servers: ---------------------------------------
+
+if [ -z "$RASLOGIN" ]; then
+	export RASLOGIN=rasadmin:d293a15562d3e70b6fdc5ee452eaed40
+fi
+
+# determine a list of all currently running servers
+ALLSERVERS=`@bindir@rascontrol -e -q -x list srv | awk '{ if (\$6 == "UP") print \$2;}'`
+
+# ...and shut down all of them, forcefully (!); any open transaction will be lost
+for SRV in $ALLSERVERS
+do
+	echo -n $MYNAME: terminating server $SRV...
+	@bindir@rascontrol -e -q -x down srv $SRV -kill
+	echo "done."
+done
+
+# --- stop rasmgr: -------------------------------------------------
+
+# give rasserver processes time to disappear
+sleep 2
+
+# finally shut down thes server manager
+echo -n "terminating rasdaman server manager(s)..."
+@bindir@rascontrol -e -q -x down host -all
+echo "done."
+
+# --- END ACTION ----------------------------------------------------
+
+echo $MYNAME: done.
+exit $RC_OK
+

@@ -1,0 +1,137 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+/*************************************************************
+ *
+ *
+ * COMMENTS:
+ *
+ ************************************************************/
+
+inline void
+QtData::setIteratorName( const std::string &iteratorNameNew )
+{
+  iteratorName = iteratorNameNew;
+}
+
+
+inline const std::string
+QtData::getIteratorName() const
+{
+  return iteratorName;
+}
+
+
+inline const QtData::QtLifetime
+QtData::getLifetime() const
+{
+  return persistent;
+}
+
+
+inline void
+QtData::setLifetime( QtLifetime flag)
+{
+  persistent = flag;
+}
+
+
+
+inline unsigned int 
+QtData::getRefNo() const
+{
+  return referenceCounter;
+}
+
+
+
+inline ParseInfo
+QtData::getParseInfo()
+{
+  if( parseInfo )
+    return *parseInfo;
+  else
+    return ParseInfo();
+}
+
+
+inline void
+QtData::setParseInfo( const ParseInfo &info )
+{
+  if( parseInfo )
+    *parseInfo = info;
+  else
+    parseInfo = new ParseInfo( info ); 
+}
+
+
+
+inline
+int 
+QtData::deleteRef()
+{
+  int objDeleted = 0;
+
+#if 0
+  if (parseInfo==NULL)
+  {
+    // RMInit::logOut << "QtData::deleteRef() - error: null parseinfo, resetting before doing delete." << endl;
+    parseInfo = new ParseInfo();
+  }
+#endif
+
+  if( !decRef() )
+  {
+    objDeleted = 1;
+    delete this;
+  }
+  
+  return objDeleted;
+}
+
+
+
+inline
+unsigned int
+QtData::decRef()
+{
+  if( referenceCounter > 0 )
+    referenceCounter--;
+  else
+    RMInit::logOut << "Internal Error: QtData::decRef() - decrease of a zero reference counter" << endl;
+
+  return referenceCounter;
+}
+
+
+
+inline
+void
+QtData::incRef()
+{
+  referenceCounter++;
+}
+
+
+
+
+

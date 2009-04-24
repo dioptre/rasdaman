@@ -1,0 +1,138 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+/
+/**
+ * INLINE SOURCE: minterval.icc
+ *
+ * MODULE:  raslib
+ * CLASS:   r_Minterval
+ *
+ * COMMENTS:
+ *
+*/
+
+// -*-C++-*- (for Emacs)
+#include "raslib/rminit.hh"
+#include "raslib/error.hh"
+
+inline r_Dimension 
+r_Minterval::dimension() const
+{
+  return dimensionality;
+}
+
+inline const bool 
+r_Minterval::is_origin_fixed() const
+{
+  bool retval=true;
+
+  if(!dimensionality)
+  {
+     retval=false;
+  }
+  else
+  {
+  for(r_Dimension i=0; i < dimensionality; i++)
+     retval &= intervals[i].is_low_fixed();
+  }
+   
+  return retval;
+}
+
+inline const bool
+r_Minterval::is_high_fixed() const
+{
+  bool retval=true;
+  
+  if(!dimensionality)
+  {
+   //we have an uninitialized interval
+   retval=false;
+  }   
+  else
+  {
+   for(r_Dimension i=0; i < dimensionality; i++)
+      retval &= intervals[i].is_high_fixed();
+  }
+   
+  return retval;
+}
+
+
+
+inline const bool
+r_Minterval::covers( const r_Point& pnt ) const
+	{
+	bool retval = true;
+	if (dimensionality == pnt.dimension())
+		{
+		for (r_Dimension i = 0; i < pnt.dimension(); i++)
+			{
+			if ((intervals[i].is_low_fixed() && pnt[i] < intervals[i].low()) || (intervals[i].is_high_fixed() && pnt[i] > intervals[i].high()))
+				{
+				retval = false;
+				break;
+				}
+			}
+		}
+	else	{
+		RMInit::logOut << "r_Minterval::covers(" << pnt << ") dimensions do not match" << endl;
+		retval=false;
+		}
+		
+	return retval;
+	}
+
+
+inline const bool
+r_Minterval::covers( const r_Minterval& inter2  ) const 
+	{
+	bool retval = true;
+	if (dimensionality == inter2.dimension())
+		{
+		for (r_Dimension i = 0; i < dimensionality ; i++)
+			{
+			// first check if i am low fixed and the other isn't: false
+			// both are low fixed
+			// check if i am smaller than the other: false
+			// second check if i am high fixed and the other isn't: false
+			// both are high fixed
+			// check if i am smaller than the other: false
+			if 	(
+				(intervals[i].is_low_fixed() && (!(inter2[i].is_low_fixed()) || intervals[i].low() > inter2[i].low()))
+				||
+				(intervals[i].is_high_fixed() && (!(inter2[i].is_high_fixed()) || intervals[i].high() < inter2[i].high()))
+				)
+				{
+				retval = false;
+				break;
+				}
+			}
+		}
+	else	{
+		RMInit::logOut << "r_Minterval::covers(" << inter2 << ") dimensions do not match" << endl;
+		retval=false;
+		}
+		
+	return retval;
+	}
+

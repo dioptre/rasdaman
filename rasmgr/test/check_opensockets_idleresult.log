@@ -1,0 +1,92 @@
+./check_opensockets.sh: start checking for open (waiting) sockets, in intervals of 1 seconds.
+--- check time: Die Jun 3 23:22:34 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:35 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:36 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:37 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:38 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:39 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:40 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:41 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:42 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:43 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:44 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:45 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:46 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:47 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:48 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:50 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:51 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:52 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:53 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:54 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:55 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:56 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:57 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:58 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:22:59 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:00 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:01 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:02 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:03 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:04 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:05 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:06 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:07 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:08 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:09 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:10 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:11 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:12 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:13 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:14 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:15 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:16 CEST 2003 ----------------
+tcp        0      0 127.0.0.1:620           127.0.0.1:686           TIME_WAIT
+--- check time: Die Jun 3 23:23:18 CEST 2003 ----------------
+--- check time: Die Jun 3 23:23:19 CEST 2003 ----------------
+--- check time: Die Jun 3 23:23:20 CEST 2003 ----------------
+--- check time: Die Jun 3 23:23:21 CEST 2003 ----------------
+--- check time: Die Jun 3 23:23:22 CEST 2003 ----------------
+--- check time: Die Jun 3 23:23:23 CEST 2003 ----------------
+--- check time: Die Jun 3 23:23:24 CEST 2003 ----------------

@@ -1,0 +1,112 @@
+// example 1
+typedef marray <char,2> GreyImage;
+typedef set<GreyImage> GreySet;
+
+// example 2
+typedef marray <boolean,2> BoolImage;
+typedef set<BoolImage> BoolSet;
+
+// example 3
+struct RGBPixel { char red, green, blue; };
+typedef marray <RGBPixel,2> RGBImage;
+typedef set<RGBImage> RGBSet;
+
+// example 4
+typedef marray <unsigned long, 2> ULongImage;
+typedef set<ULongImage> ULongSet;
+
+// example 5
+typedef marray <char, 3> GreyCube;
+typedef set<GreyCube> GreySet3;
+
+
+// heavily expanded types (Andreas)
+typedef marray <boolean, 1> BoolString;
+typedef set<BoolString> BoolSet1;
+
+typedef marray <boolean, 3> BoolCube;
+typedef set<BoolCube> BoolSet3;
+
+typedef marray <char, 1> GreyString;
+typedef set<GreyString> GreySet1;
+
+typedef marray <octet, 1> OctetString;
+typedef set<OctetString> OctetSet1;
+
+typedef marray <octet, 2> OctetImage;
+typedef set<OctetImage> OctetSet;
+
+typedef marray <octet, 3> OctetCube;
+typedef set<OctetCube> OctetSet3;
+
+typedef marray <short, 1> ShortString;
+typedef set<ShortString> ShortSet1;
+
+typedef marray <short, 2> ShortImage;
+typedef set<ShortImage> ShortSet;
+
+typedef marray <short, 3> ShortCube;
+typedef set<ShortCube> ShortSet3;
+
+typedef marray <unsigned short, 1> UShortString;
+typedef set<UShortString> UShortSet1;
+
+typedef marray <unsigned short, 2> UShortImage;
+typedef set<UShortImage> UShortSet;
+
+typedef marray <unsigned short, 3> UShortCube;
+typedef set<UShortCube> UShortSet3;
+
+typedef marray <long, 1> LongString;
+typedef set<LongString> LongSet1;
+
+typedef marray <long, 2> LongImage;
+typedef set<LongImage> LongSet;
+
+typedef marray <long, 3> LongCube;
+typedef set<LongCube> LongSet3;
+
+typedef marray <unsigned long, 1> ULongString;
+typedef set<ULongString> ULongSet1;
+
+typedef marray <unsigned long, 3> ULongCube;
+typedef set<ULongCube> ULongSet3;
+
+typedef marray <RGBPixel, 1> RGBString;
+typedef set<RGBString> RGBSet1;
+
+typedef marray <RGBPixel, 3> RGBCube;
+typedef set<RGBCube> RGBSet3;
+
+typedef marray <float, 1> FloatString;
+typedef set<FloatString> FloatSet1;
+
+typedef marray <float, 2> FloatImage;
+typedef set<FloatImage> FloatSet;
+
+typedef marray <float, 3> FloatCube;
+typedef set<FloatCube> FloatSet3;
+
+typedef marray <float, 4> FloatCube4;
+typedef set<FloatCube4> FloatSet4;
+
+typedef marray <double, 1> DoubleString;
+typedef set<DoubleString> DoubleSet1;
+
+typedef marray <double, 2> DoubleImage;
+typedef set<DoubleImage> DoubleSet;
+
+typedef marray <double, 3> DoubleCube;
+typedef set<DoubleCube> DoubleSet3;
+
+typedef marray <complex, 1> Gauss1;
+typedef set<Gauss1> GaussSet1;
+
+typedef marray<complexd, 1> Gauss2;
+typedef set<Gauss2> GaussSet2;
+
+typedef marray <complex, 2> Gauss1Image;
+typedef set<Gauss1Image> Gauss1Set;
+ 
+typedef marray<complexd, 2> Gauss2Image;
+typedef set<Gauss2Image> Gauss2Set;

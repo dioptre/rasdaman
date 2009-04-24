@@ -1,0 +1,222 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+/
+/**
+ * SOURCE: miterf.icc
+ *
+ * MODULE: raslib
+ * CLASS:  r_MiterFloat
+ *
+*/
+
+#include "raslib/miterf.hh"
+#include "raslib/minterval.hh"
+#include "raslib/rmdebug.hh"
+
+#include <math.h>
+
+
+const int     r_FixedPointNumber::FIXPREC  = 30;
+const r_Range r_FixedPointNumber::carryPos = 1<<FIXPREC;
+const r_Range r_FixedPointNumber::fracMask = carryPos-1;     
+const double  r_FixedPointNumber::fixOne   = pow(2,(double)FIXPREC);
+
+inline 
+r_FixedPointNumber::r_FixedPointNumber()
+  {
+    intPart=0; fracPart=0;
+   }
+   
+inline    
+r_FixedPointNumber::r_FixedPointNumber(const double &d)
+  { init(d);
+   }
+   
+inline    
+r_FixedPointNumber& r_FixedPointNumber::operator=(const r_FixedPointNumber &f)
+  {
+    intPart  = f.intPart;
+    fracPart = f.fracPart;
+    return *this;
+   }
+   
+inline 
+r_FixedPointNumber& r_FixedPointNumber::operator=(const double &d)
+  {
+    init(d);
+    return *this;
+   }
+   
+inline    
+void r_FixedPointNumber::init(const double &d)
+  {
+    intPart = (r_Range)d;
+    
+    fracPart= (r_Range)fmod(fixOne*d,fixOne);
+    
+   }
+    
+inline     
+r_Range r_FixedPointNumber::stepForward(const r_FixedPointNumber &f)
+  {
+    r_Range oldIntPart = intPart;
+    
+    intPart+=f.intPart; fracPart+=f.fracPart;
+    
+    if(fracPart & carryPos)
+      {
+        intPart++;
+	fracPart &= fracMask;
+	
+       }
+     return intPart-oldIntPart;  
+   }
+
+inline 
+bool r_FixedPointNumber::stepForwardFlag(const r_FixedPointNumber &f)
+  {
+    intPart+=f.intPart; fracPart+=f.fracPart;
+    
+    if(fracPart & carryPos)
+      {
+        intPart++;
+	fracPart &= fracMask;
+        return true;	
+       }
+    return false;
+   }
+   
+inline       
+r_Range r_FixedPointNumber::getIntPart()
+  {
+    return intPart;
+   }
+ 
+inline             
+std::ostream& operator<<(std::ostream &os,r_FixedPointNumber &f)
+  { os<<'('<<f.intPart<<':'<<f.fracPart<<')';
+    return os;
+   }
+   
+//######################################
+
+inline 
+r_MiterFloat::r_MiterFloat(Tile *sourceTile, r_Minterval& sourceDomain, r_Minterval& destDomain)
+  {
+         dim = sourceDomain.dimension();
+    iterDesc = new iter_desc[dim];
+    
+    r_Bytes cellSize = sourceTile->getType()->getSize();
+    firstCell        = sourceTile->getContents();
+    
+    iter_desc *id = 0;
+    const r_Minterval& tileDomain = sourceTile->getDomain();
+    
+    int i = 0;
+    r_Bytes step  = cellSize;
+    
+    id = iterDesc + dim-1;
+    
+    for(i=dim-1; i>=0; i--, id-- )
+      {
+        id->min  = (double)sourceDomain[i].low();
+	id->step = (double)(sourceDomain[i].high()-sourceDomain[i].low() +1) / ( destDomain[i].high() - destDomain[i].low()+1);
+	id->maxSteps = destDomain[i].high() - destDomain[i].low()+1;
+	id->dimStep   = step;
+	id->scaleStep = step * id->step.getIntPart();
+	firstCell += step* (sourceDomain[i].low() - tileDomain[i].low());
+	step      *= (tileDomain[i].high() - tileDomain[i].low() + 1);
+       }
+    reset();   
+   }
+   
+inline 
+r_MiterFloat::~r_MiterFloat()
+  {
+    if(iterDesc) delete[] iterDesc;
+   }
+
+inline 
+void r_MiterFloat::reset()
+  {
+    for(r_Dimension i=0;i<dim;i++)
+      {
+        iterDesc[i].pos  = iterDesc[i].min;
+	iterDesc[i].cell = (char*)firstCell;
+	iterDesc[i].countSteps = iterDesc[i].maxSteps;
+       }
+       
+    done=false;   
+   }
+   
+inline 
+char* r_MiterFloat::nextCell()
+  {
+    if(done) return currentCell;
+    
+    r_Dimension i = dim;
+    iter_desc *id = iterDesc + dim -1;
+    currentCell   = iterDesc[dim-1].cell;
+    
+    while( i>0 )
+      {
+       id->countSteps--;
+	 
+       if(id->countSteps)
+	 {// one more step in this dimension
+	  if(id->pos.stepForwardFlag(id->step)) 
+	     id->cell += id->dimStep;
+	       
+	  id->cell += id->scaleStep;
+	  break;
+	  }
+       else
+         { // we are finished with this dimension
+	  id->pos = id->min;
+	  id->countSteps = id-> maxSteps;
+	  id--;
+	  i--;
+	 }     
+       }
+       
+    if(i<dim)
+      {
+        if(i == 0)
+	  done = true;
+	else
+	  {
+	    r_Dimension j;
+	    for( j=i; j<dim; j++)
+	       iterDesc[j].cell = iterDesc[i-1].cell;
+	   }
+       }
+     return currentCell;       
+   }
+   
+inline 
+bool r_MiterFloat::isDone()
+  {
+    return done;
+   }
+    
+
+

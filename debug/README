@@ -1,0 +1,11 @@
+This directory contains an include file which helps to generate formatted trace output.
+See this file for usage directions.
+No executable is generated here.
+Has been taken from rasmgr; Makefiles still have to be reworked before removing it there.
+Tests to be done.
+	-- PB 2003-aug-19
+
+have 2 versions now, one for server and one for client side.
+functionality identical except that srv version uses RMInit::logOut to have the same output location (i.e., file).
+	-- PB 2003-nov-24
+

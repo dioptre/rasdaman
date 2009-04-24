@@ -1,0 +1,399 @@
+// -*-C++-*- (for Emacs)
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+/*************************************************************
+ *
+ * SOURCE: test_db2blob.cc
+ *
+ * MODULE: rasodmg
+ *
+ * PURPOSE:
+ *
+ * COMMENTS:
+ *
+ ************************************************************/
+
+#ifdef LINUX
+#define __EXECUTABLE__
+#include "raslib/template_inst.hh"
+#endif
+
+#ifdef __VISUALC__
+#include <strstrea.h>
+#else
+#include <strstream.h>
+#endif
+
+#include <iostream.h>
+#include <fstream.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h> // for drand48()
+
+#include "rasodmg/marray.hh"
+#include "raslib/shhopt.h"
+
+#include <sys/time.h>
+
+#include "sql.h"
+
+// number of repetitions for each query
+unsigned long repeat = 20;
+
+static int printFlag = 0;
+
+EXEC SQL INCLUDE SQLCA;
+
+#define  CHECKERR(CE_STR)   if (check_error (CE_STR, &sqlca) != 0)
+
+// copied from DB2 example program
+int check_error (char eString[], struct sqlca *caPointer) {
+   char eBuffer[1024];
+   char sBuffer[1024];
+   short rc, Erc;
+
+   if (caPointer->sqlcode != 0) {
+      printf ("--- error report ---\n");
+      printf ("ERROR occured : %s.\nSQLCODE : %ld\n", eString,
+         caPointer->sqlcode);
+
+      /**********************\
+      * GET SQLSTATE MESSAGE *
+      \**********************/
+      rc = sqlogstt (sBuffer, 1024, 80, caPointer->sqlstate);
+
+      /******************************\
+      * GET ERROR MESSAGE API called *
+      \******************************/
+      Erc = sqlaintp (eBuffer, 1024, 80, caPointer);
+
+      /* return code is the length of the eBuffer string */
+      if (Erc > 0) printf ("%s", eBuffer);
+
+      if (caPointer->sqlcode < 0) {
+	     if (rc == 0) {
+            printf ("\n%s", sBuffer);
+		 }
+         printf ("--- end error report ---\n");
+         return 1;
+      } else {
+      /* errorCode is just a Warning message */
+	     if (rc == 0) {
+            printf ("\n%s", sBuffer);
+		 }
+         printf ("--- end error report ---\n");
+         printf ("WARNING - CONTINUING PROGRAM WITH WARNINGS!\n");
+         return 0;
+      } /* endif */
+   } /* endif */
+   return 0;
+}
+
+class BMTimer
+{
+public:
+  /// constructor, initializes members
+  inline BMTimer();
+
+  inline void start();
+  inline void stop();
+
+private:  
+  /// reference parameter for gettimeofday().
+  timeval acttime;
+  // reference parameter for gettimeofday, not used.
+  static struct timezone dummy;
+  /// used to calculate time spent in function.
+  static long oldsec;
+  /// used to calculate time spent in function.
+  static long oldusec;
+};
+
+struct timezone BMTimer::dummy;
+long BMTimer::oldsec;
+long BMTimer::oldusec;
+
+inline
+BMTimer::BMTimer()
+{
+  oldsec = 0;
+  oldusec = 0;
+}
+
+inline void
+BMTimer::start()
+{
+  gettimeofday(&acttime, &dummy);
+}
+
+inline void
+BMTimer::stop()
+{
+  oldsec = acttime.tv_sec;
+  oldusec = acttime.tv_usec;
+  gettimeofday(&acttime, &dummy);
+  cout << (acttime.tv_sec-oldsec)*1000000 + acttime.tv_usec
+                    - oldusec << "us";
+}
+
+BMTimer myTimer;
+
+r_Marray<char>*
+blobRead(r_Minterval& sd)
+{
+  EXEC SQL BEGIN DECLARE SECTION;
+    long beginLoc;
+    long endLoc;
+    SQL TYPE IS BLOB_LOCATOR tomoLoc;
+    short tomo_ind;
+    // buf will be a structure with a char[] element called data and
+    // an unsigned long called length
+    SQL TYPE IS BLOB(256) blobBuf;
+  EXEC SQL END DECLARE SECTION;
+
+  int i,j;
+  // storing result
+  r_Marray<char>* result = new r_Marray<char>(sd);
+  char* resBuf = result->get_array();
+
+  EXEC SQL CONNECT TO sample;
+
+  myTimer.start();
+
+  EXEC SQL DECLARE curs1 CURSOR FOR
+    SELECT blob_col
+    FROM   tomo_blob;
+
+  EXEC SQL OPEN curs1;
+
+  EXEC SQL FETCH curs1 INTO :tomoLoc :tomo_ind;
+  if (SQLCODE != 0) {
+    cout << "FETCH curs1: " << SQLCODE << endl;
+  }
+
+  if(tomo_ind < 0)
+    cout << "No BLOB there!" << endl;
+
+  // iterating through the Minterval
+  for(i=sd[0].low(); i<=sd[0].high(); i++) {
+    for(j=sd[1].low(); j<=sd[1].high(); j++) {
+      beginLoc = sd[2].low() + j*256 + i*256*256;
+      endLoc = sd[2].high() + j*256 + i*256*256;
+      unsigned long rowSize = endLoc - beginLoc + 1;
+      EXEC SQL VALUES (SUBSTR( :tomoLoc, :beginLoc, :endLoc - :beginLoc + 1))
+	INTO :blobBuf;
+      memcpy(resBuf, blobBuf.data, rowSize);
+      resBuf += rowSize;
+    }
+  }
+
+  EXEC SQL CLOSE curs1;
+
+  myTimer.stop();
+
+  EXEC SQL CONNECT RESET;
+
+  return result;
+}
+
+r_Marray<char>*
+blob1DRead(float sel)
+{
+  EXEC SQL BEGIN DECLARE SECTION;
+    long beginLoc2;
+    long endLoc2;
+    SQL TYPE IS BLOB_LOCATOR tomoLoc2;
+    short tomo_ind2;
+    // buf will be a structure with a char[] element called data and
+    // an unsigned long called length
+    SQL TYPE IS BLOB(4000000) blobBuf2;
+  EXEC SQL END DECLARE SECTION;
+
+  int i,j;
+  // storing result
+  r_Minterval* sd_res;
+  sd_res = new r_Minterval("[0:255,0:255,0:153]");
+  r_Marray<char>* result = new r_Marray<char>(*sd_res);
+  char* resBuf = result->get_array();
+
+  EXEC SQL CONNECT TO sample;
+
+  EXEC SQL DECLARE curs2 CURSOR FOR
+    SELECT blob_col
+    FROM   tomo_blob;
+
+  EXEC SQL OPEN curs2;
+
+  EXEC SQL FETCH curs2 INTO :tomoLoc2 :tomo_ind2;
+  if (SQLCODE != 0) {
+    cout << "FETCH curs2: " << SQLCODE << endl;
+  }
+  if(tomo_ind2 < 0)
+    cout << "No BLOB there!" << endl;
+
+  unsigned long rowSize = (int)(sel/100 * 10092544);
+  beginLoc2 = (int)(drand48() * (10092544 - rowSize));
+  endLoc2 = beginLoc2 + rowSize;
+
+  EXEC SQL VALUES (SUBSTR( :tomoLoc2, :beginLoc2, :endLoc2 - :beginLoc2 + 1))
+    INTO :blobBuf2;
+
+  memcpy(resBuf, blobBuf2.data, rowSize);
+  resBuf += rowSize;
+
+  EXEC SQL CLOSE curs2;
+
+  EXEC SQL CONNECT RESET;
+
+  delete sd_res;
+  return result;
+}
+
+void
+blobInsert( char *fileName )
+{
+  EXEC SQL BEGIN DECLARE SECTION;
+    SQL TYPE IS BLOB_FILE tomoFile;
+  EXEC SQL END DECLARE SECTION;
+
+  EXEC SQL CONNECT TO sample;
+  CHECKERR ("CONNECT TO") exit(1);
+
+  strcpy(tomoFile.name, fileName);
+  tomoFile.name_length = strlen(fileName);
+  tomoFile.file_options = SQL_FILE_READ;
+
+  EXEC SQL INSERT INTO tomo_blob
+    VALUES(:tomoFile);
+  CHECKERR ("INSERT INTO") exit(1);
+
+  EXEC SQL CONNECT RESET;
+}
+
+void
+blob1DExec(int queryNum, float sel)
+{
+  int i;
+  // storing the result
+  r_Marray<char>* res;
+
+  for(i=1; i<=repeat; i++) {
+    myTimer.start();
+    res = blob1DRead(sel);
+    cout << queryNum << "." << i << ": ";
+    myTimer.stop();
+    cout << endl;
+    delete res;
+  }
+
+  // optionally printing the result
+  if( printFlag )
+    ((r_GMarray*)(res))->r_GMarray::print_status();
+}
+
+void
+execQuery(char* myRectStr, int queryNum, int i)
+{
+  // storing the result
+  r_Marray<char>* res;
+  // the query rectangle
+  r_Minterval* sd_res;
+  
+  sd_res = new r_Minterval(myRectStr);
+
+  cout << queryNum << "." << i << ": ";
+  res = blobRead(*sd_res);
+  cout << endl;
+  delete res;
+
+  delete sd_res;
+
+  // optionally printing the result
+  if( printFlag )
+    ((r_GMarray*)(res))->r_GMarray::print_status();
+}
+
+static void 
+printUsage(void)
+{
+  cout << "Usage: test_db2blob [options] aFileName" 
+       << endl;
+  cout << "  aFileName                   Name of file with query rectangles "
+       << endl
+       << "                              or BLOB data when inserting." << endl;
+  cout << "  -h, --help                  Print this message and exit." << endl;
+  cout << "  -i, --insert                Insert BLOB instead of querying" 
+       << endl;
+  cout << "  -p, --print                 Print data queried."
+       << endl;
+  exit(0);
+}
+
+int 
+main( int argc, char** argv )
+{
+  int iFlag = 0;
+  int queryNum = 0;
+  char fName[1024] = "";
+  float selArray[] = { 0.5, 1, 2, 5, 10, 20, 50, 100 };
+
+  optStruct testDB2BLOBOpt[] = {
+    /* short long           type        var/func        special    */
+    { 'h',   "help",        OPT_FLAG,   printUsage,     OPT_CALLFUNC },
+    { 'i',   "insert",      OPT_FLAG,   &iFlag,         0 },
+    { 'p',   "print",       OPT_FLAG,   &printFlag,     0 },
+    { 0, 0, OPT_END, 0, 0 }  /* no more options */
+  };
+
+  /* parse all options */
+  optParseOptions(&argc, argv, testDB2BLOBOpt, 0);
+
+  strcpy(fName, argv[argc-1]);
+
+  if( iFlag ) {
+      blobInsert( fName );
+      exit(1);
+  }
+
+  ifstream fileStream( fName );
+  char buf[256];
+  char dummy;
+
+  int j = 0;
+  while( fileStream.get( buf, 255, '\n' ) ) {
+    fileStream.get(dummy);
+    if((buf[0] == '/' && buf[1] == '/') || buf[0] == 0) {
+      queryNum++;
+      cout << "Query " << queryNum << ": " << buf << endl;
+      j=0;
+    } else if(buf[0] != 0) { 
+      execQuery(buf, queryNum, ++j);
+    }
+  }
+
+//   // Selectivity 50% and 100% does not work
+//   for(int i=0; i<6; i++) {
+//     cout << "BLOB selectivity " << selArray[i] << endl;
+//     blob1DExec(++queryNum, selArray[i]);
+//   }
+}

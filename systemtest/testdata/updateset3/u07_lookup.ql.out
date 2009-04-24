@@ -1,0 +1,19 @@
+-- Testbed line: result_type=set <marray <ulong, [0:2,0:5]>>
+-- Testbed line: result_elements=1
+-- Testbed start block:
+Image 1
+GMarray
+  Type Structure........: marray <ulong, [0:2,0:5]>
+  Type Schema...........: marray< ulong >
+  Domain................: [0:2,0:5]
+  Base Type Schema......: ulong
+  Base Type Length......: 4
+  Data format.......... : Array
+  Data size (bytes).... : 72
+    1       2       0   
+    1       2       0   
+    1       2       0   
+    1       2       0   
+    1       2       0   
+    0       0       0   
+-- Testbed end block:

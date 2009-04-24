@@ -1,0 +1,16 @@
+
+ RasRuntimeException: Exception: Base type typeName: 
+ typeID:  7
+ typeSize: 2
+struct 
+{
+  typeName: RAS_BOOLEAN
+ typeID:  16
+ typeSize: 1
+ 0, 
+typeName: RAS_BOOLEAN
+ typeID:  16
+ typeSize: 1
+ 1
+}
+ as ElementType  is not supported yet.

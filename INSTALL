@@ -1,0 +1,13 @@
+To build and install rasdaman:
+
+  $ ./configure
+  $ make
+  # make install
+
+You may set the installation directory and other parameters by options
+to ./configure.  To see them, use:
+
+  $ ./configure --help
+
+Once installed, see the "rasdaman Installation Guide" for the next steps.
+It can be found in manuals_and_examples/manuals/pdf/inst-guide.pdf

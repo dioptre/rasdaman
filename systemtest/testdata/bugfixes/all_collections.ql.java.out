@@ -1,0 +1,841 @@
+
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 111 114 116 104 111 95 51 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:8]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 9
+ 111 114 116 104 111 114 103 98 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:10]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 11
+ 111 114 116 104 111 114 103 98 95 56 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:5]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 6
+ 116 107 49 48 48 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 111 114 116 104 111 95 49 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:6]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 7
+ 97 102 114 105 107 97 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:4]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 5
+ 99 110 105 103 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 114 111 99 107 105 101 115 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:8]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 9
+ 79 118 108 67 104 97 114 67 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:10]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 11
+ 111 114 116 104 111 114 103 98 95 52 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:5]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 6
+ 111 114 116 104 111 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:4]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 5
+ 116 107 50 53 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 111 114 116 104 111 95 50 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:9]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 10
+ 79 108 97 112 67 104 97 114 65 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:11]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 12
+ 83 116 114 105 110 103 67 104 97 114 65 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:9]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 10
+ 67 117 98 101 67 104 97 114 65 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 79 118 108 82 71 66 65 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:4]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 5
+ 116 107 49 48 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 111 114 116 104 111 95 52 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 111 114 116 104 111 95 56 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:2]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 3
+ 109 114 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:3]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 4
+ 109 114 50 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:6]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 7
+ 101 97 114 116 104 49 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:5]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 6
+ 101 97 114 116 104 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:10]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 11
+ 111 114 116 104 111 114 103 98 95 51 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 111 114 116 104 111 95 55 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 111 114 116 104 111 95 53 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:4]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 5
+ 116 107 53 48 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:8]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 9
+ 73 109 103 67 104 97 114 68 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:11]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 12
+ 73 109 103 67 104 97 114 77 97 115 107 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:9]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 10
+ 73 109 103 85 76 111 110 103 67 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 73 109 103 82 71 66 65 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 116 107 49 48 48 95 52 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 116 107 49 48 48 95 53 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:11]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 12
+ 116 101 115 116 115 101 112 122 108 105 98 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:10]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 11
+ 111 114 116 104 111 114 103 98 95 50 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 116 107 49 48 48 95 49 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 116 107 49 48 48 95 50 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:10]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 11
+ 116 111 109 111 95 99 117 98 101 100 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:8]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 9
+ 73 109 103 67 104 97 114 65 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:8]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 9
+ 73 109 103 67 104 97 114 66 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:8]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 9
+ 73 109 103 67 104 97 114 67 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:10]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 11
+ 111 114 116 104 111 114 103 98 95 49 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 116 107 49 48 48 95 54 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 116 107 49 48 48 95 55 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 111 114 116 104 111 95 54 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 79 118 108 82 71 66 66 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 79 118 108 82 71 66 67 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:8]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 9
+ 79 118 108 67 104 97 114 65 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:8]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 9
+ 79 118 108 67 104 97 114 66 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:5]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 6
+ 109 111 118 105 101 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:5]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 6
+ 97 114 114 111 119 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:11]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 12
+ 116 111 109 111 95 115 108 105 99 101 100 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:10]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 11
+ 111 114 116 104 111 114 103 98 95 53 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:4]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 5
+ 116 101 115 116 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:3]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 4
+ 114 103 98 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:4]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 5
+ 100 101 109 99 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:10]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 11
+ 111 114 116 104 111 114 103 98 95 54 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:10]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 11
+ 111 114 116 104 111 114 103 98 95 55 0
+rasj.RasMArrayByte
+  Object Name...........: 
+  Object Type...........: 1
+  Object Type Name......: 
+  Type Structure........: 
+  Type Schema...........: <nn>
+  Domain................: [0:7]
+  TilingDomain..........: [0:127999]
+  TileSize..............: 128000 bytes
+  Base Type Schema......: <nn>
+  Base Type Length......: 1
+  Data format...........: 0
+  Data size (bytes).....: 8
+ 116 107 49 48 48 95 51 0

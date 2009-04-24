@@ -1,0 +1,47 @@
+/*************************************************************
+ *
+ * Copyright (C) 1996 FORWISS
+ *
+ * INLINE SOURCE: querytree.icc
+ *
+ * MODULE:  qlparser
+ * CLASS:   QueryTree
+ *
+ * CHANGE HISTORY (append further entries):
+ * when         who         what
+ * ----------------------------------------------------------
+ * 04-09-96     Ritsch      created
+ * 11-08-97     Ritsch      merged with version 1.5.1.2
+ *
+ * COMMENTS:
+ *
+ ************************************************************/
+
+inline QtNode*
+QueryTree::getRoot() const
+{
+  return rootNode;
+};
+
+
+inline void
+QueryTree::setRoot( QtNode* root )
+{
+  rootNode = root;
+};
+
+
+inline void
+QueryTree::setOptimizationLevel( unsigned int level )
+{
+  optimizationLevel = level;
+};
+
+
+inline unsigned int
+QueryTree::getOptimizationLevel()
+{
+  return optimizationLevel;
+};
+
+

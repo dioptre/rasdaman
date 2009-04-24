@@ -1,0 +1,159 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+///////////////////////////////////////////////////////////////
+//	implementation - ComplexType1
+///////////////////////////////////////////////////////////////
+
+
+inline ComplexType1::ComplexType1() 
+	: GenericComplexType(ComplexType1::Name, 2 * sizeof(float)), reOffset(0), imOffset(sizeof(float)) {
+	myType = COMPLEXTYPE1;
+	myOId = OId(COMPLEXTYPE1, OId::ATOMICTYPEOID);
+}
+
+inline ComplexType1::ComplexType1(const OId& id) throw (r_Error) 
+	: GenericComplexType(id), reOffset(0), imOffset(sizeof(float)) {
+	readFromDb();
+}
+
+inline ComplexType1::ComplexType1(const ComplexType1& old) : GenericComplexType(old) 	{
+	reOffset = old.reOffset;
+	imOffset = old.imOffset;
+}
+
+inline ComplexType1& ComplexType1::operator =(const ComplexType1& old) {
+	if(this == &old)
+		return *this;
+	AtomicType::operator =(old);
+	reOffset = old.reOffset;
+	imOffset = old.imOffset;
+	return *this;
+}
+
+inline ComplexType1::~ComplexType1() {}
+
+inline void ComplexType1::printCell( ostream& stream, const char* cell ) const {
+	stream << "( Re: " << *(float *)(cell + reOffset) << "\t";
+	stream << "Im: " << *(float *)(cell + imOffset) << " )\n";
+}
+
+inline void ComplexType1::readFromDb() throw (r_Error) 	{
+	size = 2 * sizeof(float);
+	setName(ComplexType1::Name);
+	myType = COMPLEXTYPE1;
+	myOId = OId(COMPLEXTYPE1, OId::ATOMICTYPEOID);
+}
+
+inline unsigned int ComplexType1::getReOffset() const { return reOffset; } 
+inline unsigned int ComplexType1::getImOffset() const { return imOffset; }
+
+// those would better throw an exception
+inline r_ULong* ComplexType1::convertToCULong(const char*, r_ULong*) const { return 0; }
+inline char* ComplexType1::makeFromCULong(char*, const r_ULong*) const { return 0; }
+inline r_Long* ComplexType1::convertToCLong(const char*, r_Long*) const { return 0; }
+inline char* ComplexType1::makeFromCLong(char*, const r_Long*) const { return 0; }
+
+inline double* ComplexType1::convertToCDouble(const char* cell, double* value) const {
+  	*value = *(float*)cell;
+    return value;
+}
+
+inline char* ComplexType1::makeFromCDouble(char* cell, const double* value) const {
+	double dummy = *value;
+	if(dummy > FLT_MAX)
+		dummy = FLT_MAX;
+	if(dummy < -1.0f * FLT_MAX)
+		dummy = -1.0f * FLT_MAX;
+	*(float*)(cell) = dummy;
+	return cell;
+}
+
+inline const char* ComplexType1::getTypeName() const {
+	return "complex";
+}
+
+///////////////////////////////////////////////////////////////
+//	implementation - ComplexType2
+///////////////////////////////////////////////////////////////
+
+inline ComplexType2::ComplexType2() 
+	: GenericComplexType(ComplexType2::Name, 2 * sizeof(double)), reOffset(0), imOffset(sizeof(double)) {
+	myType = COMPLEXTYPE2;
+	myOId = OId(COMPLEXTYPE2, OId::ATOMICTYPEOID);
+}
+
+inline ComplexType2::ComplexType2(const OId& id) throw (r_Error) 
+	: GenericComplexType(id), reOffset(0), imOffset(sizeof(double)) {
+	readFromDb();
+}
+
+inline ComplexType2::ComplexType2(const ComplexType2& old) : GenericComplexType(old) 	{
+	reOffset = old.reOffset;
+	imOffset = old.imOffset;
+}
+
+inline ComplexType2& ComplexType2::operator =(const ComplexType2& old) {
+	if(this == &old)
+		return *this;
+	AtomicType::operator =(old);
+	reOffset = old.reOffset;
+	imOffset = old.imOffset;
+	return *this;
+}
+
+inline ComplexType2::~ComplexType2() {}
+
+inline void ComplexType2::printCell( ostream& stream, const char* cell ) const {
+	stream << "( Re: " << *(double *)(cell + reOffset) << "\t";
+	stream << "Im: " << *(double *)(cell + imOffset) << " )\n";
+}
+
+inline void ComplexType2::readFromDb() throw (r_Error) 	{
+	size = 2 * sizeof(double);
+	setName(ComplexType2::Name);
+	myType = COMPLEXTYPE2;
+	myOId = OId(COMPLEXTYPE2, OId::ATOMICTYPEOID);
+}
+
+inline unsigned int ComplexType2::getReOffset() const { return reOffset; } 
+inline unsigned int ComplexType2::getImOffset() const { return imOffset; }
+
+// those would better throw an exception
+inline r_ULong* ComplexType2::convertToCULong(const char*, r_ULong*) const { return 0; }
+inline char* ComplexType2::makeFromCULong(char*, const r_ULong*) const { return 0; }
+inline r_Long* ComplexType2::convertToCLong(const char*, r_Long*) const { return 0; }
+inline char* ComplexType2::makeFromCLong(char*, const r_Long*) const { return 0; }
+
+inline double* ComplexType2::convertToCDouble(const char* cell, double* value) const {
+  	*value = *(double*)cell;
+    return value;
+}
+
+inline char* ComplexType2::makeFromCDouble(char* cell, const double* value) const {
+  	*(double*)(cell) = *value;
+    return cell;    
+}	
+
+inline const char* ComplexType2::getTypeName() const {
+	return "complexd";
+}

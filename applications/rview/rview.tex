@@ -1,0 +1,1479 @@
+% Documentation for rView
+% (C) 1998-2002 FORWISS, Andreas Dehmel
+
+\def\rview{\textsf{rView}}
+\def\rman{\textsf{RasDaMan}}
+\def\wxwin{\textsf{wxWindows}}
+\def\dollar{\$} % stupid emacs colouring problem with $
+\def\realnumbers{\mbox{I}\!\mbox{R}}
+
+\documentclass[11pt]{article}
+\usepackage{a4wide}
+\usepackage{parskip}
+
+\title{\hrule \vspace{10mm} \Huge rView 2.0\\A visual frontend to the \rman\ DBMS}
+
+\author{Andreas Dehmel}
+
+\date{07 Jan 2002}
+
+\frenchspacing
+\sloppy
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\begin{document}
+
+\maketitle
+
+\vspace{10mm}
+\hrule
+
+\thispagestyle{empty}
+
+%\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+\rview\ is a frontend to the \rman\ DBMS for visualizing multidimensional raster
+data and generally making it easier to use the database. It is based on the
+freely available, portable \wxwin\ GUI
+(\texttt{http://web.ukonline.co.uk/julian.smart/wxwin/}).\\
+No text displayed in any of its windows is hard-coded into the program, instead
+it uses labels which are read in on startup and dereferenced at run-time. The
+labels are looked up in a file called \texttt{labels.txt} which \rview\ tries to open as
+\texttt{\dollar RVIEWHOME/labels.txt} or, failing that, \texttt{./labels.txt}. If
+no \texttt{labels.txt} file could be found, all text displayed in \rview's windows
+will default to \texttt{???}. The \texttt{labels.txt} file can contain three types of
+lines:
+
+\begin{description}
+\item[Empty lines:] only whitespace (space, tabs)
+\item[Commentary lines:] a \# Symbol preceded by nothing or whitespace and followed
+by any text.
+\item[Label definitions:] These have the form "\texttt{\textsl{label}:\textsl{text associated
+with label}}". There must be no whitespace between the label and the colon; whitespace
+following the colon will not be stripped. Being line-based, label text may not contain
+linefeeds, all other characters are legal.
+\end{description}
+
+Configurations are stored in the file \texttt{.rviewrc} which will be looked for in
+\texttt{\dollar HOME}, the current directory and \texttt{\dollar RVIEWHOME} in that order.
+The current configurations are saved to \texttt{\dollar HOME/.rviewrc} automatically on
+exit. The old \texttt{.rviewrc} file (if existent) will be renamed to \texttt{.rviewrc$\sim$}
+before being overwritten so in case the new preferences file is corrupted for some
+reason the last settings can be easily restored. Serious errors like segmentation violations
+are handled by \rview\ and result in any open databases being closed before the program
+is aborted.
+
+
+\section{The Main Window}
+\label{MainWindow}
+
+The main window allows you to enter information about a database and open or
+close it; furthermore the following menus are available:
+
+\subsection{The \texttt{File} Menu}
+
+The \texttt{File} Menu offers functionality that is available even with the
+database closed:
+
+\begin{description}
+
+\item[Query:] Opens a query shell. See \ref{QueryWindow}.
+
+\item[Prefs:] Opens the preferences editor. See \ref{PreferencesEditor}.
+
+\item[Exit:] Exit \rview. If a database was opened, close it first.
+
+\end{description}
+
+
+\subsection{The \texttt{Viewers} Menu}
+
+The \texttt{Viewers} Menu allows you to open / close viewers directly:
+
+\begin{description}
+
+\item[Open:] Opens a file. Currently this allows you to open TIFF images
+and display them in an image viewer window (\ref{ImageDisplayMode}).
+
+\item[Close all:] Closes all open viewers (\ref{ObjectViewers}) and \texttt{Results}
+windows (\ref{ResultWindow}).
+
+\end{description}
+
+
+\subsection{The \texttt{Collections} Menu}
+
+The \texttt{Collections} Menu combines operations on database collections. Its
+members can therefore only be called once a database has been opened. After
+selecting an item a small dialog-window pops up in which you have to enter
+the collection name.
+
+\begin{description}
+
+\item[Lookup:] Load a collection of objects from the database into client
+memory. On success a \emph{Results}-Window containing all the objects
+in the collection is opened (see \ref{ResultWindow}).
+
+\item[LU scaled:] Load a scaled object from the database. On success a viewer
+window similar to flat image mode is opened (see \ref{ImageModeScaled}).
+
+\item[LU ortho:] Load a 3D object from the database into a partial
+\emph{Orthosection} viewer (see \ref{ImageModeOrtho}). In contrast, a
+full orthosection viewer is available from the \emph{Results} window.
+
+\item[Create:] Create an empty collection.
+
+\item[Delete:] Delete a named collection.
+
+\end{description}
+
+
+\section{The Query Window}
+\label{QueryWindow}
+
+The query window allows you to write and edit database queries as well as load
+and save them. On disk, queries are identified by a \texttt{.ql} extension as well
+as the headline "\texttt{-- rview-Query}" which will not be displayed in the query
+window.\\
+The \texttt{File} menu allows you to \texttt{Open} a query on disk, \texttt{Save} the
+current query to disk or \texttt{Close} the query window. The \texttt{Edit} menu
+operates on selections, allowing you to \texttt{Cut}, \texttt{Copy} or \texttt{Paste} the
+current selection.\\
+The \texttt{List} menu provides a shortcut to all the queries stored in the
+directory described by the \texttt{query path} variable (see \ref{PreferencesEditor}).
+To achieve this the entire directory is scanned for files named
+\texttt{*.ql}. The resulting set of files is then appended to the \texttt{List} menu
+in alphabetical order. The \texttt{List} menu is built every time a query
+window is opened or a query is loaded from / saved to a different directory.
+This behaviour is new in version 1.8, formerly it was only built when a new
+query window was opened.\\
+At the bottom of the query editor are three buttons for query control:
+\texttt{Clear} deletes the current query and provides you with an empty window.
+\texttt{Execute} executes the query (requires an open database). Errors
+during execution are reported to the user; the error position is displayed
+by selecting the erroneous parts of the query. If the query was executed
+without any errors and the resulting collection is not empty, a result window is
+opened (see \ref{ResultWindow} for MDD, \ref{ResultStrings} for scalar return
+types). \texttt{Update Data} opens a TIFF image for use as \texttt{\dollar 1} argument
+in an update query. If a query window has update data associated with it a string
+of the form \texttt{q$n_q$d$n_d$} is appended to its title where \texttt{$n_q$} is a
+decimal number representing the query window and \texttt{$n_d$} is a decimal number
+representing the image viewer. Likewise a string of the form \texttt{d$n_d$q$n_q$} is
+appended to the image viewer's title. If a query window or its update data
+window is closed this information string is removed from the remaining window's
+title bar. If new update data is opened the title bars of the old data viewer and
+the query window are updated accordingly.
+
+
+\section{The Preferences Window}
+\label{PreferencesEditor}
+
+The preferences window can be used to configure many aspects of the program.
+Its upper part is a scrollable window with the actual configuration items
+while the bottom row contains \texttt{OK} and \texttt{Cancel} buttons. Changes
+made to the preferences only become active after clicking on the \texttt{OK}
+button or pressing \texttt{<return>} in one of the text widgets. Clicking on
+\texttt{Cancel} discards all changes made to the preferences since the window
+was opened. Preferences are automatically saved when \rview\ is quit.
+
+\subsection{Misc Prefs}
+
+\begin{description}
+
+\item[Pathname of data files:] the full pathname of the directory \rview\ will
+use by default when loading / saving images and similar data. This field will
+also be updated automatically to the last directory accessed.
+
+\item[Pathname of query files:] the full pathname of the directory
+containing the query files (file extension \texttt{.ql}). This path will also
+be updated automatically to the last directory accessed in a query load
+or save operation.
+
+\item[Font used for queries:] here you can specify the font that should
+be used in the query windows (\ref{QueryWindow}). Fonts are specified like this:\\
+\begin{tabular}{rcl}
+\textsl{font} & = & \lbrack \textsl{keyword} \rbrack * \\
+\textsl{keyword} & = & \textsl{family} $\vert$ \textsl{style} $\vert$ \textsl{weight} $\vert$ \textsl{psize}\\
+\textsl{family} & = & \lbrack decorative $\vert$ default $\vert$ modern $\vert$ roman $\vert$ script $\vert$ swiss $\vert$ teletype \rbrack\\
+\textsl{style} & = & \lbrack italic $\vert$ slant \rbrack\\
+\textsl{weight} & = & \lbrack bold $\vert$ light \rbrack\\
+\textsl{psize} & = & \lbrack 0-9 \rbrack +\\
+\end{tabular}
+\\
+where \texttt{psize} is the point-size of the font. The default font is \texttt{default 12}.
+Changes take effect the next time a query window is opened. See also \ref{Platforms}.
+
+\item[Maximum width, Maximum height:] The maximum dimensions of viewer windows.
+At the moment this is used to limit the size of an image viewer window (\ref{ImageDisplayMode}).
+The size specified here should under no circumstances exceed the screen size.
+
+\item[Convertor parameters:] parameter string for convertors (TIFF, VFF). This allows
+to e.g.\ determine the TIFF compression type (e.g.\ \texttt{comptype=lzw}) or the default
+VFF dimension ordering (e.g.\ \texttt{dorder=xyz}). For a list of parameters see the
+conversion module documentation.
+\end{description}
+
+\subsection{Images}
+
+\begin{description}
+
+\item[Dither images:] This option makes a difference on displays with $\le$ 8bpp only.
+When selected, images are converted to the display using error-diffused dithering
+instead of a simple match to the closest colour. This results in much better quality
+at the expense of speed. Changes take effect the next time an image viewer is opened
+or the size of an existing image changes.
+\item[Dither best:] If this option is disabled, dithering may not have the highest
+possible quality but will be fast enough even for animations. Using \texttt{Dither best}
+involves a substantial amount of computational overhead and is therefore \emph{not}
+recommended for large images.
+\item[RGBSpace:] The default settings for colourspace mapping (see \ref{ColourspaceMapping}).
+You can choose between three range models which will be explained in \ref{ColourspaceMapping},
+or switch it off by default.
+\item[Edit:] This lets you edit the default settings of the colourspace mapping
+(see \ref{ColourspaceMapping}).
+
+\item[Image mode:] The default mode to use in image viewers. See
+\ref{ImageDisplayMode}.
+
+\item[Movie mode:] The default action to take when a movie has ended. The options are
+\texttt{Once} (stop playback), \texttt{Same dir} (restart the movie using the same playback
+direction) and \texttt{Switch dir} (switch playback direction). See \ref{ImageDisplayMode}.
+
+\item[Scaling factor:] The default scaling factor to use when opening a viewer for
+scaled images (see \ref{ImageModeScaled}).
+
+\item[Renderer:] Various settings for the renderers (surface, voxel) in image viewers.
+If the \texttt{For type} box is checked the voxel settings specified here (threshold values,
+weight quantisation and voxel colours) are ignored and base type specific defaults are used
+instead. See \ref{Renderers}.
+
+\item[Height fields:] Default settings for heightfield rendering. See
+\ref{HeightFieldRenderer}.
+
+\item[Orthosections:] Default settings for orthosection viewers. See
+\ref{ImageModeOrtho}.
+
+\item[Thumbnails:] Default settings for the thumbnail viewers. See
+\ref{ThumbnailDisplayMode}.
+
+\end{description}
+
+\subsection{Charts}
+Default settings for the chart viewer. See \ref{ChartDisplayMode}.
+
+\subsection{Tables}
+Default settings for the table viewer. A value of -1 for \texttt{Step X} and \texttt{Step Y}
+means the viewer will make a guess at the grid size depending on the base type of the
+object. See \ref{TableDisplayMode}.
+
+\subsection{Sound}
+Default settings for the sound player. See \ref{SoundDisplayMode}.
+
+\subsection{Communication}
+
+Settings for the data formats to use for data transfer and data storage. The
+transfer data format is always used to send MDD \emph{to} the server. When
+loading data from the server, it's normally a suggested format that's used
+in case the data is uncompressed, but can also be enforced if the transfer
+parameters contain the tuple \texttt{exactformat=1}. The available options are 
+the same for transfer and storage. If both data formats differ, the data
+will be converted in the server to the storage format prior to actual
+storage. Usually a light-weight data format should be chosen as transfer
+format (e.g.\ \texttt{RLE} or even raw data \texttt{Array}). It's important to
+note that no lossy compression scheme should be used for transfering MDD
+to the server because the server might have to retile the data, meaning
+it'll be decompressed and recompressed with a potential accumulation of
+loss. Using a lossy format as storage format only avoids this problem
+because the storage format will only be applied to the actual tiles
+stored.\\
+The data formats currently available are the following, but they may be extended
+any time:
+
+\begin{description}
+\item[Lossless:]\ \\
+\vspace{-6mm}
+\begin{description}
+\item[Array:] raw data transfer, no compression
+\item[RLE:] Run Length Encoding
+\item[ZLib:] ZLib compression
+\item[SepRLE:] Run Length Encoding with base type separation
+\item[SepZLib:] ZLib compression with base type separation
+\item[HaarWave:] Haar Wavelet compression
+\end{description}
+\item[Lossy:] (the numbers shown in the list widget are the filter lengths)\\
+\vspace{-6mm}
+\begin{description}
+\item[Daubechies*Wavelet:] the standard Daubechies wavelet series
+\item[LeastAsym*Wavelet:] the least asymmetric Daubechies wavelet series
+\item[Coiflet*Wavelet:] the Coiflet wavelet series
+\end{description}
+\end{description}
+
+In addition, the compression algorithms can be configured considerably by
+writing parameters as a comma-separated list over primitive tuples of the
+form \textsl{keyword=value} into the corresponding parameter window. Newlines
+are allowed and there is no length limit on the parameter list. String
+values can be written without quotes if they don't contain spaces or commas,
+otherwise the string must be embedded in (double) quotes. Currently
+available parameters can be seen in figures
+\mbox{\ref{FigureParamsComm} -- \ref{FigureParamsZerotree}}.
+
+\newcommand{\BeginKeyTable}{%
+  \begin{figure}[hptb]\begin{center}\begin{tabular}{|c|c|c|p{90mm}|}%
+  \hline%
+  \textbf{Keyword} & \textbf{Type} & \textbf{Default} & \textbf{Description}\\%
+  \hline%
+}
+\newcommand{\EndKeyTable}[2]{%
+  \hline%
+  \end{tabular}%
+  \caption{#1} #2%
+  \end{center}\end{figure}%
+}
+
+\BeginKeyTable
+\texttt{exactformat} & int & 0 &
+If \texttt{exactformat} is 0, the transfer format will be used by the server for
+data stored in uncompressed format only; it it's $\ne$ 0, the server will always
+repack the data to the exact format requested by the client\\
+\EndKeyTable{Keywords for client-server communication}{\label{FigureParamsComm}}
+
+\BeginKeyTable
+\texttt{predinter} & string & --- &
+The name of the interchannel predictor which correlates cells across channels
+($\rightarrow$ atomic types within structured types). Possible values:
+\texttt{delta} (normal difference) and \texttt{scaledelta} (rescale to same
+dynamic range, then use difference)\\
+\texttt{predintra} & string & --- &
+The name of the intrachannel predictor which correlates cells to its spatial
+neighbours. Possible values: \texttt{hyperplane} (predict from previous hyperplane,
+e.g.\ previous scanline in a 2D image), \texttt{neighbours} (predict from arithmetic
+average of all neighbouring cells already seen) and \texttt{weighted} (additionally
+weigh the neighbouring cell values according to their offset in each dimension)\\
+\texttt{intermap} & string & --- &
+Comma-separated list of channel mappings of the form
+\texttt{\textit{ch-num}:\textit{pred-num}} where \texttt{\textit{ch-num}} is the
+number of the channel being mapped and \texttt{\textit{pred-num}} is the number
+of the channel it's predicted by. e.g.\ typical for RGB images where green predicts
+red and blue: \texttt{0:1,2:1}\\
+\texttt{intralist} & string & --- &
+Comma-separated list of channel numbers where intrachannel prediction is used.
+If the first character is an exclamation mark, the inverse list is used.\\
+\texttt{hypernorm} & int & 0 &
+For intrachannel \texttt{hyperplane} prediction: the number of the dimension
+orthogonal to the (moving) predictor hyperplane, i.e.\ the direction in which
+prediction takes place\\
+\texttt{predweight} & double & 0.5 &
+For intrachannel \texttt{weighted} prediction: the amount by which a cell weight
+decreases for each offset $\ne$ 0 in a dimension\\
+\EndKeyTable{Keywords for predictors}{\label{FigureParamsPredict}}
+
+\BeginKeyTable
+\texttt{zlevel} & int & 6 &
+The zlib compression level ($0\ldots9$)\\
+\EndKeyTable{Keywords for ZLib compression stream}{\label{FigureParamsZLib}}
+
+\BeginKeyTable
+\texttt{wavestr} & string  & \texttt{zlib} &
+The compression stream name to use: \texttt{none}, \texttt{rle}, \texttt{zlib} or
+\texttt{arith}\\
+\texttt{mrlevels} & int & 0 &
+Maximum number of hierarchical levels to do multiresolution analysis on.
+0 means all levels\\
+\texttt{banditer} & string & \texttt{leveldet} &
+The name of the band iterator. Possible values: \texttt{isolevel}, \texttt{leveldet}
+and \texttt{isodetail}\\
+\EndKeyTable{Keywords for wavelets}{\label{FigureParamsWavelet}}
+
+\BeginKeyTable
+\texttt{wqtype} & string & \texttt{zerotree} &
+The quantization type to use. Possible values are \texttt{perband} and \texttt{zerotree}.
+\texttt{zerotree} is much more efficient regarding storage space but involves rather
+much overhead. \texttt{perband} is simpler but compresses worse and is harder to
+configure.\\
+\texttt{enhancelv} & int & 0 &
+Number of hierarchical levels (starting from coarsest one) over which to enhance
+wavelet-coefficients at the boundary (to avoid boundary artifacts at low rates).
+0 disables it.\\
+\texttt{qwavdbg} & int & 0 &
+Level for debug-version: perform additional statistics during encoding;
+higher levels do everything lower levels do. 1: residuum and logarithmic
+histogram; 2: linear histogram for all bands; 3: effect of zeroing each
+band on signal-to-noise ratio\\
+\EndKeyTable{Keywords for lossy wavelets}{\label{FigureParamsQWavelet}}
+
+\BeginKeyTable
+\texttt{qrtype} & string & \texttt{const} &
+The quantizer type (statistics module), setting the bits per band. Values
+are \texttt{const}, \texttt{linear}, \texttt{expnt}, \texttt{gauss} and \texttt{custom}
+where \texttt{custom} can't be selected directly\\
+\texttt{qntype} & string & \texttt{linear} &
+The quantization type, either \texttt{linear} or \texttt{expnt}\\
+\texttt{bitscale} & double & 1.0 &
+Set the scaling factor of the bit allocation curve relative to the size of
+the base type\\
+\texttt{cutoff} & double & 1.0 &
+The band number relative to the total number of wavelet subbands starting
+from which all bands are ignored (quantized to 0)\\
+\texttt{nullzone} & double & 0.0 &
+Coefficients whose absolute value is smaller than \texttt{nullzone} are set to 0\\
+\texttt{relqbits} & string & --- &
+The string is a comma-separated ($\Rightarrow$ the string must be enclosed in
+double quotes) list of floating point values, encoding the number of bits
+relative to the number of bits in the base type each wavelet band should be
+encoded with. Implicitly sets the quantizer type to \texttt{custom}.\\
+\EndKeyTable{Keywords for \emph{perband} lossy wavelet compression}{\label{FigureParamsPerband}}
+
+\BeginKeyTable
+\texttt{zttype} & string & \texttt{band1} &
+The type of the zerotree encoding to use. \texttt{band1} is one-pass with a four symbol
+alphabet whereas \texttt{band2} is two-pass with dominant pass (four symbol alphabet) and
+a subordinate pass (two symbol alphabet).\\
+\texttt{psnr} & double & 100.0 &
+The signal-to-noise ratio to use during encoding. Higher values mean better
+quality\\
+\EndKeyTable{Keywords for \emph{zerotree} lossy wavelet compression}{\label{FigureParamsZerotree}}
+
+The \texttt{exactformat} parameter must be added to the parameters for the
+transfer format, not the one for the storage format. Transfer- and storage
+formats are used like this:
+
+\begin{center}
+\begin{tabular}{|c|p{70mm}|p{50mm}|}
+\hline
+\textbf{Direction} & \textbf{Transfer format} & \textbf{Storage format}\\
+\hline
+Insert & Used for transfer to the server & Used for actually storing the data\\
+\hline
+Retrieval & Depending on the value of \texttt{exactformat}:
+\begin{itemize}
+\item
+= 0: used for data stored in uncompressed format, ignored for all
+other data.
+\item
+$\ne$ 0: used for all data, repacking on the server if necessary
+\end{itemize}
+& ignored\\
+\hline
+\end{tabular}
+\end{center}
+
+\pagebreak[4]
+
+
+\section{The Results Window}
+\label{ResultWindow}
+
+This window is the starting point for visualizing MDD objects downloaded from
+the database as a result of selecting \texttt{Collections->Lookup} from the
+main window (\ref{MainWindow}) or executing a query (\ref{QueryWindow}). All
+MDD objects are owned by this window, so closing viewers does not remove any
+data but the viewers' own from memory. Double-clicking on an entry in the results
+list opens a viewer of the type set by \texttt{Display Mode}. Currently available
+display modes are
+
+\begin{description}
+
+\item[Image modes:]\ \\
+\begin{description}
+\item[Flat image] is a 2D mode and means a simple orthogonal projection that works
+with data of any dimensionality (see \ref{ImageModeFlat}).
+\item[Volumetric] can only be used to visualize volumetric data (i.e.\ 3D) like tomograms.
+It consists of two renderer types, a surface-oriented renderer which only displays the
+textured surfaces of the data\-cube and is therefore very fast and a voxel renderer that
+can also display the inner structure of a data cube at the expense of a substantial amount
+of computational overhead. You may switch between these two modes any time (see
+\ref{ImageModeVolumetric}).
+\item[Orthosection] can only be used to visualize volumetric data which is rendered
+as three orthogonal slices with user-configurable thickness  through the volume
+(see \ref{ImageModeOrtho}).
+\item[Height field] is a heightfield renderer that displays arbitrarily dimensioned data as a
+shaded 3D heightfield (see \ref{HeightFieldRenderer}).
+\end{description}
+
+\item[Other modes:]\ \\
+\begin{description}
+\item[Chart] is a 1D mode that can display data as simple chart diagrams (see
+\ref{ChartDisplayMode}).
+\item[Table] is the most generic of all modes in that can display data of any
+dimensionality and base type as a table of numeric values (see \ref{TableDisplayMode}).
+\item[Sound] can be used to play MDD objects as sound samples (see \ref{SoundDisplayMode}).
+\end{description}
+
+\end{description}
+
+There can only be one open viewer for each object for each display mode, so opening an
+object in flat image and height field or chart mode is possible whereas opening two flat
+image viewers on one object is not.\\
+There are two menus available here:\\
+
+\subsection{Item}
+
+This menu offers three items: \texttt{Open all} opens viewers of the type specified by
+\texttt{Display Mode} for all objects in the results list. \texttt{Thumbnail All} opens
+a thumbnail viewer window containing all objects in the results list. \texttt{Close}
+closes the results window and all its viewer windows and frees all memory
+allocated by the objects in the results list.
+
+\subsection{Selection}
+
+The operations in this menu deal with selections of objects. The available menu
+items are
+
+\begin{description}
+\item[Select all:] Mark all objects in the collection as selected.
+\item[Clear:] Clear the current selection.
+\item[Open:] Open the selected objects in the viewer mode specified by \texttt{Display
+Mode}.
+\item[Thumbnails:] Open a thumbnail viewer containing only the selected objects
+rather than the entire collection.
+\item[Delete:] Delete the selected objects and thus free the memory allocated to
+them. Use this if you're short on memory and only need a part of the collection
+for future work. This does not affect persistent objects in the database.
+\item[Change Endian:] Changes the endianness of the selected objects.
+\item[Type Manager:] Allows you to change the base types of the selected objects
+by building new objects consisting only of selected type members. See
+\ref{TypeManager}.
+\item[Info:] Additional information about the selected objects. Not yet implemented.
+\end{description}
+
+
+\subsection{Other options}
+
+You can also scale the selected objects using the \texttt{Scale/Resample} widgets to the
+right of the control field. The writable field contains comma- or space-separated
+scaling factors for each dimension. If there are fewer scaling factors than dimensions,
+the last scaling factor available will be used for all dimensions that don't have
+an explicit scaling factor assigned to them. e.g.\ resampling a 3D object using
+\texttt{"2.0"} scales the entire object by 2 in all dimensions, \texttt{"2.0, 3.0, 4.0"}
+scales the object by 2 in the first dimension, by 3 in the second and by 4 in the
+third while  \texttt{"2.0, 1.5"} scales the object by 2 in the first dimension and
+by 1.5 in the second and third dimension.\\
+Different algorithms are used for simple scaling, upsampling and downsampling.
+Simple scaling just uses nearest neighbours and is therefore very fast. The downsides
+are blockiness when scaling up and aliasing when scaling down. Resampling addresses
+these problems at the expense of speed. Downsampling averages over subcubes whereas
+upsampling performs n-linear interpolation. Therefore care should be taken when
+resampling that the scaling factors specified are either all larger or all smaller
+than 1.0. Also note that especially upsampling is very time- and memory-consuming.
+
+\subsection{The Type Manager} \label{TypeManager}
+
+The Type Manager allows you to build new mdd objects out of existing ones by
+copying selected member variables of the source objects only. The Type Manager
+can be opened by selecting a menu entry from the \texttt{Results window}
+(\ref{ResultWindow}). This will open a new window which graphically represents
+the base type of the selected object(s). There is a checkbox for each member
+variable; each checkbox is labeled "\textsl{varname} (\textsl{type})" where \textsl{varname}
+is the name of the member variable (if available) and \textsl{type} is the type of
+this member variable. Structures are recursively grouped together and bounded by
+a rectangular box each. The member variables that should be copied into the
+newly created object have to be selected using the mouse. If the conversion
+is executed and the resulting base type is not known to \rview, the user is
+requested to enter a type name. Unless the resulting object is intended to
+be written into the database again, the name doesn't matter. \rview's visualization
+techniques recognize all atomic types and a structure containing 3 bytes
+(interpreted as RGB).
+
+
+\section{Scalar results} \label{ResultStrings}
+
+If the result of a query is a (collection of) scalar(s) or an interval,
+it will be displayed as a scrollable window where each line shows the
+string-representation of a value. There are no further operations possible
+on results of this type.
+
+
+\section{Object viewers}
+\label{ObjectViewers}
+
+All object viewers share certain basic components which will be explained here before
+the individual modes are examined in more detail.\\
+Most importantly there's the projection string which lets you specify the dimensions
+to visualize as well as pick areas of interest only rather than the entire object.
+The projection string is of the form
+\\
+
+\begin{tabular}{rcl}
+\textsl{projection} & = & $\underbrace{\mbox{\textsl{dim\_desc}}, \ldots , \mbox{\textsl{dim\_desc}}}_{\mbox{\textsl{dimension} times}}$ \\
+\textsl{dim\_desc} & = & \textsl{desc} $\vert$ \textsl{desc:desc} \lbrack\textsl{map\_dim}\rbrack\\
+\textsl{desc} & = & \textsl{coordinate} $\vert$ *\\
+\textsl{coordinate} & = & \lbrack 0-9 \rbrack +\\
+\textsl{map\_dim} & = & \lbrack 0-9 \rbrack +\\
+\end{tabular}
+
+where * and *:* are synonymous, meaning the entire range of this dimension. If
+$\mbox{\textsl{dim\_desc}}_i$ is of the form \textsl{coordinate} a projection to this coordinate in
+dimension $i$ is performed; dimension $i$ is a \emph{fixed dimension}. If
+$\mbox{\textsl{dim\_desc}}_i$ is of the form \textsl{desc:desc} this is interpreted as \textsl{low:high}
+pair of coordinates in dimension $i$ and the entire range between \textsl{low} and \textsl{high}
+is selected; dimension $i$ is a \emph{free dimension}. The optional addition of \textsl{map\_dim}
+in square brackets allows re-ordering dimensions in \emph{some modes} (e.g.\ flat images and
+tables); in this case \textsl{map\_dim} is the number of the dimension that should be associated
+with this interval, starting from 0. This mechanism allows things like transposing. If the
+number of free dimensions is not equal to the dimensionality of the display mode an error
+in the projection string is reported.\\
+\textbf{Examples:} Assuming a 3D-object with the spatial domain
+\lbrack 0:200, 100:400, 200:600 \rbrack\  the following projection strings result in \ldots\\
+
+\begin{description}
+\item[*:*, *:*, *:*] -- Everything (3D).
+\item[0, *:*, *:*] -- A projection to 0 in the first dimension and all data in the other
+two dimensions, i.e.\ an object [100:400, 200:600] (2D).
+\item[0, 200, *:*] -- A projection to 0 in the first and 200 in the second dimension,
+all data in the third dimension (1D).
+\item[100:150, *:300, 300:*] -- The coordinates 100 to 150 in the first dimension,
+100 to 300 in the second dimension and 300 to 600 in the third dimension (3D).
+\item[0, *:*\lbrack 2\rbrack, *:*\lbrack 1\rbrack] -- Like the 2nd example but transposed,
+i.e.\ an object [200:600, 100:400].
+\end{description}
+
+Pressing \texttt{<return>} in the projection string widget or clicking on the \texttt{OK}-button
+next to it updates the display accordingly. If there is at least one fixed dimension, clicking
+on the + and - buttons increases or decreases the value of a fixed dimension, allowing you
+to move through a datacube along a given axis. If there is more than one fixed dimension,
+the writable field between the + and - buttons can be used to specify which one should
+be affected by the + and - buttons. Enter the number of the dimension along which you want
+to move here, starting from 0.\\
+\\
+All but the thumbnail viewers (see \ref{ThumbnailDisplayMode}) also provide the following
+menu entries, listed under \texttt{Data}:
+
+\begin{description}
+\item[Insert:] Insert the entire object into the database. This will pop up a
+dialog box asking you for the name of the collection the object should be stored in.
+
+\item[Insert proj:] Insert the object's current projection only into the
+database.
+
+\item[Save:] Save the raw MDD to disk. The resulting file is just the array data
+without any spatial information, therefore this option should only be used on
+1-dimensional data, e.g.\ TIFF-encoded images.
+
+\item[Close:] Close the viewer.
+
+\end{description}
+
+Additionally, all but the thumbnail viewer have a \texttt{View} menu with at
+least two entries \texttt{Load} and \texttt{Save}. A "view" contains all meta
+information required to visualize the current MDD as it is displayed in the
+viewer's visualization area, e.g.\ renderer configuration, colourspace mapping
+parameters, current rotation etc.; this meta information can be saved to and loaded
+from a file with these two menu entries. A view is specific to one viewer type,
+so a volumetric viewer's view file can not be loaded into a height field renderer.
+Views can be used to easily memorize efficient visualization parameters for later
+use (such as a good viewing angle for voxel rendering), or for visualizing the
+effects of signal processing algorithms on an MDD as a sequence of images of the
+same size/rotation/lighting/$\ldots$.\\
+Note that a view may contain very MDD-specific properties, such as the
+MDD's numeric range used by the colourspace mapper or the spatial extent
+for the projection string. Therefore a view should only be used for either
+the same MDD or MDD with sufficiently similar properties, otherwise unwanted
+side-effects may occur.\\
+Most modes also offer additional menus for specific features, such as saving the
+current visualization to a TIFF image, or displaying the current rotation
+numerically.\\
+Now follows a detailed description of the currently available display modes.
+
+
+\subsection{Image viewers}
+\label{ImageDisplayMode}
+
+The image display modes are the primary modes for graphical representation of MDD
+objects. Next to simple orthogonal projections for displaying 2D images it also
+includes 3D renderers which are described in more detail in \ref{Renderers}.\\
+There are various additional menus in this mode. \texttt{Data} contains the new
+entry \texttt{Save TIFF} which saves the currently visible image to disk as a TIFF file.
+The \texttt{Settings} menu contains configuration options dependent on the image
+mode. The one entry available in all modes is the \textbf{Colourspace} menu, see
+\ref{ColourspaceMapping}. Another possible entry, \textbf{Movie playback}, is
+shared in flat and height field modes (sections \ref{ImageModeFlat},
+\ref{HeightFieldRenderer}) and allows the following choices on what to do
+when the end of the movie has been reached (using \texttt{a = \textsl{start}} and
+\texttt{b = \textsl{end}} of the movie):
+
+\begin{description}
+\item[Once:] Just stop playback.
+\item[Same direction:] Rewind the movie and restart using the same playback direction,
+thus the sequence is \texttt{a $\rightarrow$ b, a $\rightarrow$ b, $\ldots$} or
+\texttt{b $\rightarrow$ a, b $\rightarrow$ a, $\ldots$}, depending on the initial playback
+direction.
+\item[Switch direction:] Switch playback direction so the movie oscillates between
+end-points and the sequence is \texttt{a $\rightarrow$ b, b $\rightarrow$ a, $\ldots$} or
+\texttt{b $\rightarrow$ a, a $\rightarrow$ b, $\ldots$}, depending on the initial playback
+direction.
+\end{description}
+
+Movie mode is possible whenever the dimensionality of the MDD object exceeds the
+dimensionality of the visualization mode (both flat and height field images are 2D,
+therefore movies are possible if the MDD object has dimensionality three or higher).
+The actual movie playback can be controlled with additional buttons created below
+the projection string's +/- buttons. These new buttons,
+which can only be used in \texttt{Flat} and \texttt{Height} mode, behave like auto-repeating
++/- buttons and allow displaying a datacube as a movie. "$<$" corresponds to "-"
+and "$>$" corresponds to "+". In case of more than one free dimension the same
+rules apply that are used for the +/- buttons (see \ref{ObjectViewers}).
+
+In all image modes except for the one for scaled images (see \ref{ImageModeScaled}) you
+can mark a rectangle by dragging its outline while holding down the \texttt{ctrl} key.
+The pixel coordinates of the dragged box relative to the upper left corner of the image
+will be displayed in the upper left corner of the box in the format
+$x_{low}:x_{high}, y_{low}:y_{high}$. Using the left mouse button for the
+drag will always start a new box, using the right mouse button will adjust the size of
+the existing box by moving the nearest corner to the position of the mouse pointer. To
+remove the box simply click inside the image with the \texttt{ctrl} key held down.
+
+
+\subsubsection{Flat Images} \label{ImageModeFlat}
+
+This mode visualizes orthogonal 2D projections of the MDD object. There are no
+restrictions on dimensionality, but only two dimensions can be displayed
+simultaneously. The scale slider can be used to scale the image by any factor
+between 0\% and 500\% using a simple nearest neighbour algorithm which is
+much faster than the resampling procedure available in the Results window
+(\ref{ResultWindow}) but also of considerably worse quality. The size of the image
+and hence the redraw time is determined by the size given by the projection string
+times the scaling factor and is therefore independent of the view window size.
+Flat mode is the recommended viewing mode for actual 2D images or movies
+whereas for 3D data one the the volumetric renderers is the better choice
+(see \ref{ImageModeVolumetric}).
+%In flat mode the orientation of the horizontal axis is from top-to-bottom.
+
+
+\subsubsection{Scaled Images} \label{ImageModeScaled}
+
+This class is very similar to flat images (see \ref{ImageModeFlat}) in that it
+performs orthogonal 2D projections of the MDD object. This mode is intended
+for very large MDD objects that are only transfered in part and/or scaled down
+from the server but never reside in client memory in their entirety. Hence there
+is no scale slider nor movie controls.\\
+In contrast to the other image modes, a box is dragged without holding down the
+\texttt{ctrl} key and the dragged box will always have the same aspect ratio
+as the visible image. The available functionality is represented by four buttons
+below the projection string,
+
+\begin{description}
+\item[To Box:] scale up the image within the dragged box to fill the entire
+area currently visible.
+\item[Back:] return to the previous view.
+\item[Zoom In:] magnify the currently visible image by 2 without changing the
+size of the resulting image, i.e.\ the area of the unscaled image covered by the
+new view is only $\frac{1}{4}$th that of the original view. The upper left corner
+remains the same for both views.
+\item[Zoom Out:] the inverse operation of \texttt{Zoom In}. The visible image
+of the new view can become smaller than in the previous view, however.
+\end{description}
+
+A \emph{view} comprises all meta data that uniquely identifies a visualization
+of an MDD object, i.e.\ a scaling factor, a bounding box (n-D interval) and
+the two free dimensions. Whenever either parameter is changed, the currently
+active view is saved on a stack before the new view is activated. Pressing the
+\texttt{Back} button retrieves just this meta data from the stack in client memory
+whereas the corresponding data is reloaded from the \rman\ server; except for
+the view meta data no data is cached by \rview. There is no limit on the depth
+of the view stack.\\
+Note that the projection string is for the entire, unscaled object, whereas the
+drag box coordinates are relative to the current view. Any changes to the projection
+string  will be translated to the current view before they're applied. Also,
+changing the projection string equals the definition of a new view and
+stacking of the previous one.
+
+
+\subsubsection{The Renderers}
+\label{Renderers}
+
+For the various renderers, some new functionality is available in the viewer
+window. The \texttt{BBox} checkbox determines whether the renderer should draw the object's
+bounding box as well. Also there are two new menu entries in the \texttt{Settings}
+menu:
+
+\begin{description}
+\item[Renderer:] Allows changing parameters needed by the 3D renderers. See
+\ref{RendererModel}.
+\item[Renderer controls:] Allows animating rendered images by continuous
+rotation (see \ref{RendererControls}).
+
+\end{description}       % settings menu
+
+Renderers also have an additional entry \texttt{Show} in the \texttt{View} menu
+which displays the current rotation matrix, z-offset and scale in a small window.
+The rotation matrix ($3\times 3$) is represented by three rotations around the
+coordinate axes, first $x$, then $y$, then $z$; the angles are in units of $\pi$
+rather than degrees. All entries in this window can also be altered manually.\\
+The renderers always use an image the size of the view window, so it's not a good
+idea to make the view window substantially larger than the area covered by the
+object's bounding box, because although the renderers don't operate outside the
+object's bounding box the image will be larger than necessary and therefore take
+longer to display, in particular when the display is remote over a network.
+
+\paragraph{Renderer Basics} \label{RendererModel}	% hardspace to make linefeed possible
+\ \\
+First let's specify the coordinate system: x is the
+horizontal axis, oriented left to right, y is the vertical axis, oriented bottom to
+top and z is the depth axis (parallel to the screen normal), oriented into the screen.
+The observer is at position $(0, 0, 0)$ where the line $(0, 0, x)$ is projected to
+the pixel in the image center. All renderers use perspective projection of
+the data cube to the \emph{projection plane}, a plane parallel to the screen surface
+that intersects the z-axis at position $(0, 0, z_p), \quad z_p > 0$. The value of $z_p$
+determines how much effect perspective projection will have, i.e.\ how quickly an object
+gets smaller as its $z$ component increases. The smaller the value of $z_p$
+the higher the impact of perspective projection. Values between $256$ and $512$
+generally produce good results, with larger values recommended for large objects.
+The value of $z_p$ can be changed in the \texttt{Image settings} window which is
+opened by selecting the \texttt{Settings $\rightarrow$ Renderer} menu available
+in the image viewer.\\
+Parts of the data cube lying too close to (or even behind) the viewer can't be
+rendered, therefore the cube has to be clipped. In order to do this the intersection
+of the cube with the \emph{clipping plane} has to be calculated. The clipping plane
+is a plane parallel to the projection plane, intersecting the z-axis at position
+$(0, 0, c_z), \quad c_z > 0$. In effect the cube is "cut open" so data formerly inside the
+cube will be mapped to the new surface. Generally speaking, the value of $c_z$ should
+be smaller than $z_p$. Values in the area of $\frac{z_p}{2}$ give good results, but
+if you want to slice through the cube without moving it closer to the viewer this
+can be achieved easily by incrementing the value of $c_z$ in the \texttt{Image
+Settings} window.\\
+Using the \texttt{Scale} slider scales the data cube itself, not the rendered
+image which means that you can also get z-clipping effects by scaling the
+cube. It also means that you still get smooth edges in an upscaled renderer
+display and the texels aren't as noticable as their edges are parallel
+to the data cube's edges rather than parallel to the coordinate system.\\
+You can switch on/off lighting in the \texttt{Image settings} window; currently
+this will only have an effect in voxel mode. Let $l$ be the normalized vector
+from the voxel to the light source, $n$ the outward-oriented surface normal and
+$\alpha$ the angle between the two ($\cos\alpha = l \cdot n$). Furthermore let
+$\beta$ be the \emph{light angle} and $\gamma$ the \emph{scintillation angle}
+specified in the \texttt{Image settings} window; both describe the range of angles
+$\alpha$ for which the corresponding parameter should have any effect:
+
+\begin{center}
+\begin{tabular}{rlrl}
+$\lbrack \beta, 180 \rbrack$ & ambient light only & $\lbrack \gamma, 180 \rbrack$ & no scintillation \\
+$\lbrack 0, \beta )$ & ambient light + shading & $\lbrack 0, \gamma )$ & scintillation \\
+\end{tabular}
+\end{center}
+
+One way to express this with normalized weighting factors would be
+
+\begin{displaymath}
+w_l(\alpha,\beta) = \left\lbrace\begin{array}{rl}
+\frac{\cos\alpha - \cos\beta}{1 - \cos\beta} & \mbox{if} \cos\alpha > \cos\beta\\
+0 & \mbox{otherwise}\\
+\end{array} \right. , \qquad
+w_s(\alpha,\gamma) = \left\lbrace\begin{array}{rl}
+\frac{\cos\alpha - \cos\gamma}{1 - \cos\gamma} & \mbox{if} \cos\alpha > \cos\gamma\\
+0 & \mbox{otherwise}\\
+\end{array} \right.
+\end{displaymath}
+
+Note that values greater than 90 (degrees) for $\beta$ or $\gamma$ are unphysical;
+they do help to bring out details in dark areas, however. It is advisable to
+decrease the level of ambient light when increasing the light angle.
+Using these weighting factors a voxel is shaded according to the equation
+\begin{displaymath}
+pixel = voxel \cdot (amb + w_l(\alpha,\beta) \cdot (1 - amb)) + voxel_{grey} \cdot gain \cdot w_s(\alpha,\gamma).
+\end{displaymath}
+The $amb$ parameter determines the level of ambient light and should be in the
+interval \hbox{\lbrack 0, 1\rbrack} where 0 means no ambient light (surfaces not hit
+by the light source are totally black) and 1 means full intensity provided by ambient
+light (which is equivalent to shading off). The first part of the formula thus
+performs a darkening of the actual voxel colour by giving it a base intensity
+determined by $amb$ and additional intensity depending on the surface orientation.
+$voxel_{grey}$ is the greyscale value associated with the voxel colour which,
+when multiplied by $w_s(\alpha,\gamma)$, produces a shaded greyscale version of the voxel,
+so the second part of the formula adds a weighted version of the shaded greyscale
+voxel scaled by $gain$ to the shaded voxel. The $gain$ parameter has to be $\ge 0$ and the
+higher it is the brighter those surfaces where $\alpha < \gamma$ will become. This
+also influences the actual colour of a voxel by forcing a shift towards white the
+more directly the voxel is facing the light source.\\
+The position of the light source is described by the \texttt{Direction} and \texttt{Distance}
+fields in the \texttt{Image settings} window. The possible directions are encoded as a string
+consisting of arbitrary combinations of direction aliases or $\epsilon$ (the empty
+word) for each dimension. Those aliases are \texttt{l, r} (left, right) for the first dimension,
+\texttt{d, u} (down, up) for the second dimension and \texttt{f, b} (front, back) for the
+third dimension. Only one direction alias may be specified for each dimension, so \texttt{l}
+and \texttt{r} are mutually exclusive. Thus the direction string lets you specify the
+26 vertices on the surface of a 3D cube bisected in each dimension through its center
+(plus the 27th vertex
+in the center, but that choice wouldn't be very sensible). Examples would be \texttt{ur}
+(corresponding to $(1,1,0)^T$), \texttt{uf} ($(0,1,-1)^T$) or \texttt{dlb} ($(-1,-1,1)^T$).
+Use the \texttt{Distance} field to determine at which distance from the origin along the
+direction vector the light source should be situated.\\
+For more tuning parameters regarding normal approximation see section \ref{VoxelRenderer}
+about the voxel renderer.
+
+\paragraph{Navigating} \label{RenderNavigation}
+\ \\*
+The data cube can be rotated by moving the mouse while holding down the left
+mouse button. Moving the mouse horizontally rotates around the y-axis (positive
+angles by moving to the right), moving the mouse vertically rotates around the
+x-axis (positive angles by moving to the bottom). This system may be improved
+to something more intuitive in the future.\\
+The cube can be moved along the z-axis by moving the mouse vertically while
+holding down the right mouse button. Moving upwards brings the cube closer
+to the viewer while moving downwards takes to object further away.
+
+\paragraph{The Renderer Controls} \label{RendererControls}
+\ \\*
+This window is opened using the \texttt{Settings $\rightarrow$ Renderer Controls} menu
+in an image viewer and makes it possible
+to animate rendered images. The window consists of three sliders representing the
+three rotation axes with a button labeled "0" to the right of each. Clicking on one of
+the "0" buttons resets the corresponding slider to 0, thus terminating rotation around
+that axis. Rotation starts when you click the lower left button labeled \texttt{Start} which
+will then change to \texttt{Stop}. The slider values can be changed at any time, even
+after animation has been started; dragging the cube directly with the mouse is
+still possible when animation is in progress, too. You can stop the animation by clicking
+on the \texttt{Stop} button in the \texttt{Renderer controls} window or by clicking on the
+button labeled \texttt{\lbrack \rbrack} in the image viewer window which is also used
+for stopping movie playback.
+
+\paragraph{Volumetric renderers} \label{ImageModeVolumetric}
+\ \\
+The volumetric renderers can only handle 3D data with base type sizes of 1 to 4 or
+8 bytes where base types of size 4 may be \texttt{long} or \texttt{float} and a base type
+of size 8 is interpreted as double. Two volumetric renderers are combined in
+one image viewer and the user may freely switch between modes by using the new
+menu \texttt{Modes}. The third is an orthosection viewer (see \ref{ImageModeOrtho})
+which is uses a separate window.
+
+\subparagraph{Surface renderer} \noindent \label{SurfaceRenderer}
+\ \\*
+The surface renderer only visualizes the surfaces of the data cube by texture-mapping
+the data on the cube's surface to the polygons representing it (which may be
+rotated and scaled in any way). While this is very fast it has the drawback that
+data inside the cube can not be visualized at all unless z-clipping is applied
+to the cube (see the basic model). This mode is recommended for rotating or
+positioning the cube before switching to a better but more time-consuming
+mode like the voxel renderer, for instance. It's also the mode of choice for
+data where not all three dimensions are spatial (e.g.\ movies).
+
+\subparagraph{Voxel renderer} \noindent \label{VoxelRenderer}
+\ \\*
+The voxel renderer is recommended for visualizing data where all three dimensions
+are spatial (i.e.\ volume data). Data is visualized by casting rays through
+the volume and calculating the frontmost intersection of each ray with a 
+non-empty pixel. In order to get good results over a wide range of input
+data a lot of configuration options are available in the \texttt{Renderer}
+menu.\\
+A few definitions first: an \emph{empty pixel} is one whose value lies outside
+the threshold interval
+$$ti = \lbrack pixel\_threshold\_low, pixel\_threshold\_high \rbrack .$$
+These threshold values are base type dependent; if you specified \texttt{For mode}
+in the preferences window, \rview\ tries to find sensible defaults for these
+parameters, depending on the type, otherwise the values given in the preferences
+are used. A special case is the RGB base type where there are two thresholding 
+models: a pixel is interpreted as empty if all its colour components are outside
+the threshold interval (\texttt{RGB brightness} off) or it's considered empty if the
+average of its colour components is outside the threshold interval
+(\texttt{RGB brightness} on).\\
+Since data obtained by computer tomograms and similar techniques usually
+includes a fair amount of noise the naive approach of simply using the
+frontmost non-empty pixel intersected by the ray usually doesn't produce
+any meaningful results. What's needed is some kind of averaging procedure that
+makes the ray penetrate deeper into the data until a weight criterium is met
+and then average over the non-empty pixels that were intersected. Simply
+adding these pixel values produced poor results as well, however. A technique
+that gave very good results was first calculating a weight for each pixel
+using the formula $w = \vert \frac{v + 2^q - 1}{2^q} \vert$ for integers and
+$w = \vert \frac{v}{2^q} \vert$ for floating point types, where $v$ is the
+pixel value (in RGB mode this is the average of the colour components) and $q$
+is the \emph{weight quantisation}. Thus the weight is proportional to the pixel
+value and inversely proportional to $2^q$. The weighted sum of pixels $s$ is updated
+using $s = s + w*p$ where $p$ is the pixel value; note that in RGB mode $s$ and
+$p$ are 3D vectors over the RGB colourspace. Since $w$ was proportional
+to $v$ the update value is proportional to $v^2$, i.e.\ "brighter" pixels have
+a much stronger influence on $s$ than "darker" ones. Additionally the sum of
+weights $n$ is updated using $n = n + w$. If $n$ overflows the \emph{weight
+threshold} $w_{max}$, the ray is terminated and the pixel value used in this
+position is $\frac{s}{n}$, otherwise the search for the next non-empty pixel
+continues. If there are no more non-empty pixels and the pixel value $\frac{s}{n}$
+computed so far is bigger than the lower pixel threshold, this pixel value is
+used, otherwise the pixel is considered transparent.\\
+Summarizing: $q$ determines how much the weight is correlated with the pixel
+value where small values of $q$ mean a strong dependence and large values
+a weak dependence (since
+$\lim_{q \longrightarrow \infty}{\vert \frac{v + 2^q - 1}{2^q} \vert} = 1$ and
+$\lim_{q \longrightarrow \infty}{\vert \frac{v}{2^q} \vert} = 0$, both of which
+are monotonous decreasing in $q$).
+The default value of 4 gives good results with most tomograms. The weight threshold
+$w_{max}$ determines how far the ray will penetrate into the volume. If that
+value is too small, normally invisible noise will prematurely abort the ray and
+thus have a noticable effect on the display (seemingly random, dark blotches instead
+of a smooth surface). Another problem is that typically the pixel colour doesn't
+change rapidly from one pixel to its neighbour but rather slowly over a number
+of pixels, so for instance a white object on a black background is usually surrounded
+by several layers of grey-level pixels. When $w_{max}$ is too small the ray will stop
+in those grey-levels rather than in the white object. Trying to remedy this by just increasing
+the lower pixel threshold doesn't work well and even with large values the results
+still look poor. So if you can't see far enough into the cube you should first try
+increasing $w_{max}$. If $w_{max}$ is too large, on the other hand, you get an x-ray
+effect where the entire object becomes transparent. Also note that the further the
+ray penetrates into the volume the longer the rendering takes.\\
+If you're using lighting there are some more tuning parameters available from the
+\texttt{Image settings} window in the voxel section which deal with normal approximation,
+namely \texttt{Kernel size} and \texttt{Kernel type}. The kernel is a symmetric
+function that will be folded with the sample values, thus producing a smoothed
+normal vector that can compensate for sample noise. The kernel type determines how
+this smoothing is performed. \texttt{Average} gives each sample the same weight, the other
+two are functions over the distance $d$ (L$_2$-norm) of a cell from the kernel center.
+\texttt{Linear} is the function $1 - \frac{d}{s \sqrt{3}}$ and \texttt{Gauss} is the function
+$e^{-\frac{d}{2}}$ where $s$ is the kernel size.\\
+The kernel size parameter is the maximum distance of a point in the kernel from the
+kernel center using the L$_{\infty}$ norm. Therefore a kernel size of $n$ results in a
+kernel cube of size $(2n + 1)^3$. A kernel size of 0 means no smoothing (and hence the
+kernel type is irrelevant), the normal is approximated directly from the sample values,
+therefore this mode produces very bad results with noisy data. For typical samples a
+kernel size of 1 or 2 is much more recommended, although the rendering will take
+substantially longer due to the kernel cube's size (27 cells for a kernel size of 1,
+125 cells for a kernel size of 2). In theory the normal vectors could be cached, however
+this would require 12 bytes of storage for each cell, so a greyscale tomogram of size
+10MB would require 120MB for the normal vector field which seems excessive.\\
+One problem when shading volumetric data is that the entire image tends to darken
+considerably. This is a problem especially when plotting isosurfaces. To overcome
+this limitation there's the option to ignore the voxel colours and assign the same
+intensity to each voxel instead, which should be a bright colour (e.g.\ white); in this case
+the sample values are only used to approximate the object's surface but not for texturing
+it as well. Of course this only makes sense when shading is active since otherwise only
+the object's outline could be seen, therefore this option is ignored with lighting
+deactivated. The colour to assign to each voxel can be specified in the \texttt{Voxel colour}
+field; this is a floating point number in order to be able to handle all base types.
+The default value of this parameter depends upon the setting of
+\texttt{For mode} in the preferences window (i.e.\ when on \rview\ tries to find a sensible
+default for the MDD's base type). A value of 255 for a greyscale image is pure white,
+for instance. A more complicated example is RGB: in that case the colour is encoded as
+a number with the red component in bits 0-7, the green component in bits 8-15
+and the blue component in bits 16-23, so red is 255, green is 65280, blue is
+16711680 and pure white (the default) is 16777215. Alternatively you can specify
+the voxel colour as a hexadecimal value starting with a \texttt{0x} prefix which is
+easier for selecting RGB colours (e.g.\ \texttt{0xff00} for green).\\
+\emph{Tuning}: bad image quality when rendering with lighting is usually the cause of the
+kernel size being too small or the pixel/weight threshold values being wrong. If the
+ray doesn't penetrate deep enough you get the aliasing effects described above. If
+on the other hand the ray penetrates too deep the surface normal will get approximated
+wrongly because the ray terminated a substantial distance away from the actual surface.
+If the image is too dark you should try ignoring the voxel colour and using a very
+bright default colour instead. Only experimentation will result in the best compromise of all
+parameters.\\
+Examples:\\
+For \texttt{tomo\_cubed} use \texttt{pixelThresholdLow = 16}, \texttt{weightThreshold = 16} and
+\texttt{kernelSize = 2}. When ignoring the voxel colours set \texttt{lAngle = 180},
+\texttt{Ambient = 0} and \texttt{Gain = 0.5}. For \texttt{frog\_cubed} set \texttt{pixelThresholdLow = 32},
+\texttt{weightThreshold = 8} and \texttt{kernelSize = 2}. When ignoring the voxel colours set
+\texttt{lAngle = 180}, \texttt{Ambient = 0.0} and \texttt{Gain = 0.0}.
+
+
+\subparagraph{Orthosection renderer} \label{ImageModeOrtho}
+\ \\
+This viewer mode renders volume images as three orthogonal sections through the
+volume, as commonly used in the visualization of medical images. The resulting
+image can be rotated and translated along the z-axis by using the mouse like in
+the other rendered modes.\\
+This viewer comes in two variants, depending on how it's opened:
+
+\begin{description}
+\item[partial:] when opened from the main window's \emph{Collections} menu
+(see \ref{MainWindow}); in this mode only the data for the three sections currently
+visible is held in main memory and new data is loaded from the database
+when required (but not during a drag operation).
+\item[full:] when opened from the results window (see \ref{ResultWindow}); in
+this mode the data for the entire MDD is present in main memory and therefore
+sections can be changed arbitrarily without requiring further database accesses.
+\end{description}
+
+For both modes there are several new widgets in the control area:
+
+\begin{itemize}
+\item
+For each of the three dimensions there's a slider representing the position where each
+hyperplane intersects the axis orthogonal to it. To the right of the slider is a
+text widget where positions can be entered manually. As soon as the mouse pointer
+touches the slider's well (that area within which the bar slides), the section it
+represents is crossed out in the display to facilitate navigation; the cross is
+removed when the mouse pointer leaves the well. The slider is dragged as usual
+by holding down the left (or right) mouse button. Depending on the mode (\emph{partial}
+or \emph{full}), the dragged section is displayed as a solid grey area or the actual
+image data.
+\item
+Towards the bottom right is a text widget labelled \emph{Thick} where the thickness
+of a section in cells can be entered. Note that the handling of thick sections is
+not optimized in any way and in case the viewer is used in partial mode the cells
+intersected by several sections are loaded from the database for each slice, leading
+to an expansion of the data volume transferred by a factor of 3 in the worst case
+(although the amount of overlap is neglectable for thin slices). If you want to
+work with thick sections extensively, use the viewer in \emph{full} mode.
+\item
+Below the thickness widget are two more widgets labelled \emph{Auto} and
+\emph{Load}. These determine how the display is updated in partial mode
+when sections have changed. Dragging a section in partial mode displays
+the section as a filled grey surface to show that the cell values are
+unknown. If \emph{Auto} is checked, the new section is automatically loaded
+from the database after the mouse button used to drag the slider is released,
+otherwise the display is not updated automatically. The \emph{Load} button can
+be used to explicitly request an update at any time; this is necessary in case
+\emph{Auto} isn't checked or the database was closed during the drag and the
+new data couldn't be loaded when the mouse button was released.
+\end{itemize}
+
+\textbf{Current limitations of the Partial mode:}
+\begin{itemize}
+\item
+There is no section cache, so moving the slider will always access the database,
+no matter whether the sections were already loaded at an earlier time in the session.
+\item
+Colourspace mapping in any but \emph{type range} mode is problematic because due to
+the partial character, there is no information about the value range of the entire
+MDD, so some defaults are assumed. This can be easily remedied manually by opening
+the colourspace editor and entering min/max values to use for the translation, but
+it isn't done automatically yet; automatic updates could also lead to unwanted
+side-effects because if a new slice changed the min/max values currently used,
+the colours of the other two sections would be affected as well.
+\end{itemize}
+
+
+
+\paragraph{Height field renderer} \label{HeightFieldRenderer}
+\ \\
+This mode can be used on data of any dimensionality $d$ with an atomic base type. It
+performs a mapping of the form $y_i = f(x_{1,i}, \ldots, x_{d,i})$ where all but two
+of the $x_{j,i}$ are constant, namely $x_{m,i}$ and $x_{n,i}$ (i.e.\ $m$ and $n$ are
+free dimensions as described in \ref{ObjectViewers} and have to be given by the
+projection string). In other words the value of the cell at position
+$(x_{1,i}, \ldots, x_{d,i})$ is interpreted as height information.
+When connecting all the vertices $(x_{m,i},y_i,x_{n,i})$ 
+thus obtained, a surface in 3D space is created which is rendered using shaded
+polygons, the colour of which can be set via \texttt{VoxelColour} (see the
+\texttt{Image settings} window). Note that this field also accepts hexadecimal
+numbers starting with a \texttt{0x} prefix. If the value of the colour is less then
+256 it will be interpreted as a grey level, otherwise a colour of the form
+\texttt{0xbbggrr}. You can force RGB mode on by setting bit 24 of the colour
+value (required for pure reds). Forcing on RGB mode overrides colourspace mapping,
+if it was turned on.\\
+A primitive light model is always used, namely $pixel = colour \cdot \frac{cos(\alpha)+1}{2}$
+where $\alpha$ is the angle between the surface normal and the light source. When
+switching on lighting the full lighting model described in section \ref{RendererModel} is used.
+Further options for this mode are the grid size $g$ and the height scaling factor $s$
+which are used to create the set of surface vertices
+$S = \lbrace (i \cdot g, j \cdot g, s \cdot m(i,j) \quad \vert \quad l_0 \le i \le h_0, l_1 \le j \le h_1 \rbrace$
+where $m$ is the given 2D projection with the domain $\lbrack l_0:h_0, l_1:h_1 \rbrack$
+of the original nD data $M$ ($m \subseteq M$).\\
+You can also do animations with this mode when the dimensionality of the MDD object
+is higher than 2. Using the movie playback buttons (or +/-) you can slice through the
+data like in \texttt{flat} mode, but with a different rendering technique.\\
+This mode should not be used on large data sets because the number of polygons to render
+is $2 (h_0 - l_0) (h_1 - l_1)$, so even a moderately sized image containing 512*512
+pixels would result in over half a million polygons which take several seconds to
+render. As a general rule of thumb a size of 100*100 should not be exceeded (which
+still requires about 20000 polygons). In case of bigger data it's recommended to scale
+it down prior to using the height field renderer, e.g.\ by using the scaling functionality
+provided in the \texttt{Results Window} (\ref{ResultWindow}).
+
+
+\subsubsection{Colourspace mapping}
+\label{ColourspaceMapping}
+
+Colourspace mapping can be used for visualizing MDD objects of all atomic base types.
+The idea is to map an object's data $d$ of the data type $D$ with a potentially very
+large range to the RGB colour space using a function $f_{cm}: D \rightarrow (r,g,b)$,
+often with the restriction that small changes in the object values result in small
+changes of the resulting colour, i.e.\ for a given $C \in \realnumbers$
+
+$$\| f_{cm}(v_2) - f_{cm}(v_1) \|_2 \le C \vert v_2 - v_1 \vert \qquad \forall v_1, v_2 \in d .$$
+
+This is achieved by using a transfer function $f_{tf}(x, \mu, \sigma)$ for each colour component
+that maps a number $x \in D$ to the interval $\lbrack 0, 1 \rbrack$ where $\mu$ is the
+position of the peak and $\sigma$ is the variation. The colourspace mapping is then
+described by the equation
+
+\begin{displaymath}
+f_{cm}(x) =
+\left( \begin{array}{c}
+r(x) \\ g(x) \\ b(x)
+\end{array} \right)
+=
+\left( \begin{array}{c}
+f_{tf}(x, \mu_r, \sigma_r) \\
+f_{tf}(x, \mu_g, \sigma_g) \\
+f_{tf}(x, \mu_b, \sigma_b) \\
+\end{array} \right) .
+\end{displaymath}
+
+In most cases it is desirable that $f_{tf}$ has a single, global maximum so a colour can
+be easily associated with an intensity range. These thoughts led to modelling the default
+transfer function $f^{gauss}_{tf}$. All in all there are four transfer functions available,
+but not all of them meet all the criteria mentioned above:
+
+\begin{itemize}
+\item
+$f^{gauss}_{tf}(x, \mu, \sigma) = e^\frac{-(x - \mu)^2}{\sigma^2}$\\
+a standard gaussian. In this case
+$C = \sqrt{\frac{6}{e}} \mbox{max}_{i \in \{r,g,b\}} \vert \frac{1}{\sigma_i} \vert$
+(see appendix \ref{CalculateC}). This function is symmetric, smooth and has a distinct
+peak.
+
+\item
+$f^{linear}_{tf}(x, \mu, \sigma) = \left\lbrace \begin{array}{rl}
+1 - \left|\frac{x - \mu}{\sigma} \right| & | x - \mu | < \sigma\\
+0 & \mbox{otherwise}\\
+\end{array} \right.$\\
+a triangular spike that can for instance be used to perform
+a mapping to greyscales directly proportional to the input value. The function
+is symmetric and has a distinct peak but isn't smooth.
+
+\item
+$f^{rect}_{tf}(x, \mu, \sigma) = \left\lbrace \begin{array}{rl}
+1 & | x - \mu | < \sigma\\
+0 & \mbox{otherwise}\\
+\end{array} \right.$\\
+a rectangular pulse in case quantisation effects are
+explicitly wanted. The function is symmetric, has an extended peak but is
+neither smooth nor continuous.
+
+\item
+$f^{asympt}_{tf}(x, \mu, \sigma) = \left\lbrace \begin{array}{rl}
+0 & x < \mu\\
+1 - e^\frac{-(x - \mu)}{\sigma} & \mbox{otherwise}
+\end{array} \right.$\\
+an asymmetric mapping function that starts at position
+$\mu$ and converges to 1 for $x \rightarrow \infty$. The function is smooth and
+continuous but asymmetric and without a peak.
+
+\end{itemize}
+
+You can choose the mapping function you wish by using the widget in the lower right
+of the colourspace mapping editor. It's quite easy to extend \rview\ to support
+many more mapping functions.\\
+The default values for the $\mu$ and $\sigma$ are
+
+$$\mu_r = max, \quad \mu_g = min + \frac{2(max-min)}{3}, \quad \mu_b = min + \frac{max-min}{3}
+\qquad \mbox{and}$$
+$$\sigma_r = \sigma_g = \sigma_b = \frac{max-min}{6 \sqrt{\ln 2}}$$
+
+where $max$ and $min$ can be either the extreme values present in the entire object
+(default), the extreme values the base type can represent (\texttt{Full range} on) or the
+extreme values that occur in the currently selected projection of the object (\texttt{Proj range}
+on). The default values of the $\sigma$-parameters are chosen in such a way that the sum of two
+neighbouring gaussians halfway between their mean values is 1, i.e.\ apart from areas of the
+input range that don't lie between two means the intensity doesn't change drastically.\\
+Colourspace mapping is available in Image and Thumbnail viewers (\ref{ImageDisplayMode},
+\ref{ThumbnailDisplayMode}). The parameters can be changed using the
+\texttt{Settings $\rightarrow$ Colourspace} menu which will become available once colourspace
+mapping has been enabled and results in the \texttt{Colourspace setup} window being opened.
+This window contains a canvas showing the three mapping functions that make up the normalized
+mapping function $f_{cm}^{norm}: \lbrack 0,1 \rbrack \rightarrow (r,g,b)$, each
+plotted in the colour it encodes. If \texttt{Draw sum} is checked the sum of the three
+mapping functions will also be plotted in black, scaled to $\frac{1}{3}$ the height of
+each of the mapping functions with the dotted line representing the value 1. The relation
+between $f_{cm}^{norm}$ and $f_{cm}$ is that $\mu_i = min + (max - min)*\mu_i^{norm}$ and
+$\sigma_i = (max - min)*\sigma_i^{norm}$ for $i \in \{r, g, b\}$.\\
+In the lower half of the
+window are widgets displaying the values of the $\mu_i^{norm}$ (E$(x)$), the
+$\sigma_i^{norm}$ (s$(x)$), $i \in \{r,g,b\}$ and the values of $max$ and $min$ currently
+used. Values can be changed by either entering the new values in the widgets directly
+and pressing \texttt{<return>} or by dragging the curves. For a drag the mouse pointer has
+to be close to the mean value of the curve you want to drag; if the curves are very close
+together, red takes precedence over green, which in turn takes precedence over blue.
+Holding down the left mouse button and moving left/right moves the function's mean value.
+Holding down the right mouse button and moving up/down increases/decreases the function's
+variance. The functions will be immediately redrawn to reflect your latest changes.\\
+If the \texttt{Update} checkbox in the lower half of the window is checked these changes
+will also be propagated to the viewer window owning this colourspace mapper. If this
+viewer's image is very big or the display mode very time-consuming (e.g.\ the Voxel
+renderer) this might take too long so it is advisable to disable the immediate update
+in these situations.\\
+Clicking \texttt{OK} makes the current setup permanent for this viewer and closes the
+\texttt{Colourspace setup} window. \texttt{Cancel} discards the changes, reverts the
+viewer to the state it had before editing and also closes the window.
+
+
+\subsection{Chart viewers}
+\label{ChartDisplayMode}
+
+This is a 1D mode that visualizes the data as a $(x, f(x))$ graph. There are three
+modes available from the \texttt{Modes} menu:
+
+\begin{description}
+\item[Bar:] Bar chart, every value is represented by a filled rectangle.
+\item[Line:] Consecutive values are connected by straight lines.
+\item[Spline:] The values are connected using spline interpolation, thereby
+making it a smooth curve.
+\end{description}
+
+\texttt{Chart} mode is available for all atomic base types. A special case is
+the RGB type where the three components are plotted slightly shifted against
+each other in their corresponding colours.\\
+\texttt{Step} is the width in pixels of two consecutive values on the horizontal
+axis, so larger values will stretch the graph horizontally; in \texttt{Bar} mode this
+is also the width of each bar. A coordinate system is plotted optionally, depending
+on the value of \texttt{CO-System}. In case a coordinate system is requested it can
+be configured in the following ways: \texttt{Y markers} is the step size of the markers
+on the vertical axis. Since the base type may be in a floating point format this is
+a floating point number. \texttt{X markers} does the same for the markers on the horizontal
+axis but is an integer number because all coordinates are integers. You have to press
+\texttt{<return>} in the corresponding widget for changes to have any effect.
+
+
+\subsection{Table viewers}
+\label{TableDisplayMode}
+
+This is a 2D mode that displays the data numerically. In contrast to the other display
+modes this one is totally independent of the base type and can display any MDD object
+for which schema information exists. The first free dimension is mapped to the horizontal,
+the second free dimension to the vertical axis by default. The current grid size in pixels
+is displayed as \texttt{Step X} and \texttt{Step Y}. If the default values given in the
+preferences (\ref{PreferencesEditor}) are -1, \rview\ will
+make a guess at the grid size based on font size and base type. The grid size can
+be changed by explicitly entering new values into the corresponding widgets and
+pressing \texttt{<return>}. If \texttt{CO-System} is checked the coordinate system will
+be displayed.\\
+There are three number bases available from the \texttt{Base} menu: \texttt{Decimal}, \texttt{Octal}
+and \texttt{Hex}. The grid size will be adapted automatically if the default grid size
+was -1. \texttt{Octal} and \texttt{Hex} are also available for floating point types; in
+the case of a \texttt{double} base type the format is two numbers separated by a colon.
+
+
+\subsection{Sound viewers}
+\label{SoundDisplayMode}
+
+This is a 1D mode that can play digital sound samples. 2D data is allowed and will
+be interpreted as multichannel sound where the second free dimension describes the
+channels. There are six buttons for controlling playback. The meaning of each, from left
+to right, is:
+
+\begin{description}
+\item[{\boldmath $\ll$}] Set playback position to start
+\item[{\boldmath $\|$}] Pause/resume playback
+\item[{\boldmath $>$}] Start playback (from beginning)
+\item[{\boldmath $\lbrack\rbrack$}] Stop playback
+\item[{\boldmath $\gg$}] Set playback position to end
+\item[{\boldmath $\longrightarrow$ \mbox{\rm or} $\longleftrightarrow$}] Toggle between normal and looped playback. When in
+loop mode the sample will be repeated indefinitely (until loop mode is switched off
+or playback is stopped manually).
+\end{description}
+
+Below these playback controls are options concerning the sample format and the latency.
+Enter the \texttt{Frequency} in Hz in the writable field to the left. Standard sample frequencies
+are 8000Hz, 11025Hz, 22050Hz, 44100Hz and 48000Hz and the sound hardware may have trouble
+handling anything else. The \texttt{Format} widget can be used to specify the sample format.
+You can only select formats where the size of a sample is the same as the size of the MDD
+base type. Currently four formats are supported:
+
+\begin{description}
+\item[8 bit sl:] 8 bit signed linear, sample midpoint is at \texttt{0x00}
+\item[8 bit usl:] 8 bit unsigned linear, sample midpoint is at \texttt{0x80}
+\item[8 bit ulaw:] 8 bit $\mu$-law (a logarithmic format used e.g.\ in ISDN)
+\item[16 bit sl:] 16 bit signed linear, sample midpoint is at \texttt{0x0000}
+\end{description}
+
+The \texttt{Latency} widget determines how many samples will be created ahead of the
+actual playback. Small values have the advantage that playback reacts to user
+input with no noticeable delays; however they make playback very vulnerable to
+jitter in the buffer fill code which will be most noticeable on a machine
+under load, leading to audible dropouts. Large values have the advantage of
+being very stable regarding dropouts but are slow to react to user input
+(i.e.\ the sound will keep playing a little after a stop or pause). A good compromise
+is usually between 100ms and 300ms, depending on the machine and its load.\\
+The slider at the bottom of the window represents the position of the currently
+audible signal in the sample. You can also drag it to an arbitrary position during
+playback to set the playback position there. Like with stop and pause there will
+be a small delay between the dragging and the playback actually changing due to
+latency.
+
+
+\subsection{Thumbnail viewers}
+\label{ThumbnailDisplayMode}
+
+This mode is unusual in that it can contain images of any number of objects as well
+as a series of images created from one object. By default one thumbnail image of each object
+is displayed, scaled to be \texttt{Thumbnail width} pixels wide while maintaining the
+aspect ratio (i.e.\ an object of size 400*600 and a thumbnail width of 100 will result
+in a thumbnail image of 100*150 pixels). It's also possible to restrict the thumbnails
+to part of the objects using the projection string (e.g.\ \texttt{30:70, 20:80} instead
+of \texttt{*:*, *:*}). \texttt{Thumbnail width} may have any value between 10 and 2000, so
+in most cases it can be used to produce magnified views as well as small thumbnails.
+\texttt{Thumbnail columns} specifies how many thumbnails should be fitted on one
+row.\\
+Objects with more than two dimensions can also be displayed as a series of thumbnails,
+similar to the movie mode in the image viewers (see \ref{ImageDisplayMode}). In order
+to do this the number of free dimensions has to be three, where two are needed for the
+image and one for the dimension to iterate over. By default the first two free
+dimensions are used for the image and the third for the iteration. This behaviour
+can be changed by setting \texttt{ProjDim} to the number of the dimension that should
+be iterated over, starting from 0 (e.g.\ with a projection string of
+\texttt{10:100, *:*, 5, 1:*} the default dimension to iterate over is described by
+\texttt{1:*}, setting \texttt{ProjDim} to 1 would change that to \texttt{*:*}). The iteration
+step can be set using \texttt{ProjStep}; this is the number the coordinate of the
+iteration dimension should be incremented by after each thumbnail image. The larger
+this number the fewer thumbnails will be created for each object.\\
+Beneath each thumbnail is a small descriptive text of the form \texttt{MDD \textsl{mdd}
+\lbrack \textsl{view} \rbrack} where \textsl{mdd} is the number of the MDD object in
+the same order as listed in the results window (\ref{ResultWindow}), starting from 0,
+and \textsl{view} is the number of the view in case the object was displayed as a series
+of thumbnails. Note that \texttt{ProjStep} will also be reflected by \textsl{view}.\\
+Thumbnail viewers also provide colourspace mapping for objects of atomic base types
+(\ref{ColourspaceMapping}); use and configuration is identical to image viewers
+(\ref{ImageDisplayMode}) but due to the nature of the thumbnail mode as a container
+of many objects, \texttt{Proj range} is not available.
+
+
+\section{Platform specifics}
+\label{Platforms}
+
+\subsection{Unix}
+
+\begin{itemize}
+\item
+Changing the font to use for query windows (\ref{QueryWindow}) has no effect. This is
+a bug of the X-version of \wxwin.
+\end{itemize}
+
+\subsection{NT}
+
+\begin{itemize}
+\item
+Exiting \rview\ with an open database crashes the program.
+\end{itemize}
+
+
+\hrule
+
+
+% Appendix
+\newpage
+
+\begin{appendix}
+
+\section{Colourspace mapping smoothness constant C}
+\label{CalculateC}
+
+Let $g_i(x) = e^{-\frac{(x - \mu_i)^2}{\sigma_i^2}}, \quad i \in \{r,g,b\}$. Then
+
+$$\| f_{cm}(v_2) - f_{cm}(v_1) \|_2 = \sqrt{\sum\limits_{i \in \{r,g,b\}} (g_i(v_2) - g_i(v_1))^2}$$
+
+According to the mean value theorem $g_i(v_2) - g_i(v_1) = g'_i(\xi) (v_2 - v_1), \quad
+\xi \in \lbrack v_1, v_2 \rbrack$, so the above can be rewritten to
+$$\sqrt{\sum\limits_{i \in\{r,g,b\}} (g'_i(\xi_i)(v_2 - v_1))^2} \le 
+\sqrt{3} \cdot \vert g'_{max} \vert \cdot \vert v_2 - v_1 \vert, \quad
+\mbox{i.e.} \quad C = \sqrt{3} \cdot \vert g'_{max} \vert \quad$$
+$$\mbox{where} \quad \vert g'_{max} \vert = \mbox{max}_{i \in \{r,g,b\}, x \in \realnumbers} \vert g'_i(x) \vert.$$
+
+$g'_i(x) = -2\frac{x - \mu_i}{\sigma_i^2} g_i(x)$ and
+$g''_i(x) = -\frac{2}{\sigma_i^2} g_i(x) + 4\frac{(x - \mu_i)^2}{\sigma_i^4}g_i(x) =
+\frac{2}{\sigma_i^2} g_i(x) (2\frac{(x - \mu_i)^2}{\sigma_i^2} - 1)$. $g'_i(x)$ has
+a local extreme value where $g''_i(x) = 0$,
+i.e.\ $2\frac{(x - \mu_i)^2}{\sigma_i^2} = 1 \Longleftrightarrow x_{0,1} = \mu_i \pm \frac{\sigma_i}{\sqrt{2}}.$
+Due to the symmetry $\vert g'_i(\mu_i + x) \vert = \vert g'_i(\mu_i - x) \vert$ it suffices to
+examine the value of $g'_i(x)$ on one of these points only, e.g.\ $x_0 = \mu_i + \frac{\sigma_i}{\sqrt{2}}$:
+$\vert g'_i(x_0) \vert = \vert \frac{\sqrt{2}}{\sigma_i} e^{-\frac{1}{2}} \vert =
+\sqrt{\frac{2}{e}} \vert \frac{1}{\sigma_i} \vert$. Therefore the solution to the problem is
+$C = \sqrt{\frac{6}{e}} \mbox{max}_{i \in \{r,g,b\}} \vert \frac{1}{\sigma_i} \vert$.
+
+\end{appendix}
+
+\end{document}

@@ -1,0 +1,116 @@
+<HEAD>
+<TITLE>Error</TITLE>
+</HEAD>
+
+<BODY>
+<H1>IMPORTANT NOTE</H1>
+
+<P>Unfortunately requests to the RasDaMan HTTP server are cached by
+      default. Be sure to disable the proxy in your webserver and also 
+      disable the internal cache by telling the browser to verify the
+      document every time.</P>
+
+
+<CENTER>
+<P>
+<BR>
+<H1>Test for Post-Request: Client is Browser</H1>
+
+<FORM ACTION="http://sunwibas0.forwiss.tu-muenchen.de:8080" METHOD=POST>
+<INPUT TYPE=HIDDEN NAME="Database" VALUE="NorbertBase">
+<INPUT TYPE=HIDDEN NAME="QueryString" VALUE="SELECT img FROM test_image AS img">
+<INPUT TYPE=HIDDEN NAME="ClientType" VALUE="BROWSER">
+
+<INPUT TYPE=SUBMIT VALUE="Test: Everything correct!">
+</FORM>
+<P>
+
+<FORM ACTION="http://sunwibas0.forwiss.tu-muenchen.de:8080" METHOD=POST>
+<INPUT TYPE=HIDDEN NAME="Database" VALUE="NorbertBase">
+<INPUT TYPE=HIDDEN NAME="QueryString" VALUE="SELECT img FROM test_image AS img">
+<INPUT TYPE=HIDDEN NAME="ClientType" VALUE="xyz">
+
+<INPUT TYPE=SUBMIT VALUE="Test: Wrong Client Type">
+</FORM>
+<P>
+
+<FORM ACTION="http://sunwibas0.forwiss.tu-muenchen.de:8080" METHOD=POST>
+<INPUT TYPE=HIDDEN NAME="Database" VALUE="NorbertBase">
+<INPUT TYPE=HIDDEN NAME="ClientType" VALUE="BROWSER">
+<INPUT TYPE=HIDDEN NAME="TestParam" VALUE="wfwef">
+
+<INPUT TYPE=SUBMIT VALUE="Test: Unknown Post Parameters">
+</FORM>
+<P>
+
+<P>
+<A HREF="http://sunwibas0.forwiss.tu-muenchen.de:8080/">Get-request</A>
+
+
+<H1>Testing different return types</H1>
+
+<FORM ACTION="http://sunwibas0.forwiss.tu-muenchen.de:8080" METHOD=POST>
+<INPUT TYPE=HIDDEN NAME="Database" VALUE="NorbertBase">
+<INPUT TYPE=HIDDEN NAME="QueryString" VALUE="SELECT count_cells(img > 9l) FROM test_image AS img">
+<INPUT TYPE=HIDDEN NAME="ClientType" VALUE="RASCLIENT">
+
+<INPUT TYPE=SUBMIT VALUE="Returns scalar">
+</FORM>
+<P>
+
+<FORM ACTION="http://sunwibas0.forwiss.tu-muenchen.de:8080" METHOD=POST>
+<INPUT TYPE=HIDDEN NAME="Database" VALUE="NorbertBase">
+<INPUT TYPE=HIDDEN NAME="QueryString" VALUE="SELECT sdom(img) FROM test_image AS img">
+<INPUT TYPE=HIDDEN NAME="ClientType" VALUE="RASCLIENT">
+
+<INPUT TYPE=SUBMIT VALUE="Returns spatial domain">
+</FORM>
+<P>
+
+<FORM ACTION="http://sunwibas0.forwiss.tu-muenchen.de:8080" METHOD=POST>
+<INPUT TYPE=HIDDEN NAME="Database" VALUE="NorbertBase">
+<INPUT TYPE=HIDDEN NAME="QueryString" VALUE="SELECT grmblfx(img) FROM test_image AS img">
+<INPUT TYPE=HIDDEN NAME="ClientType" VALUE="RASCLIENT">
+
+<INPUT TYPE=SUBMIT VALUE="Returns error">
+</FORM>
+<P>
+
+<FORM ACTION="http://sunwibas0.forwiss.tu-muenchen.de:8080" METHOD=POST>
+<INPUT TYPE=HIDDEN NAME="Database" VALUE="NorbertBase">
+<INPUT TYPE=HIDDEN NAME="QueryString" VALUE="SELECT img FROM rockies AS img">
+<INPUT TYPE=HIDDEN NAME="ClientType" VALUE="RASCLIENT">
+
+<INPUT TYPE=SUBMIT VALUE="Retrieve whole rockies">
+</FORM>
+<P>
+
+<P>
+
+
+<H1>Test for Post-Request: Client is RasClient</H1>
+
+<FORM ACTION="http://sunwibas0.forwiss.tu-muenchen.de:8080" METHOD=POST>
+<INPUT TYPE=HIDDEN NAME="Database" VALUE="NorbertBase">
+<INPUT TYPE=HIDDEN NAME="QueryString" VALUE="SELECT img FROM test_image AS img">
+<INPUT TYPE=HIDDEN NAME="ClientType" VALUE="RASCLIENT">
+
+<INPUT TYPE=SUBMIT VALUE="Test: Everything correct!">
+</FORM>
+<P>
+
+<FORM ACTION="http://sunwibas0.forwiss.tu-muenchen.de:8080" METHOD=POST>
+<INPUT TYPE=HIDDEN NAME="Database" VALUE="NorbertBase">
+<INPUT TYPE=HIDDEN NAME="ClientType" VALUE="RASCLIENT">
+<INPUT TYPE=HIDDEN NAME="TestParam" VALUE="wfwef">
+
+<INPUT TYPE=SUBMIT VALUE="Test: Unknown Post Parameters">
+</FORM>
+<P>
+
+
+
+</CENTER>
+
+</BODY>
+

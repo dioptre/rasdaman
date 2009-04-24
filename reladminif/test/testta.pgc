@@ -1,0 +1,281 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+/*************************************************************************
+ *
+ *
+ * PURPOSE:
+ * test class TransactionIF.
+ *
+ *
+ * COMMENTS:
+ *   none
+ *
+ * PRECONDITIONS:
+ * - database exists and is accessible (PG & rasdaman server running)
+ * - reladminif/DatabaseIF works
+ *
+ ***********************************************************************/
+
+static const char rcsid[] = "@(#)reladminif,TransactionIf: $Id: testta.pgc,v 1.6 2003/12/27 23:11:43 rasdev Exp $";
+
+#define DEBUG_MAIN
+#include "debug.hh"
+
+// constants:
+#define DATABASE "RASBASE"
+
+// pointers representing O2, database, ta and session
+AdminIf*       admin = NULL;
+DatabaseIf*    db    = NULL;
+TransactionIf* ta    = NULL;
+
+int main()
+{
+	const char *prog = argv[0];	// this program's name
+
+	cout << prog << ": test for transactionif, generated on " << COMPDATE << endl;
+
+	// --- outmost exception catcher ------------------------
+	try
+	{
+
+		// --- (1) preparation: open connection
+		admin = AdminIf::instance();
+        	if( !admin )
+        	{
+                	cout << prog << ": cannot create adminIf instance" << endl;
+               	 	throw r_Error();
+        	}
+               	// connect to the database
+                db = new DatabaseIf();
+        	if( !admin )
+        	{
+                	cout << prog << ": cannot create DatabaseIf instance" << endl;
+               	 	throw r_Error();
+        	}
+               	db->open( DATABASE );
+
+		ta = new TransactionIf();
+        	if( !admin )
+        	{
+                	cout << prog << ": cannot create TransactionIf instance" << endl;
+               	 	throw r_Error();
+        	}
+		ta->begin( db );
+		ta->abort( db );
+		ta->commit( db );
+
+		db->close();
+	}
+	catch(...)
+	{
+		cout << prog << ": error abort." << endl;
+	}
+
+	cout << prog << ": test for transactionif done." << endl;
+}
+
+
+void 
+TransactionIf::begin( bool readOnly ) throw ( r_Error )
+{
+	RMDBGENTER(2, RMDebug::module_adminif, "TransactionIf", "begin(" << readOnly << ")");
+	ENTER( "TransactionIf::begin, readOnly=" << readOnly );
+
+	isReadOnly = readOnly;  
+	AdminIf::setAborted(false);
+	AdminIf::setReadOnlyTA(readOnly);
+
+	TALK( "EXEC SQL BEGIN WORK" );
+	EXEC SQL BEGIN WORK;
+	if (sqlca.sqlwarn[2] == 'W')	// real error, not just a warning
+	{
+		SQLCODE = 0;		// FIXME: bad hack, as PG can't reset error state and SQLCODE is queried in many places -- PB 2005-jan-09
+	}
+	else
+	{
+		RMDBGMIDDLE(4, RMDebug::module_adminif, "TransactionIf", "error occured while issuing BEGIN");  
+		LEAVE( "TransactionIf::begin(): error during BEGIN: " << SQLCODE );
+		generateException();
+	}
+	
+	if (readOnly)
+	{
+		TALK( "EXEC SQL SET TRANSACTION READ ONLY" );
+		EXEC SQL SET TRANSACTION READ ONLY;
+		// no error check, as this doesn't inhibit work
+	}
+
+	// prelim.:have additional libpq TA -- PB 2005-jan-09
+	TALK( "PQexec( pgConn, BEGIN )" );
+	PGresult *pgResult = PQexec( pgConn, "BEGIN" );
+	if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
+	{
+		LEAVE( "TransactionIf::begin() Error: cannot open libpq TA: " << PQerrorMessage(pgConn) );
+		generateException();
+	}
+
+#ifdef RMANBENCHMARK
+	DBObject::readTimer.start();
+	DBObject::readTimer.pause();
+	
+	DBObject::updateTimer.start();
+	DBObject::updateTimer.pause();
+	
+	DBObject::deleteTimer.start();
+	DBObject::deleteTimer.pause();
+	
+	DBObject::insertTimer.start();
+	DBObject::insertTimer.pause();
+  
+        OId::oidAlloc.start();
+        OId::oidAlloc.pause();
+
+        OId::oidResolve.start();
+        OId::oidResolve.pause();
+#endif
+
+	OId::initialize();
+	TypeFactory::initialize();
+
+	LEAVE( "TransactionIf::begin, SQLCODE=" << SQLCODE );
+	RMDBGEXIT(2, RMDebug::module_adminif, "TransactionIf", "begin(" << readOnly << ") ");
+}
+
+void 
+TransactionIf::commit() throw (  r_Error  )
+{
+	RMDBGENTER(2, RMDebug::module_adminif, "TransactionIf", "commit()");
+	ENTER( "TransactionIf::commit" );
+
+	if (isReadOnly)
+	{
+		RMDBGMIDDLE(9, RMDebug::module_adminif, "TransactionIf", "read only: aborting");
+		TALK( "TA is readonly: aborting" );
+		abort();
+	}
+	else
+	{
+		AdminIf::setAborted(false);
+		RMDBGMIDDLE(9, RMDebug::module_adminif, "TransactionIf", "set aborted false");
+		TypeFactory::freeTempTypes();
+		RMDBGMIDDLE(9, RMDebug::module_adminif, "TransactionIf", "freed temp types");
+		ObjectBroker::clearBroker();
+		RMDBGMIDDLE(9, RMDebug::module_adminif, "TransactionIf", "cleared broker");
+		OId::deinitialize();
+		RMDBGMIDDLE(9, RMDebug::module_adminif, "TransactionIf", "wrote oid counters");
+		AdminIf::setReadOnlyTA(false);
+		RMDBGMIDDLE(9, RMDebug::module_adminif, "TransactionIf", "committing");
+
+		TALK( "EXEC SQL COMMIT WORK" );
+		EXEC SQL COMMIT WORK;
+		if (check("TransactionIf::begin() COMMIT\0"))
+		{
+			RMDBGMIDDLE(4, RMDebug::module_adminif, "TransactionIf", "error occured while issuing COMMIT");  
+			LEAVE( "TransactionIf::commit(): error during COMMIT:" << SQLCODE );
+			generateException();
+		}
+
+		// prelim.:have additional libpq TA -- PB 2005-jan-09
+		TALK( "PQexec( pgConn, END )" );
+		PGresult *pgResult = PQexec( pgConn, "END" );
+		if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
+		{
+			LEAVE( "TransactionIf::commit() Error: cannot commit libpq TA: " << PQerrorMessage(pgConn) );
+			generateException();
+		}
+
+		if (lastBase) 
+		{
+			RMDBGMIDDLE(9, RMDebug::module_adminif, "TransactionIf", "closing dbms");
+			lastBase->baseDBMSClose();
+		}
+	}
+
+#ifdef RMANBENCHMARK
+	DBObject::readTimer.stop();
+	
+	DBObject::updateTimer.stop();
+	
+	DBObject::deleteTimer.stop();
+	
+	DBObject::insertTimer.stop();
+
+	OId::oidAlloc.stop();
+
+        OId::oidResolve.stop();
+#endif
+
+	LEAVE( "TransactionIf::commit" );
+	RMDBGEXIT(2, RMDebug::module_adminif, "TransactionIf", "commit() " << endl << endl);
+}
+
+void 
+TransactionIf::abort()
+{
+	RMDBGENTER(2, RMDebug::module_adminif, "TransactionIf", "abort()");
+	ENTER( "TransactionIf::abort" );
+  
+	// prelim.:have additional libpq TA -- PB 2005-jan-09
+	TALK( "PQexec( pgConn, ABORT )" );
+	PGresult *pgResult = PQexec( pgConn, "ABORT" );
+	if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
+	{
+		LEAVE( "TransactionIf::abort() Error: cannot abort libpq TA: " << PQerrorMessage(pgConn) );
+		generateException();
+	}
+
+	AdminIf::setAborted(true);
+	TypeFactory::freeTempTypes();
+	ObjectBroker::clearBroker();
+	OId::deinitialize();
+	AdminIf::setReadOnlyTA(false);
+
+	TALK( "EXEC SQL ROLLBACK WORK" );
+	EXEC SQL ROLLBACK WORK;
+	if (check("TransactionIf::abort() ROLLBACK\0"))
+	{
+		RMDBGMIDDLE(4, RMDebug::module_adminif, "TransactionIf", "error occured while issuing ROLLBACK");  
+		TALK( "TransactionIf::abort(): error during ROLLBACK, still continuing: " << SQLCODE );
+	}
+	if(lastBase)
+		lastBase->baseDBMSClose();
+
+#ifdef RMANBENCHMARK
+	DBObject::readTimer.stop();
+	
+	DBObject::updateTimer.stop();
+	
+	DBObject::deleteTimer.stop();
+	
+	DBObject::insertTimer.stop();
+
+	OId::oidAlloc.stop();
+
+        OId::oidResolve.stop();
+#endif
+
+	LEAVE( "TransactionIf::abort, SQLCODE=" << SQLCODE );
+	RMDBGEXIT(2, RMDebug::module_adminif, "TransactionIf", "abort() " << endl << endl);
+}
+

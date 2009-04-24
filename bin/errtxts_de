@@ -1,0 +1,258 @@
+198
+# Increment the number above every time you add a new exception
+#
+# Increment the number above every time you add a new exception
+# (no of error codes - 1)
+#
+# CHANGES:
+# 2005-jun-19  PB     added 420, 421, 422
+#
+# This file contains types and textual descriptions of RasDaMan errors.
+# The ascending error numbers are used as index to the descriptions. Each
+# line follows the following syntax:
+#
+# number^type^description.
+#
+# The character '^' is used as delimiter and with '#' a comment line is
+# started. Empty lines are not allowed.
+#
+#
+66^E^Fehler: Speicheranforderung fehlgeschlagen.
+100^E^Fehler: Interner Fehler: DL-Parser-Fehler.
+200^E^Fehler: Das Ergebnis ist kein Punkt.
+201^E^Fehler: Das Ergebnis ist kein Intervall.
+202^E^Fehler: Index-Überschreitung (Indexbereich [$low,$high], Index $index).
+203^E^Fehler: Dimensionen $dim1 und $dim2 entsprechen einander nicht.
+204^E^Fehler: Überlauf bei Stream-Initialisierung.
+205^E^Fehler: Resultat ist keine Zelle.
+206^E^Serialisierungsfehler r_Ebase_dbms: Fehler in Basis-DBMS.
+207^E^Interner Client Fehler in Klasse $class, Methode $method: $code.
+208^E^Fehler: Zugriffstyp $aType passt nicht zu Basistyp $bType.
+209^E^Fehler: Rastertyp $type ist unbekannt.
+210^E^Fehler: Basistyp $type wird noch nicht unterstützt.
+211^E^Fehler: Datenbank wurde nicht geöffnet.
+212^E^Fehler: RPC Verbindung zu RasDaMan fehlgeschlagen.
+213^E^Fehler: Falsches URL-Format (sollte http://adresse:port sein)
+214^E^Fehler: Illegaler Java Long-Wert $val für Server-Basistyp ULong.
+215^E^Fehler: Illegaler Java Integer-Wert $val für Server-Basistyp UShort.
+216^E^Fehler: System-Kollektion ist nicht schreibbar.
+217^E^Fehler: System-Kollektion hat keine OID.
+218^E^Fehler: Konvertierungsformat wird nicht unterstützt.
+219^E^Fehler: Die angegebene Kachelgrösse ist kleiner als die Länge des Basistyps des MDD-Objektes.
+220^E^Fehler: Die Kachelstrategie in der Speichereinteilung ist nicht kompatibel mit dem MArray.
+221^E^Fehler: Die als Argument übergebene Domäne ist nicht korrekt initialisiert worden (Dimension ist 0).
+222^E^Fehler: Der Typname oder die Typstruktur representiert keinen MArray-Typ.
+223^E^Fehler: Der RC-Index benötigt einen MArray-Typ mit einer spezifizierten Domäne (mit festgelegtem Rand in allen Dimensionen).
+224^E^Fehler: Die Kachelkonfiguration ist unkompatibel mit der MArray-Domäne.
+229^E^Fehler: Die parametrisierte Anfrage hat ein ungültiges Parameterformat.
+230^E^Fehler: Dem r_object ist bereits ein Typ zugewiesen worden.
+231^E^Fehler: Das MArray hat keinen Basistyp.
+232^E^Fehler: Das Intervall hat mindestens eine offene Grenze.
+233^E^Fehler: Die Intervalle haben nicht die gleiche Dimension.
+234^E^Fehler: Die Tiling-Beschreibung is nicht korrekt.
+235^E^Fehler: Verbindung zum Server bereits geschlossen.
+236^E^Fehler: Fehler in der Kompression codec.
+237^E^Fehler: Client Verbindung fehlgeschlagen.
+238^E^Fehler: Der Basistyp wird von diesem Konversions-/Kompressionsmodul nicht unterstützt.
+239^E^Fehler: Standard Überlagerung von Zellen mit Typen grösser als 16 Byte wird nicht unterstützt.
+240^E^Fehler: Einfügeoperation in einen RC Index ist nicht erlaubt.
+241^E^Fehler: Layout ist an dieser Stelle nicht definiert.  Updateoperation ist nicht moeglich.
+#
+300^E^Parserfehler $errorNo in Zeile $lineNo, Spalte $columnNo: Unerwarteter Name $token.
+301^E^Parserfehler $errorNo in Zeile $lineNo, Spalte $columnNo, Token $token: Alle Zellenwerte eines MDDs müssen vom gleichen Typ sein.
+302^E^Parserfehler $errorNo in Zeile $lineNo, Spalte $columnNo, Token $token: Die Anzahl der angegebenen Zellen entspricht nicht der Anzahl der Zellen der gegebenen Raumdomäne.
+303^E^Parserfehler $errorNo in Zeile $lineNo, Spalte $columnNo, Token $token: OID ist nicht gültig.
+308^E^Parserfehler: Unerwartetes Ende der Anfrage.
+309^E^Parserfehler: Unbekannter Fehler.
+310^E^Fehler des lexikalischen Analysators $errorNo in Zeile $lineNo, Spalte $columnNo: Unerwartete Zeichen $token.
+311^E^Parserfehler $errorNo in Zeile $lineNo, Spalte $columnNo, Token $token: Komplexer Konstruktor muss beide Argumente vom gleichen Typ haben (z.B. Float oder Double).
+312^E^Parserfehler $errorNo in Zeile $lineNo, Spalte $columnNo, Token $token: Variable ist schon definiert worden.
+313^E^Parserfehler $errorNo in Zeile $lineNo, Spalte $columnNo, Token $token: Nur konstante Intervallgrenzen sind zulässig.
+#
+330^E^Präprozessorfehler $errorNo in Zeile $lineNo, Spalte $columnNo: Unerwarteter Name $token: 
+331^E^Präprozessorfehler $errorNo in Zeile $lineNo, Spalte $columnNo, Token $token: Versuch eine Funktion erneut zu definieren.
+332^E^Präprozessorfehler $errorNo in Zeile $lineNo, Spalte $columnNo, Token $token: Die Anzahl der wirklichen Argumente für die aufgerufene Funktion unterscheidet sich von der Anzahl der formalen Argumente.
+333^E^Präprozessorfehler $errorNo in Zeile $lineNo, Spalte $columnNo, Token $token: Der aufgerufene Funktionsname ist nicht eindeutig, versuchen Sie den vollen qualifizierten Namen.
+#
+349^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Operand ausserhalb des Wertebereichs.
+350^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Allgemeiner Fehler.
+351^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Die Array-Grenzen sind inkompatibel für die induzierte Operation.
+352^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Die Operandentypen sind inkompatibel.
+353^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Der Operand des Quantifiers muss multidimensional sein.
+354^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Operand des Quantifiers muss vom Typ r_Marray<d_Boolean> sein.
+355^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Kollektionsname ist unbekannt.
+356^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Spezifizierte Domäne schneidet sich nicht mit der Raumdomäne des MDD.
+357^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Variable ist unbekannt.
+358^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Projektionsoperand ist nicht vom Typ r_Marray<T>.
+359^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Ergebnis der where-Klausel muss ein boolischer Typ sein.
+360^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Der Typ des Operanden wird nicht unterstützt.
+361^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Multiple Anfrageziele werden nicht unterstützt.
+362^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Angegebene Domänen-Dimensionalität ist nicht gleich der definierten Dimensionalität des MDD.
+#
+363^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Zellen-Basistyp der binären induzierten Operation sind inkompatibel.
+364^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Zellen-Basistyp und skalarer Typ der binären induzierten Operation sind inkompatibel.
+365^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Die skalaren Typen der binären Operation sind inkompatibel.
+366^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Zellen-Basistyp der unären induzierten Operation wird nicht unterstützt.
+367^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Skalarer Typ der unären Operation wird nicht unterstützt.
+368^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Zellen-Basistyp der induzierten Punktoperation muss komplex sein.
+369^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Skalartyp für Punktoperation muss komplex sein.
+370^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Strukturselektor ist nicht gültig.
+371^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Ergebnisanfrage muss mit einer SELECT-Klausel anfangen.
+372^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Update-Anfragen müssen mit einer INSERT-, UPDATE-, DELETE-, DROP- oder CREATE-Klausel anfangen.
+373^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Unbefriedigter MDD Konstantparameter.
+380^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Datentyp kann nicht konvertiert werden.
+381^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Fehler im ausgewählten konverter.
+382^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Unbekanntes Konvertierungsformat.
+383^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Parameter der OID-Funktion muss ein persistentes Objekt des Typs MDD sein.
+384^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: OID ist nicht gültig.
+385^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Operation wird nicht für Zeichenketten unterstützt.
+386^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Basisname der oid entspricht nicht dem aktuell geöffnetem Basisnamen.
+387^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Systemname der oid entspricht nicht dem aktuell benutztem Systemname.
+388^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Intervallgrenze muss entweder ein Integer-Ausdruck oder ein Asterisk sein.
+389^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Kein Intervall (im Falle einer starren Grenze kann die Obere nicht kleiner sein als die Untere).
+390^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Minterval-Dimensionsspezifikation muss entweder vom Typ Interval oder Integer sein.
+391^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Raumoperation muss entweder vom Typ minterval, Punkt oder Integer sein.
+393^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Operand der Operation lo/hi muss vom Typ interval sein.
+394^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Operation lo/hi can not be used for an open bound.
+395^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Operand der Funktion sdom() muss vom Typ MDD sein.
+396^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Selektionsoperation wird nicht für diesen Datentyp unterstützt.
+397^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Operand der minterval-Selektion muss vom Typ Integer sein.
+398^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Index für minterval-Selektion liegt ausserhalb des Wertebereichs.
+399^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Operand der Punktselektion muss vom Typ Integer sein.
+#
+#
+#
+400^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Domäne des MDD-Konstruktors muss definiert sein.
+401^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Can not evaluate domain expression to an minterval.
+402^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Projezierte Zelle ist nicht definiert.
+403^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Binäre Operation wird bei diesen Datentypen nicht unterstützt.
+404^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Typ des Zellenausdrucks wird nicht unterstützt.
+405^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Der erste Operand der Verschiebefunktion muss vom Typ MDD sein.
+406^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Der zweite Operand der Verschiebefunktion muss vom Typ Punkt sein.
+407^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Dimensionalität des MDD- und Punktausdrucks entsprechen nicht einander.
+408^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Der zweite Operand der Verschiebefunktion muss ein konstanter Ausdruck sein.
+409^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Shift-Operation auf offenen Feldgrenzen nicht erlaubt.
+#
+#
+#
+410^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Operand des Punktausdrucks muss vom Typ Integer sein.
+411^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Index der Punktselektion liegt ausserhalb des Wertebereichs.
+412^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Werteausdruck muss entweder vom Typ atomar oder komplex sein.
+413^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Bedingungsausdruck muss vom Typ boolisch sein.
+415^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Operand der count_cells muss vom Typ r_Marray<d_Boolean> sein.
+#
+416^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Der erste Operand der Skalierungsfunktion muss vom Typ MDD.
+417^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Der zweite Operand der Skalierungsfunktion muss entweder vom Typ Punkt, Integer oder Float sein.
+#
+418^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Der zweite Operand der Bit-Funktion muss ein integraler Typ sein.
+419^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Konnte die Domäne nicht skalieren.
+420^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Extend-Operation mit offenen Intervallgrenzen wird nicht unterstützt.
+421^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Ziel-Intervall der extend-Operation überdeckt zu erweiterndes MDD nicht vollständig.
+422^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Der zweite Operand der extend-Funktion muss vom Typ Mintervall sein.
+#
+499^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Sprachmerkmal wird nicht unterstützt.
+#
+# 5XX errors for overflow situations
+510^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Das Argument liegt ausserhalb der Funktionsdomäne.
+511^E^Ausführungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Das Ergebnis der Funktion überschreitet den erlaubten Wertebereich.
+#
+# 7XX errors for problems with Administration (some Oracle specific)
+#
+700^E^Administrationsfehler: Allgemeiner Fehler beim erzeugen der RasDaMan-Datenbank.
+701^E^Administrationsfehler: Fehler beim Erzeugen einer Tabelle im Tablespace RAS_DB_SCHEMA.
+702^E^Administrationsfehler: Fehler beim Einfügen in die Tabelle RAS_COUNTERS.
+703^E^Administrationsfehler: Fehler beim erzeugen einer Tabelle im Tablespace RAS_DB_BLOB.
+704^E^Administrationsfehler: Fehler beim erzeugen des Index im Tablespace RAS_DB_INDEX.
+705^E^Administrationsfehler: Fehler beim Einfügen in die Tabelle RAS_BASETYPENAMES.
+706^E^Administrationsfehler: Fehler beim Erzeugen einer Tabelle im Standard-Tablespace.
+707^E^Administrationsfehler: Fehler beim COMMIT während der Erzeugung der RasDaMan-Datenbank.
+708^E^Administrationsfehler: Die zu erzeugende Datenbank existiert bereits.
+#
+# 8xx errors for RasManager problems
+#
+800^E^RasManager Fehler: Konnte keine Verbindung zum RasServer $url herstellen.
+801^E^RasManager Fehler: Systemüberlastung - bitte versuchen Sie es später noch einmal.
+802^E^RasManager Fehler: Zugriff verweigert - ungültiger Benutzer/Passwort.
+803^E^RasManager Fehler: Zugriff verweigert - keine Erlaubnis für diese Operation.
+804^E^RasManager Fehler: Zugriff verweigert - Fähigkeit abgewiesen.
+805^E^RasManager Fehler: Keine geeigneten Server gestartet - informieren Sie den rasadmin.
+806^E^RasManager Fehler: Schreibtransaktion am laufen - bitte Versuchen Sie es später noch einmal.
+807^E^RasManager Fehler: Angeforderte Datenbank unbekannt.
+808^E^RasManager Fehler: Anfrageformat-Fehler.
+830^E^RasManager Fehler: Rasserver kann keine Verbindung zum Basis-DBMS aufbauen (ungültiger connect-Parameter in rasmgr-Konfigurationsdatei?).
+#
+# 9xx errors: Evaluation errors
+#
+900^E^Auswertungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Typ in typedef-Definition wird nicht unterstützt.
+901^E^Auswertungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Set-Template muss eine Typreferenz sein.
+902^E^Auswertungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Typreferenz wurde nicht gefunden.
+903^E^Auswertungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: MDD-Basistyp muss eine Typreferenz oder ein atomarer Typ sein.
+904^E^Auswertungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: MDD-Typ muss eine Domänenspezifikation haben.
+905^E^Auswertungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Strukturen-Typname existiert bereits.
+906^E^Auswertungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: MDD-Typname existiert bereits.
+907^E^Auswertungsfehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Set-Typname existiert bereits.
+#
+950^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Update-Ziel muss eine Iteratorvariable sein.
+951^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Update-Quelle muss ein Ausdruck mit dem Ergebnis eines r_Marray<> sein.
+952^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Update-Basistyp entspricht nicht dem MDD-Basistypen.
+953^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Update-Domäne liegt nicht innerhalb der MDD-Definitionsdomäne.
+954^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Update-Zielausdruck muss ein zuweisungsfähiger Wert sein (l-value).
+955^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Kollektionsname existiert bereits.
+956^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Unbekannter Kollektionstyp.
+957^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Unbekannter Kollektionsname.
+958^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Zuweisung der neuen OID fehlgeschlagen.
+959^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: MDD- und Kollektionstyp sind inkompatibel.
+960^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Insert-Ausdruck muss vom Typ MDD sein.
+961^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Update-Domäne muss vom Typ Minterval sein.
+962^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Anzahl der Update-Intervalle müssen der Quellendimensionalität entsprechen.
+963^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Update-Domänendimensionalität muss der Ziel-MDD-Dimensionalität entsprechen.
+964^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Typ ist nicht persistent.
+965^E^Update-Fehler $errorNo: MDD-Typ $token unbekannt.
+966^E^Update-Fehler $errorNo: MDD-Typ fehlt.
+#
+# 1xxx errors: Allgemeiner Fehlers
+#
+1000^E^Allgemeiner Fehler: RasDaMan-Tabelle inkonsistent.
+1001^E^Allgemeiner Fehler: RasDaMan-Server ist inkompatibel mit der Datenbank.
+1002^E^Allgemeiner Fehler: Blob mit Null-Länge gefunden.
+1003^E^Allgemeiner Fehler: Kachelcontainer für TC-Index nicht gefunden.
+1004^E^Allgemeiner Fehler: Index des MDD-Objektes ist nicht definiert.
+1005^E^Allgemeiner Fehler: Die Speicherstruktur des MDD-Objektes ist nicht definiert.
+1006^E^Allgemeiner Fehler: Unbekannter Indextyp angefordert.
+1007^E^Allgemeiner Fehler: Illegaler Indextyp ausgewählt.
+1008^E^Allgemeiner Fehler: Kein gültiger Kollektionstyp an MDD-Kollektion geleitet.
+1009^E^Allgemeiner Fehler: MDD-Objekt nicht gültig oder nicht persistent.
+1010^E^Allgemeiner Fehler: Kein gültiger MDD-Typ an MDD-Objekt geleitet.
+1011^E^Allgemeiner Fehler: Ein illegaler Zustand wurde erreicht. Dies wurde durch einen Compiler- oder Bibliotheksfehler verursacht.
+1012^E^Allgemeiner Fehler: Ungültiger Kollektionstyp an MDD-Kollektion geleitet.
+1013^E^Allgemeiner Fehler: Der Name des Typs ist zu lang.
+1014^E^Allgemeiner Fehler: Ungültiges Zeichen in Objektname. Es sollten nur [a-zA-Z0-9_] enthalten sein.
+#
+# 2xxx errors: Interner Fehlers
+#
+2000^E^Interner Fehler: Eine andere Datenbank scheint offen zu sein.
+2001^E^Interner Fehler: Ungültiger OID-Typ wurde gefunden.
+2002^E^Interner Fehler: Eintrag im benutzerdefinierten Typ wurde nicht gefunden.
+2003^E^Interner Fehler: Eintrag in benutzerdefiniertem Typ ist ausserhalb seines Wertebereichs.
+2004^E^Interner Fehler: Transienter Index wurde anstatt des persistenten Indexes benutzt.
+2005^E^Interner Fehler: Index lieferte Kacheln mehrmalig zurück.
+2006^E^Interner Fehler: Kachel wurde nicht in den Index eingefügt.
+2007^E^Interner Fehler: Zugriff auf transientem Index ausserhalb seines Wertesbereiches.
+2008^E^Interner Fehler: MDD-Objekt existiert mehrmalig im Cache.
+2009^E^Interner Fehler: Einige Kacheln wurden nicht in das MDD-Objekt eingefügt.
+2010^E^Interner Fehler: Ein Konvertierungsmodul hat einen inkorrekten Basistyp zurück geliefert.
+2011^E^Interner Fehler: Der Kollektionstyp hat keinen Elementtyp.
+2012^E^Interner Fehler: Der MArray-Typ hat keinen Basistyp.
+2013^E^Interner Fehler: Die Property hat keinen Basistyp.
+2014^E^Interner Fehler: Der Skalar hat einen NULL-Wert übergeben.
+2015^E^Interner Fehler: Der Index-Knotenpunkt, welcher geteilt werden sollte, wurde bei seinem Elterneintrag nicht gefunden.
+2016^E^Interner Fehler: Der Index fand mehr Zellen als erlaubt sind.
+2017^E^Interner Fehler: Die Speicherdarstellung ist inkompatibel mit den Indexeinträgen.
+2018^E^Interner Fehler: Objekt unterstuetzt Speicherauslagerung nicht.
+2019^E^Interner Fehler: Die Speicherauslagerung ist fehlgeschlagen.
+2020^E^Interner Fehler: Binärer Export für Objekt ist nicht unterstützt.
+2021^E^Interner Fehler: Binärer Import für Objekt ist nicht unterstützt.
+#
+# The last, the unexpected error in server
+#
+10000^E^Unerwarteter interner Serverfehler.

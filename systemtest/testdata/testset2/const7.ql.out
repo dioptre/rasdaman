@@ -1,0 +1,16 @@
+-- Testbed line: result_type=set <marray <float, [-2:2,-1:1]>>
+-- Testbed line: result_elements=1
+-- Testbed start block:
+Image 1
+GMarray
+  Type Structure........: marray <float, [-2:2,-1:1]>
+  Type Schema...........: marray< float >
+  Domain................: [-2:2,-1:1]
+  Base Type Schema......: float
+  Base Type Length......: 4
+  Data format.......... : Array
+  Data size (bytes).... : 60
+    3       3       3       3       3   
+    3       3       3       3       3   
+    3       3       3       3       3   
+-- Testbed end block:

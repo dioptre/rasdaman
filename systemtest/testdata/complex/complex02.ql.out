@@ -1,0 +1,5 @@
+-- Testbed line: result_type=set<complex>
+-- Testbed line: result_elements=1
+-- Testbed start block:
+Element 1: (103.14, 206.28)
+-- Testbed end block:

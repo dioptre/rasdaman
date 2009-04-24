@@ -1,0 +1,2 @@
+
+ ODMGException: Execution error 405 in line 5, column 8, near token shift: First operand of shift function must be of type MDD.

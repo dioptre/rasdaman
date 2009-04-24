@@ -1,0 +1,119 @@
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+/
+/**
+ * INLINE SOURCE: gmarray.icc
+ *
+ * MODULE:  rasodmg
+ * CLASS:   r_GMarray
+ *
+ * COMMENTS:
+ *		None
+*/
+
+ 
+ 
+inline const r_Minterval&
+r_GMarray::spatial_domain() const
+{
+  return domain;
+};
+
+
+
+inline char*
+r_GMarray::get_array() 
+{
+  return data;
+};
+
+
+inline const char*
+r_GMarray::get_array() const
+{
+  return data;
+}
+
+
+inline void
+r_GMarray::set_array( char* newData )
+{
+  // In case the array already has an array allocated, free it first.
+//  if (data != NULL) delete [] data;
+  data = newData;
+};
+
+
+
+inline void
+r_GMarray::set_current_format( r_Data_Format newFormat )
+{
+  current_format = newFormat;
+};
+
+
+
+inline r_Bytes
+r_GMarray::get_type_length() const
+{
+  return type_length;
+};
+
+
+
+inline r_Bytes
+r_GMarray::get_array_size() const
+{
+  return data_size;
+};
+
+
+
+inline r_Data_Format
+r_GMarray::get_current_format() const
+{
+  return current_format;
+};
+
+
+
+inline void
+r_GMarray::set_spatial_domain( const r_Minterval& dom )
+{
+  domain = dom;
+};
+
+
+
+inline void
+r_GMarray::set_type_length( r_Bytes newValue )
+{
+  type_length = newValue;
+}
+
+
+
+inline void
+r_GMarray::set_array_size( r_Bytes newValue )
+{
+  data_size = newValue;
+}
