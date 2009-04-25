@@ -1,0 +1,59 @@
+# This is the list of files that we do not want to have in the repository.
+# These are the files that we generate and will probably be differene
+# for every change...
+# see gitignore(5) for details
+Makefile.in
+Makefile
+configure
+aclocal.m4
+autom4te.cache
+.deps
+*.o
+*.a
+#These are all generated files under openrasdaman
+applications/rasql/rasql
+clientcomm/rpcif.h
+clientcomm/rpcif_clnt.cc
+clientcomm/rpcif_svc.cc
+clientcomm/rpcif_xdr.c
+config.log
+config.status
+insertutils/insertppm
+install-sh
+missing
+qlparser/lex.cc
+qlparser/oql.cc
+qlparser/oql.h
+rascontrol/rascontrol
+rascontrol/raspasswd
+rasdl/lex.cc
+rasdl/odl.cc
+rasdl/odl.h
+rasdl/rasdl
+rasmgr/rasmgr
+reladminif/adminif.cc
+reladminif/databaseif.cc
+reladminif/objectbroker.cc
+reladminif/oidif.cc
+reladminif/sqlerror.cc
+reladminif/transactionif.cc
+relblobif/blobtile.cc
+relcatalogif/dbminterval.cc
+relcatalogif/mddbasetype.cc
+relcatalogif/mdddimensiontype.cc
+relcatalogif/mdddomaintype.cc
+relcatalogif/mddtype.cc
+relcatalogif/settype.cc
+relcatalogif/structtype.cc
+relindexif/dbrcindexds.cc
+relindexif/dbtcindex.cc
+relindexif/hierindex.cc
+relmddif/dbmddobj.cc
+relmddif/dbmddset.cc
+relstorageif/dbstoragelayout.cc
+server/rasserver
+ylwrap
+bin/create_db.sh
+bin/start_rasdaman.sh
+bin/stop_rasdaman.sh
+insertutils/insertdemo.sh
