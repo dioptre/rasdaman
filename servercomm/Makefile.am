@@ -36,7 +36,23 @@ libservercomm_a_SOURCES=../clientcomm/rpcif_xdr.c ../clientcomm/rpcif_svc.cc ser
                         servercomm2.cc manager.cc callbackmgr.cc httpserver.cc \
                         ../mymalloc/mymalloc_svc.cc ../mymalloc/mymalloc.h \
                         ../clientcomm/rpcif.h callbackmgr.hh httpserver.hh httpserver.icc \
-                        servercomm.hh servercomm.icc
+                        servercomm.hh servercomm.icc \
+                        ../rnprotocol/rnprotocol.cc \
+                        ../rnprotocol/rnprotocol.hh \
+                        ../rnprotocol/rnpembedded.cc \
+                        ../rnprotocol/rnpembedded.hh \
+                        ../rnprotocol/rnpcommunication.cc \
+                        ../rnprotocol/rnpcommunication.hh \
+                        ../rnprotocol/rnpserver.cc \
+                        ../rnprotocol/rnpserver.hh \
+                        ../rnprotocol/srvrasmgrcomm.cc \
+                        ../rnprotocol/srvrasmgrcomm.hh \
+                        ../rnprotocol/rnprasserver.cc \
+                        ../rnprotocol/rnprasserver.hh \
+                        ../rnprotocol/rnpservercomm.cc \
+                        ../rnprotocol/rnpservercomm.hh
+libservercomm_a_CPPFLAGS=-I../rnprotocol                        
+
 BUILT_SOURCES=../clientcomm/rpcif_xdr.c ../clientcomm/rpcif.h ../clientcomm/rpcif_svc.cc
 
 .PHONY: ../clientcomm/rpcif_xdr.c ../clientcomm/rpcif.h ../clientcomm/rpcif_svc.cc

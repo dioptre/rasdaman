@@ -39,7 +39,7 @@ ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = relblobif relindexif relmddif relcatalogif reladminif relstorageif \
           indexmgr catalogmgr tilemgr storagemgr compression commline network \
-          raslib clientcomm servercomm rnprotocol rasodmg qlparser conversion \
+          raslib clientcomm servercomm rasodmg qlparser conversion \
           mddmgr httpserver mymalloc time server rasmgr rascontrol rasdl \
           applications bin insertutils manuals_and_examples
 

@@ -56,4 +56,5 @@ ylwrap
 bin/create_db.sh
 bin/start_rasdaman.sh
 bin/stop_rasdaman.sh
+bin/rasmgr.conf
 insertutils/insertdemo.sh

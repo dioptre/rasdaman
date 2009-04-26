@@ -39,7 +39,7 @@ rasserver_SOURCES=rasserver_main.cc rasserver_config.cc rasserver_entry.cc \
                   ../debug/debug-clt.hh ../debug/debug.hh ../debug/debug-srv.hh \
                   ../include/bool.h ../include/globals.hh ../include/rasdaman.hh \
                   ../include/stdexcept.h
-rasserver_LDADD=../rnprotocol/libservercomm.a ../servercomm/libservercomm.a ../qlparser/libqlparser.a ../conversion/libconversion.a \
+rasserver_LDADD=../servercomm/libservercomm.a ../qlparser/libqlparser.a ../conversion/libconversion.a \
                 ../raslib/libraslib.a ../storagemgr/libstoragemgr.a ../reladminif/libreladminif.a \
                 ../tilemgr/libtilemgr.a ../mddmgr/libmddmgr.a \
                 ../catalogmgr/libcatalogmgr.a ../relmddif/librelmddif.a ../relstorageif/librelstorageif.a \
@@ -51,7 +51,7 @@ rasserver_LDADD=../rnprotocol/libservercomm.a ../servercomm/libservercomm.a ../q
 
 SUBDIRS = ../relblobif ../relindexif ../relmddif ../relcatalogif ../reladminif ../relstorageif \
           ../indexmgr ../catalogmgr ../tilemgr ../storagemgr ../commline ../network \
-          ../raslib ../servercomm ../rnprotocol ../rasodmg ../qlparser ../conversion \
+          ../raslib ../servercomm ../rasodmg ../qlparser ../conversion \
           ../mddmgr ../httpserver ../mymalloc ../time
 
 $(RECURSIVE_CLEAN_TARGETS):

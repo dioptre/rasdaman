@@ -35,12 +35,11 @@ bin_PROGRAMS=rasql
 rasql_SOURCES= rasql.cc rasql_error.cc rasql_error.hh \
                rasql_signal.cc rasql_signal.hh
 rasql_LDADD = ../../rasodmg/librasodmg.a ../../clientcomm/libclientcomm.a \
-              ../../rnprotocol/libclientcomm.a\
               ../../compression/libcompression.a ../../raslib/libraslib.a \
               ../../conversion/libconversion.a ../../commline/libcommline.a \
               ../../network/libnetwork.a
 
-SUBDIRS= ../../rasodmg ../../clientcomm ../../rnprotocol ../../compression \
+SUBDIRS= ../../rasodmg ../../clientcomm ../../compression \
          ../../raslib ../../conversion ../../commline ../../network
 
 $(RECURSIVE_CLEAN_TARGETS):

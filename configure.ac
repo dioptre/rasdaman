@@ -21,6 +21,7 @@ AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 AC_PROG_RPCGEN
 AC_PROG_SED
+AM_PROG_CC_C_O
 dnl we preffer java
 AC_PROG_JAVA_CC
 dnl we need bison not yacc
@@ -114,7 +115,6 @@ AC_CONFIG_FILES([Makefile
                  raslib/Makefile
                  clientcomm/Makefile
                  servercomm/Makefile
-                 rnprotocol/Makefile
                  rasodmg/Makefile
                  qlparser/Makefile
                  conversion/Makefile
