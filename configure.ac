@@ -29,35 +29,35 @@ AC_CHECK_PROGS(YACC, bison, [${am_missing_run} bison])
 
 # Checks for libraries.
 # FIXME: Replace `main' with a function in `-lcrypt':
-AC_CHECK_LIB([crypt], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
-AC_CHECK_LIB([crypto], [EVP_DigestFinal], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([crypt], [main], , [AC_MSG_FAILURE([libcrypt.a not found! Please install.])])
+AC_CHECK_LIB([crypto], [EVP_DigestFinal], , [AC_MSG_FAILURE([libcrypto.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lcurses':
-AC_CHECK_LIB([curses], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([curses], [main], , [AC_MSG_FAILURE([libcurses.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-ldf':
-AC_CHECK_LIB([df], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([df], [main], , [AC_MSG_FAILURE([libdf.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-ldl':
-AC_CHECK_LIB([dl], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([dl], [main], , [AC_MSG_FAILURE([libdl.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lfl':
-AC_CHECK_LIB([fl], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([fl], [main], , [AC_MSG_FAILURE([libfl.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-ljpeg':
-AC_CHECK_LIB([jpeg], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([jpeg], [main], , [AC_MSG_FAILURE([libjpeg.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lm':
-AC_CHECK_LIB([m], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([m], [main], , [AC_MSG_FAILURE([libm.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lmfhdf':
-AC_CHECK_LIB([mfhdf], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([mfhdf], [main], , [AC_MSG_FAILURE([libmfhdf.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lncurses':
-AC_CHECK_LIB([ncurses], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
-AC_CHECK_LIB([png], [png_write_row], , [AC_MSG_FAILURE([Library not found! Please install...])])
-AC_CHECK_LIB([netpbm], [ppm_readppm], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([ncurses], [main], , [AC_MSG_FAILURE([libncurses.a not found! Please install.])])
+AC_CHECK_LIB([png], [png_write_row], , [AC_MSG_FAILURE([libpng.a not found! Please install.])])
+AC_CHECK_LIB([netpbm], [ppm_readppm], , [AC_MSG_FAILURE([libnetpbm.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lreadline':
-AC_CHECK_LIB([readline], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([readline], [main], , [AC_MSG_FAILURE([libreadline.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lsocket':
 AC_CHECK_LIB([socket], [main])
 # FIXME: Replace `main' with a function in `-lssl':
 AC_CHECK_LIB([storagemgr], [main])
-AC_CHECK_LIB([tiff], [TIFFGetField], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([tiff], [TIFFGetField], , [AC_MSG_FAILURE([libtiff.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lz':
-AC_CHECK_LIB([z], [main], , [AC_MSG_FAILURE([Library not found! Please install...])])
+AC_CHECK_LIB([z], [main], , [AC_MSG_FAILURE([libz.a not found! Please install.])])
 
 
 # Checks for header files.
