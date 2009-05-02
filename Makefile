@@ -26,11 +26,12 @@ NAME_WCS=petascope-wcs
 
 WCS_LIBS=lib/ows-v_1_0_0-schema-1.0-SNAPSHOT.jar:lib/gml-v_3_1_1-schema-1.0-SNAPSHOT.jar:lib/wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar:lib/commons-io-1.3.2.jar
 CLASSPATH=.:lib/junit-4.5.jar:lib/jsr173_1.0_api.jar:lib/rasj.jar:lib/servlet-2_5-api.jar:lib/commons-fileupload-1.2.jar:lib/commons-math-1.1.jar:${WCS_LIBS}
-ANTLR=java -cp lib/antlrworks-1.2.2.jar org.antlr.Tool
-JAVAC=javac -g -Xlint -cp ${CLASSPATH} -sourcepath src/
-XJC=java -jar lib/jaxb-xjc.jar
-JAVA=java -cp ${CLASSPATH} 
-
+JAVA_PATH=
+ANTLR=${JAVA_PATH}java -cp lib/antlrworks-1.2.2.jar org.antlr.Tool
+JAVAC=${JAVA_PATH}javac -g -Xlint -cp ${CLASSPATH} -sourcepath src/
+XJC=${JAVA_PATH}java -jar lib/jaxb-xjc.jar
+JAVA=${JAVA_PATH}java -cp ${CLASSPATH} 
+JAVADOC=${JAVA_PATH}javadoc
 ## Typical build process.
 .PHONY: most
 most: clean core servlet war
@@ -124,7 +125,8 @@ syntaxParser:
 ## Clean up.
 .PHONY: clean
 clean:
-	rm -rf src/wcps/xml src/wcps/server/core/*.class src/wcps/server/servlet/*.class src/wcps/server/cli/*.class lib/wcps.jar ${NAME}.war WEB-INF src/wcs/server/core/*.class src/wcs/server/cli/*.class src/wcs/server/servlet/*.class ${NAME_WCS}.war
+	-rm -rf src/wcps/xml src/wcps/server/core/*.class src/wcps/server/servlet/*.class src/wcps/server/cli/*.class lib/wcps.jar ${NAME}.war WEB-INF src/wcs/server/core/*.class src/wcs/server/cli/*.class src/wcs/server/servlet/*.class ${NAME_WCS}.war
+	-rm -rf doc/*
 	$(MAKE) -C src/syntaxParser clean
 
 ## Grammar generation using ANTLR
@@ -135,3 +137,17 @@ grammar:
 	echo "" >> src/grammar/wcpsParser.java.tmp
 	cat src/grammar/wcpsParser.java >> src/grammar/wcpsParser.java.tmp
 	mv src/grammar/wcpsParser.java.tmp src/grammar/wcpsParser.java
+
+.PHONY: doc
+doc:
+	${JAVADOC} -sourcepath src/ \
+		   -d doc \
+		   -windowtitle "Petascope Class reference"\
+		   -doctitle "Petascope" \
+		   -header '<b>Petascope</b>'\
+		   -bottom '<a href="http://petascope.org">http://petascope.org</a>'\
+		   -subpackages wcps \
+		   -subpackages wcs \
+
+
+
