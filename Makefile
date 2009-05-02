@@ -21,8 +21,8 @@
  #
 
 
-NAME=wcps-andrei
-NAME_WCS=wcs-andrei2
+NAME=petascope-wcps
+NAME_WCS=petascope-wcs
 
 WCS_LIBS=lib/ows-v_1_0_0-schema-1.0-SNAPSHOT.jar:lib/gml-v_3_1_1-schema-1.0-SNAPSHOT.jar:lib/wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar:lib/commons-io-1.3.2.jar
 CLASSPATH=.:lib/junit-4.5.jar:lib/jsr173_1.0_api.jar:lib/rasj.jar:lib/servlet-2_5-api.jar:lib/commons-fileupload-1.2.jar:lib/commons-math-1.1.jar:${WCS_LIBS}
