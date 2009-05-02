@@ -24,6 +24,8 @@
 NAME=petascope-wcps
 NAME_WCS=petascope-wcs
 
+VERSION=1.0
+
 WCS_LIBS=lib/ows-v_1_0_0-schema-1.0-SNAPSHOT.jar:lib/gml-v_3_1_1-schema-1.0-SNAPSHOT.jar:lib/wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar:lib/commons-io-1.3.2.jar
 CLASSPATH=.:lib/junit-4.5.jar:lib/jsr173_1.0_api.jar:lib/rasj.jar:lib/servlet-2_5-api.jar:lib/commons-fileupload-1.2.jar:lib/commons-math-1.1.jar:${WCS_LIBS}
 JAVA_PATH=
@@ -127,6 +129,7 @@ syntaxParser:
 clean:
 	-rm -rf src/wcps/xml src/wcps/server/core/*.class src/wcps/server/servlet/*.class src/wcps/server/cli/*.class lib/wcps.jar ${NAME}.war WEB-INF src/wcs/server/core/*.class src/wcs/server/cli/*.class src/wcs/server/servlet/*.class ${NAME_WCS}.war
 	-rm -rf doc/*
+	-rm -f petascope-*.tar.bz2
 	$(MAKE) -C src/syntaxParser clean
 
 ## Grammar generation using ANTLR
@@ -150,4 +153,11 @@ doc:
 		   -subpackages wcs \
 
 
-
+dist: petascope-${VERSION}.tar.bz2
+	
+.PHONY: petascope-${VERSION}.tar.bz2	
+petascope-${VERSION}.tar.bz2:
+	${MAKE} clean
+	-rm $@
+	tar cvjf ../$@ *
+	mv ../$@ $@
