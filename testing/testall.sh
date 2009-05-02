@@ -5,7 +5,7 @@ cd ../src
 # where the test cases are located
 TESTPATH=../testing/testcases
 export CLASSPATH=.:wcps.jar:../lib/jaxb-api.jar:../lib/jaxb-impl.jar:../lib/postgresql-8.3-604.jdbc4.jar:../lib/jsr173_api.jar:../lib/rasj.jar:../lib/commons-math-1.1.jar
-JAVA=/usr/jdk1.6.0_05/bin/java 
+JAVA=java 
 
 function fail {
     echo "Error: $1"
