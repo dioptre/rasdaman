@@ -630,6 +630,7 @@ main( int argc, char* argv[] )
 	{
 		parseParams(argc,argv);
 	
+		strcpy(globalConnectId, baseName);
 		switch( progMode )
 		{
 			case M_READ:     
