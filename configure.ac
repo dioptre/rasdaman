@@ -31,8 +31,6 @@ AC_CHECK_PROGS(YACC, bison, [${am_missing_run} bison])
 # FIXME: Replace `main' with a function in `-lcrypt':
 AC_CHECK_LIB([crypt], [main], , [AC_MSG_FAILURE([libcrypt.a not found! Please install.])])
 AC_CHECK_LIB([crypto], [EVP_DigestFinal], , [AC_MSG_FAILURE([libcrypto.a not found! Please install.])])
-# FIXME: Replace `main' with a function in `-lcurses':
-AC_CHECK_LIB([curses], [main], , [AC_MSG_FAILURE([libcurses.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-ldf':
 AC_CHECK_LIB([df], [main], , [AC_MSG_FAILURE([libdf.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-ldl':
@@ -65,7 +63,7 @@ AC_PATH_X
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
-AC_CHECK_HEADERS([arpa/inet.h fcntl.h float.h limits.h malloc.h memory.h netdb.h netinet/in.h stdlib.h string.h strings.h sys/socket.h sys/time.h unistd.h values.h hdf.h mfhdf hdf/hdf.h hdf/mfhdf.h])
+AC_CHECK_HEADERS([arpa/inet.h fcntl.h float.h limits.h malloc.h memory.h netdb.h netinet/in.h stdlib.h string.h strings.h sys/socket.h sys/time.h unistd.h values.h hdf.h mfhdf.h hdf/hdf.h hdf/mfhdf.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
