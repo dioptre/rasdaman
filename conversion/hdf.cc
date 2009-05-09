@@ -72,7 +72,10 @@ rasdaman GmbH.
 #include <stdio.h>
 #include <iostream>
 
-
+// make this code robust against different HDF versions and trouble:
+#ifndef MAX_VAR_DIMS
+	#define MAX_VAR_DIMS 32
+#endif
 
 const r_Convertor::convert_string_t r_Conv_HDF::compNames[] = {
   {"none", COMP_CODE_NONE},
