@@ -31,6 +31,15 @@ AC_DEFUN([AX_LIB_RASDAMAN],
                raslib_requirements_ok="no"
                raslib_missing="$raslib_missing libtiff"
               ])
+ AC_CHECK_LIB([df], [HEpush],
+              [
+               LIBS="-ldf $LIBS"
+               AC_DEFINE([HAVE_LIBHDF])
+              ],
+              [
+               raslib_requirements_ok="no"
+               raslib_missing="$raslib_missing libmfhdf"
+              ])
  AC_CHECK_LIB([mfhdf], [SDstart],
               [
                LIBS="-lmfhdf $LIBS"
@@ -140,6 +149,12 @@ AC_DEFUN([AX_LIB_RASDAMAN],
      LIBS="$raslib_save_LIBS"
      CXXCPPFLAGS="$raslib_save_CXXCPPFLAGS"
      dnl Run user give commands
+     AC_MSG_NOTICE([
+
+  Can't find rasdaman. Try giving me a hint with --with-rasdaman=PATH . 
+  If you already did try looking up in config.log for the actual error message.
+  ])
+
      { echo -n ; $2 }
  else
      dnl Run user given commands
