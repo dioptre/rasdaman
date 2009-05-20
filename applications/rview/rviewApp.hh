@@ -32,32 +32,20 @@ rasdaman GmbH.
  * 		none
  */
 
-
-
 #ifndef _RVIEW_APP_H_
 #define _RVIEW_APP_H_
-
 
 #ifdef __GNUG__
 #pragma interface
 #endif
 
-
-
-
-
 // RasDaMan includes
 #include "rasodmg/ref.hh"
 #include "rasodmg/marray.hh"
 
-
-
 #include "rviewUtils.hh"
 #include "rviewDb.hh"
 #include "rviewDModes.hh"
-
-
-
 
 /*
  *  A generic RasDaMan client app using wxWindows.
@@ -93,7 +81,6 @@ class rmanClientApp : public wxApp
   // use this call to contact the application instance
   static rmanClientApp *theApp(void);
 
-
   protected:
 
   rviewDatabase database;
@@ -101,7 +88,6 @@ class rmanClientApp : public wxApp
   char prefsSaveFile[STRINGSIZE];
   char prefsFileLeafname[STRINGSIZE];
   char homeDir[STRINGSIZE];
-
 
   private:
 

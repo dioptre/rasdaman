@@ -34,12 +34,8 @@ rasdaman GmbH.
  *		None
  */
 
-
 #ifndef _RVIEW_DISPLAY_H_
 #define _RVIEW_DISPLAY_H_
-
-
-
 
 #include "rasodmg/ref.hh"
 #include "rasodmg/marray.hh"
@@ -47,9 +43,6 @@ rasdaman GmbH.
 
 #include "labelManager.hh"
 #include "rviewUtils.hh"
-
-
-
 
 /*
  *  A window containing an display mode + controls

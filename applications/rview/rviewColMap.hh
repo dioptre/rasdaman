@@ -32,10 +32,7 @@ rasdaman GmbH.
 #ifndef _RVIEW_COLMAP_H_
 #define _RVIEW_COLMAP_H_
 
-
 #include "rviewUtils.hh"
-
-
 
 class colourspaceMapper;
 class colourspaceFrame;

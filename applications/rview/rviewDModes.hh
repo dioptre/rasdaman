@@ -38,9 +38,6 @@ rasdaman GmbH.
 #ifndef _RVIEW_DMODES_H_
 #define _RVIEW_DMODES_H_
 
-
-
-
 #include "rasodmg/ref.hh"
 #include "rasodmg/marray.hh"
 #include "rasodmg/gmarray.hh"
@@ -49,8 +46,6 @@ rasdaman GmbH.
 #include "rviewUtils.hh"
 #include "rviewDisplay.hh"
 #include "rviewColMap.hh"
-
-
 
 #ifdef __VISUALC__
 struct vertex;
@@ -70,13 +65,8 @@ typedef struct mesh_desc;
 typedef struct mdd_desc;
 #endif
 
-
-
-
-
 class rviewImage;
 class rviewRenderImage;
-
 
 
 // Possible display formats

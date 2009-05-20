@@ -42,7 +42,6 @@ signalHandler(int sig);
 
 //installSignalHandlers function should be called first in main function
 //in order to receive signal in your program
-
 void
 installSignalHandlers();
 
