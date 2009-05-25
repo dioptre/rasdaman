@@ -70,8 +70,9 @@ public class GrammarTest
                 System.out.println("\t ERROR: " + errors[i]);
             }
         }
+        System.out.println("\n\nRESULTS\n");
         System.out.println("Tests succeeded: " + String.valueOf(passCount));
-        System.out.println("\nTests failed: " + String.valueOf(numTests - passCount));
+        System.out.println("Tests failed: " + String.valueOf(numTests - passCount));
     }
 
     public GrammarTest()
@@ -134,5 +135,6 @@ public class GrammarTest
     {
       GrammarTest tester = new GrammarTest();
       tester.runAllTests();
+      tester.printResults();
     }
 }

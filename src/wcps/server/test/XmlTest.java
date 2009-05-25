@@ -79,7 +79,8 @@ public class XmlTest {
                 System.out.println("\t ERROR: " + errors[i]);
             }
         }
-        System.out.println("\nTests succeeded: " + String.valueOf(passCount));
+        System.out.println("\n\nRESULTS\n");
+        System.out.println("Tests succeeded: " + String.valueOf(passCount));
         System.out.println("Tests failed: " + String.valueOf(numTests - passCount));
     }
 
@@ -191,6 +192,7 @@ public class XmlTest {
     {
       XmlTest tester = new XmlTest();
       tester.runAllTests();
+      tester.printResults();
     }
 
 }

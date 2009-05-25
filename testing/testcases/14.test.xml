@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<ProcessCoveragesRequest xmlns='http://www.opengis.net/wcps/1.0'
-          schemaLocation='http://schemas.opengis.net/wcps/1.0 wcpsProcessCoverages.xsd' service="WCS" version="1.1.2">
+<?xml version="1.0" encoding="UTF-8" ?>
+<ProcessCoveragesRequest xmlns="http://www.opengis.net/wcps/1.0" service="WCPS" version="1.0.0">
     <query>
         <xmlSyntax>
             <coverageIterator>
@@ -9,47 +8,40 @@
                 <coverageName>rgb</coverageName>
                 <coverageName>rgb</coverageName>
             </coverageIterator>
-            <coverageIterator>
-                <iteratorVar>r</iteratorVar>
-                <coverageName>rgb</coverageName>
-            </coverageIterator>
             <count>
-                <mult>
+                <greaterOrEqual>
                     <div>
+                        <plus>
+                            <fieldSelect>
+                                <coverage>s</coverage>
+                                <field>
+                                    <name>0</name>
+                                </field>
+                            </fieldSelect>
+                            <fieldSelect>
+                                <coverage>s</coverage>
+                                <field>
+                                    <name>1</name>
+                                </field>
+                            </fieldSelect>
+                        </plus>
                         <minus>
                             <fieldSelect>
-                                <field>
-                                    <name>1</name>
-                                </field>
                                 <coverage>s</coverage>
+                                <field>
+                                    <name>0</name>
+                                </field>
                             </fieldSelect>
                             <fieldSelect>
+                                <coverage>s</coverage>
                                 <field>
                                     <name>1</name>
                                 </field>
-                                <coverage>s</coverage>
                             </fieldSelect>
                         </minus>
-                        <greaterThan>
-                            <plus>
-                                <fieldSelect>
-                                    <field>
-                                        <name>1</name>
-                                    </field>
-                                    <coverage>s</coverage>
-                                </fieldSelect>
-                                <fieldSelect>
-                                    <field>
-                                        <name>1</name>
-                                    </field>
-                                    <coverage>s</coverage>
-                                </fieldSelect>
-                            </plus>
-                            <numericConstant>0.6</numericConstant>
-                        </greaterThan>
                     </div>
-                    <coverage>r</coverage>
-                </mult>
+                    <numericConstant>0</numericConstant>
+                </greaterOrEqual>
             </count>
         </xmlSyntax>
     </query>
