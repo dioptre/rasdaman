@@ -1,50 +1,62 @@
 /*
- * This file is part of Petascope.
+ * This file is part of PetaScope.
  *
- * Petascope is free software: you can redistribute it and/or modify
+ * PetaScope is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation, either version 3 of
  * the License, or (at your option) any later version.
  *
- * Petascope is distributed in the hope that it will be useful,
+ * PetaScope is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with Petascope. If not, see <http://www.gnu.org/licenses/>.
+ * License along with PetaScope. If not, see <http://www.gnu.org/licenses/>.
  *
- * For more information please see <http://www.Petascope.org>
+ * For more information please see <http://www.PetaScope.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
 
+
+
+
 package grammar;
 
 import java.util.*;
 
-public class RangeExprList  implements IParseTreeNode
+/**
+ * RangeExprList
+ *
+ * @author Andrei Aiordachioaie
+ */
+public class RangeExprList implements IParseTreeNode
 {
-    LinkedList<RangeExpr> list;
-    
-    public RangeExprList()
-    {
-        list = new LinkedList();
-    }
+	LinkedList<RangeExpr> list;
 
-    public void add(RangeExpr expr)
-    {
-        list.add(expr);
-    }
+	public RangeExprList()
+	{
+		list = new LinkedList();
+	}
 
-    public String toXML()
-    {
-        String result = "";
+	public void add(RangeExpr expr)
+	{
+		list.add(expr);
+	}
 
-        Iterator<RangeExpr> it = list.iterator();
-        while (it.hasNext())
-            result += "<null>" + it.next().toXML() + "</xml>";
-        return result;
-    }   
+	public String toXML()
+	{
+		String result          = "";
+
+		Iterator<RangeExpr> it = list.iterator();
+
+		while (it.hasNext())
+		{
+			result += "<null>" + it.next().toXML() + "</xml>";
+		}
+
+		return result;
+	}
 }
