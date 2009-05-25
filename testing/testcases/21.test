@@ -1,0 +1,1 @@
+for c in (rgb) return encode(exp(c.1/100), "jpeg")

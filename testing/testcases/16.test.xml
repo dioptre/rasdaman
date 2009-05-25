@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ProcessCoveragesRequest xmlns="http://www.opengis.net/wcps/1.0" service="WCPS" version="1.0.0">
+    <query>
+        <xmlSyntax>
+            <coverageIterator>
+                <iteratorVar>c</iteratorVar>
+                <coverageName>mr</coverageName>
+            </coverageIterator>
+            <encode store="false">
+                <construct>
+                    <name>histogram</name>
+                    <axisIterator>
+                        <iteratorVar>n</iteratorVar>
+                        <axis>x</axis>
+                        <numericConstant>0</numericConstant>
+                        <numericConstant>255</numericConstant>
+                    </axisIterator>
+                    <count>
+                        <equals>
+                            <fieldSelect>
+                                <coverage>c</coverage>
+                                <field>
+                                    <name>red</name>
+                                </field>
+                            </fieldSelect>
+                            <coverage>n</coverage>
+                        </equals>
+                    </count>
+                </construct>
+                <format>csv</format>
+            </encode>
+        </xmlSyntax>
+    </query>
+</ProcessCoveragesRequest>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ProcessCoveragesRequest xmlns='http://www.opengis.net/wcps/1.0'
+          schemaLocation='http://schemas.opengis.net/wcps/1.0 wcpsProcessCoverages.xsd' service="WCS" version="1.1.2">
+    <query>
+        <xmlSyntax>
+            <coverageIterator>
+                <iteratorVar>c</iteratorVar>
+                <coverageName>rgb</coverageName>
+            </coverageIterator>
+            <encode>
+                <trim>
+                    <minus>
+                        <numericConstant>255</numericConstant>
+                        <fieldSelect>
+                            <coverage>c</coverage>
+                            <field>
+                                <name>red</name>
+                            </field>
+                        </fieldSelect>
+                    </minus>
+                    <axis>x</axis>
+                    <lowerBound>
+                        <numericConstant>50</numericConstant>
+                    </lowerBound>
+                    <upperBound>
+                        <numericConstant>150</numericConstant>
+                    </upperBound>
+                    <axis>y</axis>
+                    <lowerBound>
+                        <numericConstant>50</numericConstant>
+                    </lowerBound>
+                    <upperBound>
+                        <numericConstant>150</numericConstant>
+                    </upperBound>
+                </trim>
+                <format>jpeg</format>
+            </encode>
+        </xmlSyntax>
+    </query>
+</ProcessCoveragesRequest>
