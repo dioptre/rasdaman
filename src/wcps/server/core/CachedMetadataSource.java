@@ -1,24 +1,25 @@
 /*
- * This file is part of Petascope.
+ * This file is part of PetaScope.
  *
- * Petascope is free software: you can redistribute it and/or modify
+ * PetaScope is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation, either version 3 of
  * the License, or (at your option) any later version.
  *
- * Petascope is distributed in the hope that it will be useful,
+ * PetaScope is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with Petascope. If not, see <http://www.gnu.org/licenses/>.
+ * License along with PetaScope. If not, see <http://www.gnu.org/licenses/>.
  *
- * For more information please see <http://www.Petascope.org>
+ * For more information please see <http://www.PetaScope.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
+
 
 package wcps.server.core;
 
@@ -28,68 +29,82 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// A MetadataSource that caches reads from another MetadataSource. It reads and caches all coverages at startup, in order to make reads faster and so that WCPS will continue to work once it initializes correctly, even if the database cannot be accessed, or metadata is changed into an invalid state.
+//A MetadataSource that caches reads from another MetadataSource. It reads and caches all coverages at startup, in order to make reads faster and so that WCPS will continue to work once it initializes correctly, even if the database cannot be accessed, or metadata is changed into an invalid state.
 
-public class CachedMetadataSource implements MetadataSource {
+public class CachedMetadataSource implements MetadataSource
+{
+	private Set<String> coverageNames;
+	private Map<String, Metadata> metadata;
+	private MetadataSource metadataSource;
+	private Map<String, String> supportedFormats;
 
-    private Set<String> coverageNames;
-    private MetadataSource metadataSource;
-    private Map<String,Metadata> metadata;
-    private Map<String,String> supportedFormats;
+	public CachedMetadataSource(MetadataSource metadataSource)
+	    throws ResourceException, InvalidMetadataException
+	{
+		this.metadataSource = metadataSource;
 
-    public CachedMetadataSource( MetadataSource metadataSource ) throws ResourceException, InvalidMetadataException {
+		coverageNames       = metadataSource.coverages();
+		metadata            = new HashMap<String, Metadata>(coverageNames.size());
+		supportedFormats    = new HashMap<String, String>();
+		Iterator<String> i = coverageNames.iterator();
 
-        this.metadataSource = metadataSource;
+		try
+		{
+			while (i.hasNext())
+			{
+				String coverage = i.next();
 
-        coverageNames = metadataSource.coverages();
-        metadata = new HashMap<String,Metadata>( coverageNames.size() );
-        supportedFormats = new HashMap<String,String>();
-        Iterator<String> i = coverageNames.iterator();
-        try {
-            while( i.hasNext() ) {
-                String coverage = i.next();
-                metadata.put( coverage, metadataSource.read( coverage ) );
-            }
-        }
-        catch( InvalidRequestException ire ) {
-            throw (InvalidMetadataException) ire.getCause();
-        }
+				metadata.put(coverage, metadataSource.read(coverage));
+			}
+		}
+		catch (InvalidRequestException ire)
+		{
+			throw(InvalidMetadataException) ire.getCause();
+		}
 
-    }
+	}
 
-    public Set<String> coverages() {
+	public Set<String> coverages()
+	{
+		return coverageNames;
 
-        return coverageNames;
+	}
 
-    }
+	public String mimetype(String format)
+	{
+		if (supportedFormats.containsKey(format))
+		{
+			return supportedFormats.get(format);
+		}
+		else
+		{
+			String mimetype = metadataSource.mimetype(format);
 
-    public String mimetype( String format ) {
+			synchronized (this)
+			{
+				supportedFormats.put(format, mimetype);
+			}
 
-        if( supportedFormats.containsKey( format ) ) {
-            return supportedFormats.get( format );
-        }
-        else {
-            String mimetype = metadataSource.mimetype( format );
-            synchronized( this ) {
-                supportedFormats.put( format, mimetype );
-            }
-            return mimetype;
-        }
+			return mimetype;
+		}
 
-    }
+	}
 
-    public Metadata read( String coverageName ) throws InvalidRequestException {
+	public Metadata read(String coverageName) throws InvalidRequestException
+	{
+		if ((coverageName == null) || coverageName.equals(""))
+		{
+			throw new InvalidRequestException(
+			    "Cannot retrieve coverage with null or empty name");
+		}
 
-        if( coverageName == null || coverageName.equals( "" ) ) {
-            throw new InvalidRequestException( "Cannot retrieve coverage with null or empty name" );
-        }
+		if (!coverageNames.contains(coverageName))
+		{
+			throw new InvalidRequestException("Coverage '" + coverageName
+							  + "' is not served by this server");
+		}
 
-        if( !coverageNames.contains( coverageName ) ) {
-            throw new InvalidRequestException( "Coverage '" + coverageName + "' is not served by this server" );
-        }
+		return metadata.get(coverageName).clone();
 
-        return metadata.get( coverageName ).clone();
-
-    }
-
+	}
 }

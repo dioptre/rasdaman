@@ -23,7 +23,24 @@
 
 package wcps.server.core;
 
-interface IRasNode
+import org.w3c.dom.*;
+
+// TODO: Implement class SetMetadataCoverageExprType
+public class SetMetadataCoverageExprType implements IRasNode, ICoverageInfo
 {
-	public String toRasQL();
+	public SetMetadataCoverageExprType(Node node, ProcessCoveragesRequest pcr)
+	    throws WCPSException
+	{
+		throw new WCPSException("Method not implemented");
+	}
+
+	public String toRasQL()
+	{
+		return "";
+	}
+
+	public CoverageInfo getCoverageInfo()
+	{
+		return null;
+	}
 }

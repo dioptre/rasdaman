@@ -23,7 +23,32 @@
 
 package wcps.server.core;
 
-interface IRasNode
+import org.w3c.dom.*;
+
+public class CrsNameType implements IRasNode
 {
-	public String toRasQL();
+    private String crs;
+
+	public CrsNameType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	{
+        System.err.println("Parsing crs name ...");
+
+        while ((node != null) && node.getNodeName().equals("#text"))
+		{
+			node = node.getNextSibling();
+		}
+
+        if (node != null && node.getNodeName().equals("srsName"))
+        {
+            String val = node.getNodeValue();
+            this.crs = val;
+        }
+        else
+            throw new WCPSException("Could not a 'srsName' node !");
+	}
+
+	public String toRasQL()
+	{
+        return crs;
+	}
 }

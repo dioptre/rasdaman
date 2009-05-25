@@ -23,7 +23,24 @@
 
 package wcps.server.core;
 
-interface IRasNode
+import org.w3c.dom.*;
+
+// TODO: implement class ConstructCoverageExprType
+public class ConstructCoverageExprType implements IRasNode, ICoverageInfo
 {
-	public String toRasQL();
+	public ConstructCoverageExprType(Node node, ProcessCoveragesRequest pcr)
+	    throws WCPSException
+	{
+		throw new WCPSException("Method not implemented");
+	}
+
+	public String toRasQL()
+	{
+		return "";
+	}
+
+	public CoverageInfo getCoverageInfo()
+	{
+		return null;
+	}
 }

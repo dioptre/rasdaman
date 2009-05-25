@@ -23,7 +23,35 @@
 
 package wcps.server.core;
 
-interface IRasNode
+import org.w3c.dom.*;
+
+public class AxisNameType implements IRasNode
 {
-	public String toRasQL();
+    private String name;
+
+	public AxisNameType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	{
+        System.err.println("Trying axis node: " + node.getNodeName());
+
+        while ((node != null) && node.getNodeName().equals("#text"))
+		{
+			node = node.getNextSibling();
+		}
+
+        if (node != null && node.getNodeName().equals("axis"))
+        {
+            String axis = node.getTextContent();
+            if (axis.length() == 1 && "xyzt".contains(axis))
+                this.name = axis;
+            else
+                throw new WCPSException("Unknown axis name " + axis);
+        }
+        else
+            throw new WCPSException("Could not find an axis node !");
+	}
+
+	public String toRasQL()
+	{
+        return name;
+	}
 }

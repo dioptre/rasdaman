@@ -23,7 +23,24 @@
 
 package wcps.server.core;
 
-interface IRasNode
+import org.w3c.dom.*;
+
+// TODO: Implement class ScaleCoverageExprType
+public class ScaleCoverageExprType implements IRasNode, ICoverageInfo
 {
-	public String toRasQL();
+	public ScaleCoverageExprType(Node node, ProcessCoveragesRequest pcr)
+	    throws WCPSException
+	{
+		throw new WCPSException("Method not implemented");
+	}
+
+	public String toRasQL()
+	{
+		return "";
+	}
+
+	public CoverageInfo getCoverageInfo()
+	{
+		return null;
+	}
 }

@@ -1,4 +1,4 @@
-/*
+    /*
  * This file is part of PetaScope.
  *
  * PetaScope is free software: you can redistribute it and/or modify
@@ -23,7 +23,40 @@
 
 package wcps.server.core;
 
-interface IRasNode
+import org.w3c.dom.*;
+
+
+public class FieldNameType implements IRasNode
 {
-	public String toRasQL();
+	private String name;
+
+	public FieldNameType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	{
+		while ((node != null) && node.getNodeName().equals("#text"))
+		{
+			node = node.getNextSibling();
+		}
+
+		if (node == null)
+		{
+			throw new WCPSException("FieldNameType parsing error!");
+		}
+
+		String nodeName = node.getNodeName();
+
+		if (nodeName.equals("name"))
+		{
+            this.name = node.getTextContent();
+
+			System.err.println("Found field name: " + name);
+		}
+	}
+
+	public String toRasQL()
+	{
+		return this.name;
+	}
 }
+
+
+;

@@ -23,7 +23,18 @@
 
 package wcps.server.core;
 
-interface IRasNode
+import org.w3c.dom.*;
+
+// TODO: implement CondenseScalarExprType
+public class CondenseScalarExprType implements IRasNode
 {
-	public String toRasQL();
+	public CondenseScalarExprType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	{
+        throw new WCPSException("Method not implemented");
+	}
+
+	public String toRasQL()
+	{
+        return "";
+	}
 }

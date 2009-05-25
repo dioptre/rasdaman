@@ -23,7 +23,19 @@
 
 package wcps.server.core;
 
-interface IRasNode
+import org.w3c.dom.*;
+
+// TODO: implement class MetadataScalarExprType
+public class MetadataScalarExprType implements IRasNode
 {
-	public String toRasQL();
+
+	public MetadataScalarExprType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	{
+        throw new WCPSException("Method not yet implemented !");
+	}
+
+	public String toRasQL()
+	{
+        return "";
+	}
 }

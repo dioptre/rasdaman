@@ -23,7 +23,38 @@
 
 package wcps.server.core;
 
-interface IRasNode
+import org.w3c.dom.*;
+
+public class ComplexConstantType implements IRasNode
 {
-	public String toRasQL();
+    private String re, im;
+
+	public ComplexConstantType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	{
+        System.err.println("Parsing complex constant: " + node.getNodeName());
+
+        while ((node != null) && node.getNodeName().equals("#text"))
+		{
+			node = node.getNextSibling();
+		}
+
+        while (node != null)
+        {
+            String name = node.getNodeName();
+            if (name.equals("re"))
+                re = node.getNodeValue();
+            else
+            if (name.equals("im"))
+                im = node.getNodeValue();
+            else
+                throw new WCPSException("Unknown node while processing complex constant: " + name);
+
+            node = node.getNextSibling();
+        }
+	}
+
+	public String toRasQL()
+	{
+        return "complex ( " + re + ", " + im + " ) ";
+	}
 }
