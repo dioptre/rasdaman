@@ -1,2 +1,0 @@
-#!/bin/bash
-javac java_cup/*.java runtime/*.java
