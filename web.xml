@@ -1,11 +1,19 @@
 <web-app>
-    <display-name>Web Coverage Processing Service</display-name>
+    <display-name>PetaScope Implementation (WC*S Services)</display-name>
     <servlet>
-        <servlet-name>wcps</servlet-name>
-        <servlet-class>wcps.server.servlet.WCPService</servlet-class>
+        <servlet-name>wcpsServlet</servlet-name>
+        <servlet-class>wcps.server.servlet.WCPSServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>wcsServlet</servlet-name>
+        <servlet-class>wcs.server.servlet.newWcsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>wcps</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>wcpsServlet</servlet-name>
+        <url-pattern>/wcps/</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+	    <servlet-name>wcsServlet</servlet-name>
+		<url-pattern>/wcs/</url-pattern>
+	</servlet-mapping>
 </web-app>

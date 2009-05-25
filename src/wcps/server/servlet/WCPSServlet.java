@@ -88,7 +88,7 @@ public class WCPSServlet extends HttpServlet
 
 			System.out.println("WCPS: initializing WCPS core");
 			wcps = new WCPS(
-                        new File(getServletContext().getRealPath("/xml/wcps/wcpsProcessCoverages.xsd")),
+                        new File(getServletContext().getRealPath("/xml/ogc/wcps/1.0.0/wcpsProcessCoverages.xsd")),
                         new CachedMetadataSource(metadataSource));
 
 			System.out.println("WCPS: initialization complete");
