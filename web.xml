@@ -13,7 +13,7 @@
         <url-pattern>/wcps/</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-	    <servlet-name>wcsServlet</servlet-name>
-		<url-pattern>/wcs/</url-pattern>
-	</servlet-mapping>
+    <servlet-name>wcsServlet</servlet-name>
+	<url-pattern>/wcs/</url-pattern>
+    </servlet-mapping>
 </web-app>
