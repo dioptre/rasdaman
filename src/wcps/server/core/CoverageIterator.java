@@ -42,8 +42,8 @@ public class CoverageIterator implements IRasNode
 
 		if (! x.getNodeName().equals("coverageIterator"))
 		{
-			throw new WCPSException("Invalid cast form " + x.getNodeName()
-						+ " XML node to CoverageIterator class");
+			throw new WCPSException("Invalid cast from " + x.getNodeName()
+						+ " XML node to CoverageIterator node");
 		}
 
 		Node it = x.getFirstChild();

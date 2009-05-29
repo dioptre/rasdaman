@@ -21,21 +21,53 @@
  */
 
 
-package wcps.server.core;
 
-import org.w3c.dom.*;
 
-// TODO: implement class MetadataScalarExprType
-public class MetadataScalarExprType implements IRasNode
+package grammar;
+
+/**
+ * CondenseOperationType
+ *
+ * @author Andrei Aiordachioaie
+ */
+public class CondenseOperation implements IParseTreeNode
 {
+	String op;
 
-	public MetadataScalarExprType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public CondenseOperation(String op)
 	{
-        throw new WCPSException("Method not yet implemented !");
+		this.op = op;
 	}
 
-	public String toRasQL()
+	public String toXML()
 	{
-        return "";
+		String result = "";
+
+		if (op.equalsIgnoreCase("plus"))
+		{
+			result = "opPlus";
+		}
+		else if (op.equalsIgnoreCase("mult"))
+		{
+			result = "opMult";
+		}
+		else if (op.equalsIgnoreCase("max"))
+		{
+			result = "opMax";
+		}
+		else if (op.equalsIgnoreCase("min"))
+		{
+			result = "opMin";
+		}
+		else if (op.equalsIgnoreCase("and"))
+		{
+			result = "opAnd";
+		}
+		else if (op.equalsIgnoreCase("or"))
+		{
+			result = "opOr";
+		}
+
+		return result;
 	}
 }

@@ -25,16 +25,30 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-// TODO: implement CondenseScalarExprType
-public class CondenseScalarExprType implements IRasNode
+public class CrsName implements IRasNode
 {
-	public CondenseScalarExprType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+    private String crs;
+
+	public CrsName(Node node, ProcessCoveragesRequest pcr) throws WCPSException
 	{
-        throw new WCPSException("Method not implemented");
+        System.err.println("Parsing crs name ...");
+
+        while ((node != null) && node.getNodeName().equals("#text"))
+		{
+			node = node.getNextSibling();
+		}
+
+        if (node != null && node.getNodeName().equals("srsName"))
+        {
+            String val = node.getNodeValue();
+            this.crs = val;
+        }
+        else
+            throw new WCPSException("Could not a 'srsName' node !");
 	}
 
 	public String toRasQL()
 	{
-        return "";
+        return crs;
 	}
 }

@@ -26,12 +26,12 @@ package wcps.server.core;
 import org.w3c.dom.*;
 
 // TODO: Implement class SubsetOperation
-public class SubsetOperationCoverageExprType implements IRasNode, ICoverageInfo
+public class SubsetOperationCoverageExpr implements IRasNode, ICoverageInfo
 {
     private IRasNode child;
 	private CoverageInfo info = null;
 
-	public SubsetOperationCoverageExprType(Node node, ProcessCoveragesRequest pcr)
+	public SubsetOperationCoverageExpr(Node node, ProcessCoveragesRequest pcr)
 	    throws WCPSException
 	{
 		
@@ -51,18 +51,18 @@ public class SubsetOperationCoverageExprType implements IRasNode, ICoverageInfo
 
         if (nodeName.equals("trim"))
         {
-            child = new TrimCoverageExprType(node, pcr);
-            info = ((TrimCoverageExprType) child).getCoverageInfo();
+            child = new TrimCoverageExpr(node, pcr);
+            info = ((TrimCoverageExpr) child).getCoverageInfo();
         }
         else if (nodeName.equals("extend"))
         {
-             child = new ExtendCoverageExprType(node, pcr);
-             info = ((ExtendCoverageExprType) child).getCoverageInfo();
+             child = new ExtendCoverageExpr(node, pcr);
+             info = ((ExtendCoverageExpr) child).getCoverageInfo();
         }
         else if (nodeName.equals("slice"))
         {
-            child = new SliceCoverageExprType(node, pcr);
-            info = ((SliceCoverageExprType) child).getCoverageInfo();
+            child = new SliceCoverageExpr(node, pcr);
+            info = ((SliceCoverageExpr) child).getCoverageInfo();
         }
         else
             throw new WCPSException("Failed to match SubsetOperation: " + nodeName);

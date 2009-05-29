@@ -25,11 +25,11 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-public class ComplexConstantType implements IRasNode
+public class ComplexConstant implements IRasNode
 {
     private String re, im;
 
-	public ComplexConstantType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public ComplexConstant(Node node, ProcessCoveragesRequest pcr) throws WCPSException
 	{
         System.err.println("Parsing complex constant: " + node.getNodeName());
 

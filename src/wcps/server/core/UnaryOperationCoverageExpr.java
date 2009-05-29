@@ -25,14 +25,14 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-public class UnaryOperationCoverageExprType implements IRasNode, ICoverageInfo
+public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo
 {
-	private CoverageExprType child;
+	private CoverageExpr child;
 	private CoverageInfo info;
 	private String operation;
 	private String params;
 
-	public UnaryOperationCoverageExprType(Node node, ProcessCoveragesRequest pcr)
+	public UnaryOperationCoverageExpr(Node node, ProcessCoveragesRequest pcr)
 	    throws WCPSException
 	{
 		String nodeName = node.getNodeName();
@@ -42,12 +42,12 @@ public class UnaryOperationCoverageExprType implements IRasNode, ICoverageInfo
 		if (nodeName.equals("unaryPlus"))
 		{
 			operation = "+";
-			child     = new CoverageExprType(node.getFirstChild(), pcr);
+			child     = new CoverageExpr(node.getFirstChild(), pcr);
 		}
 		else if (nodeName.equals("unaryMinus"))
 		{
 			operation = "-";
-			child     = new CoverageExprType(node.getFirstChild(), pcr);
+			child     = new CoverageExpr(node.getFirstChild(), pcr);
 		}
         // TODO(andrei): Check if "re" and "im" operations work
 		else if (nodeName.equals("sqrt") || nodeName.equals("abs")
@@ -59,7 +59,7 @@ public class UnaryOperationCoverageExprType implements IRasNode, ICoverageInfo
 		    || nodeName.equals("not") || nodeName.equals("re") || nodeName.equals("im"))
 		{
 			operation = nodeName;
-			child     = new CoverageExprType(node.getFirstChild(), pcr);
+			child     = new CoverageExpr(node.getFirstChild(), pcr);
 		}
 		else if (nodeName.equals("bit"))
 		{
@@ -89,7 +89,7 @@ public class UnaryOperationCoverageExprType implements IRasNode, ICoverageInfo
 				}
 				else
 				{
-					child = new CoverageExprType(c, pcr);
+					child = new CoverageExpr(c, pcr);
 				}
 
 				c = c.getNextSibling();
@@ -110,12 +110,12 @@ public class UnaryOperationCoverageExprType implements IRasNode, ICoverageInfo
 
 				if (c.getNodeName().equals("type"))
 				{
-                    RangeFieldType typeNode = new RangeFieldType(c, pcr);
+                    RangeField typeNode = new RangeField(c, pcr);
 					params = typeNode.toRasQL();
 				}
 				else
 				{
-					child = new CoverageExprType(c, pcr);
+					child = new CoverageExpr(c, pcr);
 				}
 
 				c = c.getNextSibling();
@@ -136,12 +136,12 @@ public class UnaryOperationCoverageExprType implements IRasNode, ICoverageInfo
 
 				if (c.getNodeName().equals("field"))
 				{
-                    FieldNameType nameNode = new FieldNameType(c.getFirstChild(), pcr);
+                    FieldName nameNode = new FieldName(c.getFirstChild(), pcr);
 					params = nameNode.toRasQL();
 				}
 				else
 				{
-					child = new CoverageExprType(c, pcr);
+					child = new CoverageExpr(c, pcr);
 				}
 
 				c = c.getNextSibling();

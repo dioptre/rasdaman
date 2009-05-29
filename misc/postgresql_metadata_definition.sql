@@ -8,68 +8,68 @@
 -- STATIC TABLES. Once again, modifying any of these will break WCPS, destroy your computer, burn your house down, and possibly kill your family.
 
 -- This is a static table, describing the type of axes WCPS knows about. Don't touch it.
-create table WCPS_AxisType (
+create table PS_AxisType (
     id serial not null,
     axisType text unique not null,
     primary key (id)
 );
 
-insert into WCPS_AxisType (axisType) values ('x');
-insert into WCPS_AxisType (axisType) values ('y');
-insert into WCPS_AxisType (axisType) values ('z');
-insert into WCPS_AxisType (axisType) values ('time');
-insert into WCPS_AxisType (axisType) values ('abstract');
+insert into PS_AxisType (axisType) values ('x');
+insert into PS_AxisType (axisType) values ('y');
+insert into PS_AxisType (axisType) values ('z');
+insert into PS_AxisType (axisType) values ('time');
+insert into PS_AxisType (axisType) values ('abstract');
 
 -- This is a static table, describing the range datatypes WCPS knows about. Don't touch it.
-create table WCPS_Datatype (
+create table PS_Datatype (
     id serial not null,
     datatype text unique not null,
     primary key (id)
 );
 
-insert into WCPS_Datatype (datatype) values ('boolean');
-insert into WCPS_Datatype (datatype) values ('char');
-insert into WCPS_Datatype (datatype) values ('unsigned char');
-insert into WCPS_Datatype (datatype) values ('short');
-insert into WCPS_Datatype (datatype) values ('unsigned short');
-insert into WCPS_Datatype (datatype) values ('int');
-insert into WCPS_Datatype (datatype) values ('unsigned int');
-insert into WCPS_Datatype (datatype) values ('long');
-insert into WCPS_Datatype (datatype) values ('unsigned long');
-insert into WCPS_Datatype (datatype) values ('float');
-insert into WCPS_Datatype (datatype) values ('double');
-insert into WCPS_Datatype (datatype) values ('complex');
-insert into WCPS_Datatype (datatype) values ('complex2');
+insert into PS_Datatype (datatype) values ('boolean');
+insert into PS_Datatype (datatype) values ('char');
+insert into PS_Datatype (datatype) values ('unsigned char');
+insert into PS_Datatype (datatype) values ('short');
+insert into PS_Datatype (datatype) values ('unsigned short');
+insert into PS_Datatype (datatype) values ('int');
+insert into PS_Datatype (datatype) values ('unsigned int');
+insert into PS_Datatype (datatype) values ('long');
+insert into PS_Datatype (datatype) values ('unsigned long');
+insert into PS_Datatype (datatype) values ('float');
+insert into PS_Datatype (datatype) values ('double');
+insert into PS_Datatype (datatype) values ('complex');
+insert into PS_Datatype (datatype) values ('complex2');
 
 -- This is a static table, describing the interpolation types WCPS knows about. Don't touch it.
-create table WCPS_InterpolationType (
+create table PS_InterpolationType (
     id serial not null,
     interpolationType text unique not null,
     primary key (id)
 );
 
-insert into WCPS_InterpolationType (interpolationType) values ('nearest');
-insert into WCPS_InterpolationType (interpolationType) values ('linear');
-insert into WCPS_InterpolationType (interpolationType) values ('cubic');
-insert into WCPS_InterpolationType (interpolationType) values ('quadratic');
-insert into WCPS_InterpolationType (interpolationType) values ('none');
+insert into PS_InterpolationType (interpolationType) values ('nearest');
+insert into PS_InterpolationType (interpolationType) values ('linear');
+insert into PS_InterpolationType (interpolationType) values ('cubic');
+insert into PS_InterpolationType (interpolationType) values ('quadratic');
+insert into PS_InterpolationType (interpolationType) values ('none');
 
 -- This is a static table, describing the null resistances WCPS knows about. Don't touch it.
-create table WCPS_NullResistance (
+create table PS_NullResistance (
     id serial not null,
     nullResistance text unique not null,
     primary key (id)
 );
 
-insert into WCPS_NullResistance (nullResistance) values ('full');
-insert into WCPS_NullResistance (nullResistance) values ('none');
-insert into WCPS_NullResistance (nullResistance) values ('half');
-insert into WCPS_NullResistance (nullResistance) values ('other');
+insert into PS_NullResistance (nullResistance) values ('full');
+insert into PS_NullResistance (nullResistance) values ('none');
+insert into PS_NullResistance (nullResistance) values ('half');
+insert into PS_NullResistance (nullResistance) values ('other');
 
 -- This is a static table, describing the coordinate reference systems known by WCPS. Don't touch it.
 -- Whether it's actually present in the table or not, the CRS called "CRS:1" is always supported. CRS:1 is the image CRS, i.e. addressable by pixels.
 -- The current implementation does not support CRSs other than CRS:1, so you should leave this empty until it does.
-create table WCPS_Crs (
+create table PS_Crs (
     id serial not null,
     name text unique not null,
     primary key (id)
@@ -78,36 +78,36 @@ create table WCPS_Crs (
 -- SERVICE TABLES.
 
 -- This table describes the encoding formats known to WCPS, as well as their mappings to mimetypes. WCPS doesn't care about these, but if you add any, make sure that rasdaman can encode in the format specified by 'name', or encoding to that format won't work.
-create table WCPS_Format (
+create table PS_Format (
     id serial not null,
     name text unique not null,
     mimetype text not null,
     primary key (id)
 );
 
-insert into WCPS_Format (name, mimetype) values ('jpg', 'image/jpeg');
-insert into WCPS_Format (name, mimetype) values ('jpeg', 'image/jpeg');
-insert into WCPS_Format (name, mimetype) values ('png', 'image/png');
-insert into WCPS_Format (name, mimetype) values ('tif', 'image/tiff');
-insert into WCPS_Format (name, mimetype) values ('tiff', 'image/tiff');
+insert into PS_Format (name, mimetype) values ('jpg', 'image/jpeg');
+insert into PS_Format (name, mimetype) values ('jpeg', 'image/jpeg');
+insert into PS_Format (name, mimetype) values ('png', 'image/png');
+insert into PS_Format (name, mimetype) values ('tif', 'image/tiff');
+insert into PS_Format (name, mimetype) values ('tiff', 'image/tiff');
 
 -- COVERAGE TABLES. At this point, you need to have read the beginning of the WCPS standard, which describes the different metadata a coverage may have.
 -- When entering a new coverage, it's best to fill the tables in the order listed here, to satisfy foreign key constraints.
 
 -- A coverage must be introduced here.
--- The name must correspond to the rasdaman collection for that data. It must also be present in WCPS_NullSet below.
+-- The name must correspond to the rasdaman collection for that data. It must also be present in PS_NullSet below.
 -- The nullDefault must be the default null value for the coverage. It must match the range type. If the range type is a structure, it must look like this: {c1,c2,c3...} where cn is the nth component of the value.
 -- The interpolationTypeDefault is the default interpolation type used in operations that require one, but don't have one specified. It must point to an entry in the static table above.
 -- The nullResistanceDefault is the default null resistance used in operations that require one, but don't have one specified. It must point to an entry in the static table above.
-create table WCPS_Coverage (
+create table PS_Coverage (
     id serial not null,
     name text unique not null,
     nullDefault text not null,
     interpolationTypeDefault integer not null,
     nullResistanceDefault integer not null,
     primary key (id),
-    foreign key (interpolationTypeDefault) references WCPS_InterpolationType (id),
-    foreign key (nullResistanceDefault) references WCPS_NullResistance (id)
+    foreign key (interpolationTypeDefault) references PS_InterpolationType (id),
+    foreign key (nullResistanceDefault) references PS_NullResistance (id)
 );
 
 -- Each coverage has a number of axes, called its dimension. Each axis must have an entry here.
@@ -115,7 +115,7 @@ create table WCPS_Coverage (
 -- The i is the number of axis for that coverage. Axes are ordered, so be careful.
 -- The lo is the lowest addressable pixel, usually 0.
 -- The hi is the highest addressable pixel, usually the total number of pixels on the axis minus 1.
-create table WCPS_CellDomain (
+create table PS_CellDomain (
     id serial not null,
     coverage integer not null,
     i integer not null,
@@ -123,7 +123,7 @@ create table WCPS_CellDomain (
     hi integer not null,
     primary key (id),
     unique (coverage, i),
-    foreign key (coverage) references WCPS_Coverage (id) on delete cascade
+    foreign key (coverage) references PS_Coverage (id) on delete cascade
 );
 
 -- Addressing by pixels is good enough for some things, but sometimes you need to address a coverage via its geo coordinates. The geographic extent of each coverage is similar to the cell domain, but in geo coordinates.
@@ -137,7 +137,7 @@ create table WCPS_CellDomain (
 -- Because WCPS currently does not support geo coordinates, you can use dummy values for numLo and numHi, e.g. 0 and 1.
 -- Because the current implementation does not currently support temporal axes, you can use "other" as the type and specify dummy values for numLo and numHi.
 -- Fanally, geocoordinates are dependent on the CRS, so this table doesn't currently make much sense. An entry should be per coverage, axis, and CRS, rather than just per coverage and axis as it is now.
-create table WCPS_Domain (
+create table PS_Domain (
     id serial not null,
     coverage integer not null,
     i integer not null,
@@ -149,8 +149,8 @@ create table WCPS_Domain (
     strHi text,
     primary key (id),
     unique (coverage, i),
-    foreign key (coverage) references WCPS_Coverage (id) on delete cascade,
-    foreign key (type) references WCPS_AxisType (id) on delete cascade
+    foreign key (coverage) references PS_Coverage (id) on delete cascade,
+    foreign key (type) references PS_AxisType (id) on delete cascade
 );
 
 -- The range is the datatype of the coverage cell values.
@@ -158,7 +158,7 @@ create table WCPS_Domain (
 -- The i is the number of the structure component. Because cells can have composite types, you could have multiple entries for each coverage. Entries are ordered.
 -- The name is a handle for that component. Names for the components for a RGB coverage, for example, could be "red", "green", and "blue". You can then ask WCPS for the blue channel of a coverage, and it will know what you're talking about.
 -- The type is the datatype of the given component. Note that while in principle each component could have a different datatype, having that might cause problems.
-create table WCPS_Range (
+create table PS_Range (
     id serial not null,
     coverage integer not null,
     i integer not null,
@@ -166,43 +166,43 @@ create table WCPS_Range (
     type integer not null,
     primary key (id),
     unique (coverage, i),
-    foreign key (coverage) references WCPS_Coverage (id) on delete cascade,
-    foreign key (type) references WCPS_Datatype (id) on delete cascade
+    foreign key (coverage) references PS_Coverage (id) on delete cascade,
+    foreign key (type) references PS_Datatype (id) on delete cascade
 );
 
--- Each coverage allows a set of interpolation methods. An interpolation method is a pair of an interpolation type and a null resistance. Each coverage is required to have at least one entry in that table, and the defaults in WCPS_Coverage must be present here.
+-- Each coverage allows a set of interpolation methods. An interpolation method is a pair of an interpolation type and a null resistance. Each coverage is required to have at least one entry in that table, and the defaults in PS_Coverage must be present here.
 -- The current implementation does not use the contents of this table, but it does ensure that the above constraints are met.
-create table WCPS_InterpolationSet (
+create table PS_InterpolationSet (
     id serial not null,
     coverage integer not null,
     interpolationType integer not null,
     nullResistance integer not null,
     primary key (id),
     unique (coverage, interpolationType, nullResistance),
-    foreign key (coverage) references WCPS_Coverage (id) on delete cascade,
-    foreign key (interpolationType) references wCPS_InterpolationType (id) on delete cascade,
-    foreign key (nullResistance) references WCPS_NullResistance (id) on delete cascade
+    foreign key (coverage) references PS_Coverage (id) on delete cascade,
+    foreign key (interpolationType) references PS_InterpolationType (id) on delete cascade,
+    foreign key (nullResistance) references PS_NullResistance (id) on delete cascade
 );
 
--- Each coverage allows a set of null values. If the range is non-composite, a null value is the value of the single component, e.g. "0". If the range is composite, a null value is of the form "{c1,c2,c3}", e.g. "{0,0,0}" for a RGB coverage. Each coverage is required to have at least one entry in that table, and the defaults in WCPS_Coverage must be present here.
+-- Each coverage allows a set of null values. If the range is non-composite, a null value is the value of the single component, e.g. "0". If the range is composite, a null value is of the form "{c1,c2,c3}", e.g. "{0,0,0}" for a RGB coverage. Each coverage is required to have at least one entry in that table, and the defaults in PS_Coverage must be present here.
 -- The current implementation does not use the contents of this table, but it does ensure that the above constraints are met.
-create table WCPS_NullSet (
+create table PS_NullSet (
     id serial not null,
     coverage integer not null,
     nullValue text not null,
     primary key (id),
     unique (coverage, nullValue),
-    foreign key (coverage) references WCPS_Coverage (id) on delete cascade
+    foreign key (coverage) references PS_Coverage (id) on delete cascade
 );
 
 -- Each axis of a coverage has a set of allowed coordinate reference systems. Here, "CRS:1" is once again assumed for each axis, whether present or not.
--- The current implementation does not use the contents of this table, but it does ensure that the above constraints are met. Because of this, if the WCPS_CrsSet is left empty, this one should be empty too.
-create table WCPS_CrsSet (
+-- The current implementation does not use the contents of this table, but it does ensure that the above constraints are met. Because of this, if the PS_CrsSet is left empty, this one should be empty too.
+create table PS_CrsSet (
     id serial not null,
     axis integer not null,
     crs integer not null,
     primary key (id),
     unique (axis, crs),
-    foreign key (axis) references WCPS_Domain (id) on delete cascade,
-    foreign key (crs) references WCPS_Crs (id) on delete cascade
+    foreign key (axis) references PS_Domain (id) on delete cascade,
+    foreign key (crs) references PS_Crs (id) on delete cascade
 );

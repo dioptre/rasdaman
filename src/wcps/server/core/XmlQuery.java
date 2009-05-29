@@ -37,7 +37,7 @@ class XmlQuery implements IRasNode
 {
     private String mime;
     private ArrayList<CoverageIterator> iterators;
-    private BooleanScalarExprType where;
+    private BooleanScalarExpr where;
     private IRasNode coverageExpr;
 
     public String getMimeType()
@@ -73,20 +73,20 @@ class XmlQuery implements IRasNode
             }
             else if (x.getNodeName().equals("where"))
             {
-                where = new BooleanScalarExprType(x.getFirstChild(), pcr);
+                where = new BooleanScalarExpr(x.getFirstChild(), pcr);
             }
             else if (x.getNodeName().equals("encode"))
             {
-                EncodeDataExprType encode;
+                EncodeDataExpr encode;
 
-                encode = new EncodeDataExprType(x, pcr);
+                encode = new EncodeDataExpr(x, pcr);
                 coverageExpr = encode;
                 mime = encode.getMime();
             }
             else
             {
-                // It has to be a scalar Expr Type
-                coverageExpr = new ScalarExprType(x, pcr);
+                // It has to be a scalar Expr 
+                coverageExpr = new ScalarExpr(x, pcr);
                 mime = "text/plain";
             }
 

@@ -23,23 +23,27 @@
 
 package wcps.server.core;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import org.w3c.dom.*;
 
-public class RangeElementType implements IRasNode, ICoverageInfo
+public class RangeCoverageExpr implements IRasNode, ICoverageInfo
 {
 	private IRasNode child;
-	private CoverageInfo info;
-    private String field;
+	private CoverageInfo info = null;
+    List<IRasNode> components;
 
-	public RangeElementType(Node node, ProcessCoveragesRequest pcr)
+	public RangeCoverageExpr(Node node, ProcessCoveragesRequest pcr)
 	    throws WCPSException
 	{
         
         // TODO: Implement RangeCoverageExpr
         throw new WCPSException("Feature not yet implemented !");
 
-
         /*
+        components = new ArrayList<IRasNode>();
+
         String nodeName = node.getNodeName();
 		System.err.println("Trying to parse a range coverage expression... Starting at node "
                 + nodeName);
@@ -53,31 +57,16 @@ public class RangeElementType implements IRasNode, ICoverageInfo
 				it = it.getNextSibling();
 				continue;
 			}
-			if (it.getNodeName().equals("field"))
+			if (it.getNodeName().equals("component"))
 			{
-                field = it.getNodeValue();
-                continue;
+                RangeElementType elem = new RangeElementType(it, pcr);
+                components.add(elem);
 			}
-
-            // Try to read a CoverageExprType
-            try
-            {
-                child = new CoverageExprType(node, pcr);
-                info = new CoverageInfo(((ICoverageInfo) child).getCoverageInfo());
-            }
-            catch (WCPSException e)
-            {
-                System.err.println("Failed to parse a CoverageExprType !");
-                child = null;
-            }
             
 			it = it.getNextSibling();
 		}
-
-        if (child == null)
-            throw new WCPSException("Could not parse a CoverageExpr !");
-
          */
+
 	}
 
 	public CoverageInfo getCoverageInfo()
@@ -88,6 +77,13 @@ public class RangeElementType implements IRasNode, ICoverageInfo
 	public String toRasQL()
 	{
         String result = "";
+        /*
+        Iterator<IRasNode> i = components.iterator();
+        while (i.hasNext())
+        {
+            result += i.next().toRasQL();
+        }
+         */
 
         return result;
 	}

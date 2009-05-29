@@ -21,53 +21,37 @@
  */
 
 
+package wcps.server.core;
 
+import org.w3c.dom.*;
 
-package grammar;
-
-/**
- * CondenseOperationType
- *
- * @author Andrei Aiordachioaie
- */
-public class CondenseOperationType implements IParseTreeNode
+public class AxisName implements IRasNode
 {
-	String op;
+    private String name;
 
-	public CondenseOperationType(String op)
+	public AxisName(Node node, ProcessCoveragesRequest pcr) throws WCPSException
 	{
-		this.op = op;
+        System.err.println("Trying axis node: " + node.getNodeName());
+
+        while ((node != null) && node.getNodeName().equals("#text"))
+		{
+			node = node.getNextSibling();
+		}
+
+        if (node != null && node.getNodeName().equals("axis"))
+        {
+            String axis = node.getTextContent();
+            if (axis.length() == 1 && "xyzt".contains(axis))
+                this.name = axis;
+            else
+                throw new WCPSException("Unknown axis name " + axis);
+        }
+        else
+            throw new WCPSException("Could not find an axis node !");
 	}
 
-	public String toXML()
+	public String toRasQL()
 	{
-		String result = "";
-
-		if (op.equalsIgnoreCase("plus"))
-		{
-			result = "opPlus";
-		}
-		else if (op.equalsIgnoreCase("mult"))
-		{
-			result = "opMult";
-		}
-		else if (op.equalsIgnoreCase("max"))
-		{
-			result = "opMax";
-		}
-		else if (op.equalsIgnoreCase("min"))
-		{
-			result = "opMin";
-		}
-		else if (op.equalsIgnoreCase("and"))
-		{
-			result = "opAnd";
-		}
-		else if (op.equalsIgnoreCase("or"))
-		{
-			result = "opOr";
-		}
-
-		return result;
+        return name;
 	}
 }

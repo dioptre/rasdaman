@@ -1,4 +1,4 @@
-/*
+    /*
  * This file is part of PetaScope.
  *
  * PetaScope is free software: you can redistribute it and/or modify
@@ -25,44 +25,39 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-public class ReduceScalarExprType implements IRasNode
-{
-	CoverageExprType expr;
-	String op;
+import java.util.Iterator;
 
-	public ReduceScalarExprType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+
+
+public class RangeField implements IRasNode
+{
+	private String type;
+
+	public RangeField(Node node, ProcessCoveragesRequest pcr) throws WCPSException
 	{
-        System.err.println("Trying to parse ReduceScalarExpr ");
+		while ((node != null) && node.getNodeName().equals("#text"))
+		{
+			node = node.getNextSibling();
+		}
+
+		if (node == null)
+		{
+			throw new WCPSException("RangeFieldType parsing error!");
+		}
+
 		String nodeName = node.getNodeName();
 
-		if (nodeName.equals("all") || nodeName.equals("some") || nodeName.equals("count")
-		    || nodeName.equals("add") || nodeName.equals("avg") || nodeName.equals("min")
-		    || nodeName.equals("max"))
+		if (nodeName.equals("type"))
 		{
-			op = nodeName;
+            this.type = node.getTextContent();
 
-			if (!op.equals("all") && !op.equals("some"))
-			{
-				op = op + "_cells";
-			}
-
-			node = node.getFirstChild();
-
-			while ((node != null) && (node.getNodeName().equals("#text")))
-			{
-				node = node.getNextSibling();
-			}
-
-			expr = new CoverageExprType(node, pcr);
-		}
-		else
-		{
-			throw new WCPSException("invalid ReduceScalarExprType node : " + nodeName);
+			System.err.println("Found range field type: " + type);
 		}
 	}
 
 	public String toRasQL()
 	{
-		return op + "(" + expr.toRasQL() + ")";
+		return this.type;
 	}
 }
+;

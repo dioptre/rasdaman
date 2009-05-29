@@ -25,13 +25,13 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-public class NumericScalarExprType implements IRasNode
+public class NumericScalarExpr implements IRasNode
 {
     private IRasNode first, second;
 	private String op, value;
     private boolean twoChildren;
 
-	public NumericScalarExprType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public NumericScalarExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
 	{
         twoChildren = false;
         String nodeName = node.getNodeName();
@@ -61,17 +61,17 @@ public class NumericScalarExprType implements IRasNode
             op = code(nodeName);
             twoChildren = false;
             if (nodeName.equals("complexConstant"))
-                first = new ComplexConstantType(node, pcr);
+                first = new ComplexConstant(node, pcr);
             if (nodeName.equals("condense"))
-                first = new CondenseScalarExprType(node, pcr);
+                first = new CondenseScalarExpr(node, pcr);
             if (nodeName.equals("reduce"))
-                first = new ReduceScalarExprType(node, pcr);
+                first = new ReduceScalarExpr(node, pcr);
 		}
 		else if (nodeName.equals("numericUnaryMinus"))
 		{
             op = code(nodeName);
             twoChildren = false;
-            first = new NumericScalarExprType(node.getFirstChild(), pcr);
+            first = new NumericScalarExpr(node.getFirstChild(), pcr);
 		}
         else if (nodeName.equals("numericAdd")
                 || nodeName.equals("numericMinus")
@@ -83,8 +83,8 @@ public class NumericScalarExprType implements IRasNode
                 op = code(nodeName);
                 twoChildren = true;
                 Node child = node.getFirstChild();
-                first = new NumericScalarExprType(child, pcr);
-                second = new NumericScalarExprType(child.getNextSibling(), pcr);
+                first = new NumericScalarExpr(child, pcr);
+                second = new NumericScalarExpr(child.getNextSibling(), pcr);
             }
             catch (WCPSException e)
             {

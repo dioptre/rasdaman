@@ -8,6 +8,7 @@ History:
 21 04 2009 andreia	Removed comments.
 04 05 2009 andreia	Fixed bugs in integer declaration.
 19 05 2009 andreia  	Fixed some other weird bugs. Grammar passes all tests now.
+28 05 2009 andreia	Updated class actions names.
 */
 grammar wcps;
 options{
@@ -343,8 +344,8 @@ interpolationType	returns[String value]
 nullResistence returns[String value]
 	: resistance=(FULL|NONE|HALF|OTHER) { $value = new String($resistance.text); }
 	;
-condenseOpType returns[CondenseOperationType value]
-	: op=(PLUS|MULT|MAX|MIN|AND|OR) { $value = new CondenseOperationType($op.text); }
+condenseOpType returns[CondenseOperation value]
+	: op=(PLUS|MULT|MAX|MIN|AND|OR) { $value = new CondenseOperation($op.text); }
 	;
 fieldName returns[String value]
 	: name { $value = new String($name.value);}

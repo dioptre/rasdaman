@@ -25,14 +25,14 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-public class BooleanScalarExprType implements IRasNode
+public class BooleanScalarExpr implements IRasNode
 {
-	private BooleanScalarExprType first, second;
+	private BooleanScalarExpr first, second;
 	private String op;
 	private boolean simple;    // true if the expression is just a value
 	private String value;
 
-	public BooleanScalarExprType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public BooleanScalarExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
 	{
         if (node == null)
             throw new WCPSException("Unexpected null node !");
@@ -87,14 +87,14 @@ public class BooleanScalarExprType implements IRasNode
 
 			Node child = node.getFirstChild();
 
-			first  = new BooleanScalarExprType(child, pcr);
+			first  = new BooleanScalarExpr(child, pcr);
 			child  = child.getNextSibling();
-			second = new BooleanScalarExprType(child, pcr);
+			second = new BooleanScalarExpr(child, pcr);
 		}
 		else if (nodeName.equals("booleanNot"))
 		{
 			op    = "not";
-			first = new BooleanScalarExprType(node.getFirstChild(), pcr);
+			first = new BooleanScalarExpr(node.getFirstChild(), pcr);
 		}
 		else
 		{

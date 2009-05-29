@@ -102,7 +102,7 @@ public class DbMetadataSource implements MetadataSource
 
 			axisTypes = new HashMap<Integer, String>(5);
 			s         = connection.createStatement();
-			ResultSet r = s.executeQuery("SELECT id, axisType FROM WCPS_AxisType");
+			ResultSet r = s.executeQuery("SELECT id, axisType FROM PS_AxisType");
 
 			while (r.next())
 			{
@@ -110,7 +110,7 @@ public class DbMetadataSource implements MetadataSource
 			}
 
 			dataTypes = new HashMap<Integer, String>(13);
-			r         = s.executeQuery("SELECT id, dataType FROM WCPS_Datatype");
+			r         = s.executeQuery("SELECT id, dataType FROM PS_Datatype");
 
 			while (r.next())
 			{
@@ -119,7 +119,7 @@ public class DbMetadataSource implements MetadataSource
 
 			interpolationTypes = new HashMap<Integer, String>(5);
 			r                  = s.executeQuery(
-				"SELECT id, interpolationType FROM WCPS_InterpolationType");
+				"SELECT id, interpolationType FROM PS_InterpolationType");
 
 			while (r.next())
 			{
@@ -129,7 +129,7 @@ public class DbMetadataSource implements MetadataSource
 
 			nullResistances = new HashMap<Integer, String>(4);
 			r               = s.executeQuery(
-				"SELECT id, nullResistance FROM WCPS_NullResistance");
+				"SELECT id, nullResistance FROM PS_NullResistance");
 
 			while (r.next())
 			{
@@ -137,7 +137,7 @@ public class DbMetadataSource implements MetadataSource
 			}
 
 			crss = new HashMap<Integer, String>();
-			r    = s.executeQuery("SELECT id, name FROM WCPS_Crs");
+			r    = s.executeQuery("SELECT id, name FROM PS_Crs");
 
 			while (r.next())
 			{
@@ -145,7 +145,7 @@ public class DbMetadataSource implements MetadataSource
 			}
 
 			supportedFormats = new HashMap<String, String>(6);
-			r                = s.executeQuery("SELECT name, mimetype FROM WCPS_Format");
+			r                = s.executeQuery("SELECT name, mimetype FROM PS_Format");
 
 			while (r.next())
 			{
@@ -226,7 +226,7 @@ public class DbMetadataSource implements MetadataSource
 			ensureConnection();
 			s = connection.createStatement();
 
-			ResultSet r = s.executeQuery("SELECT name FROM WCPS_Coverage");
+			ResultSet r = s.executeQuery("SELECT name FROM PS_Coverage");
 
 			coverages = new HashSet<String>(r.getFetchSize());
 
@@ -280,7 +280,7 @@ public class DbMetadataSource implements MetadataSource
 
 			ResultSet r =
 				s.executeQuery(
-				    "SELECT id, nullDefault, interpolationTypeDefault, nullResistanceDefault FROM WCPS_Coverage WHERE name = '"
+				    "SELECT id, nullDefault, interpolationTypeDefault, nullResistanceDefault FROM PS_Coverage WHERE name = '"
 				    + coverageName + "'");
 
 			if (!r.next())
@@ -296,7 +296,7 @@ public class DbMetadataSource implements MetadataSource
 			String nullResistanceDefault =
 				nullResistances.get(r.getInt("nullResistanceDefault"));
 
-			r = s.executeQuery("SELECT lo, hi FROM WCPS_CellDomain WHERE coverage = '"
+			r = s.executeQuery("SELECT lo, hi FROM PS_CellDomain WHERE coverage = '"
 					   + coverage + "' ORDER BY i ASC");
 			List<CellDomainElement> cellDomain =
 				new ArrayList<CellDomainElement>(r.getFetchSize());
@@ -309,7 +309,7 @@ public class DbMetadataSource implements MetadataSource
 					BigInteger.valueOf(r.getInt("hi"))));
 			}
 
-			r = s.executeQuery("SELECT name, type FROM WCPS_Range WHERE coverage = '"
+			r = s.executeQuery("SELECT name, type FROM PS_Range WHERE coverage = '"
 					   + coverage + "' ORDER BY i ASC");
 			List<RangeElement> range = new ArrayList<RangeElement>(r.getFetchSize());
 
@@ -320,7 +320,7 @@ public class DbMetadataSource implements MetadataSource
 			}
 
 			r = s.executeQuery(
-			    "SELECT interpolationType, nullResistance FROM WCPS_InterpolationSet WHERE coverage = '"
+			    "SELECT interpolationType, nullResistance FROM PS_InterpolationSet WHERE coverage = '"
 			    + coverage + "'");
 			Set<InterpolationMethod> interpolationSet =
 				new HashSet<InterpolationMethod>(r.getFetchSize());
@@ -333,7 +333,7 @@ public class DbMetadataSource implements MetadataSource
 					nullResistances.get(r.getInt("nullResistance"))));
 			}
 
-			r = s.executeQuery("SELECT nullValue FROM WCPS_NullSet WHERE coverage = '"
+			r = s.executeQuery("SELECT nullValue FROM PS_NullSet WHERE coverage = '"
 					   + coverage + "'");
 			Set<String> nullSet = new HashSet<String>(r.getFetchSize());
 
@@ -343,7 +343,7 @@ public class DbMetadataSource implements MetadataSource
 			}
 
 			r = s.executeQuery(
-			    "SELECT id, name, type, numLo, numHi, strLo, strHi FROM WCPS_Domain WHERE coverage = '"
+			    "SELECT id, name, type, numLo, numHi, strLo, strHi FROM PS_Domain WHERE coverage = '"
 			    + coverage + "' ORDER BY i ASC");
 			List<DomainElement> domain = new ArrayList<DomainElement>(r.getFetchSize());
 			Statement ss               = connection.createStatement();
@@ -365,7 +365,7 @@ public class DbMetadataSource implements MetadataSource
 				}
 
 				ResultSet rr = ss.executeQuery(
-						   "SELECT crs FROM WCPS_CrsSet WHERE axis = '"
+						   "SELECT crs FROM PS_CrsSet WHERE axis = '"
 						   + r.getInt("id") + "'");
 				Set<String> crsSet = new HashSet<String>(rr.getFetchSize());
 

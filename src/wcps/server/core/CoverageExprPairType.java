@@ -42,8 +42,8 @@ public class CoverageExprPairType implements IRasNode, ICoverageInfo
         // Combination 1: CoverageExprType + CoverageExprType
         try
         {
-            first = new CoverageExprType(node, pcr);
-            second = new CoverageExprType(node.getNextSibling(), pcr);
+            first = new CoverageExpr(node, pcr);
+            second = new CoverageExpr(node.getNextSibling(), pcr);
 			info = new CoverageInfo(((ICoverageInfo) first).getCoverageInfo());
             ok = true;
         }
@@ -56,8 +56,8 @@ public class CoverageExprPairType implements IRasNode, ICoverageInfo
         if (ok == false)
             try
             {
-                first = new CoverageExprType(node, pcr);
-                second = new ScalarExprType(node.getNextSibling(), pcr);
+                first = new CoverageExpr(node, pcr);
+                second = new ScalarExpr(node.getNextSibling(), pcr);
                 info = new CoverageInfo(((ICoverageInfo) first).getCoverageInfo());
                 ok = true;
             }
@@ -70,8 +70,8 @@ public class CoverageExprPairType implements IRasNode, ICoverageInfo
         if (ok == false)
             try
             {
-                first = new ScalarExprType(node, pcr);
-                second = new CoverageExprType(node.getNextSibling(), pcr);
+                first = new ScalarExpr(node, pcr);
+                second = new CoverageExpr(node.getNextSibling(), pcr);
                 info = new CoverageInfo(((ICoverageInfo) second).getCoverageInfo());
                 ok = true;
             }

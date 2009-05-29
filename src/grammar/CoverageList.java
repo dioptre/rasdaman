@@ -38,14 +38,12 @@ public class CoverageList implements IParseTreeNode
 
 	public CoverageList(String c)
 	{
-        System.err.println("Adding coverage name: " + c );
 		coverageName = c;
 		next         = null;
 	}
 
 	public CoverageList(String c, CoverageList l)
 	{
-        System.err.println("Adding coverage name: " + c );
 		coverageName = c;
 		next         = l;
 	}

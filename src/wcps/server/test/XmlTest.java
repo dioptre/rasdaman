@@ -45,9 +45,10 @@ import org.apache.commons.io.FileUtils;
 public class XmlTest {
     // Put new test cases in this folder
 //    public final String PetascopeURL = "http://localhost:8080/PetaScope/WCPService";
-    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope/wcps/";
+    public final String PetascopeURL = "http://localhost:8080/petascope/wcps/";
+//    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope/wcps/";
 
-    String folder = "testing/testcases-wcps/";
+    String folder = "test/testcases-wcps/";
     // How many tests we have to run
     int numTests = 0;
     // tests
@@ -142,6 +143,11 @@ public class XmlTest {
      * Returns a message on error or null otherwise.
      **/
     public String runOneTest(String xml) throws MalformedURLException, IOException {
+
+//        System.out.println("--------------------");
+//        System.out.println(xml);
+//        System.out.println("\t--------------------");
+        
         // connect to the servlet
         URL servlet = new URL(PetascopeURL);
         HttpURLConnection conn = (HttpURLConnection) servlet.openConnection();
@@ -173,6 +179,9 @@ public class XmlTest {
         String line1 = cgiOutput.readLine();
         String line2 = cgiOutput.readLine();
         String line3 = cgiOutput.readLine();
+//        System.out.println("\t" + line1);
+//        System.out.println("\t" + line2);
+//        System.out.println("\t" + line3);
 
         if (line1 != null && line2 != null && line3 != null &&
                 line2.equals("<h1>An error has occured</h1>"))

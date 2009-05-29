@@ -49,13 +49,11 @@ public class WCPSRequest implements IParseTreeNode
 
 	public void setWhere(WhereClause w)
 	{
-        System.err.println("Adding where clause !");
 		whereClause = w;
 	}
 
 	public void setReturn(ReturnClause r)
 	{
-        System.err.println("Adding return clause !");
 		returnClause = r;
 	}
 

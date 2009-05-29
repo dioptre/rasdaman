@@ -40,7 +40,7 @@ JAVA=${JAVA_PATH}java -cp ${CLASSPATH}
 JAVADOC=${JAVA_PATH}javadoc
 ## Typical build process.
 .PHONY: most
-most: clean wcps-grammar wcps-core wcps-servlet wcps-war
+most: clean wcps-grammar wcps-core wcps-servlet wcps-war wcps-jar
 
 ## Complete build process.
 .PHONY: all
@@ -89,10 +89,7 @@ wcps-war:
 	cp src/grammar/*.class WEB-INF/classes/grammar/
 #	cp src/wcs/server/servlet/*.class WEB-INF/classes/wcs/server/servlet/
 #	cp src/wcs/server/core/*.class WEB-INF/classes/wcs/server/core/
-	cp dbparams.properties dbparams.properties.local
-	cp dbparams.properties.kahlua dbparams.properties
 	jar cf ${NAME}.war WEB-INF/ dbparams.properties xml/ogc/wcps/1.0.0/*.xsd
-	mv dbparams.properties.local dbparams.properties
 
 ## Translation core command-line interface. Useful for development and testing.
 .PHONY: wcps-cli
@@ -111,6 +108,7 @@ clean:
 	-rm -rf src/wcps/xml src/wcps/server/core/*.class src/wcps/server/servlet/*.class src/wcps/server/cli/*.class lib/wcps.jar ${NAME}.war WEB-INF src/wcs/server/core/*.class src/wcs/server/cli/*.class src/wcs/server/servlet/*.class src/wcps/server/test/*.class src/grammar/*.class ${NAME_WCS}.war ${WCPS_CORE_LIB} ${WCPS_ALL_LIB}
 	-rm -rf doc/*
 	-rm -f petascope-*.tar.bz2
+	-rm -f src/grammar/wcps.tokens src/grammar/wcps__.g
 
 ## Grammar generation using ANTLR
 .PHONY: grammar

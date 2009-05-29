@@ -39,14 +39,12 @@ public class ForClauseElements implements IParseTreeNode
 
 	public ForClauseElements(String v, CoverageList c)
 	{
-        System.err.println("For Clause Element... variable: " + v + " for coverage list: " + c);
 		var          = v;
 		coverageList = c;
 	}
 
 	public ForClauseElements(String v, CoverageList c, ForClauseElements next)
 	{
-        System.err.println("For Clause Element... variable: " + v + " for coverage list : " + c);
 		var          = v;
 		coverageList = c;
 		this.next    = next;

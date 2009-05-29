@@ -23,12 +23,19 @@
 
 package wcps.server.core;
 
+import java.util.Vector;
 import org.w3c.dom.*;
 
-// TODO: Implement class SetMetadataCoverageExprType
-public class SetMetadataCoverageExprType implements IRasNode, ICoverageInfo
+// TODO implement class ConstructCoverage Expr
+public class ConstructCoverageExpr implements IRasNode, ICoverageInfo
 {
-	public SetMetadataCoverageExprType(Node node, ProcessCoveragesRequest pcr)
+
+    private String covName;
+    private Vector<AxisIterator> iterators;
+    private IRasNode values;
+    
+
+	public ConstructCoverageExpr(Node node, ProcessCoveragesRequest pcr)
 	    throws WCPSException
 	{
 		throw new WCPSException("Method not implemented");
@@ -36,7 +43,8 @@ public class SetMetadataCoverageExprType implements IRasNode, ICoverageInfo
 
 	public String toRasQL()
 	{
-		return "";
+		String result = "";
+        return result;
 	}
 
 	public CoverageInfo getCoverageInfo()

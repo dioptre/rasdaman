@@ -25,22 +25,16 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-// TODO: implement class ConstantCoverageExprType
-public class ConstantCoverageExprType implements IRasNode, ICoverageInfo
+// TODO: implement CondenseScalarExprType
+public class CondenseScalarExpr implements IRasNode
 {
-	public ConstantCoverageExprType(Node node, ProcessCoveragesRequest pcr)
-	    throws WCPSException
+	public CondenseScalarExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
 	{
-		throw new WCPSException("Method not implemented");
+        throw new WCPSException("Method not implemented");
 	}
 
 	public String toRasQL()
 	{
-		return "";
-	}
-
-	public CoverageInfo getCoverageInfo()
-	{
-		return null;
+        return "";
 	}
 }

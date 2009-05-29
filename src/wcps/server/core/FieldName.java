@@ -1,4 +1,4 @@
-/*
+    /*
  * This file is part of PetaScope.
  *
  * PetaScope is free software: you can redistribute it and/or modify
@@ -25,33 +25,38 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-public class AxisNameType implements IRasNode
+
+
+
+public class FieldName implements IRasNode
 {
-    private String name;
+	private String name;
 
-	public AxisNameType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public FieldName(Node node, ProcessCoveragesRequest pcr) throws WCPSException
 	{
-        System.err.println("Trying axis node: " + node.getNodeName());
-
-        while ((node != null) && node.getNodeName().equals("#text"))
+		while ((node != null) && node.getNodeName().equals("#text"))
 		{
 			node = node.getNextSibling();
 		}
 
-        if (node != null && node.getNodeName().equals("axis"))
-        {
-            String axis = node.getTextContent();
-            if (axis.length() == 1 && "xyzt".contains(axis))
-                this.name = axis;
-            else
-                throw new WCPSException("Unknown axis name " + axis);
-        }
-        else
-            throw new WCPSException("Could not find an axis node !");
+		if (node == null)
+		{
+			throw new WCPSException("FieldNameType parsing error!");
+		}
+
+		String nodeName = node.getNodeName();
+
+		if (nodeName.equals("name"))
+		{
+            this.name = node.getTextContent();
+
+			System.err.println("Found field name: " + name);
+		}
 	}
 
 	public String toRasQL()
 	{
-        return name;
+		return this.name;
 	}
 }
+;

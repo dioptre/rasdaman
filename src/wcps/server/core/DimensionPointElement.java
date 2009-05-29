@@ -28,8 +28,8 @@ import org.w3c.dom.*;
 public class DimensionPointElement implements IRasNode
 {
     private IRasNode domain, child;
-    private AxisNameType axis;
-    private CrsNameType crs;
+    private AxisName axis;
+    private CrsName crs;
     private boolean finished = false;
     private Node nextNode;
 
@@ -58,7 +58,7 @@ public class DimensionPointElement implements IRasNode
             // Try Axis
             try
             {
-                axis = new AxisNameType(node, pcr);
+                axis = new AxisName(node, pcr);
                 node = node.getNextSibling();
                 continue;
             }
@@ -70,7 +70,7 @@ public class DimensionPointElement implements IRasNode
             // Try CRS name
             try
             {
-                crs = new CrsNameType(node, pcr);
+                crs = new CrsName(node, pcr);
                 node = node.getNextSibling();
                 if (axis == null)
                     throw new WCPSException("Expected Axis node before CRS !");
@@ -98,7 +98,7 @@ public class DimensionPointElement implements IRasNode
             // Then it must be a pair of nodes "lowerBound" + "upperBound"
             if (node.getNodeName().equals("slicingPosition"))
             {
-                domain = new ScalarExprType(node.getFirstChild(), pcr);
+                domain = new ScalarExpr(node.getFirstChild(), pcr);
                 if (axis == null)
                     throw new WCPSException("Expected <axis> node before <slicingPosition> !");
             }

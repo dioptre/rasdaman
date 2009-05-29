@@ -29,8 +29,8 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
 {
     private IRasNode child;
 	private CoverageInfo info = null;
-    private AxisNameType axis;
-    private CrsNameType crs;
+    private AxisName axis;
+    private CrsName crs;
     private IRasNode domain1, domain2;  // lower and upper bound, or "DomainMetadataExprType" and null
     private int counter = 0;             // counter for the domain vars
     private boolean finished = false;
@@ -86,7 +86,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
             // Try Axis
             try
             {
-                axis = new AxisNameType(node, pcr);
+                axis = new AxisName(node, pcr);
                 node = node.getNextSibling();
                 continue;
             }
@@ -98,7 +98,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
             // Try CRS name
             try
             {
-                crs = new CrsNameType(node, pcr);
+                crs = new CrsName(node, pcr);
                 node = node.getNextSibling();
                 if (axis == null)
                     throw new WCPSException("Expected Axis node before CRS !");
@@ -127,7 +127,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
             if (node.getNodeName().equals("lowerBound"))
             {
                 counter = 2;
-                domain1 = new ScalarExprType(node.getFirstChild(), pcr);
+                domain1 = new ScalarExpr(node.getFirstChild(), pcr);
                 if (axis == null)
                     throw new WCPSException("Expected <axis> node before <lowerBound> !");
             }
@@ -135,7 +135,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
             if (node.getNodeName().equals("upperBound"))
             {
                 counter = 2;
-                domain2 = new ScalarExprType(node.getFirstChild(), pcr);
+                domain2 = new ScalarExpr(node.getFirstChild(), pcr);
                 if (axis == null)
                     throw new WCPSException("Expected <lowerBound> node before <upperBound> !");
             }

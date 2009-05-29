@@ -8,9 +8,9 @@ History:
 13 02 2009 andreia 	Fixed small bugs in grammar. Now it can fully compile.
 21 04 2009 andreia	Removed comments.
 04 05 2009 andreia	Fixed bugs in integer declaration.
-19 05 2009 andreia  Fixed some other weird bugs. Grammar passes all tests now.
+19 05 2009 andreia  	Fixed some other weird bugs. Grammar passes all tests now.
 */
-grammar wcps_grammar;
+grammar wcps_no_actions;
 options{
 backtrack=true;
 memoize=true;

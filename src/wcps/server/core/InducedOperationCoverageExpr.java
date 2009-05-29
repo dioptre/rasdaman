@@ -25,13 +25,13 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-public class InducedOperationCoverageExprType implements IRasNode, ICoverageInfo
+public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo
 {
 	private IRasNode child;
 	private CoverageInfo info;
 	private String operation = "";
 
-	public InducedOperationCoverageExprType(Node node, ProcessCoveragesRequest pcr)
+	public InducedOperationCoverageExpr(Node node, ProcessCoveragesRequest pcr)
 	    throws WCPSException
 	{
 		String nodeName = node.getNodeName();
@@ -42,7 +42,7 @@ public class InducedOperationCoverageExprType implements IRasNode, ICoverageInfo
         if (nodeName.equals("rangeConstructor"))
 		{
             operation = nodeName;
-			child = new RangeCoverageExprType(node, pcr);
+			child = new RangeCoverageExpr(node, pcr);
             info = new CoverageInfo((((ICoverageInfo)child).getCoverageInfo()));
 		}
 		else
@@ -53,7 +53,7 @@ public class InducedOperationCoverageExprType implements IRasNode, ICoverageInfo
 			{
 				try
 				{
-					child = new UnaryOperationCoverageExprType(node, pcr);
+					child = new UnaryOperationCoverageExpr(node, pcr);
                     info = new CoverageInfo((((ICoverageInfo)child).getCoverageInfo()));
 					System.err.println("*** Induced Operation SUCCESS: " + node.getNodeName());
 				}
@@ -70,7 +70,7 @@ public class InducedOperationCoverageExprType implements IRasNode, ICoverageInfo
             {
                 try
                 {
-                    child = new BinaryOperationCoverageExprType(node, pcr);
+                    child = new BinaryOperationCoverageExpr(node, pcr);
                     info = new CoverageInfo((((ICoverageInfo)child).getCoverageInfo()));
                     System.err.println("*** Binary Operation SUCCESS: " + node.getNodeName());
                 }

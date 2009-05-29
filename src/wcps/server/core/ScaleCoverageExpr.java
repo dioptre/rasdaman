@@ -25,30 +25,22 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-public class CrsNameType implements IRasNode
+// TODO: Implement class ScaleCoverageExprType
+public class ScaleCoverageExpr implements IRasNode, ICoverageInfo
 {
-    private String crs;
-
-	public CrsNameType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public ScaleCoverageExpr(Node node, ProcessCoveragesRequest pcr)
+	    throws WCPSException
 	{
-        System.err.println("Parsing crs name ...");
-
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
-
-        if (node != null && node.getNodeName().equals("srsName"))
-        {
-            String val = node.getNodeValue();
-            this.crs = val;
-        }
-        else
-            throw new WCPSException("Could not a 'srsName' node !");
+		throw new WCPSException("Method not implemented");
 	}
 
 	public String toRasQL()
 	{
-        return crs;
+		return "";
+	}
+
+	public CoverageInfo getCoverageInfo()
+	{
+		return null;
 	}
 }

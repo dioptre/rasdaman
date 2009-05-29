@@ -25,22 +25,17 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-//TODO(smsorin): how do we do combine this ?
-public class CrsTransformCoverageExprType implements IRasNode, ICoverageInfo
+// TODO: implement class MetadataScalarExprType
+public class MetadataScalarExpr implements IRasNode
 {
-	public CrsTransformCoverageExprType(Node node, ProcessCoveragesRequest pcr)
-	    throws WCPSException
+
+	public MetadataScalarExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
 	{
-		throw new WCPSException("Method not implemented");
+        throw new WCPSException("Method not yet implemented !");
 	}
 
 	public String toRasQL()
 	{
-		return "";
-	}
-
-	public CoverageInfo getCoverageInfo()
-	{
-		return null;
+        return "";
 	}
 }

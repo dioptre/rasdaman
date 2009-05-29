@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 src/grammar/wcps.g 2009-05-26 13:56:45
+// $ANTLR 3.1.2 src/grammar/wcps.g 2009-05-29 12:32:50
 package grammar;
 
 import org.antlr.runtime.*;
@@ -138,8 +138,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = PLUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:387:5: ( '+' )
-            // src/grammar/wcps.g:387:8: '+'
+            // src/grammar/wcps.g:388:5: ( '+' )
+            // src/grammar/wcps.g:388:8: '+'
             {
             match('+'); 
 
@@ -158,8 +158,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = MINUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:388:6: ( '-' )
-            // src/grammar/wcps.g:388:9: '-'
+            // src/grammar/wcps.g:389:6: ( '-' )
+            // src/grammar/wcps.g:389:9: '-'
             {
             match('-'); 
 
@@ -178,8 +178,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = DIVIDE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:389:7: ( '/' )
-            // src/grammar/wcps.g:389:9: '/'
+            // src/grammar/wcps.g:390:7: ( '/' )
+            // src/grammar/wcps.g:390:9: '/'
             {
             match('/'); 
 
@@ -198,8 +198,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = MULT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:390:5: ( '*' )
-            // src/grammar/wcps.g:390:7: '*'
+            // src/grammar/wcps.g:391:5: ( '*' )
+            // src/grammar/wcps.g:391:7: '*'
             {
             match('*'); 
 
@@ -218,8 +218,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = EQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:391:7: ( '=' )
-            // src/grammar/wcps.g:391:9: '='
+            // src/grammar/wcps.g:392:7: ( '=' )
+            // src/grammar/wcps.g:392:9: '='
             {
             match('='); 
 
@@ -238,8 +238,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NOTEQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:392:10: ( '!=' )
-            // src/grammar/wcps.g:392:12: '!='
+            // src/grammar/wcps.g:393:10: ( '!=' )
+            // src/grammar/wcps.g:393:12: '!='
             {
             match("!="); 
 
@@ -259,8 +259,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:393:3: ( '<' )
-            // src/grammar/wcps.g:393:5: '<'
+            // src/grammar/wcps.g:394:3: ( '<' )
+            // src/grammar/wcps.g:394:5: '<'
             {
             match('<'); 
 
@@ -279,8 +279,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = GT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:394:3: ( '>' )
-            // src/grammar/wcps.g:394:5: '>'
+            // src/grammar/wcps.g:395:3: ( '>' )
+            // src/grammar/wcps.g:395:5: '>'
             {
             match('>'); 
 
@@ -299,8 +299,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:395:4: ( '<=' )
-            // src/grammar/wcps.g:395:6: '<='
+            // src/grammar/wcps.g:396:4: ( '<=' )
+            // src/grammar/wcps.g:396:6: '<='
             {
             match("<="); 
 
@@ -320,8 +320,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = GTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:396:4: ( '>=' )
-            // src/grammar/wcps.g:396:6: '>='
+            // src/grammar/wcps.g:397:4: ( '>=' )
+            // src/grammar/wcps.g:397:6: '>='
             {
             match(">="); 
 
@@ -341,8 +341,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:397:4: ( '.' )
-            // src/grammar/wcps.g:397:6: '.'
+            // src/grammar/wcps.g:398:4: ( '.' )
+            // src/grammar/wcps.g:398:6: '.'
             {
             match('.'); 
 
@@ -361,8 +361,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:398:7: ( '(' )
-            // src/grammar/wcps.g:398:9: '('
+            // src/grammar/wcps.g:399:7: ( '(' )
+            // src/grammar/wcps.g:399:9: '('
             {
             match('('); 
 
@@ -381,8 +381,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = RPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:399:7: ( ')' )
-            // src/grammar/wcps.g:399:9: ')'
+            // src/grammar/wcps.g:400:7: ( ')' )
+            // src/grammar/wcps.g:400:9: ')'
             {
             match(')'); 
 
@@ -401,8 +401,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:400:9: ( '[' )
-            // src/grammar/wcps.g:400:11: '['
+            // src/grammar/wcps.g:401:9: ( '[' )
+            // src/grammar/wcps.g:401:11: '['
             {
             match('['); 
 
@@ -421,8 +421,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = RBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:401:9: ( ']' )
-            // src/grammar/wcps.g:401:11: ']'
+            // src/grammar/wcps.g:402:9: ( ']' )
+            // src/grammar/wcps.g:402:11: ']'
             {
             match(']'); 
 
@@ -441,8 +441,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LBRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:402:7: ( '{' )
-            // src/grammar/wcps.g:402:9: '{'
+            // src/grammar/wcps.g:403:7: ( '{' )
+            // src/grammar/wcps.g:403:9: '{'
             {
             match('{'); 
 
@@ -461,8 +461,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = RBRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:403:7: ( '}' )
-            // src/grammar/wcps.g:403:9: '}'
+            // src/grammar/wcps.g:404:7: ( '}' )
+            // src/grammar/wcps.g:404:9: '}'
             {
             match('}'); 
 
@@ -481,8 +481,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:404:6: ( ',' )
-            // src/grammar/wcps.g:404:8: ','
+            // src/grammar/wcps.g:405:6: ( ',' )
+            // src/grammar/wcps.g:405:8: ','
             {
             match(','); 
 
@@ -501,8 +501,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:405:6: ( ':' )
-            // src/grammar/wcps.g:405:8: ':'
+            // src/grammar/wcps.g:406:6: ( ':' )
+            // src/grammar/wcps.g:406:8: ':'
             {
             match(':'); 
 
@@ -521,8 +521,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SEMICOLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:406:10: ( ';' )
-            // src/grammar/wcps.g:406:12: ';'
+            // src/grammar/wcps.g:407:10: ( ';' )
+            // src/grammar/wcps.g:407:12: ';'
             {
             match(';'); 
 
@@ -541,8 +541,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = FOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:407:4: ( ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:407:6: ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' )
+            // src/grammar/wcps.g:408:4: ( ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' ) )
+            // src/grammar/wcps.g:408:6: ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -587,8 +587,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = IN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:408:3: ( ( 'i' | 'I' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:408:5: ( 'i' | 'I' ) ( 'n' | 'N' )
+            // src/grammar/wcps.g:409:3: ( ( 'i' | 'I' ) ( 'n' | 'N' ) )
+            // src/grammar/wcps.g:409:5: ( 'i' | 'I' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -624,8 +624,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = WHERE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:409:6: ( ( 'w' | 'W' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:409:8: ( 'w' | 'W' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'e' | 'E' )
+            // src/grammar/wcps.g:410:6: ( ( 'w' | 'W' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'e' | 'E' ) )
+            // src/grammar/wcps.g:410:8: ( 'w' | 'W' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='W'||input.LA(1)=='w' ) {
                 input.consume();
@@ -688,8 +688,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = RETURN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:410:7: ( ( 'r' | 'R' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'u' | 'U' ) ( 'r' | 'R' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:410:9: ( 'r' | 'R' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'u' | 'U' ) ( 'r' | 'R' ) ( 'n' | 'N' )
+            // src/grammar/wcps.g:411:7: ( ( 'r' | 'R' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'u' | 'U' ) ( 'r' | 'R' ) ( 'n' | 'N' ) )
+            // src/grammar/wcps.g:411:9: ( 'r' | 'R' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'u' | 'U' ) ( 'r' | 'R' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -761,8 +761,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = STORE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:411:6: ( ( 's' | 'S' ) ( 't' | 'T' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:411:8: ( 's' | 'S' ) ( 't' | 'T' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'e' | 'E' )
+            // src/grammar/wcps.g:412:6: ( ( 's' | 'S' ) ( 't' | 'T' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'e' | 'E' ) )
+            // src/grammar/wcps.g:412:8: ( 's' | 'S' ) ( 't' | 'T' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -825,8 +825,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ENCODE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:412:7: ( ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'd' | 'D' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:412:9: ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'd' | 'D' ) ( 'e' | 'E' )
+            // src/grammar/wcps.g:413:7: ( ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'd' | 'D' ) ( 'e' | 'E' ) )
+            // src/grammar/wcps.g:413:9: ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'd' | 'D' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -898,8 +898,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SQRT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:413:5: ( ( 's' | 'S' ) ( 'q' | 'Q' ) ( 'r' | 'R' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:413:7: ( 's' | 'S' ) ( 'q' | 'Q' ) ( 'r' | 'R' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:414:5: ( ( 's' | 'S' ) ( 'q' | 'Q' ) ( 'r' | 'R' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:414:7: ( 's' | 'S' ) ( 'q' | 'Q' ) ( 'r' | 'R' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -953,8 +953,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:414:4: ( ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:414:6: ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' )
+            // src/grammar/wcps.g:415:4: ( ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
+            // src/grammar/wcps.g:415:6: ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -999,8 +999,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:415:4: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) )
-            // src/grammar/wcps.g:415:6: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' )
+            // src/grammar/wcps.g:416:4: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) )
+            // src/grammar/wcps.g:416:6: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -1045,8 +1045,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = TAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:416:4: ( ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:416:6: ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' )
+            // src/grammar/wcps.g:417:4: ( ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) )
+            // src/grammar/wcps.g:417:6: ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -1091,8 +1091,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SINH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:417:5: ( ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'h' | 'H' ) )
-            // src/grammar/wcps.g:417:7: ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'h' | 'H' )
+            // src/grammar/wcps.g:418:5: ( ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'h' | 'H' ) )
+            // src/grammar/wcps.g:418:7: ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'h' | 'H' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -1146,8 +1146,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COSH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:418:5: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) ( 'h' | 'H' ) )
-            // src/grammar/wcps.g:418:7: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) ( 'h' | 'H' )
+            // src/grammar/wcps.g:419:5: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) ( 'h' | 'H' ) )
+            // src/grammar/wcps.g:419:7: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) ( 'h' | 'H' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -1201,8 +1201,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = TANH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:419:5: ( ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'h' | 'H' ) )
-            // src/grammar/wcps.g:419:7: ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'h' | 'H' )
+            // src/grammar/wcps.g:420:5: ( ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'h' | 'H' ) )
+            // src/grammar/wcps.g:420:7: ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'h' | 'H' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -1256,8 +1256,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ARCSIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:420:7: ( ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:420:9: ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' )
+            // src/grammar/wcps.g:421:7: ( ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
+            // src/grammar/wcps.g:421:9: ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -1329,8 +1329,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ARCCOS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:421:7: ( ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) )
-            // src/grammar/wcps.g:421:9: ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' )
+            // src/grammar/wcps.g:422:7: ( ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) )
+            // src/grammar/wcps.g:422:9: ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -1402,8 +1402,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ARCTAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:422:7: ( ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:422:9: ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' )
+            // src/grammar/wcps.g:423:7: ( ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) )
+            // src/grammar/wcps.g:423:9: ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -1475,8 +1475,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = EXP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:423:4: ( ( 'e' | 'E' ) ( 'x' | 'X' ) ( 'p' | 'P' ) )
-            // src/grammar/wcps.g:423:6: ( 'e' | 'E' ) ( 'x' | 'X' ) ( 'p' | 'P' )
+            // src/grammar/wcps.g:424:4: ( ( 'e' | 'E' ) ( 'x' | 'X' ) ( 'p' | 'P' ) )
+            // src/grammar/wcps.g:424:6: ( 'e' | 'E' ) ( 'x' | 'X' ) ( 'p' | 'P' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1521,8 +1521,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:424:3: ( ( 'l' | 'L' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:424:5: ( 'l' | 'L' ) ( 'n' | 'N' )
+            // src/grammar/wcps.g:425:3: ( ( 'l' | 'L' ) ( 'n' | 'N' ) )
+            // src/grammar/wcps.g:425:5: ( 'l' | 'L' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -1558,8 +1558,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LOG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:425:4: ( ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'g' | 'G' ) )
-            // src/grammar/wcps.g:425:6: ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'g' | 'G' )
+            // src/grammar/wcps.g:426:4: ( ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'g' | 'G' ) )
+            // src/grammar/wcps.g:426:6: ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'g' | 'G' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -1604,8 +1604,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ROUND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:426:6: ( ( 'r' | 'R' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 'd' | 'D' ) )
-            // src/grammar/wcps.g:426:8: ( 'r' | 'R' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 'd' | 'D' )
+            // src/grammar/wcps.g:427:6: ( ( 'r' | 'R' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 'd' | 'D' ) )
+            // src/grammar/wcps.g:427:8: ( 'r' | 'R' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 'd' | 'D' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -1668,8 +1668,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ABS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:427:4: ( ( 'a' | 'A' ) ( 'b' | 'B' ) ( 's' | 'S' ) )
-            // src/grammar/wcps.g:427:6: ( 'a' | 'A' ) ( 'b' | 'B' ) ( 's' | 'S' )
+            // src/grammar/wcps.g:428:4: ( ( 'a' | 'A' ) ( 'b' | 'B' ) ( 's' | 'S' ) )
+            // src/grammar/wcps.g:428:6: ( 'a' | 'A' ) ( 'b' | 'B' ) ( 's' | 'S' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -1714,8 +1714,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = OVERLAY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:428:8: ( ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 'y' | 'Y' ) )
-            // src/grammar/wcps.g:428:10: ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 'y' | 'Y' )
+            // src/grammar/wcps.g:429:8: ( ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 'y' | 'Y' ) )
+            // src/grammar/wcps.g:429:10: ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 'y' | 'Y' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -1796,8 +1796,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = STRUCT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:429:7: ( ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'c' | 'C' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:429:9: ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'c' | 'C' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:430:7: ( ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'c' | 'C' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:430:9: ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'c' | 'C' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -1869,8 +1869,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = RE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:430:3: ( ( 'r' | 'R' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:430:5: ( 'r' | 'R' ) ( 'e' | 'E' )
+            // src/grammar/wcps.g:431:3: ( ( 'r' | 'R' ) ( 'e' | 'E' ) )
+            // src/grammar/wcps.g:431:5: ( 'r' | 'R' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -1906,8 +1906,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = IM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:431:3: ( ( 'i' | 'I' ) ( 'm' | 'M' ) )
-            // src/grammar/wcps.g:431:5: ( 'i' | 'I' ) ( 'm' | 'M' )
+            // src/grammar/wcps.g:432:3: ( ( 'i' | 'I' ) ( 'm' | 'M' ) )
+            // src/grammar/wcps.g:432:5: ( 'i' | 'I' ) ( 'm' | 'M' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -1943,8 +1943,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:432:4: ( ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'd' | 'D' ) )
-            // src/grammar/wcps.g:432:6: ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'd' | 'D' )
+            // src/grammar/wcps.g:433:4: ( ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'd' | 'D' ) )
+            // src/grammar/wcps.g:433:6: ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'd' | 'D' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -1989,8 +1989,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:433:3: ( ( 'o' | 'O' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:433:5: ( 'o' | 'O' ) ( 'r' | 'R' )
+            // src/grammar/wcps.g:434:3: ( ( 'o' | 'O' ) ( 'r' | 'R' ) )
+            // src/grammar/wcps.g:434:5: ( 'o' | 'O' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -2026,8 +2026,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = XOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:434:4: ( ( 'x' | 'X' ) ( 'o' | 'O' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:434:6: ( 'x' | 'X' ) ( 'o' | 'O' ) ( 'r' | 'R' )
+            // src/grammar/wcps.g:435:4: ( ( 'x' | 'X' ) ( 'o' | 'O' ) ( 'r' | 'R' ) )
+            // src/grammar/wcps.g:435:6: ( 'x' | 'X' ) ( 'o' | 'O' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
                 input.consume();
@@ -2072,8 +2072,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:435:4: ( ( 'n' | 'N' ) ( 'o' | 'O' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:435:6: ( 'n' | 'N' ) ( 'o' | 'O' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:436:4: ( ( 'n' | 'N' ) ( 'o' | 'O' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:436:6: ( 'n' | 'N' ) ( 'o' | 'O' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -2118,8 +2118,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = IDENTIFIER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:436:11: ( ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:436:13: ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' )
+            // src/grammar/wcps.g:437:11: ( ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
+            // src/grammar/wcps.g:437:13: ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -2227,8 +2227,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = IMAGECRS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:437:9: ( ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) )
-            // src/grammar/wcps.g:437:11: ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' )
+            // src/grammar/wcps.g:438:9: ( ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) )
+            // src/grammar/wcps.g:438:11: ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -2318,8 +2318,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = IMAGECRSDOMAIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:438:15: ( ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:438:17: ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' )
+            // src/grammar/wcps.g:439:15: ( ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
+            // src/grammar/wcps.g:439:17: ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -2463,8 +2463,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = CRSSET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:439:7: ( ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:439:9: ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:440:7: ( ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:440:9: ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -2536,8 +2536,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = DOMAIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:440:7: ( ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:440:9: ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' )
+            // src/grammar/wcps.g:441:7: ( ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
+            // src/grammar/wcps.g:441:9: ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -2609,8 +2609,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NULLSET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:441:8: ( ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:441:10: ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:442:8: ( ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:442:10: ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -2691,8 +2691,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NULLDEFAULT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:442:12: ( ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:442:14: ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:443:12: ( ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:443:14: ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -2809,8 +2809,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = INTERPOLATIONDEFAULT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:443:21: ( ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:443:23: ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:444:21: ( ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:444:23: ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -3008,8 +3008,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = INTERPOLATIONSET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:444:17: ( ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:444:19: ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:445:17: ( ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:445:19: ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -3171,8 +3171,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SETIDENTIFIER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:445:14: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:445:16: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' )
+            // src/grammar/wcps.g:446:14: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
+            // src/grammar/wcps.g:446:16: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3307,8 +3307,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SETNULLSET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:446:11: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:446:13: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:447:11: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:447:13: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3416,8 +3416,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SETINTERPOLATIONDEFAULT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:447:24: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:447:26: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:448:24: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:448:26: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3642,8 +3642,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SETINTERPOLATIONSET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:448:20: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:448:21: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:449:20: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:449:21: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3832,8 +3832,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SETCRSSET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:449:10: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:449:12: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:450:10: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:450:12: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3932,8 +3932,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = TRIM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:450:5: ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'i' | 'I' ) ( 'm' | 'M' ) )
-            // src/grammar/wcps.g:450:7: ( 't' | 'T' ) ( 'r' | 'R' ) ( 'i' | 'I' ) ( 'm' | 'M' )
+            // src/grammar/wcps.g:451:5: ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'i' | 'I' ) ( 'm' | 'M' ) )
+            // src/grammar/wcps.g:451:7: ( 't' | 'T' ) ( 'r' | 'R' ) ( 'i' | 'I' ) ( 'm' | 'M' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -3987,8 +3987,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SLICE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:451:6: ( ( 's' | 'S' ) ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'c' | 'C' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:451:8: ( 's' | 'S' ) ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'c' | 'C' ) ( 'e' | 'E' )
+            // src/grammar/wcps.g:452:6: ( ( 's' | 'S' ) ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'c' | 'C' ) ( 'e' | 'E' ) )
+            // src/grammar/wcps.g:452:8: ( 's' | 'S' ) ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'c' | 'C' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4051,8 +4051,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = EXTEND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:452:7: ( ( 'e' | 'E' ) ( 'x' | 'X' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'd' | 'D' ) )
-            // src/grammar/wcps.g:452:9: ( 'e' | 'E' ) ( 'x' | 'X' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'd' | 'D' )
+            // src/grammar/wcps.g:453:7: ( ( 'e' | 'E' ) ( 'x' | 'X' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'd' | 'D' ) )
+            // src/grammar/wcps.g:453:9: ( 'e' | 'E' ) ( 'x' | 'X' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'd' | 'D' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -4124,8 +4124,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SCALE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:453:6: ( ( 's' | 'S' ) ( 'c' | 'C' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:453:8: ( 's' | 'S' ) ( 'c' | 'C' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'e' | 'E' )
+            // src/grammar/wcps.g:454:6: ( ( 's' | 'S' ) ( 'c' | 'C' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'e' | 'E' ) )
+            // src/grammar/wcps.g:454:8: ( 's' | 'S' ) ( 'c' | 'C' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4188,8 +4188,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = CRSTRANSFORM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:454:13: ( ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'm' | 'M' ) )
-            // src/grammar/wcps.g:454:15: ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'm' | 'M' )
+            // src/grammar/wcps.g:455:13: ( ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'm' | 'M' ) )
+            // src/grammar/wcps.g:455:15: ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'm' | 'M' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -4315,8 +4315,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COUNT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:455:6: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:455:8: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:456:6: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:456:8: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -4379,8 +4379,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ADD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:456:4: ( ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'd' | 'D' ) )
-            // src/grammar/wcps.g:456:6: ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'd' | 'D' )
+            // src/grammar/wcps.g:457:4: ( ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'd' | 'D' ) )
+            // src/grammar/wcps.g:457:6: ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'd' | 'D' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -4425,8 +4425,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = AVG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:457:4: ( ( 'a' | 'A' ) ( 'v' | 'V' ) ( 'g' | 'G' ) )
-            // src/grammar/wcps.g:457:6: ( 'a' | 'A' ) ( 'v' | 'V' ) ( 'g' | 'G' )
+            // src/grammar/wcps.g:458:4: ( ( 'a' | 'A' ) ( 'v' | 'V' ) ( 'g' | 'G' ) )
+            // src/grammar/wcps.g:458:6: ( 'a' | 'A' ) ( 'v' | 'V' ) ( 'g' | 'G' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -4471,8 +4471,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = MAX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:458:4: ( ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'x' | 'X' ) )
-            // src/grammar/wcps.g:458:6: ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'x' | 'X' )
+            // src/grammar/wcps.g:459:4: ( ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'x' | 'X' ) )
+            // src/grammar/wcps.g:459:6: ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'x' | 'X' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -4517,8 +4517,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = MIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:459:4: ( ( 'm' | 'M' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:459:6: ( 'm' | 'M' ) ( 'i' | 'I' ) ( 'n' | 'N' )
+            // src/grammar/wcps.g:460:4: ( ( 'm' | 'M' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
+            // src/grammar/wcps.g:460:6: ( 'm' | 'M' ) ( 'i' | 'I' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -4563,8 +4563,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SOME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:460:5: ( ( 's' | 'S' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:460:7: ( 's' | 'S' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'e' | 'E' )
+            // src/grammar/wcps.g:461:5: ( ( 's' | 'S' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'e' | 'E' ) )
+            // src/grammar/wcps.g:461:7: ( 's' | 'S' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4618,8 +4618,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ALL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:461:4: ( ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'l' | 'L' ) )
-            // src/grammar/wcps.g:461:6: ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'l' | 'L' )
+            // src/grammar/wcps.g:462:4: ( ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'l' | 'L' ) )
+            // src/grammar/wcps.g:462:6: ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'l' | 'L' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -4664,8 +4664,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COVERAGE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:462:9: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:462:11: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' )
+            // src/grammar/wcps.g:463:9: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) )
+            // src/grammar/wcps.g:463:11: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -4755,8 +4755,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = OVER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:463:5: ( ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:463:7: ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' )
+            // src/grammar/wcps.g:464:5: ( ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
+            // src/grammar/wcps.g:464:7: ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -4810,8 +4810,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = VALUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:464:6: ( ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:464:8: ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' )
+            // src/grammar/wcps.g:465:6: ( ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' ) )
+            // src/grammar/wcps.g:465:8: ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
                 input.consume();
@@ -4874,8 +4874,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = VALUES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:465:7: ( ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' ) ( 's' | 'S' ) )
-            // src/grammar/wcps.g:465:9: ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' ) ( 's' | 'S' )
+            // src/grammar/wcps.g:466:7: ( ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' ) ( 's' | 'S' ) )
+            // src/grammar/wcps.g:466:9: ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' ) ( 's' | 'S' )
             {
             if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
                 input.consume();
@@ -4947,8 +4947,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LIST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:466:5: ( ( 'l' | 'L' ) ( 'i' | 'I' ) ( 's' | 'S' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:466:7: ( 'l' | 'L' ) ( 'i' | 'I' ) ( 's' | 'S' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:467:5: ( ( 'l' | 'L' ) ( 'i' | 'I' ) ( 's' | 'S' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:467:7: ( 'l' | 'L' ) ( 'i' | 'I' ) ( 's' | 'S' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -5002,8 +5002,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = CONDENSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:467:9: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:467:11: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' )
+            // src/grammar/wcps.g:468:9: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) )
+            // src/grammar/wcps.g:468:11: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -5093,8 +5093,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = USING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:468:6: ( ( 'u' | 'U' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'g' | 'G' ) )
-            // src/grammar/wcps.g:468:8: ( 'u' | 'U' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'g' | 'G' )
+            // src/grammar/wcps.g:469:6: ( ( 'u' | 'U' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'g' | 'G' ) )
+            // src/grammar/wcps.g:469:8: ( 'u' | 'U' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'g' | 'G' )
             {
             if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
                 input.consume();
@@ -5157,8 +5157,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NEAREST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:469:8: ( ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'e' | 'E' ) ( 's' | 'S' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:469:10: ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'e' | 'E' ) ( 's' | 'S' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:470:8: ( ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'e' | 'E' ) ( 's' | 'S' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:470:10: ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'e' | 'E' ) ( 's' | 'S' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -5239,8 +5239,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LINEAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:470:7: ( ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:470:9: ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' )
+            // src/grammar/wcps.g:471:7: ( ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' ) )
+            // src/grammar/wcps.g:471:9: ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -5312,8 +5312,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = QUADRATIC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:471:10: ( ( 'q' | 'Q' ) ( 'u' | 'U' ) ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'c' | 'C' ) )
-            // src/grammar/wcps.g:471:12: ( 'q' | 'Q' ) ( 'u' | 'U' ) ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'c' | 'C' )
+            // src/grammar/wcps.g:472:10: ( ( 'q' | 'Q' ) ( 'u' | 'U' ) ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'c' | 'C' ) )
+            // src/grammar/wcps.g:472:12: ( 'q' | 'Q' ) ( 'u' | 'U' ) ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'c' | 'C' )
             {
             if ( input.LA(1)=='Q'||input.LA(1)=='q' ) {
                 input.consume();
@@ -5412,8 +5412,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = CUBIC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:472:6: ( ( 'c' | 'C' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'i' | 'I' ) ( 'c' | 'C' ) )
-            // src/grammar/wcps.g:472:8: ( 'c' | 'C' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'i' | 'I' ) ( 'c' | 'C' )
+            // src/grammar/wcps.g:473:6: ( ( 'c' | 'C' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'i' | 'I' ) ( 'c' | 'C' ) )
+            // src/grammar/wcps.g:473:8: ( 'c' | 'C' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'i' | 'I' ) ( 'c' | 'C' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -5476,8 +5476,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = FULL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:473:5: ( ( 'f' | 'F' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) )
-            // src/grammar/wcps.g:473:7: ( 'f' | 'F' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' )
+            // src/grammar/wcps.g:474:5: ( ( 'f' | 'F' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) )
+            // src/grammar/wcps.g:474:7: ( 'f' | 'F' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -5531,8 +5531,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NONE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:474:5: ( ( 'n' | 'N' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:474:7: ( 'n' | 'N' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'e' | 'E' )
+            // src/grammar/wcps.g:475:5: ( ( 'n' | 'N' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'e' | 'E' ) )
+            // src/grammar/wcps.g:475:7: ( 'n' | 'N' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -5586,8 +5586,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = HALF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:475:5: ( ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'f' | 'F' ) )
-            // src/grammar/wcps.g:475:7: ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'f' | 'F' )
+            // src/grammar/wcps.g:476:5: ( ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'f' | 'F' ) )
+            // src/grammar/wcps.g:476:7: ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'f' | 'F' )
             {
             if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
                 input.consume();
@@ -5641,8 +5641,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:476:6: ( ( 'o' | 'O' ) ( 't' | 'T' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:476:8: ( 'o' | 'O' ) ( 't' | 'T' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' )
+            // src/grammar/wcps.g:477:6: ( ( 'o' | 'O' ) ( 't' | 'T' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
+            // src/grammar/wcps.g:477:8: ( 'o' | 'O' ) ( 't' | 'T' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -5705,8 +5705,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = PHI;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:477:4: ( ( 'p' | 'P' ) ( 'h' | 'H' ) ( 'i' | 'I' ) )
-            // src/grammar/wcps.g:477:6: ( 'p' | 'P' ) ( 'h' | 'H' ) ( 'i' | 'I' )
+            // src/grammar/wcps.g:478:4: ( ( 'p' | 'P' ) ( 'h' | 'H' ) ( 'i' | 'I' ) )
+            // src/grammar/wcps.g:478:6: ( 'p' | 'P' ) ( 'h' | 'H' ) ( 'i' | 'I' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -5751,8 +5751,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = BIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:478:4: ( ( 'b' | 'B' ) ( 'i' | 'I' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:478:6: ( 'b' | 'B' ) ( 'i' | 'I' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:479:4: ( ( 'b' | 'B' ) ( 'i' | 'I' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:479:6: ( 'b' | 'B' ) ( 'i' | 'I' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                 input.consume();
@@ -5797,8 +5797,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = UNSIGNED;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:479:9: ( ( 'u' | 'U' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'g' | 'G' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'd' | 'D' ) )
-            // src/grammar/wcps.g:479:11: ( 'u' | 'U' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'g' | 'G' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'd' | 'D' )
+            // src/grammar/wcps.g:480:9: ( ( 'u' | 'U' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'g' | 'G' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'd' | 'D' ) )
+            // src/grammar/wcps.g:480:11: ( 'u' | 'U' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'g' | 'G' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'd' | 'D' )
             {
             if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
                 input.consume();
@@ -5888,8 +5888,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = BOOLEAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:480:8: ( ( 'b' | 'B' ) ( 'o' | 'O' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:480:10: ( 'b' | 'B' ) ( 'o' | 'O' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'n' | 'N' )
+            // src/grammar/wcps.g:481:8: ( ( 'b' | 'B' ) ( 'o' | 'O' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'n' | 'N' ) )
+            // src/grammar/wcps.g:481:10: ( 'b' | 'B' ) ( 'o' | 'O' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                 input.consume();
@@ -5970,8 +5970,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = CHAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:481:5: ( ( 'c' | 'C' ) ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:481:7: ( 'c' | 'C' ) ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'r' | 'R' )
+            // src/grammar/wcps.g:482:5: ( ( 'c' | 'C' ) ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'r' | 'R' ) )
+            // src/grammar/wcps.g:482:7: ( 'c' | 'C' ) ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -6025,8 +6025,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SHORT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:482:6: ( ( 's' | 'S' ) ( 'h' | 'H' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:482:8: ( 's' | 'S' ) ( 'h' | 'H' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:483:6: ( ( 's' | 'S' ) ( 'h' | 'H' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:483:8: ( 's' | 'S' ) ( 'h' | 'H' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -6089,8 +6089,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LONG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:483:5: ( ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'g' | 'G' ) )
-            // src/grammar/wcps.g:483:7: ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'g' | 'G' )
+            // src/grammar/wcps.g:484:5: ( ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'g' | 'G' ) )
+            // src/grammar/wcps.g:484:7: ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'g' | 'G' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -6144,8 +6144,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = FLOAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:484:6: ( ( 'f' | 'F' ) ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'a' | 'A' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:484:8: ( 'f' | 'F' ) ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'a' | 'A' ) ( 't' | 'T' )
+            // src/grammar/wcps.g:485:6: ( ( 'f' | 'F' ) ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'a' | 'A' ) ( 't' | 'T' ) )
+            // src/grammar/wcps.g:485:8: ( 'f' | 'F' ) ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'a' | 'A' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -6208,8 +6208,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = DOUBLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:485:7: ( ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'l' | 'L' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:485:9: ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'l' | 'L' ) ( 'e' | 'E' )
+            // src/grammar/wcps.g:486:7: ( ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'l' | 'L' ) ( 'e' | 'E' ) )
+            // src/grammar/wcps.g:486:9: ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'l' | 'L' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -6281,8 +6281,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COMPLEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:486:8: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' ) )
-            // src/grammar/wcps.g:486:10: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' )
+            // src/grammar/wcps.g:487:8: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' ) )
+            // src/grammar/wcps.g:487:10: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -6363,8 +6363,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COMPLEX2;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:487:9: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' ) '2' )
-            // src/grammar/wcps.g:487:11: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' ) '2'
+            // src/grammar/wcps.g:488:9: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' ) '2' )
+            // src/grammar/wcps.g:488:11: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' ) '2'
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -6446,7 +6446,7 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = BOOLEANCONSTANT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:488:16: ( ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' ) ) | ( ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ) )
+            // src/grammar/wcps.g:489:16: ( ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' ) ) | ( ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ) )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -6464,10 +6464,10 @@ public class wcpsLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // src/grammar/wcps.g:488:18: ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' ) )
+                    // src/grammar/wcps.g:489:18: ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' ) )
                     {
-                    // src/grammar/wcps.g:488:18: ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' ) )
-                    // src/grammar/wcps.g:488:19: ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' )
+                    // src/grammar/wcps.g:489:18: ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' ) )
+                    // src/grammar/wcps.g:489:19: ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' )
                     {
                     if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                         input.consume();
@@ -6512,10 +6512,10 @@ public class wcpsLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:488:57: ( ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) )
+                    // src/grammar/wcps.g:489:57: ( ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) )
                     {
-                    // src/grammar/wcps.g:488:57: ( ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) )
-                    // src/grammar/wcps.g:488:58: ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' )
+                    // src/grammar/wcps.g:489:57: ( ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) )
+                    // src/grammar/wcps.g:489:58: ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' )
                     {
                     if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                         input.consume();
@@ -6581,7 +6581,7 @@ public class wcpsLexer extends Lexer {
     // $ANTLR start "DECIMALCONSTANT"
     public final void mDECIMALCONSTANT() throws RecognitionException {
         try {
-            // src/grammar/wcps.g:489:25: ( ( '1' .. '9' ) ( ( '0' .. '9' )* ) | '0' )
+            // src/grammar/wcps.g:490:25: ( ( '1' .. '9' ) ( ( '0' .. '9' )* ) | '0' )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -6599,19 +6599,19 @@ public class wcpsLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // src/grammar/wcps.g:490:2: ( '1' .. '9' ) ( ( '0' .. '9' )* )
+                    // src/grammar/wcps.g:491:2: ( '1' .. '9' ) ( ( '0' .. '9' )* )
                     {
-                    // src/grammar/wcps.g:490:2: ( '1' .. '9' )
-                    // src/grammar/wcps.g:490:3: '1' .. '9'
+                    // src/grammar/wcps.g:491:2: ( '1' .. '9' )
+                    // src/grammar/wcps.g:491:3: '1' .. '9'
                     {
                     matchRange('1','9'); 
 
                     }
 
-                    // src/grammar/wcps.g:490:12: ( ( '0' .. '9' )* )
-                    // src/grammar/wcps.g:490:13: ( '0' .. '9' )*
+                    // src/grammar/wcps.g:491:12: ( ( '0' .. '9' )* )
+                    // src/grammar/wcps.g:491:13: ( '0' .. '9' )*
                     {
-                    // src/grammar/wcps.g:490:13: ( '0' .. '9' )*
+                    // src/grammar/wcps.g:491:13: ( '0' .. '9' )*
                     loop2:
                     do {
                         int alt2=2;
@@ -6624,7 +6624,7 @@ public class wcpsLexer extends Lexer {
 
                         switch (alt2) {
                     	case 1 :
-                    	    // src/grammar/wcps.g:490:14: '0' .. '9'
+                    	    // src/grammar/wcps.g:491:14: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -6643,7 +6643,7 @@ public class wcpsLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:491:4: '0'
+                    // src/grammar/wcps.g:492:4: '0'
                     {
                     match('0'); 
 
@@ -6660,21 +6660,21 @@ public class wcpsLexer extends Lexer {
     // $ANTLR start "OCTALCONSTANT"
     public final void mOCTALCONSTANT() throws RecognitionException {
         try {
-            // src/grammar/wcps.g:492:23: ( '0' ( '1' .. '7' ) ( ( '0' .. '7' )* ) )
-            // src/grammar/wcps.g:493:2: '0' ( '1' .. '7' ) ( ( '0' .. '7' )* )
+            // src/grammar/wcps.g:493:23: ( '0' ( '1' .. '7' ) ( ( '0' .. '7' )* ) )
+            // src/grammar/wcps.g:494:2: '0' ( '1' .. '7' ) ( ( '0' .. '7' )* )
             {
             match('0'); 
-            // src/grammar/wcps.g:493:6: ( '1' .. '7' )
-            // src/grammar/wcps.g:493:7: '1' .. '7'
+            // src/grammar/wcps.g:494:6: ( '1' .. '7' )
+            // src/grammar/wcps.g:494:7: '1' .. '7'
             {
             matchRange('1','7'); 
 
             }
 
-            // src/grammar/wcps.g:493:17: ( ( '0' .. '7' )* )
-            // src/grammar/wcps.g:493:18: ( '0' .. '7' )*
+            // src/grammar/wcps.g:494:17: ( ( '0' .. '7' )* )
+            // src/grammar/wcps.g:494:18: ( '0' .. '7' )*
             {
-            // src/grammar/wcps.g:493:18: ( '0' .. '7' )*
+            // src/grammar/wcps.g:494:18: ( '0' .. '7' )*
             loop4:
             do {
                 int alt4=2;
@@ -6687,7 +6687,7 @@ public class wcpsLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // src/grammar/wcps.g:493:19: '0' .. '7'
+            	    // src/grammar/wcps.g:494:19: '0' .. '7'
             	    {
             	    matchRange('0','7'); 
 
@@ -6714,10 +6714,10 @@ public class wcpsLexer extends Lexer {
     // $ANTLR start "HEXACONSTANT"
     public final void mHEXACONSTANT() throws RecognitionException {
         try {
-            // src/grammar/wcps.g:494:22: ( ( '0x' | '0X' ) ( '1' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )* ) )
-            // src/grammar/wcps.g:495:2: ( '0x' | '0X' ) ( '1' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )* )
+            // src/grammar/wcps.g:495:22: ( ( '0x' | '0X' ) ( '1' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )* ) )
+            // src/grammar/wcps.g:496:2: ( '0x' | '0X' ) ( '1' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )* )
             {
-            // src/grammar/wcps.g:495:2: ( '0x' | '0X' )
+            // src/grammar/wcps.g:496:2: ( '0x' | '0X' )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -6745,7 +6745,7 @@ public class wcpsLexer extends Lexer {
             }
             switch (alt5) {
                 case 1 :
-                    // src/grammar/wcps.g:495:3: '0x'
+                    // src/grammar/wcps.g:496:3: '0x'
                     {
                     match("0x"); 
 
@@ -6753,7 +6753,7 @@ public class wcpsLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:495:8: '0X'
+                    // src/grammar/wcps.g:496:8: '0X'
                     {
                     match("0X"); 
 
@@ -6772,10 +6772,10 @@ public class wcpsLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // src/grammar/wcps.g:495:43: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )* )
-            // src/grammar/wcps.g:495:44: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )*
+            // src/grammar/wcps.g:496:43: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )* )
+            // src/grammar/wcps.g:496:44: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )*
             {
-            // src/grammar/wcps.g:495:44: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )*
+            // src/grammar/wcps.g:496:44: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )*
             loop6:
             do {
                 int alt6=2;
@@ -6825,7 +6825,7 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = INTEGERCONSTANT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:496:16: ( DECIMALCONSTANT | OCTALCONSTANT | HEXACONSTANT )
+            // src/grammar/wcps.g:497:16: ( DECIMALCONSTANT | OCTALCONSTANT | HEXACONSTANT )
             int alt7=3;
             int LA7_0 = input.LA(1);
 
@@ -6863,21 +6863,21 @@ public class wcpsLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // src/grammar/wcps.g:496:18: DECIMALCONSTANT
+                    // src/grammar/wcps.g:497:18: DECIMALCONSTANT
                     {
                     mDECIMALCONSTANT(); 
 
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:496:36: OCTALCONSTANT
+                    // src/grammar/wcps.g:497:36: OCTALCONSTANT
                     {
                     mOCTALCONSTANT(); 
 
                     }
                     break;
                 case 3 :
-                    // src/grammar/wcps.g:496:52: HEXACONSTANT
+                    // src/grammar/wcps.g:497:52: HEXACONSTANT
                     {
                     mHEXACONSTANT(); 
 
@@ -6898,21 +6898,21 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = FLOATCONSTANT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:497:14: ( DECIMALCONSTANT ( '.' ) ( ( '0' .. '9' )+ ) ( ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ ) )? )
-            // src/grammar/wcps.g:497:16: DECIMALCONSTANT ( '.' ) ( ( '0' .. '9' )+ ) ( ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ ) )?
+            // src/grammar/wcps.g:498:14: ( DECIMALCONSTANT ( '.' ) ( ( '0' .. '9' )+ ) ( ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ ) )? )
+            // src/grammar/wcps.g:498:16: DECIMALCONSTANT ( '.' ) ( ( '0' .. '9' )+ ) ( ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ ) )?
             {
             mDECIMALCONSTANT(); 
-            // src/grammar/wcps.g:497:32: ( '.' )
-            // src/grammar/wcps.g:497:33: '.'
+            // src/grammar/wcps.g:498:32: ( '.' )
+            // src/grammar/wcps.g:498:33: '.'
             {
             match('.'); 
 
             }
 
-            // src/grammar/wcps.g:497:37: ( ( '0' .. '9' )+ )
-            // src/grammar/wcps.g:497:38: ( '0' .. '9' )+
+            // src/grammar/wcps.g:498:37: ( ( '0' .. '9' )+ )
+            // src/grammar/wcps.g:498:38: ( '0' .. '9' )+
             {
-            // src/grammar/wcps.g:497:38: ( '0' .. '9' )+
+            // src/grammar/wcps.g:498:38: ( '0' .. '9' )+
             int cnt8=0;
             loop8:
             do {
@@ -6926,7 +6926,7 @@ public class wcpsLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // src/grammar/wcps.g:497:38: '0' .. '9'
+            	    // src/grammar/wcps.g:498:38: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -6945,7 +6945,7 @@ public class wcpsLexer extends Lexer {
 
             }
 
-            // src/grammar/wcps.g:497:48: ( ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ ) )?
+            // src/grammar/wcps.g:498:48: ( ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ ) )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -6954,7 +6954,7 @@ public class wcpsLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // src/grammar/wcps.g:497:49: ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ )
+                    // src/grammar/wcps.g:498:49: ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ )
                     {
                     if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                         input.consume();
@@ -6965,10 +6965,10 @@ public class wcpsLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
-                    // src/grammar/wcps.g:497:58: ( ( '-' | '+' )? )
-                    // src/grammar/wcps.g:497:59: ( '-' | '+' )?
+                    // src/grammar/wcps.g:498:58: ( ( '-' | '+' )? )
+                    // src/grammar/wcps.g:498:59: ( '-' | '+' )?
                     {
-                    // src/grammar/wcps.g:497:59: ( '-' | '+' )?
+                    // src/grammar/wcps.g:498:59: ( '-' | '+' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -6997,10 +6997,10 @@ public class wcpsLexer extends Lexer {
 
                     }
 
-                    // src/grammar/wcps.g:497:70: ( ( '0' .. '9' )+ )
-                    // src/grammar/wcps.g:497:71: ( '0' .. '9' )+
+                    // src/grammar/wcps.g:498:70: ( ( '0' .. '9' )+ )
+                    // src/grammar/wcps.g:498:71: ( '0' .. '9' )+
                     {
-                    // src/grammar/wcps.g:497:71: ( '0' .. '9' )+
+                    // src/grammar/wcps.g:498:71: ( '0' .. '9' )+
                     int cnt10=0;
                     loop10:
                     do {
@@ -7014,7 +7014,7 @@ public class wcpsLexer extends Lexer {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // src/grammar/wcps.g:497:71: '0' .. '9'
+                    	    // src/grammar/wcps.g:498:71: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -7055,11 +7055,11 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:499:7: ( '\"' ( options {greedy=false; } : . )* '\"' )
-            // src/grammar/wcps.g:499:9: '\"' ( options {greedy=false; } : . )* '\"'
+            // src/grammar/wcps.g:500:7: ( '\"' ( options {greedy=false; } : . )* '\"' )
+            // src/grammar/wcps.g:500:9: '\"' ( options {greedy=false; } : . )* '\"'
             {
             match('\"'); 
-            // src/grammar/wcps.g:499:13: ( options {greedy=false; } : . )*
+            // src/grammar/wcps.g:500:13: ( options {greedy=false; } : . )*
             loop12:
             do {
                 int alt12=2;
@@ -7075,7 +7075,7 @@ public class wcpsLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // src/grammar/wcps.g:499:41: .
+            	    // src/grammar/wcps.g:500:41: .
             	    {
             	    matchAny(); 
 
@@ -7105,8 +7105,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:500:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* ) )
-            // src/grammar/wcps.g:500:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // src/grammar/wcps.g:501:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* ) )
+            // src/grammar/wcps.g:501:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -7117,10 +7117,10 @@ public class wcpsLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // src/grammar/wcps.g:500:30: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // src/grammar/wcps.g:500:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // src/grammar/wcps.g:501:30: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // src/grammar/wcps.g:501:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
-            // src/grammar/wcps.g:500:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // src/grammar/wcps.g:501:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop13:
             do {
                 int alt13=2;
@@ -7172,14 +7172,14 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = VARIABLE_DOLLAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:501:16: ( '$' ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* ) )
-            // src/grammar/wcps.g:501:18: '$' ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // src/grammar/wcps.g:502:16: ( '$' ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* ) )
+            // src/grammar/wcps.g:502:18: '$' ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
             {
             match('$'); 
-            // src/grammar/wcps.g:501:21: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // src/grammar/wcps.g:501:22: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // src/grammar/wcps.g:502:21: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // src/grammar/wcps.g:502:22: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
-            // src/grammar/wcps.g:501:22: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // src/grammar/wcps.g:502:22: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop14:
             do {
                 int alt14=2;
@@ -7231,10 +7231,10 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:502:11: ( ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )+ )
-            // src/grammar/wcps.g:502:13: ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )+
+            // src/grammar/wcps.g:503:11: ( ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )+ )
+            // src/grammar/wcps.g:503:13: ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )+
             {
-            // src/grammar/wcps.g:502:13: ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )+
+            // src/grammar/wcps.g:503:13: ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )+
             int cnt15=0;
             loop15:
             do {

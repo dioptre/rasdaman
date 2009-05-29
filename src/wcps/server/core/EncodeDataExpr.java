@@ -26,7 +26,7 @@ package wcps.server.core;
 import org.w3c.dom.*;
 
 // This is the equivalent of the "ProcessingExprType" complex XML type.
-public class EncodeDataExprType implements IRasNode
+public class EncodeDataExpr implements IRasNode
 {
 	private IRasNode coverageExprType;
 	private String extraParams;
@@ -34,7 +34,7 @@ public class EncodeDataExprType implements IRasNode
 	private String mime;
 	private Boolean store;
 
-	public EncodeDataExprType(Node node, ProcessCoveragesRequest request) throws WCPSException
+	public EncodeDataExpr(Node node, ProcessCoveragesRequest request) throws WCPSException
 	{
 		Node child;
 		String nodeName;
@@ -63,7 +63,7 @@ public class EncodeDataExprType implements IRasNode
 				continue;
 			}
 
-			coverageExprType = new CoverageExprType(child, request);
+			coverageExprType = new CoverageExpr(child, request);
 		}
 
 		Node _store = node.getAttributes().getNamedItem("store");

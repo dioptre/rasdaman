@@ -26,12 +26,12 @@ package wcps.server.core;
 import org.w3c.dom.*;
 
 
-public class StringScalarExprType implements IRasNode
+public class StringScalarExpr implements IRasNode
 {
 
     private String op, string;
-    private CoverageExprType cov;
-	public StringScalarExprType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+    private CoverageExpr cov;
+	public StringScalarExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
 	{
         while ((node != null) && (node.getNodeName().equals("#text")))
         {
@@ -43,7 +43,7 @@ public class StringScalarExprType implements IRasNode
         if (node.getNodeName().equals("stringIdentifier"))
         {
             Node child = node.getFirstChild();
-            cov = new CoverageExprType(child, pcr);
+            cov = new CoverageExpr(child, pcr);
             op = "id";
         }
         else

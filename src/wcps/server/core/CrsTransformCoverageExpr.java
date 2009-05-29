@@ -1,4 +1,4 @@
-    /*
+/*
  * This file is part of PetaScope.
  *
  * PetaScope is free software: you can redistribute it and/or modify
@@ -25,39 +25,22 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-import java.util.Iterator;
-
-public class RangeFieldType implements IRasNode
+//TODO(smsorin): how do we do combine this ?
+public class CrsTransformCoverageExpr implements IRasNode, ICoverageInfo
 {
-	private String type;
-
-	public RangeFieldType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public CrsTransformCoverageExpr(Node node, ProcessCoveragesRequest pcr)
+	    throws WCPSException
 	{
-		while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
-
-		if (node == null)
-		{
-			throw new WCPSException("RangeFieldType parsing error!");
-		}
-
-		String nodeName = node.getNodeName();
-
-		if (nodeName.equals("type"))
-		{
-            this.type = node.getTextContent();
-
-			System.err.println("Found range field type: " + type);
-		}
+		throw new WCPSException("Method not implemented");
 	}
 
 	public String toRasQL()
 	{
-		return this.type;
+		return "";
+	}
+
+	public CoverageInfo getCoverageInfo()
+	{
+		return null;
 	}
 }
-
-
-;

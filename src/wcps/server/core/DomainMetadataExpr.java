@@ -25,16 +25,16 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-public class DomainMetadataExprType implements IRasNode, ICoverageInfo
+public class DomainMetadataExpr implements IRasNode, ICoverageInfo
 {
     private IRasNode child;
 	private CoverageInfo info = null;
-    private AxisNameType axis;
-    private CrsNameType crs;
+    private AxisName axis;
+    private CrsName crs;
     private IRasNode domain1, domain2;  // lower and upper bound, or "DomainMetadataExprType" and null
     private int counter = 0;             // counter for the domain vars
 
-	public DomainMetadataExprType(Node node, ProcessCoveragesRequest pcr)
+	public DomainMetadataExpr(Node node, ProcessCoveragesRequest pcr)
 	    throws WCPSException
 	{
 		/*

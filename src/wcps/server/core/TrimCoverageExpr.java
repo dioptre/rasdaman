@@ -31,16 +31,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class TrimCoverageExprType implements IRasNode, ICoverageInfo
+public class TrimCoverageExpr implements IRasNode, ICoverageInfo
 {
 	private List<DimensionIntervalElement> axisList;
-	private CoverageExprType coverageExprType;
+	private CoverageExpr coverageExprType;
 	private CoverageInfo coverageInfo;
 	private String[] dim;
 	private int dims;
     private DimensionIntervalElement elem;
 
-	public TrimCoverageExprType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public TrimCoverageExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
 	{
 		Node child, axisNode;
 		String nodeName;
@@ -61,7 +61,7 @@ public class TrimCoverageExprType implements IRasNode, ICoverageInfo
             try
             {
                 System.err.println("Trying out an CoverageExprType group...");
-                coverageExprType = new CoverageExprType(child, pcr);
+                coverageExprType = new CoverageExpr(child, pcr);
                 coverageInfo = coverageExprType.getCoverageInfo();
                 child = child.getNextSibling();
                 continue;

@@ -37,7 +37,7 @@ import wcps.server.cli.grammar;
 public class GrammarTest
 {
     // Put new test cases in this folder following the current naming scheme
-    String folder = "testing/testcases-wcps/";
+    String folder = "test/testcases-wcps/";
     // How many tests we have to run
     int numTests = 0;
     // tests

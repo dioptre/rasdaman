@@ -25,7 +25,7 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-public class ScalarExprType implements IRasNode
+public class ScalarExpr implements IRasNode
 {
 //	private IRasNode first, second;
     private IRasNode child;
@@ -33,7 +33,7 @@ public class ScalarExprType implements IRasNode
 //	private String type;    // can be simple (just a value), unary, binary, function or defered
 //	private String value;
 
-	public ScalarExprType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public ScalarExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
 	{
         while ((node != null) && node.getNodeName().equals("#text"))
         {
@@ -49,7 +49,7 @@ public class ScalarExprType implements IRasNode
         {
             try
             {
-                child = new MetadataScalarExprType(node, pcr);
+                child = new MetadataScalarExpr(node, pcr);
                 System.err.println("Matched metadata scalar expression.");
             }
             catch (WCPSException e)
@@ -65,7 +65,7 @@ public class ScalarExprType implements IRasNode
         {
             try
             {
-                child = new BooleanScalarExprType(node, pcr);
+                child = new BooleanScalarExpr(node, pcr);
                 System.err.println("Matched boolean scalar expression.");
             }
             catch (WCPSException e)
@@ -81,7 +81,7 @@ public class ScalarExprType implements IRasNode
         {
             try
             {
-                child = new NumericScalarExprType(node, pcr);
+                child = new NumericScalarExpr(node, pcr);
                 System.err.println("Matched numeric scalar expression.");
             }
             catch (WCPSException e)
@@ -97,7 +97,7 @@ public class ScalarExprType implements IRasNode
         {
             try
             {
-                child = new ReduceScalarExprType(node, pcr);
+                child = new ReduceScalarExpr(node, pcr);
                 System.err.println("Matched reduce scalar expression.");
             }
             catch (WCPSException e)
@@ -113,7 +113,7 @@ public class ScalarExprType implements IRasNode
         {
             try
             {
-                child = new StringScalarExprType(node, pcr);
+                child = new StringScalarExpr(node, pcr);
                 System.err.println("Matched string scalar expression.");
             }
             catch (WCPSException e)

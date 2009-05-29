@@ -25,10 +25,10 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-// TODO: Implement class ScaleCoverageExprType
-public class ScaleCoverageExprType implements IRasNode, ICoverageInfo
+// TODO: implement class ConstantCoverageExprType
+public class ConstantCoverageExpr implements IRasNode, ICoverageInfo
 {
-	public ScaleCoverageExprType(Node node, ProcessCoveragesRequest pcr)
+	public ConstantCoverageExpr(Node node, ProcessCoveragesRequest pcr)
 	    throws WCPSException
 	{
 		throw new WCPSException("Method not implemented");

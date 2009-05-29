@@ -25,14 +25,14 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-public class BinaryOperationCoverageExprType implements IRasNode, ICoverageInfo
+public class BinaryOperationCoverageExpr implements IRasNode, ICoverageInfo
 {
 	private IRasNode first, second;
     private CoverageExprPairType pair;
 	private CoverageInfo info;
 	private String operation;
 
-	public BinaryOperationCoverageExprType(Node node, ProcessCoveragesRequest pcr)
+	public BinaryOperationCoverageExpr(Node node, ProcessCoveragesRequest pcr)
 	    throws WCPSException
 	{
 		String nodeName = node.getNodeName();

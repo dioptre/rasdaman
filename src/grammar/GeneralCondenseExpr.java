@@ -33,11 +33,11 @@ package grammar;
 public class GeneralCondenseExpr implements IParseTreeNode
 {
 	AxisIteratorList alist;
-	CondenseOperationType op;
+	CondenseOperation op;
 	ScalarExpr using;
 	BooleanScalarExpr where;
 
-	public GeneralCondenseExpr(CondenseOperationType op, AxisIteratorList al)
+	public GeneralCondenseExpr(CondenseOperation op, AxisIteratorList al)
 	{
 		this.op = op;
 		alist   = al;

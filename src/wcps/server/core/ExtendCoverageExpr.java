@@ -27,26 +27,28 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.w3c.dom.Node;
+import org.w3c.dom.*;
 
-public class SliceCoverageExprType implements IRasNode, ICoverageInfo
+
+public class ExtendCoverageExpr implements IRasNode, ICoverageInfo
 {
-    
-	private List<DimensionPointElement> axisList;
-	private CoverageExprType coverageExprType;
-	private CoverageInfo coverageInfo = null;
+	private List<DimensionIntervalElement> axisList;
+	private CoverageExpr coverageExprType;
+	private CoverageInfo coverageInfo;
 	private String[] dim;
-    private DimensionPointElement elem;
 	private int dims;
+    private DimensionIntervalElement elem;
 
-	public SliceCoverageExprType(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public ExtendCoverageExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
 	{
-		Node child = node.getFirstChild();
+        
+		Node child, axisNode;
 		String nodeName;
 
-		axisList = new ArrayList<DimensionPointElement>();
+		axisList = new ArrayList<DimensionIntervalElement>();
 
-		while (child != null)
+		child = node.getFirstChild();
+        while (child != null)
 		{
 			nodeName = child.getNodeName();
 
@@ -59,7 +61,7 @@ public class SliceCoverageExprType implements IRasNode, ICoverageInfo
             try
             {
                 System.err.println("Trying out an CoverageExprType group...");
-                coverageExprType = new CoverageExprType(child, pcr);
+                coverageExprType = new CoverageExpr(node, pcr);
                 coverageInfo = coverageExprType.getCoverageInfo();
                 child = child.getNextSibling();
                 continue;
@@ -72,18 +74,18 @@ public class SliceCoverageExprType implements IRasNode, ICoverageInfo
             try
 			{
                 // Start a new axis and save it
-				elem = new DimensionPointElement(child, pcr);
+				elem = new DimensionIntervalElement(node, pcr);
                 axisList.add(elem);
                 child = elem.getNextNode();
                 continue;
 			}
             catch (WCPSException e)
             {
-                System.err.println("This was no Dimension Point ELement: " + child.getNodeName());
+                System.err.println("This was no Dimension Interval ELement: " + child.getNodeName());
             }
 
             // else unknown element
-            throw new WCPSException("Unknown node for TrimCoverage expression:" + child.getNodeName());
+            throw new WCPSException("Unknown node for ExtendCoverage expression:" + child.getNodeName());
 		}
 
 		dims = coverageInfo.getNumDimensions();
@@ -94,23 +96,30 @@ public class SliceCoverageExprType implements IRasNode, ICoverageInfo
 			dim[j] = "*:*";
 		}
 
-		Iterator<DimensionPointElement> i = axisList.iterator();
-		DimensionPointElement axis;
+
+		Iterator<DimensionIntervalElement> i = axisList.iterator();
+		DimensionIntervalElement axis;
 		int axisId;
-		int slicingPos;
+		int axisLo, axisHi;
 
 		while (i.hasNext())
 		{
-			axis        = i.next();
-			axisId      = coverageInfo.getDomainIndexByName(axis.getAxisName());
-			slicingPos  = Integer.parseInt(axis.getSlicingPosition());
-			dim[axisId] = "" + slicingPos;
+			axis   = i.next();
+			axisId = coverageInfo.getDomainIndexByName(axis.getAxisName());
+			System.out.println("Axis ID: " + axisId);
+			System.out.println("Axis name: " + axis.getAxisName());
+			System.out.print("Axis coords: ");
+
+			axisLo      = Integer.parseInt(axis.getLowCoord());
+			axisHi      = Integer.parseInt(axis.getHighCoord());
+			dim[axisId] = axisLo + ":" + axisHi;
 			coverageInfo.setCellDimension(
 			    axisId,
 			    new CellDomainElement(
-				BigInteger.valueOf(slicingPos), BigInteger.valueOf(slicingPos)));
+				BigInteger.valueOf(axisLo), BigInteger.valueOf(axisHi)));
 		}
 
+         
 	}
 
 	public CoverageInfo getCoverageInfo()
@@ -120,7 +129,7 @@ public class SliceCoverageExprType implements IRasNode, ICoverageInfo
 
 	public String toRasQL()
 	{
-		String result = coverageExprType.toRasQL() + "[";
+		String result = "extend(" + coverageExprType.toRasQL() + ",[";
 
 		for (int j = 0; j < dims; ++j)
 		{
@@ -132,7 +141,8 @@ public class SliceCoverageExprType implements IRasNode, ICoverageInfo
 			result += dim[j];
 		}
 
-		result += "]";
+		result += "])";
+         
 		return result;
 	}
 }
