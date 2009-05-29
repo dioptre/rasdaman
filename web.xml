@@ -1,5 +1,5 @@
 <web-app>
-    <display-name>PetaScope Implementation (WC*S Services)</display-name>
+    <display-name>PetaScope Implementation (WCPS, WCS)</display-name>
     <servlet>
         <servlet-name>wcpsServlet</servlet-name>
         <servlet-class>wcps.server.servlet.WCPSServlet</servlet-class>

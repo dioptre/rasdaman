@@ -1,6 +1,5 @@
 /*
-Author: *, Sorin Stancu-Mara, Andrei Aiordachioaie
-Date (last update): 21 April 2009
+Author: Sorin Stancu-Mara, Andrei Aiordachioaie
 History: 
 07 02 2007 smsorin 	Updated to WCPS 1.0.0
 27 01 2009 smsorin 	Moved to ANTLR
@@ -8,7 +7,7 @@ History:
 13 02 2009 andreia 	Fixed small bugs in grammar. Now it can fully compile.
 21 04 2009 andreia	Removed comments.
 04 05 2009 andreia	Fixed bugs in integer declaration.
-19 05 2009 andreia  Fixed some other weird bugs. Grammar passes all tests now.
+19 05 2009 andreia  	Fixed some other weird bugs. Grammar passes all tests now.
 */
 grammar wcps;
 options{
@@ -219,20 +218,18 @@ booleanExpr returns[BooleanExpr value]
     : op=NOT e1=coverageExpr { $value = new BooleanExpr($op.text, $e1.value); }
     | op=BIT LPAREN e1=coverageExpr COMMA e2=indexExpr RPAREN { $value = new BooleanExpr($op.text, $e1.value, $e2.value); }
     ;
-//// TODO: check if the syntactic predicates can be safely removed !
 indexExpr returns[IndexExpr value]
     : e1=indexTerm { $value = $e1.value; } 
 		(op=(PLUS^|MINUS^) e2=indexTerm { $value = new IndexExpr($op.text, $value, $e2.value); })*
     ;
 indexTerm returns[IndexExpr value]
     : e1=indexFactor { $value = $e1.value; }
-    	((op=(MULT|DIVIDE) e2=indexFactor) => (op=(MULT|DIVIDE) e2=indexFactor { $value = new IndexExpr($op.text, $value, $e2.value); } ))*
+    	((op=(MULT|DIVIDE) e2=indexFactor { $value = new IndexExpr($op.text, $value, $e2.value); } ))*
     ;
 indexFactor returns[IndexExpr value]
     : e=INTEGERCONSTANT  { $value = new IndexExpr($e.text); }
     | op=ROUND LPAREN e1=numericScalarExpr RPAREN  { $value = new IndexExpr($op.text, $e1.value); }
-    | (LPAREN e2=indexExpr RPAREN)
-    	=> (LPAREN e2=indexExpr RPAREN { $value = $e2.value; } )
+    | (LPAREN e2=indexExpr RPAREN { $value = $e2.value; } )
     ;
 stringScalarExpr  returns[StringScalarExpr value]
 // The first rule should be "metaDataExpr", but currently only a variable "identifier" is allowed.
@@ -279,9 +276,7 @@ booleanScalarTerm returns[BooleanScalarExpr value]
 	: e1=booleanScalarNegation { $value = $e1.value; }
 	  (op=AND e2=booleanScalarNegation { $value = new BooleanScalarExpr($op.text, $value, $e2.value); } )*
 	;
-// TODO: Check if new version of negation works 
 booleanScalarNegation  returns[BooleanScalarExpr value]
-//	:	NOT? booleanScalarAtom
 	:	e1=booleanScalarAtom { $value = $e1.value; }
 	|	op=NOT e1=booleanScalarAtom { $value = new BooleanScalarExpr($op.text, $e1.value); }
 	;
@@ -291,18 +286,17 @@ booleanScalarAtom returns[BooleanScalarExpr value]
 	| n1=numericScalarExpr cop=compOp n2=numericScalarExpr { $value = new BooleanScalarExpr($cop.value, $n1.value, $n2.value); } 
 	| e=BOOLEANCONSTANT { $value = new BooleanScalarExpr($e.text); }
 	;
-// TODO: remove the hats and check correctness
 numericScalarExpr returns[NumericScalarExpr value]
 	: e1=numericScalarTerm {$value = $e1.value; }
-	  (op=(PLUS^|MINUS^) e2=numericScalarTerm { $value = new NumericScalarExpr($op.text, $value, $e2.value); })*
+	  (op=(PLUS|MINUS) e2=numericScalarTerm { $value = new NumericScalarExpr($op.text, $value, $e2.value); })*
 	;
 numericScalarTerm returns[NumericScalarExpr value]
 	: e1=numericScalarFactor { $value = $e1.value; }
-		(op=(MULT^|DIVIDE^) e2=numericScalarFactor { $value = new NumericScalarExpr($op.text, $value, $e2.value); })*
+		(op=(MULT|DIVIDE) e2=numericScalarFactor { $value = new NumericScalarExpr($op.text, $value, $e2.value); })*
 	;
 numericScalarFactor returns[NumericScalarExpr value]
     : LPAREN e1=numericScalarExpr RPAREN { $value = $e1.value; }
-    | op=MINUS^ e10=numericScalarFactor { $value = new NumericScalarExpr($op.text, $e10.value); }
+    | op=MINUS e10=numericScalarFactor { $value = new NumericScalarExpr($op.text, $e10.value); }
     | op=ROUND LPAREN e1=numericScalarExpr RPAREN { $value = new NumericScalarExpr($op.text, $e1.value); }
     | e=INTEGERCONSTANT { $value = new NumericScalarExpr($e.text); }
     | e=FLOATCONSTANT { $value = new NumericScalarExpr($e.text); }

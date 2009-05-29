@@ -63,8 +63,8 @@ public class xml
             System.exit(1);
         }
 
-		String pcSchemaFileName = "src" + File.separator + "conf" + File.separator + "xml"
-                      + File.separator + "wcps"
+		String pcSchemaFileName =
+                "xml" + File.separator + "ogc" + File.separator + "wcps"
                       + File.separator + "1.0.0" + File.separator + "wcpsProcessCoverages.xsd";
 		File pcSchemaFile = new File(pcSchemaFileName);
 

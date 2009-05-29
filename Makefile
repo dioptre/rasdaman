@@ -29,6 +29,7 @@ VERSION=1.0
 WCS_LIBS=lib/ows-v_1_0_0-schema-1.0-SNAPSHOT.jar:lib/gml-v_3_1_1-schema-1.0-SNAPSHOT.jar:lib/wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar:lib/commons-io-1.3.2.jar
 CLASSPATH=.:lib/junit-4.5.jar:lib/jsr173_1.0_api.jar:lib/rasj.jar:lib/servlet-2_5-api.jar:lib/commons-fileupload-1.2.jar:lib/commons-math-1.1.jar:lib/antlrworks-1.2.3.jar:${WCS_LIBS}
 WCPS_CORE_LIB=lib/wcps-core.jar
+WCPS_ALL_LIB=lib/wcps-all.jar
 JAVA_PATH=
 ANTLR=${JAVA_PATH}java -cp lib/antlrworks-1.2.3.jar org.antlr.Tool
 # Use this line to see warnings
@@ -48,7 +49,7 @@ all: clean wcps-core wcs wcps-cli wcps-servlet wcps-war wcs-war
 ## Regenerate the wcps.xml.processcoverage package.
 .PHONY: gen
 gen:
-	${XJC} -d src -p wcps.xml.processcoverage xml/ogc/wcps/1.0.1/wcpsProcessCoverage.xsd
+	${XJC} -d src -p wcps.xml.processcoverage xml/ogc/wcps/1.0.0/wcpsProcessCoverage.xsd
 	${JAVAC} src/wcps/xml/processcoverage/*.java
 
 ## Generate translation core.
@@ -60,6 +61,11 @@ wcps-core:
 	cp src/wcps/server/core/*.class wcps/server/core/
 	jar cf ${WCPS_CORE_LIB} wcps
 	rm -rf wcps
+
+## Compile WCPS tests
+.PHONY: wcps-tests
+wcps-tests:
+	${JAVAC} src/wcps/server/test/*.java
 
 ## Servlet interface.
 .PHONY: wcps-servlet
@@ -83,7 +89,10 @@ wcps-war:
 	cp src/grammar/*.class WEB-INF/classes/grammar/
 #	cp src/wcs/server/servlet/*.class WEB-INF/classes/wcs/server/servlet/
 #	cp src/wcs/server/core/*.class WEB-INF/classes/wcs/server/core/
-	jar cf ${NAME}.war WEB-INF/ dbparams.properties xml/ogc/wcps/1.0.1/*.xsd xml/ogc/wcps/1.0.0/*.xsd
+	cp dbparams.properties dbparams.properties.local
+	cp dbparams.properties.kahlua dbparams.properties
+	jar cf ${NAME}.war WEB-INF/ dbparams.properties xml/ogc/wcps/1.0.0/*.xsd
+	mv dbparams.properties.local dbparams.properties
 
 ## Translation core command-line interface. Useful for development and testing.
 .PHONY: wcps-cli
@@ -91,10 +100,15 @@ wcps-cli:
 	${JAVAC} src/wcps/server/cli/*.java
 #	${JAVAC} src/wcs/server/cli/*.java
 
+.PHONY: wcps-jar
+wcps-jar: wcps-core wcps-cli wcps-tests
+	-rm -f ${WCPS_ALL_LIB}
+	jar cf ${WCPS_ALL_LIB} -C src/ ./wcps/ -C src/ ./grammar/
+
 ## Clean up.
 .PHONY: clean
 clean:
-	-rm -rf src/wcps/xml src/wcps/server/core/*.class src/wcps/server/servlet/*.class src/wcps/server/cli/*.class lib/wcps.jar ${NAME}.war WEB-INF src/wcs/server/core/*.class src/wcs/server/cli/*.class src/wcs/server/servlet/*.class ${NAME_WCS}.war
+	-rm -rf src/wcps/xml src/wcps/server/core/*.class src/wcps/server/servlet/*.class src/wcps/server/cli/*.class lib/wcps.jar ${NAME}.war WEB-INF src/wcs/server/core/*.class src/wcs/server/cli/*.class src/wcs/server/servlet/*.class src/wcps/server/test/*.class src/grammar/*.class ${NAME_WCS}.war ${WCPS_CORE_LIB} ${WCPS_ALL_LIB}
 	-rm -rf doc/*
 	-rm -f petascope-*.tar.bz2
 
@@ -131,7 +145,7 @@ petascope-${VERSION}.tar.bz2:
 ## Compile the WCS code
 .PHONY: wcs
 wcs: 
-	${XJC} -d src -p wcs.server.core xml/ogc/wcps/1.0.1/wcpsProcessCoverage.xsd
+	${XJC} -d src -p wcs.server.core xml/ogc/wcps/1.0.0/wcpsProcessCoverage.xsd
 	${JAVAC} src/wcs/server/core/*.java
 	${JAVAC} src/wcs/server/cli/*.java
 	${JAVAC} src/wcs/server/servlet/*.java
@@ -151,6 +165,6 @@ wcs-war:
 	cp src/wcps/server/servlet/*.class WEB-INF/classes/wcps/server/servlet/
 	cp src/wcs/server/servlet/*.class WEB-INF/classes/wcs/server/servlet/
 	cp src/wcs/server/core/*.class WEB-INF/classes/wcs/server/core/
-	jar cf ${NAME_WCS}.war WEB-INF/ dbparams.properties xml/ogc/wcps/1.0.1/*.xsd xml/ogc/wcps/1.0.0/*.xsd misc/wcs-servlet-default.html
+	jar cf ${NAME_WCS}.war WEB-INF/ dbparams.properties xml/ogc/wcps/1.0.0/*.xsd misc/wcs-servlet-default.html
 
 

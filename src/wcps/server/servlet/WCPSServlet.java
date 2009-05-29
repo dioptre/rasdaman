@@ -246,7 +246,7 @@ public class WCPSServlet extends HttpServlet
 
 	public String getServletInfo()
 	{
-		return "Web Coverage Processing Service";
+		return "Web Coverage Processing Service (PetaScope Implementation)";
 
 	}
 

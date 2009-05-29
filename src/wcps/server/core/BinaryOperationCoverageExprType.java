@@ -137,6 +137,6 @@ public class BinaryOperationCoverageExprType implements IRasNode, ICoverageInfo
 
 	public String toRasQL()
 	{
-		return "(" + first.toRasQL() + ")" + operation + "(" + second.toRasQL() + ")";
+		return "((" + first.toRasQL() + ")" + operation + "(" + second.toRasQL() + "))";
 	}
 }

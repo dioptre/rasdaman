@@ -98,7 +98,8 @@ public class CoverageExprType implements IRasNode, ICoverageInfo
 		}
         else if (nodeName.equals("const"))
 		{
-			child = new ConstantCoverageExprType(node, pcr);
+            // TODO: implement class ConstantCoverageExprType
+			child = new ConstantCoverageExprType(node.getFirstChild(), pcr);
 		}
 		else
 		{    // Try one of the groups

@@ -9,17 +9,14 @@
             </coverageIterator>
             <encode>
                 <format>jpeg</format>
-                <cast>
-                    <type>char</type>
-                    <log>
-                        <fieldSelect>
-                            <coverage>s</coverage>
-                            <field>
-                                <name>0</name>
-                            </field>
-                        </fieldSelect>
-                    </log>
-                </cast>
+                <log>
+                    <fieldSelect>
+                        <coverage>s</coverage>
+                        <field>
+                            <name>2</name>
+                        </field>
+                    </fieldSelect>
+                </log>
             </encode>
         </xmlSyntax>
     </query>

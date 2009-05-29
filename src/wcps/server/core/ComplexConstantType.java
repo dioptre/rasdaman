@@ -51,6 +51,41 @@ public class ComplexConstantType implements IRasNode
 
             node = node.getNextSibling();
         }
+
+        // parse the real part
+        try
+        {
+            Integer real = Integer.parseInt(re);
+        }
+        catch (NumberFormatException e)
+        {
+            try
+            {
+                Float real = Float.parseFloat(re);
+            }
+            catch (NumberFormatException e2)
+            {
+                throw new WCPSException("Could not parse float or integer " +
+                        "number for real part of complex number:" + re);
+            }
+        }
+        // parse the imaginary part
+        try
+        {
+            Integer imag = Integer.parseInt(im);
+        }
+        catch (NumberFormatException e)
+        {
+            try
+            {
+                Float imag = Float.parseFloat(im);
+            }
+            catch (NumberFormatException e2)
+            {
+                throw new WCPSException("Could not parse float or integer " +
+                        "number for imaginary part of complex number" + im);
+            }
+        }
 	}
 
 	public String toRasQL()

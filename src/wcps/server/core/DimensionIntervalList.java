@@ -34,31 +34,6 @@ public class DimensionIntervalList
 	public DimensionIntervalList(Node node, ProcessCoveragesRequest pcr)
 	    throws WCPSException
 	{
-		/*
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
-
-		if (node == null)
-		{
-			throw new WCPSException("SubsetOperationCoverageExpr parsing error!");
-		}
-
-		String nodeName = node.getNodeName();
-
-		System.err.println("SubsetOperationCoverageExpr: node " + nodeName);
-
-        if (nodeName.equals("trim"))
-        {
-            child = new TrimCoverageExprType(node, pcr);
-        }
-        else if (nodeName.equals("extend"))
-             child = new ExtendCoverageExprType(node, pcr);
-        else if (nodeName.equals("slice"))
-            child = new SliceCoverageExprType(node, pcr);
-         * */
-
         System.err.println("Parsing a Dimension Interval List ...");
 
         while (node != null)

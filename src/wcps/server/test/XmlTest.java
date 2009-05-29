@@ -44,11 +44,10 @@ import org.apache.commons.io.FileUtils;
  */
 public class XmlTest {
     // Put new test cases in this folder
-
 //    public final String PetascopeURL = "http://localhost:8080/PetaScope/WCPService";
     public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope/wcps/";
 
-    String folder = "testing/testcases/";
+    String folder = "testing/testcases-wcps/";
     // How many tests we have to run
     int numTests = 0;
     // tests

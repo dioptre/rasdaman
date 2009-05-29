@@ -25,29 +25,37 @@ public class grammar {
         {
             System.err.println("AbstractGrammarGen: no query as parameter !");
             // What is the meaning of AxisIterator variable and axis type? Query 15, 16
-            // Query 4: cast should not be this greedy! (float)a + b != (float) (a+b)
-            query = "for s in ( rgb, rgb, rgb ),    r in ( rgb ) return	count( ((s.0-s.1)/(s.0+s.1) > 0.6) * r )";
+            query = "for s in ( rgb, rgb, rgb ), r in ( rgb ) return " +
+                    "count( ((s.0-s.1)/(s.0+s.1) > 0.6) * r )";
         }
         else
             query = args[0];
 			
 		System.out.println("Running with the following query: " + query);
 
+        String xmlString = runQuery(query);
+        System.out.println("Output XML: \n****************\n" + xmlString);
+         
+        System.exit(0);
+
+    }
+
+    public static String runQuery(String query) throws IOException, RecognitionException
+    {
         InputStream stream = new ByteArrayInputStream(query.getBytes()); // defaults to ISO-1
         ANTLRInputStream inputStream = new ANTLRInputStream(stream);
 //        wcpsLexer lexer = new wcpsLexer( inputStream );
 		wcpsLexer lexer = new wcpsLexer( inputStream );
-		
+
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
 //        wcpsParser parser = new wcpsParser(tokenStream);
 		wcpsParser parser = new wcpsParser(tokenStream);
-		
+
         wcpsRequest_return rrequest = parser.wcpsRequest();
 		WCPSRequest request = rrequest.value;
-        System.out.println("Output XML: \n****************\n" + request.toXML());
-         
-        System.exit(0);
 
+        String result = request.toXML();
+        return result;
     }
 
 }
