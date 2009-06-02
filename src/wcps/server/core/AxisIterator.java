@@ -23,6 +23,7 @@
 
 package wcps.server.core;
 
+import java.math.BigInteger;
 import org.w3c.dom.*;
 
 public class AxisIterator implements IRasNode
@@ -31,7 +32,7 @@ public class AxisIterator implements IRasNode
     private AxisName axis;
 	private NumericScalarExpr hi,lo;
 
-	public AxisIterator(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public AxisIterator(Node node, XmlQuery xq) throws WCPSException
 	{
 
         while ((node != null) && node.getNodeName().equals("#text"))
@@ -50,16 +51,16 @@ public class AxisIterator implements IRasNode
             }
             else if (nodeName.equals("axis"))
             {
-                axis = new AxisName(node, pcr);
+                axis = new AxisName(node, xq);
             }
             else
             {
                 // Should contain the limits
                 // TODO: Implement ImageCrsDomainMetadataType class
                 if (lo == null)
-                    lo = new NumericScalarExpr(node, pcr);
+                    lo = new NumericScalarExpr(node, xq);
                 else if (hi == null)
-                    hi = new NumericScalarExpr(node, pcr);
+                    hi = new NumericScalarExpr(node, xq);
                 else
                     throw new WCPSException("Unknown node in AxisIterator: " + nodeName);
             }
@@ -74,7 +75,37 @@ public class AxisIterator implements IRasNode
 
 	public String toRasQL()
 	{
-		String result = var + " in (" + lo.toRasQL() + "):(" + hi.toRasQL() + ")";
+		String result = var + " in [" + lo.toRasQL() + ":" + hi.toRasQL() + "]";
         return result;
 	}
+
+    /** Return the Higher bound for the axis iterator.
+     * This only works for constant expressions.
+     * TODO: implement arbitrary expressions.
+     * @return BigInteger
+     */
+    public BigInteger getHigh()
+    {
+        return SDU.str2integer(hi.toRasQL()).get(0);
+    }
+
+    /** Return the Lower bound for the axis iterator.
+     * This only works for constant expressions.
+     * TODO: implement arbitrary expressions.
+     * @return BIgInteger
+     */
+    public BigInteger getLow()
+    {
+        return SDU.str2integer(lo.toRasQL()).get(0);
+    }
+
+    public String getVar()
+    {
+        return var;
+    }
+
+    public String getAxisType()
+    {
+        return axis.toRasQL();
+    }
 }

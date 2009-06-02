@@ -31,7 +31,7 @@ public class NumericScalarExpr implements IRasNode
 	private String op, value;
     private boolean twoChildren;
 
-	public NumericScalarExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public NumericScalarExpr(Node node, XmlQuery xq) throws WCPSException
 	{
         twoChildren = false;
         String nodeName = node.getNodeName();
@@ -61,17 +61,17 @@ public class NumericScalarExpr implements IRasNode
             op = code(nodeName);
             twoChildren = false;
             if (nodeName.equals("complexConstant"))
-                first = new ComplexConstant(node, pcr);
+                first = new ComplexConstant(node, xq);
             if (nodeName.equals("condense"))
-                first = new CondenseScalarExpr(node, pcr);
+                first = new CondenseScalarExpr(node, xq);
             if (nodeName.equals("reduce"))
-                first = new ReduceScalarExpr(node, pcr);
+                first = new ReduceScalarExpr(node, xq);
 		}
 		else if (nodeName.equals("numericUnaryMinus"))
 		{
             op = code(nodeName);
             twoChildren = false;
-            first = new NumericScalarExpr(node.getFirstChild(), pcr);
+            first = new NumericScalarExpr(node.getFirstChild(), xq);
 		}
         else if (nodeName.equals("numericAdd")
                 || nodeName.equals("numericMinus")
@@ -83,8 +83,8 @@ public class NumericScalarExpr implements IRasNode
                 op = code(nodeName);
                 twoChildren = true;
                 Node child = node.getFirstChild();
-                first = new NumericScalarExpr(child, pcr);
-                second = new NumericScalarExpr(child.getNextSibling(), pcr);
+                first = new NumericScalarExpr(child, xq);
+                second = new NumericScalarExpr(child.getNextSibling(), xq);
             }
             catch (WCPSException e)
             {

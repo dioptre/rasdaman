@@ -28,7 +28,7 @@ import org.w3c.dom.*;
 //TODO(smsorin): how do we do combine this ?
 public class CrsTransformCoverageExpr implements IRasNode, ICoverageInfo
 {
-	public CrsTransformCoverageExpr(Node node, ProcessCoveragesRequest pcr)
+	public CrsTransformCoverageExpr(Node node, XmlQuery xq)
 	    throws WCPSException
 	{
 		throw new WCPSException("Method not implemented");

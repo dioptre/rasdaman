@@ -23,8 +23,6 @@
 
 package wcps.server.core;
 
-import java.math.BigInteger;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -34,9 +32,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-//This class implements WCPS metadata. For information on what each field means, see the WCPS standard. This class provides extensive error cheching and well as various utility functions.
+/**
+ * This class implements WCPS metadata. For information on what each field
+ * means, see the WCPS standard. This class provides extensive error cheching
+ * and well as various utility functions.
+ */
 
-class Metadata implements Cloneable
+public class Metadata implements Cloneable
 {
 	private static final DateFormat iso8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	private List<CellDomainElement> cellDomain;

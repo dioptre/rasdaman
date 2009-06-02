@@ -30,7 +30,7 @@ public class ReduceScalarExpr implements IRasNode
 	CoverageExpr expr;
 	String op;
 
-	public ReduceScalarExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public ReduceScalarExpr(Node node, XmlQuery xq) throws WCPSException
 	{
         System.err.println("Trying to parse ReduceScalarExpr ");
 		String nodeName = node.getNodeName();
@@ -53,7 +53,7 @@ public class ReduceScalarExpr implements IRasNode
 				node = node.getNextSibling();
 			}
 
-			expr = new CoverageExpr(node, pcr);
+			expr = new CoverageExpr(node, xq);
 		}
 		else
 		{

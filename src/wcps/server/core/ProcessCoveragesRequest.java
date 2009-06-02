@@ -58,20 +58,16 @@ import org.xml.sax.InputSource;
  */
 public class ProcessCoveragesRequest
 {
-//	private IRasNode coverageExpr;
 	private String database;
-//	private ArrayList<CoverageIterator> iterators;
-	private MetadataSource source;
+	private IDynamicMetadataSource source;
 	private String url;
-//	private IRasNode where;
 
     private WCPS wcps;
     private String rasqlQuery;
     private String mime;
     private XmlQuery xmlQuery;
-//    public IRasNode covRequest;
 
-	public ProcessCoveragesRequest(String url, String database, Node node, MetadataSource source, WCPS wcps)
+	public ProcessCoveragesRequest(String url, String database, Node node, IDynamicMetadataSource source, WCPS wcps)
 	    throws WCPSException, InvalidRequestException, ResourceException, SAXException, IOException
 	{
 		super();
@@ -80,7 +76,6 @@ public class ProcessCoveragesRequest
 		this.database = database;
         this.wcps     = wcps;
 		Node child    = node.getFirstChild();
-//        iterators     = new ArrayList<CoverageIterator>();
         this.rasqlQuery = null;
 
         System.err.println("Parsing ProcessCoveragesRequest node: " + child.getNodeName());
@@ -111,8 +106,8 @@ public class ProcessCoveragesRequest
         if (queryNode.getNodeName().equals("xmlSyntax"))
         {
             System.err.println("Found XML Syntax query");
-            this.xmlQuery = new XmlQuery();
-            xmlQuery.startParsing(queryNode, this);
+            this.xmlQuery = new XmlQuery(this.source);
+            xmlQuery.startParsing(queryNode);
         }
         else
         if (queryNode.getNodeName().equals("abstractSyntax"))
@@ -169,33 +164,33 @@ public class ProcessCoveragesRequest
 	{
 		return mime;
 	}
-
-	public MetadataSource getMetadataSource()
-	{
-		return source;
-	}
+//
+//	public IMetadataSource getMetadataSource()
+//	{
+//		return source;
+//	}
 
     private XmlQuery getXmlRequestStructure()
     {
         return xmlQuery;
     }
 
-	public Boolean isIteratorDefined(String iteratorName)
-	{
-		Boolean result = xmlQuery.isIteratorDefined(iteratorName);
-        return result;
-	}
-
+//	public Boolean isIteratorDefined(String iteratorName)
+//	{
+//		Boolean result = xmlQuery.isIteratorDefined(iteratorName);
+//        return result;
+//	}
+//
 	public String getRasqlQuery()
 	{
 		return this.rasqlQuery;
 	}
 
-	public Iterator<String> getCoverages(String iteratorName) throws WCPSException
-	{
-        Iterator<String> result = xmlQuery.getCoverages(iteratorName);
-        return result;
-	}
+//	public Iterator<String> getCoverages(String iteratorName) throws WCPSException
+//	{
+//        Iterator<String> result = xmlQuery.getCoverages(iteratorName);
+//        return result;
+//	}
 
 	public List<byte[]> execute() throws ResourceException
 	{

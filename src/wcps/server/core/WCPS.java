@@ -54,10 +54,11 @@ import javax.xml.validation.SchemaFactory;
 public class WCPS
 {
 	private static final String SCHEMA_PACKAGE_PROCESSCOVERAGE = "wcps.xml.processcoverage";
-	private MetadataSource metadataSource;
+	private IMetadataSource metadataSource;
+    private IDynamicMetadataSource dynamicMetadataSource;
 	private DocumentBuilder wcpsDocumentBuilder;
 
-	public WCPS(File pcSchema, MetadataSource metadataSource) throws WCPSException
+	public WCPS(File pcSchema, IMetadataSource metadataSource) throws WCPSException
 	{
 		try
 		{
@@ -80,7 +81,7 @@ public class WCPS
 			    "Error while loading the document builder interface!", e);
 		}
 
-		this.metadataSource = metadataSource;
+        this.dynamicMetadataSource = new DynamicMetadataSource(metadataSource);
 	}
 
 	public List<byte[]> pcExecute(String url, String database, ProcessCoveragesRequest pcRequest)
@@ -174,7 +175,7 @@ public class WCPS
 	private ProcessCoveragesRequest pcPrepare(String url, String database, Document doc)
 	    throws WCPSException, InvalidRequestException, ResourceException, SAXException, IOException
 	{
-        ProcessCoveragesRequest req = new ProcessCoveragesRequest(url, database, doc, metadataSource, this);
+        ProcessCoveragesRequest req = new ProcessCoveragesRequest(url, database, doc, dynamicMetadataSource, this);
         return req;
 	}
 }

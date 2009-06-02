@@ -24,34 +24,42 @@
 package wcps.server.core;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * A IMetadataSource that caches reads from another IMetadataSource. It reads
- * and caches all coverages at startup, in order to make reads faster and so
- * that WCPS will continue to work once it initializes correctly, even if the
- * database cannot be accessed, or metadata is changed into an invalid state.
+ * A IMetadataSource that allows WCPS to store information about on-the-fly
+ * constructed coverages (for example Construct Coverage expr).
+ * Needs another MetadataSource as a backend, to retrieve metadata about
+ * static coverages.
  */
 
-public class CachedMetadataSource implements IMetadataSource
+public class DynamicMetadataSource implements IDynamicMetadataSource
 {
-	private Set<String> coverageNames;
+    // Static coverages, served by the server at all times
+	private Set<String> staticCoverageNames;
+    // Dynamic coverages, built on-the-fly in a query
+    private Set<String> dynamicCoverageNames;
+    // Union of static and dynamic coverages
+    private Set<String> allCoverageNames;
+    // Metadata information for all available coverages
 	private Map<String, Metadata> metadata;
+    // Other metadata class that serves as backend
 	private IMetadataSource metadataSource;
-	private Map<String, String> supportedFormats;
 
-	public CachedMetadataSource(IMetadataSource metadataSource)
+	public DynamicMetadataSource(IMetadataSource metadataSource)
 	    throws ResourceException, InvalidMetadataException
 	{
 		this.metadataSource = metadataSource;
+        staticCoverageNames = metadataSource.coverages();
+        dynamicCoverageNames = new HashSet<String>();
+        allCoverageNames = staticCoverageNames;
+        metadata = new HashMap<String, Metadata>();
 
-		coverageNames       = metadataSource.coverages();
-		metadata            = new HashMap<String, Metadata>(coverageNames.size());
-		supportedFormats    = new HashMap<String, String>();
-		Iterator<String> i = coverageNames.iterator();
-
+        // Init metadata for static coverages
+        Iterator<String> i = staticCoverageNames.iterator();
 		try
 		{
 			while (i.hasNext())
@@ -64,33 +72,16 @@ public class CachedMetadataSource implements IMetadataSource
 		{
 			throw(InvalidMetadataException) ire.getCause();
 		}
-
 	}
 
 	public Set<String> coverages()
 	{
-		return coverageNames;
-
+		return allCoverageNames;
 	}
 
 	public String mimetype(String format)
 	{
-		if (supportedFormats.containsKey(format))
-		{
-			return supportedFormats.get(format);
-		}
-		else
-		{
-			String mimetype = metadataSource.mimetype(format);
-
-			synchronized (this)
-			{
-				supportedFormats.put(format, mimetype);
-			}
-
-			return mimetype;
-		}
-
+		return metadataSource.mimetype(format);
 	}
 
 	public Metadata read(String coverageName) throws InvalidRequestException
@@ -101,13 +92,20 @@ public class CachedMetadataSource implements IMetadataSource
 			    "Cannot retrieve coverage with null or empty name");
 		}
 
-		if (!coverageNames.contains(coverageName))
+		if (!allCoverageNames.contains(coverageName))
 		{
 			throw new InvalidRequestException("Coverage '" + coverageName
 							  + "' is not served by this server");
 		}
 
 		return metadata.get(coverageName).clone();
-
 	}
+
+    public void addDynamicMetadata(String coverageName, Metadata meta)
+    {
+        metadata.put(coverageName, meta);
+        dynamicCoverageNames.add(coverageName);
+        allCoverageNames = staticCoverageNames;
+        allCoverageNames.addAll(dynamicCoverageNames);
+    }
 }

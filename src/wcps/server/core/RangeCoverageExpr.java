@@ -34,7 +34,7 @@ public class RangeCoverageExpr implements IRasNode, ICoverageInfo
 	private CoverageInfo info = null;
     List<IRasNode> components;
 
-	public RangeCoverageExpr(Node node, ProcessCoveragesRequest pcr)
+	public RangeCoverageExpr(Node node, XmlQuery xq)
 	    throws WCPSException
 	{
         

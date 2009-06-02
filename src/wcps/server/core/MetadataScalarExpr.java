@@ -29,7 +29,7 @@ import org.w3c.dom.*;
 public class MetadataScalarExpr implements IRasNode
 {
 
-	public MetadataScalarExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public MetadataScalarExpr(Node node, XmlQuery xq) throws WCPSException
 	{
         throw new WCPSException("Method not yet implemented !");
 	}

@@ -32,6 +32,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import org.apache.commons.io.FileUtils;
 
 /** Runs the available XML tests against a deployed version of Petascope,
@@ -42,10 +43,10 @@ import org.apache.commons.io.FileUtils;
  *
  * @author Andrei Aiordachioaie
  */
-public class XmlTest {
+public class GrammarTestOnline {
     // Put new test cases in this folder
-//    public final String PetascopeURL = "http://localhost:8080/PetaScope/WCPService";
-    public final String PetascopeURL = "http://localhost:8080/petascope/wcps/";
+    public final String PetascopeURL = "http://localhost:8080/PetaScope/WCPService";
+//    public final String PetascopeURL = "http://localhost:8080/petascope/wcps/";
 //    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope/wcps/";
 
     String folder = "test/testcases-wcps/";
@@ -68,14 +69,14 @@ public class XmlTest {
 
         for (int i = 0; i < numTests; i++) {
             String tname = tests[i].getName();
-            tname = tname.substring(0, tname.length() - 9);
+            tname = tname.substring(0, tname.length() - 5);
             if (ok[i] == true)
             {
                 System.out.println("*** Test '" + tname + "' ok");
 //                System.out.println("\t" + queries[i]);
             } else {
                 System.out.println("*** Test '" + tname + "' FAILED");
-//                System.out.println("\t" + queries[i]);
+                System.out.println("\t" + queries[i]);
                 System.out.println("\t ERROR: " + errors[i]);
             }
         }
@@ -84,25 +85,25 @@ public class XmlTest {
         System.out.println("Tests failed: " + String.valueOf(numTests - passCount));
     }
 
-    public XmlTest() {
+    public GrammarTestOnline() {
         // Find out how many tests we have to run
         File dir = new File(folder);
         System.out.println("Looking for tests in " + dir.getAbsolutePath() + "\n");
         XmlFileFilter filter = new XmlFileFilter();
         tests = dir.listFiles(filter);
         numTests = tests.length;
-//        numTests = 1;
+//        numTests = 3;
         ok = new boolean[numTests];
         errors = new String[numTests];
         queries = new String[numTests];
     }
 
-    /* Accept all files with extension xml. */
+    /* Accept all files with extension TEST. */
     private class XmlFileFilter implements FilenameFilter {
 
         @Override
         public boolean accept(File dir, String name) {
-            if (name.endsWith("xml")) {
+            if (name.endsWith("test")) {
                 return true;
             }
             return false;
@@ -116,7 +117,7 @@ public class XmlTest {
         {
             ok[i] = false;
             tname = tests[i].getName();
-            tname = tname.substring(0, tname.length() - 9);
+            tname = tname.substring(0, tname.length() - 5);
             System.out.println("Running test '" + tname + "'...");
             try {
                 query = FileUtils.readFileToString(tests[i]);
@@ -126,7 +127,7 @@ public class XmlTest {
                 continue;
             }
             try {
-                String err = runOneTest(query);
+                String err = runOneTest("query", query);
                 if (err == null)
                     ok[i] = true;
                 else
@@ -142,10 +143,12 @@ public class XmlTest {
     /** Send an XML request to the WCPS server. Hopefully it will succeed.
      * Returns a message on error or null otherwise.
      **/
-    public String runOneTest(String xml) throws MalformedURLException, IOException {
+    public String runOneTest(String param, String query)
+            throws MalformedURLException, IOException
+    {
 
 //        System.out.println("--------------------");
-//        System.out.println(xml);
+//        System.out.println(query);
 //        System.out.println("\t--------------------");
         
         // connect to the servlet
@@ -166,29 +169,29 @@ public class XmlTest {
         // Specify the content type that we will send binary data
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-//        String data = "xml=" + URLEncoder.encode("xml", "UTF-16");
-        String data = "xml=" + xml;
+        String data = param + "=" + URLEncoder.encode(query);
         DataOutputStream out = new DataOutputStream(conn.getOutputStream());
         out.writeBytes(data);
         out.flush();
         out.close();
-
 
         BufferedReader cgiOutput = new BufferedReader(
                 new InputStreamReader(conn.getInputStream()));
         String line1 = cgiOutput.readLine();
         String line2 = cgiOutput.readLine();
         String line3 = cgiOutput.readLine();
-//        System.out.println("\t" + line1);
-//        System.out.println("\t" + line2);
-//        System.out.println("\t" + line3);
+        System.out.println("\t" + line1);
+        System.out.println("\t" + line2);
+        System.out.println("\t" + line3);
 
         if (line1 != null && line2 != null && line3 != null &&
                 line2.equals("<h1>An error has occured</h1>"))
         {
-            System.out.println("Error executing query: ");
+            while (cgiOutput.ready())
+                System.out.println("\t" + cgiOutput.readLine());
+//            System.out.println("Error executing query: ");
             String error = line3.substring(10, line3.length() - 4);
-            System.out.println("\t" + error);
+//            System.out.println("\t" + error);
             return error;
         }
         else
@@ -198,7 +201,7 @@ public class XmlTest {
 
     public static void main(String args[])
     {
-      XmlTest tester = new XmlTest();
+      GrammarTestOnline tester = new GrammarTestOnline();
       tester.runAllTests();
       tester.printResults();
     }

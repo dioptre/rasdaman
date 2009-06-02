@@ -28,7 +28,7 @@ import org.w3c.dom.*;
 // TODO: Implement class SetMetadataCoverageExprType
 public class SetMetadataCoverageExpr implements IRasNode, ICoverageInfo
 {
-	public SetMetadataCoverageExpr(Node node, ProcessCoveragesRequest pcr)
+	public SetMetadataCoverageExpr(Node node, XmlQuery xq)
 	    throws WCPSException
 	{
 		throw new WCPSException("Method not implemented");

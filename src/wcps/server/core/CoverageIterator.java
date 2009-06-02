@@ -33,13 +33,12 @@ public class CoverageIterator implements IRasNode
 {
 	private List<String> coverageNames;
 	private String iteratorName;
+    private boolean dynamic = false;    // created from a Construct Coverage expr?
 
-	public CoverageIterator(Node x, ProcessCoveragesRequest pcr) throws WCPSException
+	public CoverageIterator(Node x, XmlQuery xq) throws WCPSException
 	{
-		MetadataSource source = pcr.getMetadataSource();
-
+		IDynamicMetadataSource source = xq.getMetadataSource();
 		coverageNames = new ArrayList<String>();
-
 		if (! x.getNodeName().equals("coverageIterator"))
 		{
 			throw new WCPSException("Invalid cast from " + x.getNodeName()
@@ -47,7 +46,6 @@ public class CoverageIterator implements IRasNode
 		}
 
 		Node it = x.getFirstChild();
-
 		while (it != null)
 		{
 			if (it.getNodeName().equals("#text"))
@@ -64,15 +62,11 @@ public class CoverageIterator implements IRasNode
 			else if (it.getNodeName().equals("coverageName"))
 			{
 				String cn = it.getFirstChild().getNodeValue();
-
 				System.err.println("*** Coverage reference : " + cn);
-
 				try
 				{
 					if (!source.coverages().contains(cn))
-					{
 						throw new WCPSException("Unknown coverage " + cn);
-					}
 				}
 				catch (ResourceException e)
 				{
@@ -87,6 +81,14 @@ public class CoverageIterator implements IRasNode
 		}
 	}
 
+    public CoverageIterator(String iterator, String coverage) throws WCPSException
+	{
+		coverageNames = new ArrayList<String>();
+        iteratorName = iterator;
+        coverageNames.add(coverage);
+        this.dynamic = true;
+	}
+
 	public Iterator<String> getCoverages()
 	{
 		return coverageNames.iterator();
@@ -99,7 +101,7 @@ public class CoverageIterator implements IRasNode
 
 	public String toRasQL()
 	{
-		// TODO(smsorin) : How to translate multiple coverages?
+		// TODO(andreia) : How to translate multiple coverages?
 		return coverageNames.get(0) + " AS " + iteratorName;
 	}
 }

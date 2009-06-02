@@ -32,7 +32,7 @@ public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo
 	private String operation;
 	private String params;
 
-	public UnaryOperationCoverageExpr(Node node, ProcessCoveragesRequest pcr)
+	public UnaryOperationCoverageExpr(Node node, XmlQuery xq)
 	    throws WCPSException
 	{
 		String nodeName = node.getNodeName();
@@ -42,12 +42,12 @@ public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo
 		if (nodeName.equals("unaryPlus"))
 		{
 			operation = "+";
-			child     = new CoverageExpr(node.getFirstChild(), pcr);
+			child     = new CoverageExpr(node.getFirstChild(), xq);
 		}
 		else if (nodeName.equals("unaryMinus"))
 		{
 			operation = "-";
-			child     = new CoverageExpr(node.getFirstChild(), pcr);
+			child     = new CoverageExpr(node.getFirstChild(), xq);
 		}
         // TODO(andrei): Check if "re" and "im" operations work
 		else if (nodeName.equals("sqrt") || nodeName.equals("abs")
@@ -59,7 +59,7 @@ public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo
 		    || nodeName.equals("not") || nodeName.equals("re") || nodeName.equals("im"))
 		{
 			operation = nodeName;
-			child     = new CoverageExpr(node.getFirstChild(), pcr);
+			child     = new CoverageExpr(node.getFirstChild(), xq);
 		}
 		else if (nodeName.equals("bit"))
 		{
@@ -89,7 +89,7 @@ public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo
 				}
 				else
 				{
-					child = new CoverageExpr(c, pcr);
+					child = new CoverageExpr(c, xq);
 				}
 
 				c = c.getNextSibling();
@@ -110,12 +110,12 @@ public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo
 
 				if (c.getNodeName().equals("type"))
 				{
-                    RangeField typeNode = new RangeField(c, pcr);
+                    RangeField typeNode = new RangeField(c, xq);
 					params = typeNode.toRasQL();
 				}
 				else
 				{
-					child = new CoverageExpr(c, pcr);
+					child = new CoverageExpr(c, xq);
 				}
 
 				c = c.getNextSibling();
@@ -136,12 +136,12 @@ public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo
 
 				if (c.getNodeName().equals("field"))
 				{
-                    FieldName nameNode = new FieldName(c.getFirstChild(), pcr);
+                    FieldName nameNode = new FieldName(c.getFirstChild(), xq);
 					params = nameNode.toRasQL();
 				}
 				else
 				{
-					child = new CoverageExpr(c, pcr);
+					child = new CoverageExpr(c, xq);
 				}
 
 				c = c.getNextSibling();

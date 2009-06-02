@@ -32,7 +32,7 @@ public class BinaryOperationCoverageExpr implements IRasNode, ICoverageInfo
 	private CoverageInfo info;
 	private String operation;
 
-	public BinaryOperationCoverageExpr(Node node, ProcessCoveragesRequest pcr)
+	public BinaryOperationCoverageExpr(Node node, XmlQuery xq)
 	    throws WCPSException
 	{
 		String nodeName = node.getNodeName();
@@ -124,7 +124,7 @@ public class BinaryOperationCoverageExpr implements IRasNode, ICoverageInfo
 			operand = operand.getNextSibling();
 		}
 
-        pair = new CoverageExprPairType(operand, pcr);
+        pair = new CoverageExprPairType(operand, xq);
         info = new CoverageInfo(((ICoverageInfo) pair).getCoverageInfo());
         first = pair.getFirst();
         second = pair.getSecond();

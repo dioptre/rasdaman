@@ -32,7 +32,7 @@ public class BooleanScalarExpr implements IRasNode
 	private boolean simple;    // true if the expression is just a value
 	private String value;
 
-	public BooleanScalarExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public BooleanScalarExpr(Node node, XmlQuery xq) throws WCPSException
 	{
         if (node == null)
             throw new WCPSException("Unexpected null node !");
@@ -87,14 +87,14 @@ public class BooleanScalarExpr implements IRasNode
 
 			Node child = node.getFirstChild();
 
-			first  = new BooleanScalarExpr(child, pcr);
+			first  = new BooleanScalarExpr(child, xq);
 			child  = child.getNextSibling();
-			second = new BooleanScalarExpr(child, pcr);
+			second = new BooleanScalarExpr(child, xq);
 		}
 		else if (nodeName.equals("booleanNot"))
 		{
 			op    = "not";
-			first = new BooleanScalarExpr(node.getFirstChild(), pcr);
+			first = new BooleanScalarExpr(node.getFirstChild(), xq);
 		}
 		else
 		{

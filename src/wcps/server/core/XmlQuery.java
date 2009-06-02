@@ -25,7 +25,6 @@ package wcps.server.core;
 
 import org.w3c.dom.*;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -39,23 +38,27 @@ class XmlQuery implements IRasNode
     private ArrayList<CoverageIterator> iterators;
     private BooleanScalarExpr where;
     private IRasNode coverageExpr;
+    private IDynamicMetadataSource meta;
+    private ArrayList<CoverageIterator> dynamicIterators;
 
     public String getMimeType()
     {
         return mime;
     }
 
-    public XmlQuery()
+    public XmlQuery(IDynamicMetadataSource source)
     {
         super();
+        this.meta = source;
     }
 
-    public void startParsing(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+    public void startParsing(Node node) throws WCPSException
     {
         System.err.println("Processing XML Request: " + node.getNodeName());
 
         Node x = node.getFirstChild();
         iterators = new ArrayList<CoverageIterator>();
+        dynamicIterators = new ArrayList<CoverageIterator>();
 
         while (x != null)
         {
@@ -69,24 +72,24 @@ class XmlQuery implements IRasNode
 
             if (x.getNodeName().equals("coverageIterator"))
             {
-                iterators.add(new CoverageIterator(x, pcr));
+                iterators.add(new CoverageIterator(x, this));
             }
             else if (x.getNodeName().equals("where"))
             {
-                where = new BooleanScalarExpr(x.getFirstChild(), pcr);
+                where = new BooleanScalarExpr(x.getFirstChild(), this);
             }
             else if (x.getNodeName().equals("encode"))
             {
                 EncodeDataExpr encode;
 
-                encode = new EncodeDataExpr(x, pcr);
+                encode = new EncodeDataExpr(x, this);
                 coverageExpr = encode;
                 mime = encode.getMime();
             }
             else
             {
                 // It has to be a scalar Expr 
-                coverageExpr = new ScalarExpr(x, pcr);
+                coverageExpr = new ScalarExpr(x, this);
                 mime = "text/plain";
             }
 
@@ -94,27 +97,39 @@ class XmlQuery implements IRasNode
         }
     }
 
-    public XmlQuery(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+    public XmlQuery(Node node) throws WCPSException
     {
-        startParsing(node, pcr);
+        this.startParsing(node);
     }
 
     public Boolean isIteratorDefined(String iteratorName)
 	{
 		Iterator<CoverageIterator> it = iterators.iterator();
-
 		while (it.hasNext())
 		{
 			CoverageIterator tmp = it.next();
-
 			if (iteratorName.equals(tmp.getIteratorName()))
-			{
 				return true;
-			}
 		}
+
+        it = dynamicIterators.iterator();
+        while (it.hasNext())
+        {
+			CoverageIterator tmp = it.next();
+			if (iteratorName.equals(tmp.getIteratorName()))
+				return true;
+        }
 
 		return false;
 	}
+
+    /* Stores information about dynamically created iterators.
+     * For example, from a Construct Coverage expression.
+     */
+    public void addDynamicIterator(CoverageIterator i)
+    {
+        dynamicIterators.add(i);
+    }
 
     public Iterator<String> getCoverages(String iteratorName) throws WCPSException
 	{
@@ -126,8 +141,32 @@ class XmlQuery implements IRasNode
 			}
 		}
 
+        for (int i = 0; i < dynamicIterators.size(); ++i)
+		{
+			if (dynamicIterators.get(i).getIteratorName().equals(iteratorName))
+			{
+				return dynamicIterators.get(i).getCoverages();
+			}
+		}
+
 		throw new WCPSException("Iterator " + iteratorName + " not defined");
 	}
+
+    public boolean isDynamicCoverage(String coverageName)
+    {
+        for (int i = 0; i < dynamicIterators.size(); ++i)
+		{
+			Iterator<String> iterator =
+                    ((CoverageIterator)dynamicIterators.get(i)).getCoverages();
+            while (iterator.hasNext())
+			{
+                if (iterator.next().equals(coverageName))
+                    return true;
+			}
+		}
+
+        return false;
+    }
 
     public String toRasQL()
     {
@@ -156,4 +195,9 @@ class XmlQuery implements IRasNode
 
         return result;
     }
+
+    public IDynamicMetadataSource getMetadataSource()
+	{
+		return meta;
+	}
 }

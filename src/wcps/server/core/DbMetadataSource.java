@@ -39,9 +39,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-//The DbMetadataSource is a MetadataSource that uses a relational database. It keeps a global connection which is reused on future requests, as well as between threads. Before each read, the connection is verified to be valid, and recreated if necessary. This MetadataSource is not particularly efficient, because it accesses the database at least once for every read. To increase efficiency, wrap a CachedMetadataSource around this one.
+//The DbMetadataSource is a IMetadataSource that uses a relational database. It keeps a global connection which is reused on future requests, as well as between threads. Before each read, the connection is verified to be valid, and recreated if necessary. This IMetadataSource is not particularly efficient, because it accesses the database at least once for every read. To increase efficiency, wrap a CachedMetadataSource around this one.
 
-public class DbMetadataSource implements MetadataSource
+public class DbMetadataSource implements IMetadataSource
 {
 	private static final int CONNECTION_TIMEOUT = 4;
 	private Map<Integer, String> axisTypes;
@@ -144,7 +144,7 @@ public class DbMetadataSource implements MetadataSource
 				crss.put(r.getInt("id"), r.getString("name"));
 			}
 
-			supportedFormats = new HashMap<String, String>(6);
+			supportedFormats = new HashMap<String, String>();
 			r                = s.executeQuery("SELECT name, mimetype FROM PS_Format");
 
 			while (r.next())
@@ -258,7 +258,6 @@ public class DbMetadataSource implements MetadataSource
 	public String mimetype(String format)
 	{
 		return supportedFormats.get(format);
-
 	}
 
 	public Metadata read(String coverageName) throws InvalidRequestException, ResourceException

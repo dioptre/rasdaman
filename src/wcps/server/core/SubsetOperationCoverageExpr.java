@@ -31,7 +31,7 @@ public class SubsetOperationCoverageExpr implements IRasNode, ICoverageInfo
     private IRasNode child;
 	private CoverageInfo info = null;
 
-	public SubsetOperationCoverageExpr(Node node, ProcessCoveragesRequest pcr)
+	public SubsetOperationCoverageExpr(Node node, XmlQuery xq)
 	    throws WCPSException
 	{
 		
@@ -51,17 +51,17 @@ public class SubsetOperationCoverageExpr implements IRasNode, ICoverageInfo
 
         if (nodeName.equals("trim"))
         {
-            child = new TrimCoverageExpr(node, pcr);
+            child = new TrimCoverageExpr(node, xq);
             info = ((TrimCoverageExpr) child).getCoverageInfo();
         }
         else if (nodeName.equals("extend"))
         {
-             child = new ExtendCoverageExpr(node, pcr);
+             child = new ExtendCoverageExpr(node, xq);
              info = ((ExtendCoverageExpr) child).getCoverageInfo();
         }
         else if (nodeName.equals("slice"))
         {
-            child = new SliceCoverageExpr(node, pcr);
+            child = new SliceCoverageExpr(node, xq);
             info = ((SliceCoverageExpr) child).getCoverageInfo();
         }
         else

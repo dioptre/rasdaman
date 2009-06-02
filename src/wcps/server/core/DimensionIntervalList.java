@@ -31,7 +31,7 @@ public class DimensionIntervalList
 {
     private ArrayList<IRasNode> list;
     
-	public DimensionIntervalList(Node node, ProcessCoveragesRequest pcr)
+	public DimensionIntervalList(Node node, XmlQuery xq)
 	    throws WCPSException
 	{
         System.err.println("Parsing a Dimension Interval List ...");
@@ -42,7 +42,7 @@ public class DimensionIntervalList
             try
             {
                 System.err.println("Parsing one dimension interval element ...");
-                DimensionIntervalElement elem = new DimensionIntervalElement(node, pcr);
+                DimensionIntervalElement elem = new DimensionIntervalElement(node, xq);
                 node = elem.getNextNode();
                 list.add(elem);
             }

@@ -31,7 +31,7 @@ public class CoverageExprPairType implements IRasNode, ICoverageInfo
 	private CoverageInfo info;
     private boolean ok = false;
 
-	public CoverageExprPairType(Node node, ProcessCoveragesRequest pcr)
+	public CoverageExprPairType(Node node, XmlQuery xq)
 	    throws WCPSException
 	{
 		String nodeName = node.getNodeName();
@@ -42,8 +42,8 @@ public class CoverageExprPairType implements IRasNode, ICoverageInfo
         // Combination 1: CoverageExprType + CoverageExprType
         try
         {
-            first = new CoverageExpr(node, pcr);
-            second = new CoverageExpr(node.getNextSibling(), pcr);
+            first = new CoverageExpr(node, xq);
+            second = new CoverageExpr(node.getNextSibling(), xq);
 			info = new CoverageInfo(((ICoverageInfo) first).getCoverageInfo());
             ok = true;
         }
@@ -56,8 +56,8 @@ public class CoverageExprPairType implements IRasNode, ICoverageInfo
         if (ok == false)
             try
             {
-                first = new CoverageExpr(node, pcr);
-                second = new ScalarExpr(node.getNextSibling(), pcr);
+                first = new CoverageExpr(node, xq);
+                second = new ScalarExpr(node.getNextSibling(), xq);
                 info = new CoverageInfo(((ICoverageInfo) first).getCoverageInfo());
                 ok = true;
             }
@@ -70,8 +70,8 @@ public class CoverageExprPairType implements IRasNode, ICoverageInfo
         if (ok == false)
             try
             {
-                first = new ScalarExpr(node, pcr);
-                second = new CoverageExpr(node.getNextSibling(), pcr);
+                first = new ScalarExpr(node, xq);
+                second = new CoverageExpr(node.getNextSibling(), xq);
                 info = new CoverageInfo(((ICoverageInfo) second).getCoverageInfo());
                 ok = true;
             }

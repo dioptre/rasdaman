@@ -29,7 +29,7 @@ public class CrsName implements IRasNode
 {
     private String crs;
 
-	public CrsName(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public CrsName(Node node, XmlQuery xq) throws WCPSException
 	{
         System.err.println("Parsing crs name ...");
 

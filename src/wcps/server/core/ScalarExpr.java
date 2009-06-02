@@ -33,7 +33,7 @@ public class ScalarExpr implements IRasNode
 //	private String type;    // can be simple (just a value), unary, binary, function or defered
 //	private String value;
 
-	public ScalarExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public ScalarExpr(Node node, XmlQuery xq) throws WCPSException
 	{
         while ((node != null) && node.getNodeName().equals("#text"))
         {
@@ -49,7 +49,7 @@ public class ScalarExpr implements IRasNode
         {
             try
             {
-                child = new MetadataScalarExpr(node, pcr);
+                child = new MetadataScalarExpr(node, xq);
                 System.err.println("Matched metadata scalar expression.");
             }
             catch (WCPSException e)
@@ -65,7 +65,7 @@ public class ScalarExpr implements IRasNode
         {
             try
             {
-                child = new BooleanScalarExpr(node, pcr);
+                child = new BooleanScalarExpr(node, xq);
                 System.err.println("Matched boolean scalar expression.");
             }
             catch (WCPSException e)
@@ -81,7 +81,7 @@ public class ScalarExpr implements IRasNode
         {
             try
             {
-                child = new NumericScalarExpr(node, pcr);
+                child = new NumericScalarExpr(node, xq);
                 System.err.println("Matched numeric scalar expression.");
             }
             catch (WCPSException e)
@@ -97,7 +97,7 @@ public class ScalarExpr implements IRasNode
         {
             try
             {
-                child = new ReduceScalarExpr(node, pcr);
+                child = new ReduceScalarExpr(node, xq);
                 System.err.println("Matched reduce scalar expression.");
             }
             catch (WCPSException e)
@@ -113,7 +113,7 @@ public class ScalarExpr implements IRasNode
         {
             try
             {
-                child = new StringScalarExpr(node, pcr);
+                child = new StringScalarExpr(node, xq);
                 System.err.println("Matched string scalar expression.");
             }
             catch (WCPSException e)

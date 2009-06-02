@@ -36,7 +36,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
     private boolean finished = false;
     private Node nextNode;
 
-	public DimensionIntervalElement(Node node, ProcessCoveragesRequest pcr)
+	public DimensionIntervalElement(Node node, XmlQuery xq)
 	    throws WCPSException
 	{
 		/*
@@ -56,12 +56,12 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
 
         if (nodeName.equals("trim"))
         {
-            child = new TrimCoverageExprType(node, pcr);
+            child = new TrimCoverageExprType(node, xq);
         }
         else if (nodeName.equals("extend"))
-             child = new ExtendCoverageExprType(node, pcr);
+             child = new ExtendCoverageExprType(node, xq);
         else if (nodeName.equals("slice"))
-            child = new SliceCoverageExprType(node, pcr);
+            child = new SliceCoverageExprType(node, xq);
          * */
 
         System.err.println("Trying to parse DimensionIntervalElement expression...");
@@ -86,7 +86,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
             // Try Axis
             try
             {
-                axis = new AxisName(node, pcr);
+                axis = new AxisName(node, xq);
                 node = node.getNextSibling();
                 continue;
             }
@@ -98,7 +98,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
             // Try CRS name
             try
             {
-                crs = new CrsName(node, pcr);
+                crs = new CrsName(node, xq);
                 node = node.getNextSibling();
                 if (axis == null)
                     throw new WCPSException("Expected Axis node before CRS !");
@@ -114,7 +114,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
 //            // Try last thing
 //            try
 //            {
-//                domain1 = new DomainMetadataExprType(node, pcr);
+//                domain1 = new DomainMetadataExprType(node, xq);
 //                counter = 1;
 //                continue;
 //            }
@@ -127,7 +127,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
             if (node.getNodeName().equals("lowerBound"))
             {
                 counter = 2;
-                domain1 = new ScalarExpr(node.getFirstChild(), pcr);
+                domain1 = new ScalarExpr(node.getFirstChild(), xq);
                 if (axis == null)
                     throw new WCPSException("Expected <axis> node before <lowerBound> !");
             }
@@ -135,7 +135,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
             if (node.getNodeName().equals("upperBound"))
             {
                 counter = 2;
-                domain2 = new ScalarExpr(node.getFirstChild(), pcr);
+                domain2 = new ScalarExpr(node.getFirstChild(), xq);
                 if (axis == null)
                     throw new WCPSException("Expected <lowerBound> node before <upperBound> !");
             }

@@ -32,7 +32,7 @@ public class FieldName implements IRasNode
 {
 	private String name;
 
-	public FieldName(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public FieldName(Node node, XmlQuery xq) throws WCPSException
 	{
 		while ((node != null) && node.getNodeName().equals("#text"))
 		{

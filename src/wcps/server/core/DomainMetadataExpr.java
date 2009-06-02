@@ -34,7 +34,7 @@ public class DomainMetadataExpr implements IRasNode, ICoverageInfo
     private IRasNode domain1, domain2;  // lower and upper bound, or "DomainMetadataExprType" and null
     private int counter = 0;             // counter for the domain vars
 
-	public DomainMetadataExpr(Node node, ProcessCoveragesRequest pcr)
+	public DomainMetadataExpr(Node node, XmlQuery xq)
 	    throws WCPSException
 	{
 		/*

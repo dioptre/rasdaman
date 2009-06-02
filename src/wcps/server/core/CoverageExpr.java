@@ -36,7 +36,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo
 	private CoverageInfo info;
 	private boolean simpleCoverage;    // True is the coverage is just a string
 
-	public CoverageExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public CoverageExpr(Node node, XmlQuery xq) throws WCPSException
 	{
 		while ((node != null) && node.getNodeName().equals("#text"))
 		{
@@ -55,22 +55,22 @@ public class CoverageExpr implements IRasNode, ICoverageInfo
 
 		if (nodeName.equals("coverage"))
 		{
-			simpleCoverage = true;
+			simpleCoverage = true; 
 			childInfo      = node.getFirstChild().getNodeValue();
 
-			if (!pcr.isIteratorDefined(childInfo))
+			if (!xq.isIteratorDefined(childInfo))
 			{
 				throw new WCPSException("Iterator " + childInfo + " not defined!");
 			}
 
-			Iterator<String> coverages = pcr.getCoverages(childInfo);
+			Iterator<String> coverages = xq.getCoverages(childInfo);
 
-			info = new CoverageInfo(pcr.getMetadataSource().read(coverages.next()));
+			info = new CoverageInfo(xq.getMetadataSource().read(coverages.next()));
 
 			while (coverages.hasNext())
 			{    // Check if all the coverages are compatible
 				CoverageInfo tmp = new CoverageInfo(
-						       pcr.getMetadataSource().read(
+						       xq.getMetadataSource().read(
 							       coverages.next()));
 
 				if (!tmp.isCompatible(info))
@@ -86,22 +86,21 @@ public class CoverageExpr implements IRasNode, ICoverageInfo
 		else if (nodeName.equals("crsTransform"))
 		{
             // TODO: implement CrsTransform class
-			child = new CrsTransformCoverageExpr(node, pcr);
+			child = new CrsTransformCoverageExpr(node, xq);
 		}
         else if (nodeName.equals("scale"))
 		{
             // TODO: implement class ScaleCoverageExprType
-			child = new ScaleCoverageExpr(node, pcr);
+			child = new ScaleCoverageExpr(node, xq);
 		}
 		else if (nodeName.equals("construct"))
 		{
-            // TODO: implement ConstructCoverageExprType class
-			child = new ConstructCoverageExpr(node, pcr);
+			child = new ConstructCoverageExpr(node.getFirstChild(), xq);
 		}
         else if (nodeName.equals("const"))
 		{
             // TODO: implement class ConstantCoverageExprType
-			child = new ConstantCoverageExpr(node.getFirstChild(), pcr);
+			child = new ConstantCoverageExpr(node.getFirstChild(), xq);
 		}
 		else
 		{    // Try one of the groups
@@ -111,7 +110,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo
 			{
 				try
 				{
-					child = new SetMetadataCoverageExpr(node, pcr);
+					child = new SetMetadataCoverageExpr(node, xq);
 					System.err.println("Matched set metadata operation.");
 				}
 				catch (WCPSException e)
@@ -126,7 +125,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo
             {
                 try
                 {
-                    child = new InducedOperationCoverageExpr(node, pcr);
+                    child = new InducedOperationCoverageExpr(node, xq);
                     System.err.println("Matched induced coverage expression operation.");
                 }
                 catch (WCPSException e)
@@ -143,7 +142,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo
 			{
 				try
 				{
-					child = new SubsetOperationCoverageExpr(node, pcr);
+					child = new SubsetOperationCoverageExpr(node, xq);
 					System.err.println("Matched subset operation.");
 				}
 				catch (WCPSException e)

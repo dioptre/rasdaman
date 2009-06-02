@@ -28,7 +28,7 @@ import org.w3c.dom.*;
 // TODO: Implement class ScaleCoverageExprType
 public class ScaleCoverageExpr implements IRasNode, ICoverageInfo
 {
-	public ScaleCoverageExpr(Node node, ProcessCoveragesRequest pcr)
+	public ScaleCoverageExpr(Node node, XmlQuery xq)
 	    throws WCPSException
 	{
 		throw new WCPSException("Method not implemented");

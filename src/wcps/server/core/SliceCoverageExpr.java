@@ -39,7 +39,7 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo
     private DimensionPointElement elem;
 	private int dims;
 
-	public SliceCoverageExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public SliceCoverageExpr(Node node, XmlQuery xq) throws WCPSException
 	{
 		Node child = node.getFirstChild();
 		String nodeName;
@@ -59,7 +59,7 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo
             try
             {
                 System.err.println("Trying out an CoverageExprType group...");
-                coverageExprType = new CoverageExpr(child, pcr);
+                coverageExprType = new CoverageExpr(child, xq);
                 coverageInfo = coverageExprType.getCoverageInfo();
                 child = child.getNextSibling();
                 continue;
@@ -72,7 +72,7 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo
             try
 			{
                 // Start a new axis and save it
-				elem = new DimensionPointElement(child, pcr);
+				elem = new DimensionPointElement(child, xq);
                 axisList.add(elem);
                 child = elem.getNextNode();
                 continue;

@@ -33,7 +33,7 @@ public class DimensionPointElement implements IRasNode
     private boolean finished = false;
     private Node nextNode;
 
-	public DimensionPointElement(Node node, ProcessCoveragesRequest pcr)
+	public DimensionPointElement(Node node, XmlQuery xq)
 	    throws WCPSException
 	{
         System.err.println("Trying to parse DimensionPointElement expression...");
@@ -58,7 +58,7 @@ public class DimensionPointElement implements IRasNode
             // Try Axis
             try
             {
-                axis = new AxisName(node, pcr);
+                axis = new AxisName(node, xq);
                 node = node.getNextSibling();
                 continue;
             }
@@ -70,7 +70,7 @@ public class DimensionPointElement implements IRasNode
             // Try CRS name
             try
             {
-                crs = new CrsName(node, pcr);
+                crs = new CrsName(node, xq);
                 node = node.getNextSibling();
                 if (axis == null)
                     throw new WCPSException("Expected Axis node before CRS !");
@@ -86,7 +86,7 @@ public class DimensionPointElement implements IRasNode
 //            // Try last thing
 //            try
 //            {
-//                domain1 = new DomainMetadataExprType(node, pcr);
+//                domain1 = new DomainMetadataExprType(node, xq);
 //                counter = 1;
 //                continue;
 //            }
@@ -98,7 +98,7 @@ public class DimensionPointElement implements IRasNode
             // Then it must be a pair of nodes "lowerBound" + "upperBound"
             if (node.getNodeName().equals("slicingPosition"))
             {
-                domain = new ScalarExpr(node.getFirstChild(), pcr);
+                domain = new ScalarExpr(node.getFirstChild(), xq);
                 if (axis == null)
                     throw new WCPSException("Expected <axis> node before <slicingPosition> !");
             }

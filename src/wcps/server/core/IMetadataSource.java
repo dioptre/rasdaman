@@ -23,24 +23,20 @@
 
 package wcps.server.core;
 
-import org.w3c.dom.*;
+import java.util.Set;
 
-// TODO: implement class ConstantCoverageExprType
-public class ConstantCoverageExpr implements IRasNode, ICoverageInfo
+/**
+ * A IMetadataSource is anything that can read metadata for a given coverage
+ * name. It must be able to list all coverages which it knows, return Metadata
+ * for each one, and also map a format (e.g. "png") to its mimetype
+ * (e.g. "image/png").
+ */
+
+public interface IMetadataSource
 {
-	public ConstantCoverageExpr(Node node, XmlQuery xq)
-	    throws WCPSException
-	{
-		throw new WCPSException("Method not implemented");
-	}
+	public Set<String> coverages() throws ResourceException;
 
-	public String toRasQL()
-	{
-		return "";
-	}
+	public String mimetype(String format);
 
-	public CoverageInfo getCoverageInfo()
-	{
-		return null;
-	}
+	public Metadata read(String coverageName) throws InvalidRequestException, ResourceException;
 }

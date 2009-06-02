@@ -34,7 +34,7 @@ public class EncodeDataExpr implements IRasNode
 	private String mime;
 	private Boolean store;
 
-	public EncodeDataExpr(Node node, ProcessCoveragesRequest request) throws WCPSException
+	public EncodeDataExpr(Node node, XmlQuery request) throws WCPSException
 	{
 		Node child;
 		String nodeName;

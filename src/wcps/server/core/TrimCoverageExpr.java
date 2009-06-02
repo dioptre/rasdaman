@@ -40,7 +40,7 @@ public class TrimCoverageExpr implements IRasNode, ICoverageInfo
 	private int dims;
     private DimensionIntervalElement elem;
 
-	public TrimCoverageExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public TrimCoverageExpr(Node node, XmlQuery xq) throws WCPSException
 	{
 		Node child, axisNode;
 		String nodeName;
@@ -61,7 +61,7 @@ public class TrimCoverageExpr implements IRasNode, ICoverageInfo
             try
             {
                 System.err.println("Trying out an CoverageExprType group...");
-                coverageExprType = new CoverageExpr(child, pcr);
+                coverageExprType = new CoverageExpr(child, xq);
                 coverageInfo = coverageExprType.getCoverageInfo();
                 child = child.getNextSibling();
                 continue;
@@ -74,7 +74,7 @@ public class TrimCoverageExpr implements IRasNode, ICoverageInfo
             try
 			{
                 // Start a new axis and save it
-				elem = new DimensionIntervalElement(child, pcr);
+				elem = new DimensionIntervalElement(child, xq);
                 axisList.add(elem);
                 child = elem.getNextNode();
                 continue;

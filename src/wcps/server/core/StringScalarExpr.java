@@ -31,7 +31,7 @@ public class StringScalarExpr implements IRasNode
 
     private String op, string;
     private CoverageExpr cov;
-	public StringScalarExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public StringScalarExpr(Node node, XmlQuery xq) throws WCPSException
 	{
         while ((node != null) && (node.getNodeName().equals("#text")))
         {
@@ -43,7 +43,7 @@ public class StringScalarExpr implements IRasNode
         if (node.getNodeName().equals("stringIdentifier"))
         {
             Node child = node.getFirstChild();
-            cov = new CoverageExpr(child, pcr);
+            cov = new CoverageExpr(child, xq);
             op = "id";
         }
         else

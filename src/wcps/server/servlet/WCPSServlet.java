@@ -202,20 +202,19 @@ public class WCPSServlet extends HttpServlet
 				    rasdamanUrl, rasdamanDatabase,
 				    new InputSource(new StringBufferInputStream(xmlRequest)));
 
-			System.out.println("[" + processCoverageRequest.getMime() + "] "
-					   + processCoverageRequest.getRasqlQuery());
+            String query = processCoverageRequest.getRasqlQuery();
+            String mime = processCoverageRequest.getMime();
 
-			String query = processCoverageRequest.getRasqlQuery();
+			System.out.println("[" + mime + "] " + query);
 
 			System.out.println("Resulting RasQL query: " + query);
-			String mimetype = processCoverageRequest.getMime();
 
 			System.out.println("WCPS: executing request");
 
 			List<byte[]> results = processCoverageRequest.execute();
 
-			System.out.println("WCPS: setting response mimetype to " + mimetype);
-			response.setContentType(mimetype);
+			System.out.println("WCPS: setting response mimetype to " + mime);
+			response.setContentType(mime);
 			System.out.println("WCPS: returning response");
 			webOut = response.getOutputStream();
 			webOut.write(results.get(0));
@@ -270,7 +269,6 @@ public class WCPSServlet extends HttpServlet
 		out.println("</small></p></body></html>");
 		out.close();
 		System.out.println("WCPS: done with error");
-
 	}
 
 	private void printUsage(HttpServletResponse response) throws IOException

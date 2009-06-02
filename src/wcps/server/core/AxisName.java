@@ -29,7 +29,7 @@ public class AxisName implements IRasNode
 {
     private String name;
 
-	public AxisName(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public AxisName(Node node, XmlQuery xq) throws WCPSException
 	{
         System.err.println("Trying axis node: " + node.getNodeName());
 

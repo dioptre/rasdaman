@@ -33,7 +33,7 @@ public class RangeField implements IRasNode
 {
 	private String type;
 
-	public RangeField(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public RangeField(Node node, XmlQuery xq) throws WCPSException
 	{
 		while ((node != null) && node.getNodeName().equals("#text"))
 		{

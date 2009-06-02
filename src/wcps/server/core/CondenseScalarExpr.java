@@ -28,7 +28,7 @@ import org.w3c.dom.*;
 // TODO: implement CondenseScalarExprType
 public class CondenseScalarExpr implements IRasNode
 {
-	public CondenseScalarExpr(Node node, ProcessCoveragesRequest pcr) throws WCPSException
+	public CondenseScalarExpr(Node node, XmlQuery xq) throws WCPSException
 	{
         throw new WCPSException("Method not implemented");
 	}
