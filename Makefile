@@ -49,7 +49,7 @@ all: clean wcps-core wcs wcps-cli wcps-servlet wcps-war wcs-war
 ## Regenerate the wcps.xml.processcoverage package.
 .PHONY: gen
 gen:
-	${XJC} -d src -p wcps.xml.processcoverage xml/ogc/wcps/1.0.0/wcpsProcessCoverage.xsd
+	${XJC} -d src -p wcps.xml.processcoverage xml/ogc/wcps/1.0.0/wcpsProcessCoverages.xsd
 	${JAVAC} src/wcps/xml/processcoverage/*.java
 
 ## Generate translation core.
@@ -143,7 +143,7 @@ petascope-${VERSION}.tar.bz2:
 ## Compile the WCS code
 .PHONY: wcs
 wcs: 
-	${XJC} -d src -p wcs.server.core xml/ogc/wcps/1.0.0/wcpsProcessCoverage.xsd
+	${XJC} -d src -p wcs.server.core xml/ogc/wcps/1.0.0/wcpsProcessCoverages.xsd
 	${JAVAC} src/wcs/server/core/*.java
 	${JAVAC} src/wcs/server/cli/*.java
 	${JAVAC} src/wcs/server/servlet/*.java

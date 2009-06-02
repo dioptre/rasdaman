@@ -35,7 +35,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import org.apache.commons.io.FileUtils;
 
-/** Runs the available XML tests against a deployed version of Petascope,
+/** Runs the available Grammar tests against a deployed version of Petascope,
  * available at some URL.
  *
  * Assumes that a tests succeeds if the server does not throw or display
@@ -45,9 +45,9 @@ import org.apache.commons.io.FileUtils;
  */
 public class GrammarTestOnline {
     // Put new test cases in this folder
-    public final String PetascopeURL = "http://localhost:8080/PetaScope/WCPService";
+//    public final String PetascopeURL = "http://localhost:8080/PetaScope/WCPService";
 //    public final String PetascopeURL = "http://localhost:8080/petascope/wcps/";
-//    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope/wcps/";
+    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope/wcps/";
 
     String folder = "test/testcases-wcps/";
     // How many tests we have to run

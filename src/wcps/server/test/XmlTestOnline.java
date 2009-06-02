@@ -44,9 +44,9 @@ import org.apache.commons.io.FileUtils;
  */
 public class XmlTestOnline {
     // Put new test cases in this folder
-    public final String PetascopeURL = "http://localhost:8080/PetaScope/WCPService";
+//    public final String PetascopeURL = "http://localhost:8080/PetaScope/WCPService";
 //    public final String PetascopeURL = "http://localhost:8080/petascope/wcps/";
-//    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope/wcps/";
+    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope/wcps/";
 
     String folder = "test/testcases-wcps/";
     // How many tests we have to run
@@ -179,9 +179,9 @@ public class XmlTestOnline {
         String line1 = cgiOutput.readLine();
         String line2 = cgiOutput.readLine();
         String line3 = cgiOutput.readLine();
-//        System.out.println("\t" + line1);
-//        System.out.println("\t" + line2);
-//        System.out.println("\t" + line3);
+        System.out.println("\t" + line1);
+        System.out.println("\t" + line2);
+        System.out.println("\t" + line3);
 
         if (line1 != null && line2 != null && line3 != null &&
                 line2.equals("<h1>An error has occured</h1>"))

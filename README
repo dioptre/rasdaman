@@ -1,5 +1,9 @@
 This file is part of PetaScope, a free implementation of the Open GeoSpatial Consortium (OGC, www.opengeospatial.org) Web Coverage Service (WCS) standards suite. As such, it implements the following interface standards:
 - WCS Processing Extension (WCPS) 1.0.0, which grounds on the Web Coverage Processing Service standard
+- Web Coverage Service (WCS) 1.1.2
+- WCS Transaction Extension (WCS-T)
+
+Please note that the WCS and WCS-T source code is not yet present in this package, but will be released soon. 
 
 PetaScope is implemented as a Java servlet.
 As such, it relies on several following freely available components which are not part of the PetaScope distribution:
