@@ -7,8 +7,9 @@ History:
 13 02 2009 andreia 	Fixed small bugs in grammar. Now it can fully compile.
 21 04 2009 andreia	Removed comments.
 04 05 2009 andreia	Fixed bugs in integer declaration.
-19 05 2009 andreia  	Fixed some other weird bugs. Grammar passes all tests now.
+19 05 2009 andreia  Fixed some other weird bugs. Grammar passes all tests now.
 28 05 2009 andreia	Updated class actions names.
+02 06 2009 andreia  Removed brackets around "and" binary operator in CoverageExpr
 */
 grammar wcps;
 options{
@@ -64,11 +65,11 @@ coverageExpr returns[CoverageExpr value]
     ;
 coverageLogicTerm returns[CoverageExpr value]
     : e1=coverageLogicFactor  { $value = $e1.value; }
-        (op=(AND) e2=coverageLogicFactor { $value = new CoverageExpr($op.text, $value, $e2.value); } )*
+        (op=AND e2=coverageLogicFactor { $value = new CoverageExpr($op.text, $value, $e2.value); } )*
     ;
 coverageLogicFactor  returns[CoverageExpr value]
     : e1=coverageArithmeticExpr  {$value = $e1.value;}
-        (op=(EQUALS|NOTEQUALS|LT|GT|LTE|GTE) e2=coverageArithmeticExpr  { $value = new CoverageExpr($op.text, $value, $e2.value); } )?
+        (op=(EQUALS|NOTEQUALS|LT|GT|LTE|GTE) e2=coverageArithmeticExpr  { $value = new CoverageExpr($op.text, $e1.value, $e2.value); } )?
     ;
 coverageArithmeticExpr  returns[CoverageExpr value]
     : e1=coverageArithmeticTerm  {$value = $e1.value; }
@@ -80,7 +81,7 @@ coverageArithmeticTerm returns[CoverageExpr value]
     ;
 coverageArithmeticFactor  returns[CoverageExpr value]
     : e1=coverageValue { $value = $e1.value; }
-        (op=(OVERLAY) e2=coverageValue { $value = new CoverageExpr($op.text, $value, $e2.value); } )*
+        (op=OVERLAY e2=coverageValue { $value = new CoverageExpr($op.text, $value, $e2.value); } )*
     ;
 coverageValue returns[CoverageExpr value]
     : e5=subsetExpr  { $value = new CoverageExpr($e5.value); }
@@ -271,7 +272,7 @@ fieldExpr returns[SelectExpr value]
 // They have been rewritten in order to prioritize the boolean operators
 booleanScalarExpr returns[BooleanScalarExpr value]
     : e1=booleanScalarTerm { $value = $e1.value; }
-      (op=(OR^|XOR^) e2=booleanScalarTerm { $value = new BooleanScalarExpr($op.text, $value, $e2.value);})*
+      (op=(OR|XOR) e2=booleanScalarTerm { $value = new BooleanScalarExpr($op.text, $value, $e2.value);})*
     ;
 booleanScalarTerm returns[BooleanScalarExpr value]
 	: e1=booleanScalarNegation { $value = $e1.value; }

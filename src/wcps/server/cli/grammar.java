@@ -24,9 +24,8 @@ public class grammar {
         if (args.length != 1)
         {
             System.err.println("AbstractGrammarGen: no query as parameter !");
-            // What is the meaning of AxisIterator variable and axis type? Query 15, 16
-            query = "for s in ( rgb, rgb, rgb ), r in ( rgb ) return " +
-                    "count( ((s.0-s.1)/(s.0+s.1) > 0.6) * r )";
+            query = "for r in (rgb) return encode( r * ((r.green > 130) and " +
+                    "(r.red < 110)), \"jpeg\")";
         }
         else
             query = args[0];

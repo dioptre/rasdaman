@@ -1,1 +1,1 @@
-for m in ( mowglie ) return encode( m.red, "jpeg" )
+for m in ( NIR ) return encode( m.red, "jpeg" )
