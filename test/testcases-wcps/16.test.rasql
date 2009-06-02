@@ -1,0 +1,1 @@
+select csv(marray n in [0:255] values count_cells(((c)=(n)))) from mr AS c

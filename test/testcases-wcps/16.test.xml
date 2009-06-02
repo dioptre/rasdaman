@@ -17,12 +17,7 @@
                     </axisIterator>
                     <count>
                         <equals>
-                            <fieldSelect>
-                                <coverage>c</coverage>
-                                <field>
-                                    <name>red</name>
-                                </field>
-                            </fieldSelect>
+                            <coverage>c</coverage>
                             <coverage>n</coverage>
                         </equals>
                     </count>

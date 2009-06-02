@@ -3,46 +3,46 @@
     <query>
         <xmlSyntax>
             <coverageIterator>
-                <iteratorVar>s</iteratorVar>
-                <coverageName>rgb</coverageName>
-                <coverageName>rgb</coverageName>
+                <iteratorVar>r</iteratorVar>
                 <coverageName>rgb</coverageName>
             </coverageIterator>
-            <count>
-                <greaterThan>
-                    <div>
-                        <minus>
+            <encode store="false">
+                <mult>
+                    <coverage>r</coverage>
+                    <and>
+                        <and>
+                            <greaterThan>
+                                <fieldSelect>
+                                    <coverage>r</coverage>
+                                    <field>
+                                        <name>green</name>
+                                    </field>
+                                </fieldSelect>
+                                <numericConstant>130</numericConstant>
+                            </greaterThan>
+                            <lessThan>
+                                <fieldSelect>
+                                    <coverage>r</coverage>
+                                    <field>
+                                        <name>red</name>
+                                    </field>
+                                </fieldSelect>
+                                <numericConstant>110</numericConstant>
+                            </lessThan>
+                        </and>
+                        <equals>
                             <fieldSelect>
-                                <coverage>s</coverage>
+                                <coverage>r</coverage>
                                 <field>
-                                    <name>0</name>
+                                    <name>blue</name>
                                 </field>
                             </fieldSelect>
-                            <fieldSelect>
-                                <coverage>s</coverage>
-                                <field>
-                                    <name>1</name>
-                                </field>
-                            </fieldSelect>
-                        </minus>
-                        <plus>
-                            <fieldSelect>
-                                <coverage>s</coverage>
-                                <field>
-                                    <name>0</name>
-                                </field>
-                            </fieldSelect>
-                            <fieldSelect>
-                                <coverage>s</coverage>
-                                <field>
-                                    <name>1</name>
-                                </field>
-                            </fieldSelect>
-                        </plus>
-                    </div>
-                    <numericConstant>0.6</numericConstant>
-                </greaterThan>
-            </count>
+                            <numericConstant>140</numericConstant>
+                        </equals>
+                    </and>
+                </mult>
+                <format>jpeg</format>
+            </encode>
         </xmlSyntax>
     </query>
 </ProcessCoveragesRequest>
