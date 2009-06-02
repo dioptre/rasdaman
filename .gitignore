@@ -1,3 +1,4 @@
 *.class
 *.war
 doc/
+dbparams.properties

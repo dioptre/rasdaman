@@ -1,5 +1,11 @@
+/*
+ * web.xml: PetaScope Web deployment file
+ * 
+ * Need to adapt: no.
+ */
+
 <web-app>
-    <display-name>PetaScope Implementation (WCPS, WCS)</display-name>
+    <display-name>PetaScope Implementation</display-name>
     <servlet>
         <servlet-name>wcpsServlet</servlet-name>
         <servlet-class>wcps.server.servlet.WCPSServlet</servlet-class>
@@ -13,7 +19,7 @@
         <url-pattern>/wcps/</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-    <servlet-name>wcsServlet</servlet-name>
-	<url-pattern>/wcs/</url-pattern>
+		<servlet-name>wcsServlet</servlet-name>
+		<url-pattern>/wcs/</url-pattern>
     </servlet-mapping>
 </web-app>

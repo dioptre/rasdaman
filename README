@@ -1,7 +1,5 @@
 This file is part of PetaScope, a free implementation of the Open GeoSpatial Consortium (OGC, www.opengeospatial.org) Web Coverage Service (WCS) standards suite. As such, it implements the following interface standards:
-- Web Coverage Service (WCS) 1.1.2
 - WCS Processing Extension (WCPS) 1.0.0, which grounds on the Web Coverage Processing Service standard
-- WCS Transaction Extension (WCS-T)
 
 PetaScope is implemented as a Java servlet.
 As such, it relies on several following freely available components which are not part of the PetaScope distribution:
@@ -22,7 +20,7 @@ misc/                Additional scripts, e.g., for
                      initializing the metadata database
 src/                 PetaScope Java source code
 test/                test scripts
-xml/                 WCS schema files used by PetaScope
+xml/                 WC*S schema files used by PetaScope
                      (copies from schemas.opengis.net)
 dbparams.properties  Servlet initialization parameters,
                      such as database connections (*)
