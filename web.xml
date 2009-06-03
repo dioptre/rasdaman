@@ -1,9 +1,3 @@
-/*
- * web.xml: PetaScope Web deployment file
- * 
- * Need to adapt: no.
- */
-
 <web-app>
     <display-name>PetaScope Implementation</display-name>
     <servlet>
