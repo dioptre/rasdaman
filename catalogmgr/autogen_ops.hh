@@ -37,6 +37,9 @@ rasdaman GmbH.
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpABSCDouble : public UnaryOp {
 public:
 	OpABSCDouble(
@@ -55,6 +58,9 @@ public:
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpSQRTCDouble : public UnaryOp {
 public:
 	OpSQRTCDouble(
@@ -73,6 +79,9 @@ public:
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpEXPCDouble : public UnaryOp {
 public:
 	OpEXPCDouble(
@@ -91,6 +100,9 @@ public:
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpLOGCDouble : public UnaryOp {
 public:
 	OpLOGCDouble(
@@ -109,6 +121,9 @@ public:
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpLNCDouble : public UnaryOp {
 public:
 	OpLNCDouble(
@@ -127,6 +142,9 @@ public:
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpSINCDouble : public UnaryOp {
 public:
 	OpSINCDouble(
@@ -145,6 +163,9 @@ public:
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpCOSCDouble : public UnaryOp {
 public:
 	OpCOSCDouble(
@@ -163,6 +184,9 @@ public:
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpTANCDouble : public UnaryOp {
 public:
 	OpTANCDouble(
@@ -181,6 +205,9 @@ public:
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpSINHCDouble : public UnaryOp {
 public:
 	OpSINHCDouble(
@@ -199,6 +226,9 @@ public:
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpCOSHCDouble : public UnaryOp {
 public:
 	OpCOSHCDouble(
@@ -217,6 +247,9 @@ public:
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpTANHCDouble : public UnaryOp {
 public:
 	OpTANHCDouble(
@@ -235,6 +268,9 @@ public:
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpARCSINCDouble : public UnaryOp {
 public:
 	OpARCSINCDouble(
@@ -253,6 +289,9 @@ public:
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpARCCOSCDouble : public UnaryOp {
 public:
 	OpARCCOSCDouble(
@@ -271,6 +310,9 @@ public:
 */
 
 // class declaration
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpARCTANCDouble : public UnaryOp {
 public:
 	OpARCTANCDouble(

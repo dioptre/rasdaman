@@ -112,7 +112,9 @@ This is the ops code and the persistence code: from the typenum the oids are gen
 
   \end{tabular} 
 */
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class Ops
 {
 public:
@@ -262,7 +264,9 @@ private:
   to the condense operation used (e.g. 0 for \Ref{OpSOMEBool} or 1 for
   \Ref{OpALLBool}).
 */
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class CondenseOp
 {
 public:
@@ -294,7 +298,9 @@ protected:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_SOME on C type #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpSOMECChar : public CondenseOp
 {
 public:
@@ -314,7 +320,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_ALL on C type #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpALLCChar : public CondenseOp
 {
 public:
@@ -334,7 +342,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_COUNT on C type #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpCOUNTCChar : public CondenseOp
 {
 public:
@@ -354,7 +364,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MAX on C type #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMAXCULong : public CondenseOp
 {
 public:
@@ -374,7 +386,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MAX on C type #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMAXCLong : public CondenseOp
 {
 public:
@@ -394,7 +408,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MAX on C type #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMAXCDouble : public CondenseOp
 {
 public:
@@ -414,7 +430,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MIN on C type #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMINCULong : public CondenseOp
 {
 public:
@@ -434,7 +452,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MIN on C type #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMINCLong : public CondenseOp
 {
 public:
@@ -454,7 +474,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MIN on C type #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMINCDouble : public CondenseOp
 {
 public:
@@ -474,7 +496,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_SUM on C type #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpSUMCULong : public CondenseOp
 {
 public:
@@ -494,7 +518,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_SUM on C type #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpSUMCLong : public CondenseOp
 {
 public:
@@ -514,7 +540,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_SUM on C type #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpSUMCDouble : public CondenseOp
 {
 public:
@@ -537,6 +565,9 @@ public:
 
 // Inherits some useless members from CondenseOp, don't want to
 // change this now.
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpCondenseStruct : public CondenseOp
 {
 public:
@@ -577,7 +608,9 @@ protected:
   operator() carries out a unary operation on one cell {\tt op} and
   stores the result in the cell {\tt result}.
 */
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class UnaryOp
 {
 public:
@@ -603,6 +636,9 @@ protected:
 
 // Inherits some useless members from UnaryOp, don't want to
 // change this now.
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpUnaryStruct : public UnaryOp
 {
 public:
@@ -629,7 +665,9 @@ protected:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_IDENTITY on structs. Works, if struct types are identical.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpIDENTITYStruct : public UnaryOp
 {
 public:
@@ -642,7 +680,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_NOT on C type #unsigned long#, result #unsigned long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpNOTCULong : public UnaryOp
 {
 public:
@@ -655,7 +695,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_IDENTITY on C type #unsigned long#, result #unsigned long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpIDENTITYCULong : public UnaryOp
 {
 public:
@@ -668,7 +710,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_NOT on C type #unsigned long#, result #unsigned long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpNOTCLong : public UnaryOp
 {
 public:
@@ -681,7 +725,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_NOT on Bools (logical NOT as opposed to bitwise NOT).
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpNOTBool : public UnaryOp
 {
 public:
@@ -694,7 +740,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_IDENTITY on C type #unsigned long#, result #unsigned long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpIDENTITYCLong : public UnaryOp
 {
 public:
@@ -707,7 +755,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_IDENTITY on C type #unsigned long#, result #unsigned long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpIDENTITYCDouble : public UnaryOp
 {
 public:
@@ -724,7 +774,9 @@ public:
   carries out a binary operation on cells {\tt op1} and {\tt op2}. The
   result is stored in the cell {\tt res}.
 */
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class BinaryOp
 {
 public:
@@ -757,6 +809,9 @@ protected:
 
 // Inherits some useless members from BinaryOp, don't want to
 // change this now.
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpBinaryStruct : public BinaryOp
 {
 public:
@@ -779,7 +834,9 @@ protected:
 //@ManMemo: Module: {\bf catalogif}.
 /*@Doc: Class for carrying out binary operations on structs where the 
         second operand is a value. */
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpBinaryStructConst : public BinaryOp
 {
 public:
@@ -807,7 +864,9 @@ protected:
 //@ManMemo: Module: {\bf catalogif}.
 /*@Doc: Class for carrying out binary operations on structs where the 
         first operand is a value. */
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpBinaryConstStruct : public BinaryOp
 {
 public:
@@ -831,7 +890,9 @@ protected:
   // array of operations on the elements.
   BinaryOp** elemOps;
 };
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpEQUALStruct : public BinaryOp
 {
 public:
@@ -850,7 +911,9 @@ protected:
   // array of operations on the elements.
   BinaryOp** elemOps;
 };
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpNOTEQUALStruct : public BinaryOp
 {
 public:
@@ -873,7 +936,9 @@ protected:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_PLUS on C type #unsigned long# and #unsigned long#, result #unsigned long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpPLUSCULong : public BinaryOp
 {
 public:
@@ -887,7 +952,9 @@ public:
 			   const char* op2 );
   virtual void getCondenseInit(char* init);
 };
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpPLUSULong : public BinaryOp
 {
 public:
@@ -904,7 +971,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MINUS on C type #unsigned long# and #unsigned long#, result #unsigned long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMINUSCULong : public BinaryOp
 {
 public:
@@ -920,7 +989,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_DIV on C type #unsigned long# and #unsigned long#, result #unsigned long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpDIVCULong : public BinaryOp
 {
 public:
@@ -936,7 +1007,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MULT on C type #unsigned long# and #unsigned long#, result #unsigned long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMULTCULong : public BinaryOp
 {
 public:
@@ -953,7 +1026,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_AND on C type #unsigned long# and #unsigned long#, result #unsigned long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpANDCULong : public BinaryOp
 {
 public:
@@ -970,7 +1045,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_AND on Bools (logical as opposed to bitwise)
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpANDBool : public BinaryOp
 {
 public:
@@ -987,7 +1064,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_OR on C type #unsigned long# and #unsigned long#, result #unsigned long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpORCULong : public BinaryOp
 {
 public:
@@ -1004,7 +1083,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_OR on Bools (logical as opposed to bitwise)
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpORBool : public BinaryOp
 {
 public:
@@ -1021,7 +1102,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_XOR on C type #unsigned long# and #unsigned long#, result #unsigned long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpXORCULong : public BinaryOp
 {
 public:
@@ -1037,7 +1120,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_XOR on Bools (logical as opposed to bitwise)
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpXORBool : public BinaryOp
 {
 public:
@@ -1053,7 +1138,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_PLUS on C type #long# and #long#, result #long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpPLUSCLong : public BinaryOp
 {
 public:
@@ -1070,7 +1157,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MINUS on C type #long# and #long#, result #long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMINUSCLong : public BinaryOp
 {
 public:
@@ -1086,7 +1175,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_DIV on C type #long# and #long#, result #long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpDIVCLong : public BinaryOp
 {
 public:
@@ -1102,7 +1193,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MULT on C type #long# and #long#, result #long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMULTCLong : public BinaryOp
 {
 public:
@@ -1119,7 +1212,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_AND on C type #long# and #long#, result #long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpANDCLong : public BinaryOp
 {
 public:
@@ -1136,7 +1231,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_OR on C type #long# and #long#, result #long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpORCLong : public BinaryOp
 {
 public:
@@ -1153,7 +1250,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_XOR on C type #long# and #long#, result #long#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpXORCLong : public BinaryOp
 {
 public:
@@ -1169,7 +1268,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_PLUS on C type #double# and #double#, result #double#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpPLUSCDouble : public BinaryOp
 {
 public:
@@ -1186,7 +1287,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MINUS on C type #double# and #double#, result #double#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMINUSCDouble : public BinaryOp
 {
 public:
@@ -1202,7 +1305,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_DIV on C type #double# and #double#, result #double#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpDIVCDouble : public BinaryOp
 {
 public:
@@ -1218,7 +1323,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MULT on C type #double# and #double#, result #double#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMULTCDouble : public BinaryOp
 {
 public:
@@ -1235,7 +1342,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_EQUAL on C type #unsigned long# and #unsigned long#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpEQUALCCharCULong : public BinaryOp
 {
 public:
@@ -1251,7 +1360,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_LESS on C type #unsigned long# and #unsigned long#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpLESSCCharCULong : public BinaryOp
 {
 public:
@@ -1267,7 +1378,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_LESSEQUAL on C type #unsigned long# and #unsigned long#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpLESSEQUALCCharCULong : public BinaryOp
 {
 public:
@@ -1284,7 +1397,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_NOTEQUAL on C type #unsigned long# and #unsigned long#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpNOTEQUALCCharCULong : public BinaryOp
 {
 public:
@@ -1301,7 +1416,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_GREATER on C type #unsigned long# and #unsigned long#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpGREATERCCharCULong : public BinaryOp
 {
 public:
@@ -1318,7 +1435,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_GREATEREQUAL on \Ref{ULong} and \Ref{ULong}, result \Ref{Bool}.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpGREATEREQUALCCharCULong : public BinaryOp
 {
 public:
@@ -1335,7 +1454,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_EQUAL on C type #unsigned long# and #unsigned long#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpEQUALCCharCLong : public BinaryOp
 {
 public:
@@ -1351,7 +1472,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_LESS on C type #long# and #long#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpLESSCCharCLong : public BinaryOp
 {
 public:
@@ -1367,7 +1490,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_LESSEQUAL on C type #long# and #long#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpLESSEQUALCCharCLong : public BinaryOp
 {
 public:
@@ -1384,7 +1509,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_NOTEQUAL on C type #long# and #long#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpNOTEQUALCCharCLong : public BinaryOp
 {
 public:
@@ -1401,7 +1528,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_GREATER on C type #long# and #long#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpGREATERCCharCLong : public BinaryOp
 {
 public:
@@ -1418,7 +1547,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_GREATEREQUAL on C type #long# and #long#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpGREATEREQUALCCharCLong : public BinaryOp
 {
 public:
@@ -1435,7 +1566,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_EQUAL on C type #double# and #double#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpEQUALCCharCDouble : public BinaryOp
 {
 public:
@@ -1451,7 +1584,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_LESS on C type #double# and #double#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpLESSCCharCDouble : public BinaryOp
 {
 public:
@@ -1467,7 +1602,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_LESSEQUAL on C type #double# and #double#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpLESSEQUALCCharCDouble : public BinaryOp
 {
 public:
@@ -1484,7 +1621,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_NOTEQUAL on C type #double# and #double#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpNOTEQUALCCharCDouble : public BinaryOp
 {
 public:
@@ -1501,7 +1640,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_GREATER on C type #double# and #double#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpGREATERCCharCDouble : public BinaryOp
 {
 public:
@@ -1518,7 +1659,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_GREATEREQUAL on C type #double# and #double#, result #char#.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpGREATEREQUALCCharCDouble : public BinaryOp
 {
 public:
@@ -1535,7 +1678,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_PLUS specialized for RasDaMan type Char.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpPLUSChar : public BinaryOp
 {
 public:
@@ -1552,7 +1697,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MINUS specialized for RasDaMan type Char.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMINUSChar : public BinaryOp
 {
 public:
@@ -1568,7 +1715,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_MULT specialized for RasDaMan type Char.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMULTChar : public BinaryOp
 {
 public:
@@ -1585,7 +1734,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_DIV specialized for RasDaMan type Char.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpDIVChar : public BinaryOp
 {
 public:
@@ -1601,7 +1752,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_EQUAL specialized for RasDaMan type Char.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpEQUALChar : public BinaryOp
 {
 public:
@@ -1617,7 +1770,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_LESS specialized for RasDaMan type Char.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpLESSChar : public BinaryOp
 {
 public:
@@ -1633,7 +1788,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_LESSEQUAL specialized for RasDaMan type Char.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpLESSEQUALChar : public BinaryOp
 {
 public:
@@ -1650,7 +1807,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_NOTEQUAL specialized for RasDaMan type Char.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpNOTEQUALChar : public BinaryOp
 {
 public:
@@ -1667,7 +1826,9 @@ public:
 
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_GREATER specialized for RasDaMan type Char.
-
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpGREATERChar : public BinaryOp
 {
 public:
@@ -1685,6 +1846,9 @@ public:
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_GREATEREQUAL specialized for RasDaMan type Char.
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpGREATEREQUALChar : public BinaryOp
 {
 public:
@@ -1702,6 +1866,9 @@ public:
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_IDENTITY specialized for RasDaMan type Char.
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpIDENTITYChar : public UnaryOp
 {
 public:
@@ -1715,6 +1882,9 @@ public:
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_IDENTITY specialized for RasDaMan type Short.
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpIDENTITYShort : public UnaryOp
 {
 public:
@@ -1728,6 +1898,9 @@ public:
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_IDENTITY specialized for RasDaMan type Long.
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpIDENTITYLong : public UnaryOp
 {
 public:
@@ -1748,6 +1921,9 @@ public:
   expression.
 */
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class MarrayOp
 {
 public:
@@ -1778,6 +1954,9 @@ protected:
   default initVal is retrieved from {\tt accuOp}.
 */
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class GenCondenseOp
 {
 public:
@@ -1817,6 +1996,9 @@ protected:
 //		Complex operations
 //--------------------------------------------
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpPLUSComplex : public BinaryOp {
 public:
 	// Question: which operand is scalar?
@@ -1845,6 +2027,9 @@ protected:
 	ScalarFlag scalarFlag;
 };
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMINUSComplex : public BinaryOp {
 public:
 	// Question: which operand is scalar?
@@ -1872,6 +2057,9 @@ protected:
 	ScalarFlag scalarFlag;
 };
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpDIVComplex : public BinaryOp {
 public:
 	// Question: which operand is scalar?
@@ -1899,6 +2087,9 @@ protected:
 	ScalarFlag scalarFlag;
 };
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpMULTComplex : public BinaryOp {
 public:
 	// Question: which operand is scalar?
@@ -1927,12 +2118,18 @@ protected:
 	ScalarFlag scalarFlag;
 };
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpIDENTITYComplex : public UnaryOp {
 public:
 	OpIDENTITYComplex(const BaseType* , const BaseType* , unsigned int = 0, unsigned int = 0);
   	virtual void operator()(char* result, const char* op);
 };
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpRealPart : public UnaryOp {
 public:
 	OpRealPart(
@@ -1948,6 +2145,9 @@ private:
 };
                                              
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpImaginarPart : public UnaryOp {
 public:
 	OpImaginarPart(
@@ -1969,6 +2169,9 @@ private:
 OpCAST provide cast operation.
 */
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpCAST : public UnaryOp {
 public:
 	OpCAST(
@@ -1987,6 +2190,9 @@ public:
 //@ManMemo: Module: {\bf catalogif}.
 //@Doc: OP_OVERLAY 
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpOVERLAY : public BinaryOp
 {
 public:
@@ -2018,6 +2224,9 @@ private:
 /*@Doc:
 */
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class OpBIT : public BinaryOp {
 public:
 	OpBIT(

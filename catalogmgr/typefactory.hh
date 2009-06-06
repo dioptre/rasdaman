@@ -99,6 +99,9 @@ transaction using TransactionIf::begin(see \Ref{TransactionIf)
 before creating instances of types with mapType().
 */
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class TypeFactory
 	{
 	public:

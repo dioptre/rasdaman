@@ -29,6 +29,8 @@ rasdaman GmbH.
  *
  ************************************************************/
 
+
+
 #ifndef _ALGEBRAOPS_HH_
 #define _ALGEBRAOPS_HH__
 
@@ -48,7 +50,13 @@ class QtData;
   Operation object for marray contstructor of the query language.
 
 */
+/**
+  * \defgroup Catalogmgrs Catalogmgr Classes
+  */
 
+/**
+  * \ingroup Catalogmgrs
+  */
 class QLMarrayOp: public MarrayOp
 {
   public:
