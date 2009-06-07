@@ -48,6 +48,13 @@ rasdaman GmbH.
     Every storage parameter which is not defined using the proper set* methods will result in a default value to be returned.  the supports* methods will tell if the value is a default value defined at instantiation time through the static storagemgr/StorageLayout attributes or an explicitly defined value.
     For information on the meaning of these attributes refere to storagemgr/storagelayout
 */      
+/**
+  * \defgroup Relstorageifs Relstorageif Classes
+  */
+
+/**
+  * \ingroup Relstorageifs
+  */
  
 class DBStorageLayout : public DBObject
 	{
