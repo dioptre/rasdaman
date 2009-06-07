@@ -36,6 +36,9 @@ class TransTile;
 typedef std::pair<r_Range,r_Range> RangePair;
 typedef std::pair<const r_Range,const r_Range> ConstRangePair;
 
+/**
+  * \ingroup Tilemgrs
+  */ 
 class r_Tiler
 	{
 	public:

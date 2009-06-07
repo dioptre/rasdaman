@@ -73,6 +73,14 @@ Persistent Tiles are created either by servercomm, when data is received from a 
 index. The query tree can also create tiles in case of INSERT or UPDATE queries, and Tile::splitTile creates new tiles.
 */
 
+/**
+  * \defgroup Tilemgrs Tilemgr Classes
+  */
+
+/**
+  * \ingroup Tilemgrs
+  */ 
+
 class Tile
 {
 	public:
