@@ -46,6 +46,10 @@ namespace akg
   The objects of this hierarchie can't be copied!
 */
 
+/**
+  * \ingroup Networks
+  */ 
+  
 class FileDescriptor
   {
     public:

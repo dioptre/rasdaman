@@ -45,6 +45,10 @@ namespace akg
 */
 
 
+/**
+  * \ingroup Networks
+  */ 
+  
 class HostAddress
   {
     public:
@@ -107,6 +111,11 @@ class HostAddress
 /** This class represents the IP address of a OS socket and envelops
     the OS data structure 'sockaddr_in'
 */
+
+/**
+  * \ingroup Networks
+  */ 
+  
 class SocketAddress
   {
     public:

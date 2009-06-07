@@ -42,6 +42,10 @@ namespace akg
 /** This class envelops the 'select' function of the C-library
 */
 
+/**
+  * \ingroup Networks
+  */ 
+  
 class Selector
   {
     public:

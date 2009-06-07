@@ -49,6 +49,11 @@ namespace akg
     for opening the listen socket and accepting a new connection
     and other helper functions for more evoluate servers
 */   
+
+/**
+  * \ingroup Networks
+  */ 
+  
 class GenericServer
   {
     public:
@@ -119,6 +124,11 @@ class GenericServer
     very simple cases. 
     This version doesn't care much about errors
 */     
+
+/**
+  * \ingroup Networks
+  */ 
+  
 class BlockingServer : public GenericServer
   {
     public:

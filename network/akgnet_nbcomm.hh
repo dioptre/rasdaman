@@ -42,6 +42,10 @@ namespace akg
 /** Base class for non-blocking communication jobs
 */  
 
+/**
+  * \ingroup Networks
+  */ 
+  
 class NbJob
   {
     public:
@@ -210,6 +214,11 @@ class NbJob
    
 /* Base class for generic non-blocking server jobs
  */
+
+/**
+  * \ingroup Networks
+  */ 
+  
 class NbServerJob : public NbJob
   {
     public:
@@ -241,6 +250,11 @@ class NbServerJob : public NbJob
    
 /* Base class for generic non-blocking client jobs
  */
+
+/**
+  * \ingroup Networks
+  */ 
+  
 class NbClientJob : public NbJob
   {
     public:
@@ -280,6 +294,10 @@ class NbClientJob : public NbJob
    Important: new is supposed to throw!
  */   
 
+/**
+  * \ingroup Networks
+  */ 
+  
 class NbCommunicator : public GenericServer
   {
     public:

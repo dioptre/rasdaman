@@ -45,6 +45,10 @@ namespace akg
     ListenSocket, ServerSocket and ClientSocket
 */
 
+/**
+  * \ingroup Networks
+  */ 
+  
 class Socket : public FileDescriptor
   {
     public:    
@@ -71,6 +75,11 @@ class Socket : public FileDescriptor
    
 /** ListenSocket - socket for servers, to listen for clients
 */
+
+/**
+  * \ingroup Networks
+  */ 
+  
 class ListenSocket : public Socket
   {
     public:
@@ -104,6 +113,10 @@ class ListenSocket : public Socket
     It opens by accepting a pending connection from a ListenSocket
 */
 
+/**
+  * \ingroup Networks
+  */ 
+  
 class ServerSocket : public Socket
   {
     public:
@@ -124,6 +137,11 @@ class ServerSocket : public Socket
 
 /** ClientSocket - socket for clients, to communicate with servers
 */
+
+/**
+  * \ingroup Networks
+  */ 
+  
 class ClientSocket : public Socket
   {
     public:

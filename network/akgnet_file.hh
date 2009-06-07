@@ -45,6 +45,10 @@ namespace akg
     to file descriptors opened in other ways than sockets, like stdin or stdout
 */
 
+/**
+  * \ingroup Networks
+  */ 
+  
 class File : public FileDescriptor
   {
     public:

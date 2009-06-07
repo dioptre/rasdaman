@@ -46,6 +46,13 @@ namespace akg
 	  Please think twice before you change this
     	- 'new' is supposed to throw
 */
+/**
+  * \defgroup Networks Network Classes
+  */
+
+/**
+  * \ingroup Networks
+  */ 
   
 class CommBuffer
   {
