@@ -54,6 +54,13 @@ The DBMDDObj stores the following data:
 -Storagelayout: has asorted methods for modifying how the data is stored in the database.
 The definition domain is stored in an extensible but inefficient way.
 */
+/**
+  * \defgroup Relmddifs Relmddif Classes
+  */
+
+/**
+  * \ingroup Relmddifs
+  */
 
 class DBMDDObj	:	public DBObject
 	{

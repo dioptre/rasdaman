@@ -45,6 +45,10 @@ class CollectionType;
   This class should only be used by DBMDDColl.
 */
 
+/**
+  * \ingroup Relmddifs
+  */
+
 class DBMDDSet	:	public DBNamedObject
 	{
 	public:	
