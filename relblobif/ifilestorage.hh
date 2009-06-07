@@ -38,6 +38,9 @@ rasdaman GmbH.
 class OId;
 
 // The class is the interface for the file storage modules.
+/**
+  * \ingroup Relblobifs
+  */
 class IFileStorage 
 {
 	public:

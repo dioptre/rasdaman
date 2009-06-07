@@ -33,7 +33,9 @@ rasdaman GmbH.
 
 #ifndef _FILESTORAGEEXCEPTION_HH_
 #define _FILESTORAGEEXCEPTION_HH_
-
+/**
+  * \ingroup Relblobifs
+  */
 class FileStorageException 
 {
 

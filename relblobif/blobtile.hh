@@ -60,6 +60,13 @@ accesses the contents of a \Ref{PersTile}.
 BLOBTile is an interface class with the base DBMS. It is, therefore,
 highly dependent on the base DBMS used.
 */
+/**
+  * \defgroup Relblobifs Relblobif Classes
+  */
+
+/**
+  * \ingroup Relblobifs
+  */
 
 class BLOBTile	: public DBTile
 	{

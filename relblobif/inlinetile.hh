@@ -57,7 +57,9 @@ they can only be inlined by a dbtcindex.
 
 */
 
-
+/**
+  * \ingroup Relblobifs
+  */
 class InlineTile	: public BLOBTile
 	{
 	public:

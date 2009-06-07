@@ -37,7 +37,9 @@ rasdaman GmbH.
 #include <vector>
 #include <string>
 #include "ifilestorage.hh"
-
+/**
+  * \ingroup Relblobifs
+  */
 class SimpleFileStorage : public IFileStorage
 {
 	public:

@@ -48,7 +48,9 @@ class r_Error;
 This class is used in tilemgr as an interface to the persistent tiles.  There are subclasses of dbtile which store themselves differently.  This class can also be used to get rid of tilemgr/TransTile.  When no persistent tile is needed then a dbtile and not a blobtile/inlinetile can be used.
 */
 
-
+/**
+  * \ingroup Relblobifs
+  */
 class DBTile	: public DBObject
 	{
 	public:
