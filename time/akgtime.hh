@@ -39,6 +39,13 @@ rasdaman GmbH.
 
 namespace akg
 {
+/**
+  * \defgroup Times Time Classes
+  */
+
+/**
+  * \ingroup Times
+  */ 
 
 class LocalTime
   {
@@ -55,6 +62,9 @@ class LocalTime
    };
 
 
+/**
+  * \ingroup Times
+  */ 
 class BenchmarkTimer
   {
     public:
