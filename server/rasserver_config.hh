@@ -26,6 +26,9 @@ rasdaman GmbH.
 
 #include "commline/cmlparser.hh"
 
+/**
+  * \ingroup Servers
+  */
 class Configuration
   {
     public:

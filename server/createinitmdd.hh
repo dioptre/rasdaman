@@ -47,7 +47,13 @@ rasdaman GmbH.
 #include "raslib/oid.hh"
 #include "servercomm/servercomm.hh"
 
+/**
+  * \defgroup Servers Server Classes
+  */
 
+/**
+  * \ingroup Servers
+  */
 class FastCollectionCreator
   {
     public:
@@ -64,7 +70,10 @@ class FastCollectionCreator
 
    };
 
-   
+
+/**
+  * \ingroup Servers
+  */   
 class FastMDDCreator
   {
     public:

@@ -34,6 +34,9 @@ rasdaman GmbH.
 #include "servercomm/httpserver.hh"
 
 
+/**
+  * \ingroup Servers
+  */
 class RasServerEntry : public HttpServer
   {
     private:
