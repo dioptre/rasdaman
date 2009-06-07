@@ -34,6 +34,10 @@ class YSymbol;
 /**
   Contains the all the symbols and the scopetree.
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class YSymbolTable {
 
    friend class YSymbol;
@@ -142,6 +146,10 @@ struct YConstant
 /**
   Defines a symbol during parsing. It can represent various types of data.
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class YSymbol
 {
    friend class YSymbolTable;

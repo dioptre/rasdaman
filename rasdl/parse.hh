@@ -60,6 +60,13 @@ struct YWhere
 /**
   C++ structure representing a position in source.
 */
+/**
+  * \defgroup Rasdls Rasdl Classes
+  */
+
+/**
+  * \ingroup Rasdls
+  */ 
 class Parse_info
 {
   public:
@@ -98,6 +105,10 @@ class Parse_info
 /**
  Base class for all types which can easily be converted to numbers.
 */
+
+/**
+  * \ingroup Rasdls
+  */ 
 class Parse_number
 {
 };
@@ -110,6 +121,9 @@ class Parse_number
  Virtual base class for all objects with kind and output.
 */
 
+/**
+  * \ingroup Rasdls
+  */ 
 class Parse_atom {
 public:
    ///
@@ -170,6 +184,10 @@ public:
 /**
   Virtual base class for all types.
 */
+
+/**
+  * \ingroup Rasdls
+  */ 
 class Parse_type : public Parse_atom {
 public:
    ///
@@ -194,6 +212,10 @@ public:
 /**
   Virtual base class for all types that create a new one.
 */
+
+/**
+  * \ingroup Rasdls
+  */ 
 class Parse_typedefinition : public Parse_type
 {
 };
@@ -205,6 +227,10 @@ class Parse_typedefinition : public Parse_type
 /**
   Represents a reference to a type.
 */
+
+/**
+  * \ingroup Rasdls
+  */ 
 class Parse_typereference : public Parse_type
 {
 public:
@@ -229,6 +255,10 @@ public:
 /**
   Virtual base class for all types that are a kind of composite.
 */
+
+/**
+  * \ingroup Rasdls
+  */ 
 class Parse_composite : public Parse_typedefinition {
 public:
    ///
@@ -270,6 +300,10 @@ public:
 /**
   Class that represents the STRUCT type.
 */
+
+/**
+  * \ingroup Rasdls
+  */ 
 class Parse_struct : public Parse_composite {
 public:
    ///
@@ -291,6 +325,10 @@ public:
 /**
   Class that represents the UNION type.
 */
+
+/**
+  * \ingroup Rasdls
+  */ 
 class Parse_union : public Parse_composite {
    ///
    Parse_union();
@@ -300,7 +338,7 @@ class Parse_union : public Parse_composite {
    virtual void output(FILE*)const;
 };
 
-
+ 
 class Parse_operation;
 
 
@@ -309,6 +347,10 @@ class Parse_operation;
 /**
   class that represents the INTERFACE type
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_interface : public Parse_composite {
 public:
    ///
@@ -320,6 +362,10 @@ public:
    enum Lifetime{persistend,transient,undefined};
 
    ///
+   
+/**
+  * \ingroup Rasdls
+  */	
    class Base_class : public Parse_atom
    {
    public:
@@ -338,6 +384,10 @@ public:
    };
 
    ///
+   
+/**
+  * \ingroup Rasdls
+  */
    class Method : public Parse_atom
    {
    public:
@@ -373,6 +423,10 @@ public:
 /**
   Represents a simple function with parameters and return value.
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_function : public Parse_atom {
 public:
    ///
@@ -381,6 +435,10 @@ public:
    virtual   void   output(FILE*)const;
 
    ///
+   
+/**
+  * \ingroup Rasdls
+  */
    class Parameter : public Parse_atom
    {
    public:
@@ -411,6 +469,10 @@ public:
 /**
   Is a operation of an Parse_interface.
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_operation : public Parse_function {
 public:
    ///
@@ -427,6 +489,10 @@ public:
 /**
   Class that represents pointer like types.
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_pointer : public Parse_typedefinition {
 public:
    ///
@@ -445,6 +511,10 @@ public:
 /**
   Class that represents an ARRAY.
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_array : public Parse_pointer {
 public:
    ///
@@ -462,6 +532,10 @@ public:
 /**
   Gives a type another name.
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_alias : public Parse_typedefinition {
 public:
    ///
@@ -480,6 +554,10 @@ public:
 
 /**
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_enum : public Parse_typedefinition,public Parse_number
 {
 public:
@@ -489,6 +567,10 @@ public:
    virtual void output(FILE*)const;
 
    ///
+   
+/**
+  * \ingroup Rasdls
+  */
    class Enumerator : public Parse_atom
    {
    public:
@@ -513,6 +595,10 @@ public:
 
 /**
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_atomic : public Parse_typedefinition {
 public:
    ///
@@ -525,6 +611,10 @@ public:
 
 /**
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_any : public Parse_atomic {
 public:
    ///
@@ -537,6 +627,10 @@ public:
 
 /**
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_void : public Parse_atomic {
 public:
    ///
@@ -549,6 +643,10 @@ public:
 
 /**
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_string : public Parse_atomic
 {
 public:
@@ -566,6 +664,10 @@ public:
 /**
   A fractional number.
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_float : public Parse_atomic,public Parse_number {
 public:
    ///
@@ -586,6 +688,10 @@ public:
 /**
  Represents a non-fractional number signed/unsigned or 16/32 number.
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_int : public Parse_atomic,public Parse_number {
 public:
    ///
@@ -608,6 +714,10 @@ public:
 /**
  An 8-bit unsigned number.
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_octet : public Parse_atomic,public Parse_number
 {
 public:
@@ -619,6 +729,10 @@ public:
 
 //@ManMemo: Module: {\bf rasdl}
 
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_complex1 : public Parse_atomic,public Parse_number
 {
 public:
@@ -629,6 +743,9 @@ public:
 };
 
 
+/**
+  * \ingroup Rasdls
+  */
 class Parse_complex2 : public Parse_atomic,public Parse_number
 {
 public:
@@ -646,6 +763,10 @@ public:
 /**
   Represents an 8-bit unsigned number.
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_char : public Parse_atomic,public Parse_number {
 public:
    ///
@@ -660,6 +781,10 @@ public:
 
 /**
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_boolean : public Parse_atomic,public Parse_number {
 public:
    ///
@@ -674,6 +799,10 @@ public:
 
 /**
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_atomic_templates : public Parse_atomic {
 public:
    ///
@@ -688,6 +817,10 @@ public:
 
 /**
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_set : public Parse_atomic_templates {
 public:
    ///
@@ -704,6 +837,10 @@ public:
 
 /**
 */
+
+/**
+  * \ingroup Rasdls
+  */
 class Parse_MDD : public Parse_atomic_templates {
 public:
    ///

@@ -56,6 +56,9 @@ rasdaman GmbH.
 #define ILLEGALINSERTCOMBI              9
 #define CMDLINE                        10
 
+/**
+  * \ingroup Rasdls
+  */
 class RasdlError // : public std::exception
 {
   public:
