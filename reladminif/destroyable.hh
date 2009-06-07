@@ -37,7 +37,9 @@ rasdaman GmbH.
 This is an interface class.  It is abstract.  It supplies the signature that
 is required to allow other interfaces to be defined without a virtual destructor.
 */
-
+/**
+  * \ingroup Reladminifs
+  */
 class Destroyable 
 	{
 	public:

@@ -65,7 +65,9 @@ The ObejctBroker can retrieve the oids of all objects of a specific type which a
 in the database.
 The list of objects which are kept by the ObjectBroker are cleared by TransactionIf.
 */
-
+/**
+  * \ingroup Reladminifs
+  */
 class ObjectBroker
 	{
 	public:

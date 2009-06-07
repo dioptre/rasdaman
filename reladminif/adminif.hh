@@ -70,6 +70,13 @@ before using a persistence capable class.
 */
 
 const int SYSTEMNAME_MAXLEN=256;
+/**
+  * \defgroup Reladminifs Reladminif Classes
+  */
+
+/**
+  * \ingroup Reladminifs
+  */
 
 class AdminIf              
 	{

@@ -60,7 +60,9 @@ using std::endl;
 using std::ostream;
 
 #include "raslib/error.hh"
-
+/**
+  * \ingroup Reladminifs
+  */
 class DatabaseIf              
 	{
 	public:

@@ -63,7 +63,9 @@ All access methods may throw database related r_Errors.
 */
 
 #define DBOBJID_NONE	OId()
-
+/**
+  * \ingroup Reladminifs
+  */
 template <class T>
 class DBRef
 	{

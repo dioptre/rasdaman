@@ -46,7 +46,9 @@ EOId is optimized for maps that contain only EOId of one system/database.
 when true multiple connections are implemented the order of compare
 statements in the operator"<" and ">" must be changed.
 */
-
+/**
+  * \ingroup Reladminifs
+  */
 class EOId :	public OId
 	{
 	public:

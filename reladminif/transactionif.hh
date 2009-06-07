@@ -46,7 +46,9 @@ class DatabaseIf;
 #include <iostream>
 
 #include "raslib/error.hh"
-
+/**
+  * \ingroup Reladminifs
+  */
 class TransactionIf              
 	{
 	public:

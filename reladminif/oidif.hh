@@ -61,7 +61,9 @@ transaction.  this can be a problem with multiple concurrent open read/write
 transactions.
 */
 
-
+/**
+  * \ingroup Reladminifs
+  */
 class OId
 	{ 
 	public:

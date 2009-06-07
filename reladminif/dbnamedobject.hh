@@ -34,7 +34,9 @@ Has functionality for setting the name of itsself from VARCHAR structures.
 Takes care of too long names.
 Implements set/getName functionality.
 */
-
+/**
+  * \ingroup Reladminifs
+  */
 class DBNamedObject : public DBObject
 	{
 	public:

@@ -35,7 +35,9 @@ this object gets a set of oids.  when an oid is accessed the iterator returns a 
 
 */
 
-
+/**
+  * \ingroup Reladminifs
+  */
 template<class T>
 class DBObjectIterator
 	{

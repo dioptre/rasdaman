@@ -48,7 +48,9 @@ management by ObjectBroker, modification management, cache size.
 
 a persistent DBObject has a unique OId.  this oid identifies it in the database.
 */
-
+/**
+  * \ingroup Reladminifs
+  */
 class DBObject
 	{
 	public:
