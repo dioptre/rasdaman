@@ -48,6 +48,9 @@ CompositeType is the abstract base class for all structured
 \Ref{BaseType} subclasses, at the moment only \Ref{StructType}.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class CompositeType : public BaseType
 {
 public:

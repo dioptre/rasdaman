@@ -46,6 +46,9 @@ class OId;
 
 
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class GenericComplexType : public AtomicType {
 
 public:
@@ -60,6 +63,9 @@ protected:
 };
 
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class ComplexType1 : public GenericComplexType {
 
 public:
@@ -92,6 +98,9 @@ private:
 	
 };
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class ComplexType2 : public GenericComplexType {
 
 public:

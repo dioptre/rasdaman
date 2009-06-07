@@ -51,6 +51,9 @@ class OId;
   objects.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class SetType : public CollectionType
 {
 public:

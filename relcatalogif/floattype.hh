@@ -50,6 +50,9 @@ FloatType is the base type used for 32bit integer cell
 values. The value of a Float is stored in four chars.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class FloatType : public RealType
 	{
 	public:

@@ -53,6 +53,9 @@ of comparison operations, see \Ref{Ops}). The value of a Octet is
 stored in one char. OctetType is a persistence capable class.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class OctetType : public IntegralType
 	{
 	public:

@@ -60,6 +60,9 @@ Each \Ref{Tile} has a pointer to its BaseType. Pointers to BaseType
 are also used in subclasses of \Ref{MDDObject}.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class BaseType : public Type
 	{
 	public:

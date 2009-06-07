@@ -51,6 +51,9 @@ values. The value of a Long is stored in four chars.
 
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class LongType : public IntegralType
 	{
 	public:

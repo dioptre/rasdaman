@@ -52,6 +52,9 @@ of comparison operations, see \Ref{Ops}). The value of a Bool is
 stored in one char. BoolType is a persistence capable class.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class BoolType : public UIntegralType
 	{
 	public:

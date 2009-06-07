@@ -41,6 +41,9 @@ it is used by DBMDDObj and MDDDomainType because the performance impact is negle
 for a more efficient storage system refere to InlineMInterval
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class DBMinterval : public DBObject, public r_Minterval
 	{
 	public:

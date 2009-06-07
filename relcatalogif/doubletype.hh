@@ -50,6 +50,9 @@ DoubleType is the base type used for 32bit integer cell
 values. The value of a Double is stored in four chars.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class DoubleType : public RealType
 	{
 	public:

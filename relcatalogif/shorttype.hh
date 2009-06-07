@@ -52,6 +52,9 @@ values. The value of a Short is stored in four chars.
 
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class ShortType : public IntegralType
 	{
 	public:

@@ -53,6 +53,9 @@ class MDDType;
   collections of MDDs (the only subclass at the moment is SetType).
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class CollectionType : public Type
 	{
 	public:

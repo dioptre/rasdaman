@@ -52,6 +52,9 @@ result of comparison operations, see \Ref{Ops}). The value of a Char
 is stored in one char. CharType is a persistence capable class.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class CharType : public UIntegralType
 	{
 	public:

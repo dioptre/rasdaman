@@ -48,6 +48,9 @@ double. It's subclasses must implement conversions to/from unsigned
 long.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class UIntegralType : public AtomicType {
 public:
 	UIntegralType(unsigned int newSize):

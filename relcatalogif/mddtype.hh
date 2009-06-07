@@ -52,6 +52,9 @@ class OId;
   specifying more.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class MDDType : public Type
 	{
 	public:

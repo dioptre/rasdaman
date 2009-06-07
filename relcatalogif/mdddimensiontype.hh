@@ -51,6 +51,9 @@ class OId;
   the base type and the dimensionality is specified.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class MDDDimensionType : public MDDBaseType
 	{
 	public:

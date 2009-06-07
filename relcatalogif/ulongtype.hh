@@ -50,6 +50,9 @@ ULongType is the base type used for 32bit unsigned integer cell
 values. The value of a ULong is stored in four chars.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class ULongType : public UIntegralType
 	{
 	public:

@@ -48,6 +48,13 @@ AtomicType is the abstract base class for all non-structured
 \Ref{BaseType} subclasses, i.e. base types like \Ref{ULongType} or
 \Ref{BoolType}.
 */
+/**
+  * \defgroup Relcatalogifs Relcatalogif Classes
+  */
+
+/**
+  * \ingroup Relcatalogifs
+  */
 
 class AtomicType : public BaseType
 	{

@@ -47,6 +47,9 @@ IntegralType is the abstract base class for all integral signed
 double. It's subclasses must implement conversions to/from long.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class IntegralType : public AtomicType {
 public:
 	IntegralType(unsigned int newSize):

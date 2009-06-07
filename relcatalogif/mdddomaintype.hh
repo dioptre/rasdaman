@@ -55,6 +55,9 @@ class OId;
   the base type and the domain is specified.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class MDDDomainType : public MDDBaseType
 	{
 	public:

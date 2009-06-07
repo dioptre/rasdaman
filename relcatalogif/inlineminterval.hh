@@ -38,6 +38,9 @@ This class is used by the index data structures to store their
 domain data fast and efficiently.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class InlineMinterval : public r_Minterval
 	{
 	public:

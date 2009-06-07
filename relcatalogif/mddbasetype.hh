@@ -51,6 +51,9 @@ class OId;
   only the base type is specified.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class MDDBaseType : public MDDType
 	{
 	public:

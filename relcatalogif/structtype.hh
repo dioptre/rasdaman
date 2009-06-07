@@ -62,6 +62,9 @@ struct.
 
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class StructType : public CompositeType
 	{
 	//	friend ostream& operator << (ostream& stream, StructType& b);

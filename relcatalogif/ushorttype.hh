@@ -49,6 +49,9 @@ UShortType is the base type used for 16bit unsigned integer cell
 values. The value of a UShort is stored in four chars.
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class UShortType : public UIntegralType
 	{
 	public:

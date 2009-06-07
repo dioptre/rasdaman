@@ -47,6 +47,9 @@ It provides conversions to/from long and unsigned long
 It's subclasses must implement conversions to/from double
 */
 
+/**
+  * \ingroup Relcatalogifs
+  */
 class RealType : public AtomicType {
 public:
 	RealType(unsigned int newSize):
