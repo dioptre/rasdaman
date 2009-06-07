@@ -38,6 +38,10 @@ Beware of the cache when droping the IndexDS classes!
 
 See indexmgr/hierindexds.hh and indexmgr/indexds.hh for documentation.
 */
+/**
+  * \ingroup Relindexifs
+  */
+
 class DBHierIndex	:	public HierIndexDS
 	{
 	public:

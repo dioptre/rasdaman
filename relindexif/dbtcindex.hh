@@ -32,6 +32,10 @@ This class stores data of hierarchical indexes in the database.  It is extended 
 
 for further information on the methods of this class see hierindexds and indexds interface classes in indexmgr.
 */
+/**
+  * \ingroup Relindexifs
+  */
+
 class DBTCIndex	:	public DBHierIndex
 	{
 	public:

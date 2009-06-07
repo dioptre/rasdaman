@@ -68,6 +68,14 @@ As:
 	InlineMinterval	myDomain	10 * dim
 
 */
+/**
+  * \defgroup Relindexifs Relindexif Classes
+  */
+
+/**
+  * \ingroup Relindexifs
+  */
+
 class DBRCIndexDS	:	public IndexDS
 	{
 	public:
