@@ -55,7 +55,13 @@ rasdaman GmbH.
   The {\bf StorageLayout} class is used to set the storage layout for persistent 
   MDD objects. 
 */      
- 
+/**
+  * \defgroup Storagemgrs Storagemgr Classes
+  */
+
+/**
+  * \ingroup Storagemgrs
+  */ 
 class StorageLayout
 	{
 	public:
