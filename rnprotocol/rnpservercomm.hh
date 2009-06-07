@@ -40,6 +40,10 @@ rasdaman GmbH.
 
 using namespace rnp;
 
+
+/**
+  * \ingroup Rnprotocols
+  */
 class ClientTimer
   {
     public:
@@ -52,7 +56,10 @@ class ClientTimer
       time_t lastAction;
       bool   enabled;
    };
-   
+
+/**
+  * \ingroup Rnprotocols
+  */   
 class RnpRasserverJob : public RnpServerJob
   {
     public:
@@ -67,6 +74,10 @@ class RnpRasserverJob : public RnpServerJob
       void executeOnWriteError() throw();
    };
    
+
+/**
+  * \ingroup Rnprotocols
+  */
 class RnpRasDaManComm : public RnpBaseServerComm
   {
     public:
@@ -142,6 +153,10 @@ class RnpRasDaManComm : public RnpBaseServerComm
       static const int NoClient;
     };
 
+
+/**
+  * \ingroup Rnprotocols
+  */
 class RasserverCommunicator : public NbCommunicator
   {
     public:

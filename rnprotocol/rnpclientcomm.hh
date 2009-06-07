@@ -36,6 +36,14 @@ rasdaman GmbH.
 
 using namespace rnp;
 
+/**
+  * \defgroup Rnprotocols Rnprotocol Classes
+  */
+
+/**
+  * \ingroup Rnprotocols
+  */
+ 
 class RnpClientComm : public ClientComm, RnpBaseClientComm
   {
     public:

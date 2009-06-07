@@ -27,6 +27,10 @@ rasdaman GmbH.
 
 using namespace rnp;
 
+
+/**
+  * \ingroup Rnprotocols
+  */
 class RnpRasserver : public Rnp
   {
     public:

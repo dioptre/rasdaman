@@ -52,6 +52,10 @@ class RnpBaseClientComm;
     and receives the answer. Is directy owned and used by 'RnpBaseClientComm',
     so you don't have to worry about it
     Be aware that the transmitter buffer is freed after transmission! */
+
+/**
+  * \ingroup Rnprotocols
+  */
 class RnpClientJob : public NbClientJob
   {
     public:
@@ -106,6 +110,10 @@ class RnpClientJob : public NbClientJob
   It has a private NbCommunicator object, but if you need a shared one
   be my guest. The RnpClientJob is its own also and this stays like that!
 */
+
+/**
+  * \ingroup Rnprotocols
+  */
 class RnpBaseClientComm
   {
     public:
@@ -200,6 +208,10 @@ class RnpBaseServerComm;
 /** This class represents the RNP server job. It receives the request, sends it to 'RnpBaseServerComm'
     for processing and gets from there the answer which it transmittes to the client
 */
+
+/**
+  * \ingroup Rnprotocols
+  */
 class RnpServerJob : public NbServerJob
   {
     public:
@@ -242,6 +254,9 @@ class RnpServerJob : public NbServerJob
   a valid request calls 'processRequest()'. The communicator object is external
 */
 
+/**
+  * \ingroup Rnprotocols
+  */
 class RnpBaseServerComm
   {
     public:

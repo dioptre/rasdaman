@@ -42,6 +42,10 @@ namespace rnp
 
 /** Class containing definitions and some helper functions
 */
+
+/**
+  * \ingroup Rnprotocols
+  */
 class RnpTransport
   {
     public:
@@ -72,6 +76,9 @@ class RnpTransport
   The receiver has two buffers, a fixed length one, for header and a dynamic one for the RNP message  
 */
 
+/**
+  * \ingroup Rnprotocols
+  */
 class RnpReceiver
   {
     public:
@@ -141,6 +148,10 @@ class RnpCarrier;
     from RnpProtocolEncoder, it offers just convenient methods for 
     dealing with carriers
 */
+
+/**
+  * \ingroup Rnprotocols
+  */
 class RnpTransmitter : public RnpProtocolEncoder
   {
     public:
@@ -184,6 +195,10 @@ class RnpTransmitter : public RnpProtocolEncoder
 
 /** Base class for the various carriers, is itself the RNP carrier
 */
+
+/**
+  * \ingroup Rnprotocols
+  */
 class RnpCarrier
   {
     public:
@@ -217,6 +232,10 @@ class RnpCarrier
 
 /** The HTTP-carrier
 */
+
+/**
+  * \ingroup Rnprotocols
+  */
 class HttpRnpCarrier : public RnpCarrier
   {
     public:
@@ -239,6 +258,10 @@ class HttpRnpCarrier : public RnpCarrier
 
 /** A 'bad carrier', just for testing purposes
 */
+
+/**
+  * \ingroup Rnprotocols
+  */
 class BadRnpCarrier : public RnpCarrier
   {
     public:

@@ -52,6 +52,10 @@ typedef int RnpQuark;
 
 /** Class Rnp contains definitions and general helper functions for RNP
 */
+
+/**
+  * \ingroup Rnprotocols
+  */
 class Rnp
   {
    public:
@@ -253,6 +257,10 @@ struct RnpFragmentHeader
     creating the message into a akg::CommBuffer, which can be internal or external.
     The buffer has to be big enough, the size is not adapted
 */
+
+/**
+  * \ingroup Rnprotocols
+  */
 class RnpProtocolEncoder
   {
     public:
@@ -347,6 +355,10 @@ class RnpProtocolEncoder
 /** Class for decoding a RNP message. The buffer is always an external one
     Decoding the messsage means also changing the endianness to the host endianness
 */
+
+/**
+  * \ingroup Rnprotocols
+  */
 class RnpProtocolDecoder
   {
     public:

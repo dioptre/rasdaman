@@ -39,6 +39,9 @@ rasdaman GmbH.
     // regularly signal the rasmgr that we are available
 #define SERVER_REGULARSIG  3
 
+/**
+  * \ingroup Rnprotocols
+  */
 class SrvRasmgrComm
   {
     public:
