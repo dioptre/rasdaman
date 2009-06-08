@@ -47,11 +47,9 @@ public class AxisIterator implements IParseTreeNode
 	{
 		String result = "";
 
-		result += "<axisIterator>";
 		result += "<iteratorVar>" + var + "</iteratorVar>";
 		result += "<axis>" + axis + "</axis>";
 		result += interval.toXML();
-		result += "</axisIterator>";
 
 		return result;
 	}

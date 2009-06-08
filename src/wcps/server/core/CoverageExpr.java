@@ -34,6 +34,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo
 	private IRasNode child;
 	private String childInfo;
 	private CoverageInfo info;
+//    private String var;
 	private boolean simpleCoverage;    // True is the coverage is just a string
 
 	public CoverageExpr(Node node, XmlQuery xq) throws WCPSException
@@ -102,6 +103,10 @@ public class CoverageExpr implements IRasNode, ICoverageInfo
             // TODO: implement class ConstantCoverageExprType
 			child = new ConstantCoverageExpr(node.getFirstChild(), xq);
 		}
+//        else if (nodeName.equals("variableRef"))
+//        {
+//            child = new VariableReference(node, xq);
+//        }
 		else
 		{    // Try one of the groups
             child = null;

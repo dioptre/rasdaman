@@ -34,7 +34,7 @@ public class GeneralCondenseExpr implements IParseTreeNode
 {
 	AxisIteratorList alist;
 	CondenseOperation op;
-	ScalarExpr using;
+	CoverageExpr using;
 	BooleanScalarExpr where;
 
 	public GeneralCondenseExpr(CondenseOperation op, AxisIteratorList al)
@@ -51,14 +51,14 @@ public class GeneralCondenseExpr implements IParseTreeNode
 		where = bse;
 	}
 
-	public void setUsing(ScalarExpr se)
+	public void setUsing(CoverageExpr se)
 	{
 		using = se;
 	}
 
 	public String toXML()
 	{
-		String result = "";
+		String result = "<condense>";
 
 		result += op.toXML();
 		result += alist.toXML();
@@ -69,6 +69,7 @@ public class GeneralCondenseExpr implements IParseTreeNode
 		}
 
 		result += using.toXML();
+        result += "</condense>";
 
 		return result;
 	}

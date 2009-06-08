@@ -40,6 +40,7 @@ public class CoverageConstructorExpr implements IParseTreeNode
 	{
 		this.name  = name;
 		this.alist = alist;
+        alist.setTag("axisIterator");
 		this.expr  = expr;
 	}
 

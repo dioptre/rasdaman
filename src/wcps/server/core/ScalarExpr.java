@@ -27,11 +27,7 @@ import org.w3c.dom.*;
 
 public class ScalarExpr implements IRasNode
 {
-//	private IRasNode first, second;
     private IRasNode child;
-//	private String op;
-//	private String type;    // can be simple (just a value), unary, binary, function or defered
-//	private String value;
 
 	public ScalarExpr(Node node, XmlQuery xq) throws WCPSException
 	{

@@ -1,14 +1,16 @@
 /*
-Author: *, Sorin Stancu-Mara, Andrei Aiordachioaie
-Date (last update): 21 April 2009
+Author: Sorin Stancu-Mara, Andrei Aiordachioaie
 History: 
-07 02 2007 smsorin 	Updated to WCPS 1.0.0
-27 01 2009 smsorin 	Moved to ANTLR
-11 02 2009 andreia 	Updated to new grammar (spec 08-068r2)
-13 02 2009 andreia 	Fixed small bugs in grammar. Now it can fully compile.
+07 02 2007 smsorin	Updated to WCPS 1.0.0
+27 01 2009 smsorin	Moved to ANTLR
+11 02 2009 andreia	Updated to new grammar (spec 08-068r2)
+13 02 2009 andreia	Fixed small bugs in grammar. Now it can fully compile.
 21 04 2009 andreia	Removed comments.
 04 05 2009 andreia	Fixed bugs in integer declaration.
-19 05 2009 andreia  	Fixed some other weird bugs. Grammar passes all tests now.
+19 05 2009 andreia	Fixed some other weird bugs. Grammar passes all tests now.
+28 05 2009 andreia	Updated class actions names.
+02 06 2009 andreia	Removed brackets around "and" binary operator in CoverageExpr
+03 06 2009 andreia	Complex expressions introduced in the "using" clause of general condense operations
 */
 grammar wcps_no_actions;
 options{
@@ -21,80 +23,80 @@ output=AST;
 
 /* Parser Rules */
 
-wcpsRequest 
+wcpsRequest
 	:	e1=forClause 
 		(e2=whereClause  )?
 		e3=returnClause 
 	;
-forClause 
-	: FOR v=variableName IN LPAREN list=coverageList RPAREN
+forClause
+	: FOR v=coverageVariable IN LPAREN list=coverageList RPAREN
 		
-	  (COMMA v=variableName IN LPAREN list=coverageList RPAREN
+	  (COMMA v=coverageVariable IN LPAREN list=coverageList RPAREN
 	  	)*
 	;
-whereClause 
+whereClause
 	: WHERE e1=booleanScalarExpr 
 	;
-returnClause 
+returnClause
 	:	RETURN e1=processingExpr 
 	;
-coverageList 
+coverageList
 	:	cname=coverageName 
 		(COMMA next=coverageName )*
 	;
-processingExpr 
+processingExpr
     : e1=encodedCoverageExpr 
     | e2=storeExpr 
     | e3=scalarExpr 
     ;
-encodedCoverageExpr 
+encodedCoverageExpr
 	: ENCODE LPAREN cov=coverageExpr COMMA format=stringConstant 
 	 (COMMA params=stringConstant )?  RPAREN
   ;
-storeExpr 
+storeExpr
     : STORE LPAREN e1=encodedCoverageExpr RPAREN 
     ;
-coverageExpr 
+coverageExpr
     : e1=coverageLogicTerm  
         (op=(OR|XOR) e2=coverageLogicTerm  )*
     ;
-coverageLogicTerm 
+coverageLogicTerm
     : e1=coverageLogicFactor  
-        (op=(AND) e2=coverageLogicFactor  )*
+        (op=AND e2=coverageLogicFactor  )*
     ;
-coverageLogicFactor  
+coverageLogicFactor 
     : e1=coverageArithmeticExpr  
         (op=(EQUALS|NOTEQUALS|LT|GT|LTE|GTE) e2=coverageArithmeticExpr   )?
     ;
-coverageArithmeticExpr  
+coverageArithmeticExpr 
     : e1=coverageArithmeticTerm  
         (op=(PLUS|MINUS) e2=coverageArithmeticTerm  )*
     ;
-coverageArithmeticTerm 
+coverageArithmeticTerm
     :   e1=coverageArithmeticFactor 
         (op=(MULT|DIVIDE) e2=coverageArithmeticFactor   )*
     ;
-coverageArithmeticFactor  
+coverageArithmeticFactor 
     : e1=coverageValue 
-        (op=(OVERLAY) e2=coverageValue  )*
+        (op=OVERLAY e2=coverageValue  )*
     ;
-coverageValue 
+coverageValue
     : e5=subsetExpr  
     | e2=unaryInducedExpr 
     | e4=scaleExpr 
     | e3=crsTransformExpr 
     | e1=coverageAtom 
     ;
-coverageAtom 
+coverageAtom
     : e2=scalarExpr 
-    | e1=variableName 
+    | e1=coverageVariable 
     | LPAREN e7=coverageExpr RPAREN  
     | e3=coverageConstantExpr 
     | e4=coverageConstructorExpr  
     | e5=setMetaDataExpr  
     | e6=rangeConstructorExpr  
     ;
-scalarExpr 
+scalarExpr
     : e1=metaDataExpr  
     | e2=condenseExpr  
     | e3=booleanScalarExpr   
@@ -102,7 +104,7 @@ scalarExpr
     | e5=stringScalarExpr  
     | LPAREN e6=scalarExpr RPAREN  
     ;
-metaDataExpr 
+metaDataExpr
     : op=IDENTIFIER LPAREN e1=coverageExpr RPAREN 
     | op=IMAGECRS LPAREN e1=coverageExpr RPAREN 
     | op=IMAGECRSDOMAIN LPAREN e1=coverageExpr (COMMA e2=axisName)? RPAREN 
@@ -112,45 +114,45 @@ metaDataExpr
     | op=INTERPOLATIONDEFAULT LPAREN e1=coverageExpr COMMA f1=fieldName RPAREN 
     | op=INTERPOLATIONSET LPAREN e1=coverageExpr COMMA f1=fieldName RPAREN  
     ;
-domainExpr 
-	: DOMAIN LPAREN var=variableName COMMA axis=axisName COMMA crs=crsName RPAREN 
+domainExpr
+	: DOMAIN LPAREN var=coverageVariable COMMA axis=axisName COMMA crs=crsName RPAREN 
 	;
-condenseExpr 
+condenseExpr
 	: e1=reduceExpr 
 	| e2=generalCondenseExpr 
 	;
-reduceExpr 
+reduceExpr
 	: op=(ALL|SOME|COUNT|ADD|AVG|MIN|MAX) LPAREN e1=coverageExpr RPAREN 
 	;
-generalCondenseExpr 
+generalCondenseExpr
 	: CONDENSE op=condenseOpType OVER ail=axisIteratorList 
 		(WHERE cond=booleanScalarExpr )?
-		USING se=scalarExpr 
+		(USING ce=coverageExpr)
 	;
-axisIteratorList 
+axisIteratorList
 	: vn=variableName an=axisName LPAREN ie=intervalExpr RPAREN
 		
 	(COMMA vn2=variableName an2=axisName LPAREN ie2=intervalExpr RPAREN
 		)*
 	;
-intervalExpr 
+intervalExpr
     : lo=indexExpr COLON hi=indexExpr
     	
     | IMAGECRSDOMAIN LPAREN e1=coverageName COMMA e2=axisName RPAREN
     	
     ;
-coverageConstantExpr 
+coverageConstantExpr
     : COVERAGE aname=coverageName OVER iter=axisIteratorList VALUE LIST LT values=constantList GT
         
     ;
-constantList 
+constantList
     : c=constant  (SEMICOLON c=constant )*
     ;
-coverageConstructorExpr 
+coverageConstructorExpr
 	: COVERAGE coverage=coverageName OVER ail=axisIteratorList VALUES se=scalarExpr
 		
 	;
-setMetaDataExpr 
+setMetaDataExpr
     : op=SETIDENTIFIER LPAREN s=stringConstant COMMA e1=coverageExpr RPAREN
 	
     | op=SETCRSSET LPAREN e1=coverageExpr COMMA crs=crsList RPAREN
@@ -162,37 +164,37 @@ setMetaDataExpr
     | op=SETINTERPOLATIONSET LPAREN e1=coverageExpr COMMA fn=fieldName COMMA iml=interpolationMethodList RPAREN
         
     ;
-crsList 
+crsList
     : LBRACE  (crs=crsName  (COMMA crs=crsName )* )? RBRACE
     ;
-rangeExprList 
+rangeExprList
     : LBRACE  (re1=rangeExpr  (COMMA re2=rangeExpr )* )? RBRACE
     ;
-interpolationMethodList 
+interpolationMethodList
 	: LBRACE  (e=interpolationMethod  (COMMA e=interpolationMethod )*)? RBRACE
 	;
-rangeExpr 
+rangeExpr
 	: STRUCT LBRACE 
 	(field=fieldName COLON expr=scalarExpr 
 		(COLON field=fieldName COLON expr=scalarExpr )*
 	)?  RBRACE
 	;
-rangeConstructorExpr 
+rangeConstructorExpr
     : (STRUCT)? LBRACE field=fieldName COLON expr=coverageExpr 
         (SEMICOLON field=fieldName COLON expr=coverageExpr )* RBRACE
     ;
-crsTransformExpr 
+crsTransformExpr
 	: CRSTRANSFORM LPAREN e1=coverageExpr COMMA dcl=dimensionIntervalList COMMA fil=fieldInterpolationList RPAREN
 		
 	;
-fieldInterpolationList 
+fieldInterpolationList
 	: LBRACE elem=fieldInterpolationElement 
 		(COMMA elem=fieldInterpolationElement ) * RBRACE
 	;
-fieldInterpolationElement 
+fieldInterpolationElement
 	: aname=fieldName method=interpolationMethod 
 	;
-unaryInducedExpr 
+unaryInducedExpr
     : e6=fieldExpr 
 	| e1=unaryArithmeticExpr 
     | e2=exponentialExpr 
@@ -201,98 +203,97 @@ unaryInducedExpr
     | e5=castExpr 
     | e7=rangeConstructorExpr 
     ;
-unaryArithmeticExpr 
+unaryArithmeticExpr
     : op=(MINUS|PLUS) e1=coverageAtom 
     | op=(SQRT|ABS|RE|IM) LPAREN e2=coverageExpr RPAREN 
     ;
-exponentialExpr 
+exponentialExpr
     : op=(EXP|LOG|LN) LPAREN e1=coverageExpr RPAREN 
     ;
-trigonometricExpr 
+trigonometricExpr
     : op=(SIN|COS|TAN|SINH|COSH|TANH|ARCSIN|ARCCOS|ARCTAN) LPAREN e1=coverageExpr RPAREN 
     ;
-booleanExpr 
+booleanExpr
     : op=NOT e1=coverageExpr 
     | op=BIT LPAREN e1=coverageExpr COMMA e2=indexExpr RPAREN 
     ;
-indexExpr 
+indexExpr
     : e1=indexTerm  
-	(op=(PLUS^|MINUS^) e2=indexTerm )*
+		(op=(PLUS|MINUS) e2=indexTerm )*
     ;
-indexTerm 
+indexTerm
     : e1=indexFactor 
-    	((op=(MULT|DIVIDE) e2=indexFactor))*
+    	((op=(MULT|DIVIDE) e2=indexFactor  ))*
     ;
-indexFactor 
+indexFactor
     : e=INTEGERCONSTANT  
     | op=ROUND LPAREN e1=numericScalarExpr RPAREN  
-    | (LPAREN e2=indexExpr RPAREN)
-//    	=> (LPAREN e2=indexExpr RPAREN  )
+    | (LPAREN e2=indexExpr RPAREN  )
     ;
-stringScalarExpr  
+stringScalarExpr 
 // The first rule should be "metaDataExpr", but currently only a variable "identifier" is allowed.
     : op=IDENTIFIER LPAREN e1=coverageExpr RPAREN  
     | e=STRING 
     ;
-scaleExpr 
+scaleExpr
 	: SCALE LPAREN e1=coverageExpr COMMA dil=dimensionIntervalList COMMA fil=fieldInterpolationList RPAREN
 		
 	;
-subsetExpr 
+subsetExpr
 	: e1=trimExpr 
 	| e2=sliceExpr 
 	| e3=extendExpr 
 	;
-trimExpr 
+trimExpr
 	: e1=coverageAtom LBRACKET dil=dimensionIntervalList RBRACKET 
   	| TRIM LPAREN e2=coverageExpr COMMA LBRACE dil=dimensionIntervalList RBRACE RPAREN 
 	;
-sliceExpr 
+sliceExpr
 	: e1=coverageAtom LBRACKET dpl=dimensionPointList RBRACKET 
 	| SLICE LPAREN e2=coverageExpr COMMA LBRACE dpl=dimensionPointList RBRACE RPAREN 
 	;
-extendExpr 
+extendExpr
 	: EXTEND LPAREN e1=coverageExpr COMMA dil=dimensionIntervalList RPAREN 
 	;
-castExpr 
+castExpr
     : LPAREN e1=rangeType RPAREN e2=coverageExpr 
     ;
-rangeType 
+rangeType
     : type=(BOOLEAN|CHAR|SHORT|LONG|FLOAT|DOUBLE|COMPLEX|COMPLEX2) 
     | UNSIGNED type=(CHAR|SHORT|LONG) 
     ;
-fieldExpr 
+fieldExpr
     : e1=coverageAtom DOT e2=fieldName 
     ;
 // NOTE: The following boolean rules are equivalent to the grammar rules in document 08-068r2
 // They have been rewritten in order to prioritize the boolean operators
-booleanScalarExpr 
+booleanScalarExpr
     : e1=booleanScalarTerm 
-      (op=(OR^|XOR^) e2=booleanScalarTerm )*
+      (op=(OR|XOR) e2=booleanScalarTerm )*
     ;
-booleanScalarTerm 
+booleanScalarTerm
 	: e1=booleanScalarNegation 
 	  (op=AND e2=booleanScalarNegation  )*
 	;
-booleanScalarNegation  
+booleanScalarNegation 
 	:	e1=booleanScalarAtom 
 	|	op=NOT e1=booleanScalarAtom 
 	;
-booleanScalarAtom 
+booleanScalarAtom
 	: LPAREN e1=booleanScalarExpr RPAREN 
 	| s1=stringScalarExpr cop=compOp s2=stringScalarExpr  
 	| n1=numericScalarExpr cop=compOp n2=numericScalarExpr  
 	| e=BOOLEANCONSTANT 
 	;
-numericScalarExpr 
+numericScalarExpr
 	: e1=numericScalarTerm 
 	  (op=(PLUS|MINUS) e2=numericScalarTerm )*
 	;
-numericScalarTerm 
+numericScalarTerm
 	: e1=numericScalarFactor 
 		(op=(MULT|DIVIDE) e2=numericScalarFactor )*
 	;
-numericScalarFactor 
+numericScalarFactor
     : LPAREN e1=numericScalarExpr RPAREN 
     | op=MINUS e10=numericScalarFactor 
     | op=ROUND LPAREN e1=numericScalarExpr RPAREN 
@@ -300,8 +301,9 @@ numericScalarFactor
     | e=FLOATCONSTANT 
     | e2=complexConstant 
     | e3=condenseExpr 
+    | e4=variableName
     ;
-compOp 
+compOp
 	: EQUALS 
 	| NOTEQUALS 
 	| LT 
@@ -309,77 +311,73 @@ compOp
 	| LTE 
 	| GTE 
 	;
-dimensionIntervalList 
+dimensionIntervalList
     : elem=dimensionIntervalElement 
         (COMMA elem=dimensionIntervalElement )*
     ;
-dimensionIntervalElement 
+dimensionIntervalElement
     : aname=axisName  (COLON crs=crsName )?
     	LPAREN die=dimensionIntervalExpr RPAREN 
     ;
-dimensionIntervalExpr 
+dimensionIntervalExpr
     : e1=scalarExpr COLON e2=scalarExpr 
     | DOMAIN LPAREN e3=coverageName COLON e4=axisName COLON e5=crsName RPAREN 
     ;
-dimensionPointList 
+dimensionPointList
     : elem1=dimensionPointElement 
     	(COMMA elem2=dimensionPointElement )*
     ;
-dimensionPointElement 
+dimensionPointElement
     : aname=axisName LPAREN dpe=dimensionPoint RPAREN 
     | aname=axisName COLON crs=crsName LPAREN dpe=dimensionPoint RPAREN 
     ;
-dimensionPoint 
+dimensionPoint
     : e1=scalarExpr 
     ;
-interpolationMethod	
+interpolationMethod
 	: LPAREN type=interpolationType COLON res=nullResistence RPAREN 
 	;
-interpolationType	
+interpolationType
 	: type=(NEAREST|LINEAR|QUADRATIC|CUBIC) 
 	;
-nullResistence 
+nullResistence
 	: resistance=(FULL|NONE|HALF|OTHER) 
 	;
-condenseOpType 
+condenseOpType
 	: op=(PLUS|MULT|MAX|MIN|AND|OR) 
 	;
-fieldName 
+fieldName
 	: name 
 	;
-constant 
+constant
 	: e=(STRING|BOOLEANCONSTANT|INTEGERCONSTANT|FLOATCONSTANT) 
 	| e1=complexConstant 
 	;
-complexConstant 
+complexConstant
 	: LPAREN re1=FLOATCONSTANT COMMA im1=FLOATCONSTANT RPAREN 
 	;
-stringConstant 
+stringConstant
 	: s=STRING 
 	;
-name 
+name
 	: var=(NAME | STRING | INTEGERCONSTANT) 
 	;
-crsName 
+crsName
 	: s=stringConstant 
 	;
-axisName 
+axisName
 	: type1=name 
 	;
-variableName 
-	: var=(VARIABLE_DOLLAR | NAME) 
+variableName
+	: var=VARIABLE_DOLLAR
 	;
-coverageName 
+coverageVariable
+	: var=NAME
+	;
+coverageName
 	: name 
 	;
 
-
-	/*
-anything:	
-	name | INTEGERCONSTANT;
-dot	:	
-	DOT;
-	*/
 	
 /* Lexer rules */
 PLUS:	 '+';
@@ -491,10 +489,10 @@ fragment OCTALCONSTANT:
 	'0' ('1'..'7') (('0'..'7')*);
 fragment HEXACONSTANT:
 	('0x'|'0X') ('1'..'9'|'a'..'f'|'A'..'F') (('0'..'9'|'a'..'f'|'A'..'F')*);
-INTEGERCONSTANT: DECIMALCONSTANT | OCTALCONSTANT | HEXACONSTANT;
+INTEGERCONSTANT:  (PLUS|MINUS)? DECIMALCONSTANT | OCTALCONSTANT | HEXACONSTANT;
 FLOATCONSTANT: DECIMALCONSTANT ('.')('0'..'9'+)(('e'|'E')(('-'|'+')?)('0'..'9'+))?;
 
 STRING: '"' ( options {greedy=false;} : . )* '"' {setText(getText().substring(1, getText().length()-1));};
 NAME: ('a'..'z'|'A'..'Z'|'_')(('a'..'z'|'A'..'Z'|'0'..'9'|'_')*);
-VARIABLE_DOLLAR: '$'(('a'..'z'|'A'..'Z'|'0'..'9'|'_')*);
+VARIABLE_DOLLAR: '$'(('a'..'z'|'A'..'Z'|'0'..'9'|'_')*) {setText(getText().substring(1, getText().length())); } ;
 WHITESPACE: (' ' | '\t' | '\r' | '\n' | '\u000C')+ { skip(); } ;

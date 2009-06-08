@@ -38,7 +38,7 @@ public class NumericScalarExpr implements IRasNode
 
 		op = "";
 
-		System.out.println("Trying to parse numeric scalar expression ...");
+		System.err.println("Trying to parse numeric scalar expression ...");
 
 		if (nodeName.equals("numericConstant"))
 		{
@@ -91,7 +91,21 @@ public class NumericScalarExpr implements IRasNode
                 System.err.println("Failed to parse a numeric expression pair !");
             }
         }
-
+        else if (nodeName.equals("variableRef"))
+        {
+            try
+            {
+                op = code(nodeName);
+                twoChildren = false;
+                first = new VariableReference(node, xq);
+                System.err.println("Matched variable reference: " + first.toRasQL());
+            }
+            catch (WCPSException e)
+            {
+                System.err.println("Failed to match variable reference: "
+                           + e.toString());
+            }
+        }
 		else
 		{
 			throw new WCPSException("Unexpected Numeric Scalar Expression node : "
@@ -102,7 +116,9 @@ public class NumericScalarExpr implements IRasNode
 	public String toRasQL()
 	{
         String result = "";
-        if (op.equals("value"))
+        if (op.equals("variable"))
+            result = first.toRasQL();
+        else if (op.equals("value"))
             result = value;
         else if ((twoChildren==false) && (op.equals("-")))
             result = "-" + first.toRasQL();
@@ -133,6 +149,8 @@ public class NumericScalarExpr implements IRasNode
         if (name.equals("condense") || name.equals("reduce")
                 || name.equals("complexConstant"))
             op = "child";
+        if (name.equals("variableRef"))
+            op = "variable";
 
         return op;
     }

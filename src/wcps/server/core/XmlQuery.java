@@ -26,13 +26,14 @@ package wcps.server.core;
 import org.w3c.dom.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
  *
  * @author Andrei Aiordachioaie
  */
-class XmlQuery implements IRasNode
+public class XmlQuery implements IRasNode
 {
     private String mime;
     private ArrayList<CoverageIterator> iterators;
@@ -40,6 +41,25 @@ class XmlQuery implements IRasNode
     private IRasNode coverageExpr;
     private IDynamicMetadataSource meta;
     private ArrayList<CoverageIterator> dynamicIterators;
+    /* Variables used in the XML query are renamed. The renaming is explained below.
+     *
+     * Variables declared in the same expression (construct, const, condense)
+       will be collapsed into one multidimensional variable name. For
+     "construct img over $px x(1:10), $py y(1:10) values ... ", the variables could
+     be translated as: $px -> "iteratorA[0]", $py -> "iteratorA[1]".
+     * Variables declared in different expression will have different prefixes,
+     built from "varPrefix" + "varStart".
+     *
+     
+     * Used in condenser, construct and constant coverage expressions. */
+
+    // VariableIndexCount stores the dimensionality of each renamed variable
+    private HashMap<String, Integer> varDimension;
+    // VariableNewName is used to translate the old var name into the multi-dim var name
+    private HashMap<String, String> variableTranslator;
+
+    private String varPrefix = "i";
+    private char varSuffix = 'i';
 
     public String getMimeType()
     {
@@ -50,6 +70,19 @@ class XmlQuery implements IRasNode
     {
         super();
         this.meta = source;
+        iterators = new ArrayList<CoverageIterator>();
+        dynamicIterators = new ArrayList<CoverageIterator>();
+        variableTranslator = new HashMap<String, String>();
+        varDimension = new HashMap<String, Integer>();
+    }
+
+    public XmlQuery(Node node) throws WCPSException
+    {
+        iterators = new ArrayList<CoverageIterator>();
+        dynamicIterators = new ArrayList<CoverageIterator>();
+        variableTranslator = new HashMap<String, String>();
+        varDimension = new HashMap<String, Integer>();
+        this.startParsing(node);
     }
 
     public void startParsing(Node node) throws WCPSException
@@ -57,8 +90,7 @@ class XmlQuery implements IRasNode
         System.err.println("Processing XML Request: " + node.getNodeName());
 
         Node x = node.getFirstChild();
-        iterators = new ArrayList<CoverageIterator>();
-        dynamicIterators = new ArrayList<CoverageIterator>();
+        
 
         while (x != null)
         {
@@ -97,11 +129,6 @@ class XmlQuery implements IRasNode
         }
     }
 
-    public XmlQuery(Node node) throws WCPSException
-    {
-        this.startParsing(node);
-    }
-
     public Boolean isIteratorDefined(String iteratorName)
 	{
 		Iterator<CoverageIterator> it = iterators.iterator();
@@ -123,10 +150,10 @@ class XmlQuery implements IRasNode
 		return false;
 	}
 
-    /* Stores information about dynamically created iterators.
+    /* Stores information about dynamically created iterators, as metadata.
      * For example, from a Construct Coverage expression.
      */
-    public void addDynamicIterator(CoverageIterator i)
+    public void addDynamicCoverageIterator(CoverageIterator i)
     {
         dynamicIterators.add(i);
     }
@@ -166,6 +193,45 @@ class XmlQuery implements IRasNode
 		}
 
         return false;
+    }
+
+    /** Creates a new (translated) variable name for an expression that
+     * has referenceable variables.
+     * @return String a new variable name assigned
+     */
+    public String registerNewExpressionWithVariables()
+    {
+        String name = varPrefix + varSuffix;
+        varDimension.put(name, 0);
+        varSuffix++;
+        return name;
+    }
+
+    /** Remember a variable that can be referenced in the future. This function
+     * assigns it a index code, that should then be used to reference that variable
+     * in the RasQL query.
+     *
+     * If the variable is already referenced, then this function does nothing.
+     * @param name Variable name
+     */
+    public boolean addReferenceVariable(String name, String translatedName)
+    {
+        if (varDimension.containsKey(translatedName) == false)
+            return false;
+        
+        Integer index = varDimension.get(translatedName);
+        Integer newIndex = index + 1;
+        varDimension.put(translatedName, newIndex);
+        variableTranslator.put(name, translatedName + "[" + index + "]");
+        
+        return true;
+    }
+
+    /** Retrieve the translated name assigned to a specific reference (scalar) variable */
+    public String getReferenceVariableName(String name) throws WCPSException
+    {
+        String newName = variableTranslator.get(name);
+        return newName;
     }
 
     public String toRasQL()

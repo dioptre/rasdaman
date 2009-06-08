@@ -28,13 +28,12 @@ import org.w3c.dom.*;
 
 public class AxisIterator implements IRasNode
 {
-	private String var;
+	private String var, varTranslation;
     private AxisName axis;
 	private NumericScalarExpr hi,lo;
 
-	public AxisIterator(Node node, XmlQuery xq) throws WCPSException
+	public AxisIterator(Node node, XmlQuery xq, String newIteratorName) throws WCPSException
 	{
-
         while ((node != null) && node.getNodeName().equals("#text"))
 		{
 			node = node.getNextSibling();
@@ -48,6 +47,9 @@ public class AxisIterator implements IRasNode
             if (nodeName.equals("iteratorVar"))
             {
                 var = node.getTextContent();
+                // This variable will be referenced later on. Translate it.
+                xq.addReferenceVariable(var, newIteratorName);
+                varTranslation = xq.getReferenceVariableName(var);
             }
             else if (nodeName.equals("axis"))
             {
@@ -75,9 +77,15 @@ public class AxisIterator implements IRasNode
 
 	public String toRasQL()
 	{
-		String result = var + " in [" + lo.toRasQL() + ":" + hi.toRasQL() + "]";
+		String result = varTranslation + " in [" + lo.toRasQL() + ":" + hi.toRasQL() + "]";
         return result;
 	}
+
+    /** Sets a new name for the iterator variable, to be used in the rasql query**/
+    public void setVariableTranslation(String newName)
+    {
+        varTranslation = newName;
+    }
 
     /** Return the Higher bound for the axis iterator.
      * This only works for constant expressions.
@@ -99,6 +107,7 @@ public class AxisIterator implements IRasNode
         return SDU.str2integer(lo.toRasQL()).get(0);
     }
 
+    /* Return the variable name used in this axis */
     public String getVar()
     {
         return var;
@@ -107,5 +116,11 @@ public class AxisIterator implements IRasNode
     public String getAxisType()
     {
         return axis.toRasQL();
+    }
+
+    /* Returns the m-interval that this axis iterates over in a string form */
+    public String getInterval()
+    {
+        return lo.toRasQL() + ":" + hi.toRasQL();
     }
 }

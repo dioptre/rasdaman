@@ -21,56 +21,42 @@
  */
 
 
+package wcps.server.core;
 
+import org.w3c.dom.*;
 
-package grammar;
-
-/**
- * AxisIteratorList
- *
- * @author Andrei Aiordachioaie
- */
-public class AxisIteratorList implements IParseTreeNode
+public class VariableReference implements IRasNode
 {
-	private AxisIterator it;
-	private AxisIteratorList next;
-	private String tag;
+    private String name;
+    private String translatedName;
 
-	public AxisIteratorList(AxisIterator it)
+	public VariableReference(Node node, XmlQuery xq) throws WCPSException
 	{
-		this.it = it;
-		next    = null;
-		tag     = "";
-	}
+        System.err.println("Parsing variable reference: " + node.getNodeName());
 
-	public AxisIteratorList(AxisIterator it, AxisIteratorList n)
-	{
-		this.it = it;
-		next    = n;
-		tag     = "";
-	}
+        while ((node != null) && node.getNodeName().equals("#text"))
+		{
+			node = node.getNextSibling();
+		}
 
-	public void setTag(String tag)
-	{
-		this.tag = tag;
-	}
-
-	public String toXML()
-	{
-        String result = "";
-		String tag1 = "<" + tag + ">";
-		String tag2 = "</" + tag + ">";
-
-		if (tag.equals(""))
-			tag1 = tag2 = "";
-		
-        if (next != null)
+        if (node != null && node.getNodeName().equals("variableRef"))
         {
-            next.setTag(tag);
-            result += next.toXML();
+            name = node.getTextContent();
+            translatedName = xq.getReferenceVariableName(name);
+            System.err.println("Variable " + name + " has been renamed into " +
+                    translatedName);
         }
-        result += tag1 + it.toXML() + tag2;
+        else
+            throw new WCPSException("Could not find any variable reference !");
+	}
 
-		return result;
+    public String getName()
+    {
+        return name;
+    }
+
+	public String toRasQL()
+	{
+        return translatedName;
 	}
 }

@@ -23,18 +23,103 @@
 
 package wcps.server.core;
 
+import java.util.Vector;
 import org.w3c.dom.*;
 
-// TODO: implement CondenseScalarExprType
 public class CondenseScalarExpr implements IRasNode
 {
+    private CondenseOperation op;
+    private Vector<AxisIterator> iterators;
+    private IRasNode using;
+    private IRasNode where;
+    private String axisIteratorString;
+    private String newIteratorName;
+
 	public CondenseScalarExpr(Node node, XmlQuery xq) throws WCPSException
 	{
-        throw new WCPSException("Method not implemented");
+        if (node.getNodeName().equals("condense"))
+            node = node.getFirstChild();
+        while ((node != null) && node.getNodeName().equals("#text"))
+		{
+			node = node.getNextSibling();
+		}
+
+        iterators = new Vector();
+        newIteratorName = xq.registerNewExpressionWithVariables();
+		System.err.println("Parsing Condense Scalar Expression: " + node.getNodeName());
+
+        while (node != null)
+        {
+            String name = node.getNodeName();
+            if (op == null)
+            {
+                op = new CondenseOperation(node, xq);
+            }
+            else
+            if (name.equals("iterator"))
+            {
+                AxisIterator it = new AxisIterator(node.getFirstChild(), xq, newIteratorName);
+                iterators.add(it);
+            }
+            else
+            if (name.equals("where"))
+            {
+                where = new BooleanScalarExpr(node.getFirstChild(), xq);
+            }
+            else
+            {
+                // TODO (HACK) Settle on either CoverageExpr or ScalarExpr
+                /* Discussion:
+                 * CoverageExpr allows expressions like c[$x,15].
+                 * ScalarExpr allows constants.
+                 * They do not like each other
+                 * Handle this in the grammar in a more explicit way.
+                 */
+                try
+                {
+                    using = new CoverageExpr(node, xq);
+                }
+                catch (WCPSException e)
+                {
+                    using = new ScalarExpr(node, xq);
+                }
+            }
+
+            node = node.getNextSibling();
+            while ((node != null) && node.getNodeName().equals("#text"))
+            {
+                node = node.getNextSibling();
+            }
+        }
+
+        buildAxisIteratorDomain();
 	}
 
 	public String toRasQL()
 	{
-        return "";
+        String result = "condense " + op.toRasQL() + " over ";
+        result += axisIteratorString;
+        if (where != null)
+            result += where.toRasQL();
+        result += " using " + using.toRasQL();
+        return result;
 	}
+
+    /* Concatenates all the AxisIterators into one large multi-dimensional object,
+     * that will be used to build to RasQL query */
+    private void buildAxisIteratorDomain()
+    {
+        axisIteratorString = "";
+        axisIteratorString += newIteratorName + " in [";
+
+        for (int i = 0; i < iterators.size(); i++)
+        {
+            if (i > 0)
+                axisIteratorString += ", ";
+            AxisIterator ai = iterators.elementAt(i);
+            axisIteratorString += ai.getInterval();
+        }
+
+        axisIteratorString += "]";
+    }
 }

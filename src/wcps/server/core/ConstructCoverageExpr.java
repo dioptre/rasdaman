@@ -37,6 +37,8 @@ public class ConstructCoverageExpr implements IRasNode, ICoverageInfo
     private Vector<AxisIterator> iterators;
     private IRasNode values;
     private CoverageInfo info;
+    private String axisIteratorString;
+    private String newIteratorName;
 
 
 	public ConstructCoverageExpr(Node node, XmlQuery xq)
@@ -49,6 +51,7 @@ public class ConstructCoverageExpr implements IRasNode, ICoverageInfo
 
         iterators = new Vector();
 		System.err.println("Parsing Construct Coverage Expr: " + node.getNodeName());
+        newIteratorName = xq.registerNewExpressionWithVariables();
 
         while (node != null)
         {
@@ -58,11 +61,11 @@ public class ConstructCoverageExpr implements IRasNode, ICoverageInfo
             else
             if (name.equals("axisIterator"))
             {
-                AxisIterator it = new AxisIterator(node.getFirstChild(), xq);
+                AxisIterator it = new AxisIterator(node.getFirstChild(), xq, newIteratorName);
                 iterators.add(it);
                 // Top level structures need to know about these iterators
                 CoverageIterator dyn = new CoverageIterator(it.getVar(), covName);
-                xq.addDynamicIterator(dyn);
+                xq.addDynamicCoverageIterator(dyn);
             }
             else
             {
@@ -83,6 +86,8 @@ public class ConstructCoverageExpr implements IRasNode, ICoverageInfo
             }
         }
 
+        buildAxisIteratorDomain();
+
         // Sanity check: metadata should have already been build
         if (info == null)
             throw new WCPSException("Could not build coverage metadata !!!");
@@ -91,11 +96,7 @@ public class ConstructCoverageExpr implements IRasNode, ICoverageInfo
 	public String toRasQL()
 	{
 		String result = "marray ";
-        result += iterators.elementAt(0).toRasQL();
-        for (int i = 1; i < iterators.size(); i++)
-        {
-            result += ", " + iterators.elementAt(i).toRasQL();
-        }
+        result += axisIteratorString;
         result += " values " + values.toRasQL();
 
         return result;
@@ -105,6 +106,24 @@ public class ConstructCoverageExpr implements IRasNode, ICoverageInfo
 	{
 		return info;
 	}
+
+    /* Concatenates all the AxisIterators into one large multi-dimensional object,
+     * that will be used to build to RasQL query */
+    private void buildAxisIteratorDomain()
+    {
+        axisIteratorString = "";
+        axisIteratorString += newIteratorName + " in [";
+
+        for (int i = 0; i < iterators.size(); i++)
+        {
+            if (i > 0)
+                axisIteratorString += ", ";
+            AxisIterator ai = iterators.elementAt(i);
+            axisIteratorString += ai.getInterval();
+        }
+
+        axisIteratorString += "]";
+    }
 
     /** Builds full metadata for the newly constructed coverage **/
     private void buildMetadata(XmlQuery xq) throws WCPSException

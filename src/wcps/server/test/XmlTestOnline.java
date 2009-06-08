@@ -46,7 +46,7 @@ public class XmlTestOnline {
     // Put new test cases in this folder
 //    public final String PetascopeURL = "http://localhost:8080/PetaScope/WCPService";
 //    public final String PetascopeURL = "http://localhost:8080/petascope/wcps/";
-    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope/wcps/";
+    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope-new/wcps/";
 
     String folder = "test/testcases-wcps/";
     // How many tests we have to run
@@ -68,7 +68,7 @@ public class XmlTestOnline {
 
         for (int i = 0; i < numTests; i++) {
             String tname = tests[i].getName();
-            tname = tname.substring(0, tname.length() - 9);
+            tname = tname.substring(0, tname.length() - 4);
             if (ok[i] == true)
             {
                 System.out.println("*** Test '" + tname + "' ok");
@@ -80,6 +80,7 @@ public class XmlTestOnline {
             }
         }
         System.out.println("\n\nRESULTS\n");
+        System.out.println("Tested PetaScope implementation from: " + PetascopeURL);
         System.out.println("Tests succeeded: " + String.valueOf(passCount));
         System.out.println("Tests failed: " + String.valueOf(numTests - passCount));
     }
@@ -116,7 +117,7 @@ public class XmlTestOnline {
         {
             ok[i] = false;
             tname = tests[i].getName();
-            tname = tname.substring(0, tname.length() - 9);
+            tname = tname.substring(0, tname.length() - 4);
             System.out.println("Running test '" + tname + "'...");
             try {
                 query = FileUtils.readFileToString(tests[i]);

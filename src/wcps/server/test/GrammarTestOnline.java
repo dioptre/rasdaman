@@ -47,7 +47,7 @@ public class GrammarTestOnline {
     // Put new test cases in this folder
 //    public final String PetascopeURL = "http://localhost:8080/PetaScope/WCPService";
 //    public final String PetascopeURL = "http://localhost:8080/petascope/wcps/";
-    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope/wcps/";
+    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope-new/wcps/";
 
     String folder = "test/testcases-wcps/";
     // How many tests we have to run
@@ -81,6 +81,7 @@ public class GrammarTestOnline {
             }
         }
         System.out.println("\n\nRESULTS\n");
+        System.out.println("Tested PetaScope implementation from: " + PetascopeURL);
         System.out.println("Tests succeeded: " + String.valueOf(passCount));
         System.out.println("Tests failed: " + String.valueOf(numTests - passCount));
     }
@@ -89,7 +90,7 @@ public class GrammarTestOnline {
         // Find out how many tests we have to run
         File dir = new File(folder);
         System.out.println("Looking for tests in " + dir.getAbsolutePath() + "\n");
-        XmlFileFilter filter = new XmlFileFilter();
+        TestFileFilter filter = new TestFileFilter();
         tests = dir.listFiles(filter);
         numTests = tests.length;
 //        numTests = 3;
@@ -99,7 +100,7 @@ public class GrammarTestOnline {
     }
 
     /* Accept all files with extension TEST. */
-    private class XmlFileFilter implements FilenameFilter {
+    private class TestFileFilter implements FilenameFilter {
 
         @Override
         public boolean accept(File dir, String name) {

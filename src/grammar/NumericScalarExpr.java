@@ -73,6 +73,17 @@ public class NumericScalarExpr implements IParseTreeNode
 		}
 	}
 
+    public NumericScalarExpr(String varOp, String varName)
+    {
+        if (varOp.equals("var"))
+        {
+            function = "variableRef";
+            constValue = varName;
+        }
+        else
+            System.err.println("Internal error: this should have been a variable name:" + varName);
+    }
+
 	public NumericScalarExpr(String op, NumericScalarExpr lbe, NumericScalarExpr rbe)
 	{
 		leftNumericScalarExpr  = lbe;
@@ -111,7 +122,7 @@ public class NumericScalarExpr implements IParseTreeNode
 
 		result = "<" + function + ">";
 
-		if (function.equals("numericConstant"))
+		if (function.equals("numericConstant") || function.equals("variableRef"))
 		{
 			result += constValue;
 		}

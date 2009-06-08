@@ -97,19 +97,30 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo
 		Iterator<DimensionPointElement> i = axisList.iterator();
 		DimensionPointElement axis;
 		int axisId;
-		int slicingPos;
+		int slicingPosInt;
+        String slicingPosStr;
 
 		while (i.hasNext())
 		{
 			axis        = i.next();
 			axisId      = coverageInfo.getDomainIndexByName(axis.getAxisName());
-			slicingPos  = Integer.parseInt(axis.getSlicingPosition());
-			dim[axisId] = "" + slicingPos;
-			coverageInfo.setCellDimension(
-			    axisId,
-			    new CellDomainElement(
-				BigInteger.valueOf(slicingPos), BigInteger.valueOf(slicingPos)));
-		}
+            slicingPosStr = axis.getSlicingPosition();
+            dim[axisId] = slicingPosStr;
+            // Slicing position can be a constant number or a variable reference
+            try
+            {
+                slicingPosInt  = Integer.parseInt(slicingPosStr);
+            }
+            catch (NumberFormatException e)
+            {
+                slicingPosInt = 1;
+            }
+            coverageInfo.setCellDimension(
+                axisId,
+                new CellDomainElement(
+                BigInteger.valueOf(slicingPosInt), BigInteger.valueOf(slicingPosInt)));
+
+        }
 
 	}
 

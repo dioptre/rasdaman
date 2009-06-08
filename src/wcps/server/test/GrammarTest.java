@@ -37,7 +37,7 @@ import wcps.server.cli.grammar;
 public class GrammarTest
 {
     // Put new test cases in this folder following the current naming scheme
-    String folder = "test/testcases-wcps/";
+    String folder = "test/testcases-wcps_dollar/";
     // How many tests we have to run
     int numTests = 0;
     // tests
@@ -119,7 +119,7 @@ public class GrammarTest
             }
             try
             {
-                grammar.runQuery(query);
+                grammar.convertAbstractQueryToXml(query);
                 ok[i] = true;
             }
             catch (Exception e)

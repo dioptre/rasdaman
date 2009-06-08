@@ -43,11 +43,11 @@ public class CondenseOperation implements IParseTreeNode
 	{
 		String result = "";
 
-		if (op.equalsIgnoreCase("plus"))
+		if (op.equalsIgnoreCase("+"))
 		{
 			result = "opPlus";
 		}
-		else if (op.equalsIgnoreCase("mult"))
+		else if (op.equalsIgnoreCase("*"))
 		{
 			result = "opMult";
 		}
@@ -67,6 +67,8 @@ public class CondenseOperation implements IParseTreeNode
 		{
 			result = "opOr";
 		}
+
+        result = "<" + result + "/>";
 
 		return result;
 	}

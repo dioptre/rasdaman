@@ -23,24 +23,156 @@
 
 package wcps.server.core;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Vector;
 import org.w3c.dom.*;
 
-// TODO: implement class ConstantCoverageExprType
 public class ConstantCoverageExpr implements IRasNode, ICoverageInfo
 {
+    private String covName;
+    private Vector<AxisIterator> iterators;
+    private ConstantList valueList;
+    private CoverageInfo info;
+    private String axisIteratorString;
+    private int requiredListSize = 1;
+
 	public ConstantCoverageExpr(Node node, XmlQuery xq)
 	    throws WCPSException
-	{
-		throw new WCPSException("Method not implemented");
+		{
+        while ((node != null) && node.getNodeName().equals("#text"))
+		{
+			node = node.getNextSibling();
+		}
+
+        iterators = new Vector();
+		System.err.println("Parsing Constant Coverage Expr: " + node.getNodeName());
+
+        while (node != null)
+        {
+            String name = node.getNodeName();
+            if (name.equals("name"))
+                covName = node.getTextContent();
+            else
+            if (name.equals("axisIterator"))
+            {
+                AxisIterator it = new AxisIterator(node.getFirstChild(), xq, "temp");
+                iterators.add(it);
+            }
+            else
+            {
+                valueList = new ConstantList(node, xq);
+                node = valueList.getLastNode();
+            }
+
+            node = node.getNextSibling();
+            while ((node != null) && node.getNodeName().equals("#text"))
+            {
+                node = node.getNextSibling();
+            }
+        }
+
+        buildMetadata(xq);
+        buildAxisIteratorDomain();
+
+        // Sanity check: dimensions should match number of constants in the list
+        if (valueList.getSize() != requiredListSize)
+            throw new WCPSException("The number of constants in the list do " +
+                    "not match the dimensions specified !");
+        // Sanity check: metadata should have already been build
+        if (info == null)
+            throw new WCPSException("Could not build constant coverage metadata !!!");
 	}
 
+	
 	public String toRasQL()
 	{
-		return "";
+		String result = "< ";
+        result += axisIteratorString + " ";
+        result += valueList.toRasQL();
+        result += ">";
+
+        return result;
 	}
 
 	public CoverageInfo getCoverageInfo()
 	{
-		return null;
+		return info;
 	}
+
+    /* Concatenates all the AxisIterators into one large multi-dimensional object,
+     * that will be used to build to RasQL query. Also counts how many elements
+     * fit in the specified dimensions. */
+    private void buildAxisIteratorDomain()
+    {
+        requiredListSize = 1;
+        axisIteratorString = "";
+        axisIteratorString += "[";
+
+        for (int i = 0; i < iterators.size(); i++)
+        {
+            if (i > 0)
+                axisIteratorString += ", ";
+            AxisIterator ai = iterators.elementAt(i);
+            axisIteratorString += ai.getInterval();
+            requiredListSize *= (ai.getHigh().intValue() - ai.getLow().intValue() + 1);
+        }
+
+        axisIteratorString += "]";
+
+        System.err.println("Axes for ConstantCoverage tell us that the constant" +
+                "list should have exactly " + requiredListSize + " elements !");
+    }
+
+    /** Builds full metadata for the newly constructed coverage **/
+    private void buildMetadata(XmlQuery xq) throws WCPSException
+    {
+        List<CellDomainElement> cellDomainList = new LinkedList<CellDomainElement>();
+        List<RangeElement> rangeList = new LinkedList<RangeElement>();
+        HashSet<String> nullSet = new HashSet<String>();
+        String nullDefault = "0";
+        nullSet.add(nullDefault);
+        HashSet<InterpolationMethod> interpolationSet = new HashSet<InterpolationMethod>();
+        InterpolationMethod interpolationDefault = new InterpolationMethod("none", "none");
+        interpolationSet.add(interpolationDefault);
+        String coverageName = covName;
+		List<DomainElement> domainList = new LinkedList<DomainElement>();
+
+        Iterator<AxisIterator> i = iterators.iterator();
+        while (i.hasNext())
+        {
+            // Build domain metadata
+            AxisIterator ai = i.next();
+            cellDomainList.add(new CellDomainElement( ai.getLow(), ai.getHigh()));
+            String axisName = ai.getVar();
+            String axisType = ai.getAxisType();
+            String crs = DomainElement.IMAGE_CRS;
+            HashSet<String> crsset = new HashSet<String>();
+            crsset.add(crs);
+            DomainElement domain = new DomainElement(axisName, axisType,
+                    ai.getLow().doubleValue(), ai.getHigh().doubleValue(),
+                    null, null, crsset);
+            domainList.add(domain);
+        }
+        // TODO: check element datatypes and their consistency
+        // "unsigned int" is default datatype
+        rangeList.add(new RangeElement("dynamic_type", "unsigned int"));
+
+        try
+        {
+            Metadata metadata = new Metadata(cellDomainList, rangeList, nullSet,
+                    nullDefault, interpolationSet, interpolationDefault,
+                    coverageName, domainList);
+            // Let the top-level query know the full metadata about us
+            xq.getMetadataSource().addDynamicMetadata(covName, metadata);
+            info = new CoverageInfo(metadata);
+        }
+        catch (InvalidMetadataException e)
+        {
+            throw new WCPSException("Could not build coverage '" + covName
+                    + "' metadata !", e);
+        }
+    }
 }

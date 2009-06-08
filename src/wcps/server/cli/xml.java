@@ -23,6 +23,7 @@
 
 package wcps.server.cli;
 
+import java.io.IOException;
 import wcps.server.core.CachedMetadataSource;
 import wcps.server.core.DbMetadataSource;
 import wcps.server.core.ProcessCoveragesRequest;
@@ -31,7 +32,9 @@ import wcps.server.core.WCPS;
 import java.io.File;
 import java.io.FileInputStream;
 
+import java.io.StringReader;
 import java.util.Properties;
+import org.xml.sax.InputSource;
 
 /**
  * This is a small application around the WCPS core. It takes XML requests as files and runs them
@@ -43,27 +46,13 @@ import java.util.Properties;
 public class xml
 {
 	private static WCPS wcps;
+    private static DbMetadataSource metadataSource;
 
-	public static void main(String[] args)
-	{
-		if (args.length < 1)
-		{
-			System.err.println("WCPS CLI: no input files");
-
-            System.err.println("\nWCPS CLI Usage: java wcps.server.cli.xml input.xml");
-            System.err.println("Where input.xml contains a ProcessCoverages Request ");
-            System.exit(1);
-            
-            args = new String[1];
-            args[0] = "old_testing/testcases/1.test.xml";
-		}
-        if (args.length > 1)
-        {
-            System.err.println("WCPS: no input files");
-            System.exit(1);
-        }
-
-		String pcSchemaFileName =
+    private static void initMetadata()
+    {
+        File cwd = new File(".");
+        System.out.println("Working in " + cwd.getAbsolutePath());
+		String pcSchemaFileName = "src/conf/" +
                 "xml" + File.separator + "ogc" + File.separator + "wcps"
                       + File.separator + "1.0.0" + File.separator + "wcpsProcessCoverages.xsd";
 		File pcSchemaFile = new File(pcSchemaFileName);
@@ -75,7 +64,7 @@ public class xml
 			System.exit(1);
 		}
 
-		DbMetadataSource metadataSource = null;
+		metadataSource = null;
 
 		try
 		{
@@ -95,14 +84,38 @@ public class xml
 			e.printStackTrace(System.err);
 			System.exit(1);
 		}
+    }
+
+	public static void main(String[] args)
+	{
+		if (args.length < 1)
+		{
+			System.err.println("WCPS CLI: no input files");
+
+            System.err.println("\nWCPS CLI Usage: java wcps.server.cli.xml input.xml");
+            System.err.println("Where input.xml contains a ProcessCoverages Request ");
+//            System.exit(1);
+            
+            args = new String[1];
+            args[0] = "test/testcases-wcps_dollar/25.test.xml";
+		}
+        if (args.length > 1)
+        {
+            System.err.println("WCPS: no input files");
+            System.exit(1);
+        }
+
+        initMetadata();
 
 		for (int i = 0; i < args.length; i++)
 		{
 			File fileIn = null;
+            InputSource is = null;
 
 			try
 			{
 				fileIn = new File(args[i]);
+                is = new InputSource(new FileInputStream(fileIn));
 			}
 			catch (Exception fnfe)
 			{
@@ -111,9 +124,11 @@ public class xml
 				System.exit(1);
 			}
 
-			boolean ok = processCoverage(fileIn, i);
-
-			if (!ok)
+            
+			String result = processCoverage(is, i);
+            if (result != null)
+                System.out.println(result);
+            else
 			{
 				System.err.println("WCPS: " + args[i] + " failed");
 				System.exit(1);
@@ -125,30 +140,18 @@ public class xml
 
 	}
 
-	private static boolean processCoverage(File in, int i)
+	private static String processCoverage(InputSource is, int i)
 	{
+        String result = null;
+
 		try
 		{
-
-			ProcessCoveragesRequest r =
-				wcps.pcPrepare("http://kahlua.eecs.jacobs-university.de:7001",
-					       "RASSERVICE", in);
-
+			ProcessCoveragesRequest r = wcps.pcPrepare("http://kahlua.eecs.jacobs-university.de:9001",
+                "RASSERVICE", is);
 			System.err.println("Request " + i);
-
-			System.out.println(r.getRasqlQuery());
-
-
-/*                        Iterator<byte[]> results = r.execute().iterator();
-
-                        int j = 0;
-                        while( results.hasNext() ) {
-                            String outFileName = "WCPS-" + i + "-" + j++;
-                            FileOutputStream out = new FileOutputStream( outFileName );
-                            out.write( results.next() );
-                            out.close();
-                            System.out.println( "WCPS: " + outFileName + " written" );
-                        }*/
+            String rasql = r.getRasqlQuery();
+            String mime = r.getMime();
+			result = "[" + mime + "] " + rasql;
 		}
 		catch (Exception e)
 		{
@@ -157,7 +160,17 @@ public class xml
 			e.printStackTrace(System.err);
 		}
 
-		return true;
-
+		return result;
 	}
+
+    /** Converts a WCPS XML query into a RasQL query string **/
+    public static String convertXmlToRasql(String query)
+    {
+        String rasql = null;
+        if (metadataSource == null)
+            initMetadata();
+        InputSource is = new InputSource(new StringReader(query));
+        rasql = processCoverage(is, 1);
+        return rasql;
+    }
 }

@@ -1,15 +1,16 @@
 /*
 Author: Sorin Stancu-Mara, Andrei Aiordachioaie
 History: 
-07 02 2007 smsorin 	Updated to WCPS 1.0.0
-27 01 2009 smsorin 	Moved to ANTLR
-11 02 2009 andreia 	Updated to new grammar (spec 08-068r2)
-13 02 2009 andreia 	Fixed small bugs in grammar. Now it can fully compile.
+07 02 2007 smsorin	Updated to WCPS 1.0.0
+27 01 2009 smsorin	Moved to ANTLR
+11 02 2009 andreia	Updated to new grammar (spec 08-068r2)
+13 02 2009 andreia	Fixed small bugs in grammar. Now it can fully compile.
 21 04 2009 andreia	Removed comments.
 04 05 2009 andreia	Fixed bugs in integer declaration.
-19 05 2009 andreia  Fixed some other weird bugs. Grammar passes all tests now.
+19 05 2009 andreia	Fixed some other weird bugs. Grammar passes all tests now.
 28 05 2009 andreia	Updated class actions names.
-02 06 2009 andreia  Removed brackets around "and" binary operator in CoverageExpr
+02 06 2009 andreia	Removed brackets around "and" binary operator in CoverageExpr
+03 06 2009 andreia	Complex expressions introduced in the "using" clause of general condense operations
 */
 grammar wcps;
 options{
@@ -32,9 +33,9 @@ wcpsRequest returns[WCPSRequest value]
 		e3=returnClause { $value.setReturn($e3.value); }
 	;
 forClause returns[ForClauseElements value]
-	: FOR v=variableName IN LPAREN list=coverageList RPAREN
+	: FOR v=coverageVariable IN LPAREN list=coverageList RPAREN
 		{ $value = new ForClauseElements($v.value, $list.value); }
-	  (COMMA v=variableName IN LPAREN list=coverageList RPAREN
+	  (COMMA v=coverageVariable IN LPAREN list=coverageList RPAREN
 	  	{ $value = new ForClauseElements($v.value, $list.value, $value); })*
 	;
 whereClause returns[WhereClause value]
@@ -92,7 +93,7 @@ coverageValue returns[CoverageExpr value]
     ;
 coverageAtom returns[CoverageExpr value]
     : e2=scalarExpr { $value = new CoverageExpr($e2.value); }
-    | e1=variableName { $value = new CoverageExpr($e1.value); }
+    | e1=coverageVariable { $value = new CoverageExpr($e1.value); }
     | LPAREN e7=coverageExpr RPAREN  { $value = new CoverageExpr($e7.value); }
     | e3=coverageConstantExpr { $value = new CoverageExpr($e3.value); }
     | e4=coverageConstructorExpr  { $value = new CoverageExpr($e4.value); }
@@ -118,7 +119,7 @@ metaDataExpr returns[MetaDataExpr value]
     | op=INTERPOLATIONSET LPAREN e1=coverageExpr COMMA f1=fieldName RPAREN  { $value = new MetaDataExpr($op.text, $e1.value, $f1.value); }
     ;
 domainExpr returns[DomainExpr value]
-	: DOMAIN LPAREN var=variableName COMMA axis=axisName COMMA crs=crsName RPAREN { $value = new DomainExpr($var.value, $axis.value, $crs.value); }
+	: DOMAIN LPAREN var=coverageVariable COMMA axis=axisName COMMA crs=crsName RPAREN { $value = new DomainExpr($var.value, $axis.value, $crs.value); }
 	;
 condenseExpr returns[CondenseExpr value]
 	: e1=reduceExpr { $value = new CondenseExpr($e1.value); }
@@ -130,7 +131,7 @@ reduceExpr returns[ReduceExpr value]
 generalCondenseExpr returns[GeneralCondenseExpr value]
 	: CONDENSE op=condenseOpType OVER ail=axisIteratorList { $value = new GeneralCondenseExpr($op.value, $ail.value); }
 		(WHERE cond=booleanScalarExpr { $value.setWhere($cond.value); })?
-		USING se=scalarExpr { $value.setUsing($se.value); }
+		USING ce=coverageExpr { $value.setUsing($ce.value); }
 	;
 axisIteratorList returns[AxisIteratorList value]
 	: vn=variableName an=axisName LPAREN ie=intervalExpr RPAREN
@@ -222,7 +223,7 @@ booleanExpr returns[BooleanExpr value]
     ;
 indexExpr returns[IndexExpr value]
     : e1=indexTerm { $value = $e1.value; } 
-		(op=(PLUS^|MINUS^) e2=indexTerm { $value = new IndexExpr($op.text, $value, $e2.value); })*
+		(op=(PLUS|MINUS) e2=indexTerm { $value = new IndexExpr($op.text, $value, $e2.value); })*
     ;
 indexTerm returns[IndexExpr value]
     : e1=indexFactor { $value = $e1.value; }
@@ -304,6 +305,7 @@ numericScalarFactor returns[NumericScalarExpr value]
     | e=FLOATCONSTANT { $value = new NumericScalarExpr($e.text); }
     | e2=complexConstant { $value = new NumericScalarExpr($e2.value); }
     | e3=condenseExpr { $value = new NumericScalarExpr($e3.value); }
+    | e4=variableName { $value = new NumericScalarExpr("var", $e4.value); }
     ;
 compOp returns[String value]
 	: EQUALS { $value = new String("equals"); }
@@ -371,19 +373,15 @@ axisName returns[String value]
 	: type1=name { $value = new String($type1.value); }
 	;
 variableName returns[String value]
-	: var=(VARIABLE_DOLLAR | NAME) { $value = $var.text; }
+	: var=VARIABLE_DOLLAR { $value = new String($var.text); }
+	;
+coverageVariable returns[String value]
+	: var=NAME { $value = $var.text; }
 	;
 coverageName returns[String value]
 	: name { $value = $name.value; }
 	;
 
-
-	/*
-anything:	
-	name | INTEGERCONSTANT;
-dot	:	
-	DOT;
-	*/
 	
 /* Lexer rules */
 PLUS:	 '+';
@@ -495,10 +493,10 @@ fragment OCTALCONSTANT:
 	'0' ('1'..'7') (('0'..'7')*);
 fragment HEXACONSTANT:
 	('0x'|'0X') ('1'..'9'|'a'..'f'|'A'..'F') (('0'..'9'|'a'..'f'|'A'..'F')*);
-INTEGERCONSTANT: DECIMALCONSTANT | OCTALCONSTANT | HEXACONSTANT;
+INTEGERCONSTANT: (PLUS|MINUS)? DECIMALCONSTANT | OCTALCONSTANT | HEXACONSTANT;
 FLOATCONSTANT: DECIMALCONSTANT ('.')('0'..'9'+)(('e'|'E')(('-'|'+')?)('0'..'9'+))?;
 
 STRING: '"' ( options {greedy=false;} : . )* '"' {setText(getText().substring(1, getText().length()-1));};
 NAME: ('a'..'z'|'A'..'Z'|'_')(('a'..'z'|'A'..'Z'|'0'..'9'|'_')*);
-VARIABLE_DOLLAR: '$'(('a'..'z'|'A'..'Z'|'0'..'9'|'_')*);
+VARIABLE_DOLLAR: '$'(('a'..'z'|'A'..'Z'|'0'..'9'|'_')*) {setText(getText().substring(1, getText().length())); } ;
 WHITESPACE: (' ' | '\t' | '\r' | '\n' | '\u000C')+ { skip(); } ;

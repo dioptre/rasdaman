@@ -62,18 +62,20 @@ public class WCPS
 	{
 		try
 		{
+            System.out.println("WCPS: Loading and parsing XML Schema ...");
 			DocumentBuilderFactory dbconfig = DocumentBuilderFactory.newInstance();
 
 			dbconfig.setValidating(false);    // use XML schema not DTD
 			dbconfig.setIgnoringComments(true);    // comments are not relevant
 			dbconfig.setIgnoringElementContentWhitespace(true);    // remve the ignorable whitespace
-			Schema wcpsProcessCoverageSchema =
-				SchemaFactory.newInstance(
-				    XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(pcSchema);
+//			Schema wcpsProcessCoverageSchema =
+//				SchemaFactory.newInstance(
+//				    XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(pcSchema);
 
-			dbconfig.setSchema(wcpsProcessCoverageSchema);
+//			dbconfig.setSchema(wcpsProcessCoverageSchema);
 
 			wcpsDocumentBuilder = dbconfig.newDocumentBuilder();
+            System.out.println("WCPS: Finished loading the schema !");
 		}
 		catch (Exception e)
 		{

@@ -40,6 +40,7 @@ public class CoverageConstantExpr implements IParseTreeNode
 	{
 		this.name  = name;
 		this.alist = alist;
+        alist.setTag("axisIterator");
 		this.clist = clist;
 	}
 
