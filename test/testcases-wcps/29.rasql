@@ -1,0 +1,1 @@
+[image/jpeg] select jpeg((char)(marray ii in [130:140, 10:30] values condense + over ij in [-1:1, -1:1] using ((< [-1:1, -1:1] 1, 2, 1, 0, 0, 0, -1, -2, -1>[ij[0],ij[1]])*((c[(ii[0])+(ij[0]),(ii[1])+(ij[1])]).red)))) from rgb AS c

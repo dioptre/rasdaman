@@ -1,0 +1,17 @@
+for c in (rgb) return encode((char)
+		coverage filteredImage
+		over $px x(10:240),
+			 $py y(10:230)
+		values
+			condense +
+			over $kx x(-1:1),
+				 $ky y(-1:1)
+			using
+				(coverage kernel
+				over $x x (-1:1),
+					 $y y(-1:1)
+				value list < 1; 1; 1; 0; 0; 0; -1; -1; -1 >
+				)[x($kx),y($ky)]
+					*
+				(c[x($px+$kx),y($py+$ky)]).red
+	, "jpeg")
