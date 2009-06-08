@@ -30,6 +30,12 @@ rasdaman GmbH.
  *			None
  */
 
+/**
+*	@file rviewOSection.hh
+*
+*	@ingroup Applications
+*/
+
 #ifndef _RVIEW_OSECTION_H_
 #define _RVIEW_OSECTION_H_
 

@@ -30,6 +30,12 @@ rasdaman GmbH.
  *
 */
 
+/**
+*	@file debug-srv.hh
+*
+*	@ingroup Debug
+*/
+
 #define OSTREAM RMInit::logOut
 #include "debug.hh"
 

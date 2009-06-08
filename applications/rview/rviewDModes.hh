@@ -34,6 +34,11 @@ rasdaman GmbH.
  *			None
  */
 
+/**
+*	@file rviewDmodes.hh
+*
+*	@ingroup Applications
+*/
 
 #ifndef _RVIEW_DMODES_H_
 #define _RVIEW_DMODES_H_

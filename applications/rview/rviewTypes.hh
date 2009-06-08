@@ -27,6 +27,11 @@ rasdaman GmbH.
  *		DO NOT EDIT
  */
 
+/**
+*	@file rviewTypes.hh
+*
+*	@ingroup Applications
+*/
 
 #ifndef _RVTYPES_HH_
 #define _RVTYPES_HH_

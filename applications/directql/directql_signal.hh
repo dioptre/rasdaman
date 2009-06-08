@@ -27,6 +27,8 @@ rasdaman GmbH.
  *		No comments
 */
 
+//@ManMemo: Module: {\bf raslib}
+
 #ifndef _RASQL_SIGNAL_HH_
 #define _RASQL_SIGNAL_HH_
 

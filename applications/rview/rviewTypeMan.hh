@@ -26,6 +26,12 @@ rasdaman GmbH.
  *		None
  */
 
+/**
+*	@file rviewTypeMan.hh
+*
+*	@ingroup Applications
+*/
+
 #ifndef _RVIEW_TYPE_MAN_H_
 #define _RVIEW_TYPE_MAN_H_
 

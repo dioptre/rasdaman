@@ -69,19 +69,19 @@ class r_Parse_Params;
 RNP */
 
 
-//@ManMemo: Module: {\bf clientcomm}
-
-/*@Doc:
-
-The class ClientComm represents {\bf one} RPC connection between
-{\bf one} client entity (e.g. an object of class \Ref{r_Database}) and
-the server. Therefore, the host name has to be provided at
-the constructor.
-Basically, all methods of a Clientcomm object map directly
-to the corresponding RPC calls. All public clientcomm methods
-may throw exceptions of type {\tt r_Error_TransferFailed} if the
-communication breaks down during RPC execution.
-
+/**
+*	@file rpcclientcomm.hh
+*	@Doc:
+*	The class ClientComm represents {\bf one} RPC connection between
+*	{\bf one} client entity (e.g. an object of class \Ref{r_Database}) and
+*	the server. Therefore, the host name has to be provided at
+*	the constructor.
+*	Basically, all methods of a Clientcomm object map directly
+*	to the corresponding RPC calls. All public clientcomm methods
+*	may throw exceptions of type {\tt r_Error_TransferFailed} if the
+*	communication breaks down during RPC execution.
+*
+*	@ingroup ClientComm
 */
 
 class RpcClientComm : public ClientComm

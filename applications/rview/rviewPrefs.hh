@@ -33,7 +33,11 @@ rasdaman GmbH.
  * 		none
  */
 
-
+/**
+*	@file rviewPrefs.hh
+*
+*	@ingroup Applications
+*/
 
 #ifndef _RVIEW_PREFS_H_
 #define _RVIEW_PREFS_H_

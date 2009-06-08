@@ -30,6 +30,11 @@ rasdaman GmbH.
  *
 */
 
+/**
+*	@file tilecompression.hh
+*
+*	@ingroup Compression
+*/
 
 #ifndef _R_TILE_COMPRESSION_HH_
 #define _R_TILE_COMPRESSION_HH_

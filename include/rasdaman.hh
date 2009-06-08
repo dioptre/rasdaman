@@ -27,6 +27,12 @@ rasdaman GmbH.
 //                       DO NOT EDIT
 //------------------------------------------------------------
 
+/**
+*	@file rasdaman.hh
+*
+*	@ingroup Include
+*/
+
 #ifndef __RASDAMAN_HH_
 #define __RASDAMAN_HH_
 

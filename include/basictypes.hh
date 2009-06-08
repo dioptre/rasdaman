@@ -27,6 +27,14 @@ rasdaman GmbH.
 //                       DO NOT EDIT
 //------------------------------------------------------------
 
+/**
+*	@defgroup Include Include
+*
+*	@file basictypes.hh
+*
+*	@ingroup Include
+*/
+
 #ifndef __BASICTYPES_HH_
 #define __BASICTYPES_HH_
 

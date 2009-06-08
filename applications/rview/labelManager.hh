@@ -35,7 +35,13 @@ rasdaman GmbH.
  *  COMMENTS:  None
  */
 
-
+/**
+*	@defgroup Applications Applications
+*
+*	@file labelManager.hh
+*
+*	@ingroup Applications
+*/
 
 #ifndef _LABEL_MANAGER_H_
 #define _LABEL_MANAGER_H_

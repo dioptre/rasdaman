@@ -53,7 +53,11 @@ rasdaman GmbH.
  * 			None
  */
 
-
+/**
+*	@file rviewMDD.hh
+*
+*	@ingroup Applications
+*/
 
 #ifndef _RVIEW_MDD_H_
 #define _RVIEW_MDD_H_

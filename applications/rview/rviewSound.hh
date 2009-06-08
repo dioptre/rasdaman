@@ -40,7 +40,11 @@ rasdaman GmbH.
  * 		None
  */
 
-
+/**
+*	@file rviewSound.hh
+*
+*	@ingroup Applications
+*/
 
 #ifndef _RVIEW_SOUND_H_
 #define _RVIEW_SOUND_H_

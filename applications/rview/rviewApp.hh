@@ -32,6 +32,12 @@ rasdaman GmbH.
  * 		none
  */
 
+/**
+*	@file rviewApp.hh
+*
+*	@ingroup Applications
+*/
+
 #ifndef _RVIEW_APP_H_
 #define _RVIEW_APP_H_
 

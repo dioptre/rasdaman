@@ -27,6 +27,8 @@ rasdaman GmbH.
 * 		No comments
 */
 
+//@ManMemo: Module: {\bf raslib}
+
 //for rb_tree, select1st
 #include <function.h>
 #include <tree.h>

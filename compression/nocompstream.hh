@@ -30,6 +30,12 @@ rasdaman GmbH.
  *
 */
 
+/**
+*	@file nocompstream.hh
+*
+*	@ingroup Compression
+*/
+
 #ifndef _NOCOMPSTREAM_H_
 #define _NOCOMPSTREAM_H_
 

@@ -49,14 +49,19 @@ class r_Base_Type;
 class r_Parse_Params;
 
 
-//@ManMemo: Module: {\bf clientcomm}
-
-/*@Doc:
-
-The class ClientComm represents {\bf one} connection between
-{\bf one} client entity (e.g. an object of class \Ref{r_Database}) and
-the server. Therefore, the host name has to be provided at
-the constructor.
+/**
+*	@defgroup ClientComm ClientComm
+*
+*	@file clientcomm.hh	
+*
+*	@ingroup ClientComm
+*/
+//	@Doc
+	
+/*	The class ClientComm represents {\bf one} connection between
+	{\bf one} client entity (e.g. an object of class \Ref{r_Database}) and
+	the server. Therefore, the host name has to be provided at
+	the constructor.
 */
 
 class ClientComm

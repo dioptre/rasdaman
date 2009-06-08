@@ -32,6 +32,13 @@ rasdaman GmbH.
  *			None
 */
 
+/**
+*	@defgroup Commline Commline
+*
+*	@file cmlparser.hh
+*
+*	@ingroup Commline
+*/
 
 #ifndef AK_CMLPARSER_HH
 #define AK_CMLPARSER_HH

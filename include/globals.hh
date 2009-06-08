@@ -37,6 +37,12 @@ rasdaman GmbH.
  *
 */
 
+/**
+*	@file globals.hh
+*
+*	@ingroup Include
+*/
+
 #ifndef GLOBALS_HH
 #define GLOBALS_HH
 

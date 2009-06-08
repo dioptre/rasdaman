@@ -32,6 +32,14 @@ rasdaman GmbH.
  *
 */
 
+/**
+*	@defgroup Compression Compression
+*
+*	@file compresstime.hh
+*
+*	@ingroup Compression
+*/
+
 #ifndef _R_COMPRESS_TIME_HH_
 #define _R_COMPRESS_TIME_HH_
 

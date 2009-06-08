@@ -30,6 +30,14 @@ rasdaman GmbH.
  *
 */
 
+/**
+*	@defgroup Debug Debug
+*
+*	@file debug-clt.hh
+*
+*	@ingroup Debug
+*/
+
 #define OSTREAM cout
 #include "debug.hh"
 

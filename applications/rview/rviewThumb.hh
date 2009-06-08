@@ -33,7 +33,11 @@ rasdaman GmbH.
  *		None
  */
 
-
+/**
+*	@file rviewThumb.hh
+*
+*	@ingroup Applications
+*/
 
 #ifndef _RVIEW_THUMB_H_
 #define _RVIEW_THUMB_H_

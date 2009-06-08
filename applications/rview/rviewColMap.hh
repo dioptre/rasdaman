@@ -28,6 +28,11 @@ rasdaman GmbH.
  *		No comments
  */
 
+/**
+*	@file rviewColMap.hh
+*
+*	@ingroup Applications
+*/
 
 #ifndef _RVIEW_COLMAP_H_
 #define _RVIEW_COLMAP_H_

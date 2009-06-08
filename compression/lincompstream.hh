@@ -33,6 +33,12 @@ rasdaman GmbH.
  *
 */
 
+/**
+*	@file lincompstream.hh
+*
+*	@ingroup Compression
+*/
+
 #ifndef _LINCOMPSTREAM_H_
 #define _LINCOMPSTREAM_H_
 

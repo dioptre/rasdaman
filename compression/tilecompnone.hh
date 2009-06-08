@@ -30,6 +30,11 @@ rasdaman GmbH.
  *
 */
 
+/**
+*	@file tilecompnone.hh
+*
+*	@ingroup Compression
+*/
 
 #ifndef _R_TILE_COMP_NONE_HH_
 #define _R_TILE_COMP_NONE_HH_

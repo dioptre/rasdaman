@@ -29,6 +29,12 @@ rasdaman GmbH.
  * 		- needs RMInit
 */
 
+/**
+*	@file debug.hh
+*
+*	@ingroup Debug
+*/
+
 #ifndef DEBUG_HH
 #define DEBUG_HH
 
