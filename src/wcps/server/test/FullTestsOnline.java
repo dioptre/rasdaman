@@ -68,7 +68,7 @@ public class FullTestsOnline
 	// How many tests we have to run
 	int numTests = 0;
 	// Files are written in this folder
-	String outputFolder = "test/test-tmp/";
+	String outputFolder = "test/tmp/";
 	// How many successes?
 	int passCount = 0;
 	// message for tests
