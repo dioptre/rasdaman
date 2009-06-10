@@ -96,18 +96,21 @@ extern "C" {
 #define PIXEL_TYPE_BOOL		"bin"
 #define PIXEL_TYPE_GREY		"grey"
 #define PIXEL_TYPE_COLOR	"color"
+#define PIXEL_TYPE_UNSIGNED	"unsigned"
 
 // pixel sizes in byte:
 #define PIXSIZE_BW	sizeof(char)
 #define PIXSIZE_GREY	sizeof(char)
 #define PIXSIZE_COL	sizeof(RGBPixel)
+#define PIXSIZE_UNSIGNED	sizeof(unsigned short) // for unsigned 16 bit images
 
 // internal pixel type indicator
 typedef enum
 {
 	PIXEL_BOOL,
 	PIXEL_GREY,
-	PIXEL_COLOR
+	PIXEL_COLOR,
+	PIXEL_UNSIGNED
 } PixelType;
 
 // the color image type:
@@ -298,6 +301,10 @@ void readImage(char* contents, const char *fName, bool mdd3d, PixelType pixType,
 					contents[(slicepos*colsP*rowsP + j*rowsP + i)*PIXSIZE_COL + 1] = PPM_GETG( scaledPixel );
 					contents[(slicepos*colsP*rowsP + j*rowsP + i)*PIXSIZE_COL + 2] = PPM_GETB( scaledPixel );
 					break;
+				case PIXEL_UNSIGNED:
+					contents[(slicepos*colsP*rowsP + j*rowsP + i)*PIXSIZE_UNSIGNED + 0] = (char) (0xFF & PPM_GETB( scaledPixel ) );
+					contents[(slicepos*colsP*rowsP + j*rowsP + i)*PIXSIZE_UNSIGNED + 1] = (char) (PPM_GETB( scaledPixel ) >> 8 );
+					break;
 				default:
 					cerr << "Error: unknown pixel type code: " << pixType << endl;
 					break;
@@ -370,6 +377,10 @@ void readRows(char* contents, r_Range startRow, r_Range numRows, PixelType pixTy
 					contents[(i*numRows + currRow)*PIXSIZE_COL + 1] = PPM_GETG( scaledPixel );
 					contents[(i*numRows + currRow)*PIXSIZE_COL + 2] = PPM_GETB( scaledPixel );
 					break;
+				case PIXEL_UNSIGNED:
+					contents[(i*numRows + currRow)*PIXSIZE_UNSIGNED + 0] = (char) (0xFF & PPM_GETB( scaledPixel ) );
+					contents[(i*numRows + currRow)*PIXSIZE_UNSIGNED + 1] = (char) (PPM_GETB( scaledPixel ) >> 8 );
+					break;
 				default:
 					cerr << "Error: unknown pixel type code: " << pixType << endl;
 					break;
@@ -400,6 +411,10 @@ void createMarray(const r_Minterval &dom, r_Ref<r_GMarray> &mddPtr, PixelType pi
 			LOG << "creating MDD of type color and extent " << dom << endl;
 			mddPtr = (r_GMarray*)(new r_Marray<RGBPixel>(dom));
 			break;
+		case PIXEL_UNSIGNED: // create Ushort
+			LOG << "creating MDD of type unsigned and extent " << dom << endl;
+			mddPtr = (r_GMarray*)(new r_Marray<r_UShort>(dom));
+			break;
 		default:
 			cerr << "Error: unknown pixel type code: " << pixType << endl;
 			break;
@@ -419,7 +434,7 @@ printUsage(const char* name)
 	cout << "Options:"<< endl;
 	cout << " -h, --help                      this help" << endl;
 	cout << " -c, --collection <name>         collection to store image; will be created if nonexistent (required)" << endl;
-	cout << " -t, --type <t>                  store as pixel type t where t is one of: bin, grey, color (default: " << DEFAULT_TYPE << ")" << endl;
+	cout << " -t, --type <t>                  store as pixel type t where t is one of: bin, grey, color, unsigned (default: " << DEFAULT_TYPE << ")" << endl;
 	cout << " -r, --rescale                   rescale pixel values to 8 bit = 0:255 (default: no rescale)" << endl;
 	cout << " --tiled <t>                     store object in tiles of size t where t = [min0:max0,min1:max1,...,minn:maxn] (default: 1 tile)" << endl;
 	cout << " -s, --server <name>             server host (default: " << DEFAULT_HOST << ")" << endl;
@@ -675,6 +690,8 @@ main( int argc, char** argv )
 			pixType = PIXEL_GREY;
 		else if (strcmp(typeString,PIXEL_TYPE_COLOR)==0)
 			pixType = PIXEL_COLOR;
+		else if (strcmp(typeString,PIXEL_TYPE_UNSIGNED)==0)
+			pixType = PIXEL_UNSIGNED;
 		else
 		{
 			cerr << "Error: illegal pixel type: " << typeString << endl;
@@ -733,6 +750,12 @@ main( int argc, char** argv )
 				mddTypeName  = mdd3d ? "RGBCube" : "RGBImage";
 				typeSize = PIXSIZE_COL;
 				break;
+			case PIXEL_UNSIGNED:
+				collTypeName = mdd3d ? "UShortSet3" : "UShortSet";
+				mddTypeName  = mdd3d ? "UShortCube" : "UShortImage";
+				typeSize = PIXSIZE_UNSIGNED;
+				break;
+
 			default:
 				cerr << "Error: unknown pixel type code: " << pixType << endl;
 				throw r_Error( r_Error::r_Error_General );
@@ -759,22 +782,22 @@ main( int argc, char** argv )
 			r_Range imgRows = imgSize[2].high()+1; // Y
 			r_Range imgCols = imgSize[1].high()+1; // Z
 			r_Range tileX = tileSize[0].high()+1;
-
+			
 			// create domain of first cache
 			cacheDom = r_Minterval(3) << r_Sinterval((r_Range)0, tileX - 1)
 					    << r_Sinterval((r_Range)0, imgCols - 1)
 					    << r_Sinterval((r_Range)0, imgRows - 1);
-
+			
 			createMarray(cacheDom, mddPtr, pixType);
 			char *contents = mddPtr->get_array();
-
+			
 			unsigned int k = 0;
 			list<string>::iterator currentFileName = fileNameList.begin();
 			while ( k < fileNameList.size() )
 			{
 				cout << (*currentFileName).c_str() << "..." << flush;
 				LOG << "#" << k << " " << cacheDom << "..." << flush;
-
+			
 				readImage(contents, (*currentFileName).c_str(), true, pixType, rescale, k, k%tileX);
 
 				if (k % tileX == tileX-1 || k == fileNameList.size()-1)
@@ -809,7 +832,7 @@ main( int argc, char** argv )
 			r_Range tileRows = tileSize[0].high()+1;
 			const char *fName = fileNameList.front().c_str();	// we know we have 1 element in list
 
-			cout << "creating 3D object of extent " << imgSize << " from " << fName << "..." << flush;
+			cout << "creating 2D object of extent " << imgSize << " from " << fName << "..." << flush;
 
 			openImage(fName,false);		// open image for reading
 
