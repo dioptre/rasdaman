@@ -39,6 +39,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -84,6 +85,10 @@ public class FullTestsOnline
 	// queries
 	String[] queries;
 	String[] testNames;
+    // execution Times for XML queries
+    long[] xmlTimes;
+    // execution times for abstract sintax queries
+    long[] asTimes;
 
 	public FullTestsOnline()
 	{
@@ -101,6 +106,8 @@ public class FullTestsOnline
 		partialOk = new boolean[5][numTests];
 		errors = new String[5][numTests];
 		queries = new String[numTests];
+        xmlTimes = new long[numTests];
+        asTimes = new long[numTests];
 	}
 
 	public void printResults()
@@ -110,17 +117,17 @@ public class FullTestsOnline
 		strMap.put(true, "ok");
 		strMap.put(false, "failed");
 
-		System.out.println("\n \nRESULTS \n");
+		System.out.println("\n \nRESULTS + EXECUTION TIMES\n");
 
 		for (int i = 0; i < numTests; i++)
 		{
 			String tname = testNames[i];
-
 			tname = tname.substring(0, tname.length() - 5);
 
 			if ( ok[i] == true )
 			{
-				System.out.println("*** Test '" + tname + "' ok");
+                String time = (double) (asTimes[i]/10) / 100 + " sec";
+				System.out.println("*** Test '" + tname + "' ok (" + time + ")");
 //              System.out.println("\t" + queries[i]);
 			}
 			else
@@ -157,6 +164,7 @@ public class FullTestsOnline
 		String xmlQuery = "";
 		String rasqlQuery = "";
 		String tname = "";
+        long start, end;        // for measuring time
 
         System.out.println("===========================");
         System.out.println("    PetaScope Test Suite       ");
@@ -233,7 +241,10 @@ public class FullTestsOnline
 			try
 			{
                 System.out.println("*** Results from abstract query :");
+                start = System.currentTimeMillis();
 				String err = runOneTest("query", abstractQuery);
+                end = System.currentTimeMillis();
+                asTimes[i] = end - start;
 
 				if ( err == null )
 					partialOk[3][i] = true;
@@ -248,7 +259,10 @@ public class FullTestsOnline
 			try
 			{
                 System.out.println("*** Results from XML query :");
+                start = System.currentTimeMillis();
 				String err = runOneTest("xml", xmlQuery);
+                end = System.currentTimeMillis();
+                xmlTimes[i] = end-start;
 
 				if ( err == null )
 					partialOk[4][i] = true;
