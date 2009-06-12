@@ -21,7 +21,7 @@
  #
 
 
-NAME=petascope
+NAME=petascope-new
 NAME_WCS=petascope-wcs
 
 VERSION=1.0
@@ -89,7 +89,7 @@ wcps-war:
 	cp src/grammar/*.class WEB-INF/classes/grammar/
 #	cp src/wcs/server/servlet/*.class WEB-INF/classes/wcs/server/servlet/
 #	cp src/wcs/server/core/*.class WEB-INF/classes/wcs/server/core/
-	jar cf ${NAME}.war WEB-INF/ dbparams.properties xml/ogc/wcps/1.0.0/*.xsd
+	jar cf ${NAME}.war WEB-INF/ dbparams.properties xml/ogc/wcps/1.0.0/*.xsd misc/wcps-servlet.html
 
 ## Translation core command-line interface. Useful for development and testing.
 .PHONY: wcps-cli

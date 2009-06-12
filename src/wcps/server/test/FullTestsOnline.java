@@ -144,6 +144,11 @@ public class FullTestsOnline
 		System.out.println("Tested PetaScope implementation from: " + PetascopeURL);
 		System.out.println("Tests succeeded: " + String.valueOf(passCount));
 		System.out.println("Tests failed: " + String.valueOf(numTests - passCount));
+
+        System.out.println("\nWARNING: a test is considered to have passed when the web server does not report" +
+                " any erorrs. A human has to inspect the semantics of the result. For this, the first three lines" +
+                " of the output from the web service are printed for each test. For example, if a query involves" +
+                " encoding a coverage in JPEG format, the first line needs to look like \"����JFIF��C\"");
 	}
 
 	public void runAllTests()
@@ -154,8 +159,11 @@ public class FullTestsOnline
 		String tname = "";
 
         System.out.println("===========================");
-        System.out.println("Testing PetaScope implementation @ " + PetascopeURL);
+        System.out.println("    PetaScope Test Suite       ");
         System.out.println("===========================\n\n");
+        System.out.println("Testing URL: " + PetascopeURL);
+        System.out.println("Reading test files from: " + folder);
+        System.out.println("Reading output files to: " + outputFolder + "\n\n");
 
 		for (int i = 0; i < numTests; i++)
 		{
@@ -172,15 +180,15 @@ public class FullTestsOnline
 			tname = testNames[i];
 			tname = tname.substring(0, tname.length() - 5);
             File testFile = new File(folder + testNames[i]);
-			System.out.println("--------------------------------");
-            System.out.println("Running test '" + tname + "'...");
-            System.out.println("--------------------------------");
+			System.out.println("-------------------------------------------------");
+            System.out.println("\t\tTest '" + tname + "'...");
+            System.out.println("-------------------------------------------------");
 			// First of all: read file contents
 			try
 			{
 				abstractQuery = FileUtils.readFileToString(testFile);
 				queries[i] = abstractQuery;
-                System.out.println(abstractQuery);
+                System.out.println("*** Query :\n" + abstractQuery);
 			}
 			catch (IOException e)
 			{
@@ -224,6 +232,7 @@ public class FullTestsOnline
 			// Step 3: Send abstract syntax query to PetaScope WCPS
 			try
 			{
+                System.out.println("*** Results from abstract query :");
 				String err = runOneTest("query", abstractQuery);
 
 				if ( err == null )
@@ -238,6 +247,7 @@ public class FullTestsOnline
 			// Step 4: Send XML query to PetaScope WCPS
 			try
 			{
+                System.out.println("*** Results from XML query :");
 				String err = runOneTest("xml", xmlQuery);
 
 				if ( err == null )
@@ -316,11 +326,21 @@ public class FullTestsOnline
 
 	}
 
+    /** Runs the full test suite on a deployed version of PetaScope.
+     * If command-line arguments are not provided, default values are used. 
+     *
+     * @param args Can contain up to three parameters, in order: PetaScopeURL testFolder, outputFolder
+     */
 	public static void main(String args[])
 	{
 		FullTestsOnline tester = new FullTestsOnline();
-        if (args.length == 1)
+        if (args.length >= 1)
             tester.PetascopeURL = args[0];
+        if (args.length >= 2)
+            tester.folder = args[1];
+        if (args.length == 3)
+            tester.outputFolder = args[2];
+
 
 		tester.runAllTests();
 		tester.printResults();
