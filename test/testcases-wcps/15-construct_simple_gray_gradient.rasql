@@ -1,0 +1,1 @@
+select jpeg((char)(marray ii in [51:150, 0:99] values ii[0])) from rgb AS c

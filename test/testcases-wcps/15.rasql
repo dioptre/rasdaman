@@ -1,1 +1,0 @@
-[image/jpeg] select jpeg((char)(marray ii in [0:99, 0:99] values ii[0])) from rgb AS c

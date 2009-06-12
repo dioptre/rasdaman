@@ -1,0 +1,1 @@
+select png((char)(((clouds[*:*,*:*,0])*(((mask[*:*,*:*,0])=(0)))))) from climate_earth AS mask, climate_clouds AS clouds

@@ -1,0 +1,5 @@
+for a in (rgb) return
+    condense +
+	over $kx x (1:10),
+		 $ky y (25:75)
+	using $kx * (a[x($kx),y($ky)]).red

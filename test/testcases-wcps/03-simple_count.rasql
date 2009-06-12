@@ -1,0 +1,1 @@
+select count_cells((((c).1)=(0))) from rgb AS c

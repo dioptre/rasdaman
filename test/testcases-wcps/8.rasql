@@ -1,1 +1,0 @@
-[image/jpeg] select jpeg((m).red) from NIR AS m

@@ -151,7 +151,8 @@ public class xml
 			System.err.println("Request " + i);
             String rasql = r.getRasqlQuery();
             String mime = r.getMime();
-			result = "[" + mime + "] " + rasql;
+//			result = "[" + mime + "] " + rasql;
+            result = rasql;
 		}
 		catch (Exception e)
 		{

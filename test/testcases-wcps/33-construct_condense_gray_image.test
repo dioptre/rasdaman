@@ -1,0 +1,9 @@
+for c in (mr) return encode((char)
+       coverage gray_image
+       over $px x(0:10),
+            $py y(0:10)
+       values
+           condense +
+           over $kx x(0:10),
+                $ky y(0:10)
+           using 1   , "jpeg")

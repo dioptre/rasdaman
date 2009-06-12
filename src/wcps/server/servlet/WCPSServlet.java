@@ -43,7 +43,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
-//import syntaxParser.SyntaxErrorException;
 import java.io.StringBufferInputStream;
 
 import java.util.Iterator;
@@ -54,6 +53,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.FileUtils;
 
 //Note an important limitation: this will only return the first result if several are available. 
 //The reason is that WCPS currently has no standardized way to return multiple byte streams to
@@ -66,6 +66,10 @@ public class WCPSServlet extends HttpServlet
 	private String rasdamanDatabase;
 	private String rasdamanUrl;
 	private WCPS wcps;
+    // path to the default HTML response of the servlet
+    private String servletHtmlPath = "/misc/wcps-servlet.html";
+    // String containing the HTML code for the default response
+    private String defaultHtmlResponse;
 
 	public void init() throws ServletException
 	{
@@ -91,6 +95,9 @@ public class WCPSServlet extends HttpServlet
                         new File(getServletContext().getRealPath("/xml/ogc/wcps/1.0.0/wcpsProcessCoverages.xsd")),
                         new CachedMetadataSource(metadataSource));
 
+            servletHtmlPath = getServletContext().getRealPath(servletHtmlPath);
+            defaultHtmlResponse = FileUtils.readFileToString(new File(servletHtmlPath));
+
 			System.out.println("WCPS: initialization complete");
 		}
 		catch (Exception e)
@@ -114,7 +121,6 @@ public class WCPSServlet extends HttpServlet
 	{
 		System.out.println("WCPS: invoked with GET");
 		printUsage(response);
-
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -278,44 +284,10 @@ public class WCPSServlet extends HttpServlet
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = new PrintWriter(response.getOutputStream());
 
-		out.println(
-		    "<html><head><title>Web Coverage Processing Service</title></head><body>");
-		out.println("<h1>Hello</h1>");
-		out.println("<p>There are 3 ways to invoke this service:</p>");
-		out.println(
-		    "<p>1. Upload a ProcessCoverage XML request as a multupart/form-data POST request containing a file. You can use the form below.</p>");
-		out.println(
-		    "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\"><input type=\"file\" accept=\"text/xml\" size=\"64\" name=\"xmlfile\"/> <input type=\"submit\" value=\"Send\"/></form>");
-		out.println(
-		    "<p>2. Enter a ProcessCoverage XML request and submit it as a POST request with a parameter named <b>xml</b>. You can use the form below.</p>");
-		out.println(
-		    "<form action=\"\" method=\"post\"><textarea cols=\"64\" rows=\"16\" name=\"xml\"></textarea><input type=\"submit\" value=\"Send\"/></form>");
-		out.println(
-		    "<p>3. Enter a ProcessCoverage request in WCPS abstract syntax and submit it as a POST request with a parameter named <b>query</b>. You can use the form below.</p>");
-		out.println(
-		    "<form action=\"\" method=\"post\"><textarea cols=\"64\" rows=\"4\" name=\"query\"></textarea><input type=\"submit\" value=\"Send\"/></form>");
-		out.println("</body></html>");
+		out.println(defaultHtmlResponse);
+        
 		out.close();
 		System.out.println("WCPS: done nothing");
 
-	}
-
-	void FormatSyntaxException(Exception e, HttpServletResponse response, String query)
-	    throws IOException
-	{
-		int column = 1;
-
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter o = new PrintWriter(response.getOutputStream());
-
-		o.println(
-		    "<html><head><title>Web Coverage Processing Service</title></head><body>");
-		o.println("<p>There seems to be a syntax problem with your query:</p>");
-		o.println("<p><font color='00FF00'>" + query.substring(0, column)
-			  + "</font><font color='FF0000'>" + query.substring(column)
-			  + "</font></p>");
-		o.println("<p>Please correct it and try again.</p></body></html>");
-		o.close();
-		System.out.println("WCPS: Syntax Error reported");
 	}
 }

@@ -74,15 +74,17 @@ public class CondenseScalarExpr implements IRasNode
                  * ScalarExpr allows constants.
                  * They do not like each other
                  * Handle this in the grammar in a more explicit way.
+                 *
+                 * But CoverageExpr includes ScalarExpr !!!
                  */
-                try
-                {
+//                try
+//                {
                     using = new CoverageExpr(node, xq);
-                }
-                catch (WCPSException e)
-                {
-                    using = new ScalarExpr(node, xq);
-                }
+//                }
+//                catch (WCPSException e)
+//                {
+//                    using = new ScalarExpr(node, xq);
+//                }
             }
 
             node = node.getNextSibling();

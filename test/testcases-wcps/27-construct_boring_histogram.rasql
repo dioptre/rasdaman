@@ -1,0 +1,1 @@
+select csv(marray ii in [0:20] values condense + over ij in [0:20, 0:20] using 1) from mr AS c

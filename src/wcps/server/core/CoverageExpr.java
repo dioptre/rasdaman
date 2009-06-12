@@ -158,6 +158,20 @@ public class CoverageExpr implements IRasNode, ICoverageInfo
 				}
 			}
 
+            if (child == null)
+			{
+				try
+				{
+					child = new ScalarExpr(node, xq);
+					System.err.println("Matched scalar expression.");
+				}
+				catch (WCPSException e)
+				{
+					System.err.println("Failed to match scalar expression: "
+							   + "\nRetrying");
+					child = null;
+				}
+			}
 		}
 
 		if (!simpleCoverage && (child == null))

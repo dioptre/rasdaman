@@ -1,1 +1,0 @@
-[text/plain] select max_cells((double)((c).2)) from rgb AS c
