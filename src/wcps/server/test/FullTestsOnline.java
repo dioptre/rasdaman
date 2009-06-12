@@ -66,14 +66,14 @@ public class FullTestsOnline
 {
 //  public String PetascopeURL = "http://localhost:8080/PetaScope/WCPService";
 //  public String PetascopeURL = "http://localhost:8080/petascope/wcps/";
-	public String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/wcps-new/";
+	public static String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/wcps-new/";
 
 	// Tests are read from this folder
-	String folder = "test/testcases-wcps/";
+	static String folder = "test/testcases-wcps/";
 	// How many testFiles we have to run
 	int numTests = 0;
 	// Files are written in this folder
-	String outputFolder = "test/tmp/";
+	static String outputFolder = "test/tmp/";
 	// How many successes?
 	int passCount = 0;
 	// message for testFiles
@@ -92,12 +92,16 @@ public class FullTestsOnline
 
 	public FullTestsOnline()
 	{
+        System.out.println("===========================");
+        System.out.println("    PetaScope Test Suite       ");
+        System.out.println("===========================\n\n");
+        System.out.println("Testing URL: " + PetascopeURL);
+        System.out.println("Reading test files from: " + folder);
+        System.out.println("Reading output files to: " + outputFolder + "\n\n");
+
 		// Find out how many grammar testFiles we have to run
 		File dir = new File(folder);
-
-		System.out.println("Looking for tests in " + dir.getAbsolutePath() + "\n");
 		TestFileFilter filter = new TestFileFilter();
-
 		testNames = dir.list(filter);
 		Arrays.sort(testNames);
 		numTests = testNames.length;
@@ -165,13 +169,6 @@ public class FullTestsOnline
 		String rasqlQuery = "";
 		String tname = "";
         long start, end;        // for measuring time
-
-        System.out.println("===========================");
-        System.out.println("    PetaScope Test Suite       ");
-        System.out.println("===========================\n\n");
-        System.out.println("Testing URL: " + PetascopeURL);
-        System.out.println("Reading test files from: " + folder);
-        System.out.println("Reading output files to: " + outputFolder + "\n\n");
 
 		for (int i = 0; i < numTests; i++)
 		{
@@ -347,15 +344,15 @@ public class FullTestsOnline
      */
 	public static void main(String args[])
 	{
-		FullTestsOnline tester = new FullTestsOnline();
         if (args.length >= 1)
-            tester.PetascopeURL = args[0];
+            FullTestsOnline.PetascopeURL = args[0];
         if (args.length >= 2)
-            tester.folder = args[1];
+            FullTestsOnline.folder = args[1];
         if (args.length == 3)
-            tester.outputFolder = args[2];
+            FullTestsOnline.outputFolder = args[2];
 
-
+		FullTestsOnline tester = new FullTestsOnline();
+        
 		tester.runAllTests();
 		tester.printResults();
 	}
