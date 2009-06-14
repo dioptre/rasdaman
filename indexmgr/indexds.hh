@@ -37,8 +37,13 @@ rasdaman GmbH.
 #include "reladminif/lists.h"
 #include "reladminif/oidif.hh"
 
-//@ManMemo: Module: {\bf indexmgr}
-/*@Doc:
+/**
+ * @defgroup indexmgr indexmgr
+ *
+ * @file indexds.hh
+ *
+ * @ingroup indexmgr
+ */
 
 This is an interface class.  It is abstract.  It supplies the signature that
 is required to allow SDirIndexLogic to manage this object. 

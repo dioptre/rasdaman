@@ -31,10 +31,14 @@ class KeyObject;
 #include "raslib/minterval.hh"
 #include "reladminif/dbref.hh"
 
-//@ManMemo: Module: {\bf indexmgr}
-/*@Doc:
-This class is a carrier structure which carries objects and their domains
-through the different levels of the index.
+/**
+ *	@file keyobject.hh
+ *
+ *	@ingroup indexmgr
+ *
+ * @Doc:
+ * This class is a carrier structure which carries objects and their domains
+ * through the different levels of the index.
 */
 class KeyObject
 	{

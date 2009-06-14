@@ -30,7 +30,12 @@ class r_Point;
 class StorageLayout;
 
 
-//@ManMemo: Module: {\bf indexmgr}
+/**
+ *	@file srpindexlogic.hh
+ *
+ *	@ingroup indexmgr
+ */
+
 /*@Doc:
 This class contains the logic for access, insertion and removal of objects
 into an index data structure.  The logic is based on the R-Plus Tree.  Objects

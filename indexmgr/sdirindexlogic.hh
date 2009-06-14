@@ -40,7 +40,12 @@ class StorageLayout;
  *
  ***********/
 
-//@ManMemo: Module: {\bf indexmgr}
+/**
+ *	@file sdirindexlogic.hh
+ *
+ *	@ingroup indexmgr
+ */
+
 /*@Doc:
  
 	The SDirIndexLogic class implements a Directory of Interval Objects Index.

@@ -39,7 +39,12 @@ class r_Point;
 class StorageLayout;
 class SRCIndexLogic;
 
-//@ManMemo: Module: {\bf indexmgr}
+/**
+ *	@file srcindexlogic.hh
+ *
+ *	@ingroup indexmgr
+ */
+
 /*@Doc:
 
 The regular computed index uses DBRCIndexDS and StorageLayout to store its persistent data.

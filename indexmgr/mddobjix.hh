@@ -51,8 +51,13 @@ class r_Point;
  *
  ****************************************************************************/
 
+/**
+ *	@file mddobjix.hh
+ *
+ *	@ingroup indexmgr
+ */
 
-//@ManMemo: Module: {\bf indexmgr}
+
 /*@Doc:
       
 Each MDD Object is composed of a set of tiles which are accessed through an index.

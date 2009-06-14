@@ -36,7 +36,12 @@ rasdaman GmbH.
 #include "indexmgr/indexds.hh"
 #include "reladminif/lists.h"
 
-//@ManMemo: Module: {\bf indexmgr}
+/**
+ *	@file transdirix.hh
+ *
+ *	@ingroup indexmgr
+ */
+
 /*@Doc:
 
 A TransDirIx object is the data structure for an index of a transient MDD 
