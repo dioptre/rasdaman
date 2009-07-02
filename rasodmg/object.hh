@@ -58,6 +58,9 @@ class r_Type;
 
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Object
 {
   public:

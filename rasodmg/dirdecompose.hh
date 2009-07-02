@@ -65,6 +65,9 @@ using std::vector;
   entered.
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Dir_Decompose
 {
   public:

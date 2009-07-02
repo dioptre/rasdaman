@@ -53,6 +53,9 @@ class r_GMarray;
  
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Edge
 {
 public:
@@ -106,6 +109,9 @@ private:
  
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Polygon
 {
 public:
@@ -262,6 +268,9 @@ extern std::ostream& operator<<( std::ostream& s, const r_Polygon& d );
 // sorted collection of r_Edge. In the current implementation only the first
 // one is needed.
 
+/**
+  * \ingroup Rasodmgs
+  */
 class EdgeSortCriterion
 {
 public:
@@ -273,6 +282,9 @@ public:
   }
 };
 
+/**
+  * \ingroup Rasodmgs
+  */
 class ActiveEdgeSortCriterion
 {
 public:

@@ -58,6 +58,9 @@ template <class T> class r_Collection;
   is one. 
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 template <class T>
 class r_Iterator
 {

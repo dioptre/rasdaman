@@ -52,6 +52,9 @@ class r_Object;
 
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Transaction
 {
   public:

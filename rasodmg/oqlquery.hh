@@ -75,6 +75,9 @@ class r_Ref_Any;
  
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_OQL_Query
 {
   public:

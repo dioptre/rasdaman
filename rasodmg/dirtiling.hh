@@ -50,6 +50,9 @@ class r_Dir_Tiling;
   the system on how the decomposition is done in each dimension.
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Dir_Tiling : public r_Dimension_Tiling
 {
   // ******************* PUBLIC SECTION *******************

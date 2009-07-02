@@ -59,7 +59,10 @@ class r_Storage_Layout;
   Class \Ref{r_Marray} provides a constructor to convert to the base 
   type specific class.
 */ 
- 
+
+/**
+  * \ingroup Rasodmgs
+  */ 
 class r_GMarray : public r_Object
 {
   public:

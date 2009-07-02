@@ -70,6 +70,9 @@ class r_Interest_Tiling;
       ...
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Interest_Tiling : public r_Dimension_Tiling
 {
   public:

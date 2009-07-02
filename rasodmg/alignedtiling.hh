@@ -105,7 +105,13 @@ class r_Aligned_Tiling;
           with the option notiling. In that case, no tiling is done, 
 	  independently of the storage layout chosen.
 */
+/**
+  * \defgroup Rasodmgs Rasodmg Classes
+  */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Aligned_Tiling : public r_Dimension_Tiling
 {
   public:

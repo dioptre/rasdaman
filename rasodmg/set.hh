@@ -45,6 +45,9 @@ rasdaman GmbH.
   
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 template <class T>
 class r_Set : public r_Collection<T>
 {

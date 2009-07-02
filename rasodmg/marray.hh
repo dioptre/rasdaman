@@ -50,7 +50,10 @@ using namespace std;
  a normal C or C++ array from the programmers point of view. 
  
 */ 
- 
+
+/**
+  * \ingroup Rasodmgs
+  */ 
 template<class T>
 class r_Marray : public r_GMarray
 {

@@ -47,6 +47,9 @@ class r_Stat_Tiling;
   an appropriate tiling can be defined.
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Access
 {
   public:
@@ -121,6 +124,9 @@ extern std::ostream& operator<<(std::ostream& os, const r_Access& access);
   can be updated and the tiling operation prepared.
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Stat_Tiling : public r_Dimension_Tiling
 {
   // ******************* PUBLIC SECTION *******************

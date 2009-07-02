@@ -59,6 +59,9 @@ class r_Structure;
   \Ref{r_Ref_Any}.
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Ref_Any
 {
   public:
@@ -187,6 +190,9 @@ class r_Ref_Any
   memory pointer is given back.
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 template<class T>
 class r_Ref
 {

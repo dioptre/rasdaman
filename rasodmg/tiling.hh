@@ -61,6 +61,9 @@ using std::cout;
   implements a diferent decomposition method.
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Tiling
 	{
 	public:
@@ -105,6 +108,9 @@ class r_Tiling
 		static const long DefaultBase;
  	};
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Size_Tiling :	public r_Tiling
 	{
 	public:
@@ -141,6 +147,9 @@ class r_Size_Tiling :	public r_Tiling
  	};
 
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Dimension_Tiling :	public r_Size_Tiling
 	{
 	public:
@@ -169,6 +178,9 @@ class r_Dimension_Tiling :	public r_Size_Tiling
  	};
 
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_No_Tiling :	public r_Tiling
 	{
 	public:

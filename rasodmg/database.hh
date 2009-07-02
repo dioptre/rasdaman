@@ -54,6 +54,9 @@ class r_Ref_Any;
   
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Database
 {
   public:

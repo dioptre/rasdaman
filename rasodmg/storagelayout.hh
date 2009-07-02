@@ -64,6 +64,9 @@ class r_Minterval;
 	  For the time being, compression does not work.
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Storage_Layout 
 {
   public:

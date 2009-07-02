@@ -50,6 +50,9 @@ class r_Iterator;
  
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 template <class T>
 class r_Collection : public r_Object
 {

@@ -52,6 +52,9 @@ class r_Database;
   our insert tools.
 */
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Partial_Insert
 {
   public:

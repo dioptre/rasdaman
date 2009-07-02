@@ -66,6 +66,9 @@ using std::ostream;
 //@ManMemo: Module: {\bf rasodmg}
 
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_SegmentIterator
   {
    public:
@@ -87,6 +90,9 @@ class r_SegmentIterator
      int   beta;
    };
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_Line
   {
     public:
@@ -103,6 +109,9 @@ class r_Line
    };
 
 
+/**
+  * \ingroup Rasodmgs
+  */
 class r_PolygonCutOut
   {
     public:
