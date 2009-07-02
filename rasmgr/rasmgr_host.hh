@@ -43,6 +43,9 @@ rasdaman GmbH.
 //So, for normal release, just...
 //#define HIGHLANDER
 
+/**
+  * \ingroup Rasmgrs
+  */
 class ServerHost 
   {
     public:
@@ -92,6 +95,9 @@ class ServerHost
       bool valid;
    };
 
+/**
+  * \ingroup Rasmgrs
+  */
 class HostManager
   { 
     public:

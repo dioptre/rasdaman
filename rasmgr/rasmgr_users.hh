@@ -101,6 +101,9 @@ struct AuthDbRRec
    };   
 //++++++++++++++++++++++++++++++++++++++++++++++++
 
+/**
+  * \ingroup Rasmgrs
+  */
 class User
   {
    public:
@@ -148,6 +151,9 @@ class User
      bool valid;
    };
 
+/**
+  * \ingroup Rasmgrs
+  */
 class UserManager
   { 
     public:
@@ -178,6 +184,9 @@ class UserManager
    
 extern UserManager userManager;
 
+/**
+  * \ingroup Rasmgrs
+  */
 class Authorization
   {
     public:
@@ -230,6 +239,9 @@ class Authorization
    
 extern Authorization authorization;   
 
+/**
+  * \ingroup Rasmgrs
+  */
 class RandomGenerator
   {
     public:

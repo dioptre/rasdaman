@@ -52,6 +52,9 @@ const int DEFAULT_POLLING_FREQUENCY = 200;
 /// host/domain name size (See man gethostname)
 #define HOSTNAME_SIZE	255
 
+/**
+  * \ingroup Rasmgrs
+  */
 class Configuration
   {
     public:
@@ -115,6 +118,9 @@ class Configuration
    
 extern Configuration config;
 
+/**
+  * \ingroup Rasmgrs
+  */
 class BenchmarkTimer
   {
     public:

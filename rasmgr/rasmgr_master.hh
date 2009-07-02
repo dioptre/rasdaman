@@ -41,6 +41,9 @@ rasdaman GmbH.
 #include <deque>
 #include<string>
 
+/**
+  * \ingroup Rasmgrs
+  */
 class ClientID
   {
     public:
@@ -58,7 +61,10 @@ class ClientID
       friend std::ostream& operator<<(std::ostream&, const ClientID&);
    };
 
-      
+
+/**
+  * \ingroup Rasmgrs
+  */      
 class ClientQueue
   {
     public:
@@ -95,7 +101,10 @@ class ClientQueue
      std::deque<ClientEntry> clients;
       
    };
-   
+
+/**
+  * \ingroup Rasmgrs
+  */   
 class MasterComm:public NbServerComm
   {
     public:

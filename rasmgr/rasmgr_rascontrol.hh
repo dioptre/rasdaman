@@ -42,6 +42,9 @@ rasdaman GmbH.
 #include "rasmgr_host.hh"
 
 
+/**
+  * \ingroup Rasmgrs
+  */
 class RasControl
   {
     public:

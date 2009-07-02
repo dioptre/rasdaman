@@ -36,6 +36,9 @@ rasdaman GmbH.
 
 #include "rasmgr.hh"
 
+/**
+  * \ingroup Rasmgrs
+  */
 class RCError
   {
     public:
@@ -43,7 +46,10 @@ class RCError
       virtual const char* getString(char *destBuffer)=0;
     
    };
-   
+
+/**
+  * \ingroup Rasmgrs
+  */   
 class RCErrorUnexpToken : public RCError
   {
     public:
@@ -53,6 +59,9 @@ class RCErrorUnexpToken : public RCError
      const char *pcc;   
    };   
 
+/**
+  * \ingroup Rasmgrs
+  */
 class RCErrorNoPermission : public RCError
   {
     public:
@@ -61,6 +70,9 @@ class RCErrorNoPermission : public RCError
     private:
    };   
 
+/**
+  * \ingroup Rasmgrs
+  */
 class RCErrorInvalidName : public RCError
   {
     public:
@@ -70,6 +82,9 @@ class RCErrorInvalidName : public RCError
      const char *pcc;   
    };   
 
+/**
+  * \ingroup Rasmgrs
+  */
 class RCErrorMissingParam : public RCError
   {
     public:
@@ -79,6 +94,9 @@ class RCErrorMissingParam : public RCError
      const char *pcc;   
    };   
 
+/**
+  * \ingroup Rasmgrs
+  */
 class RCErrorIncorNumberValue : public RCError
   {
     public:

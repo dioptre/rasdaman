@@ -56,6 +56,9 @@ const unsigned int RASSERVER_SRVNOTUP       = -5;
 const unsigned int RASSERVER_CMDLINEOFLO    = -6;
 
 
+/**
+  * \ingroup Rasmgrs
+  */
 class RasServer
   {
     public:
@@ -146,6 +149,9 @@ class RasServer
       bool valid;
    };
 
+/**
+  * \ingroup Rasmgrs
+  */
 class RasServerManager
   { 
     public:

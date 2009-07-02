@@ -40,6 +40,9 @@ rasdaman GmbH.
 #include "rasmgr.hh"
 
 
+/**
+  * \ingroup Rasmgrs
+  */
 class LocalServer
   {
     public:
@@ -53,7 +56,10 @@ class LocalServer
       pid_t serverPid;
       bool  valid;
    };	  
-   
+
+/**
+  * \ingroup Rasmgrs
+  */   
 class LocalServerManager
   {
     public:

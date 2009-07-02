@@ -42,7 +42,13 @@ rasdaman GmbH.
 #define MAXMSG 1024
 #define MAXMSGOUTBUFF 20000 
 
+/**
+  * \defgroup Rasmgrs Rasmgr Classes
+  */
 
+/**
+  * \ingroup Rasmgrs
+  */
 class HTTPComm
   {
     public:

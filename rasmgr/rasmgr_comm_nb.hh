@@ -45,6 +45,9 @@ rasdaman GmbH.
 #define MAXJOBSMASTER 1
 
 
+/**
+  * \ingroup Rasmgrs
+  */
 class IOSelector
   {
     public:
@@ -78,6 +81,9 @@ class IOSelector
       
    };
 
+/**
+  * \ingroup Rasmgrs
+  */
 class NbJob
   {
     public:
@@ -141,7 +147,10 @@ class NbJob
    };
    
 //###################   
-         
+
+/**
+  * \ingroup Rasmgrs
+  */         
 class NbServerComm
   {
     public:

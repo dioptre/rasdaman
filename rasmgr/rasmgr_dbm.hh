@@ -38,6 +38,9 @@ rasdaman GmbH.
 #include "rasmgr_config.hh"
 //#include "rasmgr_srv.hh"
 
+/**
+  * \ingroup Rasmgrs
+  */
 class DatabaseHost 
   {
     public:
@@ -68,6 +71,9 @@ class DatabaseHost
       bool valid;
    };
 
+/**
+  * \ingroup Rasmgrs
+  */
 class DatabaseHostManager
   { 
     public:
@@ -93,6 +99,9 @@ extern DatabaseHostManager dbHostManager;
 
 class RasServer;
 
+/**
+  * \ingroup Rasmgrs
+  */
 class Database 
   {
     public:
@@ -146,6 +155,9 @@ class Database
       bool valid;  
    };
 
+/**
+  * \ingroup Rasmgrs
+  */
 class DatabaseManager
   { 
     public:
