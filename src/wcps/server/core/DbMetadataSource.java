@@ -32,6 +32,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -39,7 +40,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-//The DbMetadataSource is a IMetadataSource that uses a relational database. It keeps a global connection which is reused on future requests, as well as between threads. Before each read, the connection is verified to be valid, and recreated if necessary. This IMetadataSource is not particularly efficient, because it accesses the database at least once for every read. To increase efficiency, wrap a CachedMetadataSource around this one.
+/**The DbMetadataSource is a IMetadataSource that uses a relational database. It
+ * keeps a global connection which is reused on future requests, as well as between
+ * threads. Before each read, the connection is verified to be valid, and
+ * recreated if necessary. This IMetadataSource is not particularly efficient,
+ * because it accesses the database at least once for every read. To increase
+ * efficiency, wrap a CachedMetadataSource around this one.
+ *
+ */
 
 public class DbMetadataSource implements IMetadataSource
 {
@@ -377,7 +385,7 @@ public class DbMetadataSource implements IMetadataSource
 				domain.add(new DomainElement(r.getString("name"),
 							     axisTypes.get(r.getInt("type")),
 							     numLo, numHi, r.getString("strLo"),
-							     r.getString("strHi"), crsSet));
+							     r.getString("strHi"), crsSet, axisTypes.values()));
 			}
 
 			s.close();
@@ -431,4 +439,9 @@ public class DbMetadataSource implements IMetadataSource
 		}
 
 	}
+
+    public Collection<String> getAxisNames()
+    {
+        return axisTypes.values();
+    }
 }

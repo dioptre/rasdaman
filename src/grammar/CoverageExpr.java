@@ -81,6 +81,10 @@ public class CoverageExpr implements IParseTreeNode
 		else if (function.equals("unaryOp"))
 		{
             formatOperation();
+            if (op.equals("plus"))
+                op = "unaryPlus";
+            if (op.equals("minus"))
+                op = "unaryMinus";
 			result = "<" + op + ">" + expr.toXML() + "</" + op + ">";
 		}
 		else if (function.equals("child"))

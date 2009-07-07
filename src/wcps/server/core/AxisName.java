@@ -23,6 +23,7 @@
 
 package wcps.server.core;
 
+import java.util.Collection;
 import org.w3c.dom.*;
 
 public class AxisName implements IRasNode
@@ -41,7 +42,10 @@ public class AxisName implements IRasNode
         if (node != null && node.getNodeName().equals("axis"))
         {
             String axis = node.getTextContent();
-            if (axis.length() == 1 && "xyzt".contains(axis))
+            // validate axis name
+            IDynamicMetadataSource meta = xq.getMetadataSource();
+            Collection<String> axisNames = meta.getAxisNames();
+            if (axisNames.contains(axis))
                 this.name = axis;
             else
                 throw new WCPSException("Unknown axis name " + axis);

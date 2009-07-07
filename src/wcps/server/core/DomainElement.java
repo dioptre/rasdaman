@@ -23,11 +23,12 @@
 
 package wcps.server.core;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-//This is an axis i geographic coordinates. See the WCPS standard.
+//This is an axis in geographic coordinates. See the WCPS standard.
 
 class DomainElement implements Cloneable
 {
@@ -39,11 +40,14 @@ class DomainElement implements Cloneable
 	private String strHi;
 	private String strLo;
 	private String type;
+    private Collection<String> allowedAxes;
 
 	public DomainElement(String name, String type, Double numLo, Double numHi, String strLo,
-			     String strHi, Set<String> crss)
+			     String strHi, Set<String> crss, Collection<String> axes)
 	    throws InvalidMetadataException
 	{
+        this.allowedAxes = axes;
+
 		if ((name == null) || (type == null))
 		{
 			throw new InvalidMetadataException(
@@ -56,11 +60,11 @@ class DomainElement implements Cloneable
 			    "Invalid domain element: Element name cannot be empty");
 		}
 
-		if (!(type.equals("x") || type.equals("y") || type.equals("temporal")
-		    || type.equals("elevation") || type.equals("other")))
+        if (allowedAxes.contains(type) == false)
 		{
 			throw new InvalidMetadataException(
-			    "Invalid domain element: Invlaid element type: " + type);
+			    "Invalid domain element: Invalid element type: " + type +
+                ". Allowed element types are: " + allowedAxes.toString());
 		}
 
 		if ((numLo != null) && (numHi != null) && (strLo == null) && (strHi == null))
@@ -133,13 +137,13 @@ class DomainElement implements Cloneable
 			{
 				return new DomainElement(new String(name), new String(type),
 							 new Double(numLo), new Double(numHi),
-							 null, null, c);
+							 null, null, c, allowedAxes);
 			}
 			else
 			{
 				return new DomainElement(new String(name), new String(type), null,
 							 null, new String(strLo),
-							 new String(strHi), c);
+							 new String(strHi), c, allowedAxes);
 			}
 		}
 		catch (InvalidMetadataException ime)

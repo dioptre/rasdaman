@@ -23,6 +23,8 @@
 
 package wcps.server.core;
 
+//~--- JDK imports ------------------------------------------------------------
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -50,32 +52,26 @@ public class Metadata implements Cloneable
 	private Set<String> nullSet;
 	private List<RangeElement> range;
 
-	public Metadata(List<CellDomainElement> cellDomain, List<RangeElement> range,
-			Set<String> nullSet, String nullDefault,
-			Set<InterpolationMethod> interpolationSet,
-			InterpolationMethod interpolationDefault, String coverageName,
-			List<DomainElement> domain)
-	    throws InvalidMetadataException
+	public Metadata(List<CellDomainElement> cellDomain, List<RangeElement> range, Set<String> nullSet, String nullDefault, Set<InterpolationMethod> interpolationSet, InterpolationMethod interpolationDefault, String coverageName, List<DomainElement> domain) throws InvalidMetadataException
 	{
-		if ((cellDomain == null) || (range == null) || (coverageName == null)
-		    || (nullSet == null) || (interpolationSet == null))
+		if ( (cellDomain == null) || (range == null) || (coverageName == null) || (nullSet == null) || (interpolationSet == null) )
 		{
-			throw new InvalidMetadataException(
-			    "Cell domain, range list, coverage name, null set, and interpolation set cannot be null");
+			throw new InvalidMetadataException("Cell domain, range list, " +
+                    "coverage name, null set, and interpolation set cannot be null for coverage " + coverageName);
 		}
 
-		if (cellDomain.size() == 0)
+		if ( cellDomain.size() == 0 )
 		{
-			throw new InvalidMetadataException(
-			    "Invalid cell domain: At least one element is required");
+			throw new InvalidMetadataException("Invalid cell domain: At least " +
+                    "one element is required for coverage " + coverageName);
 		}
 
 		this.cellDomain = cellDomain;
 
-		if (range.size() == 0)
+		if ( range.size() == 0 )
 		{
-			throw new InvalidMetadataException(
-			    "At least one range element is required");
+			throw new InvalidMetadataException("At least one range element is " +
+                    "required for coverage " + coverageName);
 		}
 
 		this.range = new ArrayList<RangeElement>(range.size());
@@ -83,126 +79,126 @@ public class Metadata implements Cloneable
 
 		while (ir.hasNext())
 		{
-			RangeElement next        = ir.next();
+			RangeElement next = ir.next();
 			Iterator<RangeElement> j = this.range.iterator();
 
 			while (j.hasNext())
 			{
-				if (j.next().getName().equals(next.getName()))
+				if ( j.next().getName().equals(next.getName()) )
 				{
-					throw new InvalidMetadataException(
-					    "Duplicate range element name encountered");
+					throw new InvalidMetadataException("Duplicate range element" +
+                            " name encountered for coverage " + coverageName);
 				}
 			}
 
 			this.range.add(next);
 		}
 
-		if (nullSet.size() == 0)
-		{    // TODO: check with Peter
-			throw new InvalidMetadataException(
-			    "Invalid null set: At least one null value is required");
+		if ( nullSet.size() == 0 )
+		{
+			throw new InvalidMetadataException("Invalid null set: At least one " +
+                    "null value is required for coverage " + coverageName);
 		}
 
-		if (nullDefault == null)
+		if ( nullDefault == null )
 		{
-			throw new InvalidMetadataException(
-			    "Invalid null default: Null default cannot be null");
+			throw new InvalidMetadataException("Invalid null default: Null " +
+                    "default cannot be null for coverage " + coverageName);
 		}
 
-		if (!nullSet.contains(nullDefault))
+		if ( ! nullSet.contains(nullDefault) )
 		{
-			throw new InvalidMetadataException(
-			    "Invalid null default: Default null value " + nullDefault
-			    + " is not part of the null set");
+			throw new InvalidMetadataException("Invalid null default: Default " +
+                    "null value " + nullDefault + " is not part of the null set" +
+                    " for coverage " + coverageName);
 		}
 
 		Iterator<String> ns = nullSet.iterator();
 
 		while (ns.hasNext())
 		{
-			String nullVal     = ns.next();
+			String nullVal = ns.next();
 			List<String> nulls = SDU.str2string(nullVal);
 
-			if (nulls.size() != range.size())
+			if ( nulls.size() != range.size() )
 			{
-				throw new InvalidMetadataException(
-				    "Invalid null value: " + nullVal + " must have " + range.size()
-				    + " axes according to the range specified for coverage "
-				    + coverageName);
+				throw new InvalidMetadataException("Invalid null value: " +
+                        nullVal + " must have " + range.size() + " axes " +
+                        "according to the range specified for coverage " + coverageName);
 			}
 
-			Iterator<String> i       = nulls.iterator();
+			Iterator<String> i = nulls.iterator();
 			Iterator<RangeElement> j = range.iterator();
 
 			while (j.hasNext())
 			{
 				RangeElement re = j.next();
 
-				if (re.isBoolean())
+				if ( re.isBoolean() )
 				{
 					SDU.str2boolean(i.next());
 				}
-				else if (re.isIntegral())
+				else if ( re.isIntegral() )
 				{
 					SDU.str2integer(i.next());
 				}
-				else if (re.isFloating())
+				else if ( re.isFloating() )
 				{
 					SDU.str2double(i.next());
 				}
-				else if (re.isComplex())
+				else if ( re.isComplex() )
 				{
 					SDU.str2complex(i.next());
 				}
 			}
 		}
 
-		this.nullSet     = nullSet;
+		this.nullSet = nullSet;
 		this.nullDefault = nullDefault;
 
-		if (interpolationSet.size() == 0)
-		{    // TODO: check with Peter
-			throw new InvalidMetadataException(
-			    "Invalid interpolation set: At least one interpolation method is required");
+		if ( interpolationSet.size() == 0 )
+		{
+			throw new InvalidMetadataException("Invalid interpolation set: " +
+                    "At least one interpolation method is required for " +
+                    "coverage " + coverageName);
 		}
 
-		if (interpolationDefault == null)
+		if ( interpolationDefault == null )
 		{
 			interpolationDefault = new InterpolationMethod("none", "none");
 		}
 
-		boolean defaultContainedInSet    = false;
+		boolean defaultContainedInSet = false;
 		Iterator<InterpolationMethod> is = interpolationSet.iterator();
 
 		while (is.hasNext())
 		{
-			if (interpolationDefault.equals(is.next()))
+			if ( interpolationDefault.equals(is.next()) )
 			{
 				defaultContainedInSet = true;
 			}
 		}
 
-		if (!defaultContainedInSet)
+		if ( ! defaultContainedInSet )
 		{
-			throw new InvalidMetadataException(
-			    "Ivanlid interpolation default: Default interpolation method ("
-			    + interpolationDefault.getInterpolationType() + ","
-			    + interpolationDefault.getNullResistance()
-			    + ") is not part of the interpolation set");
+			throw new InvalidMetadataException("Ivanlid interpolation default:" +
+                    " Default interpolation method (" +
+                    interpolationDefault.getInterpolationType() + "," +
+                    interpolationDefault.getNullResistance() + ") is not part " +
+                    "of the interpolation set for coverage " + coverageName);
 		}
 
-		this.interpolationSet     = interpolationSet;
+		this.interpolationSet = interpolationSet;
 		this.interpolationDefault = interpolationDefault;
 
-		this.coverageName         = coverageName;
+		this.coverageName = coverageName;
 
-		if (domain != null)
+		if ( domain != null )
 		{
-			if (domain.size() != cellDomain.size())
+			if ( domain.size() != cellDomain.size() )
 			{
-				throw new InvalidMetadataException(
-				    "Domain and cell domain must have equal number of elements");
+				throw new InvalidMetadataException("Domain and cell domain " +
+                        "must have equal number of elements for coverage " + coverageName);
 			}
 
 			this.domain = new ArrayList<DomainElement>(domain.size());
@@ -210,83 +206,85 @@ public class Metadata implements Cloneable
 
 			while (i.hasNext())
 			{
-				DomainElement next        = i.next();
+				DomainElement next = i.next();
 				Iterator<DomainElement> j = this.domain.iterator();
 
 				while (j.hasNext())
 				{
 					DomainElement previous = j.next();
 
-					if (previous.getName().equals(next.getName()))
+                    // don't compare same objects
+                    if (next == previous)
+                        continue;
+
+					if ( previous.getName().equals(next.getName()) )
 					{
-						throw new InvalidMetadataException(
-						    "Duplicate domain element name encountered");
+						throw new InvalidMetadataException("Duplicate domain " +
+                                "element name encountered for coverage " + coverageName);
 					}
 
-					if (previous.getType().equals("temporal")
-					    && next.getType().equals("temporal"))
+					if ( previous.getType().equals("temporal") && next.getType().equals("temporal") )
 					{
-						throw new InvalidMetadataException(
-						    "Domain can contain at most one temporal axis");
+						throw new InvalidMetadataException("Domain can contain" +
+                                " at most one temporal axis for coverage " + coverageName);
 					}
 
-					if (previous.getType().equals("elevation")
-					    && next.getType().equals("elevation"))
+					if ( previous.getType().equals("elevation") && next.getType().equals("elevation") )
 					{
-						throw new InvalidMetadataException(
-						    "Domain can contain at most one elevation axis");
+						throw new InvalidMetadataException("Domain can contain" +
+                                " at most one elevation axis for coverage " + coverageName);
 					}
 
-					if (previous.getType().equals("x")
-					    && next.getType().equals("x"))
+					if ( previous.getType().equals("x") && next.getType().equals("x") )
 					{
-						throw new InvalidMetadataException(
-						    "Domain can contain at most one x axis");
+						throw new InvalidMetadataException("Domain can contain" +
+                                " at most one x axis for coverage " + coverageName);
 					}
 
-					if (previous.getType().equals("y")
-					    && next.getType().equals("y"))
+					if ( previous.getType().equals("y") && next.getType().equals("y") )
 					{
-						throw new InvalidMetadataException(
-						    "Domain can contain at most one y axis");
+						throw new InvalidMetadataException("Domain can contain" +
+                                " at most one y axis for coverage " + coverageName);
 					}
 
-					if (next.getType().equals("x"))
+					if ( next.getType().equals("x") )
 					{
-						boolean l                 = false;
+						boolean l = false;
 						Iterator<DomainElement> k = domain.iterator();
 
 						while (k.hasNext())
 						{
-							if (k.next().getType().equals("y"))
+							if ( k.next().getType().equals("y") )
 							{
 								l = true;
 							}
 						}
 
-						if (l == false)
+						if ( l == false )
 						{
-							throw new InvalidMetadataException(
-							    "If domain contains a x axis, it must contain a y axis as well");
+							throw new InvalidMetadataException("If domain " +
+                                    "contains a x axis, it must contain a y " +
+                                    "axis as well for coverage " + coverageName);
 						}
 					}
-					else if (next.getType().equals("y"))
+					else if ( next.getType().equals("y") )
 					{
-						boolean l                 = false;
+						boolean l = false;
 						Iterator<DomainElement> k = domain.iterator();
 
 						while (k.hasNext())
 						{
-							if (k.next().getType().equals("x"))
+							if ( k.next().getType().equals("x") )
 							{
 								l = true;
 							}
 						}
 
-						if (l == false)
+						if ( l == false )
 						{
-							throw new InvalidMetadataException(
-							    "If domain contains a y axis, it must contain a x axis as well");
+							throw new InvalidMetadataException("If domain " +
+                                    "contains a y axis, it must contain a x " +
+                                    "axis as well for coverage " + coverageName);
 						}
 					}
 				}
@@ -301,8 +299,7 @@ public class Metadata implements Cloneable
 	{
 		try
 		{
-			List<CellDomainElement> cd =
-				new ArrayList<CellDomainElement>(cellDomain.size());
+			List<CellDomainElement> cd = new ArrayList<CellDomainElement>(cellDomain.size());
 			Iterator<CellDomainElement> i = cellDomain.iterator();
 
 			while (i.hasNext())
@@ -310,7 +307,7 @@ public class Metadata implements Cloneable
 				cd.add(i.next().clone());
 			}
 
-			List<RangeElement> r     = new ArrayList<RangeElement>(range.size());
+			List<RangeElement> r = new ArrayList<RangeElement>(range.size());
 			Iterator<RangeElement> j = range.iterator();
 
 			while (j.hasNext())
@@ -318,7 +315,7 @@ public class Metadata implements Cloneable
 				r.add(j.next().clone());
 			}
 
-			List<DomainElement> d     = new ArrayList<DomainElement>(domain.size());
+			List<DomainElement> d = new ArrayList<DomainElement>(domain.size());
 			Iterator<DomainElement> k = domain.iterator();
 
 			while (k.hasNext())
@@ -326,7 +323,7 @@ public class Metadata implements Cloneable
 				d.add(k.next().clone());
 			}
 
-			Set<String> ns     = new HashSet<String>(nullSet.size());
+			Set<String> ns = new HashSet<String>(nullSet.size());
 			Iterator<String> l = nullSet.iterator();
 
 			while (l.hasNext())
@@ -334,8 +331,7 @@ public class Metadata implements Cloneable
 				ns.add(new String(l.next()));
 			}
 
-			Set<InterpolationMethod> is =
-				new HashSet<InterpolationMethod>(interpolationSet.size());
+			Set<InterpolationMethod> is = new HashSet<InterpolationMethod>(interpolationSet.size());
 			Iterator<InterpolationMethod> m = interpolationSet.iterator();
 
 			while (m.hasNext())
@@ -343,24 +339,21 @@ public class Metadata implements Cloneable
 				is.add(m.next().clone());
 			}
 
-			return new Metadata(cd, r, ns, new String(nullDefault), is,
-					    interpolationDefault.clone(), new String(coverageName),
-					    d);
+			return new Metadata(cd, r, ns, new String(nullDefault), is, interpolationDefault.clone(), new String(coverageName), d);
 		}
 		catch (InvalidMetadataException ime)
 		{
-			throw new RuntimeException(
-			    "Invalid metadata while cloning Metadata. This is a software bug in WCPS.",
-			    ime);
+			throw new RuntimeException("Invalid metadata while cloning " +
+                    "Metadata. This is a software bug in WCPS.", ime);
 		}
 
 	}
 
-//      public CellDomainElement getCellDomain( int index ) {
+//  public CellDomainElement getCellDomain( int index ) {
 //
-//          return cellDomain.get( index );
+//      return cellDomain.get( index );
 //
-//      }
+//  }
 
 	public Iterator<CellDomainElement> getCellDomainIterator()
 	{
@@ -379,19 +372,19 @@ public class Metadata implements Cloneable
 
 	}
 
-//      public DomainElement getDomainByType( String type ) {
+//  public DomainElement getDomainByType( String type ) {
 //
-//          Iterator<DomainElement> i = domain.iterator();
-//          DomainElement de;
-//          while( i.hasNext() ) {
-//              de = i.next();
-//              if( de.getType().equals( type ) ) {
-//                  return de;
-//              }
+//      Iterator<DomainElement> i = domain.iterator();
+//      DomainElement de;
+//      while( i.hasNext() ) {
+//          de = i.next();
+//          if( de.getType().equals( type ) ) {
+//              return de;
 //          }
-//          return null;
-//
 //      }
+//      return null;
+//
+//  }
 
 	public int getDomainIndexByName(String name)
 	{
@@ -399,7 +392,7 @@ public class Metadata implements Cloneable
 
 		for (int index = 0; i.hasNext(); index++)
 		{
-			if (i.next().getName().equals(name))
+			if ( i.next().getName().equals(name) )
 			{
 				return index;
 			}
@@ -408,23 +401,23 @@ public class Metadata implements Cloneable
 		return -1;
 	}
 
-//      public int getDomainIndexByType( String type ) {
+//  public int getDomainIndexByType( String type ) {
 //
-//          Iterator<DomainElement> i = domain.iterator();
-//          for( int index = 0; i.hasNext(); index++ ) {
-//              if( i.next().getName().equals( type ) ) {
-//                  return index;
-//              }
+//      Iterator<DomainElement> i = domain.iterator();
+//      for( int index = 0; i.hasNext(); index++ ) {
+//          if( i.next().getName().equals( type ) ) {
+//              return index;
 //          }
-//          return -1;
-//
 //      }
+//      return -1;
+//
+//  }
 
-//      public String getDomainType( int index ) {
+//  public String getDomainType( int index ) {
 //
-//          return domain.get( index ).getType();
+//      return domain.get( index ).getType();
 //
-//      }
+//  }
 
 	public String getNullDefault()
 	{
@@ -438,93 +431,93 @@ public class Metadata implements Cloneable
 
 	}
 
-//      public String getRangeType( int index ) {
+//  public String getRangeType( int index ) {
 //
-//          return range.get( index ).getType();
+//      return range.get( index ).getType();
 //
-//      }
+//  }
 
-//      public String getRangeType( String name ) {
+//  public String getRangeType( String name ) {
 //
-//          String type = null;
-//          Iterator<RangeElement> i = range.iterator();
-//          RangeElement re;
-//          while( i.hasNext() ) {
-//              re = i.next();
-//              if( re.getName().equals( name ) ) {
-//                  type = re.getType();
-//              }
+//      String type = null;
+//      Iterator<RangeElement> i = range.iterator();
+//      RangeElement re;
+//      while( i.hasNext() ) {
+//          re = i.next();
+//          if( re.getName().equals( name ) ) {
+//              type = re.getType();
 //          }
-//          return type;
-//
 //      }
+//      return type;
+//
+//  }
 
-//      public double getResolution( int i ) {
+//  public double getResolution( int i ) {
 //
-//          DomainElement de = domain.get( i );
-//          Double deLo = de.getNumLo();
-//          Double deHi = de.getNumHi();
-//          if( deLo == null ) {
-//              return -1;
-//          }
-//
-//          CellDomainElement cde = cellDomain.get( i );
-//          BigInteger cdeLo = cde.getLo();
-//          BigInteger cdeHi = cde.getHi();
-//
-//          return (deHi - deLo) / (cdeHi.subtract( cdeLo ).doubleValue() + 1);
-//
+//      DomainElement de = domain.get( i );
+//      Double deLo = de.getNumLo();
+//      Double deHi = de.getNumHi();
+//      if( deLo == null ) {
+//          return -1;
 //      }
-
-//      public boolean isCellDomainEqualTo( Metadata m ) {
 //
-//          if( m == null ) {
+//      CellDomainElement cde = cellDomain.get( i );
+//      BigInteger cdeLo = cde.getLo();
+//      BigInteger cdeHi = cde.getHi();
+//
+//      return (deHi - deLo) / (cdeHi.subtract( cdeLo ).doubleValue() + 1);
+//
+//  }
+
+//  public boolean isCellDomainEqualTo( Metadata m ) {
+//
+//      if( m == null ) {
+//          return false;
+//      }
+//
+//      Iterator<CellDomainElement> i = cellDomain.iterator();
+//      Iterator<CellDomainElement> j = m.cellDomain.iterator();
+//      while( i.hasNext() && j.hasNext() ) {
+//          if( !i.next().equals( j.next() ) ) {
 //              return false;
 //          }
+//      }
+//      if( i.hasNext() || j.hasNext() ) {
+//          return false;
+//      }
+//      return true;
 //
-//          Iterator<CellDomainElement> i = cellDomain.iterator();
-//          Iterator<CellDomainElement> j = m.cellDomain.iterator();
-//          while( i.hasNext() && j.hasNext() ) {
-//              if( !i.next().equals( j.next() ) ) {
-//                  return false;
-//              }
-//          }
-//          if( i.hasNext() || j.hasNext() ) {
+//  }
+
+//  public boolean isCrsValid( String crs ) {
+//      return crs != null && (crs.equals( "" ) || crs.startsWith( "urn:ogc:def:crs:EPSG::" ));
+//  }
+
+//  public boolean isDomainEqualTo (Metadata m) {
+//
+//      if( m == null ) {
+//          return false;
+//      }
+//
+//      Iterator<DomainElement> i = domain.iterator();
+//      Iterator<DomainElement> j = m.domain.iterator();
+//      while( i.hasNext() && j.hasNext() ) {
+//          if( !i.next().equals( j.next() ) ) {
 //              return false;
 //          }
-//          return true;
-//
 //      }
+//      if( i.hasNext() || j.hasNext() ) {
+//          return false;
+//      }
+//      return true;
+//
+//  }
 
-//      public boolean isCrsValid( String crs ) {
-//          return crs != null && (crs.equals( "" ) || crs.startsWith( "urn:ogc:def:crs:EPSG::" ));
-//      }
-
-//      public boolean isDomainEqualTo (Metadata m) {
+//  public boolean isInterpolationMethodValid( String im ) {
 //
-//          if( m == null ) {
-//              return false;
-//          }
+//      return im != null && im.equals( "nearest neighbor" );
 //
-//          Iterator<DomainElement> i = domain.iterator();
-//          Iterator<DomainElement> j = m.domain.iterator();
-//          while( i.hasNext() && j.hasNext() ) {
-//              if( !i.next().equals( j.next() ) ) {
-//                  return false;
-//              }
-//          }
-//          if( i.hasNext() || j.hasNext() ) {
-//              return false;
-//          }
-//          return true;
-//
-//      }
-
-//      public boolean isInterpolationMethodValid( String im ) {
-//
-//          return im != null && im.equals( "nearest neighbor" );
-//
-//      }
+//  }
 
 	public boolean isRangeBoolean()
 	{
@@ -532,7 +525,7 @@ public class Metadata implements Cloneable
 
 		while (i.hasNext())
 		{
-			if (!i.next().isBoolean())
+			if ( ! i.next().isBoolean() )
 			{
 				return false;
 			}
@@ -548,7 +541,7 @@ public class Metadata implements Cloneable
 
 		while (i.hasNext())
 		{
-			if (!i.next().isComplex())
+			if ( ! i.next().isComplex() )
 			{
 				return false;
 			}
@@ -564,7 +557,7 @@ public class Metadata implements Cloneable
 
 		while (i.hasNext())
 		{
-			if (!i.next().isIntegral())
+			if ( ! i.next().isIntegral() )
 			{
 				return false;
 			}
@@ -574,25 +567,25 @@ public class Metadata implements Cloneable
 
 	}
 
-//      public boolean isRangeEqualTo (Metadata m) {
+//  public boolean isRangeEqualTo (Metadata m) {
 //
-//          if( m == null ) {
-//              return false;
-//          }
-//
-//          Iterator<RangeElement> i = range.iterator();
-//          Iterator<RangeElement> j = m.range.iterator();
-//          while( i.hasNext() && j.hasNext() ) {
-//              if( !i.next().equals( j.next() ) ) {
-//                  return false;
-//              }
-//          }
-//          if( i.hasNext() || j.hasNext() ) {
-//              return false;
-//          }
-//          return true;
-//
+//      if( m == null ) {
+//          return false;
 //      }
+//
+//      Iterator<RangeElement> i = range.iterator();
+//      Iterator<RangeElement> j = m.range.iterator();
+//      while( i.hasNext() && j.hasNext() ) {
+//          if( !i.next().equals( j.next() ) ) {
+//              return false;
+//          }
+//      }
+//      if( i.hasNext() || j.hasNext() ) {
+//          return false;
+//      }
+//      return true;
+//
+//  }
 
 	public boolean isRangeFloating()
 	{
@@ -600,7 +593,7 @@ public class Metadata implements Cloneable
 
 		while (i.hasNext())
 		{
-			if (!i.next().isFloating())
+			if ( ! i.next().isFloating() )
 			{
 				return false;
 			}
@@ -616,7 +609,7 @@ public class Metadata implements Cloneable
 
 		while (i.hasNext())
 		{
-			if (!i.next().isNumeric())
+			if ( ! i.next().isNumeric() )
 			{
 				return false;
 			}
@@ -626,117 +619,116 @@ public class Metadata implements Cloneable
 
 	}
 
-//      public boolean isResolutionEqualTo( Metadata m ) {
+//  public boolean isResolutionEqualTo( Metadata m ) {
 //
-//          if( m == null || getDimension() != m.getDimension() ) {
+//      if( m == null || getDimension() != m.getDimension() ) {
+//          return false;
+//      }
+//
+//      Iterator<CellDomainElement> cdIterator1 = cellDomain.iterator();
+//      Iterator<CellDomainElement> cdIterator2 = m.cellDomain.iterator();
+//      Iterator<DomainElement> dIterator1 = domain.iterator();
+//      Iterator<DomainElement> dIterator2 = m.domain.iterator();
+//      double resolution1;
+//      double resolution2;
+//      CellDomainElement cde;
+//      DomainElement de;
+//      Double deLo;
+//      Double deHi;
+//      BigInteger cdeLo;
+//      BigInteger cdeHi;
+//      while( cdIterator1.hasNext() ) {
+//          cde = cdIterator1.next();
+//          de = dIterator1.next();
+//          deLo = de.getNumLo();
+//          deHi = de.getNumHi();
+//          if( deLo == null ) {
+//              resolution1 = -1;
+//          }
+//          cdeLo = cde.getLo();
+//          cdeHi = cde.getHi();
+//          resolution1 = (deHi - deLo) / (cdeHi.subtract( cdeLo ).doubleValue() + 1);
+//          cde = cdIterator1.next();
+//          de = dIterator1.next();
+//          deLo = de.getNumLo();
+//          deHi = de.getNumHi();
+//          if( deLo == null ) {
+//              resolution2 = -1;
+//          }
+//          cdeLo = cde.getLo();
+//          cdeHi = cde.getHi();
+//          resolution2 = (deHi - deLo) / (cdeHi.subtract( cdeLo ).doubleValue() + 1);
+//          if( resolution1 != resolution2 ) {
 //              return false;
 //          }
-//
-//          Iterator<CellDomainElement> cdIterator1 = cellDomain.iterator();
-//          Iterator<CellDomainElement> cdIterator2 = m.cellDomain.iterator();
-//          Iterator<DomainElement> dIterator1 = domain.iterator();
-//          Iterator<DomainElement> dIterator2 = m.domain.iterator();
-//          double resolution1;
-//          double resolution2;
-//          CellDomainElement cde;
-//          DomainElement de;
-//          Double deLo;
-//          Double deHi;
-//          BigInteger cdeLo;
-//          BigInteger cdeHi;
-//          while( cdIterator1.hasNext() ) {
-//              cde = cdIterator1.next();
-//              de = dIterator1.next();
-//              deLo = de.getNumLo();
-//              deHi = de.getNumHi();
-//              if( deLo == null ) {
-//                  resolution1 = -1;
-//              }
-//              cdeLo = cde.getLo();
-//              cdeHi = cde.getHi();
-//              resolution1 = (deHi - deLo) / (cdeHi.subtract( cdeLo ).doubleValue() + 1);
-//              cde = cdIterator1.next();
-//              de = dIterator1.next();
-//              deLo = de.getNumLo();
-//              deHi = de.getNumHi();
-//              if( deLo == null ) {
-//                  resolution2 = -1;
-//              }
-//              cdeLo = cde.getLo();
-//              cdeHi = cde.getHi();
-//              resolution2 = (deHi - deLo) / (cdeHi.subtract( cdeLo ).doubleValue() + 1);
-//              if( resolution1 != resolution2 ) {
-//                  return false;
-//              }
-//          }
-//          return true;
-//
 //      }
+//      return true;
+//
+//  }
 
-//      public boolean isTypeValid( String type ) {
-//          return type != null && (type.equals( "char" ) || type.equals( "unsigned char" ) || type.equals( "short" ) || type.equals( "unsigned short" ) || type.equals( "int" ) || type.equals( "unsigned int" ) || type.equals( "long" ) || type.equals( "unsigned long" ) || type.equals( "float" ) || type.equals( "double" )); // TODO: fix
-//      }
+//  public boolean isTypeValid( String type ) {
+//      return type != null && (type.equals( "char" ) || type.equals( "unsigned char" ) || type.equals( "short" ) || type.equals( "unsigned short" ) || type.equals( "int" ) || type.equals( "unsigned int" ) || type.equals( "long" ) || type.equals( "unsigned long" ) || type.equals( "float" ) || type.equals( "double" )); // TODO: fix
+//  }
 
-//      public void removeFromCellDomain( int index ) throws InvalidMetadataException {
+//  public void removeFromCellDomain( int index ) throws InvalidMetadataException {
 //
-//          cellDomain.remove( index );
-//          if( cellDomain.size() == 0 ) {
-//              throw new InvalidMetadataException( "Metadata transformation: Cell domain cannot be empty" );
-//          }
-//
+//      cellDomain.remove( index );
+//      if( cellDomain.size() == 0 ) {
+//          throw new InvalidMetadataException( "Metadata transformation: Cell domain cannot be empty" );
 //      }
+//
+//  }
 
-//      public void removeFromDomain( int index ) throws InvalidMetadataException {
+//  public void removeFromDomain( int index ) throws InvalidMetadataException {
 //
-//          domain.remove( index );
-//          if( domain.size() == 0 ) {
-//              throw new InvalidMetadataException( "Metadata transformation: Domain cannot be empty" );
-//          }
-//
+//      domain.remove( index );
+//      if( domain.size() == 0 ) {
+//          throw new InvalidMetadataException( "Metadata transformation: Domain cannot be empty" );
 //      }
+//
+//  }
 
 	public void setCoverageName(String coverageName) throws InvalidMetadataException
 	{
-		if (coverageName == null)
+		if ( coverageName == null )
 		{
-			throw new InvalidMetadataException(
-			    "Metadata transformation: Coverage name cannot be null");
+			throw new InvalidMetadataException("Metadata transformation: Coverage name cannot be null");
 		}
 
 		this.coverageName = coverageName;
 
 	}
 
-//      public void setCrs( String crs ) throws InvalidMetadataException {
+//  public void setCrs( String crs ) throws InvalidMetadataException {
 //
-//          if( crs == null ) {
-//              throw new InvalidMetadataException( "Metadata transformation: CRS cannot be null" );
-//          }
-//          if( !(crs.equals( "" ) || crs.startsWith( "urn:ogc:def:crs:EPSG::" )) ) {
-//              throw new InvalidMetadataException( "Metadata transformation: Invalid CRS" );
-//          }
-//          this.crs = crs;
-//
+//      if( crs == null ) {
+//          throw new InvalidMetadataException( "Metadata transformation: CRS cannot be null" );
 //      }
+//      if( !(crs.equals( "" ) || crs.startsWith( "urn:ogc:def:crs:EPSG::" )) ) {
+//          throw new InvalidMetadataException( "Metadata transformation: Invalid CRS" );
+//      }
+//      this.crs = crs;
+//
+//  }
 
-//      public void setInterpolationMethodList( List<String> interpolationMethodList ) throws InvalidMetadataException {
+//  public void setInterpolationMethodList( List<String> interpolationMethodList ) throws InvalidMetadataException {
 //
-//          this.interpolationMethodList = interpolationMethodList;
-//          Iterator<String> is = interpolationMethodList.iterator();
-//          while( is.hasNext() ) {
-//              String next = is.next();
-//              if( !(next.equals( "nearest neighbor" ) || next.equals( "bilinear" ) || next.equals( "bicubic" ) || next.equals( "lost area" ) || next.equals( "barycentric" )) ) {
-//                  throw new InvalidMetadataException( "Metadata transformation: Invalid interpolation method" );
-//              }
+//      this.interpolationMethodList = interpolationMethodList;
+//      Iterator<String> is = interpolationMethodList.iterator();
+//      while( is.hasNext() ) {
+//          String next = is.next();
+//          if( !(next.equals( "nearest neighbor" ) || next.equals( "bilinear" ) || next.equals( "bicubic" ) || next.equals( "lost area" ) || next.equals( "barycentric" )) ) {
+//              throw new InvalidMetadataException( "Metadata transformation: Invalid interpolation method" );
 //          }
-//
 //      }
+//
+//  }
 
-//      public void setNullValue( String nullValue ) {
+//  public void setNullValue( String nullValue ) {
 //
-//          this.nullValue = nullValue;
+//      this.nullValue = nullValue;
 //
-//      }
+//  }
 
 	public void setRangeType(String type) throws InvalidMetadataException
 	{
@@ -749,54 +741,50 @@ public class Metadata implements Cloneable
 
 	}
 
-//      public void setRangeType( List<String> types ) throws InvalidMetadataException {
+//  public void setRangeType( List<String> types ) throws InvalidMetadataException {
 //
-//          if( types.size() != range.size() ) {
-//              throw new InvalidMetadataException( "Invalid range type: New type has " + types.size() + " elements, but range has " + range.size() + " elements" );
-//          }
-//          Iterator<RangeElement> i = range.iterator();
-//          Iterator<String> j = types.iterator();
-//          while( i.hasNext() ) {
-//              i.next().setType( j.next() );
-//          }
-//
+//      if( types.size() != range.size() ) {
+//          throw new InvalidMetadataException( "Invalid range type: New type has " + types.size() + " elements, but range has " + range.size() + " elements" );
 //      }
-
-//      public void updateCellDomain( int index, BigInteger lo, BigInteger hi ) throws InvalidMetadataException {
-//
-//          cellDomain.set( index, new CellDomainElement( lo, hi ) );
-//
+//      Iterator<RangeElement> i = range.iterator();
+//      Iterator<String> j = types.iterator();
+//      while( i.hasNext() ) {
+//          i.next().setType( j.next() );
 //      }
-
-//      public void updateDomain( int index, Double numLo, Double numHi, String strLo, String strHi ) throws InvalidMetadataException {
 //
-//          DomainElement old = domain.get( index );
-//          domain.set( index, new DomainElement( old.getName(), old.getType(), numLo, numHi, strLo, strHi ) );
-//
-//      }
+//  }
 
-	public void updateNulls(Set<String> nullSet, String nullDefault)
-	    throws InvalidMetadataException
+//  public void updateCellDomain( int index, BigInteger lo, BigInteger hi ) throws InvalidMetadataException {
+//
+//      cellDomain.set( index, new CellDomainElement( lo, hi ) );
+//
+//  }
+
+//  public void updateDomain( int index, Double numLo, Double numHi, String strLo, String strHi ) throws InvalidMetadataException {
+//
+//      DomainElement old = domain.get( index );
+//      domain.set( index, new DomainElement( old.getName(), old.getType(), numLo, numHi, strLo, strHi ) );
+//
+//  }
+
+	public void updateNulls(Set<String> nullSet, String nullDefault) throws InvalidMetadataException
 	{
-		if (nullSet.size() == 0)
-		{    // TODO: check with Peter
-			throw new InvalidMetadataException(
-			    "Invalid null set: At least one null value is required");
-		}
-
-		if (nullDefault == null)
+		if ( nullSet.size() == 0 )
 		{
-			nullDefault = "0";    // TODO: "false" for booleans, but check whether it is supported by rasdaman
+			throw new InvalidMetadataException("Invalid null set: At least one null value is required");
 		}
 
-		if (!nullSet.contains(nullDefault))
+		if ( nullDefault == null )
 		{
-			throw new InvalidMetadataException(
-			    "Invalid null default: Default null value " + nullDefault
-			    + " is not part of the null set");
+			nullDefault = "0";
 		}
 
-		this.nullSet     = nullSet;
+		if ( ! nullSet.contains(nullDefault) )
+		{
+			throw new InvalidMetadataException("Invalid null default: Default null value " + nullDefault + " is not part of the null set");
+		}
+
+		this.nullSet = nullSet;
 		this.nullDefault = nullDefault;
 
 	}

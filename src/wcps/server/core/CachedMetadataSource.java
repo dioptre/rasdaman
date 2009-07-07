@@ -23,6 +23,7 @@
 
 package wcps.server.core;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -110,4 +111,9 @@ public class CachedMetadataSource implements IMetadataSource
 		return metadata.get(coverageName).clone();
 
 	}
+
+    public Collection<String> getAxisNames()
+    {
+        return metadataSource.getAxisNames();
+    }
 }

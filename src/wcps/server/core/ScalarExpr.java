@@ -24,6 +24,7 @@
 package wcps.server.core;
 
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -132,7 +133,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo
 						+ node.getNodeName());
 		}
 
-        Metadata meta = createScalarExprMetadata();
+        Metadata meta = createScalarExprMetadata(xq);
         info = new CoverageInfo(meta);
 	}
 
@@ -147,7 +148,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo
     }
 
     /** Builds full metadata for the newly constructed coverage **/
-    private Metadata createScalarExprMetadata() throws WCPSException
+    private Metadata createScalarExprMetadata(XmlQuery xq) throws WCPSException
     {
         List<CellDomainElement> cellDomainList = new LinkedList<CellDomainElement>();
         List<RangeElement> rangeList = new LinkedList<RangeElement>();
@@ -165,7 +166,8 @@ public class ScalarExpr implements IRasNode, ICoverageInfo
         String crs = DomainElement.IMAGE_CRS;
         HashSet<String> crsset = new HashSet<String>();
         crsset.add(crs);
-        DomainElement domain = new DomainElement("x", "x", 1.0, 1.0, null, null, crsset);
+        Collection<String> allowedAxes = xq.getMetadataSource().getAxisNames();
+        DomainElement domain = new DomainElement("x", "x", 1.0, 1.0, null, null, crsset, allowedAxes);
         domainList.add(domain);
         // "unsigned int" is default datatype
         rangeList.add(new RangeElement("dynamic_type", "unsigned int"));

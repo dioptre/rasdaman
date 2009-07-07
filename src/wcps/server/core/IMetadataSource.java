@@ -23,6 +23,7 @@
 
 package wcps.server.core;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -39,4 +40,6 @@ public interface IMetadataSource
 	public String mimetype(String format);
 
 	public Metadata read(String coverageName) throws InvalidRequestException, ResourceException;
+
+    public Collection<String> getAxisNames();
 }

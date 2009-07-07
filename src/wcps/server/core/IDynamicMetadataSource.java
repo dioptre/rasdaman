@@ -23,8 +23,6 @@
 
 package wcps.server.core;
 
-import java.util.Set;
-
 /**
  * A IDynamicMetadataSource is an IMetadataSource that can also add information
  * about new coverages on-the-fly. This is useful for queries that construct
@@ -32,13 +30,7 @@ import java.util.Set;
  * database.
  */
 
-public interface IDynamicMetadataSource
+public interface IDynamicMetadataSource extends IMetadataSource
 {
-	public Set<String> coverages() throws ResourceException;
-
-	public String mimetype(String format);
-
-	public Metadata read(String coverageName) throws InvalidRequestException, ResourceException;
-
     public void addDynamicMetadata(String coverageName, Metadata meta);
 }

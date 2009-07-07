@@ -153,7 +153,7 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo
             crsset.add(crs);
             DomainElement domain = new DomainElement(axisName, axisType,
                     ai.getLow().doubleValue(), ai.getHigh().doubleValue(),
-                    null, null, crsset);
+                    null, null, crsset, xq.getMetadataSource().getAxisNames());
             domainList.add(domain);
         }
         // TODO: check element datatypes and their consistency

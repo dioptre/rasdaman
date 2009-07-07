@@ -23,6 +23,7 @@
 
 package wcps.server.core;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -107,5 +108,10 @@ public class DynamicMetadataSource implements IDynamicMetadataSource
         dynamicCoverageNames.add(coverageName);
         allCoverageNames = staticCoverageNames;
         allCoverageNames.addAll(dynamicCoverageNames);
+    }
+
+    public Collection<String> getAxisNames()
+    {
+        return metadataSource.getAxisNames();
     }
 }

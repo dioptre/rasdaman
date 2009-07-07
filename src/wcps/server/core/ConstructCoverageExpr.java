@@ -152,7 +152,7 @@ public class ConstructCoverageExpr implements IRasNode, ICoverageInfo
             crsset.add(crs);
             DomainElement domain = new DomainElement(axisName, axisType,
                     ai.getLow().doubleValue(), ai.getHigh().doubleValue(),
-                    null, null, crsset);
+                    null, null, crsset, xq.getMetadataSource().getAxisNames());
             domainList.add(domain);
         }
         // "unsigned int" is default datatype
