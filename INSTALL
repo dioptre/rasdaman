@@ -1,18 +1,23 @@
+This file contains instructions on how to install PetaScope. 
+
 BUILD AND INSTALL:
 
-- download the PetaScope package from www.petascope.org and uncompress
-  the source code.
-- edit the dbparams.properties configuration file (see documentation)
-- compile the servlet:
-  $ cd src; make
-- deploy the war file with Tomcat.
+- download the PetaScope package from www.petascope.org/Download
+  and uncompress the tarball; alternatively, download from the
+  repository saying
+  $ git clone git://kahlua.eecs.jacobs-university.de/petascope.git
+- compile the code and the servlet interface:
+  $ make
+- edit the dbparams.properties configuration file
+- deploy the war file, petascope.war, with Tomcat.
 
-Once installed, see doc/index.html for more information.
+For further details, refer to the documentation available at
+www.petascope.org/Install and www.petascope.org/Support.
 
+NOTE that in order to run PetaScope successfully, you also need
+to setup a Postgresql database, initialized from file 
+misc/postgresql_metadata_definition.sql
 
 VERSION COMPATIBILITY STATEMENT:
 
 Petascope compiles successfully with Java 1.6.
-
-
-

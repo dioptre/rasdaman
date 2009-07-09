@@ -1,19 +1,21 @@
+<!--
+web.xml
+
+PetaScope web deployment configuration file. 
+This file describes the URL mapping of the various PetaScope services (WCPS,WCS,WCST). Note that currently, only WCPS is available.
+
+Need to adapt: Yes
+You should change this file to suit your personal preferences, even though it works as provided. 
+-->
+
 <web-app>
-    <display-name>PetaScope Implementation</display-name>
+    <display-name>PetaScope</display-name>
     <servlet>
         <servlet-name>wcpsServlet</servlet-name>
         <servlet-class>wcps.server.servlet.WCPSServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>wcsServlet</servlet-name>
-        <servlet-class>wcs.server.servlet.newWcsServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>wcpsServlet</servlet-name>
-        <url-pattern>/wcps/</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-		<servlet-name>wcsServlet</servlet-name>
-		<url-pattern>/wcs/</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 </web-app>
