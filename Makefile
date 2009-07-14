@@ -23,10 +23,14 @@
 
 NAME=petascope
 
-MAJOR=1		# Major version
-MINOR=0		# Minor version
-BUGFIX=0	# Bugfix version
-VERSION=${MAJORV}.${MINORV}.${BUGFIXV}
+# Major version
+MAJOR=1
+# Minor version
+MINOR=0
+# Bugfix version
+BUGFIX=0
+# Final Version String
+VERSION=${MAJOR}.${MINOR}.${BUGFIX}
 
 CLASSPATH=.:lib/junit-4.5.jar:lib/jsr173_1.0_api.jar:lib/rasj.jar:lib/servlet-2_5-api.jar:lib/commons-fileupload-1.2.jar:lib/commons-math-1.1.jar:lib/antlrworks-1.2.3.jar:lib/commons-io-1.3.2.jar
 WCPS_CORE_LIB=lib/wcps-core.jar
@@ -147,5 +151,6 @@ petascope-${VERSION}.tar.bz2:
 	@rm $@ -f
 	tar cvjf ../$@ *
 	mv ../$@ $@
+	@echo ""
 	@echo "*** Done building distribution archive !"
 
