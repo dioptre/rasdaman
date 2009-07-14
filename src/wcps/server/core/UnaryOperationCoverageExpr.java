@@ -49,7 +49,6 @@ public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo
 			operation = "-";
 			child     = new CoverageExpr(node.getFirstChild(), xq);
 		}
-        // TODO(andrei): Check if "re" and "im" operations work
 		else if (nodeName.equals("sqrt") || nodeName.equals("abs")
 		    || nodeName.equals("exp") || nodeName.equals("log") || nodeName.equals("ln")
 		    || nodeName.equals("sin") || nodeName.equals("cos") || nodeName.equals("tan")

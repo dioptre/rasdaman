@@ -100,7 +100,6 @@ public class CoverageExpr implements IRasNode, ICoverageInfo
 		}
         else if (nodeName.equals("const"))
 		{
-            // TODO: implement class ConstantCoverageExprType
 			child = new ConstantCoverageExpr(node.getFirstChild(), xq);
 		}
 //        else if (nodeName.equals("variableRef"))

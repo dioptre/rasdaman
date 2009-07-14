@@ -23,6 +23,8 @@
 
 package wcps.server.core;
 
+//~--- JDK imports ------------------------------------------------------------
+
 import java.math.BigInteger;
 
 import java.sql.Connection;
@@ -40,7 +42,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**The DbMetadataSource is a IMetadataSource that uses a relational database. It
+/**
+ * The DbMetadataSource is a IMetadataSource that uses a relational database. It
  * keeps a global connection which is reused on future requests, as well as between
  * threads. Before each read, the connection is verified to be valid, and
  * recreated if necessary. This IMetadataSource is not particularly efficient,
@@ -66,16 +69,13 @@ public class DbMetadataSource implements IMetadataSource
 	private String url;
 	private String user;
 
-	public DbMetadataSource(String driver, String url, String user, String pass)
-	    throws ResourceException, InvalidMetadataException
+	public DbMetadataSource(String driver, String url, String user, String pass) throws ResourceException, InvalidMetadataException
 	{
 		this(driver, url, user, pass, true);
 
 	}
 
-	public DbMetadataSource(String driver, String url, String user, String pass,
-				boolean checkAtInit)
-	    throws ResourceException, InvalidMetadataException
+	public DbMetadataSource(String driver, String url, String user, String pass, boolean checkAtInit) throws ResourceException, InvalidMetadataException
 	{
 		try
 		{
@@ -83,25 +83,21 @@ public class DbMetadataSource implements IMetadataSource
 		}
 		catch (ClassNotFoundException e)
 		{
-			throw new ResourceException(
-			    "Metadata database error: Could not find JDBC driver: " + driver, e);
+			throw new ResourceException("Metadata database error: Could not find JDBC driver: " + driver, e);
 		}
 		catch (InstantiationException e)
 		{
-			throw new ResourceException(
-			    "Metadata database error: Could not instantiate JDBC driver: "
-			    + driver, e);
+			throw new ResourceException("Metadata database error: Could not instantiate JDBC driver: " + driver, e);
 		}
 		catch (IllegalAccessException e)
 		{
-			throw new ResourceException(
-			    "Metadata database error: Access denied to JDBC driver: " + driver, e);
+			throw new ResourceException("Metadata database error: Access denied to JDBC driver: " + driver, e);
 		}
 
 		this.driver = driver;
-		this.url    = url;
-		this.user   = user;
-		this.pass   = pass;
+		this.url = url;
+		this.user = user;
+		this.pass = pass;
 		Statement s = null;
 
 		try
@@ -109,7 +105,7 @@ public class DbMetadataSource implements IMetadataSource
 			ensureConnection();
 
 			axisTypes = new HashMap<Integer, String>(5);
-			s         = connection.createStatement();
+			s = connection.createStatement();
 			ResultSet r = s.executeQuery("SELECT id, axisType FROM PS_AxisType");
 
 			while (r.next())
@@ -118,7 +114,7 @@ public class DbMetadataSource implements IMetadataSource
 			}
 
 			dataTypes = new HashMap<Integer, String>(13);
-			r         = s.executeQuery("SELECT id, dataType FROM PS_Datatype");
+			r = s.executeQuery("SELECT id, dataType FROM PS_Datatype");
 
 			while (r.next())
 			{
@@ -126,18 +122,15 @@ public class DbMetadataSource implements IMetadataSource
 			}
 
 			interpolationTypes = new HashMap<Integer, String>(5);
-			r                  = s.executeQuery(
-				"SELECT id, interpolationType FROM PS_InterpolationType");
+			r = s.executeQuery("SELECT id, interpolationType FROM PS_InterpolationType");
 
 			while (r.next())
 			{
-				interpolationTypes.put(r.getInt("id"),
-						       r.getString("interpolationType"));
+				interpolationTypes.put(r.getInt("id"), r.getString("interpolationType"));
 			}
 
 			nullResistances = new HashMap<Integer, String>(4);
-			r               = s.executeQuery(
-				"SELECT id, nullResistance FROM PS_NullResistance");
+			r = s.executeQuery("SELECT id, nullResistance FROM PS_NullResistance");
 
 			while (r.next())
 			{
@@ -145,7 +138,7 @@ public class DbMetadataSource implements IMetadataSource
 			}
 
 			crss = new HashMap<Integer, String>();
-			r    = s.executeQuery("SELECT id, name FROM PS_Crs");
+			r = s.executeQuery("SELECT id, name FROM PS_Crs");
 
 			while (r.next())
 			{
@@ -153,7 +146,7 @@ public class DbMetadataSource implements IMetadataSource
 			}
 
 			supportedFormats = new HashMap<String, String>();
-			r                = s.executeQuery("SELECT name, mimetype FROM PS_Format");
+			r = s.executeQuery("SELECT name, mimetype FROM PS_Format");
 
 			while (r.next())
 			{
@@ -164,12 +157,12 @@ public class DbMetadataSource implements IMetadataSource
 
 			this.checkAtInit = checkAtInit;
 
-			if (checkAtInit)
+			if ( checkAtInit )
 			{
 				initializing = true;
 				boolean coveragesOk = false;
 
-				while (!coveragesOk)
+				while ( ! coveragesOk)
 				{
 					try
 					{
@@ -193,16 +186,17 @@ public class DbMetadataSource implements IMetadataSource
 		}
 		catch (SQLException sqle)
 		{
-			if (s != null)
+			if ( s != null )
 			{
 				try
 				{
 					s.close();
 				}
-				catch (SQLException e) {}
+				catch (SQLException e){}
 			}
 
 			close();
+
 			throw new ResourceException("Metadata database error", sqle);
 		}
 
@@ -212,13 +206,13 @@ public class DbMetadataSource implements IMetadataSource
 	{
 		synchronized (this)
 		{
-			if (connection != null)
+			if ( connection != null )
 			{
 				try
 				{
 					connection.close();
 				}
-				catch (SQLException sqle) {}
+				catch (SQLException sqle){}
 			}
 		}
 
@@ -244,20 +238,22 @@ public class DbMetadataSource implements IMetadataSource
 			}
 
 			s.close();
+
 			return coverages;
 		}
 		catch (SQLException sqle)
 		{
-			if (s != null)
+			if ( s != null )
 			{
 				try
 				{
 					s.close();
 				}
-				catch (SQLException f) {}
+				catch (SQLException f){}
 			}
 
 			close();
+
 			throw new ResourceException("Metadata database error", sqle);
 		}
 
@@ -272,10 +268,9 @@ public class DbMetadataSource implements IMetadataSource
 	{
 		System.err.println("DB: " + coverageName);
 
-		if ((coverageName == null) || coverageName.equals(""))
+		if ( (coverageName == null) || coverageName.equals("") )
 		{
-			throw new InvalidRequestException(
-			    "Cannot retrieve coverage with null or empty name");
+			throw new InvalidRequestException("Cannot retrieve coverage with null or empty name");
 		}
 
 		Statement s = null;
@@ -285,63 +280,43 @@ public class DbMetadataSource implements IMetadataSource
 			ensureConnection();
 			s = connection.createStatement();
 
-			ResultSet r =
-				s.executeQuery(
-				    "SELECT id, nullDefault, interpolationTypeDefault, nullResistanceDefault FROM PS_Coverage WHERE name = '"
-				    + coverageName + "'");
+			ResultSet r = s.executeQuery("SELECT id, nullDefault, interpolationTypeDefault, nullResistanceDefault FROM PS_Coverage WHERE name = '" + coverageName + "'");
 
-			if (!r.next())
+			if ( ! r.next() )
 			{
-				throw new InvalidRequestException(
-				    "Coverage '" + coverageName + "' is not served by this server");
+				throw new InvalidRequestException("Coverage '" + coverageName + "' is not served by this server");
 			}
 
-			int coverage                    = r.getInt("id");
-			String nullDefault              = r.getString("nullDefault");
-			String interpolationTypeDefault =
-				interpolationTypes.get(r.getInt("interpolationTypeDefault"));
-			String nullResistanceDefault =
-				nullResistances.get(r.getInt("nullResistanceDefault"));
+			int coverage = r.getInt("id");
+			String nullDefault = r.getString("nullDefault");
+			String interpolationTypeDefault = interpolationTypes.get(r.getInt("interpolationTypeDefault"));
+			String nullResistanceDefault = nullResistances.get(r.getInt("nullResistanceDefault"));
 
-			r = s.executeQuery("SELECT lo, hi FROM PS_CellDomain WHERE coverage = '"
-					   + coverage + "' ORDER BY i ASC");
-			List<CellDomainElement> cellDomain =
-				new ArrayList<CellDomainElement>(r.getFetchSize());
+			r = s.executeQuery("SELECT lo, hi FROM PS_CellDomain WHERE coverage = '" + coverage + "' ORDER BY i ASC");
+			List<CellDomainElement> cellDomain = new ArrayList<CellDomainElement>(r.getFetchSize());
 
 			while (r.next())
 			{
-				cellDomain.add(
-				    new CellDomainElement(
-					BigInteger.valueOf(r.getInt("lo")),
-					BigInteger.valueOf(r.getInt("hi"))));
+				cellDomain.add(new CellDomainElement(BigInteger.valueOf(r.getInt("lo")), BigInteger.valueOf(r.getInt("hi"))));
 			}
 
-			r = s.executeQuery("SELECT name, type FROM PS_Range WHERE coverage = '"
-					   + coverage + "' ORDER BY i ASC");
+			r = s.executeQuery("SELECT name, type FROM PS_Range WHERE coverage = '" + coverage + "' ORDER BY i ASC");
 			List<RangeElement> range = new ArrayList<RangeElement>(r.getFetchSize());
 
 			while (r.next())
 			{
-				range.add(new RangeElement(r.getString("name"),
-							   dataTypes.get(r.getInt("type"))));
+				range.add(new RangeElement(r.getString("name"), dataTypes.get(r.getInt("type"))));
 			}
 
-			r = s.executeQuery(
-			    "SELECT interpolationType, nullResistance FROM PS_InterpolationSet WHERE coverage = '"
-			    + coverage + "'");
-			Set<InterpolationMethod> interpolationSet =
-				new HashSet<InterpolationMethod>(r.getFetchSize());
+			r = s.executeQuery("SELECT interpolationType, nullResistance FROM PS_InterpolationSet WHERE coverage = '" + coverage + "'");
+			Set<InterpolationMethod> interpolationSet = new HashSet<InterpolationMethod>(r.getFetchSize());
 
 			while (r.next())
 			{
-				interpolationSet.add(
-				    new InterpolationMethod(
-					interpolationTypes.get(r.getInt("interpolationType")),
-					nullResistances.get(r.getInt("nullResistance"))));
+				interpolationSet.add(new InterpolationMethod(interpolationTypes.get(r.getInt("interpolationType")), nullResistances.get(r.getInt("nullResistance"))));
 			}
 
-			r = s.executeQuery("SELECT nullValue FROM PS_NullSet WHERE coverage = '"
-					   + coverage + "'");
+			r = s.executeQuery("SELECT nullValue FROM PS_NullSet WHERE coverage = '" + coverage + "'");
 			Set<String> nullSet = new HashSet<String>(r.getFetchSize());
 
 			while (r.next())
@@ -349,31 +324,27 @@ public class DbMetadataSource implements IMetadataSource
 				nullSet.add(r.getString("nullValue"));
 			}
 
-			r = s.executeQuery(
-			    "SELECT id, name, type, numLo, numHi, strLo, strHi FROM PS_Domain WHERE coverage = '"
-			    + coverage + "' ORDER BY i ASC");
+			r = s.executeQuery("SELECT id, name, type, numLo, numHi, strLo, strHi FROM PS_Domain WHERE coverage = '" + coverage + "' ORDER BY i ASC");
 			List<DomainElement> domain = new ArrayList<DomainElement>(r.getFetchSize());
-			Statement ss               = connection.createStatement();
+			Statement ss = connection.createStatement();
 
 			while (r.next())
 			{
 				Double numLo = r.getDouble("numLo");
 
-				if (r.wasNull())
+				if ( r.wasNull() )
 				{
 					numLo = null;
 				}
 
 				Double numHi = r.getDouble("numHi");
 
-				if (r.wasNull())
+				if ( r.wasNull() )
 				{
 					numHi = null;
 				}
 
-				ResultSet rr = ss.executeQuery(
-						   "SELECT crs FROM PS_CrsSet WHERE axis = '"
-						   + r.getInt("id") + "'");
+				ResultSet rr = ss.executeQuery("SELECT crs FROM PS_CrsSet WHERE axis = '" + r.getInt("id") + "'");
 				Set<String> crsSet = new HashSet<String>(rr.getFetchSize());
 
 				while (rr.next())
@@ -382,45 +353,37 @@ public class DbMetadataSource implements IMetadataSource
 				}
 
 				crsSet.add(DomainElement.IMAGE_CRS);
-				domain.add(new DomainElement(r.getString("name"),
-							     axisTypes.get(r.getInt("type")),
-							     numLo, numHi, r.getString("strLo"),
-							     r.getString("strHi"), crsSet, axisTypes.values()));
+				domain.add(new DomainElement(r.getString("name"), axisTypes.get(r.getInt("type")), numLo, numHi, r.getString("strLo"), r.getString("strHi"), crsSet, axisTypes.values()));
 			}
 
 			s.close();
 
-			return new Metadata(cellDomain, range, nullSet, nullDefault,
-					    interpolationSet,
-					    new InterpolationMethod(interpolationTypeDefault,
-						    nullResistanceDefault), coverageName, domain);
+			return new Metadata(cellDomain, range, nullSet, nullDefault, interpolationSet, new InterpolationMethod(interpolationTypeDefault, nullResistanceDefault), coverageName, domain);
 		}
 		catch (InvalidMetadataException ime)
 		{
-			if (checkAtInit && !initializing)
+			if ( checkAtInit && ! initializing )
 			{
-				throw new ResourceException(
-				    "Previously valid metadata is now invalid. The metadata for coverage '"
-				    + coverageName + "' has been modified incorrectly.", ime);
+				throw new ResourceException("Previously valid metadata is now invalid. The metadata for coverage '" + coverageName + "' has been modified incorrectly.", ime);
 			}
 			else
 			{
-				throw new InvalidRequestException("Coverage '" + coverageName
-								  + "' has invalid metadata", ime);
+				throw new InvalidRequestException("Coverage '" + coverageName + "' has invalid metadata", ime);
 			}
 		}
 		catch (SQLException sqle)
 		{
-			if (s != null)
+			if ( s != null )
 			{
 				try
 				{
 					s.close();
 				}
-				catch (SQLException f) {}
+				catch (SQLException f){}
 			}
 
 			close();
+
 			throw new ResourceException("Metadata database error", sqle);
 		}
 
@@ -430,8 +393,8 @@ public class DbMetadataSource implements IMetadataSource
 	{
 		synchronized (this)
 		{
-//                      if( connection == null || !connection.isValid( CONNECTION_TIMEOUT ) ) { // Not implemented by PostgreSQL yet.
-			if ((connection == null) || !connection.isClosed())
+//          if( connection == null || !connection.isValid( CONNECTION_TIMEOUT ) ) { // Not implemented by PostgreSQL yet.
+			if ( (connection == null) || ! connection.isClosed() )
 			{
 				close();
 				connection = DriverManager.getConnection(url, user, pass);
@@ -440,8 +403,8 @@ public class DbMetadataSource implements IMetadataSource
 
 	}
 
-    public Collection<String> getAxisNames()
-    {
-        return axisTypes.values();
-    }
+	public Collection<String> getAxisNames()
+	{
+		return axisTypes.values();
+	}
 }

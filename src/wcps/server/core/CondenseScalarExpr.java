@@ -68,23 +68,7 @@ public class CondenseScalarExpr implements IRasNode
             }
             else
             {
-                // TODO (HACK) Settle on either CoverageExpr or ScalarExpr
-                /* Discussion:
-                 * CoverageExpr allows expressions like c[$x,15].
-                 * ScalarExpr allows constants.
-                 * They do not like each other
-                 * Handle this in the grammar in a more explicit way.
-                 *
-                 * But CoverageExpr includes ScalarExpr !!!
-                 */
-//                try
-//                {
-                    using = new CoverageExpr(node, xq);
-//                }
-//                catch (WCPSException e)
-//                {
-//                    using = new ScalarExpr(node, xq);
-//                }
+                using = new CoverageExpr(node, xq);
             }
 
             node = node.getNextSibling();
