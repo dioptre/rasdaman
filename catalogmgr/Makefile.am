@@ -36,7 +36,7 @@ AM_CXXFLAGS= $(BASEDBCXXFLAGS)
 AM_LDFLAGS= $(BASEDBLDFLAGS)    
 
 # object files to put in library
-noinst_LIBRARIES=libcatalogmgr.a
+lib_LIBRARIES=libcatalogmgr.a
 libcatalogmgr_a_SOURCES=ops.cc typefactory.cc algebraops.cc ops.hh \
                         typefactory.hh algebraops.hh autogen_ops.hh
 EXTRA_libcatalogmgr_a_SOURCES = autogen_ops.cc

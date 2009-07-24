@@ -101,7 +101,7 @@ FMTLIBS  = /usr/lib/libnetpbm.a /usr/lib/libjpeg.a /usr/local/lib/libpng.a /usr/
 # libraries needed for linkage (in particular: rasdaman + exchange formats)
 LIBS     += -L/usr/lib -L$(RMANHOME)/lib \
 	    -lclientcomm -lrasodmg -lcompression -lconversion -lclientcomm -lrasodmg -lraslib  \
-	    -lppm -lpgm -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto  \
+	    -lppm -lpgm -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto  -lnetwork \
 	    -lm -lz
 
 

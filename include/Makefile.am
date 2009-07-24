@@ -1,4 +1,3 @@
-# -*-Makefile-*- (for Emacs)
 #
 # This file is part of rasdaman community.
 #
@@ -19,20 +18,8 @@
 # rasdaman GmbH.
 #
 # For more information please see <http://www.rasdaman.org>
-# or contact Peter Baumann via <baumann@rasdaman.com>. 
-# 
-# MAKEFILE FOR:  
-#   indexmgr
-# 
-# 
-# COMMENTS: 
-# 
-##################################################################
+# or contact Peter Baumann via <baumann@rasdaman.com>.      
+#
+###################################################################
 
-lib_LIBRARIES=libindexmgr.a
-libindexmgr_a_SOURCES= mddobjix.cc transdirix.cc keyobject.cc srptindexlogic.cc \
-                       sdirindexlogic.cc indexds.cc hierindexds.cc srcindexlogic.cc \
-                       mddobjix.hh transdirix.hh keyobject.hh srptindexlogic.hh \
-                       sdirindexlogic.hh indexds.hh hierindexds.hh srcindexlogic.hh
-
-CLEANFILES=core
+include_HEADERS=*.h *.hh

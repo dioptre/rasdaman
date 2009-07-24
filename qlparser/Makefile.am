@@ -30,7 +30,7 @@
 # 
 ##################################################################
 
-noinst_LIBRARIES=libqlparser.a
+lib_LIBRARIES=libqlparser.a
 
 # -I gnererates an interactive scanner which doesn't try to look ahead past a newline
 # -i generates a scanner which doesn't care about upper and lower case; doesn't work

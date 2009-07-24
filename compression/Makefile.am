@@ -31,7 +31,7 @@
 AM_CXXFLAGS=@CLIENTCXXFLAGS@
 AM_LDFLAGS=@CLIENTLDFLAGS@
 
-noinst_LIBRARIES = libcompression.a
+lib_LIBRARIES = libcompression.a
 libcompression_a_SOURCES=nocompstream.cc nocompstream.hh tilecompression.cc \
                          tilecompression.hh tilecompnone.cc tilecompnone.hh \
                          compresstime.hh lincompstream.hh

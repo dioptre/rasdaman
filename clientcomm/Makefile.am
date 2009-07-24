@@ -32,7 +32,7 @@
 AM_CXXFLAGS = @CLIENTCXXFLAGS@
 AM_LDFLAGS = @CLIENTLDFLAGS@
 
-noinst_LIBRARIES=libclientcomm.a
+lib_LIBRARIES=libclientcomm.a
 libclientcomm_a_SOURCES = rpcif_clnt.cc rpcif_xdr.c rpcif.h \
                           clientcomm.cc clientcomm.hh rpcclientcomm.cc \
                           rpcclientcomm.hh clientcomm.icc \

@@ -27,5 +27,5 @@
 #
 ##################################################################
 
-noinst_LIBRARIES=libcommline.a
+lib_LIBRARIES=libcommline.a
 libcommline_a_SOURCES=cmlparser.cc cmlparser.hh

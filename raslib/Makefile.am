@@ -31,7 +31,7 @@
 AM_CXXFLAGS=@CLIENTCXXFLAGS@
 AM_LDFLAGS=@CLIENTLDFLAGS@
 
-noinst_LIBRARIES=libraslib.a
+lib_LIBRARIES=libraslib.a
 libraslib_a_SOURCES= sinterval.hh dlist.hh point.hh minterval.hh error.hh \
                      rmdebug.hh rminit.hh metaobject.hh type.hh marraytype.hh \
                      basetype.hh primitivetype.hh sintervaltype.hh \

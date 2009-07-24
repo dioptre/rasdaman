@@ -24,7 +24,7 @@
 # 
 ##################################################################
 
-noinst_LIBRARIES=libhttpserver.a
+lib_LIBRARIES=libhttpserver.a
 AM_CFLAGS=$(CXXFLAGS)
 libhttpserver_a_SOURCES= types.h http.h server.h defs.h http-defs.h protos.h \
                     logging.cc signals.cc config.cc support.cc childs.cc init.cc \

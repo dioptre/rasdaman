@@ -28,7 +28,7 @@
 # 
 ##################################################################
 
-noinst_LIBRARIES = libstoragemgr.a
+lib_LIBRARIES = libstoragemgr.a
 libstoragemgr_a_SOURCES = sstoragelayout.cc sstoragelayout.hh
 
 CLEANFILES= core client.bm client.dbg client.log ir.out

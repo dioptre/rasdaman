@@ -36,7 +36,7 @@ AM_LDFLAGS=@BASEDBLDFLAGS@
 .@EMBEDDEDSQLEXT@.@EMBEDDEDSQLOUT@:
 	$(EMBEDDEDSQLPRECOMPILER) $@ $<
 
-noinst_LIBRARIES=librelmddif.a
+lib_LIBRARIES=librelmddif.a
 librelmddif_a_SOURCES=dbmddsetcommon.cc dbmddobj.hh dbmddset.hh dbiterid.hh mddid.hh
 EXTRA_librelmddif_a_SOURCES= dbmddobj.pgc dbmddset.pgc 
 librelmddif_a_LIBADD=dbmddobj.$(OBJEXT) dbmddset.$(OBJEXT)

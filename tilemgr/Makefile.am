@@ -29,5 +29,5 @@
 # 
 ##################################################################
 
-noinst_LIBRARIES = libtilemgr.a
+lib_LIBRARIES = libtilemgr.a
 libtilemgr_a_SOURCES = tile.cc tile.hh tile.icc tiler.cc tiler.hh

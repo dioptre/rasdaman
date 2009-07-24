@@ -30,7 +30,7 @@
 
 AM_CXXFLAGS=@BASEDBCXXFLAGS@
 
-noinst_LIBRARIES= libmddmgr.a
+lib_LIBRARIES= libmddmgr.a
 libmddmgr_a_SOURCES= mddobj.cc mddobj.hh \
                      mddcoll.cc mddcoll.hh \
                      mddcolliter.cc mddcolliter.icc mddcolliter.hh

@@ -129,6 +129,7 @@ AC_CONFIG_FILES([Makefile
                  bin/Makefile
                  manuals_and_examples/Makefile
                  insertutils/Makefile
+				 include/Makefile
           ])
 
 # --------------- Header Template Definitions ----------------------

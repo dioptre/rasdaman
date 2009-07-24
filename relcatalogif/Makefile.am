@@ -40,7 +40,7 @@ AM_LDFLAGS=@BASEDBLDFLAGS@
 .@EMBEDDEDSQLEXT@.@EMBEDDEDSQLOUT@:
 	$(EMBEDDEDSQLPRECOMPILER) $@ $<
 
-noinst_LIBRARIES=librelcatalogif.a
+lib_LIBRARIES=librelcatalogif.a
 librelcatalogif_a_SOURCES= type.C type.hh basetype.C basetype.hh atomictype.C ulongtype.C ulongtype.hh ushorttype.C ushorttype.hh \
                        booltype.C booltype.hh compositetype.C compositetype.hh structtypecommon.cc structtype.hh structtype.icc \
                        longtype.C longtype.hh shorttype.C shorttype.hh octettype.C octettype.hh doubletype.C doubletype.hh\

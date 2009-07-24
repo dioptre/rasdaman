@@ -28,7 +28,7 @@
 #
 ##################################################################
 
-noinst_LIBRARIES=libnetwork.a
+lib_LIBRARIES=libnetwork.a
 libnetwork_a_SOURCES= akgnet_commbuffer.cc akgnet_commbuffer.hh \
                       akgnet_file.cc akgnet_file.hh \
                       akgnet_nbcomm.cc akgnet_nbcomm.hh \

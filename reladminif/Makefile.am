@@ -38,7 +38,7 @@ AM_LDFLAGS=@BASEDBLDFLAGS@
 	$(EMBEDDEDSQLPRECOMPILER) $@ $<
 
 
-noinst_LIBRARIES=libreladminif.a
+lib_LIBRARIES=libreladminif.a
 libreladminif_a_SOURCES=adminifcommon.cc adminif.hh databaseifcommon.cc databaseif.hh \
                         transactionifcommon.cc transactionif.hh sqlerror.hh \
                         oidifcommon.cc oidif.hh dbobject.cc dbobject.hh \

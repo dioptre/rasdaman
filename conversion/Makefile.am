@@ -29,7 +29,7 @@
 # 
 ##################################################################
 
-noinst_LIBRARIES=libconversion.a
+lib_LIBRARIES=libconversion.a
 libconversion_a_SOURCES= convertor.cc convfactory.cc tiff.cc hdf.cc png.cc jpeg.cc \
                          csv.cc bmp.cc vff.cc tor.cc dem.cc ecw.cc memfs.cc \
                          convertor.hh convfactory.hh tiff.hh hdf.hh png.hh jpeg.hh \

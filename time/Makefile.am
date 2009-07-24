@@ -27,5 +27,5 @@
 #
 ##################################################################
 
-noinst_LIBRARIES=libtime.a
+lib_LIBRARIES=libtime.a
 libtime_a_SOURCES= akg_localtime.cc akg_benchmark.cc akgtime.hh

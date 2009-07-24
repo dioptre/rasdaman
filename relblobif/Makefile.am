@@ -37,7 +37,7 @@ AM_LDFLAGS=@BASEDBLDFLAGS@
 	$(EMBEDDEDSQLPRECOMPILER) $@ $<
 
 
-noinst_LIBRARIES=librelblobif.a
+lib_LIBRARIES=librelblobif.a
 librelblobif_a_SOURCES= blobtile.hh \
                         dbtile.cc dbtile.hh inlinetile.cc inlinetile.hh \
                         blobtilecommon.cc tileid.hh

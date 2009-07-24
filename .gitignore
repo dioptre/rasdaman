@@ -18,6 +18,8 @@ clientcomm/rpcif_svc.cc
 clientcomm/rpcif_xdr.c
 config.log
 config.status
+compile
+depcomp
 insertutils/insertppm
 install-sh
 missing

@@ -33,7 +33,7 @@ AM_LDFLAGS=@BASEDBLDFLAGS@
 .@EMBEDDEDSQLEXT@.@EMBEDDEDSQLOUT@:
 	$(EMBEDDEDSQLPRECOMPILER) $@ $<
 
-noinst_LIBRARIES=librelindexif.a
+lib_LIBRARIES=librelindexif.a
 librelindexif_a_SOURCES=dbrcindexdscommon.cc dbrcindexds.hh \
                         dbtcindexcommon.cc dbtcindex.hh \
                         hierindexcommon.cc hierindex.hh \

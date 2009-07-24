@@ -36,7 +36,7 @@ AM_LDFLAGS=@BASEDBLDFLAGS@
 	$(EMBEDDEDSQLPRECOMPILER) $@ $<
 
 
-noinst_LIBRARIES=librelstorageif.a
+lib_LIBRARIES=librelstorageif.a
 librelstorageif_a_SOURCES= dbstoragelayout.hh storageid.hh empty.cc
 EXTRA_librelstorageif_a_SOURCES= dbstoragelayout.pgc 
 librelstorageif_a_LIBADD= dbstoragelayout.$(OBJEXT) 

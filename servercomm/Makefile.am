@@ -31,7 +31,7 @@
 AM_CXXFLAGS=@BASEDBCXXFLAGS@
 AM_LDFLAGS=@BASEDBLDFLAGS@
 
-noinst_LIBRARIES=libservercomm.a
+lib_LIBRARIES=libservercomm.a
 libservercomm_a_SOURCES=../clientcomm/rpcif_xdr.c ../clientcomm/rpcif_svc.cc servercomm.cc \
                         servercomm2.cc manager.cc callbackmgr.cc httpserver.cc \
                         ../mymalloc/mymalloc_svc.cc ../mymalloc/mymalloc.h \

@@ -31,7 +31,7 @@
 AM_CXXFLAGS=@CLIENTCXXFLAGS@
 AM_LDFLAGS=@CLIENTLDFLAGS@
 
-noinst_LIBRARIES=librasodmg.a
+lib_LIBRARIES=librasodmg.a
 
 librasodmg_a_SOURCES = collection.cc collection.hh collection.icc \
                        set.cc set.hh \

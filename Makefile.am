@@ -37,11 +37,15 @@ CHECKLIMITS=@CHECKLIMITS@
 
 ACLOCAL_AMFLAGS = -I m4
 
+nobase_include_HEADERS=raslib/*.h raslib/*.hh raslib/*.icc raslib/*.cc \ 
+		rasodmg/*.hh rasodmg/*.cc rasodmg/*.icc conversion/*.h conversion/*.hh \
+		compression/*.hh clientcomm/*.h clientcomm/*.hh
+
 SUBDIRS = relblobif relindexif relmddif relcatalogif reladminif relstorageif \
           indexmgr catalogmgr tilemgr storagemgr compression commline network \
           raslib clientcomm servercomm rasodmg qlparser conversion \
           mddmgr httpserver mymalloc time server rasmgr rascontrol rasdl \
-          applications bin insertutils manuals_and_examples
+          applications bin insertutils manuals_and_examples include
 
 dist_log_DATA=empty
             
