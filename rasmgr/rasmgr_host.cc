@@ -136,7 +136,7 @@ char* ServerHost::getDescription(char *destBuffer)
 		lPort = config.getListenPort();
 	}
 		
-	sprintf(destBuffer,"%-10s %-32s  %4d  %-4s  %2d   %s",hostName,netwName,lPort,sUp,startedServers,uLh);  
+	sprintf(destBuffer,"%-10s %-32s  %4ld  %-4s  %2d   %s",hostName,netwName,lPort,sUp,startedServers,uLh);  
 	 
 	return destBuffer;
 }

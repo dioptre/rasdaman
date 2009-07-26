@@ -244,6 +244,7 @@ char* RasServer::getDescription(char *destBuffer)
 	const char* host= ptrServerHost->getName();//"(internal)";
 	
 	const char* dbHost = getDBHostName();
+
 	//if(isinternal==false)
 	//  { host=ptrServerHost->getName();
 	//  }
@@ -275,9 +276,9 @@ char* RasServer::getDescriptionPort(char *destBuffer)
 	const char *ars = autorestart ? "on":"off";   
 	
 	if(serverType==SERVERTYPE_FLAG_RPC)       
-		sprintf(destBuffer,"%-20s %s %-20s %#10x  %-3s   %3d/%-3d",serverName,sType,host,listenPort,ars,currentCountDown,initialCountDown);
+		sprintf(destBuffer,"%-20s %s %-20s %#10lx  %-3s   %3d/%-3d",serverName,sType,host,listenPort,ars,currentCountDown,initialCountDown);
 	else 
-		sprintf(destBuffer,"%-20s %s %-20s %10d  %-3s   %3d/%-3d",serverName,sType,host,listenPort,ars,currentCountDown,initialCountDown);
+		sprintf(destBuffer,"%-20s %s %-20s %10ld  %-3s   %3d/%-3d",serverName,sType,host,listenPort,ars,currentCountDown,initialCountDown);
 		                                         //countdown=%d InitialCountDown,
 	return destBuffer; 
 }
@@ -371,19 +372,18 @@ const char* RasServer::getExecutableName()
 
 int RasServer::startServerInDebugger(char *command)
 {
-	// sorry for literals, I will change this soon    
 	if(ptrDatabaseHost==NULL)
-		return -1;
+		return RASSERVER_NODATABASEHOST;
 	
 	if(ptrServerHost->isUp()==false)
-		return -5;
+		return RASSERVER_SRVNOTUP;
 	
 	downReq=false;
 	const char *sTypeString= serverType==SERVERTYPE_FLAG_HTTP ? "--http":"";
 	
 	const char *rasmgrHost = ptrServerHost->useLocalHost() ? "localhost" : config.getHostName();    
 	sprintf(command,                "%s --rsn %s %s --lport %ld ",executableName,serverName,sTypeString,listenPort);
-	sprintf(command+strlen(command),"--mgr %s --mgrport %ld --connect %s ",rasmgrHost,config.getListenPort(),ptrDatabaseHost->getConnectionString());
+	sprintf(command+strlen(command),"--mgr %s --mgrport %d --connect %s ",rasmgrHost,config.getListenPort(),ptrDatabaseHost->getConnectionString());
 	sprintf(command+strlen(command),"--sync %s %s",authorization.getSyncroString(),extraParam);
 	
 	currentCountDown=initialCountDown;
@@ -391,26 +391,40 @@ int RasServer::startServerInDebugger(char *command)
 	activityCounter = 0;
 
 	TALK( "RasServer::startServerInDebugger() -> " << command );
-	return 0;       
+	return RASSERVER_OK;
 }
 	 
 int RasServer::startServer()
-{ // sorry for literals, I will change this soon    
+{
 	if(ptrDatabaseHost==NULL)
-		return -1;
+		return RASSERVER_NODATABASEHOST;
 	
 	if(ptrServerHost->isUp()==false)
-		return -5;
+		return RASSERVER_SRVNOTUP;
 	
 	downReq=false;
 	const char *sTypeString= serverType==SERVERTYPE_FLAG_HTTP ? "--http" : "";
 		    sTypeString= serverType==SERVERTYPE_FLAG_RNP ? "--rnp" : sTypeString;
 	
 	const char *rasmgrHost = ptrServerHost->useLocalHost() ? "localhost" : config.getHostName();    
-	char command[400];
-	sprintf(command, "%s %s %s --rsn %s %s --lport %ld ",serverName,executableName,executableName,serverName,sTypeString,listenPort);
-	sprintf(command+strlen(command),"--mgr %s --mgrport %ld --connect %s ",rasmgrHost,config.getListenPort(),ptrDatabaseHost->getConnectionString());
-	sprintf(command+strlen(command)," %s",extraParam);
+	char command[MAX_CMD_LEN+1];
+	const char *SPRINTF_FORMAT = "%s %s %s --rsn %s %s --lport %ld --mgr %s --mgrport %ld --connect %s %s";
+	// check for buffer oflo
+	unsigned int commandLen =
+	     strlen(SPRINTF_FORMAT)
+	   + strlen(serverName) + strlen(executableName) + strlen(executableName) + strlen(serverName) + strlen(sTypeString)
+	   + 4 // aka strlen(listenPort)
+	   + strlen(rasmgrHost)
+	   + 4 // aka strlen(config.getListenPort())
+	   + strlen(ptrDatabaseHost->getConnectionString())
+	   + strlen(extraParam);
+	if (commandLen > MAX_CMD_LEN)
+	{
+		TALK( "RasServer::startServer(): fatal error: command line can host " << MAX_CMD_LEN << " bytes, but needs " << commandLen << "." );
+		std::cout<<"Error: rasserver command line too long, cannot launch. Disappointedly aborting server start." <<std::endl;
+		return RASSERVER_CMDLINEOFLO;
+	}
+	sprintf(command, SPRINTF_FORMAT, serverName,executableName,executableName,serverName,sTypeString,listenPort, rasmgrHost,config.getListenPort(),ptrDatabaseHost->getConnectionString(), extraParam);
 
 	if(isinternal)
 	{
@@ -422,7 +436,7 @@ int RasServer::startServer()
 		TALK( "connecting to remote rasmgr" );
 		int socket=ptrServerHost->getConnectionSocket();
 		if(socket<0)
-			return -3;
+			return RASSERVER_NOREMOTERASMGR;
 	
 		char message[MAXMSG]="POST exec HTTP/1.1\r\nAccept: text/plain\r\nUserAgent: RasMGR/1.0\r\nContent-length: ";
 		
@@ -432,14 +446,14 @@ int RasServer::startServer()
 	
 		close(socket);
 		if(nbytes<0)
-			return -4; 
+			return RASSERVER_INCOMPLETESEND; 
 	}
 	
 	currentCountDown=initialCountDown;
 	activityExpected=true;
 	isstarting=true;
 	activityCounter = 0;
-	return 0;       
+	return RASSERVER_OK;       
 }
 int RasServer::downServer(bool forced)
 {        
@@ -447,7 +461,7 @@ int RasServer::downServer(bool forced)
 	{
 		downReq=true;
 		//std::cout<<"Down request, but working"<<std::endl;
-		return 0;
+		return RASSERVER_OK;
 	}
 	return downNow();
 }    
@@ -462,7 +476,7 @@ int RasServer::downNow()
 	{
 		int socket=ptrServerHost->getConnectionSocket();
 		if(socket<0)
-			return -2;
+			return RASSERVER_CANNOTSTARTSRV;
 	
 		char message[MAXMSG]="POST downserver HTTP/1.1\r\nAccept: text/plain\r\nUserAgent: RasMGR/1.0\r\nContent-length: ";
 	
@@ -472,12 +486,12 @@ int RasServer::downNow()
 	
 		close(socket);
 		if(nbytes<0)
-			return -3; 
+			return RASSERVER_NOREMOTERASMGR; // FIXME: should be RASSERVER_INCOMPLETESEND?
 	}
 
 	//ptrServerHost->regDownServer();
 	
-	return 0;       
+	return RASSERVER_OK;       
 }
 int RasServer::killServer()
 {    
@@ -497,7 +511,7 @@ int RasServer::killServer()
 	{
 		int socket=ptrServerHost->getConnectionSocket();
 		if(socket<0)
-			return -2;
+			return RASSERVER_CANNOTSTARTSRV;
 
 		char message[MAXMSG]="POST killserver HTTP/1.1\r\nAccept: text/plain\r\nUserAgent: RasMGR/1.0\r\nContent-length: ";
 	
@@ -507,10 +521,10 @@ int RasServer::killServer()
 	
 		close(socket);
 		if(nbytes<0)
-			return -3; 
+			return RASSERVER_NOREMOTERASMGR; // FIXME: should be RASSERVER_INCOMPLETESEND?
 	}
 
-	return 0;       
+	return RASSERVER_OK;       
 }
 	
 void RasServer::changeStatus(int newStatus,long infCount)
@@ -537,7 +551,7 @@ void RasServer::changeStatus(int newStatus,long infCount)
 				return;
 			}
 			newStatus = SERVER_AVAILABLE;
-			VLOG <<"rasmgr: Dead client detected, server "<<serverName<<" is set free again."<<std::endl;
+			TALK( "rasmgr: Dead client detected, server "<<serverName<<" is set free again." );
 		}
 		else
 		{
@@ -592,7 +606,7 @@ void RasServer::changeStatus(int newStatus,long infCount)
 		// changed by PB 2003-nov-23
 		// if(activityCounter && autorestart)
 		if (activityCounter>1 && autorestart)
-		{ // a crashed server doesn't autorestart if he crashes before starting work. 
+		{ // a crashed server doesn't autorestart if it crashes before starting work. 
 			TALK( "auto restart activated, restarting." );
 			startServer();
 		}	
@@ -601,22 +615,22 @@ void RasServer::changeStatus(int newStatus,long infCount)
 	// commented out due to some error	
 	if(initialCountDown)
 	{
-		VLOG <<"rasmgr: initialCountDown==" << initialCountDown << std::endl;
+		TALK( "rasmgr: initialCountDown is " << initialCountDown );
 		if(available) 
 		{
-		VLOG <<"rasmgr: available" << std::endl;
+			TALK( "rasmgr: " << serverName << " is available." );
 			currentCountDown--;
 			if(currentCountDown==0)
 		  	{
 				available=false;
-				VLOG <<"rasmgr: Countdown reached for "<<serverName<< ", shutting down." << std::endl;
+				TALK( "rasmgr: Countdown reached for "<<serverName<< ", shutting down." );
 				downNow();
 			}
 		}	
 		if(wasup==true && isup==false && currentCountDown==0)
 		{
-		VLOG <<"rasmgr: wasup==true && isup==false && currentCountDown==0" << std::endl;
-			VLOG <<"rasmgr: Restart after countdown for server "<<serverName<< "." << std::endl;
+			TALK( "rasmgr: wasup==true && isup==false && currentCountDown==0" );
+			TALK( "rasmgr: Restart after countdown for server "<<serverName<< "." );
 			currentCountDown=initialCountDown;
 			startServer();
 		}
