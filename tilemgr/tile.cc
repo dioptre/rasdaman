@@ -800,8 +800,16 @@ Tile::copyTile(const r_Minterval &areaRes, const Tile *opTile, const r_Minterval
 	cellOp = opTile->getContents();
 	cellRes = getContents();
 
-	r_Dimension dim = areaRes.dimension();
-	r_Range width = areaRes[dim-1].get_extent();
+	r_Dimension dimRes = areaRes.dimension();
+	r_Dimension dimOp = areaOp.dimension();
+
+	r_Range width = areaRes[dimRes-1].get_extent();
+	if (width > areaOp[dimOp-1].get_extent())
+	{
+		width = areaOp[dimOp-1].get_extent();
+		RMInit::logOut << "RMDebug::module_tilemgr::copyTile() WARNING: had to adjust high dim width to " << width << endl;
+	}	
+
 	unsigned int tsize = getType()->getSize();
 	unsigned int tsizeOp = opTile->getType()->getSize();	
 
@@ -825,8 +833,8 @@ Tile::copyTile(const r_Minterval &areaRes, const Tile *opTile, const r_Minterval
 		// copy entire line (continuous chunk in last dimension) in one go
 		memcpy(resTileIter.getData(), opTileIter.getData(), width * tsize);
 		// force overflow of last dimension
-		resTileIter.id[dim-1].pos += width;
-		opTileIter.id[dim-1].pos += width;
+		resTileIter.id[dimRes-1].pos += width;
+		opTileIter.id[dimOp-1].pos += width;
 		// iterate; the last dimension will always overflow now
 		++resTileIter;
 		++opTileIter;
