@@ -332,4 +332,4 @@ CXXFLAGS="$CXXFLAGS -DABSOLUTE_LOG_DIR=\\\"\$(logdir)/\\\""
 
 AC_OUTPUT
 
-AC_MSG_NOTICE([Rasdaman succesfully configured.])
+AC_MSG_NOTICE([Rasdaman successfully configured, installation path is '${prefix}'.])
