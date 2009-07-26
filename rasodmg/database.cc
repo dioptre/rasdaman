@@ -81,18 +81,18 @@ r_Database::get_type_schema(const char* typeName, type_schema typeType) throw (r
 {
 	r_Type* retval = 0;
 
-	if ((typeName == NULL) || (strlen(typeName) == 0))
-		throw r_Error(r_Error::r_Error_NameInvalid);
-	else if ((typeType != COLLECTION ) && (typeType != MARRAY))
-		throw r_Error(r_Error::r_Error_TypeInvalid);
-	else if (r_Database::actual_database != NULL)
-		throw r_Error(r_Error::r_Error_DatabaseClosed);
-	else if (r_Database::actual_database->get_status() != r_Database::not_open)
-		throw r_Error(r_Error::r_Error_DatabaseClosed);
-	else if (r_Transaction::actual_transaction != NULL)
-		throw r_Error(r_Error::r_Error_TransactionNotOpen);
-	else if (r_Transaction::actual_transaction->get_status() == r_Transaction::active)
-		throw r_Error(r_Error::r_Error_TransactionNotOpen);
+        if ((typeName == NULL) || (strlen(typeName) == 0))
+                throw r_Error(r_Error::r_Error_NameInvalid);
+        else if ((typeType != COLLECTION ) && (typeType != MARRAY))
+                throw r_Error(r_Error::r_Error_TypeInvalid);
+        else if (r_Database::actual_database == NULL)
+                throw r_Error(r_Error::r_Error_DatabaseClosed);
+        else if (r_Database::actual_database->get_status() == r_Database::not_open)
+                throw r_Error(r_Error::r_Error_DatabaseClosed);
+        else if (r_Transaction::actual_transaction == NULL)
+                throw r_Error(r_Error::r_Error_TransactionNotOpen);
+        else if (r_Transaction::actual_transaction->get_status() != r_Transaction::active)
+                throw r_Error(r_Error::r_Error_TransactionNotOpen);
 	else
 	{
 		ClientComm::r_Type_Type type;
