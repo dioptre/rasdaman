@@ -19,7 +19,7 @@ rasdaman GmbH.
 *
 * For more information please see <http://www.rasdaman.org>
 * or contact Peter Baumann via <baumann@rasdaman.com>.
-/
+*/
 /**
  * INCLUDE: tiff.hh
  *
@@ -140,6 +140,10 @@ class r_Conv_TIFF : public r_Convert_Memory
   static const int defaultRPS;
   /// temporary dummy file
   static const char dummyFileFmt[];
+
+  /// default quality factor (0..100) for lossy compression
+  static const unsigned int TIFF_DEFAULT_QUALITY;
+
 };
 
 #endif
