@@ -41,6 +41,7 @@ using namespace std;
 #include "rasmgr_srv.hh"
 #include <signal.h>
 #include <time.h>
+#include <linux/limits.h>	// ARG_MAX
 
 #include "raslib/rminit.hh"
 
@@ -107,7 +108,15 @@ LocalServerManager::~LocalServerManager()
 bool LocalServerManager::startNewServer(const char* commandline)
   {
     ENTER( "LocalServerManager::startNewServer: enter. cmdLine=" << commandline );
-    char localcomm[300];
+    char localcomm[ARG_MAX];
+
+    if (strlen(commandline) >= ARG_MAX)
+    {
+        VLOG <<"Error: rasserver launch command line too long: " << commandline <<std::endl; 
+        LEAVE( "LocalServerManager::startNewServer: leave. cmd line too long, result=false." );
+	return false;
+    }
+
     strcpy(localcomm,commandline);
     
     int i;
