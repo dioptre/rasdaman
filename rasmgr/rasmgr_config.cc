@@ -94,18 +94,20 @@ Configuration::Configuration():
 
 	configFileName[0]=0;
 	slave = false;
-	
-	char *rasHome= CONFDIR;
-	if(rasHome!=0)
-		sprintf(configFileName,"%s/",rasHome);
-	
-	strcat( configFileName, RASMGR_CONF_FILE );
+
+	if (sizeof(configFileName) < strlen(CONFDIR) + strlen(RASMGR_CONF_FILE) + 2)
+	{
+		std::cout << "Error: configuration path length exceeds system limits: '" << CONFDIR << "/" << RASMGR_CONF_FILE << "'" << endl;
+		LEAVE( "Configuration::Configuration: leave." );
+		return;
+	}
+	sprintf( configFileName, "%s/%s", CONFDIR, RASMGR_CONF_FILE );
 	altConfigFileName[0] = '\0';
  
 	testModus    = false;
 	debugSupport = false;
 	rtHlTest     = true;  // by default RasMgr tests at runtime if it's the only one 
-	allowMultiWT = false; // rasmgr doesn't allow multiple write transactions for a db, but for internal use we can try it
+	allowMultiWT = false; // rasmgr doesn't allow multiple write transactions for a db
 
 	LEAVE( "Configuration::Configuration: leave." );
 }
