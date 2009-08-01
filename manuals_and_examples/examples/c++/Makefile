@@ -19,7 +19,10 @@
 # rasdaman GmbH.
 #
 # For more information please see <http://www.rasdaman.org>
-# or contact Peter Baumann via <baumann@rasdaman.com>. # Top Level makefile. This points to the various modules that have to be build
+# or contact Peter Baumann via <baumann@rasdaman.com>. 
+#
+#
+# Top Level makefile. This points to the various modules that have to be build
 # and/or deployed
 # 
 # MAKEFILE FOR:  
@@ -29,98 +32,24 @@
 # 
 ##################################################################
 
-
 ######################### Definitions ############################
-
-# choose C++ compiler
-ifeq ($(OSTYPE),linux)
-OSTYPE=linux-gnu
-endif
-ifeq ($(OSTYPE),Linux)
-OSTYPE=linux-gnu
-endif
-
-ifneq ($(OSTYPE),linux-gnu)
-endif
-ifneq ($(OSTYPE),linux-gnu)
-CXX = CC
-else
-CXX = g++
-endif
-
+# RMANHOME will be updated with a proper value after "make install"
+RMANHOME=~~~rmanhome~~~
 # RasDaMan central includes
-CXXFLAGS = -I$(RMANHOME)/include
-
-ifeq ($(OSTYPE),solaris)
-
-  CXXFLAGS += -DSOLARIS 
-
-  # enable exception handling
-  # exceptions are supported by default
-
-  # use ANSI C
-  # is used by default
-
-else
-ifeq ($(OSTYPE),linux-gnu)
-
-  CXXFLAGS += -DLINUX -DEARLY_TEMPLATE
-
-  # enable exception handling
-  # exceptions are supported by default
-
-  # use ANSI C
-  # is used by default
-
-else 
-
-  CXXFLAGS += -DHPUX
-
-  # enable exception handling
-  CXXFLAGS += +eh
-
-  # use ANSI C
-  CXXFLAGS += +a1
-
-  # necessary for templates because of bug in nm
-  CXXFLAGS += -ptb
-
-endif
-endif
-
-ifeq ($(OSTYPE),solaris)
-  LDFLAGS += -lmalloc -lsocket -lnsl 
-endif
-
+CXXFLAGS += -I$(RMANHOME)/include
+CXXFLAGS += -DLINUX -DEARLY_TEMPLATE
 # add communication flags
 CXXFLAGS += -DONCRPC
-
-# pre-installed exchange format libraries needed
-FMTLIBS  = /usr/lib/libnetpbm.a /usr/lib/libjpeg.a /usr/local/lib/libpng.a /usr/local/lib/libtiff.a
 
 # libraries needed for linkage (in particular: rasdaman + exchange formats)
 LIBS     += -L/usr/lib -L$(RMANHOME)/lib \
 	    -lclientcomm -lrasodmg -lcompression -lconversion -lclientcomm -lrasodmg -lraslib  \
-	    -lppm -lpgm -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto  -lnetwork \
+	    -lnetwork -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto \
 	    -lm -lz
-
 
 ########################### Targets ##############################
 
-# this global target first checks for required libraries
-# disable target 'check' if you don't want this to be run
-all: check avg-cell avg-cell-red lookup query insertppm
-
-# check whether exchange format libraries have been installed
-.PHONY: check
-check:
-	@for lib in $(FMTLIBS);			\
-	do					\
-		if [[ ! -f $$lib ]];		\
-		then				\
-			echo "error: cannot find required library $$lib - package not installed?";	\
-		fi				\
-	done
+all: avg-cell avg-cell-red lookup query insertppm
 
 avg-cell: avg-cell.o 
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS)
@@ -139,15 +68,8 @@ insertppm:	insertppm.o
 
 .PHONY : clean
 clean:
-	-rm *.o *.log *.dbg *.bm
-	-rm query insertppm lookup avg-cell avg-cell-red
-ifeq ($(OSTYPE),solaris)
-	cd $(RMANHOME)/include/rasodmg/ptrepository; ptclean
-else
-ifneq ($(OSTYPE),linux-gnu)
-	-rm -R $(RMANHOME)/include/rasodmg/ptrepository/*
-endif
-endif
+	-rm -f *.o *.log *.dbg *.bm
+	-rm -f query insertppm lookup avg-cell avg-cell-red
 
 ######################## Dependencies ############################
 

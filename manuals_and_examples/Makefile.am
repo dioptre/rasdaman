@@ -25,4 +25,10 @@ nobase_dist_pkgdata_DATA=examples/images/* examples/c++/* \
                          examples/java/* examples/queries/* \
                          examples/rasdl/basictypes.dl
 
+dest_Makefile=$(DESTDIR)$(pkgdatadir)/examples/c++/Makefile
 
+# Setup the RMANHOME variable properly for the C++ examples. Automake messes up 
+# the order of the declarations, so we have to use something else for variable name.
+install-data-hook:
+	sed 's|~~~rmanhome~~~|$(prefix)|' <$(dest_Makefile) >$(dest_Makefile).new
+	mv $(dest_Makefile).new $(dest_Makefile)

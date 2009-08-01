@@ -38,7 +38,7 @@ AM_LDFLAGS=@BASEDBLDFLAGS@
 bin_PROGRAMS=rasdl
 rasdl_SOURCES=lex.ll odl.yy parse.cc parse.hh symbtbl.cc symbtbl.hh \
               alloca.cc rasdl.cc rasdl_error.cc rasdl_error.hh \
-              template_inst.hh yparse.hh \ 
+              template_inst.hh yparse.hh \
               ../mymalloc/mymalloc.h ../mymalloc/mymalloc_svc.cc
 rasdl_LDADD = ../reladminif/libreladminif.a ../relmddif/librelmddif.a \
               ../relstorageif/librelstorageif.a ../relindexif/librelindexif.a \

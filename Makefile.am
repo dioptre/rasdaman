@@ -37,7 +37,7 @@ CHECKLIMITS=@CHECKLIMITS@
 
 ACLOCAL_AMFLAGS = -I m4
 
-nobase_include_HEADERS=raslib/*.h raslib/*.hh raslib/*.icc raslib/*.cc \ 
+nobase_include_HEADERS=raslib/*.h raslib/*.hh raslib/*.icc raslib/*.cc \
 		rasodmg/*.hh rasodmg/*.cc rasodmg/*.icc conversion/*.h conversion/*.hh \
 		compression/*.hh clientcomm/*.h clientcomm/*.hh
 
