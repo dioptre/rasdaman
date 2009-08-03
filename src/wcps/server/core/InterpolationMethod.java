@@ -25,7 +25,7 @@ package wcps.server.core;
 
 //A pair of an interpolation type and a null resistance. See the WCPS standard for an explanation of these.
 
-class InterpolationMethod implements Cloneable
+public class InterpolationMethod implements Cloneable
 {
 	private String interpolationType;
 	private String nullResistance;

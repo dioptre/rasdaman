@@ -25,7 +25,7 @@ package wcps.server.core;
 
 //A single component of a coverage's range. See the WCPS standard for more information.
 
-class RangeElement implements Cloneable
+public class RangeElement implements Cloneable
 {
 	private String name;
 	private String type;

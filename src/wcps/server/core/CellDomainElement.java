@@ -27,7 +27,7 @@ import java.math.BigInteger;
 
 //A coverage axis in pixel coordinates. See the WCPS standard.
 
-class CellDomainElement implements Cloneable
+public class CellDomainElement implements Cloneable
 {
 	private BigInteger hi;
 	private BigInteger lo;

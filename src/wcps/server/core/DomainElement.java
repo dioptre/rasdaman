@@ -30,7 +30,7 @@ import java.util.Set;
 
 //This is an axis in geographic coordinates. See the WCPS standard.
 
-class DomainElement implements Cloneable
+public class DomainElement implements Cloneable
 {
 	public static final String IMAGE_CRS = "CRS:1";
 	private Set<String> crss;
