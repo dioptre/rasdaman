@@ -36,16 +36,17 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 import net.opengis.ows.v_1_0_0.ExceptionReport;
+import wcst.server.ConfigManager;
 import wcst.server.core.TransactionResponseType;
 
 /**
- * This class processes asynchroneously an WCS Transaction request. 
+ * This class processes asynchronously an WCS Transaction request. 
  *
  * @author Andrei Aiordachioaie
  */
 public class executeAsyncTransaction extends Thread
 {
-    private static boolean printLog = true;
+    private boolean printLog;
     private String responseHandler;
     private executeTransaction exec;
 	
@@ -56,6 +57,7 @@ public class executeAsyncTransaction extends Thread
 	 */
 	public executeAsyncTransaction(executeTransaction exec, String responseHandler)
 	{
+        this.printLog = ConfigManager.PRINT_LOG;
         this.responseHandler = responseHandler;
         this.exec = exec;
 	}
@@ -64,11 +66,11 @@ public class executeAsyncTransaction extends Thread
 	 * Log a message to System.out
 	 * @param str Text of the message
 	 */
-	private static void log(String str)
+	private void log(String str)
 	{
 		if ( printLog )
 		{
-			System.out.println("<WCS Async Transaction> " + str);
+			System.out.println("WCS-T Async: " + str);
 		}
 	}
 
@@ -78,7 +80,7 @@ public class executeAsyncTransaction extends Thread
 	 */
 	private static void error(String str)
 	{
-        System.err.println("<WCS Async Transaction> " + str);
+        System.err.println("WCS-T Async: " + str);
 	}
 
     /** Run the current thread. */
@@ -86,7 +88,7 @@ public class executeAsyncTransaction extends Thread
     {
         log("Started async thread...");
         String outString = null;
-        try // only for WCSException
+        try // only for WCSTException
         {
             try
             {
@@ -112,21 +114,20 @@ public class executeAsyncTransaction extends Thread
             catch (MalformedURLException ex)
             {
                 ex.printStackTrace();
-                error("Could not send output to the responseHandler: " + ex.getMessage());
+                throw new WCSTException("BadResponseHandler", "Response Handler URL is malformed.");
             }
             catch (IOException ex)
             {
                 ex.printStackTrace();
-                error("Could not send output to the responseHandler: " + ex.getMessage());
+                throw new WCSTException("AsyncResponseFailed", "Could not send asynchronous response to URL: " + responseHandler);
             }
             catch (JAXBException ex)
             {
                 ex.printStackTrace();
-                error("Could not marshall output XML to a string: " + ex.getMessage());
-                throw new WCSException("NoApplicableCode", "Could not marshall the XML to a string !");
+                throw new WCSTException("XmlStructuresError", "Could not marshall the XML to a string !");
             }
         }
-        catch (WCSException e)
+        catch (WCSTException e)
         {
             e.printStackTrace();
             ExceptionReport report = e.getReport();
@@ -146,18 +147,29 @@ public class executeAsyncTransaction extends Thread
                 /* Send the error report to the responseHandler */
                 sendPostRequest(outString, responseHandler);
 			}
-			catch (Exception e2)
+			catch (JAXBException e2)
 			{
 				e2.printStackTrace();
-				error("ERROR 8");
+				error("Could not build XML error report.");
 			}
+            catch (IOException e2)
+            {
+                e2.printStackTrace();
+                error("Could not send XML error report to URL: " + responseHandler);
+            }
         }
     }
 
+    /** Send string data to a URL end-point. Use this function to send the output 
+     *
+     * @param content
+     * @param destinationUrl
+     * @throws MalformedURLException
+     * @throws IOException
+     */
     private void sendPostRequest(String content, String destinationUrl) throws MalformedURLException, IOException
     {
         log("sendPostRequest() ... to URL: " + destinationUrl);
-        log("content is:\n" + content);
         
         // connect to the destination 
 		URL servlet = new URL(destinationUrl);

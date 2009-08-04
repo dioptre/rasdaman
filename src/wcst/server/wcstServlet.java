@@ -33,7 +33,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -49,10 +48,20 @@ public class wcstServlet extends HttpServlet
 	private static final long serialVersionUID = 84786549L;
 	private String defaultHtmlResponse;
 	private String servletHtmlPath;
+    private wcstServer server;
 
-	@Override
+    @Override
 	public void init() throws ServletException
 	{
+        // Initialize the configuration manager
+        String settingsPath = getServletContext().getRealPath("/settings.properties");
+        ConfigManager config = ConfigManager.getInstance(settingsPath);
+        
+        // Initialize the WCS-T server with proper metadata
+        String metadataDbPath = getServletContext().getRealPath("/dbparams.properties");
+        server = new wcstServer(metadataDbPath);
+
+        // Load the servlet HTML response
 		servletHtmlPath = getServletContext().getRealPath("/misc/wcst-servlet.html");
 		try
 		{
@@ -62,7 +71,6 @@ public class wcstServlet extends HttpServlet
 		{
 			throw new ServletException(e.getMessage());
 		}
-
 	}
 
 	/**
@@ -75,7 +83,7 @@ public class wcstServlet extends HttpServlet
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		System.out.println("WCS: invoked with GET");
+		System.out.println("WCS-T: invoked with GET");
 		printUsage(response);
 	}
 
@@ -96,8 +104,6 @@ public class wcstServlet extends HttpServlet
 			op = 4;
 
 		// Convert the WCS request into a WCPS request
-		wcstServer server = new wcstServer();
-
 		try
 		{
 			// initialize WebService operation arguments here
@@ -123,7 +129,7 @@ public class wcstServlet extends HttpServlet
 		{
 			e.printStackTrace();
 
-			throw new ServletException("WCS servlet error !", e);
+			throw new ServletException("WCS-T servlet error !", e);
 		}
 	}
 
@@ -134,19 +140,19 @@ public class wcstServlet extends HttpServlet
 	@Override
 	public String getServletInfo()
 	{
-		return "Web Coverage Service @ Jacobs University";
+        return ConfigManager.SERVLET_INFO;
 	}
 
 	private void printUsage(HttpServletResponse response) throws IOException
 	{
-		System.out.println("WCS: returning usage message");
+		System.out.println("WCS-T: returning usage message");
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = new PrintWriter(response.getOutputStream());
 
 		out.println(defaultHtmlResponse);
 
 		out.close();
-		System.out.println("WCS: done nothing");
+		System.out.println("WCS-T: done nothing");
 
 	}
 

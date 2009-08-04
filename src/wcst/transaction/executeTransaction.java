@@ -70,7 +70,6 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
-import javax.swing.JFrame;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -81,7 +80,7 @@ import wcst.transaction.tools.RasdamanUtils;
 
 /**
  * This class takes a WCS-T Transaction XML request and executes the request,
- * building the corresponding XML respose. Use this class for synchroneous processing.
+ * building the corresponding XML respose. Use this class for synchronous processing.
  *
  * @author Andrei Aiordachioaie
  */
@@ -104,7 +103,7 @@ public class executeTransaction
 	 * @param tr Transaction object, a WCS-T request
 	 * @param metadataDbPath Path to the "dbparams.properties" file
 	 */
-	public executeTransaction(TransactionType tr, String metadataDbPath) throws WCSException
+	public executeTransaction(TransactionType tr, String metadataDbPath) throws WCSTException
 	{
 		input = tr;
 		output = new TransactionResponseType();
@@ -116,14 +115,9 @@ public class executeTransaction
 		String db = DEFAULT_RASDATABASE;
 
 		rasUtils = new RasdamanUtils(server, db);
-        try { rasUtils.init(); }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            throw new WCSException("NoApplicableCode", "Could not initialize: " + e.getMessage());
-        }
+        rasUtils.init();
 
-        // In case noone will ever call this method and we need it
+        // In case no-one will ever call this method and we need it
         generateRequestId();
 	}
 
@@ -154,9 +148,9 @@ public class executeTransaction
 	 * Main method of this class: Computes the response to the TransactionResponse
 	 * request given to the constructor. If needed, it also calls <b>process()</b>
 	 * @return a TransactionResponse object.
-	 * @throws WCSException
+	 * @throws WCSTException
 	 */
-	public TransactionResponseType get() throws WCSException
+	public TransactionResponseType get() throws WCSTException
 	{
 		try
 		{
@@ -165,7 +159,7 @@ public class executeTransaction
                 process();
 			}
 		}
-		catch (WCSException e)
+		catch (WCSTException e)
 		{
 			e.printStackTrace();
 
@@ -173,7 +167,7 @@ public class executeTransaction
 		}
 		if ( finished == false )
 		{
-			throw new WCSException("NoApplicableCode", "Could not execute the Transaction request! " + "Please see the other errors...");
+			throw new WCSTException("NoApplicableCode", "Could not execute the Transaction request! " + "Please see the other errors...");
 		}
 
 		return output;
@@ -182,15 +176,15 @@ public class executeTransaction
 	/**
 	 * Computes the response to the Transaction request given to the constructor.
 	 */
-	public void process() throws WCSException
+	public void process() throws WCSTException
 	{
 		if ( ! input.getService().equalsIgnoreCase("WCS") )
 		{
-			throw new WCSException("InvalidParameterValue", "Service", "Service must be \"WCS\" !");
+			throw new WCSTException("InvalidParameterValue", "Service", "Service must be \"WCS\" !");
 		}
 		if ( ! input.getVersion().equalsIgnoreCase("1.1") )
 		{
-			throw new WCSException("InvalidParameterValue", "Service", "Service Version must be \"1.1\" !");
+			throw new WCSTException("InvalidParameterValue", "Service", "Service Version must be \"1.1\" !");
 		}
 
 		// Set the output request ID
@@ -229,7 +223,7 @@ public class executeTransaction
             catch (ODMGException e)
             {
                 log("Could not commit rasdaman changes: " + e.getMessage());
-                throw new WCSException("NoApplicableCode", "Could not commit Rasdaman changes !");
+                throw new WCSTException("NoApplicableCode", "Could not commit Rasdaman changes !");
             }            
 
             /* Commit metadata changes */
@@ -242,10 +236,10 @@ public class executeTransaction
             catch (SQLException ex)
             {
                 log("Could not commit metadata changes: " + ex.getMessage());
-                throw new WCSException("NoApplicableCode", "Could not commit metadata changes !");
+                throw new WCSTException("NoApplicableCode", "Could not commit metadata changes !");
             }
 		}
-		catch (WCSException e)
+		catch (WCSTException e)
 		{
 			// One action failed, therefore all actions have failed
 			e.printStackTrace();
@@ -281,7 +275,7 @@ public class executeTransaction
         {
             // Unknown error handling
             e.printStackTrace();
-            throw new WCSException("NoApplicableCode", "Runtime error: " + e.getMessage());
+            throw new WCSTException("NoApplicableCode", "Runtime error: " + e.getMessage());
         }
 	}
 
@@ -348,7 +342,6 @@ public class executeTransaction
 		try
 		{
 			// Display image for check
-            displayImage(identifier, img);
             rasUtils.insertGrayImageAsArray(identifier, img);
             log("Inserted image into Rasdaman !");
 		}
@@ -359,27 +352,13 @@ public class executeTransaction
 		}
 	}
 
-    /** Display a image on the server computer's monitor, for debugging purposes.
-     *
-     * @param name Name of image
-     * @param img BufferedImage object
-     */
-    public static void displayImage(String name, BufferedImage img)
-    {
-        JFrame f = new JFrame("Image " + name);
-//        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.getContentPane().add(new ShowImage(img));
-        f.setSize(img.getWidth() + 50, img.getHeight() + 50);
-        f.setVisible(true);
-    }
-
     /** Load a BufferedImage from a ReferenceType object.
      *
      * @param pixels Reference object
      * @return available image
-     * @throws WCSException
+     * @throws WCSTException
      */
-	private BufferedImage loadPixelsReference(ReferenceType pixels) throws WCSException
+	private BufferedImage loadPixelsReference(ReferenceType pixels) throws WCSTException
 	{
 		URL url = null;
 		BufferedImage img = null;
@@ -391,7 +370,7 @@ public class executeTransaction
 		catch (MalformedURLException e)
 		{
 			log("URL " + url.toString() + " is not valid !");
-			throw new WCSException("InvalidParameterValue", "Reference pixels");
+			throw new WCSTException("InvalidParameterValue", "Reference pixels");
 		}
 
 		try
@@ -400,7 +379,7 @@ public class executeTransaction
 		}
 		catch (IOException ex)
 		{
-			throw new WCSException("NoApplicableCode", "The URL '" + url + "' does not contain a valid image.");
+			throw new WCSTException("NoApplicableCode", "The URL '" + url + "' does not contain a valid image.");
 		}
 
 		return img;
@@ -412,9 +391,9 @@ public class executeTransaction
 	 * @param identifier Name of coverage
 	 * @param desc Reference to a CoverageDescriptions xml
 	 * @return coverage description
-	 * @throws WCSException
+	 * @throws WCSTException
 	 */
-	private CoverageDescriptionType loadDescriptionReference(String identifier, ReferenceType desc) throws WCSException
+	private CoverageDescriptionType loadDescriptionReference(String identifier, ReferenceType desc) throws WCSTException
 	{
 		URL url = null;
 		String xmlString = null;
@@ -430,7 +409,7 @@ public class executeTransaction
 		{
 			log("URL " + url.toString() + " is not valid !");
 
-			throw new WCSException("InvalidParameterValue", "Reference pixels");
+			throw new WCSTException("InvalidParameterValue", "Reference pixels");
 		}
 
 		// Read the contents of the URL
@@ -443,7 +422,7 @@ public class executeTransaction
 		}
 		catch (IOException ex)
 		{
-			throw new WCSException("NoApplicableCode", "Error loading the " + "coverage description from URL " + url.toString());
+			throw new WCSTException("NoApplicableCode", "Error loading the " + "coverage description from URL " + url.toString());
 		}
 
 		// Unmarshall the XML string into a Java Object
@@ -458,12 +437,12 @@ public class executeTransaction
 			else if ( obj instanceof CoverageDescriptions )
 				descs = (CoverageDescriptions) obj;
 			else
-				throw new WCSException("NoApplicableCode", "Coverage " + "Description metadata could not be loaded !");
+				throw new WCSTException("NoApplicableCode", "Coverage " + "Description metadata could not be loaded !");
 		}
 		catch (javax.xml.bind.JAXBException ex)
 		{
 			log("Could not unmarshall the CoverageDescription XML document: " + ex.getMessage());
-			throw new WCSException("NoApplicableCode", "Could not unmarshall " + "the CoverageDescription XML document: " + ex.getMessage());
+			throw new WCSTException("NoApplicableCode", "Could not unmarshall " + "the CoverageDescription XML document: " + ex.getMessage());
 		}
 
 		// Filter by coverage name
@@ -482,12 +461,12 @@ public class executeTransaction
 		}
 
         if (desc0 == null)
-            throw new WCSException("NoApplicableCode", "Could not find a CoverageDescription for coverage: " + identifier);
+            throw new WCSTException("NoApplicableCode", "Could not find a CoverageDescription for coverage: " + identifier);
 
 		return desc0;
 	}
 
-	private CoverageSummaryType loadCoverageSummary(ReferenceType pixels) throws WCSException
+	private CoverageSummaryType loadCoverageSummary(ReferenceType pixels) throws WCSTException
 	{
 		URL url = null;
 		String xmlString = null;
@@ -501,7 +480,7 @@ public class executeTransaction
 		{
 			log("URL " + url.toString() + " is not valid !");
 
-			throw new WCSException("InvalidParameterValue", "Reference summary");
+			throw new WCSTException("InvalidParameterValue", "Reference summary");
 		}
 
 		// Read the contents of the URL
@@ -514,7 +493,7 @@ public class executeTransaction
 		}
 		catch (IOException ex)
 		{
-			throw new WCSException("NoApplicableCode", "Error loading the " + "coverage summary from URL " + url.toString());
+			throw new WCSTException("NoApplicableCode", "Error loading the " + "coverage summary from URL " + url.toString());
 		}
 
 		// Unmarshall the XML string into a Java Object
@@ -529,13 +508,13 @@ public class executeTransaction
 			else if ( obj instanceof CoverageSummaryType )
 				xml = (CoverageSummaryType) obj;
 			else
-				throw new WCSException("NoApplicableCode", "Coverage " + "Summary metadata could not be loaded !");
+				throw new WCSTException("NoApplicableCode", "Coverage " + "Summary metadata could not be loaded !");
 		}
 		catch (javax.xml.bind.JAXBException ex)
 		{
 			log("Could not unmarshall the CoverageSummaryXML document !");
 
-			throw new WCSException("NoApplicableCode", "Could not unmarshall " + "the CoverageSummary XML document !");
+			throw new WCSTException("NoApplicableCode", "Could not unmarshall " + "the CoverageSummary XML document !");
 		}
 
 		return xml;
@@ -550,7 +529,7 @@ public class executeTransaction
 	 * @param covAbstract abstract to set
 	 * @param keywords list of keywords
 	 */
-	private void updateCoverageMetadataFromSummary(String identifier, CoverageSummaryType summary) throws WCSException
+	private void updateCoverageMetadataFromSummary(String identifier, CoverageSummaryType summary) throws WCSTException
 	{
 		log("Updating metadata with values from Coverage Summary...");
 
@@ -574,7 +553,7 @@ public class executeTransaction
 		int covId = MetadataUtils.getCoverageID(meta, identifier);
 
 		if ( MetadataUtils.updateDescriptionMetadata(meta, covId, title, abstr, keywords) == false )
-			throw new WCSException("NoApplicableCode", "Could not update textual description metadata !");
+			throw new WCSTException("NoApplicableCode", "Could not update textual description metadata !");
 	}
 
 	/**
@@ -618,9 +597,9 @@ public class executeTransaction
 	 *
 	 * @param identifier ID of the coverage
 	 * @param img The image, fetched from external reference
-     * @throws WCSException on error
+     * @throws WCSTException on error
 	 */
-	private void insertDefaultCoverageMetadata(String identifier, BufferedImage img) throws WCSException
+	private void insertDefaultCoverageMetadata(String identifier, BufferedImage img) throws WCSTException
 	{
 		log("Inserting default metadata values ...");
 
@@ -633,16 +612,16 @@ public class executeTransaction
 
 		if ( definterp == -1 )
 		{
-			throw new WCSException("NoApplicableCode", "Could not find default" + " interpolation method: 'none'");
+			throw new WCSTException("NoApplicableCode", "Could not find default" + " interpolation method: 'none'");
 		}
 		if ( defnullresist == -1 )
 		{
-			throw new WCSException("NoApplicableCode", "Could not find default null resistance: 'none'");
+			throw new WCSTException("NoApplicableCode", "Could not find default null resistance: 'none'");
 		}
 
 		if ( MetadataUtils.setAllCoverageMetadata(meta, identifier, null, null, "0", sinterp, snullresist) == false )
 		{
-			throw new WCSException("NoApplicableCode", "Could not insert default metadata for coverage: " + identifier);
+			throw new WCSTException("NoApplicableCode", "Could not insert default metadata for coverage: " + identifier);
 		}
 
 		// (b) Table ps_domain: insert default values for the X and Y axes
@@ -652,32 +631,32 @@ public class executeTransaction
 		int axisY = MetadataUtils.getIdByNameGeneral(meta, "ps_axistype", "axistype", "y");
 		if ( axisX == -1 )
 		{
-			throw new WCSException("NoApplicableCode", "Could not find axis X in axis-types !");
+			throw new WCSTException("NoApplicableCode", "Could not find axis X in axis-types !");
 		}
 		if ( axisY == -1 )
 		{
-			throw new WCSException("NoApplicableCode", "Could not find axis Y in axis-types !");
+			throw new WCSTException("NoApplicableCode", "Could not find axis Y in axis-types !");
 		}
 		if ( MetadataUtils.setDomain(meta, coverageNumId, 0, "x", axisX, (Double) 0.0, (Double) 1.0, null, null) == false )
 		{
-			throw new WCSException("NoApplicableCode", "Could not insert Domain Metadata for axis X!");
+			throw new WCSTException("NoApplicableCode", "Could not insert Domain Metadata for axis X!");
 		}
 		log("Adding domain metadata (axis Y) for coverage: " + identifier);
 		if ( MetadataUtils.setDomain(meta, coverageNumId, 1, "y", axisY, (Double) 0.0, (Double) 1.0, null, null) == false )
 		{
-			throw new WCSException("NoApplicableCode", "Could not insert Domain Metadata for axis Y!");
+			throw new WCSTException("NoApplicableCode", "Could not insert Domain Metadata for axis Y!");
 		}
 
 		// (c) Table ps_celldomain: insert default values for the x and y axes
 		log("Adding cell domain metadata (axis X) for coverage: " + identifier);
 		if ( MetadataUtils.setCellDomain(meta, coverageNumId, 0, 0, img.getHeight() - 1) == false )
 		{
-			throw new WCSException("NoApplicableCode", "Could not insert Cell Domain Metadata for axis X!");
+			throw new WCSTException("NoApplicableCode", "Could not insert Cell Domain Metadata for axis X!");
 		}
 		log("Adding cell domain metadata (axis Y) for coverage: " + identifier);
 		if ( MetadataUtils.setCellDomain(meta, coverageNumId, 1, 0, img.getWidth() - 1) == false )
 		{
-			throw new WCSException("NoApplicableCode", "Could not insert Cell Domain Metadata for axis Y!");
+			throw new WCSTException("NoApplicableCode", "Could not insert Cell Domain Metadata for axis Y!");
 		}
 
 		// (d) Table ps_ranges: insert values for the only field of the image
@@ -688,32 +667,32 @@ public class executeTransaction
 
 		if ( datatypeId == -1 )
 		{
-			throw new WCSException("NoApplicableCode", "Cannot find datatype 'unsigned char', needed for gray images !");
+			throw new WCSTException("NoApplicableCode", "Cannot find datatype 'unsigned char', needed for gray images !");
 		}
 		if ( MetadataUtils.setRange(meta, coverageNumId, 0, "gray-intensity", datatypeId) == false )
 		{
-			throw new WCSException("NoApplicableCode", "Could not insert Range Metadata!");
+			throw new WCSTException("NoApplicableCode", "Could not insert Range Metadata!");
 		}
 
 		// (e) Table ps_interpolationsets: Insert default interpolation tuples
 		log("Adding default interpolation tuples for coverage: " + identifier);
 		if ( MetadataUtils.setInterpolationSets(meta, coverageNumId, definterp, defnullresist) == false )
 		{
-			throw new WCSException("NoApplicableCode", "Could not insert Interpolation Set metadata!");
+			throw new WCSTException("NoApplicableCode", "Could not insert Interpolation Set metadata!");
 		}
 
 		// (f) Table ps_nullsets: Insert null value for coverage
 		log("Adding null values for coverage: " + identifier);
 		if ( MetadataUtils.setNullSets(meta, coverageNumId, "0") == false )
 		{
-			throw new WCSException("NoApplicableCode", "Could not insert Null Sets metadata!");
+			throw new WCSTException("NoApplicableCode", "Could not insert Null Sets metadata!");
 		}
 
 		// (g) Table ps_descriptions: Insert default values for textual descriptions
 		log("Adding textual description for coverage: " + identifier);
 		if ( MetadataUtils.insertDescription(meta, coverageNumId, "Coverage " + identifier, "Available coverage", identifier) == false )
 		{
-			throw new WCSException("NoApplicableCode", "Could not insert textual description metadata!");
+			throw new WCSTException("NoApplicableCode", "Could not insert textual description metadata!");
 		}
 
         log("Done inserting default metadata");
@@ -724,11 +703,11 @@ public class executeTransaction
 	 *
 	 * @param elem the JAXB node equivalent to the <Coverage> node
 	 */
-	private void processInputCoverageNode(CoverageType elem) throws WCSException
+	private void processInputCoverageNode(CoverageType elem) throws WCSTException
 	{
 		if ( elem.getAction() == null )
 		{
-			throw new WCSException("InvalidParameterValue", "Action", "Every <Coverage> node must contain an <Action> child node !!!");
+			throw new WCSTException("InvalidParameterValue", "Action", "Every <Coverage> node must contain an <Action> child node !!!");
 		}
 
 		String action = elem.getAction().getValue();
@@ -737,7 +716,7 @@ public class executeTransaction
 
 		if ( elem.getIdentifier() == null )
 		{
-			throw new WCSException("InvalidParameter", "Identifier");
+			throw new WCSTException("InvalidParameter", "Identifier");
 		}
 
 		identifier = elem.getIdentifier().getValue();
@@ -761,7 +740,7 @@ public class executeTransaction
 		}
 		else if ( action.equalsIgnoreCase("UpdateDataPart") )
 		{
-            throw new WCSException("ActionNotSupported",
+            throw new WCSTException("ActionNotSupported",
                     "Action \"UpdateDataPart\" is not supported yet.");
             /* TODO: UpdateDataPart is not yet functional. The Rasdaman server
              * returns with an unexpected internal error (code: 10000) when
@@ -776,7 +755,7 @@ public class executeTransaction
 	 * @param identifier Name of coverage to update
 	 * @param references List of references with data for update
 	 */
-	private void actionUpdateAll(String identifier, List references) throws WCSException
+	private void actionUpdateAll(String identifier, List references) throws WCSTException
 	{
 		log("Executing action Update All ...");
         // Updating everything is equivalent to deleting old coverage and adding the new one
@@ -792,19 +771,19 @@ public class executeTransaction
 	 * @param identifier ID of the coverage
 	 * @param desc object that contains the coverage description.
 	 */
-	private void updateCoverageMetadataFromDescription(String identifier, CoverageDescriptionType desc) throws WCSException
+	private void updateCoverageMetadataFromDescription(String identifier, CoverageDescriptionType desc) throws WCSTException
 	{
 		log("Updating metadata with values from CoverageDescription...");
 
 		if ( MetadataUtils.existsCoverage(meta, identifier) == false )
-			throw new WCSException("NoApplicableCode", "Inexistent coverage: " + identifier);
+			throw new WCSTException("NoApplicableCode", "Inexistent coverage: " + identifier);
 		int coverageId = MetadataUtils.getCoverageID(meta, identifier);
 
 		log("Updating metadata for coverage name: " + identifier);
 
 		/* (A) Table ps_coverage: Error check for Coverage Name */
 		if ( MetadataUtils.existsCoverage(meta, identifier) == false)
-            throw new WCSException("NoApplicableCode", "Could not find metadata for coverage : " + identifier);
+            throw new WCSTException("NoApplicableCode", "Could not find metadata for coverage : " + identifier);
 
 		/* (B) Table ps_descriptions: Update coverage title, abstract, keywords */
 		String title = desc.getTitle();
@@ -813,7 +792,7 @@ public class executeTransaction
 
 		log("Using new keywords: " + keywords);
 		if ( MetadataUtils.updateDescriptions(meta, coverageId, title, abstr, keywords) == false )
-			throw new WCSException("NoApplicableCode", "Could not update textual descriptions for coverage: " + identifier);
+			throw new WCSTException("NoApplicableCode", "Could not update textual descriptions for coverage: " + identifier);
 
 		/* (C) Table ps_range: Update field name and interpolation information */
 		log("Updating field information...");
@@ -834,10 +813,10 @@ public class executeTransaction
 			int typeId = MetadataUtils.getIdByNameGeneral(meta, "ps_datatype", "datatype", datatype);
 
 			if ( typeId == -1 )
-				throw new WCSException("NoApplicableCode", "Unknown datatype: " + datatype);
+				throw new WCSTException("NoApplicableCode", "Unknown datatype: " + datatype);
 
 			if ( MetadataUtils.setRange(meta, coverageId, fieldCount, name, typeId) == false )
-				throw new WCSException("NoApplicableCode", "Could not add information for field '" + name + "' !");
+				throw new WCSTException("NoApplicableCode", "Could not add information for field '" + name + "' !");
 			fieldCount++;
 		}
 
@@ -855,13 +834,13 @@ public class executeTransaction
 		int interpId = MetadataUtils.getIdByNameGeneral(meta, "ps_interpolationtype", "interpolationtype", method);
 
 		if ( interpId == -1 )
-			throw new WCSException("NoApplicableCode", "Unknown interpolation method: " + method);
+			throw new WCSTException("NoApplicableCode", "Unknown interpolation method: " + method);
 		int nullId = MetadataUtils.getIdByNameGeneral(meta, "ps_nullresistance", "nullresistance", resist);
 
 		if ( nullId == -1 )
-			throw new WCSException("NoApplicableCode", "Unknown null resistance: " + resist);
+			throw new WCSTException("NoApplicableCode", "Unknown null resistance: " + resist);
 		if ( MetadataUtils.setDefaultCoverageInterpolation(meta, identifier, interpId, nullId) == false )
-			throw new WCSException("NoApplicableCode", "Could not update default interpolation for coverage: " + identifier);
+			throw new WCSTException("NoApplicableCode", "Could not update default interpolation for coverage: " + identifier);
 
 		/* (E) Table ps_celldomain: Update cell domain of the coverage. */
 		/* NOTE: Only works for 2-D coverages */
@@ -869,15 +848,15 @@ public class executeTransaction
 		List<JAXBElement<? extends BoundingBoxType>> list = desc.getDomain().getSpatialDomain().getBoundingBox();
 
 		if ( list.size() != 1 )
-			throw new WCSException("NoApplicableCode", "Exactly 1 bounding box should be present for coverage: " + identifier);
+			throw new WCSTException("NoApplicableCode", "Exactly 1 bounding box should be present for coverage: " + identifier);
 		BoundingBoxType bbox = list.get(0).getValue();
 		List<Double> lower = bbox.getLowerCorner();
 		List<Double> upper = bbox.getUpperCorner();
 
 		if ( lower.size() != 2 )
-			throw new WCSException("InvalidParameter", "LowerCorner");
+			throw new WCSTException("InvalidParameter", "LowerCorner");
 		if ( upper.size() != 2 )
-			throw new WCSException("InvalidParameter", "UpperCorder");
+			throw new WCSTException("InvalidParameter", "UpperCorder");
 		long loX = lower.get(0).longValue();
 		long loY = lower.get(1).longValue();
 		long hiX = upper.get(0).longValue();
@@ -886,11 +865,11 @@ public class executeTransaction
 		int xAxisId = MetadataUtils.getAxisNumberByCoverageAndName(meta, coverageId, "x");
 
 		if ( MetadataUtils.updateCellDomain(meta, coverageId, xAxisId, loX, hiX) == false )
-			throw new WCSException("NoApplicableCode", "Could not update X axis limits for coverage: " + identifier);
+			throw new WCSTException("NoApplicableCode", "Could not update X axis limits for coverage: " + identifier);
 		int yAxisId = MetadataUtils.getAxisNumberByCoverageAndName(meta, coverageId, "y");
 
 		if ( MetadataUtils.updateCellDomain(meta, coverageId, yAxisId, loY, hiY) == false )
-			throw new WCSException("NoApplicableCode", "Could not update Y axis limits for coverage: " + identifier);
+			throw new WCSTException("NoApplicableCode", "Could not update Y axis limits for coverage: " + identifier);
 
 		/* (F) Table ps_crss: Update supported CRS */
 		// FIXME later ... we don't support CRSs as of yet
@@ -902,14 +881,14 @@ public class executeTransaction
 	 * @param identifier
 	 * @param references
 	 */
-	private void actionUpdateDataPart(String identifier, List references) throws WCSException
+	private void actionUpdateDataPart(String identifier, List references) throws WCSTException
 	{
 		log("Executing action UpdateDataPart ...");
 
 		// Error checking
 		if ( MetadataUtils.existsCoverage(meta, identifier) == false )
 		{
-			throw new WCSException("InvalidParameter", "Identifier");
+			throw new WCSTException("InvalidParameter", "Identifier");
 		}
 
 		// Obtain the references
@@ -921,11 +900,11 @@ public class executeTransaction
 		// References check. We are updating a coverage values, mandatory are: pixels, description
 		if ( pixels == null )
 		{
-			throw new WCSException("MissingParameterValue", "Reference role='" + getUrnCode("pixels") + "'");
+			throw new WCSTException("MissingParameterValue", "Reference role='" + getUrnCode("pixels") + "'");
 		}
         if (desc == null)
         {
-            throw new WCSException("MissingParameterValue", "Reference role='" + getUrnCode("description") + "'");
+            throw new WCSTException("MissingParameterValue", "Reference role='" + getUrnCode("description") + "'");
         }
 
 		// (2) Do the actual processing
@@ -936,7 +915,7 @@ public class executeTransaction
 		catch (Exception e)
 		{
             e.printStackTrace();
-			throw new WCSException(e.getMessage(), e.getStackTrace().toString());
+			throw new WCSTException(e.getMessage(), e.getStackTrace().toString());
 		}
 	}
 
@@ -945,16 +924,16 @@ public class executeTransaction
 	 *
 	 * @param identifier
 	 * @param references
-	 * @throws wcs.server.core.WCSException
+	 * @throws wcs.server.core.WCSTException
 	 */
-	private void actionUpdateMetadata(String identifier, List references) throws WCSException
+	private void actionUpdateMetadata(String identifier, List references) throws WCSTException
 	{
 		log("Executing action Update Metadata...");
 
 		// Only change the metadata for an existing coverage
 		if ( MetadataUtils.existsCoverage(meta, identifier) == false )
 		{
-			throw new WCSException("InvalidParameter", "Identifier");
+			throw new WCSTException("InvalidParameter", "Identifier");
 		}
 
 		// Obtain the references
@@ -966,7 +945,7 @@ public class executeTransaction
 		// References check. We are updating metadata, mandatory is only description
 		if ( descRef == null )
 		{
-			throw new WCSException("MissingParameterValue", "Reference role='" + getUrnCode("description") + "'");
+			throw new WCSTException("MissingParameterValue", "Reference role='" + getUrnCode("description") + "'");
 		}
 
 		log("Loading reference: coverage description ...");
@@ -992,7 +971,7 @@ public class executeTransaction
 		catch (Exception e)
 		{
             e.printStackTrace();
-			throw new WCSException("NoApplicableCode", e.getMessage());
+			throw new WCSTException("NoApplicableCode", e.getMessage());
 		}
 
         log("Finished action Update Metadata !");
@@ -1003,9 +982,9 @@ public class executeTransaction
 	 *
 	 * @param identifier
 	 * @param references
-	 * @throws wcs.server.core.WCSException
+	 * @throws wcs.server.core.WCSTException
 	 */
-	private void actionAddCoverage(String identifier, List references) throws WCSException
+	private void actionAddCoverage(String identifier, List references) throws WCSTException
 	{
 		log("Executing action AddCoverage ...");
 
@@ -1019,11 +998,11 @@ public class executeTransaction
 		// References check. We are adding a coverage, mandatory are: pixels, description
 		if ( pixelsRef == null )
 		{
-			throw new WCSException("MissingParameterValue", "Reference role='" + getUrnCode("pixels") + "'");
+			throw new WCSTException("MissingParameterValue", "Reference role='" + getUrnCode("pixels") + "'");
 		}
 		if ( descRef == null )
 		{
-			throw new WCSException("MissingParameterValue", "Reference role='" + getUrnCode("description") + "'");
+			throw new WCSTException("MissingParameterValue", "Reference role='" + getUrnCode("description") + "'");
 		}
 
 		log("Loading reference: coverage pixels ...");
@@ -1071,26 +1050,28 @@ public class executeTransaction
 		 */
 		try
 		{
-            /* Currently we only support one-band images. So convert to one-band (gray-scale)!  */
-            BufferedImage grayImg = rasUtils.convertImageToGray(img);
-			insertImageIntoRasdaman(identifier, grayImg);
+            /* Currently we only support one-band (gray-scale) images. */
+            if (img.getColorModel().getNumComponents() != 1)
+                throw new WCSTException("MultiBandImagesNotSupported", "This server currently only supports one-band images (grayscale).");
+			insertImageIntoRasdaman(identifier, img);
             
 			insertDefaultCoverageMetadata(identifier, img);
 			updateCoverageMetadataFromDescription(identifier, desc);
-			// Top level descriptions overwrite other metadata sources
+			/* Top level descriptions overwrite other metadata sources */
 			if ( summ != null )
 				updateCoverageMetadataFromSummary(identifier, summ);
-            // Check metadata validity
+
+            /* Check metadata validity */
             checkMetadataValidity(identifier);
 		}
-		catch (WCSException e)
+		catch (WCSTException e)
 		{
 			throw e;
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			throw new WCSException("NoApplicableCode", e.getMessage());
+			throw new WCSTException("NoApplicableCode", e.getMessage());
 		}
 
 		/** 
@@ -1107,16 +1088,16 @@ public class executeTransaction
 	 *
 	 * @param identifier
 	 * @param references
-	 * @throws wcs.server.core.WCSException
+	 * @throws wcs.server.core.WCSTException
 	 */
-	private void actionDeleteCoverage(String identifier, List references) throws WCSException
+	private void actionDeleteCoverage(String identifier, List references) throws WCSTException
 	{
 		log("Executing action Delete Coverage ...");
 
 		// Error checking
 		if ( MetadataUtils.existsCoverage(meta, identifier) == false )
 		{
-			throw new WCSException("InvalidParameterValue", "Identifier");
+			throw new WCSTException("InvalidParameterValue", "Identifier");
 		}
 
 		// (2) Do the actual processing
@@ -1127,7 +1108,7 @@ public class executeTransaction
 		}
 		catch (Exception e)
 		{
-			throw new WCSException(e.getMessage(), e.getStackTrace().toString());
+			throw new WCSTException(e.getMessage(), e.getStackTrace().toString());
 		}
 
 		// Indicate success: Add this ID to the output XML document
@@ -1145,7 +1126,7 @@ public class executeTransaction
 	 * @param key Internal representation of a URN code
 	 * @return the URN code
 	 */
-	private String getUrnCode(String key) throws WCSException
+	private String getUrnCode(String key) throws WCSTException
 	{
 		if ( key.equalsIgnoreCase("pixels") )
 		{
@@ -1168,7 +1149,7 @@ public class executeTransaction
 			return "urn:ogc:def:role:WCS:1.1:OtherSource";
 		}
 
-		throw new WCSException("NoApplicableCode", "Unknown URN key '" + key + "'");
+		throw new WCSTException("NoApplicableCode", "Unknown URN key '" + key + "'");
 	}
 
 	/**
@@ -1177,7 +1158,7 @@ public class executeTransaction
 	 * @param references List of References
 	 * @return the Pixels Reference
 	 */
-	private ReferenceType getPixelsRef(List references) throws WCSException
+	private ReferenceType getPixelsRef(List references) throws WCSTException
 	{
 		ReferenceType result = searchReferenceList("pixels", references);
 
@@ -1190,7 +1171,7 @@ public class executeTransaction
 	 * @param references List of References
 	 * @return the Coverage Description Reference
 	 */
-	private ReferenceType getDescriptionRef(List references) throws WCSException
+	private ReferenceType getDescriptionRef(List references) throws WCSTException
 	{
 		ReferenceType result = searchReferenceList("description", references);
 
@@ -1203,7 +1184,7 @@ public class executeTransaction
 	 * @param references List of References
 	 * @return the Coverage Summary Reference
 	 */
-	private ReferenceType getSummaryRef(List references) throws WCSException
+	private ReferenceType getSummaryRef(List references) throws WCSTException
 	{
 		ReferenceType result = searchReferenceList("summary", references);
 
@@ -1216,7 +1197,7 @@ public class executeTransaction
 	 * @param references List of References
 	 * @return the Georeferencing Transform Reference
 	 */
-	private ReferenceType getTransformRef(List references) throws WCSException
+	private ReferenceType getTransformRef(List references) throws WCSTException
 	{
 		ReferenceType result = searchReferenceList("transform", references);
 
@@ -1229,7 +1210,7 @@ public class executeTransaction
 	 * @param references List of References
 	 * @return the "Other" Reference
 	 */
-	private ReferenceType getOtherRef(List references) throws WCSException
+	private ReferenceType getOtherRef(List references) throws WCSTException
 	{
 		ReferenceType result = searchReferenceList("other", references);
 
@@ -1242,7 +1223,7 @@ public class executeTransaction
 	 * @param references List of references
 	 * @return a Reference object
 	 */
-	private ReferenceType searchReferenceList(String key, List references) throws WCSException
+	private ReferenceType searchReferenceList(String key, List references) throws WCSTException
 	{
 		String urn = getUrnCode(key);
 		Iterator i = references.iterator();
@@ -1271,9 +1252,9 @@ public class executeTransaction
      * This function uses code from PetaScope
      * implementation of WCPS.
      * @param identifier Name of the coverage
-     * @throws WCSException on error
+     * @throws WCSTException on error
      */
-    private void checkMetadataValidity(String identifier) throws WCSException
+    private void checkMetadataValidity(String identifier) throws WCSTException
     {
         try
         {
@@ -1281,14 +1262,14 @@ public class executeTransaction
             Metadata metadata = MetadataUtils.checkCoverageMetadata(meta, identifier);
             // Now we have a valid Metadata object, so everything is ok :-) Chillax. 
         }
-        catch (WCSException wcse)
+        catch (WCSTException wcse)
         {
             throw wcse;
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            throw new WCSException("NoApplicableCode", "Metadata is not valid " +
+            throw new WCSTException("NoApplicableCode", "Metadata is not valid " +
                     "for coverage " + identifier + ", because: " + e.getMessage());
         }
     }

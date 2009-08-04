@@ -86,7 +86,7 @@ core-wcst:
 .PHONY: tests-wcps
 tests-wcps:
 	@echo ""
-	@echo "*** Compiling tests ..."
+	@echo "*** Compiling WCPS tests ..."
 	${JAVAC} src/wcps/server/test/*.java
 
 ## WCPS Servlet interface.
@@ -123,7 +123,7 @@ war: core-wcps core-wcst servlet-wcps servlet-wcst
 	cp src/wcst/transaction/tools/*.class WEB-INF/classes/wcst/transaction/tools
 	cp src/wcst/server/*.class WEB-INF/classes/wcst/server
 	cp misc/index.jsp index.jsp
-	jar cf ${NAME}.war WEB-INF/ dbparams.properties xml/ogc/wcps/1.0.0/*.xsd misc/wcps-servlet.html misc/wcst-servlet.html index.jsp
+	jar cf ${NAME}.war WEB-INF/ dbparams.properties wcst-settings.properties xml/ogc/wcps/1.0.0/*.xsd misc/wcps-servlet.html misc/wcst-servlet.html index.jsp
 	rm index.jsp
 
 ## WCPS Translation core command-line interface. Useful for development and testing.
@@ -169,7 +169,7 @@ doc:
 		   -doctitle "Petascope" \
 		   -header '<b>Petascope</b>'\
 		   -bottom '<a href="http://petascope.org">http://petascope.org</a>'\
-		   -subpackages wcps
+		   -subpackages wcps \
 		   -subpackages wcst
 
 dist: clean doc petascope-${VERSION}.tar.bz2

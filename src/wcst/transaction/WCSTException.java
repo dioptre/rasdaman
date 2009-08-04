@@ -31,6 +31,7 @@ import net.opengis.ows.v_1_0_0.ExceptionType;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.util.Arrays;
+import wcst.server.ConfigManager;
 
 /**
  * Exception class for the WCS server.
@@ -39,29 +40,34 @@ import java.util.Arrays;
  *
  * @author Andrei Aiordachioaie
  */
-public class WCSException extends Exception
+public class WCSTException extends Exception
 {
-	private static final long serialVersionUID = 847843429L;
 	private String[] errorCodes =
 	{
 		/* The following codes are taken from the WCS specification (OGC 07-067r5) */
 		"MissingParameterValue", "InvalidParameterValue", "NoApplicableCode", "UnsupportedCombination", "NotEnoughStorage",
 		/* The following codes are defined by our implementation (PetaScope) */
-		"MalitiousQuery", "ActionNotSupported"
+		"MaliciousQuery", "ActionNotSupported", "XmlStructuresError", "BadResponseHandler", "MultiBandImagesNotSupported",
+        "RasdamanUnavailable"
 	};
 	private ExceptionType item;
 	private ExceptionReport report;
+    private String errorCode;
+    private String errorDetail;
 
 	/**
 	 * Default (minimal) constructor
 	 * @param error Error Code
 	 * @param detail Detailed message about the error
 	 */
-	public WCSException(String error, String detail)
+	public WCSTException(String error, String detail)
 	{
+        errorCode = error;
+        errorDetail = detail;
+
 		report = new ExceptionReport();
-		report.setLanguage("en");
-		report.setVersion("1.0.0");
+		report.setLanguage(ConfigManager.LANGUAGE);
+		report.setVersion(ConfigManager.VERSION);
 		Arrays.sort(errorCodes);
 		if ( Arrays.binarySearch(errorCodes, error) >= 0 )
 		{
@@ -89,12 +95,30 @@ public class WCSException extends Exception
 	 * @param detail Detailed message about the error
 	 * @param msg A message that will be output on *System.err
 	 */
-	public WCSException(String error, String detail, String msg)
+	public WCSTException(String error, String detail, String msg)
 	{
 		this(error, detail);
 
 		System.err.println(msg);
 	}
+
+    /** Return the error code.
+     *
+     * @return
+     */
+    public String getErrorCode()
+    {
+        return errorCode;
+    }
+
+    /** Return the detailed error message.
+     *
+     * @return
+     */
+    public String getErrorDetail()
+    {
+        return errorDetail;
+    }
 
 	/**
 	 * Retrieves a data structure that can be later marshalled into a XML

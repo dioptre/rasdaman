@@ -43,7 +43,8 @@ import javax.imageio.ImageIO;
 
 import javax.swing.JFrame;
 
-/**
+/** Test class for various Rasdaman tasks. Comment/uncomment the lines in the
+ * main() function and see what happens.
  *
  * @author Andrei Aiordachioaie
  */
@@ -57,6 +58,7 @@ public class TestRasdamanUtils
 
 		myUtils.init();
 
+        /* Try to comment/uncomment lines below ... */
 //      myUtils.insertGrayImageAsArray("andreiTest1");
 //      myUtils.loadCoverage("mr");
 //      myUtils.printAllCollections();
@@ -85,6 +87,8 @@ public class TestRasdamanUtils
 //      System.err.println("---------------------");
 //      testLoadRasdaman("andreiWedding1");
 
+        /* Stop commenting/uncommenting lines here */
+
 		try
 		{
 			myUtils.commitAndClose();
@@ -94,6 +98,8 @@ public class TestRasdamanUtils
 			e.printStackTrace();
 			myUtils.abortAndClose();
 		}
+
+        understandColorImage("http://localhost/peta/flickr1.jpg");
 	}
 
 	private static void insertImageFromInternet(String identifier, String href)
@@ -168,4 +174,28 @@ public class TestRasdamanUtils
 		f.setSize(img.getWidth() + 50, img.getHeight() + 50);
 		f.setVisible(true);
 	}
+
+    private static void understandColorImage(String href)
+    {
+        String identifier = "image1";
+        try
+		{
+			// Step 1: fetch the image from Internet
+			URL url = new URL(href);
+			BufferedImage img0 = ImageIO.read(url);
+			BufferedImage img = myUtils.convertImageToGray(img0);
+
+			// Display image for check
+			displayImage(identifier, img);
+
+			// Step 2: Insert image into rasdaman
+			System.out.println(img);        // gray-image
+            System.out.println(img0);       // color image
+		}
+		catch (Exception e)
+		{
+			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
+    }
 }

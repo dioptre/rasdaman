@@ -1024,15 +1024,15 @@ public class MetadataUtils
 	 * @param meta MetadataDb object
 	 * @param coverageName desired coverage name
 	 * @return a Metadata Object
-	 * @throws WCSException
+	 * @throws WCSTException
 	 */
-	public static Metadata checkCoverageMetadata(MetadataDb meta, String coverageName) throws WCSException
+	public static Metadata checkCoverageMetadata(MetadataDb meta, String coverageName) throws WCSTException
 	{
 		readStaticTables(meta);
 
 		if ( (coverageName == null) || coverageName.equals("") )
 		{
-			throw new WCSException("NoApplicableCode", "Cannot retrieve coverage with null or empty name");
+			throw new WCSTException("NoApplicableCode", "Cannot retrieve coverage with null or empty name");
 		}
 
 		try
@@ -1041,7 +1041,7 @@ public class MetadataUtils
 
 			if ( ! r.next() )
 			{
-				throw new WCSException("NoApplicableCode", "Coverage '" + coverageName + "' is not served by this server");
+				throw new WCSTException("NoApplicableCode", "Coverage '" + coverageName + "' is not served by this server");
 			}
 
 			int coverage = r.getInt("id");
@@ -1118,7 +1118,7 @@ public class MetadataUtils
 		{
 			e.printStackTrace();
 
-			throw new WCSException("NoApplicableCode", e.getMessage());
+			throw new WCSTException("NoApplicableCode", e.getMessage());
 		}
 
 	}

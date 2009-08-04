@@ -55,7 +55,7 @@ public class MetadataDb
      *
      * @param dbParamsFile path to the properties file
      */
-    public MetadataDb(String dbParamsFile) throws WCSException
+    public MetadataDb(String dbParamsFile) throws WCSTException
     {
         Properties dbParams = new Properties();
 
@@ -76,12 +76,12 @@ public class MetadataDb
         catch (Exception e)
         {
             log("User = " + user);
-            log("Pass = " + pass);
+//            log("Pass = " + pass);
             log("URL = " + url);
             log("Driver = " + driver);
 
             e.printStackTrace();
-            throw new WCSException("NoApplicableCode", "Could not connect to the metadata database!", "Could not connect to the metadata database!");
+            throw new WCSTException("NoApplicableCode", "Could not connect to the metadata database!", "Could not connect to the metadata database!");
         }
     }
 
