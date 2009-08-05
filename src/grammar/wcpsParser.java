@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 src/grammar/wcps.g 2009-06-08 14:21:42
+// $ANTLR 3.1.2 src/grammar/wcps.g 2009-08-05 22:22:49
 package grammar;
 
 import org.antlr.runtime.*;
@@ -12,11 +12,10 @@ import org.antlr.runtime.tree.*;
 
 public class wcpsParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "FOR", "IN", "LPAREN", "RPAREN", "COMMA", "WHERE", "RETURN", "ENCODE", "STORE", "OR", "XOR", "AND", "EQUALS", "NOTEQUALS", "LT", "GT", "LTE", "GTE", "PLUS", "MINUS", "MULT", "DIVIDE", "OVERLAY", "IDENTIFIER", "IMAGECRS", "IMAGECRSDOMAIN", "CRSSET", "NULLSET", "INTERPOLATIONDEFAULT", "INTERPOLATIONSET", "DOMAIN", "ALL", "SOME", "COUNT", "ADD", "AVG", "MIN", "MAX", "CONDENSE", "OVER", "USING", "COLON", "COVERAGE", "VALUE", "LIST", "SEMICOLON", "VALUES", "SETIDENTIFIER", "SETCRSSET", "SETNULLSET", "SETINTERPOLATIONDEFAULT", "SETINTERPOLATIONSET", "LBRACE", "RBRACE", "STRUCT", "CRSTRANSFORM", "SQRT", "ABS", "RE", "IM", "EXP", "LOG", "LN", "SIN", "COS", "TAN", "SINH", "COSH", "TANH", "ARCSIN", "ARCCOS", "ARCTAN", "NOT", "BIT", "INTEGERCONSTANT", "ROUND", "STRING", "SCALE", "LBRACKET", "RBRACKET", "TRIM", "SLICE", "EXTEND", "BOOLEAN", "CHAR", "SHORT", "LONG", "FLOAT", "DOUBLE", "COMPLEX", "COMPLEX2", "UNSIGNED", "DOT", "BOOLEANCONSTANT", "FLOATCONSTANT", "NEAREST", "LINEAR", "QUADRATIC", "CUBIC", "FULL", "NONE", "HALF", "OTHER", "NAME", "VARIABLE_DOLLAR", "NULLDEFAULT", "PHI", "DECIMALCONSTANT", "OCTALCONSTANT", "HEXACONSTANT", "WHITESPACE"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "FOR", "IN", "LPAREN", "RPAREN", "COMMA", "WHERE", "RETURN", "ENCODE", "STORE", "OR", "XOR", "AND", "EQUALS", "NOTEQUALS", "LT", "GT", "LTE", "GTE", "PLUS", "MINUS", "MULT", "DIVIDE", "OVERLAY", "IDENTIFIER", "IMAGECRS", "IMAGECRSDOMAIN", "CRSSET", "NULLSET", "INTERPOLATIONDEFAULT", "INTERPOLATIONSET", "DOMAIN", "ALL", "SOME", "COUNT", "ADD", "AVG", "MIN", "MAX", "CONDENSE", "OVER", "USING", "COLON", "COVERAGE", "VALUE", "LIST", "SEMICOLON", "VALUES", "SETIDENTIFIER", "SETCRSSET", "SETNULLSET", "SETINTERPOLATIONDEFAULT", "SETINTERPOLATIONSET", "LBRACE", "RBRACE", "STRUCT", "CRSTRANSFORM", "SQRT", "ABS", "RE", "IM", "EXP", "LOG", "LN", "SIN", "COS", "TAN", "SINH", "COSH", "TANH", "ARCSIN", "ARCCOS", "ARCTAN", "NOT", "BIT", "INTEGERCONSTANT", "ROUND", "STRING", "SCALE", "LBRACKET", "RBRACKET", "TRIM", "SLICE", "EXTEND", "BOOLEAN", "CHAR", "SHORT", "LONG", "FLOAT", "DOUBLE", "COMPLEX", "COMPLEX2", "UNSIGNED", "DOT", "BOOLEANCONSTANT", "FLOATCONSTANT", "NEAREST", "LINEAR", "QUADRATIC", "CUBIC", "FULL", "NONE", "HALF", "OTHER", "NAME", "VARIABLE_DOLLAR", "NULLDEFAULT", "PHI", "WHITESPACE"
     };
     public static final int IMAGECRS=28;
     public static final int LT=18;
-    public static final int HEXACONSTANT=113;
     public static final int LN=66;
     public static final int LOG=65;
     public static final int CHAR=88;
@@ -49,14 +48,13 @@ public class wcpsParser extends Parser {
     public static final int RBRACE=57;
     public static final int SETNULLSET=53;
     public static final int CONDENSE=42;
-    public static final int WHITESPACE=114;
+    public static final int WHITESPACE=111;
     public static final int SEMICOLON=49;
     public static final int MULT=24;
     public static final int VALUE=47;
     public static final int LIST=48;
     public static final int COMPLEX2=94;
     public static final int ABS=61;
-    public static final int DECIMALCONSTANT=111;
     public static final int CRSSET=30;
     public static final int SCALE=81;
     public static final int VARIABLE_DOLLAR=108;
@@ -109,7 +107,6 @@ public class wcpsParser extends Parser {
     public static final int NOTEQUALS=17;
     public static final int STRUCT=58;
     public static final int SHORT=89;
-    public static final int OCTALCONSTANT=112;
     public static final int MIN=40;
     public static final int MINUS=23;
     public static final int SQRT=60;
@@ -161,7 +158,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "wcpsRequest"
-    // src/grammar/wcps.g:30:1: wcpsRequest returns [WCPSRequest value] : e1= forClause (e2= whereClause )? e3= returnClause ;
+    // src/grammar/wcps.g:31:1: wcpsRequest returns [WCPSRequest value] : e1= forClause (e2= whereClause )? e3= returnClause ;
     public final wcpsParser.wcpsRequest_return wcpsRequest() throws RecognitionException {
         wcpsParser.wcpsRequest_return retval = new wcpsParser.wcpsRequest_return();
         retval.start = input.LT(1);
@@ -178,8 +175,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return retval; }
-            // src/grammar/wcps.g:31:2: (e1= forClause (e2= whereClause )? e3= returnClause )
-            // src/grammar/wcps.g:31:4: e1= forClause (e2= whereClause )? e3= returnClause
+            // src/grammar/wcps.g:32:2: (e1= forClause (e2= whereClause )? e3= returnClause )
+            // src/grammar/wcps.g:32:4: e1= forClause (e2= whereClause )? e3= returnClause
             {
             root_0 = (Object)adaptor.nil();
 
@@ -192,7 +189,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new WCPSRequest((e1!=null?e1.value:null)); 
             }
-            // src/grammar/wcps.g:32:3: (e2= whereClause )?
+            // src/grammar/wcps.g:33:3: (e2= whereClause )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -201,7 +198,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt1) {
                 case 1 :
-                    // src/grammar/wcps.g:32:4: e2= whereClause
+                    // src/grammar/wcps.g:33:4: e2= whereClause
                     {
                     pushFollow(FOLLOW_whereClause_in_wcpsRequest72);
                     e2=whereClause();
@@ -258,7 +255,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "forClause"
-    // src/grammar/wcps.g:35:1: forClause returns [ForClauseElements value] : FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* ;
+    // src/grammar/wcps.g:36:1: forClause returns [ForClauseElements value] : FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* ;
     public final wcpsParser.forClause_return forClause() throws RecognitionException {
         wcpsParser.forClause_return retval = new wcpsParser.forClause_return();
         retval.start = input.LT(1);
@@ -289,8 +286,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return retval; }
-            // src/grammar/wcps.g:36:2: ( FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* )
-            // src/grammar/wcps.g:36:4: FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
+            // src/grammar/wcps.g:37:2: ( FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* )
+            // src/grammar/wcps.g:37:4: FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -329,7 +326,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new ForClauseElements((v!=null?v.value:null), (list!=null?list.value:null)); 
             }
-            // src/grammar/wcps.g:38:4: ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
+            // src/grammar/wcps.g:39:4: ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
             loop2:
             do {
                 int alt2=2;
@@ -342,7 +339,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // src/grammar/wcps.g:38:5: COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN
+            	    // src/grammar/wcps.g:39:5: COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN
             	    {
             	    COMMA5=(Token)match(input,COMMA,FOLLOW_COMMA_in_forClause122); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -419,7 +416,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "whereClause"
-    // src/grammar/wcps.g:41:1: whereClause returns [WhereClause value] : WHERE e1= booleanScalarExpr ;
+    // src/grammar/wcps.g:42:1: whereClause returns [WhereClause value] : WHERE e1= booleanScalarExpr ;
     public final wcpsParser.whereClause_return whereClause() throws RecognitionException {
         wcpsParser.whereClause_return retval = new wcpsParser.whereClause_return();
         retval.start = input.LT(1);
@@ -434,8 +431,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return retval; }
-            // src/grammar/wcps.g:42:2: ( WHERE e1= booleanScalarExpr )
-            // src/grammar/wcps.g:42:4: WHERE e1= booleanScalarExpr
+            // src/grammar/wcps.g:43:2: ( WHERE e1= booleanScalarExpr )
+            // src/grammar/wcps.g:43:4: WHERE e1= booleanScalarExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -484,7 +481,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "returnClause"
-    // src/grammar/wcps.g:44:1: returnClause returns [ReturnClause value] : RETURN e1= processingExpr ;
+    // src/grammar/wcps.g:45:1: returnClause returns [ReturnClause value] : RETURN e1= processingExpr ;
     public final wcpsParser.returnClause_return returnClause() throws RecognitionException {
         wcpsParser.returnClause_return retval = new wcpsParser.returnClause_return();
         retval.start = input.LT(1);
@@ -499,8 +496,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return retval; }
-            // src/grammar/wcps.g:45:2: ( RETURN e1= processingExpr )
-            // src/grammar/wcps.g:45:4: RETURN e1= processingExpr
+            // src/grammar/wcps.g:46:2: ( RETURN e1= processingExpr )
+            // src/grammar/wcps.g:46:4: RETURN e1= processingExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -549,7 +546,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageList"
-    // src/grammar/wcps.g:47:1: coverageList returns [CoverageList value] : cname= coverageName ( COMMA next= coverageName )* ;
+    // src/grammar/wcps.g:48:1: coverageList returns [CoverageList value] : cname= coverageName ( COMMA next= coverageName )* ;
     public final wcpsParser.coverageList_return coverageList() throws RecognitionException {
         wcpsParser.coverageList_return retval = new wcpsParser.coverageList_return();
         retval.start = input.LT(1);
@@ -566,8 +563,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return retval; }
-            // src/grammar/wcps.g:48:2: (cname= coverageName ( COMMA next= coverageName )* )
-            // src/grammar/wcps.g:48:4: cname= coverageName ( COMMA next= coverageName )*
+            // src/grammar/wcps.g:49:2: (cname= coverageName ( COMMA next= coverageName )* )
+            // src/grammar/wcps.g:49:4: cname= coverageName ( COMMA next= coverageName )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -580,7 +577,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new CoverageList((cname!=null?cname.value:null)); 
             }
-            // src/grammar/wcps.g:49:3: ( COMMA next= coverageName )*
+            // src/grammar/wcps.g:50:3: ( COMMA next= coverageName )*
             loop3:
             do {
                 int alt3=2;
@@ -593,7 +590,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // src/grammar/wcps.g:49:4: COMMA next= coverageName
+            	    // src/grammar/wcps.g:50:4: COMMA next= coverageName
             	    {
             	    COMMA11=(Token)match(input,COMMA,FOLLOW_COMMA_in_coverageList204); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -649,7 +646,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "processingExpr"
-    // src/grammar/wcps.g:51:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );
+    // src/grammar/wcps.g:52:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );
     public final wcpsParser.processingExpr_return processingExpr() throws RecognitionException {
         wcpsParser.processingExpr_return retval = new wcpsParser.processingExpr_return();
         retval.start = input.LT(1);
@@ -666,12 +663,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return retval; }
-            // src/grammar/wcps.g:52:5: (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr )
+            // src/grammar/wcps.g:53:5: (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr )
             int alt4=3;
             alt4 = dfa4.predict(input);
             switch (alt4) {
                 case 1 :
-                    // src/grammar/wcps.g:52:7: e1= encodedCoverageExpr
+                    // src/grammar/wcps.g:53:7: e1= encodedCoverageExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -688,7 +685,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:53:7: e2= storeExpr
+                    // src/grammar/wcps.g:54:7: e2= storeExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -705,7 +702,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/grammar/wcps.g:54:7: e3= scalarExpr
+                    // src/grammar/wcps.g:55:7: e3= scalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -751,7 +748,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "encodedCoverageExpr"
-    // src/grammar/wcps.g:56:1: encodedCoverageExpr returns [EncodedCoverageExpr value] : ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN ;
+    // src/grammar/wcps.g:57:1: encodedCoverageExpr returns [EncodedCoverageExpr value] : ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN ;
     public final wcpsParser.encodedCoverageExpr_return encodedCoverageExpr() throws RecognitionException {
         wcpsParser.encodedCoverageExpr_return retval = new wcpsParser.encodedCoverageExpr_return();
         retval.start = input.LT(1);
@@ -778,8 +775,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return retval; }
-            // src/grammar/wcps.g:57:2: ( ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN )
-            // src/grammar/wcps.g:57:4: ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN
+            // src/grammar/wcps.g:58:2: ( ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN )
+            // src/grammar/wcps.g:58:4: ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -813,7 +810,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new EncodedCoverageExpr((cov!=null?cov.value:null), (format!=null?input.toString(format.start,format.stop):null)); 
             }
-            // src/grammar/wcps.g:58:3: ( COMMA params= stringConstant )?
+            // src/grammar/wcps.g:59:3: ( COMMA params= stringConstant )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -822,7 +819,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt5) {
                 case 1 :
-                    // src/grammar/wcps.g:58:4: COMMA params= stringConstant
+                    // src/grammar/wcps.g:59:4: COMMA params= stringConstant
                     {
                     COMMA15=(Token)match(input,COMMA,FOLLOW_COMMA_in_encodedCoverageExpr291); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -880,7 +877,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "storeExpr"
-    // src/grammar/wcps.g:60:1: storeExpr returns [StoreExpr value] : STORE LPAREN e1= encodedCoverageExpr RPAREN ;
+    // src/grammar/wcps.g:61:1: storeExpr returns [StoreExpr value] : STORE LPAREN e1= encodedCoverageExpr RPAREN ;
     public final wcpsParser.storeExpr_return storeExpr() throws RecognitionException {
         wcpsParser.storeExpr_return retval = new wcpsParser.storeExpr_return();
         retval.start = input.LT(1);
@@ -899,8 +896,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return retval; }
-            // src/grammar/wcps.g:61:5: ( STORE LPAREN e1= encodedCoverageExpr RPAREN )
-            // src/grammar/wcps.g:61:7: STORE LPAREN e1= encodedCoverageExpr RPAREN
+            // src/grammar/wcps.g:62:5: ( STORE LPAREN e1= encodedCoverageExpr RPAREN )
+            // src/grammar/wcps.g:62:7: STORE LPAREN e1= encodedCoverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -959,7 +956,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageExpr"
-    // src/grammar/wcps.g:63:1: coverageExpr returns [CoverageExpr value] : e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* ;
+    // src/grammar/wcps.g:64:1: coverageExpr returns [CoverageExpr value] : e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* ;
     public final wcpsParser.coverageExpr_return coverageExpr() throws RecognitionException {
         wcpsParser.coverageExpr_return retval = new wcpsParser.coverageExpr_return();
         retval.start = input.LT(1);
@@ -976,8 +973,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return retval; }
-            // src/grammar/wcps.g:64:5: (e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* )
-            // src/grammar/wcps.g:64:7: e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )*
+            // src/grammar/wcps.g:65:5: (e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* )
+            // src/grammar/wcps.g:65:7: e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -990,14 +987,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/grammar/wcps.g:65:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*
+            // src/grammar/wcps.g:66:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*
             loop6:
             do {
                 int alt6=2;
                 alt6 = dfa6.predict(input);
                 switch (alt6) {
             	case 1 :
-            	    // src/grammar/wcps.g:65:10: op= ( OR | XOR ) e2= coverageLogicTerm
+            	    // src/grammar/wcps.g:66:10: op= ( OR | XOR ) e2= coverageLogicTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -1060,7 +1057,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageLogicTerm"
-    // src/grammar/wcps.g:67:1: coverageLogicTerm returns [CoverageExpr value] : e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* ;
+    // src/grammar/wcps.g:68:1: coverageLogicTerm returns [CoverageExpr value] : e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* ;
     public final wcpsParser.coverageLogicTerm_return coverageLogicTerm() throws RecognitionException {
         wcpsParser.coverageLogicTerm_return retval = new wcpsParser.coverageLogicTerm_return();
         retval.start = input.LT(1);
@@ -1077,8 +1074,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return retval; }
-            // src/grammar/wcps.g:68:5: (e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* )
-            // src/grammar/wcps.g:68:7: e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )*
+            // src/grammar/wcps.g:69:5: (e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* )
+            // src/grammar/wcps.g:69:7: e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1091,14 +1088,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/grammar/wcps.g:69:9: (op= AND e2= coverageLogicFactor )*
+            // src/grammar/wcps.g:70:9: (op= AND e2= coverageLogicFactor )*
             loop7:
             do {
                 int alt7=2;
                 alt7 = dfa7.predict(input);
                 switch (alt7) {
             	case 1 :
-            	    // src/grammar/wcps.g:69:10: op= AND e2= coverageLogicFactor
+            	    // src/grammar/wcps.g:70:10: op= AND e2= coverageLogicFactor
             	    {
             	    op=(Token)match(input,AND,FOLLOW_AND_in_coverageLogicTerm416); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -1154,7 +1151,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageLogicFactor"
-    // src/grammar/wcps.g:71:1: coverageLogicFactor returns [CoverageExpr value] : e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? ;
+    // src/grammar/wcps.g:72:1: coverageLogicFactor returns [CoverageExpr value] : e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? ;
     public final wcpsParser.coverageLogicFactor_return coverageLogicFactor() throws RecognitionException {
         wcpsParser.coverageLogicFactor_return retval = new wcpsParser.coverageLogicFactor_return();
         retval.start = input.LT(1);
@@ -1171,8 +1168,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return retval; }
-            // src/grammar/wcps.g:72:5: (e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? )
-            // src/grammar/wcps.g:72:7: e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
+            // src/grammar/wcps.g:73:5: (e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? )
+            // src/grammar/wcps.g:73:7: e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1185,12 +1182,12 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null);
             }
-            // src/grammar/wcps.g:73:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
+            // src/grammar/wcps.g:74:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
             int alt8=2;
             alt8 = dfa8.predict(input);
             switch (alt8) {
                 case 1 :
-                    // src/grammar/wcps.g:73:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
+                    // src/grammar/wcps.g:74:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
                     {
                     op=(Token)input.LT(1);
                     if ( (input.LA(1)>=EQUALS && input.LA(1)<=GTE) ) {
@@ -1250,7 +1247,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageArithmeticExpr"
-    // src/grammar/wcps.g:75:1: coverageArithmeticExpr returns [CoverageExpr value] : e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* ;
+    // src/grammar/wcps.g:76:1: coverageArithmeticExpr returns [CoverageExpr value] : e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* ;
     public final wcpsParser.coverageArithmeticExpr_return coverageArithmeticExpr() throws RecognitionException {
         wcpsParser.coverageArithmeticExpr_return retval = new wcpsParser.coverageArithmeticExpr_return();
         retval.start = input.LT(1);
@@ -1267,8 +1264,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return retval; }
-            // src/grammar/wcps.g:76:5: (e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* )
-            // src/grammar/wcps.g:76:7: e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
+            // src/grammar/wcps.g:77:5: (e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* )
+            // src/grammar/wcps.g:77:7: e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1281,14 +1278,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null); 
             }
-            // src/grammar/wcps.g:77:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
+            // src/grammar/wcps.g:78:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
             loop9:
             do {
                 int alt9=2;
                 alt9 = dfa9.predict(input);
                 switch (alt9) {
             	case 1 :
-            	    // src/grammar/wcps.g:77:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
+            	    // src/grammar/wcps.g:78:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -1351,7 +1348,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageArithmeticTerm"
-    // src/grammar/wcps.g:79:1: coverageArithmeticTerm returns [CoverageExpr value] : e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* ;
+    // src/grammar/wcps.g:80:1: coverageArithmeticTerm returns [CoverageExpr value] : e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* ;
     public final wcpsParser.coverageArithmeticTerm_return coverageArithmeticTerm() throws RecognitionException {
         wcpsParser.coverageArithmeticTerm_return retval = new wcpsParser.coverageArithmeticTerm_return();
         retval.start = input.LT(1);
@@ -1368,8 +1365,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return retval; }
-            // src/grammar/wcps.g:80:5: (e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* )
-            // src/grammar/wcps.g:80:9: e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
+            // src/grammar/wcps.g:81:5: (e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* )
+            // src/grammar/wcps.g:81:9: e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1382,14 +1379,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null); 
             }
-            // src/grammar/wcps.g:81:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
+            // src/grammar/wcps.g:82:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
             loop10:
             do {
                 int alt10=2;
                 alt10 = dfa10.predict(input);
                 switch (alt10) {
             	case 1 :
-            	    // src/grammar/wcps.g:81:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
+            	    // src/grammar/wcps.g:82:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -1452,7 +1449,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageArithmeticFactor"
-    // src/grammar/wcps.g:83:1: coverageArithmeticFactor returns [CoverageExpr value] : e1= coverageValue (op= OVERLAY e2= coverageValue )* ;
+    // src/grammar/wcps.g:84:1: coverageArithmeticFactor returns [CoverageExpr value] : e1= coverageValue (op= OVERLAY e2= coverageValue )* ;
     public final wcpsParser.coverageArithmeticFactor_return coverageArithmeticFactor() throws RecognitionException {
         wcpsParser.coverageArithmeticFactor_return retval = new wcpsParser.coverageArithmeticFactor_return();
         retval.start = input.LT(1);
@@ -1469,8 +1466,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return retval; }
-            // src/grammar/wcps.g:84:5: (e1= coverageValue (op= OVERLAY e2= coverageValue )* )
-            // src/grammar/wcps.g:84:7: e1= coverageValue (op= OVERLAY e2= coverageValue )*
+            // src/grammar/wcps.g:85:5: (e1= coverageValue (op= OVERLAY e2= coverageValue )* )
+            // src/grammar/wcps.g:85:7: e1= coverageValue (op= OVERLAY e2= coverageValue )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1483,14 +1480,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/grammar/wcps.g:85:9: (op= OVERLAY e2= coverageValue )*
+            // src/grammar/wcps.g:86:9: (op= OVERLAY e2= coverageValue )*
             loop11:
             do {
                 int alt11=2;
                 alt11 = dfa11.predict(input);
                 switch (alt11) {
             	case 1 :
-            	    // src/grammar/wcps.g:85:10: op= OVERLAY e2= coverageValue
+            	    // src/grammar/wcps.g:86:10: op= OVERLAY e2= coverageValue
             	    {
             	    op=(Token)match(input,OVERLAY,FOLLOW_OVERLAY_in_coverageArithmeticFactor625); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -1546,7 +1543,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageValue"
-    // src/grammar/wcps.g:87:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );
+    // src/grammar/wcps.g:88:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );
     public final wcpsParser.coverageValue_return coverageValue() throws RecognitionException {
         wcpsParser.coverageValue_return retval = new wcpsParser.coverageValue_return();
         retval.start = input.LT(1);
@@ -1567,12 +1564,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return retval; }
-            // src/grammar/wcps.g:88:5: (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom )
+            // src/grammar/wcps.g:89:5: (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom )
             int alt12=5;
             alt12 = dfa12.predict(input);
             switch (alt12) {
                 case 1 :
-                    // src/grammar/wcps.g:88:7: e5= subsetExpr
+                    // src/grammar/wcps.g:89:7: e5= subsetExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1589,7 +1586,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:89:7: e2= unaryInducedExpr
+                    // src/grammar/wcps.g:90:7: e2= unaryInducedExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1606,7 +1603,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/grammar/wcps.g:90:7: e4= scaleExpr
+                    // src/grammar/wcps.g:91:7: e4= scaleExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1623,7 +1620,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/grammar/wcps.g:91:7: e3= crsTransformExpr
+                    // src/grammar/wcps.g:92:7: e3= crsTransformExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1640,7 +1637,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/grammar/wcps.g:92:7: e1= coverageAtom
+                    // src/grammar/wcps.g:93:7: e1= coverageAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1686,7 +1683,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageAtom"
-    // src/grammar/wcps.g:94:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );
+    // src/grammar/wcps.g:95:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );
     public final wcpsParser.coverageAtom_return coverageAtom() throws RecognitionException {
         wcpsParser.coverageAtom_return retval = new wcpsParser.coverageAtom_return();
         retval.start = input.LT(1);
@@ -1715,12 +1712,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return retval; }
-            // src/grammar/wcps.g:95:5: (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr )
+            // src/grammar/wcps.g:96:5: (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr )
             int alt13=7;
             alt13 = dfa13.predict(input);
             switch (alt13) {
                 case 1 :
-                    // src/grammar/wcps.g:95:7: e2= scalarExpr
+                    // src/grammar/wcps.g:96:7: e2= scalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1737,7 +1734,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:96:7: e1= coverageVariable
+                    // src/grammar/wcps.g:97:7: e1= coverageVariable
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1754,7 +1751,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/grammar/wcps.g:97:7: LPAREN e7= coverageExpr RPAREN
+                    // src/grammar/wcps.g:98:7: LPAREN e7= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1781,7 +1778,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/grammar/wcps.g:98:7: e3= coverageConstantExpr
+                    // src/grammar/wcps.g:99:7: e3= coverageConstantExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1798,7 +1795,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/grammar/wcps.g:99:7: e4= coverageConstructorExpr
+                    // src/grammar/wcps.g:100:7: e4= coverageConstructorExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1815,7 +1812,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/grammar/wcps.g:100:7: e5= setMetaDataExpr
+                    // src/grammar/wcps.g:101:7: e5= setMetaDataExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1832,7 +1829,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // src/grammar/wcps.g:101:7: e6= rangeConstructorExpr
+                    // src/grammar/wcps.g:102:7: e6= rangeConstructorExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1878,7 +1875,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "scalarExpr"
-    // src/grammar/wcps.g:103:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );
+    // src/grammar/wcps.g:104:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );
     public final wcpsParser.scalarExpr_return scalarExpr() throws RecognitionException {
         wcpsParser.scalarExpr_return retval = new wcpsParser.scalarExpr_return();
         retval.start = input.LT(1);
@@ -1905,12 +1902,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return retval; }
-            // src/grammar/wcps.g:104:5: (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN )
+            // src/grammar/wcps.g:105:5: (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN )
             int alt14=6;
             alt14 = dfa14.predict(input);
             switch (alt14) {
                 case 1 :
-                    // src/grammar/wcps.g:104:7: e1= metaDataExpr
+                    // src/grammar/wcps.g:105:7: e1= metaDataExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1927,7 +1924,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:105:7: e2= condenseExpr
+                    // src/grammar/wcps.g:106:7: e2= condenseExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1944,7 +1941,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/grammar/wcps.g:106:7: e3= booleanScalarExpr
+                    // src/grammar/wcps.g:107:7: e3= booleanScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1961,7 +1958,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/grammar/wcps.g:107:7: e4= numericScalarExpr
+                    // src/grammar/wcps.g:108:7: e4= numericScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1978,7 +1975,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/grammar/wcps.g:108:7: e5= stringScalarExpr
+                    // src/grammar/wcps.g:109:7: e5= stringScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1995,7 +1992,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/grammar/wcps.g:109:7: LPAREN e6= scalarExpr RPAREN
+                    // src/grammar/wcps.g:110:7: LPAREN e6= scalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2051,7 +2048,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "metaDataExpr"
-    // src/grammar/wcps.g:111:1: metaDataExpr returns [MetaDataExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN );
+    // src/grammar/wcps.g:112:1: metaDataExpr returns [MetaDataExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN );
     public final wcpsParser.metaDataExpr_return metaDataExpr() throws RecognitionException {
         wcpsParser.metaDataExpr_return retval = new wcpsParser.metaDataExpr_return();
         retval.start = input.LT(1);
@@ -2106,7 +2103,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return retval; }
-            // src/grammar/wcps.g:112:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN )
+            // src/grammar/wcps.g:113:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN )
             int alt16=8;
             switch ( input.LA(1) ) {
             case IDENTIFIER:
@@ -2159,7 +2156,7 @@ public class wcpsParser extends Parser {
 
             switch (alt16) {
                 case 1 :
-                    // src/grammar/wcps.g:112:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
+                    // src/grammar/wcps.g:113:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2191,7 +2188,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:113:7: op= IMAGECRS LPAREN e1= coverageExpr RPAREN
+                    // src/grammar/wcps.g:114:7: op= IMAGECRS LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2223,7 +2220,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/grammar/wcps.g:114:7: op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN
+                    // src/grammar/wcps.g:115:7: op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2243,7 +2240,7 @@ public class wcpsParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    // src/grammar/wcps.g:114:48: ( COMMA e2= axisName )?
+                    // src/grammar/wcps.g:115:48: ( COMMA e2= axisName )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -2252,7 +2249,7 @@ public class wcpsParser extends Parser {
                     }
                     switch (alt15) {
                         case 1 :
-                            // src/grammar/wcps.g:114:49: COMMA e2= axisName
+                            // src/grammar/wcps.g:115:49: COMMA e2= axisName
                             {
                             COMMA29=(Token)match(input,COMMA,FOLLOW_COMMA_in_metaDataExpr973); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
@@ -2283,7 +2280,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/grammar/wcps.g:115:7: op= CRSSET LPAREN e1= coverageExpr RPAREN
+                    // src/grammar/wcps.g:116:7: op= CRSSET LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2315,7 +2312,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/grammar/wcps.g:116:7: de= domainExpr
+                    // src/grammar/wcps.g:117:7: de= domainExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2332,7 +2329,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/grammar/wcps.g:117:7: op= NULLSET LPAREN e1= coverageExpr RPAREN
+                    // src/grammar/wcps.g:118:7: op= NULLSET LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2364,7 +2361,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // src/grammar/wcps.g:118:7: op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
+                    // src/grammar/wcps.g:119:7: op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2407,7 +2404,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // src/grammar/wcps.g:119:7: op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
+                    // src/grammar/wcps.g:120:7: op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2479,7 +2476,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "domainExpr"
-    // src/grammar/wcps.g:121:1: domainExpr returns [DomainExpr value] : DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN ;
+    // src/grammar/wcps.g:122:1: domainExpr returns [DomainExpr value] : DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN ;
     public final wcpsParser.domainExpr_return domainExpr() throws RecognitionException {
         wcpsParser.domainExpr_return retval = new wcpsParser.domainExpr_return();
         retval.start = input.LT(1);
@@ -2506,8 +2503,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return retval; }
-            // src/grammar/wcps.g:122:2: ( DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN )
-            // src/grammar/wcps.g:122:4: DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN
+            // src/grammar/wcps.g:123:2: ( DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN )
+            // src/grammar/wcps.g:123:4: DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2588,7 +2585,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "condenseExpr"
-    // src/grammar/wcps.g:124:1: condenseExpr returns [CondenseExpr value] : (e1= reduceExpr | e2= generalCondenseExpr );
+    // src/grammar/wcps.g:125:1: condenseExpr returns [CondenseExpr value] : (e1= reduceExpr | e2= generalCondenseExpr );
     public final wcpsParser.condenseExpr_return condenseExpr() throws RecognitionException {
         wcpsParser.condenseExpr_return retval = new wcpsParser.condenseExpr_return();
         retval.start = input.LT(1);
@@ -2603,7 +2600,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return retval; }
-            // src/grammar/wcps.g:125:2: (e1= reduceExpr | e2= generalCondenseExpr )
+            // src/grammar/wcps.g:126:2: (e1= reduceExpr | e2= generalCondenseExpr )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -2622,7 +2619,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt17) {
                 case 1 :
-                    // src/grammar/wcps.g:125:4: e1= reduceExpr
+                    // src/grammar/wcps.g:126:4: e1= reduceExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2639,7 +2636,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:126:4: e2= generalCondenseExpr
+                    // src/grammar/wcps.g:127:4: e2= generalCondenseExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2685,7 +2682,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "reduceExpr"
-    // src/grammar/wcps.g:128:1: reduceExpr returns [ReduceExpr value] : op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN ;
+    // src/grammar/wcps.g:129:1: reduceExpr returns [ReduceExpr value] : op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN ;
     public final wcpsParser.reduceExpr_return reduceExpr() throws RecognitionException {
         wcpsParser.reduceExpr_return retval = new wcpsParser.reduceExpr_return();
         retval.start = input.LT(1);
@@ -2704,8 +2701,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return retval; }
-            // src/grammar/wcps.g:129:2: (op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN )
-            // src/grammar/wcps.g:129:4: op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN
+            // src/grammar/wcps.g:130:2: (op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN )
+            // src/grammar/wcps.g:130:4: op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2771,7 +2768,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "generalCondenseExpr"
-    // src/grammar/wcps.g:131:1: generalCondenseExpr returns [GeneralCondenseExpr value] : CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr ;
+    // src/grammar/wcps.g:132:1: generalCondenseExpr returns [GeneralCondenseExpr value] : CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr ;
     public final wcpsParser.generalCondenseExpr_return generalCondenseExpr() throws RecognitionException {
         wcpsParser.generalCondenseExpr_return retval = new wcpsParser.generalCondenseExpr_return();
         retval.start = input.LT(1);
@@ -2798,8 +2795,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return retval; }
-            // src/grammar/wcps.g:132:2: ( CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr )
-            // src/grammar/wcps.g:132:4: CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr
+            // src/grammar/wcps.g:133:2: ( CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr )
+            // src/grammar/wcps.g:133:4: CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2828,7 +2825,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new GeneralCondenseExpr((op!=null?op.value:null), (ail!=null?ail.value:null)); 
             }
-            // src/grammar/wcps.g:133:3: ( WHERE cond= booleanScalarExpr )?
+            // src/grammar/wcps.g:134:3: ( WHERE cond= booleanScalarExpr )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -2837,7 +2834,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt18) {
                 case 1 :
-                    // src/grammar/wcps.g:133:4: WHERE cond= booleanScalarExpr
+                    // src/grammar/wcps.g:134:4: WHERE cond= booleanScalarExpr
                     {
                     WHERE50=(Token)match(input,WHERE,FOLLOW_WHERE_in_generalCondenseExpr1221); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -2904,7 +2901,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "axisIteratorList"
-    // src/grammar/wcps.g:136:1: axisIteratorList returns [AxisIteratorList value] : vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* ;
+    // src/grammar/wcps.g:137:1: axisIteratorList returns [AxisIteratorList value] : vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* ;
     public final wcpsParser.axisIteratorList_return axisIteratorList() throws RecognitionException {
         wcpsParser.axisIteratorList_return retval = new wcpsParser.axisIteratorList_return();
         retval.start = input.LT(1);
@@ -2937,8 +2934,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 23) ) { return retval; }
-            // src/grammar/wcps.g:137:2: (vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* )
-            // src/grammar/wcps.g:137:4: vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
+            // src/grammar/wcps.g:138:2: (vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* )
+            // src/grammar/wcps.g:138:4: vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2973,7 +2970,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new AxisIteratorList(new AxisIterator((vn!=null?vn.value:null), (an!=null?an.value:null), (ie!=null?ie.value:null))); 
             }
-            // src/grammar/wcps.g:139:2: ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
+            // src/grammar/wcps.g:140:2: ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
             loop19:
             do {
                 int alt19=2;
@@ -2986,7 +2983,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt19) {
             	case 1 :
-            	    // src/grammar/wcps.g:139:3: COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN
+            	    // src/grammar/wcps.g:140:3: COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN
             	    {
             	    COMMA54=(Token)match(input,COMMA,FOLLOW_COMMA_in_axisIteratorList1274); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -3064,7 +3061,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "intervalExpr"
-    // src/grammar/wcps.g:142:1: intervalExpr returns [IntervalExpr value] : (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN );
+    // src/grammar/wcps.g:143:1: intervalExpr returns [IntervalExpr value] : (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN );
     public final wcpsParser.intervalExpr_return intervalExpr() throws RecognitionException {
         wcpsParser.intervalExpr_return retval = new wcpsParser.intervalExpr_return();
         retval.start = input.LT(1);
@@ -3093,7 +3090,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 24) ) { return retval; }
-            // src/grammar/wcps.g:143:5: (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN )
+            // src/grammar/wcps.g:144:5: (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN )
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -3112,7 +3109,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt20) {
                 case 1 :
-                    // src/grammar/wcps.g:143:7: lo= indexExpr COLON hi= indexExpr
+                    // src/grammar/wcps.g:144:7: lo= indexExpr COLON hi= indexExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3140,7 +3137,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:145:7: IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN
+                    // src/grammar/wcps.g:146:7: IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3212,7 +3209,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageConstantExpr"
-    // src/grammar/wcps.g:148:1: coverageConstantExpr returns [CoverageConstantExpr value] : COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT ;
+    // src/grammar/wcps.g:149:1: coverageConstantExpr returns [CoverageConstantExpr value] : COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT ;
     public final wcpsParser.coverageConstantExpr_return coverageConstantExpr() throws RecognitionException {
         wcpsParser.coverageConstantExpr_return retval = new wcpsParser.coverageConstantExpr_return();
         retval.start = input.LT(1);
@@ -3241,8 +3238,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 25) ) { return retval; }
-            // src/grammar/wcps.g:149:5: ( COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT )
-            // src/grammar/wcps.g:149:7: COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT
+            // src/grammar/wcps.g:150:5: ( COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT )
+            // src/grammar/wcps.g:150:7: COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3328,7 +3325,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "constantList"
-    // src/grammar/wcps.g:152:1: constantList returns [ConstantList value] : c= constant ( SEMICOLON c= constant )* ;
+    // src/grammar/wcps.g:153:1: constantList returns [ConstantList value] : c= constant ( SEMICOLON c= constant )* ;
     public final wcpsParser.constantList_return constantList() throws RecognitionException {
         wcpsParser.constantList_return retval = new wcpsParser.constantList_return();
         retval.start = input.LT(1);
@@ -3343,8 +3340,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 26) ) { return retval; }
-            // src/grammar/wcps.g:153:5: (c= constant ( SEMICOLON c= constant )* )
-            // src/grammar/wcps.g:153:7: c= constant ( SEMICOLON c= constant )*
+            // src/grammar/wcps.g:154:5: (c= constant ( SEMICOLON c= constant )* )
+            // src/grammar/wcps.g:154:7: c= constant ( SEMICOLON c= constant )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3357,7 +3354,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new ConstantList((c!=null?c.value:null)); 
             }
-            // src/grammar/wcps.g:153:59: ( SEMICOLON c= constant )*
+            // src/grammar/wcps.g:154:59: ( SEMICOLON c= constant )*
             loop21:
             do {
                 int alt21=2;
@@ -3370,7 +3367,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt21) {
             	case 1 :
-            	    // src/grammar/wcps.g:153:60: SEMICOLON c= constant
+            	    // src/grammar/wcps.g:154:60: SEMICOLON c= constant
             	    {
             	    SEMICOLON68=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_constantList1433); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -3426,7 +3423,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageConstructorExpr"
-    // src/grammar/wcps.g:155:1: coverageConstructorExpr returns [CoverageConstructorExpr value] : COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr ;
+    // src/grammar/wcps.g:156:1: coverageConstructorExpr returns [CoverageConstructorExpr value] : COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr ;
     public final wcpsParser.coverageConstructorExpr_return coverageConstructorExpr() throws RecognitionException {
         wcpsParser.coverageConstructorExpr_return retval = new wcpsParser.coverageConstructorExpr_return();
         retval.start = input.LT(1);
@@ -3449,8 +3446,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 27) ) { return retval; }
-            // src/grammar/wcps.g:156:2: ( COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr )
-            // src/grammar/wcps.g:156:4: COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr
+            // src/grammar/wcps.g:157:2: ( COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr )
+            // src/grammar/wcps.g:157:4: COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3521,7 +3518,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "setMetaDataExpr"
-    // src/grammar/wcps.g:159:1: setMetaDataExpr returns [SetMetaDataExpr value] : (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN );
+    // src/grammar/wcps.g:160:1: setMetaDataExpr returns [SetMetaDataExpr value] : (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN );
     public final wcpsParser.setMetaDataExpr_return setMetaDataExpr() throws RecognitionException {
         wcpsParser.setMetaDataExpr_return retval = new wcpsParser.setMetaDataExpr_return();
         retval.start = input.LT(1);
@@ -3582,7 +3579,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 28) ) { return retval; }
-            // src/grammar/wcps.g:160:5: (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN )
+            // src/grammar/wcps.g:161:5: (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN )
             int alt22=5;
             switch ( input.LA(1) ) {
             case SETIDENTIFIER:
@@ -3620,7 +3617,7 @@ public class wcpsParser extends Parser {
 
             switch (alt22) {
                 case 1 :
-                    // src/grammar/wcps.g:160:7: op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN
+                    // src/grammar/wcps.g:161:7: op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3663,7 +3660,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:162:7: op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN
+                    // src/grammar/wcps.g:163:7: op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3706,7 +3703,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/grammar/wcps.g:164:7: op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN
+                    // src/grammar/wcps.g:165:7: op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3749,7 +3746,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/grammar/wcps.g:166:7: op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN
+                    // src/grammar/wcps.g:167:7: op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3803,7 +3800,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/grammar/wcps.g:168:7: op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN
+                    // src/grammar/wcps.g:169:7: op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3886,7 +3883,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "crsList"
-    // src/grammar/wcps.g:171:1: crsList returns [CrsList value] : LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE ;
+    // src/grammar/wcps.g:172:1: crsList returns [CrsList value] : LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE ;
     public final wcpsParser.crsList_return crsList() throws RecognitionException {
         wcpsParser.crsList_return retval = new wcpsParser.crsList_return();
         retval.start = input.LT(1);
@@ -3905,8 +3902,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 29) ) { return retval; }
-            // src/grammar/wcps.g:172:5: ( LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE )
-            // src/grammar/wcps.g:172:7: LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE
+            // src/grammar/wcps.g:173:5: ( LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE )
+            // src/grammar/wcps.g:173:7: LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3918,7 +3915,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = new CrsList();
             }
-            // src/grammar/wcps.g:172:40: (crs= crsName ( COMMA crs= crsName )* )?
+            // src/grammar/wcps.g:173:40: (crs= crsName ( COMMA crs= crsName )* )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -3927,7 +3924,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt24) {
                 case 1 :
-                    // src/grammar/wcps.g:172:41: crs= crsName ( COMMA crs= crsName )*
+                    // src/grammar/wcps.g:173:41: crs= crsName ( COMMA crs= crsName )*
                     {
                     pushFollow(FOLLOW_crsName_in_crsList1680);
                     crs=crsName();
@@ -3938,7 +3935,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((crs!=null?crs.value:null)); 
                     }
-                    // src/grammar/wcps.g:172:81: ( COMMA crs= crsName )*
+                    // src/grammar/wcps.g:173:81: ( COMMA crs= crsName )*
                     loop23:
                     do {
                         int alt23=2;
@@ -3951,7 +3948,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt23) {
                     	case 1 :
-                    	    // src/grammar/wcps.g:172:82: COMMA crs= crsName
+                    	    // src/grammar/wcps.g:173:82: COMMA crs= crsName
                     	    {
                     	    COMMA90=(Token)match(input,COMMA,FOLLOW_COMMA_in_crsList1685); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4018,7 +4015,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeExprList"
-    // src/grammar/wcps.g:174:1: rangeExprList returns [RangeExprList value] : LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE ;
+    // src/grammar/wcps.g:175:1: rangeExprList returns [RangeExprList value] : LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE ;
     public final wcpsParser.rangeExprList_return rangeExprList() throws RecognitionException {
         wcpsParser.rangeExprList_return retval = new wcpsParser.rangeExprList_return();
         retval.start = input.LT(1);
@@ -4039,8 +4036,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 30) ) { return retval; }
-            // src/grammar/wcps.g:175:5: ( LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE )
-            // src/grammar/wcps.g:175:7: LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE
+            // src/grammar/wcps.g:176:5: ( LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE )
+            // src/grammar/wcps.g:176:7: LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4052,7 +4049,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new RangeExprList(); 
             }
-            // src/grammar/wcps.g:175:48: (re1= rangeExpr ( COMMA re2= rangeExpr )* )?
+            // src/grammar/wcps.g:176:48: (re1= rangeExpr ( COMMA re2= rangeExpr )* )?
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -4061,7 +4058,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt26) {
                 case 1 :
-                    // src/grammar/wcps.g:175:49: re1= rangeExpr ( COMMA re2= rangeExpr )*
+                    // src/grammar/wcps.g:176:49: re1= rangeExpr ( COMMA re2= rangeExpr )*
                     {
                     pushFollow(FOLLOW_rangeExpr_in_rangeExprList1724);
                     re1=rangeExpr();
@@ -4072,7 +4069,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((re1!=null?re1.value:null)); 
                     }
-                    // src/grammar/wcps.g:175:91: ( COMMA re2= rangeExpr )*
+                    // src/grammar/wcps.g:176:91: ( COMMA re2= rangeExpr )*
                     loop25:
                     do {
                         int alt25=2;
@@ -4085,7 +4082,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt25) {
                     	case 1 :
-                    	    // src/grammar/wcps.g:175:92: COMMA re2= rangeExpr
+                    	    // src/grammar/wcps.g:176:92: COMMA re2= rangeExpr
                     	    {
                     	    COMMA93=(Token)match(input,COMMA,FOLLOW_COMMA_in_rangeExprList1729); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4152,7 +4149,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "interpolationMethodList"
-    // src/grammar/wcps.g:177:1: interpolationMethodList returns [InterpolationMethodList value] : LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE ;
+    // src/grammar/wcps.g:178:1: interpolationMethodList returns [InterpolationMethodList value] : LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE ;
     public final wcpsParser.interpolationMethodList_return interpolationMethodList() throws RecognitionException {
         wcpsParser.interpolationMethodList_return retval = new wcpsParser.interpolationMethodList_return();
         retval.start = input.LT(1);
@@ -4171,8 +4168,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 31) ) { return retval; }
-            // src/grammar/wcps.g:178:2: ( LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE )
-            // src/grammar/wcps.g:178:4: LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE
+            // src/grammar/wcps.g:179:2: ( LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE )
+            // src/grammar/wcps.g:179:4: LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4184,7 +4181,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = new InterpolationMethodList();
             }
-            // src/grammar/wcps.g:178:53: (e= interpolationMethod ( COMMA e= interpolationMethod )* )?
+            // src/grammar/wcps.g:179:53: (e= interpolationMethod ( COMMA e= interpolationMethod )* )?
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -4193,7 +4190,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt28) {
                 case 1 :
-                    // src/grammar/wcps.g:178:54: e= interpolationMethod ( COMMA e= interpolationMethod )*
+                    // src/grammar/wcps.g:179:54: e= interpolationMethod ( COMMA e= interpolationMethod )*
                     {
                     pushFollow(FOLLOW_interpolationMethod_in_interpolationMethodList1765);
                     e=interpolationMethod();
@@ -4204,7 +4201,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((e!=null?e.value:null)); 
                     }
-                    // src/grammar/wcps.g:178:102: ( COMMA e= interpolationMethod )*
+                    // src/grammar/wcps.g:179:102: ( COMMA e= interpolationMethod )*
                     loop27:
                     do {
                         int alt27=2;
@@ -4217,7 +4214,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt27) {
                     	case 1 :
-                    	    // src/grammar/wcps.g:178:103: COMMA e= interpolationMethod
+                    	    // src/grammar/wcps.g:179:103: COMMA e= interpolationMethod
                     	    {
                     	    COMMA96=(Token)match(input,COMMA,FOLLOW_COMMA_in_interpolationMethodList1770); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4284,7 +4281,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeExpr"
-    // src/grammar/wcps.g:180:1: rangeExpr returns [RangeExpr value] : STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )* )? RBRACE ;
+    // src/grammar/wcps.g:181:1: rangeExpr returns [RangeExpr value] : STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )* )? RBRACE ;
     public final wcpsParser.rangeExpr_return rangeExpr() throws RecognitionException {
         wcpsParser.rangeExpr_return retval = new wcpsParser.rangeExpr_return();
         retval.start = input.LT(1);
@@ -4311,8 +4308,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 32) ) { return retval; }
-            // src/grammar/wcps.g:181:2: ( STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )* )? RBRACE )
-            // src/grammar/wcps.g:181:4: STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )* )? RBRACE
+            // src/grammar/wcps.g:182:2: ( STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )* )? RBRACE )
+            // src/grammar/wcps.g:182:4: STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4329,7 +4326,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value =new RangeExpr(); 
             }
-            // src/grammar/wcps.g:182:2: (field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )* )?
+            // src/grammar/wcps.g:183:2: (field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )* )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -4338,7 +4335,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt30) {
                 case 1 :
-                    // src/grammar/wcps.g:182:3: field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )*
+                    // src/grammar/wcps.g:183:3: field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )*
                     {
                     pushFollow(FOLLOW_fieldName_in_rangeExpr1805);
                     field=fieldName();
@@ -4360,7 +4357,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((field!=null?field.value:null), (expr!=null?expr.value:null)); 
                     }
-                    // src/grammar/wcps.g:183:3: ( COLON field= fieldName COLON expr= scalarExpr )*
+                    // src/grammar/wcps.g:184:3: ( COLON field= fieldName COLON expr= scalarExpr )*
                     loop29:
                     do {
                         int alt29=2;
@@ -4373,7 +4370,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt29) {
                     	case 1 :
-                    	    // src/grammar/wcps.g:183:4: COLON field= fieldName COLON expr= scalarExpr
+                    	    // src/grammar/wcps.g:184:4: COLON field= fieldName COLON expr= scalarExpr
                     	    {
                     	    COLON101=(Token)match(input,COLON,FOLLOW_COLON_in_rangeExpr1818); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4451,7 +4448,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeConstructorExpr"
-    // src/grammar/wcps.g:186:1: rangeConstructorExpr returns [RangeConstructorExpr value] : ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE ;
+    // src/grammar/wcps.g:187:1: rangeConstructorExpr returns [RangeConstructorExpr value] : ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE ;
     public final wcpsParser.rangeConstructorExpr_return rangeConstructorExpr() throws RecognitionException {
         wcpsParser.rangeConstructorExpr_return retval = new wcpsParser.rangeConstructorExpr_return();
         retval.start = input.LT(1);
@@ -4478,12 +4475,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 33) ) { return retval; }
-            // src/grammar/wcps.g:187:5: ( ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE )
-            // src/grammar/wcps.g:187:7: ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE
+            // src/grammar/wcps.g:188:5: ( ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE )
+            // src/grammar/wcps.g:188:7: ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
-            // src/grammar/wcps.g:187:7: ( STRUCT )?
+            // src/grammar/wcps.g:188:7: ( STRUCT )?
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -4492,7 +4489,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt31) {
                 case 1 :
-                    // src/grammar/wcps.g:187:8: STRUCT
+                    // src/grammar/wcps.g:188:8: STRUCT
                     {
                     STRUCT104=(Token)match(input,STRUCT,FOLLOW_STRUCT_in_rangeConstructorExpr1856); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -4530,7 +4527,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new RangeConstructorExpr((field!=null?field.value:null), (expr!=null?expr.value:null)); 
             }
-            // src/grammar/wcps.g:188:9: ( SEMICOLON field= fieldName COLON expr= coverageExpr )*
+            // src/grammar/wcps.g:189:9: ( SEMICOLON field= fieldName COLON expr= coverageExpr )*
             loop32:
             do {
                 int alt32=2;
@@ -4543,7 +4540,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt32) {
             	case 1 :
-            	    // src/grammar/wcps.g:188:10: SEMICOLON field= fieldName COLON expr= coverageExpr
+            	    // src/grammar/wcps.g:189:10: SEMICOLON field= fieldName COLON expr= coverageExpr
             	    {
             	    SEMICOLON107=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_rangeConstructorExpr1883); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -4615,7 +4612,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "crsTransformExpr"
-    // src/grammar/wcps.g:190:1: crsTransformExpr returns [CrsTransformExpr value] : CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN ;
+    // src/grammar/wcps.g:191:1: crsTransformExpr returns [CrsTransformExpr value] : CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN ;
     public final wcpsParser.crsTransformExpr_return crsTransformExpr() throws RecognitionException {
         wcpsParser.crsTransformExpr_return retval = new wcpsParser.crsTransformExpr_return();
         retval.start = input.LT(1);
@@ -4642,8 +4639,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 34) ) { return retval; }
-            // src/grammar/wcps.g:191:2: ( CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN )
-            // src/grammar/wcps.g:191:4: CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN
+            // src/grammar/wcps.g:192:2: ( CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN )
+            // src/grammar/wcps.g:192:4: CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4724,7 +4721,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldInterpolationList"
-    // src/grammar/wcps.g:194:1: fieldInterpolationList returns [FieldInterpolationList value] : LBRACE elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )* RBRACE ;
+    // src/grammar/wcps.g:195:1: fieldInterpolationList returns [FieldInterpolationList value] : LBRACE elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )* RBRACE ;
     public final wcpsParser.fieldInterpolationList_return fieldInterpolationList() throws RecognitionException {
         wcpsParser.fieldInterpolationList_return retval = new wcpsParser.fieldInterpolationList_return();
         retval.start = input.LT(1);
@@ -4743,8 +4740,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 35) ) { return retval; }
-            // src/grammar/wcps.g:195:2: ( LBRACE elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )* RBRACE )
-            // src/grammar/wcps.g:195:4: LBRACE elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )* RBRACE
+            // src/grammar/wcps.g:196:2: ( LBRACE elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )* RBRACE )
+            // src/grammar/wcps.g:196:4: LBRACE elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )* RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4762,7 +4759,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new FieldInterpolationList((elem!=null?elem.value:null)); 
             }
-            // src/grammar/wcps.g:196:3: ( COMMA elem= fieldInterpolationElement )*
+            // src/grammar/wcps.g:197:3: ( COMMA elem= fieldInterpolationElement )*
             loop33:
             do {
                 int alt33=2;
@@ -4775,7 +4772,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt33) {
             	case 1 :
-            	    // src/grammar/wcps.g:196:4: COMMA elem= fieldInterpolationElement
+            	    // src/grammar/wcps.g:197:4: COMMA elem= fieldInterpolationElement
             	    {
             	    COMMA116=(Token)match(input,COMMA,FOLLOW_COMMA_in_fieldInterpolationList1963); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -4836,7 +4833,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldInterpolationElement"
-    // src/grammar/wcps.g:198:1: fieldInterpolationElement returns [FieldInterpolationElement value] : aname= fieldName method= interpolationMethod ;
+    // src/grammar/wcps.g:199:1: fieldInterpolationElement returns [FieldInterpolationElement value] : aname= fieldName method= interpolationMethod ;
     public final wcpsParser.fieldInterpolationElement_return fieldInterpolationElement() throws RecognitionException {
         wcpsParser.fieldInterpolationElement_return retval = new wcpsParser.fieldInterpolationElement_return();
         retval.start = input.LT(1);
@@ -4851,8 +4848,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 36) ) { return retval; }
-            // src/grammar/wcps.g:199:2: (aname= fieldName method= interpolationMethod )
-            // src/grammar/wcps.g:199:4: aname= fieldName method= interpolationMethod
+            // src/grammar/wcps.g:200:2: (aname= fieldName method= interpolationMethod )
+            // src/grammar/wcps.g:200:4: aname= fieldName method= interpolationMethod
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4902,7 +4899,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "unaryInducedExpr"
-    // src/grammar/wcps.g:201:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );
+    // src/grammar/wcps.g:202:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );
     public final wcpsParser.unaryInducedExpr_return unaryInducedExpr() throws RecognitionException {
         wcpsParser.unaryInducedExpr_return retval = new wcpsParser.unaryInducedExpr_return();
         retval.start = input.LT(1);
@@ -4927,12 +4924,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 37) ) { return retval; }
-            // src/grammar/wcps.g:202:5: (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr )
+            // src/grammar/wcps.g:203:5: (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr )
             int alt34=7;
             alt34 = dfa34.predict(input);
             switch (alt34) {
                 case 1 :
-                    // src/grammar/wcps.g:202:7: e6= fieldExpr
+                    // src/grammar/wcps.g:203:7: e6= fieldExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -4949,7 +4946,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:203:4: e1= unaryArithmeticExpr
+                    // src/grammar/wcps.g:204:4: e1= unaryArithmeticExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -4966,7 +4963,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/grammar/wcps.g:204:7: e2= exponentialExpr
+                    // src/grammar/wcps.g:205:7: e2= exponentialExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -4983,7 +4980,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/grammar/wcps.g:205:7: e3= trigonometricExpr
+                    // src/grammar/wcps.g:206:7: e3= trigonometricExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5000,7 +4997,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/grammar/wcps.g:206:7: e4= booleanExpr
+                    // src/grammar/wcps.g:207:7: e4= booleanExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5017,7 +5014,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/grammar/wcps.g:207:7: e5= castExpr
+                    // src/grammar/wcps.g:208:7: e5= castExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5034,7 +5031,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // src/grammar/wcps.g:208:7: e7= rangeConstructorExpr
+                    // src/grammar/wcps.g:209:7: e7= rangeConstructorExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5080,7 +5077,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "unaryArithmeticExpr"
-    // src/grammar/wcps.g:210:1: unaryArithmeticExpr returns [CoverageExpr value] : (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN );
+    // src/grammar/wcps.g:211:1: unaryArithmeticExpr returns [CoverageExpr value] : (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN );
     public final wcpsParser.unaryArithmeticExpr_return unaryArithmeticExpr() throws RecognitionException {
         wcpsParser.unaryArithmeticExpr_return retval = new wcpsParser.unaryArithmeticExpr_return();
         retval.start = input.LT(1);
@@ -5101,7 +5098,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 38) ) { return retval; }
-            // src/grammar/wcps.g:211:5: (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN )
+            // src/grammar/wcps.g:212:5: (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN )
             int alt35=2;
             int LA35_0 = input.LA(1);
 
@@ -5120,7 +5117,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt35) {
                 case 1 :
-                    // src/grammar/wcps.g:211:7: op= ( MINUS | PLUS ) e1= coverageAtom
+                    // src/grammar/wcps.g:212:7: op= ( MINUS | PLUS ) e1= coverageAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5149,7 +5146,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:212:7: op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN
+                    // src/grammar/wcps.g:213:7: op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5217,7 +5214,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "exponentialExpr"
-    // src/grammar/wcps.g:214:1: exponentialExpr returns [ExponentialExpr value] : op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN ;
+    // src/grammar/wcps.g:215:1: exponentialExpr returns [ExponentialExpr value] : op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN ;
     public final wcpsParser.exponentialExpr_return exponentialExpr() throws RecognitionException {
         wcpsParser.exponentialExpr_return retval = new wcpsParser.exponentialExpr_return();
         retval.start = input.LT(1);
@@ -5236,8 +5233,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 39) ) { return retval; }
-            // src/grammar/wcps.g:215:5: (op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN )
-            // src/grammar/wcps.g:215:7: op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN
+            // src/grammar/wcps.g:216:5: (op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN )
+            // src/grammar/wcps.g:216:7: op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5303,7 +5300,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "trigonometricExpr"
-    // src/grammar/wcps.g:217:1: trigonometricExpr returns [TrigonometricExpr value] : op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN ;
+    // src/grammar/wcps.g:218:1: trigonometricExpr returns [TrigonometricExpr value] : op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN ;
     public final wcpsParser.trigonometricExpr_return trigonometricExpr() throws RecognitionException {
         wcpsParser.trigonometricExpr_return retval = new wcpsParser.trigonometricExpr_return();
         retval.start = input.LT(1);
@@ -5322,8 +5319,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 40) ) { return retval; }
-            // src/grammar/wcps.g:218:5: (op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN )
-            // src/grammar/wcps.g:218:7: op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN
+            // src/grammar/wcps.g:219:5: (op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN )
+            // src/grammar/wcps.g:219:7: op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5389,7 +5386,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanExpr"
-    // src/grammar/wcps.g:220:1: booleanExpr returns [BooleanExpr value] : (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN );
+    // src/grammar/wcps.g:221:1: booleanExpr returns [BooleanExpr value] : (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN );
     public final wcpsParser.booleanExpr_return booleanExpr() throws RecognitionException {
         wcpsParser.booleanExpr_return retval = new wcpsParser.booleanExpr_return();
         retval.start = input.LT(1);
@@ -5412,7 +5409,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 41) ) { return retval; }
-            // src/grammar/wcps.g:221:5: (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN )
+            // src/grammar/wcps.g:222:5: (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN )
             int alt36=2;
             int LA36_0 = input.LA(1);
 
@@ -5431,7 +5428,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt36) {
                 case 1 :
-                    // src/grammar/wcps.g:221:7: op= NOT e1= coverageExpr
+                    // src/grammar/wcps.g:222:7: op= NOT e1= coverageExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5453,7 +5450,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:222:7: op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN
+                    // src/grammar/wcps.g:223:7: op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5525,7 +5522,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "indexExpr"
-    // src/grammar/wcps.g:224:1: indexExpr returns [IndexExpr value] : e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* ;
+    // src/grammar/wcps.g:225:1: indexExpr returns [IndexExpr value] : e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* ;
     public final wcpsParser.indexExpr_return indexExpr() throws RecognitionException {
         wcpsParser.indexExpr_return retval = new wcpsParser.indexExpr_return();
         retval.start = input.LT(1);
@@ -5542,8 +5539,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 42) ) { return retval; }
-            // src/grammar/wcps.g:225:5: (e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* )
-            // src/grammar/wcps.g:225:7: e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )*
+            // src/grammar/wcps.g:226:5: (e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* )
+            // src/grammar/wcps.g:226:7: e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5556,7 +5553,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/grammar/wcps.g:226:3: (op= ( PLUS | MINUS ) e2= indexTerm )*
+            // src/grammar/wcps.g:227:3: (op= ( PLUS | MINUS ) e2= indexTerm )*
             loop37:
             do {
                 int alt37=2;
@@ -5569,7 +5566,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt37) {
             	case 1 :
-            	    // src/grammar/wcps.g:226:4: op= ( PLUS | MINUS ) e2= indexTerm
+            	    // src/grammar/wcps.g:227:4: op= ( PLUS | MINUS ) e2= indexTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -5632,7 +5629,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "indexTerm"
-    // src/grammar/wcps.g:228:1: indexTerm returns [IndexExpr value] : e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* ;
+    // src/grammar/wcps.g:229:1: indexTerm returns [IndexExpr value] : e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* ;
     public final wcpsParser.indexTerm_return indexTerm() throws RecognitionException {
         wcpsParser.indexTerm_return retval = new wcpsParser.indexTerm_return();
         retval.start = input.LT(1);
@@ -5649,8 +5646,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 43) ) { return retval; }
-            // src/grammar/wcps.g:229:5: (e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* )
-            // src/grammar/wcps.g:229:7: e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
+            // src/grammar/wcps.g:230:5: (e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* )
+            // src/grammar/wcps.g:230:7: e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5663,7 +5660,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/grammar/wcps.g:230:6: ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
+            // src/grammar/wcps.g:231:6: ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
             loop38:
             do {
                 int alt38=2;
@@ -5676,10 +5673,10 @@ public class wcpsParser extends Parser {
 
                 switch (alt38) {
             	case 1 :
-            	    // src/grammar/wcps.g:230:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
+            	    // src/grammar/wcps.g:231:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
             	    {
-            	    // src/grammar/wcps.g:230:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
-            	    // src/grammar/wcps.g:230:8: op= ( MULT | DIVIDE ) e2= indexFactor
+            	    // src/grammar/wcps.g:231:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
+            	    // src/grammar/wcps.g:231:8: op= ( MULT | DIVIDE ) e2= indexFactor
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -5745,7 +5742,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "indexFactor"
-    // src/grammar/wcps.g:232:1: indexFactor returns [IndexExpr value] : (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) );
+    // src/grammar/wcps.g:233:1: indexFactor returns [IndexExpr value] : (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) );
     public final wcpsParser.indexFactor_return indexFactor() throws RecognitionException {
         wcpsParser.indexFactor_return retval = new wcpsParser.indexFactor_return();
         retval.start = input.LT(1);
@@ -5772,7 +5769,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 44) ) { return retval; }
-            // src/grammar/wcps.g:233:5: (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) )
+            // src/grammar/wcps.g:234:5: (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) )
             int alt39=3;
             switch ( input.LA(1) ) {
             case INTEGERCONSTANT:
@@ -5800,7 +5797,7 @@ public class wcpsParser extends Parser {
 
             switch (alt39) {
                 case 1 :
-                    // src/grammar/wcps.g:233:7: e= INTEGERCONSTANT
+                    // src/grammar/wcps.g:234:7: e= INTEGERCONSTANT
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5816,7 +5813,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:234:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
+                    // src/grammar/wcps.g:235:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5848,12 +5845,12 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/grammar/wcps.g:235:7: ( LPAREN e2= indexExpr RPAREN )
+                    // src/grammar/wcps.g:236:7: ( LPAREN e2= indexExpr RPAREN )
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    // src/grammar/wcps.g:235:7: ( LPAREN e2= indexExpr RPAREN )
-                    // src/grammar/wcps.g:235:8: LPAREN e2= indexExpr RPAREN
+                    // src/grammar/wcps.g:236:7: ( LPAREN e2= indexExpr RPAREN )
+                    // src/grammar/wcps.g:236:8: LPAREN e2= indexExpr RPAREN
                     {
                     LPAREN129=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_indexFactor2427); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -5910,7 +5907,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "stringScalarExpr"
-    // src/grammar/wcps.g:237:1: stringScalarExpr returns [StringScalarExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING );
+    // src/grammar/wcps.g:238:1: stringScalarExpr returns [StringScalarExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING );
     public final wcpsParser.stringScalarExpr_return stringScalarExpr() throws RecognitionException {
         wcpsParser.stringScalarExpr_return retval = new wcpsParser.stringScalarExpr_return();
         retval.start = input.LT(1);
@@ -5931,7 +5928,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 45) ) { return retval; }
-            // src/grammar/wcps.g:239:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING )
+            // src/grammar/wcps.g:240:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING )
             int alt40=2;
             int LA40_0 = input.LA(1);
 
@@ -5950,7 +5947,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt40) {
                 case 1 :
-                    // src/grammar/wcps.g:239:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
+                    // src/grammar/wcps.g:240:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5982,7 +5979,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:240:7: e= STRING
+                    // src/grammar/wcps.g:241:7: e= STRING
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6027,7 +6024,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "scaleExpr"
-    // src/grammar/wcps.g:242:1: scaleExpr returns [ScaleExpr value] : SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN ;
+    // src/grammar/wcps.g:243:1: scaleExpr returns [ScaleExpr value] : SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN ;
     public final wcpsParser.scaleExpr_return scaleExpr() throws RecognitionException {
         wcpsParser.scaleExpr_return retval = new wcpsParser.scaleExpr_return();
         retval.start = input.LT(1);
@@ -6054,8 +6051,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 46) ) { return retval; }
-            // src/grammar/wcps.g:243:2: ( SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN )
-            // src/grammar/wcps.g:243:4: SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN
+            // src/grammar/wcps.g:244:2: ( SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN )
+            // src/grammar/wcps.g:244:4: SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -6136,7 +6133,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "subsetExpr"
-    // src/grammar/wcps.g:246:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );
+    // src/grammar/wcps.g:247:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );
     public final wcpsParser.subsetExpr_return subsetExpr() throws RecognitionException {
         wcpsParser.subsetExpr_return retval = new wcpsParser.subsetExpr_return();
         retval.start = input.LT(1);
@@ -6153,12 +6150,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 47) ) { return retval; }
-            // src/grammar/wcps.g:247:2: (e1= trimExpr | e2= sliceExpr | e3= extendExpr )
+            // src/grammar/wcps.g:248:2: (e1= trimExpr | e2= sliceExpr | e3= extendExpr )
             int alt41=3;
             alt41 = dfa41.predict(input);
             switch (alt41) {
                 case 1 :
-                    // src/grammar/wcps.g:247:4: e1= trimExpr
+                    // src/grammar/wcps.g:248:4: e1= trimExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6175,7 +6172,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:248:4: e2= sliceExpr
+                    // src/grammar/wcps.g:249:4: e2= sliceExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6192,7 +6189,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/grammar/wcps.g:249:4: e3= extendExpr
+                    // src/grammar/wcps.g:250:4: e3= extendExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6238,7 +6235,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "trimExpr"
-    // src/grammar/wcps.g:251:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );
+    // src/grammar/wcps.g:252:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );
     public final wcpsParser.trimExpr_return trimExpr() throws RecognitionException {
         wcpsParser.trimExpr_return retval = new wcpsParser.trimExpr_return();
         retval.start = input.LT(1);
@@ -6271,12 +6268,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 48) ) { return retval; }
-            // src/grammar/wcps.g:252:2: (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN )
+            // src/grammar/wcps.g:253:2: (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN )
             int alt42=2;
             alt42 = dfa42.predict(input);
             switch (alt42) {
                 case 1 :
-                    // src/grammar/wcps.g:252:4: e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET
+                    // src/grammar/wcps.g:253:4: e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6309,7 +6306,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:253:6: TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN
+                    // src/grammar/wcps.g:254:6: TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6391,7 +6388,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "sliceExpr"
-    // src/grammar/wcps.g:255:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );
+    // src/grammar/wcps.g:256:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );
     public final wcpsParser.sliceExpr_return sliceExpr() throws RecognitionException {
         wcpsParser.sliceExpr_return retval = new wcpsParser.sliceExpr_return();
         retval.start = input.LT(1);
@@ -6424,12 +6421,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 49) ) { return retval; }
-            // src/grammar/wcps.g:256:2: (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN )
+            // src/grammar/wcps.g:257:2: (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN )
             int alt43=2;
             alt43 = dfa43.predict(input);
             switch (alt43) {
                 case 1 :
-                    // src/grammar/wcps.g:256:4: e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET
+                    // src/grammar/wcps.g:257:4: e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6462,7 +6459,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:257:4: SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN
+                    // src/grammar/wcps.g:258:4: SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6544,7 +6541,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "extendExpr"
-    // src/grammar/wcps.g:259:1: extendExpr returns [ExtendExpr value] : EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN ;
+    // src/grammar/wcps.g:260:1: extendExpr returns [ExtendExpr value] : EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN ;
     public final wcpsParser.extendExpr_return extendExpr() throws RecognitionException {
         wcpsParser.extendExpr_return retval = new wcpsParser.extendExpr_return();
         retval.start = input.LT(1);
@@ -6567,8 +6564,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 50) ) { return retval; }
-            // src/grammar/wcps.g:260:2: ( EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN )
-            // src/grammar/wcps.g:260:4: EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN
+            // src/grammar/wcps.g:261:2: ( EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN )
+            // src/grammar/wcps.g:261:4: EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -6638,7 +6635,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "castExpr"
-    // src/grammar/wcps.g:262:1: castExpr returns [CastExpr value] : LPAREN e1= rangeType RPAREN e2= coverageExpr ;
+    // src/grammar/wcps.g:263:1: castExpr returns [CastExpr value] : LPAREN e1= rangeType RPAREN e2= coverageExpr ;
     public final wcpsParser.castExpr_return castExpr() throws RecognitionException {
         wcpsParser.castExpr_return retval = new wcpsParser.castExpr_return();
         retval.start = input.LT(1);
@@ -6657,8 +6654,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 51) ) { return retval; }
-            // src/grammar/wcps.g:263:5: ( LPAREN e1= rangeType RPAREN e2= coverageExpr )
-            // src/grammar/wcps.g:263:7: LPAREN e1= rangeType RPAREN e2= coverageExpr
+            // src/grammar/wcps.g:264:5: ( LPAREN e1= rangeType RPAREN e2= coverageExpr )
+            // src/grammar/wcps.g:264:7: LPAREN e1= rangeType RPAREN e2= coverageExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -6718,7 +6715,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeType"
-    // src/grammar/wcps.g:265:1: rangeType returns [String value] : (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) );
+    // src/grammar/wcps.g:266:1: rangeType returns [String value] : (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) );
     public final wcpsParser.rangeType_return rangeType() throws RecognitionException {
         wcpsParser.rangeType_return retval = new wcpsParser.rangeType_return();
         retval.start = input.LT(1);
@@ -6733,7 +6730,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 52) ) { return retval; }
-            // src/grammar/wcps.g:266:5: (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) )
+            // src/grammar/wcps.g:267:5: (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) )
             int alt44=2;
             int LA44_0 = input.LA(1);
 
@@ -6752,7 +6749,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt44) {
                 case 1 :
-                    // src/grammar/wcps.g:266:7: type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 )
+                    // src/grammar/wcps.g:267:7: type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 )
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6775,7 +6772,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:267:7: UNSIGNED type= ( CHAR | SHORT | LONG )
+                    // src/grammar/wcps.g:268:7: UNSIGNED type= ( CHAR | SHORT | LONG )
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6832,7 +6829,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldExpr"
-    // src/grammar/wcps.g:269:1: fieldExpr returns [SelectExpr value] : e1= coverageAtom DOT e2= fieldName ;
+    // src/grammar/wcps.g:270:1: fieldExpr returns [SelectExpr value] : e1= coverageAtom DOT e2= fieldName ;
     public final wcpsParser.fieldExpr_return fieldExpr() throws RecognitionException {
         wcpsParser.fieldExpr_return retval = new wcpsParser.fieldExpr_return();
         retval.start = input.LT(1);
@@ -6849,8 +6846,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 53) ) { return retval; }
-            // src/grammar/wcps.g:270:5: (e1= coverageAtom DOT e2= fieldName )
-            // src/grammar/wcps.g:270:7: e1= coverageAtom DOT e2= fieldName
+            // src/grammar/wcps.g:271:5: (e1= coverageAtom DOT e2= fieldName )
+            // src/grammar/wcps.g:271:7: e1= coverageAtom DOT e2= fieldName
             {
             root_0 = (Object)adaptor.nil();
 
@@ -6905,7 +6902,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanScalarExpr"
-    // src/grammar/wcps.g:274:1: booleanScalarExpr returns [BooleanScalarExpr value] : e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* ;
+    // src/grammar/wcps.g:275:1: booleanScalarExpr returns [BooleanScalarExpr value] : e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* ;
     public final wcpsParser.booleanScalarExpr_return booleanScalarExpr() throws RecognitionException {
         wcpsParser.booleanScalarExpr_return retval = new wcpsParser.booleanScalarExpr_return();
         retval.start = input.LT(1);
@@ -6922,8 +6919,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 54) ) { return retval; }
-            // src/grammar/wcps.g:275:5: (e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* )
-            // src/grammar/wcps.g:275:7: e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )*
+            // src/grammar/wcps.g:276:5: (e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* )
+            // src/grammar/wcps.g:276:7: e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -6936,14 +6933,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/grammar/wcps.g:276:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*
+            // src/grammar/wcps.g:277:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*
             loop45:
             do {
                 int alt45=2;
                 alt45 = dfa45.predict(input);
                 switch (alt45) {
             	case 1 :
-            	    // src/grammar/wcps.g:276:8: op= ( OR | XOR ) e2= booleanScalarTerm
+            	    // src/grammar/wcps.g:277:8: op= ( OR | XOR ) e2= booleanScalarTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -7006,7 +7003,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanScalarTerm"
-    // src/grammar/wcps.g:278:1: booleanScalarTerm returns [BooleanScalarExpr value] : e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* ;
+    // src/grammar/wcps.g:279:1: booleanScalarTerm returns [BooleanScalarExpr value] : e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* ;
     public final wcpsParser.booleanScalarTerm_return booleanScalarTerm() throws RecognitionException {
         wcpsParser.booleanScalarTerm_return retval = new wcpsParser.booleanScalarTerm_return();
         retval.start = input.LT(1);
@@ -7023,8 +7020,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 55) ) { return retval; }
-            // src/grammar/wcps.g:279:2: (e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* )
-            // src/grammar/wcps.g:279:4: e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )*
+            // src/grammar/wcps.g:280:2: (e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* )
+            // src/grammar/wcps.g:280:4: e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -7037,14 +7034,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/grammar/wcps.g:280:4: (op= AND e2= booleanScalarNegation )*
+            // src/grammar/wcps.g:281:4: (op= AND e2= booleanScalarNegation )*
             loop46:
             do {
                 int alt46=2;
                 alt46 = dfa46.predict(input);
                 switch (alt46) {
             	case 1 :
-            	    // src/grammar/wcps.g:280:5: op= AND e2= booleanScalarNegation
+            	    // src/grammar/wcps.g:281:5: op= AND e2= booleanScalarNegation
             	    {
             	    op=(Token)match(input,AND,FOLLOW_AND_in_booleanScalarTerm2881); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -7100,7 +7097,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanScalarNegation"
-    // src/grammar/wcps.g:282:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );
+    // src/grammar/wcps.g:283:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );
     public final wcpsParser.booleanScalarNegation_return booleanScalarNegation() throws RecognitionException {
         wcpsParser.booleanScalarNegation_return retval = new wcpsParser.booleanScalarNegation_return();
         retval.start = input.LT(1);
@@ -7115,12 +7112,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 56) ) { return retval; }
-            // src/grammar/wcps.g:283:2: (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom )
+            // src/grammar/wcps.g:284:2: (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom )
             int alt47=2;
             alt47 = dfa47.predict(input);
             switch (alt47) {
                 case 1 :
-                    // src/grammar/wcps.g:283:4: e1= booleanScalarAtom
+                    // src/grammar/wcps.g:284:4: e1= booleanScalarAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7137,7 +7134,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:284:4: op= NOT e1= booleanScalarAtom
+                    // src/grammar/wcps.g:285:4: op= NOT e1= booleanScalarAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7188,7 +7185,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanScalarAtom"
-    // src/grammar/wcps.g:286:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );
+    // src/grammar/wcps.g:287:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );
     public final wcpsParser.booleanScalarAtom_return booleanScalarAtom() throws RecognitionException {
         wcpsParser.booleanScalarAtom_return retval = new wcpsParser.booleanScalarAtom_return();
         retval.start = input.LT(1);
@@ -7217,12 +7214,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 57) ) { return retval; }
-            // src/grammar/wcps.g:287:2: ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT )
+            // src/grammar/wcps.g:288:2: ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT )
             int alt48=4;
             alt48 = dfa48.predict(input);
             switch (alt48) {
                 case 1 :
-                    // src/grammar/wcps.g:287:4: LPAREN e1= booleanScalarExpr RPAREN
+                    // src/grammar/wcps.g:288:4: LPAREN e1= booleanScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7249,7 +7246,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:288:4: s1= stringScalarExpr cop= compOp s2= stringScalarExpr
+                    // src/grammar/wcps.g:289:4: s1= stringScalarExpr cop= compOp s2= stringScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7278,7 +7275,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/grammar/wcps.g:289:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
+                    // src/grammar/wcps.g:290:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7307,7 +7304,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/grammar/wcps.g:290:4: e= BOOLEANCONSTANT
+                    // src/grammar/wcps.g:291:4: e= BOOLEANCONSTANT
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7352,7 +7349,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "numericScalarExpr"
-    // src/grammar/wcps.g:292:1: numericScalarExpr returns [NumericScalarExpr value] : e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* ;
+    // src/grammar/wcps.g:293:1: numericScalarExpr returns [NumericScalarExpr value] : e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* ;
     public final wcpsParser.numericScalarExpr_return numericScalarExpr() throws RecognitionException {
         wcpsParser.numericScalarExpr_return retval = new wcpsParser.numericScalarExpr_return();
         retval.start = input.LT(1);
@@ -7369,8 +7366,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 58) ) { return retval; }
-            // src/grammar/wcps.g:293:2: (e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* )
-            // src/grammar/wcps.g:293:4: e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
+            // src/grammar/wcps.g:294:2: (e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* )
+            // src/grammar/wcps.g:294:4: e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -7383,14 +7380,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null); 
             }
-            // src/grammar/wcps.g:294:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
+            // src/grammar/wcps.g:295:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
             loop49:
             do {
                 int alt49=2;
                 alt49 = dfa49.predict(input);
                 switch (alt49) {
             	case 1 :
-            	    // src/grammar/wcps.g:294:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
+            	    // src/grammar/wcps.g:295:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -7453,7 +7450,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "numericScalarTerm"
-    // src/grammar/wcps.g:296:1: numericScalarTerm returns [NumericScalarExpr value] : e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* ;
+    // src/grammar/wcps.g:297:1: numericScalarTerm returns [NumericScalarExpr value] : e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* ;
     public final wcpsParser.numericScalarTerm_return numericScalarTerm() throws RecognitionException {
         wcpsParser.numericScalarTerm_return retval = new wcpsParser.numericScalarTerm_return();
         retval.start = input.LT(1);
@@ -7470,8 +7467,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 59) ) { return retval; }
-            // src/grammar/wcps.g:297:2: (e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* )
-            // src/grammar/wcps.g:297:4: e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
+            // src/grammar/wcps.g:298:2: (e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* )
+            // src/grammar/wcps.g:298:4: e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -7484,14 +7481,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/grammar/wcps.g:298:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
+            // src/grammar/wcps.g:299:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
             loop50:
             do {
                 int alt50=2;
                 alt50 = dfa50.predict(input);
                 switch (alt50) {
             	case 1 :
-            	    // src/grammar/wcps.g:298:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
+            	    // src/grammar/wcps.g:299:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -7554,7 +7551,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "numericScalarFactor"
-    // src/grammar/wcps.g:300:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );
+    // src/grammar/wcps.g:301:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );
     public final wcpsParser.numericScalarFactor_return numericScalarFactor() throws RecognitionException {
         wcpsParser.numericScalarFactor_return retval = new wcpsParser.numericScalarFactor_return();
         retval.start = input.LT(1);
@@ -7587,12 +7584,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 60) ) { return retval; }
-            // src/grammar/wcps.g:301:5: ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName )
+            // src/grammar/wcps.g:302:5: ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName )
             int alt51=8;
             alt51 = dfa51.predict(input);
             switch (alt51) {
                 case 1 :
-                    // src/grammar/wcps.g:301:7: LPAREN e1= numericScalarExpr RPAREN
+                    // src/grammar/wcps.g:302:7: LPAREN e1= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7619,7 +7616,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:302:7: op= MINUS e10= numericScalarFactor
+                    // src/grammar/wcps.g:303:7: op= MINUS e10= numericScalarFactor
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7641,7 +7638,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/grammar/wcps.g:303:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
+                    // src/grammar/wcps.g:304:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7673,7 +7670,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/grammar/wcps.g:304:7: e= INTEGERCONSTANT
+                    // src/grammar/wcps.g:305:7: e= INTEGERCONSTANT
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7689,7 +7686,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/grammar/wcps.g:305:7: e= FLOATCONSTANT
+                    // src/grammar/wcps.g:306:7: e= FLOATCONSTANT
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7705,7 +7702,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/grammar/wcps.g:306:7: e2= complexConstant
+                    // src/grammar/wcps.g:307:7: e2= complexConstant
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7722,7 +7719,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // src/grammar/wcps.g:307:7: e3= condenseExpr
+                    // src/grammar/wcps.g:308:7: e3= condenseExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7739,7 +7736,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // src/grammar/wcps.g:308:7: e4= variableName
+                    // src/grammar/wcps.g:309:7: e4= variableName
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7785,7 +7782,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "compOp"
-    // src/grammar/wcps.g:310:1: compOp returns [String value] : ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE );
+    // src/grammar/wcps.g:311:1: compOp returns [String value] : ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE );
     public final wcpsParser.compOp_return compOp() throws RecognitionException {
         wcpsParser.compOp_return retval = new wcpsParser.compOp_return();
         retval.start = input.LT(1);
@@ -7808,7 +7805,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 61) ) { return retval; }
-            // src/grammar/wcps.g:311:2: ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE )
+            // src/grammar/wcps.g:312:2: ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE )
             int alt52=6;
             switch ( input.LA(1) ) {
             case EQUALS:
@@ -7851,7 +7848,7 @@ public class wcpsParser extends Parser {
 
             switch (alt52) {
                 case 1 :
-                    // src/grammar/wcps.g:311:4: EQUALS
+                    // src/grammar/wcps.g:312:4: EQUALS
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7867,7 +7864,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:312:4: NOTEQUALS
+                    // src/grammar/wcps.g:313:4: NOTEQUALS
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7883,7 +7880,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/grammar/wcps.g:313:4: LT
+                    // src/grammar/wcps.g:314:4: LT
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7899,7 +7896,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/grammar/wcps.g:314:4: GT
+                    // src/grammar/wcps.g:315:4: GT
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7915,7 +7912,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/grammar/wcps.g:315:4: LTE
+                    // src/grammar/wcps.g:316:4: LTE
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7931,7 +7928,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/grammar/wcps.g:316:4: GTE
+                    // src/grammar/wcps.g:317:4: GTE
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7976,7 +7973,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionIntervalList"
-    // src/grammar/wcps.g:318:1: dimensionIntervalList returns [DimensionIntervalList value] : elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* ;
+    // src/grammar/wcps.g:319:1: dimensionIntervalList returns [DimensionIntervalList value] : elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* ;
     public final wcpsParser.dimensionIntervalList_return dimensionIntervalList() throws RecognitionException {
         wcpsParser.dimensionIntervalList_return retval = new wcpsParser.dimensionIntervalList_return();
         retval.start = input.LT(1);
@@ -7991,8 +7988,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 62) ) { return retval; }
-            // src/grammar/wcps.g:319:5: (elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* )
-            // src/grammar/wcps.g:319:7: elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )*
+            // src/grammar/wcps.g:320:5: (elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* )
+            // src/grammar/wcps.g:320:7: elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -8005,7 +8002,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new DimensionIntervalList((elem!=null?elem.value:null)); 
             }
-            // src/grammar/wcps.g:320:9: ( COMMA elem= dimensionIntervalElement )*
+            // src/grammar/wcps.g:321:9: ( COMMA elem= dimensionIntervalElement )*
             loop53:
             do {
                 int alt53=2;
@@ -8024,7 +8021,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt53) {
             	case 1 :
-            	    // src/grammar/wcps.g:320:10: COMMA elem= dimensionIntervalElement
+            	    // src/grammar/wcps.g:321:10: COMMA elem= dimensionIntervalElement
             	    {
             	    COMMA174=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionIntervalList3264); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -8080,7 +8077,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionIntervalElement"
-    // src/grammar/wcps.g:322:1: dimensionIntervalElement returns [DimensionIntervalElement value] : aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN ;
+    // src/grammar/wcps.g:323:1: dimensionIntervalElement returns [DimensionIntervalElement value] : aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN ;
     public final wcpsParser.dimensionIntervalElement_return dimensionIntervalElement() throws RecognitionException {
         wcpsParser.dimensionIntervalElement_return retval = new wcpsParser.dimensionIntervalElement_return();
         retval.start = input.LT(1);
@@ -8103,8 +8100,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 63) ) { return retval; }
-            // src/grammar/wcps.g:323:5: (aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN )
-            // src/grammar/wcps.g:323:7: aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN
+            // src/grammar/wcps.g:324:5: (aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN )
+            // src/grammar/wcps.g:324:7: aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -8117,7 +8114,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new DimensionIntervalElement((aname!=null?aname.value:null)); 
             }
-            // src/grammar/wcps.g:323:79: ( COLON crs= crsName )?
+            // src/grammar/wcps.g:324:79: ( COLON crs= crsName )?
             int alt54=2;
             int LA54_0 = input.LA(1);
 
@@ -8126,7 +8123,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt54) {
                 case 1 :
-                    // src/grammar/wcps.g:323:80: COLON crs= crsName
+                    // src/grammar/wcps.g:324:80: COLON crs= crsName
                     {
                     COLON175=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalElement3298); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -8198,7 +8195,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionIntervalExpr"
-    // src/grammar/wcps.g:326:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );
+    // src/grammar/wcps.g:327:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );
     public final wcpsParser.dimensionIntervalExpr_return dimensionIntervalExpr() throws RecognitionException {
         wcpsParser.dimensionIntervalExpr_return retval = new wcpsParser.dimensionIntervalExpr_return();
         retval.start = input.LT(1);
@@ -8231,12 +8228,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 64) ) { return retval; }
-            // src/grammar/wcps.g:327:5: (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN )
+            // src/grammar/wcps.g:328:5: (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN )
             int alt55=2;
             alt55 = dfa55.predict(input);
             switch (alt55) {
                 case 1 :
-                    // src/grammar/wcps.g:327:7: e1= scalarExpr COLON e2= scalarExpr
+                    // src/grammar/wcps.g:328:7: e1= scalarExpr COLON e2= scalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -8264,7 +8261,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:328:7: DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN
+                    // src/grammar/wcps.g:329:7: DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -8347,7 +8344,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionPointList"
-    // src/grammar/wcps.g:330:1: dimensionPointList returns [DimensionPointList value] : elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* ;
+    // src/grammar/wcps.g:331:1: dimensionPointList returns [DimensionPointList value] : elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* ;
     public final wcpsParser.dimensionPointList_return dimensionPointList() throws RecognitionException {
         wcpsParser.dimensionPointList_return retval = new wcpsParser.dimensionPointList_return();
         retval.start = input.LT(1);
@@ -8364,8 +8361,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 65) ) { return retval; }
-            // src/grammar/wcps.g:331:5: (elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* )
-            // src/grammar/wcps.g:331:7: elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )*
+            // src/grammar/wcps.g:332:5: (elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* )
+            // src/grammar/wcps.g:332:7: elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -8378,7 +8375,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new DimensionPointList((elem1!=null?elem1.value:null)); 
             }
-            // src/grammar/wcps.g:332:6: ( COMMA elem2= dimensionPointElement )*
+            // src/grammar/wcps.g:333:6: ( COMMA elem2= dimensionPointElement )*
             loop56:
             do {
                 int alt56=2;
@@ -8391,7 +8388,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt56) {
             	case 1 :
-            	    // src/grammar/wcps.g:332:7: COMMA elem2= dimensionPointElement
+            	    // src/grammar/wcps.g:333:7: COMMA elem2= dimensionPointElement
             	    {
             	    COMMA184=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionPointList3411); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -8447,7 +8444,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionPointElement"
-    // src/grammar/wcps.g:334:1: dimensionPointElement returns [DimensionPointElement value] : (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN );
+    // src/grammar/wcps.g:335:1: dimensionPointElement returns [DimensionPointElement value] : (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN );
     public final wcpsParser.dimensionPointElement_return dimensionPointElement() throws RecognitionException {
         wcpsParser.dimensionPointElement_return retval = new wcpsParser.dimensionPointElement_return();
         retval.start = input.LT(1);
@@ -8474,7 +8471,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 66) ) { return retval; }
-            // src/grammar/wcps.g:335:5: (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN )
+            // src/grammar/wcps.g:336:5: (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN )
             int alt57=2;
             int LA57_0 = input.LA(1);
 
@@ -8504,7 +8501,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt57) {
                 case 1 :
-                    // src/grammar/wcps.g:335:7: aname= axisName LPAREN dpe= dimensionPoint RPAREN
+                    // src/grammar/wcps.g:336:7: aname= axisName LPAREN dpe= dimensionPoint RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -8537,7 +8534,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:336:7: aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN
+                    // src/grammar/wcps.g:337:7: aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -8610,7 +8607,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionPoint"
-    // src/grammar/wcps.g:338:1: dimensionPoint returns [ScalarExpr value] : e1= scalarExpr ;
+    // src/grammar/wcps.g:339:1: dimensionPoint returns [ScalarExpr value] : e1= scalarExpr ;
     public final wcpsParser.dimensionPoint_return dimensionPoint() throws RecognitionException {
         wcpsParser.dimensionPoint_return retval = new wcpsParser.dimensionPoint_return();
         retval.start = input.LT(1);
@@ -8623,8 +8620,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 67) ) { return retval; }
-            // src/grammar/wcps.g:339:5: (e1= scalarExpr )
-            // src/grammar/wcps.g:339:7: e1= scalarExpr
+            // src/grammar/wcps.g:340:5: (e1= scalarExpr )
+            // src/grammar/wcps.g:340:7: e1= scalarExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -8668,7 +8665,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "interpolationMethod"
-    // src/grammar/wcps.g:341:1: interpolationMethod returns [InterpolationMethod value] : LPAREN type= interpolationType COLON res= nullResistence RPAREN ;
+    // src/grammar/wcps.g:342:1: interpolationMethod returns [InterpolationMethod value] : LPAREN type= interpolationType COLON res= nullResistence RPAREN ;
     public final wcpsParser.interpolationMethod_return interpolationMethod() throws RecognitionException {
         wcpsParser.interpolationMethod_return retval = new wcpsParser.interpolationMethod_return();
         retval.start = input.LT(1);
@@ -8689,8 +8686,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 68) ) { return retval; }
-            // src/grammar/wcps.g:342:2: ( LPAREN type= interpolationType COLON res= nullResistence RPAREN )
-            // src/grammar/wcps.g:342:4: LPAREN type= interpolationType COLON res= nullResistence RPAREN
+            // src/grammar/wcps.g:343:2: ( LPAREN type= interpolationType COLON res= nullResistence RPAREN )
+            // src/grammar/wcps.g:343:4: LPAREN type= interpolationType COLON res= nullResistence RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -8755,7 +8752,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "interpolationType"
-    // src/grammar/wcps.g:344:1: interpolationType returns [String value] : type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) ;
+    // src/grammar/wcps.g:345:1: interpolationType returns [String value] : type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) ;
     public final wcpsParser.interpolationType_return interpolationType() throws RecognitionException {
         wcpsParser.interpolationType_return retval = new wcpsParser.interpolationType_return();
         retval.start = input.LT(1);
@@ -8768,8 +8765,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 69) ) { return retval; }
-            // src/grammar/wcps.g:345:2: (type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) )
-            // src/grammar/wcps.g:345:4: type= ( NEAREST | LINEAR | QUADRATIC | CUBIC )
+            // src/grammar/wcps.g:346:2: (type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) )
+            // src/grammar/wcps.g:346:4: type= ( NEAREST | LINEAR | QUADRATIC | CUBIC )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -8819,7 +8816,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "nullResistence"
-    // src/grammar/wcps.g:347:1: nullResistence returns [String value] : resistance= ( FULL | NONE | HALF | OTHER ) ;
+    // src/grammar/wcps.g:348:1: nullResistence returns [String value] : resistance= ( FULL | NONE | HALF | OTHER ) ;
     public final wcpsParser.nullResistence_return nullResistence() throws RecognitionException {
         wcpsParser.nullResistence_return retval = new wcpsParser.nullResistence_return();
         retval.start = input.LT(1);
@@ -8832,8 +8829,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 70) ) { return retval; }
-            // src/grammar/wcps.g:348:2: (resistance= ( FULL | NONE | HALF | OTHER ) )
-            // src/grammar/wcps.g:348:4: resistance= ( FULL | NONE | HALF | OTHER )
+            // src/grammar/wcps.g:349:2: (resistance= ( FULL | NONE | HALF | OTHER ) )
+            // src/grammar/wcps.g:349:4: resistance= ( FULL | NONE | HALF | OTHER )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -8883,7 +8880,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "condenseOpType"
-    // src/grammar/wcps.g:350:1: condenseOpType returns [CondenseOperation value] : op= ( PLUS | MULT | MAX | MIN | AND | OR ) ;
+    // src/grammar/wcps.g:351:1: condenseOpType returns [CondenseOperation value] : op= ( PLUS | MULT | MAX | MIN | AND | OR ) ;
     public final wcpsParser.condenseOpType_return condenseOpType() throws RecognitionException {
         wcpsParser.condenseOpType_return retval = new wcpsParser.condenseOpType_return();
         retval.start = input.LT(1);
@@ -8896,8 +8893,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 71) ) { return retval; }
-            // src/grammar/wcps.g:351:2: (op= ( PLUS | MULT | MAX | MIN | AND | OR ) )
-            // src/grammar/wcps.g:351:4: op= ( PLUS | MULT | MAX | MIN | AND | OR )
+            // src/grammar/wcps.g:352:2: (op= ( PLUS | MULT | MAX | MIN | AND | OR ) )
+            // src/grammar/wcps.g:352:4: op= ( PLUS | MULT | MAX | MIN | AND | OR )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -8947,7 +8944,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldName"
-    // src/grammar/wcps.g:353:1: fieldName returns [String value] : name ;
+    // src/grammar/wcps.g:354:1: fieldName returns [String value] : name ;
     public final wcpsParser.fieldName_return fieldName() throws RecognitionException {
         wcpsParser.fieldName_return retval = new wcpsParser.fieldName_return();
         retval.start = input.LT(1);
@@ -8960,8 +8957,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 72) ) { return retval; }
-            // src/grammar/wcps.g:354:2: ( name )
-            // src/grammar/wcps.g:354:4: name
+            // src/grammar/wcps.g:355:2: ( name )
+            // src/grammar/wcps.g:355:4: name
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9005,7 +9002,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "constant"
-    // src/grammar/wcps.g:356:1: constant returns [String value] : (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant );
+    // src/grammar/wcps.g:357:1: constant returns [String value] : (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant );
     public final wcpsParser.constant_return constant() throws RecognitionException {
         wcpsParser.constant_return retval = new wcpsParser.constant_return();
         retval.start = input.LT(1);
@@ -9020,7 +9017,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 73) ) { return retval; }
-            // src/grammar/wcps.g:357:2: (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant )
+            // src/grammar/wcps.g:358:2: (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant )
             int alt58=2;
             int LA58_0 = input.LA(1);
 
@@ -9039,7 +9036,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt58) {
                 case 1 :
-                    // src/grammar/wcps.g:357:4: e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT )
+                    // src/grammar/wcps.g:358:4: e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT )
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -9062,7 +9059,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:358:4: e1= complexConstant
+                    // src/grammar/wcps.g:359:4: e1= complexConstant
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -9108,7 +9105,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "complexConstant"
-    // src/grammar/wcps.g:360:1: complexConstant returns [String value] : LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN ;
+    // src/grammar/wcps.g:361:1: complexConstant returns [String value] : LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN ;
     public final wcpsParser.complexConstant_return complexConstant() throws RecognitionException {
         wcpsParser.complexConstant_return retval = new wcpsParser.complexConstant_return();
         retval.start = input.LT(1);
@@ -9129,8 +9126,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 74) ) { return retval; }
-            // src/grammar/wcps.g:361:2: ( LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN )
-            // src/grammar/wcps.g:361:4: LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN
+            // src/grammar/wcps.g:362:2: ( LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN )
+            // src/grammar/wcps.g:362:4: LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9193,7 +9190,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "stringConstant"
-    // src/grammar/wcps.g:363:1: stringConstant returns [String value] : s= STRING ;
+    // src/grammar/wcps.g:364:1: stringConstant returns [String value] : s= STRING ;
     public final wcpsParser.stringConstant_return stringConstant() throws RecognitionException {
         wcpsParser.stringConstant_return retval = new wcpsParser.stringConstant_return();
         retval.start = input.LT(1);
@@ -9206,8 +9203,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 75) ) { return retval; }
-            // src/grammar/wcps.g:364:2: (s= STRING )
-            // src/grammar/wcps.g:364:4: s= STRING
+            // src/grammar/wcps.g:365:2: (s= STRING )
+            // src/grammar/wcps.g:365:4: s= STRING
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9250,7 +9247,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "name"
-    // src/grammar/wcps.g:366:1: name returns [String value] : var= ( NAME | STRING | INTEGERCONSTANT ) ;
+    // src/grammar/wcps.g:367:1: name returns [String value] : var= ( NAME | STRING | INTEGERCONSTANT ) ;
     public final wcpsParser.name_return name() throws RecognitionException {
         wcpsParser.name_return retval = new wcpsParser.name_return();
         retval.start = input.LT(1);
@@ -9263,8 +9260,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 76) ) { return retval; }
-            // src/grammar/wcps.g:367:2: (var= ( NAME | STRING | INTEGERCONSTANT ) )
-            // src/grammar/wcps.g:367:4: var= ( NAME | STRING | INTEGERCONSTANT )
+            // src/grammar/wcps.g:368:2: (var= ( NAME | STRING | INTEGERCONSTANT ) )
+            // src/grammar/wcps.g:368:4: var= ( NAME | STRING | INTEGERCONSTANT )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9314,7 +9311,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "crsName"
-    // src/grammar/wcps.g:369:1: crsName returns [String value] : s= stringConstant ;
+    // src/grammar/wcps.g:370:1: crsName returns [String value] : s= stringConstant ;
     public final wcpsParser.crsName_return crsName() throws RecognitionException {
         wcpsParser.crsName_return retval = new wcpsParser.crsName_return();
         retval.start = input.LT(1);
@@ -9327,8 +9324,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 77) ) { return retval; }
-            // src/grammar/wcps.g:370:2: (s= stringConstant )
-            // src/grammar/wcps.g:370:4: s= stringConstant
+            // src/grammar/wcps.g:371:2: (s= stringConstant )
+            // src/grammar/wcps.g:371:4: s= stringConstant
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9372,7 +9369,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "axisName"
-    // src/grammar/wcps.g:372:1: axisName returns [String value] : type1= name ;
+    // src/grammar/wcps.g:373:1: axisName returns [String value] : type1= name ;
     public final wcpsParser.axisName_return axisName() throws RecognitionException {
         wcpsParser.axisName_return retval = new wcpsParser.axisName_return();
         retval.start = input.LT(1);
@@ -9385,8 +9382,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 78) ) { return retval; }
-            // src/grammar/wcps.g:373:2: (type1= name )
-            // src/grammar/wcps.g:373:4: type1= name
+            // src/grammar/wcps.g:374:2: (type1= name )
+            // src/grammar/wcps.g:374:4: type1= name
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9430,7 +9427,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "variableName"
-    // src/grammar/wcps.g:375:1: variableName returns [String value] : var= VARIABLE_DOLLAR ;
+    // src/grammar/wcps.g:376:1: variableName returns [String value] : var= VARIABLE_DOLLAR ;
     public final wcpsParser.variableName_return variableName() throws RecognitionException {
         wcpsParser.variableName_return retval = new wcpsParser.variableName_return();
         retval.start = input.LT(1);
@@ -9443,8 +9440,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 79) ) { return retval; }
-            // src/grammar/wcps.g:376:2: (var= VARIABLE_DOLLAR )
-            // src/grammar/wcps.g:376:4: var= VARIABLE_DOLLAR
+            // src/grammar/wcps.g:377:2: (var= VARIABLE_DOLLAR )
+            // src/grammar/wcps.g:377:4: var= VARIABLE_DOLLAR
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9487,7 +9484,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageVariable"
-    // src/grammar/wcps.g:378:1: coverageVariable returns [String value] : var= NAME ;
+    // src/grammar/wcps.g:379:1: coverageVariable returns [String value] : var= NAME ;
     public final wcpsParser.coverageVariable_return coverageVariable() throws RecognitionException {
         wcpsParser.coverageVariable_return retval = new wcpsParser.coverageVariable_return();
         retval.start = input.LT(1);
@@ -9500,8 +9497,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 80) ) { return retval; }
-            // src/grammar/wcps.g:379:2: (var= NAME )
-            // src/grammar/wcps.g:379:4: var= NAME
+            // src/grammar/wcps.g:380:2: (var= NAME )
+            // src/grammar/wcps.g:380:4: var= NAME
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9544,7 +9541,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageName"
-    // src/grammar/wcps.g:381:1: coverageName returns [String value] : name ;
+    // src/grammar/wcps.g:382:1: coverageName returns [String value] : name ;
     public final wcpsParser.coverageName_return coverageName() throws RecognitionException {
         wcpsParser.coverageName_return retval = new wcpsParser.coverageName_return();
         retval.start = input.LT(1);
@@ -9557,8 +9554,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 81) ) { return retval; }
-            // src/grammar/wcps.g:382:2: ( name )
-            // src/grammar/wcps.g:382:4: name
+            // src/grammar/wcps.g:383:2: ( name )
+            // src/grammar/wcps.g:383:4: name
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9601,8 +9598,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageLogicTerm_return e2 = null;
 
 
-        // src/grammar/wcps.g:65:10: (op= ( OR | XOR ) e2= coverageLogicTerm )
-        // src/grammar/wcps.g:65:10: op= ( OR | XOR ) e2= coverageLogicTerm
+        // src/grammar/wcps.g:66:10: (op= ( OR | XOR ) e2= coverageLogicTerm )
+        // src/grammar/wcps.g:66:10: op= ( OR | XOR ) e2= coverageLogicTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -9631,8 +9628,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageLogicFactor_return e2 = null;
 
 
-        // src/grammar/wcps.g:69:10: (op= AND e2= coverageLogicFactor )
-        // src/grammar/wcps.g:69:10: op= AND e2= coverageLogicFactor
+        // src/grammar/wcps.g:70:10: (op= AND e2= coverageLogicFactor )
+        // src/grammar/wcps.g:70:10: op= AND e2= coverageLogicFactor
         {
         op=(Token)match(input,AND,FOLLOW_AND_in_synpred9_wcps416); if (state.failed) return ;
         pushFollow(FOLLOW_coverageLogicFactor_in_synpred9_wcps420);
@@ -9651,8 +9648,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageArithmeticExpr_return e2 = null;
 
 
-        // src/grammar/wcps.g:73:10: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )
-        // src/grammar/wcps.g:73:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
+        // src/grammar/wcps.g:74:10: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )
+        // src/grammar/wcps.g:74:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=EQUALS && input.LA(1)<=GTE) ) {
@@ -9681,8 +9678,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageArithmeticTerm_return e2 = null;
 
 
-        // src/grammar/wcps.g:77:10: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )
-        // src/grammar/wcps.g:77:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
+        // src/grammar/wcps.g:78:10: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )
+        // src/grammar/wcps.g:78:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -9711,8 +9708,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageArithmeticFactor_return e2 = null;
 
 
-        // src/grammar/wcps.g:81:10: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )
-        // src/grammar/wcps.g:81:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
+        // src/grammar/wcps.g:82:10: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )
+        // src/grammar/wcps.g:82:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -9741,8 +9738,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageValue_return e2 = null;
 
 
-        // src/grammar/wcps.g:85:10: (op= OVERLAY e2= coverageValue )
-        // src/grammar/wcps.g:85:10: op= OVERLAY e2= coverageValue
+        // src/grammar/wcps.g:86:10: (op= OVERLAY e2= coverageValue )
+        // src/grammar/wcps.g:86:10: op= OVERLAY e2= coverageValue
         {
         op=(Token)match(input,OVERLAY,FOLLOW_OVERLAY_in_synpred20_wcps625); if (state.failed) return ;
         pushFollow(FOLLOW_coverageValue_in_synpred20_wcps629);
@@ -9760,8 +9757,8 @@ public class wcpsParser extends Parser {
         wcpsParser.subsetExpr_return e5 = null;
 
 
-        // src/grammar/wcps.g:88:7: (e5= subsetExpr )
-        // src/grammar/wcps.g:88:7: e5= subsetExpr
+        // src/grammar/wcps.g:89:7: (e5= subsetExpr )
+        // src/grammar/wcps.g:89:7: e5= subsetExpr
         {
         pushFollow(FOLLOW_subsetExpr_in_synpred21_wcps655);
         e5=subsetExpr();
@@ -9778,8 +9775,8 @@ public class wcpsParser extends Parser {
         wcpsParser.unaryInducedExpr_return e2 = null;
 
 
-        // src/grammar/wcps.g:89:7: (e2= unaryInducedExpr )
-        // src/grammar/wcps.g:89:7: e2= unaryInducedExpr
+        // src/grammar/wcps.g:90:7: (e2= unaryInducedExpr )
+        // src/grammar/wcps.g:90:7: e2= unaryInducedExpr
         {
         pushFollow(FOLLOW_unaryInducedExpr_in_synpred22_wcps668);
         e2=unaryInducedExpr();
@@ -9796,8 +9793,8 @@ public class wcpsParser extends Parser {
         wcpsParser.scalarExpr_return e2 = null;
 
 
-        // src/grammar/wcps.g:95:7: (e2= scalarExpr )
-        // src/grammar/wcps.g:95:7: e2= scalarExpr
+        // src/grammar/wcps.g:96:7: (e2= scalarExpr )
+        // src/grammar/wcps.g:96:7: e2= scalarExpr
         {
         pushFollow(FOLLOW_scalarExpr_in_synpred25_wcps727);
         e2=scalarExpr();
@@ -9814,8 +9811,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageExpr_return e7 = null;
 
 
-        // src/grammar/wcps.g:97:7: ( LPAREN e7= coverageExpr RPAREN )
-        // src/grammar/wcps.g:97:7: LPAREN e7= coverageExpr RPAREN
+        // src/grammar/wcps.g:98:7: ( LPAREN e7= coverageExpr RPAREN )
+        // src/grammar/wcps.g:98:7: LPAREN e7= coverageExpr RPAREN
         {
         match(input,LPAREN,FOLLOW_LPAREN_in_synpred27_wcps749); if (state.failed) return ;
         pushFollow(FOLLOW_coverageExpr_in_synpred27_wcps753);
@@ -9834,8 +9831,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageConstantExpr_return e3 = null;
 
 
-        // src/grammar/wcps.g:98:7: (e3= coverageConstantExpr )
-        // src/grammar/wcps.g:98:7: e3= coverageConstantExpr
+        // src/grammar/wcps.g:99:7: (e3= coverageConstantExpr )
+        // src/grammar/wcps.g:99:7: e3= coverageConstantExpr
         {
         pushFollow(FOLLOW_coverageConstantExpr_in_synpred28_wcps768);
         e3=coverageConstantExpr();
@@ -9852,8 +9849,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageConstructorExpr_return e4 = null;
 
 
-        // src/grammar/wcps.g:99:7: (e4= coverageConstructorExpr )
-        // src/grammar/wcps.g:99:7: e4= coverageConstructorExpr
+        // src/grammar/wcps.g:100:7: (e4= coverageConstructorExpr )
+        // src/grammar/wcps.g:100:7: e4= coverageConstructorExpr
         {
         pushFollow(FOLLOW_coverageConstructorExpr_in_synpred29_wcps780);
         e4=coverageConstructorExpr();
@@ -9870,8 +9867,8 @@ public class wcpsParser extends Parser {
         wcpsParser.metaDataExpr_return e1 = null;
 
 
-        // src/grammar/wcps.g:104:7: (e1= metaDataExpr )
-        // src/grammar/wcps.g:104:7: e1= metaDataExpr
+        // src/grammar/wcps.g:105:7: (e1= metaDataExpr )
+        // src/grammar/wcps.g:105:7: e1= metaDataExpr
         {
         pushFollow(FOLLOW_metaDataExpr_in_synpred31_wcps830);
         e1=metaDataExpr();
@@ -9888,8 +9885,8 @@ public class wcpsParser extends Parser {
         wcpsParser.condenseExpr_return e2 = null;
 
 
-        // src/grammar/wcps.g:105:7: (e2= condenseExpr )
-        // src/grammar/wcps.g:105:7: e2= condenseExpr
+        // src/grammar/wcps.g:106:7: (e2= condenseExpr )
+        // src/grammar/wcps.g:106:7: e2= condenseExpr
         {
         pushFollow(FOLLOW_condenseExpr_in_synpred32_wcps843);
         e2=condenseExpr();
@@ -9906,8 +9903,8 @@ public class wcpsParser extends Parser {
         wcpsParser.booleanScalarExpr_return e3 = null;
 
 
-        // src/grammar/wcps.g:106:7: (e3= booleanScalarExpr )
-        // src/grammar/wcps.g:106:7: e3= booleanScalarExpr
+        // src/grammar/wcps.g:107:7: (e3= booleanScalarExpr )
+        // src/grammar/wcps.g:107:7: e3= booleanScalarExpr
         {
         pushFollow(FOLLOW_booleanScalarExpr_in_synpred33_wcps856);
         e3=booleanScalarExpr();
@@ -9924,8 +9921,8 @@ public class wcpsParser extends Parser {
         wcpsParser.numericScalarExpr_return e4 = null;
 
 
-        // src/grammar/wcps.g:107:7: (e4= numericScalarExpr )
-        // src/grammar/wcps.g:107:7: e4= numericScalarExpr
+        // src/grammar/wcps.g:108:7: (e4= numericScalarExpr )
+        // src/grammar/wcps.g:108:7: e4= numericScalarExpr
         {
         pushFollow(FOLLOW_numericScalarExpr_in_synpred34_wcps870);
         e4=numericScalarExpr();
@@ -9942,8 +9939,8 @@ public class wcpsParser extends Parser {
         wcpsParser.stringScalarExpr_return e5 = null;
 
 
-        // src/grammar/wcps.g:108:7: (e5= stringScalarExpr )
-        // src/grammar/wcps.g:108:7: e5= stringScalarExpr
+        // src/grammar/wcps.g:109:7: (e5= stringScalarExpr )
+        // src/grammar/wcps.g:109:7: e5= stringScalarExpr
         {
         pushFollow(FOLLOW_stringScalarExpr_in_synpred35_wcps883);
         e5=stringScalarExpr();
@@ -9960,8 +9957,8 @@ public class wcpsParser extends Parser {
         wcpsParser.fieldExpr_return e6 = null;
 
 
-        // src/grammar/wcps.g:202:7: (e6= fieldExpr )
-        // src/grammar/wcps.g:202:7: e6= fieldExpr
+        // src/grammar/wcps.g:203:7: (e6= fieldExpr )
+        // src/grammar/wcps.g:203:7: e6= fieldExpr
         {
         pushFollow(FOLLOW_fieldExpr_in_synpred70_wcps2013);
         e6=fieldExpr();
@@ -9978,8 +9975,8 @@ public class wcpsParser extends Parser {
         wcpsParser.unaryArithmeticExpr_return e1 = null;
 
 
-        // src/grammar/wcps.g:203:4: (e1= unaryArithmeticExpr )
-        // src/grammar/wcps.g:203:4: e1= unaryArithmeticExpr
+        // src/grammar/wcps.g:204:4: (e1= unaryArithmeticExpr )
+        // src/grammar/wcps.g:204:4: e1= unaryArithmeticExpr
         {
         pushFollow(FOLLOW_unaryArithmeticExpr_in_synpred71_wcps2022);
         e1=unaryArithmeticExpr();
@@ -9996,8 +9993,8 @@ public class wcpsParser extends Parser {
         wcpsParser.booleanExpr_return e4 = null;
 
 
-        // src/grammar/wcps.g:206:7: (e4= booleanExpr )
-        // src/grammar/wcps.g:206:7: e4= booleanExpr
+        // src/grammar/wcps.g:207:7: (e4= booleanExpr )
+        // src/grammar/wcps.g:207:7: e4= booleanExpr
         {
         pushFollow(FOLLOW_booleanExpr_in_synpred74_wcps2058);
         e4=booleanExpr();
@@ -10014,8 +10011,8 @@ public class wcpsParser extends Parser {
         wcpsParser.trimExpr_return e1 = null;
 
 
-        // src/grammar/wcps.g:247:4: (e1= trimExpr )
-        // src/grammar/wcps.g:247:4: e1= trimExpr
+        // src/grammar/wcps.g:248:4: (e1= trimExpr )
+        // src/grammar/wcps.g:248:4: e1= trimExpr
         {
         pushFollow(FOLLOW_trimExpr_in_synpred99_wcps2538);
         e1=trimExpr();
@@ -10032,8 +10029,8 @@ public class wcpsParser extends Parser {
         wcpsParser.sliceExpr_return e2 = null;
 
 
-        // src/grammar/wcps.g:248:4: (e2= sliceExpr )
-        // src/grammar/wcps.g:248:4: e2= sliceExpr
+        // src/grammar/wcps.g:249:4: (e2= sliceExpr )
+        // src/grammar/wcps.g:249:4: e2= sliceExpr
         {
         pushFollow(FOLLOW_sliceExpr_in_synpred100_wcps2547);
         e2=sliceExpr();
@@ -10051,8 +10048,8 @@ public class wcpsParser extends Parser {
         wcpsParser.booleanScalarTerm_return e2 = null;
 
 
-        // src/grammar/wcps.g:276:8: (op= ( OR | XOR ) e2= booleanScalarTerm )
-        // src/grammar/wcps.g:276:8: op= ( OR | XOR ) e2= booleanScalarTerm
+        // src/grammar/wcps.g:277:8: (op= ( OR | XOR ) e2= booleanScalarTerm )
+        // src/grammar/wcps.g:277:8: op= ( OR | XOR ) e2= booleanScalarTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -10081,8 +10078,8 @@ public class wcpsParser extends Parser {
         wcpsParser.booleanScalarNegation_return e2 = null;
 
 
-        // src/grammar/wcps.g:280:5: (op= AND e2= booleanScalarNegation )
-        // src/grammar/wcps.g:280:5: op= AND e2= booleanScalarNegation
+        // src/grammar/wcps.g:281:5: (op= AND e2= booleanScalarNegation )
+        // src/grammar/wcps.g:281:5: op= AND e2= booleanScalarNegation
         {
         op=(Token)match(input,AND,FOLLOW_AND_in_synpred115_wcps2881); if (state.failed) return ;
         pushFollow(FOLLOW_booleanScalarNegation_in_synpred115_wcps2885);
@@ -10100,8 +10097,8 @@ public class wcpsParser extends Parser {
         wcpsParser.booleanScalarExpr_return e1 = null;
 
 
-        // src/grammar/wcps.g:287:4: ( LPAREN e1= booleanScalarExpr RPAREN )
-        // src/grammar/wcps.g:287:4: LPAREN e1= booleanScalarExpr RPAREN
+        // src/grammar/wcps.g:288:4: ( LPAREN e1= booleanScalarExpr RPAREN )
+        // src/grammar/wcps.g:288:4: LPAREN e1= booleanScalarExpr RPAREN
         {
         match(input,LPAREN,FOLLOW_LPAREN_in_synpred117_wcps2934); if (state.failed) return ;
         pushFollow(FOLLOW_booleanScalarExpr_in_synpred117_wcps2938);
@@ -10124,8 +10121,8 @@ public class wcpsParser extends Parser {
         wcpsParser.numericScalarExpr_return n2 = null;
 
 
-        // src/grammar/wcps.g:289:4: (n1= numericScalarExpr cop= compOp n2= numericScalarExpr )
-        // src/grammar/wcps.g:289:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
+        // src/grammar/wcps.g:290:4: (n1= numericScalarExpr cop= compOp n2= numericScalarExpr )
+        // src/grammar/wcps.g:290:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
         {
         pushFollow(FOLLOW_numericScalarExpr_in_synpred119_wcps2967);
         n1=numericScalarExpr();
@@ -10153,8 +10150,8 @@ public class wcpsParser extends Parser {
         wcpsParser.numericScalarTerm_return e2 = null;
 
 
-        // src/grammar/wcps.g:294:5: (op= ( PLUS | MINUS ) e2= numericScalarTerm )
-        // src/grammar/wcps.g:294:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
+        // src/grammar/wcps.g:295:5: (op= ( PLUS | MINUS ) e2= numericScalarTerm )
+        // src/grammar/wcps.g:295:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -10183,8 +10180,8 @@ public class wcpsParser extends Parser {
         wcpsParser.numericScalarFactor_return e2 = null;
 
 
-        // src/grammar/wcps.g:298:4: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )
-        // src/grammar/wcps.g:298:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
+        // src/grammar/wcps.g:299:4: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )
+        // src/grammar/wcps.g:299:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -10212,8 +10209,8 @@ public class wcpsParser extends Parser {
         wcpsParser.numericScalarExpr_return e1 = null;
 
 
-        // src/grammar/wcps.g:301:7: ( LPAREN e1= numericScalarExpr RPAREN )
-        // src/grammar/wcps.g:301:7: LPAREN e1= numericScalarExpr RPAREN
+        // src/grammar/wcps.g:302:7: ( LPAREN e1= numericScalarExpr RPAREN )
+        // src/grammar/wcps.g:302:7: LPAREN e1= numericScalarExpr RPAREN
         {
         match(input,LPAREN,FOLLOW_LPAREN_in_synpred124_wcps3076); if (state.failed) return ;
         pushFollow(FOLLOW_numericScalarExpr_in_synpred124_wcps3080);
@@ -10232,8 +10229,8 @@ public class wcpsParser extends Parser {
         wcpsParser.complexConstant_return e2 = null;
 
 
-        // src/grammar/wcps.g:306:7: (e2= complexConstant )
-        // src/grammar/wcps.g:306:7: e2= complexConstant
+        // src/grammar/wcps.g:307:7: (e2= complexConstant )
+        // src/grammar/wcps.g:307:7: e2= complexConstant
         {
         pushFollow(FOLLOW_complexConstant_in_synpred129_wcps3154);
         e2=complexConstant();
@@ -10252,8 +10249,8 @@ public class wcpsParser extends Parser {
         wcpsParser.scalarExpr_return e2 = null;
 
 
-        // src/grammar/wcps.g:327:7: (e1= scalarExpr COLON e2= scalarExpr )
-        // src/grammar/wcps.g:327:7: e1= scalarExpr COLON e2= scalarExpr
+        // src/grammar/wcps.g:328:7: (e1= scalarExpr COLON e2= scalarExpr )
+        // src/grammar/wcps.g:328:7: e1= scalarExpr COLON e2= scalarExpr
         {
         pushFollow(FOLLOW_scalarExpr_in_synpred138_wcps3342);
         e1=scalarExpr();
@@ -10799,7 +10796,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA4_transition;
         }
         public String getDescription() {
-            return "51:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );";
+            return "52:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );";
         }
     }
     static final String DFA6_eotS =
@@ -10909,7 +10906,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA6_transition;
         }
         public String getDescription() {
-            return "()* loopback of 65:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*";
+            return "()* loopback of 66:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11045,7 +11042,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA7_transition;
         }
         public String getDescription() {
-            return "()* loopback of 69:9: (op= AND e2= coverageLogicFactor )*";
+            return "()* loopback of 70:9: (op= AND e2= coverageLogicFactor )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11372,7 +11369,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA8_transition;
         }
         public String getDescription() {
-            return "73:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?";
+            return "74:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11583,7 +11580,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA9_transition;
         }
         public String getDescription() {
-            return "()* loopback of 77:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*";
+            return "()* loopback of 78:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11719,7 +11716,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "()* loopback of 81:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*";
+            return "()* loopback of 82:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11855,7 +11852,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA11_transition;
         }
         public String getDescription() {
-            return "()* loopback of 85:9: (op= OVERLAY e2= coverageValue )*";
+            return "()* loopback of 86:9: (op= OVERLAY e2= coverageValue )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11974,7 +11971,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "87:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );";
+            return "88:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -12587,7 +12584,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA13_transition;
         }
         public String getDescription() {
-            return "94:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );";
+            return "95:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -13094,7 +13091,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA14_transition;
         }
         public String getDescription() {
-            return "103:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );";
+            return "104:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -13827,7 +13824,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA34_transition;
         }
         public String getDescription() {
-            return "201:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );";
+            return "202:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -14371,7 +14368,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA41_transition;
         }
         public String getDescription() {
-            return "246:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );";
+            return "247:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -16172,7 +16169,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA42_transition;
         }
         public String getDescription() {
-            return "251:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );";
+            return "252:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );";
         }
     }
     static final String DFA43_eotS =
@@ -16252,7 +16249,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA43_transition;
         }
         public String getDescription() {
-            return "255:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );";
+            return "256:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );";
         }
     }
     static final String DFA45_eotS =
@@ -16362,7 +16359,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA45_transition;
         }
         public String getDescription() {
-            return "()* loopback of 276:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*";
+            return "()* loopback of 277:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -16498,7 +16495,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA46_transition;
         }
         public String getDescription() {
-            return "()* loopback of 280:4: (op= AND e2= booleanScalarNegation )*";
+            return "()* loopback of 281:4: (op= AND e2= booleanScalarNegation )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -16586,7 +16583,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA47_transition;
         }
         public String getDescription() {
-            return "282:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );";
+            return "283:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );";
         }
     }
     static final String DFA48_eotS =
@@ -16660,7 +16657,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA48_transition;
         }
         public String getDescription() {
-            return "286:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );";
+            return "287:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -16901,7 +16898,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA49_transition;
         }
         public String getDescription() {
-            return "()* loopback of 294:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*";
+            return "()* loopback of 295:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -17037,7 +17034,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA50_transition;
         }
         public String getDescription() {
-            return "()* loopback of 298:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*";
+            return "()* loopback of 299:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -17132,7 +17129,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA51_transition;
         }
         public String getDescription() {
-            return "300:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );";
+            return "301:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -17229,7 +17226,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA55_transition;
         }
         public String getDescription() {
-            return "326:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );";
+            return "327:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;

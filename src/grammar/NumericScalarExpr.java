@@ -119,6 +119,10 @@ public class NumericScalarExpr implements IParseTreeNode
 		{
 			return constValue;
 		}
+        if (function.equals("condense"))
+        {
+            return condense.toXML();
+        }
 
 		result = "<" + function + ">";
 
@@ -126,7 +130,7 @@ public class NumericScalarExpr implements IParseTreeNode
 		{
 			result += constValue;
 		}
-		else
+        else
 		{
 			result += leftNumericScalarExpr.toXML();
 

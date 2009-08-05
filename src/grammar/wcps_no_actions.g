@@ -11,6 +11,7 @@ History:
 28 05 2009 andreia	Updated class actions names.
 02 06 2009 andreia	Removed brackets around "and" binary operator in CoverageExpr
 03 06 2009 andreia	Complex expressions introduced in the "using" clause of general condense operations
+05 08 2009 andreia	Fixed definition of integer and floating-point numbers.
 */
 grammar wcps_no_actions;
 options{
@@ -482,16 +483,8 @@ DOUBLE: ('d'|'D')('o'|'O')('u'|'U')('b'|'B')('l'|'L')('e'|'E');
 COMPLEX: ('c'|'C')('o'|'O')('m'|'M')('p'|'P')('l'|'L')('e'|'E')('x'|'X');
 COMPLEX2: ('c'|'C')('o'|'O')('m'|'M')('p'|'P')('l'|'L')('e'|'E')('x'|'X')'2';
 BOOLEANCONSTANT: (('t'|'T')('r'|'R')('u'|'U')('e'|'E'))|(('f'|'F')('a'|'A')('l'|'L')('s'|'S')('e'|'E'));
-fragment DECIMALCONSTANT:
-	('1'..'9')(('0'..'9')*)
-	| '0';
-fragment OCTALCONSTANT:
-	'0' ('1'..'7') (('0'..'7')*);
-fragment HEXACONSTANT:
-	('0x'|'0X') ('1'..'9'|'a'..'f'|'A'..'F') (('0'..'9'|'a'..'f'|'A'..'F')*);
-INTEGERCONSTANT:  (PLUS|MINUS)? DECIMALCONSTANT | OCTALCONSTANT | HEXACONSTANT;
-FLOATCONSTANT: DECIMALCONSTANT ('.')('0'..'9'+)(('e'|'E')(('-'|'+')?)('0'..'9'+))?;
-
+INTEGERCONSTANT:  (PLUS|MINUS)? ('0'..'9')+;
+FLOATCONSTANT: INTEGERCONSTANT ('.')('0'..'9'+)(('e'|'E')(('-'|'+')?)('0'..'9'+))?;
 STRING: '"' ( options {greedy=false;} : . )* '"' {setText(getText().substring(1, getText().length()-1));};
 NAME: ('a'..'z'|'A'..'Z'|'_')(('a'..'z'|'A'..'Z'|'0'..'9'|'_')*);
 VARIABLE_DOLLAR: '$'(('a'..'z'|'A'..'Z'|'0'..'9'|'_')*) {setText(getText().substring(1, getText().length())); } ;
