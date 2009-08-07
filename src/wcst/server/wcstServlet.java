@@ -45,24 +45,24 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class wcstServlet extends HttpServlet
 {
-	private static final long serialVersionUID = 84786549L;
 	private String defaultHtmlResponse;
+    private String relativeServletHtmlPath = "/templates/wcst-servlet.html";
 	private String servletHtmlPath;
+    private String relativeSettingsPath = "/settings.properties";
     private wcstServer server;
 
     @Override
 	public void init() throws ServletException
 	{
-        // Initialize the configuration manager
-        String settingsPath = getServletContext().getRealPath("/settings.properties");
+        // Initialize the configuration manager. Now all classes can read the settings.
+        String settingsPath = getServletContext().getRealPath(relativeSettingsPath);
         ConfigManager config = ConfigManager.getInstance(settingsPath);
         
         // Initialize the WCS-T server with proper metadata
-        String metadataDbPath = getServletContext().getRealPath("/dbparams.properties");
-        server = new wcstServer(metadataDbPath);
+        server = new wcstServer(settingsPath);
 
         // Load the servlet HTML response
-		servletHtmlPath = getServletContext().getRealPath("/misc/wcst-servlet.html");
+		servletHtmlPath = getServletContext().getRealPath(relativeServletHtmlPath);
 		try
 		{
 			defaultHtmlResponse = FileUtils.readFileToString(new File(servletHtmlPath));

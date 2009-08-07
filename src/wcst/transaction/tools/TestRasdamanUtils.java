@@ -63,17 +63,19 @@ public class TestRasdamanUtils
 //      myUtils.loadCoverage("mr");
 //      myUtils.printAllCollections();
 //      testLoadRasdaman("rgb");
-		testLoadRasdaman("andreiWedding1");
+//		testLoadRasdaman("andreiFlickrColor");
 //      insertImageFromInternet("andreiFlickr1", "http://farm4.static.flickr.com/3347/3500129555_137c537e75_m.jpg");
 //      myUtils.deleteCollection("andreiFlickr1");
 //      myUtils.commitAndClose();
 //      myUtils.deleteCollection("flickr1");
 
-//      updateImageFromInternet("andreiFlickr1", "http://localhost/peta/car.jpeg");
+      updateImageFromInternet("andreiFlickr1", "http://localhost/peta/car.jpeg");
+
+//        insertImageFromInternet("andreiFlickrColor", "http://localhost/peta/flickr1.jpg");
 
 //      try
 //      {
-//          myUtils.deleteCollection("andreiFlickr1");
+//          myUtils.deleteCollection("andreiFlickrColor");
 //          myUtils.commitAndClose();
 //      }
 //      catch (Exception e)
@@ -99,7 +101,7 @@ public class TestRasdamanUtils
 			myUtils.abortAndClose();
 		}
 
-        understandColorImage("http://localhost/peta/flickr1.jpg");
+//        understandColorImage("http://localhost/peta/flickr1.jpg");
 	}
 
 	private static void insertImageFromInternet(String identifier, String href)
@@ -116,6 +118,7 @@ public class TestRasdamanUtils
 
 			// Step 2: Insert image into rasdaman
 			myUtils.insertGrayImageAsArray(identifier, img);
+//			myUtils.insertColorImageAsArray(identifier, img);
 		}
 		catch (Exception e)
 		{

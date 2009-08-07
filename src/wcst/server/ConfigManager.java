@@ -43,6 +43,9 @@ public class ConfigManager
 	public static boolean PRINT_LOG;
 	public static String SERVLET_INFO;
 	public static String VERSION;
+    public static String RASDAMAN_URL;
+    public static String RASDAMAN_DATABASE;
+    
 	/* Singleton instance */
 	private static ConfigManager instance;
 	private static Properties props;
@@ -57,12 +60,14 @@ public class ConfigManager
 		props = new Properties();
 		try
 		{
+            log("Loading settings from file: " + settingsPath);
 			props.load(new FileInputStream(settingsPath));
 			initSettings();
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
+            log("Failed to load settings.");
 		}
 	}
 
@@ -99,9 +104,26 @@ public class ConfigManager
 
 	private void initSettings()
 	{
-		LANGUAGE = get("WCST_LANGUAGE");
-		VERSION = get("WCST_VERSION");
-		PRINT_LOG = Boolean.parseBoolean(get("PRINT_LOG"));
-		SERVLET_INFO = get("SERVLET_INFO");
+		LANGUAGE = get("wcst_language");
+		VERSION = get("wcst_version");
+		PRINT_LOG = Boolean.parseBoolean(get("wcst_print_log"));
+		SERVLET_INFO = get("wcst_servlet_info");
+        RASDAMAN_DATABASE = get("rasdaman_database");
+        RASDAMAN_URL = get("rasdaman_url");
+
+        log("---------------------------");
+        log("WCS-T Language: " + LANGUAGE);
+        log("WCS-T Version: " + VERSION);
+        log("WCS-T Print Log: " + PRINT_LOG);
+        log("WCS-T Servlet Info: " + SERVLET_INFO);
+        log("Rasdaman URL: " + RASDAMAN_URL);
+        log("Rasdaman DB: " + RASDAMAN_DATABASE);
+        log("---------------------------");
 	}
+
+    private void log(String msg)
+    {
+//        if (PRINT_LOG)
+            System.out.println(msg);
+    }
 }

@@ -74,7 +74,7 @@ core-wcps:
 .PHONY: core-wcst
 core-wcst:
 	@echo ""
-	@echo "*** Compiling core WCST ..."
+	@echo "*** Compiling core WCS-T ..."
 	${JAVAC} src/wcst/transaction/*.java src/wcst/transaction/tools/*.java 
 	mkdir -p wcst/transaction/tools
 	cp src/wcst/transaction/*.class wcst/transaction
@@ -100,7 +100,7 @@ servlet-wcps:
 .PHONY: servlet-wcst
 servlet-wcst: 
 	@echo ""
-	@echo "*** Compiling WCST servlet files ..."
+	@echo "*** Compiling WCS-T servlet files ..."
 	${JAVAC} src/wcst/server/*.java
 
 ## Packages the WCPS and WCST servlets in a .WAR container.
@@ -122,8 +122,8 @@ war: core-wcps core-wcst servlet-wcps servlet-wcst
 	cp src/wcst/transaction/*.class WEB-INF/classes/wcst/transaction
 	cp src/wcst/transaction/tools/*.class WEB-INF/classes/wcst/transaction/tools
 	cp src/wcst/server/*.class WEB-INF/classes/wcst/server
-	cp misc/index.jsp index.jsp
-	jar cf ${NAME}.war WEB-INF/ dbparams.properties wcst-settings.properties xml/ogc/wcps/1.0.0/*.xsd misc/wcps-servlet.html misc/wcst-servlet.html index.jsp
+	cp templates/index.jsp index.jsp
+	jar cf ${NAME}.war WEB-INF/ settings.properties xml/ogc/wcps/1.0.0/*.xsd templates/wcps-servlet.html templates/wcst-servlet.html index.jsp
 	rm index.jsp
 
 ## WCPS Translation core command-line interface. Useful for development and testing.

@@ -67,7 +67,7 @@ public class WCPSServlet extends HttpServlet
 	private String rasdamanUrl;
 	private WCPS wcps;
     // path to the default HTML response of the servlet
-    private String servletHtmlPath = "/misc/wcps-servlet.html";
+    private String servletHtmlPath = "/templates/wcps-servlet.html";
     // String containing the HTML code for the default response
     private String defaultHtmlResponse;
 
@@ -79,7 +79,7 @@ public class WCPSServlet extends HttpServlet
 			System.out.println("WCPS: loading database properties");
 			dbParams.load(
 			    new FileInputStream(
-				getServletContext().getRealPath("/dbparams.properties")));
+				getServletContext().getRealPath("/settings.properties")));
 			rasdamanUrl      = dbParams.getProperty("rasdaman_url");
 			rasdamanDatabase = dbParams.getProperty("rasdaman_database");
 

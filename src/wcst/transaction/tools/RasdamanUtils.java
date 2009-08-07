@@ -108,8 +108,9 @@ public class RasdamanUtils
 		}
 		catch (Exception e)
 		{
-//			e.printStackTrace();
-			throw new WCSTException("RasdamanUnavailable", "Could not connect to the Rasdaman server !");
+//          e.printStackTrace();
+			throw new WCSTException("RasdamanUnavailable",
+									"Could not connect to the Rasdaman server !");
 		}
 	}
 
@@ -167,7 +168,8 @@ public class RasdamanUtils
 				RasGMArray result = (RasGMArray) iter.next();
 				byte[] ba = result.getArray();
 				ByteArrayInputStream bas = new ByteArrayInputStream(ba);
-				com.sun.image.codec.jpeg.JPEGImageDecoder decoder = com.sun.image.codec.jpeg.JPEGCodec.createJPEGDecoder(bas);
+				com.sun.image.codec.jpeg.JPEGImageDecoder decoder = com.sun.image.codec.jpeg
+					.JPEGCodec.createJPEGDecoder(bas);
 				BufferedImage bufImg = null;
 
 				try
@@ -249,7 +251,8 @@ public class RasdamanUtils
 		}
 	}
 
-	public void updateGrayImageWithArray(String name, BufferedImage img, int x1, int y1, int x2, int y2)
+	public void updateGrayImageWithArray(String name, BufferedImage img, int x1, int y1, int x2,
+			int y2)
 	{
 		try
 		{
@@ -260,11 +263,14 @@ public class RasdamanUtils
 			// set up query object for collection creation:
 			OQLQuery myQu = myApp.newOQLQuery();
 			// Where to insert new image
-			String interval = String.valueOf(x1) + ":" + String.valueOf(x2) + "," + String.valueOf(y1) + ":" + String.valueOf(y2);
+			String interval = String.valueOf(x1) + ":" + String.valueOf(x2) + ","
+							  + String.valueOf(y1) + ":" + String.valueOf(y2);
 			// Size of new image
-			String interval2 = String.valueOf(0) + ":" + String.valueOf(x2 - x1) + "," + String.valueOf(0) + ":" + String.valueOf(y2 - y1);
+			String interval2 = String.valueOf(0) + ":" + String.valueOf(x2 - x1) + ","
+							   + String.valueOf(0) + ":" + String.valueOf(y2 - y1);
 
-			myQu.create("update " + name + " AS c SET c[" + interval + "] " + "assign maaray x in [" + interval2 + "] values $1");
+			myQu.create("update " + name + " AS c SET c[" + interval + "] "
+						+ "assign maaray x in [" + interval2 + "] values $1");
 			// let the server generate a new OID for the object to be
 			// inserted, and remember this OID locally:
 			String myNewOID = myApp.getObjectId(myMDD);
@@ -294,6 +300,40 @@ public class RasdamanUtils
 			myQu.create("create collection " + name + " GreySet");
 			// set the object type name (used for server type checking):
 			myMDD.setObjectTypeName("GreyImage");
+			// finally, execute “create collection” statement:
+			log("Creating collection '" + name + "'");
+			myQu.execute();
+			// now create the insert statement:
+			myQu.create("insert into " + name + " values $1");
+			// let the server generate a new OID for the object to be
+			// inserted, and remember this OID locally:
+			String myNewOID = myApp.getObjectId(myMDD);
+
+			// bind the MDD value which substitutes formal parameter $1:
+			myQu.bind(myMDD);
+			// …and ship the complete statement to the server:
+			log("Inserting data into the collection");
+			myQu.execute();
+			log("Done !");
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void insertColorImageAsArray(String name, BufferedImage img) throws ODMGException
+	{
+		try
+		{
+			log("Creating grey image ...");
+			RasGMArray myMDD = createMddFromImage(img);
+			// set up query object for collection creation:
+			OQLQuery myQu = myApp.newOQLQuery();
+
+			myQu.create("create collection " + name + " RGBSet");
+			// set the object type name (used for server type checking):
+			myMDD.setObjectTypeName("RGBImage");
 			// finally, execute “create collection” statement:
 			log("Creating collection '" + name + "'");
 			myQu.execute();
@@ -357,7 +397,8 @@ public class RasdamanUtils
 		}
 	}
 
-	private RasGMArray createRasArrayFromBytes(byte[] bytes, int maxX, int maxY) throws RasResultIsNoIntervalException
+	private RasGMArray createRasArrayFromBytes(byte[] bytes, int maxX, int maxY)
+			throws RasResultIsNoIntervalException
 	{
 		// create 2-D MDD with cell length 1, i.e., type “byte”:
 		String strX = String.valueOf(maxX), strY = String.valueOf(maxY);
@@ -373,7 +414,8 @@ public class RasdamanUtils
 		return myMDD;
 	}
 
-	public void deleteCollection(String name) throws ODMGException, ODMGException, ODMGException, Exception
+	public void deleteCollection(String name)
+			throws ODMGException, ODMGException, ODMGException, Exception
 	{
 		try
 		{
@@ -471,7 +513,8 @@ public class RasdamanUtils
 
 	public BufferedImage convertImageToGray(BufferedImage img)
 	{
-		BufferedImage image = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+		BufferedImage image = new BufferedImage(img.getWidth(), img.getHeight(),
+			BufferedImage.TYPE_BYTE_GRAY);
 		Graphics g = image.getGraphics();
 
 		g.drawImage(img, 0, 0, null);

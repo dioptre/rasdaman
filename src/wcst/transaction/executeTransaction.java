@@ -76,6 +76,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
 import org.odmg.ODMGException;
 import wcps.server.core.Metadata;
+import wcst.server.ConfigManager;
 import wcst.transaction.tools.RasdamanUtils;
 
 /**
@@ -87,9 +88,6 @@ import wcst.transaction.tools.RasdamanUtils;
 public class executeTransaction
 {
 	private static boolean printLog = true;
-	public final String ACCEPTED_LANGUAGE = "en";
-    public final static String DEFAULT_RASSERVER = "http://kahlua.eecs.jacobs-university.de:7001";
-    public final static String DEFAULT_RASDATABASE = "RASBASE";
 	private boolean finished;
 	private TransactionType input;
 	private MetadataDb meta;
@@ -111,8 +109,8 @@ public class executeTransaction
 		metadataSettingsPath = metadataDbPath;
 		meta = new MetadataDb(metadataSettingsPath);
 
-		String server = DEFAULT_RASSERVER;
-		String db = DEFAULT_RASDATABASE;
+		String server = ConfigManager.RASDAMAN_URL;
+		String db = ConfigManager.RASDAMAN_DATABASE;
 
 		rasUtils = new RasdamanUtils(server, db);
         rasUtils.init();
@@ -571,7 +569,7 @@ public class executeTransaction
 		{
 			LanguageStringType a = (LanguageStringType) i.next();
 
-			if ( a.getLang().equals(ACCEPTED_LANGUAGE) )
+			if ( a.getLang().equals(ConfigManager.LANGUAGE) )
 				result = a.getValue();
 		}
 

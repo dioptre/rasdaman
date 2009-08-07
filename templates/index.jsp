@@ -14,13 +14,13 @@
         <title>PetaScope Implementation</title>
     </head>
     <body>
-        <h1>PetaScope Implementation</h1>
+        <div align="center"><h1>PetaScope Implementation</h1></div>
 
         <br/>
 			Please choose the service that you want to use:
 			<ul>
-				<li>The <a href="./wcps">WCPS</a> Service (Web Coverage Processing Service). 
-				<li>The <a href="./wcst">WCS-T</a> Service (Web Coverage Service, with the Transactional extension). 
+				<li><a href="./wcps">WCPS</a> (the Web Coverage Processing Service). 
+				<li><a href="./wcst">WCS-T</a> (the Web Coverage Service Transactional extension). 
 			</ul>
             
     </body>
