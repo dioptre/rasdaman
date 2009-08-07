@@ -37,7 +37,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 import net.opengis.ows.v_1_0_0.ExceptionReport;
 import wcst.server.ConfigManager;
-import wcst.server.core.TransactionResponseType;
+import wcst.transaction.schema.TransactionResponseType;
 
 /**
  * This class processes asynchronously an WCS Transaction request. 

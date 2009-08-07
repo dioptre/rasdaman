@@ -36,15 +36,6 @@ import net.opengis.wcs.v_1_1_0.RangeType;
 
 import org.apache.commons.io.IOUtils;
 
-import wcst.server.core.CodeType;
-import wcst.server.core.CoverageType;
-import wcst.server.core.KeywordsType;
-import wcst.server.core.LanguageStringType;
-import wcst.server.core.ManifestType;
-import wcst.server.core.ReferenceType;
-import wcst.server.core.TransactionResponseType;
-import wcst.server.core.TransactionType;
-
 import wcst.transaction.tools.SDU;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -77,6 +68,14 @@ import javax.xml.bind.Unmarshaller;
 import org.odmg.ODMGException;
 import wcps.server.core.Metadata;
 import wcst.server.ConfigManager;
+import wcst.transaction.schema.CodeType;
+import wcst.transaction.schema.CoverageType;
+import wcst.transaction.schema.KeywordsType;
+import wcst.transaction.schema.LanguageStringType;
+import wcst.transaction.schema.ManifestType;
+import wcst.transaction.schema.ReferenceType;
+import wcst.transaction.schema.TransactionResponseType;
+import wcst.transaction.schema.TransactionType;
 import wcst.transaction.tools.RasdamanUtils;
 
 /**

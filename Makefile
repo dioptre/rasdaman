@@ -36,7 +36,8 @@ WCPS_CORE_LIB=lib/wcps-core.jar
 WCPS_ALL_LIB=lib/wcps-all.jar
 WCST_CORE_LIB=lib/wcst-core.jar
 WCST_ALL_LIB=lib/wcst-all.jar
-CLASSPATH=.:lib/junit-4.5.jar:lib/jsr173_1.0_api.jar:lib/rasj.jar:lib/servlet-2_5-api.jar:lib/commons-fileupload-1.2.jar:lib/commons-math-1.1.jar:lib/antlrworks-1.2.3.jar:lib/commons-io-1.3.2.jar:lib/ows-v_1_0_0-schema-1.0-SNAPSHOT.jar:lib/gml-v_3_1_1-schema-1.0-SNAPSHOT.jar:lib/wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar:${WCPS_CORE_LIB}:${WCPS_ALL_LIB}:${WCST_CORE_LIB}:${WCST_ALL_LIB}:lib/wcst-schema.jar
+WCST_SCHEMA_LIB=lib/wcst-schema.jar
+CLASSPATH=.:lib/junit-4.5.jar:lib/jsr173_1.0_api.jar:lib/rasj.jar:lib/servlet-2_5-api.jar:lib/commons-fileupload-1.2.jar:lib/commons-math-1.1.jar:lib/antlrworks-1.2.3.jar:lib/commons-io-1.3.2.jar:lib/ows-v_1_0_0-schema-1.0-SNAPSHOT.jar:lib/gml-v_3_1_1-schema-1.0-SNAPSHOT.jar:lib/wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar:${WCPS_CORE_LIB}:${WCPS_ALL_LIB}:${WCST_CORE_LIB}:${WCST_ALL_LIB}:${WCST_SCHEMA_LIB}
 JAVA_PATH=
 ANTLR=${JAVA_PATH}java -cp lib/antlrworks-1.2.3.jar org.antlr.Tool
 # Use this line to see warnings
@@ -45,6 +46,7 @@ JAVAC=${JAVA_PATH}javac -g -cp ${CLASSPATH} -sourcepath src/
 XJC=${JAVA_PATH}java -jar lib/jaxb-xjc.jar
 JAVA=${JAVA_PATH}java -cp ${CLASSPATH} 
 JAVADOC=${JAVA_PATH}javadoc
+JAR=${JAVA_PATH}jar
 
 ## Typical build process.
 .PHONY: default
@@ -57,6 +59,19 @@ gen-wcps:
 	@echo "*** Generating JAXB bindings for WCPS schema..."
 	${XJC} -d src -p wcps.xml.processcoverage xml/ogc/wcps/1.0.0/wcpsProcessCoverages.xsd
 	${JAVAC} src/wcps/xml/processcoverage/*.java
+
+## Regenerate the wcst.transaction.schema package (JAXB bindings for WCS-T schema)
+.PHONY: gen-wcst
+gen-wcst:
+	@echo ""
+	@echo "*** Generating JAXB bindings for WCS-T schema..."
+	${XJC} -d src -p wcst.transaction.schema xml/ogc/wcst/1.1.4/wcstTransaction.xsd
+	${JAVAC} src/wcst/transaction/schema/*.java
+	rm -f ${WCST_SCHEMA_LIB}
+	mkdir -p wcst/transaction/schema/
+	cp src/wcst/transaction/schema/*.class wcst/transaction/schema/
+	${JAR} cf ${WCST_SCHEMA_LIB} wcst
+	rm -rf wcst
 
 ## Generate WCPS translation core.
 .PHONY: core-wcps
