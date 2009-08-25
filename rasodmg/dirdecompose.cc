@@ -139,6 +139,17 @@ std::ostream& operator<<(std::ostream& os, const r_Dir_Decompose& d)
   return os;
 }
 
+std::ostream& operator<<(std::ostream& os, const std::vector<r_Dir_Decompose>& vec)
+{
+	os << " Vector { ";
+
+	int size = vec.size();
+	for (int i = 0; i < size; i++)
+		os << vec[i] << std::endl;
+
+	os << " } ";
+}
+
 r_Sinterval
 r_Dir_Decompose::get_total_interval( )
 {

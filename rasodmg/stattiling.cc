@@ -91,7 +91,7 @@ r_Stat_Tiling::r_Stat_Tiling(const char* encoded) throw (r_Error)
  pEnd=pStart+strlen(pStart);
  pTemp=pStart;
 
- pRes=strstr(pTemp,COLON);
+ pRes=strstr(pTemp,TCOLON);
  if(!pRes)
  {
  RMInit::logOut << "r_Stat_Tiling::r_Stat_Tiling(" << encoded << "): Error decoding tile dimension from \"" << pTemp << "\"." << endl;
@@ -130,7 +130,7 @@ r_Stat_Tiling::r_Stat_Tiling(const char* encoded) throw (r_Error)
  
  //deal with access informations
  pTemp=pRes;
- pRes=strstr(pTemp, COLON);
+ pRes=strstr(pTemp, TCOLON);
  if(!pRes)
  {
  RMInit::logOut << "r_Stat_Tiling::r_Stat_Tiling(" << encoded << "): Error decoding access information from \"" << pTemp << "\"." << endl;
@@ -179,7 +179,7 @@ r_Stat_Tiling::r_Stat_Tiling(const char* encoded) throw (r_Error)
   }
   
   //deal with access Times
-  pInRes=strstr(pInRes, COMMA);
+  pInRes=strstr(pInRes, TCOMMA);
   if(!pInRes)
   {
  RMInit::logOut << "r_Stat_Tiling::r_Stat_Tiling(" << encoded << "): Error decoding access times \"" << pInRes << "\" from acess information \"" << pToConvert << "\", not specified." << endl;
@@ -230,7 +230,7 @@ r_Stat_Tiling::r_Stat_Tiling(const char* encoded) throw (r_Error)
  
   //deal with next item
   pTemp=pRes;
-  pRes=strstr(pTemp, COLON); 
+  pRes=strstr(pTemp, TCOLON); 
  }
  
  if(vectAccessInfo.empty())
@@ -271,7 +271,7 @@ r_Stat_Tiling::r_Stat_Tiling(const char* encoded) throw (r_Error)
  
  //deal with interestTH
  pTemp=pRes;
- pRes=strstr(pTemp,COLON);
+ pRes=strstr(pTemp,TCOLON);
  if(!pRes)
  {
  RMInit::logOut << "r_Stat_Tiling::r_Stat_Tiling(" << encoded << "): Error decoding interesting threshold." << endl;

@@ -5,6 +5,10 @@
 
 #include "raslib/minterval.hh"
 #include "relstorageif/dbstoragelayout.hh"
+#include "rasodmg/interesttiling.hh"
+#include "rasodmg/stattiling.hh"
+#include "rasodmg/dirdecompose.hh"
+#include "storagemgr/stgmddconfig.hh"
 
 
 /*
@@ -32,7 +36,16 @@ rasdaman GmbH.
 /****************************************************************************
  *
  *
+ * INCLUDE: storagelayout.hh
  *
+ * MODULE:  storagemgr
+ * CLASS:   StorageLayout
+ *
+ * CHANGE HISTORY (append further entries):
+ * when         who        what
+ * -----------------------------------------------------------------------
+ * 13-Nov-00    hoefner    creation of preliminary version
+ * 07-Jan-09    Shams      add tiling attributes
  * COMMENTS:
  *
  ****************************************************************************/
@@ -215,6 +228,16 @@ class StorageLayout
 		return the object which actually stores the option values.
 		*/
 		
+		// Functions added by Andrei Aiordachioaie, to match function definitions. (17-08-2009)
+		void setBBoxes(const vector<r_Minterval>& input);
+		void setSubTiling();
+		void resetSubTiling();
+		void setInterestThreshold(double i);
+		void setBorderThreshold(unsigned int b);
+		void setCellSize(int size);
+		void setDirDecomp(vector<r_Dir_Decompose>*);
+
+
 	protected: 
 		std::vector< r_Minterval > calcRegLayout(const r_Minterval& layout) const;
 		/*@Doc:
@@ -224,11 +247,27 @@ class StorageLayout
 		//@Man: Actual Parameters: 
 		//@{ 
 		
+		StgMddConfig* extraFeatures;
+		/*@Doc: actual features */
+		
 		DBStorageLayoutId myLayout;
 		//@Man: Persistent Representation of a StorageLayout object.
 		//@{
 		///All parameters are stored there.
 		//@}
+                std::vector< r_Minterval >
+                calcInterestLayout(const r_Minterval& tileDomain);
+
+		//@Man: Actual Parameters:
+		//@{
+                std::vector< r_Minterval >
+                calcAlignedLayout(const r_Minterval&);
+
+                std::vector< r_Minterval >
+                calcDirectionalLayout(const r_Minterval&);
+
+                std::vector< r_Minterval >
+                calcStatisticLayout(const r_Minterval&);
 
 		//@}
 		

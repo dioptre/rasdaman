@@ -60,6 +60,7 @@ enum QtDataType
       QT_COMPLEXTYPE1,	// with float members
       QT_COMPLEXTYPE2,	// with double 
       QT_MDD,
+	  QT_MDD_CONFIG,
       QT_COMPLEX,
       QT_STRING,
       QT_INTERVAL,

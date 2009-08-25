@@ -36,7 +36,9 @@ rasdaman GmbH.
 // Include statements 
 
 #include <iostream>
+#include <vector>
 using std::cout;
+using std::vector;
 
 #include "raslib/error.hh"
 #include "raslib/sinterval.hh"
@@ -70,7 +72,7 @@ class r_Dir_Decompose
     r_Dir_Decompose();
 
     virtual ~r_Dir_Decompose();
-    
+		
     /// Copy constructor
     r_Dir_Decompose(const r_Dir_Decompose& other);
 
@@ -110,5 +112,6 @@ protected:
     Prints the status of an r_Dir_Decompose object to a stream
 */
 extern std::ostream& operator<<(std::ostream& os, const r_Dir_Decompose& d);
+extern std::ostream& operator<<(std::ostream& os, const std::vector<r_Dir_Decompose>& vec);
 
 #endif

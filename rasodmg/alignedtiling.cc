@@ -66,7 +66,7 @@ r_Aligned_Tiling::r_Aligned_Tiling(const char* encoded) throw (r_Error)
  char *pToConvert=NULL;
  pStart=encoded;
  pEnd=pStart+strlen(pStart);
- pRes=strstr(pStart, COLON);
+ pRes=strstr(pStart, TCOLON);
  if(!pRes)
  {
  RMInit::logOut << "r_Aligned_Tiling::r_Aligned_Tiling(" << encoded << "): Error decoding tile configuration from tilingparams." << std::endl;

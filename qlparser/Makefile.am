@@ -86,7 +86,10 @@ libqlparser_a_SOURCES=oql.yy lex.ll alloca.c\
                       qtcondenseop.cc qtcondenseop.hh qtcondenseop.icc \
                       qtnode.cc qtnode.hh qtnode.icc \
                       querytree.cc querytree.hh querytree.icc \
-                      qtexecute.hh qtdelete.icc
+                      qtexecute.hh qtdelete.icc \
+					  qtmddconfig.hh qtmddconfig.cc \
+					  qtmddcfgop.hh qtmddcfgop.cc
+
 EXTRA_libqlparser_a_SOURCES = autogen_qtui.hh autogen_qtui.icc autogen_qtui.cc
 
 BUILT_SOURCES=lex.cc oql.cc oql.h

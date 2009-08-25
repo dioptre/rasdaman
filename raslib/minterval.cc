@@ -1035,6 +1035,17 @@ std::ostream& operator<<(std::ostream& s, const r_Minterval& d)
 	d.print_status(s);
 	return s;
 	}
+
+std::ostream& operator<<(std::ostream& os, const std::vector<r_Minterval>& vec)
+{
+	os << " Vector { ";
+
+	int size = vec.size();
+	for (int i = 0; i < size; i++)
+		os << vec[i] << std::endl;
+
+	os << " } ";
+}
 	
 std::ostream& operator<<(std::ostream& s, const vector<double>& doubleVec)
 	{

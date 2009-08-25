@@ -98,8 +98,8 @@ class r_Tiling
 		*/
 
 		static const char* ASTERIX;
-		static const char* COLON;
-		static const char* COMMA;
+		static const char* TCOLON;
+		static const char* TCOMMA;
 		static const char* LSQRBRA;
 		static const char* RSQRBRA;
 		static const long DefaultBase;

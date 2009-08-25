@@ -29,7 +29,8 @@
 ##################################################################
 
 lib_LIBRARIES = libstoragemgr.a
-libstoragemgr_a_SOURCES = sstoragelayout.cc sstoragelayout.hh
+libstoragemgr_a_SOURCES = sstoragelayout.cc sstoragelayout.hh \
+							stgmddconfig.cc stgmddconfig.hh
 
 CLEANFILES= core client.bm client.dbg client.log ir.out
 

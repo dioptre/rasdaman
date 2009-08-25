@@ -3,6 +3,12 @@
 
 #include "qlparser/qtexecute.hh"
 #include "qlparser/qtoperation.hh"
+#include "qlparser/qtmddconfig.hh"
+#include "qlparser/qtmddcfgop.hh"
+#include "storagemgr/sstoragelayout.hh"
+
+#include "rasodmg/stattiling.hh"
+#include "rasodmg/interesttiling.hh"
 
 #ifndef CPPSTDLIB
 #include <ospace/string.h> // STL<ToolKit>
@@ -52,6 +58,8 @@ class QtInsert : public QtExecute
     /// constructor getting name of collection and insert expression
     QtInsert( const std::string& initCollectionName, QtOperation* initSource );
 
+	QtInsert(const std::string& initCollectionName, QtOperation* initSource, QtOperation* storage);
+
     /// virtual destructor
     virtual ~QtInsert();
 
@@ -76,6 +84,15 @@ class QtInsert : public QtExecute
 	/// returns source
 	QtOperation* getSource();
 
+	/// tiling functions
+	r_Data_Format getDataFormat(QtMDDConfig* config);
+	r_Index_Type getIndexType(QtMDDConfig* config);
+	r_Tiling_Scheme getTilingScheme(QtMDDConfig* cfg);
+	vector<r_Minterval> getIntervals(QtMDDConfig* cfg);
+	r_Minterval getTileConfig(QtMDDConfig* cfg);
+
+	void setStorageLayout(StorageLayout* layout);
+
     /// pre optimization
 //    virtual void preOptimize();
     /**
@@ -89,6 +106,9 @@ class QtInsert : public QtExecute
     /// insert expression
     QtOperation* source;
 
+	// Storage and Tiling type
+	QtOperation* stgLayout;
+
     /// collection name
     std::string collectionName;
 
@@ -99,6 +119,4 @@ class QtInsert : public QtExecute
 #include "qlparser/qtinsert.icc"
 
 #endif
-
-
 

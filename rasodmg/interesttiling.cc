@@ -149,7 +149,7 @@ r_Interest_Tiling::r_Interest_Tiling(const char* encoded) throw (r_Error)
  pStart=encoded;
  pEnd=pStart+strlen(pStart);
  pTemp=pStart;
- pRes=strstr(pTemp,COLON);
+ pRes=strstr(pTemp,TCOLON);
  
  if(!pRes)
  {
@@ -189,7 +189,7 @@ r_Interest_Tiling::r_Interest_Tiling(const char* encoded) throw (r_Error)
  
  //parse interest areas
  pTemp=pRes;
- pRes=strstr(pTemp,COLON);
+ pRes=strstr(pTemp,TCOLON);
  
  if(!pRes)
  {
@@ -235,7 +235,7 @@ r_Interest_Tiling::r_Interest_Tiling(const char* encoded) throw (r_Error)
 
   //try next item
   pTemp=pRes;  
-  pRes=strstr(pTemp, COLON);
+  pRes=strstr(pTemp, TCOLON);
  }
  
  if(vectInterestAreas.empty())

@@ -134,7 +134,7 @@ r_Dir_Tiling::r_Dir_Tiling(const char* encoded) throw (r_Error)
  pEnd=pTemp+strlen(pStart);
  
  //deal with dimension
- pRes=strstr(pTemp, COLON);
+ pRes=strstr(pTemp, TCOLON);
  if(!pRes)
  {
  RMInit::logOut << "r_Dir_Tiling::r_Dir_Tiling(" << encoded << "): Error decoding tile dimension." << endl;
@@ -173,7 +173,7 @@ r_Dir_Tiling::r_Dir_Tiling(const char* encoded) throw (r_Error)
  pTemp=pRes; 
  
  //deal with directional decompose
- pRes=strstr(pTemp, COLON);
+ pRes=strstr(pTemp, TCOLON);
  if(!pRes)
  {
  RMInit::logOut << "r_Dir_Tiling::r_Dir_Tiling(" << encoded << "): Error decoding directional decompose." << endl;
@@ -223,7 +223,7 @@ r_Dir_Tiling::r_Dir_Tiling(const char* encoded) throw (r_Error)
   
   if(*pDirToConvert != *ASTERIX)
   {
-   pDirRes=strstr(pDirToConvert, COMMA);
+   pDirRes=strstr(pDirToConvert, TCOMMA);
    if(!pDirRes)
    {
      RMInit::logOut << "r_Dir_Tiling::r_Dir_Tiling(" << encoded << "): Error decoding directional decompose for dimension " << dirIndex+1 << " from \"" << pToConvert << "\"." << endl;
@@ -265,7 +265,7 @@ r_Dir_Tiling::r_Dir_Tiling(const char* encoded) throw (r_Error)
     pDirTemp=pDirRes;
     
     //next decomp
-    pDirRes=strstr(pDirTemp, COMMA);
+    pDirRes=strstr(pDirTemp, TCOMMA);
     if(!pDirRes)
     {
       decomp=strtoul(pDirTemp, (char**)&pDirRes, DefaultBase);
@@ -295,7 +295,7 @@ r_Dir_Tiling::r_Dir_Tiling(const char* encoded) throw (r_Error)
    else
     pDirStart++;
  
-   pDirRes=strstr(pDirStart, COMMA);
+   pDirRes=strstr(pDirStart, TCOMMA);
    if(!pDirRes)
    {
     RMInit::logOut << "r_Dir_Tiling::r_Dir_Tiling(" << encoded << "): Error decoding directional decompose for dimension " << dirIndex+1 << " from \"" << pToConvert << "\", end of stream." << endl;
@@ -328,7 +328,7 @@ r_Dir_Tiling::r_Dir_Tiling(const char* encoded) throw (r_Error)
  pTemp=pRes;
  
  //deal with tilesize
- pRes=strstr(pTemp, COLON);
+ pRes=strstr(pTemp, TCOLON);
  if(!pRes)
  {
   RMInit::logOut << "r_Dir_Tiling::r_Dir_Tiling(" << encoded << "): Error decoding tile size from \"" << pTemp << "\", end of stream." << endl;

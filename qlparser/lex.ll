@@ -266,6 +266,32 @@ int string_yyinput( char* buf, int max_size )
 "arccos"                                 { SETTOKEN( ARCCOS, commandToken, ARCCOS ) }
 "arctan"                                 { SETTOKEN( ARCTAN, commandToken, ARCTAN ) }
 
+"index"					{ SETTOKEN( INDEX, commandToken, INDEX ) }
+"rc_index"				{ SETTOKEN( RC_INDEX, commandToken, RC_INDEX ) }
+"tc_index"				{ SETTOKEN( TC_INDEX, commandToken, TC_INDEX ) }
+"a_index"				{ SETTOKEN( A_INDEX, commandToken, A_INDEX ) }
+"d_index"				{ SETTOKEN( D_INDEX, commandToken, D_INDEX ) }
+"rd_index"				{ SETTOKEN( RD_INDEX, commandToken, RD_INDEX ) }
+"rpt_index"				{ SETTOKEN( RPT_INDEX, commandToken, RPT_INDEX ) }
+"rrpt_index"			{ SETTOKEN( RRPT_INDEX, commandToken, RRPT_INDEX ) }
+"it_index"				{ SETTOKEN( IT_INDEX, commandToken, IT_INDEX ) }
+"auto"					{ SETTOKEN( AUTO, commandToken, AUTO ) }
+"tiling"				{ SETTOKEN( TILING, commandToken, TILING ) }
+"aligned"				{ SETTOKEN( ALIGNED, commandToken, ALIGNED ) }
+"regular"				{ SETTOKEN( REGULAR, commandToken, REGULAR ) }
+"directional"			{ SETTOKEN( DIRECTIONAL, commandToken, DIRECTIONAL ) }
+"decomp"				{ SETTOKEN( DECOMP, commandToken, DECOMP ) }
+"with"					{ SETTOKEN( WITH, commandToken, WITH ) }
+"subtiling"				{ SETTOKEN( SUBTILING, commandToken, SUBTILING ) }
+"area"					{ SETTOKEN( AREA, commandToken, AREA ) }
+"of"					{ SETTOKEN( OF, commandToken, OF ) }
+"interest"				{ SETTOKEN( INTEREST, commandToken, INTEREST ) }
+"statistic"				{ SETTOKEN( STATISTIC, commandToken, STATISTIC ) }
+"tile"					{ SETTOKEN( TILE, commandToken, TILE ) }
+"size"					{ SETTOKEN( SIZE, commandToken, SIZE ) }
+"border"				{ SETTOKEN( BORDER, commandToken, BORDER ) }
+"threshold"				{ SETTOKEN( THRESHOLD, commandToken, THRESHOLD ) }
+
 "unsigned"				 { SETTOKEN( TUNSIG, typeToken, TUNSIG) }
 "bool"					 { SETTOKEN( TBOOL, typeToken, TBOOL) }
 "char"					 { SETTOKEN( TCHAR, typeToken, TCHAR) }
@@ -276,6 +302,7 @@ int string_yyinput( char* buf, int max_size )
 "ulong"					 { SETTOKEN( TULONG, typeToken, TULONG)	}
 "float"					 { SETTOKEN( TFLOAT, typeToken, TFLOAT) 	}
 "double"				 { SETTOKEN( TDOUBLE, typeToken, TDOUBLE) }
+
 
 "bit"					 { SETTOKEN( BIT, commandToken, BIT ) }
 "and"                                    { SETTOKEN( AND, commandToken, AND ) }

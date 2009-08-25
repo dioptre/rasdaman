@@ -40,6 +40,7 @@ rasserver_SOURCES=rasserver_main.cc rasserver_config.cc rasserver_entry.cc \
                   ../include/bool.h ../include/globals.hh ../include/rasdaman.hh \
                   ../include/stdexcept.h
 rasserver_LDADD=../servercomm/libservercomm.a ../qlparser/libqlparser.a ../conversion/libconversion.a \
+				../rasodmg/librasodmg.a \
                 ../raslib/libraslib.a ../storagemgr/libstoragemgr.a ../reladminif/libreladminif.a \
                 ../tilemgr/libtilemgr.a ../mddmgr/libmddmgr.a \
                 ../catalogmgr/libcatalogmgr.a ../relmddif/librelmddif.a ../relstorageif/librelstorageif.a \

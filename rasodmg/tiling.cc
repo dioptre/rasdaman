@@ -46,9 +46,9 @@ rasdaman GmbH.
 const char*
 r_Tiling::ASTERIX   = "*";
 const char*
-r_Tiling::COLON     = ";";
+r_Tiling::TCOLON     = ";";
 const char*
-r_Tiling::COMMA     = ",";
+r_Tiling::TCOMMA     = ",";
 const char*
 r_Tiling::LSQRBRA   = "[";
 const char*

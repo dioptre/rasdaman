@@ -1,32 +1,23 @@
 %{
-/*
-* This file is part of rasdaman community.
-*
-* Rasdaman community is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* Rasdaman community is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
-*
-* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
-rasdaman GmbH.
-*
-* For more information please see <http://www.rasdaman.org>
-* or contact Peter Baumann via <baumann@rasdaman.com>.
-*/
 /*************************************************************
  *
+ * Copyright (C) 2003 Dr. Peter Baumann
+ *
+ * SOURCE: opp.y
+ *
+ * MODULE: qlparser
+ * CLASS:  -
  *
  * PURPOSE:
  * Grammar for RasQL
  *
+ * CHANGE HISTORY (append further entries):
+ * when         who         what
+ * ----------------------------------------------------------
+ * 18-06-01     Barbat      created (for preprocessor)
+ * 2005-jun-18   PB         extended functionExp with EXTEND(mddExpr,mintervalExpr)
+ * 2006-jan-03   PB         tried to implement DELETE with optional WHERE, but not yet operational
+ * 2008-oct-30   Shams      added storage layout to insert expresion
  *
  * COMMENTS:
  * - token BY unused
@@ -60,6 +51,9 @@ static const char rcsid[] = "@(#)qlparser, yacc parser: $Header: /home/rasdev/CV
 #include "qlparser/qtmddaccess.hh"
 #include "qlparser/querytree.hh"
 #include "servercomm/servercomm.hh"
+#include "qlparser/parseinfo.hh"
+#include "qlparser/qtmddcfgop.hh"
+#include "rasodmg/dirdecompose.hh"
 
 extern ServerComm::ClientTblElt* currentClientTblElt;
 extern ParseInfo *currInfo;
@@ -175,6 +169,22 @@ struct QtUpdateSpecElement
   	ParseInfo *info;
   }	castTypes;
 
+  struct {
+  	int indexType;
+  	ParseInfo *info;
+  }	indexType;
+
+  struct {
+  	int tilingType;
+    QtOperation* tileCfg;
+    int tileSize;
+    int borderThreshold;
+    float interestThreshold;
+    QtNode::QtOperationList* bboxList;
+    std::vector<r_Dir_Decompose>* dirDecomp;
+  	ParseInfo *info;
+  }	tilingType;
+
 }
 
 %token <identifierToken> Identifier
@@ -190,7 +200,10 @@ struct QtUpdateSpecElement
                          DIV EQUAL LESS GREATER LESSEQUAL GREATEREQUAL NOTEQUAL COLON SEMICOLON LEPAR
                          REPAR LRPAR RRPAR LCPAR RCPAR INSERT INTO VALUES DELETE DROP CREATE COLLECTION
                          MDDPARAM OID SHIFT SCALE SQRT ABS EXP LOG LN SIN COS TAN SINH COSH TANH ARCSIN
-                         ARCCOS ARCTAN OVERLAY BIT UNKNOWN FASTSCALE MEMBERS ADD ALTER LIST
+                         ARCCOS ARCTAN OVERLAY BIT UNKNOWN FASTSCALE PYRAMID MEMBERS ADD ALTER LIST 
+			  INDEX RC_INDEX TC_INDEX A_INDEX D_INDEX RD_INDEX RPT_INDEX RRPT_INDEX IT_INDEX AUTO
+			 TILING ALIGNED REGULAR DIRECTIONAL
+			 DECOMP WITH SUBTILING AREA OF INTEREST STATISTIC TILE SIZE BORDER THRESHOLD
 			 STRCT COMPLEX RE IM TIFF BMP HDF CSV JPEG PNG VFF TOR DEM INV_TIFF INV_BMP INV_HDF
 			 INV_JPEG INV_PNG INV_VFF INV_CSV INV_TOR INV_DEM
 
@@ -214,13 +227,19 @@ struct QtUpdateSpecElement
 %type <qtONCStreamListValue>  collectionList
 %type <qtUnaryOperationValue> reduceIdent structSelection trimExp
 %type <qtOperationValue>      mddExp inductionExp generalExp resultList reduceExp functionExp spatialOp
-                              integerExp mintervalExp intervalExp condenseExp variable  
-%type <qtOperationListValue>  spatialOpList spatialOpList2
+//                              integerExp mintervalExp intervalExp condenseExp variable fscale mddConfiguration
+                              integerExp mintervalExp intervalExp condenseExp variable mddConfiguration
+%type <tilingType>            tilingAttributes  tileTypes tileCfg statisticParameters tilingSize
+                              borderCfg interestThreshold dirdecompArray dirdecomp dirdecompvals intArray
+%type <indexType> 	      indexingAttributes indexTypes
+// %type <stgType>           storageAttributes storageTypes comp compType zLibCfg rLECfg waveTypes
+%type <qtOperationListValue>  spatialOpList spatialOpList2 bboxList
 %type <integerToken>          intLitExp
 %type <operationValue>        condenseOpLit 
 %type <castTypes>	      castType
-%type <dummyValue>            qlfile query selectExp createExp insertExp deleteExp updateExp dropExp 
-%type <identifierToken>       namedCollection collectionIterator typeName attributeIdent pyrName 
+%type <dummyValue>            qlfile query selectExp createExp insertExp deleteExp updateExp dropExp  
+//%type <identifierToken>       namedCollection collectionIterator typeName attributeIdent pyrName 
+%type <identifierToken>       namedCollection collectionIterator typeName attributeIdent
 			      marrayVariable condenseVariable
 
 // literal data
@@ -229,6 +248,11 @@ struct QtUpdateSpecElement
 %type <qtAtomicDataValue>     atomicLit
 %type <qtComplexDataValue>    complexLit
 %type <qtScalarDataListValue> scalarLitList dimensionLitList
+
+// pyramid data
+// %type <pyrElemType>           pyrElem pyrElem2
+// %type <pyrListType>           pyrList pyrList2
+// %type <stringToken>           pyrOid
 
 // marray2 with multiple intervals
 %type <mddIntervalListType>   ivList
@@ -245,13 +269,14 @@ qlfile: query
 	  // clear all symbols in table at the end of parsing
 	  QueryTree::symtab.wipe(); 
 	};
-
 query: createExp
 	| dropExp
 	| selectExp
 	| updateExp
 	| insertExp
-	| deleteExp;
+	| deleteExp
+//        | pyramidExp;
+	;
 
 
 createExp: CREATE COLLECTION namedCollection typeName
@@ -520,7 +545,74 @@ insertExp: INSERT INTO namedCollection VALUES generalExp
 	  FREESTACK($2)
 	  FREESTACK($3)
 	  FREESTACK($4)
-	};
+	}
+	|
+	INSERT INTO namedCollection VALUES generalExp mddConfiguration
+	{
+	  try {
+	    accessControl.wantToWrite();
+  	  }
+	  catch(...) {
+	    // save the parse error info and stop the parser
+            if ( parseError ) delete parseError;
+            parseError = new ParseInfo( 803, $2.info->getToken().c_str(),
+                                        $2.info->getLineNo(), $2.info->getColumnNo() );
+	    FREESTACK($1)
+	    FREESTACK($2)
+	    FREESTACK($3)
+	    FREESTACK($4)
+	    QueryTree::symtab.wipe();
+            YYABORT;
+	  }
+
+	  // create an update node
+	  QtInsert* insert = new QtInsert( $3.value, $5 ,$6);
+	  insert->setParseInfo( *($1.info) );
+	  parseQueryTree->removeDynamicObject( $5 );
+
+	  // set insert node  as root of the Query Tree
+	  parseQueryTree->setRoot( insert );
+
+	  FREESTACK($1)
+	  FREESTACK($2)
+	  FREESTACK($3)
+	  FREESTACK($4)
+	}
+
+/*{
+	  try {
+	    accessControl.wantToWrite();
+  	  }
+	  catch(...) {
+	    // save the parse error info and stop the parser
+            if ( parseError ) delete parseError;
+            parseError = new ParseInfo( 803, $2.info->getToken().c_str(),
+                                        $2.info->getLineNo(), $2.info->getColumnNo() );
+	    FREESTACK($1)
+	    FREESTACK($2)
+	    FREESTACK($3)
+	    
+	    QueryTree::symtab.wipe();
+            YYABORT;
+	  }
+	  //Creating a new collection
+//	  QtCommand* commandNode = new QtCommand( QtCommand::QT_CREATE_COLLECTION, $3.value, "GreySet" );
+//	  commandNode->setParseInfo( *($1.info) );
+	  
+	  // create an update node
+	  QtInsert* insert = new QtInsert( $3.value, $5, $6);
+	  insert->setParseInfo( *($1.info) );
+	  parseQueryTree->removeDynamicObject( $6 );
+	  
+	  // set insert node  as root of the Query Tree
+	  parseQueryTree->setRoot( insert );
+	  
+	  FREESTACK($1)
+	  FREESTACK($2)
+	  FREESTACK($3)
+	  
+	}*/
+;
  
 deleteExp: DELETE FROM iteratedCollection WHERE generalExp
 	{
@@ -625,6 +717,7 @@ generalExp: mddExp                          { $$ = $1; }
 	| variable                          { $$ = $1; }
 	| mintervalExp                      { $$ = $1; }
 	| intervalExp                       { $$ = $1; }
+//        | fscale                            { $$ = $1; }
 	| generalLit
 	{
 	  $$ = new QtConst( $1 );
@@ -1706,8 +1799,6 @@ namedCollection: Identifier;
 
 collectionIterator: Identifier;
 
-pyrName: Identifier;
-
 attributeIdent: Identifier;
 
 typeName: Identifier;
@@ -1999,8 +2090,6 @@ scalarLitList: scalarLitList COMMA scalarLit
 	}; 
 
 
-
-
 trimExp: generalExp mintervalExp           
 	{
 	  QtDomainOperation *dop = new QtDomainOperation( $2 );
@@ -2164,6 +2253,137 @@ iv: marrayVariable IN generalExp
 	  FREESTACK($2);			   
 	};
 
+// added on 30 Oct 2008 By Feyzabadi
+
+mddConfiguration: 
+	tilingAttributes indexingAttributes
+        {$$=new QtMddCfgOp($1.tilingType, $1.tileSize, $1.borderThreshold,
+    $1.interestThreshold , $1.tileCfg, $1.bboxList,$1.dirDecomp, $2.indexType);}
+	| indexingAttributes
+        {$$=new QtMddCfgOp($1.indexType);}
+	| tilingAttributes
+      {$$=new QtMddCfgOp($1.tilingType, $1.tileSize, $1.borderThreshold,
+        $1.interestThreshold , $1.tileCfg, $1.bboxList,$1.dirDecomp);}
+	;
+indexingAttributes: INDEX indexTypes{$$=$2;};
+
+indexTypes : RC_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_RC_INDEX; }
+	| TC_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_TC_INDEX;; }
+	| A_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_A_INDEX;; }
+	| D_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_D_INDEX;; }
+	| RD_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_RD_INDEX;; }
+	| RPT_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_RPT_INDEX;; }
+	| RRPT_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_RRPT_INDEX;; }
+	| IT_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_IT_INDEX;; }
+;
+
+tilingAttributes: TILING  tileTypes {$$=$2;};
+
+tileTypes: REGULAR tileCfg{$$.tilingType=QtMDDConfig::r_REGULAR_TLG;$$.tileCfg=$2.tileCfg;$$.tileSize = StorageLayout::DefaultTileSize;}
+    | REGULAR tileCfg tilingSize{$$.tilingType=QtMDDConfig::r_REGULAR_TLG;$$.tileCfg=$2.tileCfg;$$.tileSize = $3.tileSize;}
+	| ALIGNED tileCfg
+    {$$.tilingType=QtMDDConfig::r_ALIGNED_TLG; $$.tileCfg=$2.tileCfg;$$.tileSize = StorageLayout::DefaultTileSize;}
+	| ALIGNED tileCfg tilingSize
+    {$$.tilingType=QtMDDConfig::r_ALIGNED_TLG; $$.tileCfg=$2.tileCfg;$$.tileSize = $3.tileSize;}
+	| DIRECTIONAL DECOMP dirdecompArray
+    {$$.tilingType=QtMDDConfig::r_DRLDECOMP_TLG;$$.tileSize = StorageLayout::DefaultTileSize; $$.dirDecomp=$3.dirDecomp;}
+	| DIRECTIONAL DECOMP dirdecompArray WITH SUBTILING
+	{$$.tilingType=QtMDDConfig::r_DRLDECOMPSUBTILE_TLG;$$.tileSize = StorageLayout::DefaultTileSize; $$.dirDecomp=$3.dirDecomp;}
+    | DIRECTIONAL DECOMP dirdecompArray tilingSize{$$.tilingType=QtMDDConfig::r_DRLDECOMP_TLG; $$.tileSize = $4.tileSize; $$.dirDecomp=$3.dirDecomp;}
+	| DIRECTIONAL DECOMP dirdecompArray WITH SUBTILING tilingSize
+    {$$.tilingType=QtMDDConfig::r_DRLDECOMPSUBTILE_TLG;$$.tileSize = $6.tileSize; $$.dirDecomp=$3.dirDecomp;}
+	| AREA OF INTEREST bboxList{$$.tilingType=QtMDDConfig::r_AREAOFINTEREST_TLG;$$.bboxList=$4;$$.tileSize = StorageLayout::DefaultTileSize;}
+	| AREA OF INTEREST bboxList tilingSize{$$.tilingType=QtMDDConfig::r_AREAOFINTEREST_TLG;$$.bboxList=$4;$$.tileSize = $5.tileSize;}
+	| STATISTIC bboxList statisticParameters{$$=$3;$$.bboxList=$2;}
+	| STATISTIC bboxList{$$.tilingType=QtMDDConfig::r_STATISTICS_TLG; $$.bboxList=$2;$$.tileSize = StorageLayout::DefaultTileSize;};
+	
+bboxList: mintervalExp {
+    $$ = new QtNode::QtOperationList(1);
+    (*$$)[0] = $1;
+}
+| mintervalExp COMMA bboxList {
+   	  $3->push_back( $1 );
+	  $$ = $3;
+
+};
+
+tileCfg: mintervalExp{$$.tileCfg=$1;};
+
+statisticParameters: tilingSize borderCfg interestThreshold
+    {$$=$1;$$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
+     $$.borderThreshold = $2.borderThreshold;
+     $$.interestThreshold = $3.interestThreshold;}
+	| tilingSize borderCfg
+    {$$=$1; $$.borderThreshold = $2.borderThreshold;
+    $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
+    $$.interestThreshold = -1;}
+	| tilingSize interestThreshold
+    {$$=$1; $$.interestThreshold = $2.interestThreshold;
+    $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
+    $$.borderThreshold=-1;}
+	| borderCfg interestThreshold
+    {$$=$1; $$.interestThreshold = $2.interestThreshold;
+    $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
+    $$.tileSize = StorageLayout::DefaultTileSize;}
+	| tilingSize{$$=$1;$$.interestThreshold = -1; $$.borderThreshold = -1;
+    $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;}
+	| interestThreshold{$$=$1; $$.borderThreshold = -1;$$.tileSize = StorageLayout::DefaultTileSize;
+    $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;}
+	| borderCfg{$$=$1;$$.interestThreshold = -1;$$.tileSize = StorageLayout::DefaultTileSize;
+    $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;};
+	
+tilingSize: TILE SIZE IntegerLit
+{
+$$.tileSize = $3.svalue;};
+
+borderCfg: BORDER THRESHOLD IntegerLit
+{
+$$.borderThreshold = $3.svalue;};
+
+interestThreshold: INTEREST THRESHOLD FloatLit
+{
+$$.interestThreshold = $3.value;};
+
+dirdecompArray : dirdecomp {$$ = $1;}
+| dirdecomp COMMA dirdecompArray{
+$$ = $1;
+for(int i = 0 ; i < $3.dirDecomp->size() ; ++i){
+    $$.dirDecomp->push_back($3.dirDecomp->at(i));
+}
+};
+
+dirdecomp : LEPAR dirdecompvals REPAR {$$ = $2;};
+
+dirdecompvals : MULT {
+r_Dir_Decompose temp;
+if($$.dirDecomp == NULL){
+    $$.dirDecomp = new std::vector<r_Dir_Decompose>(1);
+    $$.dirDecomp->at(0) = temp;
+    }
+else
+    $$.dirDecomp->push_back(temp);
+}
+| intArray {
+$$=$1;
+};
+
+intArray : IntegerLit {
+r_Dir_Decompose temp;
+temp<<$1.svalue;
+if($$.dirDecomp == NULL){
+    $$.dirDecomp = new std::vector<r_Dir_Decompose>(1);
+    $$.dirDecomp->at(0) = temp;
+    }
+else
+    $$.dirDecomp->push_back(temp);
+}
+| IntegerLit COMMA intArray {
+$$.dirDecomp = $3.dirDecomp;
+r_Dir_Decompose temp = $$.dirDecomp->at($$.dirDecomp->size()-1);
+temp<<$1.svalue;
+$$.dirDecomp->at($$.dirDecomp->size()-1) = temp;
+};
+
 /*--------------------------------------------------------------------
  *				Grammar ends here 
  *--------------------------------------------------------------------
@@ -2183,3 +2403,4 @@ void yyerror( char* /*s*/ ) {
    }
   }
 }
+

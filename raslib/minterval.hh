@@ -561,6 +561,7 @@ class r_Minterval
   Output stream operator for objects of type {\tt const} \Ref{r_Minterval}.
 */  
 extern std::ostream& operator<<( std::ostream& s, const r_Minterval& d );
+extern std::ostream& operator<<( std::ostream& s, const std::vector<r_Minterval>& d );
 
 #include "raslib/minterval.icc"
 

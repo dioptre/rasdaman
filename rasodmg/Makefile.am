@@ -44,10 +44,10 @@ librasodmg_a_SOURCES = collection.cc collection.hh collection.icc \
                        database.cc database.hh database.icc \
                        gmarray.cc gmarray.hh gmarray.icc \
                        storagelayout.cc storagelayout.hh storagelayout.icc \
+                       dirdecompose.cc dirdecompose.hh \
                        tiling.cc tiling.hh \
                        alignedtiling.cc alignedtiling.hh alignedtiling.icc \
                        dirtiling.cc dirtiling.hh \
-                       dirdecompose.cc dirdecompose.hh \
                        interesttiling.cc interesttiling.hh \
                        stattiling.cc stattiling.hh \
                        partinsert.cc partinsert.hh \
