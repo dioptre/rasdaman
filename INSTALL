@@ -8,7 +8,7 @@ BUILD AND INSTALL:
 	$ git clone git://kahlua.eecs.jacobs-university.de/petascope.git
 - compile the code and the servlet interface:
   $ make
-- edit the dbparams.properties configuration file
+- edit the settings.properties configuration file
 - initialize the PostgreSQL database for PetaScope metadata saying
 	$ psql < misc/petascopedb.sql
 - deploy the war file, petascope.war, with Tomcat.
