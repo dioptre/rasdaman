@@ -83,14 +83,9 @@ int main(int argc, char** argv, char** envp)
 
 	ENTER( "main." );
 
-	std::cout<< "rasmgr: rasdaman server manager tool. rasdaman v" << RMANVERSION / 1000. << " -- generated on " << COMPDATE << "." << std::endl;
-	
-// just to see the difference between an official release and the inside development version
-#ifdef NO_OFFICIAL_RELEASE    
-	std::cout<<"This is not the official release version, it supports test modus and rasserver in debugger"<<std::endl;
-#else
-          std::cout << " Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann rasdaman GmbH." << std::endl
-          << "Rasdaman community is free software: you can redistribute it and/or modify "
+	std::cout<< "rasmgr: rasdaman server manager tool. rasdaman v" << RMANVERSION / 1000. << " -- generated on " << COMPDATE << "." << std::endl
+        << "Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann, rasdaman GmbH.\n"
+        << "Rasdaman community is free software: you can redistribute it and/or modify "
              "it under the terms of the GNU General Public License as published by "
              "the Free Software Foundation, either version 3 of the License, or "
              "(at your option) any later version. \n"
@@ -98,14 +93,6 @@ int main(int argc, char** argv, char** envp)
              "but WITHOUT ANY WARRANTY; without even the implied warranty of "
              "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
              "GNU General Public License for more details. \n\n";
-
-	std::cout << "This software contains software which is in the public domain:" << std::endl;
-	std::cout << "- openssl 0.96c (C) 1998-2002 The OpenSSL Project, (C) 1995-1998 Eric A. Young, Tim J. Hudson" << std::endl;
-#endif
-
-#ifdef INCLUDE_HIDDEN_COMMANDS
-	std::cout << "This version is 'inside only'" <<std::endl;
-#endif
 
 	if(testIsMessageDigestAvailable("MD5")==false) 
 	{
