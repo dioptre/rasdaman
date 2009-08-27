@@ -44,7 +44,7 @@ public class CoverageExprPairType implements IRasNode, ICoverageInfo
         {
             first = new CoverageExpr(node, xq);
             second = new CoverageExpr(node.getNextSibling(), xq);
-			info = new CoverageInfo(((ICoverageInfo) first).getCoverageInfo());
+			info = new CoverageInfo(((ICoverageInfo) second).getCoverageInfo());
             ok = true;
         }
         catch (WCPSException e)

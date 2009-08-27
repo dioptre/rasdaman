@@ -60,7 +60,6 @@ import org.apache.commons.io.FileUtils;
 //the user.
 public class WCPSServlet extends HttpServlet
 {
-	private static final long serialVersionUID = 84786549L;
 	private Properties dbParams;
 	private DbMetadataSource metadataSource;
 	private String rasdamanDatabase;
@@ -251,7 +250,7 @@ public class WCPSServlet extends HttpServlet
 
 	public String getServletInfo()
 	{
-		return "Web Coverage Processing Service (PetaScope Implementation)";
+		return "Web Coverage Processing Service (Project PetaScope)";
 
 	}
 

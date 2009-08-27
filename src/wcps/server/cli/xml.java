@@ -52,7 +52,8 @@ public class xml
     {
         File cwd = new File(".");
         System.out.println("Working in " + cwd.getAbsolutePath());
-		String pcSchemaFileName = "src/conf/" +
+		String pcSchemaFileName = 
+//		"src/conf/" +
                 "xml" + File.separator + "ogc" + File.separator + "wcps"
                       + File.separator + "1.0.0" + File.separator + "wcpsProcessCoverages.xsd";
 		File pcSchemaFile = new File(pcSchemaFileName);
@@ -70,7 +71,7 @@ public class xml
 		{
 			Properties dbParams = new Properties();
 
-			dbParams.load(new FileInputStream("dbparams.properties"));
+			dbParams.load(new FileInputStream("settings.properties"));
 			metadataSource =
 				new DbMetadataSource(dbParams.getProperty("metadata_driver"),
 						     dbParams.getProperty("metadata_url"),

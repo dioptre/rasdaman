@@ -50,7 +50,7 @@ JAR=${JAVA_PATH}jar
 
 ## Typical build process.
 .PHONY: default
-default: clean grammar-wcps core-wcps servlet-wcps core-wcst servlet-wcst war jar-wcps
+default: clean grammar-wcps core-wcps servlet-wcps core-wcst servlet-wcst interface war jar-wcps
 
 ## Regenerate the wcps.xml.processcoverage package.
 .PHONY: gen-wcps
@@ -118,6 +118,13 @@ servlet-wcst:
 	@echo "*** Compiling WCS-T servlet files ..."
 	${JAVAC} src/wcst/server/*.java
 
+## PetaScope unified web interface (for all services)
+.PHONY: interface
+interface:
+	@echo ""
+	@echo "*** Compiling Petascope web interface servlet files ..."
+	${JAVAC} src/webinterface/*.java
+
 ## Packages the WCPS and WCST servlets in a .WAR container.
 .PHONY: war
 war: core-wcps core-wcst servlet-wcps servlet-wcst
@@ -131,14 +138,16 @@ war: core-wcps core-wcst servlet-wcps servlet-wcst
 	mkdir -p WEB-INF/classes/grammar
 	mkdir -p WEB-INF/classes/wcst/transaction/tools
 	mkdir -p WEB-INF/classes/wcst/server
+	mkdir -p WEB-INF/classes/webinterface
 	cp web.xml WEB-INF/
 	cp src/wcps/server/servlet/*.class WEB-INF/classes/wcps/server/servlet/
 	cp src/grammar/*.class WEB-INF/classes/grammar/
 	cp src/wcst/transaction/*.class WEB-INF/classes/wcst/transaction
 	cp src/wcst/transaction/tools/*.class WEB-INF/classes/wcst/transaction/tools
 	cp src/wcst/server/*.class WEB-INF/classes/wcst/server
+	cp src/webinterface/*.class WEB-INF/classes/webinterface/
 	cp templates/index.jsp index.jsp
-	jar cf ${NAME}.war WEB-INF/ settings.properties xml/ogc/wcps/1.0.0/*.xsd templates/wcps-servlet.html templates/wcst-servlet.html index.jsp
+	jar cf ${NAME}.war WEB-INF/ settings.properties xml/ogc/wcps/1.0.0/*.xsd templates/wcps-servlet.html templates/wcst-servlet.html index.jsp templates/interface-servlet.html
 	rm index.jsp
 
 ## WCPS Translation core command-line interface. Useful for development and testing.

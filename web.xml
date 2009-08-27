@@ -28,4 +28,13 @@ You should change this file to suit your personal preferences, even though it wo
         <servlet-name>wcstServlet</servlet-name>
         <url-pattern>/wcst</url-pattern>
     </servlet-mapping>
+	<!-- Interface -->
+	<servlet>
+		<servlet-name>Petascope Interface</servlet-name>
+		<servlet-class>webinterface.PetascopeInterface</servlet-class>
+	</servlet>
+	<servlet-mapping>
+        <servlet-name>Petascope Interface</servlet-name>
+        <url-pattern>/interface</url-pattern>
+    </servlet-mapping>
 </web-app>

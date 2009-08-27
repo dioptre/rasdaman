@@ -172,6 +172,6 @@ public class CoverageInfo
 			index++;
 		}
 
-		throw new WCPSException("Domain name not found :" + name);
+		throw new WCPSException("Domain name not found: " + name);
 	}
 }
