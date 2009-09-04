@@ -112,7 +112,7 @@ void disp_sqlstate_err(char* msgbuf, size_t length)
 	char error_buffer[BUFFER_SIZE];
 	size_t characters_written = 0;
 
-	snprintf(error_buffer, BUFFER_SIZE, "SQLSTATE: %5s SQLCODE: %d\n", SQLSTATE, SQLCODE);
+	snprintf(error_buffer, BUFFER_SIZE, "SQLSTATE: %5s SQLCODE: %ld\n", SQLSTATE, SQLCODE);
 	characters_written = strlen(error_buffer);
 	if (characters_written > length)
 	{
@@ -180,7 +180,7 @@ check(const char* stmt) throw (r_Error)
 	if (msg != NULL)
 	{
 		RMInit::logOut << msg << endl;
-		snprintf(lastErrorMsg, LASTERRORMSGLEN, msg);
+		snprintf(lastErrorMsg, LASTERRORMSGLEN,"%s\n" , msg);
 		delete [] msg;
 		msg = NULL;
 	}

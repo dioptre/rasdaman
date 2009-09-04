@@ -236,7 +236,7 @@ DBHierIndex::insertInDb() throw (r_Error)
 */
 #endif // NOTYET
 	// alternative solution for now:
-	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "INSERT INTO RAS_HIERIX ( MDDObjIxOId, NumEntries, Dimension, ParentOId, IndexSubType, DynData ) VALUES ( %f, %d, %d, %f, %d, %d )", id2, size2, dimension2, parentid2, indexsubtype2, blobOid );
+	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "INSERT INTO RAS_HIERIX ( MDDObjIxOId, NumEntries, Dimension, ParentOId, IndexSubType, DynData ) VALUES ( %f, %ld, %ld, %f, %d, %d )", id2, size2, dimension2, parentid2, indexsubtype2, blobOid );
 	TALK( pgQuery );
 	pgResult = PQexec( pgConn, pgQuery );
 	if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
@@ -571,7 +571,7 @@ DBHierIndex::updateInDb() throw (r_Error)
 */
 #endif // NOTYET
 	// alternative solution for now:
-	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "UPDATE RAS_HIERIX SET NumEntries = %d, Dimension = %d, ParentOId = %f, IndexSubType = %d, DynData = %d WHERE MDDObjIxOId = %f", size4, dimension4, parentid4, indexsubtype4, blobOid, id4 );
+	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "UPDATE RAS_HIERIX SET NumEntries = %ld, Dimension = %ld, ParentOId = %f, IndexSubType = %d, DynData = %d WHERE MDDObjIxOId = %f", size4, dimension4, parentid4, indexsubtype4, blobOid, id4 );
 	TALK( pgQuery );
 	pgResult = PQexec( pgConn, pgQuery );
 	if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
