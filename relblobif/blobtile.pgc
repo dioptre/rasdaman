@@ -122,7 +122,7 @@ BLOBTile::updateInDb() throw (r_Error)
 	dataformat = dataFormat;
 	indbmyoid = myOId.getCounter();
 
-	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "SELECT Tile FROM RAS_TILES WHERE BlobId = %d", indbmyoid );
+	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "SELECT Tile FROM RAS_TILES WHERE BlobId = %ld", indbmyoid );
 	TALK( pgQuery );
 	pgResult = PQexec( pgConn, pgQuery );
 	if (PQresultStatus(pgResult) != PGRES_TUPLES_OK)
@@ -179,7 +179,7 @@ BLOBTile::updateInDb() throw (r_Error)
 */
 #endif //NOTYET
 	// alternative solution for now:
-	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "UPDATE RAS_TILES SET DataFormat = %d WHERE BlobId = %d", dataformat, indbmyoid );
+	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "UPDATE RAS_TILES SET DataFormat = %d WHERE BlobId = %ld", dataformat, indbmyoid );
 	TALK( pgQuery );
 	pgResult = PQexec( pgConn, pgQuery );
 	if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
@@ -272,7 +272,7 @@ BLOBTile::insertInDb() throw (r_Error)
 */
 	// alternative solution for now:
 	// (2) --- insert tuple into db
-	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "INSERT INTO RAS_TILES ( BlobId, DataFormat, Tile) VALUES  ( %d, %d, %d )",  indbmyOId2, dataformat2, blobOid );
+	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "INSERT INTO RAS_TILES ( BlobId, DataFormat, Tile) VALUES  ( %ld, %d, %d )", indbmyOId2, dataformat2, blobOid );
 	TALK( pgQuery );
 	pgResult = PQexec( pgConn, pgQuery );
 	if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
@@ -330,7 +330,7 @@ BLOBTile::deleteFromDb() throw (r_Error)
 #endif NOTYET
 */
 	char pgQuery[SQL_QUERY_BUFFER_SIZE];
-	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "SELECT Tile FROM RAS_TILES WHERE BlobId = %d", blobId );
+	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "SELECT Tile FROM RAS_TILES WHERE BlobId = %ld", blobId );
 	TALK( pgQuery );
 	PGresult *pgResult = PQexec( pgConn, pgQuery );
 	if (PQresultStatus(pgResult))
@@ -447,7 +447,7 @@ BLOBTile::kill(const OId& target, unsigned int range)
 		// else there is no tuple - this is inconsistent, but nothing to delete
 #endif NOTYET
 */
-		(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "SELECT Tile FROM RAS_TILES WHERE BlobId = %d", indbmyOId5 );
+		(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "SELECT Tile FROM RAS_TILES WHERE BlobId = %ld", indbmyOId5 );
 		TALK( pgQuery );
 		pgResult = PQexec( pgConn, pgQuery );
 		if (PQresultStatus(pgResult) != PGRES_TUPLES_OK)
@@ -499,7 +499,7 @@ BLOBTile::kill(const OId& target, unsigned int range)
 		}
 #endif NOTYET
 */
-		(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "DELETE FROM RAS_TILES WHERE BlobId = %d", indbmyOId5 );
+		(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "DELETE FROM RAS_TILES WHERE BlobId = %ld", indbmyOId5 );
 		TALK( pgQuery );
 		pgResult = PQexec( pgConn, pgQuery );
 		if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
@@ -548,7 +548,7 @@ BLOBTile::kill(const OId& target, unsigned int range)
 		}
 #endif NOTYET
 */
-		(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "DECLARE DeleteLoop CURSOR FOR SELECT Tile FROM RAS_TILES WHERE %d <= BlobId AND BlobId <= %d", indbmyOId5, indbmyOId6 );
+		(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "DECLARE DeleteLoop CURSOR FOR SELECT Tile FROM RAS_TILES WHERE %ld <= BlobId AND BlobId <= %ld", indbmyOId5, indbmyOId6 );
 		TALK( pgQuery );
 		pgResult = PQexec( pgConn, pgQuery );
 		if (PQresultStatus(pgResult) != PGRES_TUPLES_OK)
@@ -621,7 +621,7 @@ BLOBTile::kill(const OId& target, unsigned int range)
 		}
 #endif NOTYET
 */
-		(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "DELETE FROM RAS_TILES WHERE %d <= BlobId AND BlobId <= %d", indbmyOId5, indbmyOId6 );
+		(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "DELETE FROM RAS_TILES WHERE %ld <= BlobId AND BlobId <= %ld", indbmyOId5, indbmyOId6 );
 		TALK( pgQuery );
 		pgResult = PQexec( pgConn, pgQuery );
 		if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
@@ -690,7 +690,7 @@ BLOBTile::readFromDb() throw (r_Error)
 #endif NOTYET
 */
 	char pgQuery[SQL_QUERY_BUFFER_SIZE];
-	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "SELECT Tile, DataFormat FROM RAS_TILES WHERE BlobId = %d", indbmyOId3 );
+	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "SELECT Tile, DataFormat FROM RAS_TILES WHERE BlobId = %ld", indbmyOId3 );
 	TALK( pgQuery );
 	pgResult = PQexec( pgConn, pgQuery );
 	if (PQresultStatus(pgResult) != PGRES_TUPLES_OK)
