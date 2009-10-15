@@ -63,6 +63,12 @@ rasdaman GmbH.
     #error "No mfhdf.h header available."
 #endif
 
+// HDF changed from MAX_VAR_DIMS to H4_MAX_VAR_DIMS around 9/5/2007  
+// to avoid potential conflicts with NetCDF-3 library 
+#ifndef H4_MAX_VAR_DIMS 
+    #define H4_MAX_VAR_DIMS MAX_VAR_DIMS 
+#endif 
+
 #include <stdio.h>
 #include <iostream>
 
@@ -283,7 +289,7 @@ r_convDesc &r_Conv_HDF::convertFrom(const char *options) throw(r_Error)
 {
   char name[256];
   int32 handle=0, sds_id=0, rank=0, dtype=0, numattr=0, array_size=0;
-  int32 dimsizes[MAX_VAR_DIMS];
+  int32 dimsizes[H4_MAX_VAR_DIMS];
   int32 *start=NULL;
   int dsize=0;
   size_t filesize=0;
