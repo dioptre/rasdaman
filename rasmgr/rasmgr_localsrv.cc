@@ -41,7 +41,15 @@ using namespace std;
 #include "rasmgr_srv.hh"
 #include <signal.h>
 #include <time.h>
+
 #include <linux/limits.h>	// ARG_MAX
+// fix for missing ARG_MAX; workaround for glibc-2.8 and above
+#if defined(_SC_ARG_MAX)
+# if defined(ARG_MAX)
+#    undef ARG_MAX
+# endif
+# define ARG_MAX sysconf (_SC_ARG_MAX)
+#endif
 
 #include "raslib/rminit.hh"
 
