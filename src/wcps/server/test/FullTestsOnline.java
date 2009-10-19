@@ -64,9 +64,9 @@ import java.util.Iterator;
  */
 public class FullTestsOnline
 {
-//  public String PetascopeURL = "http://localhost:8080/PetaScope/WCPService";
-//  public String PetascopeURL = "http://localhost:8080/petascope/wcps/";
-	public static String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/wcps-new/";
+  public static String PetascopeURL = "http://localhost:8080/PetaScope/interface";
+//  public static String PetascopeURL = "http://localhost:8080/petascope/wcps/";
+//	public static String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/wcps-new/";
 
 	// Tests are read from this folder
 	static String folder = "test/testcases-wcps/";
@@ -306,7 +306,8 @@ public class FullTestsOnline
 		// Specify the content type that we will send binary data
 		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-		String data = param + "=" + URLEncoder.encode(query);
+        String service = "service=WCPS&";
+		String data = service + param + "=" + URLEncoder.encode(query);
 		DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 
 		out.writeBytes(data);

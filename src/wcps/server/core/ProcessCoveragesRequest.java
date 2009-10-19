@@ -51,7 +51,7 @@ import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.xml.sax.InputSource;
 
-/** A ProcessCoveragesRequest request provides a (just one) rasdaman query, that it executes.
+/** A WCPS ProcessCoveragesRequest request provides a (just one) rasdaman query, that it executes.
  *
  * Internally, it relies on XmlRequest, which computes the RasQL query.
  *

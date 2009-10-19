@@ -103,6 +103,7 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo
 		while (i.hasNext())
 		{
 			axis        = i.next();
+            /* TODO: BUG: This searches the axis types list using name, not type */
 			axisId      = coverageInfo.getDomainIndexByName(axis.getAxisName());
             slicingPosStr = axis.getSlicingPosition();
             dim[axisId] = slicingPosStr;
@@ -131,7 +132,7 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo
 
 	public String toRasQL()
 	{
-		String result = coverageExprType.toRasQL() + "[";
+		String result = "(" + coverageExprType.toRasQL() + ") [";
 
 		for (int j = 0; j < dims; ++j)
 		{

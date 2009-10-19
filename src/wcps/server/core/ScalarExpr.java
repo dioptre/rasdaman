@@ -176,7 +176,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo
         {
             Metadata metadata = new Metadata(cellDomainList, rangeList, nullSet,
                     nullDefault, interpolationSet, interpolationDefault,
-                    coverageName, domainList);
+                    coverageName, domainList, null);
             return metadata;
         }
         catch (InvalidMetadataException e)

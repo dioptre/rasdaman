@@ -75,17 +75,17 @@ public class DynamicMetadataSource implements IDynamicMetadataSource
 		}
 	}
 
-	public Set<String> coverages()
+	public Set<String> coverages() throws ResourceException
 	{
-		return allCoverageNames;
+		return metadataSource.coverages();
 	}
 
-	public String mimetype(String format)
+	public String formatToMimetype(String format)
 	{
-		return metadataSource.mimetype(format);
+		return metadataSource.formatToMimetype(format);
 	}
 
-	public Metadata read(String coverageName) throws InvalidRequestException
+	public Metadata read(String coverageName) throws InvalidRequestException, ResourceException
 	{
 		if ((coverageName == null) || coverageName.equals(""))
 		{
@@ -93,13 +93,13 @@ public class DynamicMetadataSource implements IDynamicMetadataSource
 			    "Cannot retrieve coverage with null or empty name");
 		}
 
-		if (!allCoverageNames.contains(coverageName))
+		if (!this.coverages().contains(coverageName))
 		{
 			throw new InvalidRequestException("Coverage '" + coverageName
 							  + "' is not served by this server");
 		}
 
-		return metadata.get(coverageName).clone();
+		return metadataSource.read(coverageName);
 	}
 
     public void addDynamicMetadata(String coverageName, Metadata meta)

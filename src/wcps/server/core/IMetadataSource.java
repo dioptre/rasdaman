@@ -29,7 +29,7 @@ import java.util.Set;
 /**
  * A IMetadataSource is anything that can read metadata for a given coverage
  * name. It must be able to list all coverages which it knows, return Metadata
- * for each one, and also map a format (e.g. "png") to its mimetype
+ * for each one, and also map a format (e.g. "png") to its formatToMimetype
  * (e.g. "image/png").
  */
 
@@ -37,7 +37,7 @@ public interface IMetadataSource
 {
 	public Set<String> coverages() throws ResourceException;
 
-	public String mimetype(String format);
+	public String formatToMimetype(String format);
 
 	public Metadata read(String coverageName) throws InvalidRequestException, ResourceException;
 

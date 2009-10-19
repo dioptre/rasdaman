@@ -28,11 +28,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-//This is an axis in geographic coordinates. See the WCPS standard.
+/**
+ * This is an axis in geographic coordinates. See the WCPS standard.
+ */
 
 public class DomainElement implements Cloneable
 {
-	public static final String IMAGE_CRS = "CRS:1";
+	public static final String WGS84_CRS = "urn:ogc:def:crs:OGC:1.3:CRS84";
+    public static final String IMAGE_CRS = "CRS:1";
 	private Set<String> crss;
 	private String name;
 	private Double numHi;
@@ -91,9 +94,18 @@ public class DomainElement implements Cloneable
 		}
 		else
 		{
-			throw new InvalidMetadataException(
-			    "Invalid domain element: Integer bounds must both be non-null if string bounds are null, and vice versa at "
-			    + name + ":" + type);
+            /* Allow both sources of info for time-axes */
+            if (type.equals("t"))
+            {
+                this.strLo = strLo;
+                this.strHi = strHi;
+                this.numLo = numLo;
+                this.numHi = numHi;
+            }
+            else
+                throw new InvalidMetadataException(
+                    "Invalid domain element: Integer bounds must both be non-null if string bounds are null, and vice versa at "
+                    + name + ":" + type);
 		}
 
 		if ((type.equals("x") || type.equals("y")) && (numLo == null))
@@ -101,26 +113,32 @@ public class DomainElement implements Cloneable
 			throw new InvalidMetadataException(
 			    "Invalid domain element: A spatial axis must have integer extent");
 		}
-		else if (type.equals("temporal") && (strLo == null))
+		else if (type.equals("temporal")&& (strLo == null))
 		{
 			throw new InvalidMetadataException(
 			    "Invalid domain element: A temporal axis must have string extent");
 		}
+        else if (type.equals("t") && (numLo == null) || (numHi == null))
+        {
+            throw new InvalidMetadataException("Invalid domain element: A \"t\" axis must have integer extent and optionally, string extent");
+        }
 
 		this.name = name;
 		this.type = type;
 
 		if ((crss == null) || !crss.contains(IMAGE_CRS))
 		{
-			throw new InvalidMetadataException(
-			    "Invalid domain element: CRS set does not contain image CRS '"
-			    + IMAGE_CRS + "'");
+//			throw new InvalidMetadataException(
+//			    "Invalid domain element: CRS set does not contain image CRS '"
+//			    + IMAGE_CRS + "'");
+            crss.add(IMAGE_CRS);
 		}
 
 		this.crss = crss;
 
 	}
 
+    @Override
 	public DomainElement clone()
 	{
 		Set<String> c      = new HashSet<String>(crss.size());
@@ -133,18 +151,13 @@ public class DomainElement implements Cloneable
 
 		try
 		{
-			if (numLo != null)
-			{
-				return new DomainElement(new String(name), new String(type),
-							 new Double(numLo), new Double(numHi),
-							 null, null, c, allowedAxes);
-			}
-			else
-			{
-				return new DomainElement(new String(name), new String(type), null,
-							 null, new String(strLo),
-							 new String(strHi), c, allowedAxes);
-			}
+            String newName = name == null ? null : new String(name);
+            String newType = type == null ? null : new String(type);
+            Double newNumLo = numLo == null ? null : new Double(numLo);
+            Double newNumHi = numHi == null ? null : new Double(numHi);
+            String newStrLo = strLo == null ? null : new String(strLo);
+            String newStrHi = strHi == null ? null : new String(strHi);
+            return new DomainElement(newName, newType, newNumLo, newNumHi, newStrLo, newStrHi, c, allowedAxes);
 		}
 		catch (InvalidMetadataException ime)
 		{
@@ -171,42 +184,49 @@ public class DomainElement implements Cloneable
 		{
 			return false;
 		}
-
 	}
 
 	public String getName()
 	{
 		return name;
-
 	}
 
 	public Double getNumHi()
 	{
 		return numHi;
-
 	}
 
 	public Double getNumLo()
 	{
 		return numLo;
-
 	}
 
 	public String getStrHi()
 	{
 		return strHi;
-
 	}
 
 	public String getStrLo()
 	{
 		return strLo;
-
 	}
 
 	public String getType()
 	{
 		return type;
-
 	}
+
+    public Set<String> getCrsSet()
+    {
+        return crss;
+    }
+
+    @Override
+    public String toString()
+    {
+        String d = "Domain Element { Name: '" + name + "', Type: '" + type +
+                "', NumLow: '" + numLo + "', NumHi: '" + numHi + "', StrLow: '" +
+                strLo + "', StrHi: '" + strHi + "', CrsSet: '" + crss + "'}";
+        return d;
+    }
 }

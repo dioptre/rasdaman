@@ -44,9 +44,9 @@ import org.apache.commons.io.FileUtils;
  */
 public class XmlTestOnline {
     // Put new test cases in this folder
-//    public final String PetascopeURL = "http://localhost:8080/PetaScope/WCPService";
+    public final String PetascopeURL = "http://localhost:8080/PetaScope/interface";
 //    public final String PetascopeURL = "http://localhost:8080/petascope/wcps/";
-    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope-new/wcps/";
+//    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope-new/wcps/";
 
     String folder = "test/testcases-wcps/";
     // How many tests we have to run
@@ -118,16 +118,18 @@ public class XmlTestOnline {
             ok[i] = false;
             tname = tests[i].getName();
             tname = tname.substring(0, tname.length() - 4);
-            System.out.println("Running test '" + tname + "'...");
+            
             try {
                 query = FileUtils.readFileToString(tests[i]);
                 queries[i] = query;
             } catch (IOException e) {
+                e.printStackTrace();
                 errors[i] = "Could not read file " + tests[i].getName();
                 continue;
             }
+            System.out.println("Running test '" + tname + "'...");
             try {
-                String err = runOneTest("xml", query);
+                String err = runOneTest("request", query);
                 if (err == null)
                     ok[i] = true;
                 else
@@ -168,7 +170,8 @@ public class XmlTestOnline {
         // Specify the content type that we will send binary data
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-        String data = param + "=" + xml;
+        String service = "service=WCPS&";
+        String data = service + param + "=" + xml;
         DataOutputStream out = new DataOutputStream(conn.getOutputStream());
         out.writeBytes(data);
         out.flush();

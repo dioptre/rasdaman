@@ -148,7 +148,7 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo
             cellDomainList.add(new CellDomainElement( ai.getLow(), ai.getHigh()));
             String axisName = ai.getVar();
             String axisType = ai.getAxisType();
-            String crs = DomainElement.IMAGE_CRS;
+            String crs = DomainElement.WGS84_CRS;
             HashSet<String> crsset = new HashSet<String>();
             crsset.add(crs);
             DomainElement domain = new DomainElement(axisName, axisType,
@@ -164,7 +164,7 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo
         {
             Metadata metadata = new Metadata(cellDomainList, rangeList, nullSet,
                     nullDefault, interpolationSet, interpolationDefault,
-                    coverageName, domainList);
+                    coverageName, domainList, null);
             // Let the top-level query know the full metadata about us
             xq.getMetadataSource().addDynamicMetadata(covName, metadata);
             info = new CoverageInfo(metadata);

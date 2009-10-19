@@ -179,4 +179,10 @@ public class RangeElement implements Cloneable
 		this.type = type;
 
 	}
+
+    public String toString()
+    {
+        String r = "Range Element { Name '" + name + "', Type '" + type + "'}";
+        return r;
+    }
 }

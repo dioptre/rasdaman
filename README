@@ -3,8 +3,6 @@ This file is part of PetaScope, a free implementation of the Open GeoSpatial Con
 - WCS Processing Extension 1.0.0, which grounds on Web Coverage Processing Service (WCPS) 1.0.0
 - WCS Transaction Extension (WCS-T) 1.4.0
 
-Please note that the WCS source code is not yet present in this package, but will be released soon. 
-
 PetaScope is implemented as a Java servlet. As such, it relies on the following freely available components which are not part of the PetaScope distribution:
 - rasdaman (www.rasdaman.org) as raster server
 - Tomcat (tomcat.apache.org) as servlet container
@@ -22,15 +20,15 @@ lib/                 External libraries required (+)
 misc/                Additional scripts and files, e.g., for
                      initializing the metadata database
 src/                 PetaScope Java source code
-test/                test scripts
+test/                test source code and test files
+nbproject/			 Project build files and properties.
 xml/                 WC*S schema files used by PetaScope
                      (copies from schemas.opengis.net)
-templates/	     HTML servlet template files
-settings.properties  PetaScope settings,
-                     such as database connections etc(*)
-web.xml              PetaScope servlet deployment file (*)
+settings.properties  Servlet initialization parameters,
+                     such as database connections (*)
+web/WEB-INF/web.xml  PetaScope servlet deployment file (*)
 LICENSE              PetaScope license
-Makefile             "Make" rule file for building PetaScope
+build.xml            "Ant" rule file for building PetaScope
 README               This file
 
 Notes:

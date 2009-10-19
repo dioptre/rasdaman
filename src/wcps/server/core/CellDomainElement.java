@@ -82,6 +82,11 @@ public class CellDomainElement implements Cloneable
 	public BigInteger getLo()
 	{
 		return lo;
-
 	}
+
+    public String toString()
+    {
+        String result = "CellDomainElement [" + lo + ", " + hi + "]";
+        return result;
+    }
 }

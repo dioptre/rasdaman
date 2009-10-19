@@ -25,14 +25,14 @@ package wcps.server.core;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import wcs.server.core.TimeString;
 
 /**
  * This class implements WCPS metadata. For information on what each field
@@ -42,17 +42,31 @@ import java.util.Set;
 
 public class Metadata implements Cloneable
 {
-	private static final DateFormat iso8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	private List<CellDomainElement> cellDomain;
 	private String coverageName;
+    private int coverageId = -1;    // Used when reading metadata from the DB
 	private List<DomainElement> domain;
 	private InterpolationMethod interpolationDefault;
 	private Set<InterpolationMethod> interpolationSet;
 	private String nullDefault;
 	private Set<String> nullSet;
 	private List<RangeElement> range;
+    private String titleStr = "";
+    private String abstractStr = "";
+    private String keywordsStr = "";
+    private Wgs84Crs crs = null;
+    private CellDomainElement cellX, cellY, cellT;
+    private DomainElement domX, domY, domT;
 
-	public Metadata(List<CellDomainElement> cellDomain, List<RangeElement> range, Set<String> nullSet, String nullDefault, Set<InterpolationMethod> interpolationSet, InterpolationMethod interpolationDefault, String coverageName, List<DomainElement> domain) throws InvalidMetadataException
+    public Metadata(List<CellDomainElement> cellDomain, List<RangeElement> range, Set<String> nullSet, String nullDefault, Set<InterpolationMethod> interpolationSet, InterpolationMethod interpolationDefault, String coverageName, List<DomainElement> domain, Wgs84Crs crs, String title, String abstr, String keywords) throws InvalidMetadataException
+    {
+        this(cellDomain, range, nullSet, nullDefault, interpolationSet, interpolationDefault, coverageName, domain, crs);
+        this.titleStr = title;
+        this.abstractStr = abstr;
+        this.keywordsStr = keywords;
+    }
+
+	public Metadata(List<CellDomainElement> cellDomain, List<RangeElement> range, Set<String> nullSet, String nullDefault, Set<InterpolationMethod> interpolationSet, InterpolationMethod interpolationDefault, String coverageName, List<DomainElement> domain, Wgs84Crs crs) throws InvalidMetadataException
 	{
 		if ( (cellDomain == null) || (range == null) || (coverageName == null) || (nullSet == null) || (interpolationSet == null) )
 		{
@@ -181,7 +195,7 @@ public class Metadata implements Cloneable
 
 		if ( ! defaultContainedInSet )
 		{
-			throw new InvalidMetadataException("Ivanlid interpolation default:" +
+			throw new InvalidMetadataException("Invalid interpolation default:" +
                     " Default interpolation method (" +
                     interpolationDefault.getInterpolationType() + "," +
                     interpolationDefault.getNullResistance() + ") is not part " +
@@ -190,6 +204,7 @@ public class Metadata implements Cloneable
 
 		this.interpolationSet = interpolationSet;
 		this.interpolationDefault = interpolationDefault;
+        this.crs = crs;
 
 		this.coverageName = coverageName;
 
@@ -203,11 +218,24 @@ public class Metadata implements Cloneable
 
 			this.domain = new ArrayList<DomainElement>(domain.size());
 			Iterator<DomainElement> i = domain.iterator();
+            Iterator<CellDomainElement> ci = cellDomain.iterator();
 
-			while (i.hasNext())
+			while (i.hasNext() && ci.hasNext())
 			{
 				DomainElement next = i.next();
+                CellDomainElement cell = ci.next();
 				Iterator<DomainElement> j = this.domain.iterator();
+                if (next.getType().equals("x"))
+                    cellX = cell;
+                if (next.getType().equals("y"))
+                    cellY = cell;
+                if (next.getType().equals("t")
+//                        || next.getType().equals("temporal")
+                        )
+                {
+                    cellT = cell;
+                    domT = next;
+                }
 
 				while (j.hasNext())
 				{
@@ -295,6 +323,7 @@ public class Metadata implements Cloneable
 
 	}
 
+    @Override
 	public Metadata clone()
 	{
 		try
@@ -335,11 +364,12 @@ public class Metadata implements Cloneable
 			Iterator<InterpolationMethod> m = interpolationSet.iterator();
 
 			while (m.hasNext())
+
 			{
 				is.add(m.next().clone());
 			}
 
-			return new Metadata(cd, r, ns, new String(nullDefault), is, interpolationDefault.clone(), new String(coverageName), d);
+			return new Metadata(cd, r, ns, new String(nullDefault), is, interpolationDefault.clone(), new String(coverageName), d, crs,getAbstract(), getTitle(), getKeywords());
 		}
 		catch (InvalidMetadataException ime)
 		{
@@ -355,6 +385,36 @@ public class Metadata implements Cloneable
 //
 //  }
 
+    protected void setCoverageId(int id)
+    {
+        this.coverageId = id;
+    }
+
+    public int getCoverageId()
+    {
+        return coverageId;
+    }
+
+    public String getCoverageName()
+    {
+        return coverageName;
+    }
+
+    public String getAbstract()
+    {
+        return abstractStr;
+    }
+
+    public String getTitle()
+    {
+        return titleStr;
+    }
+
+    public String getKeywords()
+    {
+        return keywordsStr;
+    }
+
 	public Iterator<CellDomainElement> getCellDomainIterator()
 	{
 		return cellDomain.iterator();
@@ -366,25 +426,30 @@ public class Metadata implements Cloneable
 		return domain.iterator();
 	}
 
+    public Iterator<RangeElement> getRangeIterator()
+    {
+        return range.iterator();
+    }
+
+    public Iterator<InterpolationMethod> getInterpolationMethodIterator()
+    {
+        return interpolationSet.iterator();
+    }
+
+//    public Iterator<CrsName> getCrsSetIterator()
+//    {
+//        return crsset.iterator();
+//    }
+
+    public Iterator<String> getNullSetIterator()
+    {
+        return nullSet.iterator();
+    }
+
 	public int getDimension()
 	{
 		return cellDomain.size();
-
 	}
-
-//  public DomainElement getDomainByType( String type ) {
-//
-//      Iterator<DomainElement> i = domain.iterator();
-//      DomainElement de;
-//      while( i.hasNext() ) {
-//          de = i.next();
-//          if( de.getType().equals( type ) ) {
-//              return de;
-//          }
-//      }
-//      return null;
-//
-//  }
 
 	public int getDomainIndexByName(String name)
 	{
@@ -401,23 +466,19 @@ public class Metadata implements Cloneable
 		return -1;
 	}
 
-//  public int getDomainIndexByType( String type ) {
-//
-//      Iterator<DomainElement> i = domain.iterator();
-//      for( int index = 0; i.hasNext(); index++ ) {
-//          if( i.next().getName().equals( type ) ) {
-//              return index;
-//          }
-//      }
-//      return -1;
-//
-//  }
+    public DomainElement getDomainByName(String name)
+	{
+		Iterator<DomainElement> i = domain.iterator();
 
-//  public String getDomainType( int index ) {
-//
-//      return domain.get( index ).getType();
-//
-//  }
+		for (int index = 0; i.hasNext(); index++)
+		{
+            DomainElement dom = i.next();
+            if (dom.getName().equals(name))
+                return dom;
+		}
+
+		return null;
+	}
 
 	public String getNullDefault()
 	{
@@ -430,94 +491,6 @@ public class Metadata implements Cloneable
 		return nullSet;
 
 	}
-
-//  public String getRangeType( int index ) {
-//
-//      return range.get( index ).getType();
-//
-//  }
-
-//  public String getRangeType( String name ) {
-//
-//      String type = null;
-//      Iterator<RangeElement> i = range.iterator();
-//      RangeElement re;
-//      while( i.hasNext() ) {
-//          re = i.next();
-//          if( re.getName().equals( name ) ) {
-//              type = re.getType();
-//          }
-//      }
-//      return type;
-//
-//  }
-
-//  public double getResolution( int i ) {
-//
-//      DomainElement de = domain.get( i );
-//      Double deLo = de.getNumLo();
-//      Double deHi = de.getNumHi();
-//      if( deLo == null ) {
-//          return -1;
-//      }
-//
-//      CellDomainElement cde = cellDomain.get( i );
-//      BigInteger cdeLo = cde.getLo();
-//      BigInteger cdeHi = cde.getHi();
-//
-//      return (deHi - deLo) / (cdeHi.subtract( cdeLo ).doubleValue() + 1);
-//
-//  }
-
-//  public boolean isCellDomainEqualTo( Metadata m ) {
-//
-//      if( m == null ) {
-//          return false;
-//      }
-//
-//      Iterator<CellDomainElement> i = cellDomain.iterator();
-//      Iterator<CellDomainElement> j = m.cellDomain.iterator();
-//      while( i.hasNext() && j.hasNext() ) {
-//          if( !i.next().equals( j.next() ) ) {
-//              return false;
-//          }
-//      }
-//      if( i.hasNext() || j.hasNext() ) {
-//          return false;
-//      }
-//      return true;
-//
-//  }
-
-//  public boolean isCrsValid( String crs ) {
-//      return crs != null && (crs.equals( "" ) || crs.startsWith( "urn:ogc:def:crs:EPSG::" ));
-//  }
-
-//  public boolean isDomainEqualTo (Metadata m) {
-//
-//      if( m == null ) {
-//          return false;
-//      }
-//
-//      Iterator<DomainElement> i = domain.iterator();
-//      Iterator<DomainElement> j = m.domain.iterator();
-//      while( i.hasNext() && j.hasNext() ) {
-//          if( !i.next().equals( j.next() ) ) {
-//              return false;
-//          }
-//      }
-//      if( i.hasNext() || j.hasNext() ) {
-//          return false;
-//      }
-//      return true;
-//
-//  }
-
-//  public boolean isInterpolationMethodValid( String im ) {
-//
-//      return im != null && im.equals( "nearest neighbor" );
-//
-//  }
 
 	public boolean isRangeBoolean()
 	{
@@ -567,26 +540,6 @@ public class Metadata implements Cloneable
 
 	}
 
-//  public boolean isRangeEqualTo (Metadata m) {
-//
-//      if( m == null ) {
-//          return false;
-//      }
-//
-//      Iterator<RangeElement> i = range.iterator();
-//      Iterator<RangeElement> j = m.range.iterator();
-//      while( i.hasNext() && j.hasNext() ) {
-//          if( !i.next().equals( j.next() ) ) {
-//              return false;
-//          }
-//      }
-//      if( i.hasNext() || j.hasNext() ) {
-//          return false;
-//      }
-//      return true;
-//
-//  }
-
 	public boolean isRangeFloating()
 	{
 		Iterator<RangeElement> i = range.iterator();
@@ -618,75 +571,6 @@ public class Metadata implements Cloneable
 		return true;
 
 	}
-
-//  public boolean isResolutionEqualTo( Metadata m ) {
-//
-//      if( m == null || getDimension() != m.getDimension() ) {
-//          return false;
-//      }
-//
-//      Iterator<CellDomainElement> cdIterator1 = cellDomain.iterator();
-//      Iterator<CellDomainElement> cdIterator2 = m.cellDomain.iterator();
-//      Iterator<DomainElement> dIterator1 = domain.iterator();
-//      Iterator<DomainElement> dIterator2 = m.domain.iterator();
-//      double resolution1;
-//      double resolution2;
-//      CellDomainElement cde;
-//      DomainElement de;
-//      Double deLo;
-//      Double deHi;
-//      BigInteger cdeLo;
-//      BigInteger cdeHi;
-//      while( cdIterator1.hasNext() ) {
-//          cde = cdIterator1.next();
-//          de = dIterator1.next();
-//          deLo = de.getNumLo();
-//          deHi = de.getNumHi();
-//          if( deLo == null ) {
-//              resolution1 = -1;
-//          }
-//          cdeLo = cde.getLo();
-//          cdeHi = cde.getHi();
-//          resolution1 = (deHi - deLo) / (cdeHi.subtract( cdeLo ).doubleValue() + 1);
-//          cde = cdIterator1.next();
-//          de = dIterator1.next();
-//          deLo = de.getNumLo();
-//          deHi = de.getNumHi();
-//          if( deLo == null ) {
-//              resolution2 = -1;
-//          }
-//          cdeLo = cde.getLo();
-//          cdeHi = cde.getHi();
-//          resolution2 = (deHi - deLo) / (cdeHi.subtract( cdeLo ).doubleValue() + 1);
-//          if( resolution1 != resolution2 ) {
-//              return false;
-//          }
-//      }
-//      return true;
-//
-//  }
-
-//  public boolean isTypeValid( String type ) {
-//      return type != null && (type.equals( "char" ) || type.equals( "unsigned char" ) || type.equals( "short" ) || type.equals( "unsigned short" ) || type.equals( "int" ) || type.equals( "unsigned int" ) || type.equals( "long" ) || type.equals( "unsigned long" ) || type.equals( "float" ) || type.equals( "double" )); // TODO: fix
-//  }
-
-//  public void removeFromCellDomain( int index ) throws InvalidMetadataException {
-//
-//      cellDomain.remove( index );
-//      if( cellDomain.size() == 0 ) {
-//          throw new InvalidMetadataException( "Metadata transformation: Cell domain cannot be empty" );
-//      }
-//
-//  }
-
-//  public void removeFromDomain( int index ) throws InvalidMetadataException {
-//
-//      domain.remove( index );
-//      if( domain.size() == 0 ) {
-//          throw new InvalidMetadataException( "Metadata transformation: Domain cannot be empty" );
-//      }
-//
-//  }
 
 	public void setCoverageName(String coverageName) throws InvalidMetadataException
 	{
@@ -788,4 +672,142 @@ public class Metadata implements Cloneable
 		this.nullDefault = nullDefault;
 
 	}
+
+    public String getInterpolationDefault()
+    {
+        return interpolationDefault.getInterpolationType();
+    }
+
+    public String getNullResistanceDefault()
+    {
+        return interpolationDefault.getNullResistance();
+    }
+
+    public Wgs84Crs getCrs()
+    {
+        return crs;
+    }
+
+    /**
+     * @return the X if it exists
+     */
+    public CellDomainElement getXCellDomain() {
+        return cellX;
+    }
+
+    /**
+     * @return the Y if it exists
+     */
+    public CellDomainElement getYCellDomain() {
+        return cellY;
+    }
+
+    /**
+     * @return the T if it exists
+     */
+    public CellDomainElement getTCellDomain() {
+        return cellT;
+    }
+
+    /**
+     * @param titleStr the titleStr to set
+     */
+    public void setTitle(String titleStr) {
+        this.titleStr = titleStr;
+    }
+
+    /**
+     * @param abstractStr the abstractStr to set
+     */
+    public void setAbstract(String abstractStr) {
+        this.abstractStr = abstractStr;
+    }
+
+    /**
+     * @param keywordsStr the keywordsStr to set
+     */
+    public void setKeywords(String keywordsStr) {
+        this.keywordsStr = keywordsStr;
+    }
+
+    /**
+     * @param cellDomain the cellDomain to set
+     */
+    public void setCellDomain(List<CellDomainElement> cellDomain) {
+        this.cellDomain = cellDomain;
+    }
+
+    /**
+     * @param domain the domain to set
+     */
+    public void setDomain(List<DomainElement> domain) {
+        this.domain = domain;
+    }
+
+    /**
+     * @param range the range to set
+     */
+    public void setRange(List<RangeElement> range) {
+        this.range = range;
+    }
+
+    /**
+     * @param interpolationSet the interpolationSet to set
+     */
+    public void setInterpolationSet(Set<InterpolationMethod> interpolationSet) {
+        this.interpolationSet = interpolationSet;
+    }
+
+    /**
+     * @param interpolationDefault the interpolationDefault to set
+     */
+    public void setDefaultInterpolation(InterpolationMethod interpolationDefault) {
+        this.interpolationDefault = interpolationDefault;
+    }
+
+    /**
+     *  Returns the maximal time position of the current coverage in ISO 8601 format, as string.
+     * If there is no time-axis, returns null
+     */
+    public String getTimePeriodBeginning()
+    {
+        if (domT == null)
+            return null;
+        return domT.getStrLo();
+    }
+
+    /**
+     *  Returns the minimal time position of the current coverage in ISO 8601 format, as string.
+     * If there is no time-axis, returns null
+     */
+    public String getTimePeriodEnd()
+    {
+        if (domT == null)
+            return null;
+        return domT.getStrHi();
+    }
+
+    /**
+     * Returns the time span of the current coverage, as described in the metadata (in miliseconds).
+     * If there is no metadata, returns -1.
+     * Note that this function returns the absolute difference. It is the administrator's
+     * responsibility to make sure that the metadata values are correct.
+     */
+    public long getTimeSpan()
+    {
+        if (domT == null)
+            return -1;
+        long result = TimeString.difference(getTimePeriodEnd(), getTimePeriodBeginning());
+        return Math.abs(result);
+    }
+
+    /* Returns the difference between the maximum and the minimum time axis index.
+     Returns -1 if there is no metadata. */
+    public long getTimeIndexesSpan()
+    {
+        if (cellT == null)
+            return -1;
+        BigInteger big = cellT.getHi().subtract(cellT.getLo());
+        return big.longValue();
+    }
 }

@@ -23,8 +23,6 @@
 
 package wcps.server.cli;
 
-import java.io.IOException;
-import wcps.server.core.CachedMetadataSource;
 import wcps.server.core.DbMetadataSource;
 import wcps.server.core.ProcessCoveragesRequest;
 import wcps.server.core.WCPS;
@@ -77,7 +75,7 @@ public class xml
 						     dbParams.getProperty("metadata_url"),
 						     dbParams.getProperty("metadata_user"),
 						     dbParams.getProperty("metadata_pass"), false);
-			wcps = new WCPS(pcSchemaFile, new CachedMetadataSource(metadataSource));
+			wcps = new WCPS(pcSchemaFile, metadataSource);
 		}
 		catch (Exception e)
 		{

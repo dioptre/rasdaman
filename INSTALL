@@ -7,11 +7,15 @@ BUILD AND INSTALL:
   repository saying
 	$ git clone git://kahlua.eecs.jacobs-university.de/petascope.git
 - compile the code and the servlet interface:
-  $ make
+	$ ant
 - edit the settings.properties configuration file
 - initialize the PostgreSQL database for PetaScope metadata saying
 	$ psql < misc/petascopedb.sql
-- deploy the war file, petascope.war, with Tomcat.
+- deploy the war file, dist/petascope.war, with Tomcat.
+
+Please note that in order for PetaScope to run, you also need a 
+rasdaman server available. You can download and install it from
+www.rasdaman.org/Download
 
 For further details, refer to the documentation available at
 www.petascope.org/Install and www.petascope.org/Support.

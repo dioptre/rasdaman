@@ -27,12 +27,10 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import org.xml.sax.InputSource;
 
 //This is the servlet interface of WCPS. It mostly consists of sanity checks and initialization,
 //the meat is onyl a few lines. The WCPS class does the actual work.
 
-import wcps.server.core.CachedMetadataSource;
 import wcps.server.core.DbMetadataSource;
 import wcps.server.core.ProcessCoveragesRequest;
 import wcps.server.core.WCPS;
@@ -43,7 +41,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
-import java.io.StringBufferInputStream;
 
 import java.util.Iterator;
 import java.util.List;
@@ -54,6 +51,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 //Note an important limitation: this will only return the first result if several are available. 
 //The reason is that WCPS currently has no standardized way to return multiple byte streams to
@@ -92,7 +90,8 @@ public class WCPSServlet extends HttpServlet
 			System.out.println("WCPS: initializing WCPS core");
 			wcps = new WCPS(
                         new File(getServletContext().getRealPath("/xml/ogc/wcps/1.0.0/wcpsProcessCoverages.xsd")),
-                        new CachedMetadataSource(metadataSource));
+//                        new CachedMetadataSource(metadataSource));    // removed metadata caching (andrei)
+                        metadataSource);
 
             servletHtmlPath = getServletContext().getRealPath(servletHtmlPath);
             defaultHtmlResponse = FileUtils.readFileToString(new File(servletHtmlPath));
@@ -203,9 +202,7 @@ public class WCPSServlet extends HttpServlet
 
 			System.out.println("WCPS: preparing request");
 			ProcessCoveragesRequest processCoverageRequest =
-				wcps.pcPrepare(
-				    rasdamanUrl, rasdamanDatabase,
-				    new InputSource(new StringBufferInputStream(xmlRequest)));
+				wcps.pcPrepare(rasdamanUrl, rasdamanDatabase, IOUtils.toInputStream(xmlRequest));
 
             String query = processCoverageRequest.getRasqlQuery();
             String mime = processCoverageRequest.getMime();

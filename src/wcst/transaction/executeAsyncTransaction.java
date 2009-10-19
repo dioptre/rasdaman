@@ -36,7 +36,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 import net.opengis.ows.v_1_0_0.ExceptionReport;
-import wcst.server.ConfigManager;
+import wcs.server.core.WCSException;
+import petascope.ConfigManager;
 import wcst.transaction.schema.TransactionResponseType;
 
 /**
@@ -88,7 +89,7 @@ public class executeAsyncTransaction extends Thread
     {
         log("Started async thread...");
         String outString = null;
-        try // only for WCSTException
+        try // only for WCSException
         {
             try
             {
@@ -114,20 +115,20 @@ public class executeAsyncTransaction extends Thread
             catch (MalformedURLException ex)
             {
                 ex.printStackTrace();
-                throw new WCSTException("BadResponseHandler", "Response Handler URL is malformed.");
+                throw new WCSException("BadResponseHandler", "Response Handler URL is malformed.");
             }
             catch (IOException ex)
             {
                 ex.printStackTrace();
-                throw new WCSTException("AsyncResponseFailed", "Could not send asynchronous response to URL: " + responseHandler);
+                throw new WCSException("AsyncResponseFailed", "Could not send asynchronous response to URL: " + responseHandler);
             }
             catch (JAXBException ex)
             {
                 ex.printStackTrace();
-                throw new WCSTException("XmlStructuresError", "Could not marshall the XML to a string !");
+                throw new WCSException("XmlStructuresError", "Could not marshall the XML to a string !");
             }
         }
-        catch (WCSTException e)
+        catch (WCSException e)
         {
             e.printStackTrace();
             ExceptionReport report = e.getReport();

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<processCoverage xmlns="http://www.opengis.net/wcps/1.0.0" version="1.0.0" service="WCPS">
+    <coverageIterator>
+        <iteratorVar>var</iteratorVar>
+        <coverageName>rgb</coverageName>
+    </coverageIterator>
+    <encode store="true">
+        <format>image/GeoTIFF</format>
+        <trim>
+            <trimAxisSpec>
+                <axis>x</axis>
+                <domainCoord>0.0</domainCoord>
+                <domainCoord>300.0</domainCoord>
+            </trimAxisSpec>
+            <trim>
+                <trimAxisSpec>
+                    <axis>y</axis>
+                    <domainCoord>0.0</domainCoord>
+                    <domainCoord>300.0</domainCoord>
+                </trimAxisSpec>
+                <crsTransform>
+                    <crsTransformAxisSpec>
+                        <axis>x</axis>
+                        <crs>urn:ogc:def:crs:EPSG::26910</crs>
+                    </crsTransformAxisSpec>
+                    <crsTransformAxisSpec>
+                        <axis>y</axis>
+                        <crs>urn:ogc:def:crs:EPSG::26910</crs>
+                    </crsTransformAxisSpec>
+                    <crsTransformFieldSpec/>
+                    <setInterpolationDefault>
+                        <field>Wavelength</field>
+                        <interpolationMethod>nearest neighbor</interpolationMethod>
+                        <nullResistance>none</nullResistance>
+                        <combine>
+                            <component>
+<field>Wavelength</field>
+<coverage>var</coverage>
+                            </component>
+                        </combine>
+                    </setInterpolationDefault>
+                </crsTransform>
+            </trim>
+        </trim>
+    </encode>
+</processCoverage>

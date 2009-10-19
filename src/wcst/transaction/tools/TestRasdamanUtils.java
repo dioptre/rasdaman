@@ -25,11 +25,11 @@ package wcst.transaction.tools;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.awt.Graphics;
+import java.awt.Panel;
 import org.odmg.*;
 
 import rasj.*;
-
-import wcst.transaction.executeTransaction.ShowImage;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -54,7 +54,8 @@ public class TestRasdamanUtils
 
 	public static void main(String[] args) throws ODMGException, RasResultIsNoIntervalException, IOException, Exception
 	{
-		myUtils = new RasdamanUtils("http://kahlua.eecs.jacobs-university.de" + ":7001", "RASBASE");
+//		myUtils = new RasdamanUtils("http://kahlua.eecs.jacobs-university.de" + ":7001", "RASBASE");
+        myUtils = new RasdamanUtils("http://localhost" + ":7001", "RASBASE");
 
 		myUtils.init();
 
@@ -62,14 +63,14 @@ public class TestRasdamanUtils
 //      myUtils.insertGrayImageAsArray("andreiTest1");
 //      myUtils.loadCoverage("mr");
 //      myUtils.printAllCollections();
-//      testLoadRasdaman("rgb");
+//      testLoadRasdaman("andreiTest1");
 //		testLoadRasdaman("andreiFlickrColor");
 //      insertImageFromInternet("andreiFlickr1", "http://farm4.static.flickr.com/3347/3500129555_137c537e75_m.jpg");
-//      myUtils.deleteCollection("andreiFlickr1");
+      myUtils.deleteCollection("andreiFlickrColor");
 //      myUtils.commitAndClose();
 //      myUtils.deleteCollection("flickr1");
 
-      updateImageFromInternet("andreiFlickr1", "http://localhost/peta/car.jpeg");
+//      updateImageFromInternet("andreiFlickr1", "http://localhost/peta/car.jpeg");
 
 //        insertImageFromInternet("andreiFlickrColor", "http://localhost/peta/flickr1.jpg");
 
@@ -201,4 +202,31 @@ public class TestRasdamanUtils
 			e.printStackTrace();
 		}
     }
+
+
+
+    /**
+	 * Panel to display loaded image
+	 *
+	 *
+	 * @version        09.Jul 2009
+	 * @author         Andrei Aiordachioaie
+	 */
+	public static class ShowImage extends Panel
+	{
+		BufferedImage image;
+
+		public ShowImage(BufferedImage img)
+		{
+			this.image = img;
+		}
+
+		public void paint(Graphics g)
+		{
+			if ( image != null )
+			{
+				g.drawImage(image, 0, 0, null);
+			}
+		}
+	}
 }

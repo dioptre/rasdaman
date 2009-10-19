@@ -24,6 +24,7 @@
 package wcps.server.core;
 
 
+import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.*;
 
 import org.xml.sax.*;
@@ -37,11 +38,8 @@ import java.io.InputStream;
 
 import java.util.List;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 
 /**
  * This is the WCPS entry point. Processing a ProcessCoverage request happens in two stages.
@@ -84,6 +82,13 @@ public class WCPS
 		}
 
         this.dynamicMetadataSource = new DynamicMetadataSource(metadataSource);
+	}
+
+    public WCPS(IMetadataSource metadataSource) throws ParserConfigurationException,
+            ResourceException, InvalidMetadataException
+	{
+        this.dynamicMetadataSource = new DynamicMetadataSource(metadataSource);
+        wcpsDocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 	}
 
 	public List<byte[]> pcExecute(String url, String database, ProcessCoveragesRequest pcRequest)
@@ -168,6 +173,13 @@ public class WCPS
 	}
 
 	public ProcessCoveragesRequest pcPrepare(String url, String database, InputSource is)
+	    throws WCPSException, InvalidRequestException, ResourceException, SAXException,
+	    IOException
+	{
+		return pcPrepare(url, database, wcpsDocumentBuilder.parse(is));
+	}
+
+    public ProcessCoveragesRequest pcPrepare(String url, String database, InputStream is)
 	    throws WCPSException, InvalidRequestException, ResourceException, SAXException,
 	    IOException
 	{

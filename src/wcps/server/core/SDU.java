@@ -23,7 +23,11 @@
 
 package wcps.server.core;
 
+//~--- non-JDK imports --------------------------------------------------------
+
 import org.apache.commons.math.complex.Complex;
+
+//~--- JDK imports ------------------------------------------------------------
 
 import java.math.BigInteger;
 
@@ -31,17 +35,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-//This is a static utility class, which provides encoding and decoding of various datatypes
-//from/to strings. It also handles packing and unpacking of structures.
+/**
+ * This is a static utility class, which provides encoding and decoding of various datatypes
+ * from/to strings. It also handles packing and unpacking of structures.
+ */
 
-//TODO: fix complex conversion
-
-class SDU
-{    // String Data Utility
+public class SDU
+{
 	public static String boolean2str(List<Boolean> boolea)
 	{
 		List<String> strings = new ArrayList<String>(boolea.size());
-		Iterator<Boolean> i  = boolea.iterator();
+		Iterator<Boolean> i = boolea.iterator();
 
 		while (i.hasNext())
 		{
@@ -55,7 +59,7 @@ class SDU
 	public static String complex2str(List<Complex> complex)
 	{
 		List<String> strings = new ArrayList<String>(complex.size());
-		Iterator<Complex> i  = complex.iterator();
+		Iterator<Complex> i = complex.iterator();
 
 		while (i.hasNext())
 		{
@@ -71,7 +75,7 @@ class SDU
 	public static String double2str(List<Double> doubl)
 	{
 		List<String> strings = new ArrayList<String>(doubl.size());
-		Iterator<Double> i   = doubl.iterator();
+		Iterator<Double> i = doubl.iterator();
 
 		while (i.hasNext())
 		{
@@ -84,7 +88,7 @@ class SDU
 
 	public static String integer2str(List<BigInteger> integer)
 	{
-		List<String> strings   = new ArrayList<String>(integer.size());
+		List<String> strings = new ArrayList<String>(integer.size());
 		Iterator<BigInteger> i = integer.iterator();
 
 		while (i.hasNext())
@@ -98,10 +102,10 @@ class SDU
 
 	public static List<Boolean> str2boolean(String string)
 	{
-		List<String> strings   = str2string(string);
+		List<String> strings = str2string(string);
 
 		List<Boolean> booleans = new ArrayList<Boolean>(strings.size());
-		Iterator<String> i     = strings.iterator();
+		Iterator<String> i = strings.iterator();
 
 		while (i.hasNext())
 		{
@@ -114,10 +118,10 @@ class SDU
 
 	public static List<Complex> str2complex(String string)
 	{
-		List<String> strings    = str2string(string);
+		List<String> strings = str2string(string);
 
 		List<Complex> complexes = new ArrayList<Complex>(strings.size());
-		Iterator<String> i      = strings.iterator();
+		Iterator<String> i = strings.iterator();
 
 		while (i.hasNext())
 		{
@@ -135,7 +139,7 @@ class SDU
 		List<String> strings = str2string(string);
 
 		List<Double> doubles = new ArrayList<Double>(strings.size());
-		Iterator<String> i   = strings.iterator();
+		Iterator<String> i = strings.iterator();
 
 		while (i.hasNext())
 		{
@@ -148,10 +152,10 @@ class SDU
 
 	public static List<BigInteger> str2integer(String string)
 	{
-		List<String> strings      = str2string(string);
+		List<String> strings = str2string(string);
 
 		List<BigInteger> integers = new ArrayList<BigInteger>(strings.size());
-		Iterator<String> i        = strings.iterator();
+		Iterator<String> i = strings.iterator();
 
 		while (i.hasNext())
 		{
@@ -166,7 +170,7 @@ class SDU
 	{
 		List<String> strings;
 
-		if (string.startsWith("{") && string.contains(",") && string.endsWith("}"))
+		if ( string.startsWith("{") && string.contains(",") && string.endsWith("}") )
 		{
 			String[] components = string.substring(1, string.length() - 1).split(",");
 
@@ -191,14 +195,19 @@ class SDU
 
 	public static String string2str(List<String> strin)
 	{
-		String string      = "{";
+		if ( strin == null )
+			return null;
+		if ( strin.size() == 0 )
+			return "";
+
+		String string = "{";
 		Iterator<String> i = strin.iterator();
 
 		while (i.hasNext())
 		{
 			string += i.next() + (i.hasNext()
-					      ? ","
-					      : "}");
+								  ? ","
+								  : "}");
 		}
 
 		return string;

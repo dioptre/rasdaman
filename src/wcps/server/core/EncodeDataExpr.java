@@ -53,7 +53,7 @@ public class EncodeDataExpr implements IRasNode
 			if (nodeName.equals("format"))
 			{
 				format = child.getFirstChild().getNodeValue();
-				mime   = request.getMetadataSource().mimetype(format);
+				mime   = request.getMetadataSource().formatToMimetype(format);
 				continue;
 			}
 
