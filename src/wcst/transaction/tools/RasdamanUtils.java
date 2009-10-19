@@ -37,7 +37,7 @@ import rasj.RasImplementation;
 import rasj.RasMInterval;
 import rasj.RasResultIsNoIntervalException;
 
-import wcst.transaction.WCSTException;
+import wcs.server.core.WCSException;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -83,9 +83,9 @@ public class RasdamanUtils
 
 	/**
 	 * Opens a new connection to the Rasdaman server, and starts a new transaction.
-	 * @throws WCSTException on connection error
+	 * @throws WCSException on connection error
 	 */
-	public void init() throws WCSTException
+	public void init() throws WCSException
 	{
 		try
 		{
@@ -109,8 +109,8 @@ public class RasdamanUtils
 		catch (Exception e)
 		{
 //          e.printStackTrace();
-			throw new WCSTException("RasdamanUnavailable",
-									"Could not connect to the Rasdaman server !");
+			throw new WCSException("RasdamanUnavailable",
+								   "Could not connect to the Rasdaman server !", e);
 		}
 	}
 
