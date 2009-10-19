@@ -431,29 +431,6 @@ public class PetascopeInterface extends HttpServlet
             else
                 log("WCPS: Warning! No result returned from rasql query.");
 
-            /* TODO: remove CCIP hack */
-            if (ConfigManager.hack)
-            {
-                try
-                {
-                    String dir = getServletContext().getRealPath("/");
-                    File f = new File(dir + "image.jpeg");
-
-                    log("HACK: Writing image to: " + f.getAbsolutePath());
-//                    if (f.exists())
-                    {
-                        OutputStream os = new DataOutputStream(new FileOutputStream(f, false));
-                        os.write(results.get(0));
-                        os.close();
-                        log("HACK: Wrote image successfully !");
-                    }
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-
 			log("WCPS: done");
         }
         catch (InvalidRequestException e)

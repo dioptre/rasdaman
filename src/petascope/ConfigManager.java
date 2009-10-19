@@ -50,8 +50,6 @@ public class ConfigManager
     public static String METADATA_USER;
     public static String METADATA_PASS;
 
-    public static boolean hack = false;     // TODO: remove CCIP hack
-
     /* This URL gets initialized automatically when the first request is received.
      * Its value is used in the Capabilities response */
     public static String PETASCOPE_SERVLET_URL;
@@ -138,7 +136,6 @@ public class ConfigManager
         METADATA_URL = get("metadata_url");
         METADATA_USER = get("metadata_user");
         METADATA_PASS = get("metadata_pass");
-        hack = Boolean.parseBoolean(get("ccip_version"));
 
         /* User preferences override default values for WCS-T */
         String tmp = get("default_interpolation");
@@ -152,8 +149,6 @@ public class ConfigManager
             WCST_DEFAULT_DATATYPE = tmp;
 
         log("---------------------------");
-        if (hack)
-            log("   --- CCIP VERSION ---");
         log("WCS-T Language: " + LANGUAGE);
         log("WCS-T Version: " + VERSION);
         log("Print Log: " + PRINT_LOG);
