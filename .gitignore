@@ -2,10 +2,6 @@
 # These are the files that we generate and will probably be differene
 # for every change...
 # see gitignore(5) for details
-Makefile.in
-Makefile
-configure
-aclocal.m4
 autom4te.cache
 .deps
 *.o
@@ -18,11 +14,7 @@ clientcomm/rpcif_svc.cc
 clientcomm/rpcif_xdr.c
 config.log
 config.status
-compile
-depcomp
 insertutils/insertppm
-install-sh
-missing
 qlparser/lex.cc
 qlparser/oql.cc
 qlparser/oql.h
@@ -54,7 +46,6 @@ relmddif/dbmddobj.cc
 relmddif/dbmddset.cc
 relstorageif/dbstoragelayout.cc
 server/rasserver
-ylwrap
 bin/create_db.sh
 bin/start_rasdaman.sh
 bin/stop_rasdaman.sh
