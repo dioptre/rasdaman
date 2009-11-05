@@ -40,7 +40,7 @@ unsigned int		StorageLayout::DefaultIndexSize = 0;
 
 r_Index_Type		StorageLayout::DefaultIndexType = r_RPlus_Tree_Index; // DirTilesIx; // AutoIx; 
 
-r_Tiling_Scheme		StorageLayout::DefaultTilingScheme = r_DirectionalTiling;
+r_Tiling_Scheme		StorageLayout::DefaultTilingScheme = r_NoTiling;
 
 r_Minterval		StorageLayout::DefaultTileConfiguration("[0:511,0:511]");
 
