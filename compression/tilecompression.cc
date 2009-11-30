@@ -297,6 +297,9 @@ r_Tile_Compression *r_Tile_Compression::create( r_Data_Format fmt, const r_Minte
 {
   r_Tile_Compression *result;
 
+  result = new r_Tile_Comp_None(dom, type);
+
+  /*
   switch (fmt)
     {
       // raw array data
@@ -309,6 +312,7 @@ r_Tile_Compression *r_Tile_Compression::create( r_Data_Format fmt, const r_Minte
       throw(err);
       break;
     }
+  */
   return result;
 }
 
