@@ -79,7 +79,7 @@ cd @logdir@
 rm -f nohup.out
 
 # start rasdaman server manager as demon; log will go into nohup.out
-nohup @bindir@rasmgr & 2>&1
+nohup @bindir@rasmgr </dev/null &>nohup.out &
 
 # --- start servers: -------------------------------------------------
 
