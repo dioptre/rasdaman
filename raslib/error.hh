@@ -145,7 +145,9 @@ class r_Error : public std::exception
 		r_Error_AccesDenied,
 		r_Error_SystemOverloaded,
 		
-		r_Error_MemoryAllocation
+		r_Error_MemoryAllocation,
+
+		r_Error_InvalidOptimizationLevel
 		
 	      };
 

@@ -438,6 +438,10 @@ r_Error::setErrorTextOnKind()
 			strcpy(buffer, "Memory allocation failed");
 			break;
 
+		case r_Error_InvalidOptimizationLevel:
+			strcpy(buffer, "Illegal value for optimization level");
+			break;
+
 		default:
 			strcpy(buffer, "not specified");
 			break;

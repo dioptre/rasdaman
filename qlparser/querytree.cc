@@ -160,6 +160,9 @@ QueryTree::optimize( unsigned int currentOptimizationLevel )
       }	
     }
   
+  if (isValidOptimizationLevel(currentOptimizationLevel) == false)
+	throw r_Error(r_Error::r_Error_InvalidOptimizationLevel);
+
   optimizationFnc(currentOptimizationLevel, rootNode);
 
   RMDBGIF( 1, RMDebug::module_qlparser, "QueryTree", \
@@ -486,4 +489,18 @@ void QueryTree::rewriteDomainObjects(r_Minterval *greatDomain, string *greatIter
 
 void QueryTree::addCString( char *str ) {
   lexedCStringList.push_back( str );
+}
+
+bool QueryTree::isValidOptimizationLevel( int level )
+{
+    switch (level)
+    {
+	case STANDARDIZATION:
+	case SIMPLIFICATION: 
+	case SUBEXPRESSIONS:
+		return true;
+
+	default:
+		return false;
+    }
 }

@@ -84,6 +84,13 @@ class QueryTree
   public:
 
 
+    enum OptimizationLevel
+    {
+	STANDARDIZATION = 1,
+	SIMPLIFICATION = 2,
+	SUBEXPRESSIONS = 3
+    };
+
     /// default constructor
     QueryTree();
 
@@ -197,6 +204,9 @@ class QueryTree
     QtNode* rootNode;
 
     static void (*optimizationFnc)(unsigned int, QtNode*);
+
+    // Validity checks for the level of optimization
+    bool isValidOptimizationLevel( int level );
 
     /// used by public seeSubexpression()
     vector<QtNode::QtNodeList>* seeSubexpression( QtNode::QtNodeList* leafList );
