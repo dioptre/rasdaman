@@ -70,14 +70,14 @@ SymbolTable<int> QueryTree::symtab;
 
 QueryTree::QueryTree()
   : rootNode(NULL),
-    optimizationLevel(4)
+    optimizationLevel(SUBEXPRESSIONS)
 {
 }
 
 
 QueryTree::QueryTree( QtNode* root )
   :  rootNode( root ),
-    optimizationLevel(4)
+    optimizationLevel(SUBEXPRESSIONS)
 {
 }
 
