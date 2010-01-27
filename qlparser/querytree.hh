@@ -86,6 +86,7 @@ class QueryTree
 
     enum OptimizationLevel
     {
+	NO_OPTIMIZATIONS = 0,
 	STANDARDIZATION = 1,
 	SIMPLIFICATION = 2,
 	SUBEXPRESSIONS = 3

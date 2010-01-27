@@ -495,6 +495,7 @@ bool QueryTree::isValidOptimizationLevel( int level )
 {
     switch (level)
     {
+	case NO_OPTIMIZATIONS:
 	case STANDARDIZATION:
 	case SIMPLIFICATION: 
 	case SUBEXPRESSIONS:
