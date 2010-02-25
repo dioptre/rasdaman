@@ -29,6 +29,7 @@ import org.joda.time.DateTime;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import petascope.wcs.server.core.TimeString;
 
 import static org.junit.Assert.*;
 
