@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.opengis.net/wcs/2.0/gml"
+    xmlns:wcsgml="http://www.opengis.net/wcs/2.0/gml"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:gml="http://www.opengis.net/gml/3.2"
+    elementFormDefault="qualified" version="1.0.0">
+    <annotation>
+        <appinfo>gmlwcsAll.xsd</appinfo>
+        <documentation>This is the XML Schema for the GML 3.2.1 Application schema for WCS 2.0.
+            This XML Schema Document includes, directly and indirectly, all the XML Schema Documents defined by the GML 3.2.1 Application schema for WCS 2.0. 
+            Last updated: 2010-jan-11
+            Copyright (c) 2010 Open Geospatial Consortium, Inc, All Rights Reserved.
+            To obtain additional rights of use, visit http://www.opengeospatial.org/legal/.
+        </documentation>
+    </annotation>
+    <!-- ========================================================= -->
+    <!-- Includes and imports                                      -->
+    <!-- ========================================================= -->
+    <include schemaLocation="wcsCoverage.xsd"/>
+    <include schemaLocation="wcsGrids.xsd"/>
+</schema>

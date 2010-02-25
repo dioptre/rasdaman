@@ -23,25 +23,40 @@
 
 
 
-package grammar;
+package petascope.wcps.grammar;
+
+import java.util.*;
 
 /**
- * ScalarExpr
- * Creation date: (3/3/2003 2:28:43 AM)
- * @author: mattia parigiani, Sorin Stancu-Mara, Andrei Aiordachioaie
+ * FieldInterpolationList
+ *
+ * @author Andrei Aiordachioaie
  */
-
-public class ScalarExpr implements IParseTreeNode
+public class FieldInterpolationList implements IParseTreeNode
 {
-	IParseTreeNode expr;
+	LinkedList<FieldInterpolationElement> list;
 
-	public ScalarExpr(IParseTreeNode e)
+	public FieldInterpolationList(FieldInterpolationElement e)
 	{
-		expr = e;
+		list = new LinkedList();
+		list.add(e);
+	}
+
+	public void add(FieldInterpolationElement meth)
+	{
+		list.add(meth);
 	}
 
 	public String toXML()
 	{
-		return expr.toXML();
+		String result                          = "";
+		Iterator<FieldInterpolationElement> it = list.iterator();
+
+		while (it.hasNext())
+		{
+			result += it.next().toXML();
+		}
+
+		return result;
 	}
 }

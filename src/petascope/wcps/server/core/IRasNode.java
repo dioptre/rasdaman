@@ -21,56 +21,9 @@
  */
 
 
+package petascope.wcps.server.core;
 
-
-package grammar;
-
-/**
- * AxisIteratorList
- *
- * @author Andrei Aiordachioaie
- */
-public class AxisIteratorList implements IParseTreeNode
+interface IRasNode
 {
-	private AxisIterator it;
-	private AxisIteratorList next;
-	private String tag;
-
-	public AxisIteratorList(AxisIterator it)
-	{
-		this.it = it;
-		next    = null;
-		tag     = "";
-	}
-
-	public AxisIteratorList(AxisIterator it, AxisIteratorList n)
-	{
-		this.it = it;
-		next    = n;
-		tag     = "";
-	}
-
-	public void setTag(String tag)
-	{
-		this.tag = tag;
-	}
-
-	public String toXML()
-	{
-        String result = "";
-		String tag1 = "<" + tag + ">";
-		String tag2 = "</" + tag + ">";
-
-		if (tag.equals(""))
-			tag1 = tag2 = "";
-		
-        if (next != null)
-        {
-            next.setTag(tag);
-            result += next.toXML();
-        }
-        result += tag1 + it.toXML() + tag2;
-
-		return result;
-	}
+	public String toRasQL();
 }

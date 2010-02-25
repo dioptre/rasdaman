@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmlwcs:GridCoverage  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns:gml='http://www.opengis.net/gml/3.2'
+    xmlns='http://www.opengis.net/gml/3.2'
+    xmlns:gmlwcs='http://www.opengis.net/wcs/2.0/gml'
+    xsi:schemaLocation='http://www.opengis.net/wcs/2.0/gml ../gml/gmlwcsAll.xsd' gml:id="coverage1">
+    <domainSet>
+        <Grid dimension="2" gml:id="grid1">
+            <limits>
+                <GridEnvelope>
+                    <!-- This is a 5-by-3 matrix -->
+                    <low>1 1</low>
+                    <high>5 3</high>
+                </GridEnvelope>
+            </limits>
+            <axisLabels>xAxis yAxis</axisLabels>
+        </Grid>
+    </domainSet>
+    <rangeSet>
+        <DataBlock>
+            <rangeParameters/>
+            <tupleList>
+                1  2  3  4  5
+                6  7  8  9  10
+                11 12 13 14 15
+            </tupleList>
+        </DataBlock>
+    </rangeSet>
+    <gmlwcs:rangeStructure>
+        <gmlwcs:RangeStructure gml:id="RangeStructure1">
+            <gmlwcs:rangeField >
+                <gmlwcs:RangeField gml:id="Band1" uom="W/cm^2">
+                    <gml:name>band1</gml:name>
+                    <gmlwcs:dataType>urn:ogc:def:dataType:OGC:1.1:unsignedByte</gmlwcs:dataType>
+                    <gmlwcs:nilValueList>000 255</gmlwcs:nilValueList>
+                </gmlwcs:RangeField>
+            </gmlwcs:rangeField>
+        </gmlwcs:RangeStructure>
+    </gmlwcs:rangeStructure>
+</gmlwcs:GridCoverage>

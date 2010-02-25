@@ -23,7 +23,7 @@
 
 
 
-package grammar;
+package petascope.wcps.grammar;
 
 /**
  * NumericScalarExpr

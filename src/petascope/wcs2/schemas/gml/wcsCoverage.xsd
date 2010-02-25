@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.opengis.net/wcs/2.0/gml" 
+    xmlns:gmlwcs="http://www.opengis.net/wcs/2.0/gml" 
+    xmlns:gml="http://www.opengis.net/gml/3.2" 
+    xmlns:xlink="http://www.w3.org/1999/xlink" 
+    xmlns="http://www.w3.org/2001/XMLSchema" 
+    elementFormDefault="qualified" version="1.0.0">
+    <annotation>
+        <appinfo source="urn:x-ogc:specification:wcs:gml-app-schema:schema-xsd:coverage:3.2.1">coverage.xsd</appinfo>
+        <documentation>Part of GML 3.2.1 Application schema for WCS 2.0.
+        Last updated: 2010-jan-11
+        Copyright (c) 2010 Open Geospatial Consortium, Inc. All Rights Reserved.
+        To obtain additional rights of use, visit http://www.opengeospatial.org/legal/.
+        </documentation>
+    </annotation>
+    <!-- ============================= -->
+    <!-- Includes and imports          -->
+    <!-- ============================= -->
+    <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+    <!-- ============================= -->
+    <!-- Body of this schema           -->
+    <!-- ============================= -->    
+    <element name="AbstractCoverage" type="gmlwcs:CoverageType" abstract="true" substitutionGroup="gml:AbstractCoverage">
+        <annotation>
+            <documentation>Extends gml:AbstractCoverage as needed for WCS 2.0, by adding a rangeStructure property. </documentation>
+        </annotation>
+    </element>
+    <!-- ============================================================= -->
+    <complexType name="CoverageType">
+        <annotation>
+            <documentation>The gml:coverageFunction property is included here, because it is included in both discrete and continuous coverages. This permits coverages in the gmlwcs:AbstractCoverage substitutionGroup to be used for either discrete and continuous coverages, in preparation for expected future elimination of this distinction. </documentation>
+        </annotation>
+        <complexContent>
+            <extension base="gml:AbstractCoverageType">
+                <sequence>
+                    <element ref="gmlwcs:rangeStructure"/>
+                    <element ref="gml:coverageFunction" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <!-- ============================================================= -->
+    <element name="GridCoverage" type="gmlwcs:CoverageType" substitutionGroup="gmlwcs:AbstractCoverage">
+        <annotation>
+            <documentation>A GridCoverage is a discrete point coverage in which the domain is a geometric grid of points.
+Note that this is the same as the MultiPointCoverage except that we have a gml:Grid to describe the domain.
+This simple grid coverage is not geometrically referenced to the earth, and hence no geometric positions are assignable to the points in the grid. Such geometric positioning is introduced in the RectifiedGridCoverage.
+Redefinition needed in order to benefit from the changes to the abstract ancestor AbstractCoverage.
+            </documentation>
+            <documentation>Since this GridCoverage uses the gmlwcs:CoverageType, it can be used for both discrete and continuous coverages. </documentation>
+        </annotation>
+    </element>
+    <!-- ============================================================= -->
+    <element name="RectifiedGridCoverage" type="gmlwcs:CoverageType" substitutionGroup="gmlwcs:AbstractCoverage">
+        <annotation>
+            <documentation>A RectifiedGridCoverage is a discrete point coverage based on a rectified grid. It is similar to the grid coverage except that the points of the grid are geometrically referenced. The rectified grid coverage has a domain that is a gml:RectifiedGrid geometry.
+            Redefinition needed in order to benefit from the changes to the abstract ancestor AbstractCoverage.
+            </documentation>
+            <documentation>Since this RectifiedGridCoverage uses the gmlwcs:CoverageType, it can be used for both discrete and continuous coverages. </documentation>
+        </annotation>
+    </element>
+    <!-- ============================================================= -->
+    <element name="ReferenceableGridCoverage" type="gmlwcs:CoverageType" substitutionGroup="gmlwcs:AbstractCoverage">
+        <annotation>
+            <documentation>A ReferenceableGridCoverage is an implementation of ISO 19123 CV_DiscreteGridPointCoverage for a CV_ReferenceableGrid domain. It is a coverage based on a referenceable grid and has a domain geometry that is in the substitution group of AbstractReferenceableGrid.</documentation>
+            <documentation>This equivalent of this element is being added to GML 3.2.1 by approved Change Request 07-112r3. </documentation>
+            <documentation>Since this ReferenceableGridCoverage uses the gmlwcs:CoverageType, it can be used for both discrete and continuous coverages. </documentation>
+        </annotation>
+    </element>
+    <!-- =============================================================
+         RangeStructure defines the structure of a coverage in WCS 2.0
+         ============================================================= -->
+    <element name="rangeStructure" type="gmlwcs:RangeStructurePropertyType">
+        <annotation>
+            <documentation>The rangeStructure property includes or references the RangeStructure, introduced for coverage definitions used by WCS 2.0. </documentation>
+        </annotation>
+    </element>
+    <!-- ============================================================= -->
+    <complexType name="RangeStructurePropertyType">
+        <sequence minOccurs="0">
+            <element ref="gmlwcs:RangeStructure"/>
+        </sequence>
+        <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+        <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    </complexType>
+    <!-- ============================================================= -->
+    <element name="RangeStructure" type="gmlwcs:RangeStructureType" substitutionGroup="gml:AbstractGML">
+        <annotation>
+            <documentation>The RangeStructure element describes the structure of a coverage's range, introduced for coverage definitions used by WCS 2.0. </documentation>
+        </annotation>
+    </element>
+    <!-- ============================================================= -->
+    <complexType name="RangeStructureType">
+        <complexContent>
+            <extension base="gml:AbstractGMLType">
+                <sequence>
+                    <element ref="gmlwcs:rangeField" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <!-- ============================================================= -->
+    <element name="rangeField" type="gmlwcs:RangeFieldPropertyType">
+        <annotation>
+            <documentation>The RangeField property includes or references one RangeField element. </documentation>
+        </annotation>
+    </element>
+    <!-- ============================================================= -->
+    <complexType name="RangeFieldPropertyType">
+        <sequence minOccurs="0">
+            <element name="RangeField" type="gmlwcs:RangeFieldType"/>
+        </sequence>
+        <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+        <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    </complexType>
+    <!-- ============================================================= -->
+    <element name="RangeField" type="gmlwcs:RangeFieldType" substitutionGroup="gml:AbstractGML">
+        <annotation>
+            <documentation>The RangeField element describes the structure of one Field of a coverage's range. </documentation>
+        </annotation>
+    </element>
+    <!-- ============================================================= -->
+    <complexType name="RangeFieldType">
+        <complexContent>
+            <extension base="gml:AbstractGMLType">
+                <annotation>
+                    <documentation>The gml:name should be used for the unique identifier of this RangeField. </documentation>
+                </annotation>
+                <sequence>
+                    <element name="dataType" type="gmlwcs:DataType"/>
+                    <element ref="gmlwcs:nilValueList"/>
+                </sequence>
+                <attribute name="uom" type="gml:UomIdentifier" use="optional">
+                    <annotation>
+                        <documentation>Identifier of the Unit of Measure applicable to values of this RangeField. </documentation>
+                    </annotation>
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+    <!-- ============================================================= -->
+    <complexType name="DataType">
+        <simpleContent>
+            <restriction base="gml:CodeType">
+                <attribute name="codeSpace" type="anyURI" use="optional" default="http://schemas.opengis.net/wcs/2.0/gml/wcsDataTypeIdentifiers.xml">
+                    <annotation>
+                        <documentation>This element will contain an URN that identifies the datatype of this field. The default gml:Dictionary of allowed values of this dataType is wcsDataTypeIdentifiers.xml. </documentation>
+                    </annotation>
+                </attribute>
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <!-- ============================================================= -->
+    <element name="nilValueList" type="gml:doubleList">
+        <annotation>
+            <documentation>List of the specific values of this RangeField that are used to designate non-valid values. </documentation>
+        </annotation>
+    </element>
+    <!-- ============================================================= -->    
+</schema>
