@@ -6,97 +6,103 @@
             <name>PetaScope</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.activation.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.commons-fileupload-1.2.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.commons-io-1.3.2.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.commons-math-1.1.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.jaxb-api.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.jaxb-impl.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.jaxb-xjc.jar}</file>
                 </library>
-                <library>
-                    <file>${file.reference.jaxb1-impl.jar}</file>
-                </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.jsr173_1.0_api.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
-                    <file>${file.reference.post-8.2-507.jdbc4.jar}</file>
-                </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.postgresql-8.3-604.jdbc4.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.servlet-2_5-api.jar}</file>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.antlrworks-1.2.3.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.gml-v_3_1_1-schema-1.0-SNAPSHOT.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.wcst-schema.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.rasj.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.joda-time-1.6.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.ows-v_1_0_0-schema-1.0-SNAPSHOT.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.log4j-1.2.15.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.slf4j-api-1.5.8.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.slf4j-log4j12-1.5.8.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.settings.properties}</file>
                     <path-in-war>/</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.wcpsProcessCoverages.xsd}</file>
                     <path-in-war>/xml/ogc/wcps/1.0.0/</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.wcps-servlet.html}</file>
                     <path-in-war>/templates/</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.wcst-servlet.html}</file>
                     <path-in-war>/templates/</path-in-war>
                 </library>
-                <library>
+                <library dirs="200">
                     <file>${file.reference.interface-servlet.html}</file>
                     <path-in-war>/templates/</path-in-war>
                 </library>
