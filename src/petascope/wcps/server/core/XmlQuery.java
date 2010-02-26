@@ -23,6 +23,7 @@
 package petascope.wcps.server.core;
 
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
@@ -77,7 +78,7 @@ public class XmlQuery implements IRasNode
         varDimension = new HashMap<String, Integer>();
     }
 
-    public XmlQuery(Node node) throws WCPSException
+    public XmlQuery(Node node) throws WCPSException, InvalidCrsException
     {
         iterators = new ArrayList<CoverageIterator>();
         dynamicIterators = new ArrayList<CoverageIterator>();
@@ -86,7 +87,7 @@ public class XmlQuery implements IRasNode
         this.startParsing(node);
     }
 
-    public void startParsing(Node node) throws WCPSException
+    public void startParsing(Node node) throws WCPSException, InvalidCrsException
     {
         System.err.println("Processing XML Request: " + node.getNodeName());
 

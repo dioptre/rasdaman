@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,8 @@ public class DimensionIntervalList
 {
     private ArrayList<IRasNode> list;
     
-	public DimensionIntervalList(Node node, XmlQuery xq)
-	    throws WCPSException
+	public DimensionIntervalList(Node node, XmlQuery xq, CoverageInfo info)
+	    throws WCPSException, InvalidCrsException
 	{
         System.err.println("Parsing a Dimension Interval List ...");
 
@@ -43,7 +44,7 @@ public class DimensionIntervalList
             try
             {
                 System.err.println("Parsing one dimension interval element ...");
-                DimensionIntervalElement elem = new DimensionIntervalElement(node, xq);
+                DimensionIntervalElement elem = new DimensionIntervalElement(node, xq, info);
                 node = elem.getNextNode();
                 list.add(elem);
             }

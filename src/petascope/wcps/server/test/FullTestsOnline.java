@@ -66,9 +66,9 @@ import org.w3c.dom.Element;
  */
 public class FullTestsOnline
 {
-//  public static String PetascopeURL = "http://localhost:8080/PetaScope/earthlook";
+  public static String PetascopeURL = "http://localhost:8080/PetaScope/earthlook";
 //  public static String PetascopeURL = "http://localhost:8080/petascope/wcps/";
-	public static String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope/earthlook";
+//	public static String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope/earthlook";
 
 	// Tests are read from this folder
 	static String folder = "test/testcases-wcps/";

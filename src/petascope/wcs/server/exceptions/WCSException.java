@@ -69,6 +69,7 @@ public class WCSException extends Exception
 	 */
 	protected WCSException(String error, String detail)
 	{
+        super();
         errorCode = error;
         errorDetail = detail;
 

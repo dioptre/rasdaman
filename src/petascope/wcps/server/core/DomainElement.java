@@ -35,7 +35,7 @@ import java.util.Set;
 
 public class DomainElement implements Cloneable
 {
-	public static final String WGS84_CRS = "urn:ogc:def:crs:OGC:1.3:CRS84";
+	public static final String WGS84_CRS = "EPSG:4326";
     public static final String IMAGE_CRS = "CRS:1";
 	private Set<String> crss;
 	private String name;

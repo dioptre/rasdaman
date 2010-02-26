@@ -22,6 +22,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.ResourceException;
 import petascope.wcps.server.exceptions.WCPSException;
 import petascope.wcps.server.exceptions.InvalidWcpsRequestException;
@@ -71,7 +72,7 @@ public class ProcessCoveragesRequest
     private XmlQuery xmlQuery;
 
 	public ProcessCoveragesRequest(String url, String database, Node node, IDynamicMetadataSource source, WCPS wcps)
-	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException, IOException
+	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException, IOException, InvalidCrsException
 	{
 		super();
 		this.source   = source;

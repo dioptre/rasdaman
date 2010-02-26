@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
@@ -38,7 +39,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo
 //    private String var;
 	private boolean simpleCoverage;    // True is the coverage is just a string
 
-	public CoverageExpr(Node node, XmlQuery xq) throws WCPSException
+	public CoverageExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
 	{
 		while ((node != null) && node.getNodeName().equals("#text"))
 		{

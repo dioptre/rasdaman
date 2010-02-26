@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
@@ -31,7 +32,7 @@ public class ReduceScalarExpr implements IRasNode
 	CoverageExpr expr;
 	String op;
 
-	public ReduceScalarExpr(Node node, XmlQuery xq) throws WCPSException
+	public ReduceScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
 	{
         if (node.getNodeName().equals("reduce"))
             node = node.getFirstChild();

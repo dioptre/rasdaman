@@ -32,6 +32,7 @@ public class CoverageInfo
 {
 	private List<CellDomainElement> cellDomains;
 	private List<DomainElement> domains;
+    private String coverageName;
 
 	public CoverageInfo(CoverageInfo other)
 	{
@@ -44,6 +45,8 @@ public class CoverageInfo
 			cellDomains.add(other.getCellDomainElement(i));
 			domains.add(other.getDomainElement(i));
 		}
+
+        coverageName = other.getCoverageName();
 	}
 
 	public CoverageInfo(Metadata m)
@@ -63,6 +66,8 @@ public class CoverageInfo
 		{
 			domains.add(itde.next());
 		}
+
+        coverageName = m.getCoverageName();
 	}
 
 	public boolean isCompatible(CoverageInfo other)
@@ -140,6 +145,11 @@ public class CoverageInfo
 	{
 		return domains.get(dim);
 	}
+
+    public String getCoverageName()
+    {
+        return coverageName;
+    }
 
 	public void removeDimension(int dim)
 	{

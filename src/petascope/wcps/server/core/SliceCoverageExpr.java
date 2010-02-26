@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo
     private DimensionPointElement elem;
 	private int dims;
 
-	public SliceCoverageExpr(Node node, XmlQuery xq) throws WCPSException
+	public SliceCoverageExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
 	{
 		Node child = node.getFirstChild();
 		String nodeName;

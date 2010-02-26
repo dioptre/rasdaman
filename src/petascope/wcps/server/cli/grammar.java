@@ -24,9 +24,10 @@ public class grammar {
         if (args.length != 1)
         {
             System.err.println("AbstractGrammarGen: no query as parameter !");
-            query = "for a in (rgb) return " +
-                    "condense + over $x x(1:10), $y y(25:75) " +
-                    "using $x * (a[x($x), y($y)]).red";
+//            query = "for a in (rgb) return " +
+//                    "condense + over $x x(1:10), $y y(25:75) " +
+//                    "using $x * (a[x($x), y($y)]).red";
+            query = "for c in (rgb) return encode(c[x:\"CRS:1\"(1:200)], \"jpeg\")";
         }
         else
             query = args[0];

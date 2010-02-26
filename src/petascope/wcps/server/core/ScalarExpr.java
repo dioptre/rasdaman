@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import petascope.wcps.server.exceptions.InvalidMetadataException;
 import java.math.BigInteger;
@@ -36,8 +37,10 @@ public class ScalarExpr implements IRasNode, ICoverageInfo
 {
     private IRasNode child;
     private CoverageInfo info;
+    private boolean singleNumericValue = false;
+    private double dvalue;
 
-	public ScalarExpr(Node node, XmlQuery xq) throws WCPSException
+	public ScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
 	{
         while ((node != null) && node.getNodeName().equals("#text"))
         {
@@ -86,6 +89,8 @@ public class ScalarExpr implements IRasNode, ICoverageInfo
             try
             {
                 child = new NumericScalarExpr(node, xq);
+                singleNumericValue = ((NumericScalarExpr) child).isSingleValue();
+                dvalue = ((NumericScalarExpr) child).getSingleValue();
                 System.err.println("Matched numeric scalar expression.");
             }
             catch (WCPSException e)
@@ -185,5 +190,15 @@ public class ScalarExpr implements IRasNode, ICoverageInfo
         {
             throw new WCPSException("Could not build metadata for scalar expression !", e);
         }
+    }
+
+    public boolean isSingleValue()
+    {
+        return singleNumericValue;
+    }
+
+    public double getSingleValue()
+    {
+        return dvalue;
     }
 }

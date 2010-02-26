@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
@@ -35,7 +36,7 @@ public class EncodeDataExpr implements IRasNode
 	private String mime;
 	private Boolean store;
 
-	public EncodeDataExpr(Node node, XmlQuery request) throws WCPSException
+	public EncodeDataExpr(Node node, XmlQuery request) throws WCPSException, InvalidCrsException
 	{
 		Node child;
 		String nodeName;

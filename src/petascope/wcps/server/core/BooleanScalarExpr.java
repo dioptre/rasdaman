@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
@@ -33,7 +34,7 @@ public class BooleanScalarExpr implements IRasNode
 	private boolean simple;    // true if the expression is just a value
 	private String value;
 
-	public BooleanScalarExpr(Node node, XmlQuery xq) throws WCPSException
+	public BooleanScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
 	{
         if (node == null)
             throw new WCPSException("Unexpected null node !");

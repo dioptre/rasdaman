@@ -44,6 +44,7 @@ public class DimensionIntervalElement implements IParseTreeNode
 	public void setCrs(String c)
 	{
 		crs = c;
+        System.err.println("Grammar: Set CRS name: " + c);
 	}
 
 	public void setIntervalExpr(DimensionIntervalExpr e)
@@ -59,7 +60,7 @@ public class DimensionIntervalElement implements IParseTreeNode
 
 		if (crs != null)
 		{
-			result += "<crs>" + crs + "</crs>";
+			result += "<srsName>" + crs + "</srsName>";
 		}
 
 		result += expr.toXML();

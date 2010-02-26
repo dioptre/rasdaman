@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
@@ -34,7 +35,7 @@ public class BinaryOperationCoverageExpr implements IRasNode, ICoverageInfo
 	private String operation;
 
 	public BinaryOperationCoverageExpr(Node node, XmlQuery xq)
-	    throws WCPSException
+	    throws WCPSException, InvalidCrsException
 	{
 		String nodeName = node.getNodeName();
 

@@ -57,7 +57,7 @@ public class DimensionPointElement implements IParseTreeNode
 
 		if (crs != null)
 		{
-			result += "<crs>" + crs + "</crs>";
+			result += "<srsName>" + crs + "</srsName>";
 		}
 
 		result += "<slicingPosition>" + point.toXML() + "</slicingPosition>";

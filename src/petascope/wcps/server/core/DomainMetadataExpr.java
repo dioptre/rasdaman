@@ -31,7 +31,7 @@ public class DomainMetadataExpr implements IRasNode, ICoverageInfo
     private IRasNode child;
 	private CoverageInfo info = null;
     private AxisName axis;
-    private CrsName crs;
+    private Crs crs;
     private IRasNode domain1, domain2;  // lower and upper bound, or "DomainMetadataExprType" and null
     private int counter = 0;             // counter for the domain vars
 

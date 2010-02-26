@@ -466,8 +466,17 @@ public class DbMetadataSource implements IMetadataSource
                     LOG.debug(X.toString());
                     LOG.debug(Y.toString());
                 }
-                crs = new Wgs84Crs(l1, h1, l2, h2, o1, o2);
-                LOG.trace("Found CRS : ", crs.toString());
+                /* Only store CRS information if coverage is 2-D */
+                if (twoDCoverage == true)
+                {
+                    crs = new Wgs84Crs(l1, h1, l2, h2, o1, o2);
+                    LOG.trace("Found CRS : ", crs.toString());
+                }
+                else
+                {
+                    LOG.warn("Found CRS '{}', but coverage is not 2-dimensional. " +
+                            "Ignoring CRS information.", crs.toString());
+                }
             }
             else
                 if (twoDCoverage)

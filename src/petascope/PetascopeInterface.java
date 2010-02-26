@@ -53,6 +53,7 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 import petascope.wcps.server.core.DbMetadataSource;
 import petascope.wcps.server.core.ProcessCoveragesRequest;
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.ResourceException;
 import petascope.wcps.server.core.WCPS;
 import petascope.wcps.server.exceptions.WCPSException;
@@ -335,6 +336,7 @@ public class PetascopeInterface extends HttpServlet
             catch (Exception e)
             {
                 // Finally, cast all other exceptions into a WCSException
+                LOG.error("Runtime error : {}", e.getMessage());
                 throw new WcsRuntimeException(e.getMessage(), e);
             }
         }
@@ -531,7 +533,7 @@ public class PetascopeInterface extends HttpServlet
         }
     }
 
-    private void handleGetCoverage(String request, HttpServletResponse httpResponse) throws WCSException
+    private void handleGetCoverage(String request, HttpServletResponse httpResponse) throws WCSException, InvalidCrsException
     {
         String xmlRequest = wcs.GetCoverage(request, wcps);
         LOG.debug("Received GetCoverage Request: \n{}", xmlRequest);
@@ -557,7 +559,7 @@ public class PetascopeInterface extends HttpServlet
         }
     }
 
-    private void handleProcessCoverages(String xmlRequest, HttpServletResponse response) throws WCSException
+    private void handleProcessCoverages(String xmlRequest, HttpServletResponse response) throws WCSException, InvalidCrsException
     {
         OutputStream webOut = null;
         try

@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo
 	private int dims;
     private DimensionIntervalElement elem;
 
-	public ExtendCoverageExpr(Node node, XmlQuery xq) throws WCPSException
+	public ExtendCoverageExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
 	{
         
 		Node child, axisNode;
@@ -75,7 +76,7 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo
             try
 			{
                 // Start a new axis and save it
-				elem = new DimensionIntervalElement(node, xq);
+				elem = new DimensionIntervalElement(node, xq, coverageInfo);
                 axisList.add(elem);
                 child = elem.getNextNode();
                 continue;

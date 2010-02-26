@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import java.math.BigInteger;
 import org.w3c.dom.*;
@@ -33,7 +34,7 @@ public class AxisIterator implements IRasNode
     private AxisName axis;
 	private NumericScalarExpr hi,lo;
 
-	public AxisIterator(Node node, XmlQuery xq, String newIteratorName) throws WCPSException
+	public AxisIterator(Node node, XmlQuery xq, String newIteratorName) throws WCPSException, InvalidCrsException
 	{
         while ((node != null) && node.getNodeName().equals("#text"))
 		{

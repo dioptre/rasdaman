@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import java.util.Vector;
 import org.w3c.dom.*;
@@ -36,7 +37,7 @@ public class CondenseScalarExpr implements IRasNode
     private String axisIteratorString;
     private String newIteratorName;
 
-	public CondenseScalarExpr(Node node, XmlQuery xq) throws WCPSException
+	public CondenseScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
 	{
         if (node.getNodeName().equals("condense"))
             node = node.getFirstChild();

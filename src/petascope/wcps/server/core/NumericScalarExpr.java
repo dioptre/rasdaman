@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
@@ -31,8 +32,9 @@ public class NumericScalarExpr implements IRasNode
     private IRasNode first, second;
 	private String op, value;
     private boolean twoChildren;
+    private double dvalue;
 
-	public NumericScalarExpr(Node node, XmlQuery xq) throws WCPSException
+	public NumericScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
 	{
         twoChildren = false;
         String nodeName = node.getNodeName();
@@ -48,7 +50,7 @@ public class NumericScalarExpr implements IRasNode
 			value  = node.getFirstChild().getNodeValue();
             try
             {
-                double dval = Double.parseDouble(value);
+                dvalue = Double.parseDouble(value);
             }
             catch (NumberFormatException e)
             {
@@ -134,7 +136,7 @@ public class NumericScalarExpr implements IRasNode
         return result;
 	}
 
-    public String code(String name)
+    private String code(String name)
     {
         String op = "";
         if (name.equals("numericConstant"))
@@ -154,5 +156,15 @@ public class NumericScalarExpr implements IRasNode
             op = "variable";
 
         return op;
+    }
+
+    public boolean isSingleValue()
+    {
+        return op.equals("value");
+    }
+
+    public double getSingleValue()
+    {
+        return dvalue;
     }
 }

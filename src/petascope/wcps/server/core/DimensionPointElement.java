@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
@@ -30,12 +31,12 @@ public class DimensionPointElement implements IRasNode
 {
     private IRasNode domain, child;
     private AxisName axis;
-    private CrsName crs;
+    private Crs crs;
     private boolean finished = false;
     private Node nextNode;
 
 	public DimensionPointElement(Node node, XmlQuery xq)
-	    throws WCPSException
+	    throws WCPSException, InvalidCrsException
 	{
         System.err.println("Trying to parse DimensionPointElement expression...");
         String name;
@@ -71,7 +72,7 @@ public class DimensionPointElement implements IRasNode
             // Try CRS name
             try
             {
-                crs = new CrsName(node, xq);
+                crs = new Crs(node, xq);
                 node = node.getNextSibling();
                 if (axis == null)
                     throw new WCPSException("Expected Axis node before CRS !");
@@ -96,7 +97,7 @@ public class DimensionPointElement implements IRasNode
 //                System.err.println("Failed to parse domain metadata!");
 //            }
 
-            // Then it must be a pair of nodes "lowerBound" + "upperBound"
+            // Then it must be a "slicingPosition"
             if (node.getNodeName().equals("slicingPosition"))
             {
                 domain = new ScalarExpr(node.getFirstChild(), xq);

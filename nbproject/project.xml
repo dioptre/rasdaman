@@ -106,6 +106,10 @@
                     <file>${file.reference.interface-servlet.html}</file>
                     <path-in-war>/templates/</path-in-war>
                 </library>
+                <library dirs="200">
+                    <file>${file.reference.log4j.properties}</file>
+                    <path-in-war>/</path-in-war>
+                </library>
             </web-module-additional-libraries>
             <source-roots>
                 <root id="src.java.dir" name="Source Packages (ln)"/>

@@ -47,10 +47,12 @@ public class ConfigManager {
 
     /* Major version number. This is the first release (1). */
     private final static String MAJOR = "1";
-    /* Minor version number. .2 adds the reference implementation of WCS 2.0 */
-    private final static String MINOR = "2";
-    /* Bug-fix count. We have a hack because every WCPS response is written to disk. */
+    /* Minor version number. v2 adds the reference implementation of WCS 2.0.
+     v3 adds WGS84 handling in WCPS requests. */
+    private final static String MINOR = "3";
+    /* Bug-fix count. We have a hack: every WCPS response is written to disk. */
     private final static String BUGFIX = "2-hack";
+
     /* Petascope 1.2.0 contains WCS 1.1.0, WCS 2.0, WCS-T 1.0.0 and WCPS 1.0.0 */
     public final static String PETASCOPE_VERSION = MAJOR + "." + MINOR + "." + BUGFIX;
     

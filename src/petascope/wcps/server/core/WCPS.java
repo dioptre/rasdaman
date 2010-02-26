@@ -24,6 +24,7 @@
 package petascope.wcps.server.core;
 
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.ResourceException;
 import petascope.wcps.server.exceptions.WCPSException;
 import petascope.wcps.server.exceptions.InvalidWcpsRequestException;
@@ -156,7 +157,7 @@ public class WCPS
 
 	public ProcessCoveragesRequest pcPrepare(String url, String database, File f)
 	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-	    IOException
+	    IOException, InvalidCrsException
 	{
 		return pcPrepare(url, database, wcpsDocumentBuilder.parse(f));
 	}
@@ -164,34 +165,34 @@ public class WCPS
 	public ProcessCoveragesRequest pcPrepare(String url, String database, InputStream is,
 	    String systemId)
 	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-	    IOException
+	    IOException, InvalidCrsException
 	{
 		return pcPrepare(url, database, wcpsDocumentBuilder.parse(is, systemId));
 	}
 
 	public ProcessCoveragesRequest pcPrepare(String url, String database, String uri)
 	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-	    IOException
+	    IOException, InvalidCrsException
 	{
 		return pcPrepare(url, database, wcpsDocumentBuilder.parse(uri));
 	}
 
 	public ProcessCoveragesRequest pcPrepare(String url, String database, InputSource is)
 	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-	    IOException
+	    IOException, InvalidCrsException
 	{
 		return pcPrepare(url, database, wcpsDocumentBuilder.parse(is));
 	}
 
     public ProcessCoveragesRequest pcPrepare(String url, String database, InputStream is)
 	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-	    IOException
+	    IOException, InvalidCrsException
 	{
 		return pcPrepare(url, database, wcpsDocumentBuilder.parse(is));
 	}
 
 	private ProcessCoveragesRequest pcPrepare(String url, String database, Document doc)
-	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException, IOException
+	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException, IOException, InvalidCrsException
 	{
         ProcessCoveragesRequest req = new ProcessCoveragesRequest(url, database, doc, dynamicMetadataSource, this);
         return req;

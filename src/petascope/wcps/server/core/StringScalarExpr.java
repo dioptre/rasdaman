@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
@@ -32,7 +33,7 @@ public class StringScalarExpr implements IRasNode
 
     private String op, string;
     private CoverageExpr cov;
-	public StringScalarExpr(Node node, XmlQuery xq) throws WCPSException
+	public StringScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
 	{
         while ((node != null) && (node.getNodeName().equals("#text")))
         {

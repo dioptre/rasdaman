@@ -49,9 +49,7 @@ import java.util.List;
 import org.antlr.runtime.RecognitionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import petascope.wcps.server.core.CellDomainElement;
 import petascope.wcps.server.core.Metadata;
-import petascope.wcps.server.core.Wgs84Crs;
 import petascope.wcs.server.exceptions.InvalidParameterValueException;
 import petascope.wcs.server.exceptions.InvalidTemporalMetadataException;
 import petascope.wcs.server.exceptions.MissingParameterValueException;
@@ -95,6 +93,7 @@ public class convertGetCoverage
 	private String timePos;
 	private GetCoverage wcs;
     private long px0, px1, py0, py1;    // Bounding box subsetting
+    private String crsName;             // for bounding box
 	private String xmlRequest;
 
     private Metadata covMeta;
@@ -173,11 +172,11 @@ public class convertGetCoverage
 
             /* We only understand two CRSs: WGS84 and IMAGE_CRS */
 			/* TODO: Implement CRS transformations */
-            String crsName = bbox.getCrs();
+            crsName = bbox.getCrs();
 			if (crsName != null)
             {
                 if (crsName.equals(DomainElement.IMAGE_CRS))
-                    LOG.trace("CRS: IMAGE_CRS");
+                    LOG.trace("CRS: NATIVE_IMAGE_CRS");
                 else
                 if (crsName.equals(DomainElement.WGS84_CRS))
                     LOG.trace("CRS: WGS84");
@@ -216,55 +215,14 @@ public class convertGetCoverage
 			LOG.trace("Added Y-axis trimming ! (DomainSubset->BoundingBox): " + v2 + " ... "
 				+ v3);
 
-//            log("CRS Coordinates: U23 (" + u2 + "," + u3 + ") + V23 (" + v2 + "," + v3 + ")");
-            
-            Wgs84Crs crs = covMeta.getCrs();
-            // Convert bounding box values to pixel coordinates
-            if (crsName.equals(DomainElement.WGS84_CRS))
-            {
-                LOG.trace("Converting WGS84 bounding box to pixel coordinates ...");
-                /* Image coordinates */
-                Iterator<CellDomainElement> it = covMeta.getCellDomainIterator();
-                CellDomainElement X = it.next();
-                CellDomainElement Y = it.next();
-                if (X == null || Y == null)
-                    throw new NoApplicableCodeException("Could not find the X or Y axis for coverage: " + coverageName);
-                int x0 = X.getLo().intValue();
-                int x1 = X.getHi().intValue();
-                int y0 = Y.getLo().intValue();
-                int y1 = Y.getHi().intValue();
-                LOG.trace("Pixel Coordinates: X01 (" + x0 + "," + x1 + ") + Y01 (" + y0 + "," + y1 + ")");
-                /* CRS span */
-                double x2 = crs.getLow1();
-                double y2 = crs.getLow2();
-                double x3 = crs.getHigh1();
-                double y3 = crs.getHigh2();
-                LOG.trace("CRS Coordinates: X23 (" + x2 + "," + x3 + ") + Y23 (" + y2 + "," + y3 + ")");
-                /* For WGS84, the offset = (# pixels)/(CRS span) */
-                double oX = crs.getOffset1();
-                double oY = crs.getOffset2();
+            /* Use bounding-box values as they are given */
+            px0 = u2;
+            py0 = v2;
+            px1 = u3;
+            py1 = v3;
 
-                px0 = Math.round((u2 - x2) / oX) + x0;
-                py0 = Math.round((y3 - v3) / oY) + y0;
-                px1 = Math.round((u3 - u2) / oX) + px0;
-                py1 = Math.round((v3 - v2) / oY) + py0;
-
-                LOG.debug("Found new pixel coordinates !");
-                LOG.debug("CRS Coordinates: U23 (" + u2 + "," + u3 + ") + V23 (" + v2 + "," + v3 + ")");
-                LOG.debug("Pixel Coordinates: U01 (" + px0 + "," + px1 + ") + V01 (" + py0 + "," + py1 + ")");
-            }
-            else
-            if  (crsName.equals(DomainElement.IMAGE_CRS))
-            {
-                LOG.debug("Using IMAGE_CRS: " + DomainElement.IMAGE_CRS);
-
-                /* Use bounding-box values as they are given */
-                px0 = u2;
-                py0 = v2;
-                px1 = u3;
-                py1 = v3;
-            }
-            else
+            if  (crsName.equals(DomainElement.IMAGE_CRS) == false &&
+                    crsName.equals(DomainElement.WGS84_CRS) == false)
                 throw new NoApplicableCodeException("Unknown CRS: " + crsName);
 		}
         
@@ -445,8 +403,8 @@ public class convertGetCoverage
 		if ( xAxisTrim && yAxisTrim )
 		{
 			// Bounding box subsetting
-			String xAxis = "x(" + px0 + ":" + px1 + ")";
-			String yAxis = "y(" + py0 + ":" + py1 + ")";
+			String xAxis = "x:\"" + crsName + "\" (" + px0 + ":" + px1 + ")";
+			String yAxis = "y:\"" + crsName + "\" (" + py0 + ":" + py1 + ")";
 			String tAxis = "t(" + time1 + ":" + time2 + ")";
 
 			if ( timeTrim )

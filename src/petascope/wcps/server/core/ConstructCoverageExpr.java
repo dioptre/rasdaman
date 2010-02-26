@@ -23,6 +23,7 @@
 
 package petascope.wcps.server.core;
 
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import petascope.wcps.server.exceptions.InvalidMetadataException;
 import java.util.HashSet;
@@ -44,7 +45,7 @@ public class ConstructCoverageExpr implements IRasNode, ICoverageInfo
 
 
 	public ConstructCoverageExpr(Node node, XmlQuery xq)
-	    throws WCPSException
+	    throws WCPSException, InvalidCrsException
 	{
         while ((node != null) && node.getNodeName().equals("#text"))
 		{

@@ -23,47 +23,39 @@
 
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
+import petascope.wcs.server.exceptions.NoApplicableCodeException;
 
 public class DimensionIntervalElement implements IRasNode, ICoverageInfo
 {
+    Logger LOG = LoggerFactory.getLogger(DimensionIntervalElement.class);
+
     private IRasNode child;
 	private CoverageInfo info = null;
     private AxisName axis;
-    private CrsName crs;
-    private IRasNode domain1, domain2;  // lower and upper bound, or "DomainMetadataExprType" and null
-    private int counter = 0;             // counter for the domain vars
+    private Crs crs;
+    private ScalarExpr domain1, domain2;  // lower and upper bound, or "DomainMetadataExprType" and null
+    private long coord1, coord2;
+    private int counter = 0;            // counter for the domain vars
+    private Metadata meta = null;       // metadata about the current coverage
     private boolean finished = false;
     private Node nextNode;
+    private boolean transformedCoordinates = false;
 
-	public DimensionIntervalElement(Node node, XmlQuery xq)
-	    throws WCPSException
+    /**
+     * Constructs an element of a dimension interval.
+     * @param node XML Node
+     * @param xq WCPS Xml Query object
+     * @param covInfo CoverageInfo object about the Trim parent object
+     * @throws WCPSException
+     */
+	public DimensionIntervalElement(Node node, XmlQuery xq, CoverageInfo covInfo)
+	    throws WCPSException, InvalidCrsException
 	{
-		/*
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
-
-		if (node == null)
-		{
-			throw new WCPSException("SubsetOperationCoverageExpr parsing error!");
-		}
-
-		String nodeName = node.getNodeName();
-
-		System.err.println("SubsetOperationCoverageExpr: node " + nodeName);
-
-        if (nodeName.equals("trim"))
-        {
-            child = new TrimCoverageExprType(node, xq);
-        }
-        else if (nodeName.equals("extend"))
-             child = new ExtendCoverageExprType(node, xq);
-        else if (nodeName.equals("slice"))
-            child = new SliceCoverageExprType(node, xq);
-         * */
 
         System.err.println("Trying to parse DimensionIntervalElement expression...");
         String name;
@@ -99,10 +91,18 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
             // Try CRS name
             try
             {
-                crs = new CrsName(node, xq);
+                crs = new Crs(node, xq);
                 node = node.getNextSibling();
                 if (axis == null)
                     throw new WCPSException("Expected Axis node before CRS !");
+
+                if (covInfo.getCoverageName() != null)
+                {
+                    // Add WGS84 CRS information from coverage metadata, may be useful
+                    // for converting geo-coordinates to pixel-coordinates
+                    String coverageName = covInfo.getCoverageName();
+                    meta = xq.getMetadataSource().read(coverageName);
+                }
                 continue;
             }
             catch (WCPSException e)
@@ -153,11 +153,54 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
 
             node = node.getNextSibling();
         }
+
+        if (finished == true)
+            convertToPixelCoordinates();
 	}
 
+
+    /* If input coordinates are geo-, convert them to pixel coordinates. */
+    private void convertToPixelCoordinates()
+    {
+        if (counter == 2 && crs != null && domain1.isSingleValue() && domain2.isSingleValue())
+        {
+            if (crs.getName().equals(DomainElement.WGS84_CRS))
+            {
+                LOG.debug("CRS is '{}' and should be equal to '{}'", crs.getName(), DomainElement.WGS84_CRS);
+                try
+                {
+                    this.transformedCoordinates = true;
+                    // Convert to pixel coordinates
+                    Double val1 = domain1.getSingleValue();
+                    Double val2 = domain2.getSingleValue();
+                    String axisName = axis.toRasQL().toUpperCase();
+                    if (axisName.equals("X"))
+                    {
+                        long[] pCoord = crs.convertToPixelCoordinates(meta, "X", val1, val2, null, null);
+                        coord1 = pCoord[0];
+                        coord2 = pCoord[1];
+                    }
+                    if (axisName.equals("Y"))
+                    {
+                        long[] pCoord = crs.convertToPixelCoordinates(meta, "Y", null, null, val1, val2);
+                        coord1 = pCoord[2];
+                        coord2 = pCoord[3];
+                    }
+                }
+                catch (NoApplicableCodeException e)
+                {
+                    this.transformedCoordinates = false;
+                    LOG.error("Error while transforming geo-coordinates to pixel coordinates." +
+                            "The metadata is probably not valid.");
+                }
+            }
+        }
+    }
+
+    /* Not used */
 	public String toRasQL()
 	{
-		return child.toRasQL();
+		return "<DimensionIntervalElement Not Converted to RasQL>";
 	}
 
 	public CoverageInfo getCoverageInfo()
@@ -182,11 +225,17 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
 
     public String getLowCoord()
     {
-        return this.domain1.toRasQL();
+        if (transformedCoordinates)
+            return String.valueOf(coord1);
+        else
+            return this.domain1.toRasQL();
     }
 
     public String getHighCoord()
     {
-        return this.domain2.toRasQL();
+        if (transformedCoordinates)
+            return String.valueOf(coord2);
+        else
+            return this.domain2.toRasQL();
     }
 }

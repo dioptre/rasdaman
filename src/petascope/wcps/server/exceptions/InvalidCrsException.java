@@ -21,35 +21,13 @@
  */
 
 
-package petascope.wcps.server.core;
 
-import petascope.wcps.server.exceptions.WCPSException;
-import org.w3c.dom.*;
+package petascope.wcps.server.exceptions;
 
-public class CrsName implements IRasNode
+public class InvalidCrsException extends Exception
 {
-    private String crs;
-
-	public CrsName(Node node, XmlQuery xq) throws WCPSException
+	public InvalidCrsException(String message)
 	{
-        System.err.println("Parsing crs name ...");
-
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
-
-        if (node != null && node.getNodeName().equals("srsName"))
-        {
-            String val = node.getNodeValue();
-            this.crs = val;
-        }
-        else
-            throw new WCPSException("Could not a 'srsName' node !");
-	}
-
-	public String toRasQL()
-	{
-        return crs;
+		super(message);
 	}
 }
