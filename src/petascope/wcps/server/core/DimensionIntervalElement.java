@@ -162,6 +162,11 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
     /* If input coordinates are geo-, convert them to pixel coordinates. */
     private void convertToPixelCoordinates()
     {
+        if (meta.getCrs() == null && crs.getName().equals(DomainElement.WGS84_CRS))
+        {
+            throw new RuntimeException("Coverage '" + meta.getCoverageName() +
+                    "' is not georeferenced with 'EPSG:4326' coordinate system.");
+        }
         if (counter == 2 && crs != null && domain1.isSingleValue() && domain2.isSingleValue())
         {
             if (crs.getName().equals(DomainElement.WGS84_CRS))
