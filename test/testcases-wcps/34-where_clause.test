@@ -1,4 +1,4 @@
 for c in (mr)
-where avg(mr)>30
+where avg(c)>30
 return
 encode (c, "jpeg")
