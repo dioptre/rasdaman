@@ -57,6 +57,14 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
 	    throws WCPSException, InvalidCrsException
 	{
 
+        if (covInfo.getCoverageName() != null)
+        {
+            // Add WGS84 CRS information from coverage metadata, may be useful
+            // for converting geo-coordinates to pixel-coordinates
+            String coverageName = covInfo.getCoverageName();
+            meta = xq.getMetadataSource().read(coverageName);
+        }
+
         System.err.println("Trying to parse DimensionIntervalElement expression...");
         String name;
 
@@ -95,14 +103,6 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
                 node = node.getNextSibling();
                 if (axis == null)
                     throw new WCPSException("Expected Axis node before CRS !");
-
-                if (covInfo.getCoverageName() != null)
-                {
-                    // Add WGS84 CRS information from coverage metadata, may be useful
-                    // for converting geo-coordinates to pixel-coordinates
-                    String coverageName = covInfo.getCoverageName();
-                    meta = xq.getMetadataSource().read(coverageName);
-                }
                 continue;
             }
             catch (WCPSException e)
