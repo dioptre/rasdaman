@@ -51,7 +51,7 @@ public class ConfigManager {
      v3 adds WGS84 handling in WCPS requests. */
     private final static String MINOR = "3";
     /* Bug-fix count. We have a hack: every WCPS response is written to disk. */
-    private final static String BUGFIX = "3-hack";
+    private final static String BUGFIX = "4-hack";
 
     /* Petascope 1.2.0 contains WCS 1.1.0, WCS 2.0, WCS-T 1.0.0 and WCPS 1.0.0 */
     public final static String PETASCOPE_VERSION = MAJOR + "." + MINOR + "." + BUGFIX;
@@ -186,6 +186,9 @@ public class ConfigManager {
         }
 
         LOG.info("---------------------------");
+        if (CCIP_HACK)
+            LOG.info("-----------CCIP------------");
+        LOG.info("---------------------------");
 
 //        log("Print Log: " + PRINT_LOG);
         LOG.info("       *** PETASCOPE ***      ");
@@ -202,9 +205,9 @@ public class ConfigManager {
         LOG.info("WCS-T Default Null Resistance: " + WCST_DEFAULT_NULL_RESISTANCE);
         LOG.info("WCS-T Default Datatype: " + WCST_DEFAULT_DATATYPE);
         LOG.info("       *** WCS 2.0 ***     ");
-        LOG.debug("Get Capabilities Template: " + WCS2_GET_CAPABILITIES_TEMPLATE);
-        LOG.debug("Describe Coverage Template: " + WCS2_DESCRIBE_COVERAGE_TEMPLATE);
-        LOG.debug("Get Capabilities Template: " + WCS2_GET_COVERAGE_TEMPLATE);
+        LOG.trace("Get Capabilities Template: " + WCS2_GET_CAPABILITIES_TEMPLATE.substring(0, 100));
+        LOG.trace("Describe Coverage Template: " + WCS2_DESCRIBE_COVERAGE_TEMPLATE.substring(0, 100));
+        LOG.trace("Get Capabilities Template: " + WCS2_GET_COVERAGE_TEMPLATE.substring(0, 100));
         LOG.info("---------------------------");
     }
 

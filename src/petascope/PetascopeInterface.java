@@ -28,7 +28,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.lang.String;
+import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -212,6 +217,41 @@ public class PetascopeInterface extends HttpServlet
         LOG.info("-----------------------------------------------");
     }
 
+    /* Build a dictionary of parameter names and values, given a request string */
+    private Map<String,String> buildParameterDictionary(String request)
+    {
+        HashMap<String,String> map = new HashMap<String,String>(3);
+        if (request == null)
+            return map;
+
+        String[] pairs = request.split("&");
+        String key = null, val = null;
+        int pos = -1;
+        for (int i=0; i < pairs.length; i++)
+        {
+            pos = pairs[i].indexOf("=");
+            if (pos != -1)
+            {
+                key = pairs[i].substring(0, pos);
+                val = pairs[i].substring(pos+1, pairs[i].length());
+                map.put(key, val);
+            }
+        }
+
+        return map;
+    }
+
+    /* URL-decode a string, if needed */
+    private String urldecode(String encodedText, String contentType) throws UnsupportedEncodingException
+    {
+        if (encodedText == null)
+            return null;
+        String decoded = encodedText;
+        if (contentType != null && contentType.equals("application/x-www-form-urlencoded"))
+            decoded = URLDecoder.decode(encodedText, "UTF-8");
+        return decoded;
+    }
+
     /* Respond to Post requests just like in the case of Get requests */
     @Override
     public void doPost(HttpServletRequest httpRequest, HttpServletResponse httpResponse)
@@ -228,34 +268,67 @@ public class PetascopeInterface extends HttpServlet
     @Override
     public void doGet(HttpServletRequest httpRequest, HttpServletResponse httpResponse)
     {
+        String request = null, requestBody = null;
+        
         /* Init the Petascope URL automatically, for GetCapabilities response */
         if (ConfigManager.PETASCOPE_SERVLET_URL == null)
             ConfigManager.PETASCOPE_SERVLET_URL = httpRequest.getRequestURL().toString();
 
-        /* List all available coverages */
+        /* List all available coverages, to make sure metadata is available */
         try {LOG.debug("PetaScope coverages: " + metadataSource.coverages());}
         catch (ResourceException e){}
 
         /* Process the request */
-        String request = httpRequest.getParameter("request");
-        String service = httpRequest.getParameter("service");
-            
+
         try
         {
             try
             {
+                requestBody = IOUtils.toString(httpRequest.getReader());
+                LOG.trace("POST Request length: " + httpRequest.getContentLength());
+                LOG.trace("POST request body: \n------START REQUEST--------\n" +
+                        requestBody + "\n------END REQUEST------\n");
+
+                Map<String,String> params = buildParameterDictionary(requestBody);
+                LOG.trace("Request parameters: {}", params);
+                request = urldecode(params.get("request"), httpRequest.getContentType());
+
                 // Quick hack to preserve compatibility with previous client versions
-                String request2 = httpRequest.getParameter("query");
+                // (GET requests with parameter "query")
+                String request2 = null;
+                if (params.containsKey("query"))
+                    request2 = params.get("query");
+                else
+                    request2 = httpRequest.getParameter("query");
                 if (request2 != null)
+                {
+                    LOG.debug("Received Abstract Syntax Request via GET: \n\t\t{}", request2);
                     request2 = ProcessCoveragesRequest.abstractQueryToXmlQuery(request2);
+                }
                 if (request == null && request2 != null)
                     request = request2;
 
-                if (request == null)
+                // Empty request ? 
+                if (request == null && (requestBody == null || requestBody.length() == 0))
                 {
                     printUsage(httpResponse, request);
                     return;
                 }
+
+                // No parameters, just XML in the request body
+                if (request == null && requestBody != null && requestBody.length() > 0)
+                {
+                    request = urldecode(requestBody, httpRequest.getContentType());
+                    
+//                    if (request.matches(" *<.*") == false)
+//                    {
+//                        handleUnknownRequest(request, httpResponse);
+//                        return;
+//                    }
+                }
+
+                LOG.debug("Petascope Request: \n------START REQUEST--------\n" +
+                        request + "\n------END REQUEST------\n");
 
                 Document doc = builder.parse(IOUtils.toInputStream(request));
                 Element rootElem = doc.getDocumentElement();
