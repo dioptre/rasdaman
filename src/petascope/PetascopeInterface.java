@@ -220,9 +220,11 @@ public class PetascopeInterface extends HttpServlet {
             return null;
         }
         String decoded = encodedText;
-        if (contentType != null && contentType.equals("application/x-www-form-urlencoded")) {
+        LOG.trace("Found URL encoded text: {}", encodedText);
+        if (contentType != null && contentType.equals("application/x-www-form-urlencoded") && encodedText.indexOf(" ") == -1) {
             decoded = URLDecoder.decode(encodedText, "UTF-8");
         }
+        LOG.trace("Returning decoded text: {}", decoded);
         return decoded;
     }
 
@@ -270,11 +272,9 @@ public class PetascopeInterface extends HttpServlet {
                 // Quick hack to preserve compatibility with previous client versions
                 // (GET requests with parameter "query")
                 String request2 = null;
-                if (params.containsKey("query")) {
-                    request2 = params.get("query");
-                } else {
-                    request2 = httpRequest.getParameter("query");
-                }
+                request2 = httpRequest.getParameter("query");
+                if (request2 == null)
+                    request2 = urldecode(params.get("query"), httpRequest.getContentType());
                 if (request2 != null) {
                     LOG.debug("Received Abstract Syntax Request via GET: \n\t\t{}", request2);
                     request2 = ProcessCoveragesRequest.abstractQueryToXmlQuery(request2);
