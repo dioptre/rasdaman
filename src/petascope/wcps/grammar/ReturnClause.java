@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,17 +26,15 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class ReturnClause implements IParseTreeNode
-{
-	IParseTreeNode expr;
+public class ReturnClause implements IParseTreeNode {
 
-	public ReturnClause(IParseTreeNode e)
-	{
-		expr = e;
-	}
+    IParseTreeNode expr;
 
-	public String toXML()
-	{
-		return expr.toXML();
-	}
+    public ReturnClause(IParseTreeNode e) {
+        expr = e;
+    }
+
+    public String toXML() {
+        return expr.toXML();
+    }
 }

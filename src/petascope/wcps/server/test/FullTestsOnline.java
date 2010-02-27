@@ -286,18 +286,19 @@ public class FullTestsOnline {
         conn.setDefaultUseCaches(false);
 
         // Default method is GET
-        if (method.equals("POST"))
+        if (method.equals("POST")) {
             conn.setRequestMethod(method);
+        }
 
         // For POST: We send binary data
-        if (method.equals("POST"))
-        {
+        if (method.equals("POST")) {
 //            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 //            query = URLEncoder.encode(query, "UTF-8");
         }
 
-        if (param.equals("") == false)
+        if (param.equals("") == false) {
             param += "=";
+        }
 
         String data = param + query;
         DataOutputStream out = new DataOutputStream(conn.getOutputStream());

@@ -19,45 +19,34 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
+public class FieldName implements IRasNode {
 
+    private String name;
 
+    public FieldName(Node node, XmlQuery xq) throws WCPSException {
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
 
-public class FieldName implements IRasNode
-{
-	private String name;
+        if (node == null) {
+            throw new WCPSException("FieldNameType parsing error!");
+        }
 
-	public FieldName(Node node, XmlQuery xq) throws WCPSException
-	{
-		while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
+        String nodeName = node.getNodeName();
 
-		if (node == null)
-		{
-			throw new WCPSException("FieldNameType parsing error!");
-		}
-
-		String nodeName = node.getNodeName();
-
-		if (nodeName.equals("name"))
-		{
+        if (nodeName.equals("name")) {
             this.name = node.getTextContent();
 
-			System.err.println("Found field name: " + name);
-		}
-	}
+            System.err.println("Found field name: " + name);
+        }
+    }
 
-	public String toRasQL()
-	{
-		return this.name;
-	}
-}
-;
+    public String toRasQL() {
+        return this.name;
+    }
+};

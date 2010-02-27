@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.WCPSException;
@@ -29,16 +27,15 @@ import java.util.Iterator;
 import java.util.List;
 import org.w3c.dom.*;
 
-public class RangeCoverageExpr implements IRasNode, ICoverageInfo
-{
-	private IRasNode child;
-	private CoverageInfo info = null;
+public class RangeCoverageExpr implements IRasNode, ICoverageInfo {
+
+    private IRasNode child;
+    private CoverageInfo info = null;
     List<IRasNode> components;
 
-	public RangeCoverageExpr(Node node, XmlQuery xq)
-	    throws WCPSException
-	{
-        
+    public RangeCoverageExpr(Node node, XmlQuery xq)
+            throws WCPSException {
+
         // TODO: Implement RangeCoverageExpr
         throw new WCPSException("Feature not yet implemented !");
 
@@ -46,46 +43,44 @@ public class RangeCoverageExpr implements IRasNode, ICoverageInfo
         components = new ArrayList<IRasNode>();
 
         String nodeName = node.getNodeName();
-		System.err.println("Trying to parse a range coverage expression... Starting at node "
-                + nodeName);
+        System.err.println("Trying to parse a range coverage expression... Starting at node "
+        + nodeName);
 
-		Node it = node.getFirstChild();
+        Node it = node.getFirstChild();
 
-		while (it != null)
-		{
-			if (it.getNodeName().equals("#text"))
-			{
-				it = it.getNextSibling();
-				continue;
-			}
-			if (it.getNodeName().equals("component"))
-			{
-                RangeElementType elem = new RangeElementType(it, pcr);
-                components.add(elem);
-			}
-            
-			it = it.getNextSibling();
-		}
+        while (it != null)
+        {
+        if (it.getNodeName().equals("#text"))
+        {
+        it = it.getNextSibling();
+        continue;
+        }
+        if (it.getNodeName().equals("component"))
+        {
+        RangeElementType elem = new RangeElementType(it, pcr);
+        components.add(elem);
+        }
+
+        it = it.getNextSibling();
+        }
          */
 
-	}
+    }
 
-	public CoverageInfo getCoverageInfo()
-	{
-		return info;
-	}
+    public CoverageInfo getCoverageInfo() {
+        return info;
+    }
 
-	public String toRasQL()
-	{
+    public String toRasQL() {
         String result = "";
         /*
         Iterator<IRasNode> i = components.iterator();
         while (i.hasNext())
         {
-            result += i.next().toRasQL();
+        result += i.next().toRasQL();
         }
          */
 
         return result;
-	}
+    }
 }

@@ -22,45 +22,39 @@ public class f_grammar {
     private static String query;
     private static String path;
 
-    public static void main(String[] args) throws RecognitionException, IOException
-    {
-        if (args.length != 1)
-        {
+    public static void main(String[] args) throws RecognitionException, IOException {
+        if (args.length != 1) {
             System.err.println("AbstractGrammarGen: no parameter to specify input file !");
             path = "test/test-tmp/29.test";
             query = FileUtils.readFileToString(new File(path));
-        }
-        else
-        {
+        } else {
             path = args[0];
             query = FileUtils.readFileToString(new File(path));
         }
-			
-		System.out.println("Running with the following query: " + query);
+
+        System.out.println("Running with the following query: " + query);
 
         String xmlString = runQuery(query);
         System.out.println("Output XML: \n****************\n" + xmlString);
-         
+
         System.exit(0);
 
     }
 
-    public static String runQuery(String query) throws IOException, RecognitionException
-    {
+    public static String runQuery(String query) throws IOException, RecognitionException {
         InputStream stream = new ByteArrayInputStream(query.getBytes()); // defaults to ISO-1
         ANTLRInputStream inputStream = new ANTLRInputStream(stream);
 //        wcpsLexer lexer = new wcpsLexer( inputStream );
-		wcpsLexer lexer = new wcpsLexer( inputStream );
+        wcpsLexer lexer = new wcpsLexer(inputStream);
 
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
 //        wcpsParser parser = new wcpsParser(tokenStream);
-		wcpsParser parser = new wcpsParser(tokenStream);
+        wcpsParser parser = new wcpsParser(tokenStream);
 
         wcpsRequest_return rrequest = parser.wcpsRequest();
-		WCPSRequest request = rrequest.value;
+        WCPSRequest request = rrequest.value;
 
         String result = request.toXML();
         return result;
     }
-
 }

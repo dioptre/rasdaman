@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,22 +26,20 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class InterpolationMethod implements IParseTreeNode
-{
-	String interp, resistance;
+public class InterpolationMethod implements IParseTreeNode {
 
-	public InterpolationMethod(String interp, String resist)
-	{
-		this.interp     = interp;
-		this.resistance = resist;
-	}
+    String interp, resistance;
 
-	public String toXML()
-	{
-		String result = "";
+    public InterpolationMethod(String interp, String resist) {
+        this.interp = interp;
+        this.resistance = resist;
+    }
 
-		result += "<interpolationMethod>" + interp + "</interpolationMethod>";
-		result += "<nullResistance>" + resistance + "</nullResistance>";
-		return result;
-	}
+    public String toXML() {
+        String result = "";
+
+        result += "<interpolationMethod>" + interp + "</interpolationMethod>";
+        result += "<nullResistance>" + resistance + "</nullResistance>";
+        return result;
+    }
 }

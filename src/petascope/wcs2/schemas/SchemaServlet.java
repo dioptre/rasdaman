@@ -36,7 +36,7 @@ import org.apache.commons.io.IOUtils;
  * @author Andrei Aiordachioaie
  */
 public class SchemaServlet extends HttpServlet {
-   
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -45,7 +45,7 @@ public class SchemaServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("application/xml;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
@@ -54,7 +54,7 @@ public class SchemaServlet extends HttpServlet {
             File file = new File(getServletContext().getRealPath(pathPrefix + schemaFile));
             String fileContents = IOUtils.toString(new FileReader(file));
             out.write(fileContents);
-        } finally { 
+        } finally {
             out.close();
         }
     }
@@ -68,9 +68,9 @@ public class SchemaServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -81,7 +81,7 @@ public class SchemaServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -93,5 +93,4 @@ public class SchemaServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-
 }

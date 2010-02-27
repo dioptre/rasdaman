@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,41 +26,35 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class DimensionIntervalExpr implements IParseTreeNode
-{
-	IParseTreeNode e1, e2;
-	String fun;
-	String str;
+public class DimensionIntervalExpr implements IParseTreeNode {
 
-	public DimensionIntervalExpr(ScalarExpr exp1, ScalarExpr exp2)
-	{
-		fun = "scalars";
-		e1  = exp1;
-		e2  = exp2;
-	}
+    IParseTreeNode e1, e2;
+    String fun;
+    String str;
 
-	public DimensionIntervalExpr(String cov, String axis, String crs)
-	{
-		fun = "domain metadata";
-		str = "<coverage>" + cov + "</coverage>";
-		str += "<axis>" + axis + "</axis>";
-		str += "<crs>" + crs + "</crs>";
-	}
+    public DimensionIntervalExpr(ScalarExpr exp1, ScalarExpr exp2) {
+        fun = "scalars";
+        e1 = exp1;
+        e2 = exp2;
+    }
 
-	public String toXML()
-	{
-		String result = "";
+    public DimensionIntervalExpr(String cov, String axis, String crs) {
+        fun = "domain metadata";
+        str = "<coverage>" + cov + "</coverage>";
+        str += "<axis>" + axis + "</axis>";
+        str += "<crs>" + crs + "</crs>";
+    }
 
-		if (fun.equals("scalars"))
-		{
-			result += "<lowerBound>" + e1.toXML() + "</lowerBound>";
-			result += "<upperBound>" + e2.toXML() + "</upperBound>";
-		}
-		else if (fun.equals("domain metadata"))
-		{
-			result = str;
-		}
+    public String toXML() {
+        String result = "";
 
-		return result;
-	}
+        if (fun.equals("scalars")) {
+            result += "<lowerBound>" + e1.toXML() + "</lowerBound>";
+            result += "<upperBound>" + e2.toXML() + "</upperBound>";
+        } else if (fun.equals("domain metadata")) {
+            result = str;
+        }
+
+        return result;
+    }
 }

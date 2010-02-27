@@ -19,11 +19,9 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
-interface IRasNode
-{
-	public String toRasQL();
+interface IRasNode {
+
+    public String toRasQL();
 }

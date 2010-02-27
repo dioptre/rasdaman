@@ -48,14 +48,13 @@ public class ConfigManager {
     /* Major version number. This is the first release (1). */
     private final static String MAJOR = "1";
     /* Minor version number. v2 adds the reference implementation of WCS 2.0.
-     v3 adds WGS84 handling in WCPS requests. */
+    v3 adds WGS84 handling in WCPS requests. */
     private final static String MINOR = "3";
     /* Bug-fix count. We have a hack: every WCPS response is written to disk. */
     private final static String BUGFIX = "4-hack";
 
     /* Petascope 1.2.0 contains WCS 1.1.0, WCS 2.0, WCS-T 1.0.0 and WCPS 1.0.0 */
     public final static String PETASCOPE_VERSION = MAJOR + "." + MINOR + "." + BUGFIX;
-    
     /* Settings variables */
     public static String WCST_LANGUAGE;
     public static String WCST_VERSION;
@@ -65,7 +64,6 @@ public class ConfigManager {
     public static String METADATA_URL;
     public static String METADATA_USER;
     public static String METADATA_PASS;
-
     public static boolean CCIP_HACK = false;
 
     /* WCS 2.0 variables */
@@ -122,8 +120,8 @@ public class ConfigManager {
 
     public static ConfigManager getInstance() {
         if (instance == null) {
-            throw new RuntimeException("Could not initialize the ConfigManager " +
-                    "because no settings file path was provided.");
+            throw new RuntimeException("Could not initialize the ConfigManager "
+                    + "because no settings file path was provided.");
         }
         return instance;
     }
@@ -156,8 +154,7 @@ public class ConfigManager {
 
         CCIP_HACK = Boolean.parseBoolean(get("ccip_version"));
 
-        try
-        {
+        try {
             URI desc = WcsNamespaceContext.class.getResource("DescribeCoverageTemplate.xml").toURI();
             URI getcov = WcsNamespaceContext.class.getResource("GetCoverageTemplate.xml").toURI();
             URI getcap = WcsNamespaceContext.class.getResource("GetCapabilitiesTemplate.xml").toURI();
@@ -165,9 +162,7 @@ public class ConfigManager {
             WCS2_DESCRIBE_COVERAGE_TEMPLATE = loadFile(desc);
             WCS2_GET_COVERAGE_TEMPLATE = loadFile(getcov);
             WCS2_SCHEMA_URL = get("wcs2_schema_url");
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             LOG.warn("Could not read XML template files for WCS 2.0. Therefore, WCS 2.0 will be unable to start.");
         }
 
@@ -186,8 +181,9 @@ public class ConfigManager {
         }
 
         LOG.info("---------------------------");
-        if (CCIP_HACK)
+        if (CCIP_HACK) {
             LOG.info("-----------CCIP------------");
+        }
         LOG.info("---------------------------");
 
 //        log("Print Log: " + PRINT_LOG);

@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,47 +26,43 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class AxisIteratorList implements IParseTreeNode
-{
-	private AxisIterator it;
-	private AxisIteratorList next;
-	private String tag;
+public class AxisIteratorList implements IParseTreeNode {
 
-	public AxisIteratorList(AxisIterator it)
-	{
-		this.it = it;
-		next    = null;
-		tag     = "";
-	}
+    private AxisIterator it;
+    private AxisIteratorList next;
+    private String tag;
 
-	public AxisIteratorList(AxisIterator it, AxisIteratorList n)
-	{
-		this.it = it;
-		next    = n;
-		tag     = "";
-	}
+    public AxisIteratorList(AxisIterator it) {
+        this.it = it;
+        next = null;
+        tag = "";
+    }
 
-	public void setTag(String tag)
-	{
-		this.tag = tag;
-	}
+    public AxisIteratorList(AxisIterator it, AxisIteratorList n) {
+        this.it = it;
+        next = n;
+        tag = "";
+    }
 
-	public String toXML()
-	{
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String toXML() {
         String result = "";
-		String tag1 = "<" + tag + ">";
-		String tag2 = "</" + tag + ">";
+        String tag1 = "<" + tag + ">";
+        String tag2 = "</" + tag + ">";
 
-		if (tag.equals(""))
-			tag1 = tag2 = "";
-		
-        if (next != null)
-        {
+        if (tag.equals("")) {
+            tag1 = tag2 = "";
+        }
+
+        if (next != null) {
             next.setTag(tag);
             result += next.toXML();
         }
         result += tag1 + it.toXML() + tag2;
 
-		return result;
-	}
+        return result;
+    }
 }

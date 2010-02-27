@@ -19,29 +19,24 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 //TODO(smsorin): how do we do combine this ?
-public class CrsTransformCoverageExpr implements IRasNode, ICoverageInfo
-{
-	public CrsTransformCoverageExpr(Node node, XmlQuery xq)
-	    throws WCPSException
-	{
-		throw new WCPSException("Method not implemented");
-	}
+public class CrsTransformCoverageExpr implements IRasNode, ICoverageInfo {
 
-	public String toRasQL()
-	{
-		return "";
-	}
+    public CrsTransformCoverageExpr(Node node, XmlQuery xq)
+            throws WCPSException {
+        throw new WCPSException("Method not implemented");
+    }
 
-	public CoverageInfo getCoverageInfo()
-	{
-		return null;
-	}
+    public String toRasQL() {
+        return "";
+    }
+
+    public CoverageInfo getCoverageInfo() {
+        return null;
+    }
 }

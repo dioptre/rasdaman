@@ -195,8 +195,8 @@ public class GetCoverage implements WcsOperation {
             } catch (Exception e) {
                 e.printStackTrace();
 
-                throw new NoApplicableCodeException("Metadata for coverage '" +
-                        coverageId + "' is not valid.");
+                throw new NoApplicableCodeException("Metadata for coverage '"
+                        + coverageId + "' is not valid.");
             }
         } else {
             throw new InvalidParameterValueException("gml:id");
@@ -418,7 +418,7 @@ public class GetCoverage implements WcsOperation {
         // coverageData
         xml = xml.replaceAll("\\{coverageData\\}", coverageData);
 
-        
+
 
         // Build the range structure
         Iterator<RangeElement> it3 = coverage.getRangeIterator();
@@ -438,15 +438,15 @@ public class GetCoverage implements WcsOperation {
             // Compute the null values for this range field
             Set<String> nullVals = new HashSet<String>();
             Iterator<String> it = coverage.getNullSetIterator();
-            while (it.hasNext())
-            {
+            while (it.hasNext()) {
                 List<String> nilVal = SDU.str2string(it.next());
                 nullVals.add(nilVal.get(i));
             }
             StringBuffer nullValsString = new StringBuffer();
             it = nullVals.iterator();
-            while (it.hasNext())
+            while (it.hasNext()) {
                 nullValsString.append(" " + it.next());
+            }
             component = component.replaceAll("\\{nilValues\\}", nullValsString.toString().substring(1));
 
             // And add this range field to the range structure
@@ -487,10 +487,11 @@ public class GetCoverage implements WcsOperation {
             // Construct rasql query
             currentBand = "." + band;
             // If this is a one-band image, then band-subsetting would result in an error
-            if (bandcount == 1)
+            if (bandcount == 1) {
                 currentBand = "";
-            String rasqlQuery = "select csv(cov[" + subsetting + "]" + currentBand + ") " +
-                    "from " + coverageName + " as cov";
+            }
+            String rasqlQuery = "select csv(cov[" + subsetting + "]" + currentBand + ") "
+                    + "from " + coverageName + " as cov";
 
             // Execute RasQl query => coverage data
             LOG.trace("Executing query {}", rasqlQuery);

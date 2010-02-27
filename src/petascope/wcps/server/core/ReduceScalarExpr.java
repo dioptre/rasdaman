@@ -19,59 +19,50 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
-public class ReduceScalarExpr implements IRasNode
-{
-	CoverageExpr expr;
-	String op;
+public class ReduceScalarExpr implements IRasNode {
 
-	public ReduceScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
-	{
-        if (node.getNodeName().equals("reduce"))
+    CoverageExpr expr;
+    String op;
+
+    public ReduceScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException {
+        if (node.getNodeName().equals("reduce")) {
             node = node.getFirstChild();
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
+        }
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
 
         System.err.println("Trying to parse ReduceScalarExpr ");
-		String nodeName = node.getNodeName();
+        String nodeName = node.getNodeName();
 
-		if (nodeName.equals("all") || nodeName.equals("some") || nodeName.equals("count")
-		    || nodeName.equals("add") || nodeName.equals("avg") || nodeName.equals("min")
-		    || nodeName.equals("max"))
-		{
-			op = nodeName;
+        if (nodeName.equals("all") || nodeName.equals("some") || nodeName.equals("count")
+                || nodeName.equals("add") || nodeName.equals("avg") || nodeName.equals("min")
+                || nodeName.equals("max")) {
+            op = nodeName;
 
-			if (!op.equals("all") && !op.equals("some"))
-			{
-				op = op + "_cells";
-			}
+            if (!op.equals("all") && !op.equals("some")) {
+                op = op + "_cells";
+            }
 
-			node = node.getFirstChild();
+            node = node.getFirstChild();
 
-			while ((node != null) && (node.getNodeName().equals("#text")))
-			{
-				node = node.getNextSibling();
-			}
+            while ((node != null) && (node.getNodeName().equals("#text"))) {
+                node = node.getNextSibling();
+            }
 
-			expr = new CoverageExpr(node, xq);
-		}
-		else
-		{
-			throw new WCPSException("invalid ReduceScalarExprType node : " + nodeName);
-		}
-	}
+            expr = new CoverageExpr(node, xq);
+        } else {
+            throw new WCPSException("invalid ReduceScalarExprType node : " + nodeName);
+        }
+    }
 
-	public String toRasQL()
-	{
-		return op + "(" + expr.toRasQL() + ")";
-	}
+    public String toRasQL() {
+        return op + "(" + expr.toRasQL() + ")";
+    }
 }

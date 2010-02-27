@@ -19,172 +19,144 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 //A single component of a coverage's range. See the WCPS standard for more information.
-
 import petascope.wcps.server.exceptions.InvalidMetadataException;
 
+public class RangeElement implements Cloneable {
 
-public class RangeElement implements Cloneable
-{
-	private String name;
-	private String type;
+    private String name;
+    private String type;
 
-	public RangeElement(String name, String type) throws InvalidMetadataException
-	{
-		if ((name == null) || (type == null))
-		{
-			throw new InvalidMetadataException(
-			    "Invalid range element: Element name and type cannot be null");
-		}
+    public RangeElement(String name, String type) throws InvalidMetadataException {
+        if ((name == null) || (type == null)) {
+            throw new InvalidMetadataException(
+                    "Invalid range element: Element name and type cannot be null");
+        }
 
-		if (name.equals(""))
-		{
-			throw new InvalidMetadataException(
-			    "Invalid range element: Element name cannot be empty");
-		}
+        if (name.equals("")) {
+            throw new InvalidMetadataException(
+                    "Invalid range element: Element name cannot be empty");
+        }
 
-		if (!(type.equals("boolean") || type.equals("char") || type.equals("unsigned char")
-		    || type.equals("short") || type.equals("unsigned short") || type.equals("int")
-		    || type.equals("unsigned int") || type.equals("long")
-		    || type.equals("unsigned long") || type.equals("float")
-		    || type.equals("double") || type.equals("complex") || type.equals("complex2")))
-		{
-			throw new InvalidMetadataException(
-			    "Invalid range element: Invalid element type:" + type);
-		}
+        if (!(type.equals("boolean") || type.equals("char") || type.equals("unsigned char")
+                || type.equals("short") || type.equals("unsigned short") || type.equals("int")
+                || type.equals("unsigned int") || type.equals("long")
+                || type.equals("unsigned long") || type.equals("float")
+                || type.equals("double") || type.equals("complex") || type.equals("complex2"))) {
+            throw new InvalidMetadataException(
+                    "Invalid range element: Invalid element type:" + type);
+        }
 
-		this.name = name;
-		this.type = type;
+        this.name = name;
+        this.type = type;
 
-	}
+    }
 
-	public RangeElement clone()
-	{
-		try
-		{
-			return new RangeElement(new String(name), new String(type));
-		}
-		catch (InvalidMetadataException ime)
-		{
-			throw new RuntimeException(
-			    "Invalid metadata while cloning RangeElement. This is a software bug in WCPS.",
-			    ime);
-		}
+    public RangeElement clone() {
+        try {
+            return new RangeElement(new String(name), new String(type));
+        } catch (InvalidMetadataException ime) {
+            throw new RuntimeException(
+                    "Invalid metadata while cloning RangeElement. This is a software bug in WCPS.",
+                    ime);
+        }
 
-	}
+    }
 
-	public boolean equals(RangeElement re)
-	{
-		return name.equals(re.type);
+    public boolean equals(RangeElement re) {
+        return name.equals(re.type);
 
-	}
+    }
 
-	public String getName()
-	{
-		return name;
+    public String getName() {
+        return name;
 
-	}
+    }
 
-	public String getType()
-	{
-		return type;
+    public String getType() {
+        return type;
 
-	}
+    }
 
-	public boolean isBoolean()
-	{
-		return type.equals("boolean");
+    public boolean isBoolean() {
+        return type.equals("boolean");
 
-	}
+    }
 
-	public static boolean isBoolean(String type)
-	{
-		return type.equals("boolean");
+    public static boolean isBoolean(String type) {
+        return type.equals("boolean");
 
-	}
+    }
 
-	public boolean isComplex()
-	{
-		return type.equals("complex") || type.equals("complex2");
+    public boolean isComplex() {
+        return type.equals("complex") || type.equals("complex2");
 
-	}
+    }
 
-	public static boolean isComplex(String type)
-	{
-		return type.equals("complex") || type.equals("complex2");
+    public static boolean isComplex(String type) {
+        return type.equals("complex") || type.equals("complex2");
 
-	}
+    }
 
-	public boolean isIntegral()
-	{
-		return type.equals("char") || type.equals("short") || type.equals("unsigned short")
-		       || type.equals("int") || type.equals("unsigned int") || type.equals("long")
-		       || type.equals("unsigend long");
+    public boolean isIntegral() {
+        return type.equals("char") || type.equals("short") || type.equals("unsigned short")
+                || type.equals("int") || type.equals("unsigned int") || type.equals("long")
+                || type.equals("unsigend long");
 
-	}
+    }
 
-	public static boolean isIntegral(String type)
-	{
-		return type.equals("char") || type.equals("short") || type.equals("unsigned short")
-		       || type.equals("int") || type.equals("unsigned int") || type.equals("long")
-		       || type.equals("unsigend long");
+    public static boolean isIntegral(String type) {
+        return type.equals("char") || type.equals("short") || type.equals("unsigned short")
+                || type.equals("int") || type.equals("unsigned int") || type.equals("long")
+                || type.equals("unsigend long");
 
-	}
+    }
 
-	public boolean isFloating()
-	{
-		return type.equals("float") || type.equals("double");
+    public boolean isFloating() {
+        return type.equals("float") || type.equals("double");
 
-	}
+    }
 
-	public static boolean isFloating(String type)
-	{
-		return type.equals("float") || type.equals("double");
+    public static boolean isFloating(String type) {
+        return type.equals("float") || type.equals("double");
 
-	}
+    }
 
-	public boolean isNumeric()
-	{
-		return type.equals("char") || type.equals("short") || type.equals("unsigned short")
-		       || type.equals("int") || type.equals("unsigned int") || type.equals("long")
-		       || type.equals("unsigend long") || type.equals("float")
-		       || type.equals("double") || type.equals("complex")
-		       || type.equals("complex2");
+    public boolean isNumeric() {
+        return type.equals("char") || type.equals("short") || type.equals("unsigned short")
+                || type.equals("int") || type.equals("unsigned int") || type.equals("long")
+                || type.equals("unsigend long") || type.equals("float")
+                || type.equals("double") || type.equals("complex")
+                || type.equals("complex2");
 
-	}
+    }
 
-	public static boolean isNumeric(String type)
-	{
-		return type.equals("char") || type.equals("short") || type.equals("unsigned short")
-		       || type.equals("int") || type.equals("unsigned int") || type.equals("long")
-		       || type.equals("unsigend long") || type.equals("float")
-		       || type.equals("double") || type.equals("complex")
-		       || type.equals("complex2");
+    public static boolean isNumeric(String type) {
+        return type.equals("char") || type.equals("short") || type.equals("unsigned short")
+                || type.equals("int") || type.equals("unsigned int") || type.equals("long")
+                || type.equals("unsigend long") || type.equals("float")
+                || type.equals("double") || type.equals("complex")
+                || type.equals("complex2");
 
-	}
+    }
 
-	public void setType(String type) throws InvalidMetadataException
-	{
-		if (!(type.equals("boolean") || type.equals("char") || type.equals("unsigned char")
-		    || type.equals("short") || type.equals("unsigned short") || type.equals("int")
-		    || type.equals("unsigned int") || type.equals("long")
-		    || type.equals("unsigned long") || type.equals("float")
-		    || type.equals("double") || type.equals("complex") || type.equals("complex2")))
-		{
-			throw new InvalidMetadataException(
-			    "Invalid range element: Invalid element type:" + type);
-		}
+    public void setType(String type) throws InvalidMetadataException {
+        if (!(type.equals("boolean") || type.equals("char") || type.equals("unsigned char")
+                || type.equals("short") || type.equals("unsigned short") || type.equals("int")
+                || type.equals("unsigned int") || type.equals("long")
+                || type.equals("unsigned long") || type.equals("float")
+                || type.equals("double") || type.equals("complex") || type.equals("complex2"))) {
+            throw new InvalidMetadataException(
+                    "Invalid range element: Invalid element type:" + type);
+        }
 
-		this.type = type;
+        this.type = type;
 
-	}
+    }
 
-    public String toString()
-    {
+    public String toString() {
         String r = "Range Element { Name '" + name + "', Type '" + type + "'}";
         return r;
     }

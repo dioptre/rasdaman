@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcst.transaction;
 
 import java.io.DataOutputStream;
@@ -49,32 +47,29 @@ import wcst.transaction.schema.TransactionResponseType;
  *
  * @author Andrei Aiordachioaie
  */
-public class executeAsyncTransaction extends Thread
-{
+public class executeAsyncTransaction extends Thread {
+
     private static Logger LOG = LoggerFactory.getLogger(executeAsyncTransaction.class);
     private String responseHandler;
     private executeTransaction exec;
-	
-	/**
-	 * Default constructor. 
-	 * @param exec a synchroneous executeTransaction object
-	 * @param responseHandler destination URL that should receive the processed output
-	 */
-	public executeAsyncTransaction(executeTransaction exec, String responseHandler)
-	{
+
+    /**
+     * Default constructor.
+     * @param exec a synchroneous executeTransaction object
+     * @param responseHandler destination URL that should receive the processed output
+     */
+    public executeAsyncTransaction(executeTransaction exec, String responseHandler) {
         this.responseHandler = responseHandler;
         this.exec = exec;
-	}
+    }
 
     /** Run the current thread. */
-    public void run()
-    {
+    public void run() {
         LOG.info("Started async thread...");
         String outString = null;
         try // only for WCSException
         {
-            try
-            {
+            try {
                 /* (1) Do the actual processing of the Transaction */
                 LOG.debug("Starting async execution ...");
                 TransactionResponseType output = exec.get();
@@ -93,48 +88,35 @@ public class executeAsyncTransaction extends Thread
 
                 /* (3) Send the output to the destination response handler */
                 sendPostRequest(outString, responseHandler);
-            }
-            catch (MalformedURLException ex)
-            {
+            } catch (MalformedURLException ex) {
                 LOG.error("Stack trace: " + ex);
                 throw new BadResponseHandlerException("Response Handler URL is malformed.");
-            }
-            catch (IOException ex)
-            {
+            } catch (IOException ex) {
                 LOG.error("Stack trace: " + ex);
                 throw new InputOutputException("Could not send asynchronous response to URL: " + responseHandler);
-            }
-            catch (JAXBException ex)
-            {
+            } catch (JAXBException ex) {
                 LOG.error("Stack trace: " + ex);
                 throw new XmlStructuresException("Could not marshall the XML to a string !");
             }
-        }
-        catch (WCSException e)
-        {
+        } catch (WCSException e) {
             LOG.error("Caught WCS Exception: " + e);
             ExceptionReport report = e.getReport();
-			try
-			{
+            try {
                 /* Build the error report */
-				JAXBContext jaxbCtx = JAXBContext.newInstance(report.getClass().getPackage().getName());
-				Marshaller marshaller = jaxbCtx.createMarshaller();
-				marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-				marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-				StringWriter strWriter = new StringWriter();
-				marshaller.marshal(report, strWriter);
+                JAXBContext jaxbCtx = JAXBContext.newInstance(report.getClass().getPackage().getName());
+                Marshaller marshaller = jaxbCtx.createMarshaller();
+                marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+                StringWriter strWriter = new StringWriter();
+                marshaller.marshal(report, strWriter);
                 outString = strWriter.toString();
-				LOG.trace("Done with the Error Report !");
+                LOG.trace("Done with the Error Report !");
 
                 /* Send the error report to the responseHandler */
                 sendPostRequest(outString, responseHandler);
-			}
-			catch (JAXBException e2)
-			{
-				LOG.error("Stack trace: " + e2);
-			}
-            catch (IOException e2)
-            {
+            } catch (JAXBException e2) {
+                LOG.error("Stack trace: " + e2);
+            } catch (IOException e2) {
                 LOG.error("Stack trace: " + e2);
             }
         }
@@ -147,34 +129,33 @@ public class executeAsyncTransaction extends Thread
      * @throws MalformedURLException
      * @throws IOException
      */
-    private void sendPostRequest(String content, String destinationUrl) throws MalformedURLException, IOException
-    {
+    private void sendPostRequest(String content, String destinationUrl) throws MalformedURLException, IOException {
         LOG.debug("sendPostRequest() ... to URL: " + destinationUrl);
-        
+
         // connect to the destination 
-		URL servlet = new URL(destinationUrl);
-		HttpURLConnection conn = (HttpURLConnection) servlet.openConnection();
+        URL servlet = new URL(destinationUrl);
+        HttpURLConnection conn = (HttpURLConnection) servlet.openConnection();
 
-		// inform the connection that we will send output and will not accept input
-		conn.setDoInput(false);
-		conn.setDoOutput(true);
+        // inform the connection that we will send output and will not accept input
+        conn.setDoInput(false);
+        conn.setDoOutput(true);
 
-		// Don't use a cached version of URL connection.
-		conn.setUseCaches(false);
-		conn.setDefaultUseCaches(false);
+        // Don't use a cached version of URL connection.
+        conn.setUseCaches(false);
+        conn.setDefaultUseCaches(false);
 
-		// Send POST request
-		conn.setRequestMethod("POST");
+        // Send POST request
+        conn.setRequestMethod("POST");
 
-		// Specify the content type that we will send binary data
-		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        // Specify the content type that we will send binary data
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-		String data = "xml=" + URLEncoder.encode(content);
-		DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+        String data = "xml=" + URLEncoder.encode(content);
+        DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 
-		out.writeBytes(data);
-		out.flush();
-		out.close();
+        out.writeBytes(data);
+        out.flush();
+        out.close();
 
         LOG.debug("Sent request to URL.");
     }

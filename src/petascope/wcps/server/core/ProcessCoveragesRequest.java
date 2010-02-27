@@ -19,7 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
@@ -60,64 +59,59 @@ import org.xml.sax.InputSource;
  * Internally, it relies on XmlRequest, which computes the RasQL query.
  *
  */
-public class ProcessCoveragesRequest
-{
-	private String database;
-	private IDynamicMetadataSource source;
-	private String url;
+public class ProcessCoveragesRequest {
 
+    private String database;
+    private IDynamicMetadataSource source;
+    private String url;
     private WCPS wcps;
     private String rasqlQuery;
     private String mime;
     private XmlQuery xmlQuery;
 
-	public ProcessCoveragesRequest(String url, String database, Node node, IDynamicMetadataSource source, WCPS wcps)
-	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException, IOException, InvalidCrsException
-	{
-		super();
-		this.source   = source;
-		this.url      = url;
-		this.database = database;
-        this.wcps     = wcps;
-		Node child    = node.getFirstChild();
+    public ProcessCoveragesRequest(String url, String database, Node node, IDynamicMetadataSource source, WCPS wcps)
+            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException, IOException, InvalidCrsException {
+        super();
+        this.source = source;
+        this.url = url;
+        this.database = database;
+        this.wcps = wcps;
+        Node child = node.getFirstChild();
         this.rasqlQuery = null;
 
         System.err.println("Parsing ProcessCoveragesRequest node: " + child.getNodeName());
 
-		if (child.getNodeName().equals("ProcessCoveragesRequest") == false)
-		{
-			throw new WCPSException("The document contains an unrecognized node : "
-						+ child.getNodeName());
-		}
+        if (child.getNodeName().equals("ProcessCoveragesRequest") == false) {
+            throw new WCPSException("The document contains an unrecognized node : "
+                    + child.getNodeName());
+        }
 
-		child = child.getFirstChild();
-        while (child.getNodeName().equals("#text"))
+        child = child.getFirstChild();
+        while (child.getNodeName().equals("#text")) {
             child = child.getNextSibling();
+        }
 
-        if (child.getNodeName().equals("query") == false)
+        if (child.getNodeName().equals("query") == false) {
             throw new WCPSException("Could not find node <query>: " + child.getNodeName());
+        }
 
         // "child" is now the node <query>.
         Node queryNode = child.getFirstChild();
-            while (queryNode.getNodeName().equals("#text"))
-                queryNode = queryNode.getNextSibling();
+        while (queryNode.getNodeName().equals("#text")) {
+            queryNode = queryNode.getNextSibling();
+        }
 
-         /**
+        /**
          * The following code is essential. It handles the two cases:
          * 1) the xml contains an <xmlSyntax> request
          * 2) the xml contains an <abstractSyntax> request
          */
-        if (queryNode.getNodeName().equals("xmlSyntax"))
-        {
+        if (queryNode.getNodeName().equals("xmlSyntax")) {
             System.err.println("Found XML Syntax query");
             this.xmlQuery = new XmlQuery(this.source);
             xmlQuery.startParsing(queryNode);
-        }
-        else
-        if (queryNode.getNodeName().equals("abstractSyntax"))
-        {
-            try
-            {
+        } else if (queryNode.getNodeName().equals("abstractSyntax")) {
+            try {
                 String abstractQuery = queryNode.getFirstChild().getNodeValue();
                 System.err.println("Found Abstract Syntax query: " + abstractQuery);
                 String xmlString = abstractQueryToXmlQuery(abstractQuery);
@@ -128,23 +122,20 @@ public class ProcessCoveragesRequest
                 System.err.println("***********************************************");
                 ProcessCoveragesRequest newRequest = wcps.pcPrepare(url, database, xmlStringSource);
                 this.xmlQuery = newRequest.getXmlRequestStructure();
-            }
-            catch (RecognitionException e)
-            {
+            } catch (RecognitionException e) {
                 throw new WCPSException("Abstract Syntax query is invalid: "
                         + e.getMessage());
             }
-        }
-        else
+        } else {
             throw new WCPSException("Error ! Unexpected node: " + queryNode.getNodeName());
-        
+        }
+
         // If everything went well, we now have a proper value for "xmlQuery"
         this.rasqlQuery = xmlQuery.toRasQL();
         this.mime = xmlQuery.getMimeType();
-	}
+    }
 
-    public static String abstractQueryToXmlQuery(String abstractQuery) throws RecognitionException
-    {
+    public static String abstractQueryToXmlQuery(String abstractQuery) throws RecognitionException {
         CharStream cs = new ANTLRStringStream(abstractQuery);
         wcpsLexer lexer = new wcpsLexer(cs);
         CommonTokenStream tokens = new CommonTokenStream();
@@ -157,124 +148,104 @@ public class ProcessCoveragesRequest
         return xmlRequest;
     }
 
-	public String getMime()
-	{
-		return mime;
-	}
+    public String getMime() {
+        return mime;
+    }
 
-    private XmlQuery getXmlRequestStructure()
-    {
+    private XmlQuery getXmlRequestStructure() {
         return xmlQuery;
     }
 
-	public String getRasqlQuery()
-	{
-		return this.rasqlQuery;
-	}
+    public String getRasqlQuery() {
+        return this.rasqlQuery;
+    }
 
-	public List<byte[]> execute() throws ResourceException
-	{
-		ArrayList<byte[]> results = new ArrayList<byte[]>();
+    public List<byte[]> execute() throws ResourceException {
+        ArrayList<byte[]> results = new ArrayList<byte[]>();
 
-		if (this.rasqlQuery != null)
-		{
-			Implementation impl = new RasImplementation(url);
-			Database db         = impl.newDatabase();
+        if (this.rasqlQuery != null) {
+            Implementation impl = new RasImplementation(url);
+            Database db = impl.newDatabase();
 
-			try
-			{
-				db.open(database, Database.OPEN_READ_ONLY);
-			}
-			catch (ODMGException odmge)
-			{
-				try
-				{
-					db.close();
-				}
-				catch (ODMGException e) {}
+            try {
+                db.open(database, Database.OPEN_READ_ONLY);
+            } catch (ODMGException odmge) {
+                try {
+                    db.close();
+                } catch (ODMGException e) {
+                }
 
-				throw new ResourceException("Could not connect to rasdaman at "
-							    + url + ", database "
-							    + database, odmge);
-			}
+                throw new ResourceException("Could not connect to rasdaman at "
+                        + url + ", database "
+                        + database, odmge);
+            }
 
-			Transaction tr = impl.newTransaction();
+            Transaction tr = impl.newTransaction();
 
-			tr.begin();
-			OQLQuery q = impl.newOQLQuery();
-			DBag resultSet;
+            tr.begin();
+            OQLQuery q = impl.newOQLQuery();
+            DBag resultSet;
 
-			try
-			{
-				q.create(this.getRasqlQuery());
-				resultSet = (DBag) q.execute();
+            try {
+                q.create(this.getRasqlQuery());
+                resultSet = (DBag) q.execute();
 
-				if (resultSet != null)
-				{
-					Iterator resultIterator = resultSet.iterator();
+                if (resultSet != null) {
+                    Iterator resultIterator = resultSet.iterator();
 
-					while (resultIterator.hasNext())
-					{
-						Object current = resultIterator.next();
+                    while (resultIterator.hasNext()) {
+                        Object current = resultIterator.next();
 
-						try
-						{
-							RasGMArray resultArray =
-								(RasGMArray) current;
+                        try {
+                            RasGMArray resultArray =
+                                    (RasGMArray) current;
 
-							results.add(resultArray.getArray());
-						}
-						catch (ClassCastException e)
-						{    // not a RasGMarray
-							if (!mime.equals("text/plain"))
-							{
-								throw new ResourceException(
-								    "Incompatible mime and data type!");
-							}
+                            results.add(resultArray.getArray());
+                        } catch (ClassCastException e) {    // not a RasGMarray
+                            if (!mime.equals("text/plain")) {
+                                throw new ResourceException(
+                                        "Incompatible mime and data type!");
+                            }
 
-							System.err.println("result="
-									   + current.toString());
-							results.add(current.toString().getBytes());
+                            System.err.println("result="
+                                    + current.toString());
+                            results.add(current.toString().getBytes());
 
-						}
+                        }
 
 
-						/*
-						 *                   if (mime.equals("text/plain")) {
-						 * System.err.println("dataType is :" + resultArray.getBaseTypeSchema().toString());
-						 * }
-						 */
+                        /*
+                         *                   if (mime.equals("text/plain")) {
+                         * System.err.println("dataType is :" + resultArray.getBaseTypeSchema().toString());
+                         * }
+                         */
 
-					}
-				}
-			}
-			catch (QueryException qe)
-			{
-				tr.commit();
+                    }
+                }
+            } catch (QueryException qe) {
+                tr.commit();
 
-				try
-				{
-					db.close();
-				}
-				catch (ODMGException odmge) {}
+                try {
+                    db.close();
+                } catch (ODMGException odmge) {
+                }
 
-				throw new ResourceException("Could not evaluate rasdaman query: '"
-							    + getRasqlQuery() + "'. Cause: " + qe.getMessage(), qe);
-			}
+                throw new ResourceException("Could not evaluate rasdaman query: '"
+                        + getRasqlQuery() + "'. Cause: " + qe.getMessage(), qe);
+            }
 
-			tr.commit();
+            tr.commit();
 
-			try
-			{
-				db.close();
-			}
-			catch (ODMGException odmge) {}
-		}
+            try {
+                db.close();
+            } catch (ODMGException odmge) {
+            }
+        }
 
-		if (mime.equals("text/plain")) {}
+        if (mime.equals("text/plain")) {
+        }
 
-		return results;
+        return results;
 
-	}
-
+    }
 }

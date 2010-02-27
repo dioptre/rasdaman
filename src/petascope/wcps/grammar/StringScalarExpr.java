@@ -19,51 +19,40 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
  * @author: Andrei Aiordachioaie
  */
+public class StringScalarExpr implements IParseTreeNode {
 
-public class StringScalarExpr implements IParseTreeNode
-{
-	CoverageExpr cov;
-	String function;
-	String op;
-	String val;
+    CoverageExpr cov;
+    String function;
+    String op;
+    String val;
 
-	public StringScalarExpr(String val)
-	{
-		this.val      = val;
-		this.function = "stringConstant";
-	}
+    public StringScalarExpr(String val) {
+        this.val = val;
+        this.function = "stringConstant";
+    }
 
-	public StringScalarExpr(String op, CoverageExpr cov)
-	{
-		this.cov = cov;
-		function = "stringIdentifier";
-		this.op  = op;
-	}
+    public StringScalarExpr(String op, CoverageExpr cov) {
+        this.cov = cov;
+        function = "stringIdentifier";
+        this.op = op;
+    }
 
-	public String toXML()
-	{
-		String result = "<" + function + ">";
+    public String toXML() {
+        String result = "<" + function + ">";
 
-		if (function.equals("stringConstant"))
-		{
-			result += val;
-		}
-		else if (function.equals("stringIdentifier"))
-		{
-			result += cov.toXML();
-		}
+        if (function.equals("stringConstant")) {
+            result += val;
+        } else if (function.equals("stringIdentifier")) {
+            result += cov.toXML();
+        }
 
-		result += "</" + function + ">";
+        result += "</" + function + ">";
 
-		return result;
-	}
+        return result;
+    }
 }

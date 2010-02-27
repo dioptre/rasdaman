@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,38 +26,32 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class BooleanExpr implements IParseTreeNode
-{
-	IParseTreeNode e1, e2;
-	String op;
+public class BooleanExpr implements IParseTreeNode {
 
-	public BooleanExpr(String op, CoverageExpr cov)
-	{
-		this.op = op;
-		e1      = cov;
-	}
+    IParseTreeNode e1, e2;
+    String op;
 
-	public BooleanExpr(String op, CoverageExpr cov, IndexExpr i)
-	{
-		this.op = op;
-		e1      = cov;
-		e2      = i;
-	}
+    public BooleanExpr(String op, CoverageExpr cov) {
+        this.op = op;
+        e1 = cov;
+    }
 
-	public String toXML()
-	{
-		String result = "";
+    public BooleanExpr(String op, CoverageExpr cov, IndexExpr i) {
+        this.op = op;
+        e1 = cov;
+        e2 = i;
+    }
 
-		if (op.equalsIgnoreCase("not"))
-		{
-			result = e1.toXML();
-		}
-		else if (op.equalsIgnoreCase("bit"))
-		{
-			result = e1.toXML() + e2.toXML();
-		}
+    public String toXML() {
+        String result = "";
 
-		result = "<" + op + ">" + result + "</" + op + ">";
-		return result;
-	}
+        if (op.equalsIgnoreCase("not")) {
+            result = e1.toXML();
+        } else if (op.equalsIgnoreCase("bit")) {
+            result = e1.toXML() + e2.toXML();
+        }
+
+        result = "<" + op + ">" + result + "</" + op + ">";
+        return result;
+    }
 }

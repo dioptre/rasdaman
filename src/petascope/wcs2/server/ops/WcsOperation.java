@@ -19,21 +19,17 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcs2.server.ops;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import petascope.wcs.server.exceptions.WCSException;
 
 /**
  * Interface for all WCS Operations.
  * @author Andrei Aiordachioaie
  */
-public interface WcsOperation
-{
-	/** Execute the operation */
-	public String execute(String input) throws WCSException;
+public interface WcsOperation {
 
+    /** Execute the operation */
+    public String execute(String input) throws WCSException;
 }

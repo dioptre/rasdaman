@@ -19,15 +19,11 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
 package petascope.wcps.server.exceptions;
 
-public class InvalidCrsException extends Exception
-{
-	public InvalidCrsException(String message)
-	{
-		super(message);
-	}
+public class InvalidCrsException extends Exception {
+
+    public InvalidCrsException(String message) {
+        super(message);
+    }
 }

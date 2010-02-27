@@ -19,152 +19,136 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
-public class NumericScalarExpr implements IRasNode
-{
+public class NumericScalarExpr implements IRasNode {
+
     private IRasNode first, second;
-	private String op, value;
+    private String op, value;
     private boolean twoChildren;
     private double dvalue;
 
-	public NumericScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
-	{
+    public NumericScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException {
         twoChildren = false;
         String nodeName = node.getNodeName();
 
-		op = "";
+        op = "";
 
-		System.err.println("Trying to parse numeric scalar expression ...");
+        System.err.println("Trying to parse numeric scalar expression ...");
 
-		if (nodeName.equals("numericConstant"))
-		{
+        if (nodeName.equals("numericConstant")) {
             twoChildren = false;
-			op = code(nodeName);
-			value  = node.getFirstChild().getNodeValue();
-            try
-            {
+            op = code(nodeName);
+            value = node.getFirstChild().getNodeValue();
+            try {
                 dvalue = Double.parseDouble(value);
-            }
-            catch (NumberFormatException e)
-            {
+            } catch (NumberFormatException e) {
                 throw new WCPSException("Could not understand constant: " + value);
             }
-		}
-		else if (nodeName.equals("complexConstant")
-            || nodeName.equals("condense")
-		    || nodeName.equals("reduce"))
-		{
+        } else if (nodeName.equals("complexConstant")
+                || nodeName.equals("condense")
+                || nodeName.equals("reduce")) {
             op = code(nodeName);
             twoChildren = false;
-            if (nodeName.equals("complexConstant"))
+            if (nodeName.equals("complexConstant")) {
                 first = new ComplexConstant(node, xq);
-            if (nodeName.equals("condense"))
+            }
+            if (nodeName.equals("condense")) {
                 first = new CondenseScalarExpr(node, xq);
-            if (nodeName.equals("reduce"))
+            }
+            if (nodeName.equals("reduce")) {
                 first = new ReduceScalarExpr(node, xq);
-		}
-		else if (nodeName.equals("numericUnaryMinus"))
-		{
+            }
+        } else if (nodeName.equals("numericUnaryMinus")) {
             op = code(nodeName);
             twoChildren = false;
             first = new NumericScalarExpr(node.getFirstChild(), xq);
-		}
-        else if (nodeName.equals("numericAdd")
+        } else if (nodeName.equals("numericAdd")
                 || nodeName.equals("numericMinus")
                 || nodeName.equals("numericMult")
-                || nodeName.equals("numericDiv"))
-        {
-            try
-            {
+                || nodeName.equals("numericDiv")) {
+            try {
                 op = code(nodeName);
                 twoChildren = true;
                 Node child = node.getFirstChild();
                 first = new NumericScalarExpr(child, xq);
                 second = new NumericScalarExpr(child.getNextSibling(), xq);
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to parse a numeric expression pair !");
             }
-        }
-        else if (nodeName.equals("variableRef"))
-        {
-            try
-            {
+        } else if (nodeName.equals("variableRef")) {
+            try {
                 op = code(nodeName);
                 twoChildren = false;
                 first = new VariableReference(node, xq);
                 System.err.println("Matched variable reference: " + first.toRasQL());
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to match variable reference: "
-                           + e.toString());
+                        + e.toString());
             }
+        } else {
+            throw new WCPSException("Unexpected Numeric Scalar Expression node : "
+                    + node.getNodeName());
         }
-		else
-		{
-			throw new WCPSException("Unexpected Numeric Scalar Expression node : "
-						+ node.getNodeName());
-		}
-	}
+    }
 
-	public String toRasQL()
-	{
+    public String toRasQL() {
         String result = "";
-        if (op.equals("variable"))
+        if (op.equals("variable")) {
             result = first.toRasQL();
-        else if (op.equals("value"))
+        } else if (op.equals("value")) {
             result = value;
-        else if ((twoChildren==false) && (op.equals("-")))
+        } else if ((twoChildren == false) && (op.equals("-"))) {
             result = "-" + first.toRasQL();
-        else if (op.equals("child"))
+        } else if (op.equals("child")) {
             result = first.toRasQL();
-        else if (twoChildren == true)
-            result = "(" + first.toRasQL() + ")" + op +
-                     "(" + second.toRasQL() + ")";
-        else
+        } else if (twoChildren == true) {
+            result = "(" + first.toRasQL() + ")" + op
+                    + "(" + second.toRasQL() + ")";
+        } else {
             return " error ";
+        }
 
         return result;
-	}
+    }
 
-    private String code(String name)
-    {
+    private String code(String name) {
         String op = "";
-        if (name.equals("numericConstant"))
+        if (name.equals("numericConstant")) {
             op = "value";
-        if (name.equals("numericUnaryMinus") || name.equals("numericMinus"))
+        }
+        if (name.equals("numericUnaryMinus") || name.equals("numericMinus")) {
             op = "-";
-        if (name.equals("numericAdd"))
+        }
+        if (name.equals("numericAdd")) {
             op = "+";
-        if (name.equals("numericMult"))
+        }
+        if (name.equals("numericMult")) {
             op = "*";
-        if (name.equals("numericDiv"))
+        }
+        if (name.equals("numericDiv")) {
             op = "/";
+        }
         if (name.equals("condense") || name.equals("reduce")
-                || name.equals("complexConstant"))
+                || name.equals("complexConstant")) {
             op = "child";
-        if (name.equals("variableRef"))
+        }
+        if (name.equals("variableRef")) {
             op = "variable";
+        }
 
         return op;
     }
 
-    public boolean isSingleValue()
-    {
+    public boolean isSingleValue() {
         return op.equals("value");
     }
 
-    public double getSingleValue()
-    {
+    public double getSingleValue() {
         return dvalue;
     }
 }

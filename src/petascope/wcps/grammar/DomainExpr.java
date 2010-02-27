@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,24 +26,22 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class DomainExpr implements IParseTreeNode
-{
-	String var, axis, crs;
+public class DomainExpr implements IParseTreeNode {
 
-	public DomainExpr(String v, String a, String c)
-	{
-		var  = v;
-		axis = a;
-		crs  = c;
-	}
+    String var, axis, crs;
 
-	public String toXML()
-	{
-		String result = "";
+    public DomainExpr(String v, String a, String c) {
+        var = v;
+        axis = a;
+        crs = c;
+    }
 
-		result += "<coverage>" + var + "</coverage>";
-		result += "<axis>" + axis + "</axis>";
-		result += "<crs>" + crs + "</crs>";
-		return result;
-	}
+    public String toXML() {
+        String result = "";
+
+        result += "<coverage>" + var + "</coverage>";
+        result += "<axis>" + axis + "</axis>";
+        result += "<crs>" + crs + "</crs>";
+        return result;
+    }
 }

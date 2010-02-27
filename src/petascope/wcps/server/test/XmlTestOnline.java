@@ -19,9 +19,7 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
 package petascope.wcps.server.test;
-
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -44,10 +42,10 @@ import org.apache.commons.io.FileUtils;
  */
 public class XmlTestOnline {
     // Put new test cases in this folder
+
     public final String PetascopeURL = "http://localhost:8080/PetaScope/interface";
 //    public final String PetascopeURL = "http://localhost:8080/petascope/wcps/";
 //    public final String PetascopeURL = "http://kahlua.eecs.jacobs-university.de:8080/petascope-new/wcps/";
-
     String folder = "test/testcases-wcps/";
     // How many tests we have to run
     int numTests = 0;
@@ -62,15 +60,13 @@ public class XmlTestOnline {
     // How many successes?
     int passCount = 0;
 
-    public void printResults()
-    {
+    public void printResults() {
         System.out.println("\n \nRESULTS \n");
 
         for (int i = 0; i < numTests; i++) {
             String tname = tests[i].getName();
             tname = tname.substring(0, tname.length() - 4);
-            if (ok[i] == true)
-            {
+            if (ok[i] == true) {
                 System.out.println("*** Test '" + tname + "' ok");
 //                System.out.println("\t" + queries[i]);
             } else {
@@ -113,12 +109,11 @@ public class XmlTestOnline {
     public void runAllTests() {
         String query = "";
         String tname = "";
-        for (int i = 0; i < numTests; i++)
-        {
+        for (int i = 0; i < numTests; i++) {
             ok[i] = false;
             tname = tests[i].getName();
             tname = tname.substring(0, tname.length() - 4);
-            
+
             try {
                 query = FileUtils.readFileToString(tests[i]);
                 queries[i] = query;
@@ -130,15 +125,17 @@ public class XmlTestOnline {
             System.out.println("Running test '" + tname + "'...");
             try {
                 String err = runOneTest("request", query);
-                if (err == null)
+                if (err == null) {
                     ok[i] = true;
-                else
+                } else {
                     errors[i] = err;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if (ok[i] == true)
-                passCount ++;
+            if (ok[i] == true) {
+                passCount++;
+            }
         }
     }
 
@@ -151,7 +148,7 @@ public class XmlTestOnline {
 //        System.out.println("--------------------");
 //        System.out.println(xml);
 //        System.out.println("\t--------------------");
-        
+
         // connect to the servlet
         URL servlet = new URL(PetascopeURL);
         HttpURLConnection conn = (HttpURLConnection) servlet.openConnection();
@@ -187,24 +184,21 @@ public class XmlTestOnline {
         System.out.println("\t" + line2);
         System.out.println("\t" + line3);
 
-        if (line1 != null && line2 != null && line3 != null &&
-                line2.equals("<h1>An error has occured</h1>"))
-        {
+        if (line1 != null && line2 != null && line3 != null
+                && line2.equals("<h1>An error has occured</h1>")) {
             System.out.println("Error executing query: ");
             String error = line3.substring(10, line3.length() - 4);
             System.out.println("\t" + error);
             return error;
-        }
-        else
+        } else {
             return null;
+        }
 
     }
 
-    public static void main(String args[])
-    {
-      XmlTestOnline tester = new XmlTestOnline();
-      tester.runAllTests();
-      tester.printResults();
+    public static void main(String args[]) {
+        XmlTestOnline tester = new XmlTestOnline();
+        tester.runAllTests();
+        tester.printResults();
     }
-
 }

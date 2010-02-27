@@ -19,93 +19,81 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
-public class CoverageExprPairType implements IRasNode, ICoverageInfo
-{
-	private IRasNode first, second;
-	private CoverageInfo info;
+public class CoverageExprPairType implements IRasNode, ICoverageInfo {
+
+    private IRasNode first, second;
+    private CoverageInfo info;
     private boolean ok = false;
 
-	public CoverageExprPairType(Node node, XmlQuery xq)
-	    throws WCPSException, InvalidCrsException
-	{
-		String nodeName = node.getNodeName();
+    public CoverageExprPairType(Node node, XmlQuery xq)
+            throws WCPSException, InvalidCrsException {
+        String nodeName = node.getNodeName();
 
-		System.err.println("Trying to parse a coverage expression pair ... Starting at node "
+        System.err.println("Trying to parse a coverage expression pair ... Starting at node "
                 + nodeName);
 
         // Combination 1: CoverageExprType + CoverageExprType
-        try
-        {
+        try {
             first = new CoverageExpr(node, xq);
             second = new CoverageExpr(node.getNextSibling(), xq);
-			info = new CoverageInfo(((ICoverageInfo) second).getCoverageInfo());
+            info = new CoverageInfo(((ICoverageInfo) second).getCoverageInfo());
             ok = true;
-        }
-        catch (WCPSException e)
-        {
+        } catch (WCPSException e) {
             System.err.println("Failed to parse a CoverageExprType + CoverageExprType!");
         }
 
         // Combination 2: CoverageExprType + ScalarExprType
-        if (ok == false)
-            try
-            {
+        if (ok == false) {
+            try {
                 first = new CoverageExpr(node, xq);
                 second = new ScalarExpr(node.getNextSibling(), xq);
                 info = new CoverageInfo(((ICoverageInfo) first).getCoverageInfo());
                 ok = true;
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to parse CoverageExprType + ScalarExprType!");
             }
+        }
 
         // Combination 3: ScalarExprType + CoverageExprType
-        if (ok == false)
-            try
-            {
+        if (ok == false) {
+            try {
                 first = new ScalarExpr(node, xq);
                 second = new CoverageExpr(node.getNextSibling(), xq);
                 info = new CoverageInfo(((ICoverageInfo) second).getCoverageInfo());
                 ok = true;
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to parse ScalarExprType + CoverageExprType!");
             }
+        }
 
-        if (ok == false)
+        if (ok == false) {
             throw new WCPSException("Could not parse a coverage expression pair !");
-	}
+        }
+    }
 
-	public CoverageInfo getCoverageInfo()
-	{
-		return info;
-	}
+    public CoverageInfo getCoverageInfo() {
+        return info;
+    }
 
-	public String toRasQL()
-	{
-        if (ok == true)
+    public String toRasQL() {
+        if (ok == true) {
             return first.toRasQL() + second.toRasQL();
-        else
+        } else {
             return " error ";
-	}
+        }
+    }
 
-    public IRasNode getFirst()
-    {
+    public IRasNode getFirst() {
         return first;
     }
 
-    public IRasNode getSecond()
-    {
+    public IRasNode getSecond() {
         return second;
     }
 }

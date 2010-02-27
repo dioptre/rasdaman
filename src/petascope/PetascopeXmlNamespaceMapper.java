@@ -19,58 +19,45 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope;
 
 //~--- JDK imports ------------------------------------------------------------
-
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
-public class PetascopeXmlNamespaceMapper extends NamespacePrefixMapper
-{
-	@Override
-	public String getPreferredPrefix(String uri, String id, boolean req)
-	{
-		if ( uri.equals("") || uri.equals("http://www.opengis.net/wcs/1.1") )
-		{
-			return "wcs";
-		}
-		if ( uri.equals("http://www.w3.org/2001/SMIL20/Language") )
-		{
-			return "smil1";
-		}
-		if ( uri.equals("http://www.w3.org/2001/SMIL20/") )
-		{
-			return "smil20";
-		}
-		if ( uri.equals("http://www.opengis.net/gml") )
-		{
-			return "gml";
-		}
-		if ( uri.equals("http://www.w3.org/1999/xlink") )
-		{
-			return "xlink";
-		}
-		if ( uri.equals("http://www.opengis.net/wcs/1.1/ows") )
-		{
-			return "owcs";
-		}
-		if ( uri.equals("http://www.opengis.net/ows")
-				|| uri.equals("http://www.opengis.net/ows/1.1") )
-		{
-			return "ows";
-		}
-		if ( uri.equals("http://www.w3.org/2001/XMLSchema-instance") )
-		{
-			return "xsd";
-		}
-        if ( uri.equals("http://www.opengis.net/wcs/1.1/wcst") )
-        {
+public class PetascopeXmlNamespaceMapper extends NamespacePrefixMapper {
+
+    @Override
+    public String getPreferredPrefix(String uri, String id, boolean req) {
+        if (uri.equals("") || uri.equals("http://www.opengis.net/wcs/1.1")) {
+            return "wcs";
+        }
+        if (uri.equals("http://www.w3.org/2001/SMIL20/Language")) {
+            return "smil1";
+        }
+        if (uri.equals("http://www.w3.org/2001/SMIL20/")) {
+            return "smil20";
+        }
+        if (uri.equals("http://www.opengis.net/gml")) {
+            return "gml";
+        }
+        if (uri.equals("http://www.w3.org/1999/xlink")) {
+            return "xlink";
+        }
+        if (uri.equals("http://www.opengis.net/wcs/1.1/ows")) {
+            return "owcs";
+        }
+        if (uri.equals("http://www.opengis.net/ows")
+                || uri.equals("http://www.opengis.net/ows/1.1")) {
+            return "ows";
+        }
+        if (uri.equals("http://www.w3.org/2001/XMLSchema-instance")) {
+            return "xsd";
+        }
+        if (uri.equals("http://www.opengis.net/wcs/1.1/wcst")) {
             return "wcst";
         }
 
-		return null;
+        return null;
 
-	}
+    }
 }

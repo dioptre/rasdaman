@@ -19,12 +19,9 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcst.server;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import petascope.ConfigManager;
 import net.opengis.ows.v_1_0_0.ExceptionReport;
 
@@ -69,203 +66,184 @@ import petascope.wcs.server.exceptions.XmlStructuresException;
  *
  * @author Andrei Aiordachioaie
  */
-public class WcstServer
-{
+public class WcstServer {
+
     private static Logger LOG = LoggerFactory.getLogger(WcstServer.class);
-    
-	private static Boolean finished;
-	private boolean synchronous = true;
-	private String responseHandler;
+    private static Boolean finished;
+    private boolean synchronous = true;
+    private String responseHandler;
     private DbMetadataSource meta;
 
-	/**
-	 * Public minimal constructor
-	 */
-	public WcstServer(DbMetadataSource source) throws WCSException
-	{
-		finished = false;
+    /**
+     * Public minimal constructor
+     */
+    public WcstServer(DbMetadataSource source) throws WCSException {
+        finished = false;
         meta = source;
 
         /* Check user settings */
         String cfg = ConfigManager.WCST_DEFAULT_DATATYPE;
-        if (source.getDataTypes().contains(cfg) == false)
+        if (source.getDataTypes().contains(cfg) == false) {
             throw new InvalidPropertyValueException("The following setting is not a valid datatype: " + cfg);
+        }
         cfg = ConfigManager.WCST_DEFAULT_INTERPOLATION;
-        if (source.getInterpolationTypes().contains(cfg) == false)
+        if (source.getInterpolationTypes().contains(cfg) == false) {
             throw new InvalidPropertyValueException("The following setting is not a valid interpolation method: " + cfg);
+        }
         cfg = ConfigManager.WCST_DEFAULT_NULL_RESISTANCE;
-        if (source.getNullResistances().contains(cfg) == false)
+        if (source.getNullResistances().contains(cfg) == false) {
             throw new InvalidPropertyValueException("The following setting is not a valid null resistance: " + cfg);
-	}
+        }
+    }
 
-	/**
-	 * Web service operation
-	 */
-	public String Transaction(String stringXml)
-	{
-		// Actual contents of these two strings do not matter
-		String output = "Default output. ";
-		String errmsg = "No error. ";
+    /**
+     * Web service operation
+     */
+    public String Transaction(String stringXml) {
+        // Actual contents of these two strings do not matter
+        String output = "Default output. ";
+        String errmsg = "No error. ";
 
-		finished = false;
-		try
-		{
-			try
-			{
-				// Check if Firewall allows the query
-				if ( ServiceFirewall.reject(stringXml) )
-					throw new MaliciousQueryException("WCS-T Service Firewall " +
-                            "refused to run possibly malitious query.");
+        finished = false;
+        try {
+            try {
+                // Check if Firewall allows the query
+                if (ServiceFirewall.reject(stringXml)) {
+                    throw new MaliciousQueryException("WCS-T Service Firewall "
+                            + "refused to run possibly malitious query.");
+                }
 
-				// read the input XML
-				LOG.debug("Reading the input XML file ... ");
-				JAXBContext context = JAXBContext.newInstance(
-					TransactionType.class.getPackage().getName());
-				Unmarshaller unmarshaller = context.createUnmarshaller();
-				Object xml = unmarshaller.unmarshal(new StringReader(stringXml));
+                // read the input XML
+                LOG.debug("Reading the input XML file ... ");
+                JAXBContext context = JAXBContext.newInstance(
+                        TransactionType.class.getPackage().getName());
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                Object xml = unmarshaller.unmarshal(new StringReader(stringXml));
 
-				if ( xml instanceof JAXBElement )
-					xml = ((JAXBElement) xml).getValue();
+                if (xml instanceof JAXBElement) {
+                    xml = ((JAXBElement) xml).getValue();
+                }
 
-				TransactionType input = (TransactionType) xml;
+                TransactionType input = (TransactionType) xml;
 
-				/**
-				 * We can work in both asynchronous and synchronous mode.
-				 *
-				 * If we are in async mode, we generate an acknowledgement that
-				 * we have received the Transaction request. Next, when we finish processing,
-				 * we send the output (as a String) to the specified responseHandler.
-				 *
-				 * In synchronous mode, we just do the processing and output
-				 * the result.
-				 */
-				if ( input.getResponseHandler() == null )
-				{
-					synchronous = true;
-					responseHandler = null;
-				}
-				else
-				{
-					synchronous = false;
-					responseHandler = input.getResponseHandler();
-				}
+                /**
+                 * We can work in both asynchronous and synchronous mode.
+                 *
+                 * If we are in async mode, we generate an acknowledgement that
+                 * we have received the Transaction request. Next, when we finish processing,
+                 * we send the output (as a String) to the specified responseHandler.
+                 *
+                 * In synchronous mode, we just do the processing and output
+                 * the result.
+                 */
+                if (input.getResponseHandler() == null) {
+                    synchronous = true;
+                    responseHandler = null;
+                } else {
+                    synchronous = false;
+                    responseHandler = input.getResponseHandler();
+                }
 
-				executeTransaction exec = new executeTransaction(input, meta);
+                executeTransaction exec = new executeTransaction(input, meta);
 
-				/** Synchronous operation */
-				if ( synchronous == true )
-				{
-					TransactionResponseType response = exec.get();
-					JAXBElement jaxbOutput = 
+                /** Synchronous operation */
+                if (synchronous == true) {
+                    TransactionResponseType response = exec.get();
+                    JAXBElement jaxbOutput =
                             new JAXBElement(
-                                new QName("http://www.opengis.net/wcs/1.1/wcst",
-                                "TransactionResponse", XMLConstants.DEFAULT_NS_PREFIX),
+                            new QName("http://www.opengis.net/wcs/1.1/wcst",
+                            "TransactionResponse", XMLConstants.DEFAULT_NS_PREFIX),
                             TransactionResponseType.class, response);
 
-					// Write the output xml to a string
+                    // Write the output xml to a string
                     LOG.debug("Marshalling with context: " + response.getClass().getPackage().getName());
                     final StringWriter writer = new StringWriter();
-                    try
-                    {
+                    try {
                         context = JAXBContext.newInstance(response.getClass());
-                        final XMLStreamWriter xmlStreamWriter = XMLOutputFactory
-                                .newInstance().createXMLStreamWriter(writer);
+                        final XMLStreamWriter xmlStreamWriter = XMLOutputFactory.newInstance().createXMLStreamWriter(writer);
 
                         final Marshaller marshaller = context.createMarshaller();
                         marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new PetascopeXmlNamespaceMapper());
                         marshaller.setProperty("jaxb.formatted.output", true);
-                        marshaller.setProperty("jaxb.schemaLocation", "http://www.opengis.net/wcs/1.1/wcst http://schemas.opengis.net/wcst/ " +
-                                "http://www.opengis.net/ows/1.1 http://schemas.opengis.net/ows/1.0.0/owsExceptionReport.xsd");
+                        marshaller.setProperty("jaxb.schemaLocation", "http://www.opengis.net/wcs/1.1/wcst http://schemas.opengis.net/wcst/ "
+                                + "http://www.opengis.net/ows/1.1 http://schemas.opengis.net/ows/1.0.0/owsExceptionReport.xsd");
                         marshaller.marshal(jaxbOutput, xmlStreamWriter);
-                    } catch (final Exception e)
-                    {
+                    } catch (final Exception e) {
                         throw new RuntimeException(e.getMessage(), e);
                     }
                     output = writer.toString();
                     LOG.debug("Done! User has the TransactionResponse result !");
-				}
-				else
+                } else /** Asynchronous operation */
+                {
+                    /* (1) Create acknowledgement that we received the request */
+                    AcknowledgementType ack = new AcknowledgementType();
+                    GregorianCalendar c = new GregorianCalendar();
 
-				/** Asynchronous operation */
-				{
-					/* (1) Create acknowledgement that we received the request */
-					AcknowledgementType ack = new AcknowledgementType();
-					GregorianCalendar c = new GregorianCalendar();
+                    c.setTime(new Date());
+                    XMLGregorianCalendar date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
 
-					c.setTime(new Date());
-					XMLGregorianCalendar date2 = DatatypeFactory.newInstance()
-						.newXMLGregorianCalendar(c);
+                    ack.setTimeStamp(date2);
+                    ack.setOperationRequest(input);
+                    ack.setRequestId(exec.generateRequestId());
+                    JAXBElement jaxbOutput = new JAXBElement(new QName("", "Acknowledgement"),
+                            TransactionResponseType.class, ack);
 
-					ack.setTimeStamp(date2);
-					ack.setOperationRequest(input);
-					ack.setRequestId(exec.generateRequestId());
-					JAXBElement jaxbOutput = new JAXBElement(new QName("", "Acknowledgement"),
-						TransactionResponseType.class, ack);
+                    /* (2) Write the acknowledgement to a string */
+                    JAXBContext jaxbCtx = JAXBContext.newInstance(
+                            ack.getClass().getPackage().getName());
+                    Marshaller marshaller = jaxbCtx.createMarshaller();
 
-					/* (2) Write the acknowledgement to a string */
-					JAXBContext jaxbCtx = JAXBContext.newInstance(
-						ack.getClass().getPackage().getName());
-					Marshaller marshaller = jaxbCtx.createMarshaller();
+                    marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+                    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+                    StringWriter strWriter = new StringWriter();
 
-					marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-					marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-					StringWriter strWriter = new StringWriter();
+                    marshaller.marshal(jaxbOutput, strWriter);
+                    output = strWriter.toString();
+                    LOG.debug("Created the acknowledgement of the request !");
+                    LOG.debug("Now starting to asynchronously execute the transaction...");
 
-					marshaller.marshal(jaxbOutput, strWriter);
-					output = strWriter.toString();
-					LOG.debug("Created the acknowledgement of the request !");
-					LOG.debug("Now starting to asynchronously execute the transaction...");
+                    /* (3) Start asynchronous processing */
+                    executeAsyncTransaction execAsync = new executeAsyncTransaction(exec,
+                            responseHandler);
 
-					/* (3) Start asynchronous processing */
-					executeAsyncTransaction execAsync = new executeAsyncTransaction(exec,
-						responseHandler);
+                    execAsync.start();
+                }
+                finished = true;
 
-					execAsync.start();
-				}
-				finished = true;
+            } catch (JAXBException e) {
+                throw new XmlStructuresException("Could not marshall/unmarshall XML structures.", e);
+            } catch (DatatypeConfigurationException e) {
+                throw new XmlStructuresException("Could not build request acknowledgement. ", e);
+            }
+        } catch (WCSException e) {
+            LOG.info("Caught WCST Exception");
+            ExceptionReport report = e.getReport();
 
-			}
-			catch (JAXBException e)
-			{
-				throw new XmlStructuresException("Could not marshall/unmarshall XML structures.", e);
-			}
-			catch (DatatypeConfigurationException e)
-			{
-				throw new XmlStructuresException("Could not build request acknowledgement. ", e);
-			}
-		}
-		catch (WCSException e)
-		{
-			LOG.info("Caught WCST Exception");
-			ExceptionReport report = e.getReport();
+            try {
+                JAXBContext jaxbCtx = JAXBContext.newInstance(
+                        report.getClass().getPackage().getName());
+                Marshaller marshaller = jaxbCtx.createMarshaller();
 
-			try
-			{
-				JAXBContext jaxbCtx = JAXBContext.newInstance(
-					report.getClass().getPackage().getName());
-				Marshaller marshaller = jaxbCtx.createMarshaller();
+                marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+                StringWriter strWriter = new StringWriter();
 
-				marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-				marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-				StringWriter strWriter = new StringWriter();
+                marshaller.marshal(report, strWriter);
+                output = strWriter.toString();
+                finished = true;
+                LOG.error("WCS-T Exception: " + e.getErrorCode() + ", with message '"
+                        + e.getErrorDetail() + "'");
+                LOG.debug("Done with the Error Report !");
+            } catch (JAXBException e2) {
+                errmsg = e2.getMessage();
+                LOG.error("Could not build XML error report. Stack trace: " + e2);
+            }
+        }
 
-				marshaller.marshal(report, strWriter);
-				output = strWriter.toString();
-				finished = true;
-				LOG.error("WCS-T Exception: " + e.getErrorCode() + ", with message '"
-					  + e.getErrorDetail() + "'");
-				LOG.debug("Done with the Error Report !");
-			}
-			catch (JAXBException e2)
-			{
-				errmsg = e2.getMessage();
-				LOG.error("Could not build XML error report. Stack trace: " + e2);
-			}
-		}
+        if (finished == false) {
+            output = errmsg;
+        }
 
-		if ( finished == false )
-			output = errmsg;
-
-		return output;
-	}
+        return output;
+    }
 }

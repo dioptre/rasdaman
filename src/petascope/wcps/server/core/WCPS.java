@@ -19,10 +19,7 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
-
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.ResourceException;
@@ -48,153 +45,140 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * This is the WCPS entry point. Processing a ProcessCoverage request happens in two stages.
- The first stage is the various pcPrepare functions, where XML is parsed, metadata is loaded,
- and the request is translated into an instance of a ProcessCoverageRequest. This data structure,
- for the time being, is just a list of rasdaman queries (RasQuery). The second stage is pcExecute,
- which executes a ProcessCoverageRequests and returns data.
+The first stage is the various pcPrepare functions, where XML is parsed, metadata is loaded,
+and the request is translated into an instance of a ProcessCoverageRequest. This data structure,
+for the time being, is just a list of rasdaman queries (RasQuery). The second stage is pcExecute,
+which executes a ProcessCoverageRequests and returns data.
  */
+public class WCPS {
 
-public class WCPS
-{
-	private static final String SCHEMA_PACKAGE_PROCESSCOVERAGE = "wcps.xml.processcoverage";
-	private IMetadataSource metadataSource;
+    private static final String SCHEMA_PACKAGE_PROCESSCOVERAGE = "wcps.xml.processcoverage";
+    private IMetadataSource metadataSource;
     private IDynamicMetadataSource dynamicMetadataSource;
-	private DocumentBuilder wcpsDocumentBuilder;
+    private DocumentBuilder wcpsDocumentBuilder;
 
-	public WCPS(File pcSchema, IMetadataSource metadataSource) throws WCPSException
-	{
-		try
-		{
+    public WCPS(File pcSchema, IMetadataSource metadataSource) throws WCPSException {
+        try {
             System.out.println("WCPS: Loading and parsing XML Schema ...");
-			DocumentBuilderFactory dbconfig = DocumentBuilderFactory.newInstance();
+            DocumentBuilderFactory dbconfig = DocumentBuilderFactory.newInstance();
 
-			dbconfig.setValidating(false);    // use XML schema not DTD
-			dbconfig.setIgnoringComments(true);    // comments are not relevant
-			dbconfig.setIgnoringElementContentWhitespace(true);    // remve the ignorable whitespace
+            dbconfig.setValidating(false);    // use XML schema not DTD
+            dbconfig.setIgnoringComments(true);    // comments are not relevant
+            dbconfig.setIgnoringElementContentWhitespace(true);    // remve the ignorable whitespace
 //			Schema wcpsProcessCoverageSchema =
 //				SchemaFactory.newInstance(
 //				    XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(pcSchema);
 
 //			dbconfig.setSchema(wcpsProcessCoverageSchema);
 
-			wcpsDocumentBuilder = dbconfig.newDocumentBuilder();
+            wcpsDocumentBuilder = dbconfig.newDocumentBuilder();
             System.out.println("WCPS: Finished loading the schema !");
-		}
-		catch (Exception e)
-		{
-			throw new WCPSException(
-			    "Error while loading the document builder interface!", e);
-		}
+        } catch (Exception e) {
+            throw new WCPSException(
+                    "Error while loading the document builder interface!", e);
+        }
 
         this.dynamicMetadataSource = new DynamicMetadataSource(metadataSource);
-	}
+    }
 
     public WCPS(IMetadataSource metadataSource) throws ParserConfigurationException,
-            ResourceException, InvalidMetadataException
-	{
+            ResourceException, InvalidMetadataException {
         this.dynamicMetadataSource = new DynamicMetadataSource(metadataSource);
         wcpsDocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-	}
+    }
 
-	public List<byte[]> pcExecute(String url, String database, ProcessCoveragesRequest pcRequest)
-	    throws ResourceException
-	{
-		throw new ResourceException("Mothod not implemented! pcExecute");
+    public List<byte[]> pcExecute(String url, String database, ProcessCoveragesRequest pcRequest)
+            throws ResourceException {
+        throw new ResourceException("Mothod not implemented! pcExecute");
 
-		/*
-		 *         List<RasQuery> queries = pcRequest.getQueries();
-		 * List<byte[]> results = new ArrayList<byte[]>( queries.size() );
-		 * synchronized( this ) {
-		 * Implementation impl = new RasImplementation( url );
-		 * Database db = impl.newDatabase();
-		 * try {
-		 * db.open( database, Database.OPEN_READ_ONLY );
-		 * }
-		 * catch( ODMGException odmge ) {
-		 * try {
-		 * db.close();
-		 * }
-		 * catch (ODMGException e) {}
-		 * throw new ResourceException( "Could not connect to rasdaman at " + url + ", database " +
+        /*
+         *         List<RasQuery> queries = pcRequest.getQueries();
+         * List<byte[]> results = new ArrayList<byte[]>( queries.size() );
+         * synchronized( this ) {
+         * Implementation impl = new RasImplementation( url );
+         * Database db = impl.newDatabase();
+         * try {
+         * db.open( database, Database.OPEN_READ_ONLY );
+         * }
+         * catch( ODMGException odmge ) {
+         * try {
+         * db.close();
+         * }
+         * catch (ODMGException e) {}
+         * throw new ResourceException( "Could not connect to rasdaman at " + url + ", database " +
          *          database, odmge );
-		 * }
-		 * Transaction tr = impl.newTransaction();
-		 * tr.begin();
-		 * Iterator<RasQuery> queryIterator = queries.iterator();
-		 * while( queryIterator.hasNext() ) {
-		 * String query = queryIterator.next().toString();
-		 * OQLQuery q = impl.newOQLQuery();
-		 * DBag resultSet;
-		 * try {
-		 * q.create( query );
-		 * resultSet = (DBag) q.execute();
-		 * if( resultSet != null ) {
-		 * Iterator resultIterator = resultSet.iterator();
-		 * while( resultIterator.hasNext() ) {
-		 * RasGMArray result = (RasGMArray) resultIterator.next();
-		 * results.add( result.getArray() );
-		 * }
-		 * }
-		 * }
-		 * catch (QueryException qe) {
-		 * tr.commit();
-		 * try {
-		 * db.close();
-		 * }
-		 * catch (ODMGException odmge) {}
-		 * throw new ResourceException ( "Could not evaluate rasdaman query: '" + query + "'", qe );
-		 * }
-		 * }
-		 * tr.commit();
-		 * try {
-		 * db.close();
-		 * }
-		 * catch (ODMGException odmge) {}
-		 * }
-		 * return results;
-		 */
-	}
+         * }
+         * Transaction tr = impl.newTransaction();
+         * tr.begin();
+         * Iterator<RasQuery> queryIterator = queries.iterator();
+         * while( queryIterator.hasNext() ) {
+         * String query = queryIterator.next().toString();
+         * OQLQuery q = impl.newOQLQuery();
+         * DBag resultSet;
+         * try {
+         * q.create( query );
+         * resultSet = (DBag) q.execute();
+         * if( resultSet != null ) {
+         * Iterator resultIterator = resultSet.iterator();
+         * while( resultIterator.hasNext() ) {
+         * RasGMArray result = (RasGMArray) resultIterator.next();
+         * results.add( result.getArray() );
+         * }
+         * }
+         * }
+         * catch (QueryException qe) {
+         * tr.commit();
+         * try {
+         * db.close();
+         * }
+         * catch (ODMGException odmge) {}
+         * throw new ResourceException ( "Could not evaluate rasdaman query: '" + query + "'", qe );
+         * }
+         * }
+         * tr.commit();
+         * try {
+         * db.close();
+         * }
+         * catch (ODMGException odmge) {}
+         * }
+         * return results;
+         */
+    }
 
-	public ProcessCoveragesRequest pcPrepare(String url, String database, File f)
-	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-	    IOException, InvalidCrsException
-	{
-		return pcPrepare(url, database, wcpsDocumentBuilder.parse(f));
-	}
+    public ProcessCoveragesRequest pcPrepare(String url, String database, File f)
+            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
+            IOException, InvalidCrsException {
+        return pcPrepare(url, database, wcpsDocumentBuilder.parse(f));
+    }
 
-	public ProcessCoveragesRequest pcPrepare(String url, String database, InputStream is,
-	    String systemId)
-	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-	    IOException, InvalidCrsException
-	{
-		return pcPrepare(url, database, wcpsDocumentBuilder.parse(is, systemId));
-	}
+    public ProcessCoveragesRequest pcPrepare(String url, String database, InputStream is,
+            String systemId)
+            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
+            IOException, InvalidCrsException {
+        return pcPrepare(url, database, wcpsDocumentBuilder.parse(is, systemId));
+    }
 
-	public ProcessCoveragesRequest pcPrepare(String url, String database, String uri)
-	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-	    IOException, InvalidCrsException
-	{
-		return pcPrepare(url, database, wcpsDocumentBuilder.parse(uri));
-	}
+    public ProcessCoveragesRequest pcPrepare(String url, String database, String uri)
+            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
+            IOException, InvalidCrsException {
+        return pcPrepare(url, database, wcpsDocumentBuilder.parse(uri));
+    }
 
-	public ProcessCoveragesRequest pcPrepare(String url, String database, InputSource is)
-	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-	    IOException, InvalidCrsException
-	{
-		return pcPrepare(url, database, wcpsDocumentBuilder.parse(is));
-	}
+    public ProcessCoveragesRequest pcPrepare(String url, String database, InputSource is)
+            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
+            IOException, InvalidCrsException {
+        return pcPrepare(url, database, wcpsDocumentBuilder.parse(is));
+    }
 
     public ProcessCoveragesRequest pcPrepare(String url, String database, InputStream is)
-	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-	    IOException, InvalidCrsException
-	{
-		return pcPrepare(url, database, wcpsDocumentBuilder.parse(is));
-	}
+            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
+            IOException, InvalidCrsException {
+        return pcPrepare(url, database, wcpsDocumentBuilder.parse(is));
+    }
 
-	private ProcessCoveragesRequest pcPrepare(String url, String database, Document doc)
-	    throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException, IOException, InvalidCrsException
-	{
+    private ProcessCoveragesRequest pcPrepare(String url, String database, Document doc)
+            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException, IOException, InvalidCrsException {
         ProcessCoveragesRequest req = new ProcessCoveragesRequest(url, database, doc, dynamicMetadataSource, this);
         return req;
-	}
+    }
 }

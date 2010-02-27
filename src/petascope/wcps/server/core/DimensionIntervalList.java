@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
@@ -29,35 +27,29 @@ import java.util.ArrayList;
 import java.util.List;
 import org.w3c.dom.*;
 
-public class DimensionIntervalList
-{
+public class DimensionIntervalList {
+
     private ArrayList<IRasNode> list;
-    
-	public DimensionIntervalList(Node node, XmlQuery xq, CoverageInfo info)
-	    throws WCPSException, InvalidCrsException
-	{
+
+    public DimensionIntervalList(Node node, XmlQuery xq, CoverageInfo info)
+            throws WCPSException, InvalidCrsException {
         System.err.println("Parsing a Dimension Interval List ...");
 
-        while (node != null)
-        {
+        while (node != null) {
             list = new ArrayList<IRasNode>();
-            try
-            {
+            try {
                 System.err.println("Parsing one dimension interval element ...");
                 DimensionIntervalElement elem = new DimensionIntervalElement(node, xq, info);
                 node = elem.getNextNode();
                 list.add(elem);
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to parse this dimension interval element !");
                 System.err.println("Current node: " + node);
             }
         }
-	}
+    }
 
-    public List getAxisList()
-    {
+    public List getAxisList() {
         return list;
     }
 }

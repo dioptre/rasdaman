@@ -19,29 +19,22 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /*
 Author: Sorin Stancu-Mara, Andrei Aiordachioaie
 Date: 7 Feb 2007
-*/
+ */
+public class StoreExpr implements IParseTreeNode {
 
-public class StoreExpr implements IParseTreeNode
-{
-	private EncodedCoverageExpr expr;
+    private EncodedCoverageExpr expr;
 
-	public StoreExpr(EncodedCoverageExpr e)
-	{
-		expr = e;
-		expr.setStoreFlag();
-	}
+    public StoreExpr(EncodedCoverageExpr e) {
+        expr = e;
+        expr.setStoreFlag();
+    }
 
-	public String toXML()
-	{
-		return expr.toXML();
-	}
+    public String toXML() {
+        return expr.toXML();
+    }
 }

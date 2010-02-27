@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,41 +26,36 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class DimensionIntervalElement implements IParseTreeNode
-{
-	String axis;
-	String crs;
-	DimensionIntervalExpr expr;
+public class DimensionIntervalElement implements IParseTreeNode {
 
-	public DimensionIntervalElement(String a)
-	{
-		axis = a;
-	}
+    String axis;
+    String crs;
+    DimensionIntervalExpr expr;
 
-	public void setCrs(String c)
-	{
-		crs = c;
+    public DimensionIntervalElement(String a) {
+        axis = a;
+    }
+
+    public void setCrs(String c) {
+        crs = c;
         System.err.println("Grammar: Set CRS name: " + c);
-	}
+    }
 
-	public void setIntervalExpr(DimensionIntervalExpr e)
-	{
-		expr = e;
-	}
+    public void setIntervalExpr(DimensionIntervalExpr e) {
+        expr = e;
+    }
 
-	public String toXML()
-	{
-		String result = "";
+    public String toXML() {
+        String result = "";
 
-		result += "<axis>" + axis + "</axis>";
+        result += "<axis>" + axis + "</axis>";
 
-		if (crs != null)
-		{
-			result += "<srsName>" + crs + "</srsName>";
-		}
+        if (crs != null) {
+            result += "<srsName>" + crs + "</srsName>";
+        }
 
-		result += expr.toXML();
+        result += expr.toXML();
 
-		return result;
-	}
+        return result;
+    }
 }

@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,29 +26,27 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class CoverageConstructorExpr implements IParseTreeNode
-{
-	AxisIteratorList alist;
-	ScalarExpr expr;
-	String name;
+public class CoverageConstructorExpr implements IParseTreeNode {
 
-	public CoverageConstructorExpr(String name, AxisIteratorList alist, ScalarExpr expr)
-	{
-		this.name  = name;
-		this.alist = alist;
+    AxisIteratorList alist;
+    ScalarExpr expr;
+    String name;
+
+    public CoverageConstructorExpr(String name, AxisIteratorList alist, ScalarExpr expr) {
+        this.name = name;
+        this.alist = alist;
         alist.setTag("axisIterator");
-		this.expr  = expr;
-	}
+        this.expr = expr;
+    }
 
-	public String toXML()
-	{
-		String result = "";
+    public String toXML() {
+        String result = "";
 
-		result += "<name>" + name + "</name>";
-		result += alist.toXML();
-		result += expr.toXML();
+        result += "<name>" + name + "</name>";
+        result += alist.toXML();
+        result += expr.toXML();
 
-		result = "<construct>" + result + "</construct>";
-		return result;
-	}
+        result = "<construct>" + result + "</construct>";
+        return result;
+    }
 }

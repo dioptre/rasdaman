@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,27 +26,25 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class AxisIterator implements IParseTreeNode
-{
-	String axis;
-	IntervalExpr interval;
-	String var;
+public class AxisIterator implements IParseTreeNode {
 
-	public AxisIterator(String var, String axis, IntervalExpr interval)
-	{
-		this.var      = var;
-		this.axis     = axis;
-		this.interval = interval;
-	}
+    String axis;
+    IntervalExpr interval;
+    String var;
 
-	public String toXML()
-	{
-		String result = "";
+    public AxisIterator(String var, String axis, IntervalExpr interval) {
+        this.var = var;
+        this.axis = axis;
+        this.interval = interval;
+    }
 
-		result += "<iteratorVar>" + var + "</iteratorVar>";
-		result += "<axis>" + axis + "</axis>";
-		result += interval.toXML();
+    public String toXML() {
+        String result = "";
 
-		return result;
-	}
+        result += "<iteratorVar>" + var + "</iteratorVar>";
+        result += "<axis>" + axis + "</axis>";
+        result += interval.toXML();
+
+        return result;
+    }
 }

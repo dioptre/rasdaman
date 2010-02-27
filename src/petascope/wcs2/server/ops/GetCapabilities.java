@@ -19,12 +19,9 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcs2.server.ops;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,51 +40,45 @@ import petascope.wcs.server.exceptions.InvalidServiceConfigurationException;
  *
  * @author Andrei Aiordachioaie
  */
-public class GetCapabilities implements WcsOperation
-{
-	private static Logger LOG = LoggerFactory.getLogger(GetCapabilities.class);
-	/* Template XMLs for response types */
-	private String GetCapabilitiesResponse;
-	private DbMetadataSource meta;
-	/* Other useful vars */
-	private String xmlListOfCoverages;
+public class GetCapabilities implements WcsOperation {
 
-	public GetCapabilities(DbMetadataSource metadata) throws InvalidServiceConfigurationException
-	{
-		meta = metadata;
+    private static Logger LOG = LoggerFactory.getLogger(GetCapabilities.class);
+    /* Template XMLs for response types */
+    private String GetCapabilitiesResponse;
+    private DbMetadataSource meta;
+    /* Other useful vars */
+    private String xmlListOfCoverages;
 
-		GetCapabilitiesResponse = ConfigManager.WCS2_GET_CAPABILITIES_TEMPLATE;
-        if (GetCapabilitiesResponse == null)
+    public GetCapabilities(DbMetadataSource metadata) throws InvalidServiceConfigurationException {
+        meta = metadata;
+
+        GetCapabilitiesResponse = ConfigManager.WCS2_GET_CAPABILITIES_TEMPLATE;
+        if (GetCapabilitiesResponse == null) {
             throw new InvalidServiceConfigurationException("Could not find template file.");
-	}
+        }
+    }
 
-	@Override
-	public String execute(String input)
-	{
-		String output;
+    @Override
+    public String execute(String input) {
+        String output;
 
-		// Create the output by replacing placeholders
-		output = GetCapabilitiesResponse.replaceAll("\\{URL\\}",
-				ConfigManager.PETASCOPE_SERVLET_URL);
-		Iterator<String> it;
+        // Create the output by replacing placeholders
+        output = GetCapabilitiesResponse.replaceAll("\\{URL\\}",
+                ConfigManager.PETASCOPE_SERVLET_URL);
+        Iterator<String> it;
 
-		try
-		{
-			it = meta.coverages().iterator();
-			xmlListOfCoverages = "";
-			while (it.hasNext())
-			{
-				xmlListOfCoverages += "<wcs:id gml:id=\"" + it.next() + "\"/>";
-			}
-		}
-		catch (ResourceException ex)
-		{
-			ex.printStackTrace();
-		}
-		output = output.replaceAll("\\{Coverages\\}", xmlListOfCoverages);
-                output = output.replaceAll("\\{wcsSchemaUrl\\}", ConfigManager.WCS2_SCHEMA_URL);
+        try {
+            it = meta.coverages().iterator();
+            xmlListOfCoverages = "";
+            while (it.hasNext()) {
+                xmlListOfCoverages += "<wcs:id gml:id=\"" + it.next() + "\"/>";
+            }
+        } catch (ResourceException ex) {
+            ex.printStackTrace();
+        }
+        output = output.replaceAll("\\{Coverages\\}", xmlListOfCoverages);
+        output = output.replaceAll("\\{wcsSchemaUrl\\}", ConfigManager.WCS2_SCHEMA_URL);
 
-		return output;
-	}
-
+        return output;
+    }
 }

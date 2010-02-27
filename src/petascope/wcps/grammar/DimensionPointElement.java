@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,38 +26,34 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class DimensionPointElement implements IParseTreeNode
-{
-	String axis;
-	String crs;
-	ScalarExpr point;
+public class DimensionPointElement implements IParseTreeNode {
 
-	public DimensionPointElement(String a, ScalarExpr dp)
-	{
-		axis  = a;
-		point = dp;
-	}
+    String axis;
+    String crs;
+    ScalarExpr point;
 
-	public DimensionPointElement(String a, String c, ScalarExpr dp)
-	{
-		axis  = a;
-		crs   = c;
-		point = dp;
-	}
+    public DimensionPointElement(String a, ScalarExpr dp) {
+        axis = a;
+        point = dp;
+    }
 
-	public String toXML()
-	{
-		String result = "";
+    public DimensionPointElement(String a, String c, ScalarExpr dp) {
+        axis = a;
+        crs = c;
+        point = dp;
+    }
 
-		result += "<axis>" + axis + "</axis>";
+    public String toXML() {
+        String result = "";
 
-		if (crs != null)
-		{
-			result += "<srsName>" + crs + "</srsName>";
-		}
+        result += "<axis>" + axis + "</axis>";
 
-		result += "<slicingPosition>" + point.toXML() + "</slicingPosition>";
+        if (crs != null) {
+            result += "<srsName>" + crs + "</srsName>";
+        }
 
-		return result;
-	}
+        result += "<slicingPosition>" + point.toXML() + "</slicingPosition>";
+
+        return result;
+    }
 }

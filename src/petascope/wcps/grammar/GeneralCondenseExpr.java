@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,47 +26,42 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class GeneralCondenseExpr implements IParseTreeNode
-{
-	AxisIteratorList alist;
-	CondenseOperation op;
-	CoverageExpr using;
-	BooleanScalarExpr where;
+public class GeneralCondenseExpr implements IParseTreeNode {
 
-	public GeneralCondenseExpr(CondenseOperation op, AxisIteratorList al)
-	{
-		this.op = op;
-		alist   = al;
-		alist.setTag("iterator");
-		where = null;
-		using = null;
-	}
+    AxisIteratorList alist;
+    CondenseOperation op;
+    CoverageExpr using;
+    BooleanScalarExpr where;
 
-	public void setWhere(BooleanScalarExpr bse)
-	{
-		where = bse;
-	}
+    public GeneralCondenseExpr(CondenseOperation op, AxisIteratorList al) {
+        this.op = op;
+        alist = al;
+        alist.setTag("iterator");
+        where = null;
+        using = null;
+    }
 
-	public void setUsing(CoverageExpr se)
-	{
-		using = se;
-	}
+    public void setWhere(BooleanScalarExpr bse) {
+        where = bse;
+    }
 
-	public String toXML()
-	{
-		String result = "<condense>";
+    public void setUsing(CoverageExpr se) {
+        using = se;
+    }
 
-		result += op.toXML();
-		result += alist.toXML();
+    public String toXML() {
+        String result = "<condense>";
 
-		if (where != null)
-		{
-			result += "<where>" + where.toXML() + "</where>";
-		}
+        result += op.toXML();
+        result += alist.toXML();
 
-		result += using.toXML();
+        if (where != null) {
+            result += "<where>" + where.toXML() + "</where>";
+        }
+
+        result += using.toXML();
         result += "</condense>";
 
-		return result;
-	}
+        return result;
+    }
 }

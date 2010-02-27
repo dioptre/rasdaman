@@ -19,54 +19,55 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
-public class CondenseOperation implements IRasNode
-{
+public class CondenseOperation implements IRasNode {
+
     private String name;
 
-	public CondenseOperation(Node node, XmlQuery xq) throws WCPSException
-	{
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
+    public CondenseOperation(Node node, XmlQuery xq) throws WCPSException {
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
 
         System.err.println("Parsing condense Operation: " + node.getNodeName());
 
         String text = node.getNodeName();
         this.name = formatOperation(text);
-        
-        if (name == null)
-            throw new WCPSException("Unknown condense operation: " + text);
-	}
 
-    private String formatOperation(String name)
-    {
+        if (name == null) {
+            throw new WCPSException("Unknown condense operation: " + text);
+        }
+    }
+
+    private String formatOperation(String name) {
         String shortOp = null;
-        if (name.equals("opPlus"))
+        if (name.equals("opPlus")) {
             shortOp = "+";
-        if (name.equals("opMult"))
+        }
+        if (name.equals("opMult")) {
             shortOp = "*";
-        if (name.equals("opMin"))
+        }
+        if (name.equals("opMin")) {
             shortOp = "min";
-        if (name.equals("opMax"))
+        }
+        if (name.equals("opMax")) {
             shortOp = "max";
-        if (name.equals("opAnd"))
+        }
+        if (name.equals("opAnd")) {
             shortOp = "and";
-        if (name.equals("opOr"))
+        }
+        if (name.equals("opOr")) {
             shortOp = "or";
-        
+        }
+
         return shortOp;
     }
 
-	public String toRasQL()
-	{
+    public String toRasQL() {
         return name;
-	}
+    }
 }

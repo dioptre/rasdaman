@@ -19,26 +19,21 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.exceptions;
 
 /**
  * This is the superclass of all WCPS exceptions.
  */
+public class WCPSException extends Exception {
 
-public class WCPSException extends Exception
-{
-	private static final long serialVersionUID = 113213254L;
+    private static final long serialVersionUID = 113213254L;
 
-	public WCPSException(String message)
-	{
-		super(message);
-	}
+    public WCPSException(String message) {
+        super(message);
+    }
 
-	public WCPSException(String message, Throwable cause)
-	{
-		super(message, cause);
+    public WCPSException(String message, Throwable cause) {
+        super(message, cause);
 
-	}
+    }
 }

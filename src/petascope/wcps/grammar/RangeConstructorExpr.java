@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 import java.util.*;
@@ -32,37 +28,32 @@ import java.util.*;
  *
  * @author Andrei Aiordachioaie
  */
-public class RangeConstructorExpr implements IParseTreeNode
-{
-	LinkedList<RangeConstructorTerm> list;
+public class RangeConstructorExpr implements IParseTreeNode {
 
-	public RangeConstructorExpr()
-	{
-		list = new LinkedList();
-	}
+    LinkedList<RangeConstructorTerm> list;
 
-	public RangeConstructorExpr(String field, CoverageExpr expr)
-	{
-		this();
-		add(field, expr);
-	}
+    public RangeConstructorExpr() {
+        list = new LinkedList();
+    }
 
-	public void add(String field, CoverageExpr expr)
-	{
-		list.add(new RangeConstructorTerm(field, expr));
-	}
+    public RangeConstructorExpr(String field, CoverageExpr expr) {
+        this();
+        add(field, expr);
+    }
 
-	public String toXML()
-	{
-		String result                     = "";
-		Iterator<RangeConstructorTerm> it = list.iterator();
+    public void add(String field, CoverageExpr expr) {
+        list.add(new RangeConstructorTerm(field, expr));
+    }
 
-		while (it.hasNext())
-		{
-			result += it.next().toXML();
-		}
+    public String toXML() {
+        String result = "";
+        Iterator<RangeConstructorTerm> it = list.iterator();
 
-		result = "<rangeConstructor>" + result + "</rangeConstructor>";
-		return result;
-	}
+        while (it.hasNext()) {
+            result += it.next().toXML();
+        }
+
+        result = "<rangeConstructor>" + result + "</rangeConstructor>";
+        return result;
+    }
 }

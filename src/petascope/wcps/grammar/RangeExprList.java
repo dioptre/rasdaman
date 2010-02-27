@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 import java.util.*;
@@ -32,31 +28,27 @@ import java.util.*;
  *
  * @author Andrei Aiordachioaie
  */
-public class RangeExprList implements IParseTreeNode
-{
-	LinkedList<RangeExpr> list;
+public class RangeExprList implements IParseTreeNode {
 
-	public RangeExprList()
-	{
-		list = new LinkedList();
-	}
+    LinkedList<RangeExpr> list;
 
-	public void add(RangeExpr expr)
-	{
-		list.add(expr);
-	}
+    public RangeExprList() {
+        list = new LinkedList();
+    }
 
-	public String toXML()
-	{
-		String result          = "";
+    public void add(RangeExpr expr) {
+        list.add(expr);
+    }
 
-		Iterator<RangeExpr> it = list.iterator();
+    public String toXML() {
+        String result = "";
 
-		while (it.hasNext())
-		{
-			result += "<null>" + it.next().toXML() + "</xml>";
-		}
+        Iterator<RangeExpr> it = list.iterator();
 
-		return result;
-	}
+        while (it.hasNext()) {
+            result += "<null>" + it.next().toXML() + "</xml>";
+        }
+
+        return result;
+    }
 }

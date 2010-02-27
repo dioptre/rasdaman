@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,53 +26,44 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class IndexExpr implements IParseTreeNode
-{
-	String constant;
-	IParseTreeNode e1, e2;
-	String function;
-	String op;
+public class IndexExpr implements IParseTreeNode {
 
-	public IndexExpr(String constant)
-	{
-		function      = "constant";
-		this.constant = constant;
-	}
+    String constant;
+    IParseTreeNode e1, e2;
+    String function;
+    String op;
 
-	public IndexExpr(String op, NumericScalarExpr e1)
-	{
-		this.op  = op;
-		this.e1  = e1;
-		function = "op1";
-	}
+    public IndexExpr(String constant) {
+        function = "constant";
+        this.constant = constant;
+    }
 
-	public IndexExpr(String op, IndexExpr e1, IndexExpr e2)
-	{
-		this.op  = op;
-		this.e1  = e1;
-		this.e2  = e2;
-		function = "op2";
-	}
+    public IndexExpr(String op, NumericScalarExpr e1) {
+        this.op = op;
+        this.e1 = e1;
+        function = "op1";
+    }
 
-	public String toXML()
-	{
-		String result = "";
-		String tag1   = "<" + op + ">",
-		       tag2   = "</" + op + ">";
+    public IndexExpr(String op, IndexExpr e1, IndexExpr e2) {
+        this.op = op;
+        this.e1 = e1;
+        this.e2 = e2;
+        function = "op2";
+    }
 
-		if (function.equals("constant"))
-		{
-			result = "<numericConstant>" + constant + "</numericConstant>";
-		}
-		else if (function.equals("op1"))
-		{
-			result = tag1 + e1.toXML() + tag2;
-		}
-		else if (function.equals("op2"))
-		{
-			result = tag1 + e1.toXML() + e2.toXML() + tag2;
-		}
+    public String toXML() {
+        String result = "";
+        String tag1 = "<" + op + ">",
+                tag2 = "</" + op + ">";
 
-		return result;
-	}
+        if (function.equals("constant")) {
+            result = "<numericConstant>" + constant + "</numericConstant>";
+        } else if (function.equals("op1")) {
+            result = tag1 + e1.toXML() + tag2;
+        } else if (function.equals("op2")) {
+            result = tag1 + e1.toXML() + e2.toXML() + tag2;
+        }
+
+        return result;
+    }
 }

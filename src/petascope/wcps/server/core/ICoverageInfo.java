@@ -19,11 +19,9 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
-interface ICoverageInfo
-{
-	public CoverageInfo getCoverageInfo();
+interface ICoverageInfo {
+
+    public CoverageInfo getCoverageInfo();
 }

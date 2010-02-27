@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,27 +26,25 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class CrsTransformExpr implements IParseTreeNode
-{
-	IParseTreeNode e1, e2, e3;
+public class CrsTransformExpr implements IParseTreeNode {
 
-	public CrsTransformExpr(CoverageExpr expr, DimensionIntervalList list1,
-				FieldInterpolationList list2)
-	{
-		e1 = expr;
-		e2 = list1;
-		e3 = list2;
-	}
+    IParseTreeNode e1, e2, e3;
 
-	public String toXML()
-	{
-		String result = "";
+    public CrsTransformExpr(CoverageExpr expr, DimensionIntervalList list1,
+            FieldInterpolationList list2) {
+        e1 = expr;
+        e2 = list1;
+        e3 = list2;
+    }
 
-		result += e1.toXML();
-		result += e2.toXML();
-		result += e3.toXML();
+    public String toXML() {
+        String result = "";
 
-		result = "<crsTransform>" + result + "</crsTransform>";
-		return result;
-	}
+        result += e1.toXML();
+        result += e2.toXML();
+        result += e3.toXML();
+
+        result = "<crsTransform>" + result + "</crsTransform>";
+        return result;
+    }
 }

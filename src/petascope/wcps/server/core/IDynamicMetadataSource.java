@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 /**
@@ -29,8 +27,7 @@ package petascope.wcps.server.core;
  * new coverages (see ConstructCoverage expression) but are not stored in the
  * database.
  */
+public interface IDynamicMetadataSource extends IMetadataSource {
 
-public interface IDynamicMetadataSource extends IMetadataSource
-{
     public void addDynamicMetadata(String coverageName, Metadata meta);
 }

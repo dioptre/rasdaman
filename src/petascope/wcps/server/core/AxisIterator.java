@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
@@ -28,64 +26,54 @@ import petascope.wcps.server.exceptions.WCPSException;
 import java.math.BigInteger;
 import org.w3c.dom.*;
 
-public class AxisIterator implements IRasNode
-{
-	private String var, varTranslation;
-    private AxisName axis;
-	private NumericScalarExpr hi,lo;
+public class AxisIterator implements IRasNode {
 
-	public AxisIterator(Node node, XmlQuery xq, String newIteratorName) throws WCPSException, InvalidCrsException
-	{
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
+    private String var, varTranslation;
+    private AxisName axis;
+    private NumericScalarExpr hi, lo;
+
+    public AxisIterator(Node node, XmlQuery xq, String newIteratorName) throws WCPSException, InvalidCrsException {
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
         System.err.println("Trying to parse AxisIterator ");
 
-        while (node != null)
-        {
+        while (node != null) {
             String nodeName = node.getNodeName();
 
-            if (nodeName.equals("iteratorVar"))
-            {
+            if (nodeName.equals("iteratorVar")) {
                 var = node.getTextContent();
                 // This variable will be referenced later on. Translate it.
                 xq.addReferenceVariable(var, newIteratorName);
                 varTranslation = xq.getReferenceVariableName(var);
-            }
-            else if (nodeName.equals("axis"))
-            {
+            } else if (nodeName.equals("axis")) {
                 axis = new AxisName(node, xq);
-            }
-            else
-            {
+            } else {
                 // Should contain the limits
                 // TODO: Implement ImageCrsDomainMetadataType class
-                if (lo == null)
+                if (lo == null) {
                     lo = new NumericScalarExpr(node, xq);
-                else if (hi == null)
+                } else if (hi == null) {
                     hi = new NumericScalarExpr(node, xq);
-                else
+                } else {
                     throw new WCPSException("Unknown node in AxisIterator: " + nodeName);
+                }
             }
 
             node = node.getNextSibling();
-            while ((node != null) && node.getNodeName().equals("#text"))
-            {
+            while ((node != null) && node.getNodeName().equals("#text")) {
                 node = node.getNextSibling();
             }
         }
-	}
+    }
 
-	public String toRasQL()
-	{
-		String result = varTranslation + " in [" + lo.toRasQL() + ":" + hi.toRasQL() + "]";
+    public String toRasQL() {
+        String result = varTranslation + " in [" + lo.toRasQL() + ":" + hi.toRasQL() + "]";
         return result;
-	}
+    }
 
     /** Sets a new name for the iterator variable, to be used in the rasql query**/
-    public void setVariableTranslation(String newName)
-    {
+    public void setVariableTranslation(String newName) {
         varTranslation = newName;
     }
 
@@ -94,8 +82,7 @@ public class AxisIterator implements IRasNode
      * TODO: implement arbitrary expressions.
      * @return BigInteger
      */
-    public BigInteger getHigh()
-    {
+    public BigInteger getHigh() {
         return SDU.str2integer(hi.toRasQL()).get(0);
     }
 
@@ -104,25 +91,21 @@ public class AxisIterator implements IRasNode
      * TODO: implement arbitrary expressions.
      * @return BIgInteger
      */
-    public BigInteger getLow()
-    {
+    public BigInteger getLow() {
         return SDU.str2integer(lo.toRasQL()).get(0);
     }
 
     /* Return the variable name used in this axis */
-    public String getVar()
-    {
+    public String getVar() {
         return var;
     }
 
-    public String getAxisType()
-    {
+    public String getAxisType() {
         return axis.toRasQL();
     }
 
     /* Returns the m-interval that this axis iterates over in a string form */
-    public String getInterval()
-    {
+    public String getInterval() {
         return lo.toRasQL() + ":" + hi.toRasQL();
     }
 }

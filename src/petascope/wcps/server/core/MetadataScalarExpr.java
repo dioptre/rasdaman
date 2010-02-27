@@ -19,24 +19,19 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 // TODO: implement class MetadataScalarExprType
-public class MetadataScalarExpr implements IRasNode
-{
+public class MetadataScalarExpr implements IRasNode {
 
-	public MetadataScalarExpr(Node node, XmlQuery xq) throws WCPSException
-	{
+    public MetadataScalarExpr(Node node, XmlQuery xq) throws WCPSException {
         throw new WCPSException("Method not yet implemented !");
-	}
+    }
 
-	public String toRasQL()
-	{
+    public String toRasQL() {
         return "";
-	}
+    }
 }

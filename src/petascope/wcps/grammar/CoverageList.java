@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,41 +26,36 @@ package petascope.wcps.grammar;
  * Creation date: (3/3/2003 2:52:55 AM)
  * @author: mattia parigiani, Sorin Stancu-Mara, Andrei Aiordachioaie
  */
+public class CoverageList implements IParseTreeNode {
 
-public class CoverageList implements IParseTreeNode
-{
-	private String coverageName;
-	private CoverageList next;
+    private String coverageName;
+    private CoverageList next;
 
-	public CoverageList(String c)
-	{
-		coverageName = c;
-		next         = null;
-	}
+    public CoverageList(String c) {
+        coverageName = c;
+        next = null;
+    }
 
-	public CoverageList(String c, CoverageList l)
-	{
-		coverageName = c;
-		next         = l;
-	}
+    public CoverageList(String c, CoverageList l) {
+        coverageName = c;
+        next = l;
+    }
 
-	public String toXML()
-	{
-		String result = "<coverageName>" + coverageName + "</coverageName>";
+    public String toXML() {
+        String result = "<coverageName>" + coverageName + "</coverageName>";
 
-		if (next != null)
-		{
-			result += next.toXML();
-		}
+        if (next != null) {
+            result += next.toXML();
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-    public String toString()
-    {
+    public String toString() {
         String result = coverageName;
-        if (next != null)
+        if (next != null) {
             result += next.toString();
+        }
 
         return result;
     }

@@ -19,7 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
 package petascope.wcs2.server.templates;
 
 import java.util.Iterator;
@@ -30,38 +29,30 @@ import javax.xml.namespace.NamespaceContext;
  *
  * @author Andrei Aiordachioaie
  */
-public class WcsNamespaceContext implements NamespaceContext
-{
-    @Override
-	public String getNamespaceURI(String prefix)
-	{
-		if ( prefix == null )
-		{
-			throw new NullPointerException("Null prefix");
-		}
-		else if ( "wcs".equals(prefix) )
-		{
-			return "http://www.opengis.net/wcs/2.0";
-		}
-		else if ( "gml".equals(prefix) )
-		{
-			return "http://www.opengis.net/gml/3.2";
-		}
+public class WcsNamespaceContext implements NamespaceContext {
 
-		return XMLConstants.NULL_NS_URI;
-	}
-
-	// This method isn't necessary for XPath processing.
     @Override
-	public String getPrefix(String uri)
-	{
-		throw new UnsupportedOperationException();
-	}
+    public String getNamespaceURI(String prefix) {
+        if (prefix == null) {
+            throw new NullPointerException("Null prefix");
+        } else if ("wcs".equals(prefix)) {
+            return "http://www.opengis.net/wcs/2.0";
+        } else if ("gml".equals(prefix)) {
+            return "http://www.opengis.net/gml/3.2";
+        }
 
-	// This method isn't necessary for XPath processing either.
+        return XMLConstants.NULL_NS_URI;
+    }
+
+    // This method isn't necessary for XPath processing.
     @Override
-	public Iterator getPrefixes(String uri)
-	{
-		throw new UnsupportedOperationException();
-	}
+    public String getPrefix(String uri) {
+        throw new UnsupportedOperationException();
+    }
+
+    // This method isn't necessary for XPath processing either.
+    @Override
+    public Iterator getPrefixes(String uri) {
+        throw new UnsupportedOperationException();
+    }
 }

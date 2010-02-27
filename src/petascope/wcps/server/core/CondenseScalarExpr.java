@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
@@ -28,8 +26,8 @@ import petascope.wcps.server.exceptions.WCPSException;
 import java.util.Vector;
 import org.w3c.dom.*;
 
-public class CondenseScalarExpr implements IRasNode
-{
+public class CondenseScalarExpr implements IRasNode {
+
     private CondenseOperation op;
     private Vector<AxisIterator> iterators;
     private IRasNode using;
@@ -37,73 +35,60 @@ public class CondenseScalarExpr implements IRasNode
     private String axisIteratorString;
     private String newIteratorName;
 
-	public CondenseScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
-	{
-        if (node.getNodeName().equals("condense"))
+    public CondenseScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException {
+        if (node.getNodeName().equals("condense")) {
             node = node.getFirstChild();
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
+        }
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
 
         iterators = new Vector();
         newIteratorName = xq.registerNewExpressionWithVariables();
-		System.err.println("Parsing Condense Scalar Expression: " + node.getNodeName());
+        System.err.println("Parsing Condense Scalar Expression: " + node.getNodeName());
 
-        while (node != null)
-        {
+        while (node != null) {
             String name = node.getNodeName();
-            if (op == null)
-            {
+            if (op == null) {
                 op = new CondenseOperation(node, xq);
-            }
-            else
-            if (name.equals("iterator"))
-            {
+            } else if (name.equals("iterator")) {
                 AxisIterator it = new AxisIterator(node.getFirstChild(), xq, newIteratorName);
                 iterators.add(it);
-            }
-            else
-            if (name.equals("where"))
-            {
+            } else if (name.equals("where")) {
                 where = new BooleanScalarExpr(node.getFirstChild(), xq);
-            }
-            else
-            {
+            } else {
                 using = new CoverageExpr(node, xq);
             }
 
             node = node.getNextSibling();
-            while ((node != null) && node.getNodeName().equals("#text"))
-            {
+            while ((node != null) && node.getNodeName().equals("#text")) {
                 node = node.getNextSibling();
             }
         }
 
         buildAxisIteratorDomain();
-	}
+    }
 
-	public String toRasQL()
-	{
+    public String toRasQL() {
         String result = "condense " + op.toRasQL() + " over ";
         result += axisIteratorString;
-        if (where != null)
+        if (where != null) {
             result += where.toRasQL();
+        }
         result += " using " + using.toRasQL();
         return result;
-	}
+    }
 
     /* Concatenates all the AxisIterators into one large multi-dimensional object,
      * that will be used to build to RasQL query */
-    private void buildAxisIteratorDomain()
-    {
+    private void buildAxisIteratorDomain() {
         axisIteratorString = "";
         axisIteratorString += newIteratorName + " in [";
 
-        for (int i = 0; i < iterators.size(); i++)
-        {
-            if (i > 0)
+        for (int i = 0; i < iterators.size(); i++) {
+            if (i > 0) {
                 axisIteratorString += ", ";
+            }
             AxisIterator ai = iterators.elementAt(i);
             axisIteratorString += ai.getInterval();
         }

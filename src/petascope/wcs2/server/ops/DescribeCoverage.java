@@ -54,7 +54,6 @@ import petascope.wcs.server.exceptions.NoApplicableCodeException;
 public class DescribeCoverage implements WcsOperation {
 
     public static String DATATYPE_URN_PREFIX = "urn:ogc:def:dataType:OGC:1.1:";
-    
     private static Logger LOG = LoggerFactory.getLogger(DescribeCoverage.class);
     /* Template XMLs for response types */
     private String DescribeCoverageResponse;
@@ -161,15 +160,15 @@ public class DescribeCoverage implements WcsOperation {
                     // Compute the null values for this range field
                     Set<String> nullVals = new HashSet<String>();
                     Iterator<String> it4 = cov.getNullSetIterator();
-                    while (it4.hasNext())
-                    {
+                    while (it4.hasNext()) {
                         List<String> nilVal = SDU.str2string(it4.next());
                         nullVals.add(nilVal.get(i));
                     }
                     StringBuffer nullValsString = new StringBuffer();
                     it4 = nullVals.iterator();
-                    while (it4.hasNext())
+                    while (it4.hasNext()) {
                         nullValsString.append(" " + it4.next());
+                    }
                     component = component.replaceAll("\\{nilValues\\}", nullValsString.toString().substring(1));
 
                     // And add this range field to the range structure

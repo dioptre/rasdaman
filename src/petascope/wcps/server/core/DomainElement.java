@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidMetadataException;
@@ -32,126 +30,104 @@ import java.util.Set;
 /**
  * This is an axis in geographic coordinates. See the WCPS standard.
  */
+public class DomainElement implements Cloneable {
 
-public class DomainElement implements Cloneable
-{
-	public static final String WGS84_CRS = "EPSG:4326";
+    public static final String WGS84_CRS = "EPSG:4326";
     public static final String IMAGE_CRS = "CRS:1";
-	private Set<String> crss;
-	private String name;
-	private Double numHi;
-	private Double numLo;
-	private String strHi;
-	private String strLo;
-	private String type;
+    private Set<String> crss;
+    private String name;
+    private Double numHi;
+    private Double numLo;
+    private String strHi;
+    private String strLo;
+    private String type;
     private Collection<String> allowedAxes;
 
-	public DomainElement(String name, String type, Double numLo, Double numHi, String strLo,
-			     String strHi, Set<String> crss, Collection<String> axes)
-	    throws InvalidMetadataException
-	{
+    public DomainElement(String name, String type, Double numLo, Double numHi, String strLo,
+            String strHi, Set<String> crss, Collection<String> axes)
+            throws InvalidMetadataException {
         this.allowedAxes = axes;
 
-		if ((name == null) || (type == null))
-		{
-			throw new InvalidMetadataException(
-			    "Invalid domain element: Element name and type cannot be null");
-		}
+        if ((name == null) || (type == null)) {
+            throw new InvalidMetadataException(
+                    "Invalid domain element: Element name and type cannot be null");
+        }
 
-		if (name.equals(""))
-		{
-			throw new InvalidMetadataException(
-			    "Invalid domain element: Element name cannot be empty");
-		}
+        if (name.equals("")) {
+            throw new InvalidMetadataException(
+                    "Invalid domain element: Element name cannot be empty");
+        }
 
-        if (allowedAxes.contains(type) == false)
-		{
-			throw new InvalidMetadataException(
-			    "Invalid domain element: Invalid element type: " + type +
-                ". Allowed element types are: " + allowedAxes.toString());
-		}
+        if (allowedAxes.contains(type) == false) {
+            throw new InvalidMetadataException(
+                    "Invalid domain element: Invalid element type: " + type
+                    + ". Allowed element types are: " + allowedAxes.toString());
+        }
 
-		if ((numLo != null) && (numHi != null) && (strLo == null) && (strHi == null))
-		{
-			if (numLo.compareTo(numHi) == 1)
-			{
-				throw new InvalidMetadataException(
-				    "Invalid domain element: Lower integer bound cannot be larger than upper integer bound");
-			}
+        if ((numLo != null) && (numHi != null) && (strLo == null) && (strHi == null)) {
+            if (numLo.compareTo(numHi) == 1) {
+                throw new InvalidMetadataException(
+                        "Invalid domain element: Lower integer bound cannot be larger than upper integer bound");
+            }
 
-			this.numLo = numLo;
-			this.numHi = numHi;
-		}
-		else if ((strLo != null) && (numHi != null) && (numLo == null) && (numHi == null))
-		{
-			if (strLo.equals("") || strHi.equals(""))
-			{
-				throw new InvalidMetadataException(
-				    "Invalid domain element: String bounds cannot be empty");
-			}
+            this.numLo = numLo;
+            this.numHi = numHi;
+        } else if ((strLo != null) && (numHi != null) && (numLo == null) && (numHi == null)) {
+            if (strLo.equals("") || strHi.equals("")) {
+                throw new InvalidMetadataException(
+                        "Invalid domain element: String bounds cannot be empty");
+            }
 
-			this.strLo = strLo;
-			this.strHi = strHi;
-		}
-		else
-		{
+            this.strLo = strLo;
+            this.strHi = strHi;
+        } else {
             /* Allow both sources of info for time-axes */
-            if (type.equals("t"))
-            {
+            if (type.equals("t")) {
                 this.strLo = strLo;
                 this.strHi = strHi;
                 this.numLo = numLo;
                 this.numHi = numHi;
-            }
-            else
+            } else {
                 throw new InvalidMetadataException(
-                    "Invalid domain element: Integer bounds must both be non-null if string bounds are null, and vice versa at "
-                    + name + ":" + type);
-		}
+                        "Invalid domain element: Integer bounds must both be non-null if string bounds are null, and vice versa at "
+                        + name + ":" + type);
+            }
+        }
 
-		if ((type.equals("x") || type.equals("y")) && (numLo == null))
-		{
-			throw new InvalidMetadataException(
-			    "Invalid domain element: A spatial axis must have integer extent");
-		}
-		else if (type.equals("temporal")&& (strLo == null))
-		{
-			throw new InvalidMetadataException(
-			    "Invalid domain element: A temporal axis must have string extent");
-		}
-        else if (type.equals("t") && (numLo == null) || (numHi == null))
-        {
+        if ((type.equals("x") || type.equals("y")) && (numLo == null)) {
+            throw new InvalidMetadataException(
+                    "Invalid domain element: A spatial axis must have integer extent");
+        } else if (type.equals("temporal") && (strLo == null)) {
+            throw new InvalidMetadataException(
+                    "Invalid domain element: A temporal axis must have string extent");
+        } else if (type.equals("t") && (numLo == null) || (numHi == null)) {
             throw new InvalidMetadataException("Invalid domain element: A \"t\" axis must have integer extent and optionally, string extent");
         }
 
-		this.name = name;
-		this.type = type;
+        this.name = name;
+        this.type = type;
 
-		if ((crss == null) || !crss.contains(IMAGE_CRS))
-		{
+        if ((crss == null) || !crss.contains(IMAGE_CRS)) {
 //			throw new InvalidMetadataException(
 //			    "Invalid domain element: CRS set does not contain image CRS '"
 //			    + IMAGE_CRS + "'");
             crss.add(IMAGE_CRS);
-		}
+        }
 
-		this.crss = crss;
+        this.crss = crss;
 
-	}
+    }
 
     @Override
-	public DomainElement clone()
-	{
-		Set<String> c      = new HashSet<String>(crss.size());
-		Iterator<String> i = crss.iterator();
+    public DomainElement clone() {
+        Set<String> c = new HashSet<String>(crss.size());
+        Iterator<String> i = crss.iterator();
 
-		while (i.hasNext())
-		{
-			c.add(new String(i.next()));
-		}
+        while (i.hasNext()) {
+            c.add(new String(i.next()));
+        }
 
-		try
-		{
+        try {
             String newName = name == null ? null : new String(name);
             String newType = type == null ? null : new String(type);
             Double newNumLo = numLo == null ? null : new Double(numLo);
@@ -159,75 +135,59 @@ public class DomainElement implements Cloneable
             String newStrLo = strLo == null ? null : new String(strLo);
             String newStrHi = strHi == null ? null : new String(strHi);
             return new DomainElement(newName, newType, newNumLo, newNumHi, newStrLo, newStrHi, c, allowedAxes);
-		}
-		catch (InvalidMetadataException ime)
-		{
-			throw new RuntimeException(
-			    "Invalid metadata while cloning DomainElement. This is a software bug in WCPS.",
-			    ime);
-		}
+        } catch (InvalidMetadataException ime) {
+            throw new RuntimeException(
+                    "Invalid metadata while cloning DomainElement. This is a software bug in WCPS.",
+                    ime);
+        }
 
-	}
+    }
 
-	public boolean equals(DomainElement de)
-	{
-		if ((numLo == null) && (de.numLo == null))
-		{
-			return strLo.equals(de.strLo) && strHi.equals(strHi)
-			       && name.equals(de.name) && type.equals(de.type);
-		}
-		else if ((strLo == null) && (de.strLo == null))
-		{
-			return numLo.equals(de.numLo) && numHi.equals(numHi)
-			       && name.equals(de.name) && type.equals(de.type);
-		}
-		else
-		{
-			return false;
-		}
-	}
+    public boolean equals(DomainElement de) {
+        if ((numLo == null) && (de.numLo == null)) {
+            return strLo.equals(de.strLo) && strHi.equals(strHi)
+                    && name.equals(de.name) && type.equals(de.type);
+        } else if ((strLo == null) && (de.strLo == null)) {
+            return numLo.equals(de.numLo) && numHi.equals(numHi)
+                    && name.equals(de.name) && type.equals(de.type);
+        } else {
+            return false;
+        }
+    }
 
-	public String getName()
-	{
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Double getNumHi()
-	{
-		return numHi;
-	}
+    public Double getNumHi() {
+        return numHi;
+    }
 
-	public Double getNumLo()
-	{
-		return numLo;
-	}
+    public Double getNumLo() {
+        return numLo;
+    }
 
-	public String getStrHi()
-	{
-		return strHi;
-	}
+    public String getStrHi() {
+        return strHi;
+    }
 
-	public String getStrLo()
-	{
-		return strLo;
-	}
+    public String getStrLo() {
+        return strLo;
+    }
 
-	public String getType()
-	{
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-    public Set<String> getCrsSet()
-    {
+    public Set<String> getCrsSet() {
         return crss;
     }
 
     @Override
-    public String toString()
-    {
-        String d = "Domain Element { Name: '" + name + "', Type: '" + type +
-                "', NumLow: '" + numLo + "', NumHi: '" + numHi + "', StrLow: '" +
-                strLo + "', StrHi: '" + strHi + "', CrsSet: '" + crss + "'}";
+    public String toString() {
+        String d = "Domain Element { Name: '" + name + "', Type: '" + type
+                + "', NumLow: '" + numLo + "', NumHi: '" + numHi + "', StrLow: '"
+                + strLo + "', StrHi: '" + strHi + "', CrsSet: '" + crss + "'}";
         return d;
     }
 }

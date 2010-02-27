@@ -19,67 +19,56 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
-public class DimensionPointElement implements IRasNode
-{
+public class DimensionPointElement implements IRasNode {
+
     private IRasNode domain, child;
     private AxisName axis;
     private Crs crs;
     private boolean finished = false;
     private Node nextNode;
 
-	public DimensionPointElement(Node node, XmlQuery xq)
-	    throws WCPSException, InvalidCrsException
-	{
+    public DimensionPointElement(Node node, XmlQuery xq)
+            throws WCPSException, InvalidCrsException {
         System.err.println("Trying to parse DimensionPointElement expression...");
         String name;
 
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
 
-        while (node != null && finished == false)
-        {
-            if (node.getNodeName().equals("#text"))
-			{
-				node = node.getNextSibling();
-				continue;
-			}
+        while (node != null && finished == false) {
+            if (node.getNodeName().equals("#text")) {
+                node = node.getNextSibling();
+                continue;
+            }
 
             name = node.getNodeName();
             System.err.println("Current node is " + name);
 
             // Try Axis
-            try
-            {
+            try {
                 axis = new AxisName(node, xq);
                 node = node.getNextSibling();
                 continue;
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to parse an axis!");
             }
 
             // Try CRS name
-            try
-            {
+            try {
                 crs = new Crs(node, xq);
                 node = node.getNextSibling();
-                if (axis == null)
+                if (axis == null) {
                     throw new WCPSException("Expected Axis node before CRS !");
+                }
                 continue;
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to parse a crs!");
             }
 
@@ -98,47 +87,44 @@ public class DimensionPointElement implements IRasNode
 //            }
 
             // Then it must be a "slicingPosition"
-            if (node.getNodeName().equals("slicingPosition"))
-            {
+            if (node.getNodeName().equals("slicingPosition")) {
                 domain = new ScalarExpr(node.getFirstChild(), xq);
-                if (axis == null)
+                if (axis == null) {
                     throw new WCPSException("Expected <axis> node before <slicingPosition> !");
-            }
-            else
+                }
+            } else {
                 throw new WCPSException("Unexpected node: " + node.getFirstChild().getNodeName());
+            }
 
-            if (axis != null && domain != null)
+            if (axis != null && domain != null) {
                 finished = true;
+            }
 
-            if (finished == true)
+            if (finished == true) {
                 nextNode = node.getNextSibling();
+            }
 
             node = node.getNextSibling();
         }
-	}
+    }
 
-	public String toRasQL()
-	{
-		return child.toRasQL();
-	}
-    
-    public Node getNextNode()
-    {
+    public String toRasQL() {
+        return child.toRasQL();
+    }
+
+    public Node getNextNode() {
         return nextNode;
     }
 
-    public String getAxisName()
-    {
+    public String getAxisName() {
         return this.axis.toRasQL();
     }
 
-    public String getCrsName()
-    {
+    public String getCrsName() {
         return this.crs.toRasQL();
     }
 
-    public String getSlicingPosition()
-    {
+    public String getSlicingPosition() {
         return this.domain.toRasQL();
     }
 }

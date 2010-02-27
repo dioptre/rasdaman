@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
@@ -33,17 +31,15 @@ import java.util.LinkedList;
 import java.util.List;
 import org.w3c.dom.*;
 
-public class ScalarExpr implements IRasNode, ICoverageInfo
-{
+public class ScalarExpr implements IRasNode, ICoverageInfo {
+
     private IRasNode child;
     private CoverageInfo info;
     private boolean singleNumericValue = false;
     private double dvalue;
 
-	public ScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
-	{
-        while ((node != null) && node.getNodeName().equals("#text"))
-        {
+    public ScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException {
+        while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
 
@@ -52,111 +48,87 @@ public class ScalarExpr implements IRasNode, ICoverageInfo
 
 //      TODO: Implement class MetadataScalarExprType
 //      MetadataScalarExprType
-        if (child == null)
-        {
-            try
-            {
+        if (child == null) {
+            try {
                 child = new MetadataScalarExpr(node, xq);
                 System.err.println("Matched metadata scalar expression.");
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to match metadata scalar expression: "
-                           + e.toString() + "\nRetrying");
+                        + e.toString() + "\nRetrying");
                 child = null;
             }
         }
 
 //            BooleanScalarExprType
-        if (child == null)
-        {
-            try
-            {
+        if (child == null) {
+            try {
                 child = new BooleanScalarExpr(node, xq);
                 System.err.println("Matched boolean scalar expression.");
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to match boolean scalar expression : "
-                           + e.toString() + "\nRetrying");
+                        + e.toString() + "\nRetrying");
                 child = null;
             }
         }
 
 //            NumericScalarExprType
-        if (child == null)
-        {
-            try
-            {
+        if (child == null) {
+            try {
                 child = new NumericScalarExpr(node, xq);
                 singleNumericValue = ((NumericScalarExpr) child).isSingleValue();
                 dvalue = ((NumericScalarExpr) child).getSingleValue();
                 System.err.println("Matched numeric scalar expression.");
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to match numeric scalar expression : "
-                           + e.toString() + "\nRetrying");
+                        + e.toString() + "\nRetrying");
                 child = null;
             }
         }
 
 //            ReduceScalarExprType
-        if (child == null)
-        {
-            try
-            {
+        if (child == null) {
+            try {
                 child = new ReduceScalarExpr(node, xq);
                 System.err.println("Matched reduce scalar expression.");
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to match reduce scalar expression: "
-                           + e.toString() + "\nRetrying");
+                        + e.toString() + "\nRetrying");
                 child = null;
             }
         }
 
 //            StringScalarExprType
-        if (child == null)
-        {
-            try
-            {
+        if (child == null) {
+            try {
                 child = new StringScalarExpr(node, xq);
                 System.err.println("Matched string scalar expression.");
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to match string scalar expression: "
-                           + e.toString() + "\nRetrying");
+                        + e.toString() + "\nRetrying");
                 child = null;
             }
         }
 
         // Error check
-		if (child == null)
-		{
-			throw new WCPSException("Invalid coverage Expression, next node: "
-						+ node.getNodeName());
-		}
+        if (child == null) {
+            throw new WCPSException("Invalid coverage Expression, next node: "
+                    + node.getNodeName());
+        }
 
         Metadata meta = createScalarExprMetadata(xq);
         info = new CoverageInfo(meta);
-	}
+    }
 
-	public String toRasQL()
-	{
+    public String toRasQL() {
         return child.toRasQL();
-	}
+    }
 
-    public CoverageInfo getCoverageInfo()
-    {
+    public CoverageInfo getCoverageInfo() {
         return info;
     }
 
     /** Builds full metadata for the newly constructed coverage **/
-    private Metadata createScalarExprMetadata(XmlQuery xq) throws WCPSException
-    {
+    private Metadata createScalarExprMetadata(XmlQuery xq) throws WCPSException {
         List<CellDomainElement> cellDomainList = new LinkedList<CellDomainElement>();
         List<RangeElement> rangeList = new LinkedList<RangeElement>();
         HashSet<String> nullSet = new HashSet<String>();
@@ -166,7 +138,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo
         InterpolationMethod interpolationDefault = new InterpolationMethod("none", "none");
         interpolationSet.add(interpolationDefault);
         String coverageName = "scalarExpr";
-		List<DomainElement> domainList = new LinkedList<DomainElement>();
+        List<DomainElement> domainList = new LinkedList<DomainElement>();
 
         // Build domain metadata
         cellDomainList.add(new CellDomainElement(new BigInteger("1"), new BigInteger("1")));
@@ -179,26 +151,21 @@ public class ScalarExpr implements IRasNode, ICoverageInfo
         // "unsigned int" is default datatype
         rangeList.add(new RangeElement("dynamic_type", "unsigned int"));
 
-        try
-        {
+        try {
             Metadata metadata = new Metadata(cellDomainList, rangeList, nullSet,
                     nullDefault, interpolationSet, interpolationDefault,
                     coverageName, domainList, null);
             return metadata;
-        }
-        catch (InvalidMetadataException e)
-        {
+        } catch (InvalidMetadataException e) {
             throw new WCPSException("Could not build metadata for scalar expression !", e);
         }
     }
 
-    public boolean isSingleValue()
-    {
+    public boolean isSingleValue() {
         return singleNumericValue;
     }
 
-    public double getSingleValue()
-    {
+    public double getSingleValue() {
         return dvalue;
     }
 }

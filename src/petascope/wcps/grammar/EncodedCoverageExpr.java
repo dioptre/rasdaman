@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,59 +26,52 @@ package petascope.wcps.grammar;
  * Creation date: (3/3/2003 2:28:43 AM)
  * @author: mattia parigiani, Sorin Stancu-Mara, Andrei Aiordachioaie
  */
-public class EncodedCoverageExpr implements IParseTreeNode
-{
-	CoverageExpr expr;
-	String extraParams;
-	String format;
-	boolean store;
+public class EncodedCoverageExpr implements IParseTreeNode {
 
-	public EncodedCoverageExpr(CoverageExpr ce, String fn)
-	{
-		expr        = ce;
+    CoverageExpr expr;
+    String extraParams;
+    String format;
+    boolean store;
+
+    public EncodedCoverageExpr(CoverageExpr ce, String fn) {
+        expr = ce;
         // remove double quotes
-        if (fn.getBytes()[0] == '"' && fn.getBytes()[fn.length()-1] == '"')
-            format = fn.substring(1, fn.length()-1);
-        else
-            format      = fn;
+        if (fn.getBytes()[0] == '"' && fn.getBytes()[fn.length() - 1] == '"') {
+            format = fn.substring(1, fn.length() - 1);
+        } else {
+            format = fn;
+        }
 
-		extraParams = null;
-		store       = false;
-	}
+        extraParams = null;
+        store = false;
+    }
 
-	public void setParams(String params)
-	{
-		extraParams = params;
-	}
+    public void setParams(String params) {
+        extraParams = params;
+    }
 
-	public void setStoreFlag()
-	{
-		store = true;
-	}
+    public void setStoreFlag() {
+        store = true;
+    }
 
-	public String toXML()
-	{
-		String result = "";
+    public String toXML() {
+        String result = "";
 
-		if (store)
-		{
-			result = "<encode store=\"true\">";
-		}
-		else
-		{
-			result = "<encode store=\"false\">";
-		}
+        if (store) {
+            result = "<encode store=\"true\">";
+        } else {
+            result = "<encode store=\"false\">";
+        }
 
-		result += expr.toXML();
-		result += "<format>" + format + "</format>";
+        result += expr.toXML();
+        result += "<format>" + format + "</format>";
 
-		if (extraParams != null)
-		{
-			result += "<extraParams>" + extraParams + "</extraParams>";
-		}
+        if (extraParams != null) {
+            result += "<extraParams>" + extraParams + "</extraParams>";
+        }
 
-		result += "</encode>";
+        result += "</encode>";
 
-		return result;
-	}
+        return result;
+    }
 }

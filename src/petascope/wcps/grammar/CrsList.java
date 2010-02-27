@@ -19,7 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
 package petascope.wcps.grammar;
 
 import java.util.*;
@@ -29,36 +28,31 @@ import java.util.*;
  *
  * @author Andrei Aiordachioaie
  */
-public class CrsList implements IParseTreeNode
-{
-	LinkedList<String> list;
+public class CrsList implements IParseTreeNode {
 
-	public CrsList()
-	{
-		list = new LinkedList<String>();
-	}
+    LinkedList<String> list;
 
-	public CrsList(String crs)
-	{
-		list = new LinkedList<String>();
-		list.add(crs);
-	}
+    public CrsList() {
+        list = new LinkedList<String>();
+    }
 
-	public void add(String crs)
-	{
-		list.add(crs);
-	}
+    public CrsList(String crs) {
+        list = new LinkedList<String>();
+        list.add(crs);
+    }
 
-	public String toXML()
-	{
-		String result       = "";
-		Iterator<String> it = list.iterator();
+    public void add(String crs) {
+        list.add(crs);
+    }
 
-		while (it.hasNext())
-		{
-			result += "<crs>" + it.next() + "</crs>";
-		}
+    public String toXML() {
+        String result = "";
+        Iterator<String> it = list.iterator();
 
-		return result;
-	}
+        while (it.hasNext()) {
+            result += "<crs>" + it.next() + "</crs>";
+        }
+
+        return result;
+    }
 }

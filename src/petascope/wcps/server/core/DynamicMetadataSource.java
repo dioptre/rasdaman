@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.ResourceException;
@@ -39,24 +37,22 @@ import java.util.Set;
  * Needs another MetadataSource as a backend, to retrieve metadata about
  * static coverages.
  */
-
-public class DynamicMetadataSource implements IDynamicMetadataSource
-{
+public class DynamicMetadataSource implements IDynamicMetadataSource {
     // Static coverages, served by the server at all times
-	private Set<String> staticCoverageNames;
+
+    private Set<String> staticCoverageNames;
     // Dynamic coverages, built on-the-fly in a query
     private Set<String> dynamicCoverageNames;
     // Union of static and dynamic coverages
     private Set<String> allCoverageNames;
     // Metadata information for all available coverages
-	private Map<String, Metadata> metadata;
+    private Map<String, Metadata> metadata;
     // Other metadata class that serves as backend
-	private IMetadataSource metadataSource;
+    private IMetadataSource metadataSource;
 
-	public DynamicMetadataSource(IMetadataSource metadataSource)
-	    throws ResourceException, InvalidMetadataException
-	{
-		this.metadataSource = metadataSource;
+    public DynamicMetadataSource(IMetadataSource metadataSource)
+            throws ResourceException, InvalidMetadataException {
+        this.metadataSource = metadataSource;
         staticCoverageNames = metadataSource.coverages();
         dynamicCoverageNames = new HashSet<String>();
         allCoverageNames = staticCoverageNames;
@@ -64,57 +60,46 @@ public class DynamicMetadataSource implements IDynamicMetadataSource
 
         // Init metadata for static coverages
         Iterator<String> i = staticCoverageNames.iterator();
-		try
-		{
-			while (i.hasNext())
-			{
-				String coverage = i.next();
-				metadata.put(coverage, metadataSource.read(coverage));
-			}
-		}
-		catch (InvalidWcpsRequestException ire)
-		{
-			throw(InvalidMetadataException) ire.getCause();
-		}
-	}
+        try {
+            while (i.hasNext()) {
+                String coverage = i.next();
+                metadata.put(coverage, metadataSource.read(coverage));
+            }
+        } catch (InvalidWcpsRequestException ire) {
+            throw (InvalidMetadataException) ire.getCause();
+        }
+    }
 
-	public Set<String> coverages() throws ResourceException
-	{
-		return metadataSource.coverages();
-	}
+    public Set<String> coverages() throws ResourceException {
+        return metadataSource.coverages();
+    }
 
-	public String formatToMimetype(String format)
-	{
-		return metadataSource.formatToMimetype(format);
-	}
+    public String formatToMimetype(String format) {
+        return metadataSource.formatToMimetype(format);
+    }
 
-	public Metadata read(String coverageName) throws InvalidWcpsRequestException, ResourceException
-	{
-		if ((coverageName == null) || coverageName.equals(""))
-		{
-			throw new InvalidWcpsRequestException(
-			    "Cannot retrieve coverage with null or empty name");
-		}
+    public Metadata read(String coverageName) throws InvalidWcpsRequestException, ResourceException {
+        if ((coverageName == null) || coverageName.equals("")) {
+            throw new InvalidWcpsRequestException(
+                    "Cannot retrieve coverage with null or empty name");
+        }
 
-		if (!this.coverages().contains(coverageName))
-		{
-			throw new InvalidWcpsRequestException("Coverage '" + coverageName
-							  + "' is not served by this server");
-		}
+        if (!this.coverages().contains(coverageName)) {
+            throw new InvalidWcpsRequestException("Coverage '" + coverageName
+                    + "' is not served by this server");
+        }
 
-		return metadataSource.read(coverageName);
-	}
+        return metadataSource.read(coverageName);
+    }
 
-    public void addDynamicMetadata(String coverageName, Metadata meta)
-    {
+    public void addDynamicMetadata(String coverageName, Metadata meta) {
         metadata.put(coverageName, meta);
         dynamicCoverageNames.add(coverageName);
         allCoverageNames = staticCoverageNames;
         allCoverageNames.addAll(dynamicCoverageNames);
     }
 
-    public Collection<String> getAxisNames()
-    {
+    public Collection<String> getAxisNames() {
         return metadataSource.getAxisNames();
     }
 }

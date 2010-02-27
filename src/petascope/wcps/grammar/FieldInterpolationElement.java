@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,21 +26,19 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class FieldInterpolationElement implements IParseTreeNode
-{
-	String name;
-	IParseTreeNode node;
+public class FieldInterpolationElement implements IParseTreeNode {
 
-	public FieldInterpolationElement(String name, InterpolationMethod method)
-	{
-		this.name = name;
-		node      = method;
-	}
+    String name;
+    IParseTreeNode node;
 
-	public String toXML()
-	{
-		String result = "<name>" + name + "</name>" + node.toXML();
+    public FieldInterpolationElement(String name, InterpolationMethod method) {
+        this.name = name;
+        node = method;
+    }
 
-		return result;
-	}
+    public String toXML() {
+        String result = "<name>" + name + "</name>" + node.toXML();
+
+        return result;
+    }
 }

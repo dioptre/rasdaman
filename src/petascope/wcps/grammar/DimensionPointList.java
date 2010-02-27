@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 import java.util.*;
@@ -32,31 +28,27 @@ import java.util.*;
  *
  * @author Andrei Aiordachioaie
  */
-public class DimensionPointList implements IParseTreeNode
-{
-	LinkedList<DimensionPointElement> list;
+public class DimensionPointList implements IParseTreeNode {
 
-	public DimensionPointList(DimensionPointElement e)
-	{
-		list = new LinkedList();
-		list.add(e);
-	}
+    LinkedList<DimensionPointElement> list;
 
-	public void add(DimensionPointElement meth)
-	{
-		list.add(meth);
-	}
+    public DimensionPointList(DimensionPointElement e) {
+        list = new LinkedList();
+        list.add(e);
+    }
 
-	public String toXML()
-	{
-		String result                      = "";
-		Iterator<DimensionPointElement> it = list.iterator();
+    public void add(DimensionPointElement meth) {
+        list.add(meth);
+    }
 
-		while (it.hasNext())
-		{
-			result += it.next().toXML();
-		}
+    public String toXML() {
+        String result = "";
+        Iterator<DimensionPointElement> it = list.iterator();
 
-		return result;
-	}
+        while (it.hasNext()) {
+            result += it.next().toXML();
+        }
+
+        return result;
+    }
 }

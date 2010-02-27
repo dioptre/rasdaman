@@ -19,22 +19,18 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.exceptions;
 
 /**
  * Thrown when WCPS received a request, but could not evaluate it because the
  * metadata for some coverage does not conform to the WCPS standard.
  */
+public class InvalidMetadataException extends WCPSException {
 
-public class InvalidMetadataException extends WCPSException
-{
-	private static final long serialVersionUID = 48924938L;
+    private static final long serialVersionUID = 48924938L;
 
-	public InvalidMetadataException(String message)
-	{
-		super(message, null);
+    public InvalidMetadataException(String message) {
+        super(message, null);
 
-	}
+    }
 }

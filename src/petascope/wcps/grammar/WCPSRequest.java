@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -28,59 +26,51 @@ package petascope.wcps.grammar;
  * Creation date: (3/3/2003 2:52:55 AM)
  * @author: *, Sorin Stancu-Mara, Andrei Aiordachioaie
  */
+public class WCPSRequest implements IParseTreeNode {
 
-public class WCPSRequest implements IParseTreeNode
-{
-	private ForClause forClause;
-	private ReturnClause returnClause;
-	private WhereClause whereClause;
+    private ForClause forClause;
+    private ReturnClause returnClause;
+    private WhereClause whereClause;
 
-	public WCPSRequest()
-	{
-		super();
-	}
+    public WCPSRequest() {
+        super();
+    }
 
-	public WCPSRequest(ForClauseElements f)
-	{
-		forClause    = new ForClause(f);
-		whereClause  = null;
-		returnClause = null;
-	}
+    public WCPSRequest(ForClauseElements f) {
+        forClause = new ForClause(f);
+        whereClause = null;
+        returnClause = null;
+    }
 
-	public void setWhere(WhereClause w)
-	{
-		whereClause = w;
-	}
+    public void setWhere(WhereClause w) {
+        whereClause = w;
+    }
 
-	public void setReturn(ReturnClause r)
-	{
-		returnClause = r;
-	}
+    public void setReturn(ReturnClause r) {
+        returnClause = r;
+    }
 
-	public String toXML()
-	{
-		String result = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
+    public String toXML() {
+        String result = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
 
-		result +=
-		    "<ProcessCoveragesRequest xmlns=\"http://www.opengis.net/wcps/1.0\" service=\"WCPS\" "
-		    + "version=\"1.0.0\">\n";
+        result +=
+                "<ProcessCoveragesRequest xmlns=\"http://www.opengis.net/wcps/1.0\" service=\"WCPS\" "
+                + "version=\"1.0.0\">\n";
         result += "<query><xmlSyntax>";
 
-		result += forClause.toXML();
+        result += forClause.toXML();
 
-		if (whereClause != null)
-		{
-			result += whereClause.toXML();
-		}
+        if (whereClause != null) {
+            result += whereClause.toXML();
+        }
 
-		if (returnClause != null)
-		{
-			result += returnClause.toXML();
-		}
+        if (returnClause != null) {
+            result += returnClause.toXML();
+        }
 
         result += "</xmlSyntax></query>";
-		result += "</ProcessCoveragesRequest>";
+        result += "</ProcessCoveragesRequest>";
 
-		return result;
-	}
+        return result;
+    }
 }

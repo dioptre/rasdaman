@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,26 +26,24 @@ package petascope.wcps.grammar;
  * Creation date: (3/3/2003 2:28:43 AM)
  * @author: mattia parigiani, Sorin Stancu-Mara, Andrei Aiordachioaie
  */
-public class ScaleExpr implements IParseTreeNode
-{
-	CoverageExpr coverageExpr;
-	FieldInterpolationList interpMethods;
-	DimensionIntervalList intervalList;
+public class ScaleExpr implements IParseTreeNode {
 
-	public ScaleExpr(CoverageExpr ce, DimensionIntervalList ail, FieldInterpolationList iml)
-	{
-		coverageExpr  = ce;
-		intervalList  = ail;
-		interpMethods = iml;
-	}
+    CoverageExpr coverageExpr;
+    FieldInterpolationList interpMethods;
+    DimensionIntervalList intervalList;
 
-	public String toXML()
-	{
-		String result = "";
+    public ScaleExpr(CoverageExpr ce, DimensionIntervalList ail, FieldInterpolationList iml) {
+        coverageExpr = ce;
+        intervalList = ail;
+        interpMethods = iml;
+    }
 
-		result += coverageExpr.toXML() + intervalList.toXML() + interpMethods.toXML();
-		result = "<scale>" + result + "</scale>";
+    public String toXML() {
+        String result = "";
 
-		return result;
-	}
+        result += coverageExpr.toXML() + intervalList.toXML() + interpMethods.toXML();
+        result = "<scale>" + result + "</scale>";
+
+        return result;
+    }
 }

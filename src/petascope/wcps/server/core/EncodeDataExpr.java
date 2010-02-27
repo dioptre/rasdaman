@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
@@ -28,82 +26,70 @@ import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 // This is the equivalent of the "ProcessingExprType" complex XML type.
-public class EncodeDataExpr implements IRasNode
-{
-	private IRasNode coverageExprType;
-	private String extraParams;
-	private String format;
-	private String mime;
-	private Boolean store;
+public class EncodeDataExpr implements IRasNode {
 
-	public EncodeDataExpr(Node node, XmlQuery request) throws WCPSException, InvalidCrsException
-	{
-		Node child;
-		String nodeName;
+    private IRasNode coverageExprType;
+    private String extraParams;
+    private String format;
+    private String mime;
+    private Boolean store;
 
-		for (child = node.getFirstChild(); child != null; child = child.getNextSibling())
-		{
-			nodeName = child.getNodeName();
+    public EncodeDataExpr(Node node, XmlQuery request) throws WCPSException, InvalidCrsException {
+        Node child;
+        String nodeName;
 
-			if (nodeName.equals("#text"))
-			{
-				continue;
-			}
+        for (child = node.getFirstChild(); child != null; child = child.getNextSibling()) {
+            nodeName = child.getNodeName();
 
-			System.err.println("Encode : node : " + child.getNodeName());
+            if (nodeName.equals("#text")) {
+                continue;
+            }
 
-			if (nodeName.equals("format"))
-			{
-				format = child.getFirstChild().getNodeValue();
-				mime   = request.getMetadataSource().formatToMimetype(format);
-				continue;
-			}
+            System.err.println("Encode : node : " + child.getNodeName());
 
-			if (nodeName.equals("extraParameters"))
-			{
-				extraParams = child.getFirstChild().getNodeValue();
-				continue;
-			}
+            if (nodeName.equals("format")) {
+                format = child.getFirstChild().getNodeValue();
+                mime = request.getMetadataSource().formatToMimetype(format);
+                continue;
+            }
 
-			coverageExprType = new CoverageExpr(child, request);
-		}
+            if (nodeName.equals("extraParameters")) {
+                extraParams = child.getFirstChild().getNodeValue();
+                continue;
+            }
 
-		Node _store = node.getAttributes().getNamedItem("store");
+            coverageExprType = new CoverageExpr(child, request);
+        }
 
-		if (_store != null)
-		{
-			store = _store.getNodeValue().equals("true");
-		}
-	}
+        Node _store = node.getAttributes().getNamedItem("store");
 
-	public String getMime()
-	{
-		return mime;
-	}
+        if (_store != null) {
+            store = _store.getNodeValue().equals("true");
+        }
+    }
 
-	public String toRasQL()
-	{
-		// TODO: cjucovschi - implement store
+    public String getMime() {
+        return mime;
+    }
 
-		String result;
+    public String toRasQL() {
+        // TODO: cjucovschi - implement store
 
-		if (format.equals("raw"))
-		{
-			result = coverageExprType.toRasQL();
-		}
-		else
-		{
-			result = format + "(" + coverageExprType.toRasQL();
+        String result;
 
-			if (extraParams != null)
-			{
-				result = result + ", " + extraParams;
-			}
+        if (format.equals("raw")) {
+            result = coverageExprType.toRasQL();
+        } else {
+            result = format + "(" + coverageExprType.toRasQL();
 
-			result = result + ")";
-		}
+            if (extraParams != null) {
+                result = result + ", " + extraParams;
+            }
 
-        System.err.println("Returning EncodeExpression:" + result); 
-		return result;
-	}
+            result = result + ")";
+        }
+
+        System.err.println("Returning EncodeExpression:" + result);
+        return result;
+    }
 }

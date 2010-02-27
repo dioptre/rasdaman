@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,24 +26,22 @@ package petascope.wcps.grammar;
  * Creation date: (3/3/2003 2:28:43 AM)
  * @author: mattia parigiani, Sorin Stancu-Mara, Andrei Aiordachioaie
  */
-public class ExponentialExpr implements IParseTreeNode
-{
-	CoverageExpr coverageExpr;
-	String expOperator;
+public class ExponentialExpr implements IParseTreeNode {
 
-	public ExponentialExpr(String op, CoverageExpr ce)
-	{
-		expOperator  = op;
-		coverageExpr = ce;
-	}
+    CoverageExpr coverageExpr;
+    String expOperator;
 
-	public String toXML()
-	{
-		String result = "";
+    public ExponentialExpr(String op, CoverageExpr ce) {
+        expOperator = op;
+        coverageExpr = ce;
+    }
 
-		result += "<" + expOperator + ">";
-		result += coverageExpr.toXML();
-		result += "</" + expOperator + ">";
-		return result;
-	}
+    public String toXML() {
+        String result = "";
+
+        result += "<" + expOperator + ">";
+        result += coverageExpr.toXML();
+        result += "</" + expOperator + ">";
+        return result;
+    }
 }

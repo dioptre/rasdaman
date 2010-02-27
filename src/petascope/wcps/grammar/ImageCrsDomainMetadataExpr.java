@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,22 +26,20 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class ImageCrsDomainMetadataExpr implements IParseTreeNode
-{
-	String axis;
-	CoverageExpr cov;
-	NumericScalarExpr n1, n2;
+public class ImageCrsDomainMetadataExpr implements IParseTreeNode {
 
-	public ImageCrsDomainMetadataExpr(String covName, String axis)
-	{
-		this.cov  = new CoverageExpr(covName);
-		this.axis = axis;
-	}
+    String axis;
+    CoverageExpr cov;
+    NumericScalarExpr n1, n2;
 
-	public String toXML()
-	{
-		String result = cov.toXML() + "<axis>" + axis + "</axis>";
+    public ImageCrsDomainMetadataExpr(String covName, String axis) {
+        this.cov = new CoverageExpr(covName);
+        this.axis = axis;
+    }
 
-		return result;
-	}
+    public String toXML() {
+        String result = cov.toXML() + "<axis>" + axis + "</axis>";
+
+        return result;
+    }
 }

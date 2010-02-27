@@ -19,130 +19,120 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
-public class BooleanScalarExpr implements IRasNode
-{
-	private IRasNode first, second;
-	private String op;
-	private boolean simple;    // true if the expression is just a value
-	private String value;
+public class BooleanScalarExpr implements IRasNode {
 
-	public BooleanScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
-	{
-        if (node == null)
+    private IRasNode first, second;
+    private String op;
+    private boolean simple;    // true if the expression is just a value
+    private String value;
+
+    public BooleanScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException {
+        if (node == null) {
             throw new WCPSException("Unexpected null node !");
+        }
 
-		String nodeName = node.getNodeName();
+        String nodeName = node.getNodeName();
 
-		simple = false;
+        simple = false;
 
-		System.err.println("Parsing boolean scalar operation ...");
+        System.err.println("Parsing boolean scalar operation ...");
 
-		if (nodeName.equals("booleanConstant"))
-		{
-			simple = true;
-			value  = node.getFirstChild().getNodeValue();
-		}
-		else if (nodeName.equals("booleanAnd")
-            || nodeName.equals("booleanOr")
-		    || nodeName.equals("booleanXor")
-            || nodeName.equals("booleanLessThan")
-            || nodeName.equals("booleanLessOrEqual")
-		    || nodeName.equals("booleanGreaterThan")
-		    || nodeName.equals("booleanGreaterOrEqual")
-		    || nodeName.equals("booleanEqualNumeric")
-		    || nodeName.equals("booleanNotEqualNumeric")
-		    || nodeName.equals("booleanEqualString")
-		    || nodeName.equals("booleanNotEqualString"))
-		{
-			// Logical operations
-			if (nodeName.equals("booleanAnd")
+        if (nodeName.equals("booleanConstant")) {
+            simple = true;
+            value = node.getFirstChild().getNodeValue();
+        } else if (nodeName.equals("booleanAnd")
                 || nodeName.equals("booleanOr")
-			    || nodeName.equals("booleanXor")) 
-            {
+                || nodeName.equals("booleanXor")
+                || nodeName.equals("booleanLessThan")
+                || nodeName.equals("booleanLessOrEqual")
+                || nodeName.equals("booleanGreaterThan")
+                || nodeName.equals("booleanGreaterOrEqual")
+                || nodeName.equals("booleanEqualNumeric")
+                || nodeName.equals("booleanNotEqualNumeric")
+                || nodeName.equals("booleanEqualString")
+                || nodeName.equals("booleanNotEqualString")) {
+            // Logical operations
+            if (nodeName.equals("booleanAnd")
+                    || nodeName.equals("booleanOr")
+                    || nodeName.equals("booleanXor")) {
                 // Remove the "boolean" in front
                 op = nodeName.substring(7).toLowerCase();
 
                 Node child = node.getFirstChild();
 
-                first  = new BooleanScalarExpr(child, xq);
-                child  = child.getNextSibling();
+                first = new BooleanScalarExpr(child, xq);
+                child = child.getNextSibling();
                 second = new BooleanScalarExpr(child, xq);
-            }
-            else
-            // Boolean Comparison operations between numbers or strings
+            } else // Boolean Comparison operations between numbers or strings
             {
-                if (nodeName.equals("booleanLessThan") || nodeName.equals("booleanLessOrEqual") ||
-                        nodeName.equals("booleanGreaterThan") || nodeName.equals("booleanGreaterOrEqual") ||
-                        nodeName.equals("booleanEqualNumeric") || nodeName.equals("booleanNotEqualNumeric"))
-                {
-                    if (nodeName.equals("booleanLessThan"))
+                if (nodeName.equals("booleanLessThan") || nodeName.equals("booleanLessOrEqual")
+                        || nodeName.equals("booleanGreaterThan") || nodeName.equals("booleanGreaterOrEqual")
+                        || nodeName.equals("booleanEqualNumeric") || nodeName.equals("booleanNotEqualNumeric")) {
+                    if (nodeName.equals("booleanLessThan")) {
                         op = "<";
-                    if (nodeName.equals("booleanLessOrEqual"))
+                    }
+                    if (nodeName.equals("booleanLessOrEqual")) {
                         op = "<=";
-                    if (nodeName.equals("booleanGreaterThan"))
+                    }
+                    if (nodeName.equals("booleanGreaterThan")) {
                         op = ">";
-                    if (nodeName.equals("booleanGreaterOrEqual"))
+                    }
+                    if (nodeName.equals("booleanGreaterOrEqual")) {
                         op = ">=";
-                    if (nodeName.equals("booleanEqualNumeric"))
+                    }
+                    if (nodeName.equals("booleanEqualNumeric")) {
                         op = "=";
-                    if (nodeName.equals("booleanNotEqualNumeric") )
+                    }
+                    if (nodeName.equals("booleanNotEqualNumeric")) {
                         op = "!=";
+                    }
 
                     Node child = node.getFirstChild();
 
-                    first  = new NumericScalarExpr(child, xq);
-                    child  = child.getNextSibling();
+                    first = new NumericScalarExpr(child, xq);
+                    child = child.getNextSibling();
                     second = new NumericScalarExpr(child, xq);
-                }
-                else
-                {
-                    if (nodeName.equals("booleanEqualString"))
+                } else {
+                    if (nodeName.equals("booleanEqualString")) {
                         op = "=";
-                    if (nodeName.equals("booleanNotEqualString"))
+                    }
+                    if (nodeName.equals("booleanNotEqualString")) {
                         op = "!=";
+                    }
 
                     Node child = node.getFirstChild();
 
-                    first  = new StringScalarExpr(child, xq);
-                    child  = child.getNextSibling();
+                    first = new StringScalarExpr(child, xq);
+                    child = child.getNextSibling();
                     second = new StringScalarExpr(child, xq);
                 }
             }
 
-		}
-		else if (nodeName.equals("booleanNot"))
-		{
-			op    = "not";
-			first = new BooleanScalarExpr(node.getFirstChild(), xq);
-		}
-		else
-		{
-			throw new WCPSException("Unexpected Binary Expression node : "
-						+ node.getNodeName());
-		}
+        } else if (nodeName.equals("booleanNot")) {
+            op = "not";
+            first = new BooleanScalarExpr(node.getFirstChild(), xq);
+        } else {
+            throw new WCPSException("Unexpected Binary Expression node : "
+                    + node.getNodeName());
+        }
         System.err.println("*** Boolean Scalar Expr SUCCESS: " + node.getNodeName());
-	}
+    }
 
-	public String toRasQL()
-	{
-		if (simple)
-		{
-			return value;
-		}
+    public String toRasQL() {
+        if (simple) {
+            return value;
+        }
 
-		if (op.equals("not"))
-		{
-			return "not(" + first.toRasQL() + ")";
-		}
+        if (op.equals("not")) {
+            return "not(" + first.toRasQL() + ")";
+        }
 
-		return "(" + first.toRasQL() + ")" + op + "(" + second.toRasQL() + ")";
-	}
+        return "(" + first.toRasQL() + ")" + op + "(" + second.toRasQL() + ")";
+    }
 }

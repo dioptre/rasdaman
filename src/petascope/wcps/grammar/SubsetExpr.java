@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,17 +26,15 @@ package petascope.wcps.grammar;
  * Creation date: (3/3/2003 2:28:43 AM)
  * @author: mattia parigiani, Sorin Stancu-Mara, Andrei Aiordachioaie
  */
-public class SubsetExpr implements IParseTreeNode
-{
-	IParseTreeNode expr;
+public class SubsetExpr implements IParseTreeNode {
 
-	public SubsetExpr(IParseTreeNode e)
-	{
-		expr = e;
-	}
+    IParseTreeNode expr;
 
-	public String toXML()
-	{
-		return expr.toXML();
-	}
+    public SubsetExpr(IParseTreeNode e) {
+        expr = e;
+    }
+
+    public String toXML() {
+        return expr.toXML();
+    }
 }

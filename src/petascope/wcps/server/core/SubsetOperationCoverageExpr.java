@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
@@ -28,55 +26,45 @@ import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 // TODO: Implement class SubsetOperation
-public class SubsetOperationCoverageExpr implements IRasNode, ICoverageInfo
-{
+public class SubsetOperationCoverageExpr implements IRasNode, ICoverageInfo {
+
     private IRasNode child;
-	private CoverageInfo info = null;
+    private CoverageInfo info = null;
 
-	public SubsetOperationCoverageExpr(Node node, XmlQuery xq)
-	    throws WCPSException, InvalidCrsException
-	{
-		
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
+    public SubsetOperationCoverageExpr(Node node, XmlQuery xq)
+            throws WCPSException, InvalidCrsException {
 
-		if (node == null)
-		{
-			throw new WCPSException("SubsetOperationCoverageExpr parsing error!");
-		}
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
 
-		String nodeName = node.getNodeName();
+        if (node == null) {
+            throw new WCPSException("SubsetOperationCoverageExpr parsing error!");
+        }
 
-		System.err.println("SubsetOperationCoverageExpr: node " + nodeName);
+        String nodeName = node.getNodeName();
 
-        if (nodeName.equals("trim"))
-        {
+        System.err.println("SubsetOperationCoverageExpr: node " + nodeName);
+
+        if (nodeName.equals("trim")) {
             child = new TrimCoverageExpr(node, xq);
             info = ((TrimCoverageExpr) child).getCoverageInfo();
-        }
-        else if (nodeName.equals("extend"))
-        {
-             child = new ExtendCoverageExpr(node, xq);
-             info = ((ExtendCoverageExpr) child).getCoverageInfo();
-        }
-        else if (nodeName.equals("slice"))
-        {
+        } else if (nodeName.equals("extend")) {
+            child = new ExtendCoverageExpr(node, xq);
+            info = ((ExtendCoverageExpr) child).getCoverageInfo();
+        } else if (nodeName.equals("slice")) {
             child = new SliceCoverageExpr(node, xq);
             info = ((SliceCoverageExpr) child).getCoverageInfo();
-        }
-        else
+        } else {
             throw new WCPSException("Failed to match SubsetOperation: " + nodeName);
-	}
+        }
+    }
 
-	public String toRasQL()
-	{
-		return child.toRasQL();
-	}
+    public String toRasQL() {
+        return child.toRasQL();
+    }
 
-	public CoverageInfo getCoverageInfo()
-	{
-		return info;
-	}
+    public CoverageInfo getCoverageInfo() {
+        return info;
+    }
 }

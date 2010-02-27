@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcs.server.core;
 
 import petascope.wcs.server.exceptions.WCSException;
@@ -63,8 +61,7 @@ import petascope.wcs.server.exceptions.NoApplicableCodeException;
  *
  * @author Andrei Aiordachioaie
  */
-public class executeGetCapabilities
-{
+public class executeGetCapabilities {
 
     private GetCapabilities input;
     private Capabilities output;
@@ -74,10 +71,9 @@ public class executeGetCapabilities
     /**
      * Default constructor
      * @param cap GetCapabilities object, a WCS (or WCPS) request
-	 * @param metadataDbPath Path to the "dbparams.properties" file
+     * @param metadataDbPath Path to the "dbparams.properties" file
      */
-    public executeGetCapabilities(GetCapabilities cap, DbMetadataSource source) throws WCSException
-    {
+    public executeGetCapabilities(GetCapabilities cap, DbMetadataSource source) throws WCSException {
         input = cap;
         output = new Capabilities();
         meta = source;
@@ -90,13 +86,14 @@ public class executeGetCapabilities
      * @return a Capabilities object.
      * @throws wcs_web_service.WCSException
      */
-    public Capabilities get() throws WCSException
-    {
-        if (finished == false)
+    public Capabilities get() throws WCSException {
+        if (finished == false) {
             process();
-        if (finished == false)
-            throw new NoApplicableCodeException("Could not execute the GetCapabilities request! " +
-                    "Please see the other errors...");
+        }
+        if (finished == false) {
+            throw new NoApplicableCodeException("Could not execute the GetCapabilities request! "
+                    + "Please see the other errors...");
+        }
         return output;
     }
 
@@ -104,13 +101,12 @@ public class executeGetCapabilities
      * Computes the response to the GetCapabilities request given to the constructor.
      * @throws wcs_web_service.WCSException
      */
-    public void process() throws WCSException
-    {
-        if (! input.SERVICE.equalsIgnoreCase("WCS"))
-                throw new InvalidParameterValueException("Service");
+    public void process() throws WCSException {
+        if (!input.SERVICE.equalsIgnoreCase("WCS")) {
+            throw new InvalidParameterValueException("Service");
+        }
 
-        try
-        {
+        try {
             buildField1();      // Service Identification
             buildField2();      // Service Provider
             buildField3();      // Operations Metadata
@@ -118,13 +114,11 @@ public class executeGetCapabilities
 
             finishBuild();      // Add the remaining required attributes
             finished = true;
-        }
-        catch (SQLException se)
-        {
+        } catch (SQLException se) {
             finished = false;
             throw new InternalSqlException(se.getMessage(), se);
         }
-       
+
     }
 
     /**
@@ -133,9 +127,9 @@ public class executeGetCapabilities
     private void buildField1() {
         ServiceIdentification ident = new ServiceIdentification();
         ident.setTitle("PetaScope");
-        ident.setAbstract("PetaScope is a suite of OGC web-services comprising of " +
-                "WCS, WCS-T and WCPS. It has been developed at Jacobs University, and " +
-                "is mentained by the Jacobs University. Copyright Peter Baumann");
+        ident.setAbstract("PetaScope is a suite of OGC web-services comprising of "
+                + "WCS, WCS-T and WCPS. It has been developed at Jacobs University, and "
+                + "is mentained by the Jacobs University. Copyright Peter Baumann");
         CodeType code = new CodeType();
         code.setValue("WCS");
         ident.setServiceType(code);
@@ -176,80 +170,78 @@ public class executeGetCapabilities
      * Builds the output node "Operations Metadata"
      * @throws java.sql.SQLException
      */
-    private void buildField3() throws SQLException
-    {
+    private void buildField3() throws SQLException {
         OperationsMetadata opmeta = new OperationsMetadata();
 
-            Operation op1 = new Operation();
-            op1.setName("GetCapabilities");
-                DomainType postE = new DomainType();
-                postE.setName("PostEncoding");
-                    AllowedValues val1 = new AllowedValues();
-                        ValueType valX = new ValueType();
-                        valX.setValue("XML");
-                    val1.getValueOrRange().add(valX);
-                postE.setAllowedValues(val1);
-            op1.getConstraint().add(postE);
+        Operation op1 = new Operation();
+        op1.setName("GetCapabilities");
+        DomainType postE = new DomainType();
+        postE.setName("PostEncoding");
+        AllowedValues val1 = new AllowedValues();
+        ValueType valX = new ValueType();
+        valX.setValue("XML");
+        val1.getValueOrRange().add(valX);
+        postE.setAllowedValues(val1);
+        op1.getConstraint().add(postE);
 
-                DomainType store = new DomainType();
-                store.setName("store");
-                    AllowedValues val2 = new AllowedValues();
-                        ValueType v = new ValueType();
-                        v.setValue("false");
-                    val2.getValueOrRange().add(v);
-                store.setAllowedValues(val2);
-            op1.getParameter().add(store);
-                DCP dcp = new DCP();
-                    HTTP http = new HTTP();
-                        RequestMethodType post = new RequestMethodType();
-                        post.setHref(ConfigManager.PETASCOPE_SERVLET_URL);
-                        post.setType("simple");
-                    http.getGetOrPost().add(new JAXBElement<RequestMethodType>(
-                            new QName("http://www.opengis.net/wcs/1.1/ows", "Post",
-                            XMLConstants.DEFAULT_NS_PREFIX)
-                            , RequestMethodType.class, post));
-                dcp.setHTTP(http);
-            op1.getDCP().add(dcp);
-                DomainType paramOnlyXml = new DomainType();
-                paramOnlyXml.setName("Format");
-                    AllowedValues vals = new AllowedValues();
-                        ValueType val = new ValueType();
-                        val.setValue("text/xml");
-                    vals.getValueOrRange().add(val);
-                paramOnlyXml.setAllowedValues(vals);
-            op1.getParameter().add(paramOnlyXml);
+        DomainType store = new DomainType();
+        store.setName("store");
+        AllowedValues val2 = new AllowedValues();
+        ValueType v = new ValueType();
+        v.setValue("false");
+        val2.getValueOrRange().add(v);
+        store.setAllowedValues(val2);
+        op1.getParameter().add(store);
+        DCP dcp = new DCP();
+        HTTP http = new HTTP();
+        RequestMethodType post = new RequestMethodType();
+        post.setHref(ConfigManager.PETASCOPE_SERVLET_URL);
+        post.setType("simple");
+        http.getGetOrPost().add(new JAXBElement<RequestMethodType>(
+                new QName("http://www.opengis.net/wcs/1.1/ows", "Post",
+                XMLConstants.DEFAULT_NS_PREFIX), RequestMethodType.class, post));
+        dcp.setHTTP(http);
+        op1.getDCP().add(dcp);
+        DomainType paramOnlyXml = new DomainType();
+        paramOnlyXml.setName("Format");
+        AllowedValues vals = new AllowedValues();
+        ValueType val = new ValueType();
+        val.setValue("text/xml");
+        vals.getValueOrRange().add(val);
+        paramOnlyXml.setAllowedValues(vals);
+        op1.getParameter().add(paramOnlyXml);
         opmeta.getOperation().add(op1);
 
-            Operation op2 = new Operation();
-            op2.setName("GetCoverage");
-            op2.getConstraint().add(postE);     // POST Encoding accepts only XML
-            op2.getParameter().add(store);      // Store parameter: not implemented
-            op2.getDCP().add(dcp);              // HTTP request URL
-            op2.getConstraint().add(paramOnlyXml);
+        Operation op2 = new Operation();
+        op2.setName("GetCoverage");
+        op2.getConstraint().add(postE);     // POST Encoding accepts only XML
+        op2.getParameter().add(store);      // Store parameter: not implemented
+        op2.getDCP().add(dcp);              // HTTP request URL
+        op2.getConstraint().add(paramOnlyXml);
         opmeta.getOperation().add(op2);
 
-            Operation op3 = new Operation();
-            op3.setName("DescribeCoverage");
-            op3.getConstraint().add(postE);     // POST Encoding accepts only XML
-            op3.getParameter().add(store);      // Store parameter: not implemented
-            op3.getDCP().add(dcp);              // HTTP request URL
-            op3.getConstraint().add(paramOnlyXml);
+        Operation op3 = new Operation();
+        op3.setName("DescribeCoverage");
+        op3.getConstraint().add(postE);     // POST Encoding accepts only XML
+        op3.getParameter().add(store);      // Store parameter: not implemented
+        op3.getDCP().add(dcp);              // HTTP request URL
+        op3.getConstraint().add(paramOnlyXml);
         opmeta.getOperation().add(op3);
 
         Operation op4 = new Operation();
-            op4.setName("ProcessCoverages");
-            op4.getConstraint().add(postE);     // POST Encoding accepts only XML
-            op4.getParameter().add(store);      // Store parameter: not implemented
-            op4.getDCP().add(dcp);              // HTTP request URL
-            op4.getConstraint().add(paramOnlyXml);
+        op4.setName("ProcessCoverages");
+        op4.getConstraint().add(postE);     // POST Encoding accepts only XML
+        op4.getParameter().add(store);      // Store parameter: not implemented
+        op4.getDCP().add(dcp);              // HTTP request URL
+        op4.getConstraint().add(paramOnlyXml);
         opmeta.getOperation().add(op4);
 
         Operation op5 = new Operation();
-            op5.setName("Transaction");
-            op5.getConstraint().add(postE);     // POST Encoding accepts only XML
-            op5.getParameter().add(store);      // Store parameter: not implemented
-            op5.getDCP().add(dcp);              // HTTP request URL
-            op5.getConstraint().add(paramOnlyXml);
+        op5.setName("Transaction");
+        op5.getConstraint().add(postE);     // POST Encoding accepts only XML
+        op5.getParameter().add(store);      // Store parameter: not implemented
+        op5.getDCP().add(dcp);              // HTTP request URL
+        op5.getConstraint().add(paramOnlyXml);
         opmeta.getOperation().add(op5);
 
         output.setOperationsMetadata(opmeta);
@@ -259,21 +251,20 @@ public class executeGetCapabilities
      * Builds the output node "Contents"
      * @throws java.sql.SQLException
      */
-    private void buildField4()
-    {
+    private void buildField4() {
         Contents cont = new Contents();
         Iterator<String> coverages = null;
-                
-        try
-        {
+
+        try {
             coverages = meta.coverages().iterator();
+        } catch (ResourceException e) {
         }
-        catch (ResourceException e)
-        {}
-        while (coverages.hasNext())
-        {
+        while (coverages.hasNext()) {
             Metadata metadata = null;
-            try { metadata = meta.read(coverages.next()); } catch (Exception e) {}
+            try {
+                metadata = meta.read(coverages.next());
+            } catch (Exception e) {
+            }
             String covName = metadata.getCoverageName();
             CoverageSummaryType sum = new CoverageSummaryType();
             sum.setAbstract(metadata.getAbstract());
@@ -293,14 +284,12 @@ public class executeGetCapabilities
             // Add this CoverageSummary to the list of coverage summaries, to make up the Contents
             cont.getCoverageSummary().add(sum);
         }
-        
+
         output.setContents(cont);
     }
 
-    private void finishBuild()
-    {
+    private void finishBuild() {
         /* WCS Standard Version ! */
         output.setVersion("1.1.0");
     }
-    
 }

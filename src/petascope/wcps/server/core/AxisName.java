@@ -19,44 +19,39 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.WCPSException;
 import java.util.Collection;
 import org.w3c.dom.*;
 
-public class AxisName implements IRasNode
-{
+public class AxisName implements IRasNode {
+
     private String name;
 
-	public AxisName(Node node, XmlQuery xq) throws WCPSException
-	{
+    public AxisName(Node node, XmlQuery xq) throws WCPSException {
         System.err.println("Trying axis node: " + node.getNodeName());
 
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
 
-        if (node != null && node.getNodeName().equals("axis"))
-        {
+        if (node != null && node.getNodeName().equals("axis")) {
             String axis = node.getTextContent();
             // validate axis name
             IDynamicMetadataSource meta = xq.getMetadataSource();
             Collection<String> axisNames = meta.getAxisNames();
-            if (axisNames.contains(axis))
+            if (axisNames.contains(axis)) {
                 this.name = axis;
-            else
+            } else {
                 throw new WCPSException("Unknown axis name " + axis);
-        }
-        else
+            }
+        } else {
             throw new WCPSException("Could not find an axis node !");
-	}
+        }
+    }
 
-	public String toRasQL()
-	{
+    public String toRasQL() {
         return name;
-	}
+    }
 }

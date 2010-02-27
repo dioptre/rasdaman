@@ -19,25 +19,20 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.exceptions;
 
 /**
  * This exception is throws whenever a user submits a request that is not valid in some way.
  */
+public class InvalidWcpsRequestException extends WCPSException {
 
-public class InvalidWcpsRequestException extends WCPSException
-{
-	private static final long serialVersionUID = 65492846L;
+    private static final long serialVersionUID = 65492846L;
 
-	public InvalidWcpsRequestException(String message)
-	{
-		super(message, null);
-	}
+    public InvalidWcpsRequestException(String message) {
+        super(message, null);
+    }
 
-	public InvalidWcpsRequestException(String message, Throwable cause)
-	{
-		super(message, cause);
-	}
+    public InvalidWcpsRequestException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

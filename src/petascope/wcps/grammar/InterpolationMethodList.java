@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 import java.util.*;
@@ -32,30 +28,26 @@ import java.util.*;
  *
  * @author Andrei Aiordachioaie
  */
-public class InterpolationMethodList implements IParseTreeNode
-{
-	LinkedList<InterpolationMethod> list;
+public class InterpolationMethodList implements IParseTreeNode {
 
-	public InterpolationMethodList()
-	{
-		list = new LinkedList();
-	}
+    LinkedList<InterpolationMethod> list;
 
-	public void add(InterpolationMethod meth)
-	{
-		list.add(meth);
-	}
+    public InterpolationMethodList() {
+        list = new LinkedList();
+    }
 
-	public String toXML()
-	{
-		String result                    = "";
-		Iterator<InterpolationMethod> it = list.iterator();
+    public void add(InterpolationMethod meth) {
+        list.add(meth);
+    }
 
-		while (it.hasNext())
-		{
-			result += it.next().toXML();
-		}
+    public String toXML() {
+        String result = "";
+        Iterator<InterpolationMethod> it = list.iterator();
 
-		return result;
-	}
+        while (it.hasNext()) {
+            result += it.next().toXML();
+        }
+
+        return result;
+    }
 }

@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.ResourceException;
@@ -31,79 +29,66 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class CoverageIterator implements IRasNode
-{
-	private List<String> coverageNames;
-	private String iteratorName;
+public class CoverageIterator implements IRasNode {
+
+    private List<String> coverageNames;
+    private String iteratorName;
     private boolean dynamic = false;    // created from a Construct Coverage expr?
 
-	public CoverageIterator(Node x, XmlQuery xq) throws WCPSException
-	{
-		IDynamicMetadataSource source = xq.getMetadataSource();
-		coverageNames = new ArrayList<String>();
-		if (! x.getNodeName().equals("coverageIterator"))
-		{
-			throw new WCPSException("Invalid cast from " + x.getNodeName()
-						+ " XML node to CoverageIterator node");
-		}
+    public CoverageIterator(Node x, XmlQuery xq) throws WCPSException {
+        IDynamicMetadataSource source = xq.getMetadataSource();
+        coverageNames = new ArrayList<String>();
+        if (!x.getNodeName().equals("coverageIterator")) {
+            throw new WCPSException("Invalid cast from " + x.getNodeName()
+                    + " XML node to CoverageIterator node");
+        }
 
-		Node it = x.getFirstChild();
-		while (it != null)
-		{
-			if (it.getNodeName().equals("#text"))
-			{
-				it = it.getNextSibling();
-				continue;
-			}
+        Node it = x.getFirstChild();
+        while (it != null) {
+            if (it.getNodeName().equals("#text")) {
+                it = it.getNextSibling();
+                continue;
+            }
 
-			if (it.getNodeName().equals("iteratorVar"))
-			{
-				iteratorName = it.getFirstChild().getNodeValue();
-				System.err.println("*** Iterator variable : " + iteratorName);
-			}
-			else if (it.getNodeName().equals("coverageName"))
-			{
-				String cn = it.getFirstChild().getNodeValue();
-				System.err.println("*** Coverage reference : " + cn);
-				try
-				{
-					if (!source.coverages().contains(cn))
-						throw new WCPSException("Unknown coverage " + cn);
-				}
-				catch (ResourceException e)
-				{
-					throw new WCPSException(
-					    "Cannot load coverage information!", e);
-				}
+            if (it.getNodeName().equals("iteratorVar")) {
+                iteratorName = it.getFirstChild().getNodeValue();
+                System.err.println("*** Iterator variable : " + iteratorName);
+            } else if (it.getNodeName().equals("coverageName")) {
+                String cn = it.getFirstChild().getNodeValue();
+                System.err.println("*** Coverage reference : " + cn);
+                try {
+                    if (!source.coverages().contains(cn)) {
+                        throw new WCPSException("Unknown coverage " + cn);
+                    }
+                } catch (ResourceException e) {
+                    throw new WCPSException(
+                            "Cannot load coverage information!", e);
+                }
 
-				coverageNames.add(cn);
-			}
+                coverageNames.add(cn);
+            }
 
-			it = it.getNextSibling();
-		}
-	}
+            it = it.getNextSibling();
+        }
+    }
 
-    public CoverageIterator(String iterator, String coverage) throws WCPSException
-	{
-		coverageNames = new ArrayList<String>();
+    public CoverageIterator(String iterator, String coverage) throws WCPSException {
+        coverageNames = new ArrayList<String>();
         iteratorName = iterator;
         coverageNames.add(coverage);
         this.dynamic = true;
-	}
+    }
 
-	public Iterator<String> getCoverages()
-	{
-		return coverageNames.iterator();
-	}
+    public Iterator<String> getCoverages() {
+        return coverageNames.iterator();
+    }
 
-	public String getIteratorName()
-	{
-		return iteratorName;
-	}
+    public String getIteratorName() {
+        return iteratorName;
+    }
 
-	public String toRasQL()
-	{
-		// TODO(andreia) : How to translate multiple coverages?
-		return coverageNames.get(0) + " AS " + iteratorName;
-	}
+    public String toRasQL() {
+        // TODO(andreia) : How to translate multiple coverages?
+        return coverageNames.get(0) + " AS " + iteratorName;
+    }
 }

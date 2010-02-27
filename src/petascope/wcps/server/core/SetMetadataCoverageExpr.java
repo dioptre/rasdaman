@@ -19,29 +19,24 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 // TODO: Implement class SetMetadataCoverageExprType
-public class SetMetadataCoverageExpr implements IRasNode, ICoverageInfo
-{
-	public SetMetadataCoverageExpr(Node node, XmlQuery xq)
-	    throws WCPSException
-	{
-		throw new WCPSException("Method not implemented");
-	}
+public class SetMetadataCoverageExpr implements IRasNode, ICoverageInfo {
 
-	public String toRasQL()
-	{
-		return "";
-	}
+    public SetMetadataCoverageExpr(Node node, XmlQuery xq)
+            throws WCPSException {
+        throw new WCPSException("Method not implemented");
+    }
 
-	public CoverageInfo getCoverageInfo()
-	{
-		return null;
-	}
+    public String toRasQL() {
+        return "";
+    }
+
+    public CoverageInfo getCoverageInfo() {
+        return null;
+    }
 }

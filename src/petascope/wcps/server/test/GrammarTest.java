@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.test;
 
 import java.io.File;
@@ -34,9 +32,9 @@ import petascope.wcps.server.cli.grammar;
  * Assumes test passes if no error is thrown from the grammar CLI.
  * @author Andrei Aiordachioaie
  */
-public class GrammarTest
-{
+public class GrammarTest {
     // Put new test cases in this folder following the current naming scheme
+
     String folder = "test/testcases-wcps_dollar/";
     // How many tests we have to run
     int numTests = 0;
@@ -51,20 +49,15 @@ public class GrammarTest
     // How many successes?
     int passCount = 0;
 
-    public void printResults()
-    {
-        
-        for (int i = 0; i<numTests; i++)
-        {
+    public void printResults() {
+
+        for (int i = 0; i < numTests; i++) {
             String tname = tests[i].getName();
             tname = tname.substring(0, tname.length() - 5);
-            if (ok[i] == true)
-            {
+            if (ok[i] == true) {
                 System.out.println("*** Test '" + tname + "' ok");
 //                System.out.println("\t" + queries[i]);
-            }
-            else
-            {
+            } else {
                 System.out.println("*** Test '" + tname + "' FAILED");
                 System.out.println("\t" + queries[i]);
                 System.out.println("\t ERROR: " + errors[i]);
@@ -75,8 +68,7 @@ public class GrammarTest
         System.out.println("Tests failed: " + String.valueOf(numTests - passCount));
     }
 
-    public GrammarTest()
-    {
+    public GrammarTest() {
         // Find out how many tests we have to run
         File dir = new File(folder);
         System.out.println("Looking for tests in " + dir.getAbsolutePath() + "\n");
@@ -89,52 +81,43 @@ public class GrammarTest
     }
 
     /* Accept all files with extension test. */
-    private class GrammarFileFilter implements FilenameFilter
-    {
+    private class GrammarFileFilter implements FilenameFilter {
+
         @Override
-        public boolean accept(File dir, String name)
-        {
-            if (name.endsWith("test"))
+        public boolean accept(File dir, String name) {
+            if (name.endsWith("test")) {
                 return true;
+            }
             return false;
         }
-        
     }
 
-    public void runAllTests()
-    {
+    public void runAllTests() {
         String query = "";
-        for (int i=0; i<numTests; i++)
-        {
+        for (int i = 0; i < numTests; i++) {
             ok[i] = false;
-            try
-            {
+            try {
                 query = FileUtils.readFileToString(tests[i]);
                 queries[i] = query;
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 errors[i] = "Could not read file " + tests[i].getName();
                 continue;
             }
-            try
-            {
+            try {
                 grammar.convertAbstractQueryToXml(query);
                 ok[i] = true;
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 errors[i] = e.getMessage();
             }
-            if (ok[i] == true)
-                passCount ++;
+            if (ok[i] == true) {
+                passCount++;
+            }
         }
     }
 
-    public static void main(String args[])
-    {
-      GrammarTest tester = new GrammarTest();
-      tester.runAllTests();
-      tester.printResults();
+    public static void main(String args[]) {
+        GrammarTest tester = new GrammarTest();
+        tester.runAllTests();
+        tester.printResults();
     }
 }

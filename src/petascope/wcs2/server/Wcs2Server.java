@@ -19,12 +19,9 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcs2.server;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import javax.servlet.ServletException;
 
 import org.slf4j.Logger;
@@ -41,8 +38,6 @@ import petascope.wcs2.server.ops.GetCapabilities;
 import petascope.wcs2.server.ops.GetCoverage;
 
 //~--- JDK imports ------------------------------------------------------------
-
-
 /**
  * The Web Coverage Service (WcsServer)
  * This class provides methods for each of the WCS operations:
@@ -52,80 +47,73 @@ import petascope.wcs2.server.ops.GetCoverage;
  *
  * @author Andrei Aiordachioaie
  */
-public class Wcs2Server
-{
-	private static Logger LOG = LoggerFactory.getLogger(Wcs2Server.class);
+public class Wcs2Server {
 
-	/* The Operations to delegate to */
-	private GetCapabilities capa;
-	private DescribeCoverage desc;
-	private GetCoverage getcov;
+    private static Logger LOG = LoggerFactory.getLogger(Wcs2Server.class);
 
-	/* Globals */
-	private DbMetadataSource meta;
+    /* The Operations to delegate to */
+    private GetCapabilities capa;
+    private DescribeCoverage desc;
+    private GetCoverage getcov;
 
-	/**
-	 * constructor
-	 * @param settingsPath path to the "settings.properties" file
-	 */
-	public Wcs2Server(String settingsPath, DbMetadataSource source) throws ServletException
-	{
-		ConfigManager.getInstance(settingsPath, null);
-		meta = source;
+    /* Globals */
+    private DbMetadataSource meta;
 
-		try
-		{
-			capa = new GetCapabilities(meta);
-			desc = new DescribeCoverage(meta);
-			getcov = new GetCoverage(meta);
-		}
-		catch (Exception e)
-		{
-			LOG.error("Could not init WCS 2.0");
+    /**
+     * constructor
+     * @param settingsPath path to the "settings.properties" file
+     */
+    public Wcs2Server(String settingsPath, DbMetadataSource source) throws ServletException {
+        ConfigManager.getInstance(settingsPath, null);
+        meta = source;
 
-			throw new RuntimeException("Could not initialize WCS 2.0", e);
-		}
-	}
+        try {
+            capa = new GetCapabilities(meta);
+            desc = new DescribeCoverage(meta);
+            getcov = new GetCoverage(meta);
+        } catch (Exception e) {
+            LOG.error("Could not init WCS 2.0");
 
-	/**
-	 * WcsServer GetCapabilities operation
-	 */
-	public String GetCapabilities(String stringXml) throws WCSException
-	{
+            throw new RuntimeException("Could not initialize WCS 2.0", e);
+        }
+    }
+
+    /**
+     * WcsServer GetCapabilities operation
+     */
+    public String GetCapabilities(String stringXml) throws WCSException {
         LOG.trace("Received input:\n{}", stringXml);
-		LOG.info("Executing operation GetCapabilities...");
-		String result = capa.execute(stringXml);
+        LOG.info("Executing operation GetCapabilities...");
+        String result = capa.execute(stringXml);
 
-		LOG.info("GetCapabilities finished");
+        LOG.info("GetCapabilities finished");
 
-		return result;
-	}
+        return result;
+    }
 
-	/**
-	 * WcsServer DescribeCoverage operation
-	 */
-	public String DescribeCoverage(String stringXml) throws WCSException
-	{
+    /**
+     * WcsServer DescribeCoverage operation
+     */
+    public String DescribeCoverage(String stringXml) throws WCSException {
         LOG.trace("Received input:\n{}", stringXml);
-		LOG.info("Executing operation DescribeCoverage...");
-		String result = desc.execute(stringXml);
+        LOG.info("Executing operation DescribeCoverage...");
+        String result = desc.execute(stringXml);
 
-		LOG.info("DescribeCoverage finished");
+        LOG.info("DescribeCoverage finished");
 
-		return result;
-	}
+        return result;
+    }
 
-	/**
-	 * WcsServer GetCoverage operation
-	 */
-	public String GetCoverage(String stringXml) throws WCSException
-	{
+    /**
+     * WcsServer GetCoverage operation
+     */
+    public String GetCoverage(String stringXml) throws WCSException {
         LOG.trace("Received input:\n{}", stringXml);
-		LOG.info("Executing operation GetCoverage...");
-		String result = getcov.execute(stringXml);
+        LOG.info("Executing operation GetCoverage...");
+        String result = getcov.execute(stringXml);
 
-		LOG.info("GetCoverage finished");
+        LOG.info("GetCoverage finished");
 
-		return result;
-	}
+        return result;
+    }
 }

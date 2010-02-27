@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,25 +26,23 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class RangeConstructorTerm implements IParseTreeNode
-{
-	CoverageExpr expr;
-	String field;
+public class RangeConstructorTerm implements IParseTreeNode {
 
-	public RangeConstructorTerm(String f, CoverageExpr c)
-	{
-		field = f;
-		expr  = c;
-	}
+    CoverageExpr expr;
+    String field;
 
-	public String toXML()
-	{
-		String result = "";
+    public RangeConstructorTerm(String f, CoverageExpr c) {
+        field = f;
+        expr = c;
+    }
 
-		result += "<field>" + field + "</field>";
-		result += expr.toXML();
+    public String toXML() {
+        String result = "";
 
-		result = "<component>" + result + "</component>";
-		return result;
-	}
+        result += "<field>" + field + "</field>";
+        result += expr.toXML();
+
+        result = "<component>" + result + "</component>";
+        return result;
+    }
 }

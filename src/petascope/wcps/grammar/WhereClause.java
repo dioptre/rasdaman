@@ -19,27 +19,20 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /* Author: Sorin Stancu-Mara, Andrei Aiordachioaie
 Date: 7 Feb 2007
-*/
+ */
+public class WhereClause implements IParseTreeNode {
 
-public class WhereClause implements IParseTreeNode
-{
-	private BooleanScalarExpr expr;
+    private BooleanScalarExpr expr;
 
-	public WhereClause(BooleanScalarExpr e)
-	{
-		expr = e;
-	}
+    public WhereClause(BooleanScalarExpr e) {
+        expr = e;
+    }
 
-	public String toXML()
-	{
-		return "<where>" + expr.toXML() + "</where>";
-	}
+    public String toXML() {
+        return "<where>" + expr.toXML() + "</where>";
+    }
 }

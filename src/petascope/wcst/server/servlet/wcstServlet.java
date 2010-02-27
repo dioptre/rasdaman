@@ -19,12 +19,9 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcst.server.servlet;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import petascope.wcst.server.*;
 import petascope.ConfigManager;
 import org.apache.commons.io.FileUtils;
@@ -47,136 +44,118 @@ import petascope.wcs.server.exceptions.WCSException;
  *
  * @author Andrei Aiordachioaie
  */
-public class wcstServlet extends HttpServlet
-{
-	private String defaultHtmlResponse;
+public class wcstServlet extends HttpServlet {
+
+    private String defaultHtmlResponse;
     private String relativeServletHtmlPath = "/templates/wcst-servlet.html";
-	private String servletHtmlPath;
+    private String servletHtmlPath;
     private String relativeSettingsPath = "/settings.properties";
     private WcstServer server;
     private DbMetadataSource metadataSource;
 
     @Override
-	public void init() throws ServletException
-	{
+    public void init() throws ServletException {
         // Initialize the configuration manager. Now all classes can read the settings.
         String settingsPath = getServletContext().getRealPath(relativeSettingsPath);
         ConfigManager config = ConfigManager.getInstance(settingsPath, getServletContext().getRealPath("/"));
 
-        try
-        {
+        try {
             metadataSource = new DbMetadataSource(
-                ConfigManager.METADATA_DRIVER, ConfigManager.METADATA_URL,
-                ConfigManager.METADATA_USER, ConfigManager.METADATA_PASS, false );
-        }
-        catch (Exception e)
-        {
+                    ConfigManager.METADATA_DRIVER, ConfigManager.METADATA_URL,
+                    ConfigManager.METADATA_USER, ConfigManager.METADATA_PASS, false);
+        } catch (Exception e) {
             throw new ServletException("Metadata Database Error.", e);
         }
-        
+
         // Initialize the WCS-T server with proper metadata
-        try
-        {
+        try {
             server = new WcstServer(metadataSource);
-        }
-        catch (WCSException e)
-        {
+        } catch (WCSException e) {
             throw new ServletException(e);
         }
 
         // Load the servlet HTML response
-		servletHtmlPath = getServletContext().getRealPath(relativeServletHtmlPath);
-		try
-		{
-			defaultHtmlResponse = FileUtils.readFileToString(new File(servletHtmlPath));
-		}
-		catch (IOException e)
-		{
-			throw new ServletException(e);
-		}
-	}
+        servletHtmlPath = getServletContext().getRealPath(relativeServletHtmlPath);
+        try {
+            defaultHtmlResponse = FileUtils.readFileToString(new File(servletHtmlPath));
+        } catch (IOException e) {
+            throw new ServletException(e);
+        }
+    }
 
-	/**
-	 * Handles the HTTP <code>GET</code> method.
-	 * @param request wcstServlet request
-	 * @param response wcstServlet response
-	 * @throws ServletException if a wcstServlet-specific error occurs
-	 * @throws IOException if an I/O error occurs
-	 */
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
-	{
-		System.out.println("WCS-T: invoked with GET");
-		printUsage(response);
-	}
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     * @param request wcstServlet request
+     * @param response wcstServlet response
+     * @throws ServletException if a wcstServlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println("WCS-T: invoked with GET");
+        printUsage(response);
+    }
 
-	/**
-	 * Handles the HTTP <code>POST</code> method.
-	 * @param request wcstServlet request
-	 * @param response wcstServlet response
-	 * @throws ServletException if a wcstServlet-specific error occurs
-	 * @throws IOException if an I/O error occurs
-	 */
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		// Select the operation
-		int op = -1;
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     * @param request wcstServlet request
+     * @param response wcstServlet response
+     * @throws ServletException if a wcstServlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Select the operation
+        int op = -1;
 
-		if ( request.getParameter("TransactionXML") != null )
-			op = 4;
+        if (request.getParameter("TransactionXML") != null) {
+            op = 4;
+        }
 
-		// Convert the WCS request into a WCPS request
-		try
-		{
-			// initialize WebService operation arguments here
-			String inputXml, outputXml;
-			PrintWriter out;
+        // Convert the WCS request into a WCPS request
+        try {
+            // initialize WebService operation arguments here
+            String inputXml, outputXml;
+            PrintWriter out;
 
-			switch (op)
-			{
-			case 4:
-				inputXml = request.getParameter("TransactionXML");
-				outputXml = server.Transaction(inputXml);
-				out = new PrintWriter(response.getOutputStream());
-				out.write(outputXml);
-				out.flush();
+            switch (op) {
+                case 4:
+                    inputXml = request.getParameter("TransactionXML");
+                    outputXml = server.Transaction(inputXml);
+                    out = new PrintWriter(response.getOutputStream());
+                    out.write(outputXml);
+                    out.flush();
 
-				break;
-			default:
-				throw new Exception("No valid operation specified !");
-			}
+                    break;
+                default:
+                    throw new Exception("No valid operation specified !");
+            }
 
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
 
-			throw new ServletException("WCS-T servlet error !", e);
-		}
-	}
+            throw new ServletException("WCS-T servlet error !", e);
+        }
+    }
 
-	/**
-	 * Returns a short description of the wcstServlet.
-	 * @return a String containing wcstServlet description
-	 */
-	@Override
-	public String getServletInfo()
-	{
+    /**
+     * Returns a short description of the wcstServlet.
+     * @return a String containing wcstServlet description
+     */
+    @Override
+    public String getServletInfo() {
         return "WCS-T Extension. Petascope version " + ConfigManager.PETASCOPE_VERSION;
-	}
+    }
 
-	private void printUsage(HttpServletResponse response) throws IOException
-	{
-		System.out.println("WCS-T: returning usage message");
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter out = new PrintWriter(response.getOutputStream());
+    private void printUsage(HttpServletResponse response) throws IOException {
+        System.out.println("WCS-T: returning usage message");
+        response.setContentType("text/html; charset=utf-8");
+        PrintWriter out = new PrintWriter(response.getOutputStream());
 
-		out.println(defaultHtmlResponse);
+        out.println(defaultHtmlResponse);
 
-		out.close();
-		System.out.println("WCS-T: done nothing");
+        out.close();
+        System.out.println("WCS-T: done nothing");
 
-	}
-
+    }
 }

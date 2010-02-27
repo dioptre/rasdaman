@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,32 +26,28 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class RangeExpr implements IParseTreeNode
-{
-	String xml;
+public class RangeExpr implements IParseTreeNode {
 
-	public RangeExpr()
-	{
-		this.xml = "";
-	}
+    String xml;
 
-	public RangeExpr(String field, ScalarExpr expr)
-	{
-		this();
-		add(field, expr);
-	}
+    public RangeExpr() {
+        this.xml = "";
+    }
 
-	public void add(String field, ScalarExpr expr)
-	{
-		String tmp = "";
+    public RangeExpr(String field, ScalarExpr expr) {
+        this();
+        add(field, expr);
+    }
 
-		tmp += "<field>" + field + "</field>";
-		tmp += expr.toXML();
-		xml += "<componen>" + tmp + "</component>";
-	}
+    public void add(String field, ScalarExpr expr) {
+        String tmp = "";
 
-	public String toXML()
-	{
-		return xml;
-	}
+        tmp += "<field>" + field + "</field>";
+        tmp += expr.toXML();
+        xml += "<componen>" + tmp + "</component>";
+    }
+
+    public String toXML() {
+        return xml;
+    }
 }

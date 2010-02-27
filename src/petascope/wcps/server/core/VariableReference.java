@@ -19,45 +19,38 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
-public class VariableReference implements IRasNode
-{
+public class VariableReference implements IRasNode {
+
     private String name;
     private String translatedName;
 
-	public VariableReference(Node node, XmlQuery xq) throws WCPSException
-	{
+    public VariableReference(Node node, XmlQuery xq) throws WCPSException {
         System.err.println("Parsing variable reference: " + node.getNodeName());
 
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
 
-        if (node != null && node.getNodeName().equals("variableRef"))
-        {
+        if (node != null && node.getNodeName().equals("variableRef")) {
             name = node.getTextContent();
             translatedName = xq.getReferenceVariableName(name);
-            System.err.println("Variable " + name + " has been renamed into " +
-                    translatedName);
-        }
-        else
+            System.err.println("Variable " + name + " has been renamed into "
+                    + translatedName);
+        } else {
             throw new WCPSException("Could not find any variable reference !");
-	}
+        }
+    }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-	public String toRasQL()
-	{
+    public String toRasQL() {
         return translatedName;
-	}
+    }
 }

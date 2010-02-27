@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
@@ -31,120 +29,104 @@ import java.util.Iterator;
 import java.util.List;
 import org.w3c.dom.*;
 
+public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
 
-public class ExtendCoverageExpr implements IRasNode, ICoverageInfo
-{
-	private List<DimensionIntervalElement> axisList;
-	private CoverageExpr coverageExprType;
-	private CoverageInfo coverageInfo;
-	private String[] dim;
-	private int dims;
+    private List<DimensionIntervalElement> axisList;
+    private CoverageExpr coverageExprType;
+    private CoverageInfo coverageInfo;
+    private String[] dim;
+    private int dims;
     private DimensionIntervalElement elem;
 
-	public ExtendCoverageExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
-	{
-        
-		Node child, axisNode;
-		String nodeName;
+    public ExtendCoverageExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException {
 
-		axisList = new ArrayList<DimensionIntervalElement>();
+        Node child, axisNode;
+        String nodeName;
 
-		child = node.getFirstChild();
-        while (child != null)
-		{
-			nodeName = child.getNodeName();
+        axisList = new ArrayList<DimensionIntervalElement>();
 
-			if (nodeName.equals("#text"))
-			{
+        child = node.getFirstChild();
+        while (child != null) {
+            nodeName = child.getNodeName();
+
+            if (nodeName.equals("#text")) {
                 child = child.getNextSibling();
-				continue;
-			}
+                continue;
+            }
 
-            try
-            {
+            try {
                 System.err.println("Trying out an CoverageExprType group...");
                 coverageExprType = new CoverageExpr(node, xq);
                 coverageInfo = coverageExprType.getCoverageInfo();
                 child = child.getNextSibling();
                 continue;
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("This was no CoverageExprType: " + nodeName);
             }
 
-            try
-			{
+            try {
                 // Start a new axis and save it
-				elem = new DimensionIntervalElement(node, xq, coverageInfo);
+                elem = new DimensionIntervalElement(node, xq, coverageInfo);
                 axisList.add(elem);
                 child = elem.getNextNode();
                 continue;
-			}
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("This was no Dimension Interval ELement: " + child.getNodeName());
             }
 
             // else unknown element
             throw new WCPSException("Unknown node for ExtendCoverage expression:" + child.getNodeName());
-		}
+        }
 
-		dims = coverageInfo.getNumDimensions();
-		dim  = new String[dims];
+        dims = coverageInfo.getNumDimensions();
+        dim = new String[dims];
 
-		for (int j = 0; j < dims; ++j)
-		{
-			dim[j] = "*:*";
-		}
+        for (int j = 0; j < dims; ++j) {
+            dim[j] = "*:*";
+        }
 
 
-		Iterator<DimensionIntervalElement> i = axisList.iterator();
-		DimensionIntervalElement axis;
-		int axisId;
-		int axisLo, axisHi;
+        Iterator<DimensionIntervalElement> i = axisList.iterator();
+        DimensionIntervalElement axis;
+        int axisId;
+        int axisLo, axisHi;
 
-		while (i.hasNext())
-		{
-			axis   = i.next();
-			axisId = coverageInfo.getDomainIndexByName(axis.getAxisName());
-			System.out.println("Axis ID: " + axisId);
-			System.out.println("Axis name: " + axis.getAxisName());
-			System.out.print("Axis coords: ");
+        while (i.hasNext()) {
+            axis = i.next();
+            axisId = coverageInfo.getDomainIndexByName(axis.getAxisName());
+            System.out.println("Axis ID: " + axisId);
+            System.out.println("Axis name: " + axis.getAxisName());
+            System.out.print("Axis coords: ");
 
-			axisLo      = Integer.parseInt(axis.getLowCoord());
-			axisHi      = Integer.parseInt(axis.getHighCoord());
-			dim[axisId] = axisLo + ":" + axisHi;
-			coverageInfo.setCellDimension(
-			    axisId,
-			    new CellDomainElement(
-				BigInteger.valueOf(axisLo), BigInteger.valueOf(axisHi)));
-		}
+            axisLo = Integer.parseInt(axis.getLowCoord());
+            axisHi = Integer.parseInt(axis.getHighCoord());
+            dim[axisId] = axisLo + ":" + axisHi;
+            coverageInfo.setCellDimension(
+                    axisId,
+                    new CellDomainElement(
+                    BigInteger.valueOf(axisLo), BigInteger.valueOf(axisHi)));
+        }
 
-         
-	}
 
-	public CoverageInfo getCoverageInfo()
-	{
-		return coverageInfo;
-	}
+    }
 
-	public String toRasQL()
-	{
-		String result = "extend(" + coverageExprType.toRasQL() + ",[";
+    public CoverageInfo getCoverageInfo() {
+        return coverageInfo;
+    }
 
-		for (int j = 0; j < dims; ++j)
-		{
-			if (j > 0)
-			{
-				result += ",";
-			}
+    public String toRasQL() {
+        String result = "extend(" + coverageExprType.toRasQL() + ",[";
 
-			result += dim[j];
-		}
+        for (int j = 0; j < dims; ++j) {
+            if (j > 0) {
+                result += ",";
+            }
 
-		result += "])";
-         
-		return result;
-	}
+            result += dim[j];
+        }
+
+        result += "])";
+
+        return result;
+    }
 }

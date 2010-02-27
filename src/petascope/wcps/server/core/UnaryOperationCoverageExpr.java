@@ -19,173 +19,130 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
-public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo
-{
-	private CoverageExpr child;
-	private CoverageInfo info;
-	private String operation;
-	private String params;
+public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
 
-	public UnaryOperationCoverageExpr(Node node, XmlQuery xq)
-	    throws WCPSException, InvalidCrsException
-	{
-		String nodeName = node.getNodeName();
+    private CoverageExpr child;
+    private CoverageInfo info;
+    private String operation;
+    private String params;
 
-		System.err.println("Trying to parse unary operation: " + nodeName);
+    public UnaryOperationCoverageExpr(Node node, XmlQuery xq)
+            throws WCPSException, InvalidCrsException {
+        String nodeName = node.getNodeName();
 
-		if (nodeName.equals("unaryPlus"))
-		{
-			operation = "+";
-			child     = new CoverageExpr(node.getFirstChild(), xq);
-		}
-		else if (nodeName.equals("unaryMinus"))
-		{
-			operation = "-";
-			child     = new CoverageExpr(node.getFirstChild(), xq);
-		}
-		else if (nodeName.equals("sqrt") || nodeName.equals("abs")
-		    || nodeName.equals("exp") || nodeName.equals("log") || nodeName.equals("ln")
-		    || nodeName.equals("sin") || nodeName.equals("cos") || nodeName.equals("tan")
-		    || nodeName.equals("sinh") || nodeName.equals("cosh")
-		    || nodeName.equals("tanh") || nodeName.equals("arcsin")
-		    || nodeName.equals("arccos") || nodeName.equals("arctan")
-		    || nodeName.equals("not") || nodeName.equals("re") || nodeName.equals("im"))
-		{
-			operation = nodeName;
-			child     = new CoverageExpr(node.getFirstChild(), xq);
-		}
-		else if (nodeName.equals("bit"))
-		{
-			operation = "bit";
-			Node c = node.getFirstChild();
+        System.err.println("Trying to parse unary operation: " + nodeName);
 
-			while (c != null)
-			{
-				if (c.getNodeName().equals("#text"))
-				{
-					c = c.getNextSibling();
-					continue;
-				}
+        if (nodeName.equals("unaryPlus")) {
+            operation = "+";
+            child = new CoverageExpr(node.getFirstChild(), xq);
+        } else if (nodeName.equals("unaryMinus")) {
+            operation = "-";
+            child = new CoverageExpr(node.getFirstChild(), xq);
+        } else if (nodeName.equals("sqrt") || nodeName.equals("abs")
+                || nodeName.equals("exp") || nodeName.equals("log") || nodeName.equals("ln")
+                || nodeName.equals("sin") || nodeName.equals("cos") || nodeName.equals("tan")
+                || nodeName.equals("sinh") || nodeName.equals("cosh")
+                || nodeName.equals("tanh") || nodeName.equals("arcsin")
+                || nodeName.equals("arccos") || nodeName.equals("arctan")
+                || nodeName.equals("not") || nodeName.equals("re") || nodeName.equals("im")) {
+            operation = nodeName;
+            child = new CoverageExpr(node.getFirstChild(), xq);
+        } else if (nodeName.equals("bit")) {
+            operation = "bit";
+            Node c = node.getFirstChild();
 
-				if (c.getNodeName().equals("bitIndex"))
-				{
-                    try
-                    {
+            while (c != null) {
+                if (c.getNodeName().equals("#text")) {
+                    c = c.getNextSibling();
+                    continue;
+                }
+
+                if (c.getNodeName().equals("bitIndex")) {
+                    try {
                         params = c.getFirstChild().getNodeValue();
                         int i = Integer.parseInt(params);
                         System.err.println("Found bitIndex = " + params);
-                    }
-                    catch (NumberFormatException e)
-                    {
+                    } catch (NumberFormatException e) {
                         throw new WCPSException("Invalid Number as bitIndex: " + params);
                     }
-				}
-				else
-				{
-					child = new CoverageExpr(c, xq);
-				}
+                } else {
+                    child = new CoverageExpr(c, xq);
+                }
 
-				c = c.getNextSibling();
-			}
-		}
-		else if (nodeName.equals("cast"))
-		{
-			operation = "cast";
-			Node c = node.getFirstChild();
+                c = c.getNextSibling();
+            }
+        } else if (nodeName.equals("cast")) {
+            operation = "cast";
+            Node c = node.getFirstChild();
 
-			while (c != null)
-			{
-				if (c.getNodeName().equals("#text"))
-				{
-					c = c.getNextSibling();
-					continue;
-				}
+            while (c != null) {
+                if (c.getNodeName().equals("#text")) {
+                    c = c.getNextSibling();
+                    continue;
+                }
 
-				if (c.getNodeName().equals("type"))
-				{
+                if (c.getNodeName().equals("type")) {
                     RangeField typeNode = new RangeField(c, xq);
-					params = typeNode.toRasQL();
-				}
-				else
-				{
-					child = new CoverageExpr(c, xq);
-				}
+                    params = typeNode.toRasQL();
+                } else {
+                    child = new CoverageExpr(c, xq);
+                }
 
-				c = c.getNextSibling();
-			}
-		}
-		else if (nodeName.equals("fieldSelect"))
-		{
-			operation = "select";
-			Node c = node.getFirstChild();
+                c = c.getNextSibling();
+            }
+        } else if (nodeName.equals("fieldSelect")) {
+            operation = "select";
+            Node c = node.getFirstChild();
 
-			while (c != null)
-			{
-				if (c.getNodeName().equals("#text"))
-				{
-					c = c.getNextSibling();
-					continue;
-				}
+            while (c != null) {
+                if (c.getNodeName().equals("#text")) {
+                    c = c.getNextSibling();
+                    continue;
+                }
 
-				if (c.getNodeName().equals("field"))
-				{
+                if (c.getNodeName().equals("field")) {
                     FieldName nameNode = new FieldName(c.getFirstChild(), xq);
-					params = nameNode.toRasQL();
-				}
-				else
-				{
-					child = new CoverageExpr(c, xq);
-				}
+                    params = nameNode.toRasQL();
+                } else {
+                    child = new CoverageExpr(c, xq);
+                }
 
-				c = c.getNextSibling();
-			}
-		}
-		else
-		{
-			throw new WCPSException("Unknown unary operation: " + nodeName);
-		}
+                c = c.getNextSibling();
+            }
+        } else {
+            throw new WCPSException("Unknown unary operation: " + nodeName);
+        }
 
-		info = new CoverageInfo(child.getCoverageInfo());
-	}
+        info = new CoverageInfo(child.getCoverageInfo());
+    }
 
-	public CoverageInfo getCoverageInfo()
-	{
-		return info;
-	}
+    public CoverageInfo getCoverageInfo() {
+        return info;
+    }
 
-	public String toRasQL()
-	{
-		if (operation.equals("sqrt") || operation.equals("abs") || operation.equals("exp")
-		    || operation.equals("log") || operation.equals("ln") || operation.equals("sin")
-		    || operation.equals("cos") || operation.equals("tan")
-		    || operation.equals("sinh") || operation.equals("cosh")
-		    || operation.equals("tanh") || operation.equals("arcsin")
-		    || operation.equals("arccos") || operation.equals("arctan")
-		    || operation.equals("not") || operation.equals("+") || operation.equals("-"))
-		{
-			return operation + "(" + child.toRasQL() + ")";
-		}
-		else if (operation.equals("cast"))
-		{
-			return "(" + params + ")(" + child.toRasQL() + ")";
-		}
-		else if (operation.equals("select"))
-		{
-			return "(" + child.toRasQL() + ")." + params;
-		}
-		else if (operation.equals("bit"))
-		{
-			return "bit(" + child.toRasQL() + "," + params + ")";
-		}
+    public String toRasQL() {
+        if (operation.equals("sqrt") || operation.equals("abs") || operation.equals("exp")
+                || operation.equals("log") || operation.equals("ln") || operation.equals("sin")
+                || operation.equals("cos") || operation.equals("tan")
+                || operation.equals("sinh") || operation.equals("cosh")
+                || operation.equals("tanh") || operation.equals("arcsin")
+                || operation.equals("arccos") || operation.equals("arctan")
+                || operation.equals("not") || operation.equals("+") || operation.equals("-")) {
+            return operation + "(" + child.toRasQL() + ")";
+        } else if (operation.equals("cast")) {
+            return "(" + params + ")(" + child.toRasQL() + ")";
+        } else if (operation.equals("select")) {
+            return "(" + child.toRasQL() + ")." + params;
+        } else if (operation.equals("bit")) {
+            return "bit(" + child.toRasQL() + "," + params + ")";
+        }
 
-		return " error ";
-	}
+        return " error ";
+    }
 }

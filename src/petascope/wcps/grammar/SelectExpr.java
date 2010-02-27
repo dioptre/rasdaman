@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,30 +26,27 @@ package petascope.wcps.grammar;
  * Creation date: (3/3/2003 2:28:43 AM)
  * @author: mattia parigiani, Sorin Stancu-Mara, Andrei Aiordachioaie
  */
-public class SelectExpr implements IParseTreeNode
-{
-	CoverageExpr coverageExpr;
-	String field;
+public class SelectExpr implements IParseTreeNode {
 
-	public SelectExpr(CoverageExpr ce, String se)
-	{
-		coverageExpr = ce;
-		field        = se;
-	}
+    CoverageExpr coverageExpr;
+    String field;
 
-    public SelectExpr(CoverageExpr ce, int no)
-    {
+    public SelectExpr(CoverageExpr ce, String se) {
+        coverageExpr = ce;
+        field = se;
+    }
+
+    public SelectExpr(CoverageExpr ce, int no) {
         coverageExpr = ce;
         field = String.valueOf(no);
     }
 
-	public String toXML()
-	{
-		String result = "<fieldSelect>";
+    public String toXML() {
+        String result = "<fieldSelect>";
 
-		result += coverageExpr.toXML();
-		result += "<field><name>" + field + "</name></field>";
-		result += "</fieldSelect>";
-		return result;
-	}
+        result += coverageExpr.toXML();
+        result += "<field><name>" + field + "</name></field>";
+        result += "</fieldSelect>";
+        return result;
+    }
 }

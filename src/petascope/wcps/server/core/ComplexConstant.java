@@ -19,135 +19,103 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
-public class ComplexConstant implements IRasNode
-{
+public class ComplexConstant implements IRasNode {
+
     private String re, im;
 
-    public ComplexConstant(String str) throws WCPSException
-    {
+    public ComplexConstant(String str) throws WCPSException {
         boolean ok = true;
         // We only accept the following String representation of a complex number: {re,im}
-        if (str.startsWith("{") && str.endsWith("}"))
-        {
-            str = str.substring(1,str.length()-2);
-            if (str.indexOf(",") != -1 && str.lastIndexOf(",") != str.indexOf(","))
-            {
+        if (str.startsWith("{") && str.endsWith("}")) {
+            str = str.substring(1, str.length() - 2);
+            if (str.indexOf(",") != -1 && str.lastIndexOf(",") != str.indexOf(",")) {
                 int comma = str.indexOf(",");
-                re = str.substring(0, comma-1);
-                im = str.substring(comma+1, str.length()-comma-1);
-            }
-            else
+                re = str.substring(0, comma - 1);
+                im = str.substring(comma + 1, str.length() - comma - 1);
+            } else {
                 ok = false;
-        }
-        else
+            }
+        } else {
             ok = false;
-        if (ok == false)
+        }
+        if (ok == false) {
             throw new WCPSException("Could not parse Complex Constant !");
+        }
 
         // parse the real part
-        try
-        {
+        try {
             Integer real = Integer.parseInt(re);
-        }
-        catch (NumberFormatException e)
-        {
-            try
-            {
+        } catch (NumberFormatException e) {
+            try {
                 Float real = Float.parseFloat(re);
-            }
-            catch (NumberFormatException e2)
-            {
-                throw new WCPSException("Could not parse float or integer " +
-                        "number for real part of complex number:" + re);
+            } catch (NumberFormatException e2) {
+                throw new WCPSException("Could not parse float or integer "
+                        + "number for real part of complex number:" + re);
             }
         }
         // parse the imaginary part
-        try
-        {
+        try {
             Integer imag = Integer.parseInt(im);
-        }
-        catch (NumberFormatException e)
-        {
-            try
-            {
+        } catch (NumberFormatException e) {
+            try {
                 Float imag = Float.parseFloat(im);
-            }
-            catch (NumberFormatException e2)
-            {
-                throw new WCPSException("Could not parse float or integer " +
-                        "number for imaginary part of complex number" + im);
+            } catch (NumberFormatException e2) {
+                throw new WCPSException("Could not parse float or integer "
+                        + "number for imaginary part of complex number" + im);
             }
         }
     }
 
-	public ComplexConstant(Node node, XmlQuery xq) throws WCPSException
-	{
+    public ComplexConstant(Node node, XmlQuery xq) throws WCPSException {
         System.err.println("Parsing complex constant: " + node.getNodeName());
 
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
 
-        while (node != null)
-        {
+        while (node != null) {
             String name = node.getNodeName();
-            if (name.equals("re"))
+            if (name.equals("re")) {
                 re = node.getNodeValue();
-            else
-            if (name.equals("im"))
+            } else if (name.equals("im")) {
                 im = node.getNodeValue();
-            else
+            } else {
                 throw new WCPSException("Unknown node while processing complex constant: " + name);
+            }
 
             node = node.getNextSibling();
         }
 
         // parse the real part
-        try
-        {
+        try {
             Integer real = Integer.parseInt(re);
-        }
-        catch (NumberFormatException e)
-        {
-            try
-            {
+        } catch (NumberFormatException e) {
+            try {
                 Float real = Float.parseFloat(re);
-            }
-            catch (NumberFormatException e2)
-            {
-                throw new WCPSException("Could not parse float or integer " +
-                        "number for real part of complex number:" + re);
+            } catch (NumberFormatException e2) {
+                throw new WCPSException("Could not parse float or integer "
+                        + "number for real part of complex number:" + re);
             }
         }
         // parse the imaginary part
-        try
-        {
+        try {
             Integer imag = Integer.parseInt(im);
-        }
-        catch (NumberFormatException e)
-        {
-            try
-            {
+        } catch (NumberFormatException e) {
+            try {
                 Float imag = Float.parseFloat(im);
-            }
-            catch (NumberFormatException e2)
-            {
-                throw new WCPSException("Could not parse float or integer " +
-                        "number for imaginary part of complex number" + im);
+            } catch (NumberFormatException e2) {
+                throw new WCPSException("Could not parse float or integer "
+                        + "number for imaginary part of complex number" + im);
             }
         }
-	}
+    }
 
-	public String toRasQL()
-	{
+    public String toRasQL() {
         return "complex ( " + re + ", " + im + " ) ";
-	}
+    }
 }

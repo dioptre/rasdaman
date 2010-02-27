@@ -19,53 +19,45 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
-
-public class StringScalarExpr implements IRasNode
-{
+public class StringScalarExpr implements IRasNode {
 
     private String op, string;
     private CoverageExpr cov;
-	public StringScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
-	{
-        while ((node != null) && (node.getNodeName().equals("#text")))
-        {
+
+    public StringScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException {
+        while ((node != null) && (node.getNodeName().equals("#text"))) {
             node = node.getNextSibling();
         }
 
         System.err.println("Parsing String Scalar expr : " + node.getNodeName());
 
-        if (node.getNodeName().equals("stringIdentifier"))
-        {
+        if (node.getNodeName().equals("stringIdentifier")) {
             Node child = node.getFirstChild();
             cov = new CoverageExpr(child, xq);
             op = "id";
-        }
-        else
-        if (node.getNodeName().equals("stringConstant"))
-        {
+        } else if (node.getNodeName().equals("stringConstant")) {
             op = "constant";
             string = node.getNodeValue();
-        }
-        else
+        } else {
             throw new WCPSException("Unknown String expr node: " + node.getNodeName());
-	}
+        }
+    }
 
-	public String toRasQL()
-	{
+    public String toRasQL() {
         String result = "";
-        if (op.equals("constant"))
+        if (op.equals("constant")) {
             result = string;
-        if (op.equals("id"))
+        }
+        if (op.equals("id")) {
             result = cov.toRasQL();
+        }
 
         return result;
-	}
+    }
 }

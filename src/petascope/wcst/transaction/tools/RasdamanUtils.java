@@ -19,12 +19,9 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcst.transaction.tools;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import org.odmg.DBag;
 import org.odmg.Database;
 import org.odmg.Implementation;
@@ -56,242 +53,147 @@ import petascope.wcs.server.exceptions.InternalComponentException;
  *
  * @author Andrei Aiordachioaie
  */
-public class RasdamanUtils
-{
-	Implementation myApp = null;
-	Database myDb = null;
-	Transaction myTa = null;
-	private String base;
-	private String server;
+public class RasdamanUtils {
 
-	/**
-	 * Simple constructor
-	 *
-	 * @param s server string
-	 * @param b database name
-	 */
-	public RasdamanUtils(String s, String b)
-	{
-		this.server = s;
-		this.base = b;
-	}
+    Implementation myApp = null;
+    Database myDb = null;
+    Transaction myTa = null;
+    private String base;
+    private String server;
 
-	public void log(String msg)
-	{
-		System.err.flush();
-		System.out.println("Rasdaman Utils: " + msg);
-		System.out.flush();
-	}
+    /**
+     * Simple constructor
+     *
+     * @param s server string
+     * @param b database name
+     */
+    public RasdamanUtils(String s, String b) {
+        this.server = s;
+        this.base = b;
+    }
 
-	/**
-	 * Opens a new connection to the Rasdaman server, and starts a new transaction.
-	 * @throws WCSException on connection error
-	 */
-	public void init() throws WCSException
-	{
-		try
-		{
-			if ( myApp == null )
-			{
-				myApp = new RasImplementation(server);
-			}
-			if ( myDb == null )
-			{
-				myDb = myApp.newDatabase();
-				log("Opening database...");
-				myDb.open(base, Database.OPEN_READ_WRITE);
-			}
-			if ( myTa == null )
-			{
-				log("Beginning new transaction ...");
-				myTa = myApp.newTransaction();
-				myTa.begin();
-			}
-		}
-		catch (ODMGException e)
-		{
-			throw new InternalComponentException("Could not connect to the Rasdaman server !", e);
-		}
-	}
+    public void log(String msg) {
+        System.err.flush();
+        System.out.println("Rasdaman Utils: " + msg);
+        System.out.flush();
+    }
 
-	public void commitAndClose() throws ODMGException
-	{
-		if ( myTa != null )
-		{
-			log("Commiting transaction ...");
-			myTa.commit();
-			myTa = null;
-		}
-		if ( myDb != null )
-		{
-			log("Closing database...");
-			myDb.close();
-			myDb = null;
-		}
-		log("Finished !");
-	}
+    /**
+     * Opens a new connection to the Rasdaman server, and starts a new transaction.
+     * @throws WCSException on connection error
+     */
+    public void init() throws WCSException {
+        try {
+            if (myApp == null) {
+                myApp = new RasImplementation(server);
+            }
+            if (myDb == null) {
+                myDb = myApp.newDatabase();
+                log("Opening database...");
+                myDb.open(base, Database.OPEN_READ_WRITE);
+            }
+            if (myTa == null) {
+                log("Beginning new transaction ...");
+                myTa = myApp.newTransaction();
+                myTa.begin();
+            }
+        } catch (ODMGException e) {
+            throw new InternalComponentException("Could not connect to the Rasdaman server !", e);
+        }
+    }
 
-	public void abortAndClose() throws ODMGException
-	{
-		if ( myTa != null )
-		{
-			log("Aborting transaction...");
-			myTa.abort();
-			myTa = null;
-		}
-		if ( myDb != null )
-		{
-			log("Closing database...");
-			myDb.close();
-			myDb = null;
-		}
-		log("Finished !");
-	}
+    public void commitAndClose() throws ODMGException {
+        if (myTa != null) {
+            log("Commiting transaction ...");
+            myTa.commit();
+            myTa = null;
+        }
+        if (myDb != null) {
+            log("Closing database...");
+            myDb.close();
+            myDb = null;
+        }
+        log("Finished !");
+    }
 
-	public BufferedImage loadCoverage(String name) throws Exception
-	{
-		init();
+    public void abortAndClose() throws ODMGException {
+        if (myTa != null) {
+            log("Aborting transaction...");
+            myTa.abort();
+            myTa = null;
+        }
+        if (myDb != null) {
+            log("Closing database...");
+            myDb.close();
+            myDb = null;
+        }
+        log("Finished !");
+    }
 
-		log("Running Load Coverage " + name + " query!");
-		OQLQuery myQu = myApp.newOQLQuery();
+    public BufferedImage loadCoverage(String name) throws Exception {
+        init();
 
-		myQu.create("select jpeg(" + name + ") from " + name);
-		DBag resultSet = (DBag) myQu.execute();
+        log("Running Load Coverage " + name + " query!");
+        OQLQuery myQu = myApp.newOQLQuery();
 
-		if ( resultSet != null )
-		{
-			log("Query successful !");
-			Iterator iter = resultSet.iterator();
+        myQu.create("select jpeg(" + name + ") from " + name);
+        DBag resultSet = (DBag) myQu.execute();
 
-			if ( iter.hasNext() )
-			{
-				RasGMArray result = (RasGMArray) iter.next();
-				byte[] ba = result.getArray();
-				ByteArrayInputStream bas = new ByteArrayInputStream(ba);
-				com.sun.image.codec.jpeg.JPEGImageDecoder decoder = com.sun.image.codec.jpeg
-					.JPEGCodec.createJPEGDecoder(bas);
-				BufferedImage bufImg = null;
+        if (resultSet != null) {
+            log("Query successful !");
+            Iterator iter = resultSet.iterator();
 
-				try
-				{
-					bufImg = decoder.decodeAsBufferedImage();
-				}
-				catch (Exception e)
-				{
-					System.err.println("Error decoding the image !!!");
-				}
+            if (iter.hasNext()) {
+                RasGMArray result = (RasGMArray) iter.next();
+                byte[] ba = result.getArray();
+                ByteArrayInputStream bas = new ByteArrayInputStream(ba);
+                com.sun.image.codec.jpeg.JPEGImageDecoder decoder = com.sun.image.codec.jpeg.JPEGCodec.createJPEGDecoder(bas);
+                BufferedImage bufImg = null;
 
-				commitAndClose();
+                try {
+                    bufImg = decoder.decodeAsBufferedImage();
+                } catch (Exception e) {
+                    System.err.println("Error decoding the image !!!");
+                }
 
-				return bufImg;
-			}
-		}
+                commitAndClose();
 
-		abortAndClose();
+                return bufImg;
+            }
+        }
 
-		return null;
-	}
+        abortAndClose();
 
-	public RasGMArray createMDD() throws RasResultIsNoIntervalException
-	{
-		// create 2-D MDD with cell length 1, i.e., type “byte”:
-		RasGMArray myMDD = new RasGMArray(new RasMInterval("[1:400,1:400]"), 1);
-		// byte container for array data, matching in size:
-		byte[] mydata = new byte[160000];
+        return null;
+    }
 
-		// initialize array as grid of gray and black stripes:
-		for (int y = 0; y < 400; y++)
-			for (int x = 0; x < 400; x++)
-				mydata[y * 399 + x] = (byte) ((y % 4) > 1
-											  ? 80
-											  : 0);
-		// now insert byte array into MDD object
-		// (sets only the pointer, no copying takes place!):
-		myMDD.setArray(mydata);
+    public RasGMArray createMDD() throws RasResultIsNoIntervalException {
+        // create 2-D MDD with cell length 1, i.e., type “byte”:
+        RasGMArray myMDD = new RasGMArray(new RasMInterval("[1:400,1:400]"), 1);
+        // byte container for array data, matching in size:
+        byte[] mydata = new byte[160000];
 
-		return myMDD;
-	}
+        // initialize array as grid of gray and black stripes:
+        for (int y = 0; y < 400; y++) {
+            for (int x = 0; x < 400; x++) {
+                mydata[y * 399 + x] = (byte) ((y % 4) > 1
+                        ? 80
+                        : 0);
+            }
+        }
+        // now insert byte array into MDD object
+        // (sets only the pointer, no copying takes place!):
+        myMDD.setArray(mydata);
 
-	public void insertGrayImageAsArray(String name) throws ODMGException
-	{
-		try
-		{
-			init();
+        return myMDD;
+    }
 
-			log("Creating grey image ...");
-			RasGMArray myMDD = createMDD();
-			// set up query object for collection creation:
-			OQLQuery myQu = myApp.newOQLQuery();
+    public void insertGrayImageAsArray(String name) throws ODMGException {
+        try {
+            init();
 
-			myQu.create("create collection " + name + " GreySet");
-			// set the object type name (used for server type checking):
-			myMDD.setObjectTypeName("GreyImage");
-			// finally, execute “create collection” statement:
-			log("Creating collection '" + name + "'");
-			myQu.execute();
-			// now create the insert statement:
-			myQu.create("insert into " + name + " values $1");
-			// let the server generate a new OID for the object to be
-			// inserted, and remember this OID locally:
-			String myNewOID = myApp.getObjectId(myMDD);
-
-			// bind the MDD value which substitutes formal parameter $1:
-			myQu.bind(myMDD);
-			// …and ship the complete statement to the server:
-			log("Inserting data into the collection");
-			myQu.execute();
-			log("Done !");
-
-			commitAndClose();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			abortAndClose();
-		}
-	}
-
-	public void updateGrayImageWithArray(String name, BufferedImage img, int x1, int y1, int x2,
-			int y2)
-	{
-		try
-		{
-			log("Building query for updating gray image ...");
-			RasGMArray myMDD = createMddFromImage(img);
-
-			myMDD.setObjectTypeName("GreyImage");
-			// set up query object for collection creation:
-			OQLQuery myQu = myApp.newOQLQuery();
-			// Where to insert new image
-			String interval = String.valueOf(x1) + ":" + String.valueOf(x2) + ","
-							  + String.valueOf(y1) + ":" + String.valueOf(y2);
-			// Size of new image
-			String interval2 = String.valueOf(0) + ":" + String.valueOf(x2 - x1) + ","
-							   + String.valueOf(0) + ":" + String.valueOf(y2 - y1);
-
-			myQu.create("update " + name + " AS c SET c[" + interval + "] "
-						+ "assign maaray x in [" + interval2 + "] values $1");
-			// let the server generate a new OID for the object to be
-			// inserted, and remember this OID locally:
-			String myNewOID = myApp.getObjectId(myMDD);
-
-			// bind the MDD value which substitutes formal parameter $1:
-			myQu.bind(myMDD);
-			// …and ship the complete statement to the server:
-			log("Updating image ...");
-			myQu.execute();
-			log("Done !");
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	public void insertGrayImageAsArray(String name, BufferedImage img) throws ODMGException, InternalComponentException
-	{
             log("Creating grey image ...");
-            RasGMArray myMDD = createMddFromImage(img);
+            RasGMArray myMDD = createMDD();
             // set up query object for collection creation:
             OQLQuery myQu = myApp.newOQLQuery();
 
@@ -313,215 +215,258 @@ public class RasdamanUtils
             log("Inserting data into the collection");
             myQu.execute();
             log("Done !");
-	}
 
-	public void insertColorImageAsArray(String name, BufferedImage img) throws ODMGException
-	{
-		try
-		{
-			log("Creating grey image ...");
-			RasGMArray myMDD = createMddFromImage(img);
-			// set up query object for collection creation:
-			OQLQuery myQu = myApp.newOQLQuery();
+            commitAndClose();
+        } catch (Exception e) {
+            e.printStackTrace();
+            abortAndClose();
+        }
+    }
 
-			myQu.create("create collection " + name + " RGBSet");
-			// set the object type name (used for server type checking):
-			myMDD.setObjectTypeName("RGBImage");
-			// finally, execute “create collection” statement:
-			log("Creating collection '" + name + "'");
-			myQu.execute();
-			// now create the insert statement:
-			myQu.create("insert into " + name + " values $1");
-			// let the server generate a new OID for the object to be
-			// inserted, and remember this OID locally:
-			String myNewOID = myApp.getObjectId(myMDD);
+    public void updateGrayImageWithArray(String name, BufferedImage img, int x1, int y1, int x2,
+            int y2) {
+        try {
+            log("Building query for updating gray image ...");
+            RasGMArray myMDD = createMddFromImage(img);
 
-			// bind the MDD value which substitutes formal parameter $1:
-			myQu.bind(myMDD);
-			// …and ship the complete statement to the server:
-			log("Inserting data into the collection");
-			myQu.execute();
-			log("Done !");
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+            myMDD.setObjectTypeName("GreyImage");
+            // set up query object for collection creation:
+            OQLQuery myQu = myApp.newOQLQuery();
+            // Where to insert new image
+            String interval = String.valueOf(x1) + ":" + String.valueOf(x2) + ","
+                    + String.valueOf(y1) + ":" + String.valueOf(y2);
+            // Size of new image
+            String interval2 = String.valueOf(0) + ":" + String.valueOf(x2 - x1) + ","
+                    + String.valueOf(0) + ":" + String.valueOf(y2 - y1);
 
-	public void insertImageAsJpeg(String name, byte[] img, int maxX, int maxY) throws ODMGException
-	{
-		try
-		{
-			init();
+            myQu.create("update " + name + " AS c SET c[" + interval + "] "
+                    + "assign maaray x in [" + interval2 + "] values $1");
+            // let the server generate a new OID for the object to be
+            // inserted, and remember this OID locally:
+            String myNewOID = myApp.getObjectId(myMDD);
 
-			log("Creating image from bytes ...");
-			RasGMArray myMDD = createRasArrayFromBytes(img, maxX, maxY);
-			// set up query object for collection creation:
-			OQLQuery myQu = myApp.newOQLQuery();
+            // bind the MDD value which substitutes formal parameter $1:
+            myQu.bind(myMDD);
+            // …and ship the complete statement to the server:
+            log("Updating image ...");
+            myQu.execute();
+            log("Done !");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-			myQu.create("create collection " + name + " GreySet");
-			// set the object type name (used for server type checking):
-			myMDD.setObjectTypeName("GreyImage");
-			// finally, execute “create collection” statement:
-			log("Creating collection '" + name + "'");
-			myQu.execute();
-			// now create the insert statement:
-			myQu.create("insert into " + name + " values inv_jpeg($1)");
-			// let the server generate a new OID for the object to be
-			// inserted, and remember this OID locally:
-			String myNewOID = myApp.getObjectId(myMDD);
+    public void insertGrayImageAsArray(String name, BufferedImage img) throws ODMGException, InternalComponentException {
+        log("Creating grey image ...");
+        RasGMArray myMDD = createMddFromImage(img);
+        // set up query object for collection creation:
+        OQLQuery myQu = myApp.newOQLQuery();
 
-			// bind the MDD value which substitutes formal parameter $1:
-			myQu.bind(myMDD);
-			// …and ship the complete statement to the server:
-			log("Inserting data into the collection");
-			myQu.execute();
-			log("Done !");
+        myQu.create("create collection " + name + " GreySet");
+        // set the object type name (used for server type checking):
+        myMDD.setObjectTypeName("GreyImage");
+        // finally, execute “create collection” statement:
+        log("Creating collection '" + name + "'");
+        myQu.execute();
+        // now create the insert statement:
+        myQu.create("insert into " + name + " values $1");
+        // let the server generate a new OID for the object to be
+        // inserted, and remember this OID locally:
+        String myNewOID = myApp.getObjectId(myMDD);
 
-			commitAndClose();
-		}
-		catch (Exception e)
-		{
-			System.out.flush();
-			e.printStackTrace();
-			System.err.flush();
-			abortAndClose();
-		}
-	}
+        // bind the MDD value which substitutes formal parameter $1:
+        myQu.bind(myMDD);
+        // …and ship the complete statement to the server:
+        log("Inserting data into the collection");
+        myQu.execute();
+        log("Done !");
+    }
 
-	private RasGMArray createRasArrayFromBytes(byte[] bytes, int maxX, int maxY)
-			throws RasResultIsNoIntervalException
-	{
-		// create 2-D MDD with cell length 1, i.e., type “byte”:
-		String strX = String.valueOf(maxX), strY = String.valueOf(maxY);
-		String interval = "[1:" + strX + "],1:" + strY + "]";
-		// FIXME: maybe change cell type?
-		int cellType = 1;
+    public void insertColorImageAsArray(String name, BufferedImage img) throws ODMGException {
+        try {
+            log("Creating grey image ...");
+            RasGMArray myMDD = createMddFromImage(img);
+            // set up query object for collection creation:
+            OQLQuery myQu = myApp.newOQLQuery();
 
-		// create the RasGMArray object
-		RasGMArray myMDD = new RasGMArray(new RasMInterval(interval), cellType);
+            myQu.create("create collection " + name + " RGBSet");
+            // set the object type name (used for server type checking):
+            myMDD.setObjectTypeName("RGBImage");
+            // finally, execute “create collection” statement:
+            log("Creating collection '" + name + "'");
+            myQu.execute();
+            // now create the insert statement:
+            myQu.create("insert into " + name + " values $1");
+            // let the server generate a new OID for the object to be
+            // inserted, and remember this OID locally:
+            String myNewOID = myApp.getObjectId(myMDD);
 
-		myMDD.setArray(bytes);
+            // bind the MDD value which substitutes formal parameter $1:
+            myQu.bind(myMDD);
+            // …and ship the complete statement to the server:
+            log("Inserting data into the collection");
+            myQu.execute();
+            log("Done !");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-		return myMDD;
-	}
+    public void insertImageAsJpeg(String name, byte[] img, int maxX, int maxY) throws ODMGException {
+        try {
+            init();
 
-	public void deleteCollection(String name)
-			throws ODMGException, ODMGException, ODMGException, Exception
-	{
-		try
-		{
+            log("Creating image from bytes ...");
+            RasGMArray myMDD = createRasArrayFromBytes(img, maxX, maxY);
+            // set up query object for collection creation:
+            OQLQuery myQu = myApp.newOQLQuery();
+
+            myQu.create("create collection " + name + " GreySet");
+            // set the object type name (used for server type checking):
+            myMDD.setObjectTypeName("GreyImage");
+            // finally, execute “create collection” statement:
+            log("Creating collection '" + name + "'");
+            myQu.execute();
+            // now create the insert statement:
+            myQu.create("insert into " + name + " values inv_jpeg($1)");
+            // let the server generate a new OID for the object to be
+            // inserted, and remember this OID locally:
+            String myNewOID = myApp.getObjectId(myMDD);
+
+            // bind the MDD value which substitutes formal parameter $1:
+            myQu.bind(myMDD);
+            // …and ship the complete statement to the server:
+            log("Inserting data into the collection");
+            myQu.execute();
+            log("Done !");
+
+            commitAndClose();
+        } catch (Exception e) {
+            System.out.flush();
+            e.printStackTrace();
+            System.err.flush();
+            abortAndClose();
+        }
+    }
+
+    private RasGMArray createRasArrayFromBytes(byte[] bytes, int maxX, int maxY)
+            throws RasResultIsNoIntervalException {
+        // create 2-D MDD with cell length 1, i.e., type “byte”:
+        String strX = String.valueOf(maxX), strY = String.valueOf(maxY);
+        String interval = "[1:" + strX + "],1:" + strY + "]";
+        // FIXME: maybe change cell type?
+        int cellType = 1;
+
+        // create the RasGMArray object
+        RasGMArray myMDD = new RasGMArray(new RasMInterval(interval), cellType);
+
+        myMDD.setArray(bytes);
+
+        return myMDD;
+    }
+
+    public void deleteCollection(String name)
+            throws ODMGException, ODMGException, ODMGException, Exception {
+        try {
 //          init();
 
-			log("Creating query...");
-			// set up query object for collection creation:
-			OQLQuery myQu = myApp.newOQLQuery();
+            log("Creating query...");
+            // set up query object for collection creation:
+            OQLQuery myQu = myApp.newOQLQuery();
 
-			myQu.create("drop collection " + name);
-			// finally, execute “create collection” statement:
-			log("Executing deletion query...");
-			myQu.execute();
-			// now create the insert statement:
-			log("Query finished !");
+            myQu.create("drop collection " + name);
+            // finally, execute “create collection” statement:
+            log("Executing deletion query...");
+            myQu.execute();
+            // now create the insert statement:
+            log("Query finished !");
 
 //          commitAndClose();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
 
-			throw e;
+            throw e;
 //          abortAndClose();
-		}
-	}
+        }
+    }
 
-	public void printAllCollections() throws ODMGException
-	{
-		String query = "select r from RAS_COLLECTIONNAMES as r";
+    public void printAllCollections() throws ODMGException {
+        String query = "select r from RAS_COLLECTIONNAMES as r";
 
 //      init();
 
-		log("Querying for all available collections ...");
-		OQLQuery myQu = myApp.newOQLQuery();
+        log("Querying for all available collections ...");
+        OQLQuery myQu = myApp.newOQLQuery();
 
-		myQu.create(query);
+        myQu.create(query);
 
-		DBag resultSet = (DBag) myQu.execute();
+        DBag resultSet = (DBag) myQu.execute();
 
-		if ( resultSet != null )
-		{
-			Iterator iter = resultSet.iterator();
+        if (resultSet != null) {
+            Iterator iter = resultSet.iterator();
 
-			while (iter.hasNext())
-			{
-				RasGMArray result = (RasGMArray) iter.next();
-				byte[] ba = result.getArray();
-				String name = new String(ba);
+            while (iter.hasNext()) {
+                RasGMArray result = (RasGMArray) iter.next();
+                byte[] ba = result.getArray();
+                String name = new String(ba);
 
-				if ( name.endsWith("\u0000") )
-				{
-					name = name.substring(0, name.length() - (new String("\u0000")).length());
-				}
+                if (name.endsWith("\u0000")) {
+                    name = name.substring(0, name.length() - (new String("\u0000")).length());
+                }
 
-				System.out.println("* " + name);
-			}
-		}
+                System.out.println("* " + name);
+            }
+        }
 
 //      commitAndClose();
-	}
+    }
 
-	public RasGMArray createMddFromImage(BufferedImage img) throws InternalComponentException
-	{
-            String interval = null;
-            try
-            {
-		int cols = img.getWidth();
-		int rows = img.getHeight();
-		// create 2-D MDD with cell length 1, i.e., type “byte”:
-		interval = "[1:" + cols + ",1:" + rows + "]";
-		int cellType = 1;
+    public RasGMArray createMddFromImage(BufferedImage img) throws InternalComponentException {
+        String interval = null;
+        try {
+            int cols = img.getWidth();
+            int rows = img.getHeight();
+            // create 2-D MDD with cell length 1, i.e., type “byte”:
+            interval = "[1:" + cols + ",1:" + rows + "]";
+            int cellType = 1;
 
-		// create the RasGMArray object
-		RasGMArray myMDD = new RasGMArray(new RasMInterval(interval), cellType);
-		DataBuffer db = img.getData().getDataBuffer();
-		byte[] bytes = new byte[cols * rows];
-                
+            // create the RasGMArray object
+            RasGMArray myMDD = new RasGMArray(new RasMInterval(interval), cellType);
+            DataBuffer db = img.getData().getDataBuffer();
+            byte[] bytes = new byte[cols * rows];
 
-		System.out.println("Processing image with size: " + interval);
-		System.out.println("Created vector with size: " + cols * rows);
-		System.out.println("Processing data with size: " + db.getSize());
-		int i = 0;
 
-		/*
-		 *  Java image data-types store an image as a 1-D array, reading the
-		 * image row-wise. Rasdaman stores the image column-wise. So we need to
-		 * convert between the two representations.
-		 */
-		for (int c = 0; c < cols; c++)
-			for (int r = 0; r < rows; r++)
-			{
-				bytes[i++] = (byte) db.getElem(r * cols + c);
-			}
-		myMDD.setArray(bytes);
+            System.out.println("Processing image with size: " + interval);
+            System.out.println("Created vector with size: " + cols * rows);
+            System.out.println("Processing data with size: " + db.getSize());
+            int i = 0;
 
-		return myMDD;
+            /*
+             *  Java image data-types store an image as a 1-D array, reading the
+             * image row-wise. Rasdaman stores the image column-wise. So we need to
+             * convert between the two representations.
+             */
+            for (int c = 0; c < cols; c++) {
+                for (int r = 0; r < rows; r++) {
+                    bytes[i++] = (byte) db.getElem(r * cols + c);
+                }
             }
-            catch (RasResultIsNoIntervalException e)
-            {
-                throw new InternalComponentException("Illegal Interval String: " + interval, e);
-            }
-	}
+            myMDD.setArray(bytes);
 
-	public BufferedImage convertImageToGray(BufferedImage img)
-	{
-		BufferedImage image = new BufferedImage(img.getWidth(), img.getHeight(),
-			BufferedImage.TYPE_BYTE_GRAY);
-		Graphics g = image.getGraphics();
+            return myMDD;
+        } catch (RasResultIsNoIntervalException e) {
+            throw new InternalComponentException("Illegal Interval String: " + interval, e);
+        }
+    }
 
-		g.drawImage(img, 0, 0, null);
-		g.dispose();
+    public BufferedImage convertImageToGray(BufferedImage img) {
+        BufferedImage image = new BufferedImage(img.getWidth(), img.getHeight(),
+                BufferedImage.TYPE_BYTE_GRAY);
+        Graphics g = image.getGraphics();
 
-		return image;
-	}
+        g.drawImage(img, 0, 0, null);
+        g.dispose();
+
+        return image;
+    }
 }

@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import org.slf4j.Logger;
@@ -30,12 +28,11 @@ import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 import petascope.wcs.server.exceptions.NoApplicableCodeException;
 
-public class DimensionIntervalElement implements IRasNode, ICoverageInfo
-{
-    Logger LOG = LoggerFactory.getLogger(DimensionIntervalElement.class);
+public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
 
+    Logger LOG = LoggerFactory.getLogger(DimensionIntervalElement.class);
     private IRasNode child;
-	private CoverageInfo info = null;
+    private CoverageInfo info = null;
     private AxisName axis;
     private Crs crs;
     private ScalarExpr domain1, domain2;  // lower and upper bound, or "DomainMetadataExprType" and null
@@ -53,12 +50,10 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
      * @param covInfo CoverageInfo object about the Trim parent object
      * @throws WCPSException
      */
-	public DimensionIntervalElement(Node node, XmlQuery xq, CoverageInfo covInfo)
-	    throws WCPSException, InvalidCrsException
-	{
+    public DimensionIntervalElement(Node node, XmlQuery xq, CoverageInfo covInfo)
+            throws WCPSException, InvalidCrsException {
 
-        if (covInfo.getCoverageName() != null)
-        {
+        if (covInfo.getCoverageName() != null) {
             // Add WGS84 CRS information from coverage metadata, may be useful
             // for converting geo-coordinates to pixel-coordinates
             String coverageName = covInfo.getCoverageName();
@@ -68,50 +63,42 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
         System.err.println("Trying to parse DimensionIntervalElement expression...");
         String name;
 
-        while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
 
-        while (node != null && finished == false)
-        {
-            if (node.getNodeName().equals("#text"))
-			{
-				node = node.getNextSibling();
-				continue;
-			}
+        while (node != null && finished == false) {
+            if (node.getNodeName().equals("#text")) {
+                node = node.getNextSibling();
+                continue;
+            }
 
             name = node.getNodeName();
             System.err.println("Current node is " + name);
 
             // Try Axis
-            try
-            {
+            try {
                 axis = new AxisName(node, xq);
                 node = node.getNextSibling();
                 continue;
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to parse an axis!");
             }
 
             // Try CRS name
-            try
-            {
+            try {
                 crs = new Crs(node, xq);
                 node = node.getNextSibling();
-                if (axis == null)
+                if (axis == null) {
                     throw new WCPSException("Expected Axis node before CRS !");
+                }
                 continue;
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("Failed to parse a crs!");
             }
 
             // TODO: how to implement DomainMetadataExpr ?
-            
+
 //            // Try last thing
 //            try
 //            {
@@ -125,122 +112,110 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo
 //            }
 
             // Then it must be a pair of nodes "lowerBound" + "upperBound"
-            if (node.getNodeName().equals("lowerBound"))
-            {
+            if (node.getNodeName().equals("lowerBound")) {
                 counter = 2;
                 domain1 = new ScalarExpr(node.getFirstChild(), xq);
-                if (axis == null)
+                if (axis == null) {
                     throw new WCPSException("Expected <axis> node before <lowerBound> !");
-            }
-            else
-            if (node.getNodeName().equals("upperBound"))
-            {
+                }
+            } else if (node.getNodeName().equals("upperBound")) {
                 counter = 2;
                 domain2 = new ScalarExpr(node.getFirstChild(), xq);
-                if (axis == null)
+                if (axis == null) {
                     throw new WCPSException("Expected <lowerBound> node before <upperBound> !");
-            }
-            else
+                }
+            } else {
                 throw new WCPSException("Unexpected node: " + node.getFirstChild().getNodeName());
+            }
 
-            if (axis != null && counter == 1 && domain1 != null)
+            if (axis != null && counter == 1 && domain1 != null) {
                 finished = true;
-            if (axis != null && counter == 2 && domain1 != null && domain2 != null)
+            }
+            if (axis != null && counter == 2 && domain1 != null && domain2 != null) {
                 finished = true;
+            }
 
-            if (finished == true)
+            if (finished == true) {
                 nextNode = node.getNextSibling();
+            }
 
             node = node.getNextSibling();
         }
 
-        if (finished == true)
+        if (finished == true) {
             convertToPixelCoordinates();
-	}
+        }
+    }
 
 
     /* If input coordinates are geo-, convert them to pixel coordinates. */
-    private void convertToPixelCoordinates()
-    {
-        if (meta.getCrs() == null && crs != null && crs.getName().equals(DomainElement.WGS84_CRS))
-        {
-            throw new RuntimeException("Coverage '" + meta.getCoverageName() +
-                    "' is not georeferenced with 'EPSG:4326' coordinate system.");
+    private void convertToPixelCoordinates() {
+        if (meta.getCrs() == null && crs != null && crs.getName().equals(DomainElement.WGS84_CRS)) {
+            throw new RuntimeException("Coverage '" + meta.getCoverageName()
+                    + "' is not georeferenced with 'EPSG:4326' coordinate system.");
         }
-        if (counter == 2 && crs != null && domain1.isSingleValue() && domain2.isSingleValue())
-        {
-            if (crs.getName().equals(DomainElement.WGS84_CRS))
-            {
+        if (counter == 2 && crs != null && domain1.isSingleValue() && domain2.isSingleValue()) {
+            if (crs.getName().equals(DomainElement.WGS84_CRS)) {
                 LOG.debug("CRS is '{}' and should be equal to '{}'", crs.getName(), DomainElement.WGS84_CRS);
-                try
-                {
+                try {
                     this.transformedCoordinates = true;
                     // Convert to pixel coordinates
                     Double val1 = domain1.getSingleValue();
                     Double val2 = domain2.getSingleValue();
                     String axisName = axis.toRasQL().toUpperCase();
-                    if (axisName.equals("X"))
-                    {
+                    if (axisName.equals("X")) {
                         long[] pCoord = crs.convertToPixelCoordinates(meta, "X", val1, val2, null, null);
                         coord1 = pCoord[0];
                         coord2 = pCoord[1];
                     }
-                    if (axisName.equals("Y"))
-                    {
+                    if (axisName.equals("Y")) {
                         long[] pCoord = crs.convertToPixelCoordinates(meta, "Y", null, null, val1, val2);
                         coord1 = pCoord[2];
                         coord2 = pCoord[3];
                     }
-                }
-                catch (NoApplicableCodeException e)
-                {
+                } catch (NoApplicableCodeException e) {
                     this.transformedCoordinates = false;
-                    LOG.error("Error while transforming geo-coordinates to pixel coordinates." +
-                            "The metadata is probably not valid.");
+                    LOG.error("Error while transforming geo-coordinates to pixel coordinates."
+                            + "The metadata is probably not valid.");
                 }
             }
         }
     }
 
     /* Not used */
-	public String toRasQL()
-	{
-		return "<DimensionIntervalElement Not Converted to RasQL>";
-	}
+    public String toRasQL() {
+        return "<DimensionIntervalElement Not Converted to RasQL>";
+    }
 
-	public CoverageInfo getCoverageInfo()
-	{
-		return info;
-	}
+    public CoverageInfo getCoverageInfo() {
+        return info;
+    }
 
-    public Node getNextNode()
-    {
+    public Node getNextNode() {
         return nextNode;
     }
 
-    public String getAxisName()
-    {
+    public String getAxisName() {
         return this.axis.toRasQL();
     }
 
-    public String getAxisCoords()
-    {
+    public String getAxisCoords() {
         return this.domain1.toRasQL() + " : " + this.domain2.toRasQL();
     }
 
-    public String getLowCoord()
-    {
-        if (transformedCoordinates)
+    public String getLowCoord() {
+        if (transformedCoordinates) {
             return String.valueOf(coord1);
-        else
+        } else {
             return this.domain1.toRasQL();
+        }
     }
 
-    public String getHighCoord()
-    {
-        if (transformedCoordinates)
+    public String getHighCoord() {
+        if (transformedCoordinates) {
             return String.valueOf(coord2);
-        else
+        } else {
             return this.domain2.toRasQL();
+        }
     }
 }

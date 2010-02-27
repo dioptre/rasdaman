@@ -19,7 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
 package petascope.wcst.transaction;
 
 /** Firewall class for WCS-T. It's job is to detect malitious queries and reject them.
@@ -27,8 +26,8 @@ package petascope.wcst.transaction;
  * 
  * @author Andrei Aiordachioaie
  */
-public class ServiceFirewall
-{
+public class ServiceFirewall {
+
     private static long lastQueryTime = 0;
     /* Queries should not occur more often than this period (in seconds) */
     private static final double MIN_QUERY_PERIOD = 10;
@@ -38,16 +37,16 @@ public class ServiceFirewall
      * @param query Query string
      * @return boolean 
      */
-    public static boolean reject(String query)
-    {
+    public static boolean reject(String query) {
         boolean result = true;
-        
+
         /* Check query period */
         long currentTime = System.currentTimeMillis();
-        if (((currentTime - lastQueryTime) / 1000) >= MIN_QUERY_PERIOD)
+        if (((currentTime - lastQueryTime) / 1000) >= MIN_QUERY_PERIOD) {
             result = false;
+        }
         lastQueryTime = currentTime;
-        
+
         return result;
     }
 }

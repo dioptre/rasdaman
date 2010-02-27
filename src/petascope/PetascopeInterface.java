@@ -75,28 +75,24 @@ import petascope.wcs2.server.Wcs2Server;
 import petascope.wcs2.server.templates.WcsNamespaceContext;
 import petascope.wcst.server.WcstServer;
 
-
 /** This servlet is a unified entry-point for all the PetaScope services.
  *
  * @author Andrei Aiordachioaie
  */
-public class PetascopeInterface extends HttpServlet
-{
-    private static Logger LOG = LoggerFactory.getLogger(PetascopeInterface.class);
+public class PetascopeInterface extends HttpServlet {
 
-	private DbMetadataSource metadataSource;
+    private static Logger LOG = LoggerFactory.getLogger(PetascopeInterface.class);
+    private DbMetadataSource metadataSource;
 
     /* Xml documents utils */
     DocumentBuilder builder = null;
-	XPathFactory xpathFactory = XPathFactory.newInstance();
-	
+    XPathFactory xpathFactory = XPathFactory.newInstance();
     /* Path to the settings file, in the web archive */
     private String relativeSettingsPath = "/settings.properties";
     // path to the default HTML response of the interface servlet
     private String usageFilePath = "/templates/interface-servlet.html";
     // String containing the HTML code for the default response
     private String usageMessage;
-    
     /* Instance of WcsServer-T service */
     private WcstServer wcst;
     /* Instance of WCPS service */
@@ -107,8 +103,7 @@ public class PetascopeInterface extends HttpServlet
 
     /* Initialize the various services: WCPS, WcsServer and WcsServer-T */
     @Override
-    public void init() throws ServletException
-    {
+    public void init() throws ServletException {
 
         LOG.info("-----------------------------------------------");
         LOG.info("              PetaScope {} starting ...", ConfigManager.PETASCOPE_VERSION);
@@ -123,94 +118,74 @@ public class PetascopeInterface extends HttpServlet
 
 
         // Read servlet HTML usage message from disk
-        try
-        {
+        try {
             usageFilePath = getServletContext().getRealPath(usageFilePath);
             usageMessage = FileUtils.readFileToString(new File(usageFilePath));
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             LOG.error("Could not read default servlet HTML response. Stack trace: {}", e);
             throw new ServletException("Could not read interface servlet HTML response", e);
         }
 
         /* Initialize WCPS Service */
-        try
-        {
+        try {
             LOG.info("WCPS: initializing metadata database");
-			metadataSource =
-				new DbMetadataSource(ConfigManager.METADATA_DRIVER,
-						     ConfigManager.METADATA_URL,
-						     ConfigManager.METADATA_USER,
-						     ConfigManager.METADATA_PASS, false);
+            metadataSource =
+                    new DbMetadataSource(ConfigManager.METADATA_DRIVER,
+                    ConfigManager.METADATA_URL,
+                    ConfigManager.METADATA_USER,
+                    ConfigManager.METADATA_PASS, false);
 
-			LOG.debug("WCPS: initializing WCPS core");
-			wcps = new WCPS(metadataSource);
+            LOG.debug("WCPS: initializing WCPS core");
+            wcps = new WCPS(metadataSource);
 
-			LOG.info("WCPS: initialization complete");
-        }
-        catch (ParserConfigurationException e)
-        {
+            LOG.info("WCPS: initialization complete");
+        } catch (ParserConfigurationException e) {
+            LOG.error("Stack trace: {}", e);
+            throw new ServletException("Fatal: WCPS initialization error", e);
+        } catch (WCPSException e) {
             LOG.error("Stack trace: {}", e);
             throw new ServletException("Fatal: WCPS initialization error", e);
         }
-        catch (WCPSException e)
-        {
-            LOG.error("Stack trace: {}", e);
-            throw new ServletException("Fatal: WCPS initialization error", e);
-        }
-        
+
         /* Initialize WCS Service */
-        try
-        {
+        try {
             LOG.info("WCS Initialization ...");
             wcs = new WcsServer(settingsPath, metadataSource);
             LOG.info("WCS: Initialization complete.");
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             LOG.error("Stack trace: {}", e);
             throw new ServletException("Fatal: WCS initialization error", e);
         }
 
         /* Initialize WCS 2.0 Service */
-        try
-        {
+        try {
             LOG.info("WCS 2.0 Initialization ...");
             wcs2 = new Wcs2Server(settingsPath, metadataSource);
             LOG.info("WCS 2.0: Initialization complete.");
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             LOG.error("Stack trace: {}", e);
             throw new ServletException("Fatal: WCS 2.0 initialization error", e);
         }
 
         /* Initialize WCS-T Service */
-        try
-        {
+        try {
             LOG.info("WCS-T: Initializing ...");
             wcst = new WcstServer(metadataSource);
             LOG.info("WCS-T: Initialization complete.");
-        }
-        catch (WCSException e)
-        {
+        } catch (WCSException e) {
             LOG.error("Stack trace: {}", e);
             throw new ServletException("Fatal: WCS-T initialization error", e);
         }
 
         /* Initialize XML parsing for request redirection */
-        try
-		{
+        try {
             DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
             domFactory.setNamespaceAware(true);		// never forget this!
-			builder = domFactory.newDocumentBuilder();
-		}
-		catch (Exception e)
-		{
+            builder = domFactory.newDocumentBuilder();
+        } catch (Exception e) {
             LOG.error("Stack trace: {}", e);
-			throw new ServletException("Fatal: Error initializing XML parser", e);
-		}
+            throw new ServletException("Fatal: Error initializing XML parser", e);
+        }
 
         LOG.info("-----------------------------------------------");
         LOG.info("        PetaScope {} successfully started         ", ConfigManager.PETASCOPE_VERSION);
@@ -218,22 +193,20 @@ public class PetascopeInterface extends HttpServlet
     }
 
     /* Build a dictionary of parameter names and values, given a request string */
-    private Map<String,String> buildParameterDictionary(String request)
-    {
-        HashMap<String,String> map = new HashMap<String,String>(3);
-        if (request == null)
+    private Map<String, String> buildParameterDictionary(String request) {
+        HashMap<String, String> map = new HashMap<String, String>(3);
+        if (request == null) {
             return map;
+        }
 
         String[] pairs = request.split("&");
         String key = null, val = null;
         int pos = -1;
-        for (int i=0; i < pairs.length; i++)
-        {
+        for (int i = 0; i < pairs.length; i++) {
             pos = pairs[i].indexOf("=");
-            if (pos != -1)
-            {
+            if (pos != -1) {
                 key = pairs[i].substring(0, pos);
-                val = pairs[i].substring(pos+1, pairs[i].length());
+                val = pairs[i].substring(pos + 1, pairs[i].length());
                 map.put(key, val);
             }
         }
@@ -242,84 +215,84 @@ public class PetascopeInterface extends HttpServlet
     }
 
     /* URL-decode a string, if needed */
-    private String urldecode(String encodedText, String contentType) throws UnsupportedEncodingException
-    {
-        if (encodedText == null)
+    private String urldecode(String encodedText, String contentType) throws UnsupportedEncodingException {
+        if (encodedText == null) {
             return null;
+        }
         String decoded = encodedText;
-        if (contentType != null && contentType.equals("application/x-www-form-urlencoded"))
+        if (contentType != null && contentType.equals("application/x-www-form-urlencoded")) {
             decoded = URLDecoder.decode(encodedText, "UTF-8");
+        }
         return decoded;
     }
 
     /* Respond to Post requests just like in the case of Get requests */
     @Override
-    public void doPost(HttpServletRequest httpRequest, HttpServletResponse httpResponse)
-    {
+    public void doPost(HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         /* Init the Petascope URL automatically, for GetCapabilities response */
-        if (ConfigManager.PETASCOPE_SERVLET_URL == null)
+        if (ConfigManager.PETASCOPE_SERVLET_URL == null) {
             ConfigManager.PETASCOPE_SERVLET_URL = httpRequest.getRequestURL().toString();
+        }
         /* Treat POST requests just like GET requests */
         doGet(httpRequest, httpResponse);
     }
 
     /* Handle Get requests. This function delegates the request to the service
-     specified in the request by the "service" parameter. */
+    specified in the request by the "service" parameter. */
     @Override
-    public void doGet(HttpServletRequest httpRequest, HttpServletResponse httpResponse)
-    {
+    public void doGet(HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         String request = null, requestBody = null;
-        
+
         /* Init the Petascope URL automatically, for GetCapabilities response */
-        if (ConfigManager.PETASCOPE_SERVLET_URL == null)
+        if (ConfigManager.PETASCOPE_SERVLET_URL == null) {
             ConfigManager.PETASCOPE_SERVLET_URL = httpRequest.getRequestURL().toString();
+        }
 
         /* List all available coverages, to make sure metadata is available */
-        try {LOG.debug("PetaScope coverages: " + metadataSource.coverages());}
-        catch (ResourceException e){}
+        try {
+            LOG.debug("PetaScope coverages: " + metadataSource.coverages());
+        } catch (ResourceException e) {
+        }
 
         /* Process the request */
 
-        try
-        {
-            try
-            {
+        try {
+            try {
                 requestBody = IOUtils.toString(httpRequest.getReader());
                 LOG.trace("POST Request length: " + httpRequest.getContentLength());
-                LOG.trace("POST request body: \n------START REQUEST--------\n" +
-                        requestBody + "\n------END REQUEST------\n");
+                LOG.trace("POST request body: \n------START REQUEST--------\n"
+                        + requestBody + "\n------END REQUEST------\n");
 
-                Map<String,String> params = buildParameterDictionary(requestBody);
+                Map<String, String> params = buildParameterDictionary(requestBody);
                 LOG.trace("Request parameters: {}", params);
                 request = urldecode(params.get("request"), httpRequest.getContentType());
 
                 // Quick hack to preserve compatibility with previous client versions
                 // (GET requests with parameter "query")
                 String request2 = null;
-                if (params.containsKey("query"))
+                if (params.containsKey("query")) {
                     request2 = params.get("query");
-                else
+                } else {
                     request2 = httpRequest.getParameter("query");
-                if (request2 != null)
-                {
+                }
+                if (request2 != null) {
                     LOG.debug("Received Abstract Syntax Request via GET: \n\t\t{}", request2);
                     request2 = ProcessCoveragesRequest.abstractQueryToXmlQuery(request2);
                 }
-                if (request == null && request2 != null)
+                if (request == null && request2 != null) {
                     request = request2;
+                }
 
                 // Empty request ? 
-                if (request == null && (requestBody == null || requestBody.length() == 0))
-                {
+                if (request == null && (requestBody == null || requestBody.length() == 0)) {
                     printUsage(httpResponse, request);
                     return;
                 }
 
                 // No parameters, just XML in the request body
-                if (request == null && requestBody != null && requestBody.length() > 0)
-                {
+                if (request == null && requestBody != null && requestBody.length() > 0) {
                     request = urldecode(requestBody, httpRequest.getContentType());
-                    
+
 //                    if (request.matches(" *<.*") == false)
 //                    {
 //                        handleUnknownRequest(request, httpResponse);
@@ -327,8 +300,8 @@ public class PetascopeInterface extends HttpServlet
 //                    }
                 }
 
-                LOG.debug("Petascope Request: \n------START REQUEST--------\n" +
-                        request + "\n------END REQUEST------\n");
+                LOG.debug("Petascope Request: \n------START REQUEST--------\n"
+                        + request + "\n------END REQUEST------\n");
 
                 Document doc = builder.parse(IOUtils.toInputStream(request));
                 Element rootElem = doc.getDocumentElement();
@@ -336,93 +309,64 @@ public class PetascopeInterface extends HttpServlet
                 LOG.debug("Root Element name: {}", root);
 
                 String version = "1.1.0";
-                try
-                {
+                try {
                     XPath xpath = xpathFactory.newXPath();
                     xpath.setNamespaceContext(new WcsNamespaceContext());
                     String query = "/*/@version";
                     version = (String) xpath.evaluate(query, doc, XPathConstants.STRING);
-                }
-                catch  (XPathExpressionException e)
-                {
+                } catch (XPathExpressionException e) {
                     LOG.warn("The root XML node has no attribute called \"version\"");
                 }
 
 
                 /* The next request types are defined in the WcsServer standard, and
-                 are common to all the PetaScope services. */
-                if (root.endsWith("GetCapabilities"))
-                {
-                    if (version.startsWith("2"))
+                are common to all the PetaScope services. */
+                if (root.endsWith("GetCapabilities")) {
+                    if (version.startsWith("2")) {
                         handleGetCapabilities2(request, httpResponse);
-                    else
+                    } else {
                         handleGetCapabilities(request, httpResponse);
-                }
-                else
-                if (root.endsWith("DescribeCoverage") )
-                {
-                    if (version.startsWith("2"))
+                    }
+                } else if (root.endsWith("DescribeCoverage")) {
+                    if (version.startsWith("2")) {
                         handleDescribeCoverage2(request, httpResponse);
-                    else
+                    } else {
                         handleDescribeCoverage(request, httpResponse);
-                }
-                else
-
-                if (root.endsWith("GetCoverage"))
-                {
-                    if (version.startsWith("2"))
+                    }
+                } else if (root.endsWith("GetCoverage")) {
+                    if (version.startsWith("2")) {
                         handleGetCoverage2(request, httpResponse);
-                    else
+                    } else {
                         handleGetCoverage(request, httpResponse);
-                }
-                else
-
-                /* ProcessCoverages is defined in the WCPS extension to WcsServer */
-                if (root.endsWith("ProcessCoveragesRequest"))
+                    }
+                } else /* ProcessCoverages is defined in the WCPS extension to WcsServer */ if (root.endsWith("ProcessCoveragesRequest")) {
                     handleProcessCoverages(request, httpResponse);
-                else
-
-                /* Transaction is defined in the WcsServer-T extension to WcsServer */
-                if (root.endsWith("Transaction"))
+                } else /* Transaction is defined in the WcsServer-T extension to WcsServer */ if (root.endsWith("Transaction")) {
                     handleTransaction(request, httpResponse);
-                else
-
-                /* Print Error Message */
+                } else /* Print Error Message */ {
                     handleUnknownRequest(request, httpResponse);
-            }
-            catch (IOException e)
-            {
+                }
+            } catch (IOException e) {
                 throw new ServletConnectionException(e.getMessage(), e);
-            }
-            catch (RecognitionException e)
-            {
+            } catch (RecognitionException e) {
                 throw new InvalidRequestException(e.getMessage(), e);
-            }
-            catch (SAXException e)
-            {
+            } catch (SAXException e) {
                 throw new InvalidRequestException(e.getMessage(), e);
-            }
-            catch (WCSException e)
-            {
+            } catch (WCSException e) {
                 throw e;
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 // Finally, cast all other exceptions into a WCSException
                 LOG.error("Runtime error : {}", e.getMessage());
                 throw new WcsRuntimeException(e.getMessage(), e);
             }
-        }
-        // And catch all WCSExceptions, to display to the client
-        catch (WCSException e)
-        {
+        } // And catch all WCSExceptions, to display to the client
+        catch (WCSException e) {
             printError(httpResponse, request, e);
         }
     }
 
     private void printUsage(HttpServletResponse httpResponse,
-            String request) throws IOException
-    {
+            String request) throws IOException {
         PrintWriter out = httpResponse.getWriter();
         httpResponse.setContentType("text/html");
         out.write(usageMessage);
@@ -430,37 +374,30 @@ public class PetascopeInterface extends HttpServlet
     }
 
     private void printError(HttpServletResponse response,
-            String message, Exception e)
-    {
+            String message, Exception e) {
         PrintWriter out;
-        try
-        {
+        try {
             out = new PrintWriter(response.getOutputStream());
-        }
-        catch (IOException e1)
-        {
+        } catch (IOException e1) {
             LOG.error("Could not print exception because of IO error. Stack trace:", e1);
             return;
         }
-        
+
         LOG.error("Error stack trace:", e);
-        if (e instanceof WCSException)
-        {
+        if (e instanceof WCSException) {
             // We can send an error report
             String output = exceptionToXml((WCSException) e);
             response.setContentType("text/xml; charset=utf-8");
             out.println(output);
             out.close();
-        }
-        else
-        {
+        } else {
             LOG.trace("setting response mimetype to text/html; charset=utf-8");
             response.setContentType("text/html; charset=utf-8");
             LOG.trace("returning the following error message.", e);
             LOG.trace("end of error message");
 
             out.println(
-                "<html><head><title>PetaScope</title></head><body>");
+                    "<html><head><title>PetaScope</title></head><body>");
             out.println("<h1>An error has occured</h1>");
             out.println("<p>" + message + "</p>");
             out.println("<p>Stack trace:<br/><small>");
@@ -469,21 +406,18 @@ public class PetascopeInterface extends HttpServlet
             out.close();
             LOG.trace("done with error");
         }
-		
+
     }
-    
-    private void handleUnknownRequest(String request, HttpServletResponse httpResponse)
-    {
+
+    private void handleUnknownRequest(String request, HttpServletResponse httpResponse) {
         request = "'" + request + "'";
         WCSException e = new NoApplicableCodeException("Could not understand request " + request);
         printError(httpResponse, request, e);
     }
 
-    private String exceptionReportToXml(ExceptionReport report)
-    {
+    private String exceptionReportToXml(ExceptionReport report) {
         String output = null;
-        try
-        {
+        try {
             javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(report.getClass().getPackage().getName());
             javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
             marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
@@ -496,17 +430,14 @@ public class PetascopeInterface extends HttpServlet
             output = strWriter.toString();
             System.err.println(output);
             LOG.debug("Done marshalling Error Report.");
-        }
-        catch (JAXBException e2)
-        {
+        } catch (JAXBException e2) {
             LOG.error("Stack trace: {}", e2);
             LOG.error("Error stack trace: " + e2);
         }
         return output;
     }
 
-    private String exceptionToXml(WCSException e)
-    {
+    private String exceptionToXml(WCSException e) {
         return exceptionReportToXml(e.getReport());
     }
 
@@ -516,20 +447,16 @@ public class PetascopeInterface extends HttpServlet
      * @param httpResponse
      * @throws WCSException
      */
-    private void handleGetCapabilities(String request, HttpServletResponse httpResponse) throws WCSException
-    {
+    private void handleGetCapabilities(String request, HttpServletResponse httpResponse) throws WCSException {
         String output = wcs.GetCapabilities(request);
         PrintWriter out;
-        try
-        {
+        try {
             out = httpResponse.getWriter();
             httpResponse.setContentType("text/xml; charset=utf-8");
             out.write(output);
             out.flush();
             out.close();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new InputOutputException(e.getMessage(), e);
         }
     }
@@ -540,20 +467,16 @@ public class PetascopeInterface extends HttpServlet
      * @param httpResponse
      * @throws WCSException
      */
-    private void handleGetCapabilities2(String request, HttpServletResponse httpResponse) throws WCSException
-    {
+    private void handleGetCapabilities2(String request, HttpServletResponse httpResponse) throws WCSException {
         String output = wcs2.GetCapabilities(request);
         PrintWriter out;
-        try
-        {
+        try {
             out = httpResponse.getWriter();
             httpResponse.setContentType("text/xml; charset=utf-8");
             out.write(output);
             out.flush();
             out.close();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new InputOutputException(e.getMessage(), e);
         }
     }
@@ -564,20 +487,16 @@ public class PetascopeInterface extends HttpServlet
      * @param httpResponse
      * @throws WCSException
      */
-    private void handleDescribeCoverage(String request, HttpServletResponse httpResponse) throws WCSException
-    {
+    private void handleDescribeCoverage(String request, HttpServletResponse httpResponse) throws WCSException {
         String output = wcs.DescribeCoverage(request);
         PrintWriter out;
-        try
-        {
+        try {
             out = httpResponse.getWriter();
             httpResponse.setContentType("text/xml; charset=utf-8");
             out.write(output);
             out.flush();
             out.close();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new InputOutputException(e.getMessage(), e);
         }
     }
@@ -588,143 +507,112 @@ public class PetascopeInterface extends HttpServlet
      * @param httpResponse
      * @throws WCSException
      */
-    private void handleDescribeCoverage2(String request, HttpServletResponse httpResponse) throws WCSException
-    {
+    private void handleDescribeCoverage2(String request, HttpServletResponse httpResponse) throws WCSException {
         String output = wcs2.DescribeCoverage(request);
         PrintWriter out;
-        try
-        {
+        try {
             out = httpResponse.getWriter();
             httpResponse.setContentType("text/xml; charset=utf-8");
             out.write(output);
             out.flush();
             out.close();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new InputOutputException(e.getMessage(), e);
         }
     }
 
-    private void handleGetCoverage(String request, HttpServletResponse httpResponse) throws WCSException, InvalidCrsException
-    {
+    private void handleGetCoverage(String request, HttpServletResponse httpResponse) throws WCSException, InvalidCrsException {
         String xmlRequest = wcs.GetCoverage(request, wcps);
         LOG.debug("Received GetCoverage Request: \n{}", xmlRequest);
         // Redirect the request to WCPS
         handleProcessCoverages(xmlRequest, httpResponse);
     }
 
-    private void handleGetCoverage2(String request, HttpServletResponse httpResponse) throws WCSException
-    {
+    private void handleGetCoverage2(String request, HttpServletResponse httpResponse) throws WCSException {
         String output = wcs2.GetCoverage(request);
         PrintWriter out;
-        try
-        {
+        try {
             out = httpResponse.getWriter();
             httpResponse.setContentType("text/xml; charset=utf-8");
             out.write(output);
             out.flush();
             out.close();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new InputOutputException(e.getMessage(), e);
         }
     }
 
-    private void handleProcessCoverages(String xmlRequest, HttpServletResponse response) throws WCSException, InvalidCrsException
-    {
+    private void handleProcessCoverages(String xmlRequest, HttpServletResponse response) throws WCSException, InvalidCrsException {
         OutputStream webOut = null;
-        try
-        {
+        try {
             LOG.debug("Received a ProcessCoverages request: \n{}", xmlRequest);
 
-			LOG.debug("WCPS: preparing request");
-			ProcessCoveragesRequest processCoverageRequest =
-				wcps.pcPrepare(ConfigManager.RASDAMAN_URL, ConfigManager.RASDAMAN_DATABASE, 
-                IOUtils.toInputStream(xmlRequest));
+            LOG.debug("WCPS: preparing request");
+            ProcessCoveragesRequest processCoverageRequest =
+                    wcps.pcPrepare(ConfigManager.RASDAMAN_URL, ConfigManager.RASDAMAN_DATABASE,
+                    IOUtils.toInputStream(xmlRequest));
 
             String query = processCoverageRequest.getRasqlQuery();
             String mime = processCoverageRequest.getMime();
 
-			LOG.debug("Resulting RasQL query: [{}] {}", mime, query);
+            LOG.debug("Resulting RasQL query: [{}] {}", mime, query);
 
-			LOG.trace("WCPS: executing request");
+            LOG.trace("WCPS: executing request");
 
-			List<byte[]> results = processCoverageRequest.execute();
+            List<byte[]> results = processCoverageRequest.execute();
 
-			LOG.debug("WCPS: setting response mimetype to " + mime);
-			response.setContentType(mime);
-			LOG.trace("WCPS: returning response");
-			webOut = response.getOutputStream();
-            if (results.size() > 0)
-            {
+            LOG.debug("WCPS: setting response mimetype to " + mime);
+            response.setContentType(mime);
+            LOG.trace("WCPS: returning response");
+            webOut = response.getOutputStream();
+            if (results.size() > 0) {
                 webOut.write(results.get(0));
 
-                if (ConfigManager.CCIP_HACK == true)
-                {
-                    try
-                        {
-                            String dir = getServletContext().getRealPath("/");
-                            File f = new File(dir + "image.jpeg");
+                if (ConfigManager.CCIP_HACK == true) {
+                    try {
+                        String dir = getServletContext().getRealPath("/");
+                        File f = new File(dir + "image.jpeg");
 
-                            LOG.info("HACK: Writing image to: " + f.getAbsolutePath());
-                            {
-                                OutputStream os = new DataOutputStream(new FileOutputStream(f, false));
-                                os.write(results.get(0));
-                                os.close();
-                                LOG.info("HACK: Wrote image successfully !");
-                            }
-                        }
-                        catch (Exception e)
+                        LOG.info("HACK: Writing image to: " + f.getAbsolutePath());
                         {
-                            LOG.warn("Error while evaluating CCIP hack: '{}'", e.getMessage());
+                            OutputStream os = new DataOutputStream(new FileOutputStream(f, false));
+                            os.write(results.get(0));
+                            os.close();
+                            LOG.info("HACK: Wrote image successfully !");
                         }
+                    } catch (Exception e) {
+                        LOG.warn("Error while evaluating CCIP hack: '{}'", e.getMessage());
+                    }
                 }
-            }
-            else
+            } else {
                 LOG.warn("WCPS: Warning! No result returned from rasql query.");
+            }
 
-			LOG.debug("WCPS: done");
-        }
-        catch (WCPSException e)
-        {
+            LOG.debug("WCPS: done");
+        } catch (WCPSException e) {
             throw new InternalComponentException(e.getMessage(), e);
-        }
-        catch (SAXException e)
-        {
+        } catch (SAXException e) {
             throw new XmlNotValidException(e.getMessage(), e);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new InputOutputException(e.getMessage(), e);
-        }
-        finally
-        {
-            if (webOut != null)
-            {
-                try
-                {
+        } finally {
+            if (webOut != null) {
+                try {
                     webOut.close();
+                } catch (IOException e) {
                 }
-                catch (IOException e) {}
             }
         }
     }
 
-    
-    private void handleTransaction(String request, HttpServletResponse httpResponse) throws WCSException
-    {
-        try
-        {
+    private void handleTransaction(String request, HttpServletResponse httpResponse) throws WCSException {
+        try {
             String outputXml = wcst.Transaction(request);
             PrintWriter out = new PrintWriter(httpResponse.getOutputStream());
             httpResponse.setContentType("text/xml; charset=utf-8");
             out.write(outputXml);
             out.flush();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new InputOutputException(e.getMessage(), e);
         }
     }

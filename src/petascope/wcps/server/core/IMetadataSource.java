@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.ResourceException;
@@ -34,14 +32,13 @@ import java.util.Set;
  * for each one, and also map a format (e.g. "png") to its formatToMimetype
  * (e.g. "image/png").
  */
+public interface IMetadataSource {
 
-public interface IMetadataSource
-{
-	public Set<String> coverages() throws ResourceException;
+    public Set<String> coverages() throws ResourceException;
 
-	public String formatToMimetype(String format);
+    public String formatToMimetype(String format);
 
-	public Metadata read(String coverageName) throws InvalidWcpsRequestException, ResourceException;
+    public Metadata read(String coverageName) throws InvalidWcpsRequestException, ResourceException;
 
     public Collection<String> getAxisNames();
 }

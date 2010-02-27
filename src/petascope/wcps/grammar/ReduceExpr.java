@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,21 +26,19 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class ReduceExpr implements IParseTreeNode
-{
-	CoverageExpr expr;
-	String op;
+public class ReduceExpr implements IParseTreeNode {
 
-	public ReduceExpr(String op, CoverageExpr e)
-	{
-		this.op   = op;
-		this.expr = e;
-	}
+    CoverageExpr expr;
+    String op;
 
-	public String toXML()
-	{
-		String result = "<reduce><" + op + ">" + expr.toXML() + "</" + op + "></reduce>";
+    public ReduceExpr(String op, CoverageExpr e) {
+        this.op = op;
+        this.expr = e;
+    }
 
-		return result;
-	}
+    public String toXML() {
+        String result = "<reduce><" + op + ">" + expr.toXML() + "</" + op + "></reduce>";
+
+        return result;
+    }
 }

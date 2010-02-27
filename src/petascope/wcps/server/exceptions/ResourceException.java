@@ -19,27 +19,22 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.exceptions;
 
 /**
  * This exception is thrown whenever some required resource is not available -
  * a database connection, a file, etc.
  */
+public class ResourceException extends WCPSException {
 
-public class ResourceException extends WCPSException
-{
-	private static final long serialVersionUID = 45562458L;
+    private static final long serialVersionUID = 45562458L;
 
-	public ResourceException(String message)
-	{
-		super(message);
-	}
+    public ResourceException(String message) {
+        super(message);
+    }
 
-	public ResourceException(String message, Throwable cause)
-	{
-		super(message, cause);
+    public ResourceException(String message, Throwable cause) {
+        super(message, cause);
 
-	}
+    }
 }

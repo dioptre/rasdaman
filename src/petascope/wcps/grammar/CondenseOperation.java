@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
@@ -30,46 +26,33 @@ package petascope.wcps.grammar;
  *
  * @author Andrei Aiordachioaie
  */
-public class CondenseOperation implements IParseTreeNode
-{
-	String op;
+public class CondenseOperation implements IParseTreeNode {
 
-	public CondenseOperation(String op)
-	{
-		this.op = op;
-	}
+    String op;
 
-	public String toXML()
-	{
-		String result = "";
+    public CondenseOperation(String op) {
+        this.op = op;
+    }
 
-		if (op.equalsIgnoreCase("+"))
-		{
-			result = "opPlus";
-		}
-		else if (op.equalsIgnoreCase("*"))
-		{
-			result = "opMult";
-		}
-		else if (op.equalsIgnoreCase("max"))
-		{
-			result = "opMax";
-		}
-		else if (op.equalsIgnoreCase("min"))
-		{
-			result = "opMin";
-		}
-		else if (op.equalsIgnoreCase("and"))
-		{
-			result = "opAnd";
-		}
-		else if (op.equalsIgnoreCase("or"))
-		{
-			result = "opOr";
-		}
+    public String toXML() {
+        String result = "";
+
+        if (op.equalsIgnoreCase("+")) {
+            result = "opPlus";
+        } else if (op.equalsIgnoreCase("*")) {
+            result = "opMult";
+        } else if (op.equalsIgnoreCase("max")) {
+            result = "opMax";
+        } else if (op.equalsIgnoreCase("min")) {
+            result = "opMin";
+        } else if (op.equalsIgnoreCase("and")) {
+            result = "opAnd";
+        } else if (op.equalsIgnoreCase("or")) {
+            result = "opOr";
+        }
 
         result = "<" + result + "/>";
 
-		return result;
-	}
+        return result;
+    }
 }

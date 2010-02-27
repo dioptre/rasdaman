@@ -19,10 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 import java.util.*;
@@ -32,31 +28,27 @@ import java.util.*;
  *
  * @author Andrei Aiordachioaie
  */
-public class ConstantList implements IParseTreeNode
-{
-	LinkedList<String> list;
+public class ConstantList implements IParseTreeNode {
 
-	public ConstantList(String val)
-	{
-		list = new LinkedList<String>();
-		list.add(val);
-	}
+    LinkedList<String> list;
 
-	public void add(String val)
-	{
-		list.add(val);
-	}
+    public ConstantList(String val) {
+        list = new LinkedList<String>();
+        list.add(val);
+    }
 
-	public String toXML()
-	{
-		String result       = "";
-		Iterator<String> it = list.iterator();
+    public void add(String val) {
+        list.add(val);
+    }
 
-		while (it.hasNext())
-		{
-			result += "<value>" + it.next() + "</value>";
-		}
+    public String toXML() {
+        String result = "";
+        Iterator<String> it = list.iterator();
 
-		return result;
-	}
+        while (it.hasNext()) {
+            result += "<value>" + it.next() + "</value>";
+        }
+
+        return result;
+    }
 }

@@ -19,12 +19,9 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcst.transaction.tools;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import java.awt.Graphics;
 import java.awt.Panel;
 import org.odmg.*;
@@ -48,16 +45,15 @@ import javax.swing.JFrame;
  *
  * @author Andrei Aiordachioaie
  */
-public class TestRasdamanUtils
-{
-	private static RasdamanUtils myUtils;
+public class TestRasdamanUtils {
 
-	public static void main(String[] args) throws ODMGException, RasResultIsNoIntervalException, IOException, Exception
-	{
+    private static RasdamanUtils myUtils;
+
+    public static void main(String[] args) throws ODMGException, RasResultIsNoIntervalException, IOException, Exception {
 //		myUtils = new RasdamanUtils("http://kahlua.eecs.jacobs-university.de" + ":7001", "RASBASE");
         myUtils = new RasdamanUtils("http://localhost" + ":7001", "RASBASE");
 
-		myUtils.init();
+        myUtils.init();
 
         /* Try to comment/uncomment lines below ... */
 //      myUtils.insertGrayImageAsArray("andreiTest1");
@@ -66,7 +62,7 @@ public class TestRasdamanUtils
 //      testLoadRasdaman("andreiTest1");
 //		testLoadRasdaman("andreiFlickrColor");
 //      insertImageFromInternet("andreiFlickr1", "http://farm4.static.flickr.com/3347/3500129555_137c537e75_m.jpg");
-      myUtils.deleteCollection("andreiFlickrColor");
+        myUtils.deleteCollection("andreiFlickrColor");
 //      myUtils.commitAndClose();
 //      myUtils.deleteCollection("flickr1");
 
@@ -92,141 +88,115 @@ public class TestRasdamanUtils
 
         /* Stop commenting/uncommenting lines here */
 
-		try
-		{
-			myUtils.commitAndClose();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			myUtils.abortAndClose();
-		}
+        try {
+            myUtils.commitAndClose();
+        } catch (Exception e) {
+            e.printStackTrace();
+            myUtils.abortAndClose();
+        }
 
 //        understandColorImage("http://localhost/peta/flickr1.jpg");
-	}
-
-	private static void insertImageFromInternet(String identifier, String href)
-	{
-		try
-		{
-			// Step 1: fetch the image from Internet
-			URL url = new URL(href);
-			BufferedImage img0 = ImageIO.read(url);
-			BufferedImage img = myUtils.convertImageToGray(img0);
-
-			// Display image for check
-			displayImage(identifier, img);
-
-			// Step 2: Insert image into rasdaman
-			myUtils.insertGrayImageAsArray(identifier, img);
-//			myUtils.insertColorImageAsArray(identifier, img);
-		}
-		catch (Exception e)
-		{
-			System.err.println("Error: " + e.getMessage());
-			e.printStackTrace();
-		}
-	}
-
-	private static void updateImageFromInternet(String identifier, String href)
-	{
-		try
-		{
-			// Step 1: fetch the image from Internet
-			URL url = new URL(href);
-			BufferedImage img0 = ImageIO.read(url);
-			BufferedImage img = myUtils.convertImageToGray(img0);
-
-			// Display image for check
-			displayImage(identifier, img);
-
-			// Step 2: Update image into rasdaman
-			myUtils.updateGrayImageWithArray(identifier, img, 0, 0, img.getWidth(), img.getHeight());
-		}
-		catch (Exception e)
-		{
-			System.err.println("Error: " + e.getMessage());
-			e.printStackTrace();
-		}
-	}
-
-	private static void testLoadRasdaman(String identifier)
-	{
-		try
-		{
-			BufferedImage img = myUtils.loadCoverage(identifier);
-
-			if ( img == null )
-			{
-				throw new Exception("Did not receive image from MyRasUtils !");
-			}
-			displayImage(identifier, img);
-		}
-		catch (Exception e)
-		{
-			System.err.println("Error !");
-			e.printStackTrace();
-		}
-	}
-
-	public static void displayImage(String name, BufferedImage img)
-	{
-		JFrame f = new JFrame("Image " + name);
-
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.getContentPane().add(new ShowImage(img));
-		f.setSize(img.getWidth() + 50, img.getHeight() + 50);
-		f.setVisible(true);
-	}
-
-    private static void understandColorImage(String href)
-    {
-        String identifier = "image1";
-        try
-		{
-			// Step 1: fetch the image from Internet
-			URL url = new URL(href);
-			BufferedImage img0 = ImageIO.read(url);
-			BufferedImage img = myUtils.convertImageToGray(img0);
-
-			// Display image for check
-			displayImage(identifier, img);
-
-			// Step 2: Insert image into rasdaman
-			System.out.println(img);        // gray-image
-            System.out.println(img0);       // color image
-		}
-		catch (Exception e)
-		{
-			System.err.println("Error: " + e.getMessage());
-			e.printStackTrace();
-		}
     }
 
+    private static void insertImageFromInternet(String identifier, String href) {
+        try {
+            // Step 1: fetch the image from Internet
+            URL url = new URL(href);
+            BufferedImage img0 = ImageIO.read(url);
+            BufferedImage img = myUtils.convertImageToGray(img0);
 
+            // Display image for check
+            displayImage(identifier, img);
+
+            // Step 2: Insert image into rasdaman
+            myUtils.insertGrayImageAsArray(identifier, img);
+//			myUtils.insertColorImageAsArray(identifier, img);
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private static void updateImageFromInternet(String identifier, String href) {
+        try {
+            // Step 1: fetch the image from Internet
+            URL url = new URL(href);
+            BufferedImage img0 = ImageIO.read(url);
+            BufferedImage img = myUtils.convertImageToGray(img0);
+
+            // Display image for check
+            displayImage(identifier, img);
+
+            // Step 2: Update image into rasdaman
+            myUtils.updateGrayImageWithArray(identifier, img, 0, 0, img.getWidth(), img.getHeight());
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private static void testLoadRasdaman(String identifier) {
+        try {
+            BufferedImage img = myUtils.loadCoverage(identifier);
+
+            if (img == null) {
+                throw new Exception("Did not receive image from MyRasUtils !");
+            }
+            displayImage(identifier, img);
+        } catch (Exception e) {
+            System.err.println("Error !");
+            e.printStackTrace();
+        }
+    }
+
+    public static void displayImage(String name, BufferedImage img) {
+        JFrame f = new JFrame("Image " + name);
+
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.getContentPane().add(new ShowImage(img));
+        f.setSize(img.getWidth() + 50, img.getHeight() + 50);
+        f.setVisible(true);
+    }
+
+    private static void understandColorImage(String href) {
+        String identifier = "image1";
+        try {
+            // Step 1: fetch the image from Internet
+            URL url = new URL(href);
+            BufferedImage img0 = ImageIO.read(url);
+            BufferedImage img = myUtils.convertImageToGray(img0);
+
+            // Display image for check
+            displayImage(identifier, img);
+
+            // Step 2: Insert image into rasdaman
+            System.out.println(img);        // gray-image
+            System.out.println(img0);       // color image
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     /**
-	 * Panel to display loaded image
-	 *
-	 *
-	 * @version        09.Jul 2009
-	 * @author         Andrei Aiordachioaie
-	 */
-	public static class ShowImage extends Panel
-	{
-		BufferedImage image;
+     * Panel to display loaded image
+     *
+     *
+     * @version        09.Jul 2009
+     * @author         Andrei Aiordachioaie
+     */
+    public static class ShowImage extends Panel {
 
-		public ShowImage(BufferedImage img)
-		{
-			this.image = img;
-		}
+        BufferedImage image;
 
-		public void paint(Graphics g)
-		{
-			if ( image != null )
-			{
-				g.drawImage(image, 0, 0, null);
-			}
-		}
-	}
+        public ShowImage(BufferedImage img) {
+            this.image = img;
+        }
+
+        public void paint(Graphics g) {
+            if (image != null) {
+                g.drawImage(image, 0, 0, null);
+            }
+        }
+    }
 }

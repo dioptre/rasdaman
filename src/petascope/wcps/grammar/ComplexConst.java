@@ -19,41 +19,33 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
-
-
 package petascope.wcps.grammar;
 
 /**
  * ComplexConst
  * @author: Andrei Aiordachioaie
  */
-public class ComplexConst
-{
-	String re, im;
+public class ComplexConst {
 
-	/**
-	 * ComplexLit constructor comment.
-	 */
-	public ComplexConst()
-	{
-		super();
-	}
+    String re, im;
 
-	public ComplexConst(String val)
-	{
-		int pos = val.indexOf("+i", 0);
+    /**
+     * ComplexLit constructor comment.
+     */
+    public ComplexConst() {
+        super();
+    }
 
-		if (pos != -1)
-		{
-			re = val.substring(0, pos - 1);
-			im = val.substring(pos + 2, val.length());
-		}
-	}
+    public ComplexConst(String val) {
+        int pos = val.indexOf("+i", 0);
 
-	public String toXML()
-	{
-		return "<complexConstant><re>" + re + "</re><im>" + im + "</im></complexConstant";
-	}
+        if (pos != -1) {
+            re = val.substring(0, pos - 1);
+            im = val.substring(pos + 2, val.length());
+        }
+    }
+
+    public String toXML() {
+        return "<complexConstant><re>" + re + "</re><im>" + im + "</im></complexConstant";
+    }
 }

@@ -19,9 +19,7 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
 package petascope.wcps.server.core;
-
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
@@ -35,8 +33,8 @@ import java.util.Iterator;
  *
  * @author Andrei Aiordachioaie
  */
-public class XmlQuery implements IRasNode
-{
+public class XmlQuery implements IRasNode {
+
     private String mime;
     private ArrayList<CoverageIterator> iterators;
     private BooleanScalarExpr where;
@@ -46,30 +44,26 @@ public class XmlQuery implements IRasNode
     /* Variables used in the XML query are renamed. The renaming is explained below.
      *
      * Variables declared in the same expression (construct, const, condense)
-       will be collapsed into one multidimensional variable name. For
-     "construct img over $px x(1:10), $py y(1:10) values ... ", the variables could
-     be translated as: $px -> "iteratorA[0]", $py -> "iteratorA[1]".
+    will be collapsed into one multidimensional variable name. For
+    "construct img over $px x(1:10), $py y(1:10) values ... ", the variables could
+    be translated as: $px -> "iteratorA[0]", $py -> "iteratorA[1]".
      * Variables declared in different expression will have different prefixes,
-     built from "varPrefix" + "varStart".
+    built from "varPrefix" + "varStart".
      *
-     
-     * Used in condenser, construct and constant coverage expressions. */
 
+     * Used in condenser, construct and constant coverage expressions. */
     // VariableIndexCount stores the dimensionality of each renamed variable
     private HashMap<String, Integer> varDimension;
     // VariableNewName is used to translate the old var name into the multi-dim var name
     private HashMap<String, String> variableTranslator;
-
     private String varPrefix = "i";
     private char varSuffix = 'i';
 
-    public String getMimeType()
-    {
+    public String getMimeType() {
         return mime;
     }
 
-    public XmlQuery(IDynamicMetadataSource source)
-    {
+    public XmlQuery(IDynamicMetadataSource source) {
         super();
         this.meta = source;
         iterators = new ArrayList<CoverageIterator>();
@@ -78,8 +72,7 @@ public class XmlQuery implements IRasNode
         varDimension = new HashMap<String, Integer>();
     }
 
-    public XmlQuery(Node node) throws WCPSException, InvalidCrsException
-    {
+    public XmlQuery(Node node) throws WCPSException, InvalidCrsException {
         iterators = new ArrayList<CoverageIterator>();
         dynamicIterators = new ArrayList<CoverageIterator>();
         variableTranslator = new HashMap<String, String>();
@@ -87,41 +80,31 @@ public class XmlQuery implements IRasNode
         this.startParsing(node);
     }
 
-    public void startParsing(Node node) throws WCPSException, InvalidCrsException
-    {
+    public void startParsing(Node node) throws WCPSException, InvalidCrsException {
         System.err.println("Processing XML Request: " + node.getNodeName());
 
         Node x = node.getFirstChild();
-        
 
-        while (x != null)
-        {
-            if (x.getNodeName().equals("#text"))
-            {
+
+        while (x != null) {
+            if (x.getNodeName().equals("#text")) {
                 x = x.getNextSibling();
                 continue;
             }
 
             System.err.println("The current node is: " + x.getNodeName());
 
-            if (x.getNodeName().equals("coverageIterator"))
-            {
+            if (x.getNodeName().equals("coverageIterator")) {
                 iterators.add(new CoverageIterator(x, this));
-            }
-            else if (x.getNodeName().equals("where"))
-            {
+            } else if (x.getNodeName().equals("where")) {
                 where = new BooleanScalarExpr(x.getFirstChild(), this);
-            }
-            else if (x.getNodeName().equals("encode"))
-            {
+            } else if (x.getNodeName().equals("encode")) {
                 EncodeDataExpr encode;
 
                 encode = new EncodeDataExpr(x, this);
                 coverageExpr = encode;
                 mime = encode.getMime();
-            }
-            else
-            {
+            } else {
                 // It has to be a scalar Expr 
                 coverageExpr = new ScalarExpr(x, this);
                 mime = "text/plain";
@@ -131,68 +114,59 @@ public class XmlQuery implements IRasNode
         }
     }
 
-    public Boolean isIteratorDefined(String iteratorName)
-	{
-		Iterator<CoverageIterator> it = iterators.iterator();
-		while (it.hasNext())
-		{
-			CoverageIterator tmp = it.next();
-			if (iteratorName.equals(tmp.getIteratorName()))
-				return true;
-		}
-
-        it = dynamicIterators.iterator();
-        while (it.hasNext())
-        {
-			CoverageIterator tmp = it.next();
-			if (iteratorName.equals(tmp.getIteratorName()))
-				return true;
+    public Boolean isIteratorDefined(String iteratorName) {
+        Iterator<CoverageIterator> it = iterators.iterator();
+        while (it.hasNext()) {
+            CoverageIterator tmp = it.next();
+            if (iteratorName.equals(tmp.getIteratorName())) {
+                return true;
+            }
         }
 
-		return false;
-	}
+        it = dynamicIterators.iterator();
+        while (it.hasNext()) {
+            CoverageIterator tmp = it.next();
+            if (iteratorName.equals(tmp.getIteratorName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /* Stores information about dynamically created iterators, as metadata.
      * For example, from a Construct Coverage expression.
      */
-    public void addDynamicCoverageIterator(CoverageIterator i)
-    {
+    public void addDynamicCoverageIterator(CoverageIterator i) {
         dynamicIterators.add(i);
     }
 
-    public Iterator<String> getCoverages(String iteratorName) throws WCPSException
-	{
-		for (int i = 0; i < iterators.size(); ++i)
-		{
-			if (iterators.get(i).getIteratorName().equals(iteratorName))
-			{
-				return iterators.get(i).getCoverages();
-			}
-		}
+    public Iterator<String> getCoverages(String iteratorName) throws WCPSException {
+        for (int i = 0; i < iterators.size(); ++i) {
+            if (iterators.get(i).getIteratorName().equals(iteratorName)) {
+                return iterators.get(i).getCoverages();
+            }
+        }
 
-        for (int i = 0; i < dynamicIterators.size(); ++i)
-		{
-			if (dynamicIterators.get(i).getIteratorName().equals(iteratorName))
-			{
-				return dynamicIterators.get(i).getCoverages();
-			}
-		}
+        for (int i = 0; i < dynamicIterators.size(); ++i) {
+            if (dynamicIterators.get(i).getIteratorName().equals(iteratorName)) {
+                return dynamicIterators.get(i).getCoverages();
+            }
+        }
 
-		throw new WCPSException("Iterator " + iteratorName + " not defined");
-	}
+        throw new WCPSException("Iterator " + iteratorName + " not defined");
+    }
 
-    public boolean isDynamicCoverage(String coverageName)
-    {
-        for (int i = 0; i < dynamicIterators.size(); ++i)
-		{
-			Iterator<String> iterator =
-                    ((CoverageIterator)dynamicIterators.get(i)).getCoverages();
-            while (iterator.hasNext())
-			{
-                if (iterator.next().equals(coverageName))
+    public boolean isDynamicCoverage(String coverageName) {
+        for (int i = 0; i < dynamicIterators.size(); ++i) {
+            Iterator<String> iterator =
+                    ((CoverageIterator) dynamicIterators.get(i)).getCoverages();
+            while (iterator.hasNext()) {
+                if (iterator.next().equals(coverageName)) {
                     return true;
-			}
-		}
+                }
+            }
+        }
 
         return false;
     }
@@ -201,8 +175,7 @@ public class XmlQuery implements IRasNode
      * has referenceable variables.
      * @return String a new variable name assigned
      */
-    public String registerNewExpressionWithVariables()
-    {
+    public String registerNewExpressionWithVariables() {
         String name = varPrefix + varSuffix;
         varDimension.put(name, 0);
         varSuffix++;
@@ -216,56 +189,48 @@ public class XmlQuery implements IRasNode
      * If the variable is already referenced, then this function does nothing.
      * @param name Variable name
      */
-    public boolean addReferenceVariable(String name, String translatedName)
-    {
-        if (varDimension.containsKey(translatedName) == false)
+    public boolean addReferenceVariable(String name, String translatedName) {
+        if (varDimension.containsKey(translatedName) == false) {
             return false;
-        
+        }
+
         Integer index = varDimension.get(translatedName);
         Integer newIndex = index + 1;
         varDimension.put(translatedName, newIndex);
         variableTranslator.put(name, translatedName + "[" + index + "]");
-        
+
         return true;
     }
 
     /** Retrieve the translated name assigned to a specific reference (scalar) variable */
-    public String getReferenceVariableName(String name) throws WCPSException
-    {
+    public String getReferenceVariableName(String name) throws WCPSException {
         String newName = variableTranslator.get(name);
         return newName;
     }
 
-    public String toRasQL()
-    {
+    public String toRasQL() {
         String result = "select " + coverageExpr.toRasQL() + " from ";
         Iterator<CoverageIterator> it = iterators.iterator();
         boolean first = true;
 
-        while (it.hasNext())
-        {
-            if (first)
-            {
+        while (it.hasNext()) {
+            if (first) {
                 first = false;
-            }
-            else
-            {
+            } else {
                 result += ", ";
             }
 
             result += it.next().toRasQL();
         }
 
-        if (where != null)
-        {
+        if (where != null) {
             result += " where " + where.toRasQL();
         }
 
         return result;
     }
 
-    public IDynamicMetadataSource getMetadataSource()
-	{
-		return meta;
-	}
+    public IDynamicMetadataSource getMetadataSource() {
+        return meta;
+    }
 }

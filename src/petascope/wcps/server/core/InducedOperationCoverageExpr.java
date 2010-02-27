@@ -19,89 +19,74 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.InvalidCrsException;
 import petascope.wcps.server.exceptions.WCPSException;
 import org.w3c.dom.*;
 
-public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo
-{
-	private IRasNode child;
-	private CoverageInfo info;
-	private String operation = "";
+public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo {
 
-	public InducedOperationCoverageExpr(Node node, XmlQuery xq)
-	    throws WCPSException, InvalidCrsException
-	{
-		String nodeName = node.getNodeName();
+    private IRasNode child;
+    private CoverageInfo info;
+    private String operation = "";
 
-		System.err.println("Trying induced operation: " + nodeName);
-		boolean okay = false;    // will be true if the node is recognized
+    public InducedOperationCoverageExpr(Node node, XmlQuery xq)
+            throws WCPSException, InvalidCrsException {
+        String nodeName = node.getNodeName();
 
-        if (nodeName.equals("rangeConstructor"))
-		{
+        System.err.println("Trying induced operation: " + nodeName);
+        boolean okay = false;    // will be true if the node is recognized
+
+        if (nodeName.equals("rangeConstructor")) {
             operation = nodeName;
-			child = new RangeCoverageExpr(node, xq);
-            info = new CoverageInfo((((ICoverageInfo)child).getCoverageInfo()));
-		}
-		else
-		{    // Try one of the groups
+            child = new RangeCoverageExpr(node, xq);
+            info = new CoverageInfo((((ICoverageInfo) child).getCoverageInfo()));
+        } else {    // Try one of the groups
             child = null;
 
-            if (child == null)
-			{
-				try
-				{
-					child = new UnaryOperationCoverageExpr(node, xq);
-                    info = new CoverageInfo((((ICoverageInfo)child).getCoverageInfo()));
-					System.err.println("*** Induced Operation SUCCESS: " + node.getNodeName());
-				}
-				catch (WCPSException e)
-				{
-					System.err.println("InducedOperation failed: " + node.getNodeName());
-					child = null;
-                    if (e.getMessage().equals("Method not implemented"))
+            if (child == null) {
+                try {
+                    child = new UnaryOperationCoverageExpr(node, xq);
+                    info = new CoverageInfo((((ICoverageInfo) child).getCoverageInfo()));
+                    System.err.println("*** Induced Operation SUCCESS: " + node.getNodeName());
+                } catch (WCPSException e) {
+                    System.err.println("InducedOperation failed: " + node.getNodeName());
+                    child = null;
+                    if (e.getMessage().equals("Method not implemented")) {
                         throw e;
-				}
-			}
-
-            if (child == null)
-            {
-                try
-                {
-                    child = new BinaryOperationCoverageExpr(node, xq);
-                    info = new CoverageInfo((((ICoverageInfo)child).getCoverageInfo()));
-                    System.err.println("*** Binary Operation SUCCESS: " + node.getNodeName());
+                    }
                 }
-                catch (WCPSException e)
-                {
-                    System.err.println("Binary operation failed: " + node.getNodeName()) ;
+            }
+
+            if (child == null) {
+                try {
+                    child = new BinaryOperationCoverageExpr(node, xq);
+                    info = new CoverageInfo((((ICoverageInfo) child).getCoverageInfo()));
+                    System.err.println("*** Binary Operation SUCCESS: " + node.getNodeName());
+                } catch (WCPSException e) {
+                    System.err.println("Binary operation failed: " + node.getNodeName());
                     child = null;
                 }
             }
-            
-            if (child == null)
-            {
+
+            if (child == null) {
                 throw new WCPSException("Invalid induced coverage expression, next node: "
-                            + node.getNodeName());
+                        + node.getNodeName());
             }
-		}
+        }
 
-	}
+    }
 
-	public CoverageInfo getCoverageInfo()
-	{
-		return info;
-	}
+    public CoverageInfo getCoverageInfo() {
+        return info;
+    }
 
-	public String toRasQL()
-	{
-        if (operation.equals("rangeConstructor"))
+    public String toRasQL() {
+        if (operation.equals("rangeConstructor")) {
             return "<rangeConstructor>" + child.toRasQL() + "</rangeConstructor>";
+        }
         // else: groups
-		return child.toRasQL();
-	}
+        return child.toRasQL();
+    }
 }

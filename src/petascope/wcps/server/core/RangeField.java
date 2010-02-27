@@ -19,8 +19,6 @@
  *
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
  */
-
-
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.WCPSException;
@@ -28,37 +26,29 @@ import org.w3c.dom.*;
 
 import java.util.Iterator;
 
+public class RangeField implements IRasNode {
 
+    private String type;
 
-public class RangeField implements IRasNode
-{
-	private String type;
+    public RangeField(Node node, XmlQuery xq) throws WCPSException {
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
 
-	public RangeField(Node node, XmlQuery xq) throws WCPSException
-	{
-		while ((node != null) && node.getNodeName().equals("#text"))
-		{
-			node = node.getNextSibling();
-		}
+        if (node == null) {
+            throw new WCPSException("RangeFieldType parsing error!");
+        }
 
-		if (node == null)
-		{
-			throw new WCPSException("RangeFieldType parsing error!");
-		}
+        String nodeName = node.getNodeName();
 
-		String nodeName = node.getNodeName();
-
-		if (nodeName.equals("type"))
-		{
+        if (nodeName.equals("type")) {
             this.type = node.getTextContent();
 
-			System.err.println("Found range field type: " + type);
-		}
-	}
+            System.err.println("Found range field type: " + type);
+        }
+    }
 
-	public String toRasQL()
-	{
-		return this.type;
-	}
-}
-;
+    public String toRasQL() {
+        return this.type;
+    }
+};
