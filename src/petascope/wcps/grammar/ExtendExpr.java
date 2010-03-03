@@ -37,6 +37,6 @@ public class ExtendExpr implements IParseTreeNode {
     }
 
     public String toXML() {
-        return "<extend>" + intervalList.toXML() + coverageExpr.toXML() + "</extend>";
+        return "<extend>" + coverageExpr.toXML() + intervalList.toXML() + "</extend>";
     }
 }

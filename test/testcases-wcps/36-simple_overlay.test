@@ -1,0 +1,1 @@
+for c in (rgb) return encode(c overlay (char)(c*3), "jpeg")

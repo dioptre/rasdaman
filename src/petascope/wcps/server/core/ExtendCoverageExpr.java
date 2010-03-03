@@ -56,7 +56,7 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
 
             try {
                 System.err.println("Trying out an CoverageExprType group...");
-                coverageExprType = new CoverageExpr(node, xq);
+                coverageExprType = new CoverageExpr(child, xq);
                 coverageInfo = coverageExprType.getCoverageInfo();
                 child = child.getNextSibling();
                 continue;
@@ -66,7 +66,7 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
 
             try {
                 // Start a new axis and save it
-                elem = new DimensionIntervalElement(node, xq, coverageInfo);
+                elem = new DimensionIntervalElement(child, xq, coverageInfo);
                 axisList.add(elem);
                 child = elem.getNextNode();
                 continue;
