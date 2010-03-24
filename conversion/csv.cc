@@ -108,7 +108,7 @@ void r_Conv_CSV::print(std::ofstream &f, baseType* val, int *dims, int dim) {
       f << (castType)val[0] << ",";
     f << (castType) val[0]; val++;
   } else {
-    for (int i=0; i<dims[0]-1; ++i, val++) {
+    for (int i=0; i<dims[0]-1; ++i) {
       f << "{";
       print<baseType, castType>(f, val, dims+1, dim-1);
       f << "},";
