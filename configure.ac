@@ -25,6 +25,7 @@ AM_PROG_CC_C_O
 dnl we preffer java
 AC_PROG_JAVA_CC
 dnl we need bison not yacc
+AC_CHECK_PROGS(JAR_TOOL, jar, [${am_missing_run} bison])
 AC_CHECK_PROGS(YACC, bison, [${am_missing_run} bison])
 
 # Checks for libraries.
@@ -129,7 +130,8 @@ AC_CONFIG_FILES([Makefile
                  bin/Makefile
                  manuals_and_examples/Makefile
                  insertutils/Makefile
-				 include/Makefile
+		 include/Makefile
+                 java/Makefile
           ])
 
 # --------------- Header Template Definitions ----------------------
