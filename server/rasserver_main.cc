@@ -287,7 +287,6 @@ bool initialization()
 
 	managementInterval = clientTimeOut/4;
 
-#ifdef RMANDEBUG
 	//tilesize
 	StorageLayout::DefaultTileSize = configuration.getDefaultTileSize();
 	RMInit::logOut << "Tile size set to : " << StorageLayout::DefaultTileSize << endl;
@@ -304,8 +303,10 @@ bool initialization()
 	StorageLayout::DefaultIndexSize = configuration.getDefaultIndexSize();
 	RMInit::logOut << "IndexSize set to : " << StorageLayout::DefaultIndexSize << endl;
 
+#ifdef RMANDEBUG
 	RManDebug = configuration.getDebugLevel();
 	RMInit::logOut<<"Debug level: " << RManDebug << endl;                 
+#endif
 	
 	try
 	{
@@ -353,7 +354,6 @@ bool initialization()
 	//use tilecontainer
 	RMInit::useTileContainer = configuration.useTileContainer();
 	RMInit::logOut << "Use Tile Container: " << RMInit::useTileContainer << endl;
-#endif
 
 	return true;
 }
