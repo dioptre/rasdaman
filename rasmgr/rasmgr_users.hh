@@ -221,8 +221,8 @@ class Authorization
       
       User *curUser;
       bool inConfigFile;
-      char authFileName[100];
-      char altAuthFileName[100];
+      char authFileName[ FILENAME_MAX ];
+      char altAuthFileName[ FILENAME_MAX ];
       
      int  globalInitAdminRight;
      int  globalInitDatabRight;
