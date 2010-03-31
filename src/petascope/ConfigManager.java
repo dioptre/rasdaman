@@ -51,7 +51,7 @@ public class ConfigManager {
     v3 adds WGS84 handling in WCPS requests. */
     private final static String MINOR = "3";
     /* Bug-fix count. We have a hack: every WCPS response is written to disk. */
-    private final static String BUGFIX = "5-hack";
+    private final static String BUGFIX = "6-hack";
 
     /* Petascope 1.2.0 contains WCS 1.1.0, WCS 2.0, WCS-T 1.0.0 and WCPS 1.0.0 */
     public final static String PETASCOPE_VERSION = MAJOR + "." + MINOR + "." + BUGFIX;

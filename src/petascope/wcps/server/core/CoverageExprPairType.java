@@ -38,17 +38,7 @@ public class CoverageExprPairType implements IRasNode, ICoverageInfo {
         System.err.println("Trying to parse a coverage expression pair ... Starting at node "
                 + nodeName);
 
-        // Combination 1: CoverageExprType + CoverageExprType
-        try {
-            first = new CoverageExpr(node, xq);
-            second = new CoverageExpr(node.getNextSibling(), xq);
-            info = new CoverageInfo(((ICoverageInfo) second).getCoverageInfo());
-            ok = true;
-        } catch (WCPSException e) {
-            System.err.println("Failed to parse a CoverageExprType + CoverageExprType!");
-        }
-
-        // Combination 2: CoverageExprType + ScalarExprType
+        // Combination 1: CoverageExprType + ScalarExprType
         if (ok == false) {
             try {
                 first = new CoverageExpr(node, xq);
@@ -60,7 +50,7 @@ public class CoverageExprPairType implements IRasNode, ICoverageInfo {
             }
         }
 
-        // Combination 3: ScalarExprType + CoverageExprType
+        // Combination 2: ScalarExprType + CoverageExprType
         if (ok == false) {
             try {
                 first = new ScalarExpr(node, xq);
@@ -71,6 +61,20 @@ public class CoverageExprPairType implements IRasNode, ICoverageInfo {
                 System.err.println("Failed to parse ScalarExprType + CoverageExprType!");
             }
         }
+
+        // Combination 3: CoverageExprType + CoverageExprType
+        if (ok == false) {
+            try {
+                first = new CoverageExpr(node, xq);
+                second = new CoverageExpr(node.getNextSibling(), xq);
+                info = new CoverageInfo(((ICoverageInfo) first).getCoverageInfo());
+                ok = true;
+            } catch (WCPSException e) {
+                System.err.println("Failed to parse a CoverageExprType + CoverageExprType!");
+            }
+        }
+
+        
 
         if (ok == false) {
             throw new WCPSException("Could not parse a coverage expression pair !");
