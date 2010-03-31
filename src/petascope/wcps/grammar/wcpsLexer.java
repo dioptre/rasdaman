@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 src/grammar/wcps.g 2009-08-05 22:22:51
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/petascope/wcps/grammar/wcps.g 2010-03-31 22:54:42
 package petascope.wcps.grammar;
 
 import org.antlr.runtime.*;
@@ -128,15 +128,15 @@ public class wcpsLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "src/grammar/wcps.g"; }
+    public String getGrammarFileName() { return "src/petascope/wcps/grammar/wcps.g"; }
 
     // $ANTLR start "PLUS"
     public final void mPLUS() throws RecognitionException {
         try {
             int _type = PLUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:388:5: ( '+' )
-            // src/grammar/wcps.g:388:8: '+'
+            // src/petascope/wcps/grammar/wcps.g:391:5: ( '+' )
+            // src/petascope/wcps/grammar/wcps.g:391:8: '+'
             {
             match('+'); 
 
@@ -155,8 +155,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = MINUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:389:6: ( '-' )
-            // src/grammar/wcps.g:389:9: '-'
+            // src/petascope/wcps/grammar/wcps.g:392:6: ( '-' )
+            // src/petascope/wcps/grammar/wcps.g:392:9: '-'
             {
             match('-'); 
 
@@ -175,8 +175,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = DIVIDE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:390:7: ( '/' )
-            // src/grammar/wcps.g:390:9: '/'
+            // src/petascope/wcps/grammar/wcps.g:393:7: ( '/' )
+            // src/petascope/wcps/grammar/wcps.g:393:9: '/'
             {
             match('/'); 
 
@@ -195,8 +195,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = MULT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:391:5: ( '*' )
-            // src/grammar/wcps.g:391:7: '*'
+            // src/petascope/wcps/grammar/wcps.g:394:5: ( '*' )
+            // src/petascope/wcps/grammar/wcps.g:394:7: '*'
             {
             match('*'); 
 
@@ -215,8 +215,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = EQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:392:7: ( '=' )
-            // src/grammar/wcps.g:392:9: '='
+            // src/petascope/wcps/grammar/wcps.g:395:7: ( '=' )
+            // src/petascope/wcps/grammar/wcps.g:395:9: '='
             {
             match('='); 
 
@@ -235,8 +235,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NOTEQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:393:10: ( '!=' )
-            // src/grammar/wcps.g:393:12: '!='
+            // src/petascope/wcps/grammar/wcps.g:396:10: ( '!=' )
+            // src/petascope/wcps/grammar/wcps.g:396:12: '!='
             {
             match("!="); 
 
@@ -256,8 +256,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:394:3: ( '<' )
-            // src/grammar/wcps.g:394:5: '<'
+            // src/petascope/wcps/grammar/wcps.g:397:3: ( '<' )
+            // src/petascope/wcps/grammar/wcps.g:397:5: '<'
             {
             match('<'); 
 
@@ -276,8 +276,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = GT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:395:3: ( '>' )
-            // src/grammar/wcps.g:395:5: '>'
+            // src/petascope/wcps/grammar/wcps.g:398:3: ( '>' )
+            // src/petascope/wcps/grammar/wcps.g:398:5: '>'
             {
             match('>'); 
 
@@ -296,8 +296,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:396:4: ( '<=' )
-            // src/grammar/wcps.g:396:6: '<='
+            // src/petascope/wcps/grammar/wcps.g:399:4: ( '<=' )
+            // src/petascope/wcps/grammar/wcps.g:399:6: '<='
             {
             match("<="); 
 
@@ -317,8 +317,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = GTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:397:4: ( '>=' )
-            // src/grammar/wcps.g:397:6: '>='
+            // src/petascope/wcps/grammar/wcps.g:400:4: ( '>=' )
+            // src/petascope/wcps/grammar/wcps.g:400:6: '>='
             {
             match(">="); 
 
@@ -338,8 +338,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:398:4: ( '.' )
-            // src/grammar/wcps.g:398:6: '.'
+            // src/petascope/wcps/grammar/wcps.g:401:4: ( '.' )
+            // src/petascope/wcps/grammar/wcps.g:401:6: '.'
             {
             match('.'); 
 
@@ -358,8 +358,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:399:7: ( '(' )
-            // src/grammar/wcps.g:399:9: '('
+            // src/petascope/wcps/grammar/wcps.g:402:7: ( '(' )
+            // src/petascope/wcps/grammar/wcps.g:402:9: '('
             {
             match('('); 
 
@@ -378,8 +378,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = RPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:400:7: ( ')' )
-            // src/grammar/wcps.g:400:9: ')'
+            // src/petascope/wcps/grammar/wcps.g:403:7: ( ')' )
+            // src/petascope/wcps/grammar/wcps.g:403:9: ')'
             {
             match(')'); 
 
@@ -398,8 +398,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:401:9: ( '[' )
-            // src/grammar/wcps.g:401:11: '['
+            // src/petascope/wcps/grammar/wcps.g:404:9: ( '[' )
+            // src/petascope/wcps/grammar/wcps.g:404:11: '['
             {
             match('['); 
 
@@ -418,8 +418,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = RBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:402:9: ( ']' )
-            // src/grammar/wcps.g:402:11: ']'
+            // src/petascope/wcps/grammar/wcps.g:405:9: ( ']' )
+            // src/petascope/wcps/grammar/wcps.g:405:11: ']'
             {
             match(']'); 
 
@@ -438,8 +438,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LBRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:403:7: ( '{' )
-            // src/grammar/wcps.g:403:9: '{'
+            // src/petascope/wcps/grammar/wcps.g:406:7: ( '{' )
+            // src/petascope/wcps/grammar/wcps.g:406:9: '{'
             {
             match('{'); 
 
@@ -458,8 +458,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = RBRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:404:7: ( '}' )
-            // src/grammar/wcps.g:404:9: '}'
+            // src/petascope/wcps/grammar/wcps.g:407:7: ( '}' )
+            // src/petascope/wcps/grammar/wcps.g:407:9: '}'
             {
             match('}'); 
 
@@ -478,8 +478,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:405:6: ( ',' )
-            // src/grammar/wcps.g:405:8: ','
+            // src/petascope/wcps/grammar/wcps.g:408:6: ( ',' )
+            // src/petascope/wcps/grammar/wcps.g:408:8: ','
             {
             match(','); 
 
@@ -498,8 +498,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:406:6: ( ':' )
-            // src/grammar/wcps.g:406:8: ':'
+            // src/petascope/wcps/grammar/wcps.g:409:6: ( ':' )
+            // src/petascope/wcps/grammar/wcps.g:409:8: ':'
             {
             match(':'); 
 
@@ -518,8 +518,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SEMICOLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:407:10: ( ';' )
-            // src/grammar/wcps.g:407:12: ';'
+            // src/petascope/wcps/grammar/wcps.g:410:10: ( ';' )
+            // src/petascope/wcps/grammar/wcps.g:410:12: ';'
             {
             match(';'); 
 
@@ -538,8 +538,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = FOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:408:4: ( ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:408:6: ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' )
+            // src/petascope/wcps/grammar/wcps.g:411:4: ( ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' ) )
+            // src/petascope/wcps/grammar/wcps.g:411:6: ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -584,8 +584,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = IN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:409:3: ( ( 'i' | 'I' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:409:5: ( 'i' | 'I' ) ( 'n' | 'N' )
+            // src/petascope/wcps/grammar/wcps.g:412:3: ( ( 'i' | 'I' ) ( 'n' | 'N' ) )
+            // src/petascope/wcps/grammar/wcps.g:412:5: ( 'i' | 'I' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -621,8 +621,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = WHERE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:410:6: ( ( 'w' | 'W' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:410:8: ( 'w' | 'W' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'e' | 'E' )
+            // src/petascope/wcps/grammar/wcps.g:413:6: ( ( 'w' | 'W' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'e' | 'E' ) )
+            // src/petascope/wcps/grammar/wcps.g:413:8: ( 'w' | 'W' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='W'||input.LA(1)=='w' ) {
                 input.consume();
@@ -685,8 +685,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = RETURN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:411:7: ( ( 'r' | 'R' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'u' | 'U' ) ( 'r' | 'R' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:411:9: ( 'r' | 'R' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'u' | 'U' ) ( 'r' | 'R' ) ( 'n' | 'N' )
+            // src/petascope/wcps/grammar/wcps.g:414:7: ( ( 'r' | 'R' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'u' | 'U' ) ( 'r' | 'R' ) ( 'n' | 'N' ) )
+            // src/petascope/wcps/grammar/wcps.g:414:9: ( 'r' | 'R' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'u' | 'U' ) ( 'r' | 'R' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -758,8 +758,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = STORE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:412:6: ( ( 's' | 'S' ) ( 't' | 'T' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:412:8: ( 's' | 'S' ) ( 't' | 'T' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'e' | 'E' )
+            // src/petascope/wcps/grammar/wcps.g:415:6: ( ( 's' | 'S' ) ( 't' | 'T' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'e' | 'E' ) )
+            // src/petascope/wcps/grammar/wcps.g:415:8: ( 's' | 'S' ) ( 't' | 'T' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -822,8 +822,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ENCODE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:413:7: ( ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'd' | 'D' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:413:9: ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'd' | 'D' ) ( 'e' | 'E' )
+            // src/petascope/wcps/grammar/wcps.g:416:7: ( ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'd' | 'D' ) ( 'e' | 'E' ) )
+            // src/petascope/wcps/grammar/wcps.g:416:9: ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'd' | 'D' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -895,8 +895,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SQRT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:414:5: ( ( 's' | 'S' ) ( 'q' | 'Q' ) ( 'r' | 'R' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:414:7: ( 's' | 'S' ) ( 'q' | 'Q' ) ( 'r' | 'R' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:417:5: ( ( 's' | 'S' ) ( 'q' | 'Q' ) ( 'r' | 'R' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:417:7: ( 's' | 'S' ) ( 'q' | 'Q' ) ( 'r' | 'R' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -950,8 +950,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:415:4: ( ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:415:6: ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' )
+            // src/petascope/wcps/grammar/wcps.g:418:4: ( ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
+            // src/petascope/wcps/grammar/wcps.g:418:6: ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -996,8 +996,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:416:4: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) )
-            // src/grammar/wcps.g:416:6: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' )
+            // src/petascope/wcps/grammar/wcps.g:419:4: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) )
+            // src/petascope/wcps/grammar/wcps.g:419:6: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -1042,8 +1042,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = TAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:417:4: ( ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:417:6: ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' )
+            // src/petascope/wcps/grammar/wcps.g:420:4: ( ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) )
+            // src/petascope/wcps/grammar/wcps.g:420:6: ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -1088,8 +1088,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SINH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:418:5: ( ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'h' | 'H' ) )
-            // src/grammar/wcps.g:418:7: ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'h' | 'H' )
+            // src/petascope/wcps/grammar/wcps.g:421:5: ( ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'h' | 'H' ) )
+            // src/petascope/wcps/grammar/wcps.g:421:7: ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'h' | 'H' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -1143,8 +1143,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COSH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:419:5: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) ( 'h' | 'H' ) )
-            // src/grammar/wcps.g:419:7: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) ( 'h' | 'H' )
+            // src/petascope/wcps/grammar/wcps.g:422:5: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) ( 'h' | 'H' ) )
+            // src/petascope/wcps/grammar/wcps.g:422:7: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) ( 'h' | 'H' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -1198,8 +1198,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = TANH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:420:5: ( ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'h' | 'H' ) )
-            // src/grammar/wcps.g:420:7: ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'h' | 'H' )
+            // src/petascope/wcps/grammar/wcps.g:423:5: ( ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'h' | 'H' ) )
+            // src/petascope/wcps/grammar/wcps.g:423:7: ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'h' | 'H' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -1253,8 +1253,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ARCSIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:421:7: ( ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:421:9: ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' )
+            // src/petascope/wcps/grammar/wcps.g:424:7: ( ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
+            // src/petascope/wcps/grammar/wcps.g:424:9: ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -1326,8 +1326,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ARCCOS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:422:7: ( ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) )
-            // src/grammar/wcps.g:422:9: ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' )
+            // src/petascope/wcps/grammar/wcps.g:425:7: ( ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' ) )
+            // src/petascope/wcps/grammar/wcps.g:425:9: ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 'c' | 'C' ) ( 'o' | 'O' ) ( 's' | 'S' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -1399,8 +1399,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ARCTAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:423:7: ( ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:423:9: ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' )
+            // src/petascope/wcps/grammar/wcps.g:426:7: ( ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' ) )
+            // src/petascope/wcps/grammar/wcps.g:426:9: ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'c' | 'C' ) ( 't' | 'T' ) ( 'a' | 'A' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -1472,8 +1472,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = EXP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:424:4: ( ( 'e' | 'E' ) ( 'x' | 'X' ) ( 'p' | 'P' ) )
-            // src/grammar/wcps.g:424:6: ( 'e' | 'E' ) ( 'x' | 'X' ) ( 'p' | 'P' )
+            // src/petascope/wcps/grammar/wcps.g:427:4: ( ( 'e' | 'E' ) ( 'x' | 'X' ) ( 'p' | 'P' ) )
+            // src/petascope/wcps/grammar/wcps.g:427:6: ( 'e' | 'E' ) ( 'x' | 'X' ) ( 'p' | 'P' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1518,8 +1518,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:425:3: ( ( 'l' | 'L' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:425:5: ( 'l' | 'L' ) ( 'n' | 'N' )
+            // src/petascope/wcps/grammar/wcps.g:428:3: ( ( 'l' | 'L' ) ( 'n' | 'N' ) )
+            // src/petascope/wcps/grammar/wcps.g:428:5: ( 'l' | 'L' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -1555,8 +1555,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LOG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:426:4: ( ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'g' | 'G' ) )
-            // src/grammar/wcps.g:426:6: ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'g' | 'G' )
+            // src/petascope/wcps/grammar/wcps.g:429:4: ( ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'g' | 'G' ) )
+            // src/petascope/wcps/grammar/wcps.g:429:6: ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'g' | 'G' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -1601,8 +1601,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ROUND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:427:6: ( ( 'r' | 'R' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 'd' | 'D' ) )
-            // src/grammar/wcps.g:427:8: ( 'r' | 'R' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 'd' | 'D' )
+            // src/petascope/wcps/grammar/wcps.g:430:6: ( ( 'r' | 'R' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 'd' | 'D' ) )
+            // src/petascope/wcps/grammar/wcps.g:430:8: ( 'r' | 'R' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 'd' | 'D' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -1665,8 +1665,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ABS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:428:4: ( ( 'a' | 'A' ) ( 'b' | 'B' ) ( 's' | 'S' ) )
-            // src/grammar/wcps.g:428:6: ( 'a' | 'A' ) ( 'b' | 'B' ) ( 's' | 'S' )
+            // src/petascope/wcps/grammar/wcps.g:431:4: ( ( 'a' | 'A' ) ( 'b' | 'B' ) ( 's' | 'S' ) )
+            // src/petascope/wcps/grammar/wcps.g:431:6: ( 'a' | 'A' ) ( 'b' | 'B' ) ( 's' | 'S' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -1711,8 +1711,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = OVERLAY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:429:8: ( ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 'y' | 'Y' ) )
-            // src/grammar/wcps.g:429:10: ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 'y' | 'Y' )
+            // src/petascope/wcps/grammar/wcps.g:432:8: ( ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 'y' | 'Y' ) )
+            // src/petascope/wcps/grammar/wcps.g:432:10: ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 'y' | 'Y' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -1793,8 +1793,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = STRUCT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:430:7: ( ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'c' | 'C' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:430:9: ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'c' | 'C' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:433:7: ( ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'c' | 'C' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:433:9: ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'c' | 'C' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -1866,8 +1866,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = RE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:431:3: ( ( 'r' | 'R' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:431:5: ( 'r' | 'R' ) ( 'e' | 'E' )
+            // src/petascope/wcps/grammar/wcps.g:434:3: ( ( 'r' | 'R' ) ( 'e' | 'E' ) )
+            // src/petascope/wcps/grammar/wcps.g:434:5: ( 'r' | 'R' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -1903,8 +1903,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = IM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:432:3: ( ( 'i' | 'I' ) ( 'm' | 'M' ) )
-            // src/grammar/wcps.g:432:5: ( 'i' | 'I' ) ( 'm' | 'M' )
+            // src/petascope/wcps/grammar/wcps.g:435:3: ( ( 'i' | 'I' ) ( 'm' | 'M' ) )
+            // src/petascope/wcps/grammar/wcps.g:435:5: ( 'i' | 'I' ) ( 'm' | 'M' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -1940,8 +1940,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:433:4: ( ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'd' | 'D' ) )
-            // src/grammar/wcps.g:433:6: ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'd' | 'D' )
+            // src/petascope/wcps/grammar/wcps.g:436:4: ( ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'd' | 'D' ) )
+            // src/petascope/wcps/grammar/wcps.g:436:6: ( 'a' | 'A' ) ( 'n' | 'N' ) ( 'd' | 'D' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -1986,8 +1986,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:434:3: ( ( 'o' | 'O' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:434:5: ( 'o' | 'O' ) ( 'r' | 'R' )
+            // src/petascope/wcps/grammar/wcps.g:437:3: ( ( 'o' | 'O' ) ( 'r' | 'R' ) )
+            // src/petascope/wcps/grammar/wcps.g:437:5: ( 'o' | 'O' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -2023,8 +2023,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = XOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:435:4: ( ( 'x' | 'X' ) ( 'o' | 'O' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:435:6: ( 'x' | 'X' ) ( 'o' | 'O' ) ( 'r' | 'R' )
+            // src/petascope/wcps/grammar/wcps.g:438:4: ( ( 'x' | 'X' ) ( 'o' | 'O' ) ( 'r' | 'R' ) )
+            // src/petascope/wcps/grammar/wcps.g:438:6: ( 'x' | 'X' ) ( 'o' | 'O' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
                 input.consume();
@@ -2069,8 +2069,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:436:4: ( ( 'n' | 'N' ) ( 'o' | 'O' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:436:6: ( 'n' | 'N' ) ( 'o' | 'O' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:439:4: ( ( 'n' | 'N' ) ( 'o' | 'O' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:439:6: ( 'n' | 'N' ) ( 'o' | 'O' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -2115,8 +2115,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = IDENTIFIER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:437:11: ( ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:437:13: ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' )
+            // src/petascope/wcps/grammar/wcps.g:440:11: ( ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
+            // src/petascope/wcps/grammar/wcps.g:440:13: ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -2224,8 +2224,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = IMAGECRS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:438:9: ( ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) )
-            // src/grammar/wcps.g:438:11: ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' )
+            // src/petascope/wcps/grammar/wcps.g:441:9: ( ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) )
+            // src/petascope/wcps/grammar/wcps.g:441:11: ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -2315,8 +2315,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = IMAGECRSDOMAIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:439:15: ( ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:439:17: ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' )
+            // src/petascope/wcps/grammar/wcps.g:442:15: ( ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
+            // src/petascope/wcps/grammar/wcps.g:442:17: ( 'i' | 'I' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -2460,8 +2460,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = CRSSET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:440:7: ( ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:440:9: ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:443:7: ( ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:443:9: ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -2533,8 +2533,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = DOMAIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:441:7: ( ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:441:9: ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' )
+            // src/petascope/wcps/grammar/wcps.g:444:7: ( ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
+            // src/petascope/wcps/grammar/wcps.g:444:9: ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'i' | 'I' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -2606,8 +2606,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NULLSET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:442:8: ( ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:442:10: ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:445:8: ( ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:445:10: ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -2688,8 +2688,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NULLDEFAULT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:443:12: ( ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:443:14: ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:446:12: ( ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:446:14: ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -2806,8 +2806,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = INTERPOLATIONDEFAULT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:444:21: ( ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:444:23: ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:447:21: ( ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:447:23: ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -3005,8 +3005,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = INTERPOLATIONSET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:445:17: ( ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:445:19: ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:448:17: ( ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:448:19: ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -3168,8 +3168,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SETIDENTIFIER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:446:14: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:446:16: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' )
+            // src/petascope/wcps/grammar/wcps.g:449:14: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
+            // src/petascope/wcps/grammar/wcps.g:449:16: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'f' | 'F' ) ( 'i' | 'I' ) ( 'e' | 'E' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3304,8 +3304,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SETNULLSET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:447:11: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:447:13: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:450:11: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:450:13: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'n' | 'N' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3413,8 +3413,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SETINTERPOLATIONDEFAULT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:448:24: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:448:26: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:451:24: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:451:26: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3639,8 +3639,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SETINTERPOLATIONSET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:449:20: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:449:21: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:452:20: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:452:21: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'p' | 'P' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3829,8 +3829,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SETCRSSET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:450:10: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:450:12: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:453:10: ( ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:453:12: ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' ) ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 's' | 'S' ) ( 'e' | 'E' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3929,8 +3929,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = TRIM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:451:5: ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'i' | 'I' ) ( 'm' | 'M' ) )
-            // src/grammar/wcps.g:451:7: ( 't' | 'T' ) ( 'r' | 'R' ) ( 'i' | 'I' ) ( 'm' | 'M' )
+            // src/petascope/wcps/grammar/wcps.g:454:5: ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'i' | 'I' ) ( 'm' | 'M' ) )
+            // src/petascope/wcps/grammar/wcps.g:454:7: ( 't' | 'T' ) ( 'r' | 'R' ) ( 'i' | 'I' ) ( 'm' | 'M' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -3984,8 +3984,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SLICE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:452:6: ( ( 's' | 'S' ) ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'c' | 'C' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:452:8: ( 's' | 'S' ) ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'c' | 'C' ) ( 'e' | 'E' )
+            // src/petascope/wcps/grammar/wcps.g:455:6: ( ( 's' | 'S' ) ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'c' | 'C' ) ( 'e' | 'E' ) )
+            // src/petascope/wcps/grammar/wcps.g:455:8: ( 's' | 'S' ) ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'c' | 'C' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4048,8 +4048,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = EXTEND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:453:7: ( ( 'e' | 'E' ) ( 'x' | 'X' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'd' | 'D' ) )
-            // src/grammar/wcps.g:453:9: ( 'e' | 'E' ) ( 'x' | 'X' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'd' | 'D' )
+            // src/petascope/wcps/grammar/wcps.g:456:7: ( ( 'e' | 'E' ) ( 'x' | 'X' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'd' | 'D' ) )
+            // src/petascope/wcps/grammar/wcps.g:456:9: ( 'e' | 'E' ) ( 'x' | 'X' ) ( 't' | 'T' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 'd' | 'D' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -4121,8 +4121,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SCALE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:454:6: ( ( 's' | 'S' ) ( 'c' | 'C' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:454:8: ( 's' | 'S' ) ( 'c' | 'C' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'e' | 'E' )
+            // src/petascope/wcps/grammar/wcps.g:457:6: ( ( 's' | 'S' ) ( 'c' | 'C' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'e' | 'E' ) )
+            // src/petascope/wcps/grammar/wcps.g:457:8: ( 's' | 'S' ) ( 'c' | 'C' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4185,8 +4185,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = CRSTRANSFORM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:455:13: ( ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'm' | 'M' ) )
-            // src/grammar/wcps.g:455:15: ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'm' | 'M' )
+            // src/petascope/wcps/grammar/wcps.g:458:13: ( ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'm' | 'M' ) )
+            // src/petascope/wcps/grammar/wcps.g:458:15: ( 'c' | 'C' ) ( 'r' | 'R' ) ( 's' | 'S' ) ( 't' | 'T' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'f' | 'F' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 'm' | 'M' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -4312,8 +4312,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COUNT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:456:6: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:456:8: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:459:6: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:459:8: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'n' | 'N' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -4376,8 +4376,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ADD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:457:4: ( ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'd' | 'D' ) )
-            // src/grammar/wcps.g:457:6: ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'd' | 'D' )
+            // src/petascope/wcps/grammar/wcps.g:460:4: ( ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'd' | 'D' ) )
+            // src/petascope/wcps/grammar/wcps.g:460:6: ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'd' | 'D' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -4422,8 +4422,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = AVG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:458:4: ( ( 'a' | 'A' ) ( 'v' | 'V' ) ( 'g' | 'G' ) )
-            // src/grammar/wcps.g:458:6: ( 'a' | 'A' ) ( 'v' | 'V' ) ( 'g' | 'G' )
+            // src/petascope/wcps/grammar/wcps.g:461:4: ( ( 'a' | 'A' ) ( 'v' | 'V' ) ( 'g' | 'G' ) )
+            // src/petascope/wcps/grammar/wcps.g:461:6: ( 'a' | 'A' ) ( 'v' | 'V' ) ( 'g' | 'G' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -4468,8 +4468,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = MAX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:459:4: ( ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'x' | 'X' ) )
-            // src/grammar/wcps.g:459:6: ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'x' | 'X' )
+            // src/petascope/wcps/grammar/wcps.g:462:4: ( ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'x' | 'X' ) )
+            // src/petascope/wcps/grammar/wcps.g:462:6: ( 'm' | 'M' ) ( 'a' | 'A' ) ( 'x' | 'X' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -4514,8 +4514,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = MIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:460:4: ( ( 'm' | 'M' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:460:6: ( 'm' | 'M' ) ( 'i' | 'I' ) ( 'n' | 'N' )
+            // src/petascope/wcps/grammar/wcps.g:463:4: ( ( 'm' | 'M' ) ( 'i' | 'I' ) ( 'n' | 'N' ) )
+            // src/petascope/wcps/grammar/wcps.g:463:6: ( 'm' | 'M' ) ( 'i' | 'I' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -4560,8 +4560,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SOME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:461:5: ( ( 's' | 'S' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:461:7: ( 's' | 'S' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'e' | 'E' )
+            // src/petascope/wcps/grammar/wcps.g:464:5: ( ( 's' | 'S' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'e' | 'E' ) )
+            // src/petascope/wcps/grammar/wcps.g:464:7: ( 's' | 'S' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4615,8 +4615,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = ALL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:462:4: ( ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'l' | 'L' ) )
-            // src/grammar/wcps.g:462:6: ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'l' | 'L' )
+            // src/petascope/wcps/grammar/wcps.g:465:4: ( ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'l' | 'L' ) )
+            // src/petascope/wcps/grammar/wcps.g:465:6: ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'l' | 'L' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -4661,8 +4661,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COVERAGE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:463:9: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:463:11: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' )
+            // src/petascope/wcps/grammar/wcps.g:466:9: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' ) )
+            // src/petascope/wcps/grammar/wcps.g:466:11: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 'g' | 'G' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -4752,8 +4752,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = OVER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:464:5: ( ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:464:7: ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' )
+            // src/petascope/wcps/grammar/wcps.g:467:5: ( ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
+            // src/petascope/wcps/grammar/wcps.g:467:7: ( 'o' | 'O' ) ( 'v' | 'V' ) ( 'e' | 'E' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -4807,8 +4807,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = VALUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:465:6: ( ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:465:8: ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' )
+            // src/petascope/wcps/grammar/wcps.g:468:6: ( ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' ) )
+            // src/petascope/wcps/grammar/wcps.g:468:8: ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
                 input.consume();
@@ -4871,8 +4871,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = VALUES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:466:7: ( ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' ) ( 's' | 'S' ) )
-            // src/grammar/wcps.g:466:9: ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' ) ( 's' | 'S' )
+            // src/petascope/wcps/grammar/wcps.g:469:7: ( ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' ) ( 's' | 'S' ) )
+            // src/petascope/wcps/grammar/wcps.g:469:9: ( 'v' | 'V' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'u' | 'U' ) ( 'e' | 'E' ) ( 's' | 'S' )
             {
             if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
                 input.consume();
@@ -4944,8 +4944,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LIST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:467:5: ( ( 'l' | 'L' ) ( 'i' | 'I' ) ( 's' | 'S' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:467:7: ( 'l' | 'L' ) ( 'i' | 'I' ) ( 's' | 'S' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:470:5: ( ( 'l' | 'L' ) ( 'i' | 'I' ) ( 's' | 'S' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:470:7: ( 'l' | 'L' ) ( 'i' | 'I' ) ( 's' | 'S' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -4999,8 +4999,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = CONDENSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:468:9: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:468:11: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' )
+            // src/petascope/wcps/grammar/wcps.g:471:9: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' ) )
+            // src/petascope/wcps/grammar/wcps.g:471:11: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'd' | 'D' ) ( 'e' | 'E' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -5090,8 +5090,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = USING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:469:6: ( ( 'u' | 'U' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'g' | 'G' ) )
-            // src/grammar/wcps.g:469:8: ( 'u' | 'U' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'g' | 'G' )
+            // src/petascope/wcps/grammar/wcps.g:472:6: ( ( 'u' | 'U' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'g' | 'G' ) )
+            // src/petascope/wcps/grammar/wcps.g:472:8: ( 'u' | 'U' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'g' | 'G' )
             {
             if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
                 input.consume();
@@ -5154,8 +5154,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NEAREST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:470:8: ( ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'e' | 'E' ) ( 's' | 'S' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:470:10: ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'e' | 'E' ) ( 's' | 'S' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:473:8: ( ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'e' | 'E' ) ( 's' | 'S' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:473:10: ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' ) ( 'e' | 'E' ) ( 's' | 'S' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -5236,8 +5236,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LINEAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:471:7: ( ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:471:9: ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' )
+            // src/petascope/wcps/grammar/wcps.g:474:7: ( ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' ) )
+            // src/petascope/wcps/grammar/wcps.g:474:9: ( 'l' | 'L' ) ( 'i' | 'I' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -5309,8 +5309,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = QUADRATIC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:472:10: ( ( 'q' | 'Q' ) ( 'u' | 'U' ) ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'c' | 'C' ) )
-            // src/grammar/wcps.g:472:12: ( 'q' | 'Q' ) ( 'u' | 'U' ) ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'c' | 'C' )
+            // src/petascope/wcps/grammar/wcps.g:475:10: ( ( 'q' | 'Q' ) ( 'u' | 'U' ) ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'c' | 'C' ) )
+            // src/petascope/wcps/grammar/wcps.g:475:12: ( 'q' | 'Q' ) ( 'u' | 'U' ) ( 'a' | 'A' ) ( 'd' | 'D' ) ( 'r' | 'R' ) ( 'a' | 'A' ) ( 't' | 'T' ) ( 'i' | 'I' ) ( 'c' | 'C' )
             {
             if ( input.LA(1)=='Q'||input.LA(1)=='q' ) {
                 input.consume();
@@ -5409,8 +5409,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = CUBIC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:473:6: ( ( 'c' | 'C' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'i' | 'I' ) ( 'c' | 'C' ) )
-            // src/grammar/wcps.g:473:8: ( 'c' | 'C' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'i' | 'I' ) ( 'c' | 'C' )
+            // src/petascope/wcps/grammar/wcps.g:476:6: ( ( 'c' | 'C' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'i' | 'I' ) ( 'c' | 'C' ) )
+            // src/petascope/wcps/grammar/wcps.g:476:8: ( 'c' | 'C' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'i' | 'I' ) ( 'c' | 'C' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -5473,8 +5473,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = FULL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:474:5: ( ( 'f' | 'F' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) )
-            // src/grammar/wcps.g:474:7: ( 'f' | 'F' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' )
+            // src/petascope/wcps/grammar/wcps.g:477:5: ( ( 'f' | 'F' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' ) )
+            // src/petascope/wcps/grammar/wcps.g:477:7: ( 'f' | 'F' ) ( 'u' | 'U' ) ( 'l' | 'L' ) ( 'l' | 'L' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -5528,8 +5528,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NONE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:475:5: ( ( 'n' | 'N' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:475:7: ( 'n' | 'N' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'e' | 'E' )
+            // src/petascope/wcps/grammar/wcps.g:478:5: ( ( 'n' | 'N' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'e' | 'E' ) )
+            // src/petascope/wcps/grammar/wcps.g:478:7: ( 'n' | 'N' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -5583,8 +5583,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = HALF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:476:5: ( ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'f' | 'F' ) )
-            // src/grammar/wcps.g:476:7: ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'f' | 'F' )
+            // src/petascope/wcps/grammar/wcps.g:479:5: ( ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'f' | 'F' ) )
+            // src/petascope/wcps/grammar/wcps.g:479:7: ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 'f' | 'F' )
             {
             if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
                 input.consume();
@@ -5638,8 +5638,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:477:6: ( ( 'o' | 'O' ) ( 't' | 'T' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:477:8: ( 'o' | 'O' ) ( 't' | 'T' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' )
+            // src/petascope/wcps/grammar/wcps.g:480:6: ( ( 'o' | 'O' ) ( 't' | 'T' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' ) )
+            // src/petascope/wcps/grammar/wcps.g:480:8: ( 'o' | 'O' ) ( 't' | 'T' ) ( 'h' | 'H' ) ( 'e' | 'E' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -5702,8 +5702,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = PHI;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:478:4: ( ( 'p' | 'P' ) ( 'h' | 'H' ) ( 'i' | 'I' ) )
-            // src/grammar/wcps.g:478:6: ( 'p' | 'P' ) ( 'h' | 'H' ) ( 'i' | 'I' )
+            // src/petascope/wcps/grammar/wcps.g:481:4: ( ( 'p' | 'P' ) ( 'h' | 'H' ) ( 'i' | 'I' ) )
+            // src/petascope/wcps/grammar/wcps.g:481:6: ( 'p' | 'P' ) ( 'h' | 'H' ) ( 'i' | 'I' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -5748,8 +5748,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = BIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:479:4: ( ( 'b' | 'B' ) ( 'i' | 'I' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:479:6: ( 'b' | 'B' ) ( 'i' | 'I' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:482:4: ( ( 'b' | 'B' ) ( 'i' | 'I' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:482:6: ( 'b' | 'B' ) ( 'i' | 'I' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                 input.consume();
@@ -5794,8 +5794,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = UNSIGNED;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:480:9: ( ( 'u' | 'U' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'g' | 'G' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'd' | 'D' ) )
-            // src/grammar/wcps.g:480:11: ( 'u' | 'U' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'g' | 'G' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'd' | 'D' )
+            // src/petascope/wcps/grammar/wcps.g:483:9: ( ( 'u' | 'U' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'g' | 'G' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'd' | 'D' ) )
+            // src/petascope/wcps/grammar/wcps.g:483:11: ( 'u' | 'U' ) ( 'n' | 'N' ) ( 's' | 'S' ) ( 'i' | 'I' ) ( 'g' | 'G' ) ( 'n' | 'N' ) ( 'e' | 'E' ) ( 'd' | 'D' )
             {
             if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
                 input.consume();
@@ -5885,8 +5885,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = BOOLEAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:481:8: ( ( 'b' | 'B' ) ( 'o' | 'O' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'n' | 'N' ) )
-            // src/grammar/wcps.g:481:10: ( 'b' | 'B' ) ( 'o' | 'O' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'n' | 'N' )
+            // src/petascope/wcps/grammar/wcps.g:484:8: ( ( 'b' | 'B' ) ( 'o' | 'O' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'n' | 'N' ) )
+            // src/petascope/wcps/grammar/wcps.g:484:10: ( 'b' | 'B' ) ( 'o' | 'O' ) ( 'o' | 'O' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'a' | 'A' ) ( 'n' | 'N' )
             {
             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                 input.consume();
@@ -5967,8 +5967,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = CHAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:482:5: ( ( 'c' | 'C' ) ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'r' | 'R' ) )
-            // src/grammar/wcps.g:482:7: ( 'c' | 'C' ) ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'r' | 'R' )
+            // src/petascope/wcps/grammar/wcps.g:485:5: ( ( 'c' | 'C' ) ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'r' | 'R' ) )
+            // src/petascope/wcps/grammar/wcps.g:485:7: ( 'c' | 'C' ) ( 'h' | 'H' ) ( 'a' | 'A' ) ( 'r' | 'R' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -6022,8 +6022,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = SHORT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:483:6: ( ( 's' | 'S' ) ( 'h' | 'H' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:483:8: ( 's' | 'S' ) ( 'h' | 'H' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:486:6: ( ( 's' | 'S' ) ( 'h' | 'H' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:486:8: ( 's' | 'S' ) ( 'h' | 'H' ) ( 'o' | 'O' ) ( 'r' | 'R' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -6086,8 +6086,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = LONG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:484:5: ( ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'g' | 'G' ) )
-            // src/grammar/wcps.g:484:7: ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'g' | 'G' )
+            // src/petascope/wcps/grammar/wcps.g:487:5: ( ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'g' | 'G' ) )
+            // src/petascope/wcps/grammar/wcps.g:487:7: ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'n' | 'N' ) ( 'g' | 'G' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -6141,8 +6141,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = FLOAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:485:6: ( ( 'f' | 'F' ) ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'a' | 'A' ) ( 't' | 'T' ) )
-            // src/grammar/wcps.g:485:8: ( 'f' | 'F' ) ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'a' | 'A' ) ( 't' | 'T' )
+            // src/petascope/wcps/grammar/wcps.g:488:6: ( ( 'f' | 'F' ) ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'a' | 'A' ) ( 't' | 'T' ) )
+            // src/petascope/wcps/grammar/wcps.g:488:8: ( 'f' | 'F' ) ( 'l' | 'L' ) ( 'o' | 'O' ) ( 'a' | 'A' ) ( 't' | 'T' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -6205,8 +6205,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = DOUBLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:486:7: ( ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'l' | 'L' ) ( 'e' | 'E' ) )
-            // src/grammar/wcps.g:486:9: ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'l' | 'L' ) ( 'e' | 'E' )
+            // src/petascope/wcps/grammar/wcps.g:489:7: ( ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'l' | 'L' ) ( 'e' | 'E' ) )
+            // src/petascope/wcps/grammar/wcps.g:489:9: ( 'd' | 'D' ) ( 'o' | 'O' ) ( 'u' | 'U' ) ( 'b' | 'B' ) ( 'l' | 'L' ) ( 'e' | 'E' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -6278,8 +6278,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COMPLEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:487:8: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' ) )
-            // src/grammar/wcps.g:487:10: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' )
+            // src/petascope/wcps/grammar/wcps.g:490:8: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' ) )
+            // src/petascope/wcps/grammar/wcps.g:490:10: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -6360,8 +6360,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = COMPLEX2;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:488:9: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' ) '2' )
-            // src/grammar/wcps.g:488:11: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' ) '2'
+            // src/petascope/wcps/grammar/wcps.g:491:9: ( ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' ) '2' )
+            // src/petascope/wcps/grammar/wcps.g:491:11: ( 'c' | 'C' ) ( 'o' | 'O' ) ( 'm' | 'M' ) ( 'p' | 'P' ) ( 'l' | 'L' ) ( 'e' | 'E' ) ( 'x' | 'X' ) '2'
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -6443,7 +6443,7 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = BOOLEANCONSTANT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:489:16: ( ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' ) ) | ( ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ) )
+            // src/petascope/wcps/grammar/wcps.g:492:16: ( ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' ) ) | ( ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) ) )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -6461,10 +6461,10 @@ public class wcpsLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // src/grammar/wcps.g:489:18: ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' ) )
+                    // src/petascope/wcps/grammar/wcps.g:492:18: ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' ) )
                     {
-                    // src/grammar/wcps.g:489:18: ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' ) )
-                    // src/grammar/wcps.g:489:19: ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' )
+                    // src/petascope/wcps/grammar/wcps.g:492:18: ( ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' ) )
+                    // src/petascope/wcps/grammar/wcps.g:492:19: ( 't' | 'T' ) ( 'r' | 'R' ) ( 'u' | 'U' ) ( 'e' | 'E' )
                     {
                     if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                         input.consume();
@@ -6509,10 +6509,10 @@ public class wcpsLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // src/grammar/wcps.g:489:57: ( ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) )
+                    // src/petascope/wcps/grammar/wcps.g:492:57: ( ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) )
                     {
-                    // src/grammar/wcps.g:489:57: ( ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) )
-                    // src/grammar/wcps.g:489:58: ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' )
+                    // src/petascope/wcps/grammar/wcps.g:492:57: ( ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' ) )
+                    // src/petascope/wcps/grammar/wcps.g:492:58: ( 'f' | 'F' ) ( 'a' | 'A' ) ( 'l' | 'L' ) ( 's' | 'S' ) ( 'e' | 'E' )
                     {
                     if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                         input.consume();
@@ -6580,10 +6580,10 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = INTEGERCONSTANT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:490:16: ( ( PLUS | MINUS )? ( '0' .. '9' )+ )
-            // src/grammar/wcps.g:490:19: ( PLUS | MINUS )? ( '0' .. '9' )+
+            // src/petascope/wcps/grammar/wcps.g:493:16: ( ( PLUS | MINUS )? ( '0' .. '9' )+ )
+            // src/petascope/wcps/grammar/wcps.g:493:19: ( PLUS | MINUS )? ( '0' .. '9' )+
             {
-            // src/grammar/wcps.g:490:19: ( PLUS | MINUS )?
+            // src/petascope/wcps/grammar/wcps.g:493:19: ( PLUS | MINUS )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -6592,7 +6592,7 @@ public class wcpsLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // src/grammar/wcps.g:
+                    // src/petascope/wcps/grammar/wcps.g:
                     {
                     if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                         input.consume();
@@ -6609,7 +6609,7 @@ public class wcpsLexer extends Lexer {
 
             }
 
-            // src/grammar/wcps.g:490:33: ( '0' .. '9' )+
+            // src/petascope/wcps/grammar/wcps.g:493:33: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -6623,7 +6623,7 @@ public class wcpsLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // src/grammar/wcps.g:490:34: '0' .. '9'
+            	    // src/petascope/wcps/grammar/wcps.g:493:34: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -6655,21 +6655,21 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = FLOATCONSTANT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:491:14: ( INTEGERCONSTANT ( '.' ) ( ( '0' .. '9' )+ ) ( ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ ) )? )
-            // src/grammar/wcps.g:491:16: INTEGERCONSTANT ( '.' ) ( ( '0' .. '9' )+ ) ( ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ ) )?
+            // src/petascope/wcps/grammar/wcps.g:494:14: ( INTEGERCONSTANT ( '.' ) ( ( '0' .. '9' )+ ) ( ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ ) )? )
+            // src/petascope/wcps/grammar/wcps.g:494:16: INTEGERCONSTANT ( '.' ) ( ( '0' .. '9' )+ ) ( ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ ) )?
             {
             mINTEGERCONSTANT(); 
-            // src/grammar/wcps.g:491:32: ( '.' )
-            // src/grammar/wcps.g:491:33: '.'
+            // src/petascope/wcps/grammar/wcps.g:494:32: ( '.' )
+            // src/petascope/wcps/grammar/wcps.g:494:33: '.'
             {
             match('.'); 
 
             }
 
-            // src/grammar/wcps.g:491:37: ( ( '0' .. '9' )+ )
-            // src/grammar/wcps.g:491:38: ( '0' .. '9' )+
+            // src/petascope/wcps/grammar/wcps.g:494:37: ( ( '0' .. '9' )+ )
+            // src/petascope/wcps/grammar/wcps.g:494:38: ( '0' .. '9' )+
             {
-            // src/grammar/wcps.g:491:38: ( '0' .. '9' )+
+            // src/petascope/wcps/grammar/wcps.g:494:38: ( '0' .. '9' )+
             int cnt4=0;
             loop4:
             do {
@@ -6683,7 +6683,7 @@ public class wcpsLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // src/grammar/wcps.g:491:38: '0' .. '9'
+            	    // src/petascope/wcps/grammar/wcps.g:494:38: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -6702,7 +6702,7 @@ public class wcpsLexer extends Lexer {
 
             }
 
-            // src/grammar/wcps.g:491:48: ( ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ ) )?
+            // src/petascope/wcps/grammar/wcps.g:494:48: ( ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ ) )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -6711,7 +6711,7 @@ public class wcpsLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // src/grammar/wcps.g:491:49: ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ )
+                    // src/petascope/wcps/grammar/wcps.g:494:49: ( 'e' | 'E' ) ( ( '-' | '+' )? ) ( ( '0' .. '9' )+ )
                     {
                     if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                         input.consume();
@@ -6722,10 +6722,10 @@ public class wcpsLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
-                    // src/grammar/wcps.g:491:58: ( ( '-' | '+' )? )
-                    // src/grammar/wcps.g:491:59: ( '-' | '+' )?
+                    // src/petascope/wcps/grammar/wcps.g:494:58: ( ( '-' | '+' )? )
+                    // src/petascope/wcps/grammar/wcps.g:494:59: ( '-' | '+' )?
                     {
-                    // src/grammar/wcps.g:491:59: ( '-' | '+' )?
+                    // src/petascope/wcps/grammar/wcps.g:494:59: ( '-' | '+' )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
@@ -6734,7 +6734,7 @@ public class wcpsLexer extends Lexer {
                     }
                     switch (alt5) {
                         case 1 :
-                            // src/grammar/wcps.g:
+                            // src/petascope/wcps/grammar/wcps.g:
                             {
                             if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                                 input.consume();
@@ -6754,10 +6754,10 @@ public class wcpsLexer extends Lexer {
 
                     }
 
-                    // src/grammar/wcps.g:491:70: ( ( '0' .. '9' )+ )
-                    // src/grammar/wcps.g:491:71: ( '0' .. '9' )+
+                    // src/petascope/wcps/grammar/wcps.g:494:70: ( ( '0' .. '9' )+ )
+                    // src/petascope/wcps/grammar/wcps.g:494:71: ( '0' .. '9' )+
                     {
-                    // src/grammar/wcps.g:491:71: ( '0' .. '9' )+
+                    // src/petascope/wcps/grammar/wcps.g:494:71: ( '0' .. '9' )+
                     int cnt6=0;
                     loop6:
                     do {
@@ -6771,7 +6771,7 @@ public class wcpsLexer extends Lexer {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // src/grammar/wcps.g:491:71: '0' .. '9'
+                    	    // src/petascope/wcps/grammar/wcps.g:494:71: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -6812,11 +6812,11 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:492:7: ( '\"' ( options {greedy=false; } : . )* '\"' )
-            // src/grammar/wcps.g:492:9: '\"' ( options {greedy=false; } : . )* '\"'
+            // src/petascope/wcps/grammar/wcps.g:495:7: ( '\"' ( options {greedy=false; } : . )* '\"' )
+            // src/petascope/wcps/grammar/wcps.g:495:9: '\"' ( options {greedy=false; } : . )* '\"'
             {
             match('\"'); 
-            // src/grammar/wcps.g:492:13: ( options {greedy=false; } : . )*
+            // src/petascope/wcps/grammar/wcps.g:495:13: ( options {greedy=false; } : . )*
             loop8:
             do {
                 int alt8=2;
@@ -6832,7 +6832,7 @@ public class wcpsLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // src/grammar/wcps.g:492:41: .
+            	    // src/petascope/wcps/grammar/wcps.g:495:41: .
             	    {
             	    matchAny(); 
 
@@ -6862,8 +6862,8 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = NAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:493:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* ) )
-            // src/grammar/wcps.g:493:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // src/petascope/wcps/grammar/wcps.g:496:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* ) )
+            // src/petascope/wcps/grammar/wcps.g:496:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -6874,10 +6874,10 @@ public class wcpsLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // src/grammar/wcps.g:493:30: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // src/grammar/wcps.g:493:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // src/petascope/wcps/grammar/wcps.g:496:30: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // src/petascope/wcps/grammar/wcps.g:496:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
-            // src/grammar/wcps.g:493:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // src/petascope/wcps/grammar/wcps.g:496:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop9:
             do {
                 int alt9=2;
@@ -6890,7 +6890,7 @@ public class wcpsLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // src/grammar/wcps.g:
+            	    // src/petascope/wcps/grammar/wcps.g:
             	    {
             	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -6929,14 +6929,14 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = VARIABLE_DOLLAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:494:16: ( '$' ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* ) )
-            // src/grammar/wcps.g:494:18: '$' ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // src/petascope/wcps/grammar/wcps.g:497:16: ( '$' ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* ) )
+            // src/petascope/wcps/grammar/wcps.g:497:18: '$' ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
             {
             match('$'); 
-            // src/grammar/wcps.g:494:21: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // src/grammar/wcps.g:494:22: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // src/petascope/wcps/grammar/wcps.g:497:21: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // src/petascope/wcps/grammar/wcps.g:497:22: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
-            // src/grammar/wcps.g:494:22: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // src/petascope/wcps/grammar/wcps.g:497:22: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop10:
             do {
                 int alt10=2;
@@ -6949,7 +6949,7 @@ public class wcpsLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // src/grammar/wcps.g:
+            	    // src/petascope/wcps/grammar/wcps.g:
             	    {
             	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -6989,10 +6989,10 @@ public class wcpsLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/grammar/wcps.g:495:11: ( ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )+ )
-            // src/grammar/wcps.g:495:13: ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )+
+            // src/petascope/wcps/grammar/wcps.g:498:11: ( ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )+ )
+            // src/petascope/wcps/grammar/wcps.g:498:13: ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )+
             {
-            // src/grammar/wcps.g:495:13: ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )+
+            // src/petascope/wcps/grammar/wcps.g:498:13: ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )+
             int cnt11=0;
             loop11:
             do {
@@ -7006,7 +7006,7 @@ public class wcpsLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // src/grammar/wcps.g:
+            	    // src/petascope/wcps/grammar/wcps.g:
             	    {
             	    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||(input.LA(1)>='\f' && input.LA(1)<='\r')||input.LA(1)==' ' ) {
             	        input.consume();
@@ -7043,761 +7043,761 @@ public class wcpsLexer extends Lexer {
     // $ANTLR end "WHITESPACE"
 
     public void mTokens() throws RecognitionException {
-        // src/grammar/wcps.g:1:8: ( PLUS | MINUS | DIVIDE | MULT | EQUALS | NOTEQUALS | LT | GT | LTE | GTE | DOT | LPAREN | RPAREN | LBRACKET | RBRACKET | LBRACE | RBRACE | COMMA | COLON | SEMICOLON | FOR | IN | WHERE | RETURN | STORE | ENCODE | SQRT | SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN | EXP | LN | LOG | ROUND | ABS | OVERLAY | STRUCT | RE | IM | AND | OR | XOR | NOT | IDENTIFIER | IMAGECRS | IMAGECRSDOMAIN | CRSSET | DOMAIN | NULLSET | NULLDEFAULT | INTERPOLATIONDEFAULT | INTERPOLATIONSET | SETIDENTIFIER | SETNULLSET | SETINTERPOLATIONDEFAULT | SETINTERPOLATIONSET | SETCRSSET | TRIM | SLICE | EXTEND | SCALE | CRSTRANSFORM | COUNT | ADD | AVG | MAX | MIN | SOME | ALL | COVERAGE | OVER | VALUE | VALUES | LIST | CONDENSE | USING | NEAREST | LINEAR | QUADRATIC | CUBIC | FULL | NONE | HALF | OTHER | PHI | BIT | UNSIGNED | BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT | STRING | NAME | VARIABLE_DOLLAR | WHITESPACE )
+        // src/petascope/wcps/grammar/wcps.g:1:8: ( PLUS | MINUS | DIVIDE | MULT | EQUALS | NOTEQUALS | LT | GT | LTE | GTE | DOT | LPAREN | RPAREN | LBRACKET | RBRACKET | LBRACE | RBRACE | COMMA | COLON | SEMICOLON | FOR | IN | WHERE | RETURN | STORE | ENCODE | SQRT | SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN | EXP | LN | LOG | ROUND | ABS | OVERLAY | STRUCT | RE | IM | AND | OR | XOR | NOT | IDENTIFIER | IMAGECRS | IMAGECRSDOMAIN | CRSSET | DOMAIN | NULLSET | NULLDEFAULT | INTERPOLATIONDEFAULT | INTERPOLATIONSET | SETIDENTIFIER | SETNULLSET | SETINTERPOLATIONDEFAULT | SETINTERPOLATIONSET | SETCRSSET | TRIM | SLICE | EXTEND | SCALE | CRSTRANSFORM | COUNT | ADD | AVG | MAX | MIN | SOME | ALL | COVERAGE | OVER | VALUE | VALUES | LIST | CONDENSE | USING | NEAREST | LINEAR | QUADRATIC | CUBIC | FULL | NONE | HALF | OTHER | PHI | BIT | UNSIGNED | BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT | STRING | NAME | VARIABLE_DOLLAR | WHITESPACE )
         int alt12=108;
         alt12 = dfa12.predict(input);
         switch (alt12) {
             case 1 :
-                // src/grammar/wcps.g:1:10: PLUS
+                // src/petascope/wcps/grammar/wcps.g:1:10: PLUS
                 {
                 mPLUS(); 
 
                 }
                 break;
             case 2 :
-                // src/grammar/wcps.g:1:15: MINUS
+                // src/petascope/wcps/grammar/wcps.g:1:15: MINUS
                 {
                 mMINUS(); 
 
                 }
                 break;
             case 3 :
-                // src/grammar/wcps.g:1:21: DIVIDE
+                // src/petascope/wcps/grammar/wcps.g:1:21: DIVIDE
                 {
                 mDIVIDE(); 
 
                 }
                 break;
             case 4 :
-                // src/grammar/wcps.g:1:28: MULT
+                // src/petascope/wcps/grammar/wcps.g:1:28: MULT
                 {
                 mMULT(); 
 
                 }
                 break;
             case 5 :
-                // src/grammar/wcps.g:1:33: EQUALS
+                // src/petascope/wcps/grammar/wcps.g:1:33: EQUALS
                 {
                 mEQUALS(); 
 
                 }
                 break;
             case 6 :
-                // src/grammar/wcps.g:1:40: NOTEQUALS
+                // src/petascope/wcps/grammar/wcps.g:1:40: NOTEQUALS
                 {
                 mNOTEQUALS(); 
 
                 }
                 break;
             case 7 :
-                // src/grammar/wcps.g:1:50: LT
+                // src/petascope/wcps/grammar/wcps.g:1:50: LT
                 {
                 mLT(); 
 
                 }
                 break;
             case 8 :
-                // src/grammar/wcps.g:1:53: GT
+                // src/petascope/wcps/grammar/wcps.g:1:53: GT
                 {
                 mGT(); 
 
                 }
                 break;
             case 9 :
-                // src/grammar/wcps.g:1:56: LTE
+                // src/petascope/wcps/grammar/wcps.g:1:56: LTE
                 {
                 mLTE(); 
 
                 }
                 break;
             case 10 :
-                // src/grammar/wcps.g:1:60: GTE
+                // src/petascope/wcps/grammar/wcps.g:1:60: GTE
                 {
                 mGTE(); 
 
                 }
                 break;
             case 11 :
-                // src/grammar/wcps.g:1:64: DOT
+                // src/petascope/wcps/grammar/wcps.g:1:64: DOT
                 {
                 mDOT(); 
 
                 }
                 break;
             case 12 :
-                // src/grammar/wcps.g:1:68: LPAREN
+                // src/petascope/wcps/grammar/wcps.g:1:68: LPAREN
                 {
                 mLPAREN(); 
 
                 }
                 break;
             case 13 :
-                // src/grammar/wcps.g:1:75: RPAREN
+                // src/petascope/wcps/grammar/wcps.g:1:75: RPAREN
                 {
                 mRPAREN(); 
 
                 }
                 break;
             case 14 :
-                // src/grammar/wcps.g:1:82: LBRACKET
+                // src/petascope/wcps/grammar/wcps.g:1:82: LBRACKET
                 {
                 mLBRACKET(); 
 
                 }
                 break;
             case 15 :
-                // src/grammar/wcps.g:1:91: RBRACKET
+                // src/petascope/wcps/grammar/wcps.g:1:91: RBRACKET
                 {
                 mRBRACKET(); 
 
                 }
                 break;
             case 16 :
-                // src/grammar/wcps.g:1:100: LBRACE
+                // src/petascope/wcps/grammar/wcps.g:1:100: LBRACE
                 {
                 mLBRACE(); 
 
                 }
                 break;
             case 17 :
-                // src/grammar/wcps.g:1:107: RBRACE
+                // src/petascope/wcps/grammar/wcps.g:1:107: RBRACE
                 {
                 mRBRACE(); 
 
                 }
                 break;
             case 18 :
-                // src/grammar/wcps.g:1:114: COMMA
+                // src/petascope/wcps/grammar/wcps.g:1:114: COMMA
                 {
                 mCOMMA(); 
 
                 }
                 break;
             case 19 :
-                // src/grammar/wcps.g:1:120: COLON
+                // src/petascope/wcps/grammar/wcps.g:1:120: COLON
                 {
                 mCOLON(); 
 
                 }
                 break;
             case 20 :
-                // src/grammar/wcps.g:1:126: SEMICOLON
+                // src/petascope/wcps/grammar/wcps.g:1:126: SEMICOLON
                 {
                 mSEMICOLON(); 
 
                 }
                 break;
             case 21 :
-                // src/grammar/wcps.g:1:136: FOR
+                // src/petascope/wcps/grammar/wcps.g:1:136: FOR
                 {
                 mFOR(); 
 
                 }
                 break;
             case 22 :
-                // src/grammar/wcps.g:1:140: IN
+                // src/petascope/wcps/grammar/wcps.g:1:140: IN
                 {
                 mIN(); 
 
                 }
                 break;
             case 23 :
-                // src/grammar/wcps.g:1:143: WHERE
+                // src/petascope/wcps/grammar/wcps.g:1:143: WHERE
                 {
                 mWHERE(); 
 
                 }
                 break;
             case 24 :
-                // src/grammar/wcps.g:1:149: RETURN
+                // src/petascope/wcps/grammar/wcps.g:1:149: RETURN
                 {
                 mRETURN(); 
 
                 }
                 break;
             case 25 :
-                // src/grammar/wcps.g:1:156: STORE
+                // src/petascope/wcps/grammar/wcps.g:1:156: STORE
                 {
                 mSTORE(); 
 
                 }
                 break;
             case 26 :
-                // src/grammar/wcps.g:1:162: ENCODE
+                // src/petascope/wcps/grammar/wcps.g:1:162: ENCODE
                 {
                 mENCODE(); 
 
                 }
                 break;
             case 27 :
-                // src/grammar/wcps.g:1:169: SQRT
+                // src/petascope/wcps/grammar/wcps.g:1:169: SQRT
                 {
                 mSQRT(); 
 
                 }
                 break;
             case 28 :
-                // src/grammar/wcps.g:1:174: SIN
+                // src/petascope/wcps/grammar/wcps.g:1:174: SIN
                 {
                 mSIN(); 
 
                 }
                 break;
             case 29 :
-                // src/grammar/wcps.g:1:178: COS
+                // src/petascope/wcps/grammar/wcps.g:1:178: COS
                 {
                 mCOS(); 
 
                 }
                 break;
             case 30 :
-                // src/grammar/wcps.g:1:182: TAN
+                // src/petascope/wcps/grammar/wcps.g:1:182: TAN
                 {
                 mTAN(); 
 
                 }
                 break;
             case 31 :
-                // src/grammar/wcps.g:1:186: SINH
+                // src/petascope/wcps/grammar/wcps.g:1:186: SINH
                 {
                 mSINH(); 
 
                 }
                 break;
             case 32 :
-                // src/grammar/wcps.g:1:191: COSH
+                // src/petascope/wcps/grammar/wcps.g:1:191: COSH
                 {
                 mCOSH(); 
 
                 }
                 break;
             case 33 :
-                // src/grammar/wcps.g:1:196: TANH
+                // src/petascope/wcps/grammar/wcps.g:1:196: TANH
                 {
                 mTANH(); 
 
                 }
                 break;
             case 34 :
-                // src/grammar/wcps.g:1:201: ARCSIN
+                // src/petascope/wcps/grammar/wcps.g:1:201: ARCSIN
                 {
                 mARCSIN(); 
 
                 }
                 break;
             case 35 :
-                // src/grammar/wcps.g:1:208: ARCCOS
+                // src/petascope/wcps/grammar/wcps.g:1:208: ARCCOS
                 {
                 mARCCOS(); 
 
                 }
                 break;
             case 36 :
-                // src/grammar/wcps.g:1:215: ARCTAN
+                // src/petascope/wcps/grammar/wcps.g:1:215: ARCTAN
                 {
                 mARCTAN(); 
 
                 }
                 break;
             case 37 :
-                // src/grammar/wcps.g:1:222: EXP
+                // src/petascope/wcps/grammar/wcps.g:1:222: EXP
                 {
                 mEXP(); 
 
                 }
                 break;
             case 38 :
-                // src/grammar/wcps.g:1:226: LN
+                // src/petascope/wcps/grammar/wcps.g:1:226: LN
                 {
                 mLN(); 
 
                 }
                 break;
             case 39 :
-                // src/grammar/wcps.g:1:229: LOG
+                // src/petascope/wcps/grammar/wcps.g:1:229: LOG
                 {
                 mLOG(); 
 
                 }
                 break;
             case 40 :
-                // src/grammar/wcps.g:1:233: ROUND
+                // src/petascope/wcps/grammar/wcps.g:1:233: ROUND
                 {
                 mROUND(); 
 
                 }
                 break;
             case 41 :
-                // src/grammar/wcps.g:1:239: ABS
+                // src/petascope/wcps/grammar/wcps.g:1:239: ABS
                 {
                 mABS(); 
 
                 }
                 break;
             case 42 :
-                // src/grammar/wcps.g:1:243: OVERLAY
+                // src/petascope/wcps/grammar/wcps.g:1:243: OVERLAY
                 {
                 mOVERLAY(); 
 
                 }
                 break;
             case 43 :
-                // src/grammar/wcps.g:1:251: STRUCT
+                // src/petascope/wcps/grammar/wcps.g:1:251: STRUCT
                 {
                 mSTRUCT(); 
 
                 }
                 break;
             case 44 :
-                // src/grammar/wcps.g:1:258: RE
+                // src/petascope/wcps/grammar/wcps.g:1:258: RE
                 {
                 mRE(); 
 
                 }
                 break;
             case 45 :
-                // src/grammar/wcps.g:1:261: IM
+                // src/petascope/wcps/grammar/wcps.g:1:261: IM
                 {
                 mIM(); 
 
                 }
                 break;
             case 46 :
-                // src/grammar/wcps.g:1:264: AND
+                // src/petascope/wcps/grammar/wcps.g:1:264: AND
                 {
                 mAND(); 
 
                 }
                 break;
             case 47 :
-                // src/grammar/wcps.g:1:268: OR
+                // src/petascope/wcps/grammar/wcps.g:1:268: OR
                 {
                 mOR(); 
 
                 }
                 break;
             case 48 :
-                // src/grammar/wcps.g:1:271: XOR
+                // src/petascope/wcps/grammar/wcps.g:1:271: XOR
                 {
                 mXOR(); 
 
                 }
                 break;
             case 49 :
-                // src/grammar/wcps.g:1:275: NOT
+                // src/petascope/wcps/grammar/wcps.g:1:275: NOT
                 {
                 mNOT(); 
 
                 }
                 break;
             case 50 :
-                // src/grammar/wcps.g:1:279: IDENTIFIER
+                // src/petascope/wcps/grammar/wcps.g:1:279: IDENTIFIER
                 {
                 mIDENTIFIER(); 
 
                 }
                 break;
             case 51 :
-                // src/grammar/wcps.g:1:290: IMAGECRS
+                // src/petascope/wcps/grammar/wcps.g:1:290: IMAGECRS
                 {
                 mIMAGECRS(); 
 
                 }
                 break;
             case 52 :
-                // src/grammar/wcps.g:1:299: IMAGECRSDOMAIN
+                // src/petascope/wcps/grammar/wcps.g:1:299: IMAGECRSDOMAIN
                 {
                 mIMAGECRSDOMAIN(); 
 
                 }
                 break;
             case 53 :
-                // src/grammar/wcps.g:1:314: CRSSET
+                // src/petascope/wcps/grammar/wcps.g:1:314: CRSSET
                 {
                 mCRSSET(); 
 
                 }
                 break;
             case 54 :
-                // src/grammar/wcps.g:1:321: DOMAIN
+                // src/petascope/wcps/grammar/wcps.g:1:321: DOMAIN
                 {
                 mDOMAIN(); 
 
                 }
                 break;
             case 55 :
-                // src/grammar/wcps.g:1:328: NULLSET
+                // src/petascope/wcps/grammar/wcps.g:1:328: NULLSET
                 {
                 mNULLSET(); 
 
                 }
                 break;
             case 56 :
-                // src/grammar/wcps.g:1:336: NULLDEFAULT
+                // src/petascope/wcps/grammar/wcps.g:1:336: NULLDEFAULT
                 {
                 mNULLDEFAULT(); 
 
                 }
                 break;
             case 57 :
-                // src/grammar/wcps.g:1:348: INTERPOLATIONDEFAULT
+                // src/petascope/wcps/grammar/wcps.g:1:348: INTERPOLATIONDEFAULT
                 {
                 mINTERPOLATIONDEFAULT(); 
 
                 }
                 break;
             case 58 :
-                // src/grammar/wcps.g:1:369: INTERPOLATIONSET
+                // src/petascope/wcps/grammar/wcps.g:1:369: INTERPOLATIONSET
                 {
                 mINTERPOLATIONSET(); 
 
                 }
                 break;
             case 59 :
-                // src/grammar/wcps.g:1:386: SETIDENTIFIER
+                // src/petascope/wcps/grammar/wcps.g:1:386: SETIDENTIFIER
                 {
                 mSETIDENTIFIER(); 
 
                 }
                 break;
             case 60 :
-                // src/grammar/wcps.g:1:400: SETNULLSET
+                // src/petascope/wcps/grammar/wcps.g:1:400: SETNULLSET
                 {
                 mSETNULLSET(); 
 
                 }
                 break;
             case 61 :
-                // src/grammar/wcps.g:1:411: SETINTERPOLATIONDEFAULT
+                // src/petascope/wcps/grammar/wcps.g:1:411: SETINTERPOLATIONDEFAULT
                 {
                 mSETINTERPOLATIONDEFAULT(); 
 
                 }
                 break;
             case 62 :
-                // src/grammar/wcps.g:1:435: SETINTERPOLATIONSET
+                // src/petascope/wcps/grammar/wcps.g:1:435: SETINTERPOLATIONSET
                 {
                 mSETINTERPOLATIONSET(); 
 
                 }
                 break;
             case 63 :
-                // src/grammar/wcps.g:1:455: SETCRSSET
+                // src/petascope/wcps/grammar/wcps.g:1:455: SETCRSSET
                 {
                 mSETCRSSET(); 
 
                 }
                 break;
             case 64 :
-                // src/grammar/wcps.g:1:465: TRIM
+                // src/petascope/wcps/grammar/wcps.g:1:465: TRIM
                 {
                 mTRIM(); 
 
                 }
                 break;
             case 65 :
-                // src/grammar/wcps.g:1:470: SLICE
+                // src/petascope/wcps/grammar/wcps.g:1:470: SLICE
                 {
                 mSLICE(); 
 
                 }
                 break;
             case 66 :
-                // src/grammar/wcps.g:1:476: EXTEND
+                // src/petascope/wcps/grammar/wcps.g:1:476: EXTEND
                 {
                 mEXTEND(); 
 
                 }
                 break;
             case 67 :
-                // src/grammar/wcps.g:1:483: SCALE
+                // src/petascope/wcps/grammar/wcps.g:1:483: SCALE
                 {
                 mSCALE(); 
 
                 }
                 break;
             case 68 :
-                // src/grammar/wcps.g:1:489: CRSTRANSFORM
+                // src/petascope/wcps/grammar/wcps.g:1:489: CRSTRANSFORM
                 {
                 mCRSTRANSFORM(); 
 
                 }
                 break;
             case 69 :
-                // src/grammar/wcps.g:1:502: COUNT
+                // src/petascope/wcps/grammar/wcps.g:1:502: COUNT
                 {
                 mCOUNT(); 
 
                 }
                 break;
             case 70 :
-                // src/grammar/wcps.g:1:508: ADD
+                // src/petascope/wcps/grammar/wcps.g:1:508: ADD
                 {
                 mADD(); 
 
                 }
                 break;
             case 71 :
-                // src/grammar/wcps.g:1:512: AVG
+                // src/petascope/wcps/grammar/wcps.g:1:512: AVG
                 {
                 mAVG(); 
 
                 }
                 break;
             case 72 :
-                // src/grammar/wcps.g:1:516: MAX
+                // src/petascope/wcps/grammar/wcps.g:1:516: MAX
                 {
                 mMAX(); 
 
                 }
                 break;
             case 73 :
-                // src/grammar/wcps.g:1:520: MIN
+                // src/petascope/wcps/grammar/wcps.g:1:520: MIN
                 {
                 mMIN(); 
 
                 }
                 break;
             case 74 :
-                // src/grammar/wcps.g:1:524: SOME
+                // src/petascope/wcps/grammar/wcps.g:1:524: SOME
                 {
                 mSOME(); 
 
                 }
                 break;
             case 75 :
-                // src/grammar/wcps.g:1:529: ALL
+                // src/petascope/wcps/grammar/wcps.g:1:529: ALL
                 {
                 mALL(); 
 
                 }
                 break;
             case 76 :
-                // src/grammar/wcps.g:1:533: COVERAGE
+                // src/petascope/wcps/grammar/wcps.g:1:533: COVERAGE
                 {
                 mCOVERAGE(); 
 
                 }
                 break;
             case 77 :
-                // src/grammar/wcps.g:1:542: OVER
+                // src/petascope/wcps/grammar/wcps.g:1:542: OVER
                 {
                 mOVER(); 
 
                 }
                 break;
             case 78 :
-                // src/grammar/wcps.g:1:547: VALUE
+                // src/petascope/wcps/grammar/wcps.g:1:547: VALUE
                 {
                 mVALUE(); 
 
                 }
                 break;
             case 79 :
-                // src/grammar/wcps.g:1:553: VALUES
+                // src/petascope/wcps/grammar/wcps.g:1:553: VALUES
                 {
                 mVALUES(); 
 
                 }
                 break;
             case 80 :
-                // src/grammar/wcps.g:1:560: LIST
+                // src/petascope/wcps/grammar/wcps.g:1:560: LIST
                 {
                 mLIST(); 
 
                 }
                 break;
             case 81 :
-                // src/grammar/wcps.g:1:565: CONDENSE
+                // src/petascope/wcps/grammar/wcps.g:1:565: CONDENSE
                 {
                 mCONDENSE(); 
 
                 }
                 break;
             case 82 :
-                // src/grammar/wcps.g:1:574: USING
+                // src/petascope/wcps/grammar/wcps.g:1:574: USING
                 {
                 mUSING(); 
 
                 }
                 break;
             case 83 :
-                // src/grammar/wcps.g:1:580: NEAREST
+                // src/petascope/wcps/grammar/wcps.g:1:580: NEAREST
                 {
                 mNEAREST(); 
 
                 }
                 break;
             case 84 :
-                // src/grammar/wcps.g:1:588: LINEAR
+                // src/petascope/wcps/grammar/wcps.g:1:588: LINEAR
                 {
                 mLINEAR(); 
 
                 }
                 break;
             case 85 :
-                // src/grammar/wcps.g:1:595: QUADRATIC
+                // src/petascope/wcps/grammar/wcps.g:1:595: QUADRATIC
                 {
                 mQUADRATIC(); 
 
                 }
                 break;
             case 86 :
-                // src/grammar/wcps.g:1:605: CUBIC
+                // src/petascope/wcps/grammar/wcps.g:1:605: CUBIC
                 {
                 mCUBIC(); 
 
                 }
                 break;
             case 87 :
-                // src/grammar/wcps.g:1:611: FULL
+                // src/petascope/wcps/grammar/wcps.g:1:611: FULL
                 {
                 mFULL(); 
 
                 }
                 break;
             case 88 :
-                // src/grammar/wcps.g:1:616: NONE
+                // src/petascope/wcps/grammar/wcps.g:1:616: NONE
                 {
                 mNONE(); 
 
                 }
                 break;
             case 89 :
-                // src/grammar/wcps.g:1:621: HALF
+                // src/petascope/wcps/grammar/wcps.g:1:621: HALF
                 {
                 mHALF(); 
 
                 }
                 break;
             case 90 :
-                // src/grammar/wcps.g:1:626: OTHER
+                // src/petascope/wcps/grammar/wcps.g:1:626: OTHER
                 {
                 mOTHER(); 
 
                 }
                 break;
             case 91 :
-                // src/grammar/wcps.g:1:632: PHI
+                // src/petascope/wcps/grammar/wcps.g:1:632: PHI
                 {
                 mPHI(); 
 
                 }
                 break;
             case 92 :
-                // src/grammar/wcps.g:1:636: BIT
+                // src/petascope/wcps/grammar/wcps.g:1:636: BIT
                 {
                 mBIT(); 
 
                 }
                 break;
             case 93 :
-                // src/grammar/wcps.g:1:640: UNSIGNED
+                // src/petascope/wcps/grammar/wcps.g:1:640: UNSIGNED
                 {
                 mUNSIGNED(); 
 
                 }
                 break;
             case 94 :
-                // src/grammar/wcps.g:1:649: BOOLEAN
+                // src/petascope/wcps/grammar/wcps.g:1:649: BOOLEAN
                 {
                 mBOOLEAN(); 
 
                 }
                 break;
             case 95 :
-                // src/grammar/wcps.g:1:657: CHAR
+                // src/petascope/wcps/grammar/wcps.g:1:657: CHAR
                 {
                 mCHAR(); 
 
                 }
                 break;
             case 96 :
-                // src/grammar/wcps.g:1:662: SHORT
+                // src/petascope/wcps/grammar/wcps.g:1:662: SHORT
                 {
                 mSHORT(); 
 
                 }
                 break;
             case 97 :
-                // src/grammar/wcps.g:1:668: LONG
+                // src/petascope/wcps/grammar/wcps.g:1:668: LONG
                 {
                 mLONG(); 
 
                 }
                 break;
             case 98 :
-                // src/grammar/wcps.g:1:673: FLOAT
+                // src/petascope/wcps/grammar/wcps.g:1:673: FLOAT
                 {
                 mFLOAT(); 
 
                 }
                 break;
             case 99 :
-                // src/grammar/wcps.g:1:679: DOUBLE
+                // src/petascope/wcps/grammar/wcps.g:1:679: DOUBLE
                 {
                 mDOUBLE(); 
 
                 }
                 break;
             case 100 :
-                // src/grammar/wcps.g:1:686: COMPLEX
+                // src/petascope/wcps/grammar/wcps.g:1:686: COMPLEX
                 {
                 mCOMPLEX(); 
 
                 }
                 break;
             case 101 :
-                // src/grammar/wcps.g:1:694: COMPLEX2
+                // src/petascope/wcps/grammar/wcps.g:1:694: COMPLEX2
                 {
                 mCOMPLEX2(); 
 
                 }
                 break;
             case 102 :
-                // src/grammar/wcps.g:1:703: BOOLEANCONSTANT
+                // src/petascope/wcps/grammar/wcps.g:1:703: BOOLEANCONSTANT
                 {
                 mBOOLEANCONSTANT(); 
 
                 }
                 break;
             case 103 :
-                // src/grammar/wcps.g:1:719: INTEGERCONSTANT
+                // src/petascope/wcps/grammar/wcps.g:1:719: INTEGERCONSTANT
                 {
                 mINTEGERCONSTANT(); 
 
                 }
                 break;
             case 104 :
-                // src/grammar/wcps.g:1:735: FLOATCONSTANT
+                // src/petascope/wcps/grammar/wcps.g:1:735: FLOATCONSTANT
                 {
                 mFLOATCONSTANT(); 
 
                 }
                 break;
             case 105 :
-                // src/grammar/wcps.g:1:749: STRING
+                // src/petascope/wcps/grammar/wcps.g:1:749: STRING
                 {
                 mSTRING(); 
 
                 }
                 break;
             case 106 :
-                // src/grammar/wcps.g:1:756: NAME
+                // src/petascope/wcps/grammar/wcps.g:1:756: NAME
                 {
                 mNAME(); 
 
                 }
                 break;
             case 107 :
-                // src/grammar/wcps.g:1:761: VARIABLE_DOLLAR
+                // src/petascope/wcps/grammar/wcps.g:1:761: VARIABLE_DOLLAR
                 {
                 mVARIABLE_DOLLAR(); 
 
                 }
                 break;
             case 108 :
-                // src/grammar/wcps.g:1:777: WHITESPACE
+                // src/petascope/wcps/grammar/wcps.g:1:777: WHITESPACE
                 {
                 mWHITESPACE(); 
 

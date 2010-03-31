@@ -97,23 +97,24 @@
     </target>
 
     <path id="antlr.path">
-        <pathelement location="${basedir}/lib/antlr3/antlrworks-1.2.3.jar" />
+        <pathelement location="${basedir}/lib/antlrworks-1.3.1.jar" />
     </path>
 
     <!-- Antlr is called here to generate wcpsLexer.java and wcpsParser.java from wcps.g-->
     <target name="antlr" depends="init">
         <java classname="org.antlr.Tool" classpathref="antlr.path">
-            <arg value="${src.dir}/grammar/wcps.g" />
+            <arg value="${src.java.dir}/petascope/wcps/grammar/wcps.g" />
             <arg value="-Xmx350m" />
             <arg value="-Xms100m" />
         </java>
+        <echo message="Successfully generated the WCPS grammar parser !" />
     </target>
 
     <!-- Antlr is called here to generate wcpsLexer.java and wcpsParser.java from
     wcps.g, using debugging classes and symbols-->
     <target name="antlr-debug" depends="init">
         <java classname="org.antlr.Tool" classpathref="antlr.path">
-            <arg value="${src.dir}/grammar/wcps.g" />
+            <arg value="${src.java.dir}/petascope/wcps/grammar/wcps.g" />
             <arg value="-debug" />
             <arg value="-Xmx350m" />
             <arg value="-Xms100m" />

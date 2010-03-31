@@ -12,6 +12,7 @@ History:
 02 06 2009 andreia	Removed brackets around "and" binary operator in CoverageExpr
 03 06 2009 andreia	Complex expressions introduced in the "using" clause of general condense operations
 05 08 2009 andreia	Fixed definition of integer and floating-point numbers.
+31 03 2010 andreia      Added "sqrt" operation for scalar expressions
 */
 grammar wcps;
 options{
@@ -22,9 +23,9 @@ language=Java;
 output=AST;
 }
 @header
-{package grammar;}
+{package petascope.wcps.grammar;}
 @lexer::header
-{package grammar;}
+{package petascope.wcps.grammar;}
 
 /* Parser Rules */
 
@@ -301,6 +302,8 @@ numericScalarTerm returns[NumericScalarExpr value]
 numericScalarFactor returns[NumericScalarExpr value]
     : LPAREN e1=numericScalarExpr RPAREN { $value = $e1.value; }
     | op=MINUS e10=numericScalarFactor { $value = new NumericScalarExpr($op.text, $e10.value); }
+    | op=ABS LPAREN e12=numericScalarExpr RPAREN { $value = new NumericScalarExpr($op.text, $e12.value); }
+    | op=SQRT LPAREN e11=numericScalarExpr RPAREN { $value = new NumericScalarExpr($op.text, $e11.value); }
     | op=ROUND LPAREN e1=numericScalarExpr RPAREN { $value = new NumericScalarExpr($op.text, $e1.value); }
     | e=INTEGERCONSTANT { $value = new NumericScalarExpr($e.text); }
     | e=FLOATCONSTANT { $value = new NumericScalarExpr($e.text); }

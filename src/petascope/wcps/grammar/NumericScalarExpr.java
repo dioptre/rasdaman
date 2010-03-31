@@ -55,6 +55,12 @@ public class NumericScalarExpr implements IParseTreeNode {
 
         if (op.equals("-")) {
             function = "numericUnaryMinus";
+        } else
+        if (op.equals("sqrt")) {
+            function = "numericSqrt";
+        } else
+        if (op.equals("abs")) {
+            function = "numericAbs";
         } else {
             System.err.println("Unary Operator " + op + " is not recognized!");
         }

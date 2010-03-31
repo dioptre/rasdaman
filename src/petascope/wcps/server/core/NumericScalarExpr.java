@@ -40,6 +40,10 @@ public class NumericScalarExpr implements IRasNode {
 
         System.err.println("Trying to parse numeric scalar expression ...");
 
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
+
         if (nodeName.equals("numericConstant")) {
             twoChildren = false;
             op = code(nodeName);
@@ -63,7 +67,9 @@ public class NumericScalarExpr implements IRasNode {
             if (nodeName.equals("reduce")) {
                 first = new ReduceScalarExpr(node, xq);
             }
-        } else if (nodeName.equals("numericUnaryMinus")) {
+        } else if (nodeName.equals("numericUnaryMinus") 
+                || nodeName.equals("numericSqrt")
+                || nodeName.equals("numericAbs")) {
             op = code(nodeName);
             twoChildren = false;
             first = new NumericScalarExpr(node.getFirstChild(), xq);
@@ -98,15 +104,22 @@ public class NumericScalarExpr implements IRasNode {
 
     public String toRasQL() {
         String result = "";
-        if (op.equals("variable")) {
-            result = first.toRasQL();
-        } else if (op.equals("value")) {
-            result = value;
-        } else if ((twoChildren == false) && (op.equals("-"))) {
-            result = "-" + first.toRasQL();
-        } else if (op.equals("child")) {
-            result = first.toRasQL();
-        } else if (twoChildren == true) {
+        if (twoChildren == false)
+        {
+            if (op.equals("variable")) {
+                result = first.toRasQL();
+            } else if (op.equals("value")) {
+                result = value;
+            } else if (op.equals("-")) {
+                    result = "-" + first.toRasQL();
+            } else if (op.equals("sqrt")) {
+                    result = "sqrt(" + first.toRasQL() + ")";
+            } else if (op.equals("child")) {
+                result = first.toRasQL();
+            } else if (op.equals("abs")) {
+                result = "abs(" + first.toRasQL() + ")";
+            }
+        }else if (twoChildren == true) {
             result = "(" + first.toRasQL() + ")" + op
                     + "(" + second.toRasQL() + ")";
         } else {
@@ -132,6 +145,12 @@ public class NumericScalarExpr implements IRasNode {
         }
         if (name.equals("numericDiv")) {
             op = "/";
+        }
+        if (name.equals("numericSqrt")) {
+            op = "sqrt";
+        }
+        if (name.equals("numericAbs")) {
+            op  = "abs";
         }
         if (name.equals("condense") || name.equals("reduce")
                 || name.equals("complexConstant")) {
