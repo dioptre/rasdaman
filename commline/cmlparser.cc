@@ -234,19 +234,6 @@ void CommandLineParameter::setDescription(const char *desc)
 			paramDescription = NULL;
 		}
 	}
-
-#ifdef DEBUG  
-	cout<<"desc="<<desc<<endl;   
-	if(paramDescription==NULL)
-		cout<<"paramDescription=NULL"<<endl;
-	else
-		cout<<"paramDescription="<<paramDescription<<endl;
-
-	if(descriptionText==NULL)
-		cout<<"descriptionText=NULL"<<endl;
-	else
-		cout<<"descriptionText="<<descriptionText<<endl;
-#endif
 }
    
 bool CommandLineParameter::doesMatch(char c)
