@@ -364,12 +364,6 @@ Authorization::Authorization()
   { inConfigFile=false;
   
     authFileName[0]=0;
-    
-#ifdef HIGHLANDER    
-    char *rasHome=CONFDIR;
-    if(rasHome!=0) sprintf(authFileName,"%s/",rasHome);
-#endif    
-
     strcat(authFileName,"rasmgr_auth.dat");
     globalInitAdminRight=admR_none;
     globalInitDatabRight=dbR_none;
