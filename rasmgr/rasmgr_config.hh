@@ -110,7 +110,7 @@ class Configuration
       CommandLineParser    &cmlInter;
       CommandLineParameter &cmlHelp, &cmlHostName, &cmlPort, &cmlPollFrequ;
       CommandLineParameter &cmlMaster, &cmlMasterPort, &cmlName, &cmlQuiet;
-#ifdef NO_OFFICIAL_RELEASE          
+#ifdef RMANDEBUG
       CommandLineParameter &cmlTest, &cmlDSup, &cmlRandTest, &cmlRth, &cmlMultiWT;
 #endif
    };
