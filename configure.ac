@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT(Rasdaman, 8.0.0, p.baumann@jacobs-university.de)
+AC_INIT(Rasdaman, 8.0.0, baumann@rasdaman.com)
 RMANVERSION=8000
 AM_INIT_AUTOMAKE()
 # Define CXXFLAGS before AC_PROG_CXX or it will automatically add -g -O2 on some systems
@@ -151,7 +151,6 @@ AH_TEMPLATE([NO_in_addr_t], [Don't use addr_t.])
 AH_TEMPLATE([COMPDATE], [Date of the build (of the configure not the actual build)])
 AH_TEMPLATE([BASEDBSTRING], [Name of the database that supports the compiled version of rasdaman.])    
 AH_TEMPLATE([RASSCHEMAVERSION], [The version of the schema the database uses.])
-AH_TEMPLATE([NO_OFFICIAL_RELEASE], [activate this if you generate a "non-official" release, i.e.: without license check])
 AH_TEMPLATE([CONFDIR], [The directory where the installed programs will find their configuration])
 # --------------- Parameter Definition -----------------------------
 ####################################################################
@@ -285,7 +284,6 @@ AC_DEFINE([CPPSTDLIB])
 AC_DEFINE([X86]) # Currently, but the code supports multiple platforms
 AC_DEFINE([RASARCHITECTURE], ["X86"])
 AC_DEFINE([RASSCHEMAVERSION], [5])
-AC_DEFINE([NO_OFFICIAL_RELEASE])
 AC_DEFINE([NOPRE])
 # if not on DEC Alpha
 BASEDBLDFLAGS+=" -lnsl"

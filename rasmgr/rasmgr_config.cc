@@ -66,13 +66,13 @@ Configuration::Configuration():
 	cmlMaster     (cmlInter.addStringParameter(CommandLineParser::noShortName, "master", "<name> host of rasmgr master (slave only)")), 
 	cmlMasterPort (cmlInter.addLongParameter(CommandLineParser::noShortName, "mport", "<port> listen port number of rasmgr master (slave only)", DEFAULT_PORT)),
 	cmlQuiet      (cmlInter.addFlagParameter( 'q', CommandLineParser::noLongName, "quiet: don't log requests (default: log requests to stdout)")),
-#ifdef NO_OFFICIAL_RELEASE          
+#ifdef RMANDEBUG	// was: NO_OFFICIAL_RELEASE
 	cmlTest       (cmlInter.addFlagParameter(CommandLineParser::noShortName, "test", "test mode")), 
 	cmlDSup       (cmlInter.addFlagParameter(CommandLineParser::noShortName, "dsup", "debug mode")), 
 	cmlRandTest   (cmlInter.addFlagParameter(CommandLineParser::noShortName, "rgt",  "random generator test")), 
 	cmlRth        (cmlInter.addFlagParameter(CommandLineParser::noShortName, "rth", "disable rthl test")),
 	cmlMultiWT    (cmlInter.addFlagParameter(CommandLineParser::noShortName, "amw", "allow multiple write transactions")),
-#endif	      	
+#endif	      	// RMANDEBUG
 	cmlHelp       (cmlInter.addFlagParameter('h', RASMGRCMD_HELP, "print this help"))
 {
 	ENTER( "Configuration::Configuration: enter." );
@@ -414,7 +414,7 @@ bool Configuration::interpretArguments(int argc, char **argv, char **envp)
 		}
 	}       
 		 
-#ifdef NO_OFFICIAL_RELEASE
+#ifdef RMANDEBUG	// was: NO_OFFICIAL_RELEASE
 	testModus = cmlTest.isPresent();
 	debugSupport=cmlDSup.isPresent();
 	rtHlTest=cmlRth.isPresent();
@@ -427,7 +427,7 @@ bool Configuration::interpretArguments(int argc, char **argv, char **envp)
 	
 	allowMultiWT = cmlMultiWT.isPresent();
 
-#endif       
+#endif       // RMANDEBUG
 
 	LEAVE( "Configuration::interpretArguments: leave. result=" << result );
 	return result;   
