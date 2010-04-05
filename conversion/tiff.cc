@@ -696,7 +696,7 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 								for (i=0; i < width; i++)
 								{
 									*((float*)l) = *((float*)normal);
-									l += 4;
+									l += pixelAdd;
 									normal += 4;
 								}
 							}
@@ -708,7 +708,7 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 								for(i=0; i < width; i++)
 								{
 									*((uint16*)l) = *((uint16*)normal);
-									l += 2;
+									l += pixelAdd;
 									normal += 2;
 								}
 							}
