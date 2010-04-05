@@ -786,14 +786,14 @@ void  RnpClientComm::executeExecuteUpdateQuery(const char *query) throw(r_Error)
 	decoder.getNextParameter();
 	int colNo   = decoder.getDataAsInteger();
 	decoder.getNextParameter();
-	const char* token  = decoder.getDataAsString();
+	std::string token  = decoder.getDataAsString();	
 	
 	clearAnswer();
 	
 	if( status == 2 || status == 3 )
 	{
 		LEAVE( "RnpClientComm::executeExecuteUpdateQuery(): exception, status = " << status );
-		throw r_Equery_execution_failed( errNo, lineNo, colNo, token );
+		throw r_Equery_execution_failed( errNo, lineNo, colNo, token.c_str() );
 	}
 	
 	if( status == 1 )
