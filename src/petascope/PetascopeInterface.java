@@ -30,10 +30,12 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.lang.String;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -74,6 +76,7 @@ import petascope.wcs.server.exceptions.XmlNotValidException;
 import petascope.wcs2.server.Wcs2Server;
 import petascope.wcs2.server.templates.WcsNamespaceContext;
 import petascope.wcst.server.WcstServer;
+import petascope.wps.server.WpsServer;
 
 /** This servlet is a unified entry-point for all the PetaScope services.
  *
@@ -261,6 +264,7 @@ public class PetascopeInterface extends HttpServlet {
         try {
             try {
                 requestBody = IOUtils.toString(httpRequest.getReader());
+
                 LOG.trace("POST Request length: " + httpRequest.getContentLength());
                 LOG.trace("POST request body: \n------START REQUEST--------\n"
                         + requestBody + "\n------END REQUEST------\n");
@@ -269,12 +273,19 @@ public class PetascopeInterface extends HttpServlet {
                 LOG.trace("Request parameters: {}", params);
                 request = urldecode(params.get("request"), httpRequest.getContentType());
 
-                // To preserve compatibility with previous client versions, we allow GET requests
-                // (GET requests with parameter "query")
+                // WPS 1.0.0 GET interface processing
+                if ((httpRequest.getParameter("Service") != null) && (httpRequest.getParameter("Service").equalsIgnoreCase("WPS"))) {
+                    WpsServer wpsServer = new WpsServer(httpResponse, httpRequest);
+                    request = wpsServer.request;
+                }
+
+                // To preserve compatibility with previous client versions, we allow
+                // GET requests with parameter "query"
                 String request2 = null;
                 request2 = httpRequest.getParameter("query");
-                if (request2 == null)
+                if (request2 == null) {
                     request2 = urldecode(params.get("query"), httpRequest.getContentType());
+                }
                 if (request2 != null) {
                     LOG.debug("Received Abstract Syntax Request via GET: \n\t\t{}", request2);
                     request2 = ProcessCoveragesRequest.abstractQueryToXmlQuery(request2);
@@ -283,7 +294,7 @@ public class PetascopeInterface extends HttpServlet {
                     request = request2;
                 }
 
-                // Empty request ? 
+                // Empty request ?
                 if (request == null && (requestBody == null || requestBody.length() == 0)) {
                     printUsage(httpResponse, request);
                     return;
@@ -339,9 +350,11 @@ public class PetascopeInterface extends HttpServlet {
                     } else {
                         handleGetCoverage(request, httpResponse);
                     }
-                } else /* ProcessCoverages is defined in the WCPS extension to WcsServer */ if (root.endsWith("ProcessCoveragesRequest")) {
+                } else /* ProcessCoverages is defined in the WCPS extension to WcsServer */
+                if (root.endsWith("ProcessCoveragesRequest")) {
                     handleProcessCoverages(request, httpResponse);
-                } else /* Transaction is defined in the WcsServer-T extension to WcsServer */ if (root.endsWith("Transaction")) {
+                } else /* Transaction is defined in the WcsServer-T extension to WcsServer */
+                if (root.endsWith("Transaction")) {
                     handleTransaction(request, httpResponse);
                 } else /* Print Error Message */ {
                     handleUnknownRequest(request, httpResponse);

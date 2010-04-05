@@ -48,8 +48,8 @@ public class ConfigManager {
     /* Major version number. This is the first release (1). */
     private final static String MAJOR = "1";
     /* Minor version number. v2 adds the reference implementation of WCS 2.0.
-    v3 adds WGS84 handling in WCPS requests. */
-    private final static String MINOR = "3";
+    v3 adds WGS84 handling in WCPS requests, and v4 adds a WPS implementation. */
+    private final static String MINOR = "4";
     /* Bug-fix count. We have a hack: every WCPS response is written to disk. */
     private final static String BUGFIX = "10-hack";
 
@@ -162,6 +162,7 @@ public class ConfigManager {
             WCS2_DESCRIBE_COVERAGE_TEMPLATE = loadFile(desc);
             WCS2_GET_COVERAGE_TEMPLATE = loadFile(getcov);
             WCS2_SCHEMA_URL = get("wcs2_schema_url");
+
         } catch (Exception e) {
             LOG.warn("Could not read XML template files for WCS 2.0. Therefore, WCS 2.0 will be unable to start.");
         }
