@@ -56,7 +56,7 @@ public class XmlQuery implements IRasNode {
     private HashMap<String, Integer> varDimension;
     // VariableNewName is used to translate the old var name into the multi-dim var name
     private HashMap<String, String> variableTranslator;
-    private String varPrefix = "i";
+    private String varPrefix = "i_";
     private char varSuffix = 'i';
 
     public String getMimeType() {

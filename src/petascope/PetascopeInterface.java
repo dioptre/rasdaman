@@ -269,7 +269,7 @@ public class PetascopeInterface extends HttpServlet {
                 LOG.trace("Request parameters: {}", params);
                 request = urldecode(params.get("request"), httpRequest.getContentType());
 
-                // Quick hack to preserve compatibility with previous client versions
+                // To preserve compatibility with previous client versions, we allow GET requests
                 // (GET requests with parameter "query")
                 String request2 = null;
                 request2 = httpRequest.getParameter("query");
