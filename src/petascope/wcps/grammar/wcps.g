@@ -182,7 +182,7 @@ interpolationMethodList returns[InterpolationMethodList value]
 rangeExpr returns[RangeExpr value]
 	: STRUCT LBRACE { $value=new RangeExpr(); }
 	(field=fieldName COLON expr=scalarExpr { $value.add($field.value, $expr.value); }
-		(COLON field=fieldName COLON expr=scalarExpr { $value.add($field.value, $expr.value); })*
+		(COMMA field=fieldName COLON expr=scalarExpr { $value.add($field.value, $expr.value); })*
 	)?  RBRACE
 	;
 rangeConstructorExpr returns[RangeConstructorExpr value]

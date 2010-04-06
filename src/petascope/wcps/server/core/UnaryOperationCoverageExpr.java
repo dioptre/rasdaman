@@ -136,7 +136,12 @@ public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
                 || operation.equals("not") || operation.equals("+") || operation.equals("-")) {
             return operation + "(" + child.toRasQL() + ")";
         } else if (operation.equals("cast")) {
-            return "(" + params + ")(" + child.toRasQL() + ")";
+            // Use rasql's direct "type-casting" facility for constant scalar expressions
+            // For example, (char)1 does not work, but 1c is a valid expression.
+            if (child.isScalarExpr() && params.equals("char"))
+                return child.toRasQL() + "c";
+            else
+                return "(" + params + ")(" + child.toRasQL() + ")";
         } else if (operation.equals("select")) {
             return "(" + child.toRasQL() + ")." + params;
         } else if (operation.equals("bit")) {

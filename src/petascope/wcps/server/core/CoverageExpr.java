@@ -32,6 +32,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
     private IRasNode child;
     private String childInfo;
     private CoverageInfo info;
+    private boolean scalarExpr = false;
 //    private String var;
     private boolean simpleCoverage;    // True is the coverage is just a string
 
@@ -130,6 +131,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
             if (child == null) {
                 try {
                     child = new ScalarExpr(node, xq);
+                    this.scalarExpr = true;
                     System.err.println("Matched scalar expression.");
                 } catch (WCPSException e) {
                     System.err.println("Failed to match scalar expression: "
@@ -152,6 +154,19 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
 
     public CoverageInfo getCoverageInfo() {
         return info;
+    }
+
+    public boolean isScalarExpr()
+    {
+        return scalarExpr;
+    }
+
+    public ScalarExpr getScalarExpr()
+    {
+        ScalarExpr r = null;
+        if (scalarExpr)
+            r = (ScalarExpr) child;
+        return r;
     }
 
     public String toRasQL() {

@@ -44,7 +44,7 @@ public class RangeExpr implements IParseTreeNode {
 
         tmp += "<field>" + field + "</field>";
         tmp += expr.toXML();
-        xml += "<componen>" + tmp + "</component>";
+        xml += "<component>" + tmp + "</component>";
     }
 
     public String toXML() {

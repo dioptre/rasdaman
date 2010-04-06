@@ -46,7 +46,7 @@ public class RangeExprList implements IParseTreeNode {
         Iterator<RangeExpr> it = list.iterator();
 
         while (it.hasNext()) {
-            result += "<null>" + it.next().toXML() + "</xml>";
+            result += "<null>" + it.next().toXML() + "</null>";
         }
 
         return result;

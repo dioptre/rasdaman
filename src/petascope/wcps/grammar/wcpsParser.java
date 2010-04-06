@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/petascope/wcps/grammar/wcps.g 2010-03-31 22:54:40
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/petascope/wcps/grammar/wcps.g 2010-04-06 22:00:32
 package petascope.wcps.grammar;
 
 import org.antlr.runtime.*;
@@ -4281,7 +4281,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeExpr"
-    // src/petascope/wcps/grammar/wcps.g:182:1: rangeExpr returns [RangeExpr value] : STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )* )? RBRACE ;
+    // src/petascope/wcps/grammar/wcps.g:182:1: rangeExpr returns [RangeExpr value] : STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE ;
     public final wcpsParser.rangeExpr_return rangeExpr() throws RecognitionException {
         wcpsParser.rangeExpr_return retval = new wcpsParser.rangeExpr_return();
         retval.start = input.LT(1);
@@ -4291,7 +4291,7 @@ public class wcpsParser extends Parser {
         Token STRUCT98=null;
         Token LBRACE99=null;
         Token COLON100=null;
-        Token COLON101=null;
+        Token COMMA101=null;
         Token COLON102=null;
         Token RBRACE103=null;
         wcpsParser.fieldName_return field = null;
@@ -4302,14 +4302,14 @@ public class wcpsParser extends Parser {
         Object STRUCT98_tree=null;
         Object LBRACE99_tree=null;
         Object COLON100_tree=null;
-        Object COLON101_tree=null;
+        Object COMMA101_tree=null;
         Object COLON102_tree=null;
         Object RBRACE103_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 32) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:183:2: ( STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )* )? RBRACE )
-            // src/petascope/wcps/grammar/wcps.g:183:4: STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )* )? RBRACE
+            // src/petascope/wcps/grammar/wcps.g:183:2: ( STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE )
+            // src/petascope/wcps/grammar/wcps.g:183:4: STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4326,7 +4326,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value =new RangeExpr(); 
             }
-            // src/petascope/wcps/grammar/wcps.g:184:2: (field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )* )?
+            // src/petascope/wcps/grammar/wcps.g:184:2: (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -4335,7 +4335,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt30) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:184:3: field= fieldName COLON expr= scalarExpr ( COLON field= fieldName COLON expr= scalarExpr )*
+                    // src/petascope/wcps/grammar/wcps.g:184:3: field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )*
                     {
                     pushFollow(FOLLOW_fieldName_in_rangeExpr1805);
                     field=fieldName();
@@ -4357,25 +4357,25 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((field!=null?field.value:null), (expr!=null?expr.value:null)); 
                     }
-                    // src/petascope/wcps/grammar/wcps.g:185:3: ( COLON field= fieldName COLON expr= scalarExpr )*
+                    // src/petascope/wcps/grammar/wcps.g:185:3: ( COMMA field= fieldName COLON expr= scalarExpr )*
                     loop29:
                     do {
                         int alt29=2;
                         int LA29_0 = input.LA(1);
 
-                        if ( (LA29_0==COLON) ) {
+                        if ( (LA29_0==COMMA) ) {
                             alt29=1;
                         }
 
 
                         switch (alt29) {
                     	case 1 :
-                    	    // src/petascope/wcps/grammar/wcps.g:185:4: COLON field= fieldName COLON expr= scalarExpr
+                    	    // src/petascope/wcps/grammar/wcps.g:185:4: COMMA field= fieldName COLON expr= scalarExpr
                     	    {
-                    	    COLON101=(Token)match(input,COLON,FOLLOW_COLON_in_rangeExpr1818); if (state.failed) return retval;
+                    	    COMMA101=(Token)match(input,COMMA,FOLLOW_COMMA_in_rangeExpr1818); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
-                    	    COLON101_tree = (Object)adaptor.create(COLON101);
-                    	    adaptor.addChild(root_0, COLON101_tree);
+                    	    COMMA101_tree = (Object)adaptor.create(COMMA101);
+                    	    adaptor.addChild(root_0, COMMA101_tree);
                     	    }
                     	    pushFollow(FOLLOW_fieldName_in_rangeExpr1822);
                     	    field=fieldName();
@@ -18043,11 +18043,11 @@ public class wcpsParser extends Parser {
     public static final BitSet FOLLOW_LBRACE_in_rangeExpr1797 = new BitSet(new long[]{0x0200000000000000L,0x0000080000014000L});
     public static final BitSet FOLLOW_fieldName_in_rangeExpr1805 = new BitSet(new long[]{0x0000200000000000L});
     public static final BitSet FOLLOW_COLON_in_rangeExpr1807 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_scalarExpr_in_rangeExpr1811 = new BitSet(new long[]{0x0200200000000000L});
-    public static final BitSet FOLLOW_COLON_in_rangeExpr1818 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_scalarExpr_in_rangeExpr1811 = new BitSet(new long[]{0x0200000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_rangeExpr1818 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
     public static final BitSet FOLLOW_fieldName_in_rangeExpr1822 = new BitSet(new long[]{0x0000200000000000L});
     public static final BitSet FOLLOW_COLON_in_rangeExpr1824 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_scalarExpr_in_rangeExpr1828 = new BitSet(new long[]{0x0200200000000000L});
+    public static final BitSet FOLLOW_scalarExpr_in_rangeExpr1828 = new BitSet(new long[]{0x0200000000000100L});
     public static final BitSet FOLLOW_RBRACE_in_rangeExpr1839 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_STRUCT_in_rangeConstructorExpr1856 = new BitSet(new long[]{0x0100000000000000L});
     public static final BitSet FOLLOW_LBRACE_in_rangeConstructorExpr1860 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});

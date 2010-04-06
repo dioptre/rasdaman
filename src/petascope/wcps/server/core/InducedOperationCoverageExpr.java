@@ -83,10 +83,6 @@ public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo {
     }
 
     public String toRasQL() {
-        if (operation.equals("rangeConstructor")) {
-            return "<rangeConstructor>" + child.toRasQL() + "</rangeConstructor>";
-        }
-        // else: groups
         return child.toRasQL();
     }
 }

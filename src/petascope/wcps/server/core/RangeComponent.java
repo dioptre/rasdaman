@@ -22,61 +22,65 @@
 package petascope.wcps.server.core;
 
 import petascope.wcps.server.exceptions.WCPSException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import org.w3c.dom.*;
+import petascope.wcps.server.exceptions.InvalidCrsException;
 
-public class RangeCoverageExpr implements IRasNode, ICoverageInfo {
 
-    private IRasNode child;
+/**
+ * This is a component of a RangeStructure. 
+ * @author Andrei Aiordachioaie
+ */
+public class RangeComponent implements IRasNode, ICoverageInfo {
+
+    private String field = null;
     private CoverageInfo info = null;
-    List<IRasNode> components;
+    private CoverageExpr expr = null;
 
-    public RangeCoverageExpr(Node node, XmlQuery xq)
+    public RangeComponent(Node node, XmlQuery xq)
             throws WCPSException {
 
-        components = new ArrayList<IRasNode>();
-
-        if (node.getNodeName().equals("rangeConstructor"))
-            node = node.getFirstChild();
-
-        if (node.getNodeName().equals("#text"))
-                node = node.getNextSibling();
-
         String nodeName = node.getNodeName();
-        System.err.println("Trying to parse a range coverage expression... Starting at node "
-                + nodeName);
-
-        while (node != null) {
-            if (node.getNodeName().equals("#text")) {
+        if (nodeName.equals("component"))
+            node = node.getFirstChild();
+            
+        while (node != null)
+        {
+            nodeName = node.getNodeName();
+            if (nodeName.equals("#text"))
+            {
                 node = node.getNextSibling();
                 continue;
             }
-            if (node.getNodeName().equals("component")) {
-                RangeComponent elem = new RangeComponent(node, xq);
-                info = elem.getCoverageInfo();
-                components.add(elem);
-            }
+
+            if (nodeName.equals("field"))
+                this.field = node.getTextContent();
+            else
+                try
+                {
+                    this.expr = new CoverageExpr(node, xq);
+                    this.info = expr.getCoverageInfo();
+                }
+                catch (InvalidCrsException e2)
+                {}
+                catch (WCPSException e)
+                {
+                    System.err.println("Could not match CoverageExpr inside RangeExpr. Next node: " + nodeName);
+                    throw e;
+                }
 
             node = node.getNextSibling();
         }
-
     }
 
     public CoverageInfo getCoverageInfo() {
-        // FIXME: Returns currently only the info for the last range component
         return info;
     }
 
     public String toRasQL() {
         String result = "";
-        int length = components.size();
-        for (int i = 0; i < length - 1; i++)
-            result += components.get(i).toRasQL() + ",";
-        result += components.get(length - 1).toRasQL();
 
-        result = "{ " + result + " }";
+        if (this.expr != null)
+            result = expr.toRasQL();
 
         return result;
     }
