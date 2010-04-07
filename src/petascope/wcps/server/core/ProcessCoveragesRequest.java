@@ -132,6 +132,7 @@ public class ProcessCoveragesRequest {
 
         // If everything went well, we now have a proper value for "xmlQuery"
         this.rasqlQuery = xmlQuery.toRasQL();
+        System.err.println("Final RasQL query: " + rasqlQuery);
         this.mime = xmlQuery.getMimeType();
     }
 

@@ -83,6 +83,7 @@ public class EncodeDataExpr implements IRasNode {
             result = format + "(" + coverageExprType.toRasQL();
 
             if (extraParams != null) {
+                extraParams = '"' + extraParams + '"';
                 result = result + ", " + extraParams;
             }
 

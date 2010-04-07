@@ -1,0 +1,1 @@
+select dem(a, "startx=0,starty=0,endx=1000,endy=1000,resx=0.1,resy=0.15") from mr AS a

@@ -67,7 +67,7 @@ public class EncodedCoverageExpr implements IParseTreeNode {
         result += "<format>" + format + "</format>";
 
         if (extraParams != null) {
-            result += "<extraParams>" + extraParams + "</extraParams>";
+            result += "<extraParameters>" + extraParams + "</extraParameters>";
         }
 
         result += "</encode>";
