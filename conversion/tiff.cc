@@ -175,7 +175,7 @@ void r_Conv_TIFF::initTIFF( void )
 
 /// constructor using type structure
 r_Conv_TIFF::r_Conv_TIFF(const char *src, const r_Minterval &interv, const r_Type *tp) throw(r_Error)
-: r_Convert_Memory(src, interv, tp)
+  : r_Convert_Memory(src, interv, tp, true)
 {
 	ENTER( "r_Conv_TIFF::r_Conv_TIFF( " << (src?src:"(null)") << ", (minterval), (type ptr) )" ); 
 
@@ -259,6 +259,7 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 			break;
 		case ctype_float32:
 			bps = 32; bpp = 32; pixelAdd = 4*height; lineAdd = 4;
+			break;
 		default:
 			TALK( "r_Conv_TIFF::convertTo(): error: unsupported base type " << desc.baseType << "." );
 			RMInit::logOut << "Error: encountered unsupported TIFF base type." << endl;
@@ -406,7 +407,7 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 						for (i =0; i<width; i++)
 						{
 							*((uint16*)normal) = *((uint16*)l);
-							l +=2;
+							l +=pixelAdd;
 							normal += 2;
 						}
 					}
@@ -417,7 +418,7 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 						for(i=0; i<width; i++)
 						{
 							*((float*)normal) = *((float*)l);
-							l += 4; normal += 4;
+							l += pixelAdd; normal += 4;
 						}
 					}
 					break;
