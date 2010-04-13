@@ -1,0 +1,45 @@
+Test by:bytetest.sh rmantest/inputFolder/bug_unfixed rmantest/Oracle/bug_unfixed rmantest/Repository/bug_unfixed/outputFolder20100413 at Tue Apr 13 16:22:28 CEST 2010
+
+ test query in  9.2.3_The_Array_Bound_Asterisk_0.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...aborting transaction...ok
+rasql done.
+
+ Result error for the query.
+
+ test query in  9.3.4_Induction_All_Operations_==.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...aborting transaction...ok
+rasql done.
+
+ Result error for the query.
+
+ test query in  9.4_Scaling_3.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...aborting transaction...ok
+rasql done.
+
+ Result error for the query.
+
+ test query in  9.6_General_Array_Condenser_Max.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...aborting transaction...ok
+rasql done.
+
+ Result error for the query.
+
+ test query in  9.6_General_Array_Condenser_Min.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...aborting transaction...ok
+rasql done.
+
+ Result error for the query.
+test done at Tue Apr 13 16:22:35 CEST 2010
+Total query number: 5
+Successful query number: 0
+Failed query number: 5

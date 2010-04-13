@@ -1,0 +1,1 @@
+select marray x in [ 0:255, 0:511 ] values x[0] from mr

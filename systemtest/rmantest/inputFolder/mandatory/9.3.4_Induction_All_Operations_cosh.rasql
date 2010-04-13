@@ -1,0 +1,1 @@
+select cosh(0) from mr

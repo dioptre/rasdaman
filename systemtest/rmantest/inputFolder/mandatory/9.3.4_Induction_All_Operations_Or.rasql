@@ -1,0 +1,1 @@
+select mr or mr2 from mr, mr2

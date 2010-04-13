@@ -1,0 +1,1 @@
+select condense max over x in sdom(a) using a[x] from mr as a

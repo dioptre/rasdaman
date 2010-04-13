@@ -1,0 +1,32 @@
+# SYNOPSIS
+#	bytetest.sh
+#      Conversion_Test.sh
+#      Manipulation_Test.sh
+# Description
+#	Command-line utility for testing rasdaman.
+#	1) Send rasql query
+#	2) Get response
+#	3) Compare the response with the expected result
+#	4) Give out the testing result.  
+#
+# PRECONDITIONS
+# 	Postgres, Rasdaman installed
+#
+# Usage: ./bytetest.sh [INPUT_DIR] [ORACLE_DIR][OUT_DIR]
+#        e.g. ./bytetest.sh inputFolder/mandatory Oracle/mandatory Repository/mandatory
+#        e.g. ./bytetest.sh inputFolder/bug_fixed Oracle/bug_fixed Repository/bug_fixed
+#        e.g. ./bytetest.sh inputFolder/bug_unfixed Oracle/bug_unfixed Repository/bug_unfixed
+#        e.g. ./bytetest.sh inputFolder/other Oracle/other Repository/other
+# Usage: ./Conversion_Test.sh
+# Usage: ./Manipulation_Test.sh
+#
+#        images needed for testing shall be put in images folder
+#	  Expected results for comparation is in oracle folder
+#        there is a tricky on how to get expected result, that is to run the script then copy the correct output from repository to oracle	  	
+#
+# Parameters: 
+#
+# 	inputFolder: the test input folder, including queries and images
+# 	images: the images needed 
+# 	oracle: the expected result
+# 	repository: the test result

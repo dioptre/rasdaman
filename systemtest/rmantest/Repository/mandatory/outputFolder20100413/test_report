@@ -1,0 +1,1067 @@
+Test by:bytetest.sh rmantest20100413/inputFolder/mandatory rmantest20100413/Oracle/mandatory rmantest20100413/Repository/mandatory/outputFolder20100413 at Tue Apr 13 15:06:53 CEST 2010
+
+ test query in  6.1_Basic_Query_Mechanism.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 2 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  6.2_Select_Clause.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  6.3_From_Clause.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  6.4_Where_Clause.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 2 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  6.5_Comments_in_Queries.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  7.1_Atomic_Constants_Char.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 24
+  Result element 2: 24
+  Result element 3: 24
+rasql done.
+
+ Result correct for the query.
+
+ test query in  7.1_Atomic_Constants_Double.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 24
+  Result element 2: 24
+  Result element 3: 24
+rasql done.
+
+ Result correct for the query.
+
+ test query in  7.1_Atomic_Constants_e.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 4e-05
+  Result element 2: 4e-05
+  Result element 3: 4e-05
+rasql done.
+
+ Result correct for the query.
+
+ test query in  7.1_Atomic_Constants_Float.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 24
+  Result element 2: 24
+  Result element 3: 24
+rasql done.
+
+ Result correct for the query.
+
+ test query in  7.1_Atomic_Constants_Long.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 24
+  Result element 2: 24
+  Result element 3: 24
+rasql done.
+
+ Result correct for the query.
+
+ test query in  7.1_Atomic_Constants_Octet.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 24
+  Result element 2: 24
+  Result element 3: 24
+rasql done.
+
+ Result correct for the query.
+
+ test query in  7.1_Atomic_Constants_Short.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 24
+  Result element 2: 24
+  Result element 3: 24
+rasql done.
+
+ Result correct for the query.
+
+ test query in  7.1_Atomic_Constants_ULong.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 24
+  Result element 2: 24
+  Result element 3: 24
+rasql done.
+
+ Result correct for the query.
+
+ test query in  7.1_Atomic_Constants_UShort.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 24
+  Result element 2: 24
+  Result element 3: 24
+rasql done.
+
+ Result correct for the query.
+
+ test query in  7.2_Composite_Constants_Complex.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: (0.35,16)
+  Result element 2: (0.35,16)
+  Result element 3: (0.35,16)
+rasql done.
+
+ Result correct for the query.
+
+ test query in  7.2_Composite_Constants_Struct.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: { { 1, 2, 3 }
+, t }
+
+  Result element 2: { { 1, 2, 3 }
+, t }
+
+  Result element 3: { { 1, 2, 3 }
+, t }
+
+rasql done.
+
+ Result correct for the query.
+
+ test query in  7.3_Array_Constants.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  7.4_OID.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 513
+  Result element 2: 1025
+  Result element 3: 1537
+rasql done.
+
+ Result correct for the query.
+
+ test query in  8.2_Multidimensional_Intervals_[1].lo.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 42
+  Result element 2: 42
+  Result element 3: 42
+rasql done.
+
+ Result correct for the query.
+
+ test query in  8.2_Multidimensional_Intervals_[1].rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 42:227
+  Result element 2: 42:227
+  Result element 3: 42:227
+rasql done.
+
+ Result correct for the query.
+
+ test query in  8.2_Multidimensional_Intervals.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: [-17:245,42:227]
+  Result element 2: [-17:245,42:227]
+  Result element 3: [-17:245,42:227]
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.10_Expressions.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 1 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.1_Spatial_Domain_[0].hi.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 255
+  Result element 2: 255
+  Result element 3: 255
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.1_Spatial_Domain_[0].lo.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 0
+  Result element 2: 0
+  Result element 3: 0
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.1_Spatial_Domain_[0].rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 0:255
+  Result element 2: 0:255
+  Result element 3: 0:255
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.1_Spatial_Domain.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: [0:255,0:210]
+  Result element 2: [0:255,0:210]
+  Result element 3: [0:255,0:210]
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.2.1_Trimming.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.2.2_Section.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 0
+  Result element 2: 0
+  Result element 3: 0
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.2.3_The_Array_Bound_Asterisk_1.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.2.3_The_Array_Bound_Asterisk.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.2.4_Shifting_a_Spatial_Domain.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.2.5_Extending_a_Spatial_Domain.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.1_Unary_Induction.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 1 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.2_Binary_Induction_1.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 1 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.2_Binary_Induction.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.3.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 1 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.3_Struct_Component_Selection_1.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 1 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.3_Struct_Component_Selection_2.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 1 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.3_Struct_Component_Selection_3.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 1 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_cast_1.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 1 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_cast.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 39.8363
+  Result element 2: 37.9118
+  Result element 3: 37.0485
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_abs.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_And.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_arccos.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 1.0472
+  Result element 2: 1.0472
+  Result element 3: 1.0472
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_arcsin.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 0.523599
+  Result element 2: 0.523599
+  Result element 3: 0.523599
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_arctan.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 0.785398
+  Result element 2: 0.785398
+  Result element 3: 0.785398
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_bit.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_cosh.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 1
+  Result element 2: 1
+  Result element 3: 1
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_cos.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: -0.952413
+  Result element 2: -0.952413
+  Result element 3: -0.952413
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_divide.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_egt.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_elt.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_exp.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 1
+  Result element 2: 1
+  Result element 3: 1
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_gt.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_Is.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_ln.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 0
+  Result element 2: 0
+  Result element 3: 0
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_log.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 0
+  Result element 2: 0
+  Result element 3: 0
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_lt.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_multiply.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_ne.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_not.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_Or.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_overlay.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_-.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_+.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_sinh.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 0
+  Result element 2: 0
+  Result element 3: 0
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_sin.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_sqrt.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_tanh.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 0
+  Result element 2: 0
+  Result element 3: 0
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_tan.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 0
+  Result element 2: 0
+  Result element 3: 0
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3.4_Induction_All_Operations_Xor.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.3_Induced_and_Struct.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 1 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.4_Scaling_1.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.4_Scaling_2.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.5_Condensers_Add.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 2151797
+  Result element 2: 2047844
+  Result element 3: 2001213
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.5_Condensers_All.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 0 element(s):
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.5_Condensers_Avg.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 39.8363
+  Result element 2: 37.9118
+  Result element 3: 37.0485
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.5_Condensers_Count.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 54016
+  Result element 2: 54016
+  Result element 3: 54016
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.5_Condensers_Max.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 253
+  Result element 2: 253
+  Result element 3: 253
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.5_Condensers_Min.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 0
+  Result element 2: 0
+  Result element 3: 0
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.5_Condensers_Some.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 2 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.6_General_Array_Condenser_Add.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 117
+  Result element 2: 100
+  Result element 3: 61
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.6_General_Array_Condenser_All.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 0
+  Result element 2: 0
+  Result element 3: 0
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.6_General_Array_Condenser_Count.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 54016
+  Result element 2: 54016
+  Result element 3: 54016
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.6_General_Array_Condenser_Some.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result element 1: 255
+  Result element 2: 255
+  Result element 3: 255
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.7_General_Array_Constructor_1c.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.7_General_Array_Constructor_Variable_1.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.7_General_Array_Constructor_Variable.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.7_General_Array_Constructor_x[0].rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+
+ test query in  9.9_Object_Identifiers.rasql
+rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 02.06.2009 15:45:39.
+opening database RASBASE at localhost:7001...ok
+Executing retrieval query...ok
+Query result collection has 3 element(s):
+  Result object 1: going into file tmp.unknown...ok.
+  Result object 2: going into file tmp.unknown...ok.
+  Result object 3: going into file tmp.unknown...ok.
+rasql done.
+
+ Result correct for the query.
+test done at Tue Apr 13 15:08:47 CEST 2010
+Total query number: 90
+Successful query number: 90
+Failed query number: 0

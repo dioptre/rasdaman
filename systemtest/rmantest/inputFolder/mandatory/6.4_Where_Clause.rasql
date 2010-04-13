@@ -1,0 +1,1 @@
+select mr - mr2 from mr, mr2 where some_cells( mr - mr2 > 50 )

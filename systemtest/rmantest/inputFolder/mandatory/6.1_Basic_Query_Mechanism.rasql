@@ -1,0 +1,1 @@
+select mr[100:150,40:80] / 2 from mr where some_cells( mr[120:160, 55:75] > 250 )

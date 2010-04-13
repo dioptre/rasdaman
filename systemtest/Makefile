@@ -48,7 +48,12 @@ systemtest:
 	./testcenter.sh
 	./testcenter2.sh
 	./testjava.sh
-
+	rmantest/bytetest.sh rmantest/inputFolder/mandatory rmantest/Oracle/mandatory rmantest/Repository/mandatory
+	rmantest/bytetest.sh rmantest/inputFolder/bug_fixed rmantest/Oracle/bug_fixed rmantest/Repository/bug_fixed
+	rmantest/bytetest.sh rmantest/inputFolder/bug_unfixed rmantest/Oracle/bug_unfixed rmantest/Repository/bug_unfixed
+	rmantest/bytetest.sh rmantest/inputFolder/other rmantest/Oracle/other rmantest/Repository/other
+	Conversion_Test.sh
+	Manipulation_Test.sh
 clean:
 	-rm $(MISCCLEAN)
 

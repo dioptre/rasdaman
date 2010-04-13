@@ -1,0 +1,1 @@
+select add_cells( mr ) from mr

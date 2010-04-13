@@ -1,0 +1,1 @@
+select condense + over x in sdom(a) where a[x] using 1 from mr as a
