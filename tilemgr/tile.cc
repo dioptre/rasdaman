@@ -53,6 +53,13 @@ static const char rcsid[] = "@(#)cachetamgr,Tile: $Id: tile.cc,v 1.79 2005/09/03
 
 #include <cstring>
 
+#ifdef RMANBENCHMARK
+RMTimer Tile::opTimer("Tile","opTimer");
+RMTimer Tile::relTimer("Tile","relTimer");
+RMTimer Tile::o2Timer("Tile","o2Timer");
+#endif
+
+
 const Tile&
 Tile::operator=(const Tile& tile)
 	{
@@ -825,7 +832,7 @@ Tile::copyTile(const r_Minterval &areaRes, const Tile *opTile, const r_Minterval
 	r_MiterDirect opTileIter((void*)cellOp, opTile->getDomain(), areaOp, tsize);
 
 #ifdef RMANBENCHMARK
-	opTiler.resume();
+	opTimer.resume();
 #endif
 
 	while (!resTileIter.isDone())

@@ -41,6 +41,7 @@ rasdaman GmbH.
 
 #include "raslib/error.hh"
 #include "adminif.hh"
+#include "dbobject.hh"
 
 #include "raslib/rmdebug.hh"
 #include "sqlerror.hh"

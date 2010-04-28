@@ -55,8 +55,7 @@ static const char rcsid[] = "@(#)servercomm2, ServerComm: $Id: servercomm2.cc,v 
 
 #ifdef RMANBENCHMARK
 	// to control GenericCompression::decompTimer and GenericCompression::compTimer
-	#include "gencompression.hh"
-	#include "zlibcompression.hh"
+	#include "tilemgr/gencompression.hh"
 #endif
 
 #ifdef SOLARIS
@@ -1527,10 +1526,6 @@ ServerComm::executeQuery( unsigned long callingClientId,
 		Tile::relTimer.pause();
 		Tile::opTimer.start();
 		Tile::opTimer.pause();
-		ZLibCompression::decompTimer.start();
-		ZLibCompression::decompTimer.pause();
-		ZLibCompression::compTimer.start();
-		ZLibCompression::compTimer.pause();
 
 		if( RManBenchmark > 0 )
 			RMInit::bmOut << "Query: " << query << std::endl;
@@ -1839,8 +1834,6 @@ ServerComm::executeQuery( unsigned long callingClientId,
 			Tile::opTimer.stop();
 			Tile::relTimer.stop();
 			Tile::opTimer.stop();
-			ZLibCompression::decompTimer.stop();
-			ZLibCompression::compTimer.stop();
 			if( context->evaluationTimer )
 				delete context->evaluationTimer;
 			context->evaluationTimer = 0;
@@ -2056,10 +2049,6 @@ ServerComm::executeUpdate( unsigned long callingClientId,
 	Tile::relTimer.pause();
 	Tile::opTimer.start();
 	Tile::opTimer.pause();
-	ZLibCompression::decompTimer.start();
-	ZLibCompression::decompTimer.pause();
-	ZLibCompression::compTimer.start();
-	ZLibCompression::compTimer.pause();
 
 	if( RManBenchmark > 0 )
 		RMInit::bmOut << "Query (update): " << query << std::endl;
@@ -2256,8 +2245,6 @@ ServerComm::executeUpdate( unsigned long callingClientId,
 
 	Tile::opTimer.stop();
 	Tile::relTimer.stop();
-	ZLibCompression::decompTimer.stop();
-	ZLibCompression::compTimer.stop();
 #endif
 
 	RMDBGEXIT( 4, RMDebug::module_servercomm, "ServerComm",  "executeUpdate" )
@@ -3624,8 +3611,6 @@ ServerComm::endTransfer( unsigned long client )
 #ifdef RMANBENCHMARK
 		Tile::relTimer.stop();
 		Tile::opTimer.stop();
-		ZLibCompression::decompTimer.stop();
-		ZLibCompression::compTimer.stop();
 		if( context->evaluationTimer ) delete context->evaluationTimer;
 		context->evaluationTimer = 0;
 		if( context->transferTimer ) delete context->transferTimer;

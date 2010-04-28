@@ -371,6 +371,8 @@ class Tile
 		// RMTimer for taking O2 times. Could be protected. Is controlled
 		// in servercomm/servercomm2.cc.
 		static RMTimer opTimer;
+		static RMTimer relTimer;
+		static RMTimer o2Timer;
 #endif
 
 	protected:

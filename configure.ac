@@ -179,6 +179,12 @@ AC_ARG_ENABLE([debug],
               [RMANDEBUG=on],
               [RMANDEBUG=])
 
+AC_ARG_ENABLE([benchmark],
+              [AS_HELP_STRING([--enable-benchmark],
+                              [this feature enables generation of binaries that contain extra code for benchmark output.])],
+              [CXXFLAGS+=-DRMANBENCHMARK ],
+              [])
+
 AC_ARG_WITH([test-server],
             [AS_HELP_STRING([--with-test-server=ADDRESS],
                             [server used for testing])],

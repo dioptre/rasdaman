@@ -97,6 +97,7 @@ struct connection
 #include "sqlerror.hh"
 #include "oidif.hh"
 #include "adminif.hh"
+#include "dbobject.hh"
 
 extern char globalConnectId[256];
 // size of ARCHITECTURE attribute in RAS_ADMIN:

@@ -66,11 +66,6 @@ static const char rcsid[] = "@(#)servercomm, HttpServer: $Id: httpserver.cc,v 1.
 #include <purify.h>
 #endif
 
-#ifdef RMANBENCHMARK
-  // to control ZLibCompression::decompTimer and ZLibCompression::compTimer
-  #include "zlibcompression.hh"
-#endif
-
 #include "httpserver/httpserver.h"
 
 #include "qlparser/qtmdd.hh"

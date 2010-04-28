@@ -184,6 +184,10 @@ class OId
 
 		bool operator>= (const OId& old) const;
 
+             #ifdef RMANBENCHMARK
+	        static RMTimer oidAlloc;
+	        static RMTimer oidResolve;
+	     #endif
 	protected:
 		// protection agains writing back unloaded counters => inconsistent DB!!
 		static bool loadedOk;
@@ -293,7 +297,6 @@ class OId
 		/*@Doc: 
 		holds all OIdCounters of next* sort, to go with the counterNames.
 		*/
-
 	};
 
 extern std::ostream& operator<<(std::ostream& in, const OId& d);
