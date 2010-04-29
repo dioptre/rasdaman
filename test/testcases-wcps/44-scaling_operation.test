@@ -1,0 +1,2 @@
+for a in (mr) return
+    encode(a,"dem", "startx=0,starty=0,endx=1000,endy=1000,resx=0.1,resy=0.15")

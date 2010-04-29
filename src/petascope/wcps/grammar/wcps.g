@@ -242,8 +242,10 @@ stringScalarExpr  returns[StringScalarExpr value]
     | e=STRING { $value = new StringScalarExpr($e.text); }
     ;
 scaleExpr returns[ScaleExpr value]
-	: SCALE LPAREN e1=coverageExpr COMMA dil=dimensionIntervalList COMMA fil=fieldInterpolationList RPAREN
-		{ $value = new ScaleExpr($e1.value, $dil.value, $fil.value); }
+	: SCALE LPAREN e1=coverageExpr COMMA dil=dimensionIntervalList { $value = new ScaleExpr($e1.value, $dil.value); }
+            (COMMA fil=fieldInterpolationList   {$value.addInterpolationList($fil.value); } )?
+                RPAREN
+		
 	;
 subsetExpr returns[SubsetExpr value]
 	: e1=trimExpr { $value = new SubsetExpr($e1.value); }

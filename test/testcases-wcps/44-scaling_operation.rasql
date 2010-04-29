@@ -1,0 +1,1 @@
+select png(scale( c, [1:600,1:600] )) from rgb AS c
