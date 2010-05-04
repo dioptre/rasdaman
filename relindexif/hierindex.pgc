@@ -184,19 +184,6 @@ DBHierIndex::insertInDb() throw (r_Error)
 	(void) memcpy( &completebuffer[boundssize * 2 + fixessize * 2 + idssize + 1], entrytypesbuf, typessize);
 	free(entrytypesbuf);
 
-#ifdef RMANDEBUG	// dump low-level blob byte string
-{
-	char printbuf[10000];
-	(void) sprintf( printbuf, "XXX DBHierIndex::insertInDb(): [%d]", completesize );
-	char bytebuf[3];
-	for (unsigned int i = 0; i < completesize; i++)
-	{
-		(void) sprintf( bytebuf, " %2X", (unsigned char) completebuffer[i] );
-		strcat( printbuf, bytebuf );
-	}
-	TALK( printbuf );
-}
-#endif // RMANDEBUG
 
 	// (2) --- create, open, write, close blob; generates new 'oid' for subsequent storage in tuple
 	TALK( "lo_creat()" );
@@ -397,19 +384,6 @@ DBHierIndex::readFromDb() throw (r_Error)
 		TALK( "DBHierIndex::readFromDb: ignoring lo_close() error: " << ignoredPgResult );
 	}
 
-#ifdef RMANDEBUG	// dump low-level blob byte string
-{
-	char printbuf[10000];
-	(void) sprintf( printbuf, "XXX DBHierIndex::readFromDb(): [%d]", completesize );
-	char bytebuf[3];
-	for (unsigned int i = 0; i < completesize; i++)
-	{
-		(void) sprintf( bytebuf, " %2X", (unsigned char) completebuffer[i] );
-		strcat( printbuf, bytebuf );
-	}
-	TALK( printbuf );
-}
-#endif // RMANDEBUG
 
 	// (4) --- copy data into buffers
 	// all dynamic data ( plus starter byte) is in completebuffer, put that stuff in the correct buffers
@@ -515,7 +489,7 @@ DBHierIndex::updateInDb() throw (r_Error)
 	RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "domain " << myDomain << " stored as " << InlineMinterval(dimension4, &(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[0])));
 
 	KeyObjectVector::iterator it = myKeyObjects.begin();
-	InlineMinterval indom;
+                    	InlineMinterval indom;
 	for (unsigned int i = 0; i < size4; i++, it++)
 	{
 		indom = (*it).getDomain();
@@ -543,19 +517,6 @@ DBHierIndex::updateInDb() throw (r_Error)
 	memcpy( &completebuffer[boundssize * 2 + fixessize * 2 + idssize + 1], entrytypesbuf, typessize);
 	free(entrytypesbuf);
 
-#ifdef RMANDEBUG	// dump low-level blob byte string
-{
-	char printbuf[10000];
-	(void) sprintf( printbuf, "XXX DBHierIndex::updateInDb(): [%d]", completesize );
-	char bytebuf[3];
-	for (unsigned int i = 0; i < completesize; i++)
-	{
-		(void) sprintf( bytebuf, " %2X", (unsigned char) completebuffer[i] );
-		strcat( printbuf, bytebuf );
-	}
-	TALK( printbuf );
-}
-#endif // RMANDEBUG
 
 	// (2) --- write complete buffer to new database blob
 	// create, open, write, close blob; generates new 'oid' for subsequent storage in tuple
