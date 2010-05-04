@@ -385,7 +385,6 @@ Tile::~Tile()
 	// this function has to check now if a tile has to be compressed.
 	// The old scheme of compression in AdminIf::compCompTiles does
 	// not work, because tiles may be destroyed before with releaseAll.
-	compress();
 	delete compEngine;
 	delete [] params;
 	}
