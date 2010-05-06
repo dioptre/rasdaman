@@ -2,6 +2,8 @@ This file is part of PetaScope, a free implementation of the Open GeoSpatial Con
 - Web Coverage Service (WCS) 1.1.2
 - WCS Processing Extension 1.0.0, which grounds on Web Coverage Processing Service (WCPS) 1.0.0
 - WCS Transaction Extension (WCS-T) 1.4.0
+ 
+In addition, you can find a demo implementation of the Web Coverage Service (WCS) 2.0, which is currently under development.
 
 PetaScope is implemented as a Java servlet. As such, it relies on the following freely available components which are not part of the PetaScope distribution:
 - rasdaman (www.rasdaman.org) as raster server
