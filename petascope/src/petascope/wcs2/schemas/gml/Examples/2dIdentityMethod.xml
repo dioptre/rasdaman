@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OperationMethod xmlns="http://www.opengis.net/gml/3.2" 
+    xmlns:gml="http://www.opengis.net/gml/3.2" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd"
+    gml:id="IdentityMethod2D">
+    <!-- Example for a 2-D CRS identity transformation as defined in the GML 3.2.1 Application Schema for WCS 2.0 -->
+    <!-- Last updated 2010-01-11 -->
+    <!-- =============================================== -->
+    <identifier codeSpace="urn:ogc:def:method:WCS-SWG:2.0:">IdentityMethod2D</identifier>
+    <name>Identity Method 2D</name>
+    <remarks>Method for use by a Coordinate Conversion for the identity transformation of two coordinates </remarks>
+    <methodFormula>This coordinate converion shall be as specified by the equations:
+    BaseX = DerivedX
+    BaseY = DerivedY
+where 
+    DerivedX, DerivedY are position coordinates in the derived 2D CRS
+    BaseX, BaseY are position coordinates in the 2D base CRS
+    </methodFormula>
+    <sourceDimensions>2</sourceDimensions>
+    <targetDimensions>2</targetDimensions>
+</OperationMethod>

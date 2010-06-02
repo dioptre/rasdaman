@@ -1,0 +1,1 @@
+for c in ( rgb ) return encode( c[ x(0:450), y(0:300) ], "png" )

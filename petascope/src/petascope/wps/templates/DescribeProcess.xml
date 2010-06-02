@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:ProcessDescriptions xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" service="WPS" version="1.0.0" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsDescribeProcess_response.xsd">
+ 	<ProcessDescription wps:processVersion="1"
+ 		storeSupported="true" statusSupported="false">
+ 		<ows:Identifier>ProcessCoverages</ows:Identifier>
+    	<ows:Title>ProcessCoverages Request</ows:Title>
+ 		<ows:Abstract> ProcessCoverages is a WPS process that provides a means of specifying server-side extraction and analysis of coverages containing sensor,image, and statistics data 
+ 		</ows:Abstract>
+   	<ows:Metadata xlink:title="coverage"/>
+    	<ows:Metadata xlink:title="coverage processing"/>
+   	<ows:Metadata xlink:title="WCS"/>
+    	<wps:Profile>
+ 			urn:ogc:wps:1.0.0:ProcessCoverages
+ 		</wps:Profile>
+		<DataInputs>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>
+ 					AbstractWcpsQuery
+ 				</ows:Identifier>
+				<ows:Title>
+ 					WCPS ProcessCoverages Request
+ 				</ows:Title>
+				<ows:Abstract> WCPS query</ows:Abstract>
+				<LiteralData>
+					<ows:DataType ows:reference=
+ 					"http://www.w3.org/TR/xmlschema2/#string">
+ 						string
+ 					</ows:DataType>
+					<ows:AnyValue/>
+				</LiteralData>
+			</Input>
+ 		</DataInputs>
+		<ProcessOutputs>
+			<Output>
+ 				<ows:Identifier>
+ 					ProcessCoveragesResultList
+ 				</ows:Identifier>
+				<ows:Title>WCPS Query</ows:Title>
+				<ows:Abstract>WCPS Query</ows:Abstract>
+	 			<ComplexOutput>
+					<Default>
+ 						<Format>
+ 							<MimeType>image/tiff</MimeType>
+							<Encoding>base64</Encoding>
+						</Format>
+					</Default>
+						<Supported>
+						<Format>
+ 							<MimeType>image/tiff</MimeType>
+							<Encoding>base64</Encoding>
+						</Format>
+						<Format>
+ 							<MimeType>image/netcdf</MimeType>
+ 							<Encoding>base64</Encoding>
+						</Format>
+ 						<Format>
+ 								<MimeType>image/hdf4.0</MimeType>
+							<Encoding>base64</Encoding>
+ 						</Format>
+						<Format>
+ 							<MimeType>image/png</MimeType>
+ 							<Encoding>base64</Encoding>
+						</Format>
+						<Format>
+ 							<MimeType>image/nitf</MimeType>
+ 							<Encoding>base64</Encoding>
+ 						</Format>
+						<Format>
+ 							<MimeType>text/plain</MimeType>
+ 							<Encoding>UTF-8</Encoding>
+ 						</Format>
+					</Supported>
+				</ComplexOutput>
+			</Output>
+ 		</ProcessOutputs>
+	</ProcessDescription>
+</wps:ProcessDescriptions>

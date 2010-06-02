@@ -1,0 +1,1 @@
+select jpeg((char)(((255)-((c).red)))[50:150,50:150]) from rgb AS c

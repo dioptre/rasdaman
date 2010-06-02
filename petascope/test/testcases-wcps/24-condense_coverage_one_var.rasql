@@ -1,0 +1,1 @@
+select condense + over ii in [1:10] using ((ii[0])*((a[ii[0],10]).red)) from rgb AS a

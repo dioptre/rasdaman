@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : Transaction1.xml
+    Created on : March 16, 2009, 10:37 PM
+    Author     : Andrei
+    Description:
+        Test operation Transaction of WCS, action ADD: add one coverage to the WCS server, asynchroneously !
+-->
+<Transaction xmlns="http://www.opengis.net/wcs/1.1/wcst"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:ows="http://www.opengis.net/ows/1.1"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.opengis.net/wcs/1.1/wcst ../../src/conf/xml-resources/jaxb/WCS-Transaction Schema/wcstTransaction.xsd"
+service="WCS" version="1.1">
+    <InputCoverages>
+        <Coverage>
+            <ows:Identifier codeSpace="TBD">coverage_1</ows:Identifier>
+            <ows:Reference xlink:href="http://localhost/peta/flickr1.jpg"
+        xlink:role="urn:ogc:def:role:WCS:1.1:Pixels"/>
+            <ows:Reference xlink:href="http://localhost/peta/CoverageDescriptions1.xml"
+        xlink:role="urn:ogc:def:role:WCS:1.1:CoverageDescription"/>
+            <ows:Reference xlink:href="http://localhost/peta/CoverageSummary1.xml"
+        xlink:role="urn:ogc:def:role:WCS:1.1:CoverageSummary"/>
+            <Action>Add</Action>
+        </Coverage>
+    </InputCoverages>
+    <ResponseHandler>
+        http://localhost:8080/PetaScope/WCPService
+    </ResponseHandler>
+</Transaction>

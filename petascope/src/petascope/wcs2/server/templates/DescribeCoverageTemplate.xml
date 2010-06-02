@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wcs:CoverageDescriptions  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+   xmlns:gmlwcs='http://www.opengis.net/wcs/2.0/gml'
+   xmlns:gml='http://www.opengis.net/gml/3.2'
+   xmlns:wcs='http://www.opengis.net/wcs/2.0'
+   xmlns='http://www.opengis.net/gml/3.2'
+   xsi:schemaLocation='http://www.opengis.net/wcs/2.0 {wcsSchemaUrl}/wcsAll.xsd'>
+    {listOfCoverageDescriptions}
+    <wcs:CoverageDescription gml:id="{coverageId}">
+        <domainSet>
+            <Grid dimension="{gridDimension}" gml:id="{gridId}">
+                <limits>
+                    <GridEnvelope>
+                        <low>{low}</low>
+                        <high>{high}</high>
+                    </GridEnvelope>
+                </limits>
+                <axisLabels>{axisLabels}</axisLabels>
+            </Grid>
+        </domainSet>
+        <gmlwcs:rangeStructure>
+            <gmlwcs:RangeStructure gml:id="{rangeStructureId}">
+                {rangeFields}
+                <gmlwcs:rangeField>
+                    <gmlwcs:RangeField gml:id="{rangeFieldId}">
+                        <gml:name>{fieldName}</gml:name>
+                        <gmlwcs:dataType>{datatype}</gmlwcs:dataType>
+                        <gmlwcs:nilValueList>{nilValues}</gmlwcs:nilValueList>
+                    </gmlwcs:RangeField>
+                </gmlwcs:rangeField>
+            </gmlwcs:RangeStructure>
+        </gmlwcs:rangeStructure>
+        <wcs:ServiceParameters>
+            <wcs:supportedCrsList/>
+            <wcs:supportedFormatList>{supportedFormats}</wcs:supportedFormatList>
+        </wcs:ServiceParameters>
+    </wcs:CoverageDescription>
+</wcs:CoverageDescriptions>

@@ -1,0 +1,4 @@
+for c in (mr)
+where avg(c)>30
+return
+encode (c, "jpeg")

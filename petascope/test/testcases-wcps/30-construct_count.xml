@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ProcessCoveragesRequest xmlns="http://www.opengis.net/wcps/1.0" service="WCPS" version="1.0.0">
+<query><xmlSyntax><coverageIterator><iteratorVar>c</iteratorVar><coverageName>climate_clouds</coverageName></coverageIterator><encode store="false"><construct><name>histogram</name><axisIterator><iteratorVar>n</iteratorVar><axis>x</axis><numericConstant>0</numericConstant><numericConstant>2</numericConstant></axisIterator><count><equals><coverage>c</coverage><variableRef>n</variableRef></equals></count></construct><format>csv</format></encode></xmlSyntax></query></ProcessCoveragesRequest>

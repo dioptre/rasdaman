@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ProcessCoveragesRequest xmlns="http://www.opengis.net/wcps/1.0" service="WCPS" version="1.0.0">
+    <query>
+        <xmlSyntax>
+            <coverageIterator>
+                <iteratorVar>c</iteratorVar>
+                <coverageName>lena</coverageName>
+            </coverageIterator>
+            <encode store="false">
+                <trim>
+                    <coverage>c</coverage>
+                    <axis>x</axis>
+                    <srsName>CRS:1</srsName>
+                    <lowerBound>
+                        <numericConstant>1</numericConstant>
+                    </lowerBound>
+                    <upperBound>
+                        <numericConstant>100</numericConstant>
+                    </upperBound>
+                    <axis>y</axis>
+                    <srsName>EPSG:4326</srsName>
+                    <lowerBound>
+                        <numericConstant>1</numericConstant>
+                    </lowerBound>
+                    <upperBound>
+                        <numericConstant>100</numericConstant>
+                    </upperBound>
+                </trim>
+                <format>jpeg</format>
+            </encode>
+        </xmlSyntax>
+    </query>
+</ProcessCoveragesRequest>

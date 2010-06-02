@@ -1,0 +1,6 @@
+for c in (rgb) return 
+encode(
+	coverage const 
+	over $px x(0:1) 
+	value list <0;1>
+, "csv")

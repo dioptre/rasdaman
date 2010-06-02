@@ -1,0 +1,1 @@
+select csv(< [0:1] 0, 1>) from rgb AS c

@@ -1,0 +1,1 @@
+select jpeg((char)(marray ii in [10:240, 10:230] values condense + over ij in [-1:1, -1:1] using ((< [-1:1, -1:1] 1, 1, 1, 0, 0, 0, -1, -1, -1>[ij[0],ij[1]])*((c[(ii[0])+(ij[0]),(ii[1])+(ij[1])]).red)))) from rgb AS c

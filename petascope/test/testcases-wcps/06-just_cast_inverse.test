@@ -1,0 +1,1 @@
+for c in ( rgb ) return encode( ((char)255 - c.red)[x(50:150),y(50:150)], "jpeg" )

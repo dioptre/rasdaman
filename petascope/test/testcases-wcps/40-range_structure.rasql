@@ -1,0 +1,1 @@
+select jpeg((((c).red)*({ 1c,2c,3c }))) from rgb as c

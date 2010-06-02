@@ -1,0 +1,1 @@
+for s in ( rgb ) return encode( ((s.0-s.1)/(s.0+s.1)) > 0.1, "jpeg" )
