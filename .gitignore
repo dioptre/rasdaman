@@ -51,3 +51,7 @@ bin/start_rasdaman.sh
 bin/stop_rasdaman.sh
 bin/rasmgr.conf
 insertutils/insertdemo.sh
+*.class
+*.war
+dbparams.properties
+petascope/doc/
