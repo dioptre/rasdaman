@@ -279,7 +279,6 @@ int         Configuration::getMaxTransferBufferSize()    { return maxTransferBuf
 int         Configuration::getTimeout()                  { return timeout; }
 const char* Configuration::getDbConnectionID()    { return dbConnection; }
       
-#ifdef RMANDEBUG
 int         Configuration::getDefaultTileSize() { return tileSize; }
 int         Configuration::getDefaultPCTMin()   { return pctMin; }
 int         Configuration::getDefaultPCTMax()   { return pctMax; }
@@ -292,6 +291,5 @@ const char* Configuration::getDefaultTileConfig() { return tileConf; }
 const char* Configuration::getTilingScheme()      { return tilingName; }
 const char* Configuration::getIndexType()         { return indexType; }
 bool        Configuration::useTileContainer()     { return useTC; }
-      
-#endif      
+
 

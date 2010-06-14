@@ -113,7 +113,10 @@ class Configuration
       CommandLineParser    &cmlInter;
       CommandLineParameter &cmlHelp, &cmlHostName, &cmlPort, &cmlPollFrequ;
       CommandLineParameter &cmlMaster, &cmlMasterPort, &cmlName, &cmlQuiet;
+
+    #ifdef RMANDEBUG
       CommandLineParameter &cmlTest, &cmlDSup, &cmlRandTest, &cmlRth, &cmlMultiWT;
+    #endif
    };
    
 extern Configuration config;

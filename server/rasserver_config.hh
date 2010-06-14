@@ -50,7 +50,6 @@ class Configuration
       int         getTimeout();
       const char* getDbConnectionID();
       
-#ifdef RMANDEBUG
       int         getDefaultTileSize();
       int         getDefaultPCTMin();
       int         getDefaultPCTMax();
@@ -64,7 +63,7 @@ class Configuration
       const char* getIndexType();
       bool        useTileContainer();
       
-#endif      
+
     private:
       void printHelp();
       
@@ -123,7 +122,6 @@ class Configuration
       int         optLevel;
       const char* dbConnection;
 
-#ifdef RMANDEBUG
       int         tileSize;
       int         pctMin;
       int         pctMax;
@@ -133,7 +131,6 @@ class Configuration
       const char* indexType;
       int         indexSize;
       int         dbgLevel;
-#endif      
    };
 
 extern Configuration configuration;
