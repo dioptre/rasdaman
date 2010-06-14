@@ -131,7 +131,6 @@ AC_CONFIG_FILES([Makefile
                  manuals_and_examples/Makefile
                  insertutils/Makefile
 		 include/Makefile
-                 java/Makefile
           ])
 
 # --------------- Header Template Definitions ----------------------
