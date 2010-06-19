@@ -92,7 +92,6 @@ class Configuration
       CommandLineParameter *cmlConnectStr;
       CommandLineParameter *cmlLog;
 
-#ifdef RMANDEBUG
       CommandLineParameter *cmlTileSize;
       CommandLineParameter *cmlPctMin;
       CommandLineParameter *cmlPctMax;
@@ -103,7 +102,7 @@ class Configuration
       CommandLineParameter *cmlIndexSize;
       CommandLineParameter *cmlDbg;
       CommandLineParameter *cmlDbgLevel;
-#endif
+
       const char* myExecutable;
       
       const char* serverName;

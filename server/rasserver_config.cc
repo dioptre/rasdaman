@@ -108,7 +108,6 @@ void Configuration::initParameters()
     cmlConnectStr  = &cmlInter.addStringParameter(NSN, "connect", "<connect-str> connect string for underlying database(e.g. test/test@julep)", "/");
     cmlLog	   = &cmlInter.addStringParameter('l', "log", "<log-file> log is printed to <log-file>\n\t\tif <log-file> is stdout , log output is printed to standard out", "$RMANHOME/log/<srv-name>.<pid>.log");
 
-#ifdef RMANDEBUG
     cmlTileSize = &cmlInter.addLongParameter(NSN, "tilesize", "<nnnn> specifies maximal size of tiles in bytes\n\t\t-regular tiles with equal edge lengthes",  2097152);
     cmlPctMin   = &cmlInter.addLongParameter(NSN, "pctmin", "<nnnn> specifies minimal size of blobtiles in bytes",  2048);
     cmlPctMax   = &cmlInter.addLongParameter(NSN, "pctmax", "<nnnn> specifies maximal size of inlinetiles in bytes",  4096);
@@ -135,7 +134,6 @@ void Configuration::initParameters()
     cmlIndexSize = &cmlInter.addLongParameter(NSN, "indexsize", indexsizeDesc.c_str(),0L);
     cmlDbg	 = &cmlInter.addStringParameter('d', "debug", "<dgb-file> debug output is printed to <dbg-file>; if <dbg-file> is stdout, debug output is printed to standard out","<srv-name>.log");
         cmlDbgLevel  = &cmlInter.addLongParameter(NSN, "dl", "<nn> debug level (0-4; 0 = no / 4 = maximal debug information)", 0L);
-#endif // RMANDEBUG
  
    }
 #undef NSN
@@ -165,7 +163,6 @@ void Configuration::checkParameters()
        optLevel     = cmlOptLevel->getValueAsLong();
        dbConnection = cmlConnectStr->getValueAsString();
 
-#ifdef RMANDEBUG
        tileSize   = cmlTileSize->getValueAsLong();
        pctMin     = cmlPctMin->getValueAsLong();
        pctMax     = cmlPctMax->getValueAsLong();
@@ -178,7 +175,6 @@ void Configuration::checkParameters()
        indexSize  = cmlIndexSize->getValueAsLong();
          deprecated(cmlDbg);
        dbgLevel   = cmlDbgLevel->getValueAsLong();   
-#endif 
 
 	LEAVE( "Configuration::checkParameters()" );
    }
