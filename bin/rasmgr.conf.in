@@ -1,32 +1,52 @@
+#
+# This file is part of rasdaman community.
+#
+# Rasdaman community is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Rasdaman community is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+# rasdaman GmbH.
+#
+# For more information please see <http://www.rasdaman.org>
+# or contact Peter Baumann via <baumann@rasdaman.com>.      
+#
 # ----------------------------------------------------------------------------
 #
-# rasmgr.conf.template: rasmgr configuration file sample
+# rasmgr.conf: rasmgr configuration file
 #
 # PURPOSE:
 # define server processes for rasdaman;
 # this configuration file is read by rasmgr upon system start;
 # settings can be changed during runtime via rascontrol.
-# Adapt it and rename it to rasmgr.conf in directory $RMANHOME
-# (which usually will be ~rasdaman).
 #
 # COMMENTS:
-# - this is a sample file and will NOT WORK
-#   in your environment without adaptation!
 # - do not edit while rasmgr is running, may be overwritten!
 # - see Installation Guide for a complete list of options
 #
 # Copyright (c) 2005 rasdaman GmbH
+#
 # ----------------------------------------------------------------------------
 
 # define symbolic name for database host
 # the MYHOST name is just a symbolic one, does not have to correspond with
-# any ame outside rasdaman; however MUST NOT BE EQUAL to any other name used
+# any name outside rasdaman; however, MUST NOT BE EQUAL to any other name used
 # in this file!
 # parameters:
 #	-connect c	server connect information (RDBMS login, database
 #			name, or similar - depends on the base DBMS used;
 #			eg, can be "/" for Oracle, "RASBASE" for PostgreSQL)
 define dbh rasdaman_host -connect RASBASE
+
 # define database
 # parameters:
 #	-dbh d		this database's server runs on host d
@@ -42,7 +62,8 @@ define db RASBASE -dbh rasdaman_host
 # 	-port p		port number for contacting this server is p
 #			(rasmgr by default uses 7001, so you may simply count up)
 #	-dbh d		use database host d (see "define dbh" for allowed names)
-define srv N1 -host @hostname@ -type n -port 7002 -dbh rasdaman_host
+define srv N1 -host floridita -type n -port 7002 -dbh rasdaman_host
+
 # change settings for this server
 # parameters:
 #	-countdown n	server will automatically restart after n requests
@@ -58,5 +79,34 @@ define srv N1 -host @hostname@ -type n -port 7002 -dbh rasdaman_host
 #			detach from the client, aborting any open transaction
 change srv N1 -countdown 1000 -autorestart on -xp --timeout 300
 
-# end of rasmgr.conf.template
+# more server definitions, following the above pattern; add any number you want.
+# Parameters can be adjusted individually, but be sure to avoid a clash in the ports.
+define srv N1 -host floridita -type n -port 7003 -dbh rasdaman_host
+change srv N1 -countdown 1000 -autorestart on -xp --timeout 300
+
+define srv N2 -host floridita -type n -port 7004 -dbh rasdaman_host
+change srv N2 -countdown 1000 -autorestart on -xp --timeout 300
+
+define srv N3 -host floridita -type n -port 7005 -dbh rasdaman_host
+change srv N3 -countdown 1000 -autorestart on -xp --timeout 300
+
+define srv N4 -host floridita -type n -port 7006 -dbh rasdaman_host
+change srv N4 -countdown 1000 -autorestart on -xp --timeout 300
+
+define srv N5 -host floridita -type n -port 7007 -dbh rasdaman_host
+change srv N5 -countdown 1000 -autorestart on -xp --timeout 300
+
+define srv N6 -host floridita -type n -port 7008 -dbh rasdaman_host
+change srv N6 -countdown 1000 -autorestart on -xp --timeout 300
+
+define srv N7 -host floridita -type n -port 7009 -dbh rasdaman_host
+change srv N7 -countdown 1000 -autorestart on -xp --timeout 300
+
+define srv N8 -host floridita -type n -port 7010 -dbh rasdaman_host
+change srv N8 -countdown 1000 -autorestart on -xp --timeout 300
+
+define srv N9 -host floridita -type n -port 7011 -dbh rasdaman_host
+change srv N9 -countdown 1000 -autorestart on -xp --timeout 300
+
+# end of rasmgr.conf
 

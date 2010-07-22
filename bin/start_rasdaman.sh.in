@@ -46,8 +46,8 @@
 #
 # PRECONDITIONS
 #	- need to have a rasdaman admin login either from $RASLOGIN or as rasadmin/rasadmin
-#	- need to have an id that allows to write into $RMANHOME/log
-#	- need to have a valid rasdaman installation + key
+#	- need to run with an effective user id that allows to write into log/
+#	- need to have a valid rasdaman installation
 #
 # RETURN CODES
 	RC_OK=0		# everything went fine
