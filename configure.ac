@@ -333,7 +333,7 @@ AC_SUBST(logdir)
 CXXFLAGS="$CXXFLAGS -DSHARE_DATA_DIR=\\\"\$(pkgdatadir)/\\\""
 CXXFLAGS="$CXXFLAGS -DCONFDIR=\\\"\$(sysconfdir)/\\\""
 CXXFLAGS="$CXXFLAGS -DBINDIR=\\\"\$(bindir)/\\\""
-CXXFLAGS="$CXXFLAGS -DABSOLUTE_LOG_DIR=\\\"\$(logdir)/\\\""
+CXXFLAGS="$CXXFLAGS -DLOGDIR=\\\"\$(logdir)/\\\""
 
 AC_OUTPUT
 

@@ -77,36 +77,41 @@ define srv N1 -host floridita -type n -port 7002 -dbh rasdaman_host
 #			provide a specific timeout in seconds determining
 #			after how many seconds of inactivity the server will 
 #			detach from the client, aborting any open transaction
-change srv N1 -countdown 1000 -autorestart on -xp --timeout 300
+change srv N1 -countdown 200 -autorestart on -xp --timeout 300
 
 # more server definitions, following the above pattern; add any number you want.
 # Parameters can be adjusted individually, but be sure to avoid a clash in the ports.
 define srv N1 -host floridita -type n -port 7003 -dbh rasdaman_host
-change srv N1 -countdown 1000 -autorestart on -xp --timeout 300
+change srv N1 -countdown 200 -autorestart on -xp --timeout 300
 
 define srv N2 -host floridita -type n -port 7004 -dbh rasdaman_host
-change srv N2 -countdown 1000 -autorestart on -xp --timeout 300
+change srv N2 -countdown 200 -autorestart on -xp --timeout 300
 
 define srv N3 -host floridita -type n -port 7005 -dbh rasdaman_host
-change srv N3 -countdown 1000 -autorestart on -xp --timeout 300
+change srv N3 -countdown 200 -autorestart on -xp --timeout 300
 
 define srv N4 -host floridita -type n -port 7006 -dbh rasdaman_host
-change srv N4 -countdown 1000 -autorestart on -xp --timeout 300
+change srv N4 -countdown 200 -autorestart on -xp --timeout 300
 
 define srv N5 -host floridita -type n -port 7007 -dbh rasdaman_host
-change srv N5 -countdown 1000 -autorestart on -xp --timeout 300
+change srv N5 -countdown 200 -autorestart on -xp --timeout 300
 
 define srv N6 -host floridita -type n -port 7008 -dbh rasdaman_host
-change srv N6 -countdown 1000 -autorestart on -xp --timeout 300
+change srv N6 -countdown 200 -autorestart on -xp --timeout 300
 
 define srv N7 -host floridita -type n -port 7009 -dbh rasdaman_host
-change srv N7 -countdown 1000 -autorestart on -xp --timeout 300
+change srv N7 -countdown 200 -autorestart on -xp --timeout 300
 
 define srv N8 -host floridita -type n -port 7010 -dbh rasdaman_host
-change srv N8 -countdown 1000 -autorestart on -xp --timeout 300
+change srv N8 -countdown 200 -autorestart on -xp --timeout 300
 
 define srv N9 -host floridita -type n -port 7011 -dbh rasdaman_host
-change srv N9 -countdown 1000 -autorestart on -xp --timeout 300
+change srv N9 -countdown 200 -autorestart on -xp --timeout 300
+
+# further, we define one RPC type server; this protocol is deprecated,
+# but rview still needs it.
+define srv P1 -host floridita -type n -port 0x29999901 -dbh rasdaman_host
+change srv P1 -countdown 200 -autorestart on -xp --timeout 300
 
 # end of rasmgr.conf
 

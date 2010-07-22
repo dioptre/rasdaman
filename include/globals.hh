@@ -49,9 +49,6 @@ rasdaman GmbH.
 /// default rasmgr listen port
 #define DEFAULT_PORT		7001
 
-/// name of env var pointing to rasdaman home dir (ex: "/opt/rasdaman")
-#define RMANHOME_VAR		"RMANHOME"
-
 /// default name of server machine, if gethostname() fails
 #define DEFAULT_HOSTNAME	"localhost"
 
@@ -66,10 +63,6 @@ rasdaman GmbH.
 /// default password for this user
 #define DEFAULT_PASSWD		"rasguest"
 
-/// server log directory
-#define LOGDIR          	"/log"
-/// server alternative log directory, if RMANHOME not specified, defined via autoconf/automake
-#define ALT_LOGDIR      	ABSOLUTE_LOG_DIR
 /// log file suffix
 #define LOG_SUFFIX     		"log"
 

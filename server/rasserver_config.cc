@@ -20,11 +20,6 @@ rasdaman GmbH.
 * For more information please see <http://www.rasdaman.org>
 * or contact Peter Baumann via <baumann@rasdaman.com>.
 */
-/*
- * 2003-nov-05	PB	makeLogFileName: use constants, use /tmp if RMANHOME env var not defined
- * 2005-sep-05	PB	parseCommandLine(): exit -2 on help
- * 2006-apr-21	PB	added debug output
- */
 
 using namespace std;
 
@@ -36,7 +31,7 @@ using namespace std;
 #include <sstream>
 
 #include "debug.hh"	// ENTER, LEAVE, TALK
-#include "globals.hh"	// DEFAULT_PORT, LOGDIR, ALT_LOGDIR, LOG_SUFFIX
+#include "globals.hh"	// DEFAULT_PORT, LOGDIR, LOG_SUFFIX
 #include "rasserver_config.hh"
 
 #include "storagemgr/sstoragelayout.hh"
@@ -106,7 +101,7 @@ void Configuration::initParameters()
 
     cmlOptLevel    = &cmlInter.addLongParameter(NSN, "opt", "<nn> optimization level(0-4)\n\t\t 0 = no / 4 = maximal optimization", 4L);
     cmlConnectStr  = &cmlInter.addStringParameter(NSN, "connect", "<connect-str> connect string for underlying database(e.g. test/test@julep)", "/");
-    cmlLog	   = &cmlInter.addStringParameter('l', "log", "<log-file> log is printed to <log-file>\n\t\tif <log-file> is stdout , log output is printed to standard out", "$RMANHOME/log/<srv-name>.<pid>.log");
+    cmlLog	   = &cmlInter.addStringParameter('l', "log", "<log-file> log is printed to <log-file>\n\t\tif <log-file> is stdout , log output is printed to standard out", string( CONFDIR ).append( "log/<srv-name>.<pid>.log").c_str() );
 
     cmlTileSize = &cmlInter.addLongParameter(NSN, "tilesize", "<nnnn> specifies maximal size of tiles in bytes\n\t\t-regular tiles with equal edge lengthes",  2097152);
     cmlPctMin   = &cmlInter.addLongParameter(NSN, "pctmin", "<nnnn> specifies minimal size of blobtiles in bytes",  2048);
@@ -233,22 +228,16 @@ Configuration::initLogFiles()
 const char *
 Configuration::makeLogFileName(const char *srvName,const char *desExt)
   { 
-    static char buffer[ FILENAME_MAX ];
+    static char logfilePath[ FILENAME_MAX ];
     int pid =getpid();
-    char *dir = getenv( RMANHOME_VAR );
-    if (dir == NULL)
+    mkdir( LOGDIR, S_IRWXU + S_IRGRP+S_IXGRP + S_IROTH+S_IXOTH ); // create if not exist, rwxr-xr-x
+    int pathLen = snprintf( logfilePath, FILENAME_MAX, "%s/%s.%06d.%s", LOGDIR, srvName, pid, desExt );
+    if (pathLen >= FILENAME_MAX)
     {
-        cout << "Error: environment variable " << RMANHOME_VAR << " not set. Using " << ALT_LOGDIR << " for the moment being." << endl;
-        strcpy( buffer, ALT_LOGDIR );
+        logfilePath[FILENAME_MAX-1] = '\0';	// force-terminate string before printing
+        cerr << "Warning: path name longer than allowed by OS, likely log file cannot be written: " << logfilePath << endl;
     }
-    else
-    {
-        strcpy( buffer, dir );
-        strcat( buffer, LOGDIR );
-    }
-    mkdir(buffer,S_IRWXU + S_IRGRP+S_IXGRP + S_IROTH+S_IXOTH); // create if not exist, rwxr-xr-x
-    sprintf(buffer+strlen(buffer),"/%s.%06d.%s",srvName,pid,desExt);
-    return buffer;
+    return logfilePath;
    } 
 
 void 

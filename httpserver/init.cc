@@ -81,7 +81,7 @@ rc_t Initialize( int argc, char *argv[], struct ServerBase *Server )
   /* Read the environment variables */
   char* dummy = CONFDIR;
   if( dummy == NULL)
-    ErrorMsg( E_SYS, FAIL, "FAIL:  Environment variable RMANHOME is not set!" );
+    ErrorMsg( E_SYS, FAIL, "FAIL:  configure error: CONFDIR not provided." );
   Server->Directory = (char*)mymalloc(strlen(dummy) + 2);
   strcpy(Server->Directory, dummy);
   if( Server->Directory[strlen(Server->Directory)] != '/' )
