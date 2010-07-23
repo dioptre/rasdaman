@@ -36,7 +36,7 @@ rasdaman GmbH.
 
 using namespace std;
 
-#include "globals.hh"		// DEFAULT_HOSTNAME, RMANHOME_VAR, DEFAULT_PORT, RASMGR_CONF_FILE
+#include "globals.hh"		// DEFAULT_HOSTNAME, DEFAULT_PORT, RASMGR_CONF_FILE
 
 #include "rasmgr_config.hh"
 #include "rasmgr.hh"
@@ -562,42 +562,3 @@ int BenchmarkTimer::timeval_subtract(timeval *result,timeval *x,timeval *y)
 	return x->tv_sec < y->tv_sec;
 }
 
-//####################################
-	/*/
-	
-	//read-pacaleala
-	hostmanager.insertNewHost("Ras1","martini",8081);
-	hostmanager.insertNewHost("Ras2","coconutkiss",8082);
-	hostmanager.insertNewHost("Ras3","tequilla",8082);
-
-	dbHostManager.insertNewHost("julep",     "rasdec/rasdec@julep.akglocal.de");    
-	dbHostManager.insertNewHost("pinacolada","rasdec/rasdec@pinacolada.akglocal.de");    
-
-	dbManager.insertNewDatabase("RasDemo");
-		dbManager[0].connectToDBHost("julep");
-		dbManager[0].connectToDBHost("pinacolada");
-
-	dbManager.insertNewDatabase("BLVA");
-		dbManager[1].connectToDBHost("pinacolada");
-	
-	rasManager.insertNewServer("RasServer11","Ras1",SERVERTYPE_FLAG_RPC,0x29999998);
-		rasManager[0].connectToDBHost("julep");//,"\\");
-	
-	rasManager.insertNewServer("RasServer12","Ras1",SERVERTYPE_FLAG_RPC,0x29999998);      
-		rasManager[1].connectToDBHost("pinacolada");//,"\\");
-
-	rasManager.insertNewServer("RasServer21","Ras2",SERVERTYPE_FLAG_HTTP,8085);      
-		rasManager[2].connectToDBHost("julep");//,"\\");
-
-	rasManager.insertNewServer("RasServer31","Ras3",SERVERTYPE_FLAG_HTTP,8084);      
-		rasManager[3].connectToDBHost("julep");//,"\\");
-	
-	rasManager.insertNewServer("RasServer00","RasMaster",SERVERTYPE_FLAG_HTTP,8083);      
-		rasManager[4].connectToDBHost("julep");//,"\\");
-
-	dbManager.insertNewDatabase("RasNew");
-		dbManager[2].connectToDBHost("julep");
-	 
-	return true;
-	// */
-		                
