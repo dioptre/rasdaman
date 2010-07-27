@@ -120,7 +120,6 @@ AC_CONFIG_FILES([Makefile
                  mddmgr/Makefile
                  httpserver/Makefile
                  mymalloc/Makefile
-                 time/Makefile
                  server/Makefile
                  rasmgr/Makefile
                  rascontrol/Makefile
