@@ -27,8 +27,8 @@ nobase_dist_pkgdata_DATA=examples/images/* examples/c++/* \
 
 dest_Makefile=$(DESTDIR)$(pkgdatadir)/examples/c++/Makefile
 
-# Setup the RMANHOME variable properly for the C++ examples. Automake messes up 
-# the order of the declarations, so we have to use something else for variable name.
-install-data-hook:
-	sed 's|~~~rmanhome~~~|$(prefix)|' <$(dest_Makefile) >$(dest_Makefile).new
-	mv $(dest_Makefile).new $(dest_Makefile)
+doc: doxygen-all.cfg  doxygen-api.cfg  doxygen-basedbms.cfg
+	(cd ..; doxygen manuals_and_examples/doxygen-all.cfg)
+	(cd ..; doxygen manuals_and_examples/doxygen-api.cfg)
+	(cd ..; doxygen manuals_and_examples/doxygen-basedbms.cfg)
+
