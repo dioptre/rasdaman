@@ -27,6 +27,8 @@ nobase_dist_pkgdata_DATA=examples/images/* examples/c++/* \
 
 dest_Makefile=$(DESTDIR)$(pkgdatadir)/examples/c++/Makefile
 
+all: doc # examples
+
 doc: doxygen-all.cfg  doxygen-api.cfg  doxygen-basedbms.cfg
 	(cd ..; doxygen manuals_and_examples/doxygen-all.cfg)
 	(cd ..; doxygen manuals_and_examples/doxygen-api.cfg)
