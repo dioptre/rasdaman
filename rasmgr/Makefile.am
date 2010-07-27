@@ -32,8 +32,10 @@ rasmgr_SOURCES=ras_crypto.cc rasmgr_config.cc rasmgr_host.cc rasmgr_main.cc rasm
                ras_crypto.hh rasmgr_config.hh rasmgr_host.hh rasmgr_rascontrol.hh rasmgr_srv.hh \
          	   rasmgr_comm.hh rasmgr_dbm.hh \
                rasmgr_users.hh rasmgr_comm_nb.hh rasmgr_error.hh rasmgr_localsrv.hh \
-               rasmgr.hh rasmgr_protocol.hh rasmgr_master.hh
-rasmgr_LDADD=../network/libnetwork.a ../commline/libcommline.a
+               rasmgr.hh rasmgr_protocol.hh rasmgr_master.hh \
+               ../mymalloc/mymalloc_cln.cc ../mymalloc/mymalloc.h
+
+rasmgr_LDADD= ../raslib/libraslib.a ../network/libnetwork.a ../commline/libcommline.a
 
 SUBDIRS=../network ../commline
 

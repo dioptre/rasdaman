@@ -48,6 +48,7 @@ rasdaman GmbH.
 
 using namespace std;
 
+#include "raslib/rmdebug.hh"
 #include "debug.hh"
 
 
@@ -96,6 +97,7 @@ MasterComm::~MasterComm()
 void MasterComm::Run()
   {
     ENTER("MasterComm::Run: enter." );
+    RMTIMER( "MasterComm", "Run" );			// benchmark this routine, if enabled
 
     initListenSocket(config.getListenPort());		// connect/bind the central listen socket
 							// using IOSelector level here!

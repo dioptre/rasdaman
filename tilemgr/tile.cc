@@ -56,9 +56,8 @@ static const char rcsid[] = "@(#)cachetamgr,Tile: $Id: tile.cc,v 1.79 2005/09/03
 #ifdef RMANBENCHMARK
 RMTimer Tile::opTimer("Tile","opTimer");
 RMTimer Tile::relTimer("Tile","relTimer");
-RMTimer Tile::o2Timer("Tile","o2Timer");
+// RMTimer Tile::o2Timer("Tile","o2Timer");
 #endif
-
 
 const Tile&
 Tile::operator=(const Tile& tile)

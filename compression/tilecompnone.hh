@@ -45,9 +45,7 @@ rasdaman GmbH.
 //@ManMemo: Module {\bf compression}
 
 /*@Doc:
-  Tile compression for no compression. This should normally not be used,
-  but in some cases it's required for cleaner modelling (e.g. an unsupported
-  data format is requested which is interpreted as uncompressed data).
+  Tile compression for no compression.
 */
 
 class r_Tile_Comp_None : public r_Tile_Compression

@@ -32,4 +32,4 @@ AM_CXXFLAGS=@CLIENTCXXFLAGS@
 AM_LDFLAGS=@CLIENTLDFLAGS@
 
 lib_LIBRARIES = libcompression.a
-libcompression_a_SOURCES=tilecompression.cc tilecompression.hh 
+libcompression_a_SOURCES=tilecompression.cc tilecompression.hh tilecompnone.cc tilecompnone.hh

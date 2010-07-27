@@ -89,14 +89,11 @@ extern int RManBenchmark;
 #define RMDBCLASS( t1, t2, t3, t4, t5 ) ;
 #endif
 
+// generate benchmark code only when RMANBENCHMARK is set
 #ifdef RMANBENCHMARK
-
 #define RMTIMER(class, func)  RMTimer localRMTimer = RMTimer(class, func);
-
 #else
-
 #define RMTIMER(class, func)
-
 #endif
 
 //@ManMemo: Module: {\bf raslib}.
@@ -262,7 +259,7 @@ private:
 
 /**
 RMTimer is not strictly part of RasLib. It is a class used for taking
-timing measurements if compiling with RMANBENCHMARK defined. One way
+timing measurements if configuring with --benchmark-enabled. One way
 of using it is to put the following at the beginning of a function:
 
 {\tt RMTIMER("className", "functionName");}
@@ -329,6 +326,9 @@ public:
     Time spent is the time since construction or last start() excluding
     the times between pause() and resume().
   */
+  /// delivers current time count.
+  inline int getTime();
+
 private:
   /// name of class.
   const char* myClass; 
@@ -354,6 +354,8 @@ private:
   long oldsec;
   /// used to calculate time spent in function.
   long oldusec;
+  /// aux function to determine clock time elapsed so far.
+  inline void fetchTime();
 };
 ///Module: {\bf raslib}.
 
@@ -376,7 +378,7 @@ private:
   bool doStuff;
 };
 
-
 #include "raslib/rmdebug.icc"
+
 
 #endif

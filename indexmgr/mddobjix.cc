@@ -183,9 +183,9 @@ MDDObjIx::getDimension() const
 void
 MDDObjIx::initializeTimerPointers() 
 	{
-	pointQueryTimer= new RMTimer("DirIx", "pointQuery time	");
-	intersectTimer = new RMTimer("DirIx", "intersect time	");
-	getTilesTimer = new RMTimer("DirIx", "getTiles time	");
+	pointQueryTimer= new RMTimer("DirIx", "pointQuery");
+	intersectTimer = new RMTimer("DirIx", "intersect");
+	getTilesTimer = new RMTimer("DirIx", "getTiles");
 	} 
 #endif
 

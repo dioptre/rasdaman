@@ -57,10 +57,12 @@ and -DCOMPDATE="\"$(COMPDATE)\"" when compiling
 */
 #endif
 
+#include "raslib/rmdebug.hh"
 #define DEBUG_MAIN
 #undef DEBUG_HH
 #include "debug.hh"
 
+RMINITGLOBALS('S');
 
 Configuration config;
 
@@ -163,13 +165,9 @@ int main(int argc, char** argv, char** envp)
 
 		try
 		{
-			BenchmarkTimer *totalTimePtr = new BenchmarkTimer("Total master time");
-
 			TALK( "launching masterCommunicator.Run()..." );
   			masterCommunicator.Run();		// central request handling loop
 			TALK( "masterCommunicator.Run() done." );
-
-			totalTimePtr->result();			// print total time elapsed
 		}
 		catch(RCError& e)
 		{

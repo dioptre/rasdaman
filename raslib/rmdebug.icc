@@ -64,30 +64,12 @@ RMTimer::pause()
 {
   if( running )
   {
+    fetchTime();
 #ifdef __VISUALC__
-    // save start time
-    oldsec = acttime;
-    oldusec = 0;           // Windows only counts the seconds (too slow??!!)
-
-    // get stop time
-    time(&acttime);
-
-    // add new time to accu
-    accuTime += (acttime-oldsec)*1000000; 
-#else
-    // save start time
-    oldsec  = acttime.tv_sec;
-    oldusec = acttime.tv_usec;
-
-    // get stop time
-    gettimeofday(&acttime, &dummy);
-
-    // add new time to accu
-    accuTime += (acttime.tv_sec-oldsec)*1000000 + acttime.tv_usec - oldusec; 
-
     // reset acttime.tv_usec which means that no timer is running
     acttime.tv_usec = 0;
 #endif  
+
     // timer is not running
     running = 0;
   }
@@ -112,10 +94,46 @@ RMTimer::stop()
   pause();
 
   if(output && RManBenchmark >= bmLevel ) {
-    RMInit::bmOut << std::endl
-		  << "PerformanceTimer: " << myClass << " :: " << myFunc << ": " 
-		  << accuTime << " usecs" << std::endl;
+    RMInit::bmOut
+		<< std::endl
+		<< "PerformanceTimer: " << myClass << " :: " << myFunc << " = " 
+		<< accuTime << " usecs" << std::endl;
     // set output to FALSE
     output = 0;
   }
 }
+
+inline int
+RMTimer::getTime()
+{
+  fetchTime();
+  return accuTime;
+}
+
+inline void
+RMTimer::fetchTime()
+{
+#ifdef __VISUALC__
+    // save start time
+    oldsec = acttime;
+    oldusec = 0;           // Windows only counts the seconds (too slow??!!)
+
+    // get stop time
+    time(&acttime);
+
+    // add new time to accu
+    accuTime += (acttime-oldsec)*1000000; 
+#else
+    // save start time
+    oldsec  = acttime.tv_sec;
+    oldusec = acttime.tv_usec;
+
+    // get stop time
+    gettimeofday(&acttime, &dummy);
+
+    // add new time to accu
+    accuTime += (acttime.tv_sec-oldsec)*1000000 + acttime.tv_usec - oldusec; 
+
+#endif  
+}
+

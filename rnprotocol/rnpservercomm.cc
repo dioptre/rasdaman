@@ -54,7 +54,6 @@ and -DCOMPDATE="\"$(COMPDATE)\"" when compiling
 #include "srvrasmgrcomm.hh"
 
 #include "server/rasserver_entry.hh"
-#include "time/akgtime.hh"
 
 #include "debug-srv.hh"
 
@@ -100,11 +99,10 @@ RnpRasDaManComm::~RnpRasDaManComm() throw()
 // we need our implementation because of r_Error, but we will go for the default when r_Error is AkgException
 void RnpRasDaManComm::processRequest(CommBuffer *receiverBuffer, CommBuffer *transmiterBuffer, RnpTransport::CarrierProtocol protocol, RnpServerJob *callingJob) throw()
 {
+	RMTimer requestTime("RnpRasDaManComm","request");
+
 	ENTER( "RnpRasDaManComm::processRequest, at " << now() << ", client=" << callingJob->getClientHostAddress().getStringAddress() );
-	RMInit::logOut << now() << " request from " << callingJob->getClientHostAddress().getStringAddress() << endl;
-	
-	BenchmarkTimer bmt("request time");
-	bmt.start();
+	RMInit::logOut << endl << now() << " request from " << callingJob->getClientHostAddress().getStringAddress() << endl;
 	
 	decoder.decode(receiverBuffer);
 	RnpQuark destServerType       = decoder.getDestinationServerType();
@@ -197,9 +195,7 @@ void RnpRasDaManComm::processRequest(CommBuffer *receiverBuffer, CommBuffer *tra
 	}
 	encoder.endMessage();
 
-	bmt.stop();
-    
-	RMInit::logOut << now() << " request completed; " << bmt << endl << endl;
+	RMInit::logOut << now() << " request completed in " << requestTime.getTime() << " usecs." << endl;
 	LEAVE( "RnpRasDaManComm::processRequest" );
 }
 

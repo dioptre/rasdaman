@@ -49,7 +49,7 @@ rasdaman GmbH.
 #include "reladminif/dbref.hh"
 
 #ifdef RMANBENCHMARK
-#include "raslib/rmdebug.hh"   // for RMTimer
+#include "raslib/rmdebug.hh"		// for RMTimer
 #endif
 class KeyObject;
 class PersMDDObjIx;
@@ -368,11 +368,10 @@ class Tile
 		*/
 
 #ifdef RMANBENCHMARK
-		// RMTimer for taking O2 times. Could be protected. Is controlled
-		// in servercomm/servercomm2.cc.
-		static RMTimer opTimer;
-		static RMTimer relTimer;
-		static RMTimer o2Timer;
+                // RMTimer for taking O2 times. Could be protected. Is controlled
+                // in servercomm/servercomm2.cc.
+                static RMTimer opTimer;
+                static RMTimer relTimer;
 #endif
 
 	protected:

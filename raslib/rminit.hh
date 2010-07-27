@@ -165,7 +165,7 @@ class RMInit : public RM_Class
 // could easily be done in rminit.cc. But the call to the constructor of RMInit
 // has to get a flag for client ('C') or server ('S') as a parameter. This has
 // be done somewhere else. In that case the constructor may be called before
-// initialization of the streams, the pogram crashes! If all initialisations
+// initialization of the streams, the program crashes! If all initialisations
 // are in the same file, the order is defined. That is what this macro is for.
 //
 // Note: At some point it may be useful to reimplement this mess.

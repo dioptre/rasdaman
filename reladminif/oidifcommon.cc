@@ -43,13 +43,11 @@ rasdaman GmbH.
 #include "raslib/rmdebug.hh"
 
 #ifdef RMANBENCHMARK
-RMTimer
-OId::oidAlloc("OId","allocateOId");
+RMTimer OId::oidAlloc("OId","allocateOId");
 #endif
 
 #ifdef RMANBENCHMARK
-RMTimer
-OId::oidResolve("OId","resolveOId");
+RMTimer OId::oidResolve("OId","resolveOId");
 #endif
 
 double OId::ID_MULTIPLIER = 512;

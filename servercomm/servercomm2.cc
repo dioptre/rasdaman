@@ -29,9 +29,9 @@ rasdaman GmbH.
  * PURPOSE:
  *
  * COMMENTS:
- *			    - FIXME: catch exceptions in all operations
- * 				- return values & their meaning see servercomm.hh
- * 				- FIXME: "client not registered" delivers sometimes 1, sometimes 3
+ *	- FIXME: catch exceptions in all operations
+ * 	- return values & their meaning, see servercomm.hh
+ * 	- FIXME: "client not registered" delivers sometimes 1, sometimes 3
  *
 */
 
@@ -186,7 +186,7 @@ ServerComm::openDB( unsigned long callingClientId,
 
 	unsigned short returnValue=0;
 	
-	RMInit::logOut << "Request: openDB '" << dbName << "'..." << std::flush;
+	RMInit::logOut << "Request: 'open DB', name = " << dbName << "'..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -265,7 +265,7 @@ ServerComm::closeDB( unsigned long callingClientId )
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "closeDB" )
 	unsigned short returnValue;
 
-	RMInit::logOut << "Request: closeDB..." << std::flush;
+	RMInit::logOut << "Request: 'close DB'..." << std::flush;
 		
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -323,7 +323,7 @@ ServerComm::createDB( char* name )
 
 	// FIXME: what about client id? -- PB 2005-aug-27
 
-	RMInit::logOut << "Request: createDB '" << name << "'..." << std::flush;
+	RMInit::logOut << "Request: 'create DB', name = " << name << "'..." << std::flush;
 	
 	DatabaseIf* tempDbIf = new DatabaseIf;
 
@@ -367,7 +367,7 @@ ServerComm::destroyDB( char* name )
 
 	unsigned short returnValue = 0;
 
-	RMInit::logOut << "Request: destroyDB '" << name << "'..." << std::flush;
+	RMInit::logOut << "Request: 'destroy DB', name = " << name << "'..." << std::flush;
 
 	DatabaseIf* tempDbIf = new DatabaseIf;
 
@@ -400,7 +400,7 @@ ServerComm::beginTA( unsigned long callingClientId,
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "beginTA" )
 	unsigned short returnValue;
 	
-	RMInit::logOut << "Request: beginTA (" << ( readOnly ? "read" : "write" ) << ")..." << std::flush;
+	RMInit::logOut << "Request: 'begin TA', mode = " << ( readOnly ? "read" : "write" ) << "..." << std::flush;
 		
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -422,7 +422,7 @@ ServerComm::beginTA( unsigned long callingClientId,
 
 #ifdef RMANBENCHMARK
 		if( RManBenchmark > 0 )
-			context->taTimer = new RMTimer("ServerComm", "transaction time ");
+			context->taTimer = new RMTimer("ServerComm", "transaction");
 #endif
 		try
 		{
@@ -461,15 +461,15 @@ ServerComm::commitTA( unsigned long callingClientId )
 
 	ClientTblElt* context = getClientContext( callingClientId );
 
-	RMInit::logOut << "Request: commitTA..." << std::flush;   
+	RMInit::logOut << "Request: 'commit TA'..." << std::flush;   
 
 	if( context != 0 )
 	{   
+
 #ifdef RMANBENCHMARK
 		RMTimer* commitTimer = 0;
-
 		if( RManBenchmark > 0 )
-			commitTimer = new RMTimer("ServerComm", "commit time      ");
+			commitTimer = new RMTimer("ServerComm", "commit");
 #endif
 
 		// release transfer collection/iterator within the transaction they are created
@@ -518,7 +518,7 @@ ServerComm::abortTA( unsigned long callingClientId )
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "abortTA" )
 	unsigned short returnValue;
 
-	RMInit::logOut << "Request: abortTA..." << std::flush;
+	RMInit::logOut << "Request: 'abort TA'..." << std::flush;
 		
 	ClientTblElt* context = getClientContext( callingClientId );
 
@@ -567,11 +567,11 @@ ServerComm::isTAOpen( unsigned long callingClientId )
 {
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "isTAOpen" )
 
-	RMInit::logOut << "Request: isTAOpen..." << std::flush;
+	RMInit::logOut << "Request: 'is TA open'..." << std::flush;
 
 	bool returnValue = transactionActive;
 
-	RMInit::logOut << MSG_OK << (transactionActive?", is active.":", is not active.") << endl;
+	RMInit::logOut << MSG_OK << (transactionActive?"yes.":"no.") << endl;
 
 	RMDBGEXIT( 4, RMDebug::module_servercomm, "ServerComm",  "isTAOpen" )
 	return returnValue;
@@ -588,7 +588,7 @@ ServerComm::insertColl( unsigned long callingClientId,
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "insertColl" )
 	unsigned short returnValue = 0;
 	
-	RMInit::logOut << "Request: insertColl '" << collName << "' with type '" << typeName << "'..." << std::flush;
+	RMInit::logOut << "Request: 'insert collection', collection name = '" << collName << "', type = '" << typeName << "'..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -663,7 +663,7 @@ ServerComm::deleteCollByName( unsigned long callingClientId,
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm", "deleteCollByName(" << callingClientId << ", " << collName << ")")
 	unsigned short returnValue;
 	
-	RMInit::logOut << "Request: deleteCollByName '" << collName << "'..." << std::flush;
+	RMInit::logOut << "Request: 'delete collection by name', name = '" << collName << "'..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -715,7 +715,7 @@ ServerComm::deleteObjByOId( unsigned long callingClientId,
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm", "deleteObjByOId(" << callingClientId << ", " << oid << ")");
 	unsigned short returnValue;
 	
-	RMInit::logOut << "Request: deleteObjByOId " << oid << "..." << std::flush;
+	RMInit::logOut << "Request: 'delete MDD by OID', oid = '" << oid << "'..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -785,7 +785,7 @@ ServerComm::removeObjFromColl( unsigned long callingClientId,
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm", "removeObjFromColl(" << callingClientId << ", " << collName << ", " << oid << ")")
 	unsigned short returnValue;
 	
-	RMInit::logOut << "Request: removeObjFromColl '" << collName << "', oid " << oid << "..." << std::flush;
+	RMInit::logOut << "Request: 'remove MDD from collection', collection name = '" << collName << "', oid = '" << oid << "'..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -881,7 +881,7 @@ ServerComm::insertMDD( unsigned long  callingClientId,
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "insertMDD" )
 	unsigned short returnValue = 0;  
 	
-	RMInit::logOut << "Request: insertMDD type='" << typeName << "' into collection '" << collName << "'..." << std::flush;
+	RMInit::logOut << "Request: 'insert MDD type', type = '" << typeName << "', collection = '" << collName << "'..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	r_Data_Format myDataFmt = r_Array;
@@ -1175,7 +1175,7 @@ ServerComm::insertTileSplitted( unsigned long  callingClientId,
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "insertTileSplitted" )
 	unsigned short returnValue = 0;  
 	
-	RMInit::logOut << "Request: insertTile..." << std::flush;
+	RMInit::logOut << "Request: 'insert tile'..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -1230,7 +1230,7 @@ ServerComm::insertTileSplitted( unsigned long  callingClientId,
 			}
 			else
 			{
-				RMInit::logOut << "Warning: Unsupported data format '" << myCurrentFmt << "', will be ignored..." << std::flush;
+				RMInit::logOut << "Warning: Unsupported data format '" << myCurrentFmt << "', falling back to r_Array..." << std::flush;
 				myDataFmt = r_Array;
 			}
 			tile = new Tile( domain, baseType, dataPtr, getMDDData, myDataFmt );
@@ -1262,7 +1262,7 @@ ServerComm::insertTileSplitted( unsigned long  callingClientId,
 			 
 				// Split the tile!
 				vector< Tile *>* tileSet = tile->splitTile( *tileSize );
-				RMInit::dbgOut << "Now inserting splitted tile...";
+				RMInit::dbgOut << "inserting split tile...";
 				for( vector<Tile*>::iterator iter = tileSet->begin(); iter != tileSet->end(); iter++ )
 				{
 					(*iter)->setParameters(context->storageFormatParams);
@@ -1280,7 +1280,7 @@ ServerComm::insertTileSplitted( unsigned long  callingClientId,
 			{
 		 		//insert one single tile
 		 		// later, we should take into consideration the default server tile-size!
-		 		RMInit::logOut << "Now inserting single tile...";
+		 		RMInit::logOut << "inserting single tile...";
 		 		tile->setParameters(context->storageFormatParams);
 		 		if( isPersistent ) 
 					context->assembleMDD->insertTile( tile );
@@ -1334,9 +1334,9 @@ ServerComm::startInsertPersMDD( unsigned long  callingClientId,
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "startInsertPersMDD" )
 	unsigned short returnValue = 0;  
 	
-	RMInit::logOut << "Request: startInsertPersMDD type '" << typeName
-		<< "', collection '" << collName << "', domain " << domain << ", cell length " << typeLength
-		<< ", " << domain.cell_count()*typeLength << " bytes..." << std::flush;
+	RMInit::logOut << "Request: 'start inserting persistent MDD type', type = '" << typeName
+		<< "', collection = '" << collName << "', domain = " << domain << ", cell size = " << typeLength
+		<< ", " << domain.cell_count()*typeLength << "..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -1513,7 +1513,7 @@ ServerComm::executeQuery( unsigned long callingClientId,
 	returnStructure.lineNo        = 0;
 	returnStructure.columnNo      = 0;
 
-	RMInit::logOut << "Request: executeQquery '" << query << "'..." << std::flush;
+	RMInit::logOut << "Request: '" << query << "'..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -1526,9 +1526,6 @@ ServerComm::executeQuery( unsigned long callingClientId,
 		Tile::relTimer.pause();
 		Tile::opTimer.start();
 		Tile::opTimer.pause();
-
-		if( RManBenchmark > 0 )
-			RMInit::bmOut << "Query: " << query << std::endl;
 #endif
 
 #ifdef PURIFY
@@ -1544,7 +1541,7 @@ ServerComm::executeQuery( unsigned long callingClientId,
 
 #ifdef RMANBENCHMARK
 		if( RManBenchmark > 0 )
-			queryOptimizationTimer = new RMTimer("ServerComm", "optimization time");
+			queryOptimizationTimer = new RMTimer("ServerComm", "optimization");
 #endif
 
 		
@@ -1614,7 +1611,7 @@ ServerComm::executeQuery( unsigned long callingClientId,
 				}
 
 				if( RManBenchmark > 0 )
-					context->evaluationTimer = new RMTimer("ServerComm", "evaluation time  ");
+					context->evaluationTimer = new RMTimer("ServerComm", "evaluation");
 #endif
 				qtree->printTree( 2, std::cout );
 				//qtree->checkSemantics();
@@ -1821,7 +1818,7 @@ ServerComm::executeQuery( unsigned long callingClientId,
 			context->evaluationTimer->pause();
 
 		if( RManBenchmark > 0 )
-			context->transferTimer = new RMTimer("ServerComm", "transfer time    ");
+			context->transferTimer = new RMTimer("ServerComm", "transfer");
 #endif
 
 		// In case of an error or the result set is empty, no endTransfer()
@@ -1830,7 +1827,6 @@ ServerComm::executeQuery( unsigned long callingClientId,
 		if( returnValue >= 2)
 		{
 #ifdef RMANBENCHMARK
-			Tile::o2Timer.stop();
 			Tile::opTimer.stop();
 			Tile::relTimer.stop();
 			Tile::opTimer.stop();
@@ -1845,7 +1841,7 @@ ServerComm::executeQuery( unsigned long callingClientId,
 			RMTimer* releaseTimer = 0;
  
 			if( RManBenchmark > 0 )
-				releaseTimer = new RMTimer("ServerComm", "release time     ");
+				releaseTimer = new RMTimer("ServerComm", "release");
 #endif
 
 			// release transfer collection/iterator
@@ -1876,7 +1872,7 @@ ServerComm::initExecuteUpdate( unsigned long callingClientId )
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "initExecuteUpdate" )
 	unsigned short returnValue = 0;  
 	
-	RMInit::logOut << "Request: initExecuteUpdate..." << std::flush;
+	RMInit::logOut << "Request: 'initialize update'..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -1918,7 +1914,7 @@ ServerComm::startInsertTransMDD( unsigned long callingClientId,
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "startInsertTransMDD" )
 	unsigned short returnValue = 0;  
 	
-	RMInit::logOut << "Request: startInsertTransMDD type '"
+	RMInit::logOut << "Request: 'insert MDD', type '"
 		<< typeName <<"', domain " << domain << ", cell length " << typeLength  << ", "
 		<< domain.cell_count()*typeLength << " bytes..." << std::flush;
 
@@ -1987,7 +1983,7 @@ ServerComm::endInsertMDD( unsigned long callingClientId,
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "endInsertMDD" )
 	unsigned short returnValue = 0;  
 	
-	RMInit::logOut << "Request: endInsertMDD..." << std::flush;
+	RMInit::logOut << "Request: 'end insert MDD'..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -2041,7 +2037,7 @@ ServerComm::executeUpdate( unsigned long callingClientId,
 {
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "executeUpdate" )
 
-	RMInit::logOut << "Request: executeUpdate query '" << query << "'..." << std::flush;
+	RMInit::logOut << "Request: '" << query << "'..." << std::flush;
 
 #ifdef RMANBENCHMARK
 	RMTimer* queryOptimizationTimer = 0;
@@ -2049,9 +2045,6 @@ ServerComm::executeUpdate( unsigned long callingClientId,
 	Tile::relTimer.pause();
 	Tile::opTimer.start();
 	Tile::opTimer.pause();
-
-	if( RManBenchmark > 0 )
-		RMInit::bmOut << "Query (update): " << query << std::endl;
 #endif
 
 	unsigned short returnValue = 0;
@@ -2070,7 +2063,7 @@ ServerComm::executeUpdate( unsigned long callingClientId,
 
 #ifdef RMANBENCHMARK
 		if( RManBenchmark > 0 )
-			queryOptimizationTimer = new RMTimer("ServerComm", "optimization time");
+			queryOptimizationTimer = new RMTimer("ServerComm", "optimization");
 #endif
 
 		QueryTree* qtree = new QueryTree();   // create a query tree object...
@@ -2143,7 +2136,7 @@ ServerComm::executeUpdate( unsigned long callingClientId,
 				}
 
 				if( RManBenchmark > 0 )
-					context->evaluationTimer = new RMTimer("ServerComm", "evaluation time  ");
+					context->evaluationTimer = new RMTimer("ServerComm", "evaluation");
 #endif
 
 				RMInit::logOut << "evaluating..." << std::flush;
@@ -2262,7 +2255,7 @@ ServerComm::getCollByName( unsigned long callingClientId,
 {
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "ServerComm::getCollByName" )
 
-	RMInit::logOut << "Request: getCollByName '" << collName << "'..." << std::flush;
+	RMInit::logOut << "Request: 'get collection by name', name = " << collName << "'..." << std::flush;
 
 	unsigned short returnValue=0;
 	
@@ -2372,7 +2365,7 @@ ServerComm::getCollByOId( unsigned long callingClientId,
 {
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  " ServerComm::getCollByOId" )
 
-	RMInit::logOut << "Request: getCollByOId " << oid << "..." << std::flush;
+	RMInit::logOut << "Request: 'get collection by OID', oid = " << oid << "..." << std::flush;
 
 	unsigned short returnValue=0;
 	
@@ -2501,7 +2494,7 @@ ServerComm::getCollOIdsByName( unsigned long callingClientId,
 {
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "getCollOIdsByName" )
 
-	RMInit::logOut << "Request: getCollOIdsByName '" << collName << "'..." << std::flush;
+	RMInit::logOut << "Request: 'get collection OIds by name', name = " << collName << "'..." << std::flush;
 
 	unsigned short returnValue=0;
 	
@@ -2646,7 +2639,7 @@ ServerComm::getCollOIdsByOId( unsigned long callingClientId,
 {
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "getCollOIdsByOId" )
 
-	RMInit::logOut << "Request: getCollOIdsByOId " << oid << "..." << std::flush;
+	RMInit::logOut << "Request: 'get collection OIDs by OId', oid = " << oid << "..." << std::flush;
 
 	unsigned short returnValue=0;
 	
@@ -2792,7 +2785,7 @@ ServerComm::getNextMDD( unsigned long   callingClientId,
 {
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "getNextMDD" )
 
-	RMInit::logOut << "Request: getNextMDD..." << std::flush;
+	RMInit::logOut << "Request (continuing): 'get next MDD'..." << std::flush;
 
 	unsigned short returnValue = 0;
 
@@ -3004,7 +2997,7 @@ ServerComm::getNextElement( unsigned long   callingClientId,
 {
 	RMDBGENTER(1, RMDebug::module_servercomm, "ServerComm", "getNextElement(...)")
 
-	RMInit::logOut << "Request: getNextElement..." << std::flush;
+	RMInit::logOut << "Request (continuing): 'get next element'..." << std::flush;
 
 	unsigned short returnValue = 0;
 
@@ -3209,7 +3202,7 @@ ServerComm::getMDDByOId( unsigned long   callingClientId,
 {
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "getMDDByOId" )
 
-	RMInit::logOut << "Request: getMDDByOId with oid " << oid << "..." << std::flush;
+	RMInit::logOut << "Request: 'get MDD by OId', oid = " << oid << "..." << std::flush;
 		
 	unsigned short returnValue = 0;
 
@@ -3354,7 +3347,7 @@ ServerComm::getNextTile( unsigned long   callingClientId,
 {
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "getNextTile" )
 
-	RMInit::logOut << "Request: getNextTile..." << std::flush;
+	RMInit::logOut << "Request (continuing): 'get next tile',..." << std::flush;
 
 	unsigned long  transOffset = 0;
 	unsigned long  transSize = 0;
@@ -3618,7 +3611,7 @@ ServerComm::endTransfer( unsigned long client )
 		RMTimer* releaseTimer = 0;
  
 		if( RManBenchmark > 0 )
-			releaseTimer = new RMTimer("ServerComm", "release time     ");
+			releaseTimer = new RMTimer("ServerComm", "release");
 #endif
 		// release transfer collection/iterator
 		context->releaseTransferStructures();    
@@ -3684,8 +3677,7 @@ ServerComm::getNewOId( unsigned long callingClientId,
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "getNewOId" )
 	unsigned short returnValue = 0;  
 	
-	RMInit::logOut << "Request: getNewOId of type "
-		<< (objType==1?"MDD":"collection") << "..." << std::flush;
+	RMInit::logOut << "Request: 'get new OId for " << (objType==1?"MDD":"collection") << " type'..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -3725,7 +3717,7 @@ ServerComm::getObjectType( unsigned long callingClientId,
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "getObjectType" )
 	unsigned short returnValue = 0;  
 	
-	RMInit::logOut << "Request: getObjectType by oid " << oid << "..." << std::flush;
+	RMInit::logOut << "Request: 'get object type by OID', oid = " << oid << "..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	
@@ -3769,7 +3761,7 @@ ServerComm::getTypeStructure( unsigned long  callingClientId,
 	RMDBGENTER( 4, RMDebug::module_servercomm, "ServerComm",  "getTypeStructure" )
 	unsigned short returnValue = 0;  
 	
-	RMInit::logOut << "Request: getTypeStructure of type '" << typeName << "'..." << std::flush;
+	RMInit::logOut << "Request: 'get type structure', type = '" << typeName << "'..." << std::flush;
 
 	ClientTblElt* context = getClientContext( callingClientId );
 	if (context == 0)
@@ -3831,7 +3823,7 @@ ServerComm::setTransferMode( unsigned long callingClientId,
 {
 	RMDBGENTER(4, RMDebug::module_servercomm, "ServerComm", "setTransferMode(" << callingClientId << ", " << format << ", " << formatParams)
 
-	RMInit::logOut << "Request: setTransferMode..." << std::flush;
+	RMInit::logOut << "Request: 'set transfer mode', format = '" << format << "', params = '" << formatParams << "'..." << std::flush;
 
 	unsigned short retval = 1;
 
@@ -3888,7 +3880,7 @@ ServerComm::setStorageMode( unsigned long callingClientId,
 {
 	RMDBGENTER(4, RMDebug::module_servercomm, "ServerComm", "setStorageMode(" << callingClientId << ", " << format << ", " << formatParams)
 
-	RMInit::logOut << "Request: setStorageMode..." << std::flush;
+	RMInit::logOut << "Request: 'set storage mode', format = " << format << ", params = " << formatParams << "..." << std::flush;
 
 	unsigned short retval = 1;
 
