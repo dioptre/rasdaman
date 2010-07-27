@@ -8790,7 +8790,7 @@ fi
 done
 
 
-ac_config_files="$ac_config_files Makefile catalogmgr/Makefile relblobif/Makefile relindexif/Makefile relmddif/Makefile relcatalogif/Makefile reladminif/Makefile relstorageif/Makefile indexmgr/Makefile tilemgr/Makefile storagemgr/Makefile compression/Makefile commline/Makefile network/Makefile raslib/Makefile clientcomm/Makefile servercomm/Makefile rasodmg/Makefile qlparser/Makefile conversion/Makefile mddmgr/Makefile httpserver/Makefile mymalloc/Makefile time/Makefile server/Makefile rasmgr/Makefile rascontrol/Makefile rasdl/Makefile applications/Makefile applications/rasql/Makefile bin/Makefile manuals_and_examples/Makefile insertutils/Makefile include/Makefile"
+ac_config_files="$ac_config_files Makefile catalogmgr/Makefile relblobif/Makefile relindexif/Makefile relmddif/Makefile relcatalogif/Makefile reladminif/Makefile relstorageif/Makefile indexmgr/Makefile tilemgr/Makefile storagemgr/Makefile compression/Makefile commline/Makefile network/Makefile raslib/Makefile clientcomm/Makefile servercomm/Makefile rasodmg/Makefile qlparser/Makefile conversion/Makefile mddmgr/Makefile httpserver/Makefile mymalloc/Makefile server/Makefile rasmgr/Makefile rascontrol/Makefile rasdl/Makefile applications/Makefile applications/rasql/Makefile bin/Makefile manuals_and_examples/Makefile insertutils/Makefile include/Makefile"
 
 
 # --------------- Header Template Definitions ----------------------
@@ -9565,7 +9565,7 @@ CXXFLAGS+=" -I$abs_top_srcdir -I$abs_top_srcdir/debug -I$abs_top_srcdir/include"
 CXXFLAGS="$CXXFLAGS -DSHARE_DATA_DIR=\\\"\$(pkgdatadir)/\\\""
 CXXFLAGS="$CXXFLAGS -DCONFDIR=\\\"\$(sysconfdir)/\\\""
 CXXFLAGS="$CXXFLAGS -DBINDIR=\\\"\$(bindir)/\\\""
-CXXFLAGS="$CXXFLAGS -DABSOLUTE_LOG_DIR=\\\"\$(logdir)/\\\""
+CXXFLAGS="$CXXFLAGS -DLOGDIR=\\\"\$(logdir)/\\\""
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -10327,7 +10327,6 @@ do
     "mddmgr/Makefile") CONFIG_FILES="$CONFIG_FILES mddmgr/Makefile" ;;
     "httpserver/Makefile") CONFIG_FILES="$CONFIG_FILES httpserver/Makefile" ;;
     "mymalloc/Makefile") CONFIG_FILES="$CONFIG_FILES mymalloc/Makefile" ;;
-    "time/Makefile") CONFIG_FILES="$CONFIG_FILES time/Makefile" ;;
     "server/Makefile") CONFIG_FILES="$CONFIG_FILES server/Makefile" ;;
     "rasmgr/Makefile") CONFIG_FILES="$CONFIG_FILES rasmgr/Makefile" ;;
     "rascontrol/Makefile") CONFIG_FILES="$CONFIG_FILES rascontrol/Makefile" ;;

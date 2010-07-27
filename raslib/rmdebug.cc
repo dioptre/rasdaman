@@ -46,7 +46,7 @@ using namespace std;
 #include "raslib/odmgtypes.hh"
 
 int RManDebug     = 0;     // debug level (0-4), 0 means no debug info at all
-int RManBenchmark = 0;     // benchmark level (0-4)
+int RManBenchmark = 4;     // benchmark level (0-4)
 
 // initialization of static variables for RMDebug
 int    RMDebug::level = 0;

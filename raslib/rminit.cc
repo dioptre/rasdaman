@@ -189,7 +189,7 @@ RMInit::RMInit( char initApplicationType )
     else
       noTimeOut = 0;
   }
-  else
+  else	// applicationType != 'C' (i.e.: =='S')
   {
     // default
     logOut.rdbuf(cout.rdbuf());

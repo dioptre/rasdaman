@@ -64,7 +64,6 @@ class QtData;
 class MDDObj;
 class MDDCollIter;
 class MDDColl;
-class RMTimer;
 class r_Parse_Params;
 
 //@ManMemo: Module: {\bf servercomm}
@@ -1045,9 +1044,9 @@ class ServerComm
     
     void clientEndRequest();
    
-   // constant for clientID
+    // constant for clientID
     static const char* HTTPCLIENT;   
- 
+
   private:
     /// copy constructor is private and therefore can not be used
     ServerComm( const ServerComm& );//and then why this? : clientTimeout(3600), garbageCollectionInterval(600){;};

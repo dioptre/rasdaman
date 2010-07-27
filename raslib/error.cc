@@ -205,20 +205,17 @@ initTextTable()
 	unsigned int numOfEntries = 0;
 	int result;				// sscanf() result
 
-	// determine file name; use path if env var is set
-	strcpy( errorFileName, "" ); 
-	const char* rmanHome = getenv( RASDAMAN_PATH_VARNAME );
-	if (rmanHome)
- 	{
-		strcat(errorFileName, rmanHome);
-		strcat(errorFileName, ERRORTEXXT_PATH );
-		strcat(errorFileName, "/" );
- 	} else {
-        strcat(errorFileName, SHARE_DATA_DIR);
-        strcat(errorFileName, "/");
-    }
-	strcat(errorFileName, ERRORTEXT_FILE );
-	// RMInit::logOut << "using error text file: " << errorFileName << endl;
+	// determine file path + name
+	int filenameLength = snprintf( errorFileName, FILENAME_MAX, "%s/%s", SHARE_DATA_DIR, ERRORTEXT_FILE );
+	if (filenameLength < FILENAME_MAX )
+	{
+		RMInit::logOut << "Using error text file: " << errorFileName << endl;
+	}
+	else
+	{
+		errorFileName[FILENAME_MAX-1] = '\0';	// force-terminate string before printing
+		cerr << "Warning: error text file path longer than allowed by OS, likely file will not be found: " << errorFileName << endl;
+	}
  
 	// errortexts.open(errorFileName, ios::nocreate | ios::in);
 	errortexts.open(errorFileName, ios::in);

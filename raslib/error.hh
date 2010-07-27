@@ -76,11 +76,8 @@ rasdaman GmbH.
  * error text file ------------------ 
  */
 
-/// name of variable which should contain path to rasdaman home dir
-#define RASDAMAN_PATH_VARNAME "RMANHOME"
-
-/// relative path to error text file, starting from $RMANHOME
-#define ERRORTEXXT_PATH "/bin"
+/// relative path to error text file, starting from rasdaman installation root
+#define ERRORTEXT_PATH "/bin"
 
 /// error text file name
 #define ERRORTEXT_FILE "errtxts"
