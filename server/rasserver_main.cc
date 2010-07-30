@@ -65,8 +65,6 @@ and -DCOMPDATE="\"$(COMPDATE)\"" when compiling
 #include "storagemgr/sstoragelayout.hh"
 #include <signal.h>
 
-RMINITGLOBALS('C');
-
 #include "rasserver_config.hh"
 #include "rnprotocol/rnpserver.hh"
 

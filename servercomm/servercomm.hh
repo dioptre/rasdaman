@@ -42,6 +42,7 @@ rasdaman GmbH.
 #include "raslib/error.hh"
 #include "raslib/oid.hh"
 #include "raslib/minterval.hh"
+#include "raslib/rmdebug.hh"
 
 #include "reladminif/adminif.hh"
 #include "reladminif/databaseif.hh"
