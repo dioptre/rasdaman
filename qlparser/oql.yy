@@ -794,16 +794,14 @@ mintervalExp: LEPAR spatialOpList REPAR
 	  FREESTACK($1)
 	  FREESTACK($3)
 	}
-	| SDOM LRPAR collectionIterator RRPAR
+	| SDOM LRPAR generalExp RRPAR
 	{
-	  QtVariable* var = new QtVariable( $3.value );
-	  var->setParseInfo( *($3.info) );
-	  $$ = new QtSDom( var );
+	  $$ = new QtSDom( $3 );
 	  $$->setParseInfo( *($1.info) );
+	  parseQueryTree->removeDynamicObject( $3 );
 	  parseQueryTree->addDynamicObject( $$ );
 	  FREESTACK($1)
 	  FREESTACK($2)
-	  FREESTACK($3)
 	  FREESTACK($4)
 	};
 
