@@ -280,7 +280,6 @@ int string_yyinput( char* buf, int max_size )
 "aligned"				{ SETTOKEN( ALIGNED, commandToken, ALIGNED ) }
 "regular"				{ SETTOKEN( REGULAR, commandToken, REGULAR ) }
 "directional"			{ SETTOKEN( DIRECTIONAL, commandToken, DIRECTIONAL ) }
-"decomp"				{ SETTOKEN( DECOMP, commandToken, DECOMP ) }
 "with"					{ SETTOKEN( WITH, commandToken, WITH ) }
 "subtiling"				{ SETTOKEN( SUBTILING, commandToken, SUBTILING ) }
 "area"					{ SETTOKEN( AREA, commandToken, AREA ) }

@@ -203,7 +203,7 @@ struct QtUpdateSpecElement
                          ARCCOS ARCTAN OVERLAY BIT UNKNOWN FASTSCALE PYRAMID MEMBERS ADD ALTER LIST 
 			  INDEX RC_INDEX TC_INDEX A_INDEX D_INDEX RD_INDEX RPT_INDEX RRPT_INDEX IT_INDEX AUTO
 			 TILING ALIGNED REGULAR DIRECTIONAL
-			 DECOMP WITH SUBTILING AREA OF INTEREST STATISTIC TILE SIZE BORDER THRESHOLD
+			 WITH SUBTILING AREA OF INTEREST STATISTIC TILE SIZE BORDER THRESHOLD
 			 STRCT COMPLEX RE IM TIFF BMP HDF CSV JPEG PNG VFF TOR DEM INV_TIFF INV_BMP INV_HDF
 			 INV_JPEG INV_PNG INV_VFF INV_CSV INV_TOR INV_DEM
 
@@ -2277,33 +2277,76 @@ indexTypes : RC_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_RC_INDEX;
 
 tilingAttributes: TILING  tileTypes {$$=$2;};
 
-tileTypes: REGULAR tileCfg{$$.tilingType=QtMDDConfig::r_REGULAR_TLG;$$.tileCfg=$2.tileCfg;$$.tileSize = StorageLayout::DefaultTileSize;}
-    | REGULAR tileCfg tilingSize{$$.tilingType=QtMDDConfig::r_REGULAR_TLG;$$.tileCfg=$2.tileCfg;$$.tileSize = $3.tileSize;}
-	| ALIGNED tileCfg
-    {$$.tilingType=QtMDDConfig::r_ALIGNED_TLG; $$.tileCfg=$2.tileCfg;$$.tileSize = StorageLayout::DefaultTileSize;}
-	| ALIGNED tileCfg tilingSize
-    {$$.tilingType=QtMDDConfig::r_ALIGNED_TLG; $$.tileCfg=$2.tileCfg;$$.tileSize = $3.tileSize;}
-	| DIRECTIONAL DECOMP dirdecompArray
-    {$$.tilingType=QtMDDConfig::r_DRLDECOMP_TLG;$$.tileSize = StorageLayout::DefaultTileSize; $$.dirDecomp=$3.dirDecomp;}
-	| DIRECTIONAL DECOMP dirdecompArray WITH SUBTILING
-	{$$.tilingType=QtMDDConfig::r_DRLDECOMPSUBTILE_TLG;$$.tileSize = StorageLayout::DefaultTileSize; $$.dirDecomp=$3.dirDecomp;}
-    | DIRECTIONAL DECOMP dirdecompArray tilingSize{$$.tilingType=QtMDDConfig::r_DRLDECOMP_TLG; $$.tileSize = $4.tileSize; $$.dirDecomp=$3.dirDecomp;}
-	| DIRECTIONAL DECOMP dirdecompArray WITH SUBTILING tilingSize
-    {$$.tilingType=QtMDDConfig::r_DRLDECOMPSUBTILE_TLG;$$.tileSize = $6.tileSize; $$.dirDecomp=$3.dirDecomp;}
-	| AREA OF INTEREST bboxList{$$.tilingType=QtMDDConfig::r_AREAOFINTEREST_TLG;$$.bboxList=$4;$$.tileSize = StorageLayout::DefaultTileSize;}
-	| AREA OF INTEREST bboxList tilingSize{$$.tilingType=QtMDDConfig::r_AREAOFINTEREST_TLG;$$.bboxList=$4;$$.tileSize = $5.tileSize;}
-	| STATISTIC bboxList statisticParameters{$$=$3;$$.bboxList=$2;}
-	| STATISTIC bboxList{$$.tilingType=QtMDDConfig::r_STATISTICS_TLG; $$.bboxList=$2;$$.tileSize = StorageLayout::DefaultTileSize;};
+tileTypes: REGULAR tileCfg
+	{	$$.tilingType=QtMDDConfig::r_REGULAR_TLG;
+		$$.tileCfg=$2.tileCfg;$$.tileSize = StorageLayout::DefaultTileSize;
+	}
+	| REGULAR tileCfg tilingSize
+	{
+		$$.tilingType=QtMDDConfig::r_REGULAR_TLG;
+		$$.tileCfg=$2.tileCfg;
+		$$.tileSize = $3.tileSize;}
 	
-bboxList: mintervalExp {
-    $$ = new QtNode::QtOperationList(1);
-    (*$$)[0] = $1;
-}
-| mintervalExp COMMA bboxList {
-   	  $3->push_back( $1 );
-	  $$ = $3;
-
-};
+	| ALIGNED tileCfg
+	{	$$.tilingType=QtMDDConfig::r_ALIGNED_TLG;
+		$$.tileCfg=$2.tileCfg;
+		$$.tileSize = StorageLayout::DefaultTileSize;}
+	
+	| ALIGNED tileCfg tilingSize
+	{	$$.tilingType=QtMDDConfig::r_ALIGNED_TLG;
+		$$.tileCfg=$2.tileCfg;
+		$$.tileSize = $3.tileSize;
+	}
+	| DIRECTIONAL dirdecompArray
+	{	$$.tilingType=QtMDDConfig::r_DRLDECOMP_TLG;
+		$$.tileSize = StorageLayout::DefaultTileSize;
+		$$.dirDecomp=$2.dirDecomp;
+	}
+	| DIRECTIONAL dirdecompArray WITH SUBTILING
+	{	$$.tilingType=QtMDDConfig::r_DRLDECOMPSUBTILE_TLG;
+		$$.tileSize = StorageLayout::DefaultTileSize;
+		$$.dirDecomp=$2.dirDecomp;}
+	
+	| DIRECTIONAL dirdecompArray tilingSize
+	{	$$.tilingType=QtMDDConfig::r_DRLDECOMP_TLG;
+		$$.tileSize = $3.tileSize;
+		$$.dirDecomp=$2.dirDecomp;
+	}
+	| DIRECTIONAL dirdecompArray WITH SUBTILING tilingSize
+	{	$$.tilingType=QtMDDConfig::r_DRLDECOMPSUBTILE_TLG;
+		$$.tileSize = $5.tileSize;
+		$$.dirDecomp=$2.dirDecomp;
+	}
+	| AREA OF INTEREST bboxList
+	{	$$.tilingType=QtMDDConfig::r_AREAOFINTEREST_TLG;
+		$$.bboxList=$4;
+		$$.tileSize = StorageLayout::DefaultTileSize;
+	}
+	| AREA OF INTEREST bboxList tilingSize
+	{	$$.tilingType=QtMDDConfig::r_AREAOFINTEREST_TLG;
+		$$.bboxList=$4;
+		$$.tileSize = $5.tileSize;
+	}
+	| STATISTIC bboxList statisticParameters
+	{	$$=$3;
+		$$.bboxList=$2;
+	}
+	| STATISTIC bboxList
+	{	$$.tilingType=QtMDDConfig::r_STATISTICS_TLG;
+		$$.bboxList=$2;
+		$$.tileSize = StorageLayout::DefaultTileSize;
+	};
+	
+bboxList: mintervalExp
+	{
+		$$ = new QtNode::QtOperationList(1);
+		(*$$)[0] = $1;
+	}
+	| mintervalExp COMMA bboxList
+	{
+		$3->push_back( $1 );
+		$$ = $3;
+	};
 
 tileCfg: mintervalExp{$$.tileCfg=$1;};
 
