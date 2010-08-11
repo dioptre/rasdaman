@@ -130,6 +130,7 @@ AC_CONFIG_FILES([Makefile
                  manuals_and_examples/Makefile
                  insertutils/Makefile
 		 include/Makefile
+		 java/Makefile
           ])
 
 # --------------- Header Template Definitions ----------------------
@@ -273,7 +274,8 @@ AS_IF([test "x$RMANDEBUG" != x],
        AC_DEFINE([__NO_MATH_INLINES])
        CXXFLAGS+=" -O2"
       ])
-# CXXFLAGS+= -fPIC  ???NEEDED???
+CXXFLAGS+= -fPIC
+CFLAGS+=-fPIC
 AC_DEFINE_UNQUOTED([RMANVERSION], [$RMANVERSION])
 AC_DEFINE_UNQUOTED([BASEDBSTRING], ["$BASEDBSTRING"])
 AC_DEFINE([EARLY_TEMPLATE])    
