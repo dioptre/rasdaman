@@ -47,10 +47,6 @@ SUBDIRS = relblobif relindexif relmddif relcatalogif reladminif relstorageif \
           mddmgr httpserver mymalloc server rasmgr rascontrol rasdl \
           applications bin insertutils manuals_and_examples include
 
-all:
-	cd petascope; ant
-	cd java; ant
-
 dist_log_DATA=empty
             
 # excluded for the moment, contains nothing that is delivered:

@@ -131,6 +131,7 @@ AC_CONFIG_FILES([Makefile
                  insertutils/Makefile
 		 include/Makefile
 		 java/Makefile
+		 petascope/Makefile
           ])
 
 # --------------- Header Template Definitions ----------------------
