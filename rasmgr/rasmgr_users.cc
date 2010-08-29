@@ -363,8 +363,12 @@ bool UserManager::acceptChangeName(const char *oldName,const char *newName)
 Authorization::Authorization()
   { inConfigFile=false;
   
-    authFileName[0]=0;
-    strcat(authFileName,"rasmgr_auth.dat");
+    int pathLen = snprintf( authFileName, FILENAME_MAX, "%s/%s", CONFDIR, "rasmgr_auth.dat" );
+    if (pathLen >= FILENAME_MAX)
+    {
+        authFileName[FILENAME_MAX-1] = '\0';	// force-terminate string before printing
+        cerr << "Warning: authentication file path longer than allowed by OS, file likely cannot be accessed: " << authFileName << endl;
+    }
     globalInitAdminRight=admR_none;
     globalInitDatabRight=dbR_none;
    }
@@ -814,7 +818,8 @@ bool Authorization::saveOrigAuthFile()
 bool Authorization::saveAltAuthFile()
   {
     bool result = true;
-    char origFileName[ sizeof(authFileName) ];        // temp copy of origFileName
+    const char *tempfileTemplate = ".XXXXXX";					// 6 * 'X', see man mkstemp()
+    char origFileName[ sizeof(authFileName) + sizeof(tempfileTemplate) ];	// temp copy of auth file
 
     ENTER( "Authorization::saveAltAuthFile: enter." );
 
@@ -823,10 +828,10 @@ bool Authorization::saveAltAuthFile()
 
     // build temp file by appending a unique string
     (void) strcpy( altAuthFileName, authFileName );
-    (void) strcat( altAuthFileName, ".XXXXXX" );       // 6 * 'X', see man mkstemp()
+    (void) strcat( altAuthFileName, tempfileTemplate );
 
-    int altFile = mkstemp( altAuthFileName );         // replaces the Xs by unique string
-    if (altFile < 0)                                    // error in creating file name
+    int altFile = mkstemp( altAuthFileName );		// replaces the Xs by some unique string; checks for FILENAME_MAX oflo
+    if (altFile < 0)					// error in creating file name
     {
         int tempError = errno;
         TALK( "Authorization::saveAltAuthFile: error creating alternate file name: " << strerror(tempError) );
