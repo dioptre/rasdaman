@@ -407,7 +407,7 @@ int RasServer::startServer()
 		    sTypeString= serverType==SERVERTYPE_FLAG_RNP ? "--rnp" : sTypeString;
 	
 	const char *rasmgrHost = ptrServerHost->useLocalHost() ? "localhost" : config.getHostName();    
-	char command[MAX_CMD_LEN+1];
+	char command[ARG_MAX+1];
 	const char *SPRINTF_FORMAT = "%s %s %s --rsn %s %s --lport %ld --mgr %s --mgrport %ld --connect %s %s";
 	// check for buffer oflo
 	unsigned int commandLen =
@@ -418,9 +418,9 @@ int RasServer::startServer()
 	   + 4 // aka strlen(config.getListenPort())
 	   + strlen(ptrDatabaseHost->getConnectionString())
 	   + strlen(extraParam);
-	if (commandLen > MAX_CMD_LEN)
+	if (commandLen > ARG_MAX)
 	{
-		TALK( "RasServer::startServer(): fatal error: command line can host " << MAX_CMD_LEN << " bytes, but needs " << commandLen << "." );
+		TALK( "RasServer::startServer(): fatal error: command line can host " << ARG_MAX << " bytes, but needs " << commandLen << "." );
 		std::cout<<"Error: rasserver command line too long, cannot launch. Disappointedly aborting server start." <<std::endl;
 		return RASSERVER_CMDLINEOFLO;
 	}

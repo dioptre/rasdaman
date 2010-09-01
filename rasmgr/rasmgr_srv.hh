@@ -43,9 +43,6 @@ rasdaman GmbH.
 #define RASEXECUTABLE BINDIR"rasserver"
 #define MAXREGULARCOUNTER 3
 
-/// maximum length of an OS command line (we set it above POSIX2_LINE_MAX)
-const unsigned long MAX_CMD_LEN = 4096;
-
 /// return codes
 const unsigned int RASSERVER_OK             =  0;
 const unsigned int RASSERVER_NODATABASEHOST = -1;
@@ -116,14 +113,14 @@ class RasServer
       int          downNow();
       void         clearPendingTransaction();
       
-      char         serverName[1000];
+      char         serverName[ARG_MAX];
       ServerHost   *ptrServerHost;
       bool         isinternal;
       char         serverType;     //'r','h'
       long         listenPort; // 'r' ->rpc prognum; 'h' ->TCP/IP port
-      char         extraParam[MAX_CMD_LEN];
+      char         extraParam[ARG_MAX];
 
-      char         executableName[MAX_CMD_LEN];
+      char         executableName[ARG_MAX];
 
       DatabaseHost *ptrDatabaseHost;
       //char         connStr[100];
