@@ -2,6 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
+# CAVEAT: in the following two lines keep version numbers in sync!
 AC_INIT(Rasdaman, 8.0.0, baumann@rasdaman.com)
 RMANVERSION=8000
 AM_INIT_AUTOMAKE()
