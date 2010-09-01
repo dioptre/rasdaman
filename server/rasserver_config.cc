@@ -91,11 +91,11 @@ void Configuration::initParameters()
     cmlPort     = &cmlInter.addStringParameter(NSN, "lport", "<nnnn> rasserver listen port (RPC or HTTP)");
     cmlMgr    	= &cmlInter.addStringParameter(NSN, "mgr", "<mgr-host> name of RasMGR host", DEFAULT_HOSTNAME);
     cmlMgrPort  = &cmlInter.addLongParameter(NSN, "mgrport", "<nnnn> port of RasMGR", DEFAULT_PORT );
-    cmlMgrSync  = &cmlInter.addStringParameter(NSN, "sync", NULL); // deprecated
+    cmlMgrSync  = &cmlInter.addStringParameter(NSN, "sync", ""); // deprecated
     
     cmlTransBuffer = &cmlInter.addLongParameter(NSN, "transbuffer", "<nnnn> maximal size of the transfer buffer in bytes", MAX_BUFFER_SIZE);
     cmlTimeOut     = &cmlInter.addLongParameter(NSN, "timeout", "<nnn> client time out in seconds.\n\t\tif it is set to 0 server doesn't check for client timeouts", CLIENT_TIMEOUT);
-    cmlMgmntInt    = &cmlInter.addStringParameter(NSN, "mgmntint", NULL); // deprecated
+    cmlMgmntInt    = &cmlInter.addStringParameter(NSN, "mgmntint", ""); // deprecated
     cmlHttp   	   = &cmlInter.addFlagParameter(NSN, "http", "start HTTP version of rasserver");
     cmlRnp   	   = &cmlInter.addFlagParameter(NSN, "rnp", "start RNP version of rasserver");
 
