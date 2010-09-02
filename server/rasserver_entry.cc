@@ -97,7 +97,7 @@ void RasServerEntry::compat_connectNewClient(const char *capability)
 	currentClientIdx    = clientCount;
 #else
 // this id must be !=0 because otherwise in ServerComm::getClientContext() it will not be recognized as valid id, and then the "last action" time will not be updated (timeout!)
-#define SINGLETON_CLIENTID 42
+#define SINGLETON_CLIENTID ULONG_MAX
 
 	// disable client list by using only 1 element (fixed id), initialize only once
 	currentClientIdx = SINGLETON_CLIENTID;
