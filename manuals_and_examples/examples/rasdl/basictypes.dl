@@ -22,48 +22,45 @@ rasdaman GmbH.
 */
 // ---------------------------------------------------------------------
 //
-//
 // PURPOSE:
-// This file contains type definitions to challenge the rasdl utilit.
-// Rasdl needs to read them and react appropriately. Reports are done
-// to stdout.
+// This file contains rasdaman type definitions. During database creation,
+// these are normally imported through
+//	rasdl --read basictypes.dl --insert
 //
+// This is not mandatory, though. The cell base types are available anyway,
+// and if you decide you need other MDD and ollection types than the ones
+// provided here then it is safe to skip importing this file.
 //
-// COMMENTS:
-// ./.
-// 
-// 
+// See the Rasql Query Language Guide for an explanation of the syntax.
+//
 // ---------------------------------------------------------------------
 
 
-// --- good defs -------------------------------------------------------
-// --- bad defs --------------------------------------------------------
-
-
-
-// example 1
+// 2D greyscale image of unlimited spatial extent
 typedef marray <char,2> GreyImage;
 typedef set<GreyImage> GreySet;
 
-// example 2
+// 2D binary image of unlimited spatial extent
 typedef marray <boolean,2> BoolImage;
 typedef set<BoolImage> BoolSet;
 
-// example 3
+// 2D RGB image of unlimited spatial extent
 struct RGBPixel { char red, green, blue; };
 typedef marray <RGBPixel,2> RGBImage;
 typedef set<RGBImage> RGBSet;
 
-// example 4
+// 2D 32-bit pixel of unlimited spatial extent
 typedef marray <unsigned long, 2> ULongImage;
 typedef set<ULongImage> ULongSet;
 
-// example 5
+//
+// these above may serve as examples of the principle.
+// Below more types which are useful in practice.
+//
+
 typedef marray <char, 3> GreyCube;
 typedef set<GreyCube> GreySet3;
 
-
-// heavily expanded types (Andreas)
 typedef marray <boolean, 1> BoolString;
 typedef set<BoolString> BoolSet1;
 
