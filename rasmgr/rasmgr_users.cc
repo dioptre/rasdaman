@@ -41,6 +41,8 @@ using namespace std;
 #include "rasmgr_host.hh"
 #include <time.h> 
 
+#include "globals.hh"	// RASMGR_AUTH_FILE
+
 #include "debug.hh"
 
 extern bool hostCmp( const char *h1, const char *h2);
@@ -363,7 +365,7 @@ bool UserManager::acceptChangeName(const char *oldName,const char *newName)
 Authorization::Authorization()
   { inConfigFile=false;
   
-    int pathLen = snprintf( authFileName, FILENAME_MAX, "%s/%s", CONFDIR, "rasmgr_auth.dat" );
+    int pathLen = snprintf( authFileName, FILENAME_MAX, "%s/%s", CONFDIR, RASMGR_AUTH_FILE );
     if (pathLen >= FILENAME_MAX)
     {
         authFileName[FILENAME_MAX-1] = '\0';	// force-terminate string before printing
