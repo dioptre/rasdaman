@@ -23,7 +23,11 @@ rasdaman GmbH.
 
 static const char rcsid[] = "@(#)raslib, r_Structure_Type: $Header: /home/rasdev/CVS-repository/rasdaman/raslib/structuretype.cc,v 1.23 2003/12/27 23:01:21 rasdev Exp $";
 
+#ifdef __APPLE__
+#include <sys/malloc.h>
+#else
 #include <malloc.h>
+#endif
 #include <string.h>
 
 #include "raslib/structuretype.hh"

@@ -24,7 +24,11 @@ rasdaman GmbH.
 #include "raslib/rmdebug.hh"
 #include "mdddomaintype.hh"
 #include "mdddimensiontype.hh"
-#include "malloc.h"
+#ifdef __APPLE__
+#include <sys/malloc.h>
+#else
+#include <malloc.h>
+#endif
 #include "basetype.hh"
 #include <iostream>
 #include "reladminif/sqlerror.hh"

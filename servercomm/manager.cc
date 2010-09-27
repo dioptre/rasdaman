@@ -38,7 +38,12 @@ using namespace std;
 
 #include <string.h>    // for strcat()
 #include <time.h>      // for time()
+#ifdef __APPLE__
+#include <sys/malloc.h>
+#else
 #include <malloc.h>
+#endif
+
 
 // server option for switching off garbageCollection (Formerly there were problems
 // because of illegal functions called in signal handler, see man 5 attributes;

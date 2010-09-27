@@ -21,7 +21,11 @@ rasdaman GmbH.
 * or contact Peter Baumann via <baumann@rasdaman.com>.
 */
 #include "mymalloc/mymalloc.h"
+#ifdef __APPLE__
+#include <sys/malloc.h>
+#else
 #include <malloc.h>
+#endif
 #include <iostream>
 #include <string.h>
 #include "raslib/minterval.hh"

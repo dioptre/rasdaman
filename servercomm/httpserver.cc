@@ -35,7 +35,11 @@ rasdaman GmbH.
 static const char rcsid[] = "@(#)servercomm, HttpServer: $Id: httpserver.cc,v 1.54 2005/09/03 21:05:14 rasdev Exp $";
 
 #include <iostream>
+#ifdef __APPLE__
+#include <sys/malloc.h>
+#else
 #include <malloc.h>
+#endif
 #include <time.h>      // for time()
 #include <string.h>
 

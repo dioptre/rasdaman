@@ -35,7 +35,11 @@ rasdaman GmbH.
 #include "mymalloc/mymalloc.h"
 
 #include <stdio.h>
+#ifdef __APPLE__
+#include <sys/malloc.h>
+#else
 #include <malloc.h>
+#endif
 #include <string.h>
 #include "conversion/memfs.hh"
 

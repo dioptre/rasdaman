@@ -38,7 +38,11 @@ rasdaman GmbH.
 #define _COMPLEXTYPE_HH_
 
 #include <iostream>
+#ifdef __APPLE__
+#include <float.h>
+#else
 #include <values.h>
+#endif
 #include "realtype.hh"
 #include "catalogmgr/ops.hh"
 

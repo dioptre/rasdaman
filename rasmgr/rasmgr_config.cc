@@ -55,6 +55,9 @@ using namespace std;
 #include <iomanip>
 #include <time.h>
 #include <bits/list.tcc>
+#ifdef __APPLE__
+#include <sys/stat.h> // mkdir()
+#endif
 
 #include "debug-srv.hh"
 #include "raslib/rminit.hh"

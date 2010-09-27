@@ -39,7 +39,11 @@ rasdaman GmbH.
 #include <iostream>
 #include <string>
 #include <sys/time.h>
+#ifdef __APPLE__
+#include <limits.h>
+#else
 #include <linux/limits.h>	// PATH_MAX
+#endif
 
 #include "commline/cmlparser.hh" 
 

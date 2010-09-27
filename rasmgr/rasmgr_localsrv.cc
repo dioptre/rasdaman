@@ -42,7 +42,11 @@ using namespace std;
 #include <signal.h>
 #include <time.h>
 
+#ifdef __APPLE__
+#include <limits.h>
+#else
 #include <linux/limits.h>	// ARG_MAX
+#endif
 // fix for missing ARG_MAX; workaround for glibc-2.8 and above
 #if defined(_SC_ARG_MAX)
 # if defined(ARG_MAX)

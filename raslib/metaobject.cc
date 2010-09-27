@@ -27,7 +27,11 @@ static const char rcsid[] = "@(#)raslib, r_Meta_Object: $Header: /home/rasdev/CV
 #include "raslib/metaobject.hh"
 
 #include <stdlib.h> // OSF1 has the definition for malloc here
+#ifdef __APPLE__
+#include <sys/malloc.h>
+#else
 #include <malloc.h>
+#endif
 #include <string.h>
 
 r_Meta_Object::r_Meta_Object()

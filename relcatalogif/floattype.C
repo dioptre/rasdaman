@@ -38,7 +38,11 @@ static const char rcsid[] = "@(#)catalogif,FloatType: $Header: /home/rasdev/CVS-
 #include <iomanip>
 #include <string.h>
 #include "reladminif/oidif.hh"
+#ifdef __APPLE__
+#include <float.h>
+#else
 #include <values.h>
+#endif
 
 FloatType::FloatType(const OId& id) throw (r_Error)
 	:	RealType(id)

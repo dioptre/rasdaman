@@ -43,7 +43,11 @@ static const char rcsid[] = "@(#)servercomm2, ServerComm: $Id: servercomm2.cc,v 
 #define ANDREAS_2306
 
 #include <iostream>
+#ifdef __APPLE__
+#include <sys/malloc.h>
+#else
 #include <malloc.h>
+#endif
 #include <string.h>
 #include <math.h>      // for log(), exp(), floor()
 #include <ctime>         // time

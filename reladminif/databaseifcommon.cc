@@ -36,7 +36,11 @@ rasdaman GmbH.
 
 
 #include <string.h>
+#ifdef __APPLE__
+#include <sys/malloc.h>
+#else
 #include <malloc.h>
+#endif
 
 #include "globals.hh"	// DEFAULT_DBNAME
 

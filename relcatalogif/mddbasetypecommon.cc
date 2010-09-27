@@ -31,7 +31,11 @@ rasdaman GmbH.
  * CHANGE HISTORY (append further entries):
  */
 
+#ifdef __APPLE__
+#include <sys/malloc.h>
+#else
 #include <malloc.h>
+#endif
 #include "raslib/rmdebug.hh"
 #include "mddbasetype.hh"
 #include "mdddomaintype.hh"

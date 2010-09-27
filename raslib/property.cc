@@ -28,8 +28,11 @@ static const char rcsid[] = "@(#)raslib, r_Meta_Object: $Header: /home/rasdev/CV
 #include "raslib/rminit.hh"
 #include "raslib/error.hh"
 
-
+#ifdef __APPLE__
+#include <sys/malloc.h>
+#else
 #include <malloc.h>
+#endif
 #include <string.h>
 
 r_Property::r_Property()

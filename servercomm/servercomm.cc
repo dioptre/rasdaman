@@ -59,7 +59,11 @@ static const char rcsid[] = "@(#)servercomm, ServerComm: $Id: servercomm.cc,v 1.
 #include<openssl/evp.h>
 
 #include <iostream>
+#ifdef __APPLE__
+#include <sys/malloc.h>
+#else
 #include <malloc.h>
+#endif
 #include <time.h>      // for time()
 #include <string.h>
 
