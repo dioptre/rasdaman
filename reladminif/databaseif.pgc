@@ -60,44 +60,11 @@ EXEC SQL include "externs.h"
 // (currently used by relblobif/blobtile.pgc)
 PGconn *pgConn = NULL;
 
-// we use a non-public interface to obtain the connection ptr
-// defs are taken from PG's /src/interfaces/ecpg/ecpglib/extern.h
-// --- START non-public PG
-struct ECPGtype_information_cache
-{
-    struct ECPGtype_information_cache *next;
-    int         oid;
-    bool        isarray;
-};
-
-struct connection
-{
-    char       *name;
-    PGconn     *conn;	// changed name to avoid component name clash of gcc3 -- PB 2005-feb-08
-    bool        committed;
-    int         autocommit;
-    struct ECPGtype_information_cache *cache_head;
-    struct connection *next;
-};
-
-
-// need to safeguard this from C++ name mangling -- PB 2005-feb-09
-//#ifdef __cplusplus
-//extern "C" {
-//#endif
-//	struct connection *ECPGget_connection(const char *);
-//#ifdef __cplusplus
-//}
-//#endif
-
-// --- END non-public PG
-
 #include "databaseif.hh"
 #include "raslib/rmdebug.hh"
 #include "sqlerror.hh"
 #include "oidif.hh"
 #include "adminif.hh"
-#include "dbobject.hh"
 
 extern char globalConnectId[256];
 // size of ARCHITECTURE attribute in RAS_ADMIN:
@@ -120,7 +87,6 @@ DatabaseIf::disconnect() throw (r_Error)
 		RMDBGMIDDLE(4, RMDebug::module_adminif, "DatabaseIf", "error occured while issuing a ROLLBACK");  
 	}
 
-#ifndef FASTCONNECT
 	TALK( "EXEC SQL DISCONNECT CURRENT" );
 	EXEC SQL DISCONNECT CURRENT;
 	if (SQLCODE != SQLOK)
@@ -129,8 +95,11 @@ DatabaseIf::disconnect() throw (r_Error)
 		TALK( "Error while issuing DISCONNECT");  
 		RMDBGMIDDLE(4, RMDebug::module_adminif, "DatabaseIf", "error occured while issuing a DISCONNECT");  
 	}
+
+	TALK( "PQfinish..." );
+	PQfinish(pgConn);
         pgConn = NULL;
-#endif
+	TALK( "pgConn NULL now, status: PQstatus(pgConn)=" + PQstatus(pgConn) );
 
 	LEAVE( "DatabaseIf::disconnect, SQLCODE=" << SQLCODE );
 	RMDBGEXIT(4, RMDebug::module_adminif, "DatabaseIf", "disconnect() SQLCODE=" << SQLCODE);
@@ -142,45 +111,29 @@ DatabaseIf::connect() throw (r_Error)
 	RMDBGENTER(4, RMDebug::module_adminif, "DatabaseIf", "connect()");
 	ENTER( "DatabaseIf::connect" );
 
-#ifndef FASTCONNECT
-
 	EXEC SQL BEGIN DECLARE SECTION;
 		char	id[STRING_MAXLEN];
 	EXEC SQL END DECLARE SECTION;
 
-    
 	strcpy((char *)&id, globalConnectId);
+	
     TALK( "EXEC SQL CONNECT TO " << id );
 	EXEC SQL CONNECT TO :id AS rasdaConn;		// "AS" param must be same as down in ECPGget_connection()
 	if (SQLCODE != SQLOK)
 	{
-		check("DatabaseIf::connect() CONNECT");
+	check("DatabaseIf::connect() CONNECT");
 		RMDBGMIDDLE(4, RMDebug::module_adminif, "DatabaseIf", "connect() SQLCODE=" << SQLCODE);
 		TALK( "error in connect, SQLCODE=" << SQLCODE );
 		generateException();
-    }
-    char newConnectId[256];
-    sprintf(newConnectId, "dbname='%s'", id);
-    pgConn = PQconnectdb(newConnectId);
+   }
+    pgConn = PQsetdb(NULL,NULL,NULL,NULL,globalConnectId);
     if (pgConn == NULL || PQstatus(pgConn) == CONNECTION_BAD) {
 		RMDBGMIDDLE(4, RMDebug::module_adminif, "DatabaseIf", "Error: cannot obtain libpq connection" );
 		TALK( "Error: cannot obtain libpq connection" );
 		generateException();
     }
 
-	/*
-
-        // get connection ptr for libpq based access
-    struct connection *interimConn = NULL;
-        interimConn = ECPGget_connection( "rasdaConn" );	// param must be same as up in CONNECT ... AS
-	if (interimConn == NULL || interimConn->conn == NULL)
-	{
-	}
-	pgConn = interimConn->conn;*/
-
-#endif
-
-	LEAVE( "DatabaseIf::connect, SQLCODE=" << SQLCODE );
+	LEAVE( "DatabaseIf::connect, SQLCODE=" << SQLCODE << ", PQstatus=" << PQstatus(pgConn) );
 	RMDBGEXIT(4, RMDebug::module_adminif, "DatabaseIf", "connect()");
 }
 
@@ -954,6 +907,15 @@ DatabaseIf::createDB(const char* dbName, const char* schemaName, const char* vol
 		if(check("DatabaseIf::create() CREATE UNIQUE INDEX RAS_BASETYPES_IX\0"))
 			generateException();
 
+		EXEC SQL CREATE TABLE RAS_PYRAMIDS (
+			PyramidName VARCHAR(240) NOT NULL,
+			CollectionName VARCHAR(240) NOT NULL,
+			MDDOId VARCHAR(240) NOT NULL,
+			ScaleFactor DEC NOT NULL
+			);
+		if(check("DatabaseIf::create() CREATE TABLE RAS_PYRAMIDS\0"))
+			generateException();
+
 		EXEC SQL CREATE TABLE RAS_DOMAINS (
 			DomainId INTEGER NOT NULL,
 			Dimension INTEGER NOT NULL
@@ -1311,6 +1273,9 @@ DatabaseIf::destroyDB(const char* dbName) throw(r_Error)
 	EXEC SQL DROP TABLE RAS_COUNTERS;
 	check("DatabaseIf::destroyDB() DROP TABLE RAS_COUNTERS\0");
 		
+	EXEC SQL DROP TABLE RAS_PYRAMIDS;
+	check("DatabaseIf::destroyDB() DROP TABLE RAS_PYRAMIDS\0");
+
 	EXEC SQL DROP TABLE RAS_UDFBODY;
 	check("DatabaseIf::destroyDB() DROP TABLE RAS_UDFBODY");
 
@@ -1341,43 +1306,3 @@ DatabaseIf::destroyDB(const char* dbName) throw(r_Error)
 	RMDBGEXIT(4, RMDebug::module_adminif, "DatabaseIf", "destroyDB(" << dbName << ")");
 }
 
-/**
-This test is omitted because in PG it would fail the transaction,
-hence making continuation impossible.
-On the other hand, if the database really doesn't exist
-/ exists already (whatever is the erroneous situation)
-the transaction will fail for the very same reason.
-And here we can't decide what situation is good / not good!
-The only thing we lose is an appropriate error message
-on the top-level situation of the whole database.
-
-To make sure that no invocation of this function leads to erroneous results, we disable it.
-**/ 
-
-#if 0 // disable function to avoid invocation -- PB 2005-feb05
-bool
-DatabaseIf::databaseExists(const char* dbname) throw (r_Error)
-{
-	RMDBGENTER(4, RMDebug::module_adminif, "DatabaseIf", "databaseExists(" << dbname << ")");
-	ENTER( "DatabaseIf::databaseExists, dbName(ignored)=" << dbname );
-
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	nextoid;
-		short	oidind;
-		char    name1[255];	// must be large enough to hold counterNames, see oidif.cc
-	EXEC SQL END DECLARE SECTION;
-	bool retval = true;
-
-	(void) strncpy( name1, (char*) OId::counterNames[OId::DBMINTERVALOID], (size_t) sizeof(name1) );
-	TALK( "EXEC SQL SELECT NextValue INTO :nextoid FROM RAS_COUNTERS WHERE CounterName = " << name1 << ";" )
-	EXEC SQL SELECT NextValue INTO :nextoid
-		FROM RAS_COUNTERS
-		WHERE CounterName = :name1;
-	retval = (SQLCODE == SQLOK) ? true : false;
-
-	LEAVE( "DatabaseIf::databaseExists, SQLCODE=" << SQLCODE << ", retval=" << retval );
-	RMDBGEXIT(4, RMDebug::module_adminif, "DatabaseIf", "databaseExists(" << dbname << ") retval " << retval);
-
-	return retval;
-}
-#endif // 0
