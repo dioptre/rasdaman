@@ -1,0 +1,1 @@
+select [ -17 : 245, 42 : 227 ][ 1 ].lo from test_grey

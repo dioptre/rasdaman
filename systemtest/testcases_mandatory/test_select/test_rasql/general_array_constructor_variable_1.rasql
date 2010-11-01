@@ -1,0 +1,1 @@
+select marray xy in [1:5, 1:10] values a[ xy[0], xy[1] ] from test_grey as a

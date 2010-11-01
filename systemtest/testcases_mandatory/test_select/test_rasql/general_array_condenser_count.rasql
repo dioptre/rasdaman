@@ -1,0 +1,1 @@
+select condense + over x in sdom(a) where (bool)((bool)a[x]+1) using 1 from test_grey as a

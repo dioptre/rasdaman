@@ -1,0 +1,1 @@
+select exp(0) from test_grey

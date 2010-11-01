@@ -1,0 +1,1 @@
+select max_cells( test_grey ) from test_grey

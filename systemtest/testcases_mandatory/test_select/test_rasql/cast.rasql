@@ -1,0 +1,1 @@
+select (float) avg_cells( test_grey ) from test_grey

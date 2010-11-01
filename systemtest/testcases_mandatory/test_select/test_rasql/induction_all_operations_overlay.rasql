@@ -1,0 +1,1 @@
+select test_grey overlay test_grey2 from test_grey, test_grey2

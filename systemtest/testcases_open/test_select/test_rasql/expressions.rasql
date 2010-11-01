@@ -1,0 +1,1 @@
+select (test_rgb2.red + test_rgb2.green + test_rgb2.blue) / 3c from test_rgb2

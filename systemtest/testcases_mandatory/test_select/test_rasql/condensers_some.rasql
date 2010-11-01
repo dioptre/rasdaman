@@ -1,0 +1,1 @@
+select test_grey from test_grey where some_cells( test_grey[120:160, 55:75] > 250 )

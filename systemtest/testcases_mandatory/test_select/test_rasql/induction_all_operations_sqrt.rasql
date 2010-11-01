@@ -1,0 +1,1 @@
+select sqrt(test_grey) from test_grey

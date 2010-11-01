@@ -1,0 +1,1 @@
+select sdom(test_grey)[0].lo from test_grey

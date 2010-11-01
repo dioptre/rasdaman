@@ -1,0 +1,1 @@
+select test_grey[ 120:160, 55:75 ] from test_grey

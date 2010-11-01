@@ -1,0 +1,1 @@
+select a - b from test_grey as a, test_grey2 as b

@@ -1,0 +1,1 @@
+select test_grey[ 50:*, *:200 ] from test_grey

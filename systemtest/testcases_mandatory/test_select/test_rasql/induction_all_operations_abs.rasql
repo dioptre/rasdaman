@@ -1,0 +1,1 @@
+select abs(test_grey) from test_grey

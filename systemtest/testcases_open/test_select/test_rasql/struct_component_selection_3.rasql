@@ -1,0 +1,1 @@
+select test_rgb2 * ( (test_rgb2.2 > 130c) and (test_rgb2.1 < 110c) and (test_rgb2.3 < 140c) ) from test_rgb2

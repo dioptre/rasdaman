@@ -1,0 +1,1 @@
+select extend( test_grey, [-1000:1000,-500:500] ) from test_grey
