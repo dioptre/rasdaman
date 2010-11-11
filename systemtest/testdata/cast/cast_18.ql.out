@@ -1,8 +1,0 @@
--- Testbed line: result_type=set<struct { bool 0, struct { bool 0, bool 1, bool 2 } 1 }>
--- Testbed line: result_elements=2
--- Testbed start block:
-Element 1: { T, { T, F, T }
- }
-Element 2: { T, { T, F, T }
- }
--- Testbed end block:

@@ -1,15 +1,0 @@
-ncaa
-rank=2;
-type=raster;
-format=slice;
-size=11 11;
-origin=0 0;
-extent=10 10;
-aspect=1.0 1.0;
-bands=1;
-bits=8;
-endianness=little_endian;
-data_order=xy;
-
-
-

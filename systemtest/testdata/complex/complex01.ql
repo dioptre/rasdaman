@@ -1,1 +1,0 @@
-select complex(3.14, 10f) from ImgCharD 	-- complex1(3.14, 10)

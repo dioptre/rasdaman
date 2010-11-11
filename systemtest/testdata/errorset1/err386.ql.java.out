@@ -1,2 +1,0 @@
-
- ODMGException: Execution error 386 in line 7, column 18, near token "test50|this should no be a valid base|1: Base name of oid is not matching the currently opened one.

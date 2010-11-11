@@ -1,3 +1,0 @@
-select mr -- this comment text is ignored by rasdaman
-from mr   -- for comments spanning several lines,
-          -- every line needs a separate '--' starter

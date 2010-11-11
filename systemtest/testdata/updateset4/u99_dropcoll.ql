@@ -1,1 +1,0 @@
-DROP COLLECTION UpdateFloat1

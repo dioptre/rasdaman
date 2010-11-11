@@ -1,1 +1,0 @@
-select condense + over x in sdom(a) using a[x] from mr as a

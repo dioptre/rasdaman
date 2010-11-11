@@ -1,1 +1,0 @@
-select min_cells( mr ) from mr

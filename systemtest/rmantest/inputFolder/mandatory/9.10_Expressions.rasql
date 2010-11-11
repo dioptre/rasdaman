@@ -1,1 +1,0 @@
-select (rgb.red + rgb.green + rgb.blue) / 3c from rgb

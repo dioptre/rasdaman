@@ -1,2 +1,0 @@
-
- ODMGException: Execution error 415 in line 3, column 33, near token count_cells: Operand of count_cells must be of type r_Marray<d_Boolean>.

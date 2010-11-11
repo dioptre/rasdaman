@@ -1,1 +1,0 @@
-select complex( 0.35, 16.0 ) from mr

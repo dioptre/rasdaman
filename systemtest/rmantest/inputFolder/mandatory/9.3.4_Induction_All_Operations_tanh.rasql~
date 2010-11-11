@@ -1,1 +1,0 @@
-select tanh(mr) from mr

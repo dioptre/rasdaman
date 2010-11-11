@@ -1,1 +1,0 @@
-select shift( tmp[ 0:10, 0:20 ], [ 3, 4 ] ) from tmp

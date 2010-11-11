@@ -45,7 +45,8 @@ SUBDIRS = relblobif relindexif relmddif relcatalogif reladminif relstorageif \
           indexmgr catalogmgr tilemgr storagemgr compression commline network \
           raslib clientcomm servercomm rasodmg qlparser conversion \
           mddmgr httpserver mymalloc server rasmgr rascontrol rasdl \
-          applications bin insertutils manuals_and_examples include
+          applications bin insertutils manuals_and_examples include \
+          systemtest
 
 dist_log_DATA=empty
             

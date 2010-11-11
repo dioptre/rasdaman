@@ -1,1 +1,0 @@
-select a * complex(3.14d, 6.28d) from ImgCharD as a	-- marray<complex2>

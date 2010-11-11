@@ -1,1 +1,0 @@
-select scale( mr, [ 4, 3 ] ) from mr

@@ -1,1 +1,0 @@
-select sdom(ImgULongC)

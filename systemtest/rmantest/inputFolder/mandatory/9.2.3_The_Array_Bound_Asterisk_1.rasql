@@ -1,1 +1,0 @@
-select mr[ *:*, 10:150 ] from mr

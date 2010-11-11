@@ -1,1 +1,0 @@
-select mr xor mr2 from mr, mr2

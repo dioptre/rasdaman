@@ -1,1 +1,0 @@
-select bit(mr,1) from mr

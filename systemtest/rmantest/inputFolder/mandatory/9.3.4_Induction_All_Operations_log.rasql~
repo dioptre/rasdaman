@@ -1,1 +1,0 @@
-select log(mr) from mr

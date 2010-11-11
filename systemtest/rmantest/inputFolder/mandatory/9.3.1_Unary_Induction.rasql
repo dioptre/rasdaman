@@ -1,1 +1,0 @@
-select rgb.red * 2c from rgb

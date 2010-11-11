@@ -1,2 +1,0 @@
-
- ODMGException: Execution error 364 in line 5, column 10, near token *: Cell base type and scalar type of binary induce operation are incompatible.

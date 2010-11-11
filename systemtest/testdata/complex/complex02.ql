@@ -1,1 +1,0 @@
-select complex(3.14, 6.28f) + complex(100f, 200f) from ImgCharD	-- complex1(103.14, 206.28) 

@@ -1,2 +1,0 @@
-test_error-par.sh: testing client/server communication for open/close db/ta, protocol is RNP
-test_error-par.sh: 10 probed, 2 reached, 8 failed.

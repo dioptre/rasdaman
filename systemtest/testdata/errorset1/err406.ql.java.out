@@ -1,2 +1,0 @@
-
- ODMGException: Execution error 406 in line 5, column 8, near token shift: Second operand of shift function must be of type Point.

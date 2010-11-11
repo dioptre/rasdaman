@@ -1,1 +1,0 @@
-select rgb * ( (rgb.green > 130c) and (rgb.red < 110c) and (rgb.blue < 140c) ) from rgb

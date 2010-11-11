@@ -1,1 +1,0 @@
-select complex(10f, 20f) / complex(1.0d, 2.0d) from ImgCharD	-- complex2(10, 0) 

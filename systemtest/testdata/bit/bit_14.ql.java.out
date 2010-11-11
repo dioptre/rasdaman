@@ -1,2 +1,0 @@
-
- ODMGException: Execution error 418 in line 4, column 9, near token bit: Second operand of bit function must be of integral type.

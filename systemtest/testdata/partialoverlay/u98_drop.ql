@@ -1,2 +1,0 @@
-DROP COLLECTION PartialOverlay1
-

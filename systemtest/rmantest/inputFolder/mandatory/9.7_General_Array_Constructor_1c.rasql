@@ -1,1 +1,0 @@
-select marray x in [ 1:100, -50:200 ] values 1c from mr
