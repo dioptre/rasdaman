@@ -33,7 +33,6 @@ install-data-hook:
 	sed 's|~~~rmanhome~~~|$(prefix)|' <$(dest_Makefile) >$(dest_Makefile).new
 	mv $(dest_Makefile).new $(dest_Makefile)
 	-# install documentation
-	-#rm -rf $(DESTDIR)$(pkgdatadir)/doc
 	(cd ..; doxygen manuals_and_examples/doxygen-all.cfg)
 	(cd ..; doxygen manuals_and_examples/doxygen-api.cfg)
 	(cd ..; doxygen manuals_and_examples/doxygen-basedbms.cfg)
