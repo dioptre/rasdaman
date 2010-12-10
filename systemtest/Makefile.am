@@ -55,7 +55,7 @@ check:
 	
 clean:
 	for testcase in ${TESTSEQUENCE}; do \
-               PATH=${bindir}:${PATH}   rm $${testcase}/log*; \
+               PATH=${bindir}:${PATH}   rm -rf $${testcase}/log*; \
         done;
 
 ######################## Dependencies ############################
