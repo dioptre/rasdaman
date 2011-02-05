@@ -14,32 +14,24 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.test;
 
-//~--- non-JDK imports --------------------------------------------------------
 import org.apache.commons.io.FileUtils;
-
 import petascope.wcps.server.cli.grammar;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import javax.xml.parsers.DocumentBuilder;

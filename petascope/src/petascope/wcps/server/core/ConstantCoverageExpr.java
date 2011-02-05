@@ -14,17 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
-import petascope.wcps.server.exceptions.InvalidCrsException;
-import petascope.wcps.server.exceptions.WCPSException;
-import petascope.wcps.server.exceptions.InvalidMetadataException;
+import petascope.core.Metadata;
+import petascope.exceptions.PetascopeException;
+import petascope.exceptions.WCPSException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -42,7 +41,7 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
     private int requiredListSize = 1;
 
     public ConstantCoverageExpr(Node node, XmlQuery xq)
-            throws WCPSException, InvalidCrsException {
+            throws WCPSException {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
@@ -68,7 +67,11 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
             }
         }
 
-        buildMetadata(xq);
+        try {
+            buildMetadata(xq);
+        } catch (PetascopeException ex) {
+            throw new WCPSException("Cannot build coverage metadata !!!");
+        }
         buildAxisIteratorDomain();
 
         // Sanity check: dimensions should match number of constants in the list
@@ -119,7 +122,7 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
     }
 
     /** Builds full metadata for the newly constructed coverage **/
-    private void buildMetadata(XmlQuery xq) throws WCPSException {
+    private void buildMetadata(XmlQuery xq) throws WCPSException, PetascopeException {
         List<CellDomainElement> cellDomainList = new LinkedList<CellDomainElement>();
         List<RangeElement> rangeList = new LinkedList<RangeElement>();
         HashSet<String> nullSet = new HashSet<String>();
@@ -143,23 +146,18 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
             crsset.add(crs);
             DomainElement domain = new DomainElement(axisName, axisType,
                     ai.getLow().doubleValue(), ai.getHigh().doubleValue(),
-                    null, null, crsset, xq.getMetadataSource().getAxisNames());
+                    null, null, crsset, xq.getMetadataSource().getAxisNames(), null); // FIXME uom = null
             domainList.add(domain);
         }
+
         // TODO: check element datatypes and their consistency
         // "unsigned int" is default datatype
-        rangeList.add(new RangeElement("dynamic_type", "unsigned int"));
-
-        try {
-            Metadata metadata = new Metadata(cellDomainList, rangeList, nullSet,
-                    nullDefault, interpolationSet, interpolationDefault,
-                    coverageName, domainList, null);
-            // Let the top-level query know the full metadata about us
-            xq.getMetadataSource().addDynamicMetadata(covName, metadata);
-            info = new CoverageInfo(metadata);
-        } catch (InvalidMetadataException e) {
-            throw new WCPSException("Could not build coverage '" + covName
-                    + "' metadata !", e);
-        }
+        rangeList.add(new RangeElement("dynamic_type", "unsigned int", null));
+        Metadata metadata = new Metadata(cellDomainList, rangeList, nullSet,
+                nullDefault, interpolationSet, interpolationDefault,
+                coverageName, "GridCoverage", domainList, null); // FIXME
+        // Let the top-level query know the full metadata about us
+        xq.getMetadataSource().addDynamicMetadata(covName, metadata);
+        info = new CoverageInfo(metadata);
     }
 }

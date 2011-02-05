@@ -14,31 +14,34 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
-import petascope.wcps.server.exceptions.InvalidMetadataException;
 import java.math.BigInteger;
+import petascope.exceptions.ExceptionCode;
+import petascope.exceptions.WCPSException;
+import petascope.wcs2.parsers.GetCoverageRequest;
 
 //A coverage axis in pixel coordinates. See the WCPS standard.
 public class CellDomainElement implements Cloneable {
 
-    private BigInteger hi;
-    private BigInteger lo;
+    GetCoverageRequest.DimensionSubset subsetElement;
 
-    public CellDomainElement(BigInteger lo, BigInteger hi) throws InvalidMetadataException {
+    private BigInteger hi;                      //FIXME: should be double
+    private BigInteger lo;                      //FIXME: should be double
+
+    public CellDomainElement(BigInteger lo, BigInteger hi) throws WCPSException {
         if ((lo == null) || (hi == null)) {
-            throw new InvalidMetadataException(
+            throw new WCPSException(ExceptionCode.InvalidMetadata, 
                     "Invalid cell domain element: Bounds may not be null");
         }
 
         if (lo.compareTo(hi) == 1) {
-            throw new InvalidMetadataException(
+            throw new WCPSException(ExceptionCode.InvalidMetadata, 
                     "Invalid cell domain element: Lower bound cannot be larger than upper bound");
         }
 
@@ -47,11 +50,12 @@ public class CellDomainElement implements Cloneable {
 
     }
 
+    @Override
     public CellDomainElement clone() {
         try {
             return new CellDomainElement(BigInteger.ZERO.add(lo),
                     BigInteger.ZERO.add(hi));
-        } catch (InvalidMetadataException ime) {
+        } catch (WCPSException ime) {
             throw new RuntimeException(
                     "Invalid metadata while cloning CellDomainElement. This is a software bug in WCPS.",
                     ime);
@@ -69,12 +73,25 @@ public class CellDomainElement implements Cloneable {
 
     }
 
+    public void setHi(BigInteger hi){this.hi = hi;}
+
     public BigInteger getLo() {
         return lo;
     }
 
+    public void setLo(BigInteger lo){this.lo = lo;}
+
+    @Override
     public String toString() {
         String result = "CellDomainElement [" + lo + ", " + hi + "]";
         return result;
+    }
+
+    public GetCoverageRequest.DimensionSubset getSubsetElement() {
+        return subsetElement;
+    }
+
+    public void setSubsetElement(GetCoverageRequest.DimensionSubset subsetElement) {
+        this.subsetElement = subsetElement;
     }
 }

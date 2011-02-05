@@ -14,8 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
@@ -26,11 +25,9 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import petascope.wcps.server.exceptions.InvalidCrsException;
-import petascope.wcps.server.exceptions.WCPSException;
+import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
-import petascope.wcps.server.exceptions.InvalidWcpsRequestException;
-
+import petascope.exceptions.ExceptionCode;
 
 public class ScaleCoverageExpr implements IRasNode, ICoverageInfo {
 
@@ -42,8 +39,7 @@ public class ScaleCoverageExpr implements IRasNode, ICoverageInfo {
     private DimensionIntervalElement elem;
     private FieldInterpolationElement fieldInterp;
 
-    public ScaleCoverageExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException
-    {
+    public ScaleCoverageExpr(Node node, XmlQuery xq) throws WCPSException {
         Node child;
         String nodeName;
 
@@ -82,18 +78,12 @@ public class ScaleCoverageExpr implements IRasNode, ICoverageInfo {
                 fieldInterp = new FieldInterpolationElement(child, xq);
                 child = fieldInterp.getNextNode();
                 continue;
-            }
-            catch (InvalidWcpsRequestException e2)
-            {
-                throw e2;
-            }
-            catch (WCPSException e)
-            {
+            } catch (WCPSException e) {
                 System.err.println("This was no Field Interpolation Element: " + child.getNodeName());
             }
 
             // else unknown element
-            throw new WCPSException("Unknown node for ScaleCoverageExpr expression:" + child.getNodeName());
+            throw new WCPSException(ExceptionCode.InvalidMetadata, "Unknown node for ScaleCoverageExpr expression:" + child.getNodeName());
         }
 
         dims = coverageInfo.getNumDimensions();

@@ -14,18 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
-import petascope.wcps.server.exceptions.ResourceException;
-import petascope.wcps.server.exceptions.WCPSException;
+import petascope.core.IDynamicMetadataSource;
+import petascope.exceptions.PetascopeException;
+import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,7 +35,7 @@ public class CoverageIterator implements IRasNode {
     private String iteratorName;
     private boolean dynamic = false;    // created from a Construct Coverage expr?
 
-    public CoverageIterator(Node x, XmlQuery xq) throws WCPSException {
+    public CoverageIterator(Node x, XmlQuery xq) throws WCPSException, PetascopeException {
         IDynamicMetadataSource source = xq.getMetadataSource();
         coverageNames = new ArrayList<String>();
         if (!x.getNodeName().equals("coverageIterator")) {
@@ -57,13 +56,8 @@ public class CoverageIterator implements IRasNode {
             } else if (it.getNodeName().equals("coverageName")) {
                 String cn = it.getFirstChild().getNodeValue();
                 System.err.println("*** Coverage reference : " + cn);
-                try {
-                    if (!source.coverages().contains(cn)) {
-                        throw new WCPSException("Unknown coverage " + cn);
-                    }
-                } catch (ResourceException e) {
-                    throw new WCPSException(
-                            "Cannot load coverage information!", e);
+                if (!source.coverages().contains(cn)) {
+                    throw new WCPSException("Unknown coverage " + cn);
                 }
 
                 coverageNames.add(cn);

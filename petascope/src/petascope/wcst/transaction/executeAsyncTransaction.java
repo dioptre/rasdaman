@@ -14,8 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
@@ -29,6 +28,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.logging.Level;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -37,10 +37,11 @@ import javax.xml.namespace.QName;
 import net.opengis.ows.v_1_0_0.ExceptionReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import petascope.wcs.server.exceptions.BadResponseHandlerException;
-import petascope.wcs.server.exceptions.InputOutputException;
-import petascope.wcs.server.exceptions.WCSException;
-import petascope.wcs.server.exceptions.XmlStructuresException;
+import petascope.exceptions.PetascopeException;
+import petascope.exceptions.WCPSException;
+import petascope.exceptions.WCSException;
+import petascope.exceptions.ExceptionCode;
+import petascope.exceptions.WCSTException;
 import wcst.transaction.schema.TransactionResponseType;
 
 /**
@@ -50,7 +51,7 @@ import wcst.transaction.schema.TransactionResponseType;
  */
 public class executeAsyncTransaction extends Thread {
 
-    private static Logger LOG = LoggerFactory.getLogger(executeAsyncTransaction.class);
+    private static Logger log = LoggerFactory.getLogger(executeAsyncTransaction.class);
     private String responseHandler;
     private executeTransaction exec;
 
@@ -66,18 +67,23 @@ public class executeAsyncTransaction extends Thread {
 
     /** Run the current thread. */
     public void run() {
-        LOG.info("Started async thread...");
+        log.info("Started async thread...");
         String outString = null;
         try // only for WCSException
         {
             try {
                 /* (1) Do the actual processing of the Transaction */
-                LOG.debug("Starting async execution ...");
-                TransactionResponseType output = exec.get();
+                log.debug("Starting async execution ...");
+                TransactionResponseType output;
+                try {
+                    output = exec.get();
+                } catch (Exception ex) {
+                    throw new RuntimeException("Error executing transaction", ex);
+                }
                 JAXBElement jaxbOutput = new JAXBElement(new QName("", "TransactionResponse"), TransactionResponseType.class, output);
 
                 /* (2) Marshall the output XML into a String */
-                LOG.debug("Marshalling transaction response into a string ...");
+                log.debug("Marshalling transaction response into a string ...");
                 JAXBContext jaxbCtx = JAXBContext.newInstance(output.getClass().getPackage().getName());
                 Marshaller marshaller = jaxbCtx.createMarshaller();
                 marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
@@ -90,17 +96,17 @@ public class executeAsyncTransaction extends Thread {
                 /* (3) Send the output to the destination response handler */
                 sendPostRequest(outString, responseHandler);
             } catch (MalformedURLException ex) {
-                LOG.error("Stack trace: " + ex);
-                throw new BadResponseHandlerException("Response Handler URL is malformed.");
+                log.error("Stack trace: " + ex);
+                throw new WCSException(ExceptionCode.BadResponseHandler, "Response Handler URL is malformed.", ex);
             } catch (IOException ex) {
-                LOG.error("Stack trace: " + ex);
-                throw new InputOutputException("Could not send asynchronous response to URL: " + responseHandler);
+                log.error("Stack trace: " + ex);
+                throw new WCSException(ExceptionCode.IOConnectionError, "Could not send asynchronous response to URL: " + responseHandler);
             } catch (JAXBException ex) {
-                LOG.error("Stack trace: " + ex);
-                throw new XmlStructuresException("Could not marshall the XML to a string !");
+                log.error("Stack trace: " + ex);
+                throw new WCSException(ExceptionCode.XmlStructuresError, "Could not marshall the XML to a string !");
             }
         } catch (WCSException e) {
-            LOG.error("Caught WCS Exception: " + e);
+            log.error("Caught WCS Exception: " + e);
             ExceptionReport report = e.getReport();
             try {
                 /* Build the error report */
@@ -111,14 +117,14 @@ public class executeAsyncTransaction extends Thread {
                 StringWriter strWriter = new StringWriter();
                 marshaller.marshal(report, strWriter);
                 outString = strWriter.toString();
-                LOG.trace("Done with the Error Report !");
+                log.trace("Done with the Error Report !");
 
                 /* Send the error report to the responseHandler */
                 sendPostRequest(outString, responseHandler);
             } catch (JAXBException e2) {
-                LOG.error("Stack trace: " + e2);
+                log.error("Stack trace: " + e2);
             } catch (IOException e2) {
-                LOG.error("Stack trace: " + e2);
+                log.error("Stack trace: " + e2);
             }
         }
     }
@@ -131,7 +137,7 @@ public class executeAsyncTransaction extends Thread {
      * @throws IOException
      */
     private void sendPostRequest(String content, String destinationUrl) throws MalformedURLException, IOException {
-        LOG.debug("sendPostRequest() ... to URL: " + destinationUrl);
+        log.debug("sendPostRequest() ... to URL: " + destinationUrl);
 
         // connect to the destination 
         URL servlet = new URL(destinationUrl);
@@ -158,6 +164,6 @@ public class executeAsyncTransaction extends Thread {
         out.flush();
         out.close();
 
-        LOG.debug("Sent request to URL.");
+        log.debug("Sent request to URL.");
     }
 }

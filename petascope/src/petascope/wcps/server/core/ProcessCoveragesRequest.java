@@ -14,18 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
-import petascope.wcps.server.exceptions.InvalidCrsException;
-import petascope.wcps.server.exceptions.ResourceException;
-import petascope.wcps.server.exceptions.WCPSException;
-import petascope.wcps.server.exceptions.InvalidWcpsRequestException;
+import petascope.core.IDynamicMetadataSource;
+import petascope.exceptions.PetascopeException;
+import petascope.exceptions.WCPSException;
 import petascope.wcps.grammar.WCPSRequest;
 import petascope.wcps.grammar.wcpsLexer;
 import petascope.wcps.grammar.wcpsParser;
@@ -40,13 +38,10 @@ import org.odmg.ODMGException;
 import org.odmg.OQLQuery;
 import org.odmg.QueryException;
 import org.odmg.Transaction;
-
 import org.w3c.dom.*;
-
 import org.xml.sax.SAXException;
 import rasj.RasGMArray;
 import rasj.RasImplementation;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -54,6 +49,7 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.xml.sax.InputSource;
+import petascope.exceptions.ExceptionCode;
 
 /** A WCPS ProcessCoveragesRequest request provides a (just one) rasdaman query, that it executes.
  *
@@ -71,7 +67,7 @@ public class ProcessCoveragesRequest {
     private XmlQuery xmlQuery;
 
     public ProcessCoveragesRequest(String url, String database, Node node, IDynamicMetadataSource source, WCPS wcps)
-            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException, IOException, InvalidCrsException {
+            throws WCPSException, SAXException, IOException, PetascopeException {
         super();
         this.source = source;
         this.url = url;
@@ -162,7 +158,7 @@ public class ProcessCoveragesRequest {
         return this.rasqlQuery;
     }
 
-    public List<byte[]> execute() throws ResourceException {
+    public List<byte[]> execute() throws WCPSException {
         ArrayList<byte[]> results = new ArrayList<byte[]>();
 
         if (this.rasqlQuery != null) {
@@ -177,7 +173,7 @@ public class ProcessCoveragesRequest {
                 } catch (ODMGException e) {
                 }
 
-                throw new ResourceException("Could not connect to rasdaman at "
+                throw new WCPSException(ExceptionCode.ResourceError, "Could not connect to rasdaman at "
                         + url + ", database "
                         + database, odmge);
             }
@@ -205,7 +201,7 @@ public class ProcessCoveragesRequest {
                             results.add(resultArray.getArray());
                         } catch (ClassCastException e) {    // not a RasGMarray
                             if (!mime.equals("text/plain")) {
-                                throw new ResourceException(
+                                throw new WCPSException(ExceptionCode.ResourceError, 
                                         "Incompatible mime and data type!");
                             }
 
@@ -232,7 +228,7 @@ public class ProcessCoveragesRequest {
                 } catch (ODMGException odmge) {
                 }
 
-                throw new ResourceException("Could not evaluate rasdaman query: '"
+                throw new WCPSException(ExceptionCode.ResourceError, "Could not evaluate rasdaman query: '"
                         + getRasqlQuery() + "'. Cause: " + qe.getMessage(), qe);
             }
 

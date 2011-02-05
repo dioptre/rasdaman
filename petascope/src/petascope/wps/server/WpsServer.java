@@ -14,8 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
@@ -36,7 +35,8 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.wcps.server.core.ProcessCoveragesRequest;
-import petascope.wcs.server.exceptions.InputOutputException;
+import petascope.exceptions.WCSException;
+import petascope.exceptions.ExceptionCode;
 
 /**
  *
@@ -44,10 +44,10 @@ import petascope.wcs.server.exceptions.InputOutputException;
  */
 public class WpsServer {
 
-    private static Logger LOG = LoggerFactory.getLogger(WpsServer.class);
+    private static Logger log = LoggerFactory.getLogger(WpsServer.class);
     public String request = null;
 
-    public WpsServer(HttpServletResponse httpResponse, HttpServletRequest httpRequest) throws URISyntaxException, IOException, InputOutputException, RecognitionException {
+    public WpsServer(HttpServletResponse httpResponse, HttpServletRequest httpRequest) throws URISyntaxException, IOException, WCSException, RecognitionException {
 
         if ((httpRequest.getParameter("Request") != null) && httpRequest.getParameter("Request").equalsIgnoreCase("GetCapabilities")) {
             GetCapabilities(httpResponse);
@@ -74,10 +74,10 @@ public class WpsServer {
         }
     }
 
-    public void GetCapabilities(HttpServletResponse httpResponse) throws URISyntaxException, IOException, InputOutputException {
+    public void GetCapabilities(HttpServletResponse httpResponse) throws URISyntaxException, IOException, WCSException {
         URI GetCapabilitiesURI = this.getClass().getResource("../templates/GetCapabilities.xml").toURI();
         String GetCapabilitiesResponse = loadFile(GetCapabilitiesURI);
-        LOG.info("Executing operation GetCapabilities...");
+        log.info("Executing operation GetCapabilities...");
         System.out.println("GetCapabilities Response is " + GetCapabilitiesResponse);
         PrintWriter out;
         try {
@@ -87,14 +87,14 @@ public class WpsServer {
             out.flush();
             out.close();
         } catch (IOException e) {
-            throw new InputOutputException(e.getMessage(), e);
+            throw new WCSException(ExceptionCode.IOConnectionError, e.getMessage(), e);
         }
     }
 
-    public void DescribeProcess(HttpServletResponse httpResponse) throws URISyntaxException, IOException, InputOutputException {
+    public void DescribeProcess(HttpServletResponse httpResponse) throws URISyntaxException, IOException, WCSException {
         URI DesribeProcessURI = this.getClass().getResource("../templates/DescribeProcess.xml").toURI();
         String DescribeProcessResponse = loadFile(DesribeProcessURI);
-        LOG.info("Executing operation DescribeProcess...");
+        log.info("Executing operation DescribeProcess...");
         System.out.println("DescribeProcess Document is " + DescribeProcessResponse);
         PrintWriter out;
         try {
@@ -104,7 +104,7 @@ public class WpsServer {
             out.flush();
             out.close();
         } catch (IOException e) {
-            throw new InputOutputException(e.getMessage(), e);
+            throw new WCSException(ExceptionCode.IOConnectionError, e.getMessage(), e);
         }
     }
 
@@ -112,7 +112,7 @@ public class WpsServer {
         InputStream is = null;
         String contents = null;
         try {
-            LOG.debug("Loading file: " + fileUri);
+            log.debug("Loading file: " + fileUri);
             File f = new File(fileUri);
             is = new FileInputStream(f);
             contents = IOUtils.toString(is);

@@ -14,24 +14,23 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
+import petascope.core.Metadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import petascope.wcps.server.exceptions.InvalidCrsException;
-import petascope.wcps.server.exceptions.WCPSException;
+import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
-import petascope.wcs.server.exceptions.NoApplicableCodeException;
+import petascope.exceptions.WCSException;
 
 public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
 
-    Logger LOG = LoggerFactory.getLogger(DimensionIntervalElement.class);
+    Logger log = LoggerFactory.getLogger(DimensionIntervalElement.class);
     private IRasNode child;
     private CoverageInfo info = null;
     private AxisName axis;
@@ -52,13 +51,17 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
      * @throws WCPSException
      */
     public DimensionIntervalElement(Node node, XmlQuery xq, CoverageInfo covInfo)
-            throws WCPSException, InvalidCrsException {
+            throws WCPSException {
 
         if (covInfo.getCoverageName() != null) {
             // Add WGS84 CRS information from coverage metadata, may be useful
             // for converting geo-coordinates to pixel-coordinates
             String coverageName = covInfo.getCoverageName();
-            meta = xq.getMetadataSource().read(coverageName);
+            try {
+                meta = xq.getMetadataSource().read(coverageName);
+            } catch (Exception ex) {
+                throw new WCPSException(ex.getMessage(), ex);
+            }
         }
 
         System.err.println("Trying to parse DimensionIntervalElement expression...");
@@ -157,7 +160,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
         }
         if (counter == 2 && crs != null && domain1.isSingleValue() && domain2.isSingleValue()) {
             if (crs.getName().equals(DomainElement.WGS84_CRS)) {
-                LOG.debug("CRS is '{}' and should be equal to '{}'", crs.getName(), DomainElement.WGS84_CRS);
+                log.debug("CRS is '{}' and should be equal to '{}'", crs.getName(), DomainElement.WGS84_CRS);
                 try {
                     this.transformedCoordinates = true;
                     // Convert to pixel coordinates
@@ -174,9 +177,9 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
                         coord1 = pCoord[2];
                         coord2 = pCoord[3];
                     }
-                } catch (NoApplicableCodeException e) {
+                } catch (WCSException e) {
                     this.transformedCoordinates = false;
-                    LOG.error("Error while transforming geo-coordinates to pixel coordinates."
+                    log.error("Error while transforming geo-coordinates to pixel coordinates."
                             + "The metadata is probably not valid.");
                 }
             }

@@ -14,35 +14,31 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
-import petascope.wcps.server.exceptions.InvalidCrsException;
-import petascope.wcps.server.exceptions.ResourceException;
-import petascope.wcps.server.exceptions.WCPSException;
-import petascope.wcps.server.exceptions.InvalidWcpsRequestException;
-import petascope.wcps.server.exceptions.InvalidMetadataException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import petascope.core.IMetadataSource;
+import petascope.core.DynamicMetadataSource;
+import petascope.core.IDynamicMetadataSource;
+import petascope.exceptions.PetascopeException;
+import petascope.exceptions.WCPSException;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.*;
-
 import org.xml.sax.*;
 import org.xml.sax.SAXException;
-
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-
-
 import java.util.List;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import petascope.exceptions.ExceptionCode;
 
 /**
  * This is the WCPS entry point. Processing a ProcessCoverage request happens in two stages.
@@ -58,7 +54,7 @@ public class WCPS {
     private IDynamicMetadataSource dynamicMetadataSource;
     private DocumentBuilder wcpsDocumentBuilder;
 
-    public WCPS(File pcSchema, IMetadataSource metadataSource) throws WCPSException {
+    public WCPS(File pcSchema, IMetadataSource metadataSource) throws WCPSException, PetascopeException {
         try {
             System.out.println("WCPS: Loading and parsing XML Schema ...");
             DocumentBuilderFactory dbconfig = DocumentBuilderFactory.newInstance();
@@ -82,15 +78,13 @@ public class WCPS {
         this.dynamicMetadataSource = new DynamicMetadataSource(metadataSource);
     }
 
-    public WCPS(IMetadataSource metadataSource) throws ParserConfigurationException,
-            ResourceException, InvalidMetadataException {
+    public WCPS(IMetadataSource metadataSource) throws ParserConfigurationException, PetascopeException {
         this.dynamicMetadataSource = new DynamicMetadataSource(metadataSource);
         wcpsDocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
     }
 
-    public List<byte[]> pcExecute(String url, String database, ProcessCoveragesRequest pcRequest)
-            throws ResourceException {
-        throw new ResourceException("Mothod not implemented! pcExecute");
+    public List<byte[]> pcExecute(String url, String database, ProcessCoveragesRequest pcRequest) throws WCPSException {
+        throw new WCPSException(ExceptionCode.ResourceError, "Mothod not implemented! pcExecute");
 
         /*
          *         List<RasQuery> queries = pcRequest.getQueries();
@@ -106,7 +100,7 @@ public class WCPS {
          * db.close();
          * }
          * catch (ODMGException e) {}
-         * throw new ResourceException( "Could not connect to rasdaman at " + url + ", database " +
+         * throw new WCPSException(ExceptionCode.ResourceError,  "Could not connect to rasdaman at " + url + ", database " +
          *          database, odmge );
          * }
          * Transaction tr = impl.newTransaction();
@@ -147,39 +141,42 @@ public class WCPS {
     }
 
     public ProcessCoveragesRequest pcPrepare(String url, String database, File f)
-            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-            IOException, InvalidCrsException {
+            throws WCPSException, SAXException,
+            IOException {
         return pcPrepare(url, database, wcpsDocumentBuilder.parse(f));
     }
 
     public ProcessCoveragesRequest pcPrepare(String url, String database, InputStream is,
             String systemId)
-            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-            IOException, InvalidCrsException {
+            throws WCPSException, SAXException,
+            IOException {
         return pcPrepare(url, database, wcpsDocumentBuilder.parse(is, systemId));
     }
 
     public ProcessCoveragesRequest pcPrepare(String url, String database, String uri)
-            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-            IOException, InvalidCrsException {
+            throws WCPSException, SAXException,
+            IOException {
         return pcPrepare(url, database, wcpsDocumentBuilder.parse(uri));
     }
 
     public ProcessCoveragesRequest pcPrepare(String url, String database, InputSource is)
-            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-            IOException, InvalidCrsException {
+            throws WCPSException, SAXException,
+            IOException {
         return pcPrepare(url, database, wcpsDocumentBuilder.parse(is));
     }
 
     public ProcessCoveragesRequest pcPrepare(String url, String database, InputStream is)
-            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException,
-            IOException, InvalidCrsException {
+            throws WCPSException, SAXException,
+            IOException {
         return pcPrepare(url, database, wcpsDocumentBuilder.parse(is));
     }
 
     private ProcessCoveragesRequest pcPrepare(String url, String database, Document doc)
-            throws WCPSException, InvalidWcpsRequestException, ResourceException, SAXException, IOException, InvalidCrsException {
-        ProcessCoveragesRequest req = new ProcessCoveragesRequest(url, database, doc, dynamicMetadataSource, this);
-        return req;
+            throws WCPSException, SAXException, IOException {
+        try {
+            return new ProcessCoveragesRequest(url, database, doc, dynamicMetadataSource, this);
+        } catch (PetascopeException ex) {
+            throw (WCPSException) ex;
+        }
     }
 }

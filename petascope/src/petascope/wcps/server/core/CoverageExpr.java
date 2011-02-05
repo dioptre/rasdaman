@@ -14,18 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
-import petascope.wcps.server.exceptions.InvalidCrsException;
-import petascope.wcps.server.exceptions.WCPSException;
+import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
-
 import java.util.Iterator;
 
 public class CoverageExpr implements IRasNode, ICoverageInfo {
@@ -37,7 +34,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
 //    private String var;
     private boolean simpleCoverage;    // True is the coverage is just a string
 
-    public CoverageExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException {
+    public CoverageExpr(Node node, XmlQuery xq) throws WCPSException {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
@@ -61,17 +58,21 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
 
             Iterator<String> coverages = xq.getCoverages(childInfo);
 
-            info = new CoverageInfo(xq.getMetadataSource().read(coverages.next()));
+            try {
+                info = new CoverageInfo(xq.getMetadataSource().read(coverages.next()));
 
-            while (coverages.hasNext()) {    // Check if all the coverages are compatible
-                CoverageInfo tmp = new CoverageInfo(
-                        xq.getMetadataSource().read(
-                        coverages.next()));
+                while (coverages.hasNext()) {    // Check if all the coverages are compatible
+                    CoverageInfo tmp = new CoverageInfo(
+                            xq.getMetadataSource().read(
+                            coverages.next()));
 
-                if (!tmp.isCompatible(info)) {
-                    throw new WCPSException(
-                            "Incompatible coverages within the same iterator");
+                    if (!tmp.isCompatible(info)) {
+                        throw new WCPSException(
+                                "Incompatible coverages within the same iterator");
+                    }
                 }
+            } catch (Exception ex) {
+                throw new WCPSException(ex.getMessage(), ex);
             }
 
             System.err.println("Found simple coverage definition: " + childInfo + ", "

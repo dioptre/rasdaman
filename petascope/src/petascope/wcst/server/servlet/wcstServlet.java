@@ -14,32 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcst.server.servlet;
 
-//~--- non-JDK imports --------------------------------------------------------
 import petascope.wcst.server.*;
 import petascope.ConfigManager;
 import org.apache.commons.io.FileUtils;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import petascope.wcps.server.core.DbMetadataSource;
-import petascope.wcs.server.exceptions.WCSException;
+import petascope.core.DbMetadataSource;
+import petascope.exceptions.WCSException;
+import petascope.exceptions.ExceptionCode;
 
 /** Servlet interface for the WCS-Transactional server.
  *

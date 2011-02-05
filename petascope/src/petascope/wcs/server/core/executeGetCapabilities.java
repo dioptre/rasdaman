@@ -14,15 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcs.server.core;
 
-import petascope.wcs.server.exceptions.WCSException;
+import petascope.exceptions.PetascopeException;
+import petascope.exceptions.WCSException;
+import petascope.exceptions.ExceptionCode;
 import java.sql.SQLException;
 import java.util.Iterator;
 import javax.xml.bind.JAXBElement;
@@ -44,17 +45,12 @@ import net.opengis.wcs.v_1_1_0.Capabilities;
 import net.opengis.wcs.v_1_1_0.Contents;
 import net.opengis.wcs.v_1_1_0.CoverageSummaryType;
 import net.opengis.wcs.v_1_1_0.GetCapabilities;
-import petascope.wcps.server.core.DbMetadataSource;
-import petascope.wcps.server.core.Metadata;
-import petascope.wcps.server.exceptions.ResourceException;
-
+import petascope.core.DbMetadataSource;
+import petascope.core.Metadata;
 import javax.xml.XMLConstants;
 import net.opengis.ows.v_1_0_0.AddressType;
 import net.opengis.wcs.ows.v_1_1_0.RequestMethodType;
 import petascope.ConfigManager;
-import petascope.wcs.server.exceptions.InternalSqlException;
-import petascope.wcs.server.exceptions.InvalidParameterValueException;
-import petascope.wcs.server.exceptions.NoApplicableCodeException;
 
 /**
  * This class takes a WCS GetCapabilities XML request and executes request,
@@ -87,12 +83,12 @@ public class executeGetCapabilities {
      * @return a Capabilities object.
      * @throws wcs_web_service.WCSException
      */
-    public Capabilities get() throws WCSException {
+    public Capabilities get() throws WCSException, PetascopeException {
         if (finished == false) {
             process();
         }
         if (finished == false) {
-            throw new NoApplicableCodeException("Could not execute the GetCapabilities request! "
+            throw new WCSException(ExceptionCode.NoApplicableCode, "Could not execute the GetCapabilities request! "
                     + "Please see the other errors...");
         }
         return output;
@@ -102,9 +98,9 @@ public class executeGetCapabilities {
      * Computes the response to the GetCapabilities request given to the constructor.
      * @throws wcs_web_service.WCSException
      */
-    public void process() throws WCSException {
+    public void process() throws WCSException, PetascopeException {
         if (!input.SERVICE.equalsIgnoreCase("WCS")) {
-            throw new InvalidParameterValueException("Service");
+            throw new WCSException(ExceptionCode.InvalidParameterValue, "Service");
         }
 
         try {
@@ -117,7 +113,7 @@ public class executeGetCapabilities {
             finished = true;
         } catch (SQLException se) {
             finished = false;
-            throw new InternalSqlException(se.getMessage(), se);
+            throw new WCSException(ExceptionCode.InternalSqlError, se.getMessage(), se);
         }
 
     }
@@ -252,14 +248,11 @@ public class executeGetCapabilities {
      * Builds the output node "Contents"
      * @throws java.sql.SQLException
      */
-    private void buildField4() {
+    private void buildField4() throws PetascopeException {
         Contents cont = new Contents();
         Iterator<String> coverages = null;
 
-        try {
-            coverages = meta.coverages().iterator();
-        } catch (ResourceException e) {
-        }
+        coverages = meta.coverages().iterator();
         while (coverages.hasNext()) {
             Metadata metadata = null;
             try {

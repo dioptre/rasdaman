@@ -14,30 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
+
 //A single component of a coverage's range. See the WCPS standard for more information.
-import petascope.wcps.server.exceptions.InvalidMetadataException;
+import petascope.exceptions.ExceptionCode;
+import petascope.exceptions.WCPSException;
 
 public class RangeElement implements Cloneable {
 
     private String name;
     private String type;
+    private String uom;
 
-    public RangeElement(String name, String type) throws InvalidMetadataException {
+    public RangeElement(String name, String type, String uom) throws WCPSException {
         if ((name == null) || (type == null)) {
-            throw new InvalidMetadataException(
+            throw new WCPSException(ExceptionCode.InvalidMetadata, 
                     "Invalid range element: Element name and type cannot be null");
         }
 
         if (name.equals("")) {
-            throw new InvalidMetadataException(
+            throw new WCPSException(ExceptionCode.InvalidMetadata, 
                     "Invalid range element: Element name cannot be empty");
         }
 
@@ -46,19 +48,23 @@ public class RangeElement implements Cloneable {
                 || type.equals("unsigned int") || type.equals("long")
                 || type.equals("unsigned long") || type.equals("float")
                 || type.equals("double") || type.equals("complex") || type.equals("complex2"))) {
-            throw new InvalidMetadataException(
+            throw new WCPSException(ExceptionCode.InvalidMetadata, 
                     "Invalid range element: Invalid element type:" + type);
         }
 
         this.name = name;
         this.type = type;
+        this.uom = uom;
+    }
 
+    public String getUom() {
+        return uom;
     }
 
     public RangeElement clone() {
         try {
-            return new RangeElement(new String(name), new String(type));
-        } catch (InvalidMetadataException ime) {
+            return new RangeElement(new String(name), new String(type), new String(uom));
+        } catch (WCPSException ime) {
             throw new RuntimeException(
                     "Invalid metadata while cloning RangeElement. This is a software bug in WCPS.",
                     ime);
@@ -143,13 +149,13 @@ public class RangeElement implements Cloneable {
 
     }
 
-    public void setType(String type) throws InvalidMetadataException {
+    public void setType(String type) throws WCPSException {
         if (!(type.equals("boolean") || type.equals("char") || type.equals("unsigned char")
                 || type.equals("short") || type.equals("unsigned short") || type.equals("int")
                 || type.equals("unsigned int") || type.equals("long")
                 || type.equals("unsigned long") || type.equals("float")
                 || type.equals("double") || type.equals("complex") || type.equals("complex2"))) {
-            throw new InvalidMetadataException(
+            throw new WCPSException(ExceptionCode.InvalidMetadata, 
                     "Invalid range element: Invalid element type:" + type);
         }
 

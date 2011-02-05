@@ -14,19 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
-import petascope.wcps.server.exceptions.InvalidMetadataException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import petascope.exceptions.ExceptionCode;
+import petascope.exceptions.WCPSException;
 
 /**
  * This is an axis in geographic coordinates. See the WCPS standard.
@@ -42,32 +42,33 @@ public class DomainElement implements Cloneable {
     private String strHi;
     private String strLo;
     private String type;
+    private String uom;
     private Collection<String> allowedAxes;
 
     public DomainElement(String name, String type, Double numLo, Double numHi, String strLo,
-            String strHi, Set<String> crss, Collection<String> axes)
-            throws InvalidMetadataException {
+            String strHi, Set<String> crss, Collection<String> axes, String uom) throws WCPSException
+            {
         this.allowedAxes = axes;
 
         if ((name == null) || (type == null)) {
-            throw new InvalidMetadataException(
+            throw new WCPSException(ExceptionCode.InvalidMetadata, 
                     "Invalid domain element: Element name and type cannot be null");
         }
 
         if (name.equals("")) {
-            throw new InvalidMetadataException(
+            throw new WCPSException(ExceptionCode.InvalidMetadata, 
                     "Invalid domain element: Element name cannot be empty");
         }
 
         if (allowedAxes.contains(type) == false) {
-            throw new InvalidMetadataException(
+            throw new WCPSException(ExceptionCode.InvalidMetadata, 
                     "Invalid domain element: Invalid element type: " + type
                     + ". Allowed element types are: " + allowedAxes.toString());
         }
 
         if ((numLo != null) && (numHi != null) && (strLo == null) && (strHi == null)) {
             if (numLo.compareTo(numHi) == 1) {
-                throw new InvalidMetadataException(
+                throw new WCPSException(ExceptionCode.InvalidMetadata, 
                         "Invalid domain element: Lower integer bound cannot be larger than upper integer bound");
             }
 
@@ -75,7 +76,7 @@ public class DomainElement implements Cloneable {
             this.numHi = numHi;
         } else if ((strLo != null) && (numHi != null) && (numLo == null) && (numHi == null)) {
             if (strLo.equals("") || strHi.equals("")) {
-                throw new InvalidMetadataException(
+                throw new WCPSException(ExceptionCode.InvalidMetadata, 
                         "Invalid domain element: String bounds cannot be empty");
             }
 
@@ -89,27 +90,27 @@ public class DomainElement implements Cloneable {
                 this.numLo = numLo;
                 this.numHi = numHi;
             } else {
-                throw new InvalidMetadataException(
+                throw new WCPSException(ExceptionCode.InvalidMetadata, 
                         "Invalid domain element: Integer bounds must both be non-null if string bounds are null, and vice versa at "
                         + name + ":" + type);
             }
         }
 
         if ((type.equals("x") || type.equals("y")) && (numLo == null)) {
-            throw new InvalidMetadataException(
+            throw new WCPSException(ExceptionCode.InvalidMetadata, 
                     "Invalid domain element: A spatial axis must have integer extent");
         } else if (type.equals("temporal") && (strLo == null)) {
-            throw new InvalidMetadataException(
+            throw new WCPSException(ExceptionCode.InvalidMetadata, 
                     "Invalid domain element: A temporal axis must have string extent");
         } else if (type.equals("t") && (numLo == null) || (numHi == null)) {
-            throw new InvalidMetadataException("Invalid domain element: A \"t\" axis must have integer extent and optionally, string extent");
+            throw new WCPSException(ExceptionCode.InvalidMetadata, "Invalid domain element: A \"t\" axis must have integer extent and optionally, string extent");
         }
 
         this.name = name;
         this.type = type;
 
         if ((crss == null) || !crss.contains(IMAGE_CRS)) {
-//			throw new InvalidMetadataException(
+//			throw new WCPSException(ExceptionCode.InvalidMetadata, 
 //			    "Invalid domain element: CRS set does not contain image CRS '"
 //			    + IMAGE_CRS + "'");
             crss.add(IMAGE_CRS);
@@ -135,8 +136,9 @@ public class DomainElement implements Cloneable {
             Double newNumHi = numHi == null ? null : new Double(numHi);
             String newStrLo = strLo == null ? null : new String(strLo);
             String newStrHi = strHi == null ? null : new String(strHi);
-            return new DomainElement(newName, newType, newNumLo, newNumHi, newStrLo, newStrHi, c, allowedAxes);
-        } catch (InvalidMetadataException ime) {
+            String newUom = uom == null ? null : new String(uom);
+            return new DomainElement(newName, newType, newNumLo, newNumHi, newStrLo, newStrHi, c, allowedAxes, newUom);
+        } catch (WCPSException ime) {
             throw new RuntimeException(
                     "Invalid metadata while cloning DomainElement. This is a software bug in WCPS.",
                     ime);
@@ -182,6 +184,10 @@ public class DomainElement implements Cloneable {
 
     public Set<String> getCrsSet() {
         return crss;
+    }
+
+    public String getUom() {
+        return uom;
     }
 
     @Override

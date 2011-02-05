@@ -14,16 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
-import petascope.wcps.server.exceptions.InvalidCrsException;
-import petascope.wcps.server.exceptions.WCPSException;
+import petascope.exceptions.WCPSException;
 import java.util.ArrayList;
 import java.util.List;
 import org.w3c.dom.*;
@@ -33,7 +31,7 @@ public class DimensionIntervalList {
     private ArrayList<IRasNode> list;
 
     public DimensionIntervalList(Node node, XmlQuery xq, CoverageInfo info)
-            throws WCPSException, InvalidCrsException {
+            throws WCPSException {
         System.err.println("Parsing a Dimension Interval List ...");
 
         while (node != null) {

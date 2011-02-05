@@ -3,6 +3,11 @@
     <description>PetaScope project offers WCS, WCPS and WCS-T services.</description>
     <display-name>PetaScope</display-name>
     <servlet>
+        <description>WCS 2.0 Service</description>
+        <servlet-name>Wcs2Servlet</servlet-name>
+        <servlet-class>petascope.wcs2.Wcs2Servlet</servlet-class>
+    </servlet>
+    <servlet>
         <description>WCPS Service</description>
         <servlet-name>wcpsServlet</servlet-name>
         <servlet-class>wcps.server.servlet.WCPSServlet</servlet-class>
@@ -23,6 +28,10 @@
     <servlet-mapping>
         <servlet-name>wcstServlet</servlet-name>
         <url-pattern>/wcst</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Wcs2Servlet</servlet-name>
+        <url-pattern>/wcs2</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PetaScope Interface</servlet-name>

@@ -1,22 +1,8 @@
 package petascope.wcs.server.cli;
 
-import petascope.wcs.server.core.executeGetCapabilities;
-import petascope.wcs.server.exceptions.WCSException;
-import petascope.wcs.server.core.convertGetCoverage;
-import petascope.wcs.server.core.executeDescribeCoverage;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-import net.opengis.ows.v_1_0_0.ExceptionReport;
-import net.opengis.wcs.v_1_1_0.Capabilities;
-import net.opengis.wcs.v_1_1_0.CoverageDescriptions;
-import net.opengis.wcs.v_1_1_0.DescribeCoverage;
-import net.opengis.wcs.v_1_1_0.GetCapabilities;
-import net.opengis.wcs.v_1_1_0.GetCoverage;
-//import wcs.server.core.ProcessCoverage;
 
 /**
  * Command Line Interface class, for testing the WCS Server operation

@@ -14,18 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
-import petascope.wcps.server.exceptions.InvalidCrsException;
-import petascope.wcps.server.exceptions.WCPSException;
+import petascope.exceptions.WCPSException;
 import java.math.BigInteger;
 import org.w3c.dom.*;
+import petascope.exceptions.ExceptionCode;
 
 public class AxisIterator implements IRasNode {
 
@@ -33,11 +32,10 @@ public class AxisIterator implements IRasNode {
     private AxisName axis;
     private NumericScalarExpr hi, lo;
 
-    public AxisIterator(Node node, XmlQuery xq, String newIteratorName) throws WCPSException, InvalidCrsException {
+    public AxisIterator(Node node, XmlQuery xq, String newIteratorName) throws WCPSException {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
-        System.err.println("Trying to parse AxisIterator ");
 
         while (node != null) {
             String nodeName = node.getNodeName();
@@ -57,7 +55,8 @@ public class AxisIterator implements IRasNode {
                 } else if (hi == null) {
                     hi = new NumericScalarExpr(node, xq);
                 } else {
-                    throw new WCPSException("Unknown node in AxisIterator: " + nodeName);
+                    throw new WCPSException(ExceptionCode.UnsupportedCombination,
+                            "Unknown node in AxisIterator: " + nodeName);
                 }
             }
 

@@ -14,16 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcs.server.core;
 
-//~--- non-JDK imports --------------------------------------------------------
-import petascope.wcs.server.exceptions.WCSException;
+import petascope.core.Metadata;
+import petascope.core.DbMetadataSource;
+import petascope.exceptions.WCSException;
+import petascope.exceptions.ExceptionCode;
 import net.opengis.ows.v_1_0_0.BoundingBoxType;
 import net.opengis.wcs.ows.v_1_1_0.DomainMetadataType;
 import net.opengis.wcs.ows.v_1_1_0.InterpolationMethodType;
@@ -36,13 +37,8 @@ import net.opengis.wcs.v_1_1_0.DescribeCoverage;
 import net.opengis.wcs.v_1_1_0.FieldType;
 import net.opengis.wcs.v_1_1_0.RangeType;
 import net.opengis.wcs.v_1_1_0.SpatialDomainType;
-
 import petascope.wcps.server.core.*;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.util.Iterator;
-
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -51,8 +47,6 @@ import net.opengis.wcs.ows.v_1_1_0.AnyValue;
 import net.opengis.wcs.v_1_1_0.TimeSequenceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import petascope.wcs.server.exceptions.InvalidParameterValueException;
-import petascope.wcs.server.exceptions.NoApplicableCodeException;
 
 /**
  * This class takes a WCS DescribeCoverage XML request and executes request,
@@ -62,7 +56,7 @@ import petascope.wcs.server.exceptions.NoApplicableCodeException;
  */
 public class executeDescribeCoverage {
 
-    private static Logger LOG = LoggerFactory.getLogger(executeDescribeCoverage.class);
+    private static Logger log = LoggerFactory.getLogger(executeDescribeCoverage.class);
     private boolean finished;
     private DescribeCoverage input;
     private DbMetadataSource meta;
@@ -92,7 +86,7 @@ public class executeDescribeCoverage {
             process();
         }
         if (finished == false) {
-            throw new NoApplicableCodeException("Could not execute the GetCapabilities request! "
+            throw new WCSException(ExceptionCode.NoApplicableCode, "Could not execute the GetCapabilities request! "
                     + "Please see the other errors...");
         }
 
@@ -118,12 +112,12 @@ public class executeDescribeCoverage {
      * @return CoverageDescriptionType object, that can just be plugged in the respose object
      */
     private CoverageDescriptionType getCoverageDescription(String name) throws WCSException {
-        LOG.trace("Building coverage description for coverage '" + name + "' ...");
+        log.trace("Building coverage description for coverage '" + name + "' ...");
         CoverageDescriptionType desc = new CoverageDescriptionType();
 
         // Error checking: is the coverage available?
         if (meta.existsCoverageName(name) == false) {
-            throw new InvalidParameterValueException("Identifier. Explanation: Coverage "
+            throw new WCSException(ExceptionCode.InvalidParameterValue, "Identifier. Explanation: Coverage "
                     + name + " is not served by this server !");
         }
 
@@ -133,7 +127,7 @@ public class executeDescribeCoverage {
         try {
             cov = meta.read(name);
         } catch (Exception e) {
-            throw new NoApplicableCodeException("Metadata for coverage " + name + " is not valid.");
+            throw new WCSException(ExceptionCode.NoApplicableCode, "Metadata for coverage " + name + " is not valid.");
         }
 
         desc.setIdentifier(name);
@@ -169,7 +163,7 @@ public class executeDescribeCoverage {
             bbox.getUpperCorner().add(hi1);
             bbox.getUpperCorner().add(hi2);
         } else {
-            throw new NoApplicableCodeException("Internal error: Could "
+            throw new WCSException(ExceptionCode.NoApplicableCode, "Internal error: Could "
                     + "not find X and Y cell domain extents.");
         }
 
@@ -202,7 +196,7 @@ public class executeDescribeCoverage {
         /* Find a time-axis if exists */
         CellDomainElement T = cov.getTCellDomain();
         if (T != null) {
-            LOG.trace("Found time-axis for coverage: [" + T.getLo() + ", " + T.getHi() + "]");
+            log.trace("Found time-axis for coverage: [" + T.getLo() + ", " + T.getHi() + "]");
             TimeSequenceType temporal = new TimeSequenceType();
             temporal.getTimePositionOrTimePeriod().add(T.getLo().intValue());
             temporal.getTimePositionOrTimePeriod().add(T.getHi().intValue());
@@ -269,7 +263,7 @@ public class executeDescribeCoverage {
             desc.getSupportedCRS().add(DomainElement.WGS84_CRS);
         }
 
-        LOG.trace("Done building the Coverage Description for coverage '" + name + "'.");
+        log.trace("Done building the Coverage Description for coverage '" + name + "'.");
 
         return desc;
     }

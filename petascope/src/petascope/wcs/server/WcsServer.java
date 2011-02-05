@@ -14,15 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcs.server;
 
-//~--- non-JDK imports --------------------------------------------------------
 import javax.servlet.ServletException;
 import net.opengis.ows.v_1_0_0.ExceptionReport;
 import net.opengis.wcs.v_1_1_0.Capabilities;
@@ -30,23 +28,19 @@ import net.opengis.wcs.v_1_1_0.CoverageDescriptions;
 import net.opengis.wcs.v_1_1_0.DescribeCoverage;
 import net.opengis.wcs.v_1_1_0.GetCapabilities;
 import net.opengis.wcs.v_1_1_0.GetCoverage;
-
-import petascope.wcps.server.core.DbMetadataSource;
+import petascope.core.DbMetadataSource;
+import petascope.exceptions.PetascopeException;
 import petascope.wcps.server.core.WCPS;
-import petascope.wcps.server.exceptions.WCPSException;
-import petascope.wcs.server.exceptions.WCSException;
+import petascope.exceptions.WCPSException;
+import petascope.exceptions.WCSException;
+import petascope.exceptions.ExceptionCode;
 import petascope.wcs.server.core.convertGetCoverage;
 import petascope.wcs.server.core.executeDescribeCoverage;
 import petascope.wcs.server.core.executeGetCapabilities;
-
 import petascope.ConfigManager;
 import petascope.PetascopeXmlNamespaceMapper;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.io.StringReader;
 import java.io.StringWriter;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -55,8 +49,6 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import petascope.wcs.server.exceptions.InternalComponentException;
-import petascope.wcs.server.exceptions.XmlStructuresException;
 
 /**
  * The Web Coverage Service (WcsServer)
@@ -69,7 +61,7 @@ import petascope.wcs.server.exceptions.XmlStructuresException;
  */
 public class WcsServer {
 
-    private static Logger LOG = LoggerFactory.getLogger(WcsServer.class);
+    private static Logger log = LoggerFactory.getLogger(WcsServer.class);
 
     /* Status variable */
     private static Boolean ok;
@@ -91,26 +83,26 @@ public class WcsServer {
     /**
      * WcsServer GetCapabilities operation
      */
-    public String GetCapabilities(String stringXml) throws WCSException {
+    public String GetCapabilities(String stringXml) throws WCSException, PetascopeException {
         String output = "Default output. ";
 
         try {
             // read the input XML
-            LOG.trace("Reading the input XML file ... ");
+            log.trace("Reading the input XML file ... ");
             JAXBContext context = JAXBContext.newInstance("net.opengis.wcs.v_1_1_0");
             Unmarshaller unmarshaller = context.createUnmarshaller();
             Object xml = unmarshaller.unmarshal(new StringReader(stringXml));
 
             // Find out which class to execute ...
-            LOG.trace("It is a " + xml.getClass().getSimpleName() + " request.");
+            log.trace("It is a " + xml.getClass().getSimpleName() + " request.");
 
-            LOG.trace("Compiling data into XML format for GetCapabilities ... ");
+            log.trace("Compiling data into XML format for GetCapabilities ... ");
             GetCapabilities input = (GetCapabilities) xml;
             Capabilities cap = new executeGetCapabilities(input, meta).get();
 
 
             // Write the output
-            LOG.trace("MArshalling with context: " + cap.getClass().getPackage().getName());
+            log.trace("MArshalling with context: " + cap.getClass().getPackage().getName());
             final StringWriter writer = new StringWriter();
             try {
                 context = JAXBContext.newInstance(cap.getClass());
@@ -127,15 +119,15 @@ public class WcsServer {
                 throw new RuntimeException(e.getMessage(), e);
             }
             output = writer.toString();
-            LOG.trace("Done! User has the GetCapabilities result !");
+            log.trace("Done! User has the GetCapabilities result !");
 
         } catch (javax.xml.bind.JAXBException ex) {
-            throw new XmlStructuresException("Could not marshall/unmarshall XML structures.", ex);
+            throw new WCSException(ExceptionCode.XmlStructuresError, "Could not marshall/unmarshall XML structures.", ex);
         }
 
-        LOG.trace("---------------------OUTPUT--------------------------");
-        LOG.trace(output);
-        LOG.trace("-----------------------------------------------------");
+        log.trace("---------------------OUTPUT--------------------------");
+        log.trace(output);
+        log.trace("-----------------------------------------------------");
 
         return output;
     }
@@ -148,28 +140,28 @@ public class WcsServer {
 
         try {
             // read the input XML
-            LOG.trace("Reading the input XML file ... ");
+            log.trace("Reading the input XML file ... ");
             JAXBContext context = JAXBContext.newInstance("net.opengis.wcs.v_1_1_0");
             Unmarshaller unmarshaller = context.createUnmarshaller();
             Object xml = unmarshaller.unmarshal(new StringReader(stringXml));
 
-            LOG.trace("It is a " + xml.getClass().getSimpleName() + " request.");
+            log.trace("It is a " + xml.getClass().getSimpleName() + " request.");
 
             // Convert the WcsServer into WCPS
-            LOG.trace("Converting to WCPS request ... please wait");
+            log.trace("Converting to WCPS request ... please wait");
             GetCoverage wcs = (GetCoverage) xml;
 
             output = new convertGetCoverage(wcs, meta).get();
-            LOG.trace("Done! User has his WCPS request !");
+            log.trace("Done! User has his WCPS request !");
         } catch (JAXBException ex) {
-            throw new XmlStructuresException("Could not marshall/unmarshall XML structures.", ex);
+            throw new WCSException(ExceptionCode.XmlStructuresError, "Could not marshall/unmarshall XML structures.", ex);
         } catch (WCPSException e) {
-            throw new InternalComponentException(e.getMessage(), e);
+            throw new WCSException(ExceptionCode.InternalComponentError, e.getMessage(), e);
         }
 
-        LOG.trace("---------------------OUTPUT--------------------------");
-        LOG.trace(output);
-        LOG.trace("-----------------------------------------------------");
+        log.trace("---------------------OUTPUT--------------------------");
+        log.trace(output);
+        log.trace("-----------------------------------------------------");
 
         return output;
     }
@@ -182,19 +174,19 @@ public class WcsServer {
 
         try {
             // read the input XML
-            LOG.trace("Reading the input XML file ... ");
+            log.trace("Reading the input XML file ... ");
             JAXBContext context = JAXBContext.newInstance("net.opengis.wcs.v_1_1_0");
             Unmarshaller unmarshaller = context.createUnmarshaller();
             Object xml = unmarshaller.unmarshal(new StringReader(stringXml));
 
-            LOG.trace("It is a " + xml.getClass().getSimpleName() + " request.");
+            log.trace("It is a " + xml.getClass().getSimpleName() + " request.");
 
-            LOG.trace("Querying the WCPS architecture for the details on this coverage ...");
+            log.trace("Querying the WCPS architecture for the details on this coverage ...");
             DescribeCoverage input = (DescribeCoverage) xml;
             CoverageDescriptions covs = new executeDescribeCoverage(input, meta).get();
 
             // Write the output file
-            LOG.trace("Marshalling with context: " + covs.getClass().getPackage().getName());
+            log.trace("Marshalling with context: " + covs.getClass().getPackage().getName());
             final StringWriter writer = new StringWriter();
             try {
                 context = JAXBContext.newInstance(covs.getClass());
@@ -211,14 +203,14 @@ public class WcsServer {
                 throw new RuntimeException(e.getMessage(), e);
             }
             output = writer.toString();
-            LOG.trace("Done! User has the DescribeCoverage result !");
+            log.trace("Done! User has the DescribeCoverage result !");
         } catch (JAXBException ex) {
-            throw new XmlStructuresException("Could not marshall/unmarshall XML structures.", ex);
+            throw new WCSException(ExceptionCode.XmlStructuresError, "Could not marshall/unmarshall XML structures.", ex);
         }
 
-        LOG.trace("---------------------OUTPUT--------------------------");
-        LOG.trace(output);
-        LOG.trace("-----------------------------------------------------");
+        log.trace("---------------------OUTPUT--------------------------");
+        log.trace(output);
+        log.trace("-----------------------------------------------------");
 
         return output;
     }
@@ -239,10 +231,10 @@ public class WcsServer {
             marshaller.marshal(report, strWriter);
             output = strWriter.toString();
             ok = true;
-            LOG.trace("Done marshalling Error Report.");
+            log.trace("Done marshalling Error Report.");
         } catch (Exception e2) {
-            LOG.error("Error marshalling Exception Report.");
-            LOG.error("Stack trace: " + e2);
+            log.error("Error marshalling Exception Report.");
+            log.error("Stack trace: " + e2);
         }
 
         return output;

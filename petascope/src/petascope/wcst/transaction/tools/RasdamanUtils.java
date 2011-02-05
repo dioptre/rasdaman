@@ -14,40 +14,31 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcst.transaction.tools;
 
-//~--- non-JDK imports --------------------------------------------------------
 import org.odmg.DBag;
 import org.odmg.Database;
 import org.odmg.Implementation;
 import org.odmg.ODMGException;
 import org.odmg.OQLQuery;
 import org.odmg.Transaction;
-
 import rasj.RasGMArray;
 import rasj.RasImplementation;
 import rasj.RasMInterval;
 import rasj.RasResultIsNoIntervalException;
-
-import petascope.wcs.server.exceptions.WCSException;
-
-//~--- JDK imports ------------------------------------------------------------
-
+import petascope.exceptions.WCSException;
+import petascope.exceptions.ExceptionCode;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
-
 import java.io.ByteArrayInputStream;
-
 import java.util.Iterator;
-import org.odmg.QueryException;
-import petascope.wcs.server.exceptions.InternalComponentException;
+import petascope.exceptions.RasdamanException;
 
 /**
  * Utility class for doing various tasks that involve the Rasdaman server.
@@ -83,7 +74,7 @@ public class RasdamanUtils {
      * Opens a new connection to the Rasdaman server, and starts a new transaction.
      * @throws WCSException on connection error
      */
-    public void init() throws WCSException {
+    public void init() throws RasdamanException {
         try {
             if (myApp == null) {
                 myApp = new RasImplementation(server);
@@ -99,7 +90,8 @@ public class RasdamanUtils {
                 myTa.begin();
             }
         } catch (ODMGException e) {
-            throw new InternalComponentException("Could not connect to the Rasdaman server !", e);
+            throw new RasdamanException(ExceptionCode.InternalComponentError,
+                    "Could not connect to the Rasdaman server !", e);
         }
     }
 
@@ -257,7 +249,7 @@ public class RasdamanUtils {
         }
     }
 
-    public void insertGrayImageAsArray(String name, BufferedImage img) throws ODMGException, InternalComponentException {
+    public void insertGrayImageAsArray(String name, BufferedImage img) throws ODMGException, RasdamanException {
         log("Creating grey image ...");
         RasGMArray myMDD = createMddFromImage(img);
         // set up query object for collection creation:
@@ -422,7 +414,7 @@ public class RasdamanUtils {
 //      commitAndClose();
     }
 
-    public RasGMArray createMddFromImage(BufferedImage img) throws InternalComponentException {
+    public RasGMArray createMddFromImage(BufferedImage img) throws RasdamanException {
         String interval = null;
         try {
             int cols = img.getWidth();
@@ -456,7 +448,7 @@ public class RasdamanUtils {
 
             return myMDD;
         } catch (RasResultIsNoIntervalException e) {
-            throw new InternalComponentException("Illegal Interval String: " + interval, e);
+            throw new RasdamanException(ExceptionCode.InternalComponentError, "Illegal Interval String: " + interval, e);
         }
     }
 

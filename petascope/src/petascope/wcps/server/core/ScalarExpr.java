@@ -14,23 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
-import petascope.wcps.server.exceptions.InvalidCrsException;
-import petascope.wcps.server.exceptions.WCPSException;
-import petascope.wcps.server.exceptions.InvalidMetadataException;
+import petascope.core.Metadata;
+import petascope.exceptions.WCPSException;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import org.w3c.dom.*;
+import petascope.exceptions.PetascopeException;
 
 public class ScalarExpr implements IRasNode, ICoverageInfo {
 
@@ -39,7 +38,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
     private boolean singleNumericValue = false;
     private double dvalue;
 
-    public ScalarExpr(Node node, XmlQuery xq) throws WCPSException, InvalidCrsException {
+    public ScalarExpr(Node node, XmlQuery xq) throws WCPSException {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
@@ -147,18 +146,18 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
         HashSet<String> crsset = new HashSet<String>();
         crsset.add(crs);
         Collection<String> allowedAxes = xq.getMetadataSource().getAxisNames();
-        DomainElement domain = new DomainElement("x", "x", 1.0, 1.0, null, null, crsset, allowedAxes);
+        DomainElement domain = new DomainElement("x", "x", 1.0, 1.0, null, null, crsset, allowedAxes, null);
         domainList.add(domain);
         // "unsigned int" is default datatype
-        rangeList.add(new RangeElement("dynamic_type", "unsigned int"));
+        rangeList.add(new RangeElement("dynamic_type", "unsigned int", null));
 
         try {
             Metadata metadata = new Metadata(cellDomainList, rangeList, nullSet,
                     nullDefault, interpolationSet, interpolationDefault,
-                    coverageName, domainList, null);
+                    coverageName, "GridCoverage", domainList, null); // FIXME
             return metadata;
-        } catch (InvalidMetadataException e) {
-            throw new WCPSException("Could not build metadata for scalar expression !", e);
+        } catch (PetascopeException ex) {
+            throw (WCPSException) ex;
         }
     }
 

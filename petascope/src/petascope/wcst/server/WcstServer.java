@@ -14,33 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcst.server;
 
-//~--- non-JDK imports --------------------------------------------------------
 import petascope.ConfigManager;
 import net.opengis.ows.v_1_0_0.ExceptionReport;
-
+import petascope.exceptions.PetascopeException;
+import petascope.exceptions.RasdamanException;
+import petascope.exceptions.WCPSException;
+import petascope.exceptions.WCSTException;
 import petascope.wcst.transaction.ServiceFirewall;
 import petascope.wcst.transaction.executeAsyncTransaction;
 import petascope.wcst.transaction.executeTransaction;
 import wcst.transaction.schema.AcknowledgementType;
 import wcst.transaction.schema.TransactionResponseType;
 import wcst.transaction.schema.TransactionType;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.io.StringReader;
 import java.io.StringWriter;
-
 import java.util.Date;
 import java.util.GregorianCalendar;
-
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -56,11 +52,9 @@ import javax.xml.stream.XMLStreamWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.PetascopeXmlNamespaceMapper;
-import petascope.wcps.server.core.DbMetadataSource;
-import petascope.wcs.server.exceptions.InvalidPropertyValueException;
-import petascope.wcs.server.exceptions.MaliciousQueryException;
-import petascope.wcs.server.exceptions.WCSException;
-import petascope.wcs.server.exceptions.XmlStructuresException;
+import petascope.core.DbMetadataSource;
+import petascope.exceptions.WCSException;
+import petascope.exceptions.ExceptionCode;
 
 /**
  * The Web Coverage Service, with the Transactional extension (WcstServer)
@@ -69,7 +63,7 @@ import petascope.wcs.server.exceptions.XmlStructuresException;
  */
 public class WcstServer {
 
-    private static Logger LOG = LoggerFactory.getLogger(WcstServer.class);
+    private static Logger log = LoggerFactory.getLogger(WcstServer.class);
     private static Boolean finished;
     private boolean synchronous = true;
     private String responseHandler;
@@ -85,22 +79,22 @@ public class WcstServer {
         /* Check user settings */
         String cfg = ConfigManager.WCST_DEFAULT_DATATYPE;
         if (source.getDataTypes().contains(cfg) == false) {
-            throw new InvalidPropertyValueException("The following setting is not a valid datatype: " + cfg);
+            throw new WCSException(ExceptionCode.InvalidPropertyValue, "The following setting is not a valid datatype: " + cfg);
         }
         cfg = ConfigManager.WCST_DEFAULT_INTERPOLATION;
         if (source.getInterpolationTypes().contains(cfg) == false) {
-            throw new InvalidPropertyValueException("The following setting is not a valid interpolation method: " + cfg);
+            throw new WCSException(ExceptionCode.InvalidPropertyValue, "The following setting is not a valid interpolation method: " + cfg);
         }
         cfg = ConfigManager.WCST_DEFAULT_NULL_RESISTANCE;
         if (source.getNullResistances().contains(cfg) == false) {
-            throw new InvalidPropertyValueException("The following setting is not a valid null resistance: " + cfg);
+            throw new WCSException(ExceptionCode.InvalidPropertyValue, "The following setting is not a valid null resistance: " + cfg);
         }
     }
 
     /**
      * Web service operation
      */
-    public String Transaction(String stringXml) {
+    public String Transaction(String stringXml) throws WCSTException, RasdamanException, WCPSException, PetascopeException {
         // Actual contents of these two strings do not matter
         String output = "Default output. ";
         String errmsg = "No error. ";
@@ -110,12 +104,12 @@ public class WcstServer {
             try {
                 // Check if Firewall allows the query
                 if (ServiceFirewall.reject(stringXml)) {
-                    throw new MaliciousQueryException("WCS-T Service Firewall "
+                    throw new WCSException(ExceptionCode.MaliciousQuery, "WCS-T Service Firewall "
                             + "refused to run possibly malitious query.");
                 }
 
                 // read the input XML
-                LOG.debug("Reading the input XML file ... ");
+                log.debug("Reading the input XML file ... ");
                 JAXBContext context = JAXBContext.newInstance(
                         TransactionType.class.getPackage().getName());
                 Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -149,7 +143,8 @@ public class WcstServer {
 
                 /** Synchronous operation */
                 if (synchronous == true) {
-                    TransactionResponseType response = exec.get();
+                    TransactionResponseType response = null;
+                    exec.get();
                     JAXBElement jaxbOutput =
                             new JAXBElement(
                             new QName("http://www.opengis.net/wcs/1.1/wcst",
@@ -157,7 +152,7 @@ public class WcstServer {
                             TransactionResponseType.class, response);
 
                     // Write the output xml to a string
-                    LOG.debug("Marshalling with context: " + response.getClass().getPackage().getName());
+                    log.debug("Marshalling with context: " + response.getClass().getPackage().getName());
                     final StringWriter writer = new StringWriter();
                     try {
                         context = JAXBContext.newInstance(response.getClass());
@@ -173,7 +168,7 @@ public class WcstServer {
                         throw new RuntimeException(e.getMessage(), e);
                     }
                     output = writer.toString();
-                    LOG.debug("Done! User has the TransactionResponse result !");
+                    log.debug("Done! User has the TransactionResponse result !");
                 } else /** Asynchronous operation */
                 {
                     /* (1) Create acknowledgement that we received the request */
@@ -200,8 +195,8 @@ public class WcstServer {
 
                     marshaller.marshal(jaxbOutput, strWriter);
                     output = strWriter.toString();
-                    LOG.debug("Created the acknowledgement of the request !");
-                    LOG.debug("Now starting to asynchronously execute the transaction...");
+                    log.debug("Created the acknowledgement of the request !");
+                    log.debug("Now starting to asynchronously execute the transaction...");
 
                     /* (3) Start asynchronous processing */
                     executeAsyncTransaction execAsync = new executeAsyncTransaction(exec,
@@ -212,12 +207,12 @@ public class WcstServer {
                 finished = true;
 
             } catch (JAXBException e) {
-                throw new XmlStructuresException("Could not marshall/unmarshall XML structures.", e);
+                throw new WCSException(ExceptionCode.XmlStructuresError, "Could not marshall/unmarshall XML structures.", e);
             } catch (DatatypeConfigurationException e) {
-                throw new XmlStructuresException("Could not build request acknowledgement. ", e);
+                throw new WCSException(ExceptionCode.XmlStructuresError, "Could not build request acknowledgement. ", e);
             }
         } catch (WCSException e) {
-            LOG.info("Caught WCST Exception");
+            log.info("Caught WCST Exception");
             ExceptionReport report = e.getReport();
 
             try {
@@ -232,12 +227,12 @@ public class WcstServer {
                 marshaller.marshal(report, strWriter);
                 output = strWriter.toString();
                 finished = true;
-                LOG.error("WCS-T Exception: " + e.getErrorCode() + ", with message '"
-                        + e.getErrorDetail() + "'");
-                LOG.debug("Done with the Error Report !");
+                log.error("WCS-T Exception: " + e.getExceptionCode() + ", with message '"
+                        + e.getExceptionText() + "'");
+                log.debug("Done with the Error Report !");
             } catch (JAXBException e2) {
                 errmsg = e2.getMessage();
-                LOG.error("Could not build XML error report. Stack trace: " + e2);
+                log.error("Could not build XML error report. Stack trace: " + e2);
             }
         }
 

@@ -14,31 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcst.transaction.tools;
 
-//~--- non-JDK imports --------------------------------------------------------
 import java.awt.Graphics;
 import java.awt.Panel;
 import org.odmg.*;
-
 import rasj.*;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.awt.image.BufferedImage;
-
 import java.io.IOException;
-
 import java.net.URL;
-
 import javax.imageio.ImageIO;
-
 import javax.swing.JFrame;
 
 /** Test class for various Rasdaman tasks. Comment/uncomment the lines in the

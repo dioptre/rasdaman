@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
-import petascope.wcps.server.exceptions.InvalidMetadataException;
+import petascope.exceptions.ExceptionCode;
+import petascope.exceptions.WCPSException;
 
 /**
  * Represents a WGS Coordinate Reference System (CRS) and its bounding box.
@@ -37,14 +37,13 @@ public class Wgs84Crs implements Cloneable {
     private Double low1, high1, low2, high2;
     private Double offset1, offset2;        // precomputed world-to-crs offsets
 
-    public Wgs84Crs(Double l1, Double h1, Double l2, Double h2, Double o1, Double o2)
-            throws InvalidMetadataException {
+    public Wgs84Crs(Double l1, Double h1, Double l2, Double h2, Double o1, Double o2) throws WCPSException {
         if ((l1 == null) || (h1 == null) || (l2 == null) || (h2 == null)) {
-            throw new InvalidMetadataException(
+            throw new WCPSException(ExceptionCode.InvalidMetadata,
                     "Invalid WGS 84 bounding box: null element encountered.");
         }
         if ((o1 == null) || (o2 == null)) {
-            throw new InvalidMetadataException("Invalid WGS 84 offsets: null element encountered.");
+            throw new WCPSException(ExceptionCode.InvalidMetadata, "Invalid WGS 84 offsets: null element encountered.");
         }
 
         low1 = l1;
@@ -61,7 +60,7 @@ public class Wgs84Crs implements Cloneable {
             return new Wgs84Crs(new Double(getLow1()), new Double(getHigh1()),
                     new Double(getLow2()), new Double(getHigh2()),
                     new Double(getOffset1()), new Double(getOffset2()));
-        } catch (InvalidMetadataException e) {
+        } catch (WCPSException e) {
             return null;
         }
     }

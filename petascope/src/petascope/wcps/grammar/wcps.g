@@ -23,9 +23,9 @@ language=Java;
 output=AST;
 }
 @header
-{package petascope.wcps.grammar;}
+{package petascope.wcps.grammar;}}
 @lexer::header
-{package petascope.wcps.grammar;}
+{package petascope.wcps.grammar;}}
 
 /* Parser Rules */
 

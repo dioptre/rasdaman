@@ -14,30 +14,31 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
+
 //A pair of an interpolation type and a null resistance. See the WCPS standard for an explanation of these.
-import petascope.wcps.server.exceptions.InvalidMetadataException;
+import petascope.exceptions.ExceptionCode;
+import petascope.exceptions.WCPSException;
 
 public class InterpolationMethod implements Cloneable {
 
     private String interpolationType;
     private String nullResistance;
 
-    public InterpolationMethod(String interpolationType, String nullResistance)
-            throws InvalidMetadataException {
+    public InterpolationMethod(String interpolationType, String nullResistance) throws WCPSException
+            {
         if ((interpolationType == null)
                 || !(interpolationType.equals("nearest") || interpolationType.equals("linear")
                 || interpolationType.equals("cubic")
                 || interpolationType.equals("quadratic")
                 || interpolationType.equals("none"))) {
-            throw new InvalidMetadataException("Invalid interpolation method: "
+            throw new WCPSException(ExceptionCode.InvalidMetadata, "Invalid interpolation method: "
                     + interpolationType
                     + " is not a legal interpolation type");
         }
@@ -47,7 +48,7 @@ public class InterpolationMethod implements Cloneable {
         if ((nullResistance == null)
                 || !(nullResistance.equals("full") || nullResistance.equals("none")
                 || nullResistance.equals("half") || nullResistance.equals("other"))) {
-            throw new InvalidMetadataException("Invalid interpolation method: "
+            throw new WCPSException(ExceptionCode.InvalidMetadata, "Invalid interpolation method: "
                     + nullResistance
                     + " is not a legal null resistance");
         }
@@ -59,7 +60,7 @@ public class InterpolationMethod implements Cloneable {
     public InterpolationMethod clone() {
         try {
             return new InterpolationMethod(interpolationType, nullResistance);
-        } catch (InvalidMetadataException ime) {
+        } catch (WCPSException ime) {
             throw new RuntimeException(
                     "Invalid metadata while cloning InterpolationMethod. This is a software bug in WCPS.",
                     ime);

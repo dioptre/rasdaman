@@ -14,17 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 package petascope.wcps.server.core;
 
-import petascope.wcps.server.exceptions.WCPSException;
+import petascope.core.IDynamicMetadataSource;
+import petascope.exceptions.WCPSException;
 import java.util.Collection;
 import org.w3c.dom.*;
+import petascope.exceptions.ExceptionCode;
 
 public class AxisName implements IRasNode {
 
@@ -45,10 +46,10 @@ public class AxisName implements IRasNode {
             if (axisNames.contains(axis)) {
                 this.name = axis;
             } else {
-                throw new WCPSException("Unknown axis name " + axis);
+                throw new WCPSException(ExceptionCode.InvalidRequest, "Unknown axis name " + axis);
             }
         } else {
-            throw new WCPSException("Could not find an axis node !");
+            throw new WCPSException(ExceptionCode.InvalidRequest, "Could not find an axis node !");
         }
     }
 

@@ -14,8 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
- rasdaman GmbH.
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
  *
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
@@ -25,26 +24,17 @@ package petascope.wcps.server.servlet;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
-
-//This is the servlet interface of WCPS. It mostly consists of sanity checks and initialization,
-//the meat is onyl a few lines. The WCPS class does the actual work.
-
-import petascope.wcps.server.core.DbMetadataSource;
+import petascope.core.DbMetadataSource;
 import petascope.wcps.server.core.ProcessCoveragesRequest;
 import petascope.wcps.server.core.WCPS;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -52,9 +42,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
-//Note an important limitation: this will only return the first result if several are available. 
+//important limitation: this will only return the first result if several are available.
 //The reason is that WCPS currently has no standardized way to return multiple byte streams to
 //the user.
+//This is the servlet interface of WCPS. It mostly consists of sanity checks and initialization,
+//the meat is onyl a few lines. The WCPS class does the actual work.
 public class WCPSServlet extends HttpServlet {
 
     private Properties dbParams;
