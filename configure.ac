@@ -34,7 +34,7 @@ AC_CHECK_PROGS(YACC, bison, [${am_missing_run} bison])
 AC_CHECK_LIB([crypt], [main], , [AC_MSG_FAILURE([libcrypt.a not found! Please install.])])
 AC_CHECK_LIB([crypto], [EVP_DigestFinal], , [AC_MSG_FAILURE([libcrypto.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-ldf':
-AC_CHECK_LIB([df], [main], , [AC_MSG_FAILURE([libdf.a not found! Please install.])])
+#AC_CHECK_LIB([df], [main], , [AC_MSG_FAILURE([libdf.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-ldl':
 AC_CHECK_LIB([dl], [main], , [AC_MSG_FAILURE([libdl.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lfl':
@@ -42,9 +42,9 @@ AC_CHECK_LIB([fl], [main], , [AC_MSG_FAILURE([libfl.a not found! Please install.
 # FIXME: Replace `main' with a function in `-ljpeg':
 AC_CHECK_LIB([jpeg], [main], , [AC_MSG_FAILURE([libjpeg.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lm':
-AC_CHECK_LIB([m], [main], , [AC_MSG_FAILURE([libm.a not found! Please install.])])
+#AC_CHECK_LIB([m], [main], , [AC_MSG_FAILURE([libm.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lmfhdf':
-AC_CHECK_LIB([mfhdf], [main], , [AC_MSG_FAILURE([libmfhdf.a not found! Please install.])])
+#AC_CHECK_LIB([mfhdf], [main], , [AC_MSG_FAILURE([libmfhdf.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lncurses':
 AC_CHECK_LIB([ncurses], [main], , [AC_MSG_FAILURE([libncurses.a not found! Please install.])])
 AC_CHECK_LIB([png], [png_write_row], , [AC_MSG_FAILURE([libpng.a not found! Please install.])])
@@ -140,6 +140,7 @@ AC_CONFIG_FILES([Makefile
 ####################################################################
 AH_TEMPLATE([DEBUG], [Enables debug functionality])
 AH_TEMPLATE([RMANDEBUG], [Enables debug functionality])
+AH_TEMPLATE([HAVE_HDF], [Checks whether HDF is installed])
 AH_TEMPLATE([RMANVERSION], [The version of Rasdaman currently compiled])
 AH_TEMPLATE([BASEDB_PGSQL], [If defined we are compiling over PostgreSQL])
 AH_TEMPLATE([__NO_MATH_INLINES], [Used by some performance implementaion of math libraries.])   
@@ -157,6 +158,21 @@ AH_TEMPLATE([CONFDIR], [The directory where the installed programs will find the
 # --------------- Parameter Definition -----------------------------
 ####################################################################
 AC_PRESERVE_HELP_ORDER
+AC_ARG_WITH([hdf],
+	    [AS_HELP_STRING([--with-hdf],
+	      [this feature enables the inclusion of hdf library during installation.])],
+	    [],
+	    [with_hdf=no])
+
+AC_MSG_NOTICE(using hdf library...$with_hdf)
+
+if test "$with_hdf" == yes; then
+  AC_CHECK_LIB([df], [main], ,[AC_MSG_FAILURE([--with-hdf was given but libdf.a was not found! Please install.])]) 
+  AC_CHECK_LIB([mfhdf], [main], ,[AC_MSG_FAILURE([--with-hdf was given but libmfhdf.a was not found! Please install.])])
+  AC_DEFINE([HAVE_HDF], [1]) 
+fi
+
+
 AC_ARG_WITH([default-rasmgr-port],
             [AS_HELP_STRING([--with-default-rasmgr-port], 
                             [change the default RasMgr port (7001)])],
@@ -340,5 +356,9 @@ CXXFLAGS="$CXXFLAGS -DBINDIR=\\\"\$(bindir)/\\\""
 CXXFLAGS="$CXXFLAGS -DLOGDIR=\\\"\$(logdir)/\\\""
 
 AC_OUTPUT
+
+if test "$with_hdf" == no; then
+AC_MSG_NOTICE(Warning: presence of hdf libraries not checked. To run rasdaman you will need to have them installed!)
+fi
 
 AC_MSG_NOTICE([Rasdaman successfully configured, installation path is '${prefix}'.])
