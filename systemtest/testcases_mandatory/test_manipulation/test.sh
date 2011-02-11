@@ -78,11 +78,11 @@ echo "Test by:"$PROGNAME" at "`date`|tee $LOG
 
 #---------------------------Precondition------------------------------------------
 # check the Postgres
-ps -e | grep --quiet postmaster
+ps -e | grep --quiet -w postgres
 if [ $? -ne 0 ]
 then
-   echo no postmaster available|tee -a $LOG
-   exit $CODE_FAIL 
+   echo no postgres available|tee -a $LOG
+   exit $CODE_FAIL
 fi
 
 # check the Rasdaman
@@ -186,7 +186,7 @@ NUM_TOTAL=$(($NUM_SUC + $NUM_FAIL))
 
   if [ $NUM_TOTAL = $NUM_SUC ]
   then
-  	exit $CODE_OK 0
+  	exit $CODE_OK
   else
-	exit $CODE_FAIL 255
+	  exit $CODE_FAIL
   fi

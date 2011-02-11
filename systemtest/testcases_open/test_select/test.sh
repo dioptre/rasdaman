@@ -83,10 +83,10 @@
   echo   "Test by:"$PROGNAME $QUERY_DIR $ORACLE_DIR $LOG_DIR" at "`date`|tee $LOG
 #---------------------------Precondition------------------------------------------
 # check the Postgres
-ps -e | grep --quiet -w postmaster
+ps -e | grep --quiet -w postgres
 if [ $? -ne 0 ]
 then
-   echo no postmaster available|tee -a $LOG
+   echo no postgres available|tee -a $LOG
    exit $CODE_FAIL
 fi
 
@@ -197,7 +197,7 @@ fi
 
 echo creating test collection $TEST_RGB2... | tee -a $LOG
 $RASQL -q 'create collection '$TEST_RGB2' RGBSet' --user $USERNAME --passwd $PASSWORD || echo Error creating collection $TEST_RGB2| tee -a $LOG
-if $RASQL -q "select r from RAS_COLLECTIONNAMES as r" --out string|grep -w test_rgb
+if $RASQL -q "select r from RAS_COLLECTIONNAMES as r" --out string|grep -w $TEST_RGB2
 then
 	echo create collection $TEST_RGB2  RGBSet successfully ... | tee -a $LOG
 else
@@ -219,7 +219,7 @@ else
 	fi
 fi
 #==========================test by queries==================================================
-  if [ ! -f $QUERY_DIR/*.rasql ]
+  if [ ! -f "$QUERY_DIR/*.rasql" ]
   then
 	echo "there is no rasql for test in the "$QUERY_DIR
   else	

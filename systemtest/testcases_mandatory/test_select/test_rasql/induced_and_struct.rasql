@@ -1,1 +1,1 @@
-select test_rgb + 5 from test_rgb
+select test_rgb2 + 5 from test_rgb2
