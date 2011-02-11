@@ -1,20 +1,20 @@
 
 *****************************************************************
 
-  Addition of optional hdf functionality on rasdaman
+  Addition of optional hdf4 functionality on rasdaman
   Author: Bihemo Kimasa
 ******************************************************************
 
 
 1. Making hdf4 optional for installing rasdaman
 
-  Getting and installing hdf libraries can be a daunting
+  Getting and installing hdf4 libraries can be a daunting
   task. Previous versions of rasdaman required by default
   that these libraries be found on the system before it
   could be configured and hence successfully installed.
   
-  It is now possible to install rasdaman with/out hdf
-  libraries. A new functionality --with-hdf that can be
+  It is now possible to install rasdaman with/out hdf4
+  libraries. A new functionality --with-hdf4 that can be
   passed when configuring rasdaman has been added. The
   functionality works by checking whether libdf.a and
   libmhdf.a are installed. If these libraries are found a
@@ -24,36 +24,36 @@
   compilation. An error message is printed otherwise.
 
   If the user choses to configure rasdaman without invoking
-  --with-hdf functionality, rasdaman will provide a warning
-  message that hdf presence was not checked but that the user
+  --with-hdf4 functionality, rasdaman will provide a warning
+  message that hdf4 presence was not checked but that the user
   would need them in order to use rasdaman. These libraries
   are particularly needed for work with rascontrol and hence
   interact with the servers/database.
 
   Until the time I was writing this report rasdaman supported
-  hdf version 4 libraries. Earlier or later versions were
+   version 4 libraries. Earlier or later versions were
   incompatible. For a successful work with rasdaman the
   user must ensure that the right version is installed.
 
   The following is the piece of code that has been added in 
   the configure.ac script. It should be easy to find it.
 
-      AC_ARG_WITH([hdf],
-	    [AS_HELP_STRING([--with-hdf],
-	      [this feature enables the inclusion of hdf library during installation.])],
+      AC_ARG_WITH([hdf4],
+	    [AS_HELP_STRING([--with-hdf4],
+	      [this feature enables the inclusion of hdf4 library during installation.])],
 	    [],
-	    [with_hdf=no])
+	    [with_hdf4=no])
 
-      AC_MSG_NOTICE(using hdf library...$with_hdf)
+      AC_MSG_NOTICE(using hdf4 library...$with_hdf4)
 
-      if test "$with_hdf" == yes; then
-	AC_CHECK_LIB([df], [main], ,[AC_MSG_FAILURE([--with-hdf was given but libdf.a was not found! Please install.])])
-	AC_CHECK_LIB([mfhdf], [main], ,[AC_MSG_FAILURE([--with-hdf was given but libmfhdf.a was not found! Please install.])])
+      if test "$with_hdf4" == yes; then
+	AC_CHECK_LIB([df], [main], ,[AC_MSG_FAILURE([--with-hdf4 was given but libdf.a was not found! Please install.])])
+	AC_CHECK_LIB([mfhdf], [main], ,[AC_MSG_FAILURE([--with-hdf4 was given but libmfhdf.a was not found! Please install.])])
 	AC_DEFINE([HAVE_HDF], [1])
       fi
 
-      if test "\$with_hdf" == no; then  ## the '\' is not part of the code 
-	AC_MSG_NOTICE(Warning: presence of hdf libraries not checked. To run rasdaman you will need to have them installed!)
+      if test "\$with_hdf4" == no; then  ## the '\' is not part of the code 
+	AC_MSG_NOTICE(Warning: presence of hdf4 libraries not checked. To run rasdaman you will need to have them installed!)
       fi
 
   Also in the conversion/hdf.cc and conversion/convfactory.cc 
@@ -98,15 +98,15 @@
   
     The following should be kept in mind for the people working on rasdaman: 
     
-    Although it is now possible to install rasdaman without hdf libraries, it 
+    Although it is now possible to install rasdaman without hdf4 libraries, it 
     is not to be expected that one would be able to interact with it via the 
     servers/database successfully. This is because the source codes 
     conversion/hdf.* and  conversion/convfactory.cc have all or part of their 
-    code section compiled only when hdf libraries are installed. For instance, 
-    conversion/hdf.cc is not used whenever hdf is not included when configuring. 
+    code section compiled only when hdf4 libraries are installed. For instance, 
+    conversion/hdf.cc is not used whenever hdf4 is not included when configuring. 
     This means all makefiles lack the HAVE_HDF conditional compilational variable 
     necessary for their inclusion on installing rasdaman. I feel that this could 
     limit how one interacts with rasdaman servers. It is necessary to understand 
     that conversion/hdf.* are important files for rasdaman to work. 
 
-    I recommend that for now rasdaman should only be configured --with-hdf.
+    I recommend that for now rasdaman should only be configured --with-hdf4.

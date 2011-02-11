@@ -140,7 +140,7 @@ AC_CONFIG_FILES([Makefile
 ####################################################################
 AH_TEMPLATE([DEBUG], [Enables debug functionality])
 AH_TEMPLATE([RMANDEBUG], [Enables debug functionality])
-AH_TEMPLATE([HAVE_HDF], [Checks whether HDF is installed])
+AH_TEMPLATE([HAVE_HDF], [Checks whether HDF4 is installed])
 AH_TEMPLATE([RMANVERSION], [The version of Rasdaman currently compiled])
 AH_TEMPLATE([BASEDB_PGSQL], [If defined we are compiling over PostgreSQL])
 AH_TEMPLATE([__NO_MATH_INLINES], [Used by some performance implementaion of math libraries.])   
@@ -158,17 +158,17 @@ AH_TEMPLATE([CONFDIR], [The directory where the installed programs will find the
 # --------------- Parameter Definition -----------------------------
 ####################################################################
 AC_PRESERVE_HELP_ORDER
-AC_ARG_WITH([hdf],
-	    [AS_HELP_STRING([--with-hdf],
-	      [this feature enables the inclusion of hdf library during installation.])],
+AC_ARG_WITH([hdf4],
+	    [AS_HELP_STRING([--with-hdf4],
+	      [this feature enables the inclusion of hdf4 library during installation.])],
 	    [],
-	    [with_hdf=no])
+	    [with_hdf4=no])
 
-AC_MSG_NOTICE(using hdf library...$with_hdf)
+AC_MSG_NOTICE(using hdf4 library...$with_hdf4)
 
-if test "$with_hdf" == yes; then
-  AC_CHECK_LIB([df], [main], ,[AC_MSG_FAILURE([--with-hdf was given but libdf.a was not found! Please install.])]) 
-  AC_CHECK_LIB([mfhdf], [main], ,[AC_MSG_FAILURE([--with-hdf was given but libmfhdf.a was not found! Please install.])])
+if test "$with_hdf4" == yes; then
+  AC_CHECK_LIB([df], [main], ,[AC_MSG_FAILURE([--with-hdf4 was given but libdf.a was not found! Please install.])]) 
+  AC_CHECK_LIB([mfhdf], [main], ,[AC_MSG_FAILURE([--with-hdf4 was given but libmfhdf.a was not found! Please install.])])
   AC_DEFINE([HAVE_HDF], [1]) 
 fi
 
@@ -357,8 +357,8 @@ CXXFLAGS="$CXXFLAGS -DLOGDIR=\\\"\$(logdir)/\\\""
 
 AC_OUTPUT
 
-if test "$with_hdf" == no; then
-AC_MSG_NOTICE(Warning: presence of hdf libraries not checked. To run rasdaman you will need to have them installed!)
+if test "$with_hdf4" == no; then
+AC_MSG_NOTICE(Warning: presence of hdf4 libraries not checked. To run rasdaman you will need to have them installed!)
 fi
 
 AC_MSG_NOTICE([Rasdaman successfully configured, installation path is '${prefix}'.])
