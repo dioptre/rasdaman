@@ -172,6 +172,19 @@ if test "$with_hdf4" == yes; then
   AC_DEFINE([HAVE_HDF], [1]) 
 fi
 
+AC_ARG_WITH([netcdf],
+	    [AS_HELP_STRING([--with-netcdf],
+	      [this feature looks whether libnetcdf libraries are installed.])],
+	    [],
+	    [with_netcdf=no])
+
+AC_MSG_NOTICE(checking for libnetcdf library...$with_hdf)
+
+
+if test "$with_netcdf" == yes; then
+  AC_CHECK_LIB([netcdf], [main], ,[AC_MSG_FAILURE([--with-netcdf was given but libnetcdf.a was not found! Please install.])])
+  AC_DEFINE([HAVE_NETCDF], [1])
+fi
 
 AC_ARG_WITH([default-rasmgr-port],
             [AS_HELP_STRING([--with-default-rasmgr-port], 

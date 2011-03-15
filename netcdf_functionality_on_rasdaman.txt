@@ -1,0 +1,82 @@
+
+*****************************************************************
+
+  Addition of optional netCDF functionality on rasdaman
+  Author: Bihemo Kimasa
+******************************************************************
+
+
+1. Making netCDF optional for installing rasdaman
+
+  Rasdman now allows the inclusion of netCDF libraries 
+  when installing. 
+
+  A new functionality --with-netcdf that can be
+  passed when configuring rasdaman has been added. The
+  functionality works by checking whether libnetcdf.a. 
+  If these libraries are found a new variable HAVE_NETCDF 
+  with value 1 is passed to the compiler which can be fetched 
+  for use in appropriate files. An error message is printed 
+  otherwise.
+
+  If the user choses to configure rasdaman without invoking
+  --with-netcdf functionality, rasdaman will try to configure 
+  without them and won't bother to search for them.
+  
+  Since netCDF support hdf libraries, I would recommend that 
+  when installing the libraries, the user should disable hdf5 
+  libraries for rasdaman currently supports hdf4 libraries only. 
+  This is also safe for the case that the user has not installed 
+  hdf4 libraries. Otherwise you would need to install hdf5, but 
+  I don't know what would be outcome. Just stick with hdf4.
+
+  The following is the piece of code that has been added in 
+  the configure.ac script. It should be easy to find it.
+
+  AC_ARG_WITH([netcdf],
+	    [AS_HELP_STRING([--with-netcdf],
+	      [this feature looks whether libnetcdf libraries are installed.])],
+	    [],
+	    [with_netcdf=no])
+
+  AC_MSG_NOTICE(checking for libnetcdf library...$with_hdf)
+
+  if test "$with_netcdf" == yes; then
+    AC_CHECK_LIB([netcdf], [main], ,[AC_MSG_FAILURE([--with-netcdf was given but libnetcdf.a was not found! Please install.])])
+    AC_DEFINE([HAVE_NETCDF], [1])
+  fi
+
+
+  2. "How to install" instructionsftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf.tar.gz
+
+  An updated list of packages needed should look like the following:
+
+  Rasdaman requires a Linux kernel 2.6.18 or higher. Successful
+  installations are reported for Kubuntu, SuSE, Red Hat, Mandrake
+  distributions. (Let us know about further ones!)
+
+  Aside from the standard packages which should be available on any
+  vanilla Linux, the following list has to be installed:
+
+  
+  -tools:
+      git-core, make, autoconf, automake, libtool, gawk, flex, bison,
+      ant, gcc-c++, libstdc++,  sun-java6-jdk,  Tomcat (or another suitable 
+      servlet container).
+  
+  -general libraries:
+      libreadline-dev, libopenssl-devel, libncurses5-dev database stuff:
+      PostgreSQL 8.x,  libecpg-dev; Warning: do not use versions PG 8.3.0 
+      to 8.3.6 inclusive, it won't work.
+    
+  -image formats:
+      libtiff-dev, libjpeg-dev, libpng12-dev,  libnetpbm10-dev
+  
+  -Optionally, the performance boosters and additional service components 
+    offered by  rasdaman GmbH can be installed. Also to use rasdaman you 
+    will need to ensure that libhdf4g-dev (note the version) is installed. 
+    If you like you can configure rasdaman with netCDF libraries. Get 
+    this any recent version of it from the internet and install it 
+    (e.g. ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf.tar.gz). Please be 
+    sure to disable libhdf5 when using netCDF. It may produce nasty things. 
+  
