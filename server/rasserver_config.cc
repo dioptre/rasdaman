@@ -186,44 +186,44 @@ void Configuration::printHelp()
  
    }
 
-void 
+    void 
 Configuration::initLogFiles()
-  {
+{
     if( cmlLog->isPresent()) 
-      {
+    {
         if( strcasecmp(cmlLog->getValueAsString(), "stdout") != 0)
-          { logFileName = cmlLog->getValueAsString();
+        { logFileName = cmlLog->getValueAsString();
             logToStdOut = false;
-	   }
-	else
-	  { 
-	    logFileName = "stdout";
-	    logToStdOut = true;
-	   } 
-       }
+        }
+        else
+        { 
+            logFileName = "stdout";
+            logToStdOut = true;
+        } 
+    }
     else 
-      { // default
+    { // default
         logFileName = makeLogFileName( serverName, LOG_SUFFIX );
         logToStdOut = false;
-       } 
-    
+    } 
+
     if( logToStdOut == true)
-      {
+    {
         RMInit::logOut.rdbuf(cout.rdbuf());
         RMInit::dbgOut.rdbuf(cout.rdbuf());
         RMInit::bmOut.rdbuf(cout.rdbuf());
-       }
+    }
     else
-      {   
-	if (RMInit::logFileOut.is_open())
-	  RMInit::logFileOut.close();	  
+    {   
+        if (RMInit::logFileOut.is_open())
+            RMInit::logFileOut.close();	  
         RMInit::logFileOut.open(logFileName, ios::out | ios::ate);
         RMInit::logOut.rdbuf(RMInit::logFileOut.rdbuf());
         RMInit::dbgOut.rdbuf(RMInit::logFileOut.rdbuf());
         RMInit::bmOut.rdbuf(RMInit::logFileOut.rdbuf());
-       }	
-    cout<<"This server's log file is: " << logFileName << endl;
-  }
+    }	
+    RMInit::logOut << "This server's log file is: " << logFileName << endl;
+}
 
 const char *
 Configuration::makeLogFileName(const char *srvName,const char *desExt)
@@ -245,7 +245,7 @@ Configuration::deprecated(CommandLineParameter *cml)
   {
     if(cml->isPresent())
       {
-        cout<<"WARNING: parameter '"<<cml->calledName()<<"' is deprecated, will be removed in next version!"<<endl;
+          RMInit::logOut <<"WARNING: parameter '"<<cml->calledName()<<"' is deprecated, will be removed in next version!"<<endl;
        }
    }
 

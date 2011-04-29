@@ -19,7 +19,7 @@ rasdaman GmbH.
 *
 * For more information please see <http://www.rasdaman.org>
 * or contact Peter Baumann via <baumann@rasdaman.com>.
-/
+ */
 /**
  * INCLUDE: rminit.hh
  *
@@ -27,12 +27,12 @@ rasdaman GmbH.
  * Contains the RMInit class.
  *
  * COMMENTS:
- * 		- RASMGRPORT should be centrally defined
-*/
+ *		- RASMGRPORT should be centrally defined
+ */
 
 #ifndef _RMINIT_
 #define _RMINIT_
- 
+
 #include <iostream>
 using std::ios;
 using std::endl;
@@ -75,13 +75,13 @@ const unsigned int RNP_MAX_RETRY = 10;
 /*@Doc:
 
   Class {\tt RMInit} is supposed to be instantiated just once. The scope
-  of this instance is equal to the program scope (global variable) 
+  of this instance is equal to the program scope (global variable)
   and therefore lifetime of the {\tt RMInit} instance and the application
-  are the same. The constructor is used to allocate ressources needed 
-  during the whole application and the destructor cleans up memory at 
+  are the same. The constructor is used to allocate ressources needed
+  during the whole application and the destructor cleans up memory at
   the end of the application.
- 
-*/
+
+ */
 
 /**
   * \ingroup RMs
@@ -89,43 +89,43 @@ const unsigned int RNP_MAX_RETRY = 10;
 
 class RMInit : public RM_Class
 {
-  public: 
+  public:
     /// constructor
     RMInit( char applicationType );
-    
+
     /// destructor
     ~RMInit();
-    
+
     /// output stream for log information
     static std::ostream logOut;
-    
+
     /// output stream for debug information
-    static std::ostream dbgOut;                
-    
+    static std::ostream dbgOut;
+
     /// output stream for benchmark information
-    static std::ostream bmOut;                
-    
+    static std::ostream bmOut;
+
     /// file output for log information
     static std::ofstream logFileOut;
-    
+
     /// file output for debug information
-    static std::ofstream dbgFileOut;       
-    
+    static std::ofstream dbgFileOut;
+
     /// file output for benchmark information
-    static std::ofstream bmFileOut;       
-    
+    static std::ofstream bmFileOut;
+
     /// name of the user
-    static char* userName;       
+    static char* userName;
 
     /// use inlinetiles and inlinetile container index
     static bool useTileContainer;
 
     /// switch for turning on/off tiling
     static bool tiling;
-    
+
     /// specifies time out in seconds
     static unsigned long timeOut;
-    
+
     /// flag, if time out checking is enabled (causes sometimes problems because of signal handler)
     static bool noTimeOut;
 
@@ -148,7 +148,7 @@ class RMInit : public RM_Class
     */
 
     /// type of application can either be 'S' for server or 'C' for client
-    char applicationType;    
+    char applicationType;
 };
 
 // Macro for initialization of static members and creation of global RMInit instance

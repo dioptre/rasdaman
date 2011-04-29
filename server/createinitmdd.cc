@@ -40,8 +40,8 @@ using namespace std;
 
 // #undef DEBUG_HH
 // #include "debug.hh"
-#define ENTER(a)	cout << "ENTER " << a << endl << flush;
-#define LEAVE(a)	cout << "LEAVE " << a << endl << flush;
+#define ENTER(a)	RMInit::logOut << "ENTER " << a << endl << flush;
+#define LEAVE(a)	RMInit::logOut << "LEAVE " << a << endl << flush;
 
 //#include <akgtime.hh>
 
@@ -180,7 +180,7 @@ void FastMDDCreator::verifyCompatibility(MDDColl* collection) throw (r_Error)
 
     if (collection->isPersistent())
       {
-        //cout<<"OK, colection exists and is  persistent"<<endl;
+        //RMInit::logOut<<"OK, colection exists and is  persistent"<<endl;
        } 
     else
       {
@@ -188,29 +188,29 @@ void FastMDDCreator::verifyCompatibility(MDDColl* collection) throw (r_Error)
       }
    
    char* collTypeStructure = collection->getCollectionType()->getTypeStructure(); 
-   //cout<<"collTypeStructure="<<collTypeStructure<<endl;
+   //RMInit::logOut<<"collTypeStructure="<<collTypeStructure<<endl;
    
    const MDDType* mddType = TypeFactory::mapMDDType( mddTypeName.c_str() );
    if(mddType == NULL) throw r_Error(MDDTYPE_NULL);
    
    char* mddTypeStructure  = mddType->getTypeStructure(); 
-   //cout<<"mddTypeStructure="<<mddTypeStructure<<endl;
+   //RMInit::logOut<<"mddTypeStructure="<<mddTypeStructure<<endl;
    
    
    if(mddType->compatibleWithDomain( &definitionInterval ))
      {
-       //cout<<"compatibil with domain: "<<definitionInterval<<endl;
+       //RMInit::logOut<<"compatibil with domain: "<<definitionInterval<<endl;
       }
    else throw r_Error(r_Error::r_Error_CollectionElementTypeMismatch);
-    //cout<<"incompatibil with domain"<<endl;   
+    //RMInit::logOut<<"incompatibil with domain"<<endl;   
    
    if(collection->getCollectionType()->compatibleWith( mddType ))
      {
-       //cout<<"compatibil with collection"<<endl;
+       //RMInit::logOut<<"compatibil with collection"<<endl;
       }
    else
      throw r_Error(r_Error::r_Error_CollectionElementTypeMismatch);
-     //cout<<"incompatibil with collection"<<endl;   
+     //RMInit::logOut<<"incompatibil with collection"<<endl;   
      
    free( collTypeStructure ); 
    free( mddTypeStructure );   
@@ -339,7 +339,7 @@ void FastMDDCreator::addStripe(r_OId _mddOId, const char *stripeDomain, const ch
     while (!iter.isDone())
      {//iterate through the partitions in the search domain
 	r_Minterval currentSlInterval = iter.nextArea();
-        //cout<<"inserting tile: "<< currentSlInterval<<endl;
+        //RMInit::logOut<<"inserting tile: "<< currentSlInterval<<endl;
         
 	createCompressedTileData(currentSlInterval, baseType);
    
@@ -385,7 +385,7 @@ void FastMDDCreator::createCompressedTileData(r_Minterval& tileInterval, const B
     comprData = (char*)(engine->compress(dataPtr, newSize, formatParams));
     comprDataSize = newSize;
     delete engine;
-    //cout<<"Compression of "<<uncompressedSize<<" of zeroes resulted in "<<comprDataSize<<" bytes"<<endl;   
+    //RMInit::logOut<<"Compression of "<<uncompressedSize<<" of zeroes resulted in "<<comprDataSize<<" bytes"<<endl;   
         
     free(dataPtr);
     delete compType;

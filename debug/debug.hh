@@ -49,7 +49,7 @@ in the target code; needs one main! */
 
 // allow output stream 'cout' to be overridden
 #ifndef OSTREAM
-	#define OSTREAM std::cout
+	#define OSTREAM RMInit::logOut
 #endif // OSTREAM
 
 #define INDENT ". "

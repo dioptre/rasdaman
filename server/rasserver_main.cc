@@ -100,13 +100,13 @@ int         rasmgrPort = DEFAULT_PORT;
 const char* serverName  = 0;
 int         serverListenPort = 0;
 
-int main ( int argc, char** argv ) 
+int main ( int argc, char** argv )
 {
 	SET_OUTPUT( true );		// enable debug output, if compiled so
 	ENTER( "rasserver.main()" );
 
 	//print startup text (this line will still go into forking rasmgr's log!)
-	cout << "Spawned rasserver v" << RMANVERSION / 1000. << " on base DBMS "  << BASEDBSTRING  << " -- generated on " << COMPDATE << "." << endl;
+    RMInit::logOut << "Spawned rasserver v" << RMANVERSION / 1000. << " on base DBMS "  << BASEDBSTRING  << " -- generated on " << COMPDATE << "." << endl;
 
 	if(configuration.parseCommandLine(argc, argv) == false)
 	{
@@ -116,15 +116,15 @@ int main ( int argc, char** argv )
 	}
 
 	RMInit::logOut << "rasserver: rasdaman server v" << RMANVERSION / 1000. << " on base DBMS "  << BASEDBSTRING  << " -- generated on " << COMPDATE << "." << endl;
-          std::cout << " Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann rasdaman GmbH." << std::endl
+    RMInit::logOut << " Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann rasdaman GmbH." << std::endl
           << "Rasdaman community is free software: you can redistribute it and/or modify "
-             "it under the terms of the GNU General Public License as published by "
-             "the Free Software Foundation, either version 3 of the License, or "
-             "(at your option) any later version. \n"
-             "Rasdaman community is distributed in the hope that it will be useful, "
-             "but WITHOUT ANY WARRANTY; without even the implied warranty of "
-             "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
-             "GNU General Public License for more details. \n\n";
+          << "it under the terms of the GNU General Public License as published by "
+          << "the Free Software Foundation, either version 3 of the License, or "
+          << "(at your option) any later version. \n"
+          << "Rasdaman community is distributed in the hope that it will be useful, "
+          << "but WITHOUT ANY WARRANTY; without even the implied warranty of "
+          << "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
+          << "GNU General Public License for more details. \n\n";
 
 	RMInit::logOut << "This program contains software which is in the public domain:" << endl;
 	RMInit::logOut << "  zlib 1.1.4 (C) 1995-1998 Jean-loup Gailly and Mark Adler" << endl;
@@ -216,6 +216,7 @@ int main ( int argc, char** argv )
 	dbSchema = NULL;
 
 	LEAVE( "rasserver.main(): -> " << returnCode );
+    RMInit::logOut << "rasserver terminated." << std::endl;
 	return returnCode;
 }
 
@@ -226,7 +227,7 @@ bool initialization()
   
 	serverListenPort = globalHTTPPort = configuration.getListenPort();
 
-	RMInit::logOut<<"Server "<< serverName << " of type ";
+	RMInit::logOut<<"Server "<< serverName << " of typ e ";
 	
 	if(configuration.isRnpServer())
 		RMInit::logOut << "RNP, listening on port " << serverListenPort << flush;

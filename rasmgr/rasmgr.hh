@@ -110,7 +110,9 @@ char *strtolwr(char*); // should be somewhere in the C-library, but can't find i
 #define SERVERTYPE_FLAG_HTTP	'h'
 #define SERVERTYPE_FLAG_RNP	'n'
 
+#include "raslib/rminit.hh"
+
 // output depending on verbose cmd line flag
-#define VLOG if (config.isVerbose()) cout
+#define VLOG if (config.isVerbose()) RMInit::logOut
 
 #endif // RASMGR_HH
