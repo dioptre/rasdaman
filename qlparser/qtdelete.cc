@@ -218,7 +218,7 @@ QtDelete::setStreamInput( QtONCStream* newInput )
   input->setParent( this );
 };
 
-QtONCStream::QtONCStream*
+QtONCStream*
 QtDelete::getStreamInput()
 {
 	return input;
