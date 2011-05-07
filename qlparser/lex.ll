@@ -235,6 +235,7 @@ int string_yyinput( char* buf, int max_size )
 "tiff"                                   { SETTOKEN( TIFF, commandToken, TIFF ) }
 "bmp"                                    { SETTOKEN( BMP, commandToken, BMP ) }
 "hdf"                                    { SETTOKEN( HDF, commandToken, HDF ) }
+"netcdf"                                 { SETTOKEN( NETCDF, commandToken, NETCDF ) }
 "jpeg"                                   { SETTOKEN( JPEG, commandToken, JPEG ) }
 "csv"                                    { SETTOKEN( CSV, commandToken, CSV ) }
 "png"                                    { SETTOKEN( PNG, commandToken, PNG ) }
@@ -245,6 +246,7 @@ int string_yyinput( char* buf, int max_size )
 "inv_tiff"                                   { SETTOKEN( INV_TIFF, commandToken, INV_TIFF ) }
 "inv_bmp"                                    { SETTOKEN( INV_BMP, commandToken, INV_BMP ) }
 "inv_hdf"                                    { SETTOKEN( INV_HDF, commandToken, INV_HDF ) }
+"inv_netcdf"                                 { SETTOKEN( INV_NETCDF, commandToken, INV_NETCDF ) }
 "inv_jpeg"                                   { SETTOKEN( INV_JPEG, commandToken, INV_JPEG ) }
 "inv_csv"                                    { SETTOKEN( INV_CSV, commandToken, INV_CSV ) }
 "inv_png"                                    { SETTOKEN( INV_PNG, commandToken, INV_PNG ) }

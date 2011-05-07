@@ -52,6 +52,7 @@ const char *format_name_array = "Array";
 const char *format_name_tiff = "TIFF";
 const char *format_name_jpeg = "JPEG";
 const char *format_name_hdf = "HDF";
+const char *format_name_netcdf = "NETCDF";
 const char *format_name_cvs = "CVS";
 const char *format_name_png = "PNG";
 const char *format_name_zlib = "ZLib";
@@ -98,6 +99,7 @@ const char *all_data_format_names[r_Data_Format_NUMBER] = {
   format_name_jpeg,
   format_name_cvs,
   format_name_hdf,
+  format_name_netcdf,
   format_name_png,
   format_name_zlib,
   format_name_auto_compression,

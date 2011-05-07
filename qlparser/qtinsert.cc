@@ -381,6 +381,8 @@ QtInsert::getDataFormat(QtMDDConfig* config) {
             return r_DEM;
         case QtMDDConfig::r_HDF_STG :
             return r_HDF;
+        case QtMDDConfig::r_NETCDF_STG :
+            return r_NETCDF;
             //        case QtMDDConfig::r_HDF5_STG://need review
             //            return r_HDF;
         case QtMDDConfig::r_JPEG_STG :

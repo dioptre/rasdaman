@@ -204,7 +204,7 @@ struct QtUpdateSpecElement
 			  INDEX RC_INDEX TC_INDEX A_INDEX D_INDEX RD_INDEX RPT_INDEX RRPT_INDEX IT_INDEX AUTO
 			 TILING ALIGNED REGULAR DIRECTIONAL
 			 WITH SUBTILING AREA OF INTEREST STATISTIC TILE SIZE BORDER THRESHOLD
-			 STRCT COMPLEX RE IM TIFF BMP HDF CSV JPEG PNG VFF TOR DEM INV_TIFF INV_BMP INV_HDF
+			 STRCT COMPLEX RE IM TIFF BMP HDF NETCDF CSV JPEG PNG VFF TOR DEM INV_TIFF INV_BMP INV_HDF INV_NETCDF
 			 INV_JPEG INV_PNG INV_VFF INV_CSV INV_TOR INV_DEM
 
 %left COLON VALUES USING WHERE
@@ -1183,6 +1183,27 @@ functionExp: OID LRPAR collectionIterator RRPAR
 	  FREESTACK($2)
 	  FREESTACK($4)
 	}
+	| NETCDF LRPAR generalExp COMMA StringLit RRPAR
+	{
+	  $$ = new QtConversion( $3, QtConversion::QT_TONETCDF, $5.value );
+	  $$->setParseInfo( *($1.info) );
+	  parseQueryTree->removeDynamicObject( $3 );
+	  parseQueryTree->addDynamicObject( $$ );
+	  FREESTACK($1)
+	  FREESTACK($2)
+	  FREESTACK($4)
+	  FREESTACK($6)
+	}
+	| NETCDF LRPAR generalExp  RRPAR
+	{
+	  $$ = new QtConversion( $3, QtConversion::QT_TONETCDF );
+	  $$->setParseInfo( *($1.info) );
+	  parseQueryTree->removeDynamicObject( $3 );
+	  parseQueryTree->addDynamicObject( $$ );
+	  FREESTACK($1)
+	  FREESTACK($2)
+	  FREESTACK($4)
+	}
 	| INV_TIFF LRPAR generalExp COMMA StringLit RRPAR
 	{
 	  $$ = new QtConversion( $3, QtConversion::QT_FROMTIFF, $5.value );
@@ -1365,6 +1386,27 @@ functionExp: OID LRPAR collectionIterator RRPAR
 	| INV_DEM LRPAR generalExp  RRPAR
 	{
 	  $$ = new QtConversion( $3, QtConversion::QT_FROMDEM );
+	  $$->setParseInfo( *($1.info) );
+	  parseQueryTree->removeDynamicObject( $3 );
+	  parseQueryTree->addDynamicObject( $$ );
+	  FREESTACK($1)
+	  FREESTACK($2)
+	  FREESTACK($4)
+	}
+	| INV_NETCDF LRPAR generalExp COMMA StringLit RRPAR
+	{
+	  $$ = new QtConversion( $3, QtConversion::QT_FROMNETCDF, $5.value );
+	  $$->setParseInfo( *($1.info) );
+	  parseQueryTree->removeDynamicObject( $3 );
+	  parseQueryTree->addDynamicObject( $$ );
+	  FREESTACK($1)
+	  FREESTACK($2)
+	  FREESTACK($4)
+	  FREESTACK($6)
+	}
+	| INV_NETCDF LRPAR generalExp  RRPAR
+	{
+	  $$ = new QtConversion( $3, QtConversion::QT_FROMNETCDF );
 	  $$->setParseInfo( *($1.info) );
 	  parseQueryTree->removeDynamicObject( $3 );
 	  parseQueryTree->addDynamicObject( $$ );

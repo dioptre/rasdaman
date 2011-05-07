@@ -58,6 +58,10 @@ AC_CHECK_LIB([storagemgr], [main])
 AC_CHECK_LIB([tiff], [TIFFGetField], , [AC_MSG_FAILURE([libtiff.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lz':
 AC_CHECK_LIB([z], [main], , [AC_MSG_FAILURE([libz.a not found! Please install.])])
+# FIXME: Replace `main' with a function in `-lnetcdf':
+AC_CHECK_LIB([netcdf], [main], , [AC_MSG_FAILURE([libnetcdf.a not found! Please install.])])
+# FIXME: Replace `main' with a function in `-lnetcdf_c++':
+AC_CHECK_LIB([netcdf_c++], [main], , [AC_MSG_FAILURE([libnetcdf_c++.a not found! Please install.])])
 
 
 # Checks for header files.
@@ -65,7 +69,7 @@ AC_PATH_X
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
-AC_CHECK_HEADERS([arpa/inet.h fcntl.h float.h limits.h malloc.h memory.h netdb.h netinet/in.h stdlib.h string.h strings.h sys/socket.h sys/time.h unistd.h values.h hdf.h mfhdf.h hdf/hdf.h hdf/mfhdf.h])
+AC_CHECK_HEADERS([arpa/inet.h fcntl.h float.h limits.h malloc.h memory.h netdb.h netinet/in.h stdlib.h string.h strings.h sys/socket.h sys/time.h unistd.h values.h hdf.h mfhdf.h hdf/hdf.h hdf/mfhdf.h netcdfcpp.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
@@ -128,7 +132,6 @@ AC_CONFIG_FILES([Makefile
                  applications/Makefile
                  applications/rasql/Makefile
                  bin/Makefile
-                 manuals_and_examples/Makefile
                  insertutils/Makefile
 		 include/Makefile
 		 java/Makefile

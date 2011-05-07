@@ -49,7 +49,7 @@ rasdaman GmbH.
 #include "ecw.hh"
 #include "ntf.hh"
 #include "csv.hh"
-
+#include "netcdf.hh"
 
 
 bool r_Convertor_Factory::is_supported( r_Data_Format fmt )
@@ -71,6 +71,7 @@ bool r_Convertor_Factory::is_supported( r_Data_Format fmt )
 	case r_HDF:
 #endif
 		// case r_NTF:
+	case r_NETCDF:
 		retval=true;
 		break;
 	default:
@@ -91,6 +92,9 @@ r_Convertor *r_Convertor_Factory::create( r_Data_Format fmt, const char *src, co
 	{
 	case r_TIFF:
 		result = new r_Conv_TIFF(src, interv, tp);
+		break;
+	case r_NETCDF:
+		result = new r_Conv_NETCDF(src, interv, tp);
 		break;
 	case r_PNG:
 		result = new r_Conv_PNG(src, interv, tp);
@@ -146,6 +150,9 @@ r_Convertor *r_Convertor_Factory::create( r_Data_Format fmt, const char *src, co
 	{
 	case r_TIFF:
 		result = new r_Conv_TIFF(src, interv, type);
+		break;
+	case r_NETCDF:
+		result = new r_Conv_NETCDF(src, interv, type);
 		break;
 	case r_PNG:
 		result = new r_Conv_PNG(src, interv, type);

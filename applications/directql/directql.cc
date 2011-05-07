@@ -662,6 +662,8 @@ void printResult( r_Minterval    &mddDomain, char*          &typeName,
 	    					strcat( defFileName, ".jpg" ); break;
 	  				case r_HDF:
 	    					strcat( defFileName, ".hdf" ); break;
+	    			case r_NETCDF:
+	    					strcat( defFileName, ".nc" ); break;
 	  				case r_PNG:
 	    					strcat( defFileName, ".png" ); break;
 	  				case r_BMP:

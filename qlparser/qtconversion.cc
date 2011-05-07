@@ -88,6 +88,8 @@ QtConversion::setConversionTypeByName( string formatName )
   	conversionType = QtConversion::QT_TOTOR; 
   else if (string("dem") == formatName) 
   	conversionType = QtConversion::QT_TODEM;
+  else if(string("netcdf") == formatName ) 
+  	conversionType = QtConversion::QT_TONETCDF; 
   else if(string("inv_bmp") == formatName ) 
   	conversionType = QtConversion::QT_FROMBMP;   	
   else if(string("inv_hdf") == formatName ) 
@@ -105,7 +107,9 @@ QtConversion::setConversionTypeByName( string formatName )
   else if (string("inv_tor") == formatName) 
   	conversionType = QtConversion::QT_FROMTOR; 
   else if (string("inv_dem") == formatName) 
-  	conversionType = QtConversion::QT_FROMDEM;  	
+  	conversionType = QtConversion::QT_FROMDEM;
+  else if(string("inv_netcdf") == formatName ) 
+  	conversionType = QtConversion::QT_FROMNETCDF; 
   else
     conversionType = QtConversion::QT_UNKNOWN;
 }
@@ -121,8 +125,8 @@ QtConversion::lookupConversionTypeByName( string formatName )
           ( string("inv_bmp")  == formatName ) || ( string("inv_hdf")  == formatName ) ||
           ( string("inv_png")  == formatName ) || ( string("inv_jpeg") == formatName ) || 
           ( string("inv_dem")  == formatName ) || ( string("inv_tor")  == formatName ) ||
-          ( string("inv_tiff") == formatName ) || ( string("inv_vff")  == formatName ));
-	                              
+          ( string("inv_tiff") == formatName ) || ( string("inv_vff")  == formatName ) ||
+          ( string("netcdf")   == formatName ) || ( string("inv_netcdf") == formatName ));
 }
 
 bool
@@ -252,6 +256,10 @@ QtConversion::evaluate( QtDataList* inputList )
 	convType = r_HDF; 
 	convFormat = r_HDF; 	
 	break;      
+      case QT_TONETCDF:
+	convType = r_NETCDF; 
+	convFormat = r_NETCDF; 	
+	break;
       case QT_TOCSV:
 	convType = r_CSV; 
 	convFormat = r_CSV; 	
@@ -260,6 +268,10 @@ QtConversion::evaluate( QtDataList* inputList )
 	convType = r_HDF; 
 	convFormat = r_Array; 	
 	break;      
+      case QT_FROMNETCDF:
+	convType = r_NETCDF; 
+	convFormat = r_Array; 	
+	break;
       case QT_FROMCSV:
 	convType = r_CSV; 
 	convFormat = r_Array; 	
@@ -480,6 +492,7 @@ QtConversion::printTree( int tab, ostream& s, QtChildType mode )
     case QT_TOTIFF:   s << "to TIFF"; break;
     case QT_TOBMP:    s << "to BMP"; break;
     case QT_TOHDF:    s << "to HDF"; break;
+    case QT_TONETCDF: s << "to NETCDF"; break; 
     case QT_TOCSV:    s << "to CSV"; break;
     case QT_TOJPEG:   s << "to JPEG"; break;
     case QT_TOPNG:    s << "to PNG"; break;
@@ -489,6 +502,7 @@ QtConversion::printTree( int tab, ostream& s, QtChildType mode )
     case QT_FROMTIFF: s << "from TIFF"; break;
     case QT_FROMBMP:  s << "from BMP"; break;
     case QT_FROMHDF:  s << "from HDF"; break;
+    case QT_FROMNETCDF: s << "from NETCDF"; break;      
     case QT_FROMCSV:  s << "from CSV"; break;
     case QT_FROMJPEG: s << "from JPEG"; break;
     case QT_FROMPNG:  s << "from PNG"; break;
@@ -573,6 +587,7 @@ operator<< (std::ostream& os, QtConversion::QtConversionType type) {
     case QtConversion::QT_TOVFF:    os << "vff"; break;
     case QtConversion::QT_TOTOR:    os << "tor"; break;
     case QtConversion::QT_TODEM:    os << "dem"; break;
+    case QtConversion::QT_TONETCDF:    os << "netcdf"; break;
     case QtConversion::QT_FROMTIFF: os << "inv_tiff"; break;
     case QtConversion::QT_FROMBMP:  os << "inv_bmp"; break;
     case QtConversion::QT_FROMHDF:  os << "inv_hdf"; break;
@@ -582,6 +597,7 @@ operator<< (std::ostream& os, QtConversion::QtConversionType type) {
     case QtConversion::QT_FROMVFF:  os << "inv_vff"; break;
     case QtConversion::QT_FROMTOR:  os << "inv_tor"; break;
     case QtConversion::QT_FROMDEM:  os << "inv_dem"; break;    
+    case QtConversion::QT_FROMNETCDF:  os << "inv_netcdf"; break;    
     default:      		    os << "unknown Conversion"; break;
   }
 

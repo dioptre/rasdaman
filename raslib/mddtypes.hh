@@ -134,6 +134,7 @@ enum r_Data_Format
   r_TIFF,
   r_JPEG,
   r_HDF,
+  r_NETCDF,
   r_CSV,
   r_PNG,
   r_ZLib,
@@ -193,6 +194,7 @@ enum r_Data_Format
   {\ttr_DEM}      	    && DEM  format (see \Ref{r_Conv_DEM})\\ 
   {\ttr_ECW}      	    && ECW  format (see \Ref{r_Conv_ECW})\\ 
   {\ttr_NTF}      	    && NITF  format (see \Ref{r_Conv_NTF})\\ 
+  {\ttr_NETCDF}      	    && NETCDF  format (see \Ref{r_Conv_NETCDF})\\ 
 
   {\ttr_Auto_Compression}   && automatic compression\\
   {\ttr_ZLib}               && ZLIB compresion  (see \Ref{r_Tile_Comp_RLE})\\  
@@ -224,6 +226,7 @@ extern const char *format_name_array;
 extern const char *format_name_tiff;
 extern const char *format_name_jpeg;
 extern const char *format_name_hdf;
+extern const char *format_name_netcdf;
 extern const char *format_name_png;
 extern const char *format_name_zlib;
 extern const char *format_name_auto_compression;

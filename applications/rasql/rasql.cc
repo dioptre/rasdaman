@@ -31,6 +31,7 @@
 *
 * BUGS:
 * - query filename "" is interpreted as stdin
+* - mafmt does not passed correctly
 */
 
 
@@ -648,6 +649,8 @@ void printResult( /* r_Set< r_Ref_Any > result_set */ )
 	    					strcat( defFileName, ".bmp" ); break;
 	  				case r_VFF:
 	    					strcat( defFileName, ".vff" ); break;
+	    			case r_NETCDF:
+	    					strcat( defFileName, ".nc" ); break;
 	  				default:
 	    					strcat( defFileName, ".unknown" ); break;
 	    					break;

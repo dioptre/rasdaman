@@ -126,6 +126,7 @@ public:
             r_DEM_STG ,
             r_HDF5_STG,
             r_HDF_STG ,
+            r_NETCDF_STG,
             r_JPEG_STG,
             r_NTF_STG,
             r_PACKBITS_STG,
