@@ -79,7 +79,8 @@ cd @logdir@
 rm -f nohup.out
 
 # start rasdaman server manager as demon; log will go into nohup.out
-nohup @bindir@rasmgr </dev/null &>nohup.out &
+# the manager is started in quiet mode
+nohup @bindir@rasmgr -q </dev/null &>nohup.out &
 
 # --- start servers: -------------------------------------------------
 
