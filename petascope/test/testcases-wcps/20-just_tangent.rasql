@@ -1,1 +1,0 @@
-select jpeg(tan((c).1)) from rgb AS c

@@ -1,1 +1,0 @@
-for s in ( rgb, rgb, rgb ) return encode( s, "jpeg" )

@@ -1,1 +1,0 @@
-for c in (rgb) return encode(extend(c, x(0:500), y(0:500) ), "jpeg")

@@ -1,2 +1,0 @@
-for c in (rgb)
-    return encode(scale(c, x(1:600), y(1:600)), "png")

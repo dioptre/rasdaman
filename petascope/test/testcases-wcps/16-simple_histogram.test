@@ -1,6 +1,0 @@
-for c in ( mr ) 
-return  encode( 
-	coverage histogram 
-	over $n x(0:255) 
-	values count( c = $n )
-, "csv" )
