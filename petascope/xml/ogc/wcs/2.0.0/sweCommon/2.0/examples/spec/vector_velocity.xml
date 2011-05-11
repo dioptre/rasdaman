@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swe:Vector definition="urn:ogc:def:data:OGC::VelocityVector" referenceFrame="urn:ogc:def:crs:OGC::ECI" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/swe/2.0 ../../swe.xsd">
+	<swe:coordinate name="Vx">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::Velocity" axisID="X">
+			<gml:name>Velocity X</gml:name>
+			<swe:uom xlink:href="m/s"/>
+		</swe:Quantity>
+	</swe:coordinate>
+	<swe:coordinate name="Vy">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::Velocity" axisID="Y">
+			<gml:name>Velocity Y</gml:name>
+			<swe:uom code="m/s"/>
+		</swe:Quantity>
+	</swe:coordinate>
+	<swe:coordinate name="Vz">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::Velocity" axisID="Z">
+			<gml:name>Velocity Z</gml:name>
+			<swe:uom code="m/s"/>
+		</swe:Quantity>
+	</swe:coordinate>
+</swe:Vector>

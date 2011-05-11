@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swe:DataRecord definition="urn:ogc:def:data:OGC:Image" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ism="urn:us:gov:ic:ism:v2" xsi:schemaLocation="http://www.opengis.net/swe/2.0 ../../swe.xsd">
+	<swe:field name="band1">
+		<swe:DataArray definition="urn:ogc:def:data:OGC::ImageBand">
+			<swe:elementCount>
+				<swe:Count definition="urn:ogc:def:data:OGC::NumberOfRows">
+					<swe:value>3000</swe:value>
+				</swe:Count>
+			</swe:elementCount>
+			<swe:elementType name="row">
+				<swe:DataArray definition="urn:ogc:def:data:OGC::Row">
+					<swe:elementCount>
+						<swe:Count definition="urn:ogc:def:data:OGC::NumberOfColumns">
+							<swe:value>3000</swe:value>
+						</swe:Count>
+					</swe:elementCount>
+					<swe:elementType name="pixel">
+						<swe:Quantity definition="urn:ogc:def:property:OGC::Radiance">
+							<gml:description>Radiance measured on band1</gml:description>
+							<swe:uom code="W.m-2.Sr-1.um-1"/>
+						</swe:Quantity>
+					</swe:elementType>
+				</swe:DataArray>
+			</swe:elementType>
+		</swe:DataArray>
+	</swe:field>
+	<swe:field name="green">
+		<swe:DataArray definition="urn:ogc:def:data:OGC::ImageBand">
+			<swe:elementCount>
+				<swe:Count definition="urn:ogc:def:data:OGC::NumberOfRows">
+					<swe:value>3000</swe:value>
+				</swe:Count>
+			</swe:elementCount>
+			<swe:elementType name="row">
+				<swe:DataArray definition="urn:ogc:def:data:OGC::Row">
+					<swe:elementCount>
+						<swe:Count definition="urn:ogc:def:data:OGC::NumberOfColumns">
+							<swe:value>3000</swe:value>
+						</swe:Count>
+					</swe:elementCount>
+					<swe:elementType name="pixel">
+						<swe:Quantity definition="urn:ogc:def:property:OGC::Radiance">
+							<gml:description>Radiance measured on band2</gml:description>
+							<swe:uom code="W.m-2.Sr-1.um-1"/>
+						</swe:Quantity>
+					</swe:elementType>
+				</swe:DataArray>
+			</swe:elementType>
+		</swe:DataArray>
+	</swe:field>
+	<swe:field name="blue">
+		<swe:DataArray definition="urn:ogc:def:data:OGC::ImageBand">
+			<swe:elementCount>
+				<swe:Count definition="urn:ogc:def:data:OGC::NumberOfRows">
+					<swe:value>3000</swe:value>
+				</swe:Count>
+			</swe:elementCount>
+			<swe:elementType name="row">
+				<swe:DataArray definition="urn:ogc:def:data:OGC::Row">
+					<swe:elementCount>
+						<swe:Count definition="urn:ogc:def:data:OGC::NumberOfColumns">
+							<swe:value>3000</swe:value>
+						</swe:Count>
+					</swe:elementCount>
+					<swe:elementType name="pixel">
+						<swe:Quantity definition="urn:ogc:def:property:OGC::Radiance">
+							<gml:description>Radiance measured on band3</gml:description>
+							<swe:uom code="W.m-2.Sr-1.um-1"/>
+						</swe:Quantity>
+					</swe:elementType>
+				</swe:DataArray>
+			</swe:elementType>
+		</swe:DataArray>
+	</swe:field>
+</swe:DataRecord>

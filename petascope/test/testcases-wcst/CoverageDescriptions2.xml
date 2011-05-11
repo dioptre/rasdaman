@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:CoverageDescriptions xmlns="http://www.opengis.net/ows" xmlns:ns2="http://www.opengis.net/wcs/1.1" xmlns:ns3="http://www.opengis.net/wcs/1.1/ows" xmlns:ns4="http://www.w3.org/1999/xlink" xmlns:ns5="http://www.opengis.net/gml" xmlns:ns6="http://www.w3.org/2001/SMIL20/" xmlns:ns7="http://www.w3.org/2001/SMIL20/Language" xmlns:ns8="http://www.opengis.net/ows">
+    <ns2:CoverageDescription>
+        <Title>Title 2 (Descriptions)</Title>
+        <Abstract>Test coverage (Description)</Abstract>
+        <ns2:Identifier>coverage_2</ns2:Identifier>
+        <ns2:Domain>
+            <ns2:SpatialDomain>
+                <ns8:BoundingBox>
+                    <ns8:LowerCorner>0.0 0.0</ns8:LowerCorner>
+                    <ns8:UpperCorner>399.0 343.0</ns8:UpperCorner>
+                </ns8:BoundingBox>
+            </ns2:SpatialDomain>
+        </ns2:Domain>
+        <ns2:Range>
+            <ns2:Field>
+                <ns2:Identifier>red</ns2:Identifier>
+                <ns2:Definition>
+                    <ns3:DataType>unsigned short</ns3:DataType>
+                </ns2:Definition>
+                <ns3:InterpolationMethods>
+                    <ns3:DefaultMethod nullResistance="none">none</ns3:DefaultMethod>
+                </ns3:InterpolationMethods>
+            </ns2:Field>
+            <ns2:Field>
+                <ns2:Identifier>blue</ns2:Identifier>
+                <ns2:Definition>
+                    <ns3:DataType>weird</ns3:DataType>
+                </ns2:Definition>
+                <ns3:InterpolationMethods>
+                    <ns3:DefaultMethod nullResistance="none">none</ns3:DefaultMethod>
+                </ns3:InterpolationMethods>
+            </ns2:Field>
+		</ns2:Range>
+        <ns2:SupportedCRS></ns2:SupportedCRS>
+        <ns2:SupportedFormat>text/xml</ns2:SupportedFormat>
+    </ns2:CoverageDescription>
+</ns2:CoverageDescriptions>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wcs:CoverageDescriptions xsi:schemaLocation="http://www.opengis.net/wcs/2.0 ../wcsAll.xsd" xmlns:wcs="http://www.opengis.net/wcs/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:gml="http://www.opengis.net/gml/3.2">
+  <wcs:CoverageDescription gml:id="test_multipoint" xmlns="http://www.opengis.net/gml/3.2" xmlns:gmlcov="http://www.opengis.net/gmlcov/1.0" xmlns:swe="http://www.opengis.net/swe/2.0">
+    <boundedBy>
+      <Envelope axisLabels="x y z w " uomLabels="x y elevation other " srsDimension="4">
+        <lowerCorner>0 0 0 0 </lowerCorner>
+        <upperCorner>4000 4000 4000 4000 </upperCorner>
+      </Envelope>
+    </boundedBy>
+    <wcs:CoverageId>test_multipoint</wcs:CoverageId>
+    <domainSet>
+      <Grid dimension="4" gml:id="grid-test_multipoint">
+        <limits>
+          <GridEnvelope>
+            <low>0 0 0 0 </low>
+            <high>4000 4000 4000 4000 </high>
+          </GridEnvelope>
+        </limits>
+        <axisLabels>x y z w </axisLabels>
+      </Grid>
+    </domainSet>
+    <gmlcov:rangeType>
+      <swe:DataRecord>
+        <swe:field name="red">
+          <swe:Quantity definition="urn:ogc:def:dataType:OGC:1.1:unsigned int">
+            <!-- <gml:description>{fieldDescr}</gml:description> -->
+            <gml:name>red</gml:name>
+            <swe:nilValues>
+              <swe:NilValues>
+                <swe:nilValue reason="http://www.opengis.net/def/nil/OGC/0/BelowDetectionRange">0</swe:nilValue>
+              </swe:NilValues>
+            </swe:nilValues>
+            <swe:uom code="{code}"/>
+            <swe:constraint>
+              <swe:AllowedValues>
+                <swe:interval>0 255</swe:interval>
+                <swe:significantFigures>3</swe:significantFigures>
+              </swe:AllowedValues>
+            </swe:constraint>
+          </swe:Quantity>
+        </swe:field>
+        <swe:field name="green">
+          <swe:Quantity definition="urn:ogc:def:dataType:OGC:1.1:unsigned int">
+            <!-- <gml:description>{fieldDescr}</gml:description> -->
+            <gml:name>green</gml:name>
+            <swe:nilValues>
+              <swe:NilValues>
+                <swe:nilValue reason="http://www.opengis.net/def/nil/OGC/0/BelowDetectionRange">0</swe:nilValue>
+              </swe:NilValues>
+            </swe:nilValues>
+            <swe:uom code="{code}"/>
+            <swe:constraint>
+              <swe:AllowedValues>
+                <swe:interval>0 255</swe:interval>
+                <swe:significantFigures>3</swe:significantFigures>
+              </swe:AllowedValues>
+            </swe:constraint>
+          </swe:Quantity>
+        </swe:field>
+        <swe:field name="blue">
+          <swe:Quantity definition="urn:ogc:def:dataType:OGC:1.1:unsigned int">
+            <!-- <gml:description>{fieldDescr}</gml:description> -->
+            <gml:name>blue</gml:name>
+            <swe:nilValues>
+              <swe:NilValues>
+                <swe:nilValue reason="http://www.opengis.net/def/nil/OGC/0/BelowDetectionRange">0</swe:nilValue>
+              </swe:NilValues>
+            </swe:nilValues>
+            <swe:uom code="{code}"/>
+            <swe:constraint>
+              <swe:AllowedValues>
+                <swe:interval>0 255</swe:interval>
+                <swe:significantFigures>3</swe:significantFigures>
+              </swe:AllowedValues>
+            </swe:constraint>
+          </swe:Quantity>
+        </swe:field>
+      </swe:DataRecord>
+    </gmlcov:rangeType>
+    <wcs:ServiceParameters>
+      <wcs:CoverageSubtype>MultiPointCoverage</wcs:CoverageSubtype>
+    </wcs:ServiceParameters>
+  </wcs:CoverageDescription>
+</wcs:CoverageDescriptions>

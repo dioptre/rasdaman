@@ -1,0 +1,1 @@
+for c in ( rgb ) return encode( ((char) abs( c.1 - c.0 ))[ x(0:450), y(0:300) ], "png" )

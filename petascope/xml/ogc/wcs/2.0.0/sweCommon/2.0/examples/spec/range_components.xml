@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swe:DataRecord xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/swe/2.0 ../../swe.xsd">
+	<!-- -->
+	<swe:field name="category_range_field">
+		<swe:CategoryRange definition="urn:ogc:def:property:OGC::GeologicalEra">
+			<gml:description>Approximate period expressed as a range of geological eras</gml:description>
+			<gml:name>Approximative Age</gml:name>
+			<swe:codeSpace xlink:href="urn:cgi:classifierScheme:BGS:DIC_GEOCHRON.TRANSLATION"/>
+			<swe:value>Paleozoic Mesozoic</swe:value>
+		</swe:CategoryRange>
+	</swe:field>
+	<!-- -->
+	<swe:field name="count_range_field">
+		<swe:CountRange definition="urn:ogc:def:property:OGC::IndexRange">
+			<gml:name>Index Range</gml:name>
+			<swe:value>0 9999</swe:value>
+		</swe:CountRange>
+	</swe:field>
+	<!-- -->
+	<swe:field name="quantity_range_field">
+		<swe:QuantityRange definition="urn:ogc:def:property:OGC::DynamicRange">
+			<gml:description>Dynamic range of the cryogenic thermometer</gml:description>
+			<gml:name>Dynamic Range</gml:name>
+			<swe:uom code="K"/>
+			<swe:value>10 300</swe:value>
+		</swe:QuantityRange>
+	</swe:field>
+	<!-- -->
+	<swe:field name="time_range_field_iso">
+		<swe:TimeRange definition="urn:ogc:def:property:OGC::SurveyPeriod" referenceFrame="urn:ogc:def:crs:OGC::UTC">
+			<gml:name>Survey Period</gml:name>
+			<swe:uom xlink:href="urn:ogc:def:unit:ISO:8601"/>
+			<swe:value>2008-01-05T11:02:54Z 2009-11-05T16:29:26Z</swe:value>
+		</swe:TimeRange>
+	</swe:field>
+	<!-- -->
+</swe:DataRecord>

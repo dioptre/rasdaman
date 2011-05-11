@@ -1,0 +1,8 @@
+for c in ( rgb ) 
+return encode( 
+	(char) 
+	coverage greyImage 
+	over $first x(51:150), 
+		 $second y(0:99) 
+	values $first
+, "jpeg" )

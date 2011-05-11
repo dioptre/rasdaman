@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:CoverageSummary xmlns="http://www.opengis.net/ows" xmlns:ns2="http://www.opengis.net/wcs/1.1" xmlns:ns3="http://www.opengis.net/wcs/1.1/ows" xmlns:ns4="http://www.w3.org/1999/xlink" xmlns:ns5="http://www.opengis.net/gml" xmlns:ns6="http://www.w3.org/2001/SMIL20/" xmlns:ns7="http://www.w3.org/2001/SMIL20/Language" version="1.1.0">
+    <Title>Title2</Title>
+    <Abstract>Abstract2 (Summary)</Abstract>
+    <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">coverage_2</Identifier>
+</ns2:CoverageSummary>

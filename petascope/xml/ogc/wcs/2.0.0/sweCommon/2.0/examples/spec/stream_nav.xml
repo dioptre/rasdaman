@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swe:DataStream xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/swe/2.0 ../../swe.xsd">
+	<gml:name>Aircraft Navigation</gml:name>
+	<swe:elementType name="navData">
+		<swe:DataRecord>
+			<swe:field name="time">
+				<swe:Time definition="urn:ogc:def:property:OGC:SamplingTime" referenceFrame="urn:ogc:def:crs:OGC::GPS" referenceTime="1970-01-01T00:00:00Z">
+					<swe:uom code="s"/>
+				</swe:Time>
+			</swe:field>
+			<swe:field name="location">
+				<swe:Vector definition="urn:ogc:property:OGC::LocationVector" referenceFrame="urn:ogc:def:crs:EPSG:6.7:4979">
+					<swe:coordinate name="lat">
+						<swe:Quantity definition="urn:ogc:def:property:OGC:GeodeticLatitude" axisID="Lat">
+							<swe:uom code="deg"/>
+						</swe:Quantity>
+					</swe:coordinate>
+					<swe:coordinate name="lon">
+						<swe:Quantity definition="urn:ogc:def:property:OGC:Longitude" axisID="Long">
+							<swe:uom code="deg"/>
+						</swe:Quantity>
+					</swe:coordinate>
+					<swe:coordinate name="alt">
+						<swe:Quantity definition="urn:ogc:def:property:OGC:EllipsoidalHeight" axisID="h">
+							<swe:uom code="m"/>
+						</swe:Quantity>
+					</swe:coordinate>
+				</swe:Vector>
+			</swe:field>
+			<swe:field name="attitude">
+				<swe:Vector definition="urn:ogc:property:OGC::EulerAngles" referenceFrame="urn:ogc:def:crs:OGC::ENU">
+					<swe:coordinate name="heading">
+						<swe:Quantity definition="urn:ogc:def:property:OGC:TrueHeading" axisID="Z">
+							<swe:uom code="deg"/>
+						</swe:Quantity>
+					</swe:coordinate>
+					<swe:coordinate name="pitch">
+						<swe:Quantity definition="urn:ogc:def:property:OGC:PitchAngle" axisID="X">
+							<swe:uom code="deg"/>
+						</swe:Quantity>
+					</swe:coordinate>
+					<swe:coordinate name="roll">
+						<swe:Quantity definition="urn:ogc:def:property:OGC:RollAngle" axisID="Y">
+							<swe:uom code="deg"/>
+						</swe:Quantity>
+					</swe:coordinate>
+				</swe:Vector>
+			</swe:field>
+		</swe:DataRecord>
+	</swe:elementType>
+	<swe:encoding>
+		<swe:TextEncoding tokenSeparator="," blockSeparator="&#10;" decimalSeparator="."/>
+	</swe:encoding>
+	<swe:values xlink:href="rtp://myserver:4563/navData"/>
+</swe:DataStream>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:Capabilities xmlns="http://www.opengis.net/ows" xmlns:ns2="http://www.opengis.net/wcs/1.1" xmlns:ns3="http://www.opengis.net/wcs/1.1/ows" xmlns:ns4="http://www.w3.org/1999/xlink" xmlns:ns5="http://www.opengis.net/gml" xmlns:ns6="http://www.w3.org/2001/SMIL20/" xmlns:ns7="http://www.w3.org/2001/SMIL20/Language" version="1.1.0">
+    <ns3:ServiceIdentification>
+        <Title>WCS Coverage Server @ Jacobs University</Title>
+        <Abstract>WCS Server developed at jacobs University</Abstract>
+        <ns3:ServiceType>OGC WCS</ns3:ServiceType>
+        <ns3:Fees>NONE</ns3:Fees>
+    </ns3:ServiceIdentification>
+    <ServiceProvider>
+        <ProviderName>Jacobs University Bremen</ProviderName>
+        <ProviderSite ns4:href="http://www.jacobs-university.de/"/>
+    </ServiceProvider>
+    <ns3:OperationsMetadata>
+        <ns3:Operation name="GetCapabilities">
+            <ns3:DCP>
+                <ns3:HTTP>
+                    <Soap xmlns:ns8="http://www.opengis.net/ows" xmlns="" ns4:href="http://localhost/SOAP/URL/for/GetCapabalities"/>
+                    <Post xmlns:ns8="http://www.opengis.net/ows" xmlns="" ns4:href="http://localhost/please/replace/me/by/my/GetCapabilities/URL"/>
+                </ns3:HTTP>
+            </ns3:DCP>
+        </ns3:Operation>
+        <ns3:Operation name="GetCoverage">
+            <ns3:DCP>
+                <ns3:HTTP>
+                    <Soap xmlns:ns8="http://www.opengis.net/ows" xmlns="" ns4:href="http://localhost/SOAP/URL/for/GetCapabalities"/>
+                    <Post xmlns:ns8="http://www.opengis.net/ows" xmlns="" ns4:href="http://localhost/please/replace/me/by/my/GetCoverage/URL"/>
+                </ns3:HTTP>
+            </ns3:DCP>
+            <ns3:Constraint name="Format">
+                <ns3:AllowedValues>
+                    <ns3:Value>image/jpeg</ns3:Value>
+                    <ns3:Value>image/jpeg</ns3:Value>
+                    <ns3:Value>image/png</ns3:Value>
+                    <ns3:Value>image/tiff</ns3:Value>
+                    <ns3:Value>image/tiff</ns3:Value>
+                    <ns3:Value>application/x-octet-stream</ns3:Value>
+                </ns3:AllowedValues>
+            </ns3:Constraint>
+            <ns3:Constraint name="Format">
+                <ns3:AllowedValues>
+                    <ns3:Value>text/xml</ns3:Value>
+                </ns3:AllowedValues>
+            </ns3:Constraint>
+        </ns3:Operation>
+        <ns3:Operation name="DescribeCoverage">
+            <ns3:DCP>
+                <ns3:HTTP>
+                    <Soap xmlns:ns8="http://www.opengis.net/ows" xmlns="" ns4:href="http://localhost/SOAP/URL/for/GetCapabalities"/>
+                    <Post xmlns:ns8="http://www.opengis.net/ows" xmlns="" ns4:href="http://localhost/please/replace/me/by/my/DescribeCoverage/URL"/>
+                </ns3:HTTP>
+            </ns3:DCP>
+        </ns3:Operation>
+    </ns3:OperationsMetadata>
+    <ns2:Contents>
+        <ns2:CoverageSummary>
+            <Title>Coverage SEGY002</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">SEGY002</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage Boonsville_SEGY</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">Boonsville_SEGY</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage Waha_SEGY</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">Waha_SEGY</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage mr</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">mr</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage rgb</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">rgb</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage nrg</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">nrg</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage Modis</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">Modis</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage mowglie</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">mowglie</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage whatevereeeee</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">whatevereeeee</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage climate_temperature</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">climate_temperature</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage NN3_1</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">NN3_1</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage NN3_2</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">NN3_2</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage NN3_3</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">NN3_3</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage NN3_4</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">NN3_4</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage NN3_5</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">NN3_5</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage NN3_6</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">NN3_6</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage NN3_7</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">NN3_7</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage NN3_8</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">NN3_8</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage NN3_9</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">NN3_9</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage NN3_10</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">NN3_10</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage NN3_11</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">NN3_11</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage TP</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">TP</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage climate_clouds</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">climate_clouds</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage climate_earth</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">climate_earth</Identifier>
+        </ns2:CoverageSummary>
+        <ns2:CoverageSummary>
+            <Title>Coverage NIR</Title>
+            <Abstract>Available coverage, fetched from the database</Abstract>
+            <Identifier xmlns:ns8="http://www.opengis.net/ows" xmlns="">NIR</Identifier>
+        </ns2:CoverageSummary>
+    </ns2:Contents>
+</ns2:Capabilities>

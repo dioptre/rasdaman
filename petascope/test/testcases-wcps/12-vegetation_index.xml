@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ProcessCoveragesRequest xmlns="http://www.opengis.net/wcps/1.0" service="WCPS" version="1.0.0">
+<query><xmlSyntax><coverageIterator><iteratorVar>s</iteratorVar><coverageName>rgb</coverageName></coverageIterator><encode store="false"><greaterThan><div><minus><fieldSelect><coverage>s</coverage><field><name>0</name></field></fieldSelect><fieldSelect><coverage>s</coverage><field><name>1</name></field></fieldSelect></minus><plus><fieldSelect><coverage>s</coverage><field><name>0</name></field></fieldSelect><fieldSelect><coverage>s</coverage><field><name>1</name></field></fieldSelect></plus></div><numericConstant>0.1</numericConstant></greaterThan><format>jpeg</format></encode></xmlSyntax></query></ProcessCoveragesRequest>

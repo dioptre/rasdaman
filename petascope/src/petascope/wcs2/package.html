@@ -1,0 +1,27 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <p>This package contains all of the code specific to handling WCS 2.0 requests.</p>
+        <p>A high-level overview of how a request is handled:</p>
+        <ol>
+            <li>First the request is intercepted by <tt>Wcs2Servlet</tt></li>
+            <li>The proper protocol binding extension is retrieved from the pool of registered extensions in <tt>ExtensionsRegistry</tt>.
+                All further processing of the request is done by this protocol extension.
+            <li>The raw string form of the request is parsed with the appropriate parser into an abstract <tt>Request</tt> object
+                (one of <tt>GetCapabilitiesRequest</tt>, <tt>DescribeCoverageRequest</tt> or <tt>GetCoverageRequest</tt>)</li>
+            <li>The request object is then passed to a <tt>RequestHandler</tt>, which processes the request and returns a <tt>Response</tt>.</li>
+            <li>When the <tt>Request</tt> is a <tt>GetCoverageRequest</tt>, depending on the mediatype/format it is
+                processed by an appropriate <tt>FormatExtension</tt>, e.g. <tt>GmlFormatExtension</tt> handles
+                mediatype=application/gml+xml, while <tt>MultipartGeotiffFormatExtension</tt> handles
+                mediatype=multipart/mixed &amp; format=image/tiff</li>
+        </ol>
+    </body>
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swe:DataArray definition="urn:ogc:def:data:OGC::Image" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ism="urn:us:gov:ic:ism:v2" xsi:schemaLocation="http://www.opengis.net/swe/2.0 ../../swe.xsd">
+	<swe:elementCount>
+		<swe:Count definition="urn:ogc:def:data:OGC::ImageDimension">
+			<swe:value>256</swe:value>
+		</swe:Count>
+	</swe:elementCount>
+	<swe:elementType name="row">
+		<swe:DataArray definition="urn:ogc:def:data:OGC::Row">
+			<swe:elementCount>
+				<swe:Count definition="urn:ogc:def:data:OGC::ImageDimension">
+					<swe:value>256</swe:value>
+				</swe:Count>
+			</swe:elementCount>
+			<swe:elementType name="pixel">
+				<swe:DataRecord definition="urn:ogc:def:data:OGC::Pixel">
+					<swe:field name="red">
+						<swe:Quantity definition="urn:ogc:def:property:OGC::Radiance">
+							<gml:description>Radiance measured on band1</gml:description>
+							<swe:uom code="W.m-2.Sr-1.um-1"/>
+						</swe:Quantity>
+					</swe:field>
+					<swe:field name="green">
+						<swe:Quantity definition="urn:ogc:def:property:OGC::Radiance">
+							<gml:description>Radiance measured on band2</gml:description>
+							<swe:uom code="W.m-2.Sr-1.um-1"/>
+						</swe:Quantity>
+					</swe:field>
+					<swe:field name="blue">
+						<swe:Quantity definition="urn:ogc:def:property:OGC::Radiance">
+							<gml:description>Radiance measured on band3</gml:description>
+							<swe:uom code="W.m-2.Sr-1.um-1"/>
+						</swe:Quantity>
+					</swe:field>
+				</swe:DataRecord>
+			</swe:elementType>
+			<swe:encoding>
+				<swe:BinaryEncoding byteOrder="bigEndian" byteEncoding="base64">
+					<swe:member>
+						<swe:Component dataType="urn:ogc:def:data:OGC:unsignedByte" ref="row/pixel/red"/>
+					</swe:member>
+					<swe:member>
+						<swe:Component dataType="urn:ogc:def:data:OGC:unsignedByte" ref="row/pixel/green"/>
+					</swe:member>
+					<swe:member>
+						<swe:Component dataType="urn:ogc:def:data:OGC:unsignedByte" ref="row/pixel/blue"/>
+					</swe:member>
+				</swe:BinaryEncoding>
+			</swe:encoding>
+			<swe:values>
+				FZEFZE564864HGZ6RG54Z684F86R7H4Z84FR8Z4685E468GTA4E8G4A6...
+			</swe:values>
+		</swe:DataArray>
+	</swe:elementType>
+</swe:DataArray>
+

@@ -1,0 +1,9 @@
+for c in ( mr )
+return
+encode( coverage histogram
+        over     $n x(0:20)
+        values   condense +
+                        over     $px x(0:20),
+                                 $py y(0:20)
+                        using    1,
+        "csv" )

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swe:DataRecord xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/swe/2.0 ../../swe.xsd">
+	<!-- -->
+	<swe:field name="category_field_with_constraints">
+		<swe:Category definition="urn:ogc:def:property:OGC::SensorType">
+			<gml:name>Instrument Type</gml:name>
+			<swe:codeSpace xlink:href="http://mmisw.org/ont/bodc/instrument"/>
+			<swe:constraint>
+				<swe:AllowedTokens>
+					<swe:value>Multi beam echosounder</swe:value>
+					<swe:value>Temperature sensor</swe:value>
+					<swe:value>Underwater camera</swe:value>
+				</swe:AllowedTokens>
+			</swe:constraint>
+		</swe:Category>
+	</swe:field>
+	<!-- -->
+	<swe:field name="text_field_with_constraints">
+		<swe:Text definition="urn:ogc:def:property:OGC::SerialNumber">
+			<gml:name>Serial Number</gml:name>
+			<swe:constraint>
+				<swe:AllowedTokens>
+					<swe:pattern>^[0-9][A-Z]{3}[0-9]{2}S1$</swe:pattern>
+				</swe:AllowedTokens>
+			</swe:constraint>
+		</swe:Text>
+	</swe:field>
+	<!-- -->
+	<swe:field name="quantity_field_with_constraints">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::WindSpeed">
+			<gml:name>Wind Speed</gml:name>
+			<swe:uom code="km/h"/>
+			<swe:constraint>
+				<swe:AllowedValues>
+					<swe:interval>0 250</swe:interval>
+				</swe:AllowedValues>
+			</swe:constraint>			
+		</swe:Quantity>
+	</swe:field>
+	<!-- -->
+	<swe:field name="quantity_field_with_constraints">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::Angle">
+			<gml:name>Planar Angle</gml:name>
+			<swe:uom code="deg"/>
+			<swe:constraint>
+				<swe:AllowedValues>
+					<swe:interval>-180 +180</swe:interval>
+				</swe:AllowedValues>
+			</swe:constraint>			
+		</swe:Quantity>
+	</swe:field>
+	<!-- -->
+	<swe:field name="quantity_field_with_interval_constraints">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::Distance">
+			<swe:uom code="m"/>
+			<swe:constraint>
+				<swe:AllowedValues>
+					<swe:interval>-INF -20</swe:interval>
+					<swe:interval>20 50</swe:interval>
+					<swe:interval>60 +INF</swe:interval>
+				</swe:AllowedValues>
+			</swe:constraint>			
+		</swe:Quantity>
+	</swe:field>
+	<!-- -->
+	<swe:field name="quantity_field_with_enumeration">
+		<swe:Count definition="urn:ogc:def:property:OGC::ObjectCount">
+			<gml:description>Number of active cameras</gml:description>
+			<gml:name>Active Cameras</gml:name>
+			<swe:constraint>
+				<swe:AllowedValues>
+					<swe:value>1</swe:value>
+					<swe:value>3</swe:value>
+					<swe:value>6</swe:value>
+				</swe:AllowedValues>
+			</swe:constraint>			
+		</swe:Count>
+	</swe:field>
+	<!-- -->
+	<swe:field name="time_field_with_constraint">
+		<swe:Time definition="urn:ogc:def:property:OGC::SamplingTime">
+		  <gml:name>Acquisition Time</gml:name>
+			<swe:uom xlink:href="urn:ogc:def:unit:ISO:8601"/>
+			<swe:constraint>
+				<swe:AllowedTimes>
+					<swe:interval>2009-01-01 +INF</swe:interval>
+				</swe:AllowedTimes>
+			</swe:constraint>
+		</swe:Time>
+	</swe:field>
+	<!-- -->
+</swe:DataRecord>

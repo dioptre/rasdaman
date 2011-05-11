@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmlcov:MultiPointCoverage  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns:gml='http://www.opengis.net/gml/3.2'
+    xmlns='http://www.opengis.net/gml/3.2'
+    xmlns:swe='http://www.opengis.net/swe/2.0'
+    xmlns:gmlcov='http://www.opengis.net/gmlcov/1.0'
+    xmlns:gmlwcs='http://www.opengis.net/gmlcov/1.0'
+    xsi:schemaLocation='http://www.opengis.net/gmlcov/1.0 ../gmlcov/1.0/gmlcovAll.xsd'
+    gml:id="test_multipoint">
+
+    <gml:boundedBy>
+        <gml:Envelope srsName="http://www.opengis.net/def/crs/EPSG/0/4979" axisLabels="x y z w" uomLabels="x y z w" srsDimension="4">
+            <gml:lowerCorner>0 0 0 0 </gml:lowerCorner>
+            <gml:upperCorner>4000 4000 4000 4000 </gml:upperCorner>
+        </gml:Envelope>
+    </gml:boundedBy>
+
+    <gml:domainSet>
+        <gml:MultiPoint gml:id="multipoint_test_multipoint" srsName="http://www.opengis.net/def/crs/EPSG/0/4979">
+            <gml:pointMember>
+                <gml:Point gml:id="p1_test_multipoint">
+                    <gml:pos>10.099600000000001 -0.066214899999999993 0.058171199999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p2_test_multipoint">
+                    <gml:pos>10.0985 -0.13242499999999999 0.116338</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p3_test_multipoint">
+                    <gml:pos>10.696300000000001 -0.210424 0.184862</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p4_test_multipoint">
+                    <gml:pos>10.9933 -0.288406 0.25337100000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p5_test_multipoint">
+                    <gml:pos>11.8887 -0.389959 0.342588</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p6_test_multipoint">
+                    <gml:pos>11.883699999999999 -0.46788600000000002 0.41104800000000002</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p7_test_multipoint">
+                    <gml:pos>11.2789 -0.518258 0.45530100000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p8_test_multipoint">
+                    <gml:pos>12.968299999999999 -0.68127199999999999 0.59851200000000004</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p9_test_multipoint">
+                    <gml:pos>12.1624 -0.71911099999999994 0.63175400000000004</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p10_test_multipoint">
+                    <gml:pos>12.552099999999999 -0.82500799999999996 0.72478699999999996</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p11_test_multipoint">
+                    <gml:pos>13.836 -1.00088 0.87929400000000002</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p12_test_multipoint">
+                    <gml:pos>14.52 -1.14652 1.0072399999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p13_test_multipoint">
+                    <gml:pos>13.810600000000001 -1.1821299999999999 1.03853</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p14_test_multipoint">
+                    <gml:pos>18.8584 -1.7395700000000001 1.5282500000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p15_test_multipoint">
+                    <gml:pos>28.553599999999999 -2.8241100000000001 2.4810500000000002</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p16_test_multipoint">
+                    <gml:pos>31.391500000000001 -3.3144200000000001 2.9117899999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p17_test_multipoint">
+                    <gml:pos>37.186999999999998 -4.1752500000000001 3.66805</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p18_test_multipoint">
+                    <gml:pos>37.927199999999999 -4.5129000000000001 3.96468</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p19_test_multipoint">
+                    <gml:pos>42.114400000000003 -5.2945599999999997 4.6513799999999996</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p20_test_multipoint">
+                    <gml:pos>48.255600000000001 -6.3923300000000003 5.6158000000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p21_test_multipoint">
+                    <gml:pos>61.5518 -8.5703499999999995 7.5292300000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p22_test_multipoint">
+                    <gml:pos>86.481399999999994 -12.629 11.094799999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p23_test_multipoint">
+                    <gml:pos>86.135400000000004 -13.1655 11.5661</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p24_test_multipoint">
+                    <gml:pos>91.456800000000001 -14.6043 12.8302</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p25_test_multipoint">
+                    <gml:pos>93.040999999999997 -15.4961 13.6137</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p26_test_multipoint">
+                    <gml:pos>93.831800000000001 -16.2745 14.297499999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p27_test_multipoint">
+                    <gml:pos>94.611599999999996 -17.064399999999999 14.991400000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p28_test_multipoint">
+                    <gml:pos>94.409800000000004 -17.684000000000001 15.5358</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p29_test_multipoint">
+                    <gml:pos>94.491200000000006 -18.358699999999999 16.128499999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p30_test_multipoint">
+                    <gml:pos>95.0471 -19.132999999999999 16.808800000000002</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p31_test_multipoint">
+                    <gml:pos>95.495800000000003 -19.896000000000001 17.478999999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p32_test_multipoint">
+                    <gml:pos>95.260999999999996 -20.5213 18.028400000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p33_test_multipoint">
+                    <gml:pos>95.019000000000005 -21.145 18.5763</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p34_test_multipoint">
+                    <gml:pos>94.769800000000004 -21.767099999999999 19.122900000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p35_test_multipoint">
+                    <gml:pos>95.371700000000004 -22.591000000000001 19.846599999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p36_test_multipoint">
+                    <gml:pos>95.010499999999993 -23.1921 20.3748</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p37_test_multipoint">
+                    <gml:pos>95.685900000000004 -24.052499999999998 21.130600000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p38_test_multipoint">
+                    <gml:pos>95.402799999999999 -24.678899999999999 21.680900000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p39_test_multipoint">
+                    <gml:pos>95.866600000000005 -25.504100000000001 22.405899999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p40_test_multipoint">
+                    <gml:pos>95.284800000000004 -26.054400000000001 22.889399999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p41_test_multipoint">
+                    <gml:pos>96.008899999999997 -26.967600000000001 23.691600000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p42_test_multipoint">
+                    <gml:pos>95.505300000000005 -27.542100000000001 24.196300000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p43_test_multipoint">
+                    <gml:pos>96.112099999999998 -28.442599999999999 24.987400000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p44_test_multipoint">
+                    <gml:pos>95.778099999999995 -29.0716 25.539999999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p45_test_multipoint">
+                    <gml:pos>95.0672 -29.583400000000001 25.989599999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p46_test_multipoint">
+                    <gml:pos>93.983500000000006 -29.970600000000001 26.329799999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p47_test_multipoint">
+                    <gml:pos>93.815200000000004 -30.645600000000002 26.922799999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p48_test_multipoint">
+                    <gml:pos>94.552000000000007 -31.626100000000001 27.784199999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p49_test_multipoint">
+                    <gml:pos>94.453999999999994 -32.338299999999997 28.4099</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p50_test_multipoint">
+                    <gml:pos>94.618499999999997 -33.146799999999999 29.120100000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p51_test_multipoint">
+                    <gml:pos>94.049400000000006 -33.7012 29.607199999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p52_test_multipoint">
+                    <gml:pos>94.373400000000004 -34.579900000000002 30.379200000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p53_test_multipoint">
+                    <gml:pos>94.773499999999999 -35.499000000000002 31.186599999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p54_test_multipoint">
+                    <gml:pos>93.912099999999995 -35.948399999999999 31.581499999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p55_test_multipoint">
+                    <gml:pos>94.998900000000006 -37.152500000000003 32.639299999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p56_test_multipoint">
+                    <gml:pos>94.2988 -37.668100000000003 33.092199999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p57_test_multipoint">
+                    <gml:pos>93.506100000000004 -38.141500000000001 33.508099999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p58_test_multipoint">
+                    <gml:pos>94.284000000000006 -39.262900000000002 34.493299999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p59_test_multipoint">
+                    <gml:pos>92.083600000000004 -39.139699999999998 34.384999999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p60_test_multipoint">
+                    <gml:pos>90.672899999999998 -39.328699999999998 34.551099999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p61_test_multipoint">
+                    <gml:pos>88.230800000000002 -39.044600000000003 34.301499999999997</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p62_test_multipoint">
+                    <gml:pos>87.516800000000003 -39.505499999999998 34.706499999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p63_test_multipoint">
+                    <gml:pos>85.349299999999999 -39.292700000000004 34.519500000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p64_test_multipoint">
+                    <gml:pos>83.702299999999994 -39.293399999999998 34.520099999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p65_test_multipoint">
+                    <gml:pos>82.820999999999998 -39.638800000000003 34.823500000000003</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p66_test_multipoint">
+                    <gml:pos>80.931700000000006 -39.484699999999997 34.688200000000002</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p67_test_multipoint">
+                    <gml:pos>79.302499999999995 -39.433300000000003 34.643000000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p68_test_multipoint">
+                    <gml:pos>78.427000000000007 -39.741599999999998 34.913800000000002</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p69_test_multipoint">
+                    <gml:pos>77.4679 -39.999000000000002 35.139899999999997</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p70_test_multipoint">
+                    <gml:pos>75.116200000000006 -39.514200000000002 34.714100000000002</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p71_test_multipoint">
+                    <gml:pos>74.654399999999995 -40.005200000000002 35.145400000000002</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p72_test_multipoint">
+                    <gml:pos>72.811499999999995 -39.742400000000004 34.914499999999997</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p73_test_multipoint">
+                    <gml:pos>70.900199999999998 -39.413899999999998 34.625900000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p74_test_multipoint">
+                    <gml:pos>69.960499999999996 -39.605899999999998 34.794600000000003</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p75_test_multipoint">
+                    <gml:pos>68.228399999999993 -39.331299999999999 34.553400000000003</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p76_test_multipoint">
+                    <gml:pos>67.374899999999997 -39.545900000000003 34.741900000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p77_test_multipoint">
+                    <gml:pos>66.521699999999996 -39.752200000000002 34.923099999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p78_test_multipoint">
+                    <gml:pos>65.280299999999997 -39.713999999999999 34.889600000000002</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p79_test_multipoint">
+                    <gml:pos>63.427500000000002 -39.280299999999997 34.508600000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p80_test_multipoint">
+                    <gml:pos>62.968899999999998 -39.694600000000001 34.872599999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p81_test_multipoint">
+                    <gml:pos>61.212699999999998 -39.276499999999999 34.505299999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p82_test_multipoint">
+                    <gml:pos>60.0749 -39.232700000000001 34.466799999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p83_test_multipoint">
+                    <gml:pos>59.616900000000001 -39.625100000000003 34.811500000000002</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p84_test_multipoint">
+                    <gml:pos>58.411200000000001 -39.511800000000001 34.7119</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p85_test_multipoint">
+                    <gml:pos>57.2864 -39.436399999999999 34.645699999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p86_test_multipoint">
+                    <gml:pos>55.948599999999999 -39.195599999999999 34.434199999999997</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p87_test_multipoint">
+                    <gml:pos>54.910800000000002 -39.147199999999998 34.391599999999997</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p88_test_multipoint">
+                    <gml:pos>53.806600000000003 -39.036000000000001 34.293999999999997</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p89_test_multipoint">
+                    <gml:pos>52.709200000000003 -38.913400000000003 34.186199999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p90_test_multipoint">
+                    <gml:pos>52.255200000000002 -39.2575 34.488500000000002</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p91_test_multipoint">
+                    <gml:pos>51.166400000000003 -39.116300000000003 34.3645</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p92_test_multipoint">
+                    <gml:pos>50.084899999999998 -38.963900000000002 34.230600000000003</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p93_test_multipoint">
+                    <gml:pos>49.079700000000003 -38.854799999999997 34.134799999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p94_test_multipoint">
+                    <gml:pos>48.490099999999998 -39.065100000000001 34.319600000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p95_test_multipoint">
+                    <gml:pos>47.358899999999998 -38.8277 34.110900000000001</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p96_test_multipoint">
+                    <gml:pos>47.039900000000003 -39.248399999999997 34.480499999999999</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+            <gml:pointMember>
+                <gml:Point gml:id="p97_test_multipoint">
+                    <gml:pos>46.184600000000003 -39.217599999999997 34.453499999999998</gml:pos>
+                </gml:Point>
+            </gml:pointMember>
+
+        </gml:MultiPoint>
+    </gml:domainSet>
+
+    <gml:rangeSet>
+        <gml:QuantityList uom="urn:x-si:v1999:uom:degreesC">{gmlQList}</gml:QuantityList>
+    </gml:rangeSet>
+
+    <gmlcov:rangeType>
+        <swe:DataRecord>
+            <swe:field name="red"
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns='http://www.opengis.net/gml/3.2'
+    xmlns:gml='http://www.opengis.net/gml/3.2'
+    xmlns:gmlcov='http://www.opengis.net/gmlcov/1.0'
+    xmlns:swe='http://www.opengis.net/swe/2.0'
+    xmlns:wcs='http://www.opengis.net/wcs/2.0'>
+                <swe:Quantity definition="urn:ogc:def:dataType:OGC:1.1:unsigned int">
+    <!-- <gml:description>{fieldDescr}</gml:description> -->
+                    <gml:name>red</gml:name>
+                    <swe:nilValues>
+                        <swe:NilValues>
+                            <swe:nilValue reason='http://www.opengis.net/def/nil/OGC/0/BelowDetectionRange'>0</swe:nilValue>
+                        </swe:NilValues>
+                    </swe:nilValues>
+                    <swe:uom code="{code}"/>
+                    <swe:constraint>
+                        <swe:AllowedValues>
+                            <swe:interval>0 255</swe:interval>
+                            <swe:significantFigures>3</swe:significantFigures>
+                        </swe:AllowedValues>
+                    </swe:constraint>
+                </swe:Quantity>
+            </swe:field>
+            <swe:field name="green"
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns='http://www.opengis.net/gml/3.2'
+    xmlns:gml='http://www.opengis.net/gml/3.2'
+    xmlns:gmlcov='http://www.opengis.net/gmlcov/1.0'
+    xmlns:swe='http://www.opengis.net/swe/2.0'
+    xmlns:wcs='http://www.opengis.net/wcs/2.0'>
+                <swe:Quantity definition="urn:ogc:def:dataType:OGC:1.1:unsigned int">
+    <!-- <gml:description>{fieldDescr}</gml:description> -->
+                    <gml:name>green</gml:name>
+                    <swe:nilValues>
+                        <swe:NilValues>
+                            <swe:nilValue reason='http://www.opengis.net/def/nil/OGC/0/BelowDetectionRange'>0</swe:nilValue>
+                        </swe:NilValues>
+                    </swe:nilValues>
+                    <swe:uom code="{code}"/>
+                    <swe:constraint>
+                        <swe:AllowedValues>
+                            <swe:interval>0 255</swe:interval>
+                            <swe:significantFigures>3</swe:significantFigures>
+                        </swe:AllowedValues>
+                    </swe:constraint>
+                </swe:Quantity>
+            </swe:field>
+            <swe:field name="blue"
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns='http://www.opengis.net/gml/3.2'
+    xmlns:gml='http://www.opengis.net/gml/3.2'
+    xmlns:gmlcov='http://www.opengis.net/gmlcov/1.0'
+    xmlns:swe='http://www.opengis.net/swe/2.0'
+    xmlns:wcs='http://www.opengis.net/wcs/2.0'>
+                <swe:Quantity definition="urn:ogc:def:dataType:OGC:1.1:unsigned int">
+    <!-- <gml:description>{fieldDescr}</gml:description> -->
+                    <gml:name>blue</gml:name>
+                    <swe:nilValues>
+                        <swe:NilValues>
+                            <swe:nilValue reason='http://www.opengis.net/def/nil/OGC/0/BelowDetectionRange'>0</swe:nilValue>
+                        </swe:NilValues>
+                    </swe:nilValues>
+                    <swe:uom code="{code}"/>
+                    <swe:constraint>
+                        <swe:AllowedValues>
+                            <swe:interval>0 255</swe:interval>
+                            <swe:significantFigures>3</swe:significantFigures>
+                        </swe:AllowedValues>
+                    </swe:constraint>
+                </swe:Quantity>
+            </swe:field>
+        </swe:DataRecord>
+    </gmlcov:rangeType>
+
+</gmlcov:MultiPointCoverage>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swe:DataArray xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/swe/2.0 ../../swe.xsd">
+	<gml:description>Array of synchronous weather measurements</gml:description>
+	<swe:elementCount>
+		<swe:Count definition="urn:ogc:def:data:OGC::TemporalDimension">
+			<swe:value>5</swe:value>
+		</swe:Count>
+	</swe:elementCount>
+	<swe:elementType name="weather_measurement">
+		<swe:DataRecord>
+			<gml:name>Weather Data Record</gml:name>
+			<swe:field name="time">
+				<swe:Time definition="urn:ogc:def:property:OGC::SamplingTime">
+					<gml:name>Sampling Time</gml:name>
+					<swe:uom xlink:href="urn:ogc:def:unit:ISO:8601"/>
+				</swe:Time>
+			</swe:field>
+			<swe:field name="temperature">
+				<swe:Quantity definition="urn:ogc:def:property:OGC::AirTemperature">
+					<gml:name>Air Temperature</gml:name>
+					<swe:uom xlink:href="Cel"/>
+				</swe:Quantity>
+			</swe:field>
+			<swe:field name="pressure">
+				<swe:Quantity definition="urn:ogc:def:property:OGC::AtmosphericPressure">
+					<gml:name>Atmospheric Pressure</gml:name>
+					<swe:uom code="mbar"/>
+				</swe:Quantity>
+			</swe:field>
+		</swe:DataRecord>
+	</swe:elementType>
+	<swe:encoding>
+		<swe:TextEncoding blockSeparator="&#10;" tokenSeparator=","/>
+	</swe:encoding>
+	<swe:values>
+		2009-02-10T10:42:56Z,25.4,1020
+		2009-02-10T10:43:06Z,25.3,1021
+		2009-02-10T10:44:16Z,25.3,1020
+		2009-02-10T10:45:26Z,25.4,1022
+		2009-02-10T10:46:36Z,25.4,1022
+	</swe:values>
+</swe:DataArray>

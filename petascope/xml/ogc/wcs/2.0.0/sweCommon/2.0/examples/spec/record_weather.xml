@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swe:DataRecord xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/swe/2.0 ../../swe.xsd">
+	<!-- -->
+	<gml:description>Record of synchronous weather measurements</gml:description>
+	<gml:name>Weather Data Record</gml:name>
+	<!-- -->
+	<swe:field name="time">
+		<swe:Time definition="urn:ogc:def:property:OGC::SamplingTime" referenceFrame="urn:ogc:def:crs:OGC::GPS">
+			<gml:name>Sampling Time</gml:name>
+			<swe:uom xlink:href="urn:ogc:def:unit:ISO:8601"/>
+		</swe:Time>
+	</swe:field>
+	<!-- -->
+	<swe:field name="temperature">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::AirTemperature">
+			<gml:name>Air Temperature</gml:name>
+			<swe:uom xlink:href="Cel"/>
+		</swe:Quantity>
+	</swe:field>
+	<!-- -->
+	<swe:field name="pressure">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::AtmosphericPressure">
+			<gml:name>Atmospheric Pressure</gml:name>
+			<swe:uom code="mbar"/>
+		</swe:Quantity>
+	</swe:field>
+	<!-- -->
+	<swe:field name="windSpeed">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::WindSpeed">
+			<gml:name>Wind Speed</gml:name>
+			<swe:uom code="km/h"/>
+		</swe:Quantity>
+	</swe:field>
+	<!-- -->
+	<swe:field name="windDirection">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::WindDirectionToNorth">
+			<gml:name>Wind Direction</gml:name>
+			<swe:uom code="deg"/>
+		</swe:Quantity>
+	</swe:field>
+	<!-- -->
+</swe:DataRecord>

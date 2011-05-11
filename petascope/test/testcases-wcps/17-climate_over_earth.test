@@ -1,0 +1,5 @@
+for clouds in ( climate_clouds ), 
+	mask   in ( climate_earth ) 
+return encode( 
+	(char) clouds[ t(0) ] * mask[ t(0) ]
+, "png" )

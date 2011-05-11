@@ -1,0 +1,23 @@
+for c in (rgb) return 
+encode( 
+
+	coverage DFT
+	over $xx x(65:70),
+		 $xy y(65:70)
+	values
+		condense + 
+		over $ux x(65:70),
+			 $uy y(65:70)
+		using
+			c[x($ux),y($uy)]
+			*
+			cos(
+				( -2 * (22.0/7.0) )
+				*
+				(
+					( (double) ($ux*$xx) / (70 - 65  + 1) )
+					+
+					( (double) ($uy*$xy) / (70 - 65 + 1 ) )
+				)
+			)
+, "jpeg")

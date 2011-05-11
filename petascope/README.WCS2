@@ -1,0 +1,58 @@
+WCS 2.0 developers guide
+------------------------
+
+This file contains details related to the WCS 2.0 implementation in PetaScope.
+For general information on PetaScope and installation guidelines refer to
+the README and INSTALL files.
+
+The WCS 2.0 implementation in PetaScope is WCS 2.0 conformant, with support
+for the XML/POST, KVP and SOAP protocol extension bindings, and providing
+support for returning responses as:
+ * pure GML
+ * pure GeoTIFF
+ * GML + GeoTIFF
+
+
+Source code
+-----------
+
+The source code of this implementation is in the petascope.wcs2.* packages.
+The code is highly scalable and resuable; a high-level overview of how it all
+works (copied from the javadoc of the petascope.wcs2 package):
+
+   1. A WCS 2.0 request is intercepted by Wcs2Servlet
+   2. The proper protocol binding extension is retrieved from the pool of
+      registered extensions in ExtensionsRegistry. All further processing of
+      the request is done by this protocol extension.
+   3. The raw string form of the request is parsed with the appropriate parser
+      into an abstract Request object (one of GetCapabilitiesRequest,
+      DescribeCoverageRequest or GetCoverageRequest)
+   4. The request object is then passed to a RequestHandler, which processes 
+      the request and returns a Response.
+   5. When the Request is a GetCoverageRequest, depending on the
+      mediatype/format it is processed by an appropriate FormatExtension, e.g.
+      GmlFormatExtension handles mediatype=application/gml+xml, while
+      MultipartGeotiffFormatExtension handles mediatype=multipart/mixed & format=image/tiff
+
+
+Testing code
+------------
+
+Code is tested mainly with JUnit tests, which use testdata from the test/testdata
+directory. All tests can be executed by running the petascope.AllTests class,
+or from the command line with 'make test'.
+
+
+Documentation
+-------------
+
+The code is thoroughly documented with Javadoc, generate it to build/apidocs
+with 'make javadoc'.
+
+
+Client
+------
+
+After deploying with Tomcat, WCS 2.0 request can be submitted through a simple
+form available at http://localhost:8080/petascope/wcs2 (this is the location
+of the WCS servlet).

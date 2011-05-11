@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<title>Web Coverage Processing Service</title>
+	</head>
+	<body>
+
+<h1>PetaScope Implementation (WCPS)</h1>
+
+<p>There are 3 ways to invoke this service:</p>
+
+<p>1. Enter a ProcessCoverage request in WCPS abstract syntax and submit it as a POST request with a parameter named <b>query</b>. You can use the form below.</p>
+<form action="" method="post">
+	<textarea cols="64" rows="4" name="query"></textarea>
+	<input value="Send" type="submit">
+</form>
+
+<p>2. Upload a ProcessCoverage XML request as a multupart/form-data POST request containing a file. You can use the form below.</p>
+<form action="" method="post" enctype="multipart/form-data">
+	<input accept="text/xml" size="64" name="xmlfile" type="file"> 
+	<input value="Send" type="submit">
+</form>
+
+<p>3. Enter a ProcessCoverage XML request and submit it as a POST request with a parameter named <b>xml</b>. You can use the form below.</p>
+<form action="" method="post">
+	<textarea cols="64" rows="16" name="xml"></textarea>
+	<input value="Send" type="submit">
+</form>
+
+
+</body>
+</html>

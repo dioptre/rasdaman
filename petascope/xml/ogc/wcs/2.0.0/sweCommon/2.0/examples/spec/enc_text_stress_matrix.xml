@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swe:Matrix definition="urn:ogc:def:data:OGC::StressMatrix" referenceFrame="#SENSOR_FRAME" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/swe/2.0 ../../swe.xsd">
+	<swe:elementCount>
+		<swe:Count definition="urn:ogc:def:data:OGC::SpatialDimension">
+			<swe:value>3</swe:value>
+		</swe:Count>
+	</swe:elementCount>
+	<swe:elementType name="row">
+		<swe:DataArray definition="urn:ogc:def:property:OGC::Row">
+			<swe:elementCount>
+				<swe:Count definition="urn:ogc:def:data:OGC::SpatialDimension">
+					<swe:value>3</swe:value>
+				</swe:Count>
+			</swe:elementCount>
+			<swe:elementType name="coef">
+				<swe:Quantity definition="urn:ogc:def:property:OGC::Stress">
+					<swe:uom code="MPa"/>
+				</swe:Quantity>
+			</swe:elementType>
+		</swe:DataArray>
+	</swe:elementType>
+	<swe:encoding>
+		<swe:TextEncoding blockSeparator=" " tokenSeparator=","/>
+	</swe:encoding>
+	<swe:values>0.36,0.48,-0.8 -0.8,0.6,0.0 0.48,0.64,0.6</swe:values>
+</swe:Matrix>

@@ -1,0 +1,121 @@
+<!-- edited with XMLSPY v5 rel. 4 U (http://www.xmlspy.com) by SPOT IMAGE (SPOT IMAGE) -->
+<schema targetNamespace="http://www.opengis.net/swe/2.0" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<annotation>
+		<documentation>Schema of simple basic types used in various places in the SWE Common Data Model</documentation>
+	</annotation>
+	<import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+	<!-- ================================================= -->
+	<element name="AbstractSWE" type="swe:AbstractSWEType" abstract="true" substitutionGroup="gml:AbstractObject">
+		<annotation>
+			<documentation>Base substitution groups for all SWE Common objects other than value objects</documentation>
+		</annotation>
+	</element>
+	<complexType name="AbstractSWEType">
+		<sequence>
+			<element name="extension" minOccurs="0" maxOccurs="unbounded" type="anyType"/>
+		</sequence>
+		<attribute ref="gml:id" use="optional"/>
+	</complexType>
+	<!-- ================================================= -->
+	<element name="AbstractSWEIdentifiable" type="swe:AbstractSWEIdentifiableType" abstract="true" substitutionGroup="swe:AbstractSWE">
+		<annotation>
+			<documentation>Base substitution groups for all SWE Common objects with identification metadata</documentation>
+		</annotation>
+	</element>
+	<complexType name="AbstractSWEIdentifiableType">
+		<complexContent>
+			<extension base="swe:AbstractSWEType">
+				<sequence>
+					<element ref="gml:description" minOccurs="0"/>
+					<element ref="gml:identifier" minOccurs="0"/>
+					<element ref="gml:name" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ================================================= -->
+	<element name="AbstractSWEValue" type="swe:AbstractSWEValueType" abstract="true" substitutionGroup="gml:AbstractValue">
+		<annotation>
+			<documentation>Base substitution groups for all SWE value objects (i.e. all data components)</documentation>
+		</annotation>
+	</element>
+	<complexType name="AbstractSWEValueType">
+		<sequence>
+			<element name="extension" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<sequence>
+						<any namespace="##other" processContents="lax"/>
+					</sequence>
+				</complexType>
+			</element>
+			<element ref="gml:description" minOccurs="0"/>
+			<element ref="gml:identifier" minOccurs="0"/>
+			<element ref="gml:name" minOccurs="0"/>
+		</sequence>
+		<attribute ref="gml:id" use="optional"/>
+	</complexType>
+	<!-- ================================================= -->
+	<complexType name="UnitReferencePropertyType">
+		<attribute name="code" type="gml:UomSymbol" use="optional"/>
+		<attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</complexType>
+	<!-- ================================================= -->
+	<complexType name="NilValuePropertyType">
+		<simpleContent>
+			<extension base="token">
+				<attribute name="reason" type="anyURI" use="required"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<!-- ================================================= -->
+	<complexType name="EncodedValuesPropertyType">
+		<complexContent>
+			<extension base="anyType">
+				<attributeGroup ref="gml:AssociationAttributeGroup"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ================================================= -->
+	<simpleType name="TokenPair">
+		<restriction>
+			<simpleType>
+				<list itemType="string"/>
+			</simpleType>
+			<length value="2"/>
+		</restriction>
+	</simpleType>
+	<!-- ================================================= -->
+	<simpleType name="IntegerPair">
+		<restriction>
+			<simpleType>
+				<list itemType="integer"/>
+			</simpleType>
+			<length value="2"/>
+		</restriction>
+	</simpleType>
+	<!-- ================================================= -->
+	<simpleType name="RealPair">
+		<restriction>
+			<simpleType>
+				<list itemType="double"/>
+			</simpleType>
+			<length value="2"/>
+		</restriction>
+	</simpleType>
+	<!-- ================================================= -->
+	<simpleType name="TimePair">
+		<restriction>
+			<simpleType>
+				<list itemType="swe:TimePosition"/>
+			</simpleType>
+			<length value="2"/>
+		</restriction>
+	</simpleType>
+	<!-- ================================================= -->
+	<simpleType name="TimePosition">
+		<union memberTypes="double swe:TimeIso8601"/>
+	</simpleType>
+	<simpleType name="TimeIso8601">
+		<union memberTypes="date time dateTime gml:TimeIndeterminateValueType"/>
+	</simpleType>
+</schema>

@@ -1,0 +1,26 @@
+-- update_db.sh 
+
+When changing the petascope database, put all changes in a file updateN.sql,
+where N is the next number following the last update.
+
+ * To setup petascope database for the first time: ./update_db.sh 0
+ * To upgrade the database starting from a specific update number N, use ./update_db.sh N
+
+IMPORTANT: don't execute update_db.sh with sh, but with bash. Best is to
+chmod +x update_db.sh, and execute it with ./update_db.sh
+
+
+-- gensql_uos.pl
+
+usage: $ perl gensql_uos.pl <file> <coverageID>
+
+where <file> : 3D Point Cloud file saved in UOS Format (contains x y z values separated by whitespace)
+	  <coverageID> : MultiPoint coverageID from ps_coverage to which this pointCloud refers to.
+	
+
+-- droptables.sql
+
+add DROP command at the end for any new tables added further.
+when deleting; rename this file to updateX.sql where X is the last (to be) number
+run $bash update_db.sh X
+

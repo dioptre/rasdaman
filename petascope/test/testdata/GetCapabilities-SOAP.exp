@@ -1,0 +1,189 @@
+GML:
+<?xml version="1.0"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+    <soap:Header/>
+    <soap:Body>
+      <wcs:Capabilities xsi:schemaLocation="http://www.opengis.net/wcs/2.0 wcsAll.xsd" version="2.0.0" xmlns:wcs="http://www.opengis.net/wcs/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:gml="http://www.opengis.net/gml/3.2">
+  <ows:ServiceIdentification xmlns="http://www.opengis.net/ows/2.0">
+    <ows:Title>rasdaman</ows:Title>
+    <ows:Abstract>rasdaman server - free download from www.rasdaman.org</ows:Abstract>
+    <ows:ServiceType>OGC WCS</ows:ServiceType>
+    <ows:ServiceTypeVersion>2.0.0</ows:ServiceTypeVersion>
+    <ows:Profile>http://www.opengis.net/spec/WCS_coverage-encoding/1.0/conf/coverage-encoding</ows:Profile>
+    <ows:Profile>http://www.opengis.net/spec/WCS_protocol-binding_get-kvp/1.0</ows:Profile>
+    <ows:Profile>http://www.opengis.net/spec/WCS_protocol-binding_post-xml/1.0</ows:Profile>
+    <ows:Profile>http://www.opengis.net/spec/WCS_protocol-binding_soap/1.0</ows:Profile>
+    <ows:Profile>http://www.opengis.net/spec/WCS_coverage-encoding_geotiff/1.0/</ows:Profile>
+  </ows:ServiceIdentification>
+  <ows:ServiceProvider xmlns="http://www.opengis.net/ows/2.0">
+    <ows:ProviderName>Jacobs University Bremen</ows:ProviderName>
+    <ows:ProviderSite xlink:href="http://www.petascope.org/"/>
+    <ows:ServiceContact>
+      <ows:IndividualName>Prof. Dr. Peter Baumann</ows:IndividualName>
+      <ows:ContactInfo>
+        <ows:Address>
+          <ows:City>Bremen</ows:City>
+          <ows:PostalCode>28717</ows:PostalCode>
+          <ows:Country>Germany</ows:Country>
+          <ows:ElectronicMailAddress>p.baumann@jacobs-university.de</ows:ElectronicMailAddress>
+        </ows:Address>
+      </ows:ContactInfo>
+      <ows:Role>Project Leader</ows:Role>
+    </ows:ServiceContact>
+  </ows:ServiceProvider>
+  <ows:OperationsMetadata xmlns="http://www.opengis.net/ows/2.0">
+    <ows:Operation name="GetCapabilities">
+      <ows:DCP>
+        <ows:HTTP>
+          <ows:Post xlink:href="http://localhost:8080/petascope/wcs2"/>
+          <ows:Get xlink:href="http://localhost:8080/petascope/wcs2"/>
+        </ows:HTTP>
+      </ows:DCP>
+      <ows:Constraint name="PostEncoding">
+        <ows:AllowedValues>
+          <ows:Value>XML</ows:Value>
+          <ows:Value>SOAP</ows:Value>
+        </ows:AllowedValues>
+      </ows:Constraint>
+    </ows:Operation>
+    <ows:Operation name="DescribeCoverage">
+      <ows:DCP>
+        <ows:HTTP>
+          <ows:Post xlink:href="http://localhost:8080/petascope/wcs2"/>
+          <ows:Get xlink:href="http://localhost:8080/petascope/wcs2"/>
+        </ows:HTTP>
+      </ows:DCP>
+      <ows:Constraint name="PostEncoding">
+        <ows:AllowedValues>
+          <ows:Value>XML</ows:Value>
+          <ows:Value>SOAP</ows:Value>
+        </ows:AllowedValues>
+      </ows:Constraint>
+    </ows:Operation>
+    <ows:Operation name="GetCoverage">
+      <ows:DCP>
+        <ows:HTTP>
+          <ows:Post xlink:href="http://localhost:8080/petascope/wcs2"/>
+          <ows:Get xlink:href="http://localhost:8080/petascope/wcs2"/>
+        </ows:HTTP>
+      </ows:DCP>
+      <ows:Constraint name="PostEncoding">
+        <ows:AllowedValues>
+          <ows:Value>XML</ows:Value>
+          <ows:Value>SOAP</ows:Value>
+        </ows:AllowedValues>
+      </ows:Constraint>
+    </ows:Operation>
+  </ows:OperationsMetadata>
+  <wcs:ServiceMetadata xmlns="http://www.opengis.net/ows/2.0"> </wcs:ServiceMetadata>
+  <Contents xmlns="http://www.opengis.net/wcs/2.0">
+    <CoverageSummary>
+      <CoverageId>climate_clouds</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>mr2</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>climate_earth</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>TP</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>Modis</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>NN3_10</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>nrg</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>NN3_11</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>NIR</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>Waha_SEGY</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>mr</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>rgb</CoverageId>
+      <CoverageSubtype>RectifiedGridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>climate_temperature</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>test_multipoint</CoverageId>
+      <CoverageSubtype>MultiPointCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>whatevereeeee</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>Boonsville_SEGY</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>mowglie</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>NN3_2</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>NN3_3</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>NN3_1</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>NN3_6</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>NN3_7</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>NN3_4</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>NN3_5</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>NN3_8</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+    <CoverageSummary>
+      <CoverageId>NN3_9</CoverageId>
+      <CoverageSubtype>GridCoverage</CoverageSubtype>
+    </CoverageSummary>
+  </Contents>
+</wcs:Capabilities>
+
+    </soap:Body>
+</soap:Envelope>
+

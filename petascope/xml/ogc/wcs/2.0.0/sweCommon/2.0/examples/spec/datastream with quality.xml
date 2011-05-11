@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swe:DataStream xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/swe/2.0 ../../swe.xsd">
+	<!-- -->
+	<swe:elementType name="ctd_data">
+		<swe:DataRecord>
+			<!-- -->
+			<swe:field name="pressure_value">
+				<swe:Quantity definition="urn:ogc:def:property:OGC::Pressure">
+					<gml:description>Water pressure measured by CTD</gml:description>
+					<gml:name>Water Pressure</gml:name>
+					<swe:quality xlink:href="#PRESS_QC"/>
+					<swe:uom code="dbar"/>
+				</swe:Quantity>
+			</swe:field>
+			<!-- -->
+			<swe:field name="pressure_quality">
+				<swe:Category gml:id="PRESS_QC" definition="urn:ogc:def:property:OGC::QualityControlFlag">
+					<gml:name>QC Flag</gml:name>
+					<swe:codeSpace xlink:href="http://mmisw.org/ont/argo/qualityFlag"/>
+				</swe:Category>
+			</swe:field>
+			<!-- -->
+		</swe:DataRecord>
+	</swe:elementType>
+	<!-- -->
+	<swe:encoding>
+		<swe:TextEncoding tokenSeparator="," blockSeparator="&#10;"/>
+	</swe:encoding>
+	<!-- -->
+	<swe:values>
+	
+	</swe:values>
+</swe:DataStream>

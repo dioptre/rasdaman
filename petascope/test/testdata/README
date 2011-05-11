@@ -1,0 +1,4 @@
+There are files with different extensions in this directory:
+ .in - input test file: in general of the form NAME-PROTOCOL.in
+ .exp - expected output file
+ .out - output file

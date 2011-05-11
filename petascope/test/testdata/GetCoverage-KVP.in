@@ -1,0 +1,1 @@
+PETASCOPE_URL?service=WCS&version=2.0.0&request=GetCoverage&coverageid=mr2&subset_x=x(20,29)&subset_y=y(20,30)

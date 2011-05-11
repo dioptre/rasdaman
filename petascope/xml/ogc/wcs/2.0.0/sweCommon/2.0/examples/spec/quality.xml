@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swe:DataRecord xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/swe/2.0 ../../swe.xsd">
+	<!-- -->
+	<swe:field name="quality_as_quantity">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::RelativeAccuracy">
+			<gml:name>Relative Accuracy</gml:name>
+			<swe:uom code="%"/>
+			<swe:value>5</swe:value>
+		</swe:Quantity>
+	</swe:field>
+	<!-- -->
+	<swe:field name="quantity_field_with_accuracy">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::Velocity">
+			<gml:description>Linear velocity of the vehicle</gml:description>
+			<gml:name>Velocity</gml:name>
+			<swe:quality>
+				<swe:Quantity definition="urn:ogc:def:property:OGC::RelativeAccuracy">
+					<gml:name>Relative Accuracy</gml:name>
+					<swe:uom code="%"/>
+					<swe:value>5</swe:value>
+				</swe:Quantity>
+			</swe:quality>
+			<swe:uom code="m/s"/>
+			<swe:value>23.5</swe:value>
+		</swe:Quantity>
+	</swe:field>
+	<!-- -->
+	<swe:field name="quantity_field_with_tolerance">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::Diameter">
+			<gml:description>Diameter of the cylinder</gml:description>
+			<gml:name>Diameter</gml:name>
+			<swe:quality>
+				<swe:QuantityRange definition="urn:ogc:def:property:OGC::Tolerance">
+					<gml:name>Dimensional Tolerance</gml:name>
+					<swe:uom code="um"/>
+					<swe:value>-2 +0</swe:value>
+				</swe:QuantityRange>
+			</swe:quality>
+			<swe:uom code="mm"/>
+			<swe:value>5.6</swe:value>
+		</swe:Quantity>
+	</swe:field>
+	<!-- -->
+	<swe:field name="quantity_field_with_qc">
+		<swe:Quantity definition="urn:ogc:def:property:OGC::Pressure">
+			<gml:description>Water pressure measured by CTD</gml:description>
+			<gml:name>Water Pressure</gml:name>
+			<swe:quality>
+				<swe:Category definition="urn:ogc:def:property:OGC::QualityControlFlag">
+					<gml:name>QC Flag</gml:name>
+					<swe:codeSpace xlink:href="http://mmisw.org/ont/q2o/flag"/>
+					<swe:value>fail</swe:value>
+				</swe:Category>
+			</swe:quality>
+			<swe:uom code="dbar"/>
+			<swe:value>1084</swe:value>
+		</swe:Quantity>
+	</swe:field>
+	<!-- -->
+</swe:DataRecord>
