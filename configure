@@ -8595,7 +8595,7 @@ fi
 done
 
 
-ac_config_files="$ac_config_files Makefile catalogmgr/Makefile relblobif/Makefile relindexif/Makefile relmddif/Makefile relcatalogif/Makefile reladminif/Makefile relstorageif/Makefile indexmgr/Makefile tilemgr/Makefile storagemgr/Makefile compression/Makefile commline/Makefile network/Makefile raslib/Makefile clientcomm/Makefile servercomm/Makefile rasodmg/Makefile qlparser/Makefile conversion/Makefile mddmgr/Makefile httpserver/Makefile mymalloc/Makefile server/Makefile rasmgr/Makefile rascontrol/Makefile rasdl/Makefile applications/Makefile applications/rasql/Makefile bin/Makefile manuals_and_examples/Makefile insertutils/Makefile include/Makefile java/Makefile systemtest/Makefile"
+ac_config_files="$ac_config_files Makefile catalogmgr/Makefile relblobif/Makefile relindexif/Makefile relmddif/Makefile relcatalogif/Makefile reladminif/Makefile relstorageif/Makefile indexmgr/Makefile tilemgr/Makefile storagemgr/Makefile compression/Makefile commline/Makefile network/Makefile raslib/Makefile clientcomm/Makefile servercomm/Makefile rasodmg/Makefile qlparser/Makefile conversion/Makefile mddmgr/Makefile httpserver/Makefile mymalloc/Makefile server/Makefile rasmgr/Makefile rascontrol/Makefile rasdl/Makefile applications/Makefile applications/rasql/Makefile bin/Makefile manuals_and_examples/Makefile insertutils/Makefile include/Makefile java/Makefile petascope/Makefile systemtest/Makefile"
 
 
 # --------------- Header Template Definitions ----------------------
@@ -10311,6 +10311,7 @@ do
     "insertutils/Makefile") CONFIG_FILES="$CONFIG_FILES insertutils/Makefile" ;;
     "include/Makefile") CONFIG_FILES="$CONFIG_FILES include/Makefile" ;;
     "java/Makefile") CONFIG_FILES="$CONFIG_FILES java/Makefile" ;;
+    "petascope/Makefile") CONFIG_FILES="$CONFIG_FILES petascope/Makefile" ;;
     "systemtest/Makefile") CONFIG_FILES="$CONFIG_FILES systemtest/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5 ;;
