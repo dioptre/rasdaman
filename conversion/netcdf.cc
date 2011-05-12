@@ -32,6 +32,8 @@ rasdaman GmbH.
  * Provides functions to convert data to NETCDF and back.
  */
 
+#ifdef HAVE_NETCDF
+
 #include "conversion/netcdf.hh"
 #include "conversion/memfs.hh"
 #include "raslib/error.hh"
@@ -468,6 +470,7 @@ template <class baseType, class castType> void r_Conv_NETCDF::print(baseType* va
         RMInit::logOut << (castType) val[0] << endl;
 }
 
+#endif
 
 /* NcType is defined as enum as follows
 Name			size		Comments

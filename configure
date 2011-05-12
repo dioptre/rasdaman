@@ -6661,7 +6661,7 @@ fi
 done
 
 
-for ac_header in arpa/inet.h fcntl.h float.h limits.h malloc.h memory.h netdb.h netinet/in.h stdlib.h string.h strings.h sys/socket.h sys/time.h unistd.h values.h hdf.h mfhdf.h hdf/hdf.h hdf/mfhdf.h
+for ac_header in arpa/inet.h fcntl.h float.h limits.h malloc.h memory.h netdb.h netinet/in.h stdlib.h string.h strings.h sys/socket.h sys/time.h unistd.h values.h hdf.h mfhdf.h hdf/hdf.h hdf/mfhdf.h netcdfcpp.h
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
@@ -8617,6 +8617,7 @@ ac_config_files="$ac_config_files Makefile catalogmgr/Makefile relblobif/Makefil
 
 
 
+
 # --------------- Parameter Definition -----------------------------
 ####################################################################
 
@@ -8736,9 +8737,8 @@ else
 fi
 
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for libnetcdf library...$with_hdf" >&5
-$as_echo "$as_me: checking for libnetcdf library...$with_hdf" >&6;}
-
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for libnetcdf library...$with_netcdf" >&5
+$as_echo "$as_me: checking for libnetcdf library...$with_netcdf" >&6;}
 
 if test "$with_netcdf" == yes; then
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lnetcdf" >&5
@@ -8781,7 +8781,51 @@ _ACEOF
 else
   { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
 $as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
-as_fn_error $? "--with-netcdf was given but libnetcdf.a was not found! Please install.
+as_fn_error $? "libnetcdf.a was not found! Please install.
+See \`config.log' for more details" "$LINENO" 5 ; }
+fi
+
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lnetcdf_c++" >&5
+$as_echo_n "checking for main in -lnetcdf_c++... " >&6; }
+if test "${ac_cv_lib_netcdf_cpp_main+set}" = set; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lnetcdf_c++  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+
+int
+main ()
+{
+return main ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_netcdf_cpp_main=yes
+else
+  ac_cv_lib_netcdf_cpp_main=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_netcdf_cpp_main" >&5
+$as_echo "$ac_cv_lib_netcdf_cpp_main" >&6; }
+if test "x$ac_cv_lib_netcdf_cpp_main" = x""yes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBNETCDF_C__ 1
+_ACEOF
+
+  LIBS="-lnetcdf_c++ $LIBS"
+
+else
+  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+as_fn_error $? "libnetcdf_c++.a not found! Please install.
 See \`config.log' for more details" "$LINENO" 5 ; }
 fi
 

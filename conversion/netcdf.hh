@@ -41,7 +41,10 @@ rasdaman GmbH.
 #define _R_CONV_NETCDF_HH_
 
 #include "conversion/convertor.hh"
+
+#ifdef HAVE_NETCDF
 #include "netcdfcpp.h"
+#endif
 
 #include <string>
 

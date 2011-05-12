@@ -58,10 +58,6 @@ AC_CHECK_LIB([storagemgr], [main])
 AC_CHECK_LIB([tiff], [TIFFGetField], , [AC_MSG_FAILURE([libtiff.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lz':
 AC_CHECK_LIB([z], [main], , [AC_MSG_FAILURE([libz.a not found! Please install.])])
-# FIXME: Replace `main' with a function in `-lnetcdf':
-AC_CHECK_LIB([netcdf], [main], , [AC_MSG_FAILURE([libnetcdf.a not found! Please install.])])
-# FIXME: Replace `main' with a function in `-lnetcdf_c++':
-AC_CHECK_LIB([netcdf_c++], [main], , [AC_MSG_FAILURE([libnetcdf_c++.a not found! Please install.])])
 
 
 # Checks for header files.
@@ -132,6 +128,7 @@ AC_CONFIG_FILES([Makefile
                  applications/Makefile
                  applications/rasql/Makefile
                  bin/Makefile
+                 manuals_and_examples/Makefile
                  insertutils/Makefile
 		 include/Makefile
 		 java/Makefile
@@ -144,6 +141,7 @@ AC_CONFIG_FILES([Makefile
 AH_TEMPLATE([DEBUG], [Enables debug functionality])
 AH_TEMPLATE([RMANDEBUG], [Enables debug functionality])
 AH_TEMPLATE([HAVE_HDF], [Checks whether HDF4 is installed])
+AH_TEMPLATE([HAVE_NETCDF], [Checks whether N is installed])
 AH_TEMPLATE([RMANVERSION], [The version of Rasdaman currently compiled])
 AH_TEMPLATE([BASEDB_PGSQL], [If defined we are compiling over PostgreSQL])
 AH_TEMPLATE([__NO_MATH_INLINES], [Used by some performance implementaion of math libraries.])   
@@ -181,11 +179,11 @@ AC_ARG_WITH([netcdf],
 	    [],
 	    [with_netcdf=no])
 
-AC_MSG_NOTICE(checking for libnetcdf library...$with_hdf)
-
+AC_MSG_NOTICE(checking for libnetcdf library...$with_netcdf)
 
 if test "$with_netcdf" == yes; then
-  AC_CHECK_LIB([netcdf], [main], ,[AC_MSG_FAILURE([--with-netcdf was given but libnetcdf.a was not found! Please install.])])
+  AC_CHECK_LIB([netcdf], [main], ,[AC_MSG_FAILURE([libnetcdf.a was not found! Please install.])])
+  AC_CHECK_LIB([netcdf_c++], [main], , [AC_MSG_FAILURE([libnetcdf_c++.a not found! Please install.])])
   AC_DEFINE([HAVE_NETCDF], [1])
 fi
 
