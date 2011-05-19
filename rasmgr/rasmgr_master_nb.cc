@@ -321,7 +321,7 @@ int MasterComm::processRequest( NbJob &currentJob )
 					statusText = "(unknown message flag)";
 					break;
 			}
-			if (newstatus != SERVER_REGULARSIG)	// don't blow up the log file with "still alive" signals
+			if (newstatus != SERVER_REGULARSIG && newstatus != SERVER_AVAILABLE)	// don't blow up the log file with "still alive" signals
 			{
 				VLOG << now() << " status info from server " << serverName
 				     << " @ " << getClientAddr( currentJob.getSocket() )
