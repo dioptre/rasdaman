@@ -37,14 +37,20 @@ rasdaman GmbH.
 * /usr/include/csv.h and in /usr/include/tiff.h
 * This will supress the tiff.h definition.
 * Both definitions are similar
+* 
+* 2011-may-24  DM          added support for structured types
 */
 #define HAVE_INT8
+#define STRUCT_DELIMITER_OPEN "\""
+#define STRUCT_DELIMITER_CLOSE "\""
+#define STRUCT_DELIMITER_ELEMENT " "
 
 #include "conversion/csv.hh"
 #include "raslib/error.hh"
 #include "raslib/rminit.hh"
 #include "raslib/parseparams.hh"
 #include "raslib/primitivetype.hh"
+#include "raslib/structuretype.hh"
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -58,11 +64,6 @@ rasdaman GmbH.
 r_Conv_CSV::r_Conv_CSV(const char *src, const r_Minterval &interv, const r_Type *tp) throw(r_Error) 
 : r_Convertor(src, interv, tp, true)
 {
-  if (tp->isStructType())
-  {
-    RMInit::logOut << "r_Conv_CSV::r_Conv_CSV(): structured types not supported." << endl;
-    throw r_Error(r_Error::r_Error_General);
-  }
 }
 
 
@@ -71,31 +72,6 @@ r_Conv_CSV::r_Conv_CSV(const char *src, const r_Minterval &interv, int tp) throw
 : r_Convertor(src, interv, tp)
 {
 }
-
-
-/*
-int r_Conv_HDF::getTypeSize(int intType, char *format)
-{
-
-  switch (intType)
-  {
-    case ctype_int8: strcpy(format, "%c"); return 1; break;
-    case ctype_uint8:
-    case ctype_char:
-    case ctype_bool: return 1; break;
-    case ctype_int16: return 2; break;
-    case ctype_uint16: return 2; break;
-    case ctype_int32: return 4; break;
-    case ctype_uint32: return 4; break;
-    case ctype_int64: return 8; break;
-    case ctype_uint64: return 8; break;
-    case ctype_float32: return 4; break;
-    case ctype_float64: return 8; break;
-    default: return 1; break;
-  }
-  return 1;
-}
-*/
 
 r_Conv_CSV::~r_Conv_CSV(void)
 {
@@ -119,6 +95,53 @@ void r_Conv_CSV::print(std::ofstream &f, baseType* val, int *dims, int dim) {
   }
 }
 
+void r_Conv_CSV::printStructVal(std::ofstream &f, char* val) {
+  r_Structure_Type *st = (r_Structure_Type*) desc.srcType;
+  r_Structure_Type::attribute_iterator iter(st->defines_attribute_begin());
+  while (iter != st->defines_attribute_end()) {
+    val += (*iter).offset();
+    if ((*iter).type_of().isStructType()) {
+      printStructVal(f, val);
+    } else if ((*iter).type_of().isPrimitiveType()) {
+      r_Primitive_Type *pt = (r_Primitive_Type*) &(*iter).type_of();
+      switch ((*iter).type_of().type_id()) {
+        case r_Type::ULONG: f << pt->get_ulong(val); break;
+        case r_Type::USHORT: f << pt->get_ushort(val); break;
+        case r_Type::BOOL: f << pt->get_boolean(val) ? "T": "F"; break;
+        case r_Type::LONG: f << pt->get_long(val); break;
+        case r_Type::SHORT: f << pt->get_short(val); break;
+        case r_Type::OCTET: f << (int) (pt->get_octet(val)); break;
+        case r_Type::DOUBLE: f << pt->get_double(val); break;
+        case r_Type::FLOAT: f << pt->get_float(val); break;
+        case r_Type::CHAR: f << (int) (pt->get_char(val)); break;
+        default: f << (int) (pt->get_char(val)); break;
+      }
+    }
+    iter++;
+    if (iter != st->defines_attribute_end())
+      f << STRUCT_DELIMITER_ELEMENT;
+  }
+}
+
+void r_Conv_CSV::printStruct(std::ofstream &f, char* val, int *dims, int dim) {
+  if (dim == 1) {
+    for (int i = 0; i < dims[0]; ++i, val++) {
+      f << STRUCT_DELIMITER_OPEN;
+      printStructVal(f, &val[0]);
+      f << STRUCT_DELIMITER_CLOSE;
+      if (i < dims[0] - 1)
+        f << ",";
+    }
+  } else {
+    for (int i = 0; i < dims[0]; ++i) {
+      f << "{";
+      printStruct(f, val, dims + 1, dim - 1);
+      f << "}";
+      if (i < dims[0] - 1)
+        f << ",";
+    }
+  }
+}
 
 r_convDesc &r_Conv_CSV::convertTo( const char *options ) throw(r_Error)
 {
@@ -139,7 +162,9 @@ r_convDesc &r_Conv_CSV::convertTo( const char *options ) throw(r_Error)
   {
     dimsizes[i] = desc.srcInterv[i].high() - desc.srcInterv[i].low() + 1;
   }
-
+  if (desc.srcType->isStructType()) {
+      printStruct(ftemp, (char*) src, dimsizes, rank);
+  } else
   switch (desc.baseType)
     {
     case ctype_int8: print<const r_Octet, int>(ftemp, (const r_Octet* &)src, dimsizes, rank); break;
