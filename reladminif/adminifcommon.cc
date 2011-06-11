@@ -52,6 +52,7 @@ rasdaman GmbH.
 // defined in rasserver.cc
 extern char globalConnectId[256];
 
+
 AdminIf* AdminIf::myInstance = NULL;
 
 bool AdminIf::validConnection = false;
@@ -60,7 +61,8 @@ bool AdminIf::readOnlyTA = false;
 
 DatabaseIf* AdminIf::myDatabaseIf = NULL;
 
-char AdminIf::systemName[SYSTEMNAME_MAXLEN];
+char AdminIf::systemName[SYSTEMNAME_MAXLEN+1];
+const char DEFAULT_SYSTEM_NAME[SYSTEMNAME_MAXLEN]="localhost";
 
 bool AdminIf::_isAborted = false;
 
@@ -106,7 +108,12 @@ AdminIf::instance()
         RMDBGENTER(4, RMDebug::module_adminif, "Adminif", "instance() " << myInstance);      
         AdminIf* retval=NULL;
 
-	strcpy((char*)&systemName, dbmsName);
+  int hostResult = gethostname(systemName, sizeof(systemName) );
+  if (hostResult =! 0)
+  {
+    RMDBGONCE(4, RMDebug::module_adminif, "Adminif", "Error: cannot obtain hostname, using 'localhost'; errno=" << errno );
+    (void) strcpy( systemName, DEFAULT_SYSTEM_NAME );
+  }
 	if(!myInstance)
 		{
 		myInstance = new AdminIf();

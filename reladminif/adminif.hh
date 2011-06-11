@@ -167,7 +167,7 @@ class AdminIf
 		holds the specific name of dbms
 		*/
 
-		static char systemName[SYSTEMNAME_MAXLEN];
+		static char systemName[SYSTEMNAME_MAXLEN+1];
                 /*@Doc:
                 Store the dbms name using dbmsName
                 */
