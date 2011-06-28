@@ -35,7 +35,8 @@ rasdaman GmbH.
 #include "rasmgr_srv.hh"
 #include "rasmgr_master.hh"
 
-#include "debug.hh"
+#include "debug-srv.hh"
+#include "raslib/rminit.hh"
 
 // clear this def for production release!!!
 #define TALK_SECRET(a) TALK(a)
@@ -263,6 +264,9 @@ int   ServerHost::getConnectionSocket()
 	struct hostent *hostinfo;
 	servername.sin_family=AF_INET;
 	servername.sin_port=htons(listenPort);
+
+	// try to resolve address - either by name or IP address -- PB 2007-jun-25
+	TALK_SECRET( "ServerHost::getConnectionSocket: trying to resolve name " << netwName << " ... " );
 	hostinfo=gethostbyname(netwName);
 	if(hostinfo==NULL)
 	{  
@@ -388,6 +392,7 @@ bool HostManager::insertNewHost(const char* hostName,const char *netwName,int li
 
 	if (result == true)
 	{
+		// FIXME: there should be only explicitly defined hosts; what are "internal" hosts? -- PB 2007-jun-26
 		ServerHost tempServerHost;
 	
 		if(hostList.empty())

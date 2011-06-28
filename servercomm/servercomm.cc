@@ -117,7 +117,7 @@ static const char rcsid[] = "@(#)servercomm, ServerComm: $Id: servercomm.cc,v 1.
 
 using namespace std;
 // init globals for server initialization
-RMINITGLOBALS('S');
+// RMINITGLOBALS('S')
       
 // Once again a function prototype. The first one is for the RPC dispatcher 
 // function located in the server stub file rpcif_svc.c and the second one

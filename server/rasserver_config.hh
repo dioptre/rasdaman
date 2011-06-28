@@ -56,7 +56,9 @@ class Configuration
       
       int         getDefaultIndexSize();
       
+#ifdef RMANDEBUG
       int         getDebugLevel();
+#endif      
       
       const char* getDefaultTileConfig();
       const char* getTilingScheme();
@@ -100,9 +102,10 @@ class Configuration
       CommandLineParameter *cmlTiling;
       CommandLineParameter *cmlIndex;
       CommandLineParameter *cmlIndexSize;
+#ifdef RMANDEBUG
       CommandLineParameter *cmlDbg;
       CommandLineParameter *cmlDbgLevel;
-
+#endif
       const char* myExecutable;
       
       const char* serverName;
@@ -129,7 +132,9 @@ class Configuration
       const char* tilingName;
       const char* indexType;
       int         indexSize;
+#ifdef RMANDEBUG
       int         dbgLevel;
+#endif      
    };
 
 extern Configuration configuration;

@@ -51,8 +51,10 @@ using namespace std;
 #include <stdlib.h>		// mkstemp()
 #include <iomanip>
 #include <time.h>
+#include <bits/list.tcc>
 
-#include "debug.hh"
+#include "debug-srv.hh"
+#include "raslib/rminit.hh"
 
 extern bool hostCmp( const char *h1, const char *h2);
 
@@ -66,6 +68,7 @@ Configuration::Configuration():
 	cmlMaster     (cmlInter.addStringParameter(CommandLineParser::noShortName, "master", "<name> host of rasmgr master (slave only)")), 
 	cmlMasterPort (cmlInter.addLongParameter(CommandLineParser::noShortName, "mport", "<port> listen port number of rasmgr master (slave only)", DEFAULT_PORT)),
 	cmlQuiet      (cmlInter.addFlagParameter( 'q', CommandLineParser::noLongName, "quiet: don't log requests (default: log requests to stdout)")),
+	cmlLog	      (cmlInter.addStringParameter('l', "log", "<log-file> log is printed to <log-file>\n\t\tif <log-file> is stdout , log output is printed to standard out", "$RMANHOME/log/rasmgr.<pid>.log")),
 #ifdef RMANDEBUG	// was: NO_OFFICIAL_RELEASE
 	cmlTest       (cmlInter.addFlagParameter(CommandLineParser::noShortName, "test", "test mode")), 
 	cmlDSup       (cmlInter.addFlagParameter(CommandLineParser::noShortName, "dsup", "debug mode")), 
@@ -81,7 +84,7 @@ Configuration::Configuration():
 	if (ghnResult != 0)	// cannot get hostname?
 	{
 		int ghnErrno = errno;
-		std::cout << "Error: cannot get hostname of my machine: error " << ghnErrno << "; will use '" << DEFAULT_HOSTNAME << "' as heuristic." << endl;
+		RMInit::logOut << "Error: cannot get hostname of my machine: error " << ghnErrno << "; will use '" << DEFAULT_HOSTNAME << "' as heuristic." << endl;
 		strcpy( hostName, DEFAULT_HOSTNAME );
 	}
 	strcpy(slaveName,hostName);
@@ -97,7 +100,7 @@ Configuration::Configuration():
 
 	if (sizeof(configFileName) < strlen(CONFDIR) + strlen(RASMGR_CONF_FILE) + 2)
 	{
-		std::cout << "Error: configuration path length exceeds system limits: '" << CONFDIR << "/" << RASMGR_CONF_FILE << "'" << endl;
+		RMInit::logOut << "Error: configuration path length exceeds system limits: '" << CONFDIR << "/" << RASMGR_CONF_FILE << "'" << endl;
 		LEAVE( "Configuration::Configuration: leave." );
 		return;
 	}
@@ -133,7 +136,7 @@ bool Configuration::readConfigFile()
 	else
 	{
 		TALK( "Configuration::readConfigFile: cannot open config file." );
-		std::cout << "Warning: cannot open config file " << configFileName << endl;
+		RMInit::logOut << "Warning: cannot open config file " << configFileName << endl;
 		fileIsOpen = false;
 	}
 	result = true;				// was: false, but I want to allow a missing file
@@ -321,10 +324,12 @@ bool Configuration::interpretArguments(int argc, char **argv, char **envp)
 	}
 	catch(CmlException& err)
 	{
-		std::cout << "Error parsing command line: " << err.what() << std::endl;
+		RMInit::logOut << "Error parsing command line: " << err.what() << std::endl;
 		printHelp();
 		result = false;
 	}
+   
+	initLogFiles();
    
 	SET_OUTPUT( true );			// by default, enable trace (debug) output
 	verbose = true;			// by default, be verbose
@@ -421,7 +426,7 @@ bool Configuration::interpretArguments(int argc, char **argv, char **envp)
 
 	if( (result==true) && cmlRandTest.isPresent() )
 	{
-		std::cout<<"Random generator test..."<<(randomGenerator.insideTest() ? "PASSED":"FAILED" )<<std::endl;
+		RMInit::logOut<<"Random generator test..."<<(randomGenerator.insideTest() ? "PASSED":"FAILED" )<<std::endl;
 		result = false;
 	}
 	
@@ -446,6 +451,11 @@ bool Configuration::isDebugSupport()
 bool Configuration::isVerbose()
 {
 	return verbose;
+}
+
+bool Configuration::isLogToStdOut()
+{
+	return logToStdOut;
 }
 
 bool Configuration::isTestModus()
@@ -487,24 +497,65 @@ const char* Configuration::getSlaveName()
 	return slaveName[0] ? slaveName:hostName;
 }
 
-   
 void Configuration::printHelp()
 {
-	std::cout << "Usage: rasmgr [options]" << std::endl;
-	std::cout << "Options:" << std::endl;
+	RMInit::logOut << "Usage: rasmgr [options]" << std::endl;
+	RMInit::logOut << "Options:" << std::endl;
 	cmlInter.printHelp();
-	std::cout << std::endl;
+	RMInit::logOut << std::endl;
 	return;
 }
 
 void Configuration::printStatus()
 {
-	std::cout << "rasmgr configuration parameter settings:" << std::endl;
-	std::cout << "   symb name   = " << publicHostName << std::endl;
-	std::cout << "   hostname    = " << publicHostName << std::endl;
-	std::cout << "   port        = " << listenPort     << std::endl;
-	std::cout << "   poll        = " << pollFrequency  << std::endl;
-	std::cout << "   quiet     = "   << (!verbose) << std::endl;
+	RMInit::logOut << "rasmgr configuration parameter settings:" << std::endl;
+	RMInit::logOut << "   symb name   = " << publicHostName << std::endl;
+	RMInit::logOut << "   hostname    = " << publicHostName << std::endl;
+	RMInit::logOut << "   port        = " << listenPort     << std::endl;
+	RMInit::logOut << "   poll        = " << pollFrequency  << std::endl;
+	RMInit::logOut << "   quiet     = "   << (!verbose) << std::endl;
+	RMInit::logOut << "   log file  = "   << logFileName << std::endl;
 	return;
 }
 
+void Configuration::initLogFiles() {
+  if (cmlLog.isPresent()) {
+    if (strcasecmp(cmlLog.getValueAsString(), "stdout") != 0) {
+      logFileName = cmlLog.getValueAsString();
+      logToStdOut = false;
+    } else {
+      logFileName = "stdout";
+      logToStdOut = true;
+    }
+  } else { // default
+    logFileName = makeLogFileName(LOG_SUFFIX);
+    logToStdOut = false;
+  }
+  cout << "rasmgr log file is: " << logFileName << endl;
+
+  if (logToStdOut == true) {
+    RMInit::logOut.rdbuf(cout.rdbuf());
+    RMInit::dbgOut.rdbuf(cout.rdbuf());
+    RMInit::bmOut.rdbuf(cout.rdbuf());
+  } else {
+    if (RMInit::logFileOut.is_open())
+      RMInit::logFileOut.close();
+
+    RMInit::logFileOut.open(logFileName, ios::out | ios::ate);
+    RMInit::logOut.rdbuf(RMInit::logFileOut.rdbuf());
+    RMInit::dbgOut.rdbuf(RMInit::logFileOut.rdbuf());
+    RMInit::bmOut.rdbuf(RMInit::logFileOut.rdbuf());
+  }
+}
+
+const char * Configuration::makeLogFileName(const char *desExt) {
+  static char buffer[ FILENAME_MAX ];
+  int pid = getpid();
+  mkdir(LOGDIR, S_IRWXU + S_IRGRP + S_IXGRP + S_IROTH + S_IXOTH); // create if not exist, rwxr-xr-x
+  int pathLen = snprintf(buffer, FILENAME_MAX, "%s/%s.%06d.%s", LOGDIR, RASMGR_LOG_PREFIX, pid, desExt);
+  if (pathLen >= FILENAME_MAX) {
+    buffer[FILENAME_MAX - 1] = '\0'; // force-terminate string before printing
+    cerr << "Warning: path name longer than allowed by OS, likely log file cannot be written: " << buffer << endl;
+  }
+  return buffer;
+} 

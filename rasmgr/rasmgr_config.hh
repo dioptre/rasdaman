@@ -51,6 +51,7 @@ const int DEFAULT_POLLING_FREQUENCY = 200;
 
 /// host/domain name size (See man gethostname)
 #define HOSTNAME_SIZE	255
+#define RASMGR_LOG_PREFIX "rasmgr"
 
 /**
   * \ingroup Rasmgrs
@@ -77,10 +78,15 @@ class Configuration
       bool isTestModus();
       bool isDebugSupport();
       bool isVerbose();
+      bool isLogToStdOut();
 
       bool allowMultipleWriteTransactions();
 
       void printStatus();
+
+      // DM: logging, adapted from rasserver_config.hh
+      void initLogFiles();
+      const char* makeLogFileName(const char *desExt);
 
     private:
       void printHelp();
@@ -112,11 +118,15 @@ class Configuration
       //interface program
       CommandLineParser    &cmlInter;
       CommandLineParameter &cmlHelp, &cmlHostName, &cmlPort, &cmlPollFrequ;
-      CommandLineParameter &cmlMaster, &cmlMasterPort, &cmlName, &cmlQuiet;
+      CommandLineParameter &cmlMaster, &cmlMasterPort, &cmlName, &cmlQuiet, &cmlLog;
 
     #ifdef RMANDEBUG
       CommandLineParameter &cmlTest, &cmlDSup, &cmlRandTest, &cmlRth, &cmlMultiWT;
     #endif
+      
+      // logging variables
+      bool        logToStdOut;
+      const char* logFileName; // == 0 if stdout
    };
    
 extern Configuration config;

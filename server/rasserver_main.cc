@@ -60,19 +60,26 @@ and -DCOMPDATE="\"$(COMPDATE)\"" when compiling
 #include <string>
 
 #include "globals.hh"	// DEFAULT_PORT
-#include "raslib/rmdebug.hh"
 #include "servercomm/httpserver.hh"
 #include "storagemgr/sstoragelayout.hh"
 #include <signal.h>
 
-#include "rasserver_config.hh"
-#include "rnprotocol/rnpserver.hh"
+RMINITGLOBALS('C');
 
 // from some unknown location the debug-srv.hh guard seems to be defined already, so get rid of it -- PB 2005-jan-10
 #undef DEBUG_HH
 #define DEBUG_MAIN debug_main
-#include "debug-srv.hh"
 
+
+#include "debug-srv.hh"
+#include "raslib/rmdebug.hh"
+
+#include "server/rasserver_config.hh"
+#include "rnprotocol/rnpserver.hh"
+
+// return codes
+#define RC_OK		0
+#define RC_ERROR	(-1)
 
 bool initialization();
 
@@ -106,13 +113,13 @@ int main ( int argc, char** argv )
 	ENTER( "rasserver.main()" );
 
 	//print startup text (this line will still go into forking rasmgr's log!)
-    RMInit::logOut << "Spawned rasserver v" << RMANVERSION / 1000. << " on base DBMS "  << BASEDBSTRING  << " -- generated on " << COMPDATE << "." << endl;
+	cout << "Spawned rasserver v" << RMANVERSION / 1000. << " on base DBMS "  << BASEDBSTRING  << " -- generated on " << COMPDATE << "." << endl;
 
 	if(configuration.parseCommandLine(argc, argv) == false)
 	{
 		RMInit::logOut << "Error: cannot parse command line." << endl;
 		LEAVE( "rasserver.main(): Error parsing command line." );
-		return -1;
+		return RC_ERROR;
 	}
 
 	RMInit::logOut << "rasserver: rasdaman server v" << RMANVERSION / 1000. << " on base DBMS "  << BASEDBSTRING  << " -- generated on " << COMPDATE << "." << endl;
@@ -137,7 +144,7 @@ int main ( int argc, char** argv )
 	{
 		RMInit::logOut << "Error during initialization. aborted." << endl;
 		LEAVE( "rasserver.main(): Error during initialization." );
-		return -1;
+		return RC_ERROR;
 	}
 
 	//
@@ -191,7 +198,7 @@ int main ( int argc, char** argv )
 			RMInit::logOut << "Error: encountered " << errorObj.get_errorno() << ": " << errorObj.what() << endl;    
 		}
 #endif // 0
-		returnCode = -1;
+		returnCode = RC_ERROR;
 	}
 	catch(...) 
 	{
@@ -204,7 +211,7 @@ int main ( int argc, char** argv )
 			RMInit::logOut << "rasserver: general exception" << endl;    
 		}
 #endif
-		returnCode = -1;
+		returnCode = RC_ERROR;
 	}
 
 	if(server)
@@ -227,7 +234,7 @@ bool initialization()
   
 	serverListenPort = globalHTTPPort = configuration.getListenPort();
 
-	RMInit::logOut<<"Server "<< serverName << " of typ e ";
+	RMInit::logOut<<"Server "<< serverName << " of type ";
 	
 	if(configuration.isRnpServer())
 		RMInit::logOut << "RNP, listening on port " << serverListenPort << flush;

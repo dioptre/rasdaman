@@ -47,6 +47,7 @@ rasdaman GmbH.
 #include "ras_crypto.hh"
 #include "rasmgr_localsrv.hh"
 #include "rasmgr_error.hh"
+#include "raslib/rminit.hh"
 
 #ifndef COMPDATE
 #error "Please specify the COMPDATE variable!"
@@ -57,10 +58,9 @@ and -DCOMPDATE="\"$(COMPDATE)\"" when compiling
 */
 #endif
 
-#include "raslib/rmdebug.hh"
 #define DEBUG_MAIN
 #undef DEBUG_HH
-#include "debug.hh"
+#include "debug-srv.hh"
 
 RMINITGLOBALS('S');
 
@@ -85,7 +85,8 @@ int main(int argc, char** argv, char** envp)
 
 	ENTER( "main." );
 
-	std::cout<< "rasmgr: rasdaman server manager tool. rasdaman v" << RMANVERSION / 1000. << " -- generated on " << COMPDATE << "." << std::endl
+	RMInit::logOut<< "rasmgr: rasdaman server manager tool. rasdaman v"
+          << RMANVERSION / 1000. << " -- generated on " << COMPDATE << "." << std::endl
         << "Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann, rasdaman GmbH.\n"
         << "Rasdaman community is free software: you can redistribute it and/or modify "
              "it under the terms of the GNU General Public License as published by "
@@ -98,7 +99,7 @@ int main(int argc, char** argv, char** envp)
 
 	if(testIsMessageDigestAvailable("MD5")==false) 
 	{
-		std::cout<<"Error: Message Digest MD5 not available."<<std::endl;
+		RMInit::logOut<<"Error: Message Digest MD5 not available."<<std::endl;
 		return RASMGR_RESULT_NO_MD5;
 	}
 	
@@ -110,7 +111,7 @@ int main(int argc, char** argv, char** envp)
 
 	if(config.isTestModus())
 	{
-	  std::cout<<"rasmgr running in test modus ";
+	  RMInit::logOut<<"rasmgr running in test modus ";
 	  VLOG <<", listening on port=" << config.getListenPort() << std::endl;
 	}
 	else
@@ -173,7 +174,7 @@ int main(int argc, char** argv, char** envp)
 		{
 			char *errorMsg;
 			e.getString(errorMsg);
-			std::cout<<"Error: "<<errorMsg<<std::endl;
+			RMInit::logOut<<"Error: "<<errorMsg<<std::endl;
 		}                   
 
 // write the config file only on explicit rascontrol request "save"
@@ -181,12 +182,12 @@ int main(int argc, char** argv, char** envp)
 #ifdef NEVER_AGAIN
 		if(!config.saveConfigFile())
 		{
-			std::cout<<"Error saving configuration file."<<std::endl;
+			RMInit::logOut<<"Error saving configuration file."<<std::endl;
 		}
 
 		if(!authorization.saveAuthFile())
 		{
-			std::cout<<"Error saving user authorization file."<<std::endl;
+			RMInit::logOut<<"Error saving user authorization file."<<std::endl;
 		}
 #endif
 	}
@@ -198,18 +199,18 @@ int main(int argc, char** argv, char** envp)
 		masterCommunicator.Run();
 	}
 	
-	cout <<"rasmgr terminated."<<std::endl;
+	RMInit::logOut <<"rasmgr terminated."<<std::endl;
 
 	int retval = RASMGR_RESULT_OK;
 	LEAVE( "main: leave. retval=" << retval );
 	return retval;
 } // main()
 
-// danger: cout in interrupt???   
+// danger: RMInit::logOut in interrupt???   
 // handler for SIGINT and SIGTERM = call for exit
 void SigIntHandler(int sig)
 {
-	std::cout<<"rasmgr received terminate signal...";
+	RMInit::logOut<<"rasmgr received terminate signal...";
 	masterCommunicator.shouldExit();
 }
    

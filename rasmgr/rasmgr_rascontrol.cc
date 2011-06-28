@@ -43,6 +43,7 @@ using namespace std;
 #include "rasmgr_srv.hh"
 #include "rasmgr_users.hh"
 #include "rasmgr_error.hh"
+#include "raslib/rminit.hh"
 
 #ifndef RMANVERSION
 #error "Please specify RAMNVERSION variable!"
@@ -58,7 +59,7 @@ and -DCOMPDATE="\"$(COMPDATE)\"" when compiling
 
 //#include "rasmgr_rascontrol_help.cc"
 
-#include "debug.hh"
+#include "debug-srv.hh"
 
 extern bool hostCmp( const char *h1, const char *h2);
 
@@ -102,12 +103,12 @@ int RasControl::processRequest(char* reqMessage, char *answMessage)
             else
               {
                 errorInCommand("Invalid command; try HELP." ); 
-                cout << "Invalid command word: " << command << endl;
+                RMInit::logOut << "Invalid command word: " << command << endl;
               }
           }
         else
           {
-            cout << "Error in request: " << reqMessage << endl;
+            RMInit::logOut << "Error in request: " << reqMessage << endl;
             errorInCommand("Error in request." );  
           }
       }
@@ -115,7 +116,7 @@ int RasControl::processRequest(char* reqMessage, char *answMessage)
       {
         strcpy(answBuffer,"Error: ");
         e.getString(answBuffer + strlen(answBuffer));
-        cout << answBuffer << endl;
+        RMInit::logOut << answBuffer << endl;
        }
 
     LEAVE( "RasControl::processRequest: leave. answerBuffer: " << answBuffer );
@@ -563,6 +564,8 @@ void RasControl::defineDatabases()
 
 void RasControl::defineRasHosts()
   {
+    ENTER( "RasControl::defineRasHosts()" );
+
     checkPermission(admR_config);
     
     const char *hostName=getValueOf(RASMGRCMD_HOST);
@@ -580,15 +583,20 @@ void RasControl::defineRasHosts()
         
     if(hostmanager.insertNewHost(hostName,netName,listenPort)==false)
       { sprintf(answBuffer,"Error: Host %s already defined.",hostName);
+        LEAVE( "RasControl::defineRasHosts()" );
 	return;
        }
      else
       { sprintf(answBuffer,"Defining server host %s port=%d",hostName,listenPort);
        }    
+
+    LEAVE( "RasControl::defineRasHosts()" );
    }
 
 void RasControl::defineRasServers()
   {
+    ENTER( "RasControl::defineRasServers()" );
+
     checkPermission(admR_config);
     bool inConfigFile = authorization.isInConfigFile();
     
@@ -626,6 +634,7 @@ void RasControl::defineRasServers()
     
     if(!sTypeStr)
       { errorInCommand("Missing server type, specify one of r (RPC), h (HTTP) or n (RNP).");
+        LEAVE( "RasControl::defineRasServers()" );
 	return;
        }
     
@@ -635,6 +644,7 @@ void RasControl::defineRasServers()
     if(strcasecmp(sTypeStr,"n")==0) { serverType=SERVERTYPE_FLAG_RNP;}
     if(!serverType)
       { errorInCommand("Illegal server type, use one of [r|h|n].");
+        LEAVE( "RasControl::defineRasServers()" );
 	return;
        }
        
@@ -660,6 +670,7 @@ void RasControl::defineRasServers()
 		else
 		{
 			errorInCommand("Incorrect autorestart option, use one of [on|off].");
+                        LEAVE( "RasControl::defineRasServers()" );
 			return;
 		}
 	}
@@ -667,10 +678,16 @@ void RasControl::defineRasServers()
     getServerHost(hostName);// just check                
     if(rasManager.insertNewServer(serverName,hostName,serverType,listenPort)==false)
       { sprintf(answBuffer,"Error: server name already existing.");
+        LEAVE( "RasControl::defineRasServers()" );
 	return;
        }
     
-    if(inConfigFile && !dbhName) return;  
+    if(inConfigFile && !dbhName)
+    {
+      	sprintf(answBuffer,"Error: no database host specified.");
+        LEAVE( "RasControl::defineRasServers()" );
+	return;
+    }
     
     RasServer &srv = rasManager[serverName];
     srv.connectToDBHost(dbhName);
@@ -694,6 +711,7 @@ void RasControl::defineRasServers()
     if(serverType==SERVERTYPE_FLAG_RNP)
       sprintf(answBuffer,"Defining server %s of type RNP on host %s port=%d",serverName,hostName,listenPort);
    
+    LEAVE( "RasControl::defineRasServers()" );
    }
 
 //----------------------------------------
@@ -1966,7 +1984,7 @@ void RasControl::listRights()
         //sprintf(answBuffer,"Unknown user %s",userName);
         return; 
        }   
-    //std::cout<<"list rights of user "<<userName<<"  "<<user.getAdminRights()<<"  "<<user.getDefaultDBRights()<<std::endl;
+    //RMInit::logOut<<"list rights of user "<<userName<<"  "<<user.getAdminRights()<<"  "<<user.getDefaultDBRights()<<std::endl;
     sprintf(answBuffer,"List of rights defined for user %s",userName); 
     sprintf(answBuffer+strlen(answBuffer),"\r\n administrative rights: [%s]",authorization.convertAdminRights(user.getAdminRights())); 
     sprintf(answBuffer+strlen(answBuffer),"\r\n default database rights: [%s]",authorization.convertDatabRights(user.getDefaultDBRights()));       

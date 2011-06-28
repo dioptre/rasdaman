@@ -52,7 +52,8 @@ rasdaman GmbH.
  #define r_Socklen_t int
 #endif 
 
-#include "debug.hh"
+#include "debug-srv.hh"
+#include "raslib/rminit.hh"
 
 
 HTTPComm::HTTPComm()

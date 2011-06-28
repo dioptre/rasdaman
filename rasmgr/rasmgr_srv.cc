@@ -35,7 +35,8 @@ rasdaman GmbH.
 #include "rasmgr_comm.hh"
 #include "rasmgr_users.hh"
 
-#include "debug.hh"
+#include "debug-srv.hh"
+#include "raslib/rminit.hh"
 
 // host name returned when we don't have a valid one:
 #define NO_VALID_HOST "noValidHost"
@@ -421,7 +422,7 @@ int RasServer::startServer()
 	if (commandLen > ARG_MAX)
 	{
 		TALK( "RasServer::startServer(): fatal error: command line can host " << ARG_MAX << " bytes, but needs " << commandLen << "." );
-		std::cout<<"Error: rasserver command line too long, cannot launch. Disappointedly aborting server start." <<std::endl;
+		RMInit::logOut<<"Error: rasserver command line too long, cannot launch. Disappointedly aborting server start." <<std::endl;
 		return RASSERVER_CMDLINEOFLO;
 	}
 	sprintf(command, SPRINTF_FORMAT, serverName,executableName,executableName,serverName,sTypeString,listenPort, rasmgrHost,config.getListenPort(),ptrDatabaseHost->getConnectionString(), extraParam);
@@ -460,14 +461,14 @@ int RasServer::downServer(bool forced)
 	if(available==false && (forced == false || isstarting==true) )
 	{
 		downReq=true;
-		//std::cout<<"Down request, but working"<<std::endl;
+		//RMInit::logOut<<"Down request, but working"<<std::endl;
 		return RASSERVER_OK;
 	}
 	return downNow();
 }    
 int RasServer::downNow()
 {           
-	//std::cout<<"Down server"<<std::endl;   
+	//RMInit::logOut<<"Down server"<<std::endl;   
 	if(isinternal)
 	{
 		localServerManager.sendTerminateSignal(serverName);
@@ -533,7 +534,7 @@ void RasServer::changeStatus(int newStatus,long infCount)
 
 	if(activityExpected==false && newStatus==SERVER_AVAILABLE)
 	{
-		std::cout<<"Error: Server intruder detected in server '"<<serverName<< "' (trying to manually start rasserver?)"<<std::endl;
+		RMInit::logOut<<"Error: Server intruder detected in server '"<<serverName<< "' (trying to manually start rasserver?)"<<std::endl;
 		return; 
 	}
 	
@@ -782,7 +783,7 @@ int RasServerManager::changeServerStatus(char *reqMessage)
 	
 	if(r.isValid()==false)
 	{
-		std::cout<<"Error: Unexpected message from rasserver '"<<serverName<<"'; new status is "<<newstatus<<std::endl;
+		RMInit::logOut<<"Error: Unexpected message from rasserver '"<<serverName<<"'; new status is "<<newstatus<<std::endl;
 		return SERVERSTATUS_ERR;
 	}
 	

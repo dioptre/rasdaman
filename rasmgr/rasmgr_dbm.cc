@@ -35,7 +35,8 @@ rasdaman GmbH.
 #include "rasmgr_srv.hh"
 #include "rasmgr_users.hh"
 
-#include "debug.hh"
+#include "debug-srv.hh"
+#include "raslib/rminit.hh"
 
 extern bool hostCmp( const char *h1, const char *h2);
 
@@ -86,7 +87,7 @@ void  DatabaseHost::regDownServer()     { activServers--;}
 
 bool  DatabaseHost::isBusy()
   { 
-    //std::cout<<"DBH="<<hostName<<"s="<<connServers<<" d="<<connDatabases<<std::endl;
+    //RMInit::logOut<<"DBH="<<hostName<<"s="<<connServers<<" d="<<connDatabases<<std::endl;
     return activServers ? true:false; //(connServers + connDatabases) ? true:false;
    }
  
@@ -434,18 +435,18 @@ void Database::setTraceWriteTrans(bool how)
    
 void Database::startWriteTransaction()
   {
-    if(traceWT) std::cout<<"  DbName="<<databaseName<<" rwTrans-in"<<std::endl;
+    if(traceWT) RMInit::logOut<<"  DbName="<<databaseName<<" rwTrans-in"<<std::endl;
     countWriteTransactions++;
    }
    
 void Database::endWriteTransaction()
   { 
-    if(traceWT) std::cout<<"  DbName="<<databaseName<<" rwTrans-out"<<std::endl;
+    if(traceWT) RMInit::logOut<<"  DbName="<<databaseName<<" rwTrans-out"<<std::endl;
     countWriteTransactions--;
    }
 int Database::getWriteTransactionCount()
   { 
-    if(traceWT) std::cout<<"  DbName="<<databaseName<<" ask rwTrans? ("<<countWriteTransactions<<")"<<std::endl;
+    if(traceWT) RMInit::logOut<<"  DbName="<<databaseName<<" ask rwTrans? ("<<countWriteTransactions<<")"<<std::endl;
     return countWriteTransactions;
    }
 
@@ -530,7 +531,7 @@ Database& DatabaseManager::operator[](const char* dbName)
 	
        iter++;
        }
-    return protElem; 
+    return protElem; 	// FIXME: is this correct? PB 2010-10-16
    } 
     
 void DatabaseManager::disconnectAllDatabasesFromDBH(const char* dbhName)

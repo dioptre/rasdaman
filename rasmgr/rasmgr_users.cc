@@ -43,7 +43,8 @@ using namespace std;
 
 #include "globals.hh"	// RASMGR_AUTH_FILE
 
-#include "debug.hh"
+#include "debug-srv.hh"
+#include "raslib/rminit.hh"
 
 extern bool hostCmp( const char *h1, const char *h2);
 
@@ -73,7 +74,7 @@ void User::changePassword(const char *encrPass)
 void User::changePTPassword(const char *plainTextPass)
   {
     messageDigest(plainTextPass,passWord,"MD5");
-    //std::cout<<"passwd="<<passWord<< " strlen="<<strlen(passWord)<<std::endl;
+    //RMInit::logOut<<"passwd="<<passWord<< " strlen="<<strlen(passWord)<<std::endl;
    }
 
 const char* User::getName()
@@ -85,9 +86,9 @@ long User::getUserID()
    }
      
 bool User::isThisMe(const char *name,const char *encrPass)
-  { //std::cout<<"Is this me: "<<name<<'/'<<userName<<std::endl;
-    //std::cout<<"My Pass="<<passWord<<std::endl;
-    //std::cout<<"His one="<<encrPass<<std::endl;
+  { //RMInit::logOut<<"Is this me: "<<name<<'/'<<userName<<std::endl;
+    //RMInit::logOut<<"My Pass="<<passWord<<std::endl;
+    //RMInit::logOut<<"His one="<<encrPass<<std::endl;
     
     return (strcmp(name,userName)==0 && strcmp(encrPass,passWord)==0) ? true:false;
    }
@@ -157,7 +158,7 @@ bool User::removeDatabaseRights(const char *databName)
     list<UserDBRight>::iterator iter=dbRList.begin();
     for(int i=0;i<dbRList.size();i++) 
       { 
-       //if(iter->ptrDatabase==NULL) { std::cout<<"Huo!!"<<std::endl;break;}
+       //if(iter->ptrDatabase==NULL) { RMInit::logOut<<"Huo!!"<<std::endl;break;}
         
 	if(strcmp(iter->ptrDatabase->getName(),databName)==0) 
           {
@@ -283,10 +284,10 @@ User& UserManager::operator[](int x)
 User& UserManager::operator[](const char* userName)
   { 
     list<User>::iterator iter=userList.begin();
-    //std::cout<<"Size="<<userList.size()<<std::endl;
+    //RMInit::logOut<<"Size="<<userList.size()<<std::endl;
     for(int i=0;i<userList.size();i++) 
       {
-       //std::cout<<i<<" "<<iter->getName()<<" "<<iter->isValid()<<std::endl;
+       //RMInit::logOut<<i<<" "<<iter->getName()<<" "<<iter->isValid()<<std::endl;
        if(strcmp(iter->getName(),userName)==0) return *iter; 
        iter++;
        }
@@ -369,7 +370,7 @@ Authorization::Authorization()
     if (pathLen >= FILENAME_MAX)
     {
         authFileName[FILENAME_MAX-1] = '\0';	// force-terminate string before printing
-        cerr << "Warning: authentication file path longer than allowed by OS, file likely cannot be accessed: " << authFileName << endl;
+        RMInit::logOut << "Warning: authentication file path longer than allowed by OS, file likely cannot be accessed: " << authFileName << endl;
     }
     globalInitAdminRight=admR_none;
     globalInitDatabRight=dbR_none;
@@ -573,19 +574,19 @@ int Authorization::readAuthFile()
             VLOG << "ok" << endl;
             break;
         case  ERRAUTHFNOTF:
-            cout<<"Warning: User authorization file not found, using default user settings."<<std::endl;
+            RMInit::logOut<<"Warning: User authorization file not found, using default user settings."<<std::endl;
             break;
         case  ERRAUTHFCORR:
-            cout<<"Error: User authorization file is corrupt, aborting."<<std::endl;
+            RMInit::logOut<<"Error: User authorization file is corrupt, aborting."<<std::endl;
             break;
         case  ERRAUTHFWRHOST:
-            cout<<"Error: User authorization file is not for this host."<<std::endl;
+            RMInit::logOut<<"Error: User authorization file is not for this host."<<std::endl;
             break;
         case  ERRAUTHFVERS:
-            cout<<"Error: User authorization file is incompatible due to different encryption used - see migration documentation."<<std::endl;
+            RMInit::logOut<<"Error: User authorization file is incompatible due to different encryption used - see migration documentation."<<std::endl;
             break;
         default:                            // should not occur, internal enum mismatch
-            cout<<"Error: Internal evaluation error."<<std::endl;
+            RMInit::logOut<<"Error: Internal evaluation error."<<std::endl;
             break;
        }
 
@@ -647,22 +648,22 @@ int Authorization::verifyAuthFile(std::ifstream &ifs)
     ifs.seekg(0,std::ios::end);
     long endpos=ifs.tellg();
     ifs.seekg(cpos,std::ios::beg);
-    //std::cout<<"c="<<cpos<<"  end="<<endpos<<std::endl;
+    //RMInit::logOut<<"c="<<cpos<<"  end="<<endpos<<std::endl;
     
     for(;;)
       {
         int r = endpos-cpos > MAXBUFF ? MAXBUFF : endpos-cpos; 
 	if(r==0)
-            break; //{ std::cout<<"xx"<<std::endl; break; }
+            break; //{ RMInit::logOut<<"xx"<<std::endl; break; }
 	ifs.read((char*)buff,r);
 	if(!ifs)
-            break; //{ std::cout<<"yy"<<std::endl; break; }
+            break; //{ RMInit::logOut<<"yy"<<std::endl; break; }
 	cpos +=r;
 	
 	decrypt(buff,r);
 	    
 	EVP_DigestUpdate(&mdctx,buff,r); 
-	//std::cout<<"verify "<<r<<std::endl;
+	//RMInit::logOut<<"verify "<<r<<std::endl;
        }
        
     EVP_DigestFinal(&mdctx, md_value, &md_len);
@@ -683,7 +684,7 @@ void Authorization::initcrypt(int seed)
 void Authorization::crypt(void *vbuffer,int length)
   {
     unsigned char *buff=(unsigned char*)vbuffer;
-   // std::cout<<" crypt length="<<length<<flush;
+   // RMInit::logOut<<" crypt length="<<length<<flush;
     for(int i=0;i<length;i++) buff[i]^=randomGenerator();//rand();
    }
 void Authorization::decrypt(void *vbuffer,int length)

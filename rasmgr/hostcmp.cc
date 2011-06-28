@@ -35,7 +35,8 @@ rasdaman GmbH.
  *
 */
 
-#include "debug.hh"
+#include "debug-srv.hh"
+#include "raslib/rminit.hh"
 #include <cstring>
 
 bool hostCmp( const char *h1, const char *h2)

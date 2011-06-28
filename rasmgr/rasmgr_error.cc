@@ -33,7 +33,7 @@ rasdaman GmbH.
 
 #include "rasmgr_error.hh"
 
-#include "debug.hh"
+#include "debug-srv.hh"
 
 
 RCError::RCError()

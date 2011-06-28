@@ -24,6 +24,10 @@
 # * 
 # * COMMENTS:
 ##########################################################################
+
+AM_CXXFLAGS=@BASEDBCXXFLAGS@
+AM_LDFLAGS=@BASEDBLDFLAGS@ 
+
 bin_PROGRAMS=rasmgr
 rasmgr_SOURCES=ras_crypto.cc rasmgr_config.cc rasmgr_host.cc rasmgr_main.cc rasmgr_rascontrol.cc rasmgr_srv.cc \
          	   rasmgr_comm.cc rasmgr_dbm.cc rasmgr_master_nb.cc rasmgr_rascontrol_help.cc \
@@ -37,7 +41,7 @@ rasmgr_SOURCES=ras_crypto.cc rasmgr_config.cc rasmgr_host.cc rasmgr_main.cc rasm
 
 rasmgr_LDADD= ../raslib/libraslib.a ../network/libnetwork.a ../commline/libcommline.a
 
-SUBDIRS=../network ../commline
+SUBDIRS=../mymalloc ../network ../commline ../raslib
 
 $(RECURSIVE_CLEAN_TARGETS):
 	@$(MAKE) $(AM_MAKEFLAGS) `echo $@ | sed s/-recursive/-am/`

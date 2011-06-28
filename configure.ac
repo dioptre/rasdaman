@@ -213,7 +213,7 @@ AC_ARG_ENABLE([debug],
 AC_ARG_ENABLE([benchmark],
               [AS_HELP_STRING([--enable-benchmark],
                               [this feature enables generation of binaries that contain extra code for benchmark output.])],
-              [CXXFLAGS+=-DRMANBENCHMARK ],
+              [CXXFLAGS+=" -DRMANBENCHMARK "],
               [])
 
 AC_ARG_WITH([test-server],
@@ -301,14 +301,13 @@ fi
 AS_IF([test "x$RMANDEBUG" != x],
       [AC_DEFINE([RMANDEBUG])
        AC_DEFINE([DEBUG])
-       CXXFLAGS+=" -g"
+       CXXFLAGS+=" -g -O0 "
       ], 
       [
        AC_DEFINE([__NO_MATH_INLINES])
-       CXXFLAGS+=" -O2"
+       CXXFLAGS+=" -O2 "
       ])
-CXXFLAGS+= -fPIC
-CFLAGS+= -fPIC
+# CXXFLAGS+= -fPIC  ???NEEDED???
 AC_DEFINE_UNQUOTED([RMANVERSION], [$RMANVERSION])
 AC_DEFINE_UNQUOTED([BASEDBSTRING], ["$BASEDBSTRING"])
 AC_DEFINE([EARLY_TEMPLATE])    
@@ -323,7 +322,7 @@ BASEDBLDFLAGS+=" -lnsl"
 STATICBASEDBLDFLAGS+=" -lnsl"
 # endif
 AC_DEFINE([NO_in_addr_t])
-BASEDBCXXFLAGS+=" $DBIF_INC"
+BASEDBCXXFLAGS+=" $DBIF_INC "
 
 CLIENTCXXFLAGS=$CXXFLAGS
 CLIENTLDFLAGS=$CXXLDFLAGS

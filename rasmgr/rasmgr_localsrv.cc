@@ -53,7 +53,7 @@ using namespace std;
 
 #include "raslib/rminit.hh"
 
-#include "debug.hh"
+#include "debug-srv.hh"
 
 
 // aux function for now() to avoid a compiler warning (see 'man strftime')
@@ -175,7 +175,7 @@ bool LocalServerManager::startNewServer(const char* commandline)
     
         execvp(fileName, argv+2);
         int execErrno = errno;
-        std::cout<<"Error: cannot fork server "<<fileName<< ": " << strerror (execErrno) << std::endl;
+        RMInit::logOut<<"Error: cannot fork server "<<fileName<< ": " << strerror (execErrno) << std::endl;
         TALK( "LocalServerManager::startNewServer: cannot fork server "<<fileName<< ": " << strerror (execErrno) );
         exit(1); // if return from exec...
        }
@@ -209,7 +209,7 @@ bool LocalServerManager::sendTerminateSignal(const char *serverName)
 			int killResult = kill(iter->getPID(),SIGTERM);
 			if (killResult == -1)
 			{
-				cout << "Error: " << strerror(errno) << endl;
+				RMInit::logOut << "Error: " << strerror(errno) << endl;
 				result = false;
 			}
 			else
@@ -226,7 +226,7 @@ bool LocalServerManager::sendTerminateSignal(const char *serverName)
 
 	if (!found)
 	{
-		cout << "failed: server unknown." << endl;
+		RMInit::logOut << "failed: server unknown." << endl;
 		result = false;
 	}
 
@@ -257,7 +257,7 @@ bool LocalServerManager::killServer(const char *serverName)
 			int killResult = kill(iter->getPID(),SIGKILL);
 			if (killResult == -1)
 			{
-				cout << "Error: " << strerror(errno) << endl;
+				RMInit::logOut << "Error: " << strerror(errno) << endl;
 				result = false;
 			}
 			else
@@ -273,7 +273,7 @@ bool LocalServerManager::killServer(const char *serverName)
 
 	if (!found)
 	{
-		cout << "failed: server unknown." << endl;
+		RMInit::logOut << "failed: server unknown." << endl;
 		result = false;
 	}
 
@@ -345,15 +345,15 @@ void LocalServerManager::cleanChild()
               {
                 TALK( "LocalServerManager::cleanChild: rasdaman server " << iter->getName() << " terminated illegally, status=" << status );
 
-	        cout<<"Error: rasdaman server " << iter->getName() << ", pid " << exitpid << " terminated illegally, reason: ";
+	        RMInit::logOut<<"Error: rasdaman server " << iter->getName() << ", pid " << exitpid << " terminated illegally, reason: ";
 		// see 'man waitpid': decoding of status variable
 		if (WIFEXITED(status) != 0)
-			cout << "exited with return code " << WEXITSTATUS(status);
+			RMInit::logOut << "exited with return code " << WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			cout << "uncaught signal " << WTERMSIG(status);	
+			RMInit::logOut << "uncaught signal " << WTERMSIG(status);	
 		else
-			cout << "(unknown reason)";
-		cout << endl;
+			RMInit::logOut << "(unknown reason)";
+		RMInit::logOut << endl;
 
 	        // choices: restart silently the dead server or
 	        // just tell the manager about it

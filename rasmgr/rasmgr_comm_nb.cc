@@ -46,7 +46,8 @@ rasdaman GmbH.
 
 #include "rasmgr_comm_nb.hh"
 
-#include "debug.hh"
+#include "debug-srv.hh"
+#include "raslib/rminit.hh"
 
 /*************************************************************************
  *

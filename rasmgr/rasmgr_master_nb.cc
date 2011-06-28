@@ -48,8 +48,8 @@ rasdaman GmbH.
 
 using namespace std;
 
-#include "raslib/rmdebug.hh"
-#include "debug.hh"
+#include "debug-srv.hh"
+#include "raslib/rminit.hh"
 
 
 // from rasmgr_localsrv.cc; should go to a central location -- PB 2003-nov-25
@@ -97,7 +97,6 @@ MasterComm::~MasterComm()
 void MasterComm::Run()
   {
     ENTER("MasterComm::Run: enter." );
-    RMTIMER( "MasterComm", "Run" );			// benchmark this routine, if enabled
 
     initListenSocket(config.getListenPort());		// connect/bind the central listen socket
 							// using IOSelector level here!
@@ -421,7 +420,7 @@ void MasterComm::doCommit()
 #endif
       }
    else
-     { std::cout<<"Save requested, but not permitted during test modus!"<<std::endl;
+     { RMInit::logOut<<"Save requested, but not permitted during test modus!"<<std::endl;
       }   	     
    commit=false;
   }
@@ -474,7 +473,7 @@ int MasterComm::getFreeServer(bool fake)
 	int count = sscanf(body,"%s %s %s %s",databaseName,serverType,accessType, prevID);
 	if (count != 4 && count != 3)
 	{
-		cout << "Error (internal): Cannot parse msg body received from client." << endl;
+		RMInit::logOut << "Error (internal): Cannot parse msg body received from client." << endl;
 		LEAVE("MasterComm::getFreeServer: leave. Fatal error: cannot parse msg body string '" << body << "'" );
 		return MSG_ILLEGAL;
 	}
@@ -509,7 +508,7 @@ int MasterComm::getFreeServer(bool fake)
 			sType=SERVERTYPE_FLAG_RNP;
 		if(sType==0)
 		{
-			cout << "Error: unknown server type: " << serverType << endl;
+			RMInit::logOut << "Error: unknown server type: " << serverType << endl;
 			answCode=MSG_UNKNOWNSERVERTYPE;
 			break;
 		}
@@ -521,7 +520,7 @@ int MasterComm::getFreeServer(bool fake)
 			writeTransaction=true;
 		else
 		{
-			cout << "Error: unknown transaction type: " << accessType << endl;
+			RMInit::logOut << "Error: unknown transaction type: " << accessType << endl;
 			answCode=MSG_UNKNOWNACCESSTYPE;
 			break;
 		}
@@ -534,7 +533,7 @@ int MasterComm::getFreeServer(bool fake)
 		Database &db=dbManager[databaseName];
 		if(db.isValid()==false)
 		{
-			cout << "Error: database not found: " << databaseName << endl;
+			RMInit::logOut << "Error: database not found: " << databaseName << endl;
 			answCode=MSG_DATABASENOTFOUND;
 			break;
 		}
@@ -542,7 +541,7 @@ int MasterComm::getFreeServer(bool fake)
 		// if r/w TA requested: is this compatible with the database's transaction state?
 		if(writeTransaction==true && db.getWriteTransactionCount() && allowMultipleWriteTransactions == false)
 		{
-			cout << "Error: write transaction in progress, conflicts with request." << endl;
+			RMInit::logOut << "Error: write transaction in progress, conflicts with request." << endl;
 			answCode=MSG_WRITETRANSACTION;
 			break;
 		}
@@ -571,7 +570,7 @@ int MasterComm::getFreeServer(bool fake)
 					if(cbs != 0)
 					{ 
 						TALK("MasterComm::getFreeServer: clientQueue.canBeServed(" << clientID << "," << databaseName << "," << sType << "," << fake << ") -> " << cbs );
-						cout << "Error: no server available, error code: " << cbs << endl;
+						RMInit::logOut << "Error: no server available, error code: " << cbs << endl;
 						answCode = cbs;
 						break;
 					}
@@ -600,7 +599,7 @@ int MasterComm::getFreeServer(bool fake)
 		// any free server found?
 		if(countSuitableServers == 0)
 		{
-			cout << "Error: no suitable free server available." << endl;
+			RMInit::logOut << "Error: no suitable free server available." << endl;
 			answCode = MSG_NOSUITABLESERVER;
 			break;
 		}
@@ -609,9 +608,9 @@ int MasterComm::getFreeServer(bool fake)
 		// oops?? why not uniformly check against answCode? -- PB 2003-nov-20
 		if(answerString[0]==0)
 		{
-			cout << "Error: cannot find any free server; answer code: " << answCode << " -> ";
+			RMInit::logOut << "Error: cannot find any free server; answer code: " << answCode << " -> ";
 			answCode = MSG_SYSTEMOVERLOADED;
-			cout << answCode << endl;
+			RMInit::logOut << answCode << endl;
 			break;
 		}  
 	
@@ -666,7 +665,7 @@ const char* MasterComm::convertAnswerCode(int code)
 			answer = MSG_SYSTEMOVERLOADED_STR;
 			break;
         	default: 
-			// cout<<"Default value not allowed ="<<code<<endl; assert( 0 != 0); break;
+			// RMInit::logOut<<"Default value not allowed ="<<code<<endl; assert( 0 != 0); break;
 			// no program aborts deeply inside!!! -- PB 2003-jun-25
                    	answer = MSG_ILLEGAL_STR;
 			break;

@@ -37,7 +37,8 @@ rasdaman GmbH.
 // this file is a temporary file, used to keep rasmgr_rascontrol things as long as we check each one
 // here are the unchecked things!!
 
-#include "debug.hh"
+#include "debug-srv.hh"
+#include "raslib/rminit.hh"
 #include "rasmgr_rascontrol.hh"
 
 
@@ -105,8 +106,8 @@ void RasControl::listHelp()
     		       "list user [ -rights]\r\n"
     		       "       - list the defined users\r\n"
     		       "         '-rights' additionally lists each user's rights\r\n"
-		       "list [ license | licencce ]\r\n"
-		       "       - lists license information\r\n"
+		       "list [ license | licence ]\r\n"
+		       "       - lists licence information\r\n"
     		       "list version\r\n"
     		       "       - list version information"
             );
