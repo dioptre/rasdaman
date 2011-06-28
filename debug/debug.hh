@@ -49,7 +49,8 @@ in the target code; needs one main! */
 
 // allow output stream 'cout' to be overridden
 #ifndef OSTREAM
-	#define OSTREAM RMInit::logOut
+#include "raslib/rminit.hh"
+#define OSTREAM RMInit::logOut
 #endif // OSTREAM
 
 #define INDENT ". "
