@@ -1613,7 +1613,6 @@ ServerComm::executeQuery( unsigned long callingClientId,
 				if( RManBenchmark > 0 )
 					context->evaluationTimer = new RMTimer("ServerComm", "evaluation");
 #endif
-				qtree->printTree( 2, std::cout );
 				//qtree->checkSemantics();
 				//qtree->printTree( 2, std::cout );
 				RMInit::logOut << "evaluating..." << std::flush;

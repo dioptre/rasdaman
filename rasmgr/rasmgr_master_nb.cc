@@ -49,7 +49,7 @@ rasdaman GmbH.
 using namespace std;
 
 #include "debug-srv.hh"
-#include "raslib/rminit.hh"
+#include "raslib/rmdebug.hh"
 
 
 // from rasmgr_localsrv.cc; should go to a central location -- PB 2003-nov-25
@@ -97,6 +97,7 @@ MasterComm::~MasterComm()
 void MasterComm::Run()
   {
     ENTER("MasterComm::Run: enter." );
+    RMTIMER( "MasterComm", "Run" );			// benchmark this routine, if enabled
 
     initListenSocket(config.getListenPort());		// connect/bind the central listen socket
 							// using IOSelector level here!

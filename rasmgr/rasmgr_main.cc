@@ -85,7 +85,7 @@ int main(int argc, char** argv, char** envp)
 
 	ENTER( "main." );
 
-	RMInit::logOut<< "rasmgr: rasdaman server manager tool. rasdaman v"
+	cout << "rasmgr: rasdaman server manager tool. rasdaman v"
           << RMANVERSION / 1000. << " -- generated on " << COMPDATE << "." << std::endl
         << "Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann, rasdaman GmbH.\n"
         << "Rasdaman community is free software: you can redistribute it and/or modify "

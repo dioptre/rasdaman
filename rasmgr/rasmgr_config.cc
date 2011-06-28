@@ -68,7 +68,7 @@ Configuration::Configuration():
 	cmlMaster     (cmlInter.addStringParameter(CommandLineParser::noShortName, "master", "<name> host of rasmgr master (slave only)")), 
 	cmlMasterPort (cmlInter.addLongParameter(CommandLineParser::noShortName, "mport", "<port> listen port number of rasmgr master (slave only)", DEFAULT_PORT)),
 	cmlQuiet      (cmlInter.addFlagParameter( 'q', CommandLineParser::noLongName, "quiet: don't log requests (default: log requests to stdout)")),
-	cmlLog	      (cmlInter.addStringParameter('l', "log", "<log-file> log is printed to <log-file>\n\t\tif <log-file> is stdout , log output is printed to standard out", "$RMANHOME/log/rasmgr.<pid>.log")),
+	cmlLog	      (cmlInter.addStringParameter('l', "log", "<log-file> log is printed to <log-file>\n\t\tif <log-file> is stdout , log output is printed to standard out", "log/rasmgr.<pid>.log")),
 #ifdef RMANDEBUG	// was: NO_OFFICIAL_RELEASE
 	cmlTest       (cmlInter.addFlagParameter(CommandLineParser::noShortName, "test", "test mode")), 
 	cmlDSup       (cmlInter.addFlagParameter(CommandLineParser::noShortName, "dsup", "debug mode")), 
@@ -79,6 +79,7 @@ Configuration::Configuration():
 	cmlHelp       (cmlInter.addFlagParameter('h', RASMGRCMD_HELP, "print this help"))
 {
 	ENTER( "Configuration::Configuration: enter." );
+  
 
 	int ghnResult = gethostname(hostName, sizeof(hostName) );
 	if (ghnResult != 0)	// cannot get hostname?
