@@ -191,26 +191,12 @@ int main ( int argc, char** argv )
 	{
 		TALK( "Error: encountered " << errorObj.get_errorno() << ": " << errorObj.what() );
 		RMInit::logOut << "Error: encountered " << errorObj.get_errorno() << ": " << errorObj.what() << endl;
-// we never write to stdout (= rasmgr log file), so we don't need this -- PB 2003-nov-24
-#if 0
-		if(!configuration.isLogToStdOut())
-		{
-			RMInit::logOut << "Error: encountered " << errorObj.get_errorno() << ": " << errorObj.what() << endl;    
-		}
-#endif // 0
 		returnCode = RC_ERROR;
 	}
 	catch(...) 
 	{
 		TALK( "rasserver: general exception" );
 		RMInit::logOut << "rasserver: general exception" << endl;
-// we never write to stdout (= rasmgr log file), so we don't need this -- PB 2003-nov-24
-#if 0
-		if(!configuration.isLogToStdOut()) 
-		{
-			RMInit::logOut << "rasserver: general exception" << endl;    
-		}
-#endif
 		returnCode = RC_ERROR;
 	}
 
@@ -247,41 +233,17 @@ bool initialization()
 	strcpy(globalConnectId,configuration.getDbConnectionID());
 	RMInit::logOut << ", connecting to " << BASEDBSTRING << " as '" << globalConnectId <<  "'." << endl;
 
-// we never write to stdout (= rasmgr log file), so we don't need this -- PB 2003-nov-24
-#if 0
-	if(!configuration.isLogToStdOut()) 
-	{
-		RMInit::logOut<<"Server "<< serverName << " of type ";
-		if(configuration.isRnpServer())
-			RMInit::logOut << "RNP, listening on port " << serverListenPort << endl;
-		else if(configuration.isHttpServer())
-			RMInit::logOut << "HTTP, listening on port " << serverListenPort << endl;
-		else 
-			RMInit::logOut << "RPC, registered with prognum 0x" << hex <<serverListenPort << dec << endl;
-	}
-#endif // 0
-
 	rasmgrHost = configuration.getRasmgrHost();
 	rasmgrPort = configuration.getRasmgrPort();
   
 	RMInit::logOut << "Verifying rasmgr host name: " << rasmgrHost << "...";  
-// we don't write to stdout (=rasmgr log), so no need to duplicate -- PB 2003-nov-24
-#if 0
-	if(!configuration.isLogToStdOut())
-		RMInit::logOut << "Verifying RasMGR host name: " << rasmgrHost << "...";  
-#endif // 0
 	if(!gethostbyname(rasmgrHost)) 
 	{
 		RMInit::logOut << "failed" << endl;
 		if(!configuration.isLogToStdOut())  RMInit::logOut << "failed" << endl;
 		return false;
 	}
-	RMInit::logOut << "ok" << endl;   
-// we don't write to stdout (=rasmgr log), so no need to duplicate -- PB 2003-nov-24
-#if 0
-	if(!configuration.isLogToStdOut())
-		RMInit::logOut << " ok" << endl;   
-#endif // 0
+	RMInit::logOut << "ok" << endl;
 	
 	globalOptimizationLevel = configuration.getDefaultOptimizationLevel();
   
