@@ -205,7 +205,7 @@ rc_t SetServDir( struct ServerBase *Server, char *Dirname )
   Buffer[0] = '\0';
 
   /* Platz lassen, um auch noch Filenamen + '\0' im Buffer  */
-  /* unterbringen zu können.  */
+  /* unterbringen zu kï¿½nnen.  */
 
   MaxPath = BuffSize - strlen( "httpserver.conf" );
   if( strlen( Dirname ) >= MaxPath )
@@ -357,7 +357,7 @@ rc_t SetString( struct ServerBase *Server, int Type, char *String )
 rc_t ConfigureServer( struct ServerBase *Server )
 {
   char* myName;
-  char* rmanhome = CONFDIR;
+  char* rmanhome = (char*)CONFDIR;
   int MaxURLLength = 120;
   int BuffSize;
   char* Buffer;
@@ -376,7 +376,7 @@ rc_t ConfigureServer( struct ServerBase *Server )
 	
   Server->Port = globalHTTPPort;
 
-  SetString( Server, ST_MAILADDRESS, "admin@localhost" );
+  SetString( Server, ST_MAILADDRESS, (char*)"admin@localhost" );
 
   SetString( Server, ST_HOSTNAME, myName );
 
@@ -434,16 +434,16 @@ int GetConfigKey( char *Keyword )
 {
   struct KeywordKey KeyTable[] =
     {
-      { "AccessLog",    KEY_ACCESSLOG },
-      { "CommLog",      KEY_COMMLOG },
-      { "IndexFile",    KEY_INDEXFILE },
-      { "MaxURLLength", KEY_MAXURLLENGTH },
-      { "PidFile",      KEY_PIDFILE },
-      { "Port",         KEY_PORT },
-      { "ServerAdmin",  KEY_SERVERADMIN },
-      { "ServerLog",    KEY_SERVERLOG },
-      { "ServerName",   KEY_SERVERNAME },
-      { "ServerRoot",   KEY_SERVERROOT },
+      { (char*)"AccessLog",    KEY_ACCESSLOG },
+      { (char*)"CommLog",      KEY_COMMLOG },
+      { (char*)"IndexFile",    KEY_INDEXFILE },
+      { (char*)"MaxURLLength", KEY_MAXURLLENGTH },
+      { (char*)"PidFile",      KEY_PIDFILE },
+      { (char*)"Port",         KEY_PORT },
+      { (char*)"ServerAdmin",  KEY_SERVERADMIN },
+      { (char*)"ServerLog",    KEY_SERVERLOG },
+      { (char*)"ServerName",   KEY_SERVERNAME },
+      { (char*)"ServerRoot",   KEY_SERVERROOT },
     };
 
     int cond;

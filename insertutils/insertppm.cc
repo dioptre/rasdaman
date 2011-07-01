@@ -467,7 +467,7 @@ main( int argc, char** argv )
 	const char   *transferFormatParams = "";	   	// transfer format parameters
 	const char   *storageFormatString = DEFAULT_ST_FMT;	// storage format string 
 	r_Data_Format storageFormat=r_Array; 			// storage format used 
-	char         *storageFormatParams = "";			// storage format parameters 
+	char         *storageFormatParams = (char*)"";			// storage format parameters 
 
 	const char   *collName=NULL;				// name of collection
 

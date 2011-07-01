@@ -79,7 +79,7 @@ rc_t Initialize( int argc, char *argv[], struct ServerBase *Server )
     }
 
   /* Read the environment variables */
-  char* dummy = CONFDIR;
+  char* dummy = (char*)CONFDIR;
   if( dummy == NULL)
     ErrorMsg( E_SYS, FAIL, "FAIL:  configure error: CONFDIR not provided." );
   Server->Directory = (char*)mymalloc(strlen(dummy) + 2);

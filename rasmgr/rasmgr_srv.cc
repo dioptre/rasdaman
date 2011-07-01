@@ -230,13 +230,13 @@ char* RasServer::getDescriptionHeader(char *destBuffer)
 
 char* RasServer::getDescription(char *destBuffer)
 {
-	char *sType="(none)";
-	if(serverType==SERVERTYPE_FLAG_RPC)
-		sType="(RPC) ";
-	if(serverType==SERVERTYPE_FLAG_HTTP)
-		sType="(HTTP)";
-	if(serverType==SERVERTYPE_FLAG_RNP)
-		sType="(RNP) ";
+	char *sType=(char*)"(none)";
+ 	if(serverType==SERVERTYPE_FLAG_RPC)
+		sType=(char*)"(RPC) ";
+ 	if(serverType==SERVERTYPE_FLAG_HTTP)
+		sType=(char*)"(HTTP)";
+ 	if(serverType==SERVERTYPE_FLAG_RNP)
+		sType=(char*)"(RNP) ";
 	
 	const char* sUp= isup ? "UP  ":"DOWN";
 	
@@ -263,10 +263,10 @@ char* RasServer::getDescriptionPortHeader(char *destBuffer)
 
 char* RasServer::getDescriptionPort(char *destBuffer)
 {
-	char *sType="(none)";
-	if(serverType==SERVERTYPE_FLAG_RPC) sType="(RPC) ";
-	if(serverType==SERVERTYPE_FLAG_HTTP) sType="(HTTP)";
-	if(serverType==SERVERTYPE_FLAG_RNP) sType="(RNP) ";
+	char *sType=(char*)"(none)";
+	if(serverType==SERVERTYPE_FLAG_RPC) sType=(char*)"(RPC) ";
+	if(serverType==SERVERTYPE_FLAG_HTTP) sType=(char*)"(HTTP)";
+	if(serverType==SERVERTYPE_FLAG_RNP) sType=(char*)"(RNP) ";
 	
 //    const char* sUp= isup ? "UP  ":"DOWN";
 	
