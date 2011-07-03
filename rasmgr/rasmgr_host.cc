@@ -39,7 +39,7 @@ rasdaman GmbH.
 #include "raslib/rminit.hh"
 
 // clear this def for production release!!!
-//#define TALK_SECRET(a) TALK(a)
+#define TALK_SECRET(a) { } //TALK(a)
 #ifndef DEBUG
     #undef TALK_SECRET
 	#define TALK_SECRET(a) { /* TALK(a) */ }

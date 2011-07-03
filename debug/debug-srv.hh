@@ -36,6 +36,7 @@ rasdaman GmbH.
 *	@ingroup Debug
 */
 
+#include "raslib/rminit.hh"
 #define OSTREAM RMInit::logOut
 #include "debug.hh"
 

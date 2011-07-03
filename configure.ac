@@ -129,6 +129,7 @@ AC_CONFIG_FILES([Makefile
                  applications/rasql/Makefile
                  bin/Makefile
                  manuals_and_examples/Makefile
+                 manuals_and_examples/examples/c++/Makefile
                  insertutils/Makefile
 		 include/Makefile
 		 java/Makefile

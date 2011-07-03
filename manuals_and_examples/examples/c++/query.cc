@@ -132,7 +132,8 @@ int main( int ac, char** av )
 
 		cout << "Collection" << endl;
 		cout << "  Oid...................: " << image_set.get_oid() << endl;
-		cout << "  Type Name.............: " << image_set.get_object_name() << endl;
+        if (image_set.get_object_name())
+           cout << "  Type Name.............: " << image_set.get_object_name() << endl;
 		cout << "  Type Structure........: " 
 		     << ( image_set.get_type_structure() ? image_set.get_type_structure() : "<nn>" )
 		     << endl;

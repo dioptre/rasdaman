@@ -53,7 +53,6 @@ rasdaman GmbH.
 // now defined vid -D as compile flag -- PB 2003-sep-03
 // const int RMANVERSION   = 5100;
 
-const int RASMGRPORT    = 7001;
 extern const char* RASMGRPORTS;
 extern const char* RASMGRHOST;
 
