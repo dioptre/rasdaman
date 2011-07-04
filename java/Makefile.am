@@ -31,5 +31,13 @@
 
 
 all : src/org/odmg/*.java src/rasj/*.java src/rasj/global/*.java src/rasj/clientcommhttp/*.java src/rasj/odmg/*.java src/rasj/rnp/*.java
-	javac  -d bin src/org/odmg/*.java src/rasj/*.java src/rasj/global/*.java src/rasj/clientcommhttp/*.java src/rasj/odmg/*.java src/rasj/rnp/*.java
+	mkdir -p bin dist
+	javac -d bin src/org/odmg/*.java src/rasj/*.java src/rasj/global/*.java src/rasj/clientcommhttp/*.java src/rasj/odmg/*.java src/rasj/rnp/*.java
 	jar -cf dist/rasj.jar -C bin .
+	
+examples: src/examples/*.java all
+	mkdir -p bin
+	javac -d bin src/examples/*.java -cp dist/rasj.jar
+	
+clean:
+	rm -r bin dist
