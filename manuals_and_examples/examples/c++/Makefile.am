@@ -21,7 +21,7 @@
 # or contact Peter Baumann via <baumann@rasdaman.com>.
 #
 # MAKEFILE FOR:
-#   iql
+#   insertppm query
 #
 #
 # COMMENTS:
@@ -31,28 +31,10 @@
 AM_CXXFLAGS= -w @CLIENTCXXFLAGS@ -DLINUX -DEARLY_TEMPLATE -DONCRPC -DDEBUG 
 AM_LDFLAGS= @CLIENTLDFLAGS@
 
-bin_PROGRAMS = avg-cell-red avg-cell insertppm lookup query
-
-avg_cell_red_SOURCES = avg-cell-red.cc
-avg_cell_red_LDADD = ../../../rasodmg/librasodmg.a ../../../clientcomm/libclientcomm.a \
-        ../../../compression/libcompression.a ../../../raslib/libraslib.a \
-        ../../../conversion/libconversion.a ../../../network/libnetwork.a ../../../commline/libcommline.a \
-         -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto -lm -lz
-
-avg_cell_SOURCES = avg-cell.cc
-avg_cell_LDADD = ../../../rasodmg/librasodmg.a ../../../clientcomm/libclientcomm.a \
-        ../../../compression/libcompression.a ../../../raslib/libraslib.a \
-        ../../../conversion/libconversion.a ../../../network/libnetwork.a ../../../commline/libcommline.a \
-         -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto -lm -lz
+bin_PROGRAMS = insertppm query
 
 insertppm_SOURCES = insertppm.cc
 insertppm_LDADD = ../../../rasodmg/librasodmg.a ../../../clientcomm/libclientcomm.a \
-        ../../../compression/libcompression.a ../../../raslib/libraslib.a \
-        ../../../conversion/libconversion.a ../../../network/libnetwork.a ../../../commline/libcommline.a \
-         -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto -lm -lz
-
-lookup_SOURCES = lookup.cc
-lookup_LDADD = ../../../rasodmg/librasodmg.a ../../../clientcomm/libclientcomm.a \
         ../../../compression/libcompression.a ../../../raslib/libraslib.a \
         ../../../conversion/libconversion.a ../../../network/libnetwork.a ../../../commline/libcommline.a \
          -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto -lm -lz
