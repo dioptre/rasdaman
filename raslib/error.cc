@@ -267,15 +267,12 @@ freeTextTable()
 
 	if (errorTextsLoaded)		// have we initialized the table previously?
 	{				// yes -> free each string
-#if 0 // doesn't work yet
-		while ( iter != NULL && iter != end  )
+		while ( iter != end  )
        		{
-			cout << "freeing " << iter->second << endl << flush;
 			free( iter->second );
 			iter->second = NULL;
-			// delete[] iter->second;
+      ++iter;
 		} 
-#endif
 		errorTexts.clear();	// now clear list itself
 	} 
 }
