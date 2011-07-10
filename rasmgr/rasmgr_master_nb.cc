@@ -344,10 +344,18 @@ int MasterComm::processRequest( NbJob &currentJob )
 		     << getClientAddr( currentJob.getSocket() )
 		     << ": " << "'get server'..." << flush;
 
+		if(authorization.acceptEntry(header))
+		{
 			int rc = getFreeServer(fake);	// returns std rasdaman errors -- FIXME: error ignored!
 			keepConnection = (rc == MSG_OK) ? true : false;	// 200 is "ok"
 			VLOG << "ok" << endl;
-	   
+	  	}
+		else
+		{
+			answerAccessDeniedCode();
+			keepConnection = false;		// this is a final answer, don't keep conn open afterwards
+			VLOG << "denied." << endl;
+		}   
 
 	}	  
 	else if(isMessage("POST rascontrol")) 
