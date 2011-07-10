@@ -83,7 +83,6 @@ RMINITGLOBALS('C');
 
 bool initialization();
 
-extern int           globalOptimizationLevel = 4;
 extern unsigned long maxTransferBufferSize = 4000000;
 extern char*         dbSchema = 0;
 extern int           noTimeOut = 0;
@@ -244,8 +243,6 @@ bool initialization()
 		return false;
 	}
 	RMInit::logOut << "ok" << endl;
-	
-	globalOptimizationLevel = configuration.getDefaultOptimizationLevel();
   
 	maxTransferBufferSize = configuration.getMaxTransferBufferSize();
 	

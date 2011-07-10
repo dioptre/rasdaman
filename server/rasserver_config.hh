@@ -45,7 +45,6 @@ class Configuration
       int         getRasmgrPort();      
       bool        isLogToStdOut();
       
-      int         getDefaultOptimizationLevel();
       int         getMaxTransferBufferSize();
       int         getTimeout();
       const char* getDbConnectionID();
@@ -121,7 +120,6 @@ class Configuration
       int         timeout;
       bool        httpServ;
       bool        rnpServ;
-      int         optLevel;
       const char* dbConnection;
 
       int         tileSize;

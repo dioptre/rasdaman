@@ -29,19 +29,3 @@ QueryTree::setRoot( QtNode* root )
 {
   rootNode = root;
 };
-
-
-inline void
-QueryTree::setOptimizationLevel( unsigned int level )
-{
-  optimizationLevel = level;
-};
-
-
-inline unsigned int
-QueryTree::getOptimizationLevel()
-{
-  return optimizationLevel;
-};
-
-

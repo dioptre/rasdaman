@@ -157,7 +157,7 @@ void Configuration::checkParameters()
 	httpServ              = cmlHttp->isPresent();
 	rnpServ               = cmlRnp->isPresent();
 
-    optLevel     = cmlOptLevel->getValueAsLong();
+    deprecated(cmlOptLevel);
     dbConnection = cmlConnectStr->getValueAsString();
 
 	tileSize   = cmlTileSize->getValueAsLong();
@@ -267,7 +267,6 @@ int         Configuration::getRasmgrPort() { return rasmgrPort; }
 
 bool        Configuration::isLogToStdOut() { return logToStdOut;  }
 
-int         Configuration::getDefaultOptimizationLevel() { return optLevel; }
 int         Configuration::getMaxTransferBufferSize()    { return maxTransferBufferSize; }
 int         Configuration::getTimeout()                  { return timeout; }
 const char* Configuration::getDbConnectionID()    { return dbConnection; }

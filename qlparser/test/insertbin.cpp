@@ -121,8 +121,6 @@ int main( int argc, char** argv )
     cout << "         -d                 debug output is printed to standard out" << endl;
     cout << "         -dl n          ... debug level is set to n (0-4, default: 0)" << endl;
     cout << "                            - 0 = no / 4 = maximal debug information" << endl;
-    cout << "         -opt n         ... maximal optimization level (0-4, default: 4)" << endl;
-    cout << "                            - 0 = no / 4 = maximal optimization" << endl;
     cout << "         -t                 time test is enabled" << endl;
     cout << "         -nooutput      ... no output of result" << endl;
     cout << endl;
@@ -190,29 +188,6 @@ int main( int argc, char** argv )
 
     parseQueryTree->getRoot()->printAlgebraicExpression();
     cout << endl << endl;
-
-    unsigned int localOptimizationLevel = globalOptimizationLevel < parseQueryTree->getOptimizationLevel() ?
-                                          globalOptimizationLevel : parseQueryTree->getOptimizationLevel();
-
-    RMInit::logOut << "Optimizing query on level " << localOptimizationLevel << endl;
-    try
-    {
-      parseQueryTree->optimize( localOptimizationLevel );
-    }
-    catch( ParseInfo& info )
-    {
-      RMInit::logOut << endl << "Optimization Error" << endl;
-      info.printStatus();
-      cout << endl;
-
-      return 0;
-    }
-
-    RMInit::logOut << endl;
-    parseQueryTree->printTree( 2, RMInit::logOut );
-    RMInit::logOut << endl;
-    parseQueryTree->getRoot()->printAlgebraicExpression( RMInit::logOut );
-    RMInit::logOut << endl << endl;
 
     RMInit::logOut << "Evaluating... " << flush;
 

@@ -104,13 +104,6 @@ class QueryTree
     /// checks semantics (e.g., type checking)
     void checkSemantics();
 
-    /// optimizes the tree
-    void optimize( unsigned int optimizationLevel );
-
-    /*@Doc:
-      The method optimizes the query tree.
-    */
-
     /// recognize common subexpressions
     vector<QtNode::QtNodeList>* seeSubexpression();
 
@@ -152,10 +145,6 @@ class QueryTree
       inline QtNode* getRoot() const;
       ///
       inline void setRoot( QtNode* root );
-      ///
-      inline void setOptimizationLevel( unsigned int level );
-      ///
-      inline unsigned int getOptimizationLevel();
 
     ///
     //@}
@@ -204,19 +193,11 @@ class QueryTree
     /// attribute storing the root of the query tree
     QtNode* rootNode;
 
-    static void (*optimizationFnc)(unsigned int, QtNode*);
-
-    // Validity checks for the level of optimization
-    bool isValidOptimizationLevel( int level );
-
     /// used by public seeSubexpression()
     vector<QtNode::QtNodeList>* seeSubexpression( QtNode::QtNodeList* leafList );
 
     /// used by public seeSubexpression()
     QtNode::QtNodeList* seeSubexpression( QtNode::QtNodeList* leafList, vector<QtNode::QtNodeList>* leafListsNew );
-
-    /// level of optimization restricted for this query
-    unsigned int optimizationLevel;
 
     /// attribute carrying next free number for CSE iterator
     static unsigned int nextCSENo;

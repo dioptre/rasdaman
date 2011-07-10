@@ -131,7 +131,6 @@ extern char* rpcif_1( struct svc_req*, register SVCXPRT* );
 extern bool bMemFailed;
 
 // this is a temporary thing
-extern int           globalOptimizationLevel;
 extern unsigned long maxTransferBufferSize;
 
 // At the beginning, no servercomm object exists.
@@ -280,8 +279,6 @@ ServerComm::startRpcServer()
 		<< " secs..."; RMInit::logOut.flush();
 	alarm( (unsigned int)garbageCollectionInterval );
 	RMInit::logOut << MSG_OK << endl;
-
-	RMInit::logOut << "Global query optimization level is " << globalOptimizationLevel << "." << endl;
 
 	signal (SIGTERM, rpcSignalHandler);
 	informRasMGR(SERVER_AVAILABLE);

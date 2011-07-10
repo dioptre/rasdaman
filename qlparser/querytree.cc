@@ -62,23 +62,16 @@ using namespace std;
 #include "relcatalogif/mdddomaintype.hh"
 #include "relcatalogif/settype.hh"
 
-void (*QueryTree::optimizationFnc)(unsigned int, QtNode*) = NULL;
-
 unsigned int QueryTree::nextCSENo = 0;
 
 SymbolTable<int> QueryTree::symtab;
 
 QueryTree::QueryTree()
-  : rootNode(NULL),
-    optimizationLevel(SUBEXPRESSIONS)
-{
+: rootNode(NULL) {
 }
 
-
-QueryTree::QueryTree( QtNode* root )
-  :  rootNode( root ),
-    optimizationLevel(SUBEXPRESSIONS)
-{
+QueryTree::QueryTree(QtNode* root)
+: rootNode(root) {
 }
 
 
@@ -127,51 +120,6 @@ QueryTree::checkSemantics()
       }
       break;
   }
-}
-
-
-void
-QueryTree::optimize( unsigned int currentOptimizationLevel )
-{
-  RMDBCLASS( "QueryTree", "optimize( unsigned int )", "qlparser", __FILE__, __LINE__ )
-
-    if (optimizationFnc == NULL) {
-      char *dir = CONFDIR;
-      char libName[255];
-      sprintf(libName,"%s/lib/libqloptimizer.so", dir);
-      
-      if (access(libName, X_OK | R_OK) == 0) {
-	void *handle = dlopen(libName, RTLD_NOW);
-	if (handle == NULL) {
-	  RMInit::logOut << "Optimization library found, however could not be loaded" << endl;	    
-	  printf("DLERROR = %s\n", dlerror());
-	  RMInit::logOut << dlerror() << endl;	    
-	  return;
-	}
-		
-	*(void **)(&optimizationFnc) = dlsym(handle, "runOptimizations");
-	if (optimizationFnc == NULL) {
-	  RMInit::logOut << "Optimization library found, however the entry point was not found" << endl;	    
-	  return;
-	}
-      } else {
-	  RMInit::logOut << "No optimization library found" << endl;	    
-	  return;
-      }	
-    }
-  
-  if (isValidOptimizationLevel(currentOptimizationLevel) == false)
-	throw r_Error(r_Error::r_Error_InvalidOptimizationLevel);
-
-  optimizationFnc(currentOptimizationLevel, rootNode);
-
-  RMDBGIF( 1, RMDebug::module_qlparser, "QueryTree", \
-    RMInit::logOut << endl << "     "; \
-    rootNode->printAlgebraicExpression( RMInit::logOut ); \
-    RMInit::logOut << endl << endl; \
-    rootNode->printTree( 2, RMInit::logOut ); \
-    RMInit::logOut << endl; \
-  )
 }
 
 vector<QtData*>*
@@ -489,19 +437,4 @@ void QueryTree::rewriteDomainObjects(r_Minterval *greatDomain, string *greatIter
 
 void QueryTree::addCString( char *str ) {
   lexedCStringList.push_back( str );
-}
-
-bool QueryTree::isValidOptimizationLevel( int level )
-{
-    switch (level)
-    {
-	case NO_OPTIMIZATIONS:
-	case STANDARDIZATION:
-	case SIMPLIFICATION: 
-	case SUBEXPRESSIONS:
-		return true;
-
-	default:
-		return false;
-    }
 }

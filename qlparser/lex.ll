@@ -147,30 +147,8 @@ int string_yyinput( char* buf, int max_size )
 
 %%
 
-"/*""/"*([^*/]|[^*]"/"|"*"[^/])*"*"*"*/" { 
-                                           if( !strncmp( yytext, "/*+", 3 ) )
-                                           {
-                                             if( strstr( yytext, "opt 0" ) )
-                                               parseQueryTree->setOptimizationLevel(0);
-                                             if( strstr( yytext, "opt 1" ) )
-                                               parseQueryTree->setOptimizationLevel(1);
-                                             if( strstr( yytext, "opt 2" ) )
-                                               parseQueryTree->setOptimizationLevel(2);
-                                             if( strstr( yytext, "opt 3" ) )
-                                               parseQueryTree->setOptimizationLevel(3);
-                                             if( strstr( yytext, "opt 4" ) )
-                                               parseQueryTree->setOptimizationLevel(4);
-                                           }
-                                           columnNo += yyleng; 
-                                         }
 "//".*					 { columnNo += yyleng; }
 "--".*                                   { columnNo += yyleng; }
-
-"[opt 0]"                                { parseQueryTree->setOptimizationLevel(0); columnNo += yyleng; }
-"[opt 1]"                                { parseQueryTree->setOptimizationLevel(1); columnNo += yyleng; }
-"[opt 2]"                                { parseQueryTree->setOptimizationLevel(2); columnNo += yyleng; }
-"[opt 3]"                                { parseQueryTree->setOptimizationLevel(3); columnNo += yyleng; }
-"[opt 4]"                                { parseQueryTree->setOptimizationLevel(4); columnNo += yyleng; }
 
 "complex"                                { SETTOKEN( COMPLEX, commandToken, COMPLEX ) }
 "re"                                     { SETTOKEN( RE, commandToken, RE ) }

@@ -158,9 +158,6 @@ extern "C"
 	char* rpcif_1( struct svc_req*, register SVCXPRT* );
 	void garbageCollection( int );
 }
-
-// this is a temporary thing
-extern int      globalOptimizationLevel;
  
 // This is needed in httpserver.cc 
 char globalHTTPSetTypeStructure[4096];
@@ -1520,8 +1517,6 @@ ServerComm::executeQuery( unsigned long callingClientId,
 	if( context != 0 )
 	{   
 #ifdef RMANBENCHMARK
-		RMTimer* queryOptimizationTimer = 0;
-
 		Tile::relTimer.start();
 		Tile::relTimer.pause();
 		Tile::opTimer.start();
@@ -1538,13 +1533,6 @@ ServerComm::executeQuery( unsigned long callingClientId,
 		//
 		// execute the query
 		//
-
-#ifdef RMANBENCHMARK
-		if( RManBenchmark > 0 )
-			queryOptimizationTimer = new RMTimer("ServerComm", "optimization");
-#endif
-
-		
 
 		QueryTree* qtree = new QueryTree();   // create a query tree object...
 		parseQueryTree   = qtree;             // ...and assign it to the global parse query tree pointer;
@@ -1593,23 +1581,11 @@ ServerComm::executeQuery( unsigned long callingClientId,
 				RMInit::logOut << "checking semantics..." << std::flush;    
 				qtree->checkSemantics();
 
-				unsigned int localOptimizationLevel = globalOptimizationLevel < qtree->getOptimizationLevel() ?
-					globalOptimizationLevel : qtree->getOptimizationLevel();
-
-				RMInit::logOut << "optimizing (level " << localOptimizationLevel << ")..." << std::flush;
-				qtree->optimize( localOptimizationLevel );
-
 				RMDBGIF(1, RMDebug::module_servercomm, "ServerComm::executeQuery", \
 					qtree->printTree( 2, RMInit::logOut ); 
 				);
 
 #ifdef RMANBENCHMARK
-				if( queryOptimizationTimer )
-				{
-					delete queryOptimizationTimer;
-					queryOptimizationTimer = 0;
-				}
-
 				if( RManBenchmark > 0 )
 					context->evaluationTimer = new RMTimer("ServerComm", "evaluation");
 #endif
@@ -1808,8 +1784,6 @@ ServerComm::executeQuery( unsigned long callingClientId,
 		//    
 		
 #ifdef RMANBENCHMARK
-		if( queryOptimizationTimer )
-			delete queryOptimizationTimer;
 
 		// Evaluation timer can not be stopped because some time spent in the transfer
 		// module is added to this phase.
@@ -2039,7 +2013,6 @@ ServerComm::executeUpdate( unsigned long callingClientId,
 	RMInit::logOut << "Request: '" << query << "'..." << std::flush;
 
 #ifdef RMANBENCHMARK
-	RMTimer* queryOptimizationTimer = 0;
 	Tile::relTimer.start();
 	Tile::relTimer.pause();
 	Tile::opTimer.start();
@@ -2059,11 +2032,6 @@ ServerComm::executeUpdate( unsigned long callingClientId,
 		//
 		// execute the query
 		//
-
-#ifdef RMANBENCHMARK
-		if( RManBenchmark > 0 )
-			queryOptimizationTimer = new RMTimer("ServerComm", "optimization");
-#endif
 
 		QueryTree* qtree = new QueryTree();   // create a query tree object...
 		parseQueryTree   = qtree;             // ...and assign it to the global parse query tree pointer;
@@ -2114,26 +2082,11 @@ ServerComm::executeUpdate( unsigned long callingClientId,
 
 				qtree->checkSemantics();
 
-				// coman: Why is disabled optimization for update query?
-				//      unsigned int localOptimizationLevel = globalOptimizationLevel < qtree->getOptimizationLevel() ?
-				//                                            globalOptimizationLevel : qtree->getOptimizationLevel();
-
-				unsigned int localOptimizationLevel = 0;
-
-				RMInit::logOut << "optimizing (level " << localOptimizationLevel << ")..." << std::flush;
-				qtree->optimize( localOptimizationLevel );
-
 				RMDBGIF(1, RMDebug::module_servercomm, "ServerComm::executeUpdate", \
 					qtree->printTree( 2, RMInit::logOut ); 
 				);
 
 #ifdef RMANBENCHMARK
-				if( queryOptimizationTimer )
-				{
-					delete queryOptimizationTimer;
-					queryOptimizationTimer = 0;
-				}
-
 				if( RManBenchmark > 0 )
 					context->evaluationTimer = new RMTimer("ServerComm", "evaluation");
 #endif
@@ -2225,9 +2178,6 @@ ServerComm::executeUpdate( unsigned long callingClientId,
 	
 		
 #ifdef RMANBENCHMARK
-	if( queryOptimizationTimer )
-		delete queryOptimizationTimer;
-
 	// stop evaluation timer
 	if( context->evaluationTimer )
 	{
