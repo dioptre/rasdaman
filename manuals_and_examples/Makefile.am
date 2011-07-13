@@ -22,23 +22,11 @@
 ####################################################################
 
 nobase_dist_pkgdata_DATA=examples/images/* \
-			 examples/c++/avg-cell.cc examples/c++/avg-cell-red.cc examples/c++/lookup.cc examples/c++/query.cc examples/c++/insertppm.cc examples/c++/basictypes.hh examples/c++/Makefile \
+			 examples/c++/query.cc examples/c++/insertppm.cc examples/c++/basictypes.hh examples/c++/Makefile \
                          examples/java/* examples/queries/* \
                          examples/rasdl/basictypes.dl
  
-MF_SRC=examples/c++/Makefile.src
-MF_TARGET=examples/c++/Makefile
- 
-$(MF_TARGET): $(MF_SRC)
-	sed -e "s|__CONFDIR__|$(CONFDIR)|" <$^ >$(MF_TARGET)
-
-dest_Makefile=$(DESTDIR)$(pkgdatadir)/examples/c++/Makefile
-
 install-data-hook:
-	-# Set the rasdaman installation root to allow Make finding
-	-# include/ and lib/ for the C++ examples.
-	sed 's|~~~rmanhome~~~|$(prefix)|' <$(dest_Makefile) >$(dest_Makefile).new
-	mv $(dest_Makefile).new $(dest_Makefile)
 	-# install documentation
 	(cd ..; doxygen manuals_and_examples/doxygen-all.cfg)
 	(cd ..; doxygen manuals_and_examples/doxygen-api.cfg)

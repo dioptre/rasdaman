@@ -38,7 +38,7 @@
 # or contact Peter Baumann via <baumann@rasdaman.com>.
 #
 # MAKEFILE FOR:
-#   iql
+#   insertppm query
 #
 #
 # COMMENTS:
@@ -62,8 +62,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = avg-cell-red$(EXEEXT) avg-cell$(EXEEXT) \
-	insertppm$(EXEEXT) lookup$(EXEEXT) query$(EXEEXT)
+bin_PROGRAMS = insertppm$(EXEEXT) query$(EXEEXT)
 subdir = manuals_and_examples/examples/c++
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -80,33 +79,9 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_avg_cell_OBJECTS = avg-cell.$(OBJEXT)
-avg_cell_OBJECTS = $(am_avg_cell_OBJECTS)
-avg_cell_DEPENDENCIES = ../../../rasodmg/librasodmg.a \
-	../../../clientcomm/libclientcomm.a \
-	../../../compression/libcompression.a \
-	../../../raslib/libraslib.a \
-	../../../conversion/libconversion.a \
-	../../../network/libnetwork.a ../../../commline/libcommline.a
-am_avg_cell_red_OBJECTS = avg-cell-red.$(OBJEXT)
-avg_cell_red_OBJECTS = $(am_avg_cell_red_OBJECTS)
-avg_cell_red_DEPENDENCIES = ../../../rasodmg/librasodmg.a \
-	../../../clientcomm/libclientcomm.a \
-	../../../compression/libcompression.a \
-	../../../raslib/libraslib.a \
-	../../../conversion/libconversion.a \
-	../../../network/libnetwork.a ../../../commline/libcommline.a
 am_insertppm_OBJECTS = insertppm.$(OBJEXT)
 insertppm_OBJECTS = $(am_insertppm_OBJECTS)
 insertppm_DEPENDENCIES = ../../../rasodmg/librasodmg.a \
-	../../../clientcomm/libclientcomm.a \
-	../../../compression/libcompression.a \
-	../../../raslib/libraslib.a \
-	../../../conversion/libconversion.a \
-	../../../network/libnetwork.a ../../../commline/libcommline.a
-am_lookup_OBJECTS = lookup.$(OBJEXT)
-lookup_OBJECTS = $(am_lookup_OBJECTS)
-lookup_DEPENDENCIES = ../../../rasodmg/librasodmg.a \
 	../../../clientcomm/libclientcomm.a \
 	../../../compression/libcompression.a \
 	../../../raslib/libraslib.a \
@@ -129,10 +104,8 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-SOURCES = $(avg_cell_SOURCES) $(avg_cell_red_SOURCES) \
-	$(insertppm_SOURCES) $(lookup_SOURCES) $(query_SOURCES)
-DIST_SOURCES = $(avg_cell_SOURCES) $(avg_cell_red_SOURCES) \
-	$(insertppm_SOURCES) $(lookup_SOURCES) $(query_SOURCES)
+SOURCES = $(insertppm_SOURCES) $(query_SOURCES)
+DIST_SOURCES = $(insertppm_SOURCES) $(query_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -270,26 +243,8 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CXXFLAGS = -w @CLIENTCXXFLAGS@ -DLINUX -DEARLY_TEMPLATE -DONCRPC -DDEBUG 
 AM_LDFLAGS = @CLIENTLDFLAGS@
-avg_cell_red_SOURCES = avg-cell-red.cc
-avg_cell_red_LDADD = ../../../rasodmg/librasodmg.a ../../../clientcomm/libclientcomm.a \
-        ../../../compression/libcompression.a ../../../raslib/libraslib.a \
-        ../../../conversion/libconversion.a ../../../network/libnetwork.a ../../../commline/libcommline.a \
-         -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto -lm -lz
-
-avg_cell_SOURCES = avg-cell.cc
-avg_cell_LDADD = ../../../rasodmg/librasodmg.a ../../../clientcomm/libclientcomm.a \
-        ../../../compression/libcompression.a ../../../raslib/libraslib.a \
-        ../../../conversion/libconversion.a ../../../network/libnetwork.a ../../../commline/libcommline.a \
-         -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto -lm -lz
-
 insertppm_SOURCES = insertppm.cc
 insertppm_LDADD = ../../../rasodmg/librasodmg.a ../../../clientcomm/libclientcomm.a \
-        ../../../compression/libcompression.a ../../../raslib/libraslib.a \
-        ../../../conversion/libconversion.a ../../../network/libnetwork.a ../../../commline/libcommline.a \
-         -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto -lm -lz
-
-lookup_SOURCES = lookup.cc
-lookup_LDADD = ../../../rasodmg/librasodmg.a ../../../clientcomm/libclientcomm.a \
         ../../../compression/libcompression.a ../../../raslib/libraslib.a \
         ../../../conversion/libconversion.a ../../../network/libnetwork.a ../../../commline/libcommline.a \
          -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto -lm -lz
@@ -371,18 +326,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-avg-cell$(EXEEXT): $(avg_cell_OBJECTS) $(avg_cell_DEPENDENCIES) 
-	@rm -f avg-cell$(EXEEXT)
-	$(CXXLINK) $(avg_cell_OBJECTS) $(avg_cell_LDADD) $(LIBS)
-avg-cell-red$(EXEEXT): $(avg_cell_red_OBJECTS) $(avg_cell_red_DEPENDENCIES) 
-	@rm -f avg-cell-red$(EXEEXT)
-	$(CXXLINK) $(avg_cell_red_OBJECTS) $(avg_cell_red_LDADD) $(LIBS)
 insertppm$(EXEEXT): $(insertppm_OBJECTS) $(insertppm_DEPENDENCIES) 
 	@rm -f insertppm$(EXEEXT)
 	$(CXXLINK) $(insertppm_OBJECTS) $(insertppm_LDADD) $(LIBS)
-lookup$(EXEEXT): $(lookup_OBJECTS) $(lookup_DEPENDENCIES) 
-	@rm -f lookup$(EXEEXT)
-	$(CXXLINK) $(lookup_OBJECTS) $(lookup_LDADD) $(LIBS)
 query$(EXEEXT): $(query_OBJECTS) $(query_DEPENDENCIES) 
 	@rm -f query$(EXEEXT)
 	$(CXXLINK) $(query_OBJECTS) $(query_LDADD) $(LIBS)
@@ -393,10 +339,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/avg-cell-red.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/avg-cell.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/insertppm.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lookup.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/query.Po@am__quote@
 
 .cc.o:
