@@ -1,6 +1,6 @@
 %global rasdir /var/lib/rasdaman
 Name:           rasdaman
-Version:        8.2.1
+Version:        8.2.0
 Release:        0%{?dist}
 Summary:        rasdaman - Raster Data Manager
 
@@ -15,7 +15,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %endif
 
-BuildRequires: bison libtiff-devel hdf-devel libjpeg-devel ncurses-devel readline-devel zlib-devel libpng-devel netpbm-devel openssl-devel flex postgresql-devel
+BuildRequires: bison libtiff-devel hdf-devel libjpeg-devel ncurses-devel readline-devel zlib-devel libpng-devel netpbm-devel openssl-devel flex postgresql-devel doxygen
 
 Requires(pre): /usr/sbin/useradd
 Requires(post): chkconfig
@@ -82,7 +82,7 @@ The rasdaman-examples package includes examples for rasdaman.
 
 %build
 
-CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm" CXX="g++ -L%{_libdir}/hdf -I/usr/include/netpbm" \
+CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" CXX="g++ -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" \
 	./configure \
 		--prefix=/usr \
 		--docdir=%{_docdir}/rasdaman \
