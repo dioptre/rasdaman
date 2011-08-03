@@ -1,4 +1,3 @@
-
 # 
 # MAKEFILE FOR:  
 #
@@ -46,7 +45,7 @@ SUBDIRS = relblobif relindexif relmddif relcatalogif reladminif relstorageif \
           raslib clientcomm servercomm rasodmg qlparser conversion \
           mddmgr httpserver mymalloc server rasmgr rascontrol rasdl \
           applications bin insertutils manuals_and_examples include \
-          systemtest
+          systemtest java petascope
 
 dist_log_DATA=empty
             
