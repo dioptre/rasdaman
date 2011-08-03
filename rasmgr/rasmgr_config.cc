@@ -48,6 +48,9 @@ using namespace std;
 #include "rasmgr_comm.hh"
 #include "rasmgr_rascontrol.hh"
 
+#include <sys/stat.h>
+#include <sys/types.h>		// mkdir()
+
 #include <stdlib.h>		// mkstemp()
 #include <iomanip>
 #include <time.h>
