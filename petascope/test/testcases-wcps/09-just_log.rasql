@@ -1,1 +1,0 @@
-select jpeg(log((s).2)) from rgb AS s

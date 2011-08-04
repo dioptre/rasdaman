@@ -1,9 +1,0 @@
-for c in ( rgb ) return
-encode(
-    c.red *
-     {
-        red: (char) 1;
-        green: (char) 2;
-        blue: (char) 3
-     },
-"jpeg")

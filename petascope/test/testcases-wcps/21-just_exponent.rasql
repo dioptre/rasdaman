@@ -1,1 +1,0 @@
-select jpeg(exp((((c).1)/(100)))) from rgb AS c

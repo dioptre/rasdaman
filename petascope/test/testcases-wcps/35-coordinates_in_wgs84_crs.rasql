@@ -1,1 +1,0 @@
- select jpeg(c[1:100,-31:274]) from lena AS c
