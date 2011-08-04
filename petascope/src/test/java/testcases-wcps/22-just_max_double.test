@@ -1,0 +1,1 @@
+for c in ( rgb ) return max((double)c.2)

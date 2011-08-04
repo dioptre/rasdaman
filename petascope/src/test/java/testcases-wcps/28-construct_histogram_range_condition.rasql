@@ -1,0 +1,1 @@
+select csv(marray ii in [-20:20] values condense + over ij in [10:20, 10:20] using ((((c[ij[0],ij[1]])>((ii[0])-(1))))and(((c[ij[0],ij[1]])<=(ii[0]))))) from mr AS c

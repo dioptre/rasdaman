@@ -1,0 +1,1 @@
+select jpeg(((r)*((((((((r).green)>(130)))and((((r).red)<(110)))))and((((r).blue)<(140))))))) from rgb AS r

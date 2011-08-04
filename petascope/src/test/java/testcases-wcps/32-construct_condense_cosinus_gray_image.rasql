@@ -1,0 +1,1 @@
+select jpeg((char)(marray ii in [0:10, 0:10] values condense + over ij in [0:10, 0:10] using cos(0.6))) from mr AS c

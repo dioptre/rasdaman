@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmlcov:GridCoverage
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns='http://www.opengis.net/gml/3.2'
+    xmlns:gml='http://www.opengis.net/gml/3.2'
+    xmlns:gmlcov='http://www.opengis.net/gmlcov/1.0'
+    xmlns:swe='http://www.opengis.net/swe/2.0'
+    xmlns:wcs='http://www.opengis.net/wcs/2.0' gml:id="mr2"
+    xsi:schemaLocation= 'http://www.opengis.net/gmlcov/1.0 ../../../../gmlcov/1.0.0/gmlcovAll.xsd'>
+
+    <boundedBy>
+        <Envelope axisLabels="x y" uomLabels="">
+            <lowerCorner>1 1</lowerCorner>
+            <upperCorner>2 2</upperCorner>
+        </Envelope>
+    </boundedBy>
+
+    <domainSet>
+        <Grid dimension="2" gml:id="mr2-grid">
+            <limits>
+                <GridEnvelope>
+                    <low>1 1</low>
+                    <high>2 2</high>
+                </GridEnvelope>
+            </limits>
+            <axisLabels>x y</axisLabels>
+
+        </Grid>
+    </domainSet>
+
+    <rangeSet>
+        <DataBlock>
+            <rangeParameters/>
+            <tupleList>
+                {0,0},
+                {0,0}
+            </tupleList>
+        </DataBlock>
+    </rangeSet>
+
+    <gmlcov:rangeType>
+        <swe:DataRecord>
+            <swe:field name="grey">
+                <swe:Quantity definition="urn:ogc:def:dataType:OGC:1.1:unsigned int">
+                    <swe:description></swe:description>
+                    <swe:uom code="unknown"/>
+                    <swe:constraint>
+                        <swe:AllowedValues>
+                            <swe:interval>0 4294967295</swe:interval>
+                        </swe:AllowedValues>
+                    </swe:constraint>
+                </swe:Quantity>
+            </swe:field>
+        </swe:DataRecord>
+    </gmlcov:rangeType>
+</gmlcov:GridCoverage>

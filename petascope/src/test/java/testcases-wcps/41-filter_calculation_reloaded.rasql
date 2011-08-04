@@ -1,0 +1,1 @@
+select jpeg(marray ii in [1:100, 1:100] values sqrt(abs(condense + over ij in [-1:1, -1:1] using ((((((double)(< [-1:1, -1:1] -1, 0, 1, -2, 0, 2, -1, 0, 1>)) [ij[0],ij[1]])*((c) [(ii[0])+(ij[0]),(ii[1])+(ij[1])])))/((8)*(5.13712275)))))) from mr AS c

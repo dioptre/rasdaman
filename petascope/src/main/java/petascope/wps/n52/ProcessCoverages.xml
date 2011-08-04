@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:ProcessDescriptions xmlns:ns="http://www.opengis.net/wps/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsDescribeProcess_response.xsd" xml:lang="en-US" service="WPS" version="1.0.0">
+    <ProcessDescription xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:xlink="http://www.w3.org/1999/xlink" wps:processVersion="1.0" storeSupported="true" statusSupported="false">
+        <ows:Identifier>petascope.wps.n52.ProcessCoverages</ows:Identifier>
+        <ows:Title>Process WCPS query</ows:Title>
+        <ows:Abstract>Perform ad-hoc search, extraction, aggregation, and analysis of coverages containing sensor, image, or statistics data. Requests are expressed in the OGC WCPS language. </ows:Abstract>
+        <wps:Profile>
+            http://www.opengis.net/spec/WPS_application-profile_coverage-processing/1.0
+        </wps:Profile>
+        <DataInputs>
+            <Input minOccurs="1" maxOccurs="1">
+                <ows:Identifier>Query</ows:Identifier>
+                <ows:Title>
+                    WCPS ProcessCoverages Request
+                </ows:Title>
+                <ows:Abstract>
+                    The WCPS query string; each request contains exactly one query.
+                </ows:Abstract>
+                <ComplexData>
+                    <Default>
+                        <Format>
+                            <MimeType>text/plain</MimeType>
+                            <Schema>http://schemas.opengis.net/wcps/1.0/wcpsAll.xsd</Schema>
+                        </Format>
+                    </Default>
+                    <Supported>
+                        <Format>
+                            <MimeType>text/plain</MimeType>
+                            <Schema>http://schemas.opengis.net/wcps/1.0/wcpsAll.xsd</Schema>
+                        </Format>
+                        <Format>
+                            <MimeType>text/xml</MimeType>
+                            <Schema>http://schemas.opengis.net/wcps/1.0/wcpsAll.xsd</Schema>
+                        </Format>
+                    </Supported>
+                </ComplexData>
+            </Input>
+        </DataInputs>
+        <ProcessOutputs>
+            <Output>
+                <ows:Identifier>CoverageList</ows:Identifier>
+                <ows:Title>Query result consisting of coverages</ows:Title>
+                <ows:Abstract>
+                    WCPS query response list, consisting of coverages
+                </ows:Abstract>
+                <ComplexOutput>
+                    <Default>
+                        <Format>
+                            <MimeType>application/octet-stream</MimeType>
+                        </Format>
+                    </Default>
+                    <Supported>
+                        <Format>
+                            <MimeType>application/octet-stream</MimeType>
+                        </Format>
+                    </Supported>
+                </ComplexOutput>
+            </Output>
+            <Output>
+                <ows:Identifier>ScalarList</ows:Identifier>
+                <ows:Title>Query result consisting of scalars</ows:Title>
+                <ows:Abstract>
+                    WCPS query response list, consisting of scalar values
+                </ows:Abstract>
+                <ComplexOutput>
+                    <Default>
+                        <Format>
+                            <MimeType>text/plain</MimeType>
+                        </Format>
+                    </Default>
+                    <Supported>
+                        <Format>
+                            <MimeType>text/plain</MimeType>
+                        </Format>
+                    </Supported>
+                </ComplexOutput>
+            </Output>
+        </ProcessOutputs>
+    </ProcessDescription>
+</ns:ProcessDescriptions> 

@@ -1,0 +1,1 @@
+for m in ( Modis ) return encode( slice( m, {x(100)} ), "jpeg" )

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ProcessCoveragesRequest xmlns="http://www.opengis.net/wcps/1.0" service="WCPS" version="1.0.0">
+    <query>
+        <xmlSyntax>
+            <coverageIterator>
+                <iteratorVar>a</iteratorVar>
+                <coverageName>mr</coverageName>
+            </coverageIterator>
+            <encode store="false">
+                <coverage>a</coverage>
+                <format>dem</format>
+                <extraParameters>startx=0,starty=0,endx=1000,endy=1000,resx=0.1,resy=0.15</extraParameters>
+            </encode>
+        </xmlSyntax>
+    </query>
+</ProcessCoveragesRequest>

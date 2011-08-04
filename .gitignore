@@ -54,4 +54,6 @@ insertutils/insertdemo.sh
 *.class
 *.war
 dbparams.properties
-petascope/doc/
+petascope/build
+petascope/db/settings.properties
+petascope/nbproject/private/

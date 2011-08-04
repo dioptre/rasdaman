@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wcs:CoverageDescription
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns='http://www.opengis.net/gml/3.2'
+    xmlns:gml='http://www.opengis.net/gml/3.2'
+    xmlns:gmlcov='http://www.opengis.net/gmlcov/1.0'
+    xmlns:swe='http://www.opengis.net/swe/2.0'
+    xmlns:wcs='http://www.opengis.net/wcs/2.0' gml:id="{coverageId}">
+  <boundedBy>
+    <Envelope axisLabels="{axisLabels}" uomLabels="{uomLabels}" srsDimension="{gridDimension}">
+      <lowerCorner>{low}</lowerCorner>
+      <upperCorner>{high}</upperCorner>
+    </Envelope>
+  </boundedBy>
+  <wcs:CoverageId>{coverageId}</wcs:CoverageId>
+
+  <domainSet>
+    <Grid dimension="{gridDimension}" gml:id="{gridId}">
+      <limits>
+        <GridEnvelope>
+          <low>{low}</low>
+          <high>{high}</high>
+        </GridEnvelope>
+      </limits>
+      <axisLabels>{axisLabels}</axisLabels>
+    </Grid>
+  </domainSet>
+
+  <gmlcov:rangeType>
+    <swe:DataRecord>
+      {rangeFields}
+    </swe:DataRecord>
+  </gmlcov:rangeType>
+
+  <wcs:ServiceParameters>
+    <wcs:CoverageSubtype>{coverageSubtype}</wcs:CoverageSubtype>
+  </wcs:ServiceParameters>
+</wcs:CoverageDescription>

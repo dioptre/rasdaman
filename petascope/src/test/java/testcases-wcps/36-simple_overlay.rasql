@@ -1,0 +1,1 @@
+select jpeg(((c)overlay((char)(((c)*(3)))))) from rgb AS c

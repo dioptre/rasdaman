@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wcs:CoverageDescriptions xsi:schemaLocation="http://www.opengis.net/wcs/2.0 ../../wcsAll.xsd" xmlns:wcs="http://www.opengis.net/wcs/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:gml="http://www.opengis.net/gml/3.2">
+  <wcs:CoverageDescription gml:id="mr2" xmlns="http://www.opengis.net/gml/3.2" xmlns:gmlcov="http://www.opengis.net/gmlcov/1.0" xmlns:swe="http://www.opengis.net/swe/2.0">
+    <boundedBy>
+      <Envelope axisLabels="x y" uomLabels="" srsDimension="2">
+        <lowerCorner>0 0</lowerCorner>
+        <upperCorner>255 210</upperCorner>
+      </Envelope>
+    </boundedBy>
+    <wcs:CoverageId>mr2</wcs:CoverageId>
+    <domainSet>
+      <Grid dimension="2" gml:id="mr2-grid">
+        <limits>
+          <GridEnvelope>
+            <low>0 0</low>
+            <high>255 210</high>
+          </GridEnvelope>
+        </limits>
+        <axisLabels>x y</axisLabels>
+      </Grid>
+    </domainSet>
+    <gmlcov:rangeType>
+      <swe:DataRecord>
+        <swe:field name="grey">
+          <swe:Quantity definition="urn:ogc:def:dataType:OGC:1.1:unsigned int">
+            <swe:description/>
+            <swe:uom code="unknown"/>
+            <swe:constraint>
+              <swe:AllowedValues>
+                <swe:interval>0 4294967295</swe:interval>
+              </swe:AllowedValues>
+            </swe:constraint>
+          </swe:Quantity>
+        </swe:field>
+      </swe:DataRecord>
+    </gmlcov:rangeType>
+    <wcs:ServiceParameters>
+      <wcs:CoverageSubtype>GridCoverage</wcs:CoverageSubtype>
+    </wcs:ServiceParameters>
+  </wcs:CoverageDescription>
+</wcs:CoverageDescriptions>

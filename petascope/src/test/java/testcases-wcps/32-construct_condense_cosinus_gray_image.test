@@ -1,0 +1,9 @@
+ for c in (mr) return encode((char)
+       coverage DFT
+       over $px x(0:10),
+            $py y(0:10)
+       values
+           condense +
+           over $kx x(0:10),
+                $ky y(0:10)
+           using cos(0.6)   , "jpeg")

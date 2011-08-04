@@ -1,0 +1,6 @@
+-- gensql_uos.pl
+
+usage: $ perl gensql_uos.pl <file> <coverageID>
+
+where <file> : 3D Point Cloud file saved in UOS Format (contains x y z values separated by whitespace)
+	    <coverageID> : MultiPoint coverageID from ps_coverage to which this pointCloud refers to.

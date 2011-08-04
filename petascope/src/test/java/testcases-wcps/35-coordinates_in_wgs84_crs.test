@@ -1,0 +1,1 @@
+for c in (lena) return encode(c [x:"CRS:1" (1:100), y:"EPSG:4326" (1:100) ], "jpeg")

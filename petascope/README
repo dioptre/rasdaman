@@ -1,0 +1,48 @@
+PetaScope
+---------
+
+This file is part of PetaScope, a free implementation of the Open GeoSpatial Consortium (OGC, 
+www.opengeospatial.org) Web Coverage Service (WCS) standards suite. As such, it implements the 
+following interface standards:
+    - Web Coverage Service (WCS) 2.0
+    - Web Coverage Service (WCS) 1.1.2
+    - Web Coverage Processing Service (WCPS) 1.0.0
+    - WCS Transaction Extension (WCS-T) 1.4.0
+
+PetaScope is implemented as a Java servlet. As such, it relies on the following
+freely available components which are not part of the PetaScope distribution:
+    - rasdaman (www.rasdaman.org) as raster server
+    - Tomcat (tomcat.apache.org) as servlet container
+    - PostgreSQL (www.postgresql.org) as relational database system
+
+
+Distribution
+------------
+
+A PetaScope distribution consists of the following directories and files:
+
+db/                  Scripts to initialize and maintain the PetaScope database
+lib/                 External libraries required
+nbproject/			 NetBeans project build files and properties.
+src/                 Source code
+src/main/resources/settings.properties
+                     Default servlet initialization parameters, such as database
+                     connections. It's best to copy manually this file to
+                     db/settings.properties and adapt to the local environment.
+xml/                 WC*S schema files used by PetaScope (copies from schemas.opengis.net)
+LICENSE              PetaScope license
+build.xml            "Ant" rule file for building PetaScope
+Makefile             Standard Makefile for building PetaScope, see 'make help'
+                     for more details
+INSTALL              Installation guidelines
+README               This file
+
+See INSTALL for installation guidelines.
+
+LICENSE
+=======
+
+PetaScope is licensed by Jacobs University Bremen
+(www.jacobs-university.de) and Peter Baumann
+(www.peter-baumann.org) under the GNU General Public
+License (GPL), see www.gnu.org or the LICENSE file.

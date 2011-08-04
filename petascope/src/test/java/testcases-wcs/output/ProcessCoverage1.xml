@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<processCoverage xmlns="http://www.opengis.net/wcps/1.0.0" version="1.0.0" service="WCPS">
+    <coverageIterator>
+        <iteratorVar>var</iteratorVar>
+        <coverageName>NIR</coverageName>
+    </coverageIterator>
+    <encode store="false">
+        <format>jpg</format>
+        <trim>
+            <trimAxisSpec>
+                <axis>x</axis>
+                <domainCoord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">0</domainCoord>
+                <domainCoord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">450</domainCoord>
+            </trimAxisSpec>
+            <trim>
+                <trimAxisSpec>
+                    <axis>y</axis>
+                    <domainCoord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">0</domainCoord>
+                    <domainCoord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">300</domainCoord>
+                </trimAxisSpec>
+                <coverage>var</coverage>
+            </trim>
+        </trim>
+    </encode>
+</processCoverage>

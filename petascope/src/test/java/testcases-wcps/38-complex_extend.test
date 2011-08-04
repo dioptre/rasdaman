@@ -1,0 +1,1 @@
+for t in (rgb) return encode(extend( (t + (char)50),  x :"CRS:1" ( 0:500 ),  y: "CRS:1" (0: 500)  ), "jpeg" ) 

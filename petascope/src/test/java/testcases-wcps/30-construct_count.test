@@ -1,0 +1,6 @@
+for c in ( climate_clouds )
+return  encode(
+          coverage histogram
+          over $n x(0:2)
+          values count( c = $n )
+      , "csv" )

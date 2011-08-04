@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+    <soap:Header/>
+    <soap:Body>
+        <soap:Fault>
+            <soap:Code>
+                <soap:Value>soap:server</soap:Value>
+            </soap:Code>
+            <soap:Reason>
+                <soap:Text xml:lang="en-US">A server exception was encountered.</soap:Text>
+            </soap:Reason>
+            <soap:Detail>
+                {exceptionReport}
+            </soap:Detail>
+        </soap:Fault>
+    </soap:Body>
+</soap:Envelope>
