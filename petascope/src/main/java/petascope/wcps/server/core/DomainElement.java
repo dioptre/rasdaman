@@ -33,7 +33,7 @@ import petascope.exceptions.WCPSException;
  */
 public class DomainElement implements Cloneable {
 
-    public static final String WGS84_CRS = "EPSG:4326";
+    public static final String WGS84_CRS = "http://www.opengis.net/def/crs/EPSG/0/4326";
     public static final String IMAGE_CRS = "CRS:1";
     private Set<String> crss;
     private String name;
