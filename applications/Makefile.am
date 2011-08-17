@@ -28,5 +28,5 @@
 #
 ##################################################################
 
-SUBDIRS=rasql
+SUBDIRS=rasql rview
 # should also contain rview and directql

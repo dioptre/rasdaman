@@ -127,6 +127,7 @@ AC_CONFIG_FILES([Makefile
                  rasdl/Makefile
                  applications/Makefile
                  applications/rasql/Makefile
+                 applications/rview/Makefile
                  bin/Makefile
                  manuals_and_examples/Makefile
                  manuals_and_examples/examples/c++/Makefile
