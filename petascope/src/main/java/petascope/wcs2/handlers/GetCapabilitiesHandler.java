@@ -95,8 +95,7 @@ public class GetCapabilitiesHandler extends AbstractRequestHandler<GetCapabiliti
         }
 
         // ServiceMetadata
-        Element serviceMetadata = Templates.getXmlTemplate(Templates.SERVICE_METADATA,
-                Pair.of("\\{version\\}", BaseRequest.VERSION_STRING));
+        Element serviceMetadata = Templates.getXmlTemplate(Templates.SERVICE_METADATA);
         if (serviceMetadata != null) {
             root.appendChild(serviceMetadata.copy());
         }
