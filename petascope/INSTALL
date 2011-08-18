@@ -4,7 +4,7 @@ BUILD AND INSTALL:
 
 - PetaScope is part of rasdaman (www.rasdaman.org), to get it use:
 
-     $ git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
+   $ git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
 	  
 - Setup the database
    1. Create database petascopedb in PostgreSQL, with user petauser/petapasswd, or
@@ -16,7 +16,7 @@ BUILD AND INSTALL:
   
 - Do everything in one step:
 
-     $ make all
+   $ make all
 	  
   This compiles the code, creates a war archive in build/dist and Javadoc in
   build/apidocs and creates/updates the database.
@@ -24,7 +24,7 @@ BUILD AND INSTALL:
 - Deploy the war file build/dist/petascope.war, with Tomcat. If CATALINA_HOME
   is properly set to the Tomcat's home directory, you can also do:
   
-     $ make install
+   $ make install
      
 - The petascope interface will then be available at http://localhost/petascope
 	An interface more specific to WCPS can be accessed at	http://localhost/petascope/wcps
