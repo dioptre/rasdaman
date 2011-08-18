@@ -15,7 +15,9 @@ BUILD 			:= build
 DIST	 			:= $(BUILD)/dist
 WEB 				:= $(BUILD)/web
 CLASSES  		:= $(WEB)/WEB-INF/classes
-WAR					:= $(DIST)/petascope.war
+NAME				:= petascope
+WAR_NAME				:= $(NAME).war
+WAR					:= $(DIST)/$(WAR_NAME)
 APIDOCS			:= $(BUILD)/apidocs
 
 # Unix tools
@@ -88,9 +90,7 @@ $(all_javas):
 compile: $(all_javas)
 	$(MKDIR) $(BUILD)
 	$(CP) $(SRC_WEB)/* $(WEB)
-	# copy default settings, and then custom settings in db/settings.properties
-	$(CP) templates xml src/main/resources/settings.properties $(WEB)
-	if test -e db/settings.properties; then $(CP) db/settings.properties $(WEB); fi
+	$(CP) templates xml $(SRC)/resources/log4j.properties $(WEB)
 	$(MKDIR) $(WEB)/WEB-INF/lib
 	$(CP) lib/activation.jar lib/antlrworks-1.2.3.jar lib/antlrworks-1.3.1.jar lib/commons-fileupload-1.2.jar lib/commons-io-1.3.2.jar lib/commons-math-1.1.jar lib/gml-v_3_1_1-schema-1.0-SNAPSHOT.jar lib/jaxb-api.jar lib/jaxb-impl.jar lib/jaxb-xjc.jar lib/joda-time-1.6.jar lib/jsr173_1.0_api.jar lib/log4j-1.2.15.jar lib/ows-v_1_0_0-schema-1.0-SNAPSHOT.jar lib/postgresql-8.3-604.jdbc4.jar lib/rasj.jar lib/servlet-2_5-api.jar lib/slf4j-api-1.5.8.jar lib/slf4j-log4j12-1.5.8.jar lib/wcst-schema.jar lib/wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar lib/xom-1.2.6.jar lib/uuid-3.2.jar lib/cos.jar $(WEB)/WEB-INF/lib
 	# copy resources (xml, xsd, properties)
@@ -99,8 +99,9 @@ compile: $(all_javas)
 	# remove .svn directories
 	$(FIND) $(BUILD) -name '.svn' | xargs $(RM)
 	$(JAVAC) $(JFLAGS) @$<
-	$(CP) $(SRC)/resources/log4j.properties $(CLASSES)
-	$(CP) $(SRC)/resources/settings.properties $(CLASSES)
+	# copy default settings, and then custom settings in db/settings.properties if they exist
+	$(CP) src/main/resources/settings.properties $(CLASSES)
+	if test -e db/settings.properties; then $(CP) db/settings.properties $(CLASSES); fi
 
 # Generate the Java doc from sources
 .PHONY: javadoc
@@ -130,7 +131,7 @@ test:
 # clean up
 .PHONY: clean
 clean:
-	$(RM) $(BUILD) $(CATALINA_HOME)/webapps/petascope $(CATALINA_HOME)/webapps/petascope.war
+	$(RM) $(BUILD) $(CATALINA_HOME)/webapps/$(NAME) $(CATALINA_HOME)/webapps/$(WAR_NAME)
 
 # Perform all tasks for a complete build
 .PHONY: all
