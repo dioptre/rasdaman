@@ -24,8 +24,6 @@ package petascope.wcs2.parsers;
 import petascope.wcs2.handlers.RequestHandler;
 import nu.xom.Node;
 import nu.xom.Element;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCSException;
 import static petascope.util.XMLUtil.*;
 import static petascope.util.XMLSymbols.*;
