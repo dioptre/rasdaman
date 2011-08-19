@@ -68,8 +68,6 @@ public class ProcessCoveragesRequest {
         Node child = node.getFirstChild();
         this.rasqlQuery = null;
 
-        System.err.println("Parsing ProcessCoveragesRequest node: " + child.getNodeName());
-
         if (child.getNodeName().equals("ProcessCoveragesRequest") == false) {
             throw new WCPSException("The document contains an unrecognized node : "
                     + child.getNodeName());

@@ -40,8 +40,6 @@ public class BooleanScalarExpr implements IRasNode {
 
         simple = false;
 
-        System.err.println("Parsing boolean scalar operation ...");
-
         if (nodeName.equals("booleanConstant")) {
             simple = true;
             value = node.getFirstChild().getNodeValue();

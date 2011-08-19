@@ -30,8 +30,6 @@ public class VariableReference implements IRasNode {
     private String translatedName;
 
     public VariableReference(Node node, XmlQuery xq) throws WCPSException {
-        System.err.println("Parsing variable reference: " + node.getNodeName());
-
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }

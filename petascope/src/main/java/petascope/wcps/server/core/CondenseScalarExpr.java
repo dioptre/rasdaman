@@ -44,7 +44,6 @@ public class CondenseScalarExpr implements IRasNode {
 
         iterators = new Vector();
         newIteratorName = xq.registerNewExpressionWithVariables();
-        System.err.println("Parsing Condense Scalar Expression: " + node.getNodeName());
 
         while (node != null) {
             String name = node.getNodeName();

@@ -49,7 +49,6 @@ public class ConstructCoverageExpr implements IRasNode, ICoverageInfo {
         }
 
         iterators = new Vector();
-        System.err.println("Parsing Construct Coverage Expr: " + node.getNodeName());
         newIteratorName = xq.registerNewExpressionWithVariables();
 
         while (node != null) {

@@ -119,20 +119,20 @@ public class XMLUtil {
     }
 
     private static Builder newBuilder(boolean ignoreDTD) {
-        if (schemaFactory == null) {
-            schemaFactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
-            wcsSchema = IOUtil.findFile(WCS_SCHEMA, XMLUtil.class.getResource(""), -1);
-            if (wcsSchema == null) {
-                log.warn("WCS 2.0 XML schema not found, schema validity disabled.");
-            } else {
-                log.info("Found WCS 2.0 XML schema: " + wcsSchema.toString());
-                try {
-                    factory.setSchema(schemaFactory.newSchema(wcsSchema));
-                } catch (SAXException ex) {
-                    log.warn("Error instantiation new schema from file " + wcsSchema.toString(), ex);
-                }
-            }
-        }
+//        if (schemaFactory == null) {
+//            schemaFactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
+//            wcsSchema = IOUtil.findFile(WCS_SCHEMA, XMLUtil.class.getResource(""), -1);
+//            if (wcsSchema == null) {
+//                log.warn("WCS 2.0 XML schema not found, schema validity disabled.");
+//            } else {
+//                log.info("Found WCS 2.0 XML schema: " + wcsSchema.toString());
+//                try {
+//                    factory.setSchema(schemaFactory.newSchema(wcsSchema));
+//                } catch (SAXException ex) {
+//                    log.warn("Error instantiation new schema from file " + wcsSchema.toString(), ex);
+//                }
+//            }
+//        }
         
         XMLReader xmlReader = null;
         try {

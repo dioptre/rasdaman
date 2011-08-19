@@ -33,50 +33,27 @@ public class CoverageExprPairType implements IRasNode, ICoverageInfo {
     public CoverageExprPairType(Node node, XmlQuery xq)
             throws WCPSException {
         String nodeName = node.getNodeName();
+        boolean firstCov = false, secondCov = false;
 
-        System.err.println("Trying to parse a coverage expression pair ... Starting at node "
-                + nodeName);
-
-        // Combination 1: CoverageExprType + ScalarExprType
-        if (ok == false) {
-            try {
-                first = new CoverageExpr(node, xq);
-                second = new ScalarExpr(node.getNextSibling(), xq);
-                info = new CoverageInfo(((ICoverageInfo) first).getCoverageInfo());
-                ok = true;
-            } catch (WCPSException e) {
-                System.err.println("Failed to parse CoverageExprType + ScalarExprType!");
-            }
+        try {
+            first = new ScalarExpr(node, xq);
+        } catch (WCPSException ex) {
+            first = new CoverageExpr(node, xq);
+            firstCov = true;
         }
 
-        // Combination 2: ScalarExprType + CoverageExprType
-        if (ok == false) {
-            try {
-                first = new ScalarExpr(node, xq);
-                second = new CoverageExpr(node.getNextSibling(), xq);
-                info = new CoverageInfo(((ICoverageInfo) second).getCoverageInfo());
-                ok = true;
-            } catch (WCPSException e) {
-                System.err.println("Failed to parse ScalarExprType + CoverageExprType!");
-            }
+        node = node.getNextSibling();
+        try {
+            second = new ScalarExpr(node, xq);
+        } catch (WCPSException ex) {
+            second = new CoverageExpr(node, xq);
+            secondCov = true;
         }
-
-        // Combination 3: CoverageExprType + CoverageExprType
-        if (ok == false) {
-            try {
-                first = new CoverageExpr(node, xq);
-                second = new CoverageExpr(node.getNextSibling(), xq);
-                info = new CoverageInfo(((ICoverageInfo) first).getCoverageInfo());
-                ok = true;
-            } catch (WCPSException e) {
-                System.err.println("Failed to parse a CoverageExprType + CoverageExprType!");
-            }
-        }
-
         
-
-        if (ok == false) {
-            throw new WCPSException("Could not parse a coverage expression pair !");
+        if (firstCov) {
+            info = new CoverageInfo(((ICoverageInfo) first).getCoverageInfo());
+        } else if (secondCov) {
+            info = new CoverageInfo(((ICoverageInfo) second).getCoverageInfo());
         }
     }
 

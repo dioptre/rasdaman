@@ -33,8 +33,6 @@ public class CondenseOperation implements IRasNode {
             node = node.getNextSibling();
         }
 
-        System.err.println("Parsing condense Operation: " + node.getNodeName());
-
         String text = node.getNodeName();
         this.name = formatOperation(text);
 

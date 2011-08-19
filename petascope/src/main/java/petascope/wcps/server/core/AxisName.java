@@ -32,8 +32,6 @@ public class AxisName implements IRasNode {
     private String name;
 
     public AxisName(Node node, XmlQuery xq) throws WCPSException {
-        System.err.println("Trying axis node: " + node.getNodeName());
-
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }

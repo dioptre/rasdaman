@@ -38,7 +38,6 @@ public class ConstantList implements IRasNode {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
-        System.err.println("Trying to parse ConstantList ");
 
         while (node != null) {
             String nodeName = node.getNodeName();

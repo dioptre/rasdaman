@@ -34,8 +34,6 @@ public class StringScalarExpr implements IRasNode {
             node = node.getNextSibling();
         }
 
-        System.err.println("Parsing String Scalar expr : " + node.getNodeName());
-
         if (node.getNodeName().equals("stringIdentifier")) {
             Node child = node.getFirstChild();
             cov = new CoverageExpr(child, xq);

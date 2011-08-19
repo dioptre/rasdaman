@@ -37,8 +37,6 @@ public class NumericScalarExpr implements IRasNode {
 
         op = "";
 
-        System.err.println("Trying to parse numeric scalar expression ...");
-
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }

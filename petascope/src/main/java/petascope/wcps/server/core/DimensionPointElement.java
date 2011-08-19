@@ -34,7 +34,6 @@ public class DimensionPointElement implements IRasNode {
 
     public DimensionPointElement(Node node, XmlQuery xq)
             throws WCPSException {
-        System.err.println("Trying to parse DimensionPointElement expression...");
         String name;
 
         while ((node != null) && node.getNodeName().equals("#text")) {

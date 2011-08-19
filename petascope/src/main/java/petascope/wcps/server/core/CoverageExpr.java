@@ -99,8 +99,6 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
                     child = new SetMetadataCoverageExpr(node, xq);
                     System.err.println("Matched set metadata operation.");
                 } catch (WCPSException e) {
-                    System.err.println("Failed to match set metadata operation: "
-                            + e.toString() + "\nRetrying");
                     child = null;
                 }
             }
@@ -110,8 +108,6 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
                     child = new InducedOperationCoverageExpr(node, xq);
                     System.err.println("Matched induced coverage expression operation.");
                 } catch (WCPSException e) {
-                    System.err.println("Failed to match induced coverage expression operation: "
-                            + e.toString() + "\nRetrying");
                     child = null;
                     if (e.getMessage().equals("Method not implemented")) {
                         throw e;
@@ -124,8 +120,6 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
                     child = new SubsetOperationCoverageExpr(node, xq);
                     System.err.println("Matched subset operation.");
                 } catch (WCPSException e) {
-                    System.err.println("Failed to match subset operation: "
-                            + "\nRetrying");
                     child = null;
                 }
             }
@@ -136,8 +130,6 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
                     this.scalarExpr = true;
                     System.err.println("Matched scalar expression.");
                 } catch (WCPSException e) {
-                    System.err.println("Failed to match scalar expression: "
-                            + "\nRetrying");
                     child = null;
                 }
             }
@@ -149,7 +141,6 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
         }
 
         if (info == null) {
-            System.err.println(node.getNodeName());
             info = new CoverageInfo(((ICoverageInfo) child).getCoverageInfo());
         }
     }

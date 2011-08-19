@@ -44,8 +44,6 @@ public class SubsetOperationCoverageExpr implements IRasNode, ICoverageInfo {
 
         String nodeName = node.getNodeName();
 
-        System.err.println("SubsetOperationCoverageExpr: node " + nodeName);
-
         if (nodeName.equals("trim")) {
             child = new TrimCoverageExpr(node, xq);
             info = ((TrimCoverageExpr) child).getCoverageInfo();

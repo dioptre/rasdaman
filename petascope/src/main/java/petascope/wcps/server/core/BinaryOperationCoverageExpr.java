@@ -35,65 +35,42 @@ public class BinaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
             throws WCPSException {
         String nodeName = node.getNodeName();
 
-        System.err.println("Trying to parse binary operation: " + nodeName);
         boolean okay = false;    // will be true if the node is recognized
 
         if (nodeName.equals("plus")) {
             operation = "+";
             okay = true;
-        }
-
-        if (nodeName.equals("minus")) {
+        } else if (nodeName.equals("minus")) {
             operation = "-";
             okay = true;
-        }
-
-        if (nodeName.equals("mult")) {
+        } else if (nodeName.equals("mult")) {
             operation = "*";
             okay = true;
-        }
-
-        if (nodeName.equals("div")) {
+        } else if (nodeName.equals("div")) {
             operation = "/";
             okay = true;
-        }
-
-        if (nodeName.equals("and") || nodeName.equals("or") || nodeName.equals("xor")) {
+        } else if (nodeName.equals("and") || nodeName.equals("or") || nodeName.equals("xor")) {
             operation = nodeName;
             okay = true;
-        }
-
-        if (nodeName.equals("equals")) {
+        } else if (nodeName.equals("equals")) {
             operation = "=";
             okay = true;
-        }
-
-        if (nodeName.equals("lessThan")) {
+        } else if (nodeName.equals("lessThan")) {
             operation = "<";
             okay = true;
-        }
-
-        if (nodeName.equals("greaterThan")) {
+        } else if (nodeName.equals("greaterThan")) {
             operation = ">";
             okay = true;
-        }
-
-        if (nodeName.equals("lessOrEqual")) {
+        } else if (nodeName.equals("lessOrEqual")) {
             operation = "<=";
             okay = true;
-        }
-
-        if (nodeName.equals("greaterOrEqual")) {
+        } else if (nodeName.equals("greaterOrEqual")) {
             operation = ">=";
             okay = true;
-        }
-
-        if (nodeName.equals("notEqual")) {
+        } else if (nodeName.equals("notEqual")) {
             operation = "!=";
             okay = true;
-        }
-
-        if (nodeName.equals("overlay")) {
+        } else if (nodeName.equals("overlay")) {
             operation = "overlay";
             okay = true;
         }
@@ -101,9 +78,7 @@ public class BinaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
         if (!okay) {
             throw new WCPSException("Unexpected binary operation : " + nodeName);
         }
-
         Node operand = node.getFirstChild();
-
         while (operand.getNodeName().equals("#text")) {
             operand = operand.getNextSibling();
         }

@@ -64,7 +64,6 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
             }
         }
 
-        System.err.println("Trying to parse DimensionIntervalElement expression...");
         String name;
 
         while ((node != null) && node.getNodeName().equals("#text")) {
@@ -78,7 +77,6 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
             }
 
             name = node.getNodeName();
-            System.err.println("Current node is " + name);
 
             // Try Axis
             try {
@@ -86,7 +84,6 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
                 node = node.getNextSibling();
                 continue;
             } catch (WCPSException e) {
-                System.err.println("Failed to parse an axis!");
             }
 
             // Try CRS name
@@ -98,7 +95,6 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
                 }
                 continue;
             } catch (WCPSException e) {
-                System.err.println("Failed to parse a crs!");
             }
 
             // TODO: how to implement DomainMetadataExpr ?

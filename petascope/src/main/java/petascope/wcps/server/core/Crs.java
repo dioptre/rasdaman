@@ -36,8 +36,6 @@ public class Crs implements IRasNode {
     private String crsName;
 
     public Crs(Node node, XmlQuery xq) throws WCPSException {
-        System.err.println("Parsing crs name ...");
-
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }

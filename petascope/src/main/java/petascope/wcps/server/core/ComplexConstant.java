@@ -72,8 +72,6 @@ public class ComplexConstant implements IRasNode {
     }
 
     public ComplexConstant(Node node, XmlQuery xq) throws WCPSException {
-        System.err.println("Parsing complex constant: " + node.getNodeName());
-
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }

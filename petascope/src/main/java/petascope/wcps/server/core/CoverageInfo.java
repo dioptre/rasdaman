@@ -149,9 +149,6 @@ public class CoverageInfo {
     }
 
     public int getDomainIndexByName(String name) throws WCPSException {
-        System.err.println("Searching for Domain name : " + name);
-        System.err.println("Available domain names are: " + domains.toString());
-
         Iterator<DomainElement> it = domains.iterator();
         int index = 0;
 
@@ -166,4 +163,10 @@ public class CoverageInfo {
         System.err.println("ERROR: Axis name not found: " + name);
         throw new WCPSException("Domain name not found: " + name);
     }
+
+    @Override
+    public String toString() {
+        return coverageName;
+    }
+    
 }

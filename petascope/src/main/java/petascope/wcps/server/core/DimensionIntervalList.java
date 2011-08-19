@@ -37,13 +37,10 @@ public class DimensionIntervalList {
         while (node != null) {
             list = new ArrayList<IRasNode>();
             try {
-                System.err.println("Parsing one dimension interval element ...");
                 DimensionIntervalElement elem = new DimensionIntervalElement(node, xq, info);
                 node = elem.getNextNode();
                 list.add(elem);
             } catch (WCPSException e) {
-                System.err.println("Failed to parse this dimension interval element !");
-                System.err.println("Current node: " + node);
             }
         }
     }

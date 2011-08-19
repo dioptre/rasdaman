@@ -34,7 +34,6 @@ public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo {
             throws WCPSException {
         String nodeName = node.getNodeName();
 
-        System.err.println("Trying induced operation: " + nodeName);
         boolean okay = false;    // will be true if the node is recognized
 
         if (nodeName.equals("rangeConstructor")) {
@@ -50,7 +49,6 @@ public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo {
                     info = new CoverageInfo((((ICoverageInfo) child).getCoverageInfo()));
                     System.err.println("*** Induced Operation SUCCESS: " + node.getNodeName());
                 } catch (WCPSException e) {
-                    System.err.println("InducedOperation failed: " + node.getNodeName());
                     child = null;
                     if (e.getMessage().equals("Method not implemented")) {
                         throw e;
@@ -64,7 +62,6 @@ public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo {
                     info = new CoverageInfo((((ICoverageInfo) child).getCoverageInfo()));
                     System.err.println("*** Binary Operation SUCCESS: " + node.getNodeName());
                 } catch (WCPSException e) {
-                    System.err.println("Binary operation failed: " + node.getNodeName());
                     child = null;
                 }
             }

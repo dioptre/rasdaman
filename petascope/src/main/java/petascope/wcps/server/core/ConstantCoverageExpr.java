@@ -47,7 +47,6 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
         }
 
         iterators = new Vector();
-        System.err.println("Parsing Constant Coverage Expr: " + node.getNodeName());
 
         while (node != null) {
             String name = node.getNodeName();

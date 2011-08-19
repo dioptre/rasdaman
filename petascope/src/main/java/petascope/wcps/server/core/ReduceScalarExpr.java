@@ -37,7 +37,6 @@ public class ReduceScalarExpr implements IRasNode {
             node = node.getNextSibling();
         }
 
-        System.err.println("Trying to parse ReduceScalarExpr ");
         String nodeName = node.getNodeName();
 
         if (nodeName.equals("all") || nodeName.equals("some") || nodeName.equals("count")

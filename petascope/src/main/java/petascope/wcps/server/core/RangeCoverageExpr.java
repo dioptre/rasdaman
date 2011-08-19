@@ -44,8 +44,6 @@ public class RangeCoverageExpr implements IRasNode, ICoverageInfo {
                 node = node.getNextSibling();
 
         String nodeName = node.getNodeName();
-        System.err.println("Trying to parse a range coverage expression... Starting at node "
-                + nodeName);
 
         while (node != null) {
             if (node.getNodeName().equals("#text")) {

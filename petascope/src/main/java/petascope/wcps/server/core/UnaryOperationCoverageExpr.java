@@ -35,8 +35,6 @@ public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
             throws WCPSException {
         String nodeName = node.getNodeName();
 
-        System.err.println("Trying to parse unary operation: " + nodeName);
-
         if (nodeName.equals("unaryPlus")) {
             operation = "+";
             child = new CoverageExpr(node.getFirstChild(), xq);

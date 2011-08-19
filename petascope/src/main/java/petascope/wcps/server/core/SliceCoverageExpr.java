@@ -54,13 +54,11 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo {
             }
 
             try {
-                System.err.println("Trying out an CoverageExprType group...");
                 coverageExprType = new CoverageExpr(child, xq);
                 coverageInfo = coverageExprType.getCoverageInfo();
                 child = child.getNextSibling();
                 continue;
             } catch (WCPSException e) {
-                System.err.println("This was no CoverageExprType: " + nodeName);
             }
 
             try {

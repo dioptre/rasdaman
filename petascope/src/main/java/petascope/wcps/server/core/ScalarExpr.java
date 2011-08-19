@@ -53,8 +53,6 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
                 child = new MetadataScalarExpr(node, xq);
                 System.err.println("Matched metadata scalar expression.");
             } catch (WCPSException e) {
-                System.err.println("Failed to match metadata scalar expression: "
-                        + e.toString() + "\nRetrying");
                 child = null;
             }
         }
@@ -65,8 +63,6 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
                 child = new BooleanScalarExpr(node, xq);
                 System.err.println("Matched boolean scalar expression.");
             } catch (WCPSException e) {
-                System.err.println("Failed to match boolean scalar expression : "
-                        + e.toString() + "\nRetrying");
                 child = null;
             }
         }
@@ -79,8 +75,6 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
                 dvalue = ((NumericScalarExpr) child).getSingleValue();
                 System.err.println("Matched numeric scalar expression.");
             } catch (WCPSException e) {
-                System.err.println("Failed to match numeric scalar expression : "
-                        + e.toString() + "\nRetrying");
                 child = null;
             }
         }
@@ -91,8 +85,6 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
                 child = new ReduceScalarExpr(node, xq);
                 System.err.println("Matched reduce scalar expression.");
             } catch (WCPSException e) {
-                System.err.println("Failed to match reduce scalar expression: "
-                        + e.toString() + "\nRetrying");
                 child = null;
             }
         }
@@ -103,8 +95,6 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
                 child = new StringScalarExpr(node, xq);
                 System.err.println("Matched string scalar expression.");
             } catch (WCPSException e) {
-                System.err.println("Failed to match string scalar expression: "
-                        + e.toString() + "\nRetrying");
                 child = null;
             }
         }
