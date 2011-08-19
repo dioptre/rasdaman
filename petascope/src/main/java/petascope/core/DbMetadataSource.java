@@ -94,6 +94,8 @@ public class DbMetadataSource implements IMetadataSource {
     private Connection conn;
     private Savepoint savepoint;
     private String query;
+    
+    private Map<String, Metadata> cache = new HashMap<String, Metadata>();
 
     public DbMetadataSource(String driver, String url, String user, String pass) throws PetascopeException {
         this(driver, url, user, pass, true);
@@ -430,6 +432,10 @@ public class DbMetadataSource implements IMetadataSource {
             throw new PetascopeException(ExceptionCode.InvalidRequest,
                     "Cannot retrieve coverage with null or empty name");
         }
+        if (cache.containsKey(coverageName)) {
+            log.trace("Returning cached coverage metadata.");
+            return cache.get(coverageName);
+        }
 
         Statement s = null;
 
@@ -587,6 +593,8 @@ public class DbMetadataSource implements IMetadataSource {
                     new InterpolationMethod(interpolationTypeDefault, nullResistanceDefault),
                     coverageName, coverageType, domain, crs, title, abstr, keywords);
             meta.setCoverageId(coverage);
+            log.trace("Caching coverage metadata.");
+            cache.put(coverageName, meta);
             return meta;
         } catch (PetascopeException ime) {
             if (checkAtInit && !initializing) {
