@@ -101,14 +101,12 @@ public class PetascopeInterface extends HttpServlet {
     /* Initialize the various services: WCPS, WcsServer and WcsServer-T */
     @Override
     public void init() throws ServletException {
+        // Initialize the logging system
+        PropertyConfigurator.configure(getServletContext().getRealPath("/log4j.properties"));
         log.info("Petascope {} starting", ConfigManager.PETASCOPE_VERSION);
 
         // Initialize the singleton configuration manager. Now all classes can read the settings.
-        String settingsPath = getServletContext().getRealPath(relativeSettingsPath);
-        ConfigManager config = ConfigManager.getInstance();
-
-        // Initialize the logging system
-        PropertyConfigurator.configure(getServletContext().getRealPath("/log4j.properties"));
+        ConfigManager.getInstance();
 
         // Read servlet HTML usage message from disk
         try {

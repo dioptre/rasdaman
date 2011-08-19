@@ -21,6 +21,7 @@
     <servlet>
         <servlet-name>PetaScope Interface</servlet-name>
         <servlet-class>petascope.PetascopeInterface</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>PetaScope Interface</servlet-name>

@@ -34,11 +34,11 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.validation.SchemaFactory;
 import nu.xom.Attribute;
 import nu.xom.Builder;
 import nu.xom.Comment;
@@ -54,9 +54,11 @@ import nu.xom.converters.DOMConverter;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.ErrorHandler;
 import petascope.util.traverse.DFSTraversor;
 import petascope.util.traverse.Filter;
 import petascope.util.traverse.TraversableXOM;
@@ -92,22 +94,46 @@ public class XMLUtil {
     /**
      * Setup for building documents
      */
-    private static final SAXParserFactory factory;
-    private static MyBuilder builder, validatingBuilder, nonValidatingBuilder;
+    private static SchemaFactory schemaFactory;
+    private static SAXParserFactory factory;
+    private static MyBuilder builder;
+    private static File wcsSchema;
     public static final String XML_STD_ENCODING = "UTF-8";
+    public static final String WCS_SCHEMA = "xml/ogc/wcs/2.0.0/wcsAll.xsd";
 
     static {
-        System.setProperty("javax.xml.parsers.SAXParserFactory", "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
+        init();
+    }
+    
+    public static void init() {
+        if (factory != null) {
+            return;
+        }
+        System.setProperty("javax.xml.parsers.SAXParserFactory",
+                "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
         factory = SAXParserFactory.newInstance();
         factory.setNamespaceAware(true);
         factory.setValidating(true);
-
-        validatingBuilder = new MyBuilder(true);
-        nonValidatingBuilder = new MyBuilder(false);
-        builder = nonValidatingBuilder;
+        builder = new MyBuilder(false);
+        builder.get();
     }
 
     private static Builder newBuilder(boolean ignoreDTD) {
+        if (schemaFactory == null) {
+            schemaFactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
+            wcsSchema = IOUtil.findFile(WCS_SCHEMA, XMLUtil.class.getResource(""), -1);
+            if (wcsSchema == null) {
+                log.warn("WCS 2.0 XML schema not found, schema validity disabled.");
+            } else {
+                log.info("Found WCS 2.0 XML schema: " + wcsSchema.toString());
+                try {
+                    factory.setSchema(schemaFactory.newSchema(wcsSchema));
+                } catch (SAXException ex) {
+                    log.warn("Error instantiation new schema from file " + wcsSchema.toString(), ex);
+                }
+            }
+        }
+        
         XMLReader xmlReader = null;
         try {
             xmlReader = factory.newSAXParser().getXMLReader();
@@ -118,19 +144,28 @@ public class XMLUtil {
                         return new InputSource(new StringReader(""));
                     }
                 });
+                xmlReader.setErrorHandler(new ErrorHandler() {
+
+                    @Override
+                    public void warning(SAXParseException saxpe) throws SAXException {
+                        log.warn("XML parser warning: ", saxpe.getMessage());
+                    }
+
+                    @Override
+                    public void error(SAXParseException saxpe) throws SAXException {
+                        throw saxpe;
+                    }
+
+                    @Override
+                    public void fatalError(SAXParseException saxpe) throws SAXException {
+                        throw saxpe;
+                    }
+                });
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return new Builder(xmlReader);
-    }
-
-    public static void setValidating(boolean validating) {
-        if (validating) {
-            builder = validatingBuilder;
-        } else {
-            builder = nonValidatingBuilder;
-        }
     }
 
     /**

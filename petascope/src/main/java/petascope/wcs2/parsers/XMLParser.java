@@ -22,6 +22,7 @@
  */
 package petascope.wcs2.parsers;
 
+import nu.xom.ParsingException;
 import nu.xom.Document;
 import nu.xom.Element;
 import petascope.exceptions.ExceptionCode;
@@ -55,8 +56,12 @@ public abstract class XMLParser<T extends Request> extends AbstractRequestParser
             }
 
             return root;
+        } catch (ParsingException ex) {
+            throw new WCSException(ExceptionCode.XmlNotValid.locator(
+                    "line: " + ex.getLineNumber() + ", column:" + ex.getColumnNumber()),
+                    ex.getMessage(), ex);
         } catch (Exception ex) {
-            throw new WCSException(ExceptionCode.XmlNotValid, "Failed parsing into XML:\n" + input, ex);
+            throw new WCSException(ExceptionCode.XmlNotValid, ex.getMessage(), ex);
         }
     }
 }

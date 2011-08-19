@@ -30,6 +30,7 @@ import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.util.IOUtil;
+import petascope.util.XMLUtil;
 import petascope.wps.server.WpsServer;
 
 /**
@@ -122,6 +123,8 @@ public class ConfigManager {
 //        } catch (Exception ex) {
 //            log.warn("Error loading logger configuration " + LOG_PROPERTIES_FILE);
 //        }
+        
+        XMLUtil.init();
         props = new Properties();
         try {
             InputStream is = ConfigManager.class.getResourceAsStream(SETTINGS_FILE);
