@@ -134,8 +134,9 @@ CREATE TABLE ps_coverage (
 );
 
 INSERT INTO ps_coverage VALUES (1, 'NIR', NULL, NULL, '{0,0,0}', 5, 2);
+INSERT INTO ps_coverage VALUES (2, 'mean_summer_airtemp', NULL, NULL, '0', 5, 2);
 
-SELECT pg_catalog.setval('ps_coverage_id_seq', 1, true);
+SELECT pg_catalog.setval('ps_coverage_id_seq', 2, true);
 
 
 -- Each coverage has a number of axes, called its dimension. Each axis must have an entry here.
@@ -156,8 +157,10 @@ CREATE TABLE ps_celldomain (
 
 INSERT INTO ps_celldomain VALUES (1, 1, 0, 0, 1915);
 INSERT INTO ps_celldomain VALUES (2, 1, 1, 0, 1075);
+INSERT INTO ps_celldomain VALUES (3, 2, 0, 0, 885);
+INSERT INTO ps_celldomain VALUES (4, 2, 1, 0, 710);
 
-SELECT pg_catalog.setval('ps_celldomain_id_seq', 2, true);
+SELECT pg_catalog.setval('ps_celldomain_id_seq', 4, true);
 
 -- Addressing by pixels is good enough for some things, but sometimes you need to address a coverage via its geo coordinates. The geographic extent of each coverage is similar to the cell domain, but in geo coordinates.
 -- For each coverage, the number of entries must be the same as in the CellDomain table.
@@ -188,7 +191,9 @@ CREATE TABLE ps_domain (
 
 INSERT INTO ps_domain VALUES (1, 1, 0, 'x', 1, 0, 1, NULL, NULL);
 INSERT INTO ps_domain VALUES (2, 1, 1, 'y', 2, 0, 1, NULL, NULL);
-SELECT pg_catalog.setval('ps_domain_id_seq', 2, true);
+INSERT INTO ps_domain VALUES (3, 2, 0, 'x', 1, 0, 1, NULL, NULL);
+INSERT INTO ps_domain VALUES (4, 2, 1, 'y', 2, 0, 1, NULL, NULL);
+SELECT pg_catalog.setval('ps_domain_id_seq', 4, true);
 
 -- The range is the datatype of the coverage cell values.
 -- The coverage is the id of the coverage a given entry describes.
@@ -210,8 +215,9 @@ CREATE TABLE ps_range (
 INSERT INTO ps_range VALUES (1, 1, 0, 'red', 7);
 INSERT INTO ps_range VALUES (2, 1, 1, 'green', 7);
 INSERT INTO ps_range VALUES (3, 1, 2, 'blue', 7);
+INSERT INTO ps_range VALUES (4, 2, 0, 'pan', 7);
 
-SELECT pg_catalog.setval('ps_range_id_seq', 3, true);
+SELECT pg_catalog.setval('ps_range_id_seq', 4, true);
 
 
 -- Each coverage allows a set of interpolation methods. An interpolation method is a pair of an interpolation type and a null resistance. Each coverage is required to have at least one entry in that table, and the defaults in PS_Coverage must be present here.
@@ -229,6 +235,7 @@ CREATE TABLE ps_interpolationset (
 );
 
 INSERT INTO ps_interpolationset VALUES (1, 1, 5, 2);
+INSERT INTO ps_interpolationset VALUES (2, 2, 5, 2);
 
 SELECT pg_catalog.setval('ps_interpolationset_id_seq', 1, true);
 
@@ -245,6 +252,7 @@ CREATE TABLE ps_nullset (
 );
 
 INSERT INTO ps_nullset VALUES (1, 1, '{0,0,0}');
+INSERT INTO ps_nullset VALUES (2, 2, '0');
 
 SELECT pg_catalog.setval('ps_nullset_id_seq', 1, true);
 
@@ -263,8 +271,10 @@ CREATE TABLE ps_crsset (
 
 INSERT INTO ps_crsset VALUES (1, 1, 8);
 INSERT INTO ps_crsset VALUES (2, 2, 8);
+INSERT INTO ps_crsset VALUES (3, 3, 8);
+INSERT INTO ps_crsset VALUES (4, 4, 8);
 
-SELECT pg_catalog.setval('ps_crsset_id_seq', 2, true);
+SELECT pg_catalog.setval('ps_crsset_id_seq', 4, true);
 
 -- This table contains textual descriptions of the available coverages.
 CREATE TABLE ps_descriptions (
@@ -278,7 +288,8 @@ CREATE TABLE ps_descriptions (
     foreign key (coverage) references ps_coverage (id) on delete cascade
 );
 
-INSERT INTO ps_descriptions VALUES (1, 1, 'Coverage NIR', 'Abstract for coverage NIR', 'keywords');
+INSERT INTO ps_descriptions VALUES (1, 1, 'NIR', 'Abstract for coverage NIR', 'keywords');
+INSERT INTO ps_descriptions VALUES (1, 1, 'mean_summer_airtemp', 'This coverage shows the mean summer air temperatures over Australia in the period 2001-2007', 'summere temperature, australia');
 
 -- This table contains metadata for CRS transformations: WGS84 bounding box limits and offsets for the X and Y axis.
 CREATE TABLE ps_crsdetails (
@@ -295,3 +306,4 @@ CREATE TABLE ps_crsdetails (
 );
 
 INSERT INTO ps_crsdetails VALUES (1, 1, 0, 1, 0, 1, NULL, NULL);
+INSERT INTO ps_crsdetails VALUES (2, 2, 111.975, 156.275, -44.525, -8.975, NULL, NULL);

@@ -113,10 +113,18 @@ else
 		# insert sample data
 		$RASQL -q 'create collection NIR RGBSet' > /dev/null 2>&1
 		if [ $? -ne 0 ]; then
-			echo Sample coverage data already inserted
+			echo Sample coverage data NIR already inserted
 		else
-			echo Inserting coverage NIR into rasdaman
-			$RASQL -q 'insert into NIR values inv_tiff($1)' --file nir.tiff > /dev/null 2>&1
+        echo Inserting coverage NIR into rasdaman
+            $RASQL -q 'insert into NIR values inv_tiff($1)' --file nir.tiff > /dev/null 2>&1
+		fi
+
+		$RASQL -q 'create collection mean_summer_airtemp GreySet' > /dev/null 2>&1
+		if [ $? -ne 0 ]; then
+			echo Sample coverage data mean_summer_airtemp already inserted
+		else
+            echo Inserting coverage mean_summer_airtemp into rasdaman
+            $RASQL -q 'insert into mean_summer_airtemp values inv_tiff($1)' --file mean_summer_airtemp.tif > /dev/null 2>&1
 		fi
 	else # update from the last update number
 		counter=`$PSQL -c 'select update from ps_dbupdates where id=1' | head -n 3 | tail -n 1 | awk '{print $1}'`
