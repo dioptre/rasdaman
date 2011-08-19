@@ -109,15 +109,11 @@ public class Wcs2Servlet extends HttpServlet {
     }
 
     private void setServletURL(HttpServletRequest req) {
-        if (ConfigManager.PETASCOPE_SERVLET_URL == null) {
-            System.out.println(req.getRequestURL().toString());
-            ConfigManager.PETASCOPE_SERVLET_URL = req.getRequestURL().toString();
-        }
+        ConfigManager.PETASCOPE_SERVLET_URL = req.getRequestURL().toString();
     }
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) {
-        setServletURL(req);
         doGet(req, res);
     }
 

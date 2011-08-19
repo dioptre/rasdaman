@@ -38,7 +38,7 @@ public class GetCapabilitiesRequest extends Request {
     private final String acceptLanguages;
 
     public GetCapabilitiesRequest(String acceptVersion, String acceptFormats, String acceptLanguages) {
-        this.acceptVersion = (acceptVersion == null) ? "2.0" : acceptVersion;
+        this.acceptVersion = (acceptVersion == null) ? BaseRequest.VERSION_STRING : acceptVersion;
         this.acceptFormats = (acceptFormats == null) ? "text/xml" : acceptFormats;
         this.acceptLanguages = (acceptLanguages == null) ? "en" : acceptLanguages;
     }

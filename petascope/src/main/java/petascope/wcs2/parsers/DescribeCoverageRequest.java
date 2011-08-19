@@ -24,7 +24,6 @@ package petascope.wcs2.parsers;
 import java.util.ArrayList;
 import java.util.List;
 import petascope.util.ListUtil;
-import petascope.util.StringUtil;
 
 /**
  * A DescribeCoverage request object, populated by a parser.

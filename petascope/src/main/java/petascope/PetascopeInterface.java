@@ -31,6 +31,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -189,7 +191,7 @@ public class PetascopeInterface extends HttpServlet {
             if (pos != -1) {
                 key = pairs[i].substring(0, pos);
                 val = pairs[i].substring(pos + 1, pairs[i].length());
-                map.put(key, val);
+                map.put(key.toLowerCase(), val);
             }
         }
 
@@ -197,15 +199,24 @@ public class PetascopeInterface extends HttpServlet {
     }
 
     private void setServletURL(HttpServletRequest req) {
-        if (ConfigManager.PETASCOPE_SERVLET_URL == null) {
-            ConfigManager.PETASCOPE_SERVLET_URL = req.getRequestURL().toString();
+        ConfigManager.PETASCOPE_SERVLET_URL = req.getRequestURL().toString();
+    }
+    
+    /**
+     * @return a parameter map of the query string in lower case parameters
+     */
+    private Map<String, String> buildParameterMap(HttpServletRequest req) {
+        Map<String, String> ret = new HashMap<String, String>();
+        Set<Entry<String, String[]>> p = req.getParameterMap().entrySet();
+        for (Entry<String, String[]> e : p) {
+            ret.put(e.getKey().toLowerCase(), e.getValue()[0]);
         }
+        return ret;
     }
 
     /* Respond to Post requests just like in the case of Get requests */
     @Override
     public void doPost(HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
-        setServletURL(httpRequest);
         doGet(httpRequest, httpResponse);
     }
 
@@ -226,11 +237,12 @@ public class PetascopeInterface extends HttpServlet {
                 log.trace("GET Query string   : {}", httpRequest.getQueryString());
 
                 Map<String, String> params = buildParameterDictionary(requestBody);
+                Map<String, String> paramMap = buildParameterMap(httpRequest);
                 log.trace("Request parameters : {}", params);
                 request = StringUtil.urldecode(params.get("request"), httpRequest.getContentType());
 
                 // WPS 1.0.0 GET interface processing
-                String service = httpRequest.getParameter("service");
+                String service = paramMap.get("service");
                 if (service != null) {
                     if (service.equals("WPS")) {
                         WpsServer wpsServer = new WpsServer(httpResponse, httpRequest);
@@ -244,7 +256,7 @@ public class PetascopeInterface extends HttpServlet {
                 // To preserve compatibility with previous client versions, we allow
                 // GET requests with parameter "query"
                 String request2 = null;
-                request2 = httpRequest.getParameter("query");
+                request2 = paramMap.get("query");
                 if (request2 == null) {
                     request2 = StringUtil.urldecode(params.get("query"), httpRequest.getContentType());
                 }
@@ -258,8 +270,13 @@ public class PetascopeInterface extends HttpServlet {
 
                 // Empty request ?
                 if (request == null && (requestBody == null || requestBody.length() == 0)) {
-                    printUsage(httpResponse, request);
-                    return;
+                    if (paramMap.size() > 0) {
+                        throw new WCSException(ExceptionCode.NoApplicableCode,
+                                "Couldn't understand the recieved request, is the service attribute missing?");
+                    } else {
+                        printUsage(httpResponse, request);
+                        return;
+                    }
                 }
 
                 // No parameters, just XML in the request body
