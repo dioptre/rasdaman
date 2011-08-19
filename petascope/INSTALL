@@ -4,7 +4,7 @@ BUILD AND INSTALL:
 
 - PetaScope is part of rasdaman (www.rasdaman.org), to get it use:
 
-   $ git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
+    $ git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
 	  
 - Setup the database
    1. Create database petascopedb in PostgreSQL, with user petauser/petapasswd, or
