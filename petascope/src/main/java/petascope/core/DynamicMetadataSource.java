@@ -27,6 +27,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.PetascopeException;
 
@@ -37,8 +39,10 @@ import petascope.exceptions.PetascopeException;
  * static coverages.
  */
 public class DynamicMetadataSource implements IDynamicMetadataSource {
+    
+    private static Logger log = LoggerFactory.getLogger(DynamicMetadataSource.class);
+    
     // Static coverages, served by the server at all times
-
     private Set<String> staticCoverageNames;
     // Dynamic coverages, built on-the-fly in a query
     private Set<String> dynamicCoverageNames;
@@ -60,7 +64,13 @@ public class DynamicMetadataSource implements IDynamicMetadataSource {
         Iterator<String> i = staticCoverageNames.iterator();
         while (i.hasNext()) {
             String coverage = i.next();
-            metadata.put(coverage, metadataSource.read(coverage));
+            // catch any possible exception thrown while the coverage is being read:
+            // it's not good to bring down petascope just because one coverage can't be read
+            try {
+                metadata.put(coverage, metadataSource.read(coverage));
+            } catch (PetascopeException ex) {
+                log.error("Error reading the coverage " + coverage + " from the database", ex);
+            }
         }
     }
 
