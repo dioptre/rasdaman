@@ -122,9 +122,8 @@ public abstract class AbstractFormatExtension implements FormatExtension {
             String dim = subset.getDimension();
             DomainElement de = cov.getDomainByName(dim);
             String crs = "CRS:1";
-            for (String c : de.getCrsSet()) {
-                crs = c;
-                break;
+            if (subset.getCrs() != null) {
+                crs = subset.getCrs();
             }
 
             if (subset instanceof DimensionTrim) {
