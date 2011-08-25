@@ -211,6 +211,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+EXTRA_DIST = src/org/odmg/*.java src/rasj/*.java src/rasj/global/*.java src/rasj/clientcommhttp/*.java src/rasj/odmg/*.java src/rasj/rnp/*.java
 all: all-am
 
 .SUFFIXES:
@@ -397,7 +398,7 @@ examples: src/examples/*.java all
 	javac -d bin src/examples/*.java -cp dist/rasj.jar
 
 clean:
-	rm -r bin dist
+	rm -rf bin dist
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

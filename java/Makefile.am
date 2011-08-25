@@ -41,4 +41,4 @@ examples: src/examples/*.java all
 	javac -d bin src/examples/*.java -cp dist/rasj.jar
 	
 clean:
-	rm -r bin dist
+	rm -rf bin dist
