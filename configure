@@ -10893,10 +10893,5 @@ $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
 
 
-if test "$with_hdf4" == no; then
-{ $as_echo "$as_me:${as_lineno-$LINENO}: Warning: presence of hdf4 libraries not checked. To run rasdaman you will need to have them installed!" >&5
-$as_echo "$as_me: Warning: presence of hdf4 libraries not checked. To run rasdaman you will need to have them installed!" >&6;}
-fi
-
 { $as_echo "$as_me:${as_lineno-$LINENO}: Rasdaman successfully configured, installation path is '${prefix}'." >&5
 $as_echo "$as_me: Rasdaman successfully configured, installation path is '${prefix}'." >&6;}

@@ -371,8 +371,4 @@ CXXFLAGS="$CXXFLAGS -DLOGDIR=\\\"\$(logdir)/\\\""
 
 AC_OUTPUT
 
-if test "$with_hdf4" == no; then
-AC_MSG_NOTICE(Warning: presence of hdf4 libraries not checked. To run rasdaman you will need to have them installed!)
-fi
-
 AC_MSG_NOTICE([Rasdaman successfully configured, installation path is '${prefix}'.])
