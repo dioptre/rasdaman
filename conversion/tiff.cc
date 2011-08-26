@@ -314,6 +314,13 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 		}
 		// FIXME: STILL HAVE TO ADD FOR other CASES eg ctype_uint16 and ctype_float32 ???
 		TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, (uint16)1);
+    
+    // set sample format tag
+    if (desc.baseType == ctype_float32) {
+      TIFFSetField( tif, TIFFTAG_SAMPLEFORMAT, SAMPLEFORMAT_IEEEFP );
+    } else if (desc.baseType == ctype_uint16) {
+      TIFFSetField( tif, TIFFTAG_SAMPLEFORMAT, SAMPLEFORMAT_UINT );
+    }
 	}
 	TIFFSetField(tif, TIFFTAG_PLANARCONFIG, (uint16)PLANARCONFIG_CONTIG);
 	TIFFSetField(tif, TIFFTAG_ROWSPERSTRIP, TIFFDefaultStripSize(tif, (uint32)-1));
