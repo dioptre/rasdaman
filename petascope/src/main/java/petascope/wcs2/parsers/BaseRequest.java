@@ -39,7 +39,7 @@ public class BaseRequest extends Request {
     /**
      * WCS version, fixed to 2.0
      */
-    public static final String VERSION = "2\\.0(\\.\\d+)?";
+    public static final String VERSION = "2\\.0\\.\\d+";
     public static final String VERSION_STRING = "2.0.0";
 
     /**
