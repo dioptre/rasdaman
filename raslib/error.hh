@@ -71,6 +71,7 @@ rasdaman GmbH.
 #include <exception>
 
 #include "raslib/mddtypes.hh"
+#include <list>
 
 /*
  * error text file ------------------ 
@@ -192,10 +193,10 @@ class r_Error : public std::exception
     */
 
     /// read error text file into text table
-    friend void initTextTable();
+    static void initTextTable();
     
     /// free the text table again
-    friend void freeTextTable();
+    static void freeTextTable();
 
     /// replace the specified parameter by the integer value
     void setTextParameter( const char* parameterName, int value );
@@ -228,13 +229,23 @@ class r_Error : public std::exception
     
   private:
     static errorInfo *textList;
+
+   /*
+    * list of error codes, contining numerical error code, error flag char
+    * (warning or error), and error text.
+    * It is modelled as nested pairs to allow using standard classes.
+    * Filled from file.  
+    */
+   static std::list<std::pair<std::pair<int,char>, char*> > *errorTexts;
+   static bool errorTextsLoaded;
+  
 };
 
 
 /* Modified by Constantin Jucovschi */
 /* Added the definition of the initTextTable() and freeTextTable()*/
-    void initTextTable();   
-    void freeTextTable();
+//    void initTextTable();   
+//    void freeTextTable();
 
 
 

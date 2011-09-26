@@ -213,7 +213,7 @@ RMInit::RMInit( char initApplicationType )
 
 
     // initialize error text table
-    initTextTable(); 
+	r_Error::initTextTable(); 
 
     // initialize user name
     if( userName )
@@ -249,7 +249,7 @@ RMInit::~RMInit()
     bmOut.rdbuf(NULL);
 
     // free error text table
-    freeTextTable(); 
+	r_Error::freeTextTable(); 
 
     if( userName )
     {

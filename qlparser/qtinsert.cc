@@ -142,7 +142,8 @@ QtInsert::evaluate() {
             throw parseInfo;
         }
 
-        if (!persColl->getCollectionType()->getMDDType()->compatibleWithDomain(&(sourceObj->getDefinitionDomain()))) {
+        r_Minterval definitionDomain = sourceObj->getDefinitionDomain();
+        if (!persColl->getCollectionType()->getMDDType()->compatibleWithDomain(&definitionDomain)) {
             // free resources
             persColl->releaseAll();
             delete persColl;

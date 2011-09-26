@@ -66,6 +66,9 @@ using std::ios;
 using std::ostrstream;
 
 r_Error::errorInfo* r_Error::textList = NULL;
+/// has error text file been loaded, i.e., is table filled?
+bool r_Error::errorTextsLoaded = false;
+std::list<std::pair<std::pair<int,char>, char*> > *r_Error::errorTexts;
 
 r_Error::r_Error()
 	:	theKind(r_Error_General),
@@ -182,19 +185,7 @@ r_Error::getAnyError(char* serErr)
 // --- error text file table maintenance ---------------------------------
 //
 
-/*
- * list of error codes, contining numerical error code, error flag char
- * (warning or error), and error text.
- * It is modelled as nested pairs to allow using standard classes.
- * Filled from file.
- */
-list<pair<pair<int,char>, char*> > errorTexts;
-
-/// has error text file been loaded, i.e., is table filled?
-bool errorTextsLoaded = false;
-
-void
-initTextTable()
+void r_Error::initTextTable()
 {
 	char errorFileName[FILENAME_MAX];	// error file path/name
  	std::ifstream errortexts;
@@ -204,6 +195,9 @@ initTextTable()
 	char errText[1000];
 	unsigned int numOfEntries = 0;
 	int result;				// sscanf() result
+
+  if (r_Error::errorTexts == NULL)
+    r_Error::errorTexts = new list<pair<pair<int,char>,char*> >();
 
 	// determine file path + name
 	int filenameLength = snprintf( errorFileName, FILENAME_MAX, "%s/%s", SHARE_DATA_DIR, ERRORTEXT_FILE );
@@ -247,7 +241,7 @@ initTextTable()
                 	result = sscanf( line.c_str(), "%d^%c^%[^\n]s\n", &errNo, &errKind, errText );
                 	if (result == 3)	// consider only lines that match given structure
                 	{
-                        	errorTexts.push_back( pair<pair<int,char>,char*> (pair<int,char>( errNo, errKind ), errText) );
+                        	r_Error::errorTexts->push_back( pair<pair<int,char>,char*> (pair<int,char>( errNo, errKind ), errText) );
                         	numOfEntries++;
                 	}
         	}
@@ -259,11 +253,10 @@ initTextTable()
 
 
 
-void
-freeTextTable()
+void r_Error::freeTextTable()
 {
-	list<pair<pair<int,char>, char*> >::iterator iter = errorTexts.begin();
-	list<pair<pair<int,char>, char*> >::iterator end = errorTexts.end();
+	list<pair<pair<int,char>, char*> >::iterator iter = r_Error::errorTexts->begin();
+	list<pair<pair<int,char>, char*> >::iterator end = r_Error::errorTexts->end();
 
 	if (errorTextsLoaded)		// have we initialized the table previously?
 	{				// yes -> free each string
@@ -273,7 +266,8 @@ freeTextTable()
 			iter->second = NULL;
       ++iter;
 		} 
-		errorTexts.clear();	// now clear list itself
+		r_Error::errorTexts->clear();	// now clear list itself
+    delete r_Error::errorTexts;
 	} 
 }
 
@@ -469,8 +463,8 @@ r_Error::setErrorTextOnNumber()
 	if (errorTextsLoaded)
 	{	// yes, we have a list -> search
 		// search through list to find entry
-		list<pair<pair<int,char>, char*> >::iterator iter = errorTexts.begin();
-		list<pair<pair<int,char>, char*> >::iterator end = errorTexts.end();
+		list<pair<pair<int,char>, char*> >::iterator iter = r_Error::errorTexts->begin();
+		list<pair<pair<int,char>, char*> >::iterator end = r_Error::errorTexts->end();
 		bool found = false;
 		while ( iter != end  && ! found )
        		{
