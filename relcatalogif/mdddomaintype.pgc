@@ -43,6 +43,7 @@ EXEC SQL include "../reladminif/sqlglobals.h";
 #include "reladminif/objectbroker.hh"
 #include "reladminif/sqlerror.hh"
 #include "dbminterval.hh"
+#include <cstring>
 
 
 void
@@ -81,10 +82,7 @@ MDDDomainType::readFromDb() throw (r_Error)
 
 	EXEC SQL BEGIN DECLARE SECTION;
 		long	mddtypeid1;
-		struct	{
-			short	length;
-			char	data[STRING_MAXLEN];
-			}	mddtypename1;
+		char	mddtypename1[STRING_MAXLEN];
 		double	mddbasetypeid1;
 		long	domainid1;
 	EXEC SQL END DECLARE SECTION;
@@ -104,7 +102,7 @@ MDDDomainType::readFromDb() throw (r_Error)
 			generateException();
 	}
 
-	setName(mddtypename1.length, mddtypename1.data);
+	setName(strlen(mddtypename1), mddtypename1);
 	myBaseType = (BaseType*)ObjectBroker::getObjectByOId(OId(mddbasetypeid1)); 
 	myDomain = (DBMinterval*)ObjectBroker::getObjectByOId(OId(domainid1, OId::DBMINTERVALOID));
 	myDomain->setCached(true);
