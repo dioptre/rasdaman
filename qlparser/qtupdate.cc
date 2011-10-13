@@ -789,7 +789,7 @@ QtUpdate::checkType()
   bool compatible = false;
   char* type1 = ((MDDBaseType*)(targetType.getType()))->getBaseType()->getTypeStructure();
   char* type2 = ((MDDBaseType*)(sourceType.getType()))->getBaseType()->getTypeStructure();
-  compatible = (strcmp(type1, type2) == 0);
+  compatible = updateSource->getNodeType() == QT_CONVERSION || (strcmp(type1, type2) == 0);
   free(type1);
   free(type2);
   type1 = NULL;
