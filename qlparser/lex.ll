@@ -331,8 +331,8 @@ $[0-9]+                                  { llerror("unresolved query parameter")
 -?[0-9]+[sS]	                         { SETINTTOKEN( strtol ( yytext, (char**)NULL, 10 ), 1, 2 ) }
 -?[0-9]+[lL]?	                         { SETINTTOKEN( strtol ( yytext, (char**)NULL, 10 ), 1, 4 ) }
 
--?([0-9]+|([0-9]+(\.[0-9]+)?)([eE][-+]?[0-9]+)?)[dD]  { SETFLTTOKEN( strtod( yytext, (char**)NULL ), 8 ) }
--?([0-9]+|([0-9]+(\.[0-9]+)?)([eE][-+]?[0-9]+)?)[fF]? { SETFLTTOKEN( strtod( yytext, (char**)NULL ), 4 ) }
+-?([0-9]+|([0-9]*(\.[0-9]+)?)([eE][-+]?[0-9]+)?)[dD]  { SETFLTTOKEN( strtod( yytext, (char**)NULL ), 8 ) }
+-?([0-9]+|([0-9]*(\.[0-9]+)?)([eE][-+]?[0-9]+)?)[fF]? { SETFLTTOKEN( strtod( yytext, (char**)NULL ), 4 ) }
 
 [ ]+		                         { columnNo += yyleng;                       }
 \t                                       { columnNo += 3;                            }
