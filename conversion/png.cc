@@ -204,6 +204,14 @@ r_convDesc &r_Conv_PNG::convertTo( const char *options ) throw(r_Error)
   width  = desc.srcInterv[0].high() - desc.srcInterv[0].low() + 1;
   height = desc.srcInterv[1].high() - desc.srcInterv[1].low() + 1;
 
+// fix compiling with newer versions of libpng (1.4 and newer) -- DM 18-oct-2011
+// http://www.libpng.org/pub/png/src/libpng-1.2.x-to-1.4.x-summary.txt
+#ifndef PNG_1_2_X || PNG_1_0_X // libpng12
+#define trans_vals trans_color
+#else // libpng14+
+#define trans_vals trans_values
+#endif
+
   // Depth and sample format and transparency
   // added transparency -- PB 2005-jul-12
   switch (desc.baseType)
@@ -213,7 +221,7 @@ r_convDesc &r_Conv_PNG::convertTo( const char *options ) throw(r_Error)
       colourType = PNG_COLOR_TYPE_GRAY; sig_bit.gray = 1;
       if (transpFound)
       {
-        itemsScanned = sscanf( trans_string, " %hi ", &(info_ptr->trans_values.gray) );
+        itemsScanned = sscanf( trans_string, " %hi ", &(info_ptr->trans_vals.gray) );
         if (itemsScanned == 1)			// all required items found?
         {
           info_ptr->valid |= PNG_INFO_tRNS;	// activate tRNS chunk
@@ -231,7 +239,7 @@ r_convDesc &r_Conv_PNG::convertTo( const char *options ) throw(r_Error)
       colourType = PNG_COLOR_TYPE_GRAY; sig_bit.gray = 8;
       if (transpFound)
       {
-        itemsScanned = sscanf( trans_string, " %hi ", &(info_ptr->trans_values.gray) );
+        itemsScanned = sscanf( trans_string, " %hi ", &(info_ptr->trans_vals.gray) );
         if (itemsScanned == 1)			// all required items found?
         {
           info_ptr->valid |= PNG_INFO_tRNS;	// activate tRNS chunk
@@ -250,7 +258,7 @@ r_convDesc &r_Conv_PNG::convertTo( const char *options ) throw(r_Error)
       sig_bit.red = 8; sig_bit.green = 8; sig_bit.blue = 8;
       if (transpFound)
       {
-        itemsScanned = sscanf( trans_string, " ( %hi ; %hi ; %hi ) ", &(info_ptr->trans_values.red), &(info_ptr->trans_values.green), &(info_ptr->trans_values.blue) );
+        itemsScanned = sscanf( trans_string, " ( %hi ; %hi ; %hi ) ", &(info_ptr->trans_vals.red), &(info_ptr->trans_vals.green), &(info_ptr->trans_vals.blue) );
         if (itemsScanned == 3)			// all required items found?
         {
           info_ptr->valid |= PNG_INFO_tRNS;	// activate tRNS chunk
@@ -271,10 +279,10 @@ r_convDesc &r_Conv_PNG::convertTo( const char *options ) throw(r_Error)
   // adjust transparency color value to pixel depth (unconditionally, even if transparency is unused)
   if (bps == 8)
   {
-    info_ptr->trans_values.red   &= 0xff;
-    info_ptr->trans_values.green &= 0xff;
-    info_ptr->trans_values.blue  &= 0xff;
-    info_ptr->trans_values.gray  &= 0xff;
+    info_ptr->trans_vals.red   &= 0xff;
+    info_ptr->trans_vals.green &= 0xff;
+    info_ptr->trans_vals.blue  &= 0xff;
+    info_ptr->trans_vals.gray  &= 0xff;
   }
 
   if (trans_string != NULL)
@@ -367,17 +375,17 @@ r_convDesc &r_Conv_PNG::convertTo( const char *options ) throw(r_Error)
       case ctype_bool:
         RMInit::dbgOut << "bw";
         if (transpFound)
-          RMInit::dbgOut << ", transparent=" << info_ptr->trans_values.gray;
+          RMInit::dbgOut << ", transparent=" << info_ptr->trans_vals.gray;
         break;
       case ctype_char:
         RMInit::dbgOut << "grey";
         if (transpFound)
-          RMInit::dbgOut << ", transparent=" << info_ptr->trans_values.gray;
+          RMInit::dbgOut << ", transparent=" << info_ptr->trans_vals.gray;
         break;
       case ctype_rgb:
         RMInit::dbgOut << "rgb";
         if (transpFound)
-          RMInit::dbgOut << ", transparent=(" << info_ptr->trans_values.red << info_ptr->trans_values.green << info_ptr->trans_values.blue << ")";
+          RMInit::dbgOut << ", transparent=(" << info_ptr->trans_vals.red << info_ptr->trans_vals.green << info_ptr->trans_vals.blue << ")";
         break;
       default:
         RMInit::dbgOut << "(illegal)";
