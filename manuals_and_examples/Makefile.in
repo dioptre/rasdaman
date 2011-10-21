@@ -228,8 +228,9 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+EXTRA_DIST = *.cfg manuals
 nobase_dist_pkgdata_DATA = examples/images/* \
-			 examples/c++/query.cc examples/c++/insertppm.cc examples/c++/basictypes.hh examples/c++/Makefile \
+			 examples/c++/query.cc examples/c++/insertppm.cc examples/c++/basictypes.hh examples/c++/Makefile* \
                          examples/java/* examples/queries/* \
                          examples/rasdl/basictypes.dl
 
@@ -358,6 +359,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+@GENERATE_DOCS_FALSE@install-data-hook:
 clean: clean-am
 
 clean-am: clean-generic mostlyclean-am
@@ -440,12 +442,12 @@ uninstall-am: uninstall-nobase_dist_pkgdataDATA
 	uninstall-nobase_dist_pkgdataDATA
 
 
-install-data-hook:
-	-# install documentation
-	(cd ..; doxygen manuals_and_examples/doxygen-all.cfg)
-	(cd ..; doxygen manuals_and_examples/doxygen-api.cfg)
-	(cd ..; doxygen manuals_and_examples/doxygen-basedbms.cfg)
-	cp -r manuals/ $(DESTDIR)$(pkgdatadir)/doc
+@GENERATE_DOCS_TRUE@install-data-hook:
+@GENERATE_DOCS_TRUE@	-# install documentation
+@GENERATE_DOCS_TRUE@	(cd ..; doxygen manuals_and_examples/doxygen-all.cfg)
+@GENERATE_DOCS_TRUE@	(cd ..; doxygen manuals_and_examples/doxygen-api.cfg)
+@GENERATE_DOCS_TRUE@	(cd ..; doxygen manuals_and_examples/doxygen-basedbms.cfg)
+@GENERATE_DOCS_TRUE@	cp -r manuals/ $(DESTDIR)$(pkgdatadir)/doc
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

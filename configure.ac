@@ -142,7 +142,7 @@ AC_CONFIG_FILES([Makefile
 AH_TEMPLATE([DEBUG], [Enables debug functionality])
 AH_TEMPLATE([RMANDEBUG], [Enables debug functionality])
 AH_TEMPLATE([HAVE_HDF], [Checks whether HDF4 is installed])
-AH_TEMPLATE([HAVE_NETCDF], [Checks whether N is installed])
+AH_TEMPLATE([HAVE_NETCDF], [Checks whether NetCDF is installed])
 AH_TEMPLATE([RMANVERSION], [The version of Rasdaman currently compiled])
 AH_TEMPLATE([BASEDB_PGSQL], [If defined we are compiling over PostgreSQL])
 AH_TEMPLATE([__NO_MATH_INLINES], [Used by some performance implementaion of math libraries.])   
@@ -176,7 +176,7 @@ fi
 
 AC_ARG_WITH([netcdf],
 	    [AS_HELP_STRING([--with-netcdf],
-	      [this feature looks whether libnetcdf libraries are installed.])],
+	      [this feature enables the inclusion of netcdf library during installation.])],
 	    [],
 	    [with_netcdf=no])
 
@@ -187,6 +187,13 @@ if test "$with_netcdf" == yes; then
   AC_CHECK_LIB([netcdf_c++], [main], , [AC_MSG_FAILURE([libnetcdf_c++.a not found! Please install.])])
   AC_DEFINE([HAVE_NETCDF], [1])
 fi
+
+AC_ARG_WITH([docs],
+	    [AS_HELP_STRING([--with-docs],
+	      [generate doxygen documentation during installation.])],
+	    [],
+	    [with-docs=no])
+AM_CONDITIONAL([GENERATE_DOCS], [test "$with_docs" = yes])
 
 AC_ARG_WITH([default-rasmgr-port],
             [AS_HELP_STRING([--with-default-rasmgr-port], 

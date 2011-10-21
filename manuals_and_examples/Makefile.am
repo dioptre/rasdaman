@@ -27,10 +27,13 @@ nobase_dist_pkgdata_DATA=examples/images/* \
 			 examples/c++/query.cc examples/c++/insertppm.cc examples/c++/basictypes.hh examples/c++/Makefile* \
                          examples/java/* examples/queries/* \
                          examples/rasdl/basictypes.dl
- 
+
+
+if GENERATE_DOCS
 install-data-hook:
 	-# install documentation
 	(cd ..; doxygen manuals_and_examples/doxygen-all.cfg)
 	(cd ..; doxygen manuals_and_examples/doxygen-api.cfg)
 	(cd ..; doxygen manuals_and_examples/doxygen-basedbms.cfg)
 	cp -r manuals/ $(DESTDIR)$(pkgdatadir)/doc
+endif
