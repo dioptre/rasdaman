@@ -199,6 +199,13 @@ AC_ARG_WITH([static-libs],
                             [try to compile using statically linked DBMS libraries])],
             [],
             [with_static_libs=no])
+
+AC_ARG_WITH([pic],
+            [AS_HELP_STRING([--with-pic], 
+                            [generate position independent code (PIC)])],
+            [CXXFLAGS+=" -fpic "],
+            [])
+
 # postgres is automatically defined in m4/ct_check_postgres_db.m4
 AC_ARG_WITH([default-basedb],
             [AS_HELP_STRING([--with-basedb],
