@@ -126,7 +126,7 @@ start() {
 # httpd parent; this gives enough time for the httpd parent to SIGKILL any
 # errant children.
 stop() {
-	running=`$SU -l rasdaman -s "$rasshell" -c "$rascontrol -e -q -x list srv | awk '{ if (\$6 == "UP") print \$2;}'"`
+	running=`$SU -l rasdaman -s "$rasshell" -c "$rascontrol -e -q -x list srv | awk '{ print $2;}'"`
 	for SRV in $running
 	do
 		echo -n $"$rascontrol: stoping server $SRV..."

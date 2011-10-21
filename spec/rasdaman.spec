@@ -15,11 +15,11 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %endif
 
-BuildRequires: bison libtiff-devel hdf-devel libjpeg-devel ncurses-devel readline-devel zlib-devel libpng-devel netpbm-devel openssl-devel flex postgresql-devel doxygen
+BuildRequires: bison libtiff-devel hdf-devel libjpeg-devel ncurses-devel readline-devel zlib-devel libpng-devel netpbm-devel openssl-devel flex postgresql-devel doxygen netcdf-devel
 
 Requires(pre): /usr/sbin/useradd
 Requires(post): chkconfig
-Requires:      libtiff hdf libjpeg ncurses readline zlib libpng netpbm openssl postgresql-server
+Requires:      libtiff hdf libjpeg ncurses readline zlib libpng netpbm openssl postgresql-server netcdf
 Provides: rasserver
 
 %description
@@ -89,7 +89,9 @@ CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" CXX="g++ -L%{_libdi
 		--libdir=%{_libdir} \
 		--localstatedir=%{_localstatedir} \
 		--sysconfdir=%{_sysconfdir} \
-		--with-logdir=%{_localstatedir}/log/rasdaman
+		--with-logdir=%{_localstatedir}/log/rasdaman \
+        --with-hdf4 \
+        --with-netcdf
 
 make DESTDIR=%{buildroot}
 
@@ -116,6 +118,9 @@ rm -f %{buildroot}%{_bindir}/create_db.sh
 rm -f %{buildroot}%{_bindir}/start_rasdaman.sh
 rm -f %{buildroot}%{_bindir}/stop_rasdaman.sh
 
+# Copy errtxts to bin (needed for rview)
+cp %{buildroot}%{_datadir}/rasdaman/errtxts %{buildroot}%{_bindir}
+
 # Create home for our user
 install -d -m 700 %{buildroot}%{rasdir}
 cp %{buildroot}%{_datadir}/rasdaman/examples/rasdl/basictypes.dl %{buildroot}%{rasdir}
@@ -127,6 +132,8 @@ rm -rf %{buildroot}
 # Add the "rasdaman" user
 /usr/sbin/useradd -c "Rasdaman" -s /sbin/nologin -r -d %{rasdir} rasdaman 2> /dev/null || :
 # For SELinux we need to use 'runuser' not 'su'
+# /etc/hosts should contain 127.0.1.1
+grep '127.0.1.1' /etc/hosts && echo "127.0.1.1 `hostname`" >> /etc/hosts
 
 %preun
 # If not upgrading
@@ -167,6 +174,9 @@ fi
 %{_bindir}/raspasswd
 %{_bindir}/rasql
 %{_bindir}/rasserver
+%{_bindir}/rview
+%{_bindir}/labels.txt
+%{_bindir}/errtxts
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/rasmgr.conf
 %{_localstatedir}/log/rasdaman/empty
 %{_datadir}/rasdaman/errtxts*
@@ -217,6 +227,10 @@ fi
 %{_datadir}/rasdaman/examples
 
 %changelog
+
+* Fri Oct 21  2011 Dimitar Misev <d.misev@jacobs-university.de> - 8.2.1
+
+- Support for rview and netcdf
 
 * Thu Jul 30  2011 Konstantin Kozlov <kozlov@spbcas.ru> - 8.2.1
 
