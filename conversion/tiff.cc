@@ -249,16 +249,26 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 			bps = 1; bpp = 1; pixelAdd = height; lineAdd = 1;
 			break;
 		case ctype_char:
+		case ctype_int8:
+    case ctype_uint8:
 			bps = 8; bpp = 8; pixelAdd = height; lineAdd = 1;
 			break;
 		case ctype_rgb:
 			bps = 8; bpp = 24; pixelAdd = 3*height; lineAdd = 3;
 			break;  
 		case ctype_uint16:
+		case ctype_int16:
 			bps = 16; bpp = 16; pixelAdd = 2*height; lineAdd = 2;
 			break;
+    case ctype_int32:
+    case ctype_uint32:
 		case ctype_float32:
 			bps = 32; bpp = 32; pixelAdd = 4*height; lineAdd = 4;
+			break;
+    case ctype_int64:
+    case ctype_uint64:
+    case ctype_float64:
+			bps = 64; bpp = 64; pixelAdd = 8*height; lineAdd = 8;
 			break;
 		default:
 			TALK( "r_Conv_TIFF::convertTo(): error: unsupported base type " << desc.baseType << "." );
@@ -312,14 +322,29 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 		{
 			TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, (uint16)PHOTOMETRIC_MINISBLACK);
 		}
-		// FIXME: STILL HAVE TO ADD FOR other CASES eg ctype_uint16 and ctype_float32 ???
 		TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, (uint16)1);
     
     // set sample format tag
-    if (desc.baseType == ctype_float32) {
-      TIFFSetField( tif, TIFFTAG_SAMPLEFORMAT, SAMPLEFORMAT_IEEEFP );
-    } else if (desc.baseType == ctype_uint16) {
-      TIFFSetField( tif, TIFFTAG_SAMPLEFORMAT, SAMPLEFORMAT_UINT );
+    switch (desc.baseType)
+    {
+      case ctype_float32:
+      case ctype_float64:
+        TIFFSetField( tif, TIFFTAG_SAMPLEFORMAT, SAMPLEFORMAT_IEEEFP );
+        break;
+      case ctype_uint8:
+      case ctype_uint16:
+      case ctype_uint32:
+      case ctype_uint64:
+        RMInit::logOut << "Setting uint sample format" << endl;
+        TIFFSetField( tif, TIFFTAG_SAMPLEFORMAT, SAMPLEFORMAT_UINT );
+        break;
+      case ctype_char:
+      case ctype_int8:
+      case ctype_int16:
+      case ctype_int32:
+      case ctype_int64:
+        TIFFSetField( tif, TIFFTAG_SAMPLEFORMAT, SAMPLEFORMAT_INT );
+        break;
     }
 	}
 	TIFFSetField(tif, TIFFTAG_PLANARCONFIG, (uint16)PLANARCONFIG_CONTIG);
@@ -389,15 +414,6 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 							*normal++ = val;
 					}
 					break;
-				case ctype_char:
-					{
-						// copy data (and transpose)
-						for (i=0; i < width; i++, l += pixelAdd)
-						{
-							*normal++ = *l;
-						}
-					}
-					break;
 				case ctype_rgb:
 					{
 						// copy data (and transpose)
@@ -407,28 +423,15 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 						}
 					}
 					break;
-
-					// ADDED FOR ctype_uint16 case
-				case ctype_uint16:
+        default:
 					{
-						for (i =0; i<width; i++)
+						// copy data (and transpose)
+						for (i=0; i < width; i++, l += pixelAdd)
 						{
-							*((uint16*)normal) = *((uint16*)l);
-							l +=pixelAdd;
-							normal += 2;
+							*normal = *l;
+              normal += lineAdd;
 						}
 					}
-					break;
-
-				case ctype_float32:
-					{
-						for(i=0; i<width; i++)
-						{
-							*((float*)normal) = *((float*)l);
-							l += pixelAdd; normal += 4;
-						}
-					}
-					break;
 			}
 			if (TIFFWriteScanline(tif, (tdata_t)tbuff, row, 0) < 0)
 				break;
