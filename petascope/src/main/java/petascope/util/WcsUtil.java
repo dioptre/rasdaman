@@ -206,7 +206,7 @@ public class WcsUtil {
     private static String getSrsGroup(GetCoverageMetadata m) {
         Wgs84Crs crs = m.getCrs();
         if (crs != null) {
-            return "srsName=\"" + crs.getName() + "\" " +
+            return " srsName=\"" + crs.getName() + "\" " +
                     "srsDimension=\"" + m.getGridDimension() + "\"";
         } else {
             return "";
