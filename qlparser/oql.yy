@@ -1,24 +1,28 @@
 %{
-/*************************************************************
- *
- * Copyright (C) 2003 Dr. Peter Baumann
- *
- * SOURCE: opp.y
- *
- * MODULE: qlparser
- * CLASS:  -
- *
- * PURPOSE:
- * Grammar for RasQL
- *
- * CHANGE HISTORY (append further entries):
- * when         who         what
- * ----------------------------------------------------------
- * 18-06-01     Barbat      created (for preprocessor)
- * 2005-jun-18   PB         extended functionExp with EXTEND(mddExpr,mintervalExpr)
- * 2006-jan-03   PB         tried to implement DELETE with optional WHERE, but not yet operational
- * 2008-oct-30   Shams      added storage layout to insert expresion
- *
+/*
+* This file is part of rasdaman community.
+*
+* Rasdaman community is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Rasdaman community is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+*
+* Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+rasdaman GmbH.
+*
+* For more information please see <http://www.rasdaman.org>
+* or contact Peter Baumann via <baumann@rasdaman.com>.
+*/
+
+/*
  * COMMENTS:
  * - token BY unused
  * 
@@ -58,7 +62,7 @@ static const char rcsid[] = "@(#)qlparser, yacc parser: $Header: /home/rasdev/CV
 extern ServerComm::ClientTblElt* currentClientTblElt;
 extern ParseInfo *currInfo;
 
-void   yyerror( char* s );
+void   yyerror( const char* s );
 
 extern int  yylex();
 extern unsigned int lineNo;
@@ -2293,179 +2297,287 @@ iv: marrayVariable IN generalExp
 	  FREESTACK($2);			   
 	};
 
-// added on 30 Oct 2008 By Feyzabadi
-
 mddConfiguration: 
 	tilingAttributes indexingAttributes
-        {$$=new QtMddCfgOp($1.tilingType, $1.tileSize, $1.borderThreshold,
-    $1.interestThreshold , $1.tileCfg, $1.bboxList,$1.dirDecomp, $2.indexType);}
+	{
+	  $$=new QtMddCfgOp( $1.tilingType, $1.tileSize, $1.borderThreshold, $1.interestThreshold , $1.tileCfg, $1.bboxList,$1.dirDecomp, $2.indexType );
+	}
 	| indexingAttributes
-        {$$=new QtMddCfgOp($1.indexType);}
+	{
+	  $$=new QtMddCfgOp($1.indexType);
+	}
 	| tilingAttributes
-      {$$=new QtMddCfgOp($1.tilingType, $1.tileSize, $1.borderThreshold,
-        $1.interestThreshold , $1.tileCfg, $1.bboxList,$1.dirDecomp);}
+	{
+	  $$=new QtMddCfgOp($1.tilingType, $1.tileSize, $1.borderThreshold, $1.interestThreshold , $1.tileCfg, $1.bboxList,$1.dirDecomp);
+	}
 	;
 indexingAttributes: INDEX indexTypes{$$=$2;};
 
-indexTypes : RC_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_RC_INDEX; }
-	| TC_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_TC_INDEX;; }
-	| A_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_A_INDEX;; }
-	| D_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_D_INDEX;; }
-	| RD_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_RD_INDEX;; }
-	| RPT_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_RPT_INDEX;; }
-	| RRPT_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_RRPT_INDEX;; }
-	| IT_INDEX{$$.info = $1.info; $$.indexType = QtMDDConfig::r_IT_INDEX;; }
+indexTypes : RC_INDEX
+	{
+	  $$.info = $1.info;
+	  $$.indexType = QtMDDConfig::r_RC_INDEX;
+	}
+	| TC_INDEX
+	{
+	  $$.info = $1.info;
+	  $$.indexType = QtMDDConfig::r_TC_INDEX;
+	}
+	| A_INDEX
+	{
+	  $$.info = $1.info;
+	  $$.indexType = QtMDDConfig::r_A_INDEX;
+	}
+	| D_INDEX
+	{
+	  $$.info = $1.info;
+	  $$.indexType = QtMDDConfig::r_D_INDEX;
+	}
+	| RD_INDEX
+	{
+	  $$.info = $1.info;
+	  $$.indexType = QtMDDConfig::r_RD_INDEX;
+	}
+	| RPT_INDEX
+	{
+	  $$.info = $1.info;
+	  $$.indexType = QtMDDConfig::r_RPT_INDEX;
+	}
+	| RRPT_INDEX
+	{
+	  $$.info = $1.info;
+	  $$.indexType = QtMDDConfig::r_RRPT_INDEX;
+	}
+	| IT_INDEX
+	{
+	  $$.info = $1.info;
+	  $$.indexType = QtMDDConfig::r_IT_INDEX;
+	}
 ;
 
-tilingAttributes: TILING  tileTypes {$$=$2;};
+tilingAttributes: TILING tileTypes
+	{
+	  $$=$2;
+	}
+;
 
 tileTypes: REGULAR tileCfg
-	{	$$.tilingType=QtMDDConfig::r_REGULAR_TLG;
-		$$.tileCfg=$2.tileCfg;$$.tileSize = StorageLayout::DefaultTileSize;
+	{
+	  $$.tilingType=QtMDDConfig::r_REGULAR_TLG;
+	  $$.tileCfg=$2.tileCfg;
+	  $$.tileSize = StorageLayout::DefaultTileSize;
 	}
 	| REGULAR tileCfg tilingSize
 	{
-		$$.tilingType=QtMDDConfig::r_REGULAR_TLG;
-		$$.tileCfg=$2.tileCfg;
-		$$.tileSize = $3.tileSize;}
-	
+	  $$.tilingType=QtMDDConfig::r_REGULAR_TLG;
+	  $$.tileCfg=$2.tileCfg;
+	  $$.tileSize = $3.tileSize;
+	}
 	| ALIGNED tileCfg
-	{	$$.tilingType=QtMDDConfig::r_ALIGNED_TLG;
-		$$.tileCfg=$2.tileCfg;
-		$$.tileSize = StorageLayout::DefaultTileSize;}
-	
+	{
+	  $$.tilingType=QtMDDConfig::r_ALIGNED_TLG;
+	  $$.tileCfg=$2.tileCfg;
+	  $$.tileSize = StorageLayout::DefaultTileSize;
+	}
 	| ALIGNED tileCfg tilingSize
-	{	$$.tilingType=QtMDDConfig::r_ALIGNED_TLG;
-		$$.tileCfg=$2.tileCfg;
-		$$.tileSize = $3.tileSize;
+	{
+	  $$.tilingType=QtMDDConfig::r_ALIGNED_TLG;
+	  $$.tileCfg=$2.tileCfg;
+	  $$.tileSize = $3.tileSize;
 	}
 	| DIRECTIONAL dirdecompArray
-	{	$$.tilingType=QtMDDConfig::r_DRLDECOMP_TLG;
-		$$.tileSize = StorageLayout::DefaultTileSize;
-		$$.dirDecomp=$2.dirDecomp;
+	{
+	  $$.tilingType=QtMDDConfig::r_DRLDECOMP_TLG;
+	  $$.tileSize = StorageLayout::DefaultTileSize;
+	  $$.dirDecomp=$2.dirDecomp;
 	}
 	| DIRECTIONAL dirdecompArray WITH SUBTILING
-	{	$$.tilingType=QtMDDConfig::r_DRLDECOMPSUBTILE_TLG;
-		$$.tileSize = StorageLayout::DefaultTileSize;
-		$$.dirDecomp=$2.dirDecomp;}
-	
+	{
+	  $$.tilingType=QtMDDConfig::r_DRLDECOMPSUBTILE_TLG;
+	  $$.tileSize = StorageLayout::DefaultTileSize;
+	  $$.dirDecomp=$2.dirDecomp;
+	}
 	| DIRECTIONAL dirdecompArray tilingSize
-	{	$$.tilingType=QtMDDConfig::r_DRLDECOMP_TLG;
-		$$.tileSize = $3.tileSize;
-		$$.dirDecomp=$2.dirDecomp;
+	{
+	  $$.tilingType=QtMDDConfig::r_DRLDECOMP_TLG;
+	  $$.tileSize = $3.tileSize;
+	  $$.dirDecomp=$2.dirDecomp;
 	}
 	| DIRECTIONAL dirdecompArray WITH SUBTILING tilingSize
-	{	$$.tilingType=QtMDDConfig::r_DRLDECOMPSUBTILE_TLG;
-		$$.tileSize = $5.tileSize;
-		$$.dirDecomp=$2.dirDecomp;
+	{
+	  $$.tilingType=QtMDDConfig::r_DRLDECOMPSUBTILE_TLG;
+	  $$.tileSize = $5.tileSize;
+	  $$.dirDecomp=$2.dirDecomp;
 	}
 	| AREA OF INTEREST bboxList
-	{	$$.tilingType=QtMDDConfig::r_AREAOFINTEREST_TLG;
-		$$.bboxList=$4;
-		$$.tileSize = StorageLayout::DefaultTileSize;
+	{
+	  $$.tilingType=QtMDDConfig::r_AREAOFINTEREST_TLG;
+	  $$.bboxList=$4;
+	  $$.tileSize = StorageLayout::DefaultTileSize;
 	}
 	| AREA OF INTEREST bboxList tilingSize
-	{	$$.tilingType=QtMDDConfig::r_AREAOFINTEREST_TLG;
-		$$.bboxList=$4;
-		$$.tileSize = $5.tileSize;
+	{
+	  $$.tilingType=QtMDDConfig::r_AREAOFINTEREST_TLG;
+	  $$.bboxList=$4;
+	  $$.tileSize = $5.tileSize;
 	}
 	| STATISTIC bboxList statisticParameters
-	{	$$=$3;
-		$$.bboxList=$2;
+	{
+	  $$=$3;
+	  $$.bboxList=$2;
 	}
 	| STATISTIC bboxList
-	{	$$.tilingType=QtMDDConfig::r_STATISTICS_TLG;
-		$$.bboxList=$2;
-		$$.tileSize = StorageLayout::DefaultTileSize;
-	};
+	{
+	  $$.tilingType=QtMDDConfig::r_STATISTICS_TLG;
+	  $$.bboxList=$2;
+	  $$.tileSize = StorageLayout::DefaultTileSize;
+	}
+;
 	
 bboxList: mintervalExp
 	{
-		$$ = new QtNode::QtOperationList(1);
-		(*$$)[0] = $1;
+	  $$ = new QtNode::QtOperationList(1);
+	  (*$$)[0] = $1;
 	}
 	| mintervalExp COMMA bboxList
 	{
-		$3->push_back( $1 );
-		$$ = $3;
-	};
+	  $3->push_back( $1 );
+	  $$ = $3;
+	}
+;
 
-tileCfg: mintervalExp{$$.tileCfg=$1;};
+tileCfg: mintervalExp
+	{
+	  $$.tileCfg=$1;
+	}
+;
 
 statisticParameters: tilingSize borderCfg interestThreshold
-    {$$=$1;$$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
-     $$.borderThreshold = $2.borderThreshold;
-     $$.interestThreshold = $3.interestThreshold;}
+	{
+	  $$=$1;
+	  $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
+	  $$.borderThreshold = $2.borderThreshold;
+	  $$.interestThreshold = $3.interestThreshold;
+	}
 	| tilingSize borderCfg
-    {$$=$1; $$.borderThreshold = $2.borderThreshold;
-    $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
-    $$.interestThreshold = -1;}
+	{
+	  $$=$1;
+	  $$.borderThreshold = $2.borderThreshold;
+	  $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
+	  $$.interestThreshold = -1;
+	}
 	| tilingSize interestThreshold
-    {$$=$1; $$.interestThreshold = $2.interestThreshold;
-    $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
-    $$.borderThreshold=-1;}
+	{
+	  $$=$1;
+	  $$.interestThreshold = $2.interestThreshold;
+	  $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
+	  $$.borderThreshold=-1;
+	}
 	| borderCfg interestThreshold
-    {$$=$1; $$.interestThreshold = $2.interestThreshold;
-    $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
-    $$.tileSize = StorageLayout::DefaultTileSize;}
-	| tilingSize{$$=$1;$$.interestThreshold = -1; $$.borderThreshold = -1;
-    $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;}
-	| interestThreshold{$$=$1; $$.borderThreshold = -1;$$.tileSize = StorageLayout::DefaultTileSize;
-    $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;}
-	| borderCfg{$$=$1;$$.interestThreshold = -1;$$.tileSize = StorageLayout::DefaultTileSize;
-    $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;};
+	{
+	  $$=$1;
+	  $$.interestThreshold = $2.interestThreshold;
+	  $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
+	  $$.tileSize = StorageLayout::DefaultTileSize;
+	}
+	| tilingSize
+	{
+	  $$=$1;
+	  $$.interestThreshold = -1;
+ 	  $$.borderThreshold = -1;
+	  $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
+	}
+	| interestThreshold
+	{
+	  $$=$1;
+	  $$.borderThreshold = -1;
+	  $$.tileSize = StorageLayout::DefaultTileSize;
+	  $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
+	}
+	| borderCfg
+	{
+	  $$=$1;
+	  $$.interestThreshold = -1;
+	  $$.tileSize = StorageLayout::DefaultTileSize;
+	  $$.tilingType = QtMDDConfig::r_STATISTICSPARAM_TLG;
+	}
+;
 	
 tilingSize: TILE SIZE IntegerLit
-{
-$$.tileSize = $3.svalue;};
+	{
+	  $$.tileSize = $3.svalue;
+	}
+;
 
 borderCfg: BORDER THRESHOLD IntegerLit
-{
-$$.borderThreshold = $3.svalue;};
+	{
+	  $$.borderThreshold = $3.svalue;
+	}
+;
 
 interestThreshold: INTEREST THRESHOLD FloatLit
-{
-$$.interestThreshold = $3.value;};
+	{
+	  $$.interestThreshold = $3.value;
+	}
+;
 
-dirdecompArray : dirdecomp {$$ = $1;}
-| dirdecomp COMMA dirdecompArray{
-$$ = $1;
-for(int i = 0 ; i < $3.dirDecomp->size() ; ++i){
-    $$.dirDecomp->push_back($3.dirDecomp->at(i));
-}
-};
+dirdecompArray : dirdecomp
+	{
+	  $$ = $1;
+	}
+	| dirdecomp COMMA dirdecompArray
+	{
+	  $$ = $1;
+	  for(int i = 0 ; i < $3.dirDecomp->size() ; ++i)
+	  {
+	    $$.dirDecomp->push_back($3.dirDecomp->at(i));
+	  }
+	}
+;
 
-dirdecomp : LEPAR dirdecompvals REPAR {$$ = $2;};
+dirdecomp : LEPAR dirdecompvals REPAR
+	{
+	  $$ = $2;
+	}
+;
 
-dirdecompvals : MULT {
-r_Dir_Decompose temp;
-if($$.dirDecomp == NULL){
-    $$.dirDecomp = new std::vector<r_Dir_Decompose>(1);
-    $$.dirDecomp->at(0) = temp;
-    }
-else
-    $$.dirDecomp->push_back(temp);
-}
-| intArray {
-$$=$1;
-};
+dirdecompvals : MULT
+	{
+	  r_Dir_Decompose temp;
+	  if($$.dirDecomp == NULL)
+	  {
+	    $$.dirDecomp = new std::vector<r_Dir_Decompose>(1);
+	    $$.dirDecomp->at(0) = temp;
+	  }
+	  else
+	    $$.dirDecomp->push_back(temp);
+	}
+	| intArray
+	{
+	  $$=$1;
+	}
+;
 
-intArray : IntegerLit {
-r_Dir_Decompose temp;
-temp<<$1.svalue;
-if($$.dirDecomp == NULL){
-    $$.dirDecomp = new std::vector<r_Dir_Decompose>(1);
-    $$.dirDecomp->at(0) = temp;
-    }
-else
-    $$.dirDecomp->push_back(temp);
-}
-| IntegerLit COMMA intArray {
-$$.dirDecomp = $3.dirDecomp;
-r_Dir_Decompose temp = $$.dirDecomp->at($$.dirDecomp->size()-1);
-temp<<$1.svalue;
-$$.dirDecomp->at($$.dirDecomp->size()-1) = temp;
-};
+intArray : IntegerLit
+	{
+	  r_Dir_Decompose temp;
+	  temp<<$1.svalue;
+	  if($$.dirDecomp == NULL)
+	  {
+	    $$.dirDecomp = new std::vector<r_Dir_Decompose>(1);
+	    $$.dirDecomp->at(0) = temp;
+	  }
+	else
+	    $$.dirDecomp->push_back(temp);
+	}
+	| IntegerLit COMMA intArray
+	{
+	  $$.dirDecomp = $3.dirDecomp;
+	  r_Dir_Decompose temp = $$.dirDecomp->at($$.dirDecomp->size()-1);
+	  temp<<$1.svalue;
+	  $$.dirDecomp->at($$.dirDecomp->size()-1) = temp;
+	}
+;
 
 /*--------------------------------------------------------------------
  *				Grammar ends here 
@@ -2473,7 +2585,8 @@ $$.dirDecomp->at($$.dirDecomp->size()-1) = temp;
  */	
 %%  // C code section
 
-void yyerror( char* /*s*/ ) {
+void yyerror( const char* /*s*/ )
+{
   if( !parseError ) {
 
    if( yytext[0] == '\0' ) {
