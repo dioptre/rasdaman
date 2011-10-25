@@ -289,7 +289,7 @@ CREATE TABLE ps_descriptions (
 );
 
 INSERT INTO ps_descriptions VALUES (1, 1, 'NIR', 'Abstract for coverage NIR', 'keywords');
-INSERT INTO ps_descriptions VALUES (1, 1, 'mean_summer_airtemp', 'This coverage shows the mean summer air temperatures over Australia in the period 2001-2007', 'summere temperature, australia');
+INSERT INTO ps_descriptions VALUES (2, 2, 'mean_summer_airtemp', 'This coverage shows the mean summer air temperatures over Australia in the period 2001-2007', 'summer temperature, australia');
 
 -- This table contains metadata for CRS transformations: WGS84 bounding box limits and offsets for the X and Y axis.
 CREATE TABLE ps_crsdetails (
