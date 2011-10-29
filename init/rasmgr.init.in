@@ -44,6 +44,8 @@ servers=${RASSERVERS-"-all"}
 raslogin=${RASADMIN-rasadmin:d293a15562d3e70b6fdc5ee452eaed40}
 rasdir=${RASDIR-/var/lib/rasdaman}
 rasshell=${RASSHELL-/bin/bash}
+petapath=${PETASCOPE_PATH-/usr/share/rasdaman/petascope}
+SETTINGS=${PETASCOPE_SETTINGS-/etc/petascope.conf}
 
 # To check if postgres cluster was initialised
 # we need this and 
@@ -62,6 +64,7 @@ else
 fi
 
 raslog=$rasdir/startup.log
+raslogdir=/var/log/rasdaman
 rascontrol="RASLOGIN=$raslogin $rasctrl"
 deffile=$rasdir/basictypes.dl
 
@@ -70,7 +73,7 @@ deffile=$rasdir/basictypes.dl
 # when not running is also a failure.  So we just do it the way init scripts
 # are expected to behave here.
 start() {
-
+	chown -R rasdaman:rasdaman "$raslog" "$raslogdir"
 	# Make sure startup-time log file is valid
 	if [ ! -e "$raslog" -a ! -h "$raslog" ]
 	then
@@ -126,6 +129,7 @@ start() {
 # httpd parent; this gives enough time for the httpd parent to SIGKILL any
 # errant children.
 stop() {
+	chown -R rasdaman:rasdaman "$raslog" "$raslogdir"
 	running=`$SU -l rasdaman -s "$rasshell" -c "$rascontrol -e -q -x list srv | awk '{ print $2;}'"`
 	for SRV in $running
 	do
@@ -143,32 +147,86 @@ stop() {
 }
 
 initdb(){
+	chown -R rasdaman:rasdaman "$raslog" "$raslogdir"
 	bhostname=`hostname`
 	mv /etc/rasmgr.conf /etc/rasmgr.conf.init
 	cat /etc/rasmgr.conf.init | sed -e "s/localhost/$bhostname/g" > /etc/rasmgr.conf
 	service postgresql initdb
 	service postgresql start
-	$SU -l postgres -c "createuser -d -r -S rasdaman"
-	RETVAL=$?
-	if [[ $RETVAL != 0 ]]
-	then
-		echo $"createuser failed"
-		exit $!
+
+	$SU -l postgres -c "createuser -d -r -S rasdaman" || exit $!
+	$SU -l rasdaman -s "$rasshell" -c "createdb RASBASE" || exit $!
+	$SU -l rasdaman -s "$rasshell" -c "$rasdl -c --connect RASBASE && $rasdl -r $deffile -i --connect RASBASE" || exit $!
+	
+	# petascope
+        $SU -l rasdaman -s "$rasshell" -c "createdb petascopedb" || exit $!
+	
+	DB=`grep metadata_url "$SETTINGS" | awk -F "/" '{print $4}' | tr -d '\n'`
+	PORT=`grep metadata_url "$SETTINGS" | awk -F ":|/" '{print $6}' | tr -d '\n'`
+	PSQL="psql -d $DB -p $PORT"
+	echo Postgres connection details
+	echo Database: $DB
+	echo Port: $PORT
+	echo
+	echo Testing connection...
+	$SU -l rasdaman -s "$rasshell" -c "$PSQL -c 'create table ps_tmp (id integer)' > /dev/null"
+	if [ $? -ne 0 ]; then
+		echo Error
+		exit $CODE_FAIL
+	else
+		$SU -l rasdaman -s "$rasshell" -c "$PSQL -c 'drop table ps_tmp' > /dev/null"
+		echo OK
 	fi
-	$SU -l rasdaman -s "$rasshell" -c "createdb RASBASE"
-	RETVAL=$?
-	if [[ $RETVAL != 0 ]]
-	then
-		echo $"createdb failed"
-		exit $!
+
+	# start rasdaman
+	start
+
+	# rasdaman connection details
+	RAS_USER=`grep rasdaman_admin_user "$SETTINGS" | awk -F "=" '{print $2}' | tr -d '\n'`
+	RAS_PASS=`grep rasdaman_admin_pass "$SETTINGS" | awk -F "=" '{print $2}' | tr -d '\n'`
+	RAS_DB=`grep rasdaman_database "$SETTINGS" | awk -F "=" '{print $2}' | tr -d '\n'`
+	RAS_SERVER=`grep rasdaman_url "$SETTINGS" | awk -F ":|/" '{print $4}' | tr -d '\n'`
+	RAS_PORT=`grep rasdaman_url "$SETTINGS" | awk -F ":|/" '{print $5}' | tr -d '\n'`
+	echo Rasdaman connection details:
+	echo User: $RAS_USER
+	echo Database: $RAS_DB
+	echo Server: $RAS_SERVER
+	echo Port: $RAS_PORT
+	echo
+	RASQL="rasql --user $RAS_USER --passwd $RAS_PASS -d $RAS_DB -s $RAS_SERVER -p $RAS_PORT"
+
+	# insert sample data
+	$SU -l rasdaman -s "$rasshell" -c "$RASQL -q 'create collection NIR RGBSet' > /dev/null 2>&1"
+	if [ $? -ne 0 ]; then
+		echo Sample coverage data NIR already inserted
+	else
+	        echo Inserting coverage NIR into rasdaman
+		$SU -l rasdaman -s "$rasshell" -c "$RASQL -q 'insert into NIR values inv_tiff($1)' --file $petapath/nir.tiff > /dev/null 2>&1"
 	fi
-	$SU -l rasdaman -s "$rasshell" -c "$rasdl -c --connect RASBASE && $rasdl -r $deffile -i --connect RASBASE"
-	RETVAL=$?
-	if [[ $RETVAL != 0 ]]
-	then
-		echo $"rasdl failed"
-		exit $!
+
+	$SU -l rasdaman -s "$rasshell" -c "$RASQL -q 'create collection mean_summer_airtemp GreySet' > /dev/null 2>&1"
+	if [ $? -ne 0 ]; then
+		echo Sample coverage data mean_summer_airtemp already inserted
+	else
+        	echo Inserting coverage mean_summer_airtemp into rasdaman
+		$SU -l rasdaman -s "$rasshell" -c "$RASQL -q 'insert into mean_summer_airtemp values inv_tiff($1)' --file $petapath/mean_summer_airtemp.tif > /dev/null 2>&1"
 	fi
+	
+	# update petascope db
+	counter=0
+	while [ -e update$counter.sql ]; do
+		$SU -l rasdaman -s "$rasshell" -c "$PSQL < $petapath/update$counter.sql > /dev/null 2>&1"
+		let counter="$counter"+1
+	done
+	$SU -l rasdaman -s "$rasshell" -c "$PSQL -c 'update ps_dbupdates set update=6 where id=1' > /dev/null 2>&1"
+}
+
+dropdb(){
+	echo dropping databases...
+	$SU -l rasdaman -s "$rasshell" -c "dropdb RASBASE"
+	$SU -l rasdaman -s "$rasshell" -c "dropdb petascopedb"
+	echo dropping user...
+	$SU -l postgres -c "dropuser rasdaman"
 }
 
 # See how we were called.
@@ -197,10 +255,14 @@ case "$1" in
   initdb)
 	initdb
 	;;
+  dropdb)
+	dropdb
+	;;
   *)
 	echo $"Usage: $prog {start|stop|restart|condrestart|status|initdb}"
 	RETVAL=3
 esac
 
 exit $RETVAL
+
 

@@ -15,11 +15,11 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %endif
 
-BuildRequires: bison libtiff-devel hdf-devel libjpeg-devel ncurses-devel readline-devel zlib-devel libpng-devel netpbm-devel openssl-devel flex postgresql-devel doxygen netcdf-devel
+BuildRequires: bison libtiff-devel hdf-devel libjpeg-devel ncurses-devel readline-devel zlib-devel libpng-devel netpbm-devel openssl-devel flex postgresql-devel doxygen netcdf-devel java-1.6.0-openjdk
 
 Requires(pre): /usr/sbin/useradd
 Requires(post): chkconfig
-Requires:      libtiff hdf libjpeg ncurses readline zlib libpng netpbm openssl postgresql-server netcdf
+Requires:      libtiff hdf libjpeg ncurses readline zlib libpng netpbm openssl postgresql-server netcdf tomcat6
 Provides: rasserver
 
 %description
@@ -81,24 +81,40 @@ The rasdaman-examples package includes examples for rasdaman.
 %setup -q
 
 %build
-
+autoreconf -i -f
 CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" CXX="g++ -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" \
-	./configure \
-		--prefix=/usr \
-		--docdir=%{_docdir}/rasdaman \
-		--libdir=%{_libdir} \
-		--localstatedir=%{_localstatedir} \
-		--sysconfdir=%{_sysconfdir} \
-		--with-logdir=%{_localstatedir}/log/rasdaman \
+./configure \
+	--prefix=/usr \
+	--docdir=%{_docdir}/rasdaman \
+	--libdir=%{_libdir} \
+	--localstatedir=%{_localstatedir} \
+	--sysconfdir=%{_sysconfdir} \
+	--with-logdir=%{_localstatedir}/log/rasdaman \
         --with-hdf4 \
-        --with-netcdf
+        --with-netcdf \
+	--with-pic \
+	--with-docs
 
 make DESTDIR=%{buildroot}
+cd petascope
+make war
+cd ..
 
 %install
 rm -rf %{buildroot}
 
 make install DESTDIR=%{buildroot}
+
+# install petascope
+mkdir -p %{buildroot}/var/lib/tomcat6/webapps
+mkdir -p %{buildroot}%{_datadir}/rasdaman/petascope
+cp petascope/build/dist/petascope.war %{buildroot}/var/lib/tomcat6/webapps
+cp petascope/db/*.sql %{buildroot}%{_datadir}/rasdaman/petascope
+cp petascope/db/*.tif* %{buildroot}%{_datadir}/rasdaman/petascope
+cp petascope/db/*.sh %{buildroot}%{_datadir}/rasdaman/petascope
+cp petascope/src/main/resources/settings.properties %{buildroot}%{_sysconfdir}/petascope.conf
+sed -i 's/^metadata_user=.+/metadata_user=rasdaman/' %{buildroot}%{_sysconfdir}/petascope.conf
+sed -i 's/^metadata_pass=.+/metadata_pass=/' %{buildroot}%{_sysconfdir}/petascope.conf
 
 # install SYSV init stuff
 mkdir -p %{buildroot}/etc/rc.d/init.d
@@ -133,7 +149,7 @@ rm -rf %{buildroot}
 /usr/sbin/useradd -c "Rasdaman" -s /sbin/nologin -r -d %{rasdir} rasdaman 2> /dev/null || :
 # For SELinux we need to use 'runuser' not 'su'
 # /etc/hosts should contain 127.0.1.1
-grep '127.0.1.1' /etc/hosts && echo "127.0.1.1 `hostname`" >> /etc/hosts
+#grep '127.0.1.1' /etc/hosts && echo "127.0.1.1 `hostname`" >> /etc/hosts
 
 %preun
 # If not upgrading
@@ -159,7 +175,7 @@ else
     SU=su
 fi
 if [ $1 = 0 ] ; then
-	$SU -l postgres -c "dropuser rasdaman"
+	#$SU -l postgres -c "dropuser rasdaman"
 	userdel rasdaman >/dev/null 2>&1 || :
 	groupdel rasdaman >/dev/null 2>&1 || :
 fi
@@ -177,12 +193,16 @@ fi
 %{_bindir}/rview
 %{_bindir}/labels.txt
 %{_bindir}/errtxts
+/usr/.rviewrc
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/rasmgr.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/petascope.conf
 %{_localstatedir}/log/rasdaman/empty
 %{_datadir}/rasdaman/errtxts*
 %attr(700,rasdaman,rasdaman) %dir %{rasdir}
 %attr(644,rasdaman,rasdaman) %config(noreplace) %{rasdir}/basictypes.dl
 %{_sysconfdir}/rc.d/init.d/rasmgr
+%{_datadir}/rasdaman/petascope/*
+/var/lib/tomcat6/webapps/petascope.war
 
 %files devel
 %defattr(-,root,root,-)
@@ -230,7 +250,7 @@ fi
 
 * Fri Oct 21  2011 Dimitar Misev <d.misev@jacobs-university.de> - 8.2.1
 
-- Support for rview and netcdf
+- Support for rview
 
 * Thu Jul 30  2011 Konstantin Kozlov <kozlov@spbcas.ru> - 8.2.1
 
@@ -243,4 +263,5 @@ fi
 * Thu Feb 17  2011 Konstantin Kozlov <kozlov@spbcas.ru> - 8.0.0
 
 - Initial spec
+
 
