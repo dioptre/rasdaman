@@ -89,9 +89,9 @@ void r_Conv_CSV::print(std::ofstream &f, baseType* val, int *dims, int dim) {
       print<baseType, castType>(f, val, dims+1, dim-1);
       f << "},";
     }
-      f << "{";
-      print<baseType, castType>(f, val, dims+1, dim-1);
-      f << "}";    
+    f << "{";
+    print<baseType, castType>(f, val, dims+1, dim-1);
+    f << "}";    
   }
 }
 
@@ -99,7 +99,6 @@ void r_Conv_CSV::printStructVal(std::ofstream &f, char* val) {
   r_Structure_Type *st = (r_Structure_Type*) desc.srcType;
   r_Structure_Type::attribute_iterator iter(st->defines_attribute_begin());
   while (iter != st->defines_attribute_end()) {
-    val += (*iter).offset();
     if ((*iter).type_of().isStructType()) {
       printStructVal(f, val);
     } else if ((*iter).type_of().isPrimitiveType()) {
@@ -116,6 +115,7 @@ void r_Conv_CSV::printStructVal(std::ofstream &f, char* val) {
         case r_Type::CHAR: f << (int) (pt->get_char(val)); break;
         default: f << (int) (pt->get_char(val)); break;
       }
+      val += pt->size();
     }
     iter++;
     if (iter != st->defines_attribute_end())
@@ -125,7 +125,7 @@ void r_Conv_CSV::printStructVal(std::ofstream &f, char* val) {
 
 void r_Conv_CSV::printStruct(std::ofstream &f, char* val, int *dims, int dim) {
   if (dim == 1) {
-    for (int i = 0; i < dims[0]; ++i, val++) {
+    for (int i = 0; i < dims[0]; ++i) {
       f << STRUCT_DELIMITER_OPEN;
       printStructVal(f, &val[0]);
       f << STRUCT_DELIMITER_CLOSE;
