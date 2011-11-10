@@ -117,14 +117,13 @@ signalHandler(int sig)
 			break;
 #ifndef SOLARIS
 #ifndef DECALPHA
+#ifndef __APPLE__
 		case SIGSTKFLT:
 			cout << "Stack fault.";
 			break;
 #endif
 #endif
-		case SIGCLD:
-			cout << "SIGCHLD (System V) or child status has changed (POSIX).";
-			break;
+#endif
 		case SIGCONT:
 			cout << "Continue (POSIX).";
 			break;
@@ -158,12 +157,17 @@ signalHandler(int sig)
 		case SIGWINCH:
 			cout << "Window size change (4.3 BSD, Sun). Continuing operation.";
 			break;
+#ifndef __APPLE__
+		case SIGCLD:
+			cout << "SIGCHLD (System V) or child status has changed (POSIX).";
+			break;
 		case SIGPOLL:
 			cout << "Pollable event occurred (System V) or I/O now possible (4.2 BSD).";
 			break;
 		case SIGPWR:
 			cout << "Power failure restart (System V).";
 			break;
+#endif
 		case SIGSYS:
 			cout << "Bad system call.";
 			break;
@@ -213,10 +217,11 @@ installSignalHandlers()
 	signal(SIGTERM, signalHandler);
 #ifndef SOLARIS
 #ifndef DECALPHA
+#ifndef __APPLE__
 	signal(SIGSTKFLT, signalHandler);
 #endif
 #endif
-	signal(SIGCLD, signalHandler);
+#endif
 	signal(SIGCHLD, signalHandler);
 	signal(SIGCONT, signalHandler);
 	signal(SIGSTOP, signalHandler);
@@ -229,13 +234,18 @@ installSignalHandlers()
 	signal(SIGVTALRM, signalHandler);
 	signal(SIGPROF, signalHandler);
 	signal(SIGWINCH, signalHandler);
+#ifndef __APPLE__
+	signal(SIGCLD, signalHandler);
 	signal(SIGPOLL, signalHandler);
-	signal(SIGIO, signalHandler);
 	signal(SIGPWR, signalHandler);
+#endif
+	signal(SIGIO, signalHandler);
 	signal(SIGSYS, signalHandler);
 #if !defined SOLARIS
 #if !defined DECALPHA
+#ifndef __APPLE__
 	signal(SIGUNUSED, signalHandler);
+#endif
 #endif
 #endif
         LEAVE( "installSignalHandlers" );
