@@ -8,10 +8,6 @@ autom4te.cache
 *.a
 #These are all generated files under openrasdaman
 applications/rasql/rasql
-clientcomm/rpcif.h
-clientcomm/rpcif_clnt.cc
-clientcomm/rpcif_svc.cc
-clientcomm/rpcif_xdr.c
 config.log
 config.status
 insertutils/insertppm
