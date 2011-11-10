@@ -177,7 +177,7 @@ void r_Conv_TIFF::initTIFF( void )
 r_Conv_TIFF::r_Conv_TIFF(const char *src, const r_Minterval &interv, const r_Type *tp) throw(r_Error)
   : r_Convert_Memory(src, interv, tp, true)
 {
-	ENTER( "r_Conv_TIFF::r_Conv_TIFF( " << (src?src:"(null)") << ", (minterval), (type ptr) )" ); 
+	ENTER( "r_Conv_TIFF::r_Conv_TIFF( " << (src?"(src)":"(null)") << ", (minterval), (type ptr) )" ); 
 
 	initTIFF();
 
@@ -275,7 +275,7 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 			RMInit::logOut << "Error: encountered unsupported TIFF base type." << endl;
 			throw r_Error(BASETYPENOTSUPPORTEDBYOPERATION);
 	}
-
+  
 	// Just to make sure nothing serious goes wrong if this conversion
 	// function is called more than once.
 	memfs_newfile(handle);
@@ -370,9 +370,11 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 
 	// build the colour-map (greyscale, i.e. all 3 components identical)
 	// TIFF needs 16 bit values for this (--> tools/tiffdither.c)
-	for (i=0; i<256; i++)
-		cmap[i] = (uint16)(i*((1L << 16) - 1)/255);
-	TIFFSetField(tif, TIFFTAG_COLORMAP, cmap, cmap, cmap);
+  if (desc.baseType == ctype_rgb) {
+    for (i=0; i<256; i++)
+      cmap[i] = (uint16)(i*((1L << 16) - 1)/255);
+    TIFFSetField(tif, TIFFTAG_COLORMAP, cmap, cmap, cmap);
+  }
 
 	// Be VERY, VERY careful about the order and the items you write
 	// out. TIFFWriteDirectory, e.g.,  has very ugly side-effects.
@@ -381,8 +383,7 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 	uint8 *normal=NULL;  // normalised source data
 	uint32 row=0;
 
-	// cout << "r_Conv_TIFF: Main Loop:" << endl;
-	if ((tbuff = new uint32[((width * bpp + 31) >> 5)]) != NULL)
+	if ((tbuff = new uint32[((width * height * bpp) >> 5)]) != NULL)
 	{
 		// now go line by line
 		for (row = 0; row < height; row++, line += lineAdd)
@@ -414,24 +415,14 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 							*normal++ = val;
 					}
 					break;
-				case ctype_rgb:
-					{
-						// copy data (and transpose)
-						for (i=0; i < width; i++, l += pixelAdd)
-						{
-							*normal++ = l[0]; *normal++ = l[1]; *normal++ = l[2];
-						}
-					}
-					break;
         default:
-					{
+          {
 						// copy data (and transpose)
-						for (i=0; i < width; i++, l += pixelAdd)
+						for (i=0; i < width; i++, l += pixelAdd, normal += lineAdd)
 						{
-							*normal = *l;
-              normal += lineAdd;
+              memcpy(normal, l, lineAdd);
 						}
-					}
+          }
 			}
 			if (TIFFWriteScanline(tif, (tdata_t)tbuff, row, 0) < 0)
 				break;
@@ -440,7 +431,7 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 		delete [] tbuff;
 		tbuff = NULL;
 	}
-
+  
 	if (row < height)  // error
 	{
 		TALK( "r_Conv_TIFF::convertTo(): error writing data after " << row << " rows out of " << height << "." );
