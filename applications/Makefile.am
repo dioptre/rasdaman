@@ -28,5 +28,5 @@
 #
 ##################################################################
 
-SUBDIRS=rasql rview
+SUBDIRS=rasql rview rasgeo
 # should also contain rview and directql

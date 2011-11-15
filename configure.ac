@@ -59,6 +59,17 @@ AC_CHECK_LIB([tiff], [TIFFGetField], , [AC_MSG_FAILURE([libtiff.a not found! Ple
 # FIXME: Replace `main' with a function in `-lz':
 AC_CHECK_LIB([z], [main], , [AC_MSG_FAILURE([libz.a not found! Please install.])])
 
+### Due to a strange bug with fnmatch.h, we cannot search for libgdal with AC_CHECK_LIB. 
+### We add the linking flags manually
+AC_PATH_PROG(GDAL_CONFIG, gdal-config, no)
+if test "$GDAL_CONFIG" = "no" ; then
+   AC_MSG_ERROR([could not find gdal-config. Please install libgdal-dev, and add gdal-config to your PATH variable.])
+fi
+GDAL_LIB=`$GDAL_CONFIG --libs`
+GDAL_INC=`$GDAL_CONFIG --cflags`
+LDFLAGS+=$GDAL_LIB
+CXXFLAGS+=$GDAL_INC
+
 
 # Checks for header files.
 AC_PATH_X
@@ -128,6 +139,7 @@ AC_CONFIG_FILES([Makefile
                  applications/Makefile
                  applications/rasql/Makefile
                  applications/rview/Makefile
+                 applications/rasgeo/Makefile
                  bin/Makefile
                  manuals_and_examples/Makefile
                  manuals_and_examples/examples/c++/Makefile
