@@ -87,6 +87,7 @@ private:
     /// parameters
     const char *Conventions;
     const char *Institution;
+    char *variable;
 };
 
 #endif

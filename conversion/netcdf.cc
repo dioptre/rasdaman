@@ -52,12 +52,20 @@ rasdaman GmbH.
 #include <math.h>
 #include <cmath>
 
+#define DEFAULT_VAR "data"
 
 using namespace std;
 
 void r_Conv_NETCDF::initNETCDF(void) {
+    RMInit::logOut << "initializing netcdf...";
     Conventions = "CF-1.4";
     Institution = "rasdaman.org, Jacobs University Bremen";
+    
+    variable = NULL;
+    if (params == NULL)
+      params = new r_Parse_Params();
+    params->add("var", &variable, r_Parse_Params::param_type_string);
+    RMInit::logOut << " done." << endl;
 }
 
 /// constructor using an r_Type object. Exception if the type isn't atomic.
@@ -94,6 +102,11 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
     const char *src = desc.src;
 
     RMInit::logOut << "r_Conv_NETCDF::convertTo" << endl;
+    
+    if (options != NULL) {
+      RMInit::logOut << "options: " << options << endl;
+      params->process(options);
+    }
 
     strncpy(fileName, tmpnam(NULL), 256);
 
@@ -128,6 +141,10 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
     }
 
     // Define a netCDF variable. The type of the variable depends on rasdaman type
+    char* varName = DEFAULT_VAR;
+    if (variable != NULL) {
+      varName = variable;
+    }
     switch (desc.baseType) {
         case ctype_char:
         case ctype_uint8:
@@ -143,7 +160,7 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
                 data[i] = (char) val[0];
             }
             // Define a netCDF variable, in this case of type ncChar
-            NcVar *ncVar = dataFile.add_var("data", ncChar, dimNo, dims);
+            NcVar *ncVar = dataFile.add_var(varName, ncChar, dimNo, dims);
             // Write the data to the file.
             ncVar->put(&data[0], dimSizes);
             delete [] data;
@@ -161,7 +178,7 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
             for (int i = 0; i < dataSize; i++, val++) {
                 data[i] = (short) val[0];
             }
-            NcVar *ncVar = dataFile.add_var("data", ncShort, dimNo, dims);
+            NcVar *ncVar = dataFile.add_var(varName, ncShort, dimNo, dims);
             ncVar->put(&data[0], dimSizes);
             delete [] data;
             break;
@@ -180,7 +197,7 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
             for (int i = 0; i < dataSize; i++, val++) {
                 data[i] = (int) val[0];
             }
-            NcVar *ncVar = dataFile.add_var("data", ncInt, dimNo, dims);
+            NcVar *ncVar = dataFile.add_var(varName, ncInt, dimNo, dims);
             ncVar->put(&data[0], dimSizes);
             delete [] data;
             break;
@@ -196,7 +213,7 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
             for (int i = 0; i < dataSize; i++) {
                 data[i] = (float) val[i];
             }
-            NcVar *ncVar = dataFile.add_var("data", ncFloat, dimNo, dims);
+            NcVar *ncVar = dataFile.add_var(varName, ncFloat, dimNo, dims);
             ncVar->put(&data[0], dimSizes);
             ncVar->add_att("missing_value", "NaNf");
             delete [] data;
@@ -213,7 +230,7 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
             for (int i = 0; i < dataSize; i++, val++) {
                 data[i] = (double) val[0];
             }
-            NcVar *ncVar = dataFile.add_var("data", ncDouble, dimNo, dims);
+            NcVar *ncVar = dataFile.add_var(varName, ncDouble, dimNo, dims);
             ncVar->put(&data[0], dimSizes);
             ncVar->add_att("missing_value", "NaN");
             delete [] data;
@@ -267,6 +284,10 @@ r_convDesc &r_Conv_NETCDF::convertFrom(const char *options) throw (r_Error) {
     char tmpFile [] = "/tmp/tmp.nc";
 
     RMInit::logOut << "r_Conv_NETCDF::convertFrom" << endl;
+    
+    if (options != NULL) {
+      params->process(options);
+    }
 
     const char* src = desc.src;
     // Just write the data to temp file.
@@ -302,12 +323,19 @@ r_convDesc &r_Conv_NETCDF::convertFrom(const char *options) throw (r_Error) {
     for (int i = 0; i < numVars; i++) {
         NcVar *var = dataFile.get_var(i);
         it = dimNames.find(var->name());
-        if (it == dimNames.end() && var->num_dims() > 1) // TODO: check if > 1 is the right condition
+        if (it == dimNames.end() && var->num_dims() > 0) {
+          if (variable == NULL || strcmp(var->name(), variable) == 0) {
             varNames.insert(var->name());
+            if (variable != NULL)
+              break;
+          }
+        }
+    }
+    if (varNames.empty()) {
+      RMInit::logOut << "r_Conv_NETCDF::convertFrom(): no variable found to import." << endl;
+      throw r_Error(r_Error::r_Error_General);
     }
 
-    // For the current time, the first variable only will be imported.
-    // ToDo: Add a parse object to allow the user to specify the varaible name
     it = varNames.begin();
     string varName = *it;
     NcVar *var = dataFile.get_var(varName.c_str());
