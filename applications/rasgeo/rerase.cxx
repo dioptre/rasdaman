@@ -116,7 +116,7 @@ int main(int argc, char** argv)
 	// get the connection file and check readability
 	if (connfile.empty())
 	{
-		connfile = string(getenv("HOME")) + "/.rmanman";
+		connfile = string(getenv("HOME")) + "/.rasconnect";
 		if (access(connfile.c_str(), R_OK) != 0)
 		{
 			NMErr(ctxRerase, << "could not access connection file '"
