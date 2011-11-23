@@ -41,6 +41,7 @@ rasdaman GmbH.
 #include "raslib/parseparams.hh"
 #include "raslib/rminit.hh"
 #include "raslib/primitivetype.hh"
+#include "raslib/structuretype.hh"
 
 
 /*
@@ -141,56 +142,45 @@ r_Convertor::get_storage_handler( ) const
 	return mystore;
 }
 
-
-
-r_Type *r_Convertor::get_external_type( int ctype ) throw(r_Error)
+char* r_Convertor::type_to_string( int ctype ) throw(r_Error)
 {
-	r_Type* retval=NULL;
 	switch (ctype)
 	{
 		case ctype_bool:
-		  retval=r_Type::get_any_type("boolean");
-		  break;
+		  return "boolean";
 		case ctype_char:
 		case ctype_uint8:
-		  retval=r_Type::get_any_type("char");
-		  break;
+		  return "char";
 		case ctype_int8:
-		  retval=r_Type::get_any_type("octet");
-		  break;
+		  return "octet";
 		case ctype_int16:
-		  retval=r_Type::get_any_type("short");
-		  break;
+		  return "short";
 		case ctype_uint16:
-		  retval=r_Type::get_any_type("ushort");
-		  break;
+		  return "ushort";
 		case ctype_int32:
-		  retval=r_Type::get_any_type("long");
-		  break;
+		  return "long";
 		case ctype_uint32:
-		  retval=r_Type::get_any_type("ulong");
-		  break;
+		  return "ulong";
 		case ctype_int64:
-		  retval=r_Type::get_any_type("double");	// currently unsupported
-		  break;
+		  return "double";	// currently unsupported
 		case ctype_uint64:
-		  retval=r_Type::get_any_type("double");	// currently unsupported
-		  break;
+		  return "double";	// currently unsupported
 		case ctype_float32:
-		  retval=r_Type::get_any_type("float");
-		  break;
+		  return "float";
 		case ctype_float64:
-		  retval=r_Type::get_any_type("double");
-		  break;
+		  return "double";
 		case ctype_rgb:
-		  retval=r_Type::get_any_type("struct {char, char, char}");
-		  break;
+		  return "struct {char, char, char}";
 		default:
 		  RMInit::logOut << "Error: in conversion: unsupported type " << ctype << endl;
 		  r_Error err(r_Error::r_Error_General);
 		  throw(err);
 	}
-	return retval;
+}
+
+r_Type *r_Convertor::get_external_type( int ctype ) throw(r_Error)
+{
+  return r_Type::get_any_type(type_to_string(ctype));
 }
 
 
@@ -234,7 +224,22 @@ r_Convertor::get_internal_type(const r_Type* tp, bool fullTypes) throw(r_Error) 
 	if (tp->isStructType())
 	{
 		  // make life easy and always interpret as RGB
-		  retval = ctype_rgb;
+      // add case for structs -- DM 2011-nov-10
+//		  retval = ctype_rgb;
+        r_Structure_Type *st = (r_Structure_Type*) tp;
+        r_Structure_Type::attribute_iterator iter(st->defines_attribute_begin());
+        int bands = 0;
+        while (iter != st->defines_attribute_end()) {
+          ++bands;
+          if (!(*iter).type_of().type_id() == r_Type::CHAR || bands > 3) {
+            return ctype_struct;
+          }
+          iter++;
+        }
+        if (bands != 3)
+          return ctype_struct;
+        else
+          return ctype_rgb;
 	}
 	else
 	{
@@ -247,8 +252,10 @@ r_Convertor::get_internal_type(const r_Type* tp, bool fullTypes) throw(r_Error) 
 				case r_Type::BOOL:
 		  			retval = ctype_bool; break;
 				case r_Type::CHAR:
+            retval = ctype_char; break;
 				case r_Type::OCTET:
-					retval = ctype_char; break;
+          // fixed OCTET to be int8 instead of char -- DM 2011-nov-23
+					  retval = ctype_int8; break;
 				// added (U)LONG -- PB 2005-apr-27
 				case r_Type::LONG:
 		  			retval = ctype_int32; break;
@@ -343,6 +350,9 @@ std::ostream& operator<<(std::ostream& os, r_Convertor::convert_type_e& cte)
 			break;
 		case r_Convertor::ctype_rgb:
 			os << "rgb";
+			break;
+		case r_Convertor::ctype_struct:
+			os << "struct";
 			break;
 		default:
 			os  << "r_Convertor::convert_type_e unknown type: " << cte << endl;

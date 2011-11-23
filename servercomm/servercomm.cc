@@ -724,6 +724,7 @@ ServerComm::clientEndRequest()
 void
 ServerComm::printServerStatus( ostream& s )
 {
+  return; // clutters the logs way too much.. -- DM 22-nov-2011
 	unsigned long currentTime = time(NULL);
 
 	s << "Server state information at " << endl; // << ctime((time_t*)&currentTime) << endl;   

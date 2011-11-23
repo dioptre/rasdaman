@@ -138,6 +138,7 @@ class r_Convertor
      ctype_uint64 && (unsupported)\\
      ctype_float32 && float\\
      ctype_float64 && double\\
+     ctype_struct && struct \\
      \end{tabular}
   */
 
@@ -183,7 +184,9 @@ class r_Convertor
     ctype_int64,
     ctype_uint64,
     ctype_float32,
-    ctype_float64
+    ctype_float64,
+    // shortcut for structures
+    ctype_struct
   };
   
   //@{ helper structure for encoding string-to-int parameters
@@ -192,6 +195,9 @@ class r_Convertor
     int id;
   } convert_string_t;
   //@}
+  
+  /// get a string representation of the internal type
+  static char* type_to_string( int ctype ) throw(r_Error);
 
   /// get a r_Type from an internal type
   static r_Type *get_external_type( int ctype ) throw(r_Error);

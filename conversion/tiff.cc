@@ -23,6 +23,7 @@ rasdaman GmbH.
 
 #include <iostream>
 #include <string.h>
+#include <sstream>
 
 #ifdef AIX
 #include <strings.h>
@@ -33,7 +34,11 @@ rasdaman GmbH.
 #include "raslib/error.hh"
 #include "raslib/rminit.hh"
 #include "raslib/parseparams.hh"
+#include "raslib/structuretype.hh"
+#include "raslib/primitivetype.hh"
 #include "debug/debug.hh"
+
+using namespace std;
 
 const int r_Conv_TIFF::defaultRPS = 32;
 
@@ -150,6 +155,22 @@ int r_Conv_TIFF::get_resunit_from_name(const char* strResUnit)
 	return tiffResUnit;
 }
 
+/// Capture errors
+void TIFFError(const char* /*module*/, const char* fmt, va_list argptr)
+{
+  char msg[10240];  
+  vsprintf (msg, fmt, argptr);
+  RMInit::logOut << "TIFF error: " << msg << endl;
+}
+
+/// Capture warnings
+void TIFFWarning(const char* /*module*/, const char* fmt, va_list argptr)
+{
+  char msg[10240];  
+  vsprintf (msg, fmt, argptr);
+  RMInit::logOut << "TIFF warning: " << msg << endl;
+}
+
 /// internal initialization, common to all constructors
 void r_Conv_TIFF::initTIFF( void )
 {
@@ -169,6 +190,10 @@ void r_Conv_TIFF::initTIFF( void )
 	params->add("bpp", &override_bpp, r_Parse_Params::param_type_int);
 	params->add("bps", &override_bps, r_Parse_Params::param_type_int);
 	params->add("depth", &override_depth, r_Parse_Params::param_type_int);
+  
+  // set our error handlers
+  TIFFSetErrorHandler(TIFFError);
+  TIFFSetWarningHandler(TIFFWarning);
 
 	LEAVE( "r_Conv_TIFF::initTIFF()" );
 }
@@ -216,12 +241,8 @@ r_Conv_TIFF::~r_Conv_TIFF(void)
 r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 {
 	ENTER( "r_Conv_TIFF::convertTo( " << (options?options:"(null)") << " )" );
-
-	if (options != NULL)
-		printf("tiff convert option = %s\n", options);
-	else
-		printf("tiff options are null = %s\n", options);
-	TIFF *tif=NULL;
+  
+	TIFF *tif = NULL;
 	char dummyFile[256];
 	uint16 cmap[256];             // Colour map (for greyscale images)
 	uint32 pixelAdd=0, lineAdd=0;  // number of _bytes_ to add to a pointer
@@ -230,6 +251,9 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 	uint16 bps=0, bpp=0;
 	uint32 width=0, height=0, i=0;
 	int tiffcomp = COMPRESSION_NONE;
+  
+  int sampleFormat = SAMPLEFORMAT_INT;
+  int spp; // samples per pixel
 
 	params->process(options);
 
@@ -270,6 +294,52 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
     case ctype_float64:
 			bps = 64; bpp = 64; pixelAdd = 8*height; lineAdd = 8;
 			break;
+    case ctype_struct:
+    {
+      r_Structure_Type *st = (r_Structure_Type*) desc.srcType;
+      spp = st->count_elements();
+      
+      int structSize = 0;
+      r_Type::r_Type_Id bandType = r_Type::UNKNOWNTYPE;
+      
+      // iterate over the attributes of the struct
+      r_Structure_Type::attribute_iterator iter(st->defines_attribute_begin());
+      while (iter != st->defines_attribute_end()) {
+        
+        if ((*iter).type_of().isPrimitiveType()) {
+          r_Primitive_Type *pt = (r_Primitive_Type*) &(*iter).type_of();
+          structSize += pt->size();
+
+          if (bandType == r_Type::UNKNOWNTYPE) {
+            bandType = (*iter).type_of().type_id();
+            
+            // set sample format
+            switch ((*iter).type_of().type_id()) {
+              case r_Type::CHAR:
+              case r_Type::USHORT:
+              case r_Type::ULONG:
+                sampleFormat = SAMPLEFORMAT_UINT;
+                break;
+              case r_Type::FLOAT:
+              case r_Type::DOUBLE:
+                sampleFormat = SAMPLEFORMAT_IEEEFP;
+            }
+          }
+          // check if all bands are of the same type
+          if ((*iter).type_of().type_id() != bandType) {
+            RMInit::logOut << "r_Conv_TIFF::convertTo(): can't handle bands of different types" << endl;
+            throw r_Error(BASETYPENOTSUPPORTEDBYOPERATION);
+          }
+        } else {
+          RMInit::logOut << "r_Conv_TIFF::convertTo(): can't handle band of non-primitive type "
+                  << (*iter).type_of().name() << endl;
+          throw r_Error(BASETYPENOTSUPPORTEDBYOPERATION);
+        }
+        iter++;
+      }
+      bpp = structSize*8; bps = bpp / spp; pixelAdd = structSize*height; lineAdd = structSize;
+      break;
+    }
 		default:
 			TALK( "r_Conv_TIFF::convertTo(): error: unsupported base type " << desc.baseType << "." );
 			RMInit::logOut << "Error: encountered unsupported TIFF base type." << endl;
@@ -315,14 +385,12 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 	else
 	{
 		if (desc.baseType == ctype_char)
-		{
-			TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, (uint16)PHOTOMETRIC_PALETTE);
-		}
+      TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, (uint16)1);
+    else if (desc.baseType == ctype_struct)
+      TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, spp);
 		else
-		{
-			TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, (uint16)PHOTOMETRIC_MINISBLACK);
-		}
-		TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, (uint16)1);
+      TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, (uint16)1);
+		TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, (uint16)PHOTOMETRIC_MINISBLACK);
     
     // set sample format tag
     switch (desc.baseType)
@@ -331,23 +399,25 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
       case ctype_float64:
         TIFFSetField( tif, TIFFTAG_SAMPLEFORMAT, SAMPLEFORMAT_IEEEFP );
         break;
+      case ctype_char:
       case ctype_uint8:
       case ctype_uint16:
       case ctype_uint32:
       case ctype_uint64:
-        RMInit::logOut << "Setting uint sample format" << endl;
         TIFFSetField( tif, TIFFTAG_SAMPLEFORMAT, SAMPLEFORMAT_UINT );
         break;
-      case ctype_char:
       case ctype_int8:
       case ctype_int16:
       case ctype_int32:
       case ctype_int64:
         TIFFSetField( tif, TIFFTAG_SAMPLEFORMAT, SAMPLEFORMAT_INT );
         break;
+      case ctype_struct:
+        TIFFSetField( tif, TIFFTAG_SAMPLEFORMAT, sampleFormat );
+        break;
     }
 	}
-	TIFFSetField(tif, TIFFTAG_PLANARCONFIG, (uint16)PLANARCONFIG_CONTIG);
+  TIFFSetField(tif, TIFFTAG_PLANARCONFIG, (uint16)PLANARCONFIG_CONTIG);
 	TIFFSetField(tif, TIFFTAG_ROWSPERSTRIP, TIFFDefaultStripSize(tif, (uint32)-1));
 	//TIFFSetField(tif, TIFFTAG_MINSAMPLEVALUE, (uint16)0);
 	//TIFFSetField(tif, TIFFTAG_MAXSAMPLEVALUE, (uint16)255);
@@ -385,8 +455,9 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 
 	if ((tbuff = new uint32[((width * height * bpp) >> 5)]) != NULL)
 	{
+    int error = 0; // indicates if writing succeeded
 		// now go line by line
-		for (row = 0; row < height; row++, line += lineAdd)
+		for (row = 0; row < height && !error; row++, line += lineAdd)
 		{
 			normal = (uint8 *)tbuff; l = line;
 
@@ -415,6 +486,25 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 							*normal++ = val;
 					}
 					break;
+        case ctype_struct:
+          {
+            int Bps = bps/8; // bytes per sample
+            for (int j=0; j < spp; j++) {
+              int offset = j*Bps; // an offset to the j-th band
+              l = line + offset;
+              normal = (uint8 *)tbuff + offset;
+              for (int i = 0; i < width; i++, l += pixelAdd, normal += lineAdd)
+              {
+                memcpy(normal, l, Bps);
+              }
+              // write each band separately
+              if (TIFFWriteScanline(tif, (tdata_t)tbuff, row, j) < 0) {
+                error = 1;
+                break;
+              }
+            }
+            break;
+          }
         default:
           {
 						// copy data (and transpose)
@@ -424,8 +514,9 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 						}
           }
 			}
-			if (TIFFWriteScanline(tif, (tdata_t)tbuff, row, 0) < 0)
-				break;
+      if (desc.baseType != ctype_struct)
+        if (TIFFWriteScanline(tif, (tdata_t)tbuff, row, 0) < 0)
+          break;
 		}
 
 		delete [] tbuff;
@@ -473,15 +564,13 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 {
 	ENTER( "r_Conv_TIFF::convertFrom( " << (options?options:"(null") << " )" );
 
-	if (options != NULL)
-		printf("tiff convert option = %s\n", options);
-	else
-		printf("tiff options are null\n");
 	params->process(options); //==> CHECK THIS "IMP"
 	TIFF *tif=NULL;
 	char dummyFile[256];
-	int isOK=0, typeSize=0;
-	uint16 bps=0, bpp=0, spp=0, planar=0, photometric=0;
+	int typeSize=0;
+  int bandType=ctype_void;
+  uint16 sampleFormat=0;
+	uint16 bps=0, bpp=0, spp=0, planar=0, photometric=0, Bpp=0, Bps=0;
 	uint32 width=0, height=0, pixelAdd=0, lineAdd=0, i=0;
 	uint16 *reds=NULL, *greens=NULL, *blues=NULL;
 
@@ -492,8 +581,7 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 	// Create dummy file for use in the TIFF open function
 	sprintf(dummyFile, dummyFileFmt, (void*)handle);
 	fclose(fopen(dummyFile, "wb"));
-	std::cout << "r_Conv_TIFF: Dummy created OK" << endl;
-
+  
 	// Open and force memory mapping mode
 	tif = TIFFClientOpen(dummyFile, "rM", handle,
 			memfs_chunk_read, memfs_chunk_read, memfs_chunk_seek, memfs_chunk_close,
@@ -504,118 +592,130 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 		RMInit::logOut << "r_Conv_TIFF::convertFrom(): unable to open file!" << endl;
 		throw r_Error(r_Error::r_Error_General);
 	}
-	//cout << "r_Conv_TIFF: Opened OK" << endl;
 
 	//TIFFPrintDirectory(tif, stdout, 0);
 
 	TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bps);
 	TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &spp);
+  
+  if (override_bps)
+    bps = override_bps;
 	bpp = spp * bps;
+  if (override_bpp)
+    bpp = override_bpp;
+  Bpp = bpp/8; // bytes per pixel
+  Bps = bps/8; // bytes per sample
+  if (override_depth) {
+    Bpp = Bps = override_depth/8;
+  }
+  pixelAdd = Bpp*height;
+  lineAdd = typeSize = Bpp;
+  
 	TIFFGetField(tif, TIFFTAG_PLANARCONFIG, &planar);
 	TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &width);
 	TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
 	TIFFGetField(tif, TIFFTAG_PHOTOMETRIC, &photometric);
+  TIFFGetField(tif, TIFFTAG_SAMPLEFORMAT, &sampleFormat);
+  
 
-	// Filter out the kind of image we understand.
-	isOK = -1;
-	if ((bps != 1) && (bps != 8) && (bps != 32) && (bps != 16)) /* ADDED (bps != 32) since this is float data; also added (bps != 16)*/
+	if (planar == PLANARCONFIG_CONTIG) // must be contiguous for our case to handle, other cases not dealt yet
 	{
-		RMInit::logOut << "r_Conv_TIFF::convertFrom(): bad number of bits per sample: " << bps << " (must be 1 or 8 or 32 or 16)" << endl; /* ADDED 'or 32' */
-		if (override_bps)
-			bps = override_bps;
-		else
-			isOK = 0;
-	}
-	if ((bpp != 1) && (bpp != 8) && (bpp != 24) && (bpp != 32) && (bpp != 16)) /* ADDED bps = 32 and samples/pixel = 1 so bpp = 32; Also added bpp = 16 */
-	{
-		RMInit::logOut << "r_Conv_TIFF::convertFrom(): bad number of bits per pixel: " << bpp << " (must be 1, 8 or 24 or 32 or 16)" << endl; /* ADDED 'or 32' */
-		if (override_bpp)  
-			bpp = override_bpp;
-		else
-			isOK = 0;
-	}
-	if (planar != PLANARCONFIG_CONTIG)// must be contiguous for our case to handle, other cases not dealt yet
-	{
-		RMInit::logOut << "r_Conv_TIFF::convertFrom(): can't handle bitplanes!" << endl;
-		isOK = 0;
-	}
+    switch (sampleFormat)
+    {
+      case SAMPLEFORMAT_INT:
+        {
+          switch (Bps)
+          {
+            case 1: bandType = ctype_int8;   break;
+            case 2: bandType = ctype_int16;  break;
+            case 4: bandType = ctype_int32;  break;
+            default: {
+              RMInit::logOut << "r_Conv_TIFF::convertFrom(): can't handle band type of signed integer, of length: " << Bps << endl;
+              throw r_Error(BASETYPENOTSUPPORTEDBYOPERATION);
+            }
+          }
+        }
+        break;
+      case SAMPLEFORMAT_UINT:
+        {
+          switch (Bps)
+          {
+            case 1: bandType = ctype_char;    break;
+            case 2: bandType = ctype_uint16;  break;
+            case 4: bandType = ctype_uint32;  break;
+            default: {
+              RMInit::logOut << "r_Conv_TIFF::convertFrom(): can't handle band type of unsigned integer, of length: " << Bps << endl;
+              throw r_Error(BASETYPENOTSUPPORTEDBYOPERATION);
+            }
+          }
+        }
+        break;
+      case SAMPLEFORMAT_IEEEFP:
+        {
+          switch (Bps)
+          {
+            case 4: bandType = ctype_float32; break;
+            case 8: bandType = ctype_float64; break;
+            default: {
+              RMInit::logOut << "r_Conv_TIFF::convertFrom(): can't handle band type of floating point, of length: " << Bps << endl;
+              throw r_Error(BASETYPENOTSUPPORTEDBYOPERATION);
+            }
+          }
+        }
+        break;
+      default:
+        {
+          RMInit::logOut << "sample format default" << endl;
+          switch (bpp)
+          {
+            case 1 : bandType = ctype_bool;    break;
+            case 8 : bandType = ctype_char;    break;
+            case 16: bandType = ctype_uint16;  break;
+            case 24: bandType = ctype_rgb;     break;
+            case 32: bandType = ctype_float32; break;
+            case 64: bandType = ctype_float64; break;
+          }
+        }
+    }
+    
+    if ((photometric == PHOTOMETRIC_PALETTE) && (override_depth != 0))
+    {
+      TIFFGetField(tif, TIFFTAG_COLORMAP, &reds, &greens, &blues);
+      for (i=0; i<256; i++) 
+      {
+        if ((reds[i] != greens[i]) || (greens[i] != blues[i])) break;
+      }
 
-	if (isOK) // isOK = -1
-	{
-		std::cout << "r_Conv_TIFF: Image OK: bps = " << bps << ", spp = " << spp << ", width = " << width << ", height = " << height << endl;
-		if (bpp == 32){
-			desc.baseType = ctype_float32;
-			pixelAdd = 4*height; lineAdd = 4; typeSize = 4;
+      if (i < 256)
+      {
+        pixelAdd = 3*height; lineAdd = 3; typeSize = 3;
+        desc.baseType = ctype_rgb;
+      }
+      else
+      {
+        pixelAdd = height; lineAdd = 1; typeSize = 1;
+        desc.baseType = ctype_char;
+      }
 
-		}
-		else if (bpp == 24) 
-		{
-			pixelAdd = 3*height; lineAdd = 3; typeSize = 3;
-			desc.baseType = ctype_rgb;
-		}
-		else if (bpp == 16)
-		{
-			desc.baseType = ctype_uint16;
-			pixelAdd = 2*height; lineAdd = 2; typeSize = 2;
-		}
-		else
-		{
-			if ((photometric == PHOTOMETRIC_PALETTE) && (override_depth != 1))
-			{
-				TIFFGetField(tif, TIFFTAG_COLORMAP, &reds, &greens, &blues);
-				for (i=0; i<256; i++) 
-				{
-					if ((reds[i] != greens[i]) || (greens[i] != blues[i])) break;
-				}
-
-				if (i < 256)
-				{
-					pixelAdd = 3*height; lineAdd = 3; typeSize = 3;
-					desc.baseType = ctype_rgb;
-				}
-				else
-				{
-					pixelAdd = height; lineAdd = 1; typeSize = 1;
-					desc.baseType = ctype_char;
-				}
-
-				if (override_depth)
-				{
-					switch (override_depth)
-					{
-						case 1:
-							pixelAdd = height; lineAdd = 1; typeSize = 1;
-							desc.baseType = ctype_bool;
-							break;
-						case 8:
-							pixelAdd = height; lineAdd = 1; typeSize = 1;
-							desc.baseType = ctype_char;
-							break;
-						case 24:
-							pixelAdd = 3*height; lineAdd = 3; typeSize = 3;
-							desc.baseType = ctype_rgb;
-							break;
-							/*
-							// MUST add here for case 32 */
-						case 32:
-							pixelAdd = 4*height; lineAdd = 4; typeSize = 4;
-							desc.baseType = ctype_float32;
-							break;
-							// add for 16 bit unsigned and signed case
-						case 16:
-							pixelAdd = 2*height; lineAdd = 2; typeSize = 2;
-							desc.baseType = ctype_uint16;
-							break;
-
-					}
-				}
-			} // if ((photometric == PHOTOMETRIC_PALETTE) && (override_depth != 1)) CLOSED
-			else
-			{
-				pixelAdd = height; lineAdd = 1; typeSize = 1;
-				desc.baseType = (bpp == 1) ? ctype_bool : ctype_char;
-			}
-		} // if sample is not RGB CLOSED
+      switch (override_depth)
+      {
+        case 1 : desc.baseType = ctype_bool;    break;
+        case 8 : desc.baseType = ctype_char;    break;
+        case 16: desc.baseType = ctype_uint16;  break;
+        case 24: desc.baseType = ctype_rgb;     break;
+        case 32: desc.baseType = ctype_float32; break;
+        case 64: desc.baseType = ctype_float64; break;
+      }
+    }
+    else if (spp > 1 && (spp != 3 || (spp == 3 && bpp != 24)))
+    {
+      // multiband when not rgb and more than 1 sample per pixel
+      desc.baseType = ctype_struct;
+    }
+    else
+    {
+      desc.baseType = bandType;
+    }
 
 
 		if ((desc.dest = (char*)mystore.storage_alloc(width*height*typeSize*sizeof(char))) == NULL)
@@ -624,7 +724,6 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 		}
 		else
 		{
-			std::cout << "r_Conv_TIFF: baseType = " << desc.baseType << ", size = " << typeSize << ", pixelAdd = " << pixelAdd << ", lineAdd = " << lineAdd << endl;
 			uint32 *tbuff=NULL;
 			char *l=NULL, *line = desc.dest;
 			uint8 *normal=NULL;
@@ -634,8 +733,11 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 			{
 				for (row = 0; row < height; row++, line += lineAdd)
 				{
-					if (TIFFReadScanline(tif, (tdata_t)tbuff, row, 0) < 0) break;
-					normal = (uint8 *)tbuff; l = line;
+          if (desc.baseType != ctype_struct) {
+            if (TIFFReadScanline(tif, (tdata_t)tbuff, row, 0) < 0)
+              break;
+            normal = (uint8 *)tbuff; l = line;
+          }
 					switch (desc.baseType)
 					{
 						case ctype_bool: // when cytpe is bool 
@@ -690,29 +792,28 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 								}
 							}
 							break;
-
-
-							/* FOR NEW float type */
-						case ctype_float32:
+            case ctype_struct:
+              {
+                for (int j=0; j < spp; j++) {
+                  TIFFReadScanline(tif, (tdata_t)tbuff, row, j); // read the j-th band
+                  
+                  int offset = j*Bps; // an offset to the j-th band
+                  l = line + offset;
+                  normal = (uint8 *)tbuff + offset;
+                  for (int i = 0; i < width; i++, l += pixelAdd, normal += lineAdd)
+                  {
+                    memcpy(l, normal, Bps);
+                  }
+                }
+                break;
+              }
+              break;
+						default:
 							{
-								for (i=0; i < width; i++)
-								{
-									*((float*)l) = *((float*)normal);
-									l += pixelAdd;
-									normal += 4;
-								}
-							}
-							break;
-
-							/* FOR NEW UNSIGNED INT 16 BIT TYPE */
-						case ctype_uint16:
-							{
-								for(i=0; i < width; i++)
-								{
-									*((uint16*)l) = *((uint16*)normal);
-									l += pixelAdd;
-									normal += 2;
-								}
+								for (i=0; i < width; i++, l += pixelAdd, normal += lineAdd)
+                {
+                  memcpy(l, normal, lineAdd);
+                }
 							}
 							break;
 
@@ -730,7 +831,9 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 				throw r_Error(r_Error::r_Error_General);
 			}
 		}
-	} // is OK CLOSED
+	} else {
+    RMInit::logOut << "r_Conv_TIFF::convertFrom(): can't handle bitplanes!" << endl;
+  }
 
 	TIFFClose(tif);
 	remove(dummyFile);
@@ -740,8 +843,23 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 	desc.destInterv << r_Sinterval(r_Range(0), r_Range(width - 1))
 		<< r_Sinterval( r_Range(0), r_Range(height - 1));
 
-	desc.destType = get_external_type(desc.baseType);
-
+  // build destination type
+  if (desc.baseType == ctype_struct) {
+    // construct and set the structure type
+    char* bt = type_to_string(bandType);
+    stringstream destType(stringstream::out);
+    destType << "struct { ";
+    for (int i = 0; i < spp; i++)
+    {
+      if (i > 0)
+        destType << ", ";
+      destType << bt;
+    }
+    destType << " }";
+    desc.destType = r_Type::get_any_type(destType.str().c_str());
+  } else
+    desc.destType = get_external_type(desc.baseType);
+  
 	LEAVE( "r_Conv_TIFF::convertFrom()" );
 	return desc;
 }
