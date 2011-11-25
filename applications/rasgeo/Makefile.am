@@ -21,7 +21,7 @@
 # or contact Peter Baumann via <baumann@rasdaman.com>.
 #
 # MAKEFILE FOR:
-#   rmanman
+#   rasgeo
 #
 #
 # COMMENTS:
@@ -50,7 +50,10 @@ setupdb:
 	psql -d RASBASE -f createEmptyNM_META.sql
 	
 install:
-	cp rasimport raserase $(DESTDIR)$(bindir)	
-	
-rasconnect:
-	cp .rasconnect $(HOME)	
+	cp rasimport raserase $(DESTDIR)$(bindir)
+
+connectfile:
+	if [ ! -d $(HOME)/.rasdaman ]; then \
+		mkdir $(HOME)/.rasdaman; \
+	fi
+	cp rasconnect $(HOME)/.rasdaman/

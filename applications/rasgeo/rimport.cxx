@@ -44,6 +44,7 @@
 
 
 #include "rimport.h"
+#include "include/globals.hh"
 
 using namespace std;
 
@@ -1114,7 +1115,7 @@ main(int argc, char** argv)
 	// get the connection file and check readability
 	if (connfile.empty())
 	{
-		connfile = string(getenv("HOME")) + "/.rasconnect";
+		connfile = string(getenv("HOME")) + "/" + RAS_USER_RESOURCEDIR + "/rasconnect";
 		if (access(connfile.c_str(), R_OK) != 0)
 		{
 			NMErr(ctxRimport, << "could not access connection file '"

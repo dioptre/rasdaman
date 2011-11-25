@@ -11,15 +11,23 @@ other smart projects and people sharing their knowledge on the web!
 CONFIGURATION
 =============  
 
-We recommend to create a .rasconnect configuration file in your home
-directory ($HOME/.rasconnect) and adjust the parameters to your local 
-configuration. To create the file, just call 
+To successfully connect to rasdaman, rasgeo applications require 
+information about your local data base and user name/password 
+configuration. To achieve that you can either specify an appropriate
+parameter file using the '-conn' option 
 
-    make rasconnect   
+   $ raserase -coll mycoll -conn my/parameter/file 
+   
+or you can create a parameter file in the default rasdaman user
+resources directory '$HOME/.rasdaman/'. To create a configuration
+file containing a sample configuration just call
 
-from within this directory (i.e. $RMANHOME/applications/rasgeo). Adjust access
-to the file according to your local security requirements. The structure of the
-file is as follows (sample configuration):
+	make connectfile
+
+from within this directory. Then open the file and adjust the parameters
+to your local configuration and access to the file according to your local
+security requirements. The structure of the file is as follows 
+(sample configuration):
 
     host=localhost
     rasport=7001

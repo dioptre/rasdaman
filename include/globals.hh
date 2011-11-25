@@ -61,6 +61,9 @@ rasdaman GmbH.
 /// name of rasmgr authentication file
 #define RASMGR_AUTH_FILE	"rasmgr.auth"
 
+/// default resource directory (e.g. for configuration files)
+#define RAS_USER_RESOURCEDIR ".rasdaman"
+
 /// default r/o login name for client tools
 #define DEFAULT_USER		"rasguest"
 /// default password for this user
