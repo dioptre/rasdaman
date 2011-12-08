@@ -170,7 +170,7 @@ static size_t pathmax = 0;
 #define    PATH_MAX_GUESS MAXPATHLEN
 #else
 #define    PATH_MAX_GUESS 1024  /* Falls PATH_MAX undefiniert (dynamisch) */
-#endif                          /* ist, ist dies u.U. nicht ad�quat!      */
+#endif                          /* ist, ist dies u.U. nicht adaequat!      */
 
 char *PathAlloc( size_t *size )
 {

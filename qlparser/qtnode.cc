@@ -266,61 +266,6 @@ QtNode::simplify()
 }
 
 
-/*
-void
-QtNode::rewriteOps()
-{
-  RMDBGONCE( 1, RMDebug::module_qlparser, "QtNode", " QtNode::rewriteOps() " )
-
-  // Default method for all classes that have no implementation.
-  // Method is used top down.
-
-  QtNodeList* resultList=NULL;
-  QtNodeList::iterator iter;
-
-  resultList = getChilds( QT_DIRECT_CHILDS );
-  for( iter=resultList->begin(); iter!=resultList->end(); iter++ )
-    (*iter)->rewriteOps();
-
-  delete resultList;
-  resultList=NULL;
-}
-*/
-
-/*
-void
-QtNode::sortAssociativeOps()
-{
-  RMDBGONCE( 1, RMDebug::module_qlparser, "QtScale", " QtNode::sortAssociativeOps()" )
-
-  // Default method for all nodes that have no own method
-  // method is used top down
-
-  QtNodeList* resultList=NULL;
-  QtNodeList::iterator iter;
-
-  resultList = getChilds( QT_DIRECT_CHILDS );
-
-  for( iter=resultList->begin(); iter!=resultList->end(); iter++ )
-    (*iter)->sortAssociativeOps();
-
-  delete resultList;
-  resultList=NULL;
-}
-*/
-
-
-/*
-void
-QtNode::checkIdempotency()
-{
-  RMDBGONCE( 1, RMDebug::module_qlparser, "QtNode", " QtNode::checkIdempotency()" )
-
-  // method is used bottom up
-  // default method for all nodes that have no own method
-}
-*/
-
 QtNode::QtNodeType 
 QtNode::getQtNodeTypeParent (QtNode::QtNodeType node) {
 	int i = 0;

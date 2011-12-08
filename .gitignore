@@ -57,3 +57,4 @@ dbparams.properties
 petascope/build
 petascope/db/settings.properties
 petascope/nbproject/private/
+Makefile

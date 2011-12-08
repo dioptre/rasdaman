@@ -114,12 +114,6 @@ class QtPlus : public QtBinaryInduce
     /// constructor getting the two operands
     QtPlus( QtOperation* input1, QtOperation* input2 );
 
-    /// optimizes the tree
-//    virtual void rewriteOps();
-
-    /// optimizes the tree
-//    virtual void sortAssociativeOps();
-
     ///for associative law
     virtual QtOperation* getUniqueOrder( const QtNode::QtNodeType ID );
 
@@ -179,12 +173,6 @@ class QtMult : public QtBinaryInduce
   public:
     /// constructor getting the two operands
     QtMult( QtOperation* input1, QtOperation* input2 );
-
-    /// optimizes the tree
-//    virtual void rewriteOps();
-
-    /// optimizes the tree
-//    virtual void sortAssociativeOps();
 
     /// optimizes the tree
     virtual QtOperation* getUniqueOrder( const QtNode::QtNodeType ID );

@@ -110,9 +110,6 @@ class QtSome : public QtCondense
     /// constructor getting the operand
     QtSome( QtOperation* input );
 
-    /// optimizes the tree
-//    virtual void rewriteOps();
-
     /// method for evaluating the node
     QtData* evaluate( QtDataList* inputList );
 
@@ -148,9 +145,6 @@ class QtAll : public QtCondense
 
     /// constructor getting the operand
     QtAll( QtOperation* input );
-
-    /// optimizes the tree
-//    virtual void rewriteOps();
 
     /// method for evaluating the node
     QtData* evaluate( QtDataList* inputList );

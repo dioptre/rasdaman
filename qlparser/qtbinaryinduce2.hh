@@ -54,9 +54,6 @@ class QtIs : public QtBinaryInduce
     /// constructor getting the two operands
     QtIs( QtOperation* input1, QtOperation* input2 );
 
-    /// check idempetency rules
-//    virtual void checkIdempotency();
-
     /// prints the tree 
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
@@ -83,12 +80,6 @@ class QtAnd : public QtBinaryInduce
   public:
     /// constructor getting the two operands
     QtAnd( QtOperation* input1, QtOperation* input2 );
-
-    /// heuristic ordering of operands
-//    virtual void rewriteOps();
-
-    /// check idempetency rules
-//    virtual void checkIdempotency();
 
     /// method for evaluating the node
     QtData* evaluate( QtDataList* inputList );
@@ -120,12 +111,6 @@ class QtOr : public QtBinaryInduce
     /// constructor getting the two operands
     QtOr( QtOperation* input1, QtOperation* input2 );
 
-    /// heuristic ordering of operands
-//    virtual void rewriteOps();
-
-    /// check idempetency rules
- //   virtual void checkIdempotency();
-
     /// method for evaluating the node
     QtData* evaluate( QtDataList* inputList );
 
@@ -156,9 +141,6 @@ class QtXor : public QtBinaryInduce
     /// constructor getting the two operands
     QtXor( QtOperation* input1, QtOperation* input2 );
 
-    /// check idempetency rules
-//    virtual void checkIdempotency();
-
     /// prints the tree 
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
@@ -185,9 +167,6 @@ class QtEqual : public QtBinaryInduce
   public:
     /// constructor getting the two operands
     QtEqual( QtOperation* input1, QtOperation* input2 );
-
-    /// check idempetency rules
-//    virtual void checkIdempotency();
 
     /// prints the tree 
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
@@ -276,9 +255,6 @@ class QtNotEqual : public QtBinaryInduce
     /// constructor getting the two operands
     QtNotEqual( QtOperation* input1, QtOperation* input2 );
 
-    /// check idempetency rules
-//    virtual void checkIdempotency();
-
     /// prints the tree 
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
@@ -304,9 +280,6 @@ class QtOverlay : public QtBinaryInduce
   public:
     /// constructor getting the two operands
     QtOverlay( QtOperation* input1, QtOperation* input2 );
-
-    /// check idempetency rules
-//    virtual void checkIdempotency();
 
     /// check commutativity
     bool isCommutative() const;

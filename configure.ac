@@ -222,7 +222,7 @@ AC_ARG_WITH([static-libs],
 AC_ARG_WITH([pic],
             [AS_HELP_STRING([--with-pic], 
                             [generate position independent code (PIC)])],
-            [CXXFLAGS+=" -fpic "],
+            [CXXFLAGS+=" -fPIC " CFLAGS+= " -fPIC "],
             [])
 
 # postgres is automatically defined in m4/ct_check_postgres_db.m4

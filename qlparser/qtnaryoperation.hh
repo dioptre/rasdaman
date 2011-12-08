@@ -86,9 +86,6 @@ class QtNaryOperation : public QtOperation
     /// tests if the edge to the parent node is of type mdd or atomic
     virtual QtAreaType getAreaType();
 
-    /// method for checking idempotency rules
-//    virtual void checkIdempotency();
-
     /// optimizing load access
     virtual void optimizeLoad( QtTrimList* trimList );
     /**

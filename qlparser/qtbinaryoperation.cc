@@ -338,15 +338,6 @@ QtBinaryOperation::getAreaType()
 }
 
 
-// idempotent
-
-/*
-void
-QtBinaryOperation::checkIdempotency()
-{
-}
-*/
-
 // optimize load
 
 void

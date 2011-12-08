@@ -87,9 +87,6 @@ class QtBinaryOperation : public QtOperation
     /// method for query rewrite
     inline virtual void setInput( QtOperation* inputOld, QtOperation* inputNew );
 
-    /// method for checking idempotency rules
-//    virtual void checkIdempotency();
-
     /// optimizing load access
     virtual void optimizeLoad( QtTrimList* trimList );
     /**

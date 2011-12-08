@@ -54,21 +54,6 @@ QtIs::QtIs( QtOperation* initInput1, QtOperation* initInput2 )
 {
 }
 
-/*
-void
-QtIs::checkIdempotency()
-{
-  if( input1->getSpelling().compare( input2->getSpelling() ) == 0 )
-  {
-    RMInit::logOut << "> rule (idempotency): A IS A -> TRUE" << endl;
-
-    getParent()->setInput( this, new QtConst( new QtAtomicData( 1 ) ) );
-
-    // delete the node itself and its descendants
-    delete this;
-  };
-}
-*/
 
 void
 QtIs::printTree( int tab, ostream& s, QtChildType mode )
@@ -106,110 +91,6 @@ QtAnd::QtAnd( QtOperation* initInput1, QtOperation* initInput2 )
   :  QtBinaryInduce( initInput1, initInput2, Ops::OP_AND )
 {
 }
-
-/*
-void
-QtAnd::checkIdempotency()
-{
-  if( input2->getNodeType()                           == QtNode::QT_CONST &&
-      ((QtConst*)input2)->getDataObj()->getDataType() == QT_BOOL     )
-  {
-    QtAtomicData* boolData = (QtAtomicData*)((QtConst*)input2)->getDataObj();
-
-    if( boolData->getUnsignedValue() )
-    {
-      RMInit::logOut << "> rule (idempotency): A AND TRUE -> A" << endl;
-
-      getParent()->setInput( this, input1 );
-
-      // delete the node itself and its descendants but not input1
-      setInput1(NULL);
-      delete this;
-    }
-    else
-    {
-      if( input1->getAreaType() == QtNode::QT_AREA_SCALAR )
-      {
-        RMInit::logOut << "> rule (idempotency): A (scalar) AND FALSE -> FALSE" << endl;
-
-        getParent()->setInput( this, input2 );
-
-        // delete the node itself and its descendants but not input2
-        setInput2(NULL);
-        delete this;
-      };
-    }
-  }
-  else
-    if( input1->getNodeType()                           == QtNode::QT_CONST && 
-        ((QtConst*)input1)->getDataObj()->getDataType() == QT_BOOL     )
-    {
-      QtAtomicData* boolData = (QtAtomicData*)((QtConst*)input1)->getDataObj();
-
-      if( boolData->getUnsignedValue() )
-      {
-        RMInit::logOut << "> rule (idempotency): TRUE AND A -> A" << endl;
-
-        getParent()->setInput( this, input2 );
-
-        // delete the node itself and its descendants but not input2
-        setInput2(NULL);
-        delete this;
-      }
-      else
-      {
-        if( input2->getAreaType() == QtNode::QT_AREA_SCALAR )
-        {
-          RMInit::logOut << "> rule (idempotency): FALSE AND A (scalar) -> FALSE" << endl;
-
-          getParent()->setInput( this, input1 );
-
-          // delete the node itself and its descendants but not input1
-          setInput1(NULL);
-          delete this;
-        };
-      };
-    }
-    else
-      if( input1->getSpelling().compare( input2->getSpelling() ) == 0 )
-      {
-        RMInit::logOut << "> rule (idempotency): A AND A -> A" << endl;
-
-        getParent()->setInput( this, input1 );
-
-        // delete the node itself and its descendants but not input1
-        setInput1(NULL);
-        delete this;
-      }
-}
-*/
-
-
-
-/*
-void
-QtAnd::rewriteOps()
-{
-  if( input1 && input2 )
-  {
-    if( input1->getNodeType() == QtNode::QT_SOME &&
-        input2->getNodeType() == QtNode::QT_ALL )
-    {
-      RMInit::logOut << "> rule (condenser order): SOME_CELLS AND ALL_CELLS -> ALL_CELLS AND SOME_CELLS" << endl;
-
-      // order condenser expressions
-
-      QtOperation* node1 = getInput1();
-      QtOperation* node2 = getInput2();
-
-      setInput1( node2 );
-      setInput2( node1 );
-    };
-  }
-  else
-    RMInit::logOut << "Error: QtAnd::rewriteOps() - the operand branch is invalid." << endl;
-}
-*/
 
 
 QtData*
@@ -300,108 +181,6 @@ QtOr::QtOr( QtOperation* initInput1, QtOperation* initInput2 )
 {
 }
 
-/*
-void
-QtOr::checkIdempotency()
-{
-  if( input2->getNodeType()                           == QtNode::QT_CONST &&
-      ((QtConst*)input2)->getDataObj()->getDataType() == QT_BOOL     )
-  {
-    QtAtomicData* boolData = (QtAtomicData*)((QtConst*)input2)->getDataObj();
-
-    if( boolData->getUnsignedValue() )
-    {
-      if( input1->getAreaType() == QtNode::QT_AREA_SCALAR )
-      {
-        RMInit::logOut << "> rule (idempotency): A (scalar) OR TRUE -> TRUE" << endl;
-
-        getParent()->setInput( this, input2 );
-
-        // delete the node itself and its descendants but not input2
-        setInput2(NULL);
-        delete this;
-      };
-    }
-    else
-    {
-      RMInit::logOut << "> rule (idempotency): A OR FALSE -> A" << endl;
-
-      getParent()->setInput( this, input1 );
-
-      // delete the node itself and its descendants but not input1
-      setInput1(NULL);
-      delete this;
-    }
-  }
-  else
-    if( input1->getNodeType()                           == QtNode::QT_CONST &&
-        ((QtConst*)input1)->getDataObj()->getDataType() == QT_BOOL     )
-    {
-      QtAtomicData* boolData = (QtAtomicData*)((QtConst*)input1)->getDataObj();
-
-      if( boolData->getUnsignedValue() )
-      {
-        if( input2->getAreaType() == QtNode::QT_AREA_SCALAR )
-        {
-          RMInit::logOut << "> rule (idempotency): TRUE OR A (scalar) -> TRUE" << endl;
-
-          getParent()->setInput( this, input1 );
-
-          // delete the node itself and its descendants but not input1
-          setInput1(NULL);
-          delete this;
-        };
-      }
-      else
-      {
-        RMInit::logOut << "> rule (idempotency): FALSE OR A -> A" << endl;
-
-        getParent()->setInput( this, input2 );
-
-        // delete the node itself and its descendants but not input2
-        setInput2(NULL);
-        delete this;
-      };
-    }
-    else
-      if( input1->getSpelling().compare( input2->getSpelling() ) == 0 )
-      {
-        RMInit::logOut << "> rule (idempotency): A OR A -> A" << endl;
-
-        getParent()->setInput( this, input1 );
-
-        // delete the node itself and its descendants but not input1
-        setInput1(NULL);
-        delete this;
-      };
-}
-*/
-
-
-/*
-void
-QtOr::rewriteOps()
-{
-  if( input1 && input2 )
-  {
-    if( input1->getNodeType() == QtNode::QT_ALL &&
-        input2->getNodeType() == QtNode::QT_SOME )
-    {
-      RMInit::logOut << "> rule (condenser order): ALL_CELLS OR SOME_CELLS -> SOME_CELLS OR ALL_CELLS" << endl;
-
-      // order condenser expressions
-
-      QtOperation* node1 = getInput1();
-      QtOperation* node2 = getInput2();
-
-      setInput1( node2 );
-      setInput2( node1 );
-    };
-  }
-  else
-    RMInit::logOut << "Error: QtOr::rewriteOps() - the operand branch is invalid." << endl;
-}
-*/
 
 QtData*
 QtOr::evaluate( QtDataList* inputList )
@@ -492,25 +271,6 @@ QtXor::QtXor( QtOperation* initInput1, QtOperation* initInput2 )
 {
 }
 
-/*
-void
-QtXor::checkIdempotency()
-{
-  RMDBGENTER(1, RMDebug::module_qlparser, "QtXor",  "enter Xor::checkIdempotency()" )
-
-  if( input1->getSpelling().compare( input2->getSpelling() ) == 0 )
-  {
-    RMInit::logOut << "> rule (idempotency): A XOR A -> FALSE" << endl;
-
-    getParent()->setInput( this, new QtConst( new QtAtomicData( 0 ) ) );
-
-    // delete the node itself and its descendants
-    delete this;
-  };
-
-  RMDBGEXIT(1, RMDebug::module_qlparser, "QtXor",  "exit  Xor::checkIdempotency()" )
-}
-*/
 
 void
 QtXor::printTree( int tab, ostream& s, QtChildType mode )
@@ -550,21 +310,6 @@ QtEqual::QtEqual( QtOperation* initInput1, QtOperation* initInput2 )
 {
 }
 
-/*
-void
-QtEqual::checkIdempotency()
-{
-  if( input1->getSpelling().compare( input2->getSpelling() ) == 0 )
-  {
-    RMInit::logOut << "> rule (idempotency): A == A -> TRUE" << endl;
-
-    getParent()->setInput( this, new QtConst( new QtAtomicData( 1 ) ) );
-
-    // delete the node itself and its descendants
-    delete this;
-  };
-}
-*/
 
 
 void
@@ -703,21 +448,7 @@ QtNotEqual::QtNotEqual( QtOperation* initInput1, QtOperation* initInput2 )
 {
 }
 
-/*
-void
-QtNotEqual::checkIdempotency()
-{
-  if( input1->getSpelling().compare( input2->getSpelling() ) == 0 )
-  {
-    RMInit::logOut << "> rule (idempotency): A != A -> FALSE" << endl;
 
-    getParent()->setInput( this, new QtConst( new QtAtomicData( 0 ) ) );
-
-    // delete the node itself and its descendants
-    delete this;
-  };
-}
-*/
 
 void
 QtNotEqual::printTree( int tab, ostream& s, QtChildType mode )
@@ -760,11 +491,6 @@ QtOverlay::QtOverlay( QtOperation* initInput1, QtOperation* initInput2 )
 {
 }
 
-/*
-void QtOverlay::checkIdempotency()
-{
-}
-*/
 
 
 bool QtOverlay::isCommutative() const

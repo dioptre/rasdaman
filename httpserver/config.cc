@@ -205,7 +205,7 @@ rc_t SetServDir( struct ServerBase *Server, char *Dirname )
   Buffer[0] = '\0';
 
   /* Platz lassen, um auch noch Filenamen + '\0' im Buffer  */
-  /* unterbringen zu k�nnen.  */
+  /* unterbringen zu koennen.  */
 
   MaxPath = BuffSize - strlen( "httpserver.conf" );
   if( strlen( Dirname ) >= MaxPath )

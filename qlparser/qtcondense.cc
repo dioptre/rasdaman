@@ -326,45 +326,6 @@ QtSome::QtSome( QtOperation* inputNew )
 {
 }
 
-/*
-void
-QtSome::rewriteOps()
-{
-  if( input )
-  {
-    if( input->getNodeType() == QtNode::QT_OR )
-    {
-      // pushdown of condenser expression
-
-      QtOr* orNode = (QtOr*) input;
-      QtOperation* node1 = orNode->getInput1();
-      QtOperation* node2 = orNode->getInput2();
-
-      if( node1 && node2 &&
-          node1->getAreaType() == QtNode::QT_AREA_MDD &&
-          node2->getAreaType() == QtNode::QT_AREA_MDD )
-      {
-        RMInit::logOut << "> rule (pushdown condenser): SOME_CELLS(A OR B) -> SOME_CELLS(A) OR SOME_CELLS(B)" << endl;
-
-        QtSome* newNode = new QtSome( node1 );
-        setInput( node2 );
-        newNode->setDataStreamType( QtTypeElement(QT_BOOL) );
-
-        this->getParent()->setInput( this, orNode );
-        orNode->setInput1( newNode );
-        orNode->setInput2( this );
-        orNode->setDataStreamType( QtTypeElement(QT_BOOL) );
-
-        newNode->rewriteOps();
-      }
-    };
-
-    input->rewriteOps();
-  }
-  else
-    RMInit::logOut << "Error: QtSome::rewriteOps() - the operand branch is invalid." << endl;
-}
-*/
 
 QtData*
 QtSome::evaluate( QtDataList* inputList )
@@ -479,46 +440,6 @@ QtAll::QtAll( QtOperation* inputNew )
 {
 }
 
-/*
-void
-QtAll::rewriteOps()
-{
-  if( input )
-  {
-    if( input->getNodeType() == QtNode::QT_AND )
-    {
-      // pushdown of condenser expression
-
-      QtAnd* andNode = (QtAnd*) input;
-      QtOperation* node1 = andNode->getInput1();
-      QtOperation* node2 = andNode->getInput2();
-
-      if( node1 && node2 &&
-          node1->getAreaType() == QtNode::QT_AREA_MDD &&
-          node2->getAreaType() == QtNode::QT_AREA_MDD )
-      {
-        RMInit::logOut << "> rule (pushdown condenser): ALL_CELLS(A AND B) -> ALL_CELLS(A) AND ALL_CELLS(B)" << endl;
-
-        QtAll* newNode = new QtAll( node1 );
-        setInput( node2 );
-        newNode->setDataStreamType( QtTypeElement(QT_BOOL) ); 
-
-        this->getParent()->setInput( this, andNode );
-        andNode->setInput1( newNode );
-        andNode->setInput2( this );
-        andNode->setDataStreamType( QtTypeElement(QT_BOOL) );
-
-        newNode->rewriteOps();
-      }
-    };
-
-    input->rewriteOps();
-
-  }
-  else
-    RMInit::logOut << "Error: QtAll::rewriteOps() - the operand branch is invalid." << endl;
-}
-*/
 
 QtData*
 QtAll::evaluate( QtDataList* inputList )

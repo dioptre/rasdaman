@@ -248,41 +248,6 @@ class QtNode
       The method evaluates constant expressions.
     */
 
-    /// optimizes the tree
-//    virtual void rewriteOps();
-    /**
-      The method applies some algebraic rules:
-
-      \begin{verbatim}
-      some( x or y )    -> some( x ) or  some( y )
-      all ( x and y )   -> all ( x ) and all ( y )
-      all()  or  some() -> some() or  all()
-      some() and all()  -> all()  and some()
-      \end{verbatim}
-
-      Further, a left deep tree is produced (for +,*)::
-
-      \begin{verbatim}
-      (T1 o T2) + (T3 o T4) ->  ((T1 o T2) o T3) o T4
-      \end{verbatim}
-
-      The method has to be supplied top-down in the query tree.
-    */
-
-    /// optimizes the tree
-//    virtual void sortAssociativeOps();
-    /**
-      Operators of commutative binary operations are ordered in a
-      unique sequence.
-    */
-
-    /// check idempetency rules
-//    virtual void checkIdempotency();
-    /**
-      The method applies idempotency rules on binary operations.
-      The method is supplied bottom-up in the query tree.
-    */
-
     /// prints the tree 
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES )=0;
 
