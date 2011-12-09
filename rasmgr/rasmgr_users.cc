@@ -366,7 +366,7 @@ bool UserManager::acceptChangeName(const char *oldName,const char *newName)
 Authorization::Authorization()
   { inConfigFile=false;
   
-    int pathLen = snprintf( authFileName, FILENAME_MAX, "%s/%s", CONFDIR, RASMGR_AUTH_FILE );
+    int pathLen = snprintf( authFileName, FILENAME_MAX, "%s/%s", getenv("HOME"), RASMGR_AUTH_FILE );
     if (pathLen >= FILENAME_MAX)
     {
         authFileName[FILENAME_MAX-1] = '\0';	// force-terminate string before printing

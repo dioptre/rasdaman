@@ -1,6 +1,6 @@
 %global rasdir /var/lib/rasdaman
 Name:           rasdaman
-Version:        8.2.0
+Version:        8.2.1
 Release:        0%{?dist}
 Summary:        rasdaman - Raster Data Manager
 
@@ -15,11 +15,11 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %endif
 
-BuildRequires: bison libtiff-devel hdf-devel libjpeg-devel ncurses-devel readline-devel zlib-devel libpng-devel netpbm-devel openssl-devel flex postgresql-devel doxygen netcdf-devel java-1.6.0-openjdk
+BuildRequires: bison libtiff-devel hdf-devel libjpeg-devel readline-devel zlib-devel libpng-devel netpbm-devel openssl-devel flex postgresql-devel doxygen netcdf-devel gdal-devel java-1.6.0-openjdk
 
 Requires(pre): /usr/sbin/useradd
 Requires(post): chkconfig
-Requires:      libtiff hdf libjpeg ncurses readline zlib libpng netpbm openssl postgresql-server netcdf tomcat6
+Requires:      libtiff hdf libjpeg ncurses readline zlib libpng netpbm openssl postgresql-server netcdf gdal
 Provides: rasserver
 
 %description
@@ -77,44 +77,63 @@ Requires:       %{name} = %{version}-%{release}
 %description examples
 The rasdaman-examples package includes examples for rasdaman.
 
+%package petascope
+Summary:        Petascope is an add-in to the rasdaman
+Group:          Graphics
+Requires:       %{name} = %{version}-%{release}
+
+%description petascope
+Petascope is an add-in to the rasdaman raster server providing making it a geo raster data with open, interoperable OGC standards-based interfaces.
+
+%package rasview
+Summary:        WxWidgets based GUI client for rasdaman
+Group:          Graphics
+Requires:       %{name} = %{version}-%{release}
+
+%description rasview
+The rasdaman-rasview package installs GUI client for rasdaman. It is based on WxWidgets.
+
+%package rasgeo
+Summary:        rasgeo is an add-in for GDAL-based image file import
+Group:          Applications/Databases
+Requires:       %{name} = %{version}-%{release}
+
+%description rasgeo
+The rasgeo package is an add-in for GDAL-based image file import. It uses GDAL.
+
 %prep
 %setup -q
 
 %build
-autoreconf -i -f
-CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" CXX="g++ -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" \
-./configure \
-	--prefix=/usr \
-	--docdir=%{_docdir}/rasdaman \
-	--libdir=%{_libdir} \
-	--localstatedir=%{_localstatedir} \
-	--sysconfdir=%{_sysconfdir} \
-	--with-logdir=%{_localstatedir}/log/rasdaman \
-        --with-hdf4 \
-        --with-netcdf \
-	--with-pic \
-	--with-docs
 
+CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" CXX="g++ -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" \
+	./configure \
+		--prefix=/usr \
+		--docdir=%{_docdir}/rasdaman \
+		--libdir=%{_libdir} \
+		--localstatedir=%{_localstatedir} \
+		--sysconfdir=%{_sysconfdir}/rasdaman \
+		--with-logdir=%{_localstatedir}/log/rasdaman \
+	        --with-hdf4 \
+	        --with-netcdf \
+		--with-pic \
+		--with-docs
+sed -i 's/^metadata_user=.\+/metadata_user=rasdaman/' petascope/src/main/resources/settings.properties
+sed -i 's/^metadata_pass=.\+/metadata_pass=/' petascope/src/main/resources/settings.properties
+sed -i 's/^all: .*/all: war/' petascope/Makefile
 make DESTDIR=%{buildroot}
-cd petascope
-make war
-cd ..
 
 %install
 rm -rf %{buildroot}
 
-make install DESTDIR=%{buildroot}
+mkdir -p %{buildroot}/var/lib/tomcat6/webapps
+make install DESTDIR=%{buildroot} CATALINA_HOME=%{buildroot}/var/lib/tomcat6
 
 # install petascope
-mkdir -p %{buildroot}/var/lib/tomcat6/webapps
 mkdir -p %{buildroot}%{_datadir}/rasdaman/petascope
-cp petascope/build/dist/petascope.war %{buildroot}/var/lib/tomcat6/webapps
 cp petascope/db/*.sql %{buildroot}%{_datadir}/rasdaman/petascope
 cp petascope/db/*.tif* %{buildroot}%{_datadir}/rasdaman/petascope
 cp petascope/db/*.sh %{buildroot}%{_datadir}/rasdaman/petascope
-cp petascope/src/main/resources/settings.properties %{buildroot}%{_sysconfdir}/petascope.conf
-sed -i 's/^metadata_user=.+/metadata_user=rasdaman/' %{buildroot}%{_sysconfdir}/petascope.conf
-sed -i 's/^metadata_pass=.+/metadata_pass=/' %{buildroot}%{_sysconfdir}/petascope.conf
 
 # install SYSV init stuff
 mkdir -p %{buildroot}/etc/rc.d/init.d
@@ -126,7 +145,7 @@ mv %{buildroot}%{_bindir}/insertdemo.sh %{buildroot}%{_bindir}/rasdaman_insertde
 
 # Change hostname in rasmgr.conf to localhost
 bhostname=`hostname`
-cat %{buildroot}%{_bindir}/rasmgr.conf | sed -e "s/$bhostname/localhost/g" > %{buildroot}%{_sysconfdir}/rasmgr.conf
+cat %{buildroot}%{_bindir}/rasmgr.conf | sed -e "s/$bhostname/localhost/g" > %{buildroot}%{_sysconfdir}/rasdaman/rasmgr.conf
 
 # Remove unpackaged files
 rm %{buildroot}%{_bindir}/rasmgr.conf
@@ -134,12 +153,35 @@ rm -f %{buildroot}%{_bindir}/create_db.sh
 rm -f %{buildroot}%{_bindir}/start_rasdaman.sh
 rm -f %{buildroot}%{_bindir}/stop_rasdaman.sh
 
-# Copy errtxts to bin (needed for rview)
-cp %{buildroot}%{_datadir}/rasdaman/errtxts %{buildroot}%{_bindir}
-
 # Create home for our user
 install -d -m 700 %{buildroot}%{rasdir}
 cp %{buildroot}%{_datadir}/rasdaman/examples/rasdl/basictypes.dl %{buildroot}%{rasdir}
+
+# Move includes from topdir to subdir
+mkdir %{buildroot}%{_includedir}/rasdaman
+mv %{buildroot}%{_includedir}/basictypes.hh %{buildroot}%{_includedir}/rasdaman
+mv %{buildroot}%{_includedir}/bool.h %{buildroot}%{_includedir}/rasdaman
+mv %{buildroot}%{_includedir}/clientcomm %{buildroot}%{_includedir}/rasdaman
+mv %{buildroot}%{_includedir}/commline %{buildroot}%{_includedir}/rasdaman
+mv %{buildroot}%{_includedir}/compression %{buildroot}%{_includedir}/rasdaman
+mv %{buildroot}%{_includedir}/conversion %{buildroot}%{_includedir}/rasdaman
+mv %{buildroot}%{_includedir}/globals.hh %{buildroot}%{_includedir}/rasdaman
+mv %{buildroot}%{_includedir}/rasdaman.hh %{buildroot}%{_includedir}/rasdaman
+mv %{buildroot}%{_includedir}/stdexcept.h %{buildroot}%{_includedir}/rasdaman
+mv %{buildroot}%{_includedir}/debug %{buildroot}%{_includedir}/rasdaman
+
+# Move rview pieces from bin
+mkdir -p %{buildroot}%{_libdir}/rasview/bin
+mv %{buildroot}%{_bindir}/labels.txt %{buildroot}%{_libdir}/rasview/bin
+mv %{buildroot}%{_bindir}/rview %{buildroot}%{_libdir}/rasview/bin/rasview.bin
+mv %{buildroot}%{_bindir}/../.rviewrc %{buildroot}%{_libdir}/rasview
+cp %{buildroot}%{_datadir}/rasdaman/errtxts* %{buildroot}%{_libdir}/rasview/bin
+
+echo "#!/bin/bash" > %{buildroot}%{_bindir}/rasview
+echo "cd %{_libdir}/rasview/bin" >> %{buildroot}%{_bindir}/rasview
+echo "exec %{_libdir}/rasview/bin/rasview.bin" >> %{buildroot}%{_bindir}/rasview
+
+chmod +x %{buildroot}%{_bindir}/rasview
 
 %clean
 rm -rf %{buildroot}
@@ -147,9 +189,6 @@ rm -rf %{buildroot}
 %pre
 # Add the "rasdaman" user
 /usr/sbin/useradd -c "Rasdaman" -s /sbin/nologin -r -d %{rasdir} rasdaman 2> /dev/null || :
-# For SELinux we need to use 'runuser' not 'su'
-# /etc/hosts should contain 127.0.1.1
-#grep '127.0.1.1' /etc/hosts && echo "127.0.1.1 `hostname`" >> /etc/hosts
 
 %preun
 # If not upgrading
@@ -175,7 +214,6 @@ else
     SU=su
 fi
 if [ $1 = 0 ] ; then
-	#$SU -l postgres -c "dropuser rasdaman"
 	userdel rasdaman >/dev/null 2>&1 || :
 	groupdel rasdaman >/dev/null 2>&1 || :
 fi
@@ -190,32 +228,18 @@ fi
 %{_bindir}/raspasswd
 %{_bindir}/rasql
 %{_bindir}/rasserver
-%{_bindir}/rview
-%{_bindir}/labels.txt
-%{_bindir}/errtxts
-/usr/.rviewrc
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/rasmgr.conf
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/petascope.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/rasdaman/rasmgr.conf
 %{_localstatedir}/log/rasdaman/empty
 %{_datadir}/rasdaman/errtxts*
 %attr(700,rasdaman,rasdaman) %dir %{rasdir}
 %attr(644,rasdaman,rasdaman) %config(noreplace) %{rasdir}/basictypes.dl
 %{_sysconfdir}/rc.d/init.d/rasmgr
-%{_datadir}/rasdaman/petascope/*
-/var/lib/tomcat6/webapps/petascope.war
 
 %files devel
 %defattr(-,root,root,-)
-%{_includedir}/basictypes.hh
-%{_includedir}/bool.h
-%{_includedir}/clientcomm
-%{_includedir}/compression
-%{_includedir}/conversion
-%{_includedir}/globals.hh
-%{_includedir}/rasdaman.hh
+%{_includedir}/rasdaman
 %{_includedir}/raslib
 %{_includedir}/rasodmg
-%{_includedir}/stdexcept.h
 %{_libdir}/libcatalogmgr.a
 %{_libdir}/libclientcomm.a
 %{_libdir}/libcommline.a
@@ -246,7 +270,32 @@ fi
 %defattr(-,root,root,-)
 %{_datadir}/rasdaman/examples
 
+%files petascope
+%defattr(-,root,root,-)
+%{_datadir}/rasdaman/petascope/*
+/var/lib/tomcat6/webapps/petascope.war
+
+%files rasview
+%defattr(-,root,root,-)
+%{_bindir}/rasview
+%{_libdir}/rasview
+
+%files rasgeo
+%defattr(-,root,root,-)
+%{_bindir}/rasimport
+%{_bindir}/raserase
+
 %changelog
+
+* Fri Dec 09  2011 Konstantin Kozlov <kozlov@spbcas.ru> - 8.2.1
+
+- Merged with upstream
+- Add rasgeo
+
+* Thu Nov 02  2011 Konstantin Kozlov <kozlov@spbcas.ru> - 8.2.1
+
+- Merged with upstream.
+- Added rview, petascope packages.
 
 * Fri Oct 21  2011 Dimitar Misev <d.misev@jacobs-university.de> - 8.2.1
 
@@ -263,5 +312,4 @@ fi
 * Thu Feb 17  2011 Konstantin Kozlov <kozlov@spbcas.ru> - 8.0.0
 
 - Initial spec
-
 

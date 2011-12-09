@@ -31,6 +31,8 @@
 AM_CXXFLAGS=@CLIENTCXXFLAGS@
 AM_LDFLAGS=@CLIENTLDFLAGS@
 
+EXTRA_DIST = rview labels.txt .rviewrc
+
 install:
 	cp rview labels.txt $(DESTDIR)$(bindir)
 	cp .rviewrc $(DESTDIR)$(bindir)/..

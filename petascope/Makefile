@@ -151,3 +151,25 @@ wps: jar
 	cd $(BUILD)/wps; $(JAR) xf wps.war; $(RM) wps.war
 	$(CP) $(BUILD)/petascope.jar lib/*.jar $(BUILD)/wps/WEB-INF/lib
 	$(CD) $(BUILD)/wps; $(JAR) $(JARFLAGS) ../wps.war .
+
+EXTRA_DIST = \
+	build.xml \
+	db \
+	INSTALL \
+	lib \
+	LICENCE \
+	Makefile \
+	nbproject \
+	README \
+	README.WCS2 \
+	src \
+	templates \
+	xml
+
+DISTFILES = $(EXTRA_DIST)
+
+# Put petascope into archive for RPM generation
+.PHONY: distdir
+distdir:
+	mkdir -p $(distdir)
+	cp -R $(DISTFILES) $(distdir)
