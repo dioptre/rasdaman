@@ -46,6 +46,7 @@ rasdaman GmbH.
 
 #include "compression/tilecompression.hh"
 #include "compression/tilecompnone.hh"
+#include "compression/tilecompother.hh"
 
 
 
@@ -246,7 +247,22 @@ const char *r_Tile_Compression::get_format_info( unsigned int number, r_Data_For
 
 r_Tile_Compression::Support_Format r_Tile_Compression::check_data_format( r_Data_Format fmt )
 {
-  return r_Tile_Compression::COMPRESSION;
+	switch (fmt)
+	{
+		// the image formats
+		case r_TIFF:
+		case r_JPEG:
+		case r_HDF:
+		case r_PNG:
+		case r_BMP:
+		case r_VFF:
+		case r_TOR:
+		case r_DEM:    
+		case r_NETCDF:
+			return r_Tile_Compression::CONVERSION;
+		default:
+  			return r_Tile_Compression::COMPRESSION;
+	}
 }
 
 
@@ -259,6 +275,18 @@ r_Tile_Compression *r_Tile_Compression::create( r_Data_Format fmt, const r_Minte
     case r_Array:
       result = new r_Tile_Comp_None(dom, type);
       break;
+	// the image formats used primarily for format conversions
+	case r_TIFF:
+	case r_JPEG:
+	case r_HDF:
+	case r_PNG:
+	case r_BMP:
+	case r_VFF:
+	case r_TOR:
+	case r_DEM:    
+	case r_CSV:
+		result = new r_Tile_Comp_Other(fmt, dom, type);
+		break;
     default:
       RMInit::logOut << "Error: r_Tile_Compression::create(): Unknown or unsupported tile compression " << fmt << endl;
       r_Error err(r_Error::r_Error_General, COMPRESSIONFAILED );

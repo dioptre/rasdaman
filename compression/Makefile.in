@@ -104,7 +104,7 @@ ARFLAGS = cru
 libcompression_a_AR = $(AR) $(ARFLAGS)
 libcompression_a_LIBADD =
 am_libcompression_a_OBJECTS = tilecompression.$(OBJEXT) \
-	tilecompnone.$(OBJEXT)
+	tilecompnone.$(OBJEXT) tilecompother.$(OBJEXT)
 libcompression_a_OBJECTS = $(am_libcompression_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -160,6 +160,7 @@ EMBEDDEDSQLOUT = @EMBEDDEDSQLOUT@
 EMBEDDEDSQLPRECOMPILER = @EMBEDDEDSQLPRECOMPILER@
 EXEEXT = @EXEEXT@
 GCJ_OPTS = @GCJ_OPTS@
+GDAL_CONFIG = @GDAL_CONFIG@
 GREP = @GREP@
 INFORMIX_INC = @INFORMIX_INC@
 INSTALL = @INSTALL@
@@ -259,7 +260,9 @@ top_srcdir = @top_srcdir@
 AM_CXXFLAGS = @CLIENTCXXFLAGS@
 AM_LDFLAGS = @CLIENTLDFLAGS@
 lib_LIBRARIES = libcompression.a
-libcompression_a_SOURCES = tilecompression.cc tilecompression.hh tilecompnone.cc tilecompnone.hh
+libcompression_a_SOURCES = tilecompression.cc tilecompression.hh tilecompnone.cc tilecompnone.hh \
+						 tilecompother.cc tilecompother.hh
+
 all: all-am
 
 .SUFFIXES:
@@ -338,6 +341,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tilecompnone.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tilecompother.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tilecompression.Po@am__quote@
 
 .cc.o:

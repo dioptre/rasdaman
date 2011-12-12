@@ -321,7 +321,6 @@ QtConversion::evaluate( QtDataList* inputList )
 	throw r_Error(CONVERSIONFORMATNOTSUPPORTED);
 	break;
     }
-    convFormat = r_Array;
 
       r_Convertor *convertor = NULL;
 
