@@ -168,48 +168,62 @@ QtConversion::evaluate( QtDataList* inputList )
 
   if( operand )
   {
-#ifdef QT_RUNTIME_TYPE_CHECK
-    if( operand->getDataType() != QT_MDD )
+    char* typeStructure = NULL;
+    Tile*   sourceTile    = NULL;
+      
+    if ( conversionType == QT_TOCSV && operand->isScalarData() )
     {
-      RMInit::logOut << "Internal error in QtConversion::evaluate() - "
-                     << "runtime type checking failed (MDD)." << std::endl; 
-
-      // delete old operand
-      if( operand ) operand->deleteRef();
-      return 0;
+      QtScalarData* qtScalar = (QtScalarData*) operand;
+      r_Minterval dom = r_Minterval(2);
+      dom << r_Sinterval(0, 0);
+      dom << r_Sinterval(0, 0);
+      sourceTile = new Tile( dom, qtScalar->getValueType(), qtScalar->getValueBuffer(), 1, r_CSV);
+      typeStructure = qtScalar->getTypeStructure();
     }
+    else
+    {
+#ifdef QT_RUNTIME_TYPE_CHECK
+      if( operand->getDataType() != QT_MDD )
+      {
+        RMInit::logOut << "Internal error in QtConversion::evaluate() - "
+                       << "runtime type checking failed (MDD)." << std::endl; 
+
+        // delete old operand
+        if( operand ) operand->deleteRef();
+        return 0;
+      }
 #endif
 
-    QtMDD*  qtMDD         = (QtMDD*) operand;
-    MDDObj* currentMDDObj = qtMDD->getMDDObject();
-    Tile*   sourceTile    = NULL;
-	    vector< Tile* >* tiles = NULL;
-   if (qtMDD->getLoadDomain().is_origin_fixed() && qtMDD->getLoadDomain().is_high_fixed())
-	{
-	    // get relevant tiles
-	tiles = currentMDDObj->intersect( qtMDD->getLoadDomain() );
-	}
-	else	{
-		      RMDBGONCE(2, RMDebug::module_qlparser, "QtConversion", "evalutate() - no tile available to convert." )
-		      return operand;
-		}
+      QtMDD*  qtMDD         = (QtMDD*) operand;
+      MDDObj* currentMDDObj = qtMDD->getMDDObject();
+      vector< Tile* >* tiles = NULL;
+      if (qtMDD->getLoadDomain().is_origin_fixed() && qtMDD->getLoadDomain().is_high_fixed())
+      {
+        // get relevant tiles
+        tiles = currentMDDObj->intersect( qtMDD->getLoadDomain() );
+      }
+      else	{
+        RMDBGONCE(2, RMDebug::module_qlparser, "QtConversion", "evalutate() - no tile available to convert." )
+        return operand;
+      }
 
-    // check the number of tiles
-    if( !tiles->size() )
-    {
-      RMDBGONCE(2, RMDebug::module_qlparser, "QtConversion", "evalutate() - no tile available to convert." )
-      return operand;
+      // check the number of tiles
+      if( !tiles->size() )
+      {
+        RMDBGONCE(2, RMDebug::module_qlparser, "QtConversion", "evalutate() - no tile available to convert." )
+        return operand;
+      }
+
+      // create one single tile with the load domain
+      sourceTile = new Tile( tiles, qtMDD->getLoadDomain() );
+
+      // delete the tile vector
+      delete tiles;
+      tiles = NULL;
+
+      // get type structure of the operand base type
+      typeStructure = qtMDD->getCellType()->getTypeStructure();
     }
-
-    // create one single tile with the load domain
-    sourceTile = new Tile( tiles, qtMDD->getLoadDomain() );
-
-    // delete the tile vector
-    delete tiles;
-    tiles = NULL;
-
-    // get type structure of the operand base type
-    char*  typeStructure = qtMDD->getCellType()->getTypeStructure();
 
     // convert structure to r_Type
     r_Type* baseSchema = r_Type::get_any_type( typeStructure );
@@ -547,7 +561,7 @@ QtConversion::checkType( QtTypeTuple* typeTuple )
   // get input type
   const QtTypeElement& inputType = input->checkType( typeTuple ); 
 
-  if( inputType.getDataType() != QT_MDD )
+  if( conversionType != QT_TOCSV && inputType.getDataType() != QT_MDD )
    {
     RMInit::logOut << "Error: QtConversion::checkType() - operand is not of type MDD." << std::endl;
     parseInfo.setErrorNo(380);
