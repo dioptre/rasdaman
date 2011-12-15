@@ -90,7 +90,9 @@ int string_yyinput( char* buf, int max_size )
 
 
 #define SETSTRTOKEN( TOKEN, TYPE, VALUE )	                  			\
+RMInit::logOut << "strtoken: " << VALUE << endl; \
   char* temp = strdup(VALUE);					  						\
+RMInit::logOut << "duplicate: " << temp << endl; \
   parseQueryTree->addCString( temp );                             		\
   yylval.TYPE.value = temp;                                       		\
   if(!infoList.empty()) {												\
@@ -102,11 +104,14 @@ int string_yyinput( char* buf, int max_size )
   }																		\
   yylval.TYPE.info = currInfo; 											\
   columnNo += yyleng;                                             		\
+RMInit::logOut << "yyleng: " << yyleng << endl; \
+RMInit::logOut << "column: " << columnNo << endl; \
   parseQueryTree->addDynamicObject( yylval.TYPE.info );           		\
   return TOKEN;
   
 
 #define SETINTTOKEN( VALUE, NEGATIVE, BYTES )	                        \
+RMInit::logOut << "inttoken: " << VALUE << endl; \
   yylval.integerToken.negative = NEGATIVE;                              \
   yylval.integerToken.bytes    = BYTES;                                 \
   if( NEGATIVE )                                                        \
@@ -127,6 +132,7 @@ int string_yyinput( char* buf, int max_size )
 
 
 #define SETFLTTOKEN( VALUE, BYTES )	                                	\
+RMInit::logOut << "fltoken: " << VALUE << endl; \
   yylval.floatToken.value  = VALUE;                                     \
   yylval.floatToken.bytes  = BYTES;                                     \
   if(!infoList.empty()) {												\
@@ -308,7 +314,7 @@ int string_yyinput( char* buf, int max_size )
 "}"                                      { SETTOKEN( RCPAR, commandToken, RCPAR ) }
 #MDD[0-9]+#                              { SETTOKEN( MDDPARAM, commandToken, atoi(&(yytext[1])) ) }
 $[0-9]+                                  { llerror("unresolved query parameter"); columnNo++; }
-
+W
 "true"|"false"|"TRUE"|"FALSE"            { SETTOKEN( BooleanLit, booleanToken, yytext[0] == 't' || yytext[0] == 'T') }
 [a-zA-Z_][a-zA-Z0-9_]*			 { SETSTRTOKEN( Identifier, identifierToken, yytext ) }
 "'"[^']"'"                               { SETTOKEN( CharacterLit, characterToken, yytext[1] ) }
@@ -331,8 +337,8 @@ $[0-9]+                                  { llerror("unresolved query parameter")
 -?[0-9]+[sS]	                         { SETINTTOKEN( strtol ( yytext, (char**)NULL, 10 ), 1, 2 ) }
 -?[0-9]+[lL]?	                         { SETINTTOKEN( strtol ( yytext, (char**)NULL, 10 ), 1, 4 ) }
 
--?([0-9]+|([0-9]*(\.[0-9]+)?)([eE][-+]?[0-9]+)?)[dD]  { SETFLTTOKEN( strtod( yytext, (char**)NULL ), 8 ) }
--?([0-9]+|([0-9]*(\.[0-9]+)?)([eE][-+]?[0-9]+)?)[fF]? { SETFLTTOKEN( strtod( yytext, (char**)NULL ), 4 ) }
+-?([0-9]+|([0-9]+(\.[0-9]+)?)([eE][-+]?[0-9]+)?)[dD]  { SETFLTTOKEN( strtod( yytext, (char**)NULL ), 8 ) }
+-?([0-9]+|([0-9]+(\.[0-9]+)?)([eE][-+]?[0-9]+)?)[fF]? { SETFLTTOKEN( strtod( yytext, (char**)NULL ), 4 ) }
 
 [ ]+		                         { columnNo += yyleng;                       }
 \t                                       { columnNo += 3;                            }
