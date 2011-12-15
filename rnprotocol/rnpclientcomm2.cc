@@ -56,8 +56,6 @@ rasdaman GmbH.
 #include "raslib/structure.hh"
 #include "raslib/endian.hh"
 #include "raslib/parseparams.hh"
-// for transfer compression
-#include "compression/tilecompression.hh"
 
 #include "debug.hh"
 

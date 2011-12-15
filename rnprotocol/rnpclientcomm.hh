@@ -266,10 +266,6 @@ class RnpClientComm : public ClientComm, RnpBaseClientComm
     int concatArrayData( const char *source, unsigned long srcSize, char *&dest,
 			 unsigned long &destSize, unsigned long &destLevel );
     
-    /// do transfer decompression
-    r_Data_Format doTransferDecompression( r_GMarray *tile, const r_Base_Type *type,
-					   r_Data_Format fmt, unsigned long size );
-    
         /// internal function for converting a \Ref{r_GMarray} into its RPC representation
     void getMarRpcRepresentation( const r_GMarray* mar, RPCMarray*& rpcMarray,
                                   r_Data_Format initStorageFormat = r_Array,

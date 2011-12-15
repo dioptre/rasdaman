@@ -95,8 +95,6 @@ rasdaman GmbH.
 #include "databaseif.hh"
 #include "transactionif.hh"
 
-#include "compression/tilecompression.hh"
-
 extern char* myExecArgv0 = "";
 
 RMINITGLOBALS('C')

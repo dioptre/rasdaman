@@ -83,7 +83,6 @@ am_insertppm_OBJECTS = insertppm.$(OBJEXT)
 insertppm_OBJECTS = $(am_insertppm_OBJECTS)
 insertppm_DEPENDENCIES = ../../../rasodmg/librasodmg.a \
 	../../../clientcomm/libclientcomm.a \
-	../../../compression/libcompression.a \
 	../../../raslib/libraslib.a \
 	../../../conversion/libconversion.a \
 	../../../network/libnetwork.a ../../../commline/libcommline.a
@@ -91,7 +90,6 @@ am_query_OBJECTS = query.$(OBJEXT)
 query_OBJECTS = $(am_query_OBJECTS)
 query_DEPENDENCIES = ../../../rasodmg/librasodmg.a \
 	../../../clientcomm/libclientcomm.a \
-	../../../compression/libcompression.a \
 	../../../raslib/libraslib.a \
 	../../../conversion/libconversion.a \
 	../../../network/libnetwork.a ../../../commline/libcommline.a
@@ -145,6 +143,7 @@ EMBEDDEDSQLOUT = @EMBEDDEDSQLOUT@
 EMBEDDEDSQLPRECOMPILER = @EMBEDDEDSQLPRECOMPILER@
 EXEEXT = @EXEEXT@
 GCJ_OPTS = @GCJ_OPTS@
+GDAL_CONFIG = @GDAL_CONFIG@
 GREP = @GREP@
 INFORMIX_INC = @INFORMIX_INC@
 INSTALL = @INSTALL@
@@ -245,13 +244,13 @@ AM_CXXFLAGS = -w @CLIENTCXXFLAGS@ -DLINUX -DEARLY_TEMPLATE -DONCRPC -DDEBUG
 AM_LDFLAGS = @CLIENTLDFLAGS@
 insertppm_SOURCES = insertppm.cc
 insertppm_LDADD = ../../../rasodmg/librasodmg.a ../../../clientcomm/libclientcomm.a \
-        ../../../compression/libcompression.a ../../../raslib/libraslib.a \
+        ../../../raslib/libraslib.a \
         ../../../conversion/libconversion.a ../../../network/libnetwork.a ../../../commline/libcommline.a \
          -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto -lm -lz
 
 query_SOURCES = query.cc
 query_LDADD = ../../../rasodmg/librasodmg.a ../../../clientcomm/libclientcomm.a \
-        ../../../compression/libcompression.a ../../../raslib/libraslib.a \
+        ../../../raslib/libraslib.a \
         ../../../conversion/libconversion.a ../../../network/libnetwork.a ../../../commline/libcommline.a \
          -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto -lm -lz
 

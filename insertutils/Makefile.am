@@ -35,7 +35,7 @@ bin_PROGRAMS = insertppm
 bin_SCRIPTS = insertdemo.sh
 insertppm_SOURCES=insertppm.cc ../mymalloc/mymalloc_cln.cc
 insertppm_LDADD=../rasodmg/librasodmg.a ../clientcomm/libclientcomm.a \
-                ../compression/libcompression.a ../conversion/libconversion.a \
+                ../conversion/libconversion.a \
                 ../raslib/libraslib.a \
                 ../network/libnetwork.a
 CLEANFILES = insertdemo.sh

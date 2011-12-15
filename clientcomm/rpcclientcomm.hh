@@ -294,14 +294,6 @@ class RpcClientComm : public ClientComm
     
     /// switch determining if a alive signal should be send to the server
     int aliveSignalRemaining;
-
-    /// do transfer decompression
-    r_Data_Format doTransferDecompression( r_GMarray *tile, const r_Base_Type *type,
-					   r_Data_Format fmt, unsigned long size );
-    /**
-       internal function for transparent transfer decompression. returns
-       data format of decompressed tile.
-    */
     
     /// internal function for reading an MDD from the database
     unsigned short getMDDCore( r_Ref<r_GMarray> &mdd, GetMDDRes *thisResult, unsigned int isQuery ) throw( r_Error );

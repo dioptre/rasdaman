@@ -47,7 +47,6 @@ rasserver_LDADD=../servercomm/libservercomm.a ../qlparser/libqlparser.a ../conve
                 ../relcatalogif/librelcatalogif.a ../indexmgr/libindexmgr.a ../relblobif/librelblobif.a \
                 ../relindexif/librelindexif.a ../httpserver/libhttpserver.a \
                 ../network/libnetwork.a ../commline/libcommline.a \
-                ../compression/libcompression.a \
                 ../relcatalogif/librelcatalogif.a ../raslib/libraslib.a 
 
 SUBDIRS = ../relblobif ../relindexif ../relmddif ../relcatalogif ../reladminif ../relstorageif \

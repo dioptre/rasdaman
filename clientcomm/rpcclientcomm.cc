@@ -97,8 +97,6 @@ using namespace std;
 #include "raslib/structure.hh"
 #include "raslib/endian.hh"
 #include "raslib/parseparams.hh"
-// for transfer compression
-#include "compression/tilecompression.hh"
 
 #include "clientcomm/rpcclientcomm.hh"
 
@@ -1142,88 +1140,6 @@ RpcClientComm::insertMDD( const char* collName, r_GMarray* mar )
     }
   
   } // end: MDD i transferred in one piece
-}
-
-
-
-r_Data_Format
-RpcClientComm::doTransferDecompression( r_GMarray* tile, const r_Base_Type *type,
-				     r_Data_Format fmt, unsigned long size )
-{
-
-  RMDBGENTER( 2, RMDebug::module_clientcomm, "RpcClientComm", "doTransferDecompression(...) tile dom:" 
-  	      << tile->spatial_domain() << " array size:" << tile->get_array_size() 
-  	      << " type size:" << tile->get_type_length());
-  if (fmt != r_Array)
-  {
-    r_Tile_Compression *engine = NULL;
-    char *newTileData = NULL;
-    r_Data_Format newFormat;
-
-    RMDBGMIDDLE( 2, RMDebug::module_clientcomm, "RpcClientComm", "doTransferDecompression(...) decompressing from " 
-               << fmt << ", " << size << "bytes");
-
-    try
-    {
-      r_Storage_Man_CPP sman;
-      engine = r_Tile_Compression::create( fmt, tile->spatial_domain(), type );
-      engine->set_storage_handler(sman);
-      newTileData = (char*)(engine->decompress(tile->get_array(), size));
-      RMDBGMIDDLE( 2, RMDebug::module_clientcomm, "RpcClientComm", 
-      	         "doTransferDecompression(...) decompression to " << engine->get_decomp_format() << " OK");
-    }
-    catch (r_Error &err)
-    {
-      RMDBGMIDDLE( 2, RMDebug::module_clientcomm, "RpcClientComm", 
-      	         "doTransferDecompression(...) decompression to " << engine->get_decomp_format() << " FAILED");
-      RMInit::logOut << "RpcClientComm::doTransferDecompression() Error decompressing data, assuming raw" << endl;
-    }
-
-    newFormat = engine->get_decomp_format();
-
-    if (newTileData != NULL)
-    {
-      delete [] tile->get_array();
-      tile->set_array(newTileData);
-      tile->set_array_size(tile->spatial_domain().cell_count()*tile->get_type_length());      
-    }
-    else
-      newFormat = fmt;
-
-    RMDBGMIDDLE( 2, RMDebug::module_clientcomm, "RpcClientComm",  "doTransferDecompression(...) tile newFmt:" 
-               << newFormat << " dom:" << tile->spatial_domain() 
-               << " array size:" << tile->get_array_size() 
-               << " type size:" << tile->get_type_length());
-
-    // ... also make sure the decoded format is really raw array data (r_Array)
-    if ((endianClient != endianServer) && (newFormat == r_Array))
-    {
-      // if compression engine already handles endianness we mustn't change again
-      if (!engine->converts_endianness()) {
-	  RMDBGMIDDLE( 2, RMDebug::module_clientcomm, "RpcClientComm",  "doTransferDecompression(...) for " 
-	  	     << fmt  << " endianness changed from "
-	  	     << (r_Endian::r_Endianness)endianServer << " to " << (r_Endian::r_Endianness) endianClient);
-	  changeEndianness(tile, type);
-      }
-    }
-
-    if (engine != NULL)
-      delete engine;
-      
-    RMDBGEXIT( 2, RMDebug::module_clientcomm, "RpcClientComm", "doTransferDecompression(...) tile fmt:" << newFormat);       
-
-    return newFormat;
-  }
-
-  if (endianClient != endianServer) {
-    RMDBGMIDDLE( 2, RMDebug::module_clientcomm, "RpcClientComm",  "doTransferDecompression(...) for " 
-    		<< fmt << " endianness changed from "
-	        << (r_Endian::r_Endianness)endianServer << " to " << (r_Endian::r_Endianness) endianClient);
-    changeEndianness(tile, type);
-  }
-
-  RMDBGEXIT( 2, RMDebug::module_clientcomm, "RpcClientComm", "doTransferDecompression(...) tile fmt:" << r_Array);       
-  return r_Array;
 }
 
 r_Ref_Any
@@ -2358,67 +2274,15 @@ RpcClientComm::getMarRpcRepresentation( const r_GMarray* mar, RPCMarray*& rpcMar
 
   if (initStorageFormat == r_Array)
   {
-    if (transferFormat != r_Array)
-    {
-      r_Tile_Compression *engine = NULL;
-
-      try
-      {
-	r_Storage_Man_CPP sman;
-	engine = r_Tile_Compression::create(transferFormat, mar->spatial_domain(), baseType);
-	engine->set_storage_handler(sman);
-  	RMDBGMIDDLE(2, RMDebug::module_clientcomm, "RpcClientComm", "getMarRpcRepresentation(...) compress with " << engine->get_name())
-	if ((endianClient != endianServer) && (!engine->converts_endianness()))
-	{
-         RMDBGMIDDLE( 2, RMDebug::module_clientcomm, "RpcClientComm",  "getMarRpcRepresentation(...) for " 
-                     <<  transferFormat << " endianness changed before compression from " << (r_Endian::r_Endianness)endianClient 
-       	             << " to " << (r_Endian::r_Endianness) endianServer);
-	  char *endianData = new char[mar->get_array_size()];
-	  changeEndianness(mar, endianData, baseType);
-	  arrayData = engine->compress(endianData, arraySize, transferFormatParams);
-	  delete [] endianData;
-	  endianData=NULL;
-	}
-	else
-	{
-	  arrayData = engine->compress(mar->get_array(), arraySize, transferFormatParams);
-	}
-  	RMDBGMIDDLE(2, RMDebug::module_clientcomm, "RpcClientComm", "compression returned " << arrayData << " (" << arraySize << " bytes)")
-	/*void *testData = engine->decompress(arrayData, arraySize);
-	  cout << "Decompression worked " << ((memcmp(mar->get_array(), testData, (mar->get_type_length()) * (mar->spatial_domain().cell_count())) == 0) ? "OK" : "!NOT!") << endl;
-	  delete [] testData;*/
-
-	// ForWiss: revert to uncompressed data if the compressed data is larger
-	// coman: and introduced a bug of endianess ...
-	if (arraySize > mar->get_array_size())
-	{
-	  RMInit::logOut << "RpcClientComm::getMarRpcRepresentation(...) Warning: overriding compression setting(" 
-	                 << transferFormat << ") to " << r_Array 
-	                 << " because compressed size( " << arraySize
-	                 << " bytes) > uncompressed size( " << mar->get_array_size() << " bytes)" << endl;
-	  delete [] arrayData;
-	  arrayData = NULL;
-	}
-      }
-      catch (r_Error &err)
-      {
-	RMInit::logOut << "RpcClientComm::getMarRpcRepresentation(...) Error: Unsupported data format " << transferFormat << endl;
-      }
-      if (engine != NULL)
-	delete engine;
-    }
-    else
-    {
       if (endianClient != endianServer)
       {
 	RMDBGMIDDLE( 2, RMDebug::module_clientcomm, "RpcClientComm",  "getMarRpcRepresentation(...) for " 
 		     <<  transferFormat << " endianness changed from "
 		     << (r_Endian::r_Endianness)endianClient << " to " << (r_Endian::r_Endianness) endianServer);
-	arraySize = mar->get_array_size();
-	arrayData = new char[arraySize];
-	changeEndianness(mar, arrayData, baseType);
+        arraySize = mar->get_array_size();
+        arrayData = new char[arraySize];
+        changeEndianness(mar, arrayData, baseType);
       }
-    }
   }
 
   if (arrayData == NULL)
@@ -2774,8 +2638,7 @@ RpcClientComm::getMDDCore( r_Ref< r_GMarray > &mdd, GetMDDRes *thisResult, unsig
   marray->set_type_structure( thisResult->typeStructure );
 
   r_Data_Format currentFormat = (r_Data_Format)(thisResult->currentFormat);
-  if (r_Tile_Compression::check_data_format(currentFormat) == 1)
-    currentFormat = r_Array;
+  currentFormat = r_Array;
   marray->set_current_format( currentFormat );
 
   r_Data_Format decompFormat;
@@ -2930,9 +2793,6 @@ RMDBGIF(20, RMDebug::module_tools, "WAITRECEIVEDTILE", \
         break;
     }
 
-    // uncompress the tile if necessary
-    decompFormat = doTransferDecompression( tile, baseType, currentFormat, blockOffset );
-
     char* marrayData = NULL;
     // Now the tile is transferred completely, insert it into current MDD
     if( tileStatus < 2 && tileCntr == 1 && (tile->spatial_domain() == marray->spatial_domain()))
@@ -2954,7 +2814,7 @@ RMDBGIF(20, RMDebug::module_tools, "WAITRECEIVEDTILE", \
       {
         // allocate memory for the MDD
         marrayData = new char[ size ];
-	memset(marrayData, 0, size);
+        memset(marrayData, 0, size);
 
         marray->set_array( marrayData );
       }

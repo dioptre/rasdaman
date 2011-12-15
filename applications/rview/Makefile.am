@@ -38,7 +38,7 @@ install:
 #rasql:  rasql.o rasql_error.o rasql_signal.cc # $(LIBS)
 #	$(PURIFY) $(CXX) $(LDFLAGS) -o rasql $^ $(LIBS) $(IMGLIBS) -lm
 
-#LIBS = $(l_SYM)rasodmg $(l_SYM)clientcomm $(l_SYM)compression $(l_SYM)raslib \
+#LIBS = $(l_SYM)rasodmg $(l_SYM)clientcomm $(l_SYM)raslib \
 #	$(l_SYM)conversion $(l_SYM)commline $(l_SYM)network
 
 #IMGLIBS = $(l_SYM)tiff $(l_SYM)jpeg $(l_SYM)png $(l_SYM)crypto $(l_SYM)z \

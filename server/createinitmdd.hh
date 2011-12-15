@@ -43,7 +43,6 @@ rasdaman GmbH.
 #include "relcatalogif/settype.hh"
 #include "reladminif/eoid.hh"
 #include "raslib/basetype.hh"
-#include "compression/tilecompression.hh"
 #include "raslib/oid.hh"
 #include "servercomm/servercomm.hh"
 

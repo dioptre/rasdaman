@@ -53,21 +53,17 @@ rasdaman GmbH.
 #endif
 class KeyObject;
 class PersMDDObjIx;
-class r_Tile_Compression;
 
 
 //@ManMemo: Module: {\bf cachetamgr}.
 
-/*@Doc: 
-Tile can be compressed with different algorithms which are implemented as subclasses of \Ref{Compression}. For uncompressed tiles, the special
-subclass NoCompression is used.
+/*@Doc:
 
 {\bf Interdependencies}
 
 Tile uses a pointer to \Ref{BaseType} to store the base type of the Tile.
 It uses a \Ref{r_Minterval} to store the domain of the Tile.
 Pointers to Tiles are used by many classes.
-Compression is done in subclasses of \Ref{Compression}.
 
 Persistent Tiles are created either by servercomm, when data is received from a client, or by indexif if a BLOBTile is retrieved from the 
 index. The query tree can also create tiles in case of INSERT or UPDATE queries, and Tile::splitTile creates new tiles.
@@ -204,27 +200,6 @@ class Tile
 		  allocated with malloc(). Its size has to be correct according to
 		  domain and base type of the Tile.
 		*/
-		/// returns pointer to compressed contents of Tile as stored.
-		const char* getCompressedContents() const;
-		/// returns pointer to potentially compressed contents of Tile as stored.
-		const r_Tile_Compression* getCompressionEngine() const;
-		/// this is a quick hack for BLVA (r_RLE seems not to work on DEC)
-		void setCompressionEngine(r_Tile_Compression* newCompEngine);
-		/// this is a quick hack for BLVA (r_RLE seems not to work on DEC)
-		void setCompressionFormat(r_Data_Format newFormat);
-	//@}
-
-	//@Man: functions related to compression
-	//@{
-		/// set parameters for compression/decompression
-		void setParameters(const char *par);
-		/// get compression/decompression parameters
-		const char *getParameters(void) const;
-		/// make sure the tile is compressed
-		void compress() const;
-		/// make sure the tile is decompressed
-		/// returns true if no errors were encountered and false if black data was generated
-		bool decompress() const;
 	//@}
 
 		/// printed output for testing.
@@ -380,9 +355,6 @@ class Tile
 		/// calculate offset in cells
 		r_Bytes calcOffset(const r_Point& point) const;
 		// fill cells of size size with pattern newCell of size patSize.
-
-		/// instantiate a compression engine
-		void initCompEngine() const;
 	//@}
 
 		/// spatial domain of the tile.
@@ -391,10 +363,6 @@ class Tile
 		const BaseType* type;
 		/// Smart pointer to the persistent BLOBTile.
 		DBTileId blobTile;
-		/// The compression algorithm
-  		mutable r_Tile_Compression *compEngine;
-		/// compression parameters
-		char* params;
 	};
 
 #endif

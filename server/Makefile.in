@@ -39,7 +39,7 @@
 # or contact Peter Baumann via <baumann@rasdaman.com>.
 # 
 # MAKEFILE FOR:  
-#   rasdaman server binaries
+#   rasdaman server binaries, raslic
 # 
 # COMMENTS: 
 # - For static link you have to do: setenv STATIC_LIBS=TRUE
@@ -94,8 +94,8 @@ rasserver_DEPENDENCIES = ../servercomm/libservercomm.a \
 	../relcatalogif/librelcatalogif.a ../indexmgr/libindexmgr.a \
 	../relblobif/librelblobif.a ../relindexif/librelindexif.a \
 	../httpserver/libhttpserver.a ../network/libnetwork.a \
-	../commline/libcommline.a ../compression/libcompression.a \
-	../relcatalogif/librelcatalogif.a ../raslib/libraslib.a
+	../commline/libcommline.a ../relcatalogif/librelcatalogif.a \
+	../raslib/libraslib.a
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -188,6 +188,7 @@ EMBEDDEDSQLOUT = @EMBEDDEDSQLOUT@
 EMBEDDEDSQLPRECOMPILER = @EMBEDDEDSQLPRECOMPILER@
 EXEEXT = @EXEEXT@
 GCJ_OPTS = @GCJ_OPTS@
+GDAL_CONFIG = @GDAL_CONFIG@
 GREP = @GREP@
 INFORMIX_INC = @INFORMIX_INC@
 INSTALL = @INSTALL@
@@ -301,7 +302,6 @@ rasserver_LDADD = ../servercomm/libservercomm.a ../qlparser/libqlparser.a ../con
                 ../relcatalogif/librelcatalogif.a ../indexmgr/libindexmgr.a ../relblobif/librelblobif.a \
                 ../relindexif/librelindexif.a ../httpserver/libhttpserver.a \
                 ../network/libnetwork.a ../commline/libcommline.a \
-                ../compression/libcompression.a \
                 ../relcatalogif/librelcatalogif.a ../raslib/libraslib.a 
 
 SUBDIRS = ../relblobif ../relindexif ../relmddif ../relcatalogif ../reladminif ../relstorageif \

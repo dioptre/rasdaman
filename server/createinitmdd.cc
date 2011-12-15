@@ -344,7 +344,6 @@ void FastMDDCreator::addStripe(r_OId _mddOId, const char *stripeDomain, const ch
 	createCompressedTileData(currentSlInterval, baseType);
    
         Tile* tile = new Tile( currentSlInterval, baseType, comprData, true, comprDataSize, storageFormat);
-        tile->setParameters(formatParams);				
         tile->setPersistent(true);
 
         mymdd->insertTile( tile );
@@ -377,18 +376,9 @@ void FastMDDCreator::createCompressedTileData(r_Minterval& tileInterval, const B
 			    			    
     char* dataPtr = (char*)mymalloc(uncompressedSize);  memset(dataPtr,0,uncompressedSize);
 
-    r_Base_Type *compType = (r_Base_Type*)(r_Type::get_any_type(baseType->getTypeStructure()));
-    
-    r_Tile_Compression *engine = r_Tile_Compression::create(comprMode, tileInterval, compType);
-
     r_ULong newSize = uncompressedSize; 
-    comprData = (char*)(engine->compress(dataPtr, newSize, formatParams));
+    comprData = dataPtr;
     comprDataSize = newSize;
-    delete engine;
-    //RMInit::logOut<<"Compression of "<<uncompressedSize<<" of zeroes resulted in "<<comprDataSize<<" bytes"<<endl;   
-        
-    free(dataPtr);
-    delete compType;
     
     lastSize= uncompressedSize;
 

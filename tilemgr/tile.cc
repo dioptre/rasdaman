@@ -44,7 +44,6 @@ static const char rcsid[] = "@(#)cachetamgr,Tile: $Id: tile.cc,v 1.79 2005/09/03
 #include "relblobif/blobtile.hh"
 #include "reladminif/adminif.hh"
 #include "relblobif/inlinetile.hh"
-#include "compression/tilecompression.hh"
 #include "raslib/rmdebug.hh"
 #include "raslib/miter.hh"
 #include "raslib/miterf.hh"
@@ -66,18 +65,10 @@ Tile::operator=(const Tile& tile)
 		{
 		type = tile.type;
 		domain = tile.domain;
-		//cloning is faster than recreation
-		if (tile.compEngine != NULL) {
-			if(compEngine != NULL) {
-				delete compEngine;
-			}
-			compEngine = tile.compEngine->clone();
-		}
 		blobTile->resize(tile.blobTile->getSize());
 		blobTile->setDataFormat(tile.blobTile->getDataFormat());
 		blobTile->setCurrentFormat(tile.blobTile->getCurrentFormat());
 		memcpy(blobTile->getCells(), tile.blobTile->getCells(), blobTile->getSize());
-		setParameters(tile.getParameters());
 		}
 	return *this;
 	}
@@ -85,26 +76,18 @@ Tile::operator=(const Tile& tile)
 Tile::Tile(const Tile& tile)
 	:	domain(tile.domain),
 		type(tile.type),
-		blobTile((DBTile*)NULL),
-		//cloning is faster than recreation
-		compEngine(NULL),
-		params(NULL)
+		blobTile((DBTile*)NULL)
 	{
-	if (tile.compEngine != NULL)
-		compEngine = tile.compEngine->clone();
 	if (RMInit::useTileContainer)
 		blobTile = new InlineTile(tile.blobTile->getSize(), tile.blobTile->getCells(), tile.blobTile->getDataFormat());
 	else
 		blobTile = new BLOBTile(tile.blobTile->getSize(), tile.blobTile->getCells(), tile.blobTile->getDataFormat());
 	blobTile->setCurrentFormat(tile.blobTile->getCurrentFormat());
-	setParameters(tile.getParameters());
 	}
 
 Tile::Tile(std::vector<Tile*>* tilesVec)
 	:	domain(),
 		type(NULL),
-		compEngine(NULL),
-		params(NULL),
 		blobTile((DBTile*)NULL)
 	{
 	// iterators for tiles
@@ -122,11 +105,6 @@ Tile::Tile(std::vector<Tile*>* tilesVec)
 		blobTile = new InlineTile(getSize(), (char)0, (*tileIt)->getDataFormat());
 	else
 		blobTile = new BLOBTile(getSize(), (char)0, (*tileIt)->getDataFormat());
-	// initialize compression with compression of first tile
-	//cloning is faster than recreation
-	if ((*tileIt)->compEngine != NULL)
-		compEngine = (*tileIt)->compEngine->clone();
-	setParameters((*tileIt)->getParameters());
 	// initialize domain
 	domain = (*(tileIt++))->getDomain();
 	while (tileIt != tileEnd)
@@ -143,9 +121,7 @@ Tile::Tile(std::vector<Tile*>* tilesVec)
 	}
 
 Tile::Tile(std::vector<Tile*>* tilesVec, const r_Minterval& resDom)
-	:	params(NULL),
-		domain(resDom),
-		compEngine(NULL)
+	:	domain(resDom)
 	{
 	// iterators for tiles
 	std::vector<Tile*>::iterator tileIt;
@@ -156,11 +132,6 @@ Tile::Tile(std::vector<Tile*>* tilesVec, const r_Minterval& resDom)
 	tileIt = tilesVec->begin();
 	// initialize type with type of first tile
 	type = (*tileIt)->getType();
-	// initialize compression with compression of first tile
-	//cloning is faster than recreation
-	if ((*tileIt)->compEngine != NULL)
-		compEngine = (*tileIt)->compEngine->clone();
-	setParameters((*tileIt)->getParameters());
 
 	// init contents
 	if (RMInit::useTileContainer)
@@ -184,8 +155,6 @@ Tile::Tile(std::vector<Tile*>* tilesVec, const r_Minterval& resDom)
 Tile::Tile(const Tile* projTile, const r_Minterval& projDom, const std::set<r_Dimension, std::less<r_Dimension> >* projDimSet)
 	:	domain(projDom.dimension() - projDimSet->size()),
 		type(projTile->type),
-		compEngine(NULL),
-		params(NULL),
 		blobTile((DBTile*)NULL)
 	{
 	// calculate dimension of new Tile
@@ -205,12 +174,6 @@ Tile::Tile(const Tile* projTile, const r_Minterval& projDom, const std::set<r_Di
 		}
 
 	RMDBGONCE(3, RMDebug::module_tilemgr, "Tile", "domain result: " << domain << " domain original: " << projTile->getDomain());
-
-	// have to initialize the uncompressed contents in case an operation is called on the tile
-	//cloning is faster than recreation
-	if (projTile->compEngine)
-		compEngine = projTile->compEngine->clone();
-	setParameters(projTile->getParameters());
 
 	// init contents
 	if (RMInit::useTileContainer)
@@ -239,8 +202,6 @@ Tile::Tile(const Tile* projTile, const r_Minterval& projDom, const std::set<r_Di
 Tile::Tile(const r_Minterval& newDom, const BaseType* newType, DBTileId newBLOBTile)
 	:	domain(newDom),
 		type(newType),
-		params(NULL),
-		compEngine(NULL),
 		blobTile(newBLOBTile)
 	{
 	RMDBGONCE(3, RMDebug::module_rasodmg, "Tile","Tile(" << newDom << ", " << newType->getName() << ", blob)");
@@ -248,9 +209,7 @@ Tile::Tile(const r_Minterval& newDom, const BaseType* newType, DBTileId newBLOBT
 
 Tile::Tile(const r_Minterval& newDom, const BaseType* newType, r_Data_Format newFormat) 
 	:	domain(newDom),
-		params(NULL),
 		type(newType),
-		compEngine(NULL),
 		blobTile((DBTile*)NULL)
 	{
 	RMDBGONCE(3, RMDebug::module_rasodmg, "Tile","Tile(new), size " << getSize());
@@ -260,15 +219,11 @@ Tile::Tile(const r_Minterval& newDom, const BaseType* newType, r_Data_Format new
 		blobTile = new InlineTile(getSize(), (char)0, newFormat);
 	else
 		blobTile = new BLOBTile(getSize(), (char)0, newFormat);
-	//not neccessary now
-	//initCompEngine();
 	}
 
 Tile::Tile(const r_Minterval& newDom, const BaseType* newType, char* newCells, r_Bytes newSize, r_Data_Format newFormat) 
 	:	domain(newDom),
-		params(NULL),
 		type(newType),
-		compEngine(NULL),
 		blobTile((DBTile*)NULL)
 	{
 	RMDBGONCE(3, RMDebug::module_rasodmg, "Tile","Tile(), fmt " << newFormat << ", size " << newSize);
@@ -288,15 +243,11 @@ Tile::Tile(const r_Minterval& newDom, const BaseType* newType, char* newCells, r
 		blobTile = new BLOBTile(newSize, newCells, newFormat);
 	blobTile->setCurrentFormat(current);
 	free(newCells);
-	//not neccessary now
-	//initCompEngine();
 	}
 
 Tile::Tile(const r_Minterval& newDom, const BaseType* newType, const char* newCells, bool, r_Bytes newSize, r_Data_Format newFormat) 
 	:	domain(newDom),
-		params(NULL),
 		type(newType),
-		compEngine(NULL),
 		blobTile((DBTile*)NULL)
 	{
 	RMDBGONCE(3, RMDebug::module_rasodmg, "Tile","Tile(), fmt " << newFormat << ", size " << newSize);
@@ -315,38 +266,6 @@ Tile::Tile(const r_Minterval& newDom, const BaseType* newType, const char* newCe
 	else
 		blobTile = new BLOBTile(newSize, newCells, newFormat);
 	blobTile->setCurrentFormat(current);
-	// this one doesn't do this stupid thing: free(newCells);
-	//not neccessary now
-	//initCompEngine();
-	}
-
-void
-Tile::initCompEngine() const
-	{
-	if (compEngine == NULL)
-		{
-		char* typeStruct = type->getTypeStructure();
-		r_Base_Type *useType = (r_Base_Type*)(r_Type::get_any_type(typeStruct));
-		compEngine = r_Tile_Compression::create(blobTile->getDataFormat(), domain, useType);
-		delete useType;
-		free(typeStruct);
-		}
-	}
-
-void
-Tile::setCompressionFormat(r_Data_Format newFormat)
-	{
-	if (blobTile->getDataFormat() != newFormat)
-		{
-		decompress();
-		delete compEngine;
-		char* typeStruct = type->getTypeStructure();
-		r_Base_Type *useType = (r_Base_Type*)(r_Type::get_any_type(typeStruct));
-		compEngine = r_Tile_Compression::create(newFormat, domain, useType);
-		delete useType;
-		free(typeStruct);
-		blobTile->setDataFormat(newFormat);
-		}
 	}
 
 void
@@ -359,18 +278,9 @@ r_Bytes
 Tile::getCompressedSize() const
 	{
 	RMDBGONCE(3, RMDebug::module_rasodmg, "Tile","getCompressedSize()");
-	compress();
 	return blobTile->getSize();
 	}
 
-const char*
-Tile::getCompressedContents() const
-	{
-	RMDBGONCE(3, RMDebug::module_rasodmg, "Tile","getCompressedContents() const");
-	compress();
-	const char* cellPtr = blobTile->getCells();
-	return cellPtr;
-	}
 
 bool 
 Tile::isPersistent() const
@@ -384,8 +294,6 @@ Tile::~Tile()
 	// this function has to check now if a tile has to be compressed.
 	// The old scheme of compression in AdminIf::compCompTiles does
 	// not work, because tiles may be destroyed before with releaseAll.
-	delete compEngine;
-	delete [] params;
 	}
 
 DBTileId 
@@ -892,14 +800,13 @@ Tile::splitTile(r_Minterval resDom, int storageDomain)
 
 	// intersect with bigTile
 	currDom.intersection_with(this->getDomain());
-	initCompEngine();
 	// iterate with smallTile over bigTile
 	while(!done)
 		{
 		currDom.intersection_with(this->getDomain());
 
 		// create new smallTile
-		smallTile = new Tile(currDom, resType, compEngine->get_data_format());
+		smallTile = new Tile(currDom, resType);
 		// fill it with relevant area
 		smallTile->copyTile(currDom, this, currDom);
 		// insert it in result vector
@@ -982,15 +889,6 @@ Tile::getCell(const r_Point& aPoint) const
 	return getCell(cellOffset);
 	}
 
-void 
-Tile::setCompressionEngine(r_Tile_Compression* newCompAlg)
-	{
-	decompress();
-	delete compEngine;
-	compEngine = newCompAlg;
-	blobTile->setDataFormat(compEngine->get_data_format());
-	}
-
 const r_Minterval&
 Tile::getDomain() const
 	{
@@ -1024,14 +922,12 @@ Tile::getDataFormat() const
 const char* 
 Tile::getCell(r_Area index) const
 	{
-	decompress();
 	return &(blobTile->getCells()[index * type->getSize()]);
 	}
 
 char* 
 Tile::getCell(r_Area index)
 	{
-	decompress();
 	return &(blobTile->getCells()[index * type->getSize()]);
 	}
 
@@ -1047,140 +943,20 @@ Tile::setCell(r_Area index, const char* newCell)
 char*
 Tile::getContents()
 	{
-	decompress();
 	return blobTile->getCells();
 	}
 
 const char*
 Tile::getContents() const
 	{
-	decompress();
 	return blobTile->getCells();
 	}
 
 void
 Tile::setContents(char* newContents)
 	{
-	decompress();
 	blobTile->setCells(newContents);
 	}
-
-void
-Tile::setParameters(const char *par)
-	{
-	delete [] params;
-	if (par != NULL)
-		{
-		params = new char[strlen(par) + 1];
-		strcpy(params, par);
-		}
-	else
-		params = NULL;
-	}
-
-const char*
-Tile::getParameters() const
-	{
-	return params;
-	}
-
-const r_Tile_Compression*
-Tile::getCompressionEngine() const
-	{
-	return compEngine;
-	}
-
-void
-Tile::compress() const
-	{
-	if (blobTile->getCurrentFormat() != blobTile->getDataFormat())
-		{
-		initCompEngine();
-		r_ULong compressedSize = 0;
-		char* compressedData = (char*)(compEngine->compress(blobTile->getCells(), compressedSize, params));
-		if (!AdminIf::isReadOnlyTA())
-			{
-			r_ULong sizee = getSize();
-			if (compressedSize > sizee)
-				{
-				RMInit::logOut << "Warning: overriding compression setting(" << blobTile->getDataFormat() << ") to " 
-					       << r_Array << " for tile " << getDomain() 
-					       << " " << blobTile->getOId() << " because compressed size( " << compressedSize 
-					       << " bytes) > uncompressed size( " << sizee << " bytes)" << endl;
-				r_Tile_Compression* compEngineN = r_Tile_Compression::create(r_Array, getDomain(), compEngine->get_base_type());
-				delete compEngine;
-				compEngine = compEngineN;
-				compEngineN = NULL;
-				((DBTile*)blobTile.ptr())->setDataFormat(compEngine->get_data_format());
-				free(compressedData);
-				compressedData = NULL;
-				compressedSize = sizee;
-				//not neccessary because already there
-				//blobTile->setNoModificationData(compressedData);
-				}
-			else	{
-				blobTile->setNoModificationData(compressedData);
-				}
-			}
-		else	{
-			blobTile->setNoModificationData(compressedData);
-			}
-		blobTile->setNoModificationSize(compressedSize);
-		blobTile->setCurrentFormat(compEngine->get_data_format());
-		}
-	}
-
-bool
-Tile::decompress() const
-	{
-	bool retval = true;
-	if (blobTile->getCurrentFormat() != r_Array)
-		{
-		initCompEngine();
-		bool wrongDecompress = false;
-		r_Bytes compressedSize = blobTile->getSize();
-		char* decompressedData = (char*)(compEngine->decompress(blobTile->getCells(), blobTile->getSize(), params));
-		if (decompressedData == NULL)
-			{
-			RMInit::logOut << "Error: decompress returned NULL " << blobTile->getOId() << " " << getDomain() << endl;
-			wrongDecompress = true;
-			decompressedData = (char*)mymalloc(getSize() * sizeof(char));
-			memset(decompressedData, 0, getSize());
-			RMInit::logOut << "Error fixed by returning empty data.  ";
-			if (!AdminIf::isReadOnlyTA())
-				{
-				((DBTile*)blobTile.ptr())->setModified();
-				RMInit::logOut << "Fix was made persistent.";
-				}
- 			RMInit::logOut << endl;
-			retval = false;
-			}
-		blobTile->setNoModificationData(decompressedData);
-		blobTile->setNoModificationSize(getSize());
-		blobTile->setCurrentFormat(r_Array);
-		}
-	else	{
-		if (getSize() != blobTile->getSize())
-			{
-			RMInit::logOut << "Error: tile with wrong size " << blobTile->getOId() << " " << getDomain() << " is " << blobTile->getSize() << " should be " << getSize() << " format " << blobTile->getDataFormat() << endl; 
-			char* tempPtr = (char*)mymalloc(getSize() * sizeof(char));
-		        memset(tempPtr, '\0', getSize()*sizeof(char));
-			if(getSize() < blobTile->getSize())
-				{
-				memcpy(tempPtr, blobTile->getCells(), getSize());
-				}
-			else	{
-				memcpy(tempPtr, blobTile->getCells(), blobTile->getSize());
-				}
-			((DBTile*)blobTile.ptr())->setCells(tempPtr);
-			blobTile->setNoModificationSize(getSize());
-			RMInit::logOut << "Error fixed by resizing and copying data" << endl; 
-			retval = false;
-			}
-		}
-	return retval;
-	}
-
 
 r_Bytes
 Tile::calcOffset(const r_Point& point) const

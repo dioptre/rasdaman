@@ -230,7 +230,6 @@ RMDBGIF(10, RMDebug::module_mddmgr, "printlayoutdoms", \
 				// initialise to 0
 				memset(newContents, 0, sizeOfData);
 				tile = new Tile(*it, getMDDBaseType()->getBaseType(), newContents, 0, newTile->getDataFormat());
-				tile->setParameters(newTile->getParameters());
 				tempDom = (*it).create_intersection(tileDom);
 				// only update the actual data - the rest was set to 0
 				tile->copyTile(tempDom, newTile, tempDom);
@@ -238,7 +237,6 @@ RMDBGIF(10, RMDebug::module_mddmgr, "printlayoutdoms", \
 				//RMInit::dbgOut << "insert tile" << endl;
 				//  tile->printStatus(99,RMInit::dbgOut);
 				//FIXME: should not be neccessary
-				tile->compress();
 				myMDDIndex->insertTile((Tile*)tile);
 				}
 			}

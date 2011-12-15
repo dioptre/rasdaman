@@ -45,7 +45,7 @@ rasdl_LDADD = ../reladminif/libreladminif.a ../relmddif/librelmddif.a \
               ../relcatalogif/librelcatalogif.a ../relblobif/librelblobif.a \
               ../indexmgr/libindexmgr.a ../catalogmgr/libcatalogmgr.a \
               ../storagemgr/libstoragemgr.a ../tilemgr/libtilemgr.a \
-              ../compression/libcompression.a ../commline/libcommline.a ../raslib/libraslib.a \
+              ../commline/libcommline.a ../raslib/libraslib.a \
               ../conversion/libconversion.a ../rasodmg/librasodmg.a
 
 BUILT_SOURCES=lex.cc odl.cc odl.h              
@@ -53,7 +53,7 @@ CLEANFILES=lex.cc odl.cc odl.h
 
 SUBDIRS=../reladminif ../relmddif ../relstorageif ../relindexif ../relcatalogif \
         ../relblobif ../indexmgr ../catalogmgr ../storagemgr ../tilemgr \
-        ../compression ../raslib ../conversion ../commline ../rasodmg
+        ../raslib ../conversion ../commline ../rasodmg
 
 $(RECURSIVE_CLEAN_TARGETS):
 	@$(MAKE) $(AM_MAKEFLAGS) `echo $@ | sed s/-recursive/-am/`

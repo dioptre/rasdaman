@@ -86,7 +86,6 @@ static const char rcsid[] = "@(#)servercomm, ServerComm: $Id: servercomm.cc,v 1.
 #include "raslib/error.hh"
 #include "raslib/minterval.hh"
 #include "raslib/parseparams.hh"
-#include "compression/tilecompression.hh"
 
 #include "servercomm/servercomm.hh"
 #include "qlparser/qtnode.hh"

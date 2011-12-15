@@ -35,12 +35,12 @@ bin_PROGRAMS = insertppm query
 
 insertppm_SOURCES = insertppm.cc
 insertppm_LDADD = ../../../rasodmg/librasodmg.a ../../../clientcomm/libclientcomm.a \
-        ../../../compression/libcompression.a ../../../raslib/libraslib.a \
+        ../../../raslib/libraslib.a \
         ../../../conversion/libconversion.a ../../../network/libnetwork.a ../../../commline/libcommline.a \
          -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto -lm -lz
 
 query_SOURCES = query.cc
 query_LDADD = ../../../rasodmg/librasodmg.a ../../../clientcomm/libclientcomm.a \
-        ../../../compression/libcompression.a ../../../raslib/libraslib.a \
+        ../../../raslib/libraslib.a \
         ../../../conversion/libconversion.a ../../../network/libnetwork.a ../../../commline/libcommline.a \
          -lnetpbm -ljpeg -lpng -ltiff -lmfhdf -ldf -lcrypto -lm -lz

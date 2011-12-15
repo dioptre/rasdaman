@@ -34,16 +34,16 @@ AM_LDFLAGS=@CLIENTLDFLAGS@ @BASEDBLDFLAGS@
 bin_PROGRAMS=rasimport raserase
 rasimport_SOURCES= rimport.cxx rimport.h RasdamanConnector.cxx RasdamanHelper2.cxx nmlog.h
 rasimport_LDADD = ../../rasodmg/librasodmg.a ../../clientcomm/libclientcomm.a \
-              ../../compression/libcompression.a ../../raslib/libraslib.a \
+              ../../raslib/libraslib.a \
               ../../conversion/libconversion.a ../../commline/libcommline.a \
               ../../network/libnetwork.a
 raserase_SOURCES= rerase.cxx rerase.h RasdamanConnector.cxx RasdamanHelper2.cxx nmlog.h
 raserase_LDADD = ../../rasodmg/librasodmg.a ../../clientcomm/libclientcomm.a \
-              ../../compression/libcompression.a ../../raslib/libraslib.a \
+              ../../raslib/libraslib.a \
               ../../conversion/libconversion.a ../../commline/libcommline.a \
               ../../network/libnetwork.a
 
-SUBDIRS= ../../rasodmg ../../clientcomm ../../compression \
+SUBDIRS= ../../rasodmg ../../clientcomm \
          ../../raslib ../../conversion ../../commline ../../network
          
 setupdb:

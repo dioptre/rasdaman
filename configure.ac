@@ -120,7 +120,6 @@ AC_CONFIG_FILES([Makefile
                  indexmgr/Makefile
                  tilemgr/Makefile
                  storagemgr/Makefile
-                 compression/Makefile
                  commline/Makefile
                  network/Makefile
                  raslib/Makefile

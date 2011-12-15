@@ -71,6 +71,4 @@ rasdaman GmbH.
 #include "conversion/convertor.hh"
 #include "conversion/convfactory.hh"
 
-#include "compression/tilecompression.hh"
-
 #endif

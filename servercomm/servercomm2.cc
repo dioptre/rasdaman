@@ -82,8 +82,6 @@ static const char rcsid[] = "@(#)servercomm2, ServerComm: $Id: servercomm2.cc,v 
 #include "raslib/endian.hh"
 #include "raslib/odmgtypes.hh"
 #include "raslib/parseparams.hh"
-// for transfer compression
-#include "compression/tilecompression.hh"
 
 #include "servercomm/servercomm.hh"
 #include "catalogmgr/typefactory.hh"
@@ -1076,22 +1074,9 @@ ServerComm::insertMDD( unsigned long  callingClientId,
 						tileDom << r_Sinterval( (r_Range)0, (r_Range)(edgeLength-1) );
 			
 					Tile* entireTile = 0;
-
-					// compression intelligence moved somewhere else, but creation of
-					// compression object in tile constructor might throw an error.
-	
-					if (r_Tile_Compression::check_data_format(myDataFmt) == r_Tile_Compression::COMPRESSION)
-					{
-						RMInit::dbgOut << "insertTile created new TransTile (" << myDataFmt << "), ";
-					}
-					else
-					{
-						RMInit::logOut << "Warning: unsupported data format '" << myCurrentFmt << "', falling back to 'r_Array'..." << std::flush;
-						myCurrentFmt = r_Array;
-					}
+          myCurrentFmt = r_Array;
 					entireTile = new Tile( domain, baseType, dataPtr, getMDDData, myDataFmt );
 	
-					entireTile->setParameters(context->storageFormatParams);
 					vector< Tile *>* tileSet = entireTile->splitTile( tileDom );
 					if (entireTile->isPersistent())
 						entireTile->setPersistent(0);
@@ -1109,18 +1094,9 @@ ServerComm::insertMDD( unsigned long  callingClientId,
 				{
 					Tile* tile = 0;
 	
-					if (r_Tile_Compression::check_data_format(myDataFmt) == r_Tile_Compression::COMPRESSION)
-					{
-						tile = new Tile( domain, baseType, dataPtr, getMDDData, myDataFmt );
-						RMInit::dbgOut << "insertTile created new TransTile (" << myDataFmt << "), ";
-					}
-					else
-					{
-						RMInit::logOut << "Error: Unsupported data format '" << myCurrentFmt << "', will ingore it..." << std::flush;
-						tile = new Tile( domain, baseType, dataPtr, getMDDData );
-					}
+          tile = new Tile( domain, baseType, dataPtr, getMDDData, myDataFmt );
+          RMInit::dbgOut << "insertTile created new TransTile (" << myDataFmt << "), ";
 		
-					tile->setParameters(context->storageFormatParams);
 					RMInit::dbgOut << "one tile..." << std::flush;
 					mddObj->insertTile( tile );    
 				}
@@ -1221,15 +1197,8 @@ ServerComm::insertTileSplitted( unsigned long  callingClientId,
 
 			Tile* tile = 0;
 
-			if (r_Tile_Compression::check_data_format(myDataFmt) == r_Tile_Compression::COMPRESSION)
-			{
-				RMInit::dbgOut << "insertTile created new TransTile (" << myDataFmt << "), ";
-			}
-			else
-			{
-				RMInit::logOut << "Warning: Unsupported data format '" << myCurrentFmt << "', falling back to r_Array..." << std::flush;
-				myDataFmt = r_Array;
-			}
+      RMInit::dbgOut << "insertTile created new TransTile (" << myDataFmt << "), ";
+      myDataFmt = r_Array;
 			tile = new Tile( domain, baseType, dataPtr, getMDDData, myDataFmt );
 
 			// for java clients only: check endianness and split tile if necessary
@@ -1262,7 +1231,6 @@ ServerComm::insertTileSplitted( unsigned long  callingClientId,
 				RMInit::dbgOut << "inserting split tile...";
 				for( vector<Tile*>::iterator iter = tileSet->begin(); iter != tileSet->end(); iter++ )
 				{
-					(*iter)->setParameters(context->storageFormatParams);
 					if( isPersistent ) 
 						context->assembleMDD->insertTile( *iter );
 					else
@@ -1278,7 +1246,6 @@ ServerComm::insertTileSplitted( unsigned long  callingClientId,
 		 		//insert one single tile
 		 		// later, we should take into consideration the default server tile-size!
 		 		RMInit::logOut << "inserting single tile...";
-		 		tile->setParameters(context->storageFormatParams);
 		 		if( isPersistent ) 
 					context->assembleMDD->insertTile( tile );
 		 		else
@@ -3329,52 +3296,6 @@ ServerComm::getNextTile( unsigned long   callingClientId,
 					context->encodedData = NULL;
 					context->encodedSize = 0;
 				}
-
-				// Transfer compression...
-				// we have to repack the data if ((tf != cf) && exact) or ((tf != Array) && (cf == Array))
-				// where tf = transferFormat, cf = currentFormat.
-				r_Data_Format tf = context->transferFormat;
-				r_Data_Format cf = resultTile->getDataFormat();
-				RMDBGMIDDLE( 4, RMDebug::module_servercomm, "ServerComm",  "getNextTile CURRENT " << cf << ", TRANSFER " << tf << ", EXACT " << (bool)context->exactFormat);
-				if (((tf != cf) && (context->exactFormat != 0)) || ((tf != r_Array) && (cf == r_Array)))
-				{
-					RMDBGMIDDLE(4, RMDebug::module_servercomm, "ServerComm", "repack data from " << cf << " to " << tf)
-	
-					//the cast from const char* to char* is okay because the owner flag is set correctly
-					char *encData = (char*)resultTile->getCompressedContents();
-					unsigned long encSize = resultTile->getCompressedSize();
-					//the data format could have changed during compression
-					cf = resultTile->getDataFormat();
-					// this method actually repacks everything as needed
-					if(ensureTileFormat(cf, tf, mddDomain, resultTile->getType(),
-						    encData, encSize, 1, 0, context->transferFormatParams) != ENSURE_TILE_FORMAT_OK)
-					{
-			 			//FIXME returnValue
-						returnValue = 4;
-						
-						RMInit::logOut << "Error: tile format mismatch while fetching next tile." << endl;		   
-						(*rpcMarray)->domain = mddDomain.get_string_representation();
-
-						// allocate memory for the output parameter data and assign its fields
-						(*rpcMarray)->data.confarray_len = 0;
-						(*rpcMarray)->data.confarray_val = NULL;
-						// 3. store cell type length
-						(*rpcMarray)->cellTypeLength = 0;
-			 
-				 		context->release();	 
-			 			return returnValue;
-					}
-					// if the new format is bigger than the old one and we're allowed to, revert to the old one
-					if ((encSize >= resultTile->getCompressedSize()) && (context->exactFormat == 0))
-					{
-						free( encData );
-					}
-					else
-					{
-						context->encodedData = encData;
-						context->encodedSize = encSize;
-					}
-				}
 			}
 
 			// note: transfer compression affects the current format, not the storage format.
@@ -3382,7 +3303,7 @@ ServerComm::getNextTile( unsigned long   callingClientId,
 			{
 				totalSize = resultTile->getCompressedSize();
 				//this is bad because useTransData is char* although it is not modified
-				useTransData = (char*)resultTile->getCompressedContents();
+				useTransData = (char*)resultTile->getContents();
 				(*rpcMarray)->currentFormat = resultTile->getDataFormat();
 				RMDBGMIDDLE(4, RMDebug::module_servercomm, "ServerComm", "using tile format " << (r_Data_Format)(*rpcMarray)->currentFormat)
 			}
@@ -3781,33 +3702,25 @@ ServerComm::setTransferMode( unsigned long callingClientId,
 	if (context != 0)
 	{
 		r_Data_Format fmt = (r_Data_Format)format;
-		// query compression module whether this is a legal format for transfer compression
-		if (r_Tile_Compression::check_data_format(fmt) == r_Tile_Compression::INVALID)
-		{
-			RMInit::logOut << "Error: invalid transfer compression format: " << format << std::endl;
-			retval = 2;
-		}
-		else
-		{
-			if (context->transferFormatParams != NULL)
-			{
-				delete [] context->transferFormatParams;
-				context->transferFormatParams = NULL;
-				 // revert the transfer format strictness
-				context->exactFormat = 0;
-			}
-			if (formatParams != NULL)
-			{
-				context->transferFormatParams = new char[strlen(formatParams)+1];
-				strcpy(context->transferFormatParams, formatParams);
-				// extract any occurrences of ``exactformat''
-				context->clientParams->process(context->transferFormatParams);
-			}
-			context->transferFormat = fmt;
+    if (context->transferFormatParams != NULL)
+    {
+      delete [] context->transferFormatParams;
+      context->transferFormatParams = NULL;
+       // revert the transfer format strictness
+      context->exactFormat = 0;
+    }
+    if (formatParams != NULL)
+    {
+      context->transferFormatParams = new char[strlen(formatParams)+1];
+      strcpy(context->transferFormatParams, formatParams);
+      // extract any occurrences of ``exactformat''
+      context->clientParams->process(context->transferFormatParams);
+    }
+    context->transferFormat = fmt;
 
-			RMInit::logOut << MSG_OK << std::endl;
-			retval = 0;
-		}
+    RMInit::logOut << MSG_OK << std::endl;
+    retval = 0;
+		
 		context->release();
 		RMDBGMIDDLE(1, RMDebug::module_servercomm, "ServerComm", "setTransferMode(...) current transfer format :" << context->transferFormat)
 		RMDBGMIDDLE(1, RMDebug::module_servercomm, "ServerComm", "setTransferMode(...)current transfer params :" << context->transferFormatParams );
@@ -3837,29 +3750,23 @@ ServerComm::setStorageMode( unsigned long callingClientId,
 
 	if (context != 0)
 	{
-		r_Data_Format fmt = (r_Data_Format)format;
-		if (r_Tile_Compression::check_data_format(fmt) == r_Tile_Compression::INVALID)
-		{
-			RMInit::logOut << "Error: invalid storage compression format: " << format << std::endl;
-			retval = 2;
-		}
-		else
-		{
-			if (context->storageFormatParams != NULL)
-			{
-				delete [] context->storageFormatParams;
-				context->storageFormatParams = NULL;
-			}
-			if (formatParams != NULL)
-			{
-				context->storageFormatParams = new char[strlen(formatParams)+1];
-				strcpy(context->storageFormatParams, formatParams);
-			}
-			context->storageFormat = fmt;
+		r_Data_Format fmt = r_Array;
+    
+    if (context->storageFormatParams != NULL)
+    {
+      delete [] context->storageFormatParams;
+      context->storageFormatParams = NULL;
+    }
+    if (formatParams != NULL)
+    {
+      context->storageFormatParams = new char[strlen(formatParams)+1];
+      strcpy(context->storageFormatParams, formatParams);
+    }
+    context->storageFormat = fmt;
 
-			RMInit::logOut << MSG_OK << std::endl;
-			retval = 0;
-		}
+    RMInit::logOut << MSG_OK << std::endl;
+    retval = 0;
+      
 		context->release();
 		RMDBGMIDDLE(1, RMDebug::module_servercomm, "ServerComm", "setStorageMode(...) current storage format :" << context->storageFormat)
 		RMDBGMIDDLE(1, RMDebug::module_servercomm, "ServerComm", "setStorageMode(...) current storage params :" << context->storageFormatParams)
@@ -3889,87 +3796,6 @@ ServerComm::ensureTileFormat( r_Data_Format &hasFmt,
 	int status = ENSURE_TILE_FORMAT_OK;
 
 	RMDBGMIDDLE(2, RMDebug::module_servercomm, "ServerComm", "ensureTileFormat(...) #Size 1=" << size);
-
-	// convert to storage format (this should go into a separate function)
-	if (hasFmt != needFmt)
-	{
-		r_Tile_Compression *engine = NULL;
-		r_ULong newSize=0;
-		char *newData=NULL;
-
-		char *tpstruct = type->getTypeStructure();
-		r_Base_Type *compType = (r_Base_Type*)(r_Type::get_any_type(tpstruct));
-
-		// decompress
-		try
-		{
-			engine = r_Tile_Compression::create(hasFmt, dom, compType);
-			// decompression doesn't change the size variable!
-			newData = (char*)(engine->decompress(data, size, params));
-			delete engine;
-
-			if (newData == NULL)
-			{
-		 		RMInit::logOut << "Error: decompression failed for format '" << hasFmt << "'." << endl;
-		 		size = dom.cell_count() * compType->size();
-		 		newData = (char*)mymalloc(size * sizeof(char));
-		 		memset(newData, 0, size);
-				// FIXME: make it an error!! --PB 2005-aug-25
-		 		RMInit::logOut << "Error fixed by returning empty data of length " << size << " bytes." << std::endl;
-			}
-	 	 	// do I actually own the data?
-		 	if (owner != 0)
-				free(data);
-		 	data = newData; 
-		 	size = dom.cell_count() * (compType->size());
- 	   		hasFmt = r_Array;
-		}
-		catch (r_Error &err)
-		{
-			RMInit::logOut << "Error: cannot decompress format '" << hasFmt << "' (" << err.get_errorno() << "): " << err.what() << endl;
-			RMDBGEXIT(2, RMDebug::module_servercomm, "ServerComm", "ensureTileFormat(...) " << ENSURE_TILE_FORMAT_BAD)
-			status = ENSURE_TILE_FORMAT_BAD;
-		}
-
-		RMDBGMIDDLE(2, RMDebug::module_servercomm, "ServerComm", "ensureTileFormat(...) #Size 2=" << size);
-
-		if ((status == ENSURE_TILE_FORMAT_OK) && (repack != 0) && (needFmt != r_Array))
-		{
-			try
-			{
-		 		newSize = size;
-		 		engine = r_Tile_Compression::create(needFmt, dom, compType);
-		 		newData = (char*)(engine->compress(data, newSize, params));
-		 		delete engine;
-		 
-		 		if (newData == NULL)
-		 		{
-					RMInit::logOut << "Error: recompression failed for format '" << needFmt << "'." << endl;
-					RMDBGEXIT(2, RMDebug::module_servercomm, "ServerComm", "ensureTileFormat(...) " << ENSURE_TILE_FORMAT_BAD)
-					status = ENSURE_TILE_FORMAT_BAD;
-		 		}
-		 		else
-		 		{
-					free(data);
-					data = newData; size = newSize;
-					hasFmt = needFmt;
-					RMDBGMIDDLE(2, RMDebug::module_servercomm, "ServerComm", "recompressed to " << hasFmt << " size " << size)
-		 		}
-			}
-			catch (r_Error &err)
-			{
-		 		RMInit::logOut << "Error: unsupported tile format '" << needFmt << "' (" << err.get_errorno() << "): " << err.what() << endl;
-		 		RMDBGEXIT(2, RMDebug::module_servercomm, "ServerComm", "ensureTileFormat " << ENSURE_TILE_FORMAT_BAD)
-		 		status = ENSURE_TILE_FORMAT_BAD;
-			}
-		}
-		else	
-		{
-			RMDBGMIDDLE(2, RMDebug::module_servercomm, "ServerComm", "ensureTileFormat(...) do not recompress")
-		}
-		delete compType;
-		free(tpstruct);
-	}
 
 	RMDBGMIDDLE(2, RMDebug::module_servercomm, "ServerComm", "ensureTileFormat(...) #Size 3=" << size);
 	RMDBGEXIT(2, RMDebug::module_servercomm, "ServerComm", "ensureTileFormat(...) " << ENSURE_TILE_FORMAT_OK)
