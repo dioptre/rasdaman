@@ -22,17 +22,19 @@ rasdaman GmbH.
  */
 package petascope.wcs2.extensions;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import nu.xom.Document;
+import nu.xom.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.core.DbMetadataSource;
-import petascope.wcs2.handlers.Response;
 import petascope.exceptions.ExceptionCode;
+import petascope.wcs2.handlers.Response;
 import petascope.exceptions.PetascopeException;
 import petascope.exceptions.WCSException;
+import petascope.util.ListUtil;
 import petascope.util.Pair;
 import petascope.util.WcsUtil;
+import petascope.util.XMLSymbols;
 import petascope.util.XMLUtil;
 import petascope.wcs2.templates.Templates;
 
@@ -46,28 +48,15 @@ public class SOAPProtocolExtension extends AbstractProtocolExtension {
     
     private static final Logger log = LoggerFactory.getLogger(SOAPProtocolExtension.class);
     
-    private static final Pattern REGEX = Pattern.compile(".+<([^:]+:)?Body>(.+)</([^:]+:)?Body>.+", Pattern.DOTALL);
-    
     @Override
     public boolean canHandle(String input) {
-        return input != null && input.startsWith("<?xml") && XMLUtil.isFirstTag(input, "Envelope");
+        return input != null && input.startsWith("<") && XMLUtil.isFirstTag(input, "Envelope");
     }
 
     @Override
     public Response handle(String request, DbMetadataSource meta) throws WCSException {
         try {
-            Matcher matcher = REGEX.matcher(request);
-            if (matcher.matches()) {
-                request = matcher.group(2);
-                if (request == null) {
-                    throw new WCSException(ExceptionCode.InvalidRequest, "No WCS 2.0 operation"
-                            + " found in the body of the SOAP request message.");
-                }
-                request = request.trim();
-            } else {
-                throw new WCSException(ExceptionCode.InvalidRequest, "No WCS 2.0 operation"
-                        + " found in the body of the SOAP request message.");
-            }
+            request = extractWcsRequest(request);
             Response ret = super.handle(request, meta);
             if (ret.getXml() != null) {
                 ret = new Response(ret.getData(), Templates.getTemplate(Templates.SOAP_MESSAGE,
@@ -79,6 +68,26 @@ public class SOAPProtocolExtension extends AbstractProtocolExtension {
             return new Response(Templates.getTemplate(Templates.SOAP_FAULT,
                     Pair.of("\\{exceptionReport\\}", XMLUtil.removeXmlDecl(WcsUtil.exceptionToXml((PetascopeException) ex)))));
         }
+    }
+    
+    /**
+     * Extract the WCS request from the SOAP message.
+     * @param request SOAP request.
+     * @return the embedded WCS request
+     * @throws Exception in case of error when parsing the SOAP message, or
+     *  serializing the WCS request to XML
+     */
+    private String extractWcsRequest(String request) throws Exception {
+        Document doc = XMLUtil.buildDocument(null, request);
+        Element body = ListUtil.head(
+                XMLUtil.collectAll(doc.getRootElement(), XMLSymbols.LABEL_BODY));
+        if (body == null) {
+            throw new PetascopeException(ExceptionCode.InvalidEncodingSyntax,
+                    "Missing Body from SOAP request.");
+        }
+        Element wcsRequest = XMLUtil.firstChild(body);
+        wcsRequest.detach();
+        return XMLUtil.serialize(new Document(wcsRequest));
     }
 
     @Override

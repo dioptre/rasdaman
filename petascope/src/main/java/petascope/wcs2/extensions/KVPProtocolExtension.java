@@ -35,7 +35,7 @@ public class KVPProtocolExtension extends AbstractProtocolExtension {
 
     @Override
     public boolean canHandle(String input) {
-        return input != null && !input.startsWith("<?xml");
+        return input != null && !input.startsWith("<");
     }
     
     protected String get(String key, Map<String, List<String>> m) {
