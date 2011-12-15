@@ -1334,4 +1334,11 @@ public class DbMetadataSource implements IMetadataSource {
     public Collection<String> getNullResistances() {
         return nullResistances.values();
     }
+    
+    /**
+     * Clear the internal cache of coverage metadata objects.
+     */
+    public void clearCache() {
+        cache.clear();
+    }
 }

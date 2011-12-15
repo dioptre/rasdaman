@@ -87,11 +87,6 @@ public class PetascopeInterface extends HttpServlet {
     public static String LOCAL_SERVLET_ADDRESS = "http://localhost:8080/PetaScope/earthlook";
     private DbMetadataSource meta;
 
-    /* Xml documents utils */
-    DocumentBuilder builder = null;
-    XPathFactory xpathFactory = XPathFactory.newInstance();
-    /* Path to the settings file, in the web archive */
-    private String relativeSettingsPath = "/settings.properties";
     // path to the default HTML response of the interface servlet
     private String usageFilePath = "/templates/interface-servlet.html";
     // String containing the HTML code for the default response
@@ -168,7 +163,6 @@ public class PetascopeInterface extends HttpServlet {
         try {
             DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
             domFactory.setNamespaceAware(true);		// never forget this!
-            builder = domFactory.newDocumentBuilder();
         } catch (Exception e) {
             log.error("Stack trace: {}", e);
             throw new ServletException("Error initializing XML parser", e);
@@ -228,6 +222,7 @@ public class PetascopeInterface extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         setServletURL(httpRequest);
+        meta.clearCache();
         String request = null, requestBody = null;
 
         /* Process the request */

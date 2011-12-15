@@ -50,28 +50,16 @@ public class WcsUtil {
 
     private static final Logger log = LoggerFactory.getLogger(WcsUtil.class);
 
-    private static final Map<String, Metadata> metadataCache = new HashMap<String, Metadata>();
-
     /**
-     * Utility method to read coverage's metadata, using caching for performance.
+     * Utility method to read coverage's metadata
      */
     public static Metadata getMetadata(DbMetadataSource meta, String coverageId) throws WCSException {
-        if (metadataCache.containsKey(coverageId)) {
-            return metadataCache.get(coverageId);
-        } else {
-            try {
-                Metadata ret = meta.read(coverageId);
-                metadataCache.put(coverageId, ret);
-                return ret;
-            } catch (Exception e) {
-                throw new WCSException(ExceptionCode.NoApplicableCode.locator(coverageId),
-                        "Metadata for coverage '" + coverageId + "' is not valid.");
-            }
+        try {
+            return meta.read(coverageId);
+        } catch (Exception e) {
+            throw new WCSException(ExceptionCode.NoApplicableCode.locator(coverageId),
+                    "Metadata for coverage '" + coverageId + "' is not valid.");
         }
-    }
-
-    public static void clearMetadataCache() {
-        metadataCache.clear();
     }
 
     /**
