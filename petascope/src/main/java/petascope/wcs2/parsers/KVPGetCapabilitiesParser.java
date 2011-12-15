@@ -38,7 +38,7 @@ public class KVPGetCapabilitiesParser extends KVPParser<GetCapabilitiesRequest> 
     public GetCapabilitiesRequest parse(String input) throws WCSException {
         Map<String, List<String>> p = StringUtil.parseQuery(input);
         checkEncodingSyntax(p, "acceptversions", "acceptformats",
-                "acceptlanguages", "version");
+                "acceptlanguages");
         return new GetCapabilitiesRequest(
                 get("acceptversions", p),
                 get("acceptformats", p),

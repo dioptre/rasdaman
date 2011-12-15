@@ -86,12 +86,12 @@ public class ConfigManager {
     public static String WCPS_VERSION = "1.0.0";
     public static String WPS_LANGUAGE = "en";
     public static String WPS_VERSION = "1.0.0";
-    public static String WCS_LANGUAGE = "en";
-    public static String WCS_VERSION = "1.1.0";
     public static String WCS2_LANGUAGE = "en";
     public static String WCS2_VERSION = "2.0.0";
     public static String RASDAMAN_LANGUAGE = "en";
     public static boolean CCIP_HACK = false;
+    public static String WCS_LANGUAGES = "en";
+    public static String WCS_VERSIONS = "1.1.0,2.0.0";
 
     /* WPS variables*/
     public static URI WPS_GET_CAPABILITIES_URI;
@@ -227,8 +227,8 @@ public class ConfigManager {
         log.info("WCPS Version  : " + WCPS_VERSION);
         log.info("");
         log.info("       *** WCS ***       ");
-        log.info("WCS Language  : " + WCS2_LANGUAGE);
-        log.info("WCS Version   : " + WCS2_VERSION);
+        log.info("WCS Languages : " + WCS_LANGUAGES);
+        log.info("WCS Versions  : " + WCS_VERSIONS);
         log.info("");
         log.info("       *** WPS ***       ");
         log.info("WPS Language  : " + WPS_LANGUAGE);

@@ -63,9 +63,12 @@ public abstract class KVPParser<T extends Request> extends AbstractRequestParser
         List<String> possibleKeys = ListUtil.toList(keys);
         Set<String> requestKeys = m.keySet();
         
-        String version = get("version", m);
-        if (version == null || !version.matches(BaseRequest.VERSION)) {
-            throw new WCSException(ExceptionCode.InvalidEncodingSyntax.locator("version"));
+        String request = get("request", m);
+        if (!RequestHandler.GET_CAPABILITIES.equals(request)) {
+            String version = get("version", m);
+            if (version == null || !version.matches(BaseRequest.VERSION)) {
+                throw new WCSException(ExceptionCode.InvalidEncodingSyntax.locator("version"));
+            }
         }
         for (String k : requestKeys) {
             if (k.equals("request") || k.equals("service") || k.equals("version")) {

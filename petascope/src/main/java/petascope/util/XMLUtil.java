@@ -491,10 +491,6 @@ public class XMLUtil {
         }
         return null;
     }
-    
-    public static void main(String[] args) {
-        System.out.println(getRootElementName("<wcs:hello>"));
-    }
 
     public static String removeXmlDecl(String xml) {
         if (xml.startsWith("<?xml")) {

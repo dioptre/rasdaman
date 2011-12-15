@@ -30,6 +30,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -42,6 +43,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPathFactory;
 import net.opengis.ows.v_1_0_0.ExceptionReport;
+import nu.xom.Document;
+import nu.xom.Element;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.PropertyConfigurator;
@@ -57,6 +60,7 @@ import petascope.exceptions.WCPSException;
 import petascope.exceptions.WCSException;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.PetascopeException;
+import petascope.util.ListUtil;
 import petascope.util.Pair;
 import petascope.util.StringUtil;
 import petascope.util.XMLUtil;
@@ -65,6 +69,7 @@ import petascope.wcs.server.WcsServer;
 import petascope.wcs2.extensions.ExtensionsRegistry;
 import petascope.wcs2.extensions.FormatExtension;
 import petascope.wcs2.extensions.ProtocolExtension;
+import petascope.wcs2.handlers.RequestHandler;
 import petascope.wcs2.handlers.Response;
 import petascope.wcs2.templates.Templates;
 import petascope.wcst.server.WcstServer;
@@ -239,14 +244,40 @@ public class PetascopeInterface extends HttpServlet {
                 log.trace("Request parameters : {}", params);
                 request = StringUtil.urldecode(params.get("request"), httpRequest.getContentType());
 
-                // WPS 1.0.0 GET interface processing
+                // GET interface processing
                 String service = paramMap.get("service");
                 if (service != null) {
                     if (service.equals("WPS")) {
                         WpsServer wpsServer = new WpsServer(httpResponse, httpRequest);
                         request = wpsServer.request;
                     } else if (service.equals("WCS")) {
-                        handleWcs2Request(httpRequest.getQueryString(), false, httpResponse);
+                        // extract version
+                        String version = null;
+                        String operation = paramMap.get("request");
+                        if (operation.equals(RequestHandler.GET_CAPABILITIES)) {
+                            version = paramMap.get("acceptversions");
+                            log.trace("acceptversions: " + version);
+                            if (version == null) {
+                                version = ConfigManager.WCS2_VERSION;
+                            } else {
+                                String[] versions = version.split(",");
+                                version = "";
+                                for (String v : versions) {
+                                    log.trace("version: " + v);
+                                    if (ConfigManager.WCS_VERSIONS.contains(v) &&
+                                            !v.startsWith("1")) { // the WCS 1.1 server doesn't support GET-KVP
+                                        version = v;
+                                        break;
+                                    }
+                                }
+                            }
+                        } else if (operation.equals(RequestHandler.DESCRIBE_COVERAGE) || operation.equals(RequestHandler.GET_COVERAGE)) {
+                            version = paramMap.get("version");
+                        }
+                        
+                        // handle request
+                        handleWcsRequest(version, paramMap.get("request"),
+                                httpRequest.getQueryString(), false, httpResponse);
                         return;
                     }
                 }
@@ -299,27 +330,32 @@ public class PetascopeInterface extends HttpServlet {
                 } else if (root.endsWith("Transaction")) { /* Transaction is defined in the WcsServer-T extension to WcsServer */
                     handleTransaction(request, httpResponse);
                     return;
-                }
-
-                String version = "2.0"; // FIXME: distinguish between 1.1 and 2.0
-                if (version.startsWith("1")) {
-                    if (root.endsWith("GetCapabilities")) {
-                        handleGetCapabilities(request, httpResponse);
-                        return;
-                    } else if (root.endsWith("DescribeCoverage")) {
-                        handleDescribeCoverage(request, httpResponse);
-                        return;
-                    } else if (root.endsWith("GetCoverage")) {
-                        handleGetCoverage(request, httpResponse);
-                        return;
+                } else if (root.equals(RequestHandler.GET_CAPABILITIES)) {
+                    // extract the version that the client prefers
+                    Document doc = XMLUtil.buildDocument(null, request);
+                    String version = "";
+                    List<Element> acceptVersions = XMLUtil.collectAll(doc.getRootElement(), "AcceptVersions");
+                    if (!acceptVersions.isEmpty()) {
+                        List<Element> versions = XMLUtil.collectAll(ListUtil.head(acceptVersions), "Version");
+                        for (Element v : versions) {
+                            String val = XMLUtil.getText(v);
+                            if (val != null && ConfigManager.WCS_VERSIONS.contains(val)) {
+                                version = val;
+                                break;
+                            }
+                        }
+                    } else {
+                        version = ConfigManager.WCS2_VERSION;  // by default the latest supported by petascope
                     }
+                    handleWcsRequest(version, root, request, true, httpResponse);
+                } else if (root.equals(RequestHandler.DESCRIBE_COVERAGE) || root.equals(RequestHandler.GET_COVERAGE)) {
+                    Document doc = XMLUtil.buildDocument(null, request);
+                    String version = doc.getRootElement().getAttributeValue("version");
+                    handleWcsRequest(version, root, request, true, httpResponse);
                 } else {
-                    handleWcs2Request(request, false, httpResponse);
-                    return;
+                    // error
+                    handleUnknownRequest(request, httpResponse);
                 }
-
-                // error
-                handleUnknownRequest(request, httpResponse);
             } catch (WCSException e) {
                 throw e;
             } catch (Exception e) {
@@ -412,6 +448,70 @@ public class PetascopeInterface extends HttpServlet {
     private String exceptionToXml(PetascopeException e) {
         return exceptionReportToXml(e.getReport());
     }
+    
+    /**
+     * Handle a WCS request.
+     * @param version WCS version
+     * @param operation WCS operation
+     * @param request the actual request
+     * @param response stream to which the result will be written
+     * @throws WCSException
+     * @throws PetascopeException 
+     */
+    private void handleWcsRequest(String version, String operation,
+            String request, boolean soap, HttpServletResponse response) throws WCSException, PetascopeException {
+        if (version == null) {
+            throw new WCSException(ExceptionCode.InvalidRequest, "No WCS version specified.");
+        }
+        if (version.startsWith("2")) {
+            handleWcs2Request(request, soap, response);
+        } else if (version.startsWith("1")) {
+            handleWcs1Request(operation, request, response);
+        } else {
+            throw new WCSException(ExceptionCode.VersionNegotiationFailed);
+        }
+    }
+
+    /**
+     * Handle WCS 1.1 request.
+     * 
+     * @param operation WCS operation
+     * @param request request string
+     * @param response
+     * @throws WCSException in case of I/O error, or if the server is unable to handle the request
+     */
+    private void handleWcs1Request(String operation, String request,
+            HttpServletResponse response) throws WCSException, PetascopeException {
+        log.info("Handling WCS 1.1 request");
+        
+        // compute result
+        String result = null;
+        if (operation.endsWith("GetCapabilities")) {
+            result = wcs.GetCapabilities(request);
+        } else if (operation.endsWith("DescribeCoverage")) {
+            result = wcs.DescribeCoverage(request);
+        } else if (operation.endsWith("GetCoverage")) {
+            String xmlRequest = wcs.GetCoverage(request, wcps);
+            log.debug("Received GetCoverage Request: \n{}", xmlRequest);
+            // redirect the request to WCPS
+            handleProcessCoverages(xmlRequest, response);
+            return; // the result has been written already so we return
+        }
+        
+        // write result to output stream
+        if (result != null) {
+            PrintWriter out;
+            try {
+                out = response.getWriter();
+                response.setContentType("text/xml; charset=utf-8");
+                out.write(result);
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                throw new WCSException(ExceptionCode.IOConnectionError, e.getMessage(), e);
+            }
+        }
+    }
 
     /**
      * Handle WCS 2.0 request.
@@ -468,56 +568,6 @@ public class PetascopeInterface extends HttpServlet {
             }
             throw ((PetascopeException) ex);
         }
-    }
-
-    /**
-     * GetCapabilities of WCS 1.1
-     * @param request
-     * @param httpResponse
-     * @throws WCSException
-     */
-    private void handleGetCapabilities(String request, HttpServletResponse httpResponse)
-            throws WCSException, PetascopeException {
-        String output = wcs.GetCapabilities(request);
-        PrintWriter out;
-        try {
-            out = httpResponse.getWriter();
-            httpResponse.setContentType("text/xml; charset=utf-8");
-            out.write(output);
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            throw new WCSException(ExceptionCode.IOConnectionError, e.getMessage(), e);
-        }
-    }
-
-    /**
-     * DescribeCoverage for WCS 1.1
-     * @param request
-     * @param httpResponse
-     * @throws WCSException
-     */
-    private void handleDescribeCoverage(String request, HttpServletResponse httpResponse)
-            throws WCSException {
-        String output = wcs.DescribeCoverage(request);
-        PrintWriter out;
-        try {
-            out = httpResponse.getWriter();
-            httpResponse.setContentType("text/xml; charset=utf-8");
-            out.write(output);
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            throw new WCSException(ExceptionCode.IOConnectionError, e.getMessage(), e);
-        }
-    }
-
-    private void handleGetCoverage(String request, HttpServletResponse httpResponse)
-            throws WCSException {
-        String xmlRequest = wcs.GetCoverage(request, wcps);
-        log.debug("Received GetCoverage Request: \n{}", xmlRequest);
-        // Redirect the request to WCPS
-        handleProcessCoverages(xmlRequest, httpResponse);
     }
 
     private void handleProcessCoverages(String xmlRequest, HttpServletResponse response)
