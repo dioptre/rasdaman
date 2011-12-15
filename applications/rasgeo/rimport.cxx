@@ -1199,6 +1199,7 @@ main(int argc, char** argv)
 	catch (r_Error& re)
 	{
 		NMErr(ctxRimport, << re.what());
+		return EXIT_FAILURE;
 	}
 
 	NMDebugCtx(ctxRimport, << "done!");
