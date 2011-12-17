@@ -111,7 +111,12 @@ javadoc: $(all_javas)
 # copy WAR to TOMCAT
 .PHONY: install
 install: war
+ifneq ($(CATALINA_HOME),'')
 	$(CP) $(WAR) $(CATALINA_HOME)/webapps
+else
+	echo warning: CATALINA_HOME variable is not set
+	echo Please manually install petascope by deploying $(WAR)
+endif
 
 # setup database
 .PHONY: setupdb
@@ -131,11 +136,14 @@ test:
 # clean up
 .PHONY: clean
 clean:
-	$(RM) $(BUILD) $(CATALINA_HOME)/webapps/$(NAME) $(CATALINA_HOME)/webapps/$(WAR_NAME)
+	$(RM) $(BUILD)
+ifneq ($(CATALINA_HOME),'')
+	$(RM) $(CATALINA_HOME)/webapps/$(NAME) $(CATALINA_HOME)/webapps/$(WAR_NAME)
+endif
 
 # Perform all tasks for a complete build
 .PHONY: all
-all: clean war javadoc setupdb
+all: war
 
 # build jar file
 .PHONY: jar

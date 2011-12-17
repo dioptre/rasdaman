@@ -28,5 +28,4 @@
 #
 ##################################################################
 
-SUBDIRS=rasql rview rasgeo
-# should also contain rview and directql
+SUBDIRS=rasql rview rasgeo petascope

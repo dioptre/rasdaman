@@ -118,9 +118,8 @@ CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" CXX="g++ -L%{_libdi
 	        --with-netcdf \
 		--with-pic \
 		--with-docs
-sed -i 's/^metadata_user=.\+/metadata_user=rasdaman/' petascope/src/main/resources/settings.properties
-sed -i 's/^metadata_pass=.\+/metadata_pass=/' petascope/src/main/resources/settings.properties
-sed -i 's/^all: .*/all: war/' petascope/Makefile
+sed -i 's/^metadata_user=.\+/metadata_user=rasdaman/' applications/petascope/src/main/resources/settings.properties
+sed -i 's/^metadata_pass=.\+/metadata_pass=/' applications/petascope/src/main/resources/settings.properties
 make DESTDIR=%{buildroot}
 
 %install
@@ -131,9 +130,9 @@ make install DESTDIR=%{buildroot} CATALINA_HOME=%{buildroot}/var/lib/tomcat6
 
 # install petascope
 mkdir -p %{buildroot}%{_datadir}/rasdaman/petascope
-cp petascope/db/*.sql %{buildroot}%{_datadir}/rasdaman/petascope
-cp petascope/db/*.tif* %{buildroot}%{_datadir}/rasdaman/petascope
-cp petascope/db/*.sh %{buildroot}%{_datadir}/rasdaman/petascope
+cp applications/petascope/db/*.sql %{buildroot}%{_datadir}/rasdaman/petascope
+cp applications/petascope/db/*.tif* %{buildroot}%{_datadir}/rasdaman/petascope
+cp applications/petascope/db/*.sh %{buildroot}%{_datadir}/rasdaman/petascope
 
 # install SYSV init stuff
 mkdir -p %{buildroot}/etc/rc.d/init.d
@@ -163,7 +162,6 @@ mv %{buildroot}%{_includedir}/basictypes.hh %{buildroot}%{_includedir}/rasdaman
 mv %{buildroot}%{_includedir}/bool.h %{buildroot}%{_includedir}/rasdaman
 mv %{buildroot}%{_includedir}/clientcomm %{buildroot}%{_includedir}/rasdaman
 mv %{buildroot}%{_includedir}/commline %{buildroot}%{_includedir}/rasdaman
-mv %{buildroot}%{_includedir}/compression %{buildroot}%{_includedir}/rasdaman
 mv %{buildroot}%{_includedir}/conversion %{buildroot}%{_includedir}/rasdaman
 mv %{buildroot}%{_includedir}/globals.hh %{buildroot}%{_includedir}/rasdaman
 mv %{buildroot}%{_includedir}/rasdaman.hh %{buildroot}%{_includedir}/rasdaman
@@ -243,7 +241,6 @@ fi
 %{_libdir}/libcatalogmgr.a
 %{_libdir}/libclientcomm.a
 %{_libdir}/libcommline.a
-%{_libdir}/libcompression.a
 %{_libdir}/libconversion.a
 %{_libdir}/libhttpserver.a
 %{_libdir}/libindexmgr.a
@@ -286,6 +283,12 @@ fi
 %{_bindir}/raserase
 
 %changelog
+
+* Sat Dec 17  2011 Dimitar Misev <misev@rasdaman.com> - 8.2.1
+
+- Move petascope to applications directory
+- Fixed the all target in petascope's Makefile
+- Remove compression
 
 * Fri Dec 09  2011 Konstantin Kozlov <kozlov@spbcas.ru> - 8.2.1
 
