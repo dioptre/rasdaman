@@ -90,9 +90,7 @@ int string_yyinput( char* buf, int max_size )
 
 
 #define SETSTRTOKEN( TOKEN, TYPE, VALUE )	                  			\
-RMInit::logOut << "strtoken: " << VALUE << endl; \
   char* temp = strdup(VALUE);					  						\
-RMInit::logOut << "duplicate: " << temp << endl; \
   parseQueryTree->addCString( temp );                             		\
   yylval.TYPE.value = temp;                                       		\
   if(!infoList.empty()) {												\
@@ -104,14 +102,11 @@ RMInit::logOut << "duplicate: " << temp << endl; \
   }																		\
   yylval.TYPE.info = currInfo; 											\
   columnNo += yyleng;                                             		\
-RMInit::logOut << "yyleng: " << yyleng << endl; \
-RMInit::logOut << "column: " << columnNo << endl; \
   parseQueryTree->addDynamicObject( yylval.TYPE.info );           		\
   return TOKEN;
   
 
 #define SETINTTOKEN( VALUE, NEGATIVE, BYTES )	                        \
-RMInit::logOut << "inttoken: " << VALUE << endl; \
   yylval.integerToken.negative = NEGATIVE;                              \
   yylval.integerToken.bytes    = BYTES;                                 \
   if( NEGATIVE )                                                        \
@@ -132,7 +127,6 @@ RMInit::logOut << "inttoken: " << VALUE << endl; \
 
 
 #define SETFLTTOKEN( VALUE, BYTES )	                                	\
-RMInit::logOut << "fltoken: " << VALUE << endl; \
   yylval.floatToken.value  = VALUE;                                     \
   yylval.floatToken.bytes  = BYTES;                                     \
   if(!infoList.empty()) {												\
