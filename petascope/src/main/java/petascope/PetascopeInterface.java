@@ -39,9 +39,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBException;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPathFactory;
 import net.opengis.ows.v_1_0_0.ExceptionReport;
 import nu.xom.Document;
 import nu.xom.Element;
@@ -84,7 +81,6 @@ import petascope.wps.server.WpsServer;
 public class PetascopeInterface extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(PetascopeInterface.class);
-    public static String LOCAL_SERVLET_ADDRESS = "http://localhost:8080/PetaScope/earthlook";
     private DbMetadataSource meta;
 
     // path to the default HTML response of the interface servlet
@@ -157,15 +153,6 @@ public class PetascopeInterface extends HttpServlet {
         } catch (Exception e) {
             log.error("Stack trace: {}", e);
             throw new ServletException("WCS-T initialization error", e);
-        }
-
-        /* Initialize XML parsing for request redirection */
-        try {
-            DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
-            domFactory.setNamespaceAware(true);		// never forget this!
-        } catch (Exception e) {
-            log.error("Stack trace: {}", e);
-            throw new ServletException("Error initializing XML parser", e);
         }
 
         log.info("-----------------------------------------------");
@@ -253,12 +240,11 @@ public class PetascopeInterface extends HttpServlet {
                             version = paramMap.get("acceptversions");
                             log.trace("acceptversions: " + version);
                             if (version == null) {
-                                version = ConfigManager.WCS2_VERSION;
+                                version = ConfigManager.WCS_DEFAULT_VERSION;
                             } else {
                                 String[] versions = version.split(",");
                                 version = "";
                                 for (String v : versions) {
-                                    log.trace("version: " + v);
                                     if (ConfigManager.WCS_VERSIONS.contains(v) &&
                                             !v.startsWith("1")) { // the WCS 1.1 server doesn't support GET-KVP
                                         version = v;
@@ -340,7 +326,7 @@ public class PetascopeInterface extends HttpServlet {
                             }
                         }
                     } else {
-                        version = ConfigManager.WCS2_VERSION;  // by default the latest supported by petascope
+                        version = ConfigManager.WCS_DEFAULT_VERSION;  // by default the latest supported by petascope
                     }
                     handleWcsRequest(version, root, request, true, httpResponse);
                 } else if (root.equals(RequestHandler.DESCRIBE_COVERAGE) || root.equals(RequestHandler.GET_COVERAGE)) {

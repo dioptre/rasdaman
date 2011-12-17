@@ -25,11 +25,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Properties;
-import org.apache.commons.io.IOUtils;
-import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import petascope.util.IOUtil;
 import petascope.util.XMLUtil;
 import petascope.wps.server.WpsServer;
 
@@ -86,12 +83,15 @@ public class ConfigManager {
     public static String WCPS_VERSION = "1.0.0";
     public static String WPS_LANGUAGE = "en";
     public static String WPS_VERSION = "1.0.0";
-    public static String WCS2_LANGUAGE = "en";
-    public static String WCS2_VERSION = "2.0.0";
-    public static String RASDAMAN_LANGUAGE = "en";
-    public static boolean CCIP_HACK = false;
+    public static String WCS_DEFAULT_LANGUAGE = "en";
+    public static String WCS_DEFAULT_VERSION = "2.0.0";
     public static String WCS_LANGUAGES = "en";
-    public static String WCS_VERSIONS = "1.1.0,2.0.0";
+    public static String WCS_VERSIONS = "1.1.2,2.0.0";
+    public static String RASDAMAN_LANGUAGE = "en";
+    
+    // depends on ccip_version in the petascope settings, ccip_version=true
+    // will make this flag true.
+    public static boolean CCIP_HACK = false;
 
     /* WPS variables*/
     public static URI WPS_GET_CAPABILITIES_URI;

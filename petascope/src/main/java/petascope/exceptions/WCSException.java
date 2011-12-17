@@ -53,6 +53,7 @@ public class WCSException extends PetascopeException {
     }
 
     public WCSException(ExceptionCode exceptionCode, String exceptionText, Exception ex) {
-        super(exceptionCode, exceptionText, ex, ConfigManager.WCS2_VERSION, ConfigManager.WCS2_LANGUAGE);
+        super(exceptionCode, exceptionText, ex,
+                ConfigManager.WCS_DEFAULT_VERSION, ConfigManager.WCS_DEFAULT_LANGUAGE);
     }
 }
