@@ -21,10 +21,13 @@
  */
 package petascope.wcs2.parsers;
 
+
+import java.util.HashMap;
 import java.util.Map;
 import petascope.util.StringUtil;
 import petascope.wcs2.handlers.RequestHandler;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import petascope.exceptions.ExceptionCode;
@@ -44,6 +47,37 @@ public class KVPGetCoverageParser extends KVPParser<GetCoverageRequest> {
     //                                                          dim=$1  crs=$2      low=$4  high=$5
     private static final Pattern PATTERN = Pattern.compile("([^,\\(]+)(,([^\\(]+))?\\(([^,\\)]+)(,([^\\)]+))?\\)");
 
+    /**
+     * Parses any subset parameters defined as in OGC 09-147r1 standard(e.g. ...&subset=x(200,300)&subset=y(300,200))
+     * and for backwards compatibility subsets defined as subsetD(where D is any distinct string)(e.g. &subsetA=x(200,300))
+     * @param requestParams - the request parameters as a string
+     * @return ret - a hashmap containing the subsets
+     */
+    public HashMap<String, String> parseSubsetParams(String request) {
+        HashMap<String, String> ret = new HashMap<String, String>();
+        
+        StringTokenizer st = new StringTokenizer(request, "&");
+        while (st.hasMoreTokens()) {
+            String kvPair = (String) st.nextToken();
+            int splitPos = kvPair.indexOf("=");
+            if (splitPos != -1) {
+                String key = kvPair.substring(0, splitPos);
+                String value = kvPair.substring(splitPos + 1);
+        
+                if (key.equalsIgnoreCase("subset")) {
+                    ret.put(key + value, value);
+                }
+                //Backward compatibility
+                else if (key.startsWith("subset")) {
+                    ret.put(key + value, value);
+                }
+                
+            }
+        }
+
+        return ret;
+    }
+
     @Override
     public GetCoverageRequest parse(String input) throws WCSException {
         Map<String, List<String>> p = StringUtil.parseQuery(input);
@@ -62,13 +96,11 @@ public class KVPGetCoverageParser extends KVPParser<GetCoverageRequest> {
         GetCoverageRequest ret = new GetCoverageRequest(coverageIds.get(0), format,
                 FormatExtension.MIME_MULTIPART.equals(mediaType));
 
-        for (Map.Entry<String, List<String>> e : p.entrySet()) {
-            String k = e.getKey();
-            List<String> v = e.getValue();
-
-            if (k.startsWith("subset")) {
-                String s = ListUtil.ltos(v, ",");
-                Matcher matcher = PATTERN.matcher(s);
+        HashMap<String, String> subsets = parseSubsetParams(input);
+        for (Map.Entry<String, String> subset : subsets.entrySet()) {
+                String subsetKey = (String)subset.getKey();
+                String subsetValue = (String)subset.getValue();                
+                Matcher matcher = PATTERN.matcher(subsetValue);
                 if (matcher.find()) {
                     String dim = matcher.group(1);
                     String crs = matcher.group(3);
@@ -79,12 +111,11 @@ public class KVPGetCoverageParser extends KVPParser<GetCoverageRequest> {
                     } else if (dim != null) {
                         ret.getSubsets().add(new DimensionTrim(dim, crs, low, high));
                     } else {
-                        throw new WCSException(ExceptionCode.InvalidEncodingSyntax.locator(k));
+                        throw new WCSException(ExceptionCode.InvalidEncodingSyntax.locator(subsetKey));
                     }
                 } else {
-                    throw new WCSException(ExceptionCode.InvalidEncodingSyntax.locator(k));
+                    throw new WCSException(ExceptionCode.InvalidEncodingSyntax.locator(subsetKey));
                 }
-            }
         }
 
         return ret;
@@ -95,3 +126,4 @@ public class KVPGetCoverageParser extends KVPParser<GetCoverageRequest> {
         return RequestHandler.GET_COVERAGE;
     }
 }
+
