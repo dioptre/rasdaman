@@ -24,6 +24,8 @@ package petascope.wcs2.parsers;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -63,12 +65,16 @@ public class KVPGetCoverageParserTest {
         correctResults.get(1).put("subsetXx(10,15)", "x(10,15)");
         inputs.add("service=WCS&Request=GetCoverage&version=2.0.0&CoverageId=mean_summer_airtemp&format=image/tiff&subset=x(20,25)&subset=y(20,30)");
         correctResults.add(new HashMap<String, String>());
-        correctResults.get(2).put("subsetx(20,25)", "x(20,25)");        
-        correctResults.get(2).put("subsety(20,30)", "y(20,30)");        
+        correctResults.get(2).put("subsetx(20,25)", "x(20,25)");
+        correctResults.get(2).put("subsety(20,30)", "y(20,30)");
         inputs.add("service=WCS&Request=GetCoverage&version=2.0.0&CoverageId=mean_summer_airtemp&format=image/tiff&subset=x(10,35)&subsetD=y(10,30)");
         correctResults.add(new HashMap<String, String>());
-        correctResults.get(3).put("subsetx(10,35)", "x(10,35)");        
-        correctResults.get(3).put("subsetDy(10,30)", "y(10,30)");                
+        correctResults.get(3).put("subsetx(10,35)", "x(10,35)");
+        correctResults.get(3).put("subsetDy(10,30)", "y(10,30)");
+        inputs.add("service=WCS&Request=GetCoverage&version=2.0.0&CoverageId=mean_summer_airtemp&format=image/tiff&suBSet=x(100,305)&sUBsetD=y(210,330)");
+        correctResults.add(new HashMap<String, String>());
+        correctResults.get(4).put("suBSetx(100,305)", "x(100,305)");
+        correctResults.get(4).put("sUBsetDy(210,330)", "y(210,330)");
     }
 
     @After
@@ -82,12 +88,14 @@ public class KVPGetCoverageParserTest {
     @Test
     public void testParseSubsetParams() throws Exception {
         KVPGetCoverageParser inst = new KVPGetCoverageParser();
-        for(int i = 0; i < 4; i++){
-            HashMap<String, String> res = inst.parseSubsetParams(inputs.get(i));
-            for(Map.Entry<String, String> kv : res.entrySet()){
+        for (int i = 0; i < inputs.size(); i++) {
+            HashMap<String, String> res = inst.parseSubsetParams(inputs.get(i));            
+            for (Map.Entry<String, String> kv : res.entrySet()) {
                 assertTrue(correctResults.get(i).containsValue(kv.getValue()));
             }
+            for (Map.Entry<String, String> kv : correctResults.get(i).entrySet()) {
+                assertTrue(res.containsValue(kv.getValue()));
+            }            
         }
     }
 }
-

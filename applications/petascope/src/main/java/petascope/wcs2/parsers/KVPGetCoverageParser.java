@@ -55,7 +55,6 @@ public class KVPGetCoverageParser extends KVPParser<GetCoverageRequest> {
      */
     public HashMap<String, String> parseSubsetParams(String request) {
         HashMap<String, String> ret = new HashMap<String, String>();
-        
         StringTokenizer st = new StringTokenizer(request, "&");
         while (st.hasMoreTokens()) {
             String kvPair = (String) st.nextToken();
@@ -63,15 +62,13 @@ public class KVPGetCoverageParser extends KVPParser<GetCoverageRequest> {
             if (splitPos != -1) {
                 String key = kvPair.substring(0, splitPos);
                 String value = kvPair.substring(splitPos + 1);
-        
                 if (key.equalsIgnoreCase("subset")) {
                     ret.put(key + value, value);
                 }
                 //Backward compatibility
-                else if (key.startsWith("subset")) {
+                else if (key.toLowerCase().startsWith("subset")) {                    
                     ret.put(key + value, value);
                 }
-                
             }
         }
 
@@ -126,4 +123,3 @@ public class KVPGetCoverageParser extends KVPParser<GetCoverageRequest> {
         return RequestHandler.GET_COVERAGE;
     }
 }
-
