@@ -1,0 +1,32 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>1D Diagram Demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript" src="../../bin/toolkit.js"></script>    
+    <script type="text/javascript" src="multipleDemo.js"></script>
+    <link rel="stylesheet" href="../../bin/toolkit.css" />
+  </head>
+  <body>
+    <label for="coverage_id">Coverage Id:</label>    
+    <input type="checkbox" value="NN3_1" checked class="nns" />NN3_1
+    <input type="checkbox" value="NN3_2" checked class="nns" />NN3_2
+    <input type="checkbox" value="NN3_3" class="nns" />NN3_3
+    <input type="checkbox" value="NN3_4" class="nns" />NN3_4
+    <input type="checkbox" value="NN3_5" class="nns" />NN3_5
+    <br /><br/>
+    <select id="change-diagram-2">
+      <option value ="LinearDiagram">Linear Diagram</option>
+      <option value="AreaDiagram">Area Diagram</option>
+      <option value="ScatterDiagram">Scattered Diagram</option>
+    </select>
+    <div id="chartPlace">
+      <!-- The chart will go here -->
+    </div>
+  </body>
+</html>
