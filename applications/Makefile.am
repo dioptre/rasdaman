@@ -28,4 +28,4 @@
 #
 ##################################################################
 
-SUBDIRS=rasql rview rasgeo petascope
+SUBDIRS=rasql rview rasgeo petascope raswct
