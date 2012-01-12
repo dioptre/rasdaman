@@ -66,7 +66,7 @@ help:
 	@echo
 	@echo "  Available rules:"
 	@echo "    all      compile sources and generate javadoc"
-	@echo "    install  deploy WAR archive in Tomcat (CATALINA_HOME should be properly set)"
+	@echo "    deploy   deploy WAR archive in Tomcat (CATALINA_HOME should be properly set)"
 	@echo "    javadoc  to generate Javadoc in $(APIDOCS)"
 	@echo "    setupdb  setup petascope database"
 	@echo "    dropdb   destroy petascope database"
@@ -110,13 +110,15 @@ javadoc: $(all_javas)
 
 # copy WAR to TOMCAT
 .PHONY: install
-install: war
+deploy: war
 ifneq ($(CATALINA_HOME),'')
 	$(CP) $(WAR) $(CATALINA_HOME)/webapps
 else
 	echo warning: CATALINA_HOME variable is not set
 	echo Please manually install petascope by deploying $(WAR)
 endif
+
+install:
 
 # setup database
 .PHONY: setupdb
