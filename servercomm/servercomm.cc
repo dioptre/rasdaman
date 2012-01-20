@@ -834,6 +834,7 @@ ServerComm::getServerStatus( ServerStatRes& returnStruct )
 		}
 	}
 
+#ifndef __APPLE__
 	struct mallinfo meminfo = mallinfo();
 
 	returnStruct.memArena    = meminfo.arena;
@@ -841,6 +842,7 @@ ServerComm::getServerStatus( ServerStatRes& returnStruct )
 	returnStruct.memOrdblks  = meminfo.ordblks;
 	returnStruct.memFordblks = meminfo.fordblks;
 	returnStruct.memUordblks = meminfo.uordblks;
+#endif
 }
 
 
