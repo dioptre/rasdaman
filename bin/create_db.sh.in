@@ -39,7 +39,7 @@
 
 # script name
 PROG=`basename $0`
-VERSION=8.2
+VERSION=8.3
 
 # script return codes
 RC_OK=0

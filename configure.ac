@@ -3,8 +3,8 @@
 
 AC_PREREQ(2.61)
 # CAVEAT: in the following two lines keep version numbers in sync!
-AC_INIT(Rasdaman, 8.2.1, baumann@rasdaman.com)
-RMANVERSION=8200
+AC_INIT(Rasdaman, 8.3.0, baumann@rasdaman.com)
+RMANVERSION=8300
 AM_INIT_AUTOMAKE([1.9 tar-pax])
 # Define CXXFLAGS before AC_PROG_CXX or it will automatically add -g -O2 on some systems
 CXXFLAGS=

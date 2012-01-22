@@ -1,6 +1,6 @@
 %global rasdir /var/lib/rasdaman
 Name:           rasdaman
-Version:        8.2.1
+Version:        8.3.0
 Release:        0%{?dist}
 Summary:        rasdaman - Raster Data Manager
 
@@ -126,9 +126,10 @@ make DESTDIR=%{buildroot}
 rm -rf %{buildroot}
 
 mkdir -p %{buildroot}/var/lib/tomcat6/webapps
-make install DESTDIR=%{buildroot} CATALINA_HOME=%{buildroot}/var/lib/tomcat6
+make install DESTDIR=%{buildroot}
 
 # install petascope
+cd applications/petascope && make deploy CATALINA_HOME=%{buildroot}/var/lib/tomcat6 && cd -
 mkdir -p %{buildroot}%{_datadir}/rasdaman/petascope
 cp applications/petascope/db/*.sql %{buildroot}%{_datadir}/rasdaman/petascope
 cp applications/petascope/db/*.tif* %{buildroot}%{_datadir}/rasdaman/petascope
@@ -283,6 +284,11 @@ fi
 %{_bindir}/raserase
 
 %changelog
+
+* Sun Jan 22  2012 Dimitar Misev <misev@rasdaman.com> - 8.3.0
+
+- New rasdaman version
+- Move petascope install to a deploy target
 
 * Sat Dec 17  2011 Dimitar Misev <misev@rasdaman.com> - 8.2.1
 
