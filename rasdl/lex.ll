@@ -179,7 +179,7 @@ int    TAB_SIZE      =   3;   /* TAB size is always set to 3 */
 */
 %}
 
-[0-9]+                                  {
+-?[0-9]+                                {
                                           yylval.LEX_integer.value=atol(yytext);
 
                                           SET_WHERE(yylval.LEX_integer.where);
@@ -189,7 +189,7 @@ int    TAB_SIZE      =   3;   /* TAB size is always set to 3 */
 
 %{
 /*
-[0-9]+"."[0-9]+                        {
+-?[0-9]+"."[0-9]+                      {
                                           yylval.Real.value=atof(yytext);
 
                                           SET_WHERE(yylval.Real.where);

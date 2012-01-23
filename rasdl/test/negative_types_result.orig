@@ -1,0 +1,5 @@
+typedef marray <long, [-5:-1]> neg1;
+typedef marray <long, [-7:1]> neg2;
+typedef marray <long, [-3:9]> neg3;
+typedef marray <long, [-5:*]> neg4;
+typedef marray <long, [*:-1]> neg5;
