@@ -118,6 +118,7 @@ EMBEDDEDSQLOUT = @EMBEDDEDSQLOUT@
 EMBEDDEDSQLPRECOMPILER = @EMBEDDEDSQLPRECOMPILER@
 EXEEXT = @EXEEXT@
 GCJ_OPTS = @GCJ_OPTS@
+GDAL_CONFIG = @GDAL_CONFIG@
 GREP = @GREP@
 INFORMIX_INC = @INFORMIX_INC@
 INSTALL = @INSTALL@
@@ -413,7 +414,7 @@ check:
 
 clean:
 	for testcase in ${TESTSEQUENCE}; do \
-               PATH=${bindir}:${PATH}   rm -rf $${testcase}/log*; \
+               PATH=${bindir}:${PATH}   rm -rf $${testcase}/log* $${testcase}/failed_cases; \
         done;
 
 ######################## Dependencies ############################

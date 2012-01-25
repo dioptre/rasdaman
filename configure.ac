@@ -139,6 +139,7 @@ AC_CONFIG_FILES([Makefile
                  applications/rasql/Makefile
                  applications/rview/Makefile
                  applications/rasgeo/Makefile
+                 applications/raswct/Makefile
                  bin/Makefile
                  manuals_and_examples/Makefile
                  manuals_and_examples/examples/c++/Makefile

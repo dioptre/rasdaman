@@ -15,6 +15,33 @@
 
 @SET_MAKE@
 
+#
+# This file is part of rasdaman community.
+#
+# Rasdaman community is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Rasdaman community is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+# rasdaman GmbH.
+#
+# For more information please see <http://www.rasdaman.org>
+# or contact Peter Baumann via <baumann@rasdaman.com>.      
+# *
+# * MODULE: rasmgr
+# * 
+# * COMMENTS:
+##########################################################################
+
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
@@ -60,7 +87,7 @@ am_rasmgr_OBJECTS = ras_crypto.$(OBJEXT) rasmgr_config.$(OBJEXT) \
 	mymalloc_cln.$(OBJEXT)
 rasmgr_OBJECTS = $(am_rasmgr_OBJECTS)
 rasmgr_DEPENDENCIES = ../raslib/libraslib.a ../network/libnetwork.a \
-	../commline/libcommline.a ../clientcomm/libclientcomm.a
+	../commline/libcommline.a
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -153,6 +180,7 @@ EMBEDDEDSQLOUT = @EMBEDDEDSQLOUT@
 EMBEDDEDSQLPRECOMPILER = @EMBEDDEDSQLPRECOMPILER@
 EXEEXT = @EXEEXT@
 GCJ_OPTS = @GCJ_OPTS@
+GDAL_CONFIG = @GDAL_CONFIG@
 GREP = @GREP@
 INFORMIX_INC = @INFORMIX_INC@
 INSTALL = @INSTALL@
@@ -249,6 +277,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+AM_CXXFLAGS = @BASEDBCXXFLAGS@
+AM_LDFLAGS = @BASEDBLDFLAGS@ 
 rasmgr_SOURCES = ras_crypto.cc rasmgr_config.cc rasmgr_host.cc rasmgr_main.cc rasmgr_rascontrol.cc rasmgr_srv.cc \
          	   rasmgr_comm.cc rasmgr_dbm.cc rasmgr_master_nb.cc rasmgr_rascontrol_help.cc \
                rasmgr_users.cc rasmgr_comm_nb.cc rasmgr_error.cc rasmgr_localsrv.cc rasmgr_random.cc  \
@@ -259,10 +289,8 @@ rasmgr_SOURCES = ras_crypto.cc rasmgr_config.cc rasmgr_host.cc rasmgr_main.cc ra
                rasmgr.hh rasmgr_protocol.hh rasmgr_master.hh \
                ../mymalloc/mymalloc_cln.cc ../mymalloc/mymalloc.h
 
-
-# need libclientcomm.a for mymalloc()
-rasmgr_LDADD = ../raslib/libraslib.a ../network/libnetwork.a ../commline/libcommline.a ../clientcomm/libclientcomm.a
-SUBDIRS = ../network ../commline
+rasmgr_LDADD = ../raslib/libraslib.a ../network/libnetwork.a ../commline/libcommline.a
+SUBDIRS = ../mymalloc ../network ../commline ../raslib
 all: all-recursive
 
 .SUFFIXES:

@@ -251,7 +251,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = rasql rview rasgeo petascope
+SUBDIRS = rasql rview rasgeo petascope raswct
 all: all-recursive
 
 .SUFFIXES:
