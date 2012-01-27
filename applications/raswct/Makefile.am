@@ -4,7 +4,7 @@ LIB = lib
 CP = cp -r
 RM = rm -rf
 MKDIR = mkdir
-INSTALL = share/rasdaman/raswct
+INSTALL_DIR = $(datadir)/rasdaman/raswct
 
 all: css libs src
 	@cat $(BIN)/toolkit_lib.js $(BIN)/toolkit_src.js > $(BIN)/toolkit.js
@@ -22,14 +22,12 @@ src:
 	@cat $(SRC)/Init.js $(SRC)/Util.js $(SRC)/Query/BaseQuery.js $(SRC)/Query/SelectQuery.js $(SRC)/Query/UrlQuery.js $(SRC)/Query/QueryExecutor.js $(SRC)/Widgets/BaseWidget.js $(SRC)/Widgets/InputWidget.js $(SRC)/Widgets/OutputWidget.js $(SRC)/Widgets/BaseChart.js $(SRC)/Widgets/LinearDiagram.js $(SRC)/Widgets/AreaDiagram.js $(SRC)/Widgets/ScatterDiagram.js $(SRC)/Widgets/LayerWidget.js $(SRC)/Widgets/MapWidget.js $(SRC)/Widgets/TextWidget.js $(SRC)/Widgets/SliderWidget.js > $(BIN)/toolkit_src.js
 
 install:
-	@$(MKDIR) -p $(prefix)/share
-	@$(MKDIR) -p $(prefix)/share/rasdaman
-	@$(MKDIR) $(prefix)/$(INSTALL)
-	@$(CP) $(BIN)/* $(prefix)/$(INSTALL)
+	@$(MKDIR) -p $(INSTALL_DIR)
+	@$(CP) $(BIN)/* $(INSTALL_DIR)
 	@echo "The rasdaman web client toolkit has been installed. You can start using it by including toolkit.js and toolkit.css in your html file"
 
 uninstall:
-	@$(RM) $(prefix)/$(INSTALL)
+	@$(RM) $(INSTALL_DIR)
 	@echo "The rasdaman web client toolkit was uninstalled"
 
 clean:
