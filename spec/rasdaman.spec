@@ -124,10 +124,11 @@ CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" CXX="g++ -L%{_libdi
 		--localstatedir=%{_localstatedir} \
 		--sysconfdir=%{_sysconfdir}/rasdaman \
 		--with-logdir=%{_localstatedir}/log/rasdaman \
-	        --with-hdf4 \
-	        --with-netcdf \
+	  --with-hdf4 \
+	  --with-netcdf \
 		--with-pic \
-		--with-docs
+		--with-docs \
+    --with-wardir=/var/lib/tomcat6/webapps
 sed -i 's/^metadata_user=.\+/metadata_user=rasdaman/' applications/petascope/src/main/resources/settings.properties
 sed -i 's/^metadata_pass=.\+/metadata_pass=/' applications/petascope/src/main/resources/settings.properties
 make DESTDIR=%{buildroot}
@@ -139,7 +140,6 @@ mkdir -p %{buildroot}/var/lib/tomcat6/webapps
 make install DESTDIR=%{buildroot}
 
 # install petascope
-cd applications/petascope && make deploy CATALINA_HOME=%{buildroot}/var/lib/tomcat6 && cd -
 mkdir -p %{buildroot}%{_datadir}/rasdaman/petascope
 cp applications/petascope/db/*.sql %{buildroot}%{_datadir}/rasdaman/petascope
 cp applications/petascope/db/*.tif* %{buildroot}%{_datadir}/rasdaman/petascope

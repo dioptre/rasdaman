@@ -606,6 +606,8 @@ ac_func_list=
 ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
+wpswar
+wardir
 logdir
 STATICBASEDBFLAGS
 RMANBASE
@@ -760,6 +762,8 @@ with_test_port
 with_test_user
 with_test_passwd
 with_logdir
+with_wardir
+with_wps
 with_postgresql
 with_ecpg
 '
@@ -1441,6 +1445,8 @@ Optional Packages:
   --with-test-passwd=PASSWORD
                           password used for connecting to the test server
   --with-logdir=PATH      the path where the servers will store their logs
+  --with-wardir=PATH      the path where the war files should be installed
+  --with-wps=PATH         the path to the 52n wps war file
   --with-postgresql=[ARG] use PostgreSQL library [default=yes], optionally
                           specify path to pg_config
   --with-ecpg=PATH        path to ecpg
@@ -8661,7 +8667,7 @@ fi
 done
 
 
-ac_config_files="$ac_config_files Makefile catalogmgr/Makefile relblobif/Makefile relindexif/Makefile relmddif/Makefile relcatalogif/Makefile reladminif/Makefile relstorageif/Makefile indexmgr/Makefile tilemgr/Makefile storagemgr/Makefile commline/Makefile network/Makefile raslib/Makefile clientcomm/Makefile servercomm/Makefile rasodmg/Makefile qlparser/Makefile conversion/Makefile mddmgr/Makefile httpserver/Makefile mymalloc/Makefile server/Makefile rasmgr/Makefile rascontrol/Makefile rasdl/Makefile applications/Makefile applications/rasql/Makefile applications/rview/Makefile applications/rasgeo/Makefile applications/raswct/Makefile bin/Makefile manuals_and_examples/Makefile manuals_and_examples/examples/c++/Makefile insertutils/Makefile include/Makefile java/Makefile systemtest/Makefile"
+ac_config_files="$ac_config_files Makefile catalogmgr/Makefile relblobif/Makefile relindexif/Makefile relmddif/Makefile relcatalogif/Makefile reladminif/Makefile relstorageif/Makefile indexmgr/Makefile tilemgr/Makefile storagemgr/Makefile commline/Makefile network/Makefile raslib/Makefile clientcomm/Makefile servercomm/Makefile rasodmg/Makefile qlparser/Makefile conversion/Makefile mddmgr/Makefile httpserver/Makefile mymalloc/Makefile server/Makefile rasmgr/Makefile rascontrol/Makefile rasdl/Makefile applications/Makefile applications/rasql/Makefile applications/rview/Makefile applications/rasgeo/Makefile applications/raswct/Makefile applications/petascope/Makefile bin/Makefile manuals_and_examples/Makefile manuals_and_examples/examples/c++/Makefile insertutils/Makefile include/Makefile java/Makefile systemtest/Makefile"
 
 
 # --------------- Header Template Definitions ----------------------
@@ -8904,7 +8910,7 @@ fi
 if test "${with_docs+set}" = set; then :
   withval=$with_docs;
 else
-  with-docs=no
+  with_docs=no
 fi
 
  if test "$with_docs" = yes; then
@@ -9014,6 +9020,20 @@ else
 else
   logdir="${prefix}/log"
 fi
+fi
+
+
+# Check whether --with-wardir was given.
+if test "${with_wardir+set}" = set; then :
+  withval=$with_wardir; wardir="$withval"
+else
+  wardir="\${pkgdatadir}/war"
+fi
+
+
+# Check whether --with-wps was given.
+if test "${with_wps+set}" = set; then :
+  withval=$with_wps; wpswar="$withval"
 fi
 
 
@@ -9646,6 +9666,8 @@ CXXFLAGS+=" -I$abs_top_srcdir -I$abs_top_srcdir/debug -I$abs_top_srcdir/include"
 
 # --------------- Makefile Substitutions --------------------------
 ####################################################################
+
+
 
 
 
@@ -10466,6 +10488,7 @@ do
     "applications/rview/Makefile") CONFIG_FILES="$CONFIG_FILES applications/rview/Makefile" ;;
     "applications/rasgeo/Makefile") CONFIG_FILES="$CONFIG_FILES applications/rasgeo/Makefile" ;;
     "applications/raswct/Makefile") CONFIG_FILES="$CONFIG_FILES applications/raswct/Makefile" ;;
+    "applications/petascope/Makefile") CONFIG_FILES="$CONFIG_FILES applications/petascope/Makefile" ;;
     "bin/Makefile") CONFIG_FILES="$CONFIG_FILES bin/Makefile" ;;
     "manuals_and_examples/Makefile") CONFIG_FILES="$CONFIG_FILES manuals_and_examples/Makefile" ;;
     "manuals_and_examples/examples/c++/Makefile") CONFIG_FILES="$CONFIG_FILES manuals_and_examples/examples/c++/Makefile" ;;

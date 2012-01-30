@@ -140,6 +140,7 @@ AC_CONFIG_FILES([Makefile
                  applications/rview/Makefile
                  applications/rasgeo/Makefile
                  applications/raswct/Makefile
+                 applications/petascope/Makefile
                  bin/Makefile
                  manuals_and_examples/Makefile
                  manuals_and_examples/examples/c++/Makefile
@@ -275,6 +276,16 @@ AC_ARG_WITH([logdir],
             [AS_IF([test "x$prefix" = "x/usr/local"],
                    [logdir="/var/log/rasdaman"],
                    [logdir="${prefix}/log"])])
+AC_ARG_WITH([wardir],
+		    [AS_HELP_STRING([--with-wardir=PATH],
+				            [the path where the war files should be installed])],
+			[wardir="$withval"],
+			[wardir="\${pkgdatadir}/war"])
+AC_ARG_WITH([wps],
+		    [AS_HELP_STRING([--with-wps=PATH],
+				            [the path to the 52n wps war file])],
+			[wpswar="$withval"],
+			[])
 
 # --------------- Database Specific Configuration ------------------
 ####################################################################
@@ -388,6 +399,8 @@ AC_SUBST(REL_STATIC_LIBS)
 AC_SUBST(RMANBASE)
 AC_SUBST(STATICBASEDBFLAGS)
 AC_SUBST(logdir)    
+AC_SUBST(wardir) 
+AC_SUBST(wpswar)
 
 #Directories used in the source-code
 CXXFLAGS="$CXXFLAGS -DSHARE_DATA_DIR=\\\"\$(pkgdatadir)/\\\""
