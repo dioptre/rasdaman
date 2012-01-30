@@ -292,6 +292,7 @@ BUILT_SOURCES = rpcif_clnt.cc rpcif_xdr.c rpcif.h rpcif_svc.cc
 CLEANFILES = rpcif_clnt.cc rpcif_xdr.c rpcif.h rpcif.h.tmp rpcif_clnt.c.tmp \
            rpcif_svc.cc.tmp rpcif_svc.cc
 
+EXTRA_DIST = rpcif*
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 

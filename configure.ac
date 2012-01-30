@@ -204,7 +204,7 @@ AC_ARG_WITH([docs],
 	    [AS_HELP_STRING([--with-docs],
 	      [generate doxygen documentation during installation.])],
 	    [],
-	    [with-docs=no])
+	    [with_docs=no])
 AM_CONDITIONAL([GENERATE_DOCS], [test "$with_docs" = yes])
 
 AC_ARG_WITH([default-rasmgr-port],
@@ -222,7 +222,7 @@ AC_ARG_WITH([static-libs],
 AC_ARG_WITH([pic],
             [AS_HELP_STRING([--with-pic], 
                             [generate position independent code (PIC)])],
-            [CXXFLAGS+=" -fPIC " CFLAGS+= " -fPIC "],
+            [CXXFLAGS+=" -fPIC " CFLAGS+=" -fPIC "],
             [])
 
 # postgres is automatically defined in m4/ct_check_postgres_db.m4

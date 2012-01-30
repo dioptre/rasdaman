@@ -187,7 +187,8 @@ LIB = lib
 CP = cp -r
 RM = rm -rf
 MKDIR = mkdir
-INSTALL_DIR = $(datadir)/rasdaman/raswct
+INSTALL_DIR = $(DESTDIR)$(datadir)/rasdaman/raswct
+EXTRA_DIST = *
 all: all-am
 
 .SUFFIXES:

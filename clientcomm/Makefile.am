@@ -72,3 +72,5 @@ rpcif_svc.cc: rpcif.x
 	$(RPCGEN) -m -o rpcif_svc.cc.tmp rpcif.x
 	$(AWK) -f rpcif_svc.c.awk rpcif_svc.cc.tmp > rpcif_svc.cc
 	rm rpcif_svc.cc.tmp
+
+EXTRA_DIST = rpcif*

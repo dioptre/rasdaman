@@ -85,13 +85,13 @@ Requires:       %{name} = %{version}-%{release}
 %description petascope
 Petascope is an add-in to the rasdaman raster server providing making it a geo raster data with open, interoperable OGC standards-based interfaces.
 
-%package rasview
+%package rasdaview
 Summary:        WxWidgets based GUI client for rasdaman
 Group:          Graphics
 Requires:       %{name} = %{version}-%{release}
 
-%description rasview
-The rasdaman-rasview package installs GUI client for rasdaman. It is based on WxWidgets.
+%description rasdaview
+The rasdaman-rasdaview package installs GUI client for rasdaman. It is based on WxWidgets.
 
 %package rasgeo
 Summary:        rasgeo is an add-in for GDAL-based image file import
@@ -101,12 +101,22 @@ Requires:       %{name} = %{version}-%{release}
 %description rasgeo
 The rasgeo package is an add-in for GDAL-based image file import. It uses GDAL.
 
+%package raswct
+Summary:        Rasdaman Web Client Toolkit based on JavaScript
+Group:          Applications/Databases
+Requires:       %{name} = %{version}-%{release}
+
+%description raswct
+raswct is a Web Client Toolkit based on JavaScript. The main purpose of this toolkit is to 
+allow developers to create user interfaces for displaying data from a raster database.
+
 %prep
 %setup -q
 
 %build
-
-CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" CXX="g++ -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" \
+echo localstatedir: %{_localstatedir}
+autoreconf -fi
+CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" CXX="g++ -L%{_libdir}/hdf -I/usr/include/gdal -I/usr/include/netpbm -fpermissive" \
 	./configure \
 		--prefix=/usr \
 		--docdir=%{_docdir}/rasdaman \
@@ -170,17 +180,17 @@ mv %{buildroot}%{_includedir}/stdexcept.h %{buildroot}%{_includedir}/rasdaman
 mv %{buildroot}%{_includedir}/debug %{buildroot}%{_includedir}/rasdaman
 
 # Move rview pieces from bin
-mkdir -p %{buildroot}%{_libdir}/rasview/bin
-mv %{buildroot}%{_bindir}/labels.txt %{buildroot}%{_libdir}/rasview/bin
-mv %{buildroot}%{_bindir}/rview %{buildroot}%{_libdir}/rasview/bin/rasview.bin
-mv %{buildroot}%{_bindir}/../.rviewrc %{buildroot}%{_libdir}/rasview
-cp %{buildroot}%{_datadir}/rasdaman/errtxts* %{buildroot}%{_libdir}/rasview/bin
+mkdir -p %{buildroot}%{_libdir}/rasdaview/bin
+mv %{buildroot}%{_bindir}/labels.txt %{buildroot}%{_libdir}/rasdaview/bin
+mv %{buildroot}%{_bindir}/rview %{buildroot}%{_libdir}/rasdaview/bin/rasdaview.bin
+mv %{buildroot}%{_bindir}/../.rviewrc %{buildroot}%{_libdir}/rasdaview
+cp %{buildroot}%{_datadir}/rasdaman/errtxts* %{buildroot}%{_libdir}/rasdaview/bin
 
-echo "#!/bin/bash" > %{buildroot}%{_bindir}/rasview
-echo "cd %{_libdir}/rasview/bin" >> %{buildroot}%{_bindir}/rasview
-echo "exec %{_libdir}/rasview/bin/rasview.bin" >> %{buildroot}%{_bindir}/rasview
+echo "#!/bin/bash" > %{buildroot}%{_bindir}/rasdaview
+echo "cd %{_libdir}/rasdaview/bin" >> %{buildroot}%{_bindir}/rasdaview
+echo "exec %{_libdir}/rasdaview/bin/rasdaview.bin" >> %{buildroot}%{_bindir}/rasdaview
 
-chmod +x %{buildroot}%{_bindir}/rasview
+chmod +x %{buildroot}%{_bindir}/rasdaview
 
 %clean
 rm -rf %{buildroot}
@@ -273,17 +283,26 @@ fi
 %{_datadir}/rasdaman/petascope/*
 /var/lib/tomcat6/webapps/petascope.war
 
-%files rasview
+%files rasdaview
 %defattr(-,root,root,-)
-%{_bindir}/rasview
-%{_libdir}/rasview
+%{_bindir}/rasdaview
+%{_libdir}/rasdaview
 
 %files rasgeo
 %defattr(-,root,root,-)
 %{_bindir}/rasimport
 %{_bindir}/raserase
 
+%files raswct
+%defattr(-,root,root,-)
+%{_datadir}/rasdaman/raswct
+
 %changelog
+
+* Sun Jan 29  2012 Dimitar Misev <misev@rasdaman.com> - 8.3.0
+
+- Move rasview to rasdaview
+- Add raswct
 
 * Sun Jan 22  2012 Dimitar Misev <misev@rasdaman.com> - 8.3.0
 
@@ -321,4 +340,3 @@ fi
 * Thu Feb 17  2011 Konstantin Kozlov <kozlov@spbcas.ru> - 8.0.0
 
 - Initial spec
-

@@ -255,14 +255,18 @@ void r_Error::initTextTable()
 
 void r_Error::freeTextTable()
 {
+  if (!r_Error::errorTexts)
+    return;
+  
 	list<pair<pair<int,char>, char*> >::iterator iter = r_Error::errorTexts->begin();
 	list<pair<pair<int,char>, char*> >::iterator end = r_Error::errorTexts->end();
 
 	if (errorTextsLoaded)		// have we initialized the table previously?
 	{				// yes -> free each string
 		while ( iter != end  )
-       		{
-			free( iter->second );
+    {
+      if (iter->second)
+        free( iter->second );
 			iter->second = NULL;
       ++iter;
 		} 

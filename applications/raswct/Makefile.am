@@ -4,7 +4,7 @@ LIB = lib
 CP = cp -r
 RM = rm -rf
 MKDIR = mkdir
-INSTALL_DIR = $(datadir)/rasdaman/raswct
+INSTALL_DIR = $(DESTDIR)$(datadir)/rasdaman/raswct
 
 all: css libs src
 	@cat $(BIN)/toolkit_lib.js $(BIN)/toolkit_src.js > $(BIN)/toolkit.js
@@ -33,4 +33,5 @@ uninstall:
 clean:
 	@$(RM) $(BIN)/toolkit.js $(BIN)/toolkit_src.js $(BIN)/toolkit_lib.js $(BIN)/toolkit.css
 	@echo "The compiled files were removed"
-	
+
+EXTRA_DIST = *
