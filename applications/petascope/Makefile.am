@@ -142,7 +142,7 @@ javadoc: $(all_javas)
 install: war
 	$(CP) $(WAR) $(DESTDIR)$(wardir)
 if GENERATE_DOCS
-	$(MKDIR) $(docdir)
+	$(MKDIR) $(DESTDIR)$(pkgdatadir)/doc
 	$(CP) $(APIDOCS) $(DESTDIR)$(pkgdatadir)/doc/petascope
 endif
 
@@ -179,7 +179,29 @@ wps: jar
 	cd $(BUILD)/wps; $(JAR) xf wps.war; $(RM) wps.war
 	$(CP) $(BUILD)/petascope.jar lib/*.jar $(BUILD)/wps/WEB-INF/lib
 	$(CD) $(BUILD)/wps; $(JAR) $(JARFLAGS) ../wps.war .
-	$(CP) $(BUILD)/wps.war $(wardir)
+	$(CP) $(BUILD)/wps.war $(DESTDIR)$(wardir)
 
 .PHONY: all
 all: war
+	
+EXTRA_DIST = \
+	build.xml \
+	db \
+	INSTALL \
+	lib \
+	LICENCE \
+	Makefile \
+	nbproject \
+	README \
+	README.WCS2 \
+	src \
+	templates \
+	xml
+
+DISTFILES = $(EXTRA_DIST)
+
+# Put petascope into archive for RPM generation
+.PHONY: distdir
+distdir:
+	mkdir -p $(distdir)
+	cp -R $(DISTFILES) $(distdir)

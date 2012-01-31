@@ -114,7 +114,6 @@ allow developers to create user interfaces for displaying data from a raster dat
 %setup -q
 
 %build
-echo localstatedir: %{_localstatedir}
 autoreconf -fi
 CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" CXX="g++ -L%{_libdir}/hdf -I/usr/include/gdal -I/usr/include/netpbm -fpermissive" \
 	./configure \
