@@ -52,7 +52,7 @@ YSymbol::YSymbol()
 
 YSymbol::YSymbol(const char*_name)
 {
-	TALK( "YSymbol::YSymbol constructor, name=" << name );
+	TALK( "YSymbol::YSymbol constructor, name=" << _name );
 
 	name            =_name;
 	next            =NULL;
