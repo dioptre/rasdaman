@@ -140,6 +140,7 @@ javadoc: $(all_javas)
 # copy WAR to TOMCAT
 .PHONY: install
 install: war
+	$(MKDIR) $(DESTDIR)$(wardir)
 	$(CP) $(WAR) $(DESTDIR)$(wardir)
 if GENERATE_DOCS
 	$(MKDIR) $(DESTDIR)$(pkgdatadir)/doc

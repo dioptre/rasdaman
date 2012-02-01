@@ -477,8 +477,9 @@ javadoc: $(all_javas)
 # copy WAR to TOMCAT
 .PHONY: install
 install: war
+	$(MKDIR) $(DESTDIR)$(wardir)
 	$(CP) $(WAR) $(DESTDIR)$(wardir)
-@GENERATE_DOCS_TRUE@	$(MKDIR) $(docdir)
+@GENERATE_DOCS_TRUE@	$(MKDIR) $(DESTDIR)$(pkgdatadir)/doc
 @GENERATE_DOCS_TRUE@	$(CP) $(APIDOCS) $(DESTDIR)$(pkgdatadir)/doc/petascope
 
 # setup database
@@ -514,7 +515,7 @@ wps: jar
 	cd $(BUILD)/wps; $(JAR) xf wps.war; $(RM) wps.war
 	$(CP) $(BUILD)/petascope.jar lib/*.jar $(BUILD)/wps/WEB-INF/lib
 	$(CD) $(BUILD)/wps; $(JAR) $(JARFLAGS) ../wps.war .
-	$(CP) $(BUILD)/wps.war $(wardir)
+	$(CP) $(BUILD)/wps.war $(DESTDIR)$(wardir)
 
 .PHONY: all
 all: war
