@@ -33,11 +33,6 @@
 
 static const char rcsid[] = "@(#)rasodmg/test,ImportOrthoUtil: $Id: rasql_signal.cc,v 1.1 2003/12/27 19:30:23 rasdev Exp $";
 
-#ifdef EARLY_TEMPLATE
-#define __EXECUTABLE__
-#include "raslib/template_inst.hh"
-#endif
-
 #include <iostream>
 #include <string>
 #include <iostream>
