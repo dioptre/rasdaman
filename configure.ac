@@ -67,8 +67,8 @@ if test "$GDAL_CONFIG" = "no" ; then
 fi
 GDAL_LIB=`$GDAL_CONFIG --libs`
 GDAL_INC=`$GDAL_CONFIG --cflags`
-LDFLAGS+=$GDAL_LIB
-CXXFLAGS+=$GDAL_INC
+LDFLAGS+=" $GDAL_LIB"
+CXXFLAGS+=" $GDAL_INC"
 
 
 # Checks for header files.
