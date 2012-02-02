@@ -33,13 +33,14 @@
 
 static const char rcsid[] = "@(#)rasodmg/test,ImportOrthoUtil: $Id: rasql_signal.cc,v 1.1 2003/12/27 19:30:23 rasdev Exp $";
 
-#include <iostream>
 #include <string>
 #include <iostream>
 #include <signal.h>
 #ifdef SOLARIS
 #include <strings.h>
 #endif
+
+using namespace std;
 
 #include "rasql_error.hh"
 #include "rasql_signal.hh"
