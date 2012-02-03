@@ -46,8 +46,11 @@ SETTINGS=settings.properties
 # check the Postgres
 ps -e | grep --quiet -w postgres
 if [ $? -ne 0 ]; then
-   echo "no postgres available"
-   exit $CODE_FAIL
+    ps -e | grep --quiet -w postmaster
+    if [ $? -ne 0 ]; then
+       echo "no postgres available"
+       exit $CODE_FAIL
+    fi
 fi
 
 # check the settings
