@@ -64,11 +64,20 @@ fi
 USER=`grep metadata_user "$SETTINGS" | awk -F "=" '{print $2}'`
 DB=`grep metadata_url "$SETTINGS" | awk -F "/" '{print $4}'`
 PORT=`grep metadata_url "$SETTINGS" | awk -F ":|/" '{print $6}'`
-PSQL="psql -d $DB -p $PORT"
+PASS=`grep metadata_pass "$SETTINGS" | awk -F "=" '{print $2}'`
+HOST=`hostname`
+USER="${USER#"${USER%%[![:space:]]*}"}"
+PASS="${PASS#"${PASS%%[![:space:]]*}"}"
+
+echo $HOST:*:*:$USER:$PASS > ~/.pgpass
+chmod 600 ~/.pgpass
+
+
+PSQL="psql -U $USER -d $DB -p $PORT -h $HOST"
 echo Postgres connection details
 echo Database: $DB
 echo Port: $PORT
-echo
+echo cmd: $PSQL
 echo Testing connection...
 $PSQL -c "create table ps_tmp (id integer)" > /dev/null
 if [ $? -ne 0 ]; then
@@ -79,10 +88,15 @@ else
 	echo OK
 fi
 
+
 if [ -n "$1" ]; then
 	if [ "$1" = "dropall" ]; then
-		$PSQL < droptables.sql > /dev/null
-		echo Dropped all petascope tables from $DB
+		$PSQL -f droptables.sql > /dev/null
+        if [ "$?" != "0" ]; then 
+            echo Cannot drop tables from $DB
+        else
+            echo Dropped all petascope tables from $DB
+        fi
 	fi
 else
 	# updating petascope database
