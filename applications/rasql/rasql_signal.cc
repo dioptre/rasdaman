@@ -47,6 +47,8 @@ static const char rcsid[] = "@(#)rasodmg/test,ImportOrthoUtil: $Id: rasql_signal
 // debug facility; relies on -DDEBUG at compile time
 #include "debug-clt.hh"
 
+using namespace std;
+
 //signalCleanup function is called when a signal is received by the program.
 //You should write your function in order to have signal management
 void signalCleanup();
