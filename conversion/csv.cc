@@ -86,7 +86,7 @@ r_Conv_CSV::~r_Conv_CSV(void)
 
 template <class baseType, class castType> 
 void r_Conv_CSV::print(std::ofstream &f, baseType* val, int *dims, int dim) {
-  ENTER("r_Conv_CSV::print( values: " << val << ", dimensions: " << dim << " )");
+  ENTER("r_Conv_CSV::print( dimensions: " << dim << " )");
   
   int dimensions, dimsIndex;
   stack<int> dimensionsStack; 
@@ -99,7 +99,7 @@ void r_Conv_CSV::print(std::ofstream &f, baseType* val, int *dims, int dim) {
     dimensionsStack.pop();
     if (dimensions == DIM_BOUNDARY) {
       f << "}";
-      if (!dimensionsStack.empty())
+      if (!dimensionsStack.empty() && dimensionsStack.top() != DIM_BOUNDARY)
         f << ",";
       continue;
     }
@@ -107,7 +107,9 @@ void r_Conv_CSV::print(std::ofstream &f, baseType* val, int *dims, int dim) {
     dimsIndex = dimsIndexStack.top();
     dimsIndexStack.pop();
     
-    if (dimensions == 1) {
+    if (dimensions == 0) {
+      f << (castType)val[0];
+    } else if (dimensions == 1) {
       f << "{";
       for (int i=0; i<dims[dimsIndex]; ++i, val++) {
         f << (castType)val[0];
@@ -216,7 +218,12 @@ r_convDesc &r_Conv_CSV::convertTo( const char *options ) throw(r_Error)
     case ctype_uint64: print<unsigned long long, unsigned long long>(ftemp, (unsigned long long*) src, dimsizes, rank); break;
     case ctype_float32: print<r_Float, float>(ftemp, (r_Float*) src, dimsizes, rank); break;
     case ctype_float64: print<r_Double, float>(ftemp, (r_Double*) src, dimsizes, rank); break;
-    default: print<r_Char, int>(ftemp, (r_Char*)src, dimsizes, rank);
+    default:
+    {
+      RMInit::logOut << "r_Conv_CSV::convertTo(): can not convert data of base type " << desc.baseType << endl;
+      LEAVE("r_Conv_CSV::convertTo()");
+      throw r_Error(r_Error::r_Error_TypeInvalid);
+    }
   }
 
   delete [] dimsizes; dimsizes=NULL;
