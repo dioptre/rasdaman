@@ -39,6 +39,7 @@ rasdaman GmbH.
 * Both definitions are similar
 * 
 * 2011-may-24  DM          added support for structured types
+* 2012-feb-05  DM          convert recursive printing to iterative
 */
 #define HAVE_INT8
 #define STRUCT_DELIMITER_OPEN "\""
@@ -59,7 +60,13 @@ rasdaman GmbH.
 
 #include <stdio.h>
 #include <iostream>
+#include <stack>
 
+#include "debug/debug-srv.hh"
+
+#define DIM_BOUNDARY -1
+
+using namespace std;
 
 r_Conv_CSV::r_Conv_CSV(const char *src, const r_Minterval &interv, const r_Type *tp) throw(r_Error) 
 : r_Convertor(src, interv, tp, true)
@@ -79,20 +86,51 @@ r_Conv_CSV::~r_Conv_CSV(void)
 
 template <class baseType, class castType> 
 void r_Conv_CSV::print(std::ofstream &f, baseType* val, int *dims, int dim) {
-  if (dim==1) {
-    for (int i=0; i<dims[0]-1; ++i, val++)
-      f << (castType)val[0] << ",";
-    f << (castType) val[0]; val++;
-  } else {
-    for (int i=0; i<dims[0]-1; ++i) {
-      f << "{";
-      print<baseType, castType>(f, val, dims+1, dim-1);
-      f << "},";
+  ENTER("r_Conv_CSV::print( values: " << val << ", dimensions: " << dim << " )");
+  
+  int dimensions, dimsIndex;
+  stack<int> dimensionsStack; 
+  stack<int> dimsIndexStack;
+  dimensionsStack.push(dim);
+  dimsIndexStack.push(0);
+  
+  while (!dimensionsStack.empty()) {
+    dimensions = dimensionsStack.top();
+    dimensionsStack.pop();
+    if (dimensions == DIM_BOUNDARY) {
+      f << "}";
+      if (!dimensionsStack.empty())
+        f << ",";
+      continue;
     }
-    f << "{";
-    print<baseType, castType>(f, val, dims+1, dim-1);
-    f << "}";    
+    
+    dimsIndex = dimsIndexStack.top();
+    dimsIndexStack.pop();
+    
+    if (dimensions == 1) {
+      f << "{";
+      for (int i=0; i<dims[dimsIndex]; ++i, val++) {
+        f << (castType)val[0];
+        if (i<dims[dimsIndex]-1)
+          f << ",";
+      }
+      f << "}";
+      if (!dimensionsStack.empty() && dimensionsStack.top() != DIM_BOUNDARY) {
+        f << ",";
+      }
+    } else {
+      if (dimensions != dim) {
+        f << "{";
+        dimensionsStack.push(DIM_BOUNDARY);
+      }
+      for (int i = 0; i < dims[dimsIndex]; i++) {
+        dimensionsStack.push(dimensions - 1);
+        dimsIndexStack.push(dimsIndex + 1);
+      }
+    }
   }
+  
+  LEAVE("r_Conv_CSV::print()");
 }
 
 void r_Conv_CSV::printStructVal(std::ofstream &f, char* val) {
@@ -145,6 +183,7 @@ void r_Conv_CSV::printStruct(std::ofstream &f, char* val, int *dims, int dim) {
 
 r_convDesc &r_Conv_CSV::convertTo( const char *options ) throw(r_Error)
 {
+  ENTER("r_Conv_CSV::convertTo()");
   char name[256];
   strncpy(name, tmpnam(NULL), 256);
   std::ofstream ftemp(name);
@@ -152,9 +191,7 @@ r_convDesc &r_Conv_CSV::convertTo( const char *options ) throw(r_Error)
   int rank, i;
   int *dimsizes;
   rank = desc.srcInterv.dimension();
-  const char *src = desc.src;
-
-  char *t;
+  char *src = (char*) desc.src;
 
   dimsizes = new int[rank]; 
 
@@ -167,19 +204,19 @@ r_convDesc &r_Conv_CSV::convertTo( const char *options ) throw(r_Error)
   } else
   switch (desc.baseType)
     {
-    case ctype_int8: print<const r_Octet, int>(ftemp, (const r_Octet* &)src, dimsizes, rank); break;
+    case ctype_int8: print<const r_Octet, int>(ftemp, (const r_Octet*)src, dimsizes, rank); break;
     case ctype_uint8: 
     case ctype_char: 
-    case ctype_bool: print<r_Char, int>(ftemp, (r_Char* &)src, dimsizes, rank); break;      
-    case ctype_int16: print<r_Short, int>(ftemp, (r_Short* &)src, dimsizes, rank); break;
-    case ctype_uint16: print<r_UShort, int>(ftemp, (r_UShort* &) src, dimsizes, rank); break;
-    case ctype_int32: print<r_Long, int>(ftemp, (r_Long* &) src, dimsizes, rank);  break;
-    case ctype_uint32: print<r_ULong, int>(ftemp, (r_ULong* &) src, dimsizes, rank);  break;
-    case ctype_int64: print<long long, long long>(ftemp, (long long* &) src, dimsizes, rank); break;
-    case ctype_uint64: print<unsigned long long, unsigned long long>(ftemp, (unsigned long long* &) src, dimsizes, rank); break;
-    case ctype_float32: print<r_Float, float>(ftemp, (r_Float* &) src, dimsizes, rank); break;
-    case ctype_float64: print<r_Double, float>(ftemp, (r_Double* &) src, dimsizes, rank); break;
-    default: print<r_Char, int>(ftemp, (r_Char* &)src, dimsizes, rank);
+    case ctype_bool: print<r_Char, int>(ftemp, (r_Char*)src, dimsizes, rank); break;      
+    case ctype_int16: print<r_Short, int>(ftemp, (r_Short*)src, dimsizes, rank); break;
+    case ctype_uint16: print<r_UShort, int>(ftemp, (r_UShort*) src, dimsizes, rank); break;
+    case ctype_int32: print<r_Long, int>(ftemp, (r_Long*) src, dimsizes, rank);  break;
+    case ctype_uint32: print<r_ULong, int>(ftemp, (r_ULong*) src, dimsizes, rank);  break;
+    case ctype_int64: print<long long, long long>(ftemp, (long long*) src, dimsizes, rank); break;
+    case ctype_uint64: print<unsigned long long, unsigned long long>(ftemp, (unsigned long long*) src, dimsizes, rank); break;
+    case ctype_float32: print<r_Float, float>(ftemp, (r_Float*) src, dimsizes, rank); break;
+    case ctype_float64: print<r_Double, float>(ftemp, (r_Double*) src, dimsizes, rank); break;
+    default: print<r_Char, int>(ftemp, (r_Char*)src, dimsizes, rank);
   }
 
   delete [] dimsizes; dimsizes=NULL;
@@ -191,6 +228,7 @@ r_convDesc &r_Conv_CSV::convertTo( const char *options ) throw(r_Error)
   if ((fp = fopen(name, "rb")) == NULL)
   {
     RMInit::logOut << "r_Conv_CSV::convertTo(): unable to read back file." << endl;
+    LEAVE("r_Conv_CSV::convertTo()");
     throw r_Error(r_Error::r_Error_General);
   }
   fseek(fp, 0, SEEK_END);
@@ -203,6 +241,7 @@ r_convDesc &r_Conv_CSV::convertTo( const char *options ) throw(r_Error)
   {
     RMInit::logOut << "r_Conv_CSV::convertTo(): out of memory error" << endl;
     fclose(fp);
+    LEAVE("r_Conv_CSV::convertTo()");
     throw r_Error(MEMMORYALLOCATIONERROR);
   }
   fseek(fp, 0, SEEK_SET);
@@ -215,6 +254,7 @@ r_convDesc &r_Conv_CSV::convertTo( const char *options ) throw(r_Error)
   // Result is just a bytestream
   desc.destType = r_Type::get_any_type("char");
 
+  LEAVE("r_Conv_CSV::convertTo()");
   return desc;
 }
 
