@@ -24,7 +24,7 @@
  * @class SliderWidget extends InputWidget
  *
  * Defines a slider widget.
- * 
+ *
  * @author Mircea Dumitru <m.dumitru@jacobs-university.de>
  * @author Vlad Merticariu <v.merticariu@jacobs-university.de>
  * @package raswct
@@ -40,7 +40,7 @@ Rj.Constants.SliderWidget = {
 
 
 Rj.Widget.SliderWidget = new JS.Class(Rj.Widget.InputWidget, {
-    
+
   /**
    * Standard class constructor
    * @param <int> min - the minimum value of the slider
@@ -49,24 +49,26 @@ Rj.Widget.SliderWidget = new JS.Class(Rj.Widget.InputWidget, {
    * can be "horizontal" or "vertical"
    * @param <int> step - defines the smallest unit with which the slider can move
    * @param <int> slideLevel - the default position of de slider when loaded
+   * @param <bool> range - true to define a range slider with 2 ends
    */
-  initialize: function(min, max, orientation, step, slideLevel){
+  initialize: function(min, max, orientation, step, slideLevel, range){
     this.min = min || 0;
     this.max = max || 1;
     this.orientation = orientation;
     this.step = step || 1;
     this.slideLevel = slideLevel || this.min;
+    this.range = range || false;
     this.id = '';
     this.callSuper(this.slideLevel);
   },
-  
+
   /**
    * Standard getter for the slideLevel attribute
    */
   getSlideLevel: function(){
     return this.slideLevel;
   },
-  
+
   /**
    * Standard setter for the slideLevel attribute
    * @param <int> slideLevel - the new value to which the slider is set to
@@ -75,7 +77,7 @@ Rj.Widget.SliderWidget = new JS.Class(Rj.Widget.InputWidget, {
     this.slideLevel = slideLevel;
     jQuery('#' + this.id).slider('value', slideLevel);
   },
-  
+
   /**
    * @override Rj.Widget.BaseWidget.renderTo
    * @event changevalue - fires when the slider's value is changed by drag&stop
@@ -87,18 +89,20 @@ Rj.Widget.SliderWidget = new JS.Class(Rj.Widget.InputWidget, {
     var self = this;
     jQuery('#' + id).slider({
       value: this.slideLevel,
+      values: this.slideLevel,
       min: this.min,
       max: this.max,
       step: this.step,
+      range : this.range,
       orientation : this.orientation,
       change: function(event, ui){
-        this.slideLevel = ui.value;
-        self.fireEvent("changevalue", ui.value);
+        self.slideLevel = self.range ? ui.values : ui.value;
+        self.fireEvent("changevalue", self.slideLevel);
       },
       slide: function(event, ui){
-        self.fireEvent("slidevalue", ui.value);
+        self.fireEvent("slidevalue", self.range ? ui.values : ui.value);
       }
     });
   }
-  
+
 })

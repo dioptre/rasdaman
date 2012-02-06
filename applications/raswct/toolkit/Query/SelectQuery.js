@@ -22,9 +22,9 @@
 
 /**
  * The SelectQuery class provides an abstraction over the select query sent to the server.
- * It allows widget developers to easy modify queries by adding new fields to the 
+ * It allows widget developers to easy modify queries by adding new fields to the
  * query or creating conditions which will be transformed into a query that can be sent to the server.
- * 
+ *
  * @author Alex Dumitru <m.dumitru@jacobs-university.de>
  * @author Vlad Merticariu <v.merticariu@jacobs-university.de>
  * @package raswct
@@ -34,7 +34,7 @@
 Rj.namespace("Rj.Query.SelectQuery");
 
 Rj.Query.SelectQuery = new JS.Class(Rj.Query.BaseQuery, {
-  
+
   /**
    * Constructor for SelectQuery
    * @param <string> query - the initial query attached to this object
@@ -45,15 +45,15 @@ Rj.Query.SelectQuery = new JS.Class(Rj.Query.BaseQuery, {
     this.variables = variables || {};
     this.callSuper(query);
   },
-  
+
   /**
    * Returns the value attached to the given variable
    * @param <string> the name of the variable that needs to be returned
    */
-  getVariable : function(variable){    
+  getVariable : function(variable){
     return this.variables[variable];
   },
-  
+
   /**
    * Assigns a value to a variable
    * @param <string> variable - the variable name
@@ -64,17 +64,17 @@ Rj.Query.SelectQuery = new JS.Class(Rj.Query.BaseQuery, {
     this.variables[variable] = value;
     return this;
   },
-  
+
   replaceVariablesInQuery : function(){
     var vars = this.variables;
     var query = this.query;
     for (var variable in vars){
-      query = query.replace(variable, vars[variable].toString());
+      query = query.replace(new RegExp(variable, 'g'), vars[variable].toString());
     }
     return query;
   },
-  
-  
+
+
   /**
    * Return the query in a transport format, as requested by the QueryExecutor specs
    * The returned query should be of form "SELECT fields FROM collections WHERE conditions" or similar
@@ -82,12 +82,12 @@ Rj.Query.SelectQuery = new JS.Class(Rj.Query.BaseQuery, {
    * @return <object> A transport object
    */
   transport : function(){
-    var processedQuery = this.replaceVariableInQuery();
+    var processedQuery = this.replaceVariablesInQuery();
     return {
       url : this.url,
       type : 'POST',
       value : processedQuery
     };
   }
-  
+
 })

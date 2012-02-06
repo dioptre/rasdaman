@@ -364,29 +364,29 @@ uninstall-am:
 
 
 all: css libs src
-	@cat $(BIN)/toolkit_lib.js $(BIN)/toolkit_src.js > $(BIN)/toolkit.js
+	@cat $(BIN)/raswct_lib.js $(BIN)/raswct_src.js > $(BIN)/raswct.js
 	@echo "Build Process sucessfully. You can now install the toolkit by running $ make install"
 
 css:
-	@cat $(LIB)/jqueryui/css/ui-lightness/jquery-ui-1.8.16.custom.css $(LIB)/gritter/jquery.gritter.css $(LIB)/charts/jquery.jqplot.css $(LIB)/openlayers/style.css > $(BIN)/toolkit.css
+	@cat $(LIB)/jqueryui/css/ui-lightness/jquery-ui-1.8.16.custom.css $(LIB)/gritter/jquery.gritter.css $(LIB)/charts/jquery.jqplot.css $(LIB)/openlayers/style.css > $(BIN)/raswct.css
 
 libs:
-	@cat $(LIB)/jqueryui/js/jquery-1.6.2.min.js $(LIB)/jqueryui/js/jquery-ui-1.8.16.custom.min.js $(LIB)/gritter/gritter.js $(LIB)/jsclass/min/loader-browser.js $(LIB)/jsclass/min/core.js $(LIB)/jsclass/min/deferrable.js $(LIB)/openlayers/OpenLayers.js $(LIB)/charts/jquery.jqplot.min.js $(LIB)/charts/plugins/jqplot.canvasAxisLabelRenderer.min.js $(LIB)/charts/plugins/jqplot.canvasAxisTickRenderer.min.js $(LIB)/charts/plugins/jqplot.canvasOverlay.js $(LIB)/charts/plugins/jqplot.categoryAxisRenderer.min.js $(LIB)/charts/plugins/jqplot.canvasTextRenderer.min.js $(LIB)/charts/plugins/jqplot.cursor.min.js $(LIB)/charts/plugins/jqplot.dateAxisRenderer.min.js $(LIB)/charts/plugins/jqplot.dragable.min.js $(LIB)/charts/plugins/jqplot.enhancedLegendRenderer.min.js $(LIB)/charts/plugins/jqplot.highlighter.min.js $(LIB)/charts/plugins/jqplot.logAxisRenderer.min.js $(LIB)/charts/plugins/jqplot.meterGaugeRenderer.min.js $(LIB)/charts/plugins/jqplot.pieRenderer.min.js $(LIB)/charts/plugins/jqplot.pointLabels.min.js > $(BIN)/toolkit_lib.js
+	@cat $(LIB)/jqueryui/js/jquery-1.6.2.min.js $(LIB)/jqueryui/js/jquery-ui-1.8.16.custom.min.js $(LIB)/gritter/gritter.js $(LIB)/jsclass/min/loader-browser.js $(LIB)/jsclass/min/core.js $(LIB)/jsclass/min/deferrable.js $(LIB)/openlayers/OpenLayers.js $(LIB)/charts/jquery.jqplot.min.js $(LIB)/charts/plugins/jqplot.canvasAxisLabelRenderer.min.js $(LIB)/charts/plugins/jqplot.canvasAxisTickRenderer.min.js $(LIB)/charts/plugins/jqplot.canvasOverlay.js $(LIB)/charts/plugins/jqplot.categoryAxisRenderer.min.js $(LIB)/charts/plugins/jqplot.canvasTextRenderer.min.js $(LIB)/charts/plugins/jqplot.cursor.min.js $(LIB)/charts/plugins/jqplot.dateAxisRenderer.min.js $(LIB)/charts/plugins/jqplot.dragable.min.js $(LIB)/charts/plugins/jqplot.enhancedLegendRenderer.min.js $(LIB)/charts/plugins/jqplot.highlighter.min.js $(LIB)/charts/plugins/jqplot.logAxisRenderer.min.js $(LIB)/charts/plugins/jqplot.meterGaugeRenderer.min.js $(LIB)/charts/plugins/jqplot.pieRenderer.min.js $(LIB)/charts/plugins/jqplot.pointLabels.min.js > $(BIN)/raswct_lib.js
 
 src:
-	@cat $(SRC)/Init.js $(SRC)/Util.js $(SRC)/Query/BaseQuery.js $(SRC)/Query/SelectQuery.js $(SRC)/Query/UrlQuery.js $(SRC)/Query/QueryExecutor.js $(SRC)/Widgets/BaseWidget.js $(SRC)/Widgets/InputWidget.js $(SRC)/Widgets/OutputWidget.js $(SRC)/Widgets/BaseChart.js $(SRC)/Widgets/LinearDiagram.js $(SRC)/Widgets/AreaDiagram.js $(SRC)/Widgets/ScatterDiagram.js $(SRC)/Widgets/LayerWidget.js $(SRC)/Widgets/MapWidget.js $(SRC)/Widgets/TextWidget.js $(SRC)/Widgets/SliderWidget.js > $(BIN)/toolkit_src.js
+	@cat $(SRC)/Init.js $(SRC)/Util.js $(SRC)/Query/BaseQuery.js $(SRC)/Query/SelectQuery.js $(SRC)/Query/UrlQuery.js $(SRC)/Query/QueryExecutor.js $(SRC)/Widgets/BaseWidget.js $(SRC)/Widgets/InputWidget.js $(SRC)/Widgets/OutputWidget.js $(SRC)/Widgets/BaseChart.js $(SRC)/Widgets/LinearDiagram.js $(SRC)/Widgets/AreaDiagram.js $(SRC)/Widgets/ScatterDiagram.js $(SRC)/Widgets/LayerWidget.js $(SRC)/Widgets/MapWidget.js $(SRC)/Widgets/TextWidget.js $(SRC)/Widgets/SliderWidget.js > $(BIN)/raswct_src.js
 
 install:
 	@$(MKDIR) -p $(INSTALL_DIR)
 	@$(CP) $(BIN)/* $(INSTALL_DIR)
-	@echo "The rasdaman web client toolkit has been installed. You can start using it by including toolkit.js and toolkit.css in your html file"
+	@echo "The rasdaman web client toolkit has been installed. You can start using it by including raswct.js and raswct.css in your html file"
 
 uninstall:
 	@$(RM) $(INSTALL_DIR)
 	@echo "The rasdaman web client toolkit was uninstalled"
 
 clean:
-	@$(RM) $(BIN)/toolkit.js $(BIN)/toolkit_src.js $(BIN)/toolkit_lib.js $(BIN)/toolkit.css
+	@$(RM) $(BIN)/raswct.js $(BIN)/raswct_src.js $(BIN)/raswct_lib.js $(BIN)/raswct.css
 	@echo "The compiled files were removed"
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
