@@ -1,0 +1,13 @@
+<CompoundCRS xmlns:gml='http://www.opengis.net/gml'
+   xmlns:epsg='urn:x-ogp:spec:schema-xsd:EPSG:0.1:dataset'
+   xmlns:xlink='http://www.w3.org/1999/xlink'
+   gml:id='crs-4326-4440'>
+   <metaDataProperty>
+      <epsg:CommonMetaData>
+         <epsg:type>compound</epsg:type>
+      </epsg:CommonMetaData>
+   </metaDataProperty>
+   <name>WGS 84 / NZVD2009 height</name>
+   <componentReferenceSystem xlink:href='urn:ogc:def:crs:EPSG::4326'/>
+   <componentReferenceSystem xlink:href='urn:ogc:def:crs:EPSG::4440'/>
+</CompoundCRS>

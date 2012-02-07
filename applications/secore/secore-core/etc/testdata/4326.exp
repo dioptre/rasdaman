@@ -1,0 +1,29 @@
+<GeodeticCRS xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:epsg="urn:x-ogp:spec:schema-xsd:EPSG:0.1:dataset" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns="http://www.opengis.net/gml" gml:id="epsg-crs-4326">
+  <metaDataProperty>
+    <epsg:CommonMetaData>
+      <epsg:type>geographic 2D</epsg:type>
+      <epsg:informationSource>EPSG. See 3D CRS for original information source.</epsg:informationSource>
+      <epsg:revisionDate>2007-08-27</epsg:revisionDate>
+      <epsg:changes>
+        <epsg:changeID xlink:href="urn:ogc:def:change-request:EPSG::2002.151"/>
+        <epsg:changeID xlink:href="urn:ogc:def:change-request:EPSG::2003.370"/>
+        <epsg:changeID xlink:href="urn:ogc:def:change-request:EPSG::2006.810"/>
+        <epsg:changeID xlink:href="urn:ogc:def:change-request:EPSG::2007.079"/>
+      </epsg:changes>
+      <epsg:show>true</epsg:show>
+      <epsg:isDeprecated>false</epsg:isDeprecated>
+    </epsg:CommonMetaData>
+  </metaDataProperty>
+  <metaDataProperty>
+    <epsg:CRSMetaData>
+      <epsg:projectionConversion xlink:href="urn:ogc:def:coordinateOperation:EPSG::15593"/>
+      <epsg:sourceGeographicCRS xlink:href="urn:ogc:def:crs:EPSG::4979"/>
+    </epsg:CRSMetaData>
+  </metaDataProperty>
+  <identifier codeSpace="OGP">urn:ogc:def:crs:EPSG::4326</identifier>
+  <name>WGS 84</name>
+  <domainOfValidity xlink:href="urn:ogc:def:area:EPSG::1262"/>
+  <scope>Horizontal component of 3D system. Used by the GPS satellite navigation system and for NATO military geodetic surveying.</scope>
+  <ellipsoidalCS xlink:href="urn:ogc:def:cs:EPSG::6422"/>
+  <geodeticDatum xlink:href="urn:ogc:def:datum:EPSG::6326"/>
+</GeodeticCRS>
