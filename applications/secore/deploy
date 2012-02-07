@@ -1,42 +1,92 @@
 #!/bin/bash
-#
+
 # This file is part of rasdaman community.
 #
 # Rasdaman community is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Lesser General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
 # Rasdaman community is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Lesser General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Lesser General Public License
 # along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
-# rasdaman GmbH.
+# Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann / rasdaman GmbH.
 #
 # For more information please see <http://www.rasdaman.org>
-# or contact Peter Baumann via <baumann@rasdaman.com>.      
+# or contact Peter Baumann via <baumann@rasdaman.com>.
 #
-#
-# PURPOSE:
-#   Redeploys secore to Tomcat's webapps directory.
-#   CATALINA_HOME variable has to be set properly.
 
-WEBAPPS=$CATALINA_HOME/webapps
+# COMMENTS:
+#
+# BUGS:
+# - query filename "" is interpreted as stdin
+# - mafmt does not passed correctly
+#/
+
+# PURPOSE:
+#   (Re)deploy secore servlet to Tomcat's webapps directory.
+#
+# PRECONDITIONS:
+# - CATALINA_HOME variable has to be set properly
+# - effective user id of script allows writing into Tomcat webapps/
+#
+# WRITTEN BY:
+# - Dimitar Misev, Mihaela Rusu
+#
+###########################################################
+
+ME=`basename $0`
+echo $ME: deploying rasdaman secore servlet...
+
+# - definitions -------------------------------------------
+# error handler
+panic(){
+  echo $ME: $msg
+  exit 1
+}
+
+# secore components
 CORE=secore-core
 WEB=secore-web
 
-cd $CORE && ant clean && ant compile || exit
-cd ..
-cd $WEB && ant clean && ant dist || exit
+# name of deployment target;
+# we want /def/... URLs but do not want to modify Tomcat config
+TARGET_SERVICE=def
 
-echo
-echo replacing war file...
-rm -rf $WEBAPPS/def*
-cp dist/secore-web.war $WEBAPPS/def.war
+# deployment targets
+# (no prob if CATALINA_HOME undefined, will catch later)
+WEBAPPS=$CATALINA_HOME/webapps
+TARGET_WAR=$WEPAPPS/$TARGET_SERVICE.war
+TARGET_EXPANDED=$WEBAPPS/$TARGET_SERVICE
 
-echo done.
+# - plausi checks -----------------------------------------
+
+# Tomcat env var set?
+if [ ! -d $CATALINA_HOME ]
+then
+	panic "CATALINA_HOME not set, cannot find Tomcat"
+fi
+
+# war file or directory preexisting?
+if [ -f $TARGET_WAR -o -d $TARGET_EXPANDED ]
+then
+	panic "too scared to overwrite existing servlet: $TARGET_WAR and $TARGET_EXPANDED"
+fi
+
+# - prepare -----------------------------------------------
+# cd $CORE && ant clean && ant compile || panic "cannot generate $CORE"
+# cd ..
+# cd $WEB && ant clean && ant dist || panic "cannot generate $WEB"
+
+# - deploy ------------------------------------------------
+echo $ME: deploying war file...
+echo cp dist/secore-web.war $WEBAPPS/def.war
+
+echo $ME: done.
+exit 0
+
