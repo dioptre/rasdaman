@@ -1,0 +1,44 @@
+SECORE
+======
+
+This file is part of SECORE, a free implementation of a Semantic Resolver for 
+Coordinate Reference Systems, representing a registry service able to resolve 
+conforming URLs to CRS definitions expressed in GML.
+
+SECORE is implemented as a Java servlet. As such, it relies on the following
+freely available component which is not part of the SECORE distribution:
+    - Tomcat (tomcat.apache.org) as servlet container
+
+
+Distribution
+============
+
+The SECORE distribution consists of the following directories and files:
+
+secore-core/                The back and middle layers of the SECORE project
+secore-core/build.xml       "Ant" rule file for building secore-core. Please use
+                            the deploy script instead
+secore-core/etc/            Compressed database, logs and configuration files
+secore-core/lib/            External libraries required by the project
+secore-core/nbproject/      NetBeans project build files and properties for 
+                            secore-core
+secore-core/src/            Source code for secore-core
+secore-web/                 The front layer of the SECORE project
+secore-web/build.xml        "Ant" rule file for building secore-web. Please use 
+                            the deploy script instead
+secore-web/src/             Source code for secore-web
+secore-web/nbproject/       NetBeans project build files and properties for 
+                            secore-web
+secore-web/web/             JSP files for the administrative interface
+deploy                      A bash script file for redeploying SECORE to 
+                            Tomcat's webapps directory
+README                      This file
+
+
+LICENSE
+=======
+
+SECORE is licensed by Jacobs University Bremen
+(www.jacobs-university.de) and Peter Baumann
+(www.peter-baumann.org) under the GNU General Public
+License (GPL), see www.gnu.org
