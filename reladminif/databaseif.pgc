@@ -1257,14 +1257,14 @@ DatabaseIf::destroyDB(const char* dbName) throw(r_Error)
 	check("DatabaseIf::destroyDB() DROP TABLE RAS_MDDOBJECTS\0");
 
 	// relindexif
-	// may not be needed
+	// may not be needed 
 	EXEC SQL DROP TABLE RAS_HIERIX;
 	check("DatabaseIf::destroyDB() DROP TABLE RAS_HIERIX\0");
 
-	EXEC SQL DROP INDEX RAS_HIERIXDYN_IX;
+	EXEC SQL DROP INDEX IF EXISTS RAS_HIERIXDYN_IX;
 	check("DatabaseIf::destroyDB() DROP INDEX RAS_HIERIXDYN_IX\0");
 
-	EXEC SQL DROP TABLE RAS_HIERIXDYN;
+	EXEC SQL DROP TABLE IF EXISTS RAS_HIERIXDYN;
 	check("DatabaseIf::destroyDB() DROP TABLE RAS_HIERIXDYN\0");
 
 	EXEC SQL DROP TABLE RAS_STORAGE;
