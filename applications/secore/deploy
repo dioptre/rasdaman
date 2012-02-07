@@ -21,13 +21,6 @@
 # or contact Peter Baumann via <baumann@rasdaman.com>.
 #
 
-# COMMENTS:
-#
-# BUGS:
-# - query filename "" is interpreted as stdin
-# - mafmt does not passed correctly
-#/
-
 # PURPOSE:
 #   (Re)deploy secore servlet to Tomcat's webapps directory.
 #
@@ -75,17 +68,17 @@ fi
 # war file or directory preexisting?
 if [ -f $TARGET_WAR -o -d $TARGET_EXPANDED ]
 then
-	panic "too scared to overwrite existing servlet: $TARGET_WAR and $TARGET_EXPANDED"
+	panic "too scared to overwrite existing servlet $TARGET_WAR and/or $TARGET_EXPANDED"
 fi
 
 # - prepare -----------------------------------------------
-# cd $CORE && ant clean && ant compile || panic "cannot generate $CORE"
-# cd ..
-# cd $WEB && ant clean && ant dist || panic "cannot generate $WEB"
+cd $CORE && ant clean && ant compile || panic "cannot generate $CORE"
+cd ..
+cd $WEB && ant clean && ant dist || panic "cannot generate $WEB"
 
 # - deploy ------------------------------------------------
 echo $ME: deploying war file...
-echo cp dist/secore-web.war $WEBAPPS/def.war
+echo cp dist/secore-web.war $TARGET_WAR
 
 echo $ME: done.
 exit 0
