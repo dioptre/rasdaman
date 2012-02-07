@@ -30,7 +30,7 @@ secore-web/src/             Source code for secore-web
 secore-web/nbproject/       NetBeans project build files and properties for 
                             secore-web
 secore-web/web/             JSP files for the administrative interface
-deploy                      A bash script file for redeploying SECORE to 
+deploy                      A bash script file for (re)deploying SECORE to 
                             Tomcat's webapps directory
 README                      This file
 
@@ -40,5 +40,5 @@ LICENSE
 
 SECORE is licensed by Jacobs University Bremen
 (www.jacobs-university.de) and Peter Baumann
-(www.peter-baumann.org) under the GNU General Public
-License (GPL), see www.gnu.org
+(www.peter-baumann.org) under the GNU Lesser General Public
+License (LGPL), see www.gnu.org

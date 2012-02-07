@@ -39,7 +39,7 @@ echo $ME: deploying rasdaman secore servlet...
 # - definitions -------------------------------------------
 # error handler
 panic(){
-  echo $ME: $msg
+  echo $ME: $1
   exit 1
 }
 
@@ -54,7 +54,7 @@ TARGET_SERVICE=def
 # deployment targets
 # (no prob if CATALINA_HOME undefined, will catch later)
 WEBAPPS=$CATALINA_HOME/webapps
-TARGET_WAR=$WEPAPPS/$TARGET_SERVICE.war
+TARGET_WAR=$WEBAPPS/$TARGET_SERVICE.war
 TARGET_EXPANDED=$WEBAPPS/$TARGET_SERVICE
 
 # - plausi checks -----------------------------------------
@@ -78,7 +78,7 @@ cd $WEB && ant clean && ant dist || panic "cannot generate $WEB"
 
 # - deploy ------------------------------------------------
 echo $ME: deploying war file...
-echo cp dist/secore-web.war $TARGET_WAR
+cp dist/secore-web.war $TARGET_WAR
 
 echo $ME: done.
 exit 0
