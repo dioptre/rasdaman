@@ -56,8 +56,10 @@ USERNAME=rasadmin
 PASSWORD=rasadmin
 DATABASE=RASBASE
 IMAGEDIR=$DIR_NAME/testdata
+ORACLE_DIR=$DIR_NAME/oracle
 RASQL="rasql --quiet"
 RASDL="rasdl"
+GDALINFO="gdalinfo -noct -checksum"
 
   CODE_OK=0
   CODE_FAIL=255
@@ -92,6 +94,14 @@ ps -e | grep --quiet rasmgr
 if [ $? -ne 0 ]
 then
    echo no rasmgr available|tee -a $LOG 
+   exit $CODE_FAIL
+fi
+
+# check tiffinfo
+which gdalinfo > /dev/null
+if [ $? -ne 0 ]
+then
+   echo gdal tools missing, please add gdalinfo to the PATH|tee -a $LOG 
    exit $CODE_FAIL
 fi
 
@@ -144,7 +154,8 @@ $RASQL -q "select jpeg(a) from test_tmp as a" --out file --outfile mr_1.jpeg  --
 		echo Error extracting jpeg image | tee -a $LOG
 
 echo  comparing images | tee -a $LOG
-cmp $IMAGEDIR/mr_1.jpeg mr_1.jpeg.unknown 
+$GDALINFO mr_1.jpeg* | grep 'Checksum' > mr_1.jpeg.result
+diff $ORACLE_DIR/mr_1.jpeg.checksum mr_1.jpeg.result
 
 if [ $? != "0" ]
 then
@@ -156,7 +167,7 @@ else
 fi
 
 $RASQL -q "drop collection test_tmp" --user $USERNAME --passwd $PASSWORD | tee -a $LOG
-rm mr_1.jpeg.unknown
+rm mr_1.jpeg*
 ################## tiff() and inv_tiff() #######################
 echo ------tiff and inv_tiff conversion------ | tee -a $LOG
 echo creating collection ... | tee -a $LOG
@@ -170,7 +181,8 @@ $RASQL -q "select tiff(a) from test_tmp as a" --out file --outfile mr_1.tif --us
 		echo Error extracting tiff image | tee -a $LOG
 
 echo  comparing images | tee -a $LOG
-cmp $IMAGEDIR/mr_1.tif mr_1.tif.unknown 
+$GDALINFO mr_1.tif* | grep 'Checksum' > mr_1.tif.result
+diff $ORACLE_DIR/mr_1.tif.checksum mr_1.tif.result
 
 if [ $? != "0" ]
 then
@@ -183,7 +195,43 @@ fi
 
 echo dropping collections ... | tee -a $LOG
 $RASQL -q "drop collection test_tmp" --user $USERNAME --passwd $PASSWORD | tee -a $LOG
-rm mr_1.tif.unknown
+rm mr_1.tif*
+
+
+echo ------tiff and inv_tiff multiband conversion------ | tee -a $LOG
+
+echo reading types ... | tee -a $LOG
+$RASDL -p | grep --quiet 'TestSet'
+if [ $? -ne 0 ]; then
+  $RASDL -r $IMAGEDIR/types.dl -i > /dev/null
+fi
+
+echo creating collection ... | tee -a $LOG
+$RASQL -q "create collection test_tmp TestSet" --user $USERNAME --passwd $PASSWORD || echo Error creating collection test_tmp | tee -a $LOG
+
+echo inserting collection ... | tee -a $LOG
+$RASQL -q 'insert into test_tmp values inv_tiff($1, "bandtype=octet")' -f $IMAGEDIR/multiband.tif --user $USERNAME --passwd $PASSWORD || echo Error inserting tiff image | tee -a $LOG
+
+echo extracting collection ... | tee -a $LOG
+$RASQL -q "select tiff(a) from test_tmp as a" --out file --outfile multiband.tif --user $USERNAME --passwd $PASSWORD || echo Error extracting tiff image | tee -a $LOG
+
+echo  comparing images | tee -a $LOG
+$GDALINFO multiband.tif* | grep 'Checksum' > multiband.tif.result
+diff $ORACLE_DIR/multiband.tif.checksum multiband.tif.result
+
+if [ $? != "0" ]
+then
+	echo input and output does not match | tee -a $LOG
+	NUM_FAIL=$(($NUM_FAIL + 1))
+else
+	echo input and output match | tee -a $LOG
+	NUM_SUC=$(($NUM_SUC + 1))
+fi
+
+echo dropping collections ... | tee -a $LOG
+$RASQL -q "drop collection test_tmp" --user $USERNAME --passwd $PASSWORD | tee -a $LOG
+
+rm multiband.tif*
 ################## png() and inv_png() #######################
 
 echo ------png and inv_png conversion------ | tee -a $LOG
@@ -226,7 +274,8 @@ $RASQL -q "select bmp(a) from test_tmp as a" --out file --outfile mr_1.bmp --use
 		echo Error extracting bmp image | tee -a $LOG
 
 echo  comparing images | tee -a $LOG
-cmp $IMAGEDIR/mr_1.bmp mr_1.bmp.unknown 
+$GDALINFO mr_1.bmp* | grep 'Checksum' > mr_1.bmp.result
+diff $ORACLE_DIR/mr_1.bmp.checksum mr_1.bmp.result
 
 if [ $? != "0" ]
 then
@@ -239,7 +288,7 @@ fi
 
 echo dropping collections ... | tee -a $LOG
 $RASQL -q "drop collection test_tmp" --user $USERNAME --passwd $PASSWORD | tee -a $LOG
-rm mr_1.bmp.unknown 
+rm mr_1.bmp*
 
 ################## vff() and inv_vff() #######################
 
@@ -285,7 +334,8 @@ $RASQL -q "select hdf(a) from test_tmp as a" --out file --outfile mr_1.hdf --use
 		echo Error extracting hdf4 image | tee -a $LOG
 
 echo  comparing images | tee -a $LOG
-cmp $IMAGEDIR/mr_1.hdf mr_1.hdf.unknown 
+$GDALINFO mr_1.hdf* | grep 'Checksum' > mr_1.hdf.result
+diff $ORACLE_DIR/mr_1.hdf.checksum mr_1.hdf.result
 
 if [ $? != "0" ]
 then
@@ -298,7 +348,7 @@ fi
 
 echo dropping collections ... | tee -a $LOG
 $RASQL -q "drop collection test_tmp" --user $USERNAME --passwd $PASSWORD | tee -a $LOG
-rm mr_1.hdf.unknown
+rm mr_1.hdf*
 ################## csv() #######################
 
 

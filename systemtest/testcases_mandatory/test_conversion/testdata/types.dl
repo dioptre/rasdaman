@@ -1,0 +1,3 @@
+struct TestPixel { octet band1, band2, band3, band4; };
+typedef marray <TestPixel, 2> TestArray;
+typedef set<TestArray> TestSet;

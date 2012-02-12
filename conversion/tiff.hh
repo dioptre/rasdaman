@@ -132,6 +132,7 @@ class r_Conv_TIFF : public r_Convert_Memory
   int override_bpp;
   int override_bps;
   int override_depth;
+  char *sampleType;
   /// connection between string compression type and libtiff compression type
   static const convert_string_t compNames[];
   /// connection between string resolution unit type and libtiff resolution unit type

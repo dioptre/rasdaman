@@ -177,6 +177,7 @@ void r_Conv_TIFF::initTIFF( void )
 	ENTER( "r_Conv_TIFF::initTIFF()" );
 
 	compType = NULL;
+  sampleType = NULL;
 	quality = r_Conv_TIFF::TIFF_DEFAULT_QUALITY;
 	override_bpp = 0;
 	override_bps = 0;
@@ -190,6 +191,7 @@ void r_Conv_TIFF::initTIFF( void )
 	params->add("bpp", &override_bpp, r_Parse_Params::param_type_int);
 	params->add("bps", &override_bps, r_Parse_Params::param_type_int);
 	params->add("depth", &override_depth, r_Parse_Params::param_type_int);
+	params->add("sampletype", &sampleType, r_Parse_Params::param_type_string);
   
   // set our error handlers
   TIFFSetErrorHandler(TIFFError);
@@ -417,7 +419,7 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
         break;
     }
 	}
-  TIFFSetField(tif, TIFFTAG_PLANARCONFIG, (uint16)PLANARCONFIG_CONTIG);
+  TIFFSetField(tif, TIFFTAG_PLANARCONFIG, (uint16)PLANARCONFIG_CONTIG); 
 	TIFFSetField(tif, TIFFTAG_ROWSPERSTRIP, TIFFDefaultStripSize(tif, (uint32)-1));
 	//TIFFSetField(tif, TIFFTAG_MINSAMPLEVALUE, (uint16)0);
 	//TIFFSetField(tif, TIFFTAG_MAXSAMPLEVALUE, (uint16)255);
@@ -486,25 +488,6 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 							*normal++ = val;
 					}
 					break;
-        case ctype_struct:
-          {
-            int Bps = bps/8; // bytes per sample
-            for (int j=0; j < spp; j++) {
-              int offset = j*Bps; // an offset to the j-th band
-              l = line + offset;
-              normal = (uint8 *)tbuff + offset;
-              for (int i = 0; i < width; i++, l += pixelAdd, normal += lineAdd)
-              {
-                memcpy(normal, l, Bps);
-              }
-              // write each band separately
-              if (TIFFWriteScanline(tif, (tdata_t)tbuff, row, j) < 0) {
-                error = 1;
-                break;
-              }
-            }
-            break;
-          }
         default:
           {
 						// copy data (and transpose)
@@ -514,9 +497,8 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 						}
           }
 			}
-      if (desc.baseType != ctype_struct)
-        if (TIFFWriteScanline(tif, (tdata_t)tbuff, row, 0) < 0)
-          break;
+      if (TIFFWriteScanline(tif, (tdata_t)tbuff, row, 0) < 0)
+        break;
 		}
 
 		delete [] tbuff;
@@ -608,7 +590,6 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
   if (override_depth) {
     Bpp = Bps = override_depth/8;
   }
-  pixelAdd = Bpp*height;
   lineAdd = typeSize = Bpp;
   
 	TIFFGetField(tif, TIFFTAG_PLANARCONFIG, &planar);
@@ -616,6 +597,7 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 	TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
 	TIFFGetField(tif, TIFFTAG_PHOTOMETRIC, &photometric);
   TIFFGetField(tif, TIFFTAG_SAMPLEFORMAT, &sampleFormat);
+  pixelAdd = Bpp*height;
   
 
 	if (planar == PLANARCONFIG_CONTIG) // must be contiguous for our case to handle, other cases not dealt yet
@@ -665,7 +647,6 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
         break;
       default:
         {
-          RMInit::logOut << "sample format default" << endl;
           switch (bpp)
           {
             case 1 : bandType = ctype_bool;    break;
@@ -794,7 +775,8 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 							break;
             case ctype_struct:
               {
-                for (int j=0; j < spp; j++) {
+                for (int j=0; j < spp; j++)
+                {
                   TIFFReadScanline(tif, (tdata_t)tbuff, row, j); // read the j-th band
                   
                   int offset = j*Bps; // an offset to the j-th band
@@ -805,7 +787,6 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
                     memcpy(l, normal, Bps);
                   }
                 }
-                break;
               }
               break;
 						default:
@@ -846,7 +827,12 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
   // build destination type
   if (desc.baseType == ctype_struct) {
     // construct and set the structure type
-    char* bt = type_to_string(bandType);
+    char* bt = NULL;
+    if (sampleType != NULL)
+      bt = sampleType;
+    else
+      bt = type_to_string(bandType);
+    
     stringstream destType(stringstream::out);
     destType << "struct { ";
     for (int i = 0; i < spp; i++)
