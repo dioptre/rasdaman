@@ -93,7 +93,12 @@ AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
 	distdir dist dist-all distcheck
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = $(SUBDIRS)
+DIST_SUBDIRS = relblobif relindexif relmddif relcatalogif reladminif \
+	relstorageif indexmgr catalogmgr tilemgr storagemgr commline \
+	network raslib clientcomm servercomm rasodmg qlparser \
+	conversion mddmgr httpserver mymalloc server rasmgr rascontrol \
+	rasdl applications bin insertutils manuals_and_examples \
+	include systemtest java
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -263,6 +268,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+wardir = @wardir@
+wpswar = @wpswar@
 
 # 
 # MAKEFILE FOR:  
@@ -297,6 +304,7 @@ top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
 CHECKLIMITS = @CHECKLIMITS@
 ACLOCAL_AMFLAGS = -I m4
+@ENABLE_JAVA_TRUE@JAVA_DIR = java
 nobase_include_HEADERS = raslib/*.h raslib/*.hh raslib/*.icc raslib/*.cc \
 		rasodmg/*.hh rasodmg/*.cc rasodmg/*.icc conversion/*.h conversion/*.hh \
 		clientcomm/*.h clientcomm/*.hh commline/*.hh commline/*.cc debug/*.hh
@@ -306,7 +314,7 @@ SUBDIRS = relblobif relindexif relmddif relcatalogif reladminif relstorageif \
           raslib clientcomm servercomm rasodmg qlparser conversion \
           mddmgr httpserver mymalloc server rasmgr rascontrol rasdl \
           applications bin insertutils manuals_and_examples include \
-          systemtest java
+          systemtest $(JAVA_DIR)
 
 dist_log_DATA = empty
 all: all-recursive

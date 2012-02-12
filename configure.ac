@@ -23,10 +23,6 @@ AC_PROG_RANLIB
 AC_PROG_RPCGEN
 AC_PROG_SED
 AM_PROG_CC_C_O
-dnl we preffer java
-AC_PROG_JAVA_CC
-dnl we need bison not yacc
-AC_CHECK_PROGS(JAR_TOOL, jar, [${am_missing_run} bison])
 AC_CHECK_PROGS(YACC, bison, [${am_missing_run} bison])
 
 # Checks for libraries.
@@ -287,6 +283,14 @@ AC_ARG_WITH([wps],
 			[wpswar="$withval"],
 			[])
 
+AC_ARG_ENABLE([java],
+              [AS_HELP_STRING([--disable-java],
+                              [disable compilation and installation of Java-based components, including rasj and petascope.])],
+              [disable_java=yes],
+              [disable_java=no])
+AC_MSG_NOTICE(Disable java? $disable_java)
+AM_CONDITIONAL([ENABLE_JAVA], [test "$disable_java" = no])
+
 # --------------- Database Specific Configuration ------------------
 ####################################################################
 
@@ -323,6 +327,12 @@ AS_IF([test "$with_default_basedb" == postgresql],
 
 # --------------- General Configuration ----------------------------
 ####################################################################
+
+AS_IF([test "$disable_java" = no],
+  [
+    AC_PROG_JAVA_CC
+    AC_CHECK_PROGS(JAR_TOOL, jar, [${am_missing_run} jar])
+  ], [])
 
 abs_top_srcdir=`pwd`
 RMANBASE=$abs_top_srcdir

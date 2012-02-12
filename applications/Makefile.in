@@ -91,7 +91,7 @@ AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
 	distdir
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = $(SUBDIRS)
+DIST_SUBDIRS = rasql rview rasgeo petascope raswct
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
   dir0=`pwd`; \
@@ -251,7 +251,10 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = rasql rview rasgeo petascope raswct
+wardir = @wardir@
+wpswar = @wpswar@
+@ENABLE_JAVA_TRUE@JAVA_DIR = petascope raswct
+SUBDIRS = rasql rview rasgeo $(JAVA_DIR)
 all: all-recursive
 
 .SUFFIXES:
@@ -264,9 +267,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu applications/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign applications/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu applications/Makefile
+	  $(AUTOMAKE) --foreign applications/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \

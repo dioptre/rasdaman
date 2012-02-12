@@ -36,6 +36,10 @@ CHECKLIMITS=@CHECKLIMITS@
 
 ACLOCAL_AMFLAGS = -I m4
 
+if ENABLE_JAVA
+    JAVA_DIR = java
+endif
+
 nobase_include_HEADERS=raslib/*.h raslib/*.hh raslib/*.icc raslib/*.cc \
 		rasodmg/*.hh rasodmg/*.cc rasodmg/*.icc conversion/*.h conversion/*.hh \
 		clientcomm/*.h clientcomm/*.hh commline/*.hh commline/*.cc debug/*.hh
@@ -45,7 +49,7 @@ SUBDIRS = relblobif relindexif relmddif relcatalogif reladminif relstorageif \
           raslib clientcomm servercomm rasodmg qlparser conversion \
           mddmgr httpserver mymalloc server rasmgr rascontrol rasdl \
           applications bin insertutils manuals_and_examples include \
-          systemtest java
+          systemtest $(JAVA_DIR)
 
 dist_log_DATA=empty
             
