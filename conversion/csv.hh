@@ -88,9 +88,11 @@ class r_Conv_CSV : public r_Convertor
   template <class baseType, class castType>
   void print(std::ofstream &f, baseType* val, int *dims, int dim);
   /// analogue of the print method for handling structures
-  void printStruct(std::ofstream &f, char *val, int *dims, int dim);
+  void printStruct(std::ofstream &f, int *dims, int dim);
   /// print one structure cell, this will properly recurse into nested structures (if any).
-  void printStructVal(std::ofstream &f, char* val);
+  void printStructVal(std::ofstream &f);
+  
+  char* val;
 };
 
 #endif

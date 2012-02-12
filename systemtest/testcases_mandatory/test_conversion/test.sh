@@ -113,6 +113,13 @@ then
    exit $CODE_FAIL
 fi
 
+$RASDL --print|grep --quiet RGBSet
+if [ $? -ne 0 ]
+then
+   echo no RGBSet type available, try create_db.sh|tee -a $LOG 
+   exit $CODE_FAIL
+fi
+
 # check data set
 
 #--------------------------initiation--------------------------------------------
@@ -292,35 +299,61 @@ fi
 echo dropping collections ... | tee -a $LOG
 $RASQL -q "drop collection test_tmp" --user $USERNAME --passwd $PASSWORD | tee -a $LOG
 rm mr_1.hdf.unknown
-################## csv() and inv_csv() #######################
+################## csv() #######################
 
 
-#echo ------csv and inv_csv conversion------ | tee -a $LOG
-#echo creating collection ... | tee -a $LOG
-#$RASQL -q "create collection test_tmp  GreySet" --user $USERNAME --passwd $PASSWORD || echo Error creating collection test_tmp | tee -a $LOG
+echo ------csv conversion------ | tee -a $LOG
+echo creating collection ... | tee -a $LOG
+$RASQL -q "create collection test_tmp  GreySet" --user $USERNAME --passwd $PASSWORD || echo Error creating collection test_tmp | tee -a $LOG
 
-#echo inserting collection ... | tee -a $LOG
-#$RASQL -q 'insert into test_tmp  values inv_csv($1)' -f $IMAGEDIR/mr_1.csv --user $USERNAME --passwd $PASSWORD || echo Error inserting csv image | tee -a $LOG
+echo inserting collection ... | tee -a $LOG
+$RASQL -q 'insert into test_tmp  values inv_png($1)' -f $IMAGEDIR/mr_1.png --user $USERNAME --passwd $PASSWORD || echo Error inserting png image | tee -a $LOG
 
-#echo extracting collection ... | tee -a $LOG
-#$RASQL -q "select csv(a) from test_tmp as a" --out file --outfile mr_1.csv --user $USERNAME --passwd $PASSWORD || 
-		echo Error extracting csv image | tee -a $LOG
+echo extracting collection ... | tee -a $LOG
+$RASQL -q "select csv(a) from test_tmp as a" --out file --outfile mr_1.csv --user $USERNAME --passwd $PASSWORD || echo Error extracting csv image | tee -a $LOG
 
-#echo  comparing images | tee -a $LOG
-#cmp $IMAGEDIR/mr_1.csv mr_1.csv.unknown 
+echo  comparing images | tee -a $LOG
+cmp $IMAGEDIR/mr_1.csv mr_1.csv*
 
-#if [ $? != "0" ]
-#then
-#	echo input and output does not match | tee -a $LOG
-#	NUM_FAIL=$(($NUM_FAIL + 1))
-#else
-#	echo input and output match | tee -a $LOG
-#	NUM_SUC=$(($NUM_SUC + 1))
-#fi
+if [ $? != "0" ]
+then
+	echo input and output does not match | tee -a $LOG
+	NUM_FAIL=$(($NUM_FAIL + 1))
+else
+	echo input and output match | tee -a $LOG
+	NUM_SUC=$(($NUM_SUC + 1))
+fi
 
-#echo dropping collections ... | tee -a $LOG
-#$RASQL -q "drop collection test_tmp" --user $USERNAME --passwd $PASSWORD | tee -a $LOG
-#rm mr_1.csv.unknown
+echo dropping collections ... | tee -a $LOG
+$RASQL -q "drop collection test_tmp" --user $USERNAME --passwd $PASSWORD | tee -a $LOG
+rm mr_1.csv*
+
+
+echo ------csv composite type conversion------ | tee -a $LOG
+echo creating collection ... | tee -a $LOG
+$RASQL -q "create collection test_tmp  RGBSet" --user $USERNAME --passwd $PASSWORD || echo Error creating collection test_tmp | tee -a $LOG
+
+echo inserting collection ... | tee -a $LOG
+$RASQL -q 'insert into test_tmp  values inv_png($1)' -f $IMAGEDIR/rgb.png --user $USERNAME --passwd $PASSWORD || echo Error inserting png image | tee -a $LOG
+
+echo extracting collection ... | tee -a $LOG
+$RASQL -q "select csv(a[115:130,110:112]) from test_tmp as a" --out file --outfile rgb.csv --user $USERNAME --passwd $PASSWORD || echo Error extracting csv image | tee -a $LOG
+
+echo  comparing images | tee -a $LOG
+cmp $IMAGEDIR/rgb.csv rgb.csv*
+
+if [ $? != "0" ]
+then
+	echo input and output does not match | tee -a $LOG
+	NUM_FAIL=$(($NUM_FAIL + 1))
+else
+	echo input and output match | tee -a $LOG
+	NUM_SUC=$(($NUM_SUC + 1))
+fi
+
+echo dropping collections ... | tee -a $LOG
+$RASQL -q "drop collection test_tmp" --user $USERNAME --passwd $PASSWORD | tee -a $LOG
+rm rgb.csv*
 ################## Dem() and inv_dem() #######################
 
 
