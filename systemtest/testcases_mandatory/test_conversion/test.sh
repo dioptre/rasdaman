@@ -210,7 +210,7 @@ echo creating collection ... | tee -a $LOG
 $RASQL -q "create collection test_tmp TestSet" --user $USERNAME --passwd $PASSWORD || echo Error creating collection test_tmp | tee -a $LOG
 
 echo inserting collection ... | tee -a $LOG
-$RASQL -q 'insert into test_tmp values inv_tiff($1, "bandtype=octet")' -f $IMAGEDIR/multiband.tif --user $USERNAME --passwd $PASSWORD || echo Error inserting tiff image | tee -a $LOG
+$RASQL -q 'insert into test_tmp values (octet) inv_tiff($1, "sampletype=octet")' -f $IMAGEDIR/multiband.tif --user $USERNAME --passwd $PASSWORD || echo Error inserting tiff image | tee -a $LOG
 
 echo extracting collection ... | tee -a $LOG
 $RASQL -q "select tiff(a) from test_tmp as a" --out file --outfile multiband.tif --user $USERNAME --passwd $PASSWORD || echo Error extracting tiff image | tee -a $LOG

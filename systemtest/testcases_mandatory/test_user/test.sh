@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/bash
 #
 # This file is part of rasdaman community.
 #
@@ -102,6 +102,9 @@ then
 fi
 
 echo $PROG: testing rasdaman authentication at `date` | tee $LOG
+
+# set default return code
+RC=$RC_OK
 
 # good cases
 echo $INDENT good cases | tee -a $LOG

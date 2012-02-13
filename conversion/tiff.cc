@@ -37,6 +37,7 @@ rasdaman GmbH.
 #include "raslib/structuretype.hh"
 #include "raslib/primitivetype.hh"
 #include "debug/debug.hh"
+#include "mymalloc/mymalloc.h"
 
 using namespace std;
 
@@ -156,15 +157,16 @@ int r_Conv_TIFF::get_resunit_from_name(const char* strResUnit)
 }
 
 /// Capture errors
-void TIFFError(const char* /*module*/, const char* fmt, va_list argptr)
+void TIFFError(const char* module, const char* fmt, va_list argptr)
 {
   char msg[10240];  
   vsprintf (msg, fmt, argptr);
   RMInit::logOut << "TIFF error: " << msg << endl;
+  throw r_Error(r_Error::r_Error_General);
 }
 
 /// Capture warnings
-void TIFFWarning(const char* /*module*/, const char* fmt, va_list argptr)
+void TIFFWarning(const char* module, const char* fmt, va_list argptr)
 {
   char msg[10240];  
   vsprintf (msg, fmt, argptr);
@@ -455,7 +457,7 @@ r_convDesc &r_Conv_TIFF::convertTo( const char *options ) throw(r_Error)
 	uint8 *normal=NULL;  // normalised source data
 	uint32 row=0;
 
-	if ((tbuff = new uint32[((width * height * bpp) >> 5)]) != NULL)
+	if ((tbuff = (uint32*) mymalloc(((width * height * bpp) >> 5) * sizeof(uint32))) != NULL)
 	{
     int error = 0; // indicates if writing succeeded
 		// now go line by line
