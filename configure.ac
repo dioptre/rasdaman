@@ -345,6 +345,23 @@ if test -d "$srcdir/rasgeo"; then
 #    AC_CONFIGURE_SUBDIRS([rasgeo])
 fi    
 
+# ----------------
+# check for netpbm headers
+
+AC_MSG_CHECKING([for NetPBM header files])
+CPATH_NO_COLON=`echo $CPATH | sed -e "s/:/ /g"`
+for DIR in ${prefix}/include /usr/local/include/ /usr/include /opt/local/include $CPATH_NO_COLON; do
+    test -d "$DIR" && NETPBM_PPMH=`find $DIR -name ppm.h`
+    if test -n "$NETPBM_PPMH"; then
+      CXXFLAGS+=" -I ${NETPBM_PPMH%%ppm.h} "
+      AC_MSG_RESULT([yes])
+      break
+    fi
+done
+
+# end netpbm check
+# ----------------
+
 # General definitions.
 AS_IF([test "x$RMANDEBUG" != x],
       [AC_DEFINE([RMANDEBUG])
