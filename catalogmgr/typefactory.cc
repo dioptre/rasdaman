@@ -57,6 +57,9 @@ static const char rcsid[] = "@(#)catalogif,TypeFactory: $Header: /home/rasdev/CV
 
 TypeFactory* TypeFactory::myInstance = 0;
 
+//This variable is not required since any struct
+//type can now be deleted. This resulted as
+//the resolution of ticket #88
 const short TypeFactory::MaxBuiltInId = 11;
 
 const char* OctetType::Name = "Octet";
@@ -318,37 +321,33 @@ TypeFactory::deleteStructType(const char* typeName)
 	const DBObject* resultType = mapType(typeName);
 	if (resultType)
 		{
-		if (resultType->getOId().getCounter() > MaxBuiltInId)
-			{//only neccessary to check if the type is in a mdd base/dim/dom type
-			bool canDelete = true;
-			for (TypeIterator<MDDType> miter = createMDDIter(); miter.not_done(); miter.advance())
+	        bool canDelete = true;
+		for (TypeIterator<MDDType> miter = createMDDIter(); miter.not_done(); miter.advance())
+			{
+			if (miter.get_element()->getSubtype() != MDDType::MDDONLYTYPE)
 				{
-				if (miter.get_element()->getSubtype() != MDDType::MDDONLYTYPE)
+				if (((MDDBaseType*)(miter.get_element().ptr()))->getBaseType() == resultType)
 					{
-					if (((MDDBaseType*)(miter.get_element().ptr()))->getBaseType() == resultType)
-						{
-						RMDBGMIDDLE(5, RMDebug::module_catalogmgr, "TypeFactory", "mdd type " << miter.get_element()->getName() << " contains " << typeName);
-						canDelete = false;
-						break;
-						}
+					RMDBGMIDDLE(5, RMDebug::module_catalogmgr, "TypeFactory", "mdd type " << miter.get_element()->getName() << " contains " << typeName);
+					canDelete = false;
+					break;
 					}
 				}
-			if (canDelete)
-				{
-				DBObjectId toKill(resultType->getOId());
-				toKill->setPersistent(false);
-				toKill->setCached(false);
-				RMDBGMIDDLE(5, RMDebug::module_catalogmgr, "TypeFactory", "will be deleted from db");
-				}
-			else	{
-				RMDBGMIDDLE(5, RMDebug::module_catalogmgr, "TypeFactory", "will not be deleted from db");
-				}
 			}
-		else	{
-			RMDBGMIDDLE(0, RMDebug::module_catalogmgr, "TypeFactory", "builtin type will not be deleted");
+		if (canDelete)
+			{
+			DBObjectId toKill(resultType->getOId());
+			toKill->setPersistent(false);
+			toKill->setCached(false);
+			RMDBGMIDDLE(5, RMDebug::module_catalogmgr, "TypeFactory", "will be deleted from db");
+			}
+		else	
+			{
+			RMDBGMIDDLE(5, RMDebug::module_catalogmgr, "TypeFactory", "will not be deleted from db");
 			}
 		}
-	else	{
+	else	
+		{
 		RMDBGMIDDLE(5, RMDebug::module_catalogmgr, "TypeFactory", "is not in map");
 		}
 	RMDBGEXIT(4, RMDebug::module_catalogmgr, "TypeFactory", "deleteStructType(" << typeName << ")");
