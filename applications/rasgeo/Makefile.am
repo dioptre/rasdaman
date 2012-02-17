@@ -28,8 +28,8 @@
 #
 ##################################################################
 
-AM_CXXFLAGS=@CLIENTCXXFLAGS@ @BASEDBCXXFLAGS@
-AM_LDFLAGS=@CLIENTLDFLAGS@ @BASEDBLDFLAGS@
+AM_CXXFLAGS=@CLIENTCXXFLAGS@ @BASEDBCXXFLAGS@ @GDAL_CXXFLAGS@
+AM_LDFLAGS=@CLIENTLDFLAGS@ @BASEDBLDFLAGS@ @GDAL_LDFLAGS@
 
 bin_PROGRAMS=rasimport raserase
 rasimport_SOURCES= rimport.cxx rimport.h RasdamanConnector.cxx RasdamanHelper2.cxx nmlog.h rasgeo_template_inst.hh RasdamanConnector.h RasdamanHelper2.h

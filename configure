@@ -622,6 +622,8 @@ DBIF_INC
 DB2_CPPLIBS
 DB2_INSTANCEPATH
 DB2_INC
+GDAL_CXXFLAGS
+GDAL_LDFLAGS
 CLIENTLDFLAGS
 CLIENTCXXFLAGS
 BASEDBLDFLAGS
@@ -5894,11 +5896,8 @@ fi
 if test "$GDAL_CONFIG" = "no" ; then
    as_fn_error $? "could not find gdal-config. Please install libgdal-dev, and add gdal-config to your PATH variable." "$LINENO" 5
 fi
-GDAL_LIB=`$GDAL_CONFIG --libs`
-GDAL_INC=`$GDAL_CONFIG --cflags`
-LDFLAGS+=" $GDAL_LIB"
-CXXFLAGS+=" $GDAL_INC"
-
+GDAL_LDFLAGS=`$GDAL_CONFIG --libs`
+GDAL_CXXFLAGS=`$GDAL_CONFIG --cflags`
 
 # Checks for header files.
 
@@ -9713,6 +9712,8 @@ CXXFLAGS+=" -I$abs_top_srcdir -I$abs_top_srcdir/debug -I$abs_top_srcdir/include"
 
 # --------------- Makefile Substitutions --------------------------
 ####################################################################
+
+
 
 
 

@@ -61,11 +61,8 @@ AC_PATH_PROG(GDAL_CONFIG, gdal-config, no)
 if test "$GDAL_CONFIG" = "no" ; then
    AC_MSG_ERROR([could not find gdal-config. Please install libgdal-dev, and add gdal-config to your PATH variable.])
 fi
-GDAL_LIB=`$GDAL_CONFIG --libs`
-GDAL_INC=`$GDAL_CONFIG --cflags`
-LDFLAGS+=" $GDAL_LIB"
-CXXFLAGS+=" $GDAL_INC"
-
+GDAL_LDFLAGS=`$GDAL_CONFIG --libs`
+GDAL_CXXFLAGS=`$GDAL_CONFIG --cflags`
 
 # Checks for header files.
 AC_PATH_X
@@ -412,6 +409,8 @@ AC_SUBST(BASEDBCXXFLAGS)
 AC_SUBST(BASEDBLDFLAGS)
 AC_SUBST(CLIENTCXXFLAGS)
 AC_SUBST(CLIENTLDFLAGS)
+AC_SUBST(GDAL_LDFLAGS)
+AC_SUBST(GDAL_CXXFLAGS)
 AC_SUBST(DB2_INC)
 AC_SUBST(DB2_INSTANCEPATH)
 AC_SUBST(DB2_CPPLIBS)
