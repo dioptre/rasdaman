@@ -1,1 +1,1 @@
-select 2/3 from rgb as a
+select 2/3 from test_rgb2 as a
