@@ -501,9 +501,14 @@ r_convDesc &r_Conv_JPEG::convertFrom(const char *options) throw(r_Error)
 
   jpeg_destroy_decompress(dptr);
 
-  desc.destInterv = r_Minterval(2);
-  desc.destInterv << r_Sinterval((r_Range)0, (r_Range)width-1)
-		  << r_Sinterval((r_Range)0, (r_Range)height-1);
+  if (desc.srcInterv.dimension() == 2)
+    // this means it was explicitly specified, so we shouldn't override it
+    desc.destInterv = desc.srcInterv;
+  else {
+    desc.destInterv = r_Minterval(2);
+    desc.destInterv << r_Sinterval((r_Range) 0, (r_Range) width - 1)
+            << r_Sinterval((r_Range) 0, (r_Range) height - 1);
+  }
 
   desc.destType = get_external_type(desc.baseType);
 

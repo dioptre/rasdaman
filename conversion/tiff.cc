@@ -559,7 +559,7 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 	uint16 *reds=NULL, *greens=NULL, *blues=NULL;
 
 	// Init simple (chunky) memFS
-	memfs_chunk_initfs(handle, (char*)desc.src, (r_Long)(desc.srcInterv[0].high()-desc.srcInterv[0].low()+1)); //==> CHECK THIS 
+	memfs_chunk_initfs(handle, (char*)desc.src, (r_Long)(desc.srcInterv.cell_count())); //==> CHECK THIS 
 	desc.dest = NULL;
 
 	// Create dummy file for use in the TIFF open function
@@ -822,9 +822,14 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
 	remove(dummyFile);
 
 	// Build destination interval
-	desc.destInterv = r_Minterval(2);
-	desc.destInterv << r_Sinterval(r_Range(0), r_Range(width - 1))
-		<< r_Sinterval( r_Range(0), r_Range(height - 1));
+  if (desc.srcInterv.dimension() == 2)
+    // this means it was explicitly specified, so we shouldn't override it
+    desc.destInterv = desc.srcInterv;
+  else {
+    desc.destInterv = r_Minterval(2);
+    desc.destInterv << r_Sinterval(r_Range(0), r_Range(width - 1))
+      << r_Sinterval( r_Range(0), r_Range(height - 1));
+  }
 
   // build destination type
   if (desc.baseType == ctype_struct) {

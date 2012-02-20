@@ -824,8 +824,10 @@ void doStuff( int argc, char** argv ) throw (r_Error)
 			TALK( "domain set to " << mddDomain );
 		}
 
-		if (size != mddDomain.cell_count() * mddType->base_type().size())
-			throw RasqlError( FILESIZEMISMATCH );
+    // this check only works for binary arrays, but doesn't work for images for which a
+    // type/domain is given with --mddtype/--mdddomain -- DM 2012-feb-20
+//		if (size != mddDomain.cell_count() * mddType->base_type().size())
+//			throw RasqlError( FILESIZEMISMATCH );
 		LOG( "ok" << endl );
 
 		TALK( "setting up MDD with domain " << mddDomain << " and base type " << mddTypeName );

@@ -351,6 +351,9 @@ r_convDesc &r_Conv_HDF::convertFrom(const char *options) throw(r_Error)
 		array_size *= dimsizes[i];
 		start[i] = 0;
 	}
+  if (desc.srcInterv.dimension() == 2)
+    // this means it was explicitly specified, so we shouldn't override it
+    desc.destInterv = desc.srcInterv;
 
 	if ((desc.dest = (char*)mystore.storage_alloc(array_size)) == NULL)
 	{

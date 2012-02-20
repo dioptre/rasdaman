@@ -961,9 +961,15 @@ r_convDesc &r_Conv_BMP::convertFrom(const char *options) throw(r_Error)
 
   desc.dest = (char*)dest; desc.baseType = destType;
 
-  desc.destInterv = r_Minterval(2);
-  desc.destInterv << r_Sinterval((r_Range)0, (r_Range)width-1)
-		  << r_Sinterval((r_Range)0, (r_Range)height-1);
+	// Build destination interval
+  if (desc.srcInterv.dimension() == 2)
+    // this means it was explicitly specified, so we shouldn't override it
+    desc.destInterv = desc.srcInterv;
+  else {
+    desc.destInterv = r_Minterval(2);
+    desc.destInterv << r_Sinterval((r_Range)0, (r_Range)width-1)
+        << r_Sinterval((r_Range)0, (r_Range)height-1);
+  }
 
   desc.destType = get_external_type(desc.baseType);
 

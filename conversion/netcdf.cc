@@ -471,6 +471,11 @@ r_convDesc &r_Conv_NETCDF::convertFrom(const char *options) throw (r_Error) {
         }
 
     }
+    
+    if (desc.srcInterv.dimension() == 2)
+      // this means it was explicitly specified, so we shouldn't override it
+      desc.destInterv = desc.srcInterv;
+    
     RMInit::logOut << "r_Conv_NETCDF::convertFrom EXIT" << endl;
     return desc;
 }
