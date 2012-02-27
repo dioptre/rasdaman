@@ -8,7 +8,7 @@ Group:          Applications/Databases
 License:        GPLv3
 URL:            http://rasdaman.org
 Source0:        %{name}-%{version}.tar.gz
-Source1:        rasmgr.init.in
+Source1:        rasdaman.init.in
 %if 0%{?mandriva_version}  
 BuildRoot:      %{_tmppath}/%{name}-%{version}  
 %else
@@ -19,7 +19,7 @@ BuildRequires: bison libtiff-devel hdf-devel libjpeg-devel readline-devel zlib-d
 
 Requires(pre): /usr/sbin/useradd
 Requires(post): chkconfig
-Requires:      libtiff hdf libjpeg ncurses readline zlib libpng netpbm openssl postgresql-server netcdf gdal
+Requires:      libtiff hdf libjpeg ncurses readline zlib libpng netpbm openssl postgresql-server netcdf
 Provides: rasserver
 
 %description
@@ -96,7 +96,7 @@ The rasdaman-rasdaview package installs GUI client for rasdaman. It is based on 
 %package rasgeo
 Summary:        rasgeo is an add-in for GDAL-based image file import
 Group:          Applications/Databases
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release} gdal
 
 %description rasgeo
 The rasgeo package is an add-in for GDAL-based image file import. It uses GDAL.
@@ -146,8 +146,8 @@ cp applications/petascope/db/*.sh %{buildroot}%{_datadir}/rasdaman/petascope
 
 # install SYSV init stuff
 mkdir -p %{buildroot}/etc/rc.d/init.d
-sed 's/^RASVERSION=.*$/RASVERSION=%{version}/' < %{SOURCE1} > %{_sourcedir}/rasmgr.init
-install -m 755 %{_sourcedir}/rasmgr.init %{buildroot}/etc/rc.d/init.d/rasmgr
+sed 's/^RASVERSION=.*$/RASVERSION=%{version}/' < %{SOURCE1} > %{_sourcedir}/rasdaman.init
+install -m 755 %{_sourcedir}/rasdaman.init %{buildroot}/etc/rc.d/init.d/rasdaman
 
 # Rename scripts to recognizable names
 mv %{buildroot}%{_bindir}/insertdemo.sh %{buildroot}%{_bindir}/rasdaman_insertdemo.sh
@@ -201,17 +201,17 @@ rm -rf %{buildroot}
 %preun
 # If not upgrading
 if [ $1 = 0 ] ; then
-	/sbin/service rasmgr stop >/dev/null 2>&1
-	chkconfig --del rasmgr
+	/sbin/service rasdaman stop >/dev/null 2>&1
+	chkconfig --del rasdaman
 fi
 
 %post
-chkconfig --add rasmgr
+chkconfig --add rasdaman
 
 %postun
 # If upgrading
 if [ $1 -ge 1 ] ; then
-	/sbin/service rasmgr condrestart >/dev/null 2>&1 || :
+	/sbin/service rasdaman condrestart >/dev/null 2>&1 || :
 fi
 # If not upgrading
 # For SELinux we need to use 'runuser' not 'su'
@@ -241,7 +241,7 @@ fi
 %{_datadir}/rasdaman/errtxts*
 %attr(700,rasdaman,rasdaman) %dir %{rasdir}
 %attr(644,rasdaman,rasdaman) %config(noreplace) %{rasdir}/basictypes.dl
-%{_sysconfdir}/rc.d/init.d/rasmgr
+%{_sysconfdir}/rc.d/init.d/rasdaman
 
 %files devel
 %defattr(-,root,root,-)
@@ -297,6 +297,10 @@ fi
 %{_datadir}/rasdaman/raswct
 
 %changelog
+
+* Sun Feb 26  2012 Dimitar Misev <misev@rasdaman.com> - 8.3.0
+
+- Rename the init script from rasmgr to rasdaman
 
 * Sun Jan 29  2012 Dimitar Misev <misev@rasdaman.com> - 8.3.0
 
