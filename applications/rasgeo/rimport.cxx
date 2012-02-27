@@ -132,13 +132,6 @@ readImageInformation(vector<string>& vnames, Header& header, vector<double>& bnd
 		// filter tiles
 		if (bnd.size() >= 4)
 		{
-			// align the user specified boundary with the underlying pixel borders
-			// snapping to the closest pixel border
-			bnd[0] = tileHeader.cellsize.x * (int)((bnd[0] / tileHeader.cellsize.x) + 0.5);
-			bnd[1] = tileHeader.cellsize.x * (int)((bnd[1] / tileHeader.cellsize.x) + 0.5);
-			bnd[2] = tileHeader.cellsize.y * (int)((bnd[2] / tileHeader.cellsize.y) + 0.5);
-			bnd[3] = tileHeader.cellsize.y * (int)((bnd[3] / tileHeader.cellsize.y) + 0.5);
-
 			if (!tileOverlaps(tileHeader, bnd))
 				continue;
 		}
@@ -182,13 +175,35 @@ readImageInformation(vector<string>& vnames, Header& header, vector<double>& bnd
 		}
 
 		// intersect joint file header with given import region (boundary)
+		// and snap user boundary to closest pixel borders
+		int pixoffset;
 		if (bnd.size() >= 4)
 		{
-			header.xmin = header.xmin > bnd[0] ? header.xmin : bnd[0];
-			header.xmax = header.xmax < bnd[1] ? header.xmax : bnd[1];
-			header.ymin = header.ymin > bnd[2] ? header.ymin : bnd[2];
-			header.ymax = header.ymax < bnd[3] ? header.ymax : bnd[3];
+			if (bnd[0] > header.xmin)
+			{
+				pixoffset = ((bnd[0] - header.xmin) / header.cellsize.x) + 0.5;
+				header.xmin = header.xmin + (header.cellsize.x * pixoffset);
+			}
+
+			if (bnd[1] < header.xmax)
+			{
+				pixoffset = ((bnd[1] - header.xmin) / header.cellsize.x) + 0.5;
+				header.xmax = header.xmin + (header.cellsize.x * pixoffset);
+			}
+
+			if (bnd[2] > header.ymin)
+			{
+				pixoffset = ((bnd[2] - header.ymin) / header.cellsize.y) + 0.5;
+				header.ymin = header.ymin + (header.cellsize.y * pixoffset);
+			}
+
+			if (bnd[3] < header.ymax)
+			{
+				pixoffset = ((bnd[3] - header.ymin) / header.cellsize.y) + 0.5;
+				header.ymax = header.ymin + (header.cellsize.y * pixoffset);
+			}
 		}
+
 
 		// update the origin
 		header.origin.x = header.xmin;
@@ -202,16 +217,8 @@ readImageInformation(vector<string>& vnames, Header& header, vector<double>& bnd
 				header.cellsize.z = cellsizez;
 			else
 				header.cellsize.z = header.cellsize.x;
-
-			// snap the z-boundary to the nearest pixel border
-			if (bnd.size() == 6)
-			{
-				header.zmin = header.cellsize.z * (int)((bnd[4] / header.cellsize.z) + 0.5);
-				header.zmax = header.cellsize.z * (int)((bnd[5] / header.cellsize.z) + 0.5);
-			}
 			header.origin.z = header.zmin;
 		}
-
 	}
 
 	NMDebug(<< "rimport successfully analysed " << numfiles << " files." << endl << endl);
@@ -333,6 +340,8 @@ bool readTileInformation(string filename, Header& header)
 bool
 readTileInformation(GDALDataset* pDS, Header& header)
 {
+	NMDebugCtx("rimport", << "...");
+
 	double xmin;
 	double xmax;
 	double ymin;
@@ -376,6 +385,7 @@ readTileInformation(GDALDataset* pDS, Header& header)
 	header.origin.x = header.xmin;
 	header.origin.y = header.ymax;
 
+	NMDebugCtx("rimport", << "done!");
 	return true;
 }
 
@@ -449,7 +459,8 @@ void copyRegion2D(Header& outRegion, std::vector<double>& inRegion)
 int
 processImageFiles(vector<string>& filenames, string collname,
 		vector<double>& oids, Header& processRegion,
-		string mode3D, r_Point& shiftPt, RasdamanHelper2& helper)
+		string mode3D, r_Point& shiftPt, RasdamanHelper2& helper,
+		std::string marraytypename)
 {
 	/* PROCEDURE
 	 * - read source geospatial region (srcGeoRegion)
@@ -543,7 +554,18 @@ processImageFiles(vector<string>& filenames, string collname,
 			double newZ = 0;
 			if (bUpdate)
 			{
+				// calc coordinate shift in x- and y- direction;
+				// prepare rounding to whole pixels by adding or subtracting 0.5
+				double xshift = (insertGeoRegion.xmin - isdom[0]) / processRegion.cellsize.x;
+				xshift = xshift > 0 ? xshift + 0.5 : xshift - 0.5;
+
+				double yshift = (isdom[3] - insertGeoRegion.ymax) / processRegion.cellsize.y;
+				yshift = yshift > 0 ? yshift + 0.5 : yshift - 0.5;
+
+				// get present image domain for calculation of pixel shift
 				r_Minterval aint = helper.getImageSdom(collname, oids[0]);
+
+				NMDebugAI(<< "current img sdom: " << aint.get_string_representation() << endl << endl);
 				if (b3D)
 				{
 					// if we've got a z-shift given, we always shift relative to
@@ -551,9 +573,9 @@ processImageFiles(vector<string>& filenames, string collname,
 					if (shiftPt.dimension() == 3)
 					{
 						if (mode3D == "top")
-							zshift = (shiftPt[2] + tilecounter - 1) + 0.5;
+							zshift = shiftPt[2] + tilecounter - 1;
 						else if (mode3D == "bottom")
-							zshift = (shiftPt[2] - tilecounter - 1) + 0.5;
+							zshift = shiftPt[2] - tilecounter - 1;
 					}
 					else
 					{
@@ -564,15 +586,15 @@ processImageFiles(vector<string>& filenames, string collname,
 					}
 
 					writeShift = r_Point(3)
-							<< aint[0].low() + ((insertGeoRegion.xmin - isdom[0]) / processRegion.cellsize.x) + 0.5
-							<< aint[1].low() + ((isdom[3] - insertGeoRegion.ymax) / processRegion.cellsize.y) + 0.5
+							<< aint[0].low() + xshift
+							<< aint[1].low() + yshift
 							<< zshift;
 				}
 				else
 				{
 					writeShift = r_Point(2)
-							<< aint[0].low() + ((insertGeoRegion.xmin - isdom[0]) / processRegion.cellsize.x) + 0.5
-							<< aint[1].low() + ((isdom[3] - insertGeoRegion.ymax) / processRegion.cellsize.y) + 0.5;
+							<< aint[0].low() + xshift
+							<< aint[1].low() + yshift;
 				}
 			}
 			else
@@ -584,9 +606,9 @@ processImageFiles(vector<string>& filenames, string collname,
 					if (shiftPt.dimension() == 3)
 					{
 						if (mode3D == "top")
-							zshift = shiftPt[2] + tilecounter - 1 + 0.5;
+							zshift = shiftPt[2] + tilecounter - 1;
 						else if (mode3D == "bottom")
-							zshift = shiftPt[2] - tilecounter - 1 + 0.5;
+							zshift = shiftPt[2] - tilecounter - 1;
 					}
 					else
 					{
@@ -650,12 +672,12 @@ processImageFiles(vector<string>& filenames, string collname,
 			newGeoRegion.crs_name = processRegion.crs_name;
 			newGeoRegion.rmantype = processRegion.rmantype;
 			newGeoRegion.gdaltype = srcGeoRegion.gdaltype;
-			newGeoRegion.nbands = srcGeoRegion.nbands;
+			newGeoRegion.nbands = processRegion.nbands;
 
 			printRegion(newGeoRegion, "newGeoRegion");
 
 			importImage(helper, pDs, collname, oids, readGDALImgDOM, writeShift,
-					newGeoRegion, b3D);
+					newGeoRegion, b3D, marraytypename);
 
 			// release data set
 			GDALClose(pDs);
@@ -675,7 +697,7 @@ processImageFiles(vector<string>& filenames, string collname,
 	}
 
 	// update the petascope meta data with the newGeoRegion
-	helper.writePSMetadata(collname, newGeoRegion.crs_name, newGeoRegion.rmantype,
+	helper.writePSMetadata(collname, newGeoRegion.crs_name, newGeoRegion.rmantype, newGeoRegion.nbands,
 			newGeoRegion.xmin, newGeoRegion.xmax, newGeoRegion.ymin, newGeoRegion.ymax,
 			newGeoRegion.zmin, newGeoRegion.zmax, newGeoRegion.ncols, newGeoRegion.nrows, newGeoRegion.nlayers);
 
@@ -686,12 +708,17 @@ processImageFiles(vector<string>& filenames, string collname,
 
 int importImage(RasdamanHelper2& helper, GDALDataset* pDs, string& collname, vector<double>& oids,
 		r_Minterval& readGDALImgDOM, r_Point& writeShift, Header& newGeoRegion,
-		bool asCube)
+		bool asCube, std::string marraytypename)
 {
 	NMDebugCtx(ctxRimport, << "...");
 
 	// get the pixel's data type length (in bytes)
 	unsigned int pixelsize = helper.getTypeSize(newGeoRegion.rmantype);
+
+	// if we've got a struct type specified, we adjust the pixelsize, because we're going
+	// to process all bands at the same time
+	if (!marraytypename.empty())
+		pixelsize *= newGeoRegion.nbands;
 
 	// determine parameters for sequential processing
 	unsigned long chunksize = helper.getMaxImgSize() /
@@ -712,7 +739,7 @@ int importImage(RasdamanHelper2& helper, GDALDataset* pDs, string& collname, vec
 		 << " rows" << std::endl);
 
 	// process individual bands
-	for (int b=1; b <= newGeoRegion.nbands; b++)
+	for (unsigned int b=1; b <= newGeoRegion.nbands; ++b)
 	{
 		// prepare a sequentially updated writeShift vector accounting for row-wise input
 		r_Point seqWriteShift = r_Point(writeShift);
@@ -751,15 +778,48 @@ int importImage(RasdamanHelper2& helper, GDALDataset* pDs, string& collname, vec
 				return 0;
 			}
 
-			// read image buffer from file
-			GDALRasterBand* pBand = pDs->GetRasterBand(b);
-			pBand->RasterIO(GF_Read, startcolumn, startrow, readGDALImgDOM[0].get_extent(), rowstoread,
-					gdalbuf, readGDALImgDOM[0].get_extent(), rowstoread, newGeoRegion.gdaltype, 0, 0);
+			// depending whether the pixel type is composite or not, we pass
+			// different parameters
+			// --> right here: multi-band image gets imported into different individual images
+			if (marraytypename.empty())
+			{
+				// read image buffer from file
+				GDALRasterBand* pBand = pDs->GetRasterBand(b);
+				pBand->RasterIO(GF_Read, startcolumn, startrow, readGDALImgDOM[0].get_extent(), rowstoread,
+						gdalbuf, readGDALImgDOM[0].get_extent(), rowstoread, newGeoRegion.gdaltype, 0, 0);
 
-			if (iter == 0 && oids.size() < b)
-				oids.push_back(helper.insertImage(collname, (char*)gdalbuf, seqWriteShift, rint, true));
+				if (iter == 0 && oids.size() < b)
+					oids.push_back(helper.insertImage(collname, (char*)gdalbuf, seqWriteShift, rint, true,
+							marraytypename));
+				else
+					helper.updateImage(collname, oids[b-1], (char*)gdalbuf, seqWriteShift, rint, true,
+							marraytypename);
+			}
+			// --> here: we import a multi-band image as image with a composite pixel type
 			else
-				helper.updateImage(collname, oids[b-1], (char*)gdalbuf, seqWriteShift, rint, true);
+			{
+				// calc offset parameters to match interleave type
+				int linesize = readGDALImgDOM[0].get_extent() * pixelsize;
+				int bandoffset = pixelsize / newGeoRegion.nbands; // -> INTERLEAVE_PIXEL
+				// read image buffer from file
+				pDs->RasterIO(GF_Read, startcolumn, startrow, readGDALImgDOM[0].get_extent(), rowstoread,
+						gdalbuf, readGDALImgDOM[0].get_extent(), rowstoread, newGeoRegion.gdaltype,
+						newGeoRegion.nbands, NULL, pixelsize, linesize, bandoffset);
+
+				if (iter == 0 && oids.size() == 0)
+				{
+					oids.push_back(helper.insertImage(collname, (char*)gdalbuf, seqWriteShift, rint, true,
+							marraytypename));
+				}
+				else
+				{
+					helper.updateImage(collname, oids.at(0), (char*)gdalbuf, seqWriteShift, rint, true,
+							marraytypename);
+				}
+
+				// we don't need to iterate over any bands more, 'cause we've processed them all at once
+				b = newGeoRegion.nbands + 1;
+			}
 
 			// release memory of the reading buffer
 			free(gdalbuf);
@@ -785,12 +845,19 @@ int importImage(RasdamanHelper2& helper, GDALDataset* pDs, string& collname, vec
 
 		} // end sequential processing
 
-		helper.writeNMMetadata(collname, oids[b-1], newGeoRegion.epsg_code,
+		double procoid = oids[b-1];
+		string nmdatatype = helper.getDataTypeString(newGeoRegion.rmantype);
+		if (!marraytypename.empty())
+		{
+			procoid = oids.at(0);
+			nmdatatype = marraytypename;
+		}
+		helper.writeNMMetadata(collname, procoid, newGeoRegion.epsg_code,
 			newGeoRegion.crs_name, newGeoRegion.xmin, newGeoRegion.xmax,
 			newGeoRegion.ymin, newGeoRegion.ymax, newGeoRegion.zmin,
 			newGeoRegion.zmax, newGeoRegion.cellsize.x,
 			newGeoRegion.cellsize.y, newGeoRegion.cellsize.z,
-			helper.getDataTypeString(newGeoRegion.rmantype),
+			nmdatatype,
 			newGeoRegion.stats_min, newGeoRegion.stats_max,
 			newGeoRegion.stats_mean, newGeoRegion.stats_stddev,
 			"");
@@ -908,29 +975,74 @@ void printRegion(std::vector<double>& sdom, string descr)
 
 void showHelp()
 {
-	std::cout << std::endl << "rasimport v0.3" << std::endl << std::endl;
+	std::cout << std::endl << "rasimport v0.5" << std::endl << std::endl;
 
 	std::cout << "Usage: rasimport {-f <image file name> | -d <image directory> "
 			     "[-s <tiff | img | jpeg | ... ]} -coll <collection name> "
+				 "[-t <ImageTypeName:CollectionTypeName>] "
 				 "[-conn <connection file>] [-3D <top | bottom> [-csz <z-axis cell size>]] "
 				 "[-bnd <xmin:xmax:ymin:ymax[:zmin:zmax]>] [-oid <local_image_OID[:local_image_OID[: ... ]]>] "
 				 "[-shift <x:y[:z]>]" << std::endl << std::endl;
 
-	std::cout << "   -f:     path to image file" << std::endl;
-	std::cout << "   -d:     path pointing to image directory" << std::endl;
-	std::cout << "   -s:     filter files in directory ('-d') by the given suffix; if omitted, all files are considered" << std::endl;
-	std::cout << "   -coll:  name of target rasdaman collection" << std::endl;
-	std::cout << "   -conn:  connection file specifying rasdaman and postgres DB connection parameters" << std::endl;
-	std::cout << "   -3D:    mode for 2D (x/y) image slice import into 3D cubes" << std::endl;
-	std::cout << "   -csz:   z-axis cell size; if omitted, rimport assumes x-, y-, and z-cell sizes are identical!" << std::endl;
-	std::cout << "   -bnd:   spatial import boundary (e.g. xmin:xmax:ymin:ymax)" << std::endl;
-	std::cout << "   -oid:   local object identifier(s) (OID(s)) specifying the target image(s) of an update operation" << std::endl;
-	std::cout << "   -shift: shifts the origin of the import image by the specified vector (e.g. x:y)" << std::endl << std::endl;
+	std::cout << "   -f      path to image file" << std::endl;
+	std::cout << "   -d      path pointing to image directory" << std::endl;
+	std::cout << "   -s      filter files in directory ('-d') by the given suffix; if omitted, all files are considered" << std::endl;
+	std::cout << "   -coll   name of target rasdaman collection" << std::endl;
+	std::cout << "   -t      image and collection type (e.g. RGBImage:RGBSet)" << std::endl;
+	std::cout << "   -3D     mode for 2D (x/y) image slice import into 3D cubes" << std::endl;
+	std::cout << "   -csz    z-axis cell size; if omitted, rasimport assumes x-, y-, and z-cell sizes are identical!" << std::endl;
+	std::cout << "   -bnd    spatial import boundary (e.g. xmin:xmax:ymin:ymax)" << std::endl;
+	std::cout << "   -oid    local object identifier(s) (OID(s)) specifying the target image(s) of an update operation" << std::endl;
+	std::cout << "   -shift  shifts the origin of the import image by the specified vector (e.g. x:y)" << std::endl;
+	std::cout << "   -conn   connection file specifying rasdaman and postgres DB connection parameters" << std::endl << std::endl;
 
 	std::cout << "Note: Coordinates have to be given in the appropriate (geospatial) coordinate reference system of the image(s)!" << std::endl;
 
-
 	std::cout << std::endl;
+}
+
+bool parseTypeString(std::string typestr, std::vector<std::string>& types)
+{
+	//NMDebugCtx(ctxRimport, << "...");
+
+	// this function fills the vector specifying the types required
+	// for inserting an image with a component type (multi-band)
+	// layout of types:
+	// 0: registered name of marray type (imgae type)
+	// 1: registered name of set type (collection type)
+
+	size_t startpos = 0;
+	size_t endpos = 0;
+	string sub;
+	while ((endpos = typestr.find(':', startpos)) != string::npos)
+	{
+		sub = typestr.substr(startpos, endpos-startpos);
+		//NMDebugInd(1, << "start: " << startpos << "  endpos: " << endpos <<
+		//		"  substring: " << sub << endl);
+		types.push_back(sub.c_str());
+		startpos = endpos+1;
+	}
+	// get the last coordinate
+	if (startpos != 0)
+	{
+		endpos = typestr.size()-1;
+		sub = typestr.substr(startpos, endpos-startpos+1);
+		//NMDebugInd(1, << "start: " << startpos << "  endpos: " << endpos <<
+		//		"  substring: " << sub << endl);
+		types.push_back(sub.c_str());
+	}
+	else if (startpos == 0 && typestr.size() != 0)
+	{
+		types.push_back(typestr.c_str());
+	}
+	else
+		return false;
+
+	//NMDebugCtx(ctxRimport, << "done!");
+
+	// we return success only when we got 5 values here
+	// we don't check them for now, users must be careful!
+	return types.size() == 2 ? true : false;
 }
 
 // ----------------------------------------- MAIN ------------------------------------------------
@@ -960,6 +1072,7 @@ main(int argc, char** argv)
 	std::vector<double> bnd;									 // -bnd
 	std::vector<double> oids;										 // -oid
 	std::vector<double> shift; 								     // -shift
+	vector<string>	usertype;									 // -types
 
 	// parse command line arguments
 	int arg = 1;
@@ -972,12 +1085,14 @@ main(int argc, char** argv)
 		if (theArg == "-f")
 		{
 			filepath = argv[arg+1];
-			if (::access(filepath.c_str(), R_OK) != 0)
-			{
-				NMErr(ctxRimport, << "invalid parameter for -f: could not "
-						"access file '" << filepath << "'!");
-				return EXIT_FAILURE;
-			}
+// filepath access check is disabled to allow the specification of netcdf subdatasets
+// i.e. file access checking is left with the GDAL library.
+//			if (::access(filepath.c_str(), R_OK) != 0)
+//			{
+//				NMErr(ctxRimport, << "invalid parameter for -f: could not "
+//						"access file '" << filepath << "'!");
+//				return EXIT_FAILURE;
+//			}
 		}
 		else if (theArg == "-d")
 		{
@@ -1036,6 +1151,16 @@ main(int argc, char** argv)
 			{
 				NMErr(ctxRimport, << "invalid parameter for -bnd: "
 						"failed reading spatial boundary!");
+				return EXIT_FAILURE;
+			}
+		}
+		else if (theArg == "-t")
+		{
+			std::string tmp = argv[arg+1];
+			if (!parseTypeString(tmp, usertype))
+			{
+				NMErr(ctxRimport, << "invalid parameter for -t "
+						"(valid example: -t RGBImage:RGBSet)");
 				return EXIT_FAILURE;
 			}
 		}
@@ -1110,6 +1235,11 @@ main(int argc, char** argv)
 		NMDebug(<< shift[s] << " ");
 	NMDebug(<< std::endl);
 
+	NMDebugInd(1, << "data types: ");
+	for (int t=0; t < usertype.size(); t++)
+		NMDebug(<< usertype.at(t) << " ");
+	NMDebug(<< std::endl);
+
 	// -----------------------------------------------------------------------
 	// EVALUATE ARGUMENTS
 	// get the connection file and check readability
@@ -1154,6 +1284,7 @@ main(int argc, char** argv)
 	vector< string > vimportnames;
 	readImageInformation(vnames, header, bnd,
 			vimportnames, b3D, cellsizez);
+
 	if (vimportnames.size() == 0)
 	{
 		NMErr(ctxRimport, << "Empty import region!" << std::endl);
@@ -1171,28 +1302,53 @@ main(int argc, char** argv)
 		// check, whether the collection already exists
 		if (helper.doesCollectionExist(collname) < 0)
 		{
-			helper.insertCollection(collname, header.rmantype,
+			// the user is always right, use his type!
+			//if (header.nbands > 1 && usertype.size() == 2)
+			if (usertype.size() == 2)
+				helper.insertUserCollection(collname, usertype.at(1));
+			else
+				helper.insertCollection(collname, header.rmantype,
 					!mode3D.empty());
 		}
 
-		// note here shift is in pixel coordinates
+		// note: shiftPt is in pixel coordinates
 		r_Point shiftPt;
+		double xshift, yshift, zshift;
 		if (shift.size() == 2)
 		{
-			shiftPt = r_Point(2) << (r_Range)(shift[0] / header.cellsize.x)
-				            	 << (r_Range)(shift[1] / header.cellsize.y);
+			xshift = shift[0] / header.cellsize.x;
+			xshift = xshift > 0 ? xshift + 0.5 : xshift - 0.5;
+
+			yshift = shift[1] / header.cellsize.y;
+			yshift = yshift > 0 ? yshift + 0.5 : yshift - 0.5;
+
+			shiftPt = r_Point(2) << (r_Range)xshift
+				            	 << (r_Range)yshift;
 		}
 		else if (shift.size() == 3)
 		{
-			shiftPt = r_Point(3) << (r_Range)(shift[0] / header.cellsize.x)
-				            	 << (r_Range)(shift[1] / header.cellsize.y)
-				                 << (r_Range)(shift[2] / header.cellsize.z);
+			xshift = shift[0] / header.cellsize.x;
+			xshift = xshift > 0 ? xshift + 0.5 : xshift - 0.5;
+
+			yshift = shift[1] / header.cellsize.y;
+			yshift = yshift > 0 ? yshift + 0.5 : yshift - 0.5;
+
+			zshift = shift[2] / header.cellsize.z;
+			zshift = zshift > 0 ? zshift + 0.5 : zshift - 0.5;
+
+			shiftPt = r_Point(3) << (r_Range)xshift
+				            	 << (r_Range)yshift
+				                 << (r_Range)zshift;
 		}
 
+		string marraytypename = "";
+		if (usertype.size() == 2)
+			marraytypename = usertype.at(0);
+
 		if (!processImageFiles(vimportnames, collname, oids, header, mode3D,
-				shiftPt, helper))
+				shiftPt, helper, marraytypename))
 		{
-			NMErr(ctxRimport, << "Sorry, but something went wrong!");
+			NMErr(ctxRimport, << "Failed processing image file(s)!");
 			return EXIT_FAILURE;
 		}
 	}

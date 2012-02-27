@@ -1,8 +1,26 @@
-rasgeo v0.3
+rasgeo v0.5
 ===========
 
 rasgeo provides the GDAL-based commandline tools rasimport and raserase to 
-facilitate import, update, and deletion of rasdaman collections and images. 
+facilitate import, update, and deletion of geospatial images into/in the
+rasdaman data base.
+
+FEATURES
+- image import into new and existing collections
+- (partial) update of existing images
+- mosaicing (i.e. import of multiple source images into one rasdaman image)
+- subsetting of input image(s) 
+- multi-band image support
+  - import of bands as individual images of a collection (e.g. NETCDF temporal bands), or
+  - import of bands as pixel components of a user-defined type (e.g. RGB images)
+- creation of 3D cubes from 2D x/y slices
+- raster attribute table support
+- row-based sequential processing of large image files
+- population of the petascope data base (for WCS / WCPS / WPS)
+- image deletion (incl. petascope and nm_meta entries as well as raster attribute
+  tables if applicable)
+- collection deletion 
+
 
 CREDITS: rasgeo is inspired by rasdaman, Orfeo Toolbox/ITK, GDAL, and many 
 other smart projects and people sharing their knowledge on the web!
@@ -47,7 +65,7 @@ Note:
     "external-guide-POSTGRESQL.pdf" in $RMANHOME/manuals_and_examples/manuals/pdf)
   - with rasmgr as a user (refer to "inst-guide.pdf", section 4.11 "Users and
     their rights" in $RMANHOME/manuals_and_examples/manuals/pdf); to properly
-    configure a user rasdaman' with password 'rasdaman' follow the example below:
+    configure a user 'rasdaman' with password 'rasdaman' follow the example below:
 
        alex@WorkingBee:~$ rascontrol
        rascontrol: rasdaman server remote control utility. rasdaman v8.2 -- generated on 11.11.2011 10:32:16.
@@ -95,33 +113,32 @@ arguments, e.g.:
 
 alex@WorkingBee:~$ rasimport 
 
-rasimport v0.3
+rasimport v0.5
 
-Usage: rasimport {-f <image file name> | -d <image directory> [-s <tiff | img | 
-       jpeg | ...> ]} -coll <collection name> [-conn <connection file>] [-3D 
-       <top | bottom> [-csz <z-axis cell size>]] 
-       [-bnd <xmin:xmax:ymin:ymax[:zmin:zmax]>] 
-       [-oid <local_image_OID[:local_image_OID[: ... ]]>] [-shift <x:y[:z]>]
+Usage: rasimport {-f <image file name> | -d <image directory> 
+[-s <tiff | img | jpeg | ... ]} -coll <collection name> 
+[-t <ImageTypeName:CollectionTypeName>] [-conn <connection file>]
+[-3D <top | bottom> [-csz <z-axis cell size>]]
+[-bnd <xmin:xmax:ymin:ymax[:zmin:zmax]>]
+[-oid <local_image_OID[:local_image_OID[: ... ]]>] [-shift <x:y[:z]>]
 
    -f:     path to image file
    -d:     path pointing to image directory
-   -s:     filter files in directory ('-d') by the given suffix; if omitted, all
-           files are considered
+   -s:     filter files in directory ('-d') by the given suffix; 
+           if omitted, all files are considered
    -coll:  name of target rasdaman collection
-   -conn:  connection file specifying rasdaman and postgres DB connection 
-           parameters
+   -t:     image and collection type (e.g. RGBImage:RGBSet)
    -3D:    mode for 2D (x/y) image slice import into 3D cubes
-   -csz:   z-axis cell size; if omitted, rasimport assumes x-, y-, and z-cell 
-           sizes are identical!
+   -csz:   z-axis cell size; if omitted, rasimport assumes x-, y-, 
+           and z-cell sizes are identical!
    -bnd:   spatial import boundary (e.g. xmin:xmax:ymin:ymax)
-   -oid:   local object identifier(s) (OID(s)) specifying the target image(s) 
-           of an update operation (e.g. 1435:1470:1530)
-   -shift: shifts the origin of the import image by the specified vector
-           (e.g. x:y)
+   -oid:   local object identifier(s) (OID(s)) specifying the target
+           image(s) of an update operation
+   -shift: shifts the origin of the import image by the specified vector (e.g. x:y)
+   -conn:  connection file specifying rasdaman and postgres DB connection parameters
 
-Note: Coordinates have to be given in the appropriate (geospatial) coordinate 
+Note: Coordinates have to be given in the appropriate (geospatial) coordinate
 reference system of the image(s)!
-
 
 IMPORT OPTIONS EXPLAINED
 ========================
@@ -144,14 +161,27 @@ IMPORT OPTIONS EXPLAINED
            (e.g. '-s tiff'); only one suffix can be specified; 
         !- rasimport assumes that all imported images share the same pixel type,
            otherwise data loss might occur)
+           
+-s	   -> filter files in the directory given by the -d option
+          - specifies the actual file suffix of the files in the directory
+            given by -d, which shall be considered for import
+          - does not specify an image format
 
--coll  -> target collection of the import operation; 
+-coll  -> target collection of the import operation 
           - if the collection does not already exist rasimport creates a new 
             collection;
-            - the type of the new collection is determined by the given image
-              file (which is the first one, if multiple images were specified 
-              by the -d option)
+          - the type of the new collection is determined by the given image
+            file (which is the first one, if multiple images were specified
+            by the -d option), unless a type is specified with the -t option
 
+-t     -> image and collection type (e.g. '-t RGBImage:RGBSet')
+          - specifies the data type of the target collection and image
+         !- only data types registered with the rasdaman data base are allowed
+            (e.g. defined with rasdl) unless they are not based on more than
+            one primitive data type
+          - this parameter has to be specified if multi-band images shall be
+            be imported as images with a composite pixel type
+            
 -oid   -> update of (an) existing image(s);
           - rasimport updates the specifed target image(s) with the specified
             import image(s); 
@@ -163,16 +193,16 @@ IMPORT OPTIONS EXPLAINED
           - if the specified target collection does not exist, rasimport creates
             a 3D collection of the appropriate type and and imports the specified
             image(s) as x/y slices into a new image cube of that collection
-	  - if the collection alrady exist and the -oid option is specified,
-	    rasimport creates a new image cube in the given target collection
-	    (assuming, that the collection has the appropriate type) 
-	  - if invoked together with -oid option, rasimport imports a new
-	    x/y image slice either at the top or at the bottom of the cube
-	    depending on the specified -3D parameter (i.e. top or bottom)
+          - if the collection alrady exists and the -oid option is not specified,
+            rasimport creates a new image cube in the given target collection
+            (assuming, that the collection has the appropriate type)
+          - if invoked together with the -oid option, rasimport imports a new 
+            x/y image slice either at the top or at the bottom of the cube
+            depending on the specified -3D parameter (i.e. top or bottom)
 
 -bnd   -> specifies the maximum import region considered by rasimport;
-         - rasimport snaps the specified boundary to the nearest pixel border;
-	 - the spatial domain of the created image is the intersection of the 
+          - rasimport snaps the specified (x/y) boundary to the nearest pixel border;
+          - the spatial domain of the created image is the intersection of the
             boundary region (-bnd) with the union of all input image domains
            
 -shift  -> shifts the origin of the import image(s) by the given vector;
@@ -203,8 +233,70 @@ USE CASES
 - import of file landuse.img into collection landuse 
      user@host:/img$ rasimport -f landuse.img -coll landuse
 
+
+- import of a multi-band (RGB) image rgb.img into an image with composite
+  pixeltype 'struct RGBPixel { char red, char green, char blue;};' as registered
+  as one of the basic data types of rasdaman
+  
+     user@host:/img$ rasimport -f clouds.jpg -coll clouds -t RGBImage:RGBPixel
+
+
+- import of a NETCDF subdataset with 24 bands; 
+  first let's have a look at the NETCDF file with gdalinfo:
+  
+     alex@WorkingBee:~/garage/img$ gdalinfo tos_O1_2001-2002.nc 
+     Driver: netCDF/Network Common Data Format
+     Files: tos_O1_2001-2002.nc
+     Size is 512, 512
+     Coordinate System is `'
+     Metadata:
+     NC_GLOBAL#title=IPSL  model output prepared for IPCC Fourth Assessment SRES A2 experiment
+     ...
+     SUBDATASET_4_NAME=NETCDF:"tos_O1_2001-2002.nc":tos
+     SUBDATASET_4_DESC=[24x170x180] sea_surface_temperature (32-bit floating-point)
+     ...
+     
+  NOTE: visit http://www.gdal.org/frmt_netcdf.html to find out more about using NETCDF and 
+        subdatasets with GDAL! download the NETCDF sample file from 
+        http://www.unidata.ucar.edu/software/netcdf/examples/files.html
+     
+  to import all 24 bands of subdataset 4 'NETCDF:"tos_O1_2001-2002.nc":tos' as individual
+  images into collection 'seatemp24', just call
+    
+  alex@WorkingBee:~/garage/img$ rasimport -f NETCDF:"tos_O1_2001-2002.nc":tos -coll seatemp24
+  
+  note that we supply the name of the subdataset as reported by gdalinfo (see above) as 
+  filename of the dataset to the -f rasimport parameter; querying the spatial domain of
+  the new collection then yields
+  
+  alex@WorkingBee:~/garage/img$ rasql -q "select sdom(m) from seatemp24 as m" --out string
+  rasql: rasdaman query tool v1.0, rasdaman v8 -- generated on 27.02.2012 13:49:25.
+  opening database RASBASE at localhost:7001...ok
+  Executing retrieval query...ok
+  Query result collection has 24 element(s):
+    Result element 1: [0:179,0:169]
+    Result element 2: [0:179,0:169]
+    Result element 3: [0:179,0:169]
+    ...
+    Result element 24: [0:179,0:169]
+  rasql done.  
+  
+
 - import of multiple *.tiff image tiles into one rasdaman image
      user@host:/img$ rasimport -d ./mytiles -s tiff -coll imagemosaic
+     
+     note: in this case '-s tiff' denotes the actual suffix of the 
+           image files to be considered; e.g. in a directory with this 
+           content
+           
+           img1.tiff
+           img1.tfw
+           img2.tif
+           img3.img
+           img4.tiff
+           
+           only 'img1.tiff' and 'img4.tiff' are actually read and processed by
+           rasimport
      
 - import of a user specified region split across multiple source files into
   one rasdaman image
@@ -212,10 +304,11 @@ USE CASES
 
   The final geospatial image domain is 
   
-     RASBASE=# select img_id,coll_name,pixeltype,minx,maxx,miny,maxy,cellsize_x,cellsize_y from nm_meta where coll_name = 't6';
-      img_id | coll_name |   pixeltype   |  minx   |  maxx   |  miny   |  maxy   | cellsize_x | cellsize_y 
-     --------+-----------+---------------+---------+---------+---------+---------+------------+------------
-       61441 | t6        | unsigned char | 2023250 | 2072650 | 5488220 | 5525730 |         10 |         10
+  RASBASE=# select img_id,coll_name,pixeltype,minx,maxx,miny,maxy,cellsize_x,cellsize_y from nm_meta where coll_name = 't6';
+   img_id | coll_name |   pixeltype   |  minx   |  maxx   |  miny   |  maxy   | cellsize_x | cellsize_y 
+  --------+-----------+---------------+---------+---------+---------+---------+------------+------------
+    17921 | t6        | unsigned char | 2023250 | 2072650 | 5488220 | 5525730 |         10 |         10
+
 
 
 - update of image with OID '1203' in collection 'mycollection' with 'update.img' 
@@ -253,9 +346,10 @@ USE CASES
      alex@WorkingBee:~/garage/img$ rasimport -d imageDir -coll cube -oid 3974 -3d top -shift 0:0:3
   
   where the new layers are stored in 'imageDir', '3974' is the local object
-  identifier of the previously create collection 'cube' and '0:0:3' determines 
-  the 'z-base' for the update operation. The new spatial domain in pixel space
-  would then look like this (given imageDir contains three image slices):
+  identifier of the previously created image in collection 'cube' and '0:0:3' 
+  determines the 'z-base' for the update operation. The new spatial domain in 
+  pixel space would then look like this (given imageDir contains three image 
+  slices of the same x/y extent):
   
                         [0:99,0:99,0:5]
 	  
@@ -264,6 +358,7 @@ USE CASES
   present in the data base, aslice.img is added on top of the image stack)
      user@host:/img/$ rasimport -f aslice.tiff -coll thecube -3D top
 
+    
 - update of a multi-band (RGB) image with image rgb.img; the origin of rgb.img 
   shall be shifted by 150 units in x and y direction relative to the origin of 
   the original image; the individual bands of the original image were imported 
@@ -281,9 +376,16 @@ USE CASES
       b (OID: 15361) -> [0:249,0:249]
 
       
-SUPPORTED DATA TYPES & MAPPING OF GDAL TYPES
-============================================
-rasgeo supports 2D and 3D collections/images of the following data types
+SUPPORTED DATA TYPES
+====================
+Using the -t option, rasimport supportes all 2D and 3D data types, which are
+registered with the rasdaman data base and which are based on only one single
+primitive type: e.g. { char r, char g, char b } is supported, whereas 
+{ char c, short s, int i } is not! 
+
+      
+MAPPING OF GDAL TYPES
+=====================
 (extract from rimport.cxx):
 
 r_Type::r_Type_Id

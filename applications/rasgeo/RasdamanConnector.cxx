@@ -156,20 +156,28 @@ void RasdamanConnector::connect()
 		m_db.get_status() != r_Database::read_write)
 		m_db.open(m_RasDbName.c_str());
 
-	// get a direct connection ot the petascope data base
-	this->m_petaconn = PQconnectdb(this->getPetaPGConnectString().c_str());
+	// get a direct connection to the petascope data base, but, before
+	// we do anything, check, whether there is already a connection alive
 	if (PQstatus(this->m_petaconn) != CONNECTION_OK)
 	{
-		NMDebug(<< std::endl);
-		NMErr(ctxrconnector, << "connection with '" << this->getPetaDbName() << "' failed!");
+		this->m_petaconn = PQconnectdb(this->getPetaPGConnectString().c_str());
+		if (PQstatus(this->m_petaconn) != CONNECTION_OK)
+		{
+			NMDebug(<< std::endl);
+			NMErr(ctxrconnector, << "connection with '" << this->getPetaDbName() << "' failed!");
+		}
 	}
 
-	// get a direct connection ot the rasdaman data base
-	this->m_rasconn = PQconnectdb(this->getRasPGConnectString().c_str());
+	// get a direct connection ot the rasdaman data base, but, before
+	// we do anything, check, whether there is already a connection alive
 	if (PQstatus(this->m_rasconn) != CONNECTION_OK)
 	{
-		NMDebug(<< std::endl);
-		NMErr(ctxrconnector, << "connection with '" << this->getRasDbName() << "' failed!");
+		this->m_rasconn = PQconnectdb(this->getRasPGConnectString().c_str());
+		if (PQstatus(this->m_rasconn) != CONNECTION_OK)
+		{
+			NMDebug(<< std::endl);
+			NMErr(ctxrconnector, << "connection with '" << this->getRasDbName() << "' failed!");
+		}
 	}
 }
 

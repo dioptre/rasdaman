@@ -88,6 +88,9 @@ public:
 	/*! Inserts a new collection 'collname' of type rtype into the data base */
 	void insertCollection(std::string collname, r_Type::r_Type_Id rtype, bool asCube);
 
+	/*! Inserts a new collection 'collname' of type rtype into the data base */
+	void insertUserCollection(std::string collname, std::string colltypename);
+
 	/*! Deletes collection 'collname' from the data base. */
 	void dropCollection(std::string collname);
 
@@ -106,6 +109,8 @@ public:
 	 */
 	r_Minterval getImageSdom(std::string collname, double localImgOID);
 
+	r_Marray_Type *getMarrayType(std::string collname);
+
 	/*! Returns the data (pixel) type id of the given collection. */
 	r_Type::r_Type_Id getBaseTypeId(std::string collname);
 
@@ -114,6 +119,9 @@ public:
 
 	/*! Returns the size in bytes of the collection's base type */
 	unsigned int getBaseTypeSize(std::string collname);
+
+	/*! Returns the size in bytes of the collection's base type */
+	unsigned int getBaseTypeElementCount(std::string collname);
 
 	unsigned int getTypeSize(r_Type::r_Type_Id rtype) throw (r_Error);
 
@@ -139,11 +147,15 @@ public:
 
 	/*! insert an image into the collection */
 	double insertImage(std::string collname, char* buf,
-			r_Point& shift, r_Minterval& sdom, bool bRowMajor2ColMajor);
+			r_Point& shift, r_Minterval& sdom, bool bRowMajor2ColMajor,
+			std::string marraytypename = "");
 
 	/*! update an already present image in the collection */
 	void updateImage(std::string collname, double imgid,
-		char* buf, r_Point& shift, r_Minterval& sdom, bool bRowMajor2ColMajor);
+		char* buf, r_Point& shift, r_Minterval& sdom, bool bRowMajor2ColMajor,
+		std::string marraytypename = "")
+		throw (r_Error);
+
 
 	/*! Transposes a 1D, 2D, or 3D column-major arrays into a row-major array
 	 *
@@ -167,6 +179,10 @@ public:
 	void colBuf2RowBuf(char* colbuf, char* rowbuf, unsigned int pixelsize,
 			r_Minterval& sdom);
 
+	/*! Transposes a 1D, 2D, or 3D multi-band row-major arrays into a col-major array */
+	void colBuf2RowBuf(char* colbuf, char* rowbuf, unsigned int pixelsize,
+			unsigned int nelem, int ncols, int nrows, int nlayers);
+
 	/*! Transposes a 1D, 2D, or 3D row-major array into a column-major array
 	 *
 	 *	\param colbuf column-major array
@@ -188,6 +204,10 @@ public:
 	 */
 	void rowBuf2ColBuf(char* rowbuf, char* colbuf, unsigned int pixelsize,
 			r_Minterval& sdom);
+
+	/*! Transposes a 1D, 2D, or 3D multi-band row-major arrays into a col-major array */
+	void rowBuf2ColBuf(char* rowbuf, char* colbuf, unsigned int pixelsize,
+			unsigned int nelem, int ncols, int nrows, int nlayers);
 
 	/*! Calculates the n-dimensional 0-based index of an array element
 	 *  given its 0-based index (offset) within the underlying 1D array.
@@ -240,13 +260,14 @@ public:
 			double stats_max,
 			double stats_mean,
 			double stats_stddev,
-			string RATName);
+			string RATName) throw (r_Error);
 
-	int writeNMRAT(std::string filename, double oid, int band);
+	int writeNMRAT(std::string filename, double oid, int band) throw(r_Error);
 	int writePSMetadata(
 			std::string collname,
 			std::string crs,
 			r_Type::r_Type_Id rtype,
+			int nbands,
 			double xmin,
 			double xmax,
 			double ymin,
@@ -274,7 +295,6 @@ protected:
 	//! the maximum image (tile/buffer) size that
 	//  gets read or write by this helper
 	long m_maximgsize;
-
 
 };
 

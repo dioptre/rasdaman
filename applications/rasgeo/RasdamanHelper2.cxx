@@ -29,6 +29,7 @@
 
 // rasdaman
 #include <sstream>
+#include <new>
 #include "raslib/mintervaltype.hh"
 #include "raslib/collectiontype.hh"
 #include "raslib/marraytype.hh"
@@ -45,25 +46,6 @@ RasdamanHelper2::RasdamanHelper2(RasdamanConnector* rasconn)
 	this->m_pRasconn = rasconn;
 	this->m_pRasconn->connect();
 	m_maximgsize = 134217728;
-
-	// collection related infos
-//	this->m_sCollName = "";
-//	this->m_rPixType = r_Type::UNKNOWNTYPE;
-//	this->m_srTypePrefix = "Unknown";
-//
-//	this->m_nxpix = -1;
-//	this->m_nypix = -1;
-//	this->m_nzpix = -1;
-//	this->m_nbands = 0;
-//	this->m_idxPixX_min = -1;
-//	this->m_idxPixX_max = -1;
-//	this->m_idxPixY_min = -1;
-//	this->m_idxPixY_max = -1;
-//	this->m_idxPixZ_min = -1;
-//	this->m_idxPixZ_max = -1;
-//	this->m_idOrigX = 0;
-//	this->m_idOrigY = 0;
-//	this->m_idOrigZ = 0;
 }
 
 RasdamanHelper2::~RasdamanHelper2()
@@ -74,7 +56,7 @@ RasdamanHelper2::~RasdamanHelper2()
 
 double RasdamanHelper2::doesCollectionExist(std::string collname) throw (r_Error)
 {
-	this->m_pRasconn->connect();
+	//this->m_pRasconn->connect();
 	this->m_transaction.begin(r_Transaction::read_only);
 	int ret = -1;
 
@@ -97,7 +79,7 @@ double RasdamanHelper2::doesCollectionExist(std::string collname) throw (r_Error
 void RasdamanHelper2::insertCollection(std::string collname, r_Type::r_Type_Id rtype,
 		bool asCube)
 {
-	this->m_pRasconn->connect();
+	//this->m_pRasconn->connect();
 	this->m_transaction.begin(r_Transaction::read_write);
 
 	r_Ref<r_Set< r_Ref< r_GMarray > > > imgSet;
@@ -110,6 +92,23 @@ void RasdamanHelper2::insertCollection(std::string collname, r_Type::r_Type_Id r
 			*imgSet, collname.c_str());
 
 	this->m_transaction.commit();
+}
+
+void RasdamanHelper2::insertUserCollection(std::string collname,
+		std::string colltypename)
+{
+	NMDebugCtx(ctxrhelper, << "...");
+
+	//this->m_pRasconn->connect();
+	this->m_transaction.begin(r_Transaction::read_write);
+
+	std::stringstream qstr;
+	qstr << "create collection " << collname << " " << colltypename;
+	r_OQL_Query qins(qstr.str().c_str());
+	r_oql_execute(qins);
+	this->m_transaction.commit();
+
+	NMDebugCtx(ctxrhelper, << "done!");
 }
 
 void RasdamanHelper2::createCollection(r_Database& db,
@@ -172,7 +171,7 @@ void RasdamanHelper2::createCollection(r_Database& db,
 
 void RasdamanHelper2::dropCollection(std::string collname)
 {
-	this->m_pRasconn->connect();
+	//this->m_pRasconn->connect();
 	this->m_transaction.begin(r_Transaction::read_write);
 
 	std::string qstr = "drop collection " + collname;
@@ -186,7 +185,7 @@ void RasdamanHelper2::dropCollection(std::string collname)
 void RasdamanHelper2::dropImage(std::string collname,
 		double localImgOID)
 {
-	this->m_pRasconn->connect();
+	//this->m_pRasconn->connect();
 	this->m_transaction.begin(r_Transaction::read_write);
 
 	std::string qstr = "delete from $1 as m where oid(m) = $2";
@@ -274,18 +273,22 @@ std::string RasdamanHelper2::getTypePrefixString(r_Type::r_Type_Id rtype) {
 
 std::vector<double> RasdamanHelper2::getImageOIDs(std::string collname)
 {
+	NMDebugCtx(ctxrhelper, << "...");
 	std::vector<double> soids;
 
-	this->m_pRasconn->connect();
+	//this->m_pRasconn->connect();
 	this->m_transaction.begin(r_Transaction::read_only);
 
 	std::string qstr = "select oid(m) from $1 as m";
 	r_OQL_Query q(qstr.c_str());
 	q << collname.c_str();
 
+	NMDebugAI(<< q.get_query() << " ... " << endl);
+
 	r_Set< r_Ref_Any > resSet;
 	r_oql_execute(q, resSet);
 
+	NMDebugAI(<< "... ");
 	if (!resSet.is_empty())
 	{
 		r_Iterator< r_Ref_Any > iter = resSet.create_iterator();
@@ -294,17 +297,19 @@ std::vector<double> RasdamanHelper2::getImageOIDs(std::string collname)
 		{
 			r_Primitive* id = (r_Primitive*)(*iter);
 			soids.push_back(id->get_double());
+			NMDebug(<< id->get_double() << " ");
 		}
 	}
+	NMDebug(<< endl);
 
 	this->m_transaction.commit();
-
+	NMDebugCtx(ctxrhelper, << "done!")
 	return soids;
 }
 
 r_Minterval RasdamanHelper2::getImageSdom(std::string collname, double localImgOID)
 {
-	this->m_pRasconn->connect();
+	//this->m_pRasconn->connect();
 	this->m_transaction.begin(r_Transaction::read_only);
 
 	std::string qstr = "select sdom(m) from $1 as m where oid(m) = $2";
@@ -326,11 +331,12 @@ r_Minterval RasdamanHelper2::getImageSdom(std::string collname, double localImgO
 	return r_Minterval();
 }
 
-r_Type::r_Type_Id RasdamanHelper2::getBaseTypeId(std::string collname)
+r_Marray_Type *RasdamanHelper2::getMarrayType(std::string collname)
 {
-	r_Type::r_Type_Id rtype = r_Type::UNKNOWNTYPE;
+	NMDebugCtx(ctxrhelper, << "...");
+	r_Marray_Type *martype = 0;
 
-	this->m_pRasconn->connect();
+	//this->m_pRasconn->connect();
 	this->m_transaction.begin(r_Transaction::read_only);
 
 	r_Ref_Any any = this->m_pRasconn->getDatabase().lookup_object(
@@ -339,7 +345,29 @@ r_Type::r_Type_Id RasdamanHelper2::getBaseTypeId(std::string collname)
 	r_Set<r_GMarray>* coll((r_Set<r_GMarray>*)any.get_memory_ptr());
 
 	r_Collection_Type* colltype = (r_Collection_Type*)coll->get_type_schema();
-	r_Marray_Type* martype = (r_Marray_Type*)colltype->element_type().clone();
+	martype = (r_Marray_Type*)colltype->element_type().clone();
+
+	this->m_transaction.abort();
+
+	NMDebugCtx(ctxrhelper, << "done!");
+	return martype;
+}
+
+r_Type::r_Type_Id RasdamanHelper2::getBaseTypeId(std::string collname)
+{
+	NMDebugCtx(ctxrhelper, << "...");
+	r_Type::r_Type_Id rtype = r_Type::UNKNOWNTYPE;
+
+	//this->m_pRasconn->connect();
+	this->m_transaction.begin(r_Transaction::read_only);
+
+	r_Ref_Any any = this->m_pRasconn->getDatabase().lookup_object(
+			collname.c_str());
+
+	r_Set<r_GMarray>* coll((r_Set<r_GMarray>*)any.get_memory_ptr());
+
+	r_Collection_Type* colltype = (r_Collection_Type*)coll->get_type_schema();
+	r_Marray_Type *martype = (r_Marray_Type*)&colltype->element_type();
 	r_Base_Type* basetype = const_cast<r_Base_Type*>(&martype->base_type());
 	if (basetype->isPrimitiveType())
 	{
@@ -348,22 +376,19 @@ r_Type::r_Type_Id RasdamanHelper2::getBaseTypeId(std::string collname)
 	else if (basetype->isStructType())
 	{
 		r_Structure_Type* stype = ((r_Structure_Type*)basetype);
-		rtype = stype->type_id();
-
-		//for (unsigned int e=0; e < stype->count_elements(); e++)
-		//{
-		//	r_Attribute a = stype[e];
-		//}
+		rtype = stype->resolve_attribute((unsigned int)0).type_of().type_id();
 	}
 
 	this->m_transaction.commit();
+
+	NMDebugCtx(ctxrhelper, << "done!");
 	return rtype;
 }
 
 void RasdamanHelper2::getImageBuffer(std::string collname, double localImgOID,
 		char* buf, r_Minterval& sdom)
 {
-	this->m_pRasconn->connect();
+	//this->m_pRasconn->connect();
 	this->m_transaction.begin(r_Transaction::read_only);
 
 	std::string qstr = "select m$1 from $2 as m where oid(m) = $3";
@@ -387,7 +412,7 @@ std::string RasdamanHelper2::getBaseTypeName(std::string collname)
 {
 	std::string rstr = "Unknown";
 
-	this->m_pRasconn->connect();
+	//this->m_pRasconn->connect();
 	this->m_transaction.begin(r_Transaction::read_only);
 
 	r_Ref_Any any = this->m_pRasconn->getDatabase().lookup_object(
@@ -396,19 +421,46 @@ std::string RasdamanHelper2::getBaseTypeName(std::string collname)
 	r_Set<r_GMarray>* coll((r_Set<r_GMarray>*)any.get_memory_ptr());
 
 	r_Collection_Type* colltype = (r_Collection_Type*)coll->get_type_schema();
-	r_Marray_Type* martype = (r_Marray_Type*)colltype->element_type().clone();
+	r_Marray_Type *martype = (r_Marray_Type*)&colltype->element_type();
 	r_Base_Type* basetype = const_cast<r_Base_Type*>(&martype->base_type());
 	rstr = basetype->name();
 
-	this->m_transaction.commit();
+	this->m_transaction.abort();
 	return rstr;
+}
+
+unsigned int RasdamanHelper2::getBaseTypeElementCount(std::string collname)
+{
+	NMDebugCtx(ctxrhelper, << "...");
+
+	unsigned int ret = 1;
+
+	//this->m_pRasconn->connect();
+	this->m_transaction.begin(r_Transaction::read_only);
+
+	r_Ref_Any any = this->m_pRasconn->getDatabase().lookup_object(
+			collname.c_str());
+
+	r_Set<r_GMarray>* coll((r_Set<r_GMarray>*)any.get_memory_ptr());
+
+	r_Collection_Type* colltype = (r_Collection_Type*)coll->get_type_schema();
+	r_Marray_Type *martype = (r_Marray_Type*)&colltype->element_type();
+	r_Base_Type *basetype = const_cast<r_Base_Type*>(&martype->base_type());
+	if (basetype->isStructType())
+		ret = ((r_Structure_Type*)basetype)->count_elements();
+
+	this->m_transaction.abort();
+
+	NMDebugAI(<< "counted " << ret << " elements per pixel" << endl);
+	NMDebugCtx(ctxrhelper, << "done!");
+	return ret;
 }
 
 unsigned int RasdamanHelper2::getBaseTypeSize(std::string collname)
 {
 	unsigned int len = -1;
 
-	this->m_pRasconn->connect();
+	//this->m_pRasconn->connect();
 	this->m_transaction.begin(r_Transaction::read_only);
 
 	r_Ref_Any any = this->m_pRasconn->getDatabase().lookup_object(
@@ -417,20 +469,25 @@ unsigned int RasdamanHelper2::getBaseTypeSize(std::string collname)
 	r_Set<r_GMarray>* coll((r_Set<r_GMarray>*)any.get_memory_ptr());
 
 	r_Collection_Type* colltype = (r_Collection_Type*)coll->get_type_schema();
-	r_Marray_Type* martype = (r_Marray_Type*)colltype->element_type().clone();
+	r_Marray_Type *martype = (r_Marray_Type*)&colltype->element_type();
 	r_Base_Type* basetype = const_cast<r_Base_Type*>(&martype->base_type());
 	len = basetype->size();
-	this->m_transaction.commit();
+	this->m_transaction.abort();
 	return len;
 }
 
 double RasdamanHelper2::insertImage(std::string collname,
-		char* buf, r_Point& shift, r_Minterval& sdom, bool bRowMajor2ColMajor)
+		char* buf, r_Point& shift, r_Minterval& sdom, bool bRowMajor2ColMajor,
+		std::string marraytypename)
 {
-	//NMDebugCtx(ctxrhelper, << "...");
+	NMDebugCtx(ctxrhelper, << "...");
 
 	// get type information about the collection
 	r_Type::r_Type_Id tid = this->getBaseTypeId(collname);
+	NMDebugAI(<< "collection's pixel base type: " << this->getDataTypeString(tid) << endl);
+
+	// get the number of elements (in case we've got a struct type)
+	unsigned int nelem = this->getBaseTypeElementCount(collname);
 
 	// get a list of oids available prior to inserting the new image
 	std::vector<double> preoids = this->getImageOIDs(collname);
@@ -439,6 +496,8 @@ double RasdamanHelper2::insertImage(std::string collname,
 	this->m_transaction.begin(r_Transaction::read_write);
 
 	std::string qstr = "insert into $1 values marray x in [";
+
+	// format the spatial domain string
 	std::stringstream sdomstr;
 	for (int d = 0; d < sdom.dimension(); d++)
 	{
@@ -448,9 +507,30 @@ double RasdamanHelper2::insertImage(std::string collname,
 		else
 			sdomstr << ",";
 	}
-	qstr += sdomstr.str() + " values 0" + this->getNumConstChar(tid);
+	qstr += sdomstr.str();
 
-	//NMDebugInd(1, << "dummy grid query: " << qstr << std::endl);
+	// format the values string depending on the nubmer of elements
+	// of the base type
+	string numconst = this->getNumConstChar(tid);
+	NMDebugAI(<< "numeric constant is: " << numconst << endl);
+	if (nelem == 1)
+	{
+		 qstr += " values 0" + numconst;
+	}
+	else // struct type
+	{
+		qstr += " values {";
+		for (int e=0; e < nelem; ++e)
+		{
+			qstr += "0" + numconst;
+			if (e < nelem -1)
+				qstr += ", ";
+			else
+				qstr += "}";
+		}
+	}
+
+	NMDebugAI( << "dummy grid query: " << qstr << std::endl);
 
 	r_OQL_Query qins(qstr.c_str());
 	qins << collname.c_str();
@@ -464,85 +544,140 @@ double RasdamanHelper2::insertImage(std::string collname,
 	// get the oid of the initially updated image
 	std::vector<double> voids = this->getImageOIDs(collname);
 	double oid = -1; //voids[voids.size()-1];
+	if (voids.size() > 0)
+		oid = voids[voids.size()-1];
 
 	// since we're not quite sure whether the new oid is always the
 	// last in the oid result set retrieved, we'd better check them
 	// all
-	for (int post=voids.size()-1; post >= 0; post--)
-	{
-		oid = voids[post];
-		for (int pre=preoids.size()-1; pre >= 0; pre--)
-		{
-			//NMDebugInd(1, << voids[post] << " == " << preoids[pre] << std::endl);
-			if (voids[post] == preoids[pre])
-			{
-				oid = -1;
-				break;
-			}
-		}
-		if (oid != -1)
-			break;
-	}
+//	for (int post=voids.size()-1; post >= 0; post--)
+//	{
+//		oid = voids[post];
+//		for (int pre=preoids.size()-1; pre >= 0; pre--)
+//		{
+//			//NMDebugInd(1, << voids[post] << " == " << preoids[pre] << std::endl);
+//			if (voids[post] == preoids[pre])
+//			{
+//				oid = -1;
+//				break;
+//			}
+//		}
+//		if (oid != -1)
+//			break;
+//	}
 
-	//NMDebugInd(1, << "local oid of new image is #" << oid << std::endl);
+	NMDebugAI( << "local oid of new image is #" << oid << std::endl);
 
 	// if we get a null pointer, we quit here
 	if (buf != 0 && oid != -1)
-		this->updateImage(collname, oid, buf, shift, sdom, bRowMajor2ColMajor);
+	{
+		this->updateImage(collname, oid, buf, shift, sdom, bRowMajor2ColMajor,
+				marraytypename);
+	}
 
 	//NMDebugInd(1, << "updated initial image with buffer content!" << std::endl);
 
-	//NMDebugCtx(ctxrhelper, << "done!");
+	NMDebugCtx(ctxrhelper, << "done!");
 	return oid;
 }
 
 void RasdamanHelper2::updateImage(std::string collname, double imgid,
-		char* buf, r_Point& shift, r_Minterval& sdom, bool bRowMajor2ColMajor)
+		char* buf, r_Point& shift, r_Minterval& sdom, bool bRowMajor2ColMajor,
+		std::string marraytypename) throw (r_Error)
 {
-//	NMDebugCtx(ctxrhelper, << "...");
+	NMDebugCtx(ctxrhelper, << "...");
 
-	// get type information about the collection
-	r_Type::r_Type_Id tid = this->getBaseTypeId(collname);
+	// query type information
+	r_Marray_Type *martype = this->getMarrayType(collname);
+	const r_Base_Type &basetype = (*martype).base_type();
+	unsigned nelem = 1;
+	unsigned int elemsize = 0;
+	r_Type::r_Type_Id tid;
+	if (basetype.isPrimitiveType())
+	{
+		tid = ((r_Primitive_Type&)basetype).type_id();
+		elemsize = basetype.size();
+	}
+	else if (basetype.isStructType())
+	{
+		r_Structure_Type *stype = ((r_Structure_Type*)&basetype);
+		nelem = stype->count_elements();
+		tid = stype->resolve_attribute((unsigned int)0).type_of().type_id();
+		elemsize = stype->resolve_attribute((unsigned int)0).type_of().size();
+	}
+	unsigned int pixelsize = elemsize * nelem;
 
-	// init the image
-	r_Ref< r_GMarray > img;
-	this->createMDD(img, sdom, tid);
-	unsigned long mddsize = img->get_array_size();
-	int pixelsize = img->get_type_length();
+	delete martype;
+
+//	r_Type::r_Type_Id tid = this->getBaseTypeId(collname);
+//	unsigned int nelem = this->getBaseTypeElementCount(collname);
+//	unsigned int elemsize = this->getBaseTypeSize(collname);
+//	unsigned int pixelsize = elemsize * nelem;
+
+	// construct typename for flat base types
+	// and take the user specified typename for structs
+	if (nelem == 1)
+	{
+		std::string appendix = "";
+		if (sdom.dimension() == 2)
+			appendix = "Image";
+		else if (sdom.dimension() == 3)
+			appendix = "Cube";
+
+		marraytypename = this->getTypePrefixString(tid) + appendix;
+	}
+	NMDebugAI( << "Marray type: " << marraytypename << endl);
 
 	int nlayers;
 	if (sdom.dimension() == 2)
 		nlayers = 1;
 	else if (sdom.dimension() == 3)
 		nlayers = sdom[2].get_extent();
-
-	if (bRowMajor2ColMajor)
-	{
-		// we use the 3D restricted version for now, because its greater performance
-		// as long as we don't support creating nD collections, we should stick with this
-		// one
-		this->rowBuf2ColBuf(buf, img->get_array(), tid, sdom[0].get_extent(),
-					sdom[1].get_extent(), nlayers);
-		//		this->rowBuf2ColBuf(buf, img->get_array(), pixelsize, sdom);
-	}
 	else
+		throw r_Error(r_Error::r_Error_FeatureNotSupported);
+
+	// initiate the r_GMarray, re-organise the array, if applicable,
+	// and update the image
+	r_Ref< r_GMarray > img;
+	try
 	{
-		memcpy((void*)img->get_array(), (const void*)buf, mddsize);
+		img = new (marraytypename.c_str()) r_GMarray(sdom, pixelsize);
+
+		if (bRowMajor2ColMajor)
+		{
+			// we use the 3D restricted version for now, because its greater performance
+			// as long as we don't support creating nD collections, we should stick with this
+			// one
+			this->rowBuf2ColBuf(buf, img->get_array(), pixelsize, nelem,
+					sdom[0].get_extent(), sdom[1].get_extent(), nlayers);
+			//		this->rowBuf2ColBuf(buf, img->get_array(), pixelsize, sdom);
+		}
+		else
+		{
+			memcpy((void*)img->get_array(), (const void*)buf, sdom.cell_count() * pixelsize);
+		}
+
+		// update initially created image
+		std::string qstr = "update $1 as m set m assign shift($2, $3) where oid(m) = $4";
+		r_OQL_Query q(qstr.c_str());
+		q << collname.c_str() << *img << shift << (r_Long)imgid;
+
+		this->m_transaction.begin(r_Transaction::read_write);
+		NMDebugAI(<< q.get_query() << endl);
+		r_oql_execute(q);
+		this->m_transaction.commit();
+
+		// clean up
+		img->r_deactivate();
+	}
+	catch (r_Error& e)
+	{
+		img->r_deactivate();
+		NMErr(ctxrhelper, << "image update failed: " << e.what() << endl);
+		throw;
 	}
 
-	// update initially created image
-	std::string qstr = "update $1 as m set m assign shift($2, $3) where oid(m) = $4";
-	r_OQL_Query q(qstr.c_str());
-	q << collname.c_str() << *img << shift << (r_Long)imgid;
-
-	this->m_transaction.begin(r_Transaction::read_write);
-	r_oql_execute(q);
-	this->m_transaction.commit();
-
-	// release the object (memory)
-	img->r_deactivate();
-
-//	NMDebugCtx(ctxrhelper, << "done!");
+	NMDebugCtx(ctxrhelper, << "done!");
 }
 
 void RasdamanHelper2::createMDD(r_Ref< r_GMarray >& image, r_Minterval sdom,
@@ -721,6 +856,74 @@ void RasdamanHelper2::rowBuf2ColBuf(char* rowbuf, char* colbuf, unsigned int pix
 
 		memcpy((void*)(colbuf + cmpix * pixelsize),
 			   (const void*)(rowbuf + pix * pixelsize), pixelsize);
+	}
+}
+
+void RasdamanHelper2::rowBuf2ColBuf(char* rowbuf, char* colbuf, unsigned int pixelsize,
+		unsigned int nelem, int ncols, int nrows, int nlayers)
+{
+	int elemsize = pixelsize / nelem;
+	int elemoffsize = elemsize;
+
+	if (nelem == 1)
+	{
+		elemsize = pixelsize;
+		elemoffsize = 0;
+	}
+
+	int row, col, layer, elem, elemoff;
+	for (row = 0; row < nrows; ++row)
+	{
+		for(col = 0; col < ncols; ++col)
+		{
+			for (layer = 0; layer < nlayers; ++layer)
+			{
+				for (elem = 0, elemoff = 0;
+					 elem < nelem;
+					 ++elem, elemoff += elemoffsize)
+				{
+					memcpy((void*)(colbuf +  (col * nrows + row + layer*ncols*nrows)
+							              * pixelsize + elemoff),
+					       (const void*)(rowbuf + (row * ncols + col + layer*ncols*nrows)
+							                    * pixelsize + elemoff),
+						   elemsize);
+				}
+			}
+		}
+	}
+}
+
+void RasdamanHelper2::colBuf2RowBuf(char* colbuf, char* rowbuf, unsigned int pixelsize,
+		unsigned int nelem, int ncols, int nrows, int nlayers)
+{
+	int elemsize = pixelsize / nelem;
+	int elemoffsize = elemsize;
+
+	if (nelem == 1)
+	{
+		elemsize = pixelsize;
+		elemoffsize = 0;
+	}
+
+	int row, col, layer, elem, elemoff;
+	for (row = 0; row < nrows; ++row)
+	{
+		for(col = 0; col < ncols; ++col)
+		{
+			for (layer = 0; layer < nlayers; ++layer)
+			{
+				for (elem = 0, elemoff = 0;
+					 elem < nelem;
+					 ++elem, elemoff += elemoffsize)
+				{
+					memcpy((void*)(rowbuf + (row * ncols + col + layer*ncols*nrows)
+							              * pixelsize + elemoff),
+					       (const void*)(colbuf +  (col * nrows + row + layer*ncols*nrows)
+					    		                * pixelsize + elemoff),
+					       elemsize);
+				}
+			}
+		}
 	}
 }
 
@@ -931,7 +1134,7 @@ void RasdamanHelper2::writeNMMetadata(
 		double stats_max,
 		double stats_mean,
 		double stats_stddev,
-		string RATName)
+		string RATName) throw (r_Error)
 {
 	NMDebugCtx(ctxrhelper, << "...");
 
@@ -942,6 +1145,7 @@ void RasdamanHelper2::writeNMMetadata(
 	if (conn == 0)
 	{
 		NMErr(ctxrhelper, << "connection with '" << this->m_pRasconn->getRasDbName() << "' failed!");
+		throw r_Error(r_Error::r_Error_General);
 		return;
 	}
 
@@ -1093,6 +1297,7 @@ std::vector<double> RasdamanHelper2::getNMMetaCellSize(long oid)
 
 int
 RasdamanHelper2::writeNMRAT(std::string filename, double oid, int band)
+throw(r_Error)
 {
 	NMDebugCtx(ctxrhelper, << "...");
 
@@ -1128,6 +1333,8 @@ RasdamanHelper2::writeNMRAT(std::string filename, double oid, int band)
 	if (conn == 0)
 	{
 		NMErr(ctxrhelper, << "connection with '" << this->m_pRasconn->getRasDbName() << "' failed!");
+		GDALClose(pDs);
+		throw r_Error(r_Error::r_Error_General);
 		return 0;
 	}
 
@@ -1329,7 +1536,7 @@ int RasdamanHelper2::getWCPSTypeId(r_Type::r_Type_Id rtype)
 }
 
 int RasdamanHelper2::writePSMetadata(std::string collname,
-		std::string crs, r_Type::r_Type_Id rtype,
+		std::string crs, r_Type::r_Type_Id rtype, int nbands,
 		double xmin, double xmax,
 		double ymin, double ymax,
 		double zmin, double zmax,
@@ -1374,11 +1581,27 @@ int RasdamanHelper2::writePSMetadata(std::string collname,
 	query.str("");
 
 
+	// format the nullvalue for the coverage, which is used
+	// by ps_coverage and ps_nullset
+	string nullvalue = "'0'";
+	if (nbands > 1)
+	{
+		nullvalue = "'{";
+		for (unsigned int b=0; b < nbands; ++b)
+		{
+			nullvalue += "0";
+			if (b < nbands -1)
+				nullvalue += ",";
+		}
+		nullvalue += "}'";
+	}
+
 	// insert the collection name
 	if (!bUpdate)
 	{
 		query << "insert into ps_coverage (name, nulldefault, interpolationtypedefault," <<
-				 "nullresistancedefault, type) values ('" << coll << "', '0', 5, 2, 'GridCoverage')";
+				 "nullresistancedefault, type) values ('" << coll << "', " << nullvalue
+				 << ", 5, 2, 'GridCoverage')";
 		NMDebugInd(1, << "'" << query.str() << "' ... ");
 		res = PQexec(const_cast<PGconn*>(conn), query.str().c_str());
 		if (PQresultStatus(res) != PGRES_COMMAND_OK)
@@ -1486,23 +1709,26 @@ int RasdamanHelper2::writePSMetadata(std::string collname,
 	// defines the cell type
 	if (!bUpdate)
 	{
-		int datatype = this->getWCPSTypeId(rtype); // the wcps data type
-		columns << "(coverage, i, name, type)";
-		values << "(" << image_id << ", 0, 'value', " << datatype << ")";
-		query << "insert into ps_range " << columns.str() << " values " << values.str();
-		NMDebugInd(1, << "'" << query.str() << "' ... ");
-		res = PQexec(const_cast<PGconn*>(conn), query.str().c_str());
-		if (PQresultStatus(res) != PGRES_COMMAND_OK)
+		for (int b=0; b < nbands; ++b)
 		{
-			NMDebug(<< endl);
-			NMErr(ctxrhelper, << PQresultErrorMessage(res));
+			int datatype = this->getWCPSTypeId(rtype); // the wcps data type
+			columns << "(coverage, i, name, type)";
+			values << "(" << image_id << ", " << b << ", '" << b << "', " << datatype << ")";
+			query << "insert into ps_range " << columns.str() << " values " << values.str();
+			NMDebugInd(1, << "'" << query.str() << "' ... ");
+			res = PQexec(const_cast<PGconn*>(conn), query.str().c_str());
+			if (PQresultStatus(res) != PGRES_COMMAND_OK)
+			{
+				NMDebug(<< endl);
+				NMErr(ctxrhelper, << PQresultErrorMessage(res));
+			}
+			else
+				NMDebug(<< "done!" << endl);
+			PQclear(res);
+			query.str("");
+			columns.str("");
+			values.str("");
 		}
-		else
-			NMDebug(<< "done!" << endl);
-		PQclear(res);
-		query.str("");
-		columns.str("");
-		values.str("");
 	}
 
 	// interpolation related information
@@ -1527,7 +1753,8 @@ int RasdamanHelper2::writePSMetadata(std::string collname,
 	// null set
 	if (!bUpdate)
 	{
-		query << "insert into ps_nullset (coverage, nullvalue) values (" << image_id << ", '0')";
+		query << "insert into ps_nullset (coverage, nullvalue) values (" << image_id << ", "
+				<< nullvalue << ")";
 		NMDebugInd(1, << "'" << query.str() << "' ... ");
 		res = PQexec(const_cast<PGconn*>(conn), query.str().c_str());
 		if (PQresultStatus(res) != PGRES_COMMAND_OK)
