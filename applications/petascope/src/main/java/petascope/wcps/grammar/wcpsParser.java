@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/petascope/wcps/grammar/wcps.g 2010-04-29 23:04:40
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/main/java/petascope/wcps/grammar/wcps.g 2012-02-18 23:41:04
 package petascope.wcps.grammar;
 
 import org.antlr.runtime.*;
@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+
 import org.antlr.runtime.tree.*;
 
 public class wcpsParser extends Parser {
@@ -132,7 +133,7 @@ public class wcpsParser extends Parser {
         }
         public wcpsParser(TokenStream input, RecognizerSharedState state) {
             super(input, state);
-            this.state.ruleMemo = new HashMap[241+1];
+            this.state.ruleMemo = new HashMap[244+1];
              
              
         }
@@ -147,7 +148,7 @@ public class wcpsParser extends Parser {
     }
 
     public String[] getTokenNames() { return wcpsParser.tokenNames; }
-    public String getGrammarFileName() { return "src/petascope/wcps/grammar/wcps.g"; }
+    public String getGrammarFileName() { return "src/main/java/petascope/wcps/grammar/wcps.g"; }
 
 
     public static class wcpsRequest_return extends ParserRuleReturnScope {
@@ -157,7 +158,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "wcpsRequest"
-    // src/petascope/wcps/grammar/wcps.g:32:1: wcpsRequest returns [WCPSRequest value] : e1= forClause (e2= whereClause )? e3= returnClause ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:33:1: wcpsRequest returns [WCPSRequest value] : e1= forClause (e2= whereClause )? e3= returnClause ;
     public final wcpsParser.wcpsRequest_return wcpsRequest() throws RecognitionException {
         wcpsParser.wcpsRequest_return retval = new wcpsParser.wcpsRequest_return();
         retval.start = input.LT(1);
@@ -174,8 +175,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:33:2: (e1= forClause (e2= whereClause )? e3= returnClause )
-            // src/petascope/wcps/grammar/wcps.g:33:4: e1= forClause (e2= whereClause )? e3= returnClause
+            // src/main/java/petascope/wcps/grammar/wcps.g:34:2: (e1= forClause (e2= whereClause )? e3= returnClause )
+            // src/main/java/petascope/wcps/grammar/wcps.g:34:4: e1= forClause (e2= whereClause )? e3= returnClause
             {
             root_0 = (Object)adaptor.nil();
 
@@ -188,7 +189,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new WCPSRequest((e1!=null?e1.value:null)); 
             }
-            // src/petascope/wcps/grammar/wcps.g:34:3: (e2= whereClause )?
+            // src/main/java/petascope/wcps/grammar/wcps.g:35:3: (e2= whereClause )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -197,7 +198,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt1) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:34:4: e2= whereClause
+                    // src/main/java/petascope/wcps/grammar/wcps.g:35:4: e2= whereClause
                     {
                     pushFollow(FOLLOW_whereClause_in_wcpsRequest72);
                     e2=whereClause();
@@ -254,7 +255,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "forClause"
-    // src/petascope/wcps/grammar/wcps.g:37:1: forClause returns [ForClauseElements value] : FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:38:1: forClause returns [ForClauseElements value] : FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* ;
     public final wcpsParser.forClause_return forClause() throws RecognitionException {
         wcpsParser.forClause_return retval = new wcpsParser.forClause_return();
         retval.start = input.LT(1);
@@ -285,8 +286,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:38:2: ( FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* )
-            // src/petascope/wcps/grammar/wcps.g:38:4: FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:39:2: ( FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:39:4: FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -325,7 +326,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new ForClauseElements((v!=null?v.value:null), (list!=null?list.value:null)); 
             }
-            // src/petascope/wcps/grammar/wcps.g:40:4: ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:41:4: ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
             loop2:
             do {
                 int alt2=2;
@@ -338,7 +339,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:40:5: COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:41:5: COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN
             	    {
             	    COMMA5=(Token)match(input,COMMA,FOLLOW_COMMA_in_forClause122); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -415,7 +416,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "whereClause"
-    // src/petascope/wcps/grammar/wcps.g:43:1: whereClause returns [WhereClause value] : WHERE e1= booleanScalarExpr ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:44:1: whereClause returns [WhereClause value] : WHERE e1= booleanScalarExpr ;
     public final wcpsParser.whereClause_return whereClause() throws RecognitionException {
         wcpsParser.whereClause_return retval = new wcpsParser.whereClause_return();
         retval.start = input.LT(1);
@@ -430,8 +431,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:44:2: ( WHERE e1= booleanScalarExpr )
-            // src/petascope/wcps/grammar/wcps.g:44:4: WHERE e1= booleanScalarExpr
+            // src/main/java/petascope/wcps/grammar/wcps.g:45:2: ( WHERE e1= booleanScalarExpr )
+            // src/main/java/petascope/wcps/grammar/wcps.g:45:4: WHERE e1= booleanScalarExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -480,7 +481,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "returnClause"
-    // src/petascope/wcps/grammar/wcps.g:46:1: returnClause returns [ReturnClause value] : RETURN e1= processingExpr ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:47:1: returnClause returns [ReturnClause value] : RETURN e1= processingExpr ;
     public final wcpsParser.returnClause_return returnClause() throws RecognitionException {
         wcpsParser.returnClause_return retval = new wcpsParser.returnClause_return();
         retval.start = input.LT(1);
@@ -495,8 +496,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:47:2: ( RETURN e1= processingExpr )
-            // src/petascope/wcps/grammar/wcps.g:47:4: RETURN e1= processingExpr
+            // src/main/java/petascope/wcps/grammar/wcps.g:48:2: ( RETURN e1= processingExpr )
+            // src/main/java/petascope/wcps/grammar/wcps.g:48:4: RETURN e1= processingExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -545,7 +546,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageList"
-    // src/petascope/wcps/grammar/wcps.g:49:1: coverageList returns [CoverageList value] : cname= coverageName ( COMMA next= coverageName )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:50:1: coverageList returns [CoverageList value] : cname= coverageName ( COMMA next= coverageName )* ;
     public final wcpsParser.coverageList_return coverageList() throws RecognitionException {
         wcpsParser.coverageList_return retval = new wcpsParser.coverageList_return();
         retval.start = input.LT(1);
@@ -562,8 +563,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:50:2: (cname= coverageName ( COMMA next= coverageName )* )
-            // src/petascope/wcps/grammar/wcps.g:50:4: cname= coverageName ( COMMA next= coverageName )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:51:2: (cname= coverageName ( COMMA next= coverageName )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:51:4: cname= coverageName ( COMMA next= coverageName )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -576,7 +577,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new CoverageList((cname!=null?cname.value:null)); 
             }
-            // src/petascope/wcps/grammar/wcps.g:51:3: ( COMMA next= coverageName )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:52:3: ( COMMA next= coverageName )*
             loop3:
             do {
                 int alt3=2;
@@ -589,7 +590,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:51:4: COMMA next= coverageName
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:52:4: COMMA next= coverageName
             	    {
             	    COMMA11=(Token)match(input,COMMA,FOLLOW_COMMA_in_coverageList204); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -645,7 +646,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "processingExpr"
-    // src/petascope/wcps/grammar/wcps.g:53:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );
+    // src/main/java/petascope/wcps/grammar/wcps.g:54:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );
     public final wcpsParser.processingExpr_return processingExpr() throws RecognitionException {
         wcpsParser.processingExpr_return retval = new wcpsParser.processingExpr_return();
         retval.start = input.LT(1);
@@ -662,12 +663,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:54:5: (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr )
+            // src/main/java/petascope/wcps/grammar/wcps.g:55:5: (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr )
             int alt4=3;
             alt4 = dfa4.predict(input);
             switch (alt4) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:54:7: e1= encodedCoverageExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:55:7: e1= encodedCoverageExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -684,7 +685,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:55:7: e2= storeExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:56:7: e2= storeExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -701,7 +702,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/petascope/wcps/grammar/wcps.g:56:7: e3= scalarExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:57:7: e3= scalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -747,7 +748,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "encodedCoverageExpr"
-    // src/petascope/wcps/grammar/wcps.g:58:1: encodedCoverageExpr returns [EncodedCoverageExpr value] : ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:59:1: encodedCoverageExpr returns [EncodedCoverageExpr value] : ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN ;
     public final wcpsParser.encodedCoverageExpr_return encodedCoverageExpr() throws RecognitionException {
         wcpsParser.encodedCoverageExpr_return retval = new wcpsParser.encodedCoverageExpr_return();
         retval.start = input.LT(1);
@@ -774,8 +775,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:59:2: ( ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN )
-            // src/petascope/wcps/grammar/wcps.g:59:4: ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN
+            // src/main/java/petascope/wcps/grammar/wcps.g:60:2: ( ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:60:4: ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -809,7 +810,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new EncodedCoverageExpr((cov!=null?cov.value:null), (format!=null?input.toString(format.start,format.stop):null)); 
             }
-            // src/petascope/wcps/grammar/wcps.g:60:3: ( COMMA params= stringConstant )?
+            // src/main/java/petascope/wcps/grammar/wcps.g:61:3: ( COMMA params= stringConstant )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -818,7 +819,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt5) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:60:4: COMMA params= stringConstant
+                    // src/main/java/petascope/wcps/grammar/wcps.g:61:4: COMMA params= stringConstant
                     {
                     COMMA15=(Token)match(input,COMMA,FOLLOW_COMMA_in_encodedCoverageExpr291); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -876,7 +877,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "storeExpr"
-    // src/petascope/wcps/grammar/wcps.g:62:1: storeExpr returns [StoreExpr value] : STORE LPAREN e1= encodedCoverageExpr RPAREN ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:63:1: storeExpr returns [StoreExpr value] : STORE LPAREN e1= encodedCoverageExpr RPAREN ;
     public final wcpsParser.storeExpr_return storeExpr() throws RecognitionException {
         wcpsParser.storeExpr_return retval = new wcpsParser.storeExpr_return();
         retval.start = input.LT(1);
@@ -895,8 +896,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:63:5: ( STORE LPAREN e1= encodedCoverageExpr RPAREN )
-            // src/petascope/wcps/grammar/wcps.g:63:7: STORE LPAREN e1= encodedCoverageExpr RPAREN
+            // src/main/java/petascope/wcps/grammar/wcps.g:64:5: ( STORE LPAREN e1= encodedCoverageExpr RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:64:7: STORE LPAREN e1= encodedCoverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -955,7 +956,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageExpr"
-    // src/petascope/wcps/grammar/wcps.g:65:1: coverageExpr returns [CoverageExpr value] : e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:66:1: coverageExpr returns [CoverageExpr value] : e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* ;
     public final wcpsParser.coverageExpr_return coverageExpr() throws RecognitionException {
         wcpsParser.coverageExpr_return retval = new wcpsParser.coverageExpr_return();
         retval.start = input.LT(1);
@@ -972,8 +973,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:66:5: (e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* )
-            // src/petascope/wcps/grammar/wcps.g:66:7: e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:67:5: (e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:67:7: e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -986,14 +987,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/petascope/wcps/grammar/wcps.g:67:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:68:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*
             loop6:
             do {
                 int alt6=2;
                 alt6 = dfa6.predict(input);
                 switch (alt6) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:67:10: op= ( OR | XOR ) e2= coverageLogicTerm
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:68:10: op= ( OR | XOR ) e2= coverageLogicTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -1056,7 +1057,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageLogicTerm"
-    // src/petascope/wcps/grammar/wcps.g:69:1: coverageLogicTerm returns [CoverageExpr value] : e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:70:1: coverageLogicTerm returns [CoverageExpr value] : e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* ;
     public final wcpsParser.coverageLogicTerm_return coverageLogicTerm() throws RecognitionException {
         wcpsParser.coverageLogicTerm_return retval = new wcpsParser.coverageLogicTerm_return();
         retval.start = input.LT(1);
@@ -1073,8 +1074,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:70:5: (e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* )
-            // src/petascope/wcps/grammar/wcps.g:70:7: e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:71:5: (e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:71:7: e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1087,14 +1088,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/petascope/wcps/grammar/wcps.g:71:9: (op= AND e2= coverageLogicFactor )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:72:9: (op= AND e2= coverageLogicFactor )*
             loop7:
             do {
                 int alt7=2;
                 alt7 = dfa7.predict(input);
                 switch (alt7) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:71:10: op= AND e2= coverageLogicFactor
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:72:10: op= AND e2= coverageLogicFactor
             	    {
             	    op=(Token)match(input,AND,FOLLOW_AND_in_coverageLogicTerm416); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -1150,7 +1151,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageLogicFactor"
-    // src/petascope/wcps/grammar/wcps.g:73:1: coverageLogicFactor returns [CoverageExpr value] : e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:74:1: coverageLogicFactor returns [CoverageExpr value] : e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? ;
     public final wcpsParser.coverageLogicFactor_return coverageLogicFactor() throws RecognitionException {
         wcpsParser.coverageLogicFactor_return retval = new wcpsParser.coverageLogicFactor_return();
         retval.start = input.LT(1);
@@ -1167,8 +1168,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:74:5: (e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? )
-            // src/petascope/wcps/grammar/wcps.g:74:7: e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
+            // src/main/java/petascope/wcps/grammar/wcps.g:75:5: (e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? )
+            // src/main/java/petascope/wcps/grammar/wcps.g:75:7: e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1181,12 +1182,12 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null);
             }
-            // src/petascope/wcps/grammar/wcps.g:75:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
+            // src/main/java/petascope/wcps/grammar/wcps.g:76:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
             int alt8=2;
             alt8 = dfa8.predict(input);
             switch (alt8) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:75:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:76:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
                     {
                     op=(Token)input.LT(1);
                     if ( (input.LA(1)>=EQUALS && input.LA(1)<=GTE) ) {
@@ -1246,7 +1247,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageArithmeticExpr"
-    // src/petascope/wcps/grammar/wcps.g:77:1: coverageArithmeticExpr returns [CoverageExpr value] : e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:78:1: coverageArithmeticExpr returns [CoverageExpr value] : e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* ;
     public final wcpsParser.coverageArithmeticExpr_return coverageArithmeticExpr() throws RecognitionException {
         wcpsParser.coverageArithmeticExpr_return retval = new wcpsParser.coverageArithmeticExpr_return();
         retval.start = input.LT(1);
@@ -1263,8 +1264,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:78:5: (e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* )
-            // src/petascope/wcps/grammar/wcps.g:78:7: e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:79:5: (e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:79:7: e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1277,14 +1278,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null); 
             }
-            // src/petascope/wcps/grammar/wcps.g:79:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:80:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
             loop9:
             do {
                 int alt9=2;
                 alt9 = dfa9.predict(input);
                 switch (alt9) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:79:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:80:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -1347,7 +1348,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageArithmeticTerm"
-    // src/petascope/wcps/grammar/wcps.g:81:1: coverageArithmeticTerm returns [CoverageExpr value] : e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:82:1: coverageArithmeticTerm returns [CoverageExpr value] : e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* ;
     public final wcpsParser.coverageArithmeticTerm_return coverageArithmeticTerm() throws RecognitionException {
         wcpsParser.coverageArithmeticTerm_return retval = new wcpsParser.coverageArithmeticTerm_return();
         retval.start = input.LT(1);
@@ -1364,8 +1365,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:82:5: (e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* )
-            // src/petascope/wcps/grammar/wcps.g:82:9: e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:83:5: (e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:83:9: e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1378,14 +1379,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null); 
             }
-            // src/petascope/wcps/grammar/wcps.g:83:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:84:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
             loop10:
             do {
                 int alt10=2;
                 alt10 = dfa10.predict(input);
                 switch (alt10) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:83:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:84:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -1448,7 +1449,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageArithmeticFactor"
-    // src/petascope/wcps/grammar/wcps.g:85:1: coverageArithmeticFactor returns [CoverageExpr value] : e1= coverageValue (op= OVERLAY e2= coverageValue )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:86:1: coverageArithmeticFactor returns [CoverageExpr value] : e1= coverageValue (op= OVERLAY e2= coverageValue )* ;
     public final wcpsParser.coverageArithmeticFactor_return coverageArithmeticFactor() throws RecognitionException {
         wcpsParser.coverageArithmeticFactor_return retval = new wcpsParser.coverageArithmeticFactor_return();
         retval.start = input.LT(1);
@@ -1465,8 +1466,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:86:5: (e1= coverageValue (op= OVERLAY e2= coverageValue )* )
-            // src/petascope/wcps/grammar/wcps.g:86:7: e1= coverageValue (op= OVERLAY e2= coverageValue )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:87:5: (e1= coverageValue (op= OVERLAY e2= coverageValue )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:87:7: e1= coverageValue (op= OVERLAY e2= coverageValue )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1479,14 +1480,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/petascope/wcps/grammar/wcps.g:87:9: (op= OVERLAY e2= coverageValue )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:88:9: (op= OVERLAY e2= coverageValue )*
             loop11:
             do {
                 int alt11=2;
                 alt11 = dfa11.predict(input);
                 switch (alt11) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:87:10: op= OVERLAY e2= coverageValue
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:88:10: op= OVERLAY e2= coverageValue
             	    {
             	    op=(Token)match(input,OVERLAY,FOLLOW_OVERLAY_in_coverageArithmeticFactor625); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -1542,7 +1543,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageValue"
-    // src/petascope/wcps/grammar/wcps.g:89:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );
+    // src/main/java/petascope/wcps/grammar/wcps.g:90:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );
     public final wcpsParser.coverageValue_return coverageValue() throws RecognitionException {
         wcpsParser.coverageValue_return retval = new wcpsParser.coverageValue_return();
         retval.start = input.LT(1);
@@ -1563,12 +1564,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:90:5: (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom )
+            // src/main/java/petascope/wcps/grammar/wcps.g:91:5: (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom )
             int alt12=5;
             alt12 = dfa12.predict(input);
             switch (alt12) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:90:7: e5= subsetExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:91:7: e5= subsetExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1585,7 +1586,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:91:7: e2= unaryInducedExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:92:7: e2= unaryInducedExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1602,7 +1603,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/petascope/wcps/grammar/wcps.g:92:7: e4= scaleExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:93:7: e4= scaleExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1619,7 +1620,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/petascope/wcps/grammar/wcps.g:93:7: e3= crsTransformExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:94:7: e3= crsTransformExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1636,7 +1637,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/petascope/wcps/grammar/wcps.g:94:7: e1= coverageAtom
+                    // src/main/java/petascope/wcps/grammar/wcps.g:95:7: e1= coverageAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1682,7 +1683,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageAtom"
-    // src/petascope/wcps/grammar/wcps.g:96:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );
+    // src/main/java/petascope/wcps/grammar/wcps.g:97:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );
     public final wcpsParser.coverageAtom_return coverageAtom() throws RecognitionException {
         wcpsParser.coverageAtom_return retval = new wcpsParser.coverageAtom_return();
         retval.start = input.LT(1);
@@ -1711,12 +1712,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:97:5: (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr )
+            // src/main/java/petascope/wcps/grammar/wcps.g:98:5: (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr )
             int alt13=7;
             alt13 = dfa13.predict(input);
             switch (alt13) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:97:7: e2= scalarExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:98:7: e2= scalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1733,7 +1734,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:98:7: e1= coverageVariable
+                    // src/main/java/petascope/wcps/grammar/wcps.g:99:7: e1= coverageVariable
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1750,7 +1751,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/petascope/wcps/grammar/wcps.g:99:7: LPAREN e7= coverageExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:100:7: LPAREN e7= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1777,7 +1778,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/petascope/wcps/grammar/wcps.g:100:7: e3= coverageConstantExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:101:7: e3= coverageConstantExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1794,7 +1795,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/petascope/wcps/grammar/wcps.g:101:7: e4= coverageConstructorExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:102:7: e4= coverageConstructorExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1811,7 +1812,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/petascope/wcps/grammar/wcps.g:102:7: e5= setMetaDataExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:103:7: e5= setMetaDataExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1828,7 +1829,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // src/petascope/wcps/grammar/wcps.g:103:7: e6= rangeConstructorExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:104:7: e6= rangeConstructorExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1874,7 +1875,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "scalarExpr"
-    // src/petascope/wcps/grammar/wcps.g:105:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );
+    // src/main/java/petascope/wcps/grammar/wcps.g:106:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );
     public final wcpsParser.scalarExpr_return scalarExpr() throws RecognitionException {
         wcpsParser.scalarExpr_return retval = new wcpsParser.scalarExpr_return();
         retval.start = input.LT(1);
@@ -1901,12 +1902,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:106:5: (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:107:5: (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN )
             int alt14=6;
             alt14 = dfa14.predict(input);
             switch (alt14) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:106:7: e1= metaDataExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:107:7: e1= metaDataExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1923,7 +1924,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:107:7: e2= condenseExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:108:7: e2= condenseExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1940,7 +1941,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/petascope/wcps/grammar/wcps.g:108:7: e3= booleanScalarExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:109:7: e3= booleanScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1957,7 +1958,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/petascope/wcps/grammar/wcps.g:109:7: e4= numericScalarExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:110:7: e4= numericScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1974,7 +1975,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/petascope/wcps/grammar/wcps.g:110:7: e5= stringScalarExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:111:7: e5= stringScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1991,7 +1992,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/petascope/wcps/grammar/wcps.g:111:7: LPAREN e6= scalarExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:112:7: LPAREN e6= scalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2047,7 +2048,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "metaDataExpr"
-    // src/petascope/wcps/grammar/wcps.g:113:1: metaDataExpr returns [MetaDataExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN );
+    // src/main/java/petascope/wcps/grammar/wcps.g:114:1: metaDataExpr returns [MetaDataExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN );
     public final wcpsParser.metaDataExpr_return metaDataExpr() throws RecognitionException {
         wcpsParser.metaDataExpr_return retval = new wcpsParser.metaDataExpr_return();
         retval.start = input.LT(1);
@@ -2102,7 +2103,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:114:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:115:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN )
             int alt16=8;
             switch ( input.LA(1) ) {
             case IDENTIFIER:
@@ -2155,7 +2156,7 @@ public class wcpsParser extends Parser {
 
             switch (alt16) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:114:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:115:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2187,7 +2188,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:115:7: op= IMAGECRS LPAREN e1= coverageExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:116:7: op= IMAGECRS LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2219,7 +2220,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/petascope/wcps/grammar/wcps.g:116:7: op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:117:7: op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2239,7 +2240,7 @@ public class wcpsParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    // src/petascope/wcps/grammar/wcps.g:116:48: ( COMMA e2= axisName )?
+                    // src/main/java/petascope/wcps/grammar/wcps.g:117:48: ( COMMA e2= axisName )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -2248,7 +2249,7 @@ public class wcpsParser extends Parser {
                     }
                     switch (alt15) {
                         case 1 :
-                            // src/petascope/wcps/grammar/wcps.g:116:49: COMMA e2= axisName
+                            // src/main/java/petascope/wcps/grammar/wcps.g:117:49: COMMA e2= axisName
                             {
                             COMMA29=(Token)match(input,COMMA,FOLLOW_COMMA_in_metaDataExpr973); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
@@ -2279,7 +2280,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/petascope/wcps/grammar/wcps.g:117:7: op= CRSSET LPAREN e1= coverageExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:118:7: op= CRSSET LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2311,7 +2312,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/petascope/wcps/grammar/wcps.g:118:7: de= domainExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:119:7: de= domainExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2328,7 +2329,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/petascope/wcps/grammar/wcps.g:119:7: op= NULLSET LPAREN e1= coverageExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:120:7: op= NULLSET LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2360,7 +2361,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // src/petascope/wcps/grammar/wcps.g:120:7: op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:121:7: op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2403,7 +2404,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // src/petascope/wcps/grammar/wcps.g:121:7: op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:122:7: op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2475,7 +2476,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "domainExpr"
-    // src/petascope/wcps/grammar/wcps.g:123:1: domainExpr returns [DomainExpr value] : DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:124:1: domainExpr returns [DomainExpr value] : DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN ;
     public final wcpsParser.domainExpr_return domainExpr() throws RecognitionException {
         wcpsParser.domainExpr_return retval = new wcpsParser.domainExpr_return();
         retval.start = input.LT(1);
@@ -2502,8 +2503,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:124:2: ( DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN )
-            // src/petascope/wcps/grammar/wcps.g:124:4: DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN
+            // src/main/java/petascope/wcps/grammar/wcps.g:125:2: ( DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:125:4: DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2584,7 +2585,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "condenseExpr"
-    // src/petascope/wcps/grammar/wcps.g:126:1: condenseExpr returns [CondenseExpr value] : (e1= reduceExpr | e2= generalCondenseExpr );
+    // src/main/java/petascope/wcps/grammar/wcps.g:127:1: condenseExpr returns [CondenseExpr value] : (e1= reduceExpr | e2= generalCondenseExpr );
     public final wcpsParser.condenseExpr_return condenseExpr() throws RecognitionException {
         wcpsParser.condenseExpr_return retval = new wcpsParser.condenseExpr_return();
         retval.start = input.LT(1);
@@ -2599,7 +2600,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:127:2: (e1= reduceExpr | e2= generalCondenseExpr )
+            // src/main/java/petascope/wcps/grammar/wcps.g:128:2: (e1= reduceExpr | e2= generalCondenseExpr )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -2618,7 +2619,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt17) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:127:4: e1= reduceExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:128:4: e1= reduceExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2635,7 +2636,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:128:4: e2= generalCondenseExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:129:4: e2= generalCondenseExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2681,7 +2682,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "reduceExpr"
-    // src/petascope/wcps/grammar/wcps.g:130:1: reduceExpr returns [ReduceExpr value] : op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:131:1: reduceExpr returns [ReduceExpr value] : op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN ;
     public final wcpsParser.reduceExpr_return reduceExpr() throws RecognitionException {
         wcpsParser.reduceExpr_return retval = new wcpsParser.reduceExpr_return();
         retval.start = input.LT(1);
@@ -2700,8 +2701,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:131:2: (op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN )
-            // src/petascope/wcps/grammar/wcps.g:131:4: op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN
+            // src/main/java/petascope/wcps/grammar/wcps.g:132:2: (op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:132:4: op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2767,7 +2768,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "generalCondenseExpr"
-    // src/petascope/wcps/grammar/wcps.g:133:1: generalCondenseExpr returns [GeneralCondenseExpr value] : CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:134:1: generalCondenseExpr returns [GeneralCondenseExpr value] : CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr ;
     public final wcpsParser.generalCondenseExpr_return generalCondenseExpr() throws RecognitionException {
         wcpsParser.generalCondenseExpr_return retval = new wcpsParser.generalCondenseExpr_return();
         retval.start = input.LT(1);
@@ -2794,8 +2795,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:134:2: ( CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr )
-            // src/petascope/wcps/grammar/wcps.g:134:4: CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr
+            // src/main/java/petascope/wcps/grammar/wcps.g:135:2: ( CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr )
+            // src/main/java/petascope/wcps/grammar/wcps.g:135:4: CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2824,7 +2825,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new GeneralCondenseExpr((op!=null?op.value:null), (ail!=null?ail.value:null)); 
             }
-            // src/petascope/wcps/grammar/wcps.g:135:3: ( WHERE cond= booleanScalarExpr )?
+            // src/main/java/petascope/wcps/grammar/wcps.g:136:3: ( WHERE cond= booleanScalarExpr )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -2833,7 +2834,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt18) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:135:4: WHERE cond= booleanScalarExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:136:4: WHERE cond= booleanScalarExpr
                     {
                     WHERE50=(Token)match(input,WHERE,FOLLOW_WHERE_in_generalCondenseExpr1221); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -2900,7 +2901,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "axisIteratorList"
-    // src/petascope/wcps/grammar/wcps.g:138:1: axisIteratorList returns [AxisIteratorList value] : vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:139:1: axisIteratorList returns [AxisIteratorList value] : vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* ;
     public final wcpsParser.axisIteratorList_return axisIteratorList() throws RecognitionException {
         wcpsParser.axisIteratorList_return retval = new wcpsParser.axisIteratorList_return();
         retval.start = input.LT(1);
@@ -2933,8 +2934,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 23) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:139:2: (vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* )
-            // src/petascope/wcps/grammar/wcps.g:139:4: vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:140:2: (vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:140:4: vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2969,7 +2970,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new AxisIteratorList(new AxisIterator((vn!=null?vn.value:null), (an!=null?an.value:null), (ie!=null?ie.value:null))); 
             }
-            // src/petascope/wcps/grammar/wcps.g:141:2: ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:142:2: ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
             loop19:
             do {
                 int alt19=2;
@@ -2982,7 +2983,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt19) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:141:3: COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:142:3: COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN
             	    {
             	    COMMA54=(Token)match(input,COMMA,FOLLOW_COMMA_in_axisIteratorList1274); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -3060,7 +3061,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "intervalExpr"
-    // src/petascope/wcps/grammar/wcps.g:144:1: intervalExpr returns [IntervalExpr value] : (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN );
+    // src/main/java/petascope/wcps/grammar/wcps.g:145:1: intervalExpr returns [IntervalExpr value] : (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN );
     public final wcpsParser.intervalExpr_return intervalExpr() throws RecognitionException {
         wcpsParser.intervalExpr_return retval = new wcpsParser.intervalExpr_return();
         retval.start = input.LT(1);
@@ -3089,7 +3090,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 24) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:145:5: (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:146:5: (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN )
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -3108,7 +3109,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt20) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:145:7: lo= indexExpr COLON hi= indexExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:146:7: lo= indexExpr COLON hi= indexExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3136,7 +3137,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:147:7: IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:148:7: IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3208,7 +3209,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageConstantExpr"
-    // src/petascope/wcps/grammar/wcps.g:150:1: coverageConstantExpr returns [CoverageConstantExpr value] : COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:151:1: coverageConstantExpr returns [CoverageConstantExpr value] : COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT ;
     public final wcpsParser.coverageConstantExpr_return coverageConstantExpr() throws RecognitionException {
         wcpsParser.coverageConstantExpr_return retval = new wcpsParser.coverageConstantExpr_return();
         retval.start = input.LT(1);
@@ -3237,8 +3238,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 25) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:151:5: ( COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT )
-            // src/petascope/wcps/grammar/wcps.g:151:7: COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT
+            // src/main/java/petascope/wcps/grammar/wcps.g:152:5: ( COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT )
+            // src/main/java/petascope/wcps/grammar/wcps.g:152:7: COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3324,7 +3325,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "constantList"
-    // src/petascope/wcps/grammar/wcps.g:154:1: constantList returns [ConstantList value] : c= constant ( SEMICOLON c= constant )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:155:1: constantList returns [ConstantList value] : c= constant ( SEMICOLON c= constant )* ;
     public final wcpsParser.constantList_return constantList() throws RecognitionException {
         wcpsParser.constantList_return retval = new wcpsParser.constantList_return();
         retval.start = input.LT(1);
@@ -3339,8 +3340,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 26) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:155:5: (c= constant ( SEMICOLON c= constant )* )
-            // src/petascope/wcps/grammar/wcps.g:155:7: c= constant ( SEMICOLON c= constant )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:156:5: (c= constant ( SEMICOLON c= constant )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:156:7: c= constant ( SEMICOLON c= constant )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3353,7 +3354,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new ConstantList((c!=null?c.value:null)); 
             }
-            // src/petascope/wcps/grammar/wcps.g:155:59: ( SEMICOLON c= constant )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:156:59: ( SEMICOLON c= constant )*
             loop21:
             do {
                 int alt21=2;
@@ -3366,7 +3367,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt21) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:155:60: SEMICOLON c= constant
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:156:60: SEMICOLON c= constant
             	    {
             	    SEMICOLON68=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_constantList1433); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -3422,7 +3423,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageConstructorExpr"
-    // src/petascope/wcps/grammar/wcps.g:157:1: coverageConstructorExpr returns [CoverageConstructorExpr value] : COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:158:1: coverageConstructorExpr returns [CoverageConstructorExpr value] : COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr ;
     public final wcpsParser.coverageConstructorExpr_return coverageConstructorExpr() throws RecognitionException {
         wcpsParser.coverageConstructorExpr_return retval = new wcpsParser.coverageConstructorExpr_return();
         retval.start = input.LT(1);
@@ -3445,8 +3446,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 27) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:158:2: ( COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr )
-            // src/petascope/wcps/grammar/wcps.g:158:4: COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr
+            // src/main/java/petascope/wcps/grammar/wcps.g:159:2: ( COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr )
+            // src/main/java/petascope/wcps/grammar/wcps.g:159:4: COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3517,7 +3518,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "setMetaDataExpr"
-    // src/petascope/wcps/grammar/wcps.g:161:1: setMetaDataExpr returns [SetMetaDataExpr value] : (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN );
+    // src/main/java/petascope/wcps/grammar/wcps.g:162:1: setMetaDataExpr returns [SetMetaDataExpr value] : (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN );
     public final wcpsParser.setMetaDataExpr_return setMetaDataExpr() throws RecognitionException {
         wcpsParser.setMetaDataExpr_return retval = new wcpsParser.setMetaDataExpr_return();
         retval.start = input.LT(1);
@@ -3578,7 +3579,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 28) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:162:5: (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:163:5: (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN )
             int alt22=5;
             switch ( input.LA(1) ) {
             case SETIDENTIFIER:
@@ -3616,7 +3617,7 @@ public class wcpsParser extends Parser {
 
             switch (alt22) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:162:7: op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:163:7: op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3659,7 +3660,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:164:7: op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:165:7: op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3702,7 +3703,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/petascope/wcps/grammar/wcps.g:166:7: op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:167:7: op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3745,7 +3746,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/petascope/wcps/grammar/wcps.g:168:7: op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:169:7: op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3799,7 +3800,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/petascope/wcps/grammar/wcps.g:170:7: op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:171:7: op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3882,7 +3883,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "crsList"
-    // src/petascope/wcps/grammar/wcps.g:173:1: crsList returns [CrsList value] : LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:174:1: crsList returns [CrsList value] : LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE ;
     public final wcpsParser.crsList_return crsList() throws RecognitionException {
         wcpsParser.crsList_return retval = new wcpsParser.crsList_return();
         retval.start = input.LT(1);
@@ -3901,8 +3902,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 29) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:174:5: ( LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE )
-            // src/petascope/wcps/grammar/wcps.g:174:7: LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE
+            // src/main/java/petascope/wcps/grammar/wcps.g:175:5: ( LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE )
+            // src/main/java/petascope/wcps/grammar/wcps.g:175:7: LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3914,7 +3915,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = new CrsList();
             }
-            // src/petascope/wcps/grammar/wcps.g:174:40: (crs= crsName ( COMMA crs= crsName )* )?
+            // src/main/java/petascope/wcps/grammar/wcps.g:175:40: (crs= crsName ( COMMA crs= crsName )* )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -3923,7 +3924,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt24) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:174:41: crs= crsName ( COMMA crs= crsName )*
+                    // src/main/java/petascope/wcps/grammar/wcps.g:175:41: crs= crsName ( COMMA crs= crsName )*
                     {
                     pushFollow(FOLLOW_crsName_in_crsList1680);
                     crs=crsName();
@@ -3934,7 +3935,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((crs!=null?crs.value:null)); 
                     }
-                    // src/petascope/wcps/grammar/wcps.g:174:81: ( COMMA crs= crsName )*
+                    // src/main/java/petascope/wcps/grammar/wcps.g:175:81: ( COMMA crs= crsName )*
                     loop23:
                     do {
                         int alt23=2;
@@ -3947,7 +3948,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt23) {
                     	case 1 :
-                    	    // src/petascope/wcps/grammar/wcps.g:174:82: COMMA crs= crsName
+                    	    // src/main/java/petascope/wcps/grammar/wcps.g:175:82: COMMA crs= crsName
                     	    {
                     	    COMMA90=(Token)match(input,COMMA,FOLLOW_COMMA_in_crsList1685); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4014,7 +4015,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeExprList"
-    // src/petascope/wcps/grammar/wcps.g:176:1: rangeExprList returns [RangeExprList value] : LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:177:1: rangeExprList returns [RangeExprList value] : LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE ;
     public final wcpsParser.rangeExprList_return rangeExprList() throws RecognitionException {
         wcpsParser.rangeExprList_return retval = new wcpsParser.rangeExprList_return();
         retval.start = input.LT(1);
@@ -4035,8 +4036,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 30) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:177:5: ( LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE )
-            // src/petascope/wcps/grammar/wcps.g:177:7: LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE
+            // src/main/java/petascope/wcps/grammar/wcps.g:178:5: ( LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE )
+            // src/main/java/petascope/wcps/grammar/wcps.g:178:7: LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4048,7 +4049,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new RangeExprList(); 
             }
-            // src/petascope/wcps/grammar/wcps.g:177:48: (re1= rangeExpr ( COMMA re2= rangeExpr )* )?
+            // src/main/java/petascope/wcps/grammar/wcps.g:178:48: (re1= rangeExpr ( COMMA re2= rangeExpr )* )?
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -4057,7 +4058,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt26) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:177:49: re1= rangeExpr ( COMMA re2= rangeExpr )*
+                    // src/main/java/petascope/wcps/grammar/wcps.g:178:49: re1= rangeExpr ( COMMA re2= rangeExpr )*
                     {
                     pushFollow(FOLLOW_rangeExpr_in_rangeExprList1724);
                     re1=rangeExpr();
@@ -4068,7 +4069,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((re1!=null?re1.value:null)); 
                     }
-                    // src/petascope/wcps/grammar/wcps.g:177:91: ( COMMA re2= rangeExpr )*
+                    // src/main/java/petascope/wcps/grammar/wcps.g:178:91: ( COMMA re2= rangeExpr )*
                     loop25:
                     do {
                         int alt25=2;
@@ -4081,7 +4082,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt25) {
                     	case 1 :
-                    	    // src/petascope/wcps/grammar/wcps.g:177:92: COMMA re2= rangeExpr
+                    	    // src/main/java/petascope/wcps/grammar/wcps.g:178:92: COMMA re2= rangeExpr
                     	    {
                     	    COMMA93=(Token)match(input,COMMA,FOLLOW_COMMA_in_rangeExprList1729); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4148,7 +4149,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "interpolationMethodList"
-    // src/petascope/wcps/grammar/wcps.g:179:1: interpolationMethodList returns [InterpolationMethodList value] : LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:180:1: interpolationMethodList returns [InterpolationMethodList value] : LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE ;
     public final wcpsParser.interpolationMethodList_return interpolationMethodList() throws RecognitionException {
         wcpsParser.interpolationMethodList_return retval = new wcpsParser.interpolationMethodList_return();
         retval.start = input.LT(1);
@@ -4167,8 +4168,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 31) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:180:2: ( LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE )
-            // src/petascope/wcps/grammar/wcps.g:180:4: LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE
+            // src/main/java/petascope/wcps/grammar/wcps.g:181:2: ( LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE )
+            // src/main/java/petascope/wcps/grammar/wcps.g:181:4: LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4180,7 +4181,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = new InterpolationMethodList();
             }
-            // src/petascope/wcps/grammar/wcps.g:180:53: (e= interpolationMethod ( COMMA e= interpolationMethod )* )?
+            // src/main/java/petascope/wcps/grammar/wcps.g:181:53: (e= interpolationMethod ( COMMA e= interpolationMethod )* )?
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -4189,7 +4190,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt28) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:180:54: e= interpolationMethod ( COMMA e= interpolationMethod )*
+                    // src/main/java/petascope/wcps/grammar/wcps.g:181:54: e= interpolationMethod ( COMMA e= interpolationMethod )*
                     {
                     pushFollow(FOLLOW_interpolationMethod_in_interpolationMethodList1765);
                     e=interpolationMethod();
@@ -4200,7 +4201,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((e!=null?e.value:null)); 
                     }
-                    // src/petascope/wcps/grammar/wcps.g:180:102: ( COMMA e= interpolationMethod )*
+                    // src/main/java/petascope/wcps/grammar/wcps.g:181:102: ( COMMA e= interpolationMethod )*
                     loop27:
                     do {
                         int alt27=2;
@@ -4213,7 +4214,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt27) {
                     	case 1 :
-                    	    // src/petascope/wcps/grammar/wcps.g:180:103: COMMA e= interpolationMethod
+                    	    // src/main/java/petascope/wcps/grammar/wcps.g:181:103: COMMA e= interpolationMethod
                     	    {
                     	    COMMA96=(Token)match(input,COMMA,FOLLOW_COMMA_in_interpolationMethodList1770); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4280,7 +4281,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeExpr"
-    // src/petascope/wcps/grammar/wcps.g:182:1: rangeExpr returns [RangeExpr value] : STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:183:1: rangeExpr returns [RangeExpr value] : STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE ;
     public final wcpsParser.rangeExpr_return rangeExpr() throws RecognitionException {
         wcpsParser.rangeExpr_return retval = new wcpsParser.rangeExpr_return();
         retval.start = input.LT(1);
@@ -4307,8 +4308,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 32) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:183:2: ( STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE )
-            // src/petascope/wcps/grammar/wcps.g:183:4: STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE
+            // src/main/java/petascope/wcps/grammar/wcps.g:184:2: ( STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE )
+            // src/main/java/petascope/wcps/grammar/wcps.g:184:4: STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4325,7 +4326,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value =new RangeExpr(); 
             }
-            // src/petascope/wcps/grammar/wcps.g:184:2: (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )?
+            // src/main/java/petascope/wcps/grammar/wcps.g:185:2: (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -4334,7 +4335,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt30) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:184:3: field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )*
+                    // src/main/java/petascope/wcps/grammar/wcps.g:185:3: field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )*
                     {
                     pushFollow(FOLLOW_fieldName_in_rangeExpr1805);
                     field=fieldName();
@@ -4356,7 +4357,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((field!=null?field.value:null), (expr!=null?expr.value:null)); 
                     }
-                    // src/petascope/wcps/grammar/wcps.g:185:3: ( COMMA field= fieldName COLON expr= scalarExpr )*
+                    // src/main/java/petascope/wcps/grammar/wcps.g:186:3: ( COMMA field= fieldName COLON expr= scalarExpr )*
                     loop29:
                     do {
                         int alt29=2;
@@ -4369,7 +4370,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt29) {
                     	case 1 :
-                    	    // src/petascope/wcps/grammar/wcps.g:185:4: COMMA field= fieldName COLON expr= scalarExpr
+                    	    // src/main/java/petascope/wcps/grammar/wcps.g:186:4: COMMA field= fieldName COLON expr= scalarExpr
                     	    {
                     	    COMMA101=(Token)match(input,COMMA,FOLLOW_COMMA_in_rangeExpr1818); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4447,7 +4448,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeConstructorExpr"
-    // src/petascope/wcps/grammar/wcps.g:188:1: rangeConstructorExpr returns [RangeConstructorExpr value] : ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:189:1: rangeConstructorExpr returns [RangeConstructorExpr value] : ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE ;
     public final wcpsParser.rangeConstructorExpr_return rangeConstructorExpr() throws RecognitionException {
         wcpsParser.rangeConstructorExpr_return retval = new wcpsParser.rangeConstructorExpr_return();
         retval.start = input.LT(1);
@@ -4474,12 +4475,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 33) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:189:5: ( ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE )
-            // src/petascope/wcps/grammar/wcps.g:189:7: ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE
+            // src/main/java/petascope/wcps/grammar/wcps.g:190:5: ( ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE )
+            // src/main/java/petascope/wcps/grammar/wcps.g:190:7: ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
-            // src/petascope/wcps/grammar/wcps.g:189:7: ( STRUCT )?
+            // src/main/java/petascope/wcps/grammar/wcps.g:190:7: ( STRUCT )?
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -4488,7 +4489,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt31) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:189:8: STRUCT
+                    // src/main/java/petascope/wcps/grammar/wcps.g:190:8: STRUCT
                     {
                     STRUCT104=(Token)match(input,STRUCT,FOLLOW_STRUCT_in_rangeConstructorExpr1856); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -4526,7 +4527,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new RangeConstructorExpr((field!=null?field.value:null), (expr!=null?expr.value:null)); 
             }
-            // src/petascope/wcps/grammar/wcps.g:190:9: ( SEMICOLON field= fieldName COLON expr= coverageExpr )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:191:9: ( SEMICOLON field= fieldName COLON expr= coverageExpr )*
             loop32:
             do {
                 int alt32=2;
@@ -4539,7 +4540,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt32) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:190:10: SEMICOLON field= fieldName COLON expr= coverageExpr
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:191:10: SEMICOLON field= fieldName COLON expr= coverageExpr
             	    {
             	    SEMICOLON107=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_rangeConstructorExpr1883); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -4611,7 +4612,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "crsTransformExpr"
-    // src/petascope/wcps/grammar/wcps.g:192:1: crsTransformExpr returns [CrsTransformExpr value] : CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:193:1: crsTransformExpr returns [CrsTransformExpr value] : CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN ;
     public final wcpsParser.crsTransformExpr_return crsTransformExpr() throws RecognitionException {
         wcpsParser.crsTransformExpr_return retval = new wcpsParser.crsTransformExpr_return();
         retval.start = input.LT(1);
@@ -4625,7 +4626,7 @@ public class wcpsParser extends Parser {
         Token RPAREN114=null;
         wcpsParser.coverageExpr_return e1 = null;
 
-        wcpsParser.dimensionIntervalList_return dcl = null;
+        wcpsParser.dimensionCrsList_return dcl = null;
 
         wcpsParser.fieldInterpolationList_return fil = null;
 
@@ -4638,50 +4639,50 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 34) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:193:2: ( CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN )
-            // src/petascope/wcps/grammar/wcps.g:193:4: CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionIntervalList COMMA fil= fieldInterpolationList RPAREN
+            // src/main/java/petascope/wcps/grammar/wcps.g:194:9: ( CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:194:11: CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
-            CRSTRANSFORM110=(Token)match(input,CRSTRANSFORM,FOLLOW_CRSTRANSFORM_in_crsTransformExpr1915); if (state.failed) return retval;
+            CRSTRANSFORM110=(Token)match(input,CRSTRANSFORM,FOLLOW_CRSTRANSFORM_in_crsTransformExpr1922); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             CRSTRANSFORM110_tree = (Object)adaptor.create(CRSTRANSFORM110);
             adaptor.addChild(root_0, CRSTRANSFORM110_tree);
             }
-            LPAREN111=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_crsTransformExpr1917); if (state.failed) return retval;
+            LPAREN111=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_crsTransformExpr1924); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LPAREN111_tree = (Object)adaptor.create(LPAREN111);
             adaptor.addChild(root_0, LPAREN111_tree);
             }
-            pushFollow(FOLLOW_coverageExpr_in_crsTransformExpr1921);
+            pushFollow(FOLLOW_coverageExpr_in_crsTransformExpr1928);
             e1=coverageExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            COMMA112=(Token)match(input,COMMA,FOLLOW_COMMA_in_crsTransformExpr1923); if (state.failed) return retval;
+            COMMA112=(Token)match(input,COMMA,FOLLOW_COMMA_in_crsTransformExpr1930); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             COMMA112_tree = (Object)adaptor.create(COMMA112);
             adaptor.addChild(root_0, COMMA112_tree);
             }
-            pushFollow(FOLLOW_dimensionIntervalList_in_crsTransformExpr1927);
-            dcl=dimensionIntervalList();
+            pushFollow(FOLLOW_dimensionCrsList_in_crsTransformExpr1934);
+            dcl=dimensionCrsList();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, dcl.getTree());
-            COMMA113=(Token)match(input,COMMA,FOLLOW_COMMA_in_crsTransformExpr1929); if (state.failed) return retval;
+            COMMA113=(Token)match(input,COMMA,FOLLOW_COMMA_in_crsTransformExpr1936); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             COMMA113_tree = (Object)adaptor.create(COMMA113);
             adaptor.addChild(root_0, COMMA113_tree);
             }
-            pushFollow(FOLLOW_fieldInterpolationList_in_crsTransformExpr1933);
+            pushFollow(FOLLOW_fieldInterpolationList_in_crsTransformExpr1940);
             fil=fieldInterpolationList();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, fil.getTree());
-            RPAREN114=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_crsTransformExpr1935); if (state.failed) return retval;
+            RPAREN114=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_crsTransformExpr1942); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RPAREN114_tree = (Object)adaptor.create(RPAREN114);
             adaptor.addChild(root_0, RPAREN114_tree);
@@ -4713,24 +4714,24 @@ public class wcpsParser extends Parser {
     }
     // $ANTLR end "crsTransformExpr"
 
-    public static class fieldInterpolationList_return extends ParserRuleReturnScope {
-        public FieldInterpolationList value;
+    public static class dimensionCrsList_return extends ParserRuleReturnScope {
+        public DimensionCrsList value;
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start "fieldInterpolationList"
-    // src/petascope/wcps/grammar/wcps.g:196:1: fieldInterpolationList returns [FieldInterpolationList value] : LBRACE elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )* RBRACE ;
-    public final wcpsParser.fieldInterpolationList_return fieldInterpolationList() throws RecognitionException {
-        wcpsParser.fieldInterpolationList_return retval = new wcpsParser.fieldInterpolationList_return();
+    // $ANTLR start "dimensionCrsList"
+    // src/main/java/petascope/wcps/grammar/wcps.g:197:1: dimensionCrsList returns [DimensionCrsList value] : LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE ;
+    public final wcpsParser.dimensionCrsList_return dimensionCrsList() throws RecognitionException {
+        wcpsParser.dimensionCrsList_return retval = new wcpsParser.dimensionCrsList_return();
         retval.start = input.LT(1);
-        int fieldInterpolationList_StartIndex = input.index();
+        int dimensionCrsList_StartIndex = input.index();
         Object root_0 = null;
 
         Token LBRACE115=null;
         Token COMMA116=null;
         Token RBRACE117=null;
-        wcpsParser.fieldInterpolationElement_return elem = null;
+        wcpsParser.dimensionCrsElement_return elem = null;
 
 
         Object LBRACE115_tree=null;
@@ -4739,26 +4740,26 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 35) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:197:2: ( LBRACE elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )* RBRACE )
-            // src/petascope/wcps/grammar/wcps.g:197:4: LBRACE elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )* RBRACE
+            // src/main/java/petascope/wcps/grammar/wcps.g:198:5: ( LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE )
+            // src/main/java/petascope/wcps/grammar/wcps.g:198:7: LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
-            LBRACE115=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_fieldInterpolationList1952); if (state.failed) return retval;
+            LBRACE115=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_dimensionCrsList1983); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LBRACE115_tree = (Object)adaptor.create(LBRACE115);
             adaptor.addChild(root_0, LBRACE115_tree);
             }
-            pushFollow(FOLLOW_fieldInterpolationElement_in_fieldInterpolationList1956);
-            elem=fieldInterpolationElement();
+            pushFollow(FOLLOW_dimensionCrsElement_in_dimensionCrsList1987);
+            elem=dimensionCrsElement();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, elem.getTree());
             if ( state.backtracking==0 ) {
-               retval.value = new FieldInterpolationList((elem!=null?elem.value:null)); 
+               retval.value = new DimensionCrsList((elem!=null?elem.value:null)); 
             }
-            // src/petascope/wcps/grammar/wcps.g:198:3: ( COMMA elem= fieldInterpolationElement )*
+            // src/main/java/petascope/wcps/grammar/wcps.g:199:9: ( COMMA elem= dimensionCrsElement )*
             loop33:
             do {
                 int alt33=2;
@@ -4771,15 +4772,15 @@ public class wcpsParser extends Parser {
 
                 switch (alt33) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:198:4: COMMA elem= fieldInterpolationElement
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:199:10: COMMA elem= dimensionCrsElement
             	    {
-            	    COMMA116=(Token)match(input,COMMA,FOLLOW_COMMA_in_fieldInterpolationList1963); if (state.failed) return retval;
+            	    COMMA116=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionCrsList2000); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    COMMA116_tree = (Object)adaptor.create(COMMA116);
             	    adaptor.addChild(root_0, COMMA116_tree);
             	    }
-            	    pushFollow(FOLLOW_fieldInterpolationElement_in_fieldInterpolationList1967);
-            	    elem=fieldInterpolationElement();
+            	    pushFollow(FOLLOW_dimensionCrsElement_in_dimensionCrsList2004);
+            	    elem=dimensionCrsElement();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
@@ -4796,7 +4797,7 @@ public class wcpsParser extends Parser {
                 }
             } while (true);
 
-            RBRACE117=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_fieldInterpolationList1974); if (state.failed) return retval;
+            RBRACE117=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_dimensionCrsList2011); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RBRACE117_tree = (Object)adaptor.create(RBRACE117);
             adaptor.addChild(root_0, RBRACE117_tree);
@@ -4819,7 +4820,201 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 35, fieldInterpolationList_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 35, dimensionCrsList_StartIndex); }
+        }
+        return retval;
+    }
+    // $ANTLR end "dimensionCrsList"
+
+    public static class dimensionCrsElement_return extends ParserRuleReturnScope {
+        public DimensionCrsElement value;
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "dimensionCrsElement"
+    // src/main/java/petascope/wcps/grammar/wcps.g:201:1: dimensionCrsElement returns [DimensionCrsElement value] : aname= axisName COLON crs= crsName ;
+    public final wcpsParser.dimensionCrsElement_return dimensionCrsElement() throws RecognitionException {
+        wcpsParser.dimensionCrsElement_return retval = new wcpsParser.dimensionCrsElement_return();
+        retval.start = input.LT(1);
+        int dimensionCrsElement_StartIndex = input.index();
+        Object root_0 = null;
+
+        Token COLON118=null;
+        wcpsParser.axisName_return aname = null;
+
+        wcpsParser.crsName_return crs = null;
+
+
+        Object COLON118_tree=null;
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 36) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:202:5: (aname= axisName COLON crs= crsName )
+            // src/main/java/petascope/wcps/grammar/wcps.g:202:7: aname= axisName COLON crs= crsName
+            {
+            root_0 = (Object)adaptor.nil();
+
+            pushFollow(FOLLOW_axisName_in_dimensionCrsElement2032);
+            aname=axisName();
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, aname.getTree());
+            if ( state.backtracking==0 ) {
+               retval.value = new DimensionCrsElement((aname!=null?aname.value:null)); 
+            }
+            COLON118=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionCrsElement2036); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
+            COLON118_tree = (Object)adaptor.create(COLON118);
+            adaptor.addChild(root_0, COLON118_tree);
+            }
+            pushFollow(FOLLOW_crsName_in_dimensionCrsElement2040);
+            crs=crsName();
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, crs.getTree());
+            if ( state.backtracking==0 ) {
+              retval.value.setCrs((crs!=null?crs.value:null)); 
+            }
+
+            }
+
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+            if ( state.backtracking>0 ) { memoize(input, 36, dimensionCrsElement_StartIndex); }
+        }
+        return retval;
+    }
+    // $ANTLR end "dimensionCrsElement"
+
+    public static class fieldInterpolationList_return extends ParserRuleReturnScope {
+        public FieldInterpolationList value;
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "fieldInterpolationList"
+    // src/main/java/petascope/wcps/grammar/wcps.g:204:1: fieldInterpolationList returns [FieldInterpolationList value] : LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE ;
+    public final wcpsParser.fieldInterpolationList_return fieldInterpolationList() throws RecognitionException {
+        wcpsParser.fieldInterpolationList_return retval = new wcpsParser.fieldInterpolationList_return();
+        retval.start = input.LT(1);
+        int fieldInterpolationList_StartIndex = input.index();
+        Object root_0 = null;
+
+        Token LBRACE119=null;
+        Token COMMA120=null;
+        Token RBRACE121=null;
+        wcpsParser.fieldInterpolationElement_return elem = null;
+
+
+        Object LBRACE119_tree=null;
+        Object COMMA120_tree=null;
+        Object RBRACE121_tree=null;
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 37) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:205:2: ( LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE )
+            // src/main/java/petascope/wcps/grammar/wcps.g:205:4: LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE
+            {
+            root_0 = (Object)adaptor.nil();
+
+            LBRACE119=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_fieldInterpolationList2058); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
+            LBRACE119_tree = (Object)adaptor.create(LBRACE119);
+            adaptor.addChild(root_0, LBRACE119_tree);
+            }
+            // src/main/java/petascope/wcps/grammar/wcps.g:205:11: (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )*
+            loop34:
+            do {
+                int alt34=2;
+                int LA34_0 = input.LA(1);
+
+                if ( (LA34_0==INTEGERCONSTANT||LA34_0==STRING||LA34_0==NAME) ) {
+                    alt34=1;
+                }
+
+
+                switch (alt34) {
+            	case 1 :
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:205:12: elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )
+            	    {
+            	    pushFollow(FOLLOW_fieldInterpolationElement_in_fieldInterpolationList2063);
+            	    elem=fieldInterpolationElement();
+
+            	    state._fsp--;
+            	    if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, elem.getTree());
+            	    if ( state.backtracking==0 ) {
+            	       retval.value = new FieldInterpolationList((elem!=null?elem.value:null)); 
+            	    }
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:206:3: ( COMMA elem= fieldInterpolationElement )
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:206:4: COMMA elem= fieldInterpolationElement
+            	    {
+            	    COMMA120=(Token)match(input,COMMA,FOLLOW_COMMA_in_fieldInterpolationList2070); if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) {
+            	    COMMA120_tree = (Object)adaptor.create(COMMA120);
+            	    adaptor.addChild(root_0, COMMA120_tree);
+            	    }
+            	    pushFollow(FOLLOW_fieldInterpolationElement_in_fieldInterpolationList2074);
+            	    elem=fieldInterpolationElement();
+
+            	    state._fsp--;
+            	    if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, elem.getTree());
+            	    if ( state.backtracking==0 ) {
+            	       retval.value.add((elem!=null?elem.value:null)); 
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop34;
+                }
+            } while (true);
+
+            RBRACE121=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_fieldInterpolationList2082); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
+            RBRACE121_tree = (Object)adaptor.create(RBRACE121);
+            adaptor.addChild(root_0, RBRACE121_tree);
+            }
+
+            }
+
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+            if ( state.backtracking>0 ) { memoize(input, 37, fieldInterpolationList_StartIndex); }
         }
         return retval;
     }
@@ -4832,7 +5027,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldInterpolationElement"
-    // src/petascope/wcps/grammar/wcps.g:200:1: fieldInterpolationElement returns [FieldInterpolationElement value] : aname= fieldName method= interpolationMethod ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:208:1: fieldInterpolationElement returns [FieldInterpolationElement value] : aname= fieldName method= interpolationMethod ;
     public final wcpsParser.fieldInterpolationElement_return fieldInterpolationElement() throws RecognitionException {
         wcpsParser.fieldInterpolationElement_return retval = new wcpsParser.fieldInterpolationElement_return();
         retval.start = input.LT(1);
@@ -4846,19 +5041,19 @@ public class wcpsParser extends Parser {
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 36) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:201:2: (aname= fieldName method= interpolationMethod )
-            // src/petascope/wcps/grammar/wcps.g:201:4: aname= fieldName method= interpolationMethod
+            if ( state.backtracking>0 && alreadyParsedRule(input, 38) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:209:2: (aname= fieldName method= interpolationMethod )
+            // src/main/java/petascope/wcps/grammar/wcps.g:209:4: aname= fieldName method= interpolationMethod
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_fieldName_in_fieldInterpolationElement1989);
+            pushFollow(FOLLOW_fieldName_in_fieldInterpolationElement2097);
             aname=fieldName();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, aname.getTree());
-            pushFollow(FOLLOW_interpolationMethod_in_fieldInterpolationElement1993);
+            pushFollow(FOLLOW_interpolationMethod_in_fieldInterpolationElement2101);
             method=interpolationMethod();
 
             state._fsp--;
@@ -4885,7 +5080,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 36, fieldInterpolationElement_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 38, fieldInterpolationElement_StartIndex); }
         }
         return retval;
     }
@@ -4898,7 +5093,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "unaryInducedExpr"
-    // src/petascope/wcps/grammar/wcps.g:203:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );
+    // src/main/java/petascope/wcps/grammar/wcps.g:211:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );
     public final wcpsParser.unaryInducedExpr_return unaryInducedExpr() throws RecognitionException {
         wcpsParser.unaryInducedExpr_return retval = new wcpsParser.unaryInducedExpr_return();
         retval.start = input.LT(1);
@@ -4922,17 +5117,17 @@ public class wcpsParser extends Parser {
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 37) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:204:5: (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr )
-            int alt34=7;
-            alt34 = dfa34.predict(input);
-            switch (alt34) {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 39) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:212:5: (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr )
+            int alt35=7;
+            alt35 = dfa35.predict(input);
+            switch (alt35) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:204:7: e6= fieldExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:212:7: e6= fieldExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_fieldExpr_in_unaryInducedExpr2013);
+                    pushFollow(FOLLOW_fieldExpr_in_unaryInducedExpr2121);
                     e6=fieldExpr();
 
                     state._fsp--;
@@ -4945,11 +5140,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:205:4: e1= unaryArithmeticExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:213:4: e1= unaryArithmeticExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_unaryArithmeticExpr_in_unaryInducedExpr2022);
+                    pushFollow(FOLLOW_unaryArithmeticExpr_in_unaryInducedExpr2130);
                     e1=unaryArithmeticExpr();
 
                     state._fsp--;
@@ -4962,11 +5157,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/petascope/wcps/grammar/wcps.g:206:7: e2= exponentialExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:214:7: e2= exponentialExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_exponentialExpr_in_unaryInducedExpr2034);
+                    pushFollow(FOLLOW_exponentialExpr_in_unaryInducedExpr2142);
                     e2=exponentialExpr();
 
                     state._fsp--;
@@ -4979,11 +5174,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/petascope/wcps/grammar/wcps.g:207:7: e3= trigonometricExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:215:7: e3= trigonometricExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_trigonometricExpr_in_unaryInducedExpr2046);
+                    pushFollow(FOLLOW_trigonometricExpr_in_unaryInducedExpr2154);
                     e3=trigonometricExpr();
 
                     state._fsp--;
@@ -4996,11 +5191,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/petascope/wcps/grammar/wcps.g:208:7: e4= booleanExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:216:7: e4= booleanExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_booleanExpr_in_unaryInducedExpr2058);
+                    pushFollow(FOLLOW_booleanExpr_in_unaryInducedExpr2166);
                     e4=booleanExpr();
 
                     state._fsp--;
@@ -5013,11 +5208,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/petascope/wcps/grammar/wcps.g:209:7: e5= castExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:217:7: e5= castExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_castExpr_in_unaryInducedExpr2070);
+                    pushFollow(FOLLOW_castExpr_in_unaryInducedExpr2178);
                     e5=castExpr();
 
                     state._fsp--;
@@ -5030,11 +5225,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // src/petascope/wcps/grammar/wcps.g:210:7: e7= rangeConstructorExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:218:7: e7= rangeConstructorExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_rangeConstructorExpr_in_unaryInducedExpr2082);
+                    pushFollow(FOLLOW_rangeConstructorExpr_in_unaryInducedExpr2190);
                     e7=rangeConstructorExpr();
 
                     state._fsp--;
@@ -5063,7 +5258,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 37, unaryInducedExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 39, unaryInducedExpr_StartIndex); }
         }
         return retval;
     }
@@ -5076,7 +5271,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "unaryArithmeticExpr"
-    // src/petascope/wcps/grammar/wcps.g:212:1: unaryArithmeticExpr returns [CoverageExpr value] : (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN );
+    // src/main/java/petascope/wcps/grammar/wcps.g:220:1: unaryArithmeticExpr returns [CoverageExpr value] : (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN );
     public final wcpsParser.unaryArithmeticExpr_return unaryArithmeticExpr() throws RecognitionException {
         wcpsParser.unaryArithmeticExpr_return retval = new wcpsParser.unaryArithmeticExpr_return();
         retval.start = input.LT(1);
@@ -5084,39 +5279,39 @@ public class wcpsParser extends Parser {
         Object root_0 = null;
 
         Token op=null;
-        Token LPAREN118=null;
-        Token RPAREN119=null;
+        Token LPAREN122=null;
+        Token RPAREN123=null;
         wcpsParser.coverageAtom_return e1 = null;
 
         wcpsParser.coverageExpr_return e2 = null;
 
 
         Object op_tree=null;
-        Object LPAREN118_tree=null;
-        Object RPAREN119_tree=null;
+        Object LPAREN122_tree=null;
+        Object RPAREN123_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 38) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:213:5: (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN )
-            int alt35=2;
-            int LA35_0 = input.LA(1);
+            if ( state.backtracking>0 && alreadyParsedRule(input, 40) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:221:5: (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN )
+            int alt36=2;
+            int LA36_0 = input.LA(1);
 
-            if ( ((LA35_0>=PLUS && LA35_0<=MINUS)) ) {
-                alt35=1;
+            if ( ((LA36_0>=PLUS && LA36_0<=MINUS)) ) {
+                alt36=1;
             }
-            else if ( ((LA35_0>=SQRT && LA35_0<=IM)) ) {
-                alt35=2;
+            else if ( ((LA36_0>=SQRT && LA36_0<=IM)) ) {
+                alt36=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 35, 0, input);
+                    new NoViableAltException("", 36, 0, input);
 
                 throw nvae;
             }
-            switch (alt35) {
+            switch (alt36) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:213:7: op= ( MINUS | PLUS ) e1= coverageAtom
+                    // src/main/java/petascope/wcps/grammar/wcps.g:221:7: op= ( MINUS | PLUS ) e1= coverageAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5132,7 +5327,7 @@ public class wcpsParser extends Parser {
                         throw mse;
                     }
 
-                    pushFollow(FOLLOW_coverageAtom_in_unaryArithmeticExpr2113);
+                    pushFollow(FOLLOW_coverageAtom_in_unaryArithmeticExpr2221);
                     e1=coverageAtom();
 
                     state._fsp--;
@@ -5145,7 +5340,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:214:7: op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:222:7: op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5161,21 +5356,21 @@ public class wcpsParser extends Parser {
                         throw mse;
                     }
 
-                    LPAREN118=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_unaryArithmeticExpr2135); if (state.failed) return retval;
+                    LPAREN122=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_unaryArithmeticExpr2243); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN118_tree = (Object)adaptor.create(LPAREN118);
-                    adaptor.addChild(root_0, LPAREN118_tree);
+                    LPAREN122_tree = (Object)adaptor.create(LPAREN122);
+                    adaptor.addChild(root_0, LPAREN122_tree);
                     }
-                    pushFollow(FOLLOW_coverageExpr_in_unaryArithmeticExpr2139);
+                    pushFollow(FOLLOW_coverageExpr_in_unaryArithmeticExpr2247);
                     e2=coverageExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-                    RPAREN119=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_unaryArithmeticExpr2141); if (state.failed) return retval;
+                    RPAREN123=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_unaryArithmeticExpr2249); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN119_tree = (Object)adaptor.create(RPAREN119);
-                    adaptor.addChild(root_0, RPAREN119_tree);
+                    RPAREN123_tree = (Object)adaptor.create(RPAREN123);
+                    adaptor.addChild(root_0, RPAREN123_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new CoverageExpr((op!=null?op.getText():null), (e2!=null?e2.value:null)); 
@@ -5200,7 +5395,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 38, unaryArithmeticExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 40, unaryArithmeticExpr_StartIndex); }
         }
         return retval;
     }
@@ -5213,7 +5408,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "exponentialExpr"
-    // src/petascope/wcps/grammar/wcps.g:216:1: exponentialExpr returns [ExponentialExpr value] : op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:224:1: exponentialExpr returns [ExponentialExpr value] : op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN ;
     public final wcpsParser.exponentialExpr_return exponentialExpr() throws RecognitionException {
         wcpsParser.exponentialExpr_return retval = new wcpsParser.exponentialExpr_return();
         retval.start = input.LT(1);
@@ -5221,19 +5416,19 @@ public class wcpsParser extends Parser {
         Object root_0 = null;
 
         Token op=null;
-        Token LPAREN120=null;
-        Token RPAREN121=null;
+        Token LPAREN124=null;
+        Token RPAREN125=null;
         wcpsParser.coverageExpr_return e1 = null;
 
 
         Object op_tree=null;
-        Object LPAREN120_tree=null;
-        Object RPAREN121_tree=null;
+        Object LPAREN124_tree=null;
+        Object RPAREN125_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 39) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:217:5: (op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN )
-            // src/petascope/wcps/grammar/wcps.g:217:7: op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN
+            if ( state.backtracking>0 && alreadyParsedRule(input, 41) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:225:5: (op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:225:7: op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5249,21 +5444,21 @@ public class wcpsParser extends Parser {
                 throw mse;
             }
 
-            LPAREN120=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_exponentialExpr2172); if (state.failed) return retval;
+            LPAREN124=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_exponentialExpr2280); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN120_tree = (Object)adaptor.create(LPAREN120);
-            adaptor.addChild(root_0, LPAREN120_tree);
+            LPAREN124_tree = (Object)adaptor.create(LPAREN124);
+            adaptor.addChild(root_0, LPAREN124_tree);
             }
-            pushFollow(FOLLOW_coverageExpr_in_exponentialExpr2176);
+            pushFollow(FOLLOW_coverageExpr_in_exponentialExpr2284);
             e1=coverageExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            RPAREN121=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_exponentialExpr2178); if (state.failed) return retval;
+            RPAREN125=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_exponentialExpr2286); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN121_tree = (Object)adaptor.create(RPAREN121);
-            adaptor.addChild(root_0, RPAREN121_tree);
+            RPAREN125_tree = (Object)adaptor.create(RPAREN125);
+            adaptor.addChild(root_0, RPAREN125_tree);
             }
             if ( state.backtracking==0 ) {
                retval.value = new ExponentialExpr((op!=null?op.getText():null), (e1!=null?e1.value:null)); 
@@ -5286,7 +5481,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 39, exponentialExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 41, exponentialExpr_StartIndex); }
         }
         return retval;
     }
@@ -5299,7 +5494,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "trigonometricExpr"
-    // src/petascope/wcps/grammar/wcps.g:219:1: trigonometricExpr returns [TrigonometricExpr value] : op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:227:1: trigonometricExpr returns [TrigonometricExpr value] : op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN ;
     public final wcpsParser.trigonometricExpr_return trigonometricExpr() throws RecognitionException {
         wcpsParser.trigonometricExpr_return retval = new wcpsParser.trigonometricExpr_return();
         retval.start = input.LT(1);
@@ -5307,19 +5502,19 @@ public class wcpsParser extends Parser {
         Object root_0 = null;
 
         Token op=null;
-        Token LPAREN122=null;
-        Token RPAREN123=null;
+        Token LPAREN126=null;
+        Token RPAREN127=null;
         wcpsParser.coverageExpr_return e1 = null;
 
 
         Object op_tree=null;
-        Object LPAREN122_tree=null;
-        Object RPAREN123_tree=null;
+        Object LPAREN126_tree=null;
+        Object RPAREN127_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 40) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:220:5: (op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN )
-            // src/petascope/wcps/grammar/wcps.g:220:7: op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN
+            if ( state.backtracking>0 && alreadyParsedRule(input, 42) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:228:5: (op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:228:7: op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5335,21 +5530,21 @@ public class wcpsParser extends Parser {
                 throw mse;
             }
 
-            LPAREN122=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_trigonometricExpr2221); if (state.failed) return retval;
+            LPAREN126=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_trigonometricExpr2329); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN122_tree = (Object)adaptor.create(LPAREN122);
-            adaptor.addChild(root_0, LPAREN122_tree);
+            LPAREN126_tree = (Object)adaptor.create(LPAREN126);
+            adaptor.addChild(root_0, LPAREN126_tree);
             }
-            pushFollow(FOLLOW_coverageExpr_in_trigonometricExpr2225);
+            pushFollow(FOLLOW_coverageExpr_in_trigonometricExpr2333);
             e1=coverageExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            RPAREN123=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_trigonometricExpr2227); if (state.failed) return retval;
+            RPAREN127=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_trigonometricExpr2335); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN123_tree = (Object)adaptor.create(RPAREN123);
-            adaptor.addChild(root_0, RPAREN123_tree);
+            RPAREN127_tree = (Object)adaptor.create(RPAREN127);
+            adaptor.addChild(root_0, RPAREN127_tree);
             }
             if ( state.backtracking==0 ) {
                retval.value = new TrigonometricExpr((op!=null?op.getText():null), (e1!=null?e1.value:null)); 
@@ -5372,7 +5567,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 40, trigonometricExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 42, trigonometricExpr_StartIndex); }
         }
         return retval;
     }
@@ -5385,7 +5580,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanExpr"
-    // src/petascope/wcps/grammar/wcps.g:222:1: booleanExpr returns [BooleanExpr value] : (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN );
+    // src/main/java/petascope/wcps/grammar/wcps.g:230:1: booleanExpr returns [BooleanExpr value] : (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN );
     public final wcpsParser.booleanExpr_return booleanExpr() throws RecognitionException {
         wcpsParser.booleanExpr_return retval = new wcpsParser.booleanExpr_return();
         retval.start = input.LT(1);
@@ -5393,50 +5588,50 @@ public class wcpsParser extends Parser {
         Object root_0 = null;
 
         Token op=null;
-        Token LPAREN124=null;
-        Token COMMA125=null;
-        Token RPAREN126=null;
+        Token LPAREN128=null;
+        Token COMMA129=null;
+        Token RPAREN130=null;
         wcpsParser.coverageExpr_return e1 = null;
 
         wcpsParser.indexExpr_return e2 = null;
 
 
         Object op_tree=null;
-        Object LPAREN124_tree=null;
-        Object COMMA125_tree=null;
-        Object RPAREN126_tree=null;
+        Object LPAREN128_tree=null;
+        Object COMMA129_tree=null;
+        Object RPAREN130_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 41) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:223:5: (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN )
-            int alt36=2;
-            int LA36_0 = input.LA(1);
+            if ( state.backtracking>0 && alreadyParsedRule(input, 43) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:231:5: (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN )
+            int alt37=2;
+            int LA37_0 = input.LA(1);
 
-            if ( (LA36_0==NOT) ) {
-                alt36=1;
+            if ( (LA37_0==NOT) ) {
+                alt37=1;
             }
-            else if ( (LA36_0==BIT) ) {
-                alt36=2;
+            else if ( (LA37_0==BIT) ) {
+                alt37=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 36, 0, input);
+                    new NoViableAltException("", 37, 0, input);
 
                 throw nvae;
             }
-            switch (alt36) {
+            switch (alt37) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:223:7: op= NOT e1= coverageExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:231:7: op= NOT e1= coverageExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,NOT,FOLLOW_NOT_in_booleanExpr2250); if (state.failed) return retval;
+                    op=(Token)match(input,NOT,FOLLOW_NOT_in_booleanExpr2358); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    pushFollow(FOLLOW_coverageExpr_in_booleanExpr2254);
+                    pushFollow(FOLLOW_coverageExpr_in_booleanExpr2362);
                     e1=coverageExpr();
 
                     state._fsp--;
@@ -5449,41 +5644,41 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:224:7: op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:232:7: op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,BIT,FOLLOW_BIT_in_booleanExpr2266); if (state.failed) return retval;
+                    op=(Token)match(input,BIT,FOLLOW_BIT_in_booleanExpr2374); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    LPAREN124=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_booleanExpr2268); if (state.failed) return retval;
+                    LPAREN128=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_booleanExpr2376); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN124_tree = (Object)adaptor.create(LPAREN124);
-                    adaptor.addChild(root_0, LPAREN124_tree);
+                    LPAREN128_tree = (Object)adaptor.create(LPAREN128);
+                    adaptor.addChild(root_0, LPAREN128_tree);
                     }
-                    pushFollow(FOLLOW_coverageExpr_in_booleanExpr2272);
+                    pushFollow(FOLLOW_coverageExpr_in_booleanExpr2380);
                     e1=coverageExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    COMMA125=(Token)match(input,COMMA,FOLLOW_COMMA_in_booleanExpr2274); if (state.failed) return retval;
+                    COMMA129=(Token)match(input,COMMA,FOLLOW_COMMA_in_booleanExpr2382); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COMMA125_tree = (Object)adaptor.create(COMMA125);
-                    adaptor.addChild(root_0, COMMA125_tree);
+                    COMMA129_tree = (Object)adaptor.create(COMMA129);
+                    adaptor.addChild(root_0, COMMA129_tree);
                     }
-                    pushFollow(FOLLOW_indexExpr_in_booleanExpr2278);
+                    pushFollow(FOLLOW_indexExpr_in_booleanExpr2386);
                     e2=indexExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-                    RPAREN126=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_booleanExpr2280); if (state.failed) return retval;
+                    RPAREN130=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_booleanExpr2388); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN126_tree = (Object)adaptor.create(RPAREN126);
-                    adaptor.addChild(root_0, RPAREN126_tree);
+                    RPAREN130_tree = (Object)adaptor.create(RPAREN130);
+                    adaptor.addChild(root_0, RPAREN130_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new BooleanExpr((op!=null?op.getText():null), (e1!=null?e1.value:null), (e2!=null?e2.value:null)); 
@@ -5508,7 +5703,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 41, booleanExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 43, booleanExpr_StartIndex); }
         }
         return retval;
     }
@@ -5521,7 +5716,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "indexExpr"
-    // src/petascope/wcps/grammar/wcps.g:226:1: indexExpr returns [IndexExpr value] : e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:234:1: indexExpr returns [IndexExpr value] : e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* ;
     public final wcpsParser.indexExpr_return indexExpr() throws RecognitionException {
         wcpsParser.indexExpr_return retval = new wcpsParser.indexExpr_return();
         retval.start = input.LT(1);
@@ -5537,13 +5732,13 @@ public class wcpsParser extends Parser {
         Object op_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 42) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:227:5: (e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* )
-            // src/petascope/wcps/grammar/wcps.g:227:7: e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )*
+            if ( state.backtracking>0 && alreadyParsedRule(input, 44) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:235:5: (e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:235:7: e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_indexTerm_in_indexExpr2303);
+            pushFollow(FOLLOW_indexTerm_in_indexExpr2411);
             e1=indexTerm();
 
             state._fsp--;
@@ -5552,20 +5747,20 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/petascope/wcps/grammar/wcps.g:228:3: (op= ( PLUS | MINUS ) e2= indexTerm )*
-            loop37:
+            // src/main/java/petascope/wcps/grammar/wcps.g:236:3: (op= ( PLUS | MINUS ) e2= indexTerm )*
+            loop38:
             do {
-                int alt37=2;
-                int LA37_0 = input.LA(1);
+                int alt38=2;
+                int LA38_0 = input.LA(1);
 
-                if ( ((LA37_0>=PLUS && LA37_0<=MINUS)) ) {
-                    alt37=1;
+                if ( ((LA38_0>=PLUS && LA38_0<=MINUS)) ) {
+                    alt38=1;
                 }
 
 
-                switch (alt37) {
+                switch (alt38) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:228:4: op= ( PLUS | MINUS ) e2= indexTerm
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:236:4: op= ( PLUS | MINUS ) e2= indexTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -5579,7 +5774,7 @@ public class wcpsParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_indexTerm_in_indexExpr2321);
+            	    pushFollow(FOLLOW_indexTerm_in_indexExpr2429);
             	    e2=indexTerm();
 
             	    state._fsp--;
@@ -5588,119 +5783,6 @@ public class wcpsParser extends Parser {
             	    if ( state.backtracking==0 ) {
             	       retval.value = new IndexExpr((op!=null?op.getText():null), retval.value, (e2!=null?e2.value:null)); 
             	    }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop37;
-                }
-            } while (true);
-
-
-            }
-
-            retval.stop = input.LT(-1);
-
-            if ( state.backtracking==0 ) {
-
-            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
-
-        }
-        finally {
-            if ( state.backtracking>0 ) { memoize(input, 42, indexExpr_StartIndex); }
-        }
-        return retval;
-    }
-    // $ANTLR end "indexExpr"
-
-    public static class indexTerm_return extends ParserRuleReturnScope {
-        public IndexExpr value;
-        Object tree;
-        public Object getTree() { return tree; }
-    };
-
-    // $ANTLR start "indexTerm"
-    // src/petascope/wcps/grammar/wcps.g:230:1: indexTerm returns [IndexExpr value] : e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* ;
-    public final wcpsParser.indexTerm_return indexTerm() throws RecognitionException {
-        wcpsParser.indexTerm_return retval = new wcpsParser.indexTerm_return();
-        retval.start = input.LT(1);
-        int indexTerm_StartIndex = input.index();
-        Object root_0 = null;
-
-        Token op=null;
-        wcpsParser.indexFactor_return e1 = null;
-
-        wcpsParser.indexFactor_return e2 = null;
-
-
-        Object op_tree=null;
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 43) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:231:5: (e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* )
-            // src/petascope/wcps/grammar/wcps.g:231:7: e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
-            {
-            root_0 = (Object)adaptor.nil();
-
-            pushFollow(FOLLOW_indexFactor_in_indexTerm2346);
-            e1=indexFactor();
-
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            if ( state.backtracking==0 ) {
-               retval.value = (e1!=null?e1.value:null); 
-            }
-            // src/petascope/wcps/grammar/wcps.g:232:6: ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
-            loop38:
-            do {
-                int alt38=2;
-                int LA38_0 = input.LA(1);
-
-                if ( ((LA38_0>=MULT && LA38_0<=DIVIDE)) ) {
-                    alt38=1;
-                }
-
-
-                switch (alt38) {
-            	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:232:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
-            	    {
-            	    // src/petascope/wcps/grammar/wcps.g:232:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
-            	    // src/petascope/wcps/grammar/wcps.g:232:8: op= ( MULT | DIVIDE ) e2= indexFactor
-            	    {
-            	    op=(Token)input.LT(1);
-            	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
-            	        input.consume();
-            	        if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(op));
-            	        state.errorRecovery=false;state.failed=false;
-            	    }
-            	    else {
-            	        if (state.backtracking>0) {state.failed=true; return retval;}
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        throw mse;
-            	    }
-
-            	    pushFollow(FOLLOW_indexFactor_in_indexTerm2367);
-            	    e2=indexFactor();
-
-            	    state._fsp--;
-            	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-            	    if ( state.backtracking==0 ) {
-            	       retval.value = new IndexExpr((op!=null?op.getText():null), retval.value, (e2!=null?e2.value:null)); 
-            	    }
-
-            	    }
-
 
             	    }
             	    break;
@@ -5728,7 +5810,120 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 43, indexTerm_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 44, indexExpr_StartIndex); }
+        }
+        return retval;
+    }
+    // $ANTLR end "indexExpr"
+
+    public static class indexTerm_return extends ParserRuleReturnScope {
+        public IndexExpr value;
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "indexTerm"
+    // src/main/java/petascope/wcps/grammar/wcps.g:238:1: indexTerm returns [IndexExpr value] : e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* ;
+    public final wcpsParser.indexTerm_return indexTerm() throws RecognitionException {
+        wcpsParser.indexTerm_return retval = new wcpsParser.indexTerm_return();
+        retval.start = input.LT(1);
+        int indexTerm_StartIndex = input.index();
+        Object root_0 = null;
+
+        Token op=null;
+        wcpsParser.indexFactor_return e1 = null;
+
+        wcpsParser.indexFactor_return e2 = null;
+
+
+        Object op_tree=null;
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 45) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:239:5: (e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:239:7: e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
+            {
+            root_0 = (Object)adaptor.nil();
+
+            pushFollow(FOLLOW_indexFactor_in_indexTerm2454);
+            e1=indexFactor();
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
+            if ( state.backtracking==0 ) {
+               retval.value = (e1!=null?e1.value:null); 
+            }
+            // src/main/java/petascope/wcps/grammar/wcps.g:240:6: ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
+            loop39:
+            do {
+                int alt39=2;
+                int LA39_0 = input.LA(1);
+
+                if ( ((LA39_0>=MULT && LA39_0<=DIVIDE)) ) {
+                    alt39=1;
+                }
+
+
+                switch (alt39) {
+            	case 1 :
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:240:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
+            	    {
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:240:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:240:8: op= ( MULT | DIVIDE ) e2= indexFactor
+            	    {
+            	    op=(Token)input.LT(1);
+            	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
+            	        input.consume();
+            	        if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(op));
+            	        state.errorRecovery=false;state.failed=false;
+            	    }
+            	    else {
+            	        if (state.backtracking>0) {state.failed=true; return retval;}
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        throw mse;
+            	    }
+
+            	    pushFollow(FOLLOW_indexFactor_in_indexTerm2475);
+            	    e2=indexFactor();
+
+            	    state._fsp--;
+            	    if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
+            	    if ( state.backtracking==0 ) {
+            	       retval.value = new IndexExpr((op!=null?op.getText():null), retval.value, (e2!=null?e2.value:null)); 
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop39;
+                }
+            } while (true);
+
+
+            }
+
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+            if ( state.backtracking>0 ) { memoize(input, 45, indexTerm_StartIndex); }
         }
         return retval;
     }
@@ -5741,7 +5936,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "indexFactor"
-    // src/petascope/wcps/grammar/wcps.g:234:1: indexFactor returns [IndexExpr value] : (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) );
+    // src/main/java/petascope/wcps/grammar/wcps.g:242:1: indexFactor returns [IndexExpr value] : (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) );
     public final wcpsParser.indexFactor_return indexFactor() throws RecognitionException {
         wcpsParser.indexFactor_return retval = new wcpsParser.indexFactor_return();
         retval.start = input.LT(1);
@@ -5750,10 +5945,10 @@ public class wcpsParser extends Parser {
 
         Token e=null;
         Token op=null;
-        Token LPAREN127=null;
-        Token RPAREN128=null;
-        Token LPAREN129=null;
-        Token RPAREN130=null;
+        Token LPAREN131=null;
+        Token RPAREN132=null;
+        Token LPAREN133=null;
+        Token RPAREN134=null;
         wcpsParser.numericScalarExpr_return e1 = null;
 
         wcpsParser.indexExpr_return e2 = null;
@@ -5761,46 +5956,46 @@ public class wcpsParser extends Parser {
 
         Object e_tree=null;
         Object op_tree=null;
-        Object LPAREN127_tree=null;
-        Object RPAREN128_tree=null;
-        Object LPAREN129_tree=null;
-        Object RPAREN130_tree=null;
+        Object LPAREN131_tree=null;
+        Object RPAREN132_tree=null;
+        Object LPAREN133_tree=null;
+        Object RPAREN134_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 44) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:235:5: (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) )
-            int alt39=3;
+            if ( state.backtracking>0 && alreadyParsedRule(input, 46) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:243:5: (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) )
+            int alt40=3;
             switch ( input.LA(1) ) {
             case INTEGERCONSTANT:
                 {
-                alt39=1;
+                alt40=1;
                 }
                 break;
             case ROUND:
                 {
-                alt39=2;
+                alt40=2;
                 }
                 break;
             case LPAREN:
                 {
-                alt39=3;
+                alt40=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 39, 0, input);
+                    new NoViableAltException("", 40, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt39) {
+            switch (alt40) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:235:7: e= INTEGERCONSTANT
+                    // src/main/java/petascope/wcps/grammar/wcps.g:243:7: e= INTEGERCONSTANT
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    e=(Token)match(input,INTEGERCONSTANT,FOLLOW_INTEGERCONSTANT_in_indexFactor2394); if (state.failed) return retval;
+                    e=(Token)match(input,INTEGERCONSTANT,FOLLOW_INTEGERCONSTANT_in_indexFactor2502); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     e_tree = (Object)adaptor.create(e);
                     adaptor.addChild(root_0, e_tree);
@@ -5812,30 +6007,30 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:236:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:244:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,ROUND,FOLLOW_ROUND_in_indexFactor2407); if (state.failed) return retval;
+                    op=(Token)match(input,ROUND,FOLLOW_ROUND_in_indexFactor2515); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    LPAREN127=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_indexFactor2409); if (state.failed) return retval;
+                    LPAREN131=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_indexFactor2517); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN127_tree = (Object)adaptor.create(LPAREN127);
-                    adaptor.addChild(root_0, LPAREN127_tree);
+                    LPAREN131_tree = (Object)adaptor.create(LPAREN131);
+                    adaptor.addChild(root_0, LPAREN131_tree);
                     }
-                    pushFollow(FOLLOW_numericScalarExpr_in_indexFactor2413);
+                    pushFollow(FOLLOW_numericScalarExpr_in_indexFactor2521);
                     e1=numericScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    RPAREN128=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_indexFactor2415); if (state.failed) return retval;
+                    RPAREN132=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_indexFactor2523); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN128_tree = (Object)adaptor.create(RPAREN128);
-                    adaptor.addChild(root_0, RPAREN128_tree);
+                    RPAREN132_tree = (Object)adaptor.create(RPAREN132);
+                    adaptor.addChild(root_0, RPAREN132_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new IndexExpr((op!=null?op.getText():null), (e1!=null?e1.value:null)); 
@@ -5844,28 +6039,28 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/petascope/wcps/grammar/wcps.g:237:7: ( LPAREN e2= indexExpr RPAREN )
+                    // src/main/java/petascope/wcps/grammar/wcps.g:245:7: ( LPAREN e2= indexExpr RPAREN )
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    // src/petascope/wcps/grammar/wcps.g:237:7: ( LPAREN e2= indexExpr RPAREN )
-                    // src/petascope/wcps/grammar/wcps.g:237:8: LPAREN e2= indexExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:245:7: ( LPAREN e2= indexExpr RPAREN )
+                    // src/main/java/petascope/wcps/grammar/wcps.g:245:8: LPAREN e2= indexExpr RPAREN
                     {
-                    LPAREN129=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_indexFactor2427); if (state.failed) return retval;
+                    LPAREN133=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_indexFactor2535); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN129_tree = (Object)adaptor.create(LPAREN129);
-                    adaptor.addChild(root_0, LPAREN129_tree);
+                    LPAREN133_tree = (Object)adaptor.create(LPAREN133);
+                    adaptor.addChild(root_0, LPAREN133_tree);
                     }
-                    pushFollow(FOLLOW_indexExpr_in_indexFactor2431);
+                    pushFollow(FOLLOW_indexExpr_in_indexFactor2539);
                     e2=indexExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-                    RPAREN130=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_indexFactor2433); if (state.failed) return retval;
+                    RPAREN134=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_indexFactor2541); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN130_tree = (Object)adaptor.create(RPAREN130);
-                    adaptor.addChild(root_0, RPAREN130_tree);
+                    RPAREN134_tree = (Object)adaptor.create(RPAREN134);
+                    adaptor.addChild(root_0, RPAREN134_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = (e2!=null?e2.value:null); 
@@ -5893,7 +6088,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 44, indexFactor_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 46, indexFactor_StartIndex); }
         }
         return retval;
     }
@@ -5906,7 +6101,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "stringScalarExpr"
-    // src/petascope/wcps/grammar/wcps.g:239:1: stringScalarExpr returns [StringScalarExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING );
+    // src/main/java/petascope/wcps/grammar/wcps.g:247:1: stringScalarExpr returns [StringScalarExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING );
     public final wcpsParser.stringScalarExpr_return stringScalarExpr() throws RecognitionException {
         wcpsParser.stringScalarExpr_return retval = new wcpsParser.stringScalarExpr_return();
         retval.start = input.LT(1);
@@ -5915,61 +6110,61 @@ public class wcpsParser extends Parser {
 
         Token op=null;
         Token e=null;
-        Token LPAREN131=null;
-        Token RPAREN132=null;
+        Token LPAREN135=null;
+        Token RPAREN136=null;
         wcpsParser.coverageExpr_return e1 = null;
 
 
         Object op_tree=null;
         Object e_tree=null;
-        Object LPAREN131_tree=null;
-        Object RPAREN132_tree=null;
+        Object LPAREN135_tree=null;
+        Object RPAREN136_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 45) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:241:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING )
-            int alt40=2;
-            int LA40_0 = input.LA(1);
+            if ( state.backtracking>0 && alreadyParsedRule(input, 47) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:249:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING )
+            int alt41=2;
+            int LA41_0 = input.LA(1);
 
-            if ( (LA40_0==IDENTIFIER) ) {
-                alt40=1;
+            if ( (LA41_0==IDENTIFIER) ) {
+                alt41=1;
             }
-            else if ( (LA40_0==STRING) ) {
-                alt40=2;
+            else if ( (LA41_0==STRING) ) {
+                alt41=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 40, 0, input);
+                    new NoViableAltException("", 41, 0, input);
 
                 throw nvae;
             }
-            switch (alt40) {
+            switch (alt41) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:241:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:249:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_stringScalarExpr2460); if (state.failed) return retval;
+                    op=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_stringScalarExpr2568); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    LPAREN131=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_stringScalarExpr2462); if (state.failed) return retval;
+                    LPAREN135=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_stringScalarExpr2570); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN131_tree = (Object)adaptor.create(LPAREN131);
-                    adaptor.addChild(root_0, LPAREN131_tree);
+                    LPAREN135_tree = (Object)adaptor.create(LPAREN135);
+                    adaptor.addChild(root_0, LPAREN135_tree);
                     }
-                    pushFollow(FOLLOW_coverageExpr_in_stringScalarExpr2466);
+                    pushFollow(FOLLOW_coverageExpr_in_stringScalarExpr2574);
                     e1=coverageExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    RPAREN132=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_stringScalarExpr2468); if (state.failed) return retval;
+                    RPAREN136=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_stringScalarExpr2576); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN132_tree = (Object)adaptor.create(RPAREN132);
-                    adaptor.addChild(root_0, RPAREN132_tree);
+                    RPAREN136_tree = (Object)adaptor.create(RPAREN136);
+                    adaptor.addChild(root_0, RPAREN136_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new StringScalarExpr((op!=null?op.getText():null), (e1!=null?e1.value:null)); 
@@ -5978,11 +6173,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:242:7: e= STRING
+                    // src/main/java/petascope/wcps/grammar/wcps.g:250:7: e= STRING
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    e=(Token)match(input,STRING,FOLLOW_STRING_in_stringScalarExpr2481); if (state.failed) return retval;
+                    e=(Token)match(input,STRING,FOLLOW_STRING_in_stringScalarExpr2589); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     e_tree = (Object)adaptor.create(e);
                     adaptor.addChild(root_0, e_tree);
@@ -6010,7 +6205,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 45, stringScalarExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 47, stringScalarExpr_StartIndex); }
         }
         return retval;
     }
@@ -6023,18 +6218,18 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "scaleExpr"
-    // src/petascope/wcps/grammar/wcps.g:244:1: scaleExpr returns [ScaleExpr value] : SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList ( COMMA fil= fieldInterpolationList )? RPAREN ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:252:1: scaleExpr returns [ScaleExpr value] : SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList ( COMMA fil= fieldInterpolationList )? RPAREN ;
     public final wcpsParser.scaleExpr_return scaleExpr() throws RecognitionException {
         wcpsParser.scaleExpr_return retval = new wcpsParser.scaleExpr_return();
         retval.start = input.LT(1);
         int scaleExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token SCALE133=null;
-        Token LPAREN134=null;
-        Token COMMA135=null;
-        Token COMMA136=null;
-        Token RPAREN137=null;
+        Token SCALE137=null;
+        Token LPAREN138=null;
+        Token COMMA139=null;
+        Token COMMA140=null;
+        Token RPAREN141=null;
         wcpsParser.coverageExpr_return e1 = null;
 
         wcpsParser.dimensionIntervalList_return dil = null;
@@ -6042,41 +6237,41 @@ public class wcpsParser extends Parser {
         wcpsParser.fieldInterpolationList_return fil = null;
 
 
-        Object SCALE133_tree=null;
-        Object LPAREN134_tree=null;
-        Object COMMA135_tree=null;
-        Object COMMA136_tree=null;
-        Object RPAREN137_tree=null;
+        Object SCALE137_tree=null;
+        Object LPAREN138_tree=null;
+        Object COMMA139_tree=null;
+        Object COMMA140_tree=null;
+        Object RPAREN141_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 46) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:245:2: ( SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList ( COMMA fil= fieldInterpolationList )? RPAREN )
-            // src/petascope/wcps/grammar/wcps.g:245:4: SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList ( COMMA fil= fieldInterpolationList )? RPAREN
+            if ( state.backtracking>0 && alreadyParsedRule(input, 48) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:253:2: ( SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList ( COMMA fil= fieldInterpolationList )? RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:253:4: SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList ( COMMA fil= fieldInterpolationList )? RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
-            SCALE133=(Token)match(input,SCALE,FOLLOW_SCALE_in_scaleExpr2499); if (state.failed) return retval;
+            SCALE137=(Token)match(input,SCALE,FOLLOW_SCALE_in_scaleExpr2607); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            SCALE133_tree = (Object)adaptor.create(SCALE133);
-            adaptor.addChild(root_0, SCALE133_tree);
+            SCALE137_tree = (Object)adaptor.create(SCALE137);
+            adaptor.addChild(root_0, SCALE137_tree);
             }
-            LPAREN134=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_scaleExpr2501); if (state.failed) return retval;
+            LPAREN138=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_scaleExpr2609); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN134_tree = (Object)adaptor.create(LPAREN134);
-            adaptor.addChild(root_0, LPAREN134_tree);
+            LPAREN138_tree = (Object)adaptor.create(LPAREN138);
+            adaptor.addChild(root_0, LPAREN138_tree);
             }
-            pushFollow(FOLLOW_coverageExpr_in_scaleExpr2505);
+            pushFollow(FOLLOW_coverageExpr_in_scaleExpr2613);
             e1=coverageExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            COMMA135=(Token)match(input,COMMA,FOLLOW_COMMA_in_scaleExpr2507); if (state.failed) return retval;
+            COMMA139=(Token)match(input,COMMA,FOLLOW_COMMA_in_scaleExpr2615); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            COMMA135_tree = (Object)adaptor.create(COMMA135);
-            adaptor.addChild(root_0, COMMA135_tree);
+            COMMA139_tree = (Object)adaptor.create(COMMA139);
+            adaptor.addChild(root_0, COMMA139_tree);
             }
-            pushFollow(FOLLOW_dimensionIntervalList_in_scaleExpr2511);
+            pushFollow(FOLLOW_dimensionIntervalList_in_scaleExpr2619);
             dil=dimensionIntervalList();
 
             state._fsp--;
@@ -6085,23 +6280,23 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new ScaleExpr((e1!=null?e1.value:null), (dil!=null?dil.value:null)); 
             }
-            // src/petascope/wcps/grammar/wcps.g:246:13: ( COMMA fil= fieldInterpolationList )?
-            int alt41=2;
-            int LA41_0 = input.LA(1);
+            // src/main/java/petascope/wcps/grammar/wcps.g:254:13: ( COMMA fil= fieldInterpolationList )?
+            int alt42=2;
+            int LA42_0 = input.LA(1);
 
-            if ( (LA41_0==COMMA) ) {
-                alt41=1;
+            if ( (LA42_0==COMMA) ) {
+                alt42=1;
             }
-            switch (alt41) {
+            switch (alt42) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:246:14: COMMA fil= fieldInterpolationList
+                    // src/main/java/petascope/wcps/grammar/wcps.g:254:14: COMMA fil= fieldInterpolationList
                     {
-                    COMMA136=(Token)match(input,COMMA,FOLLOW_COMMA_in_scaleExpr2528); if (state.failed) return retval;
+                    COMMA140=(Token)match(input,COMMA,FOLLOW_COMMA_in_scaleExpr2636); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COMMA136_tree = (Object)adaptor.create(COMMA136);
-                    adaptor.addChild(root_0, COMMA136_tree);
+                    COMMA140_tree = (Object)adaptor.create(COMMA140);
+                    adaptor.addChild(root_0, COMMA140_tree);
                     }
-                    pushFollow(FOLLOW_fieldInterpolationList_in_scaleExpr2532);
+                    pushFollow(FOLLOW_fieldInterpolationList_in_scaleExpr2640);
                     fil=fieldInterpolationList();
 
                     state._fsp--;
@@ -6116,10 +6311,10 @@ public class wcpsParser extends Parser {
 
             }
 
-            RPAREN137=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_scaleExpr2557); if (state.failed) return retval;
+            RPAREN141=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_scaleExpr2665); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN137_tree = (Object)adaptor.create(RPAREN137);
-            adaptor.addChild(root_0, RPAREN137_tree);
+            RPAREN141_tree = (Object)adaptor.create(RPAREN141);
+            adaptor.addChild(root_0, RPAREN141_tree);
             }
 
             }
@@ -6139,7 +6334,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 46, scaleExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 48, scaleExpr_StartIndex); }
         }
         return retval;
     }
@@ -6152,7 +6347,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "subsetExpr"
-    // src/petascope/wcps/grammar/wcps.g:250:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );
+    // src/main/java/petascope/wcps/grammar/wcps.g:258:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );
     public final wcpsParser.subsetExpr_return subsetExpr() throws RecognitionException {
         wcpsParser.subsetExpr_return retval = new wcpsParser.subsetExpr_return();
         retval.start = input.LT(1);
@@ -6168,17 +6363,17 @@ public class wcpsParser extends Parser {
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 47) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:251:2: (e1= trimExpr | e2= sliceExpr | e3= extendExpr )
-            int alt42=3;
-            alt42 = dfa42.predict(input);
-            switch (alt42) {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 49) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:259:2: (e1= trimExpr | e2= sliceExpr | e3= extendExpr )
+            int alt43=3;
+            alt43 = dfa43.predict(input);
+            switch (alt43) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:251:4: e1= trimExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:259:4: e1= trimExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_trimExpr_in_subsetExpr2575);
+                    pushFollow(FOLLOW_trimExpr_in_subsetExpr2683);
                     e1=trimExpr();
 
                     state._fsp--;
@@ -6191,11 +6386,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:252:4: e2= sliceExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:260:4: e2= sliceExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_sliceExpr_in_subsetExpr2584);
+                    pushFollow(FOLLOW_sliceExpr_in_subsetExpr2692);
                     e2=sliceExpr();
 
                     state._fsp--;
@@ -6208,11 +6403,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/petascope/wcps/grammar/wcps.g:253:4: e3= extendExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:261:4: e3= extendExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_extendExpr_in_subsetExpr2593);
+                    pushFollow(FOLLOW_extendExpr_in_subsetExpr2701);
                     e3=extendExpr();
 
                     state._fsp--;
@@ -6241,7 +6436,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 47, subsetExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 49, subsetExpr_StartIndex); }
         }
         return retval;
     }
@@ -6254,21 +6449,21 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "trimExpr"
-    // src/petascope/wcps/grammar/wcps.g:255:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );
+    // src/main/java/petascope/wcps/grammar/wcps.g:263:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );
     public final wcpsParser.trimExpr_return trimExpr() throws RecognitionException {
         wcpsParser.trimExpr_return retval = new wcpsParser.trimExpr_return();
         retval.start = input.LT(1);
         int trimExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LBRACKET138=null;
-        Token RBRACKET139=null;
-        Token TRIM140=null;
-        Token LPAREN141=null;
-        Token COMMA142=null;
-        Token LBRACE143=null;
-        Token RBRACE144=null;
-        Token RPAREN145=null;
+        Token LBRACKET142=null;
+        Token RBRACKET143=null;
+        Token TRIM144=null;
+        Token LPAREN145=null;
+        Token COMMA146=null;
+        Token LBRACE147=null;
+        Token RBRACE148=null;
+        Token RPAREN149=null;
         wcpsParser.coverageAtom_return e1 = null;
 
         wcpsParser.dimensionIntervalList_return dil = null;
@@ -6276,47 +6471,47 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageExpr_return e2 = null;
 
 
-        Object LBRACKET138_tree=null;
-        Object RBRACKET139_tree=null;
-        Object TRIM140_tree=null;
-        Object LPAREN141_tree=null;
-        Object COMMA142_tree=null;
-        Object LBRACE143_tree=null;
-        Object RBRACE144_tree=null;
-        Object RPAREN145_tree=null;
+        Object LBRACKET142_tree=null;
+        Object RBRACKET143_tree=null;
+        Object TRIM144_tree=null;
+        Object LPAREN145_tree=null;
+        Object COMMA146_tree=null;
+        Object LBRACE147_tree=null;
+        Object RBRACE148_tree=null;
+        Object RPAREN149_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 48) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:256:2: (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN )
-            int alt43=2;
-            alt43 = dfa43.predict(input);
-            switch (alt43) {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 50) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:264:2: (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN )
+            int alt44=2;
+            alt44 = dfa44.predict(input);
+            switch (alt44) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:256:4: e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET
+                    // src/main/java/petascope/wcps/grammar/wcps.g:264:4: e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_coverageAtom_in_trimExpr2610);
+                    pushFollow(FOLLOW_coverageAtom_in_trimExpr2718);
                     e1=coverageAtom();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    LBRACKET138=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_trimExpr2612); if (state.failed) return retval;
+                    LBRACKET142=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_trimExpr2720); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LBRACKET138_tree = (Object)adaptor.create(LBRACKET138);
-                    adaptor.addChild(root_0, LBRACKET138_tree);
+                    LBRACKET142_tree = (Object)adaptor.create(LBRACKET142);
+                    adaptor.addChild(root_0, LBRACKET142_tree);
                     }
-                    pushFollow(FOLLOW_dimensionIntervalList_in_trimExpr2616);
+                    pushFollow(FOLLOW_dimensionIntervalList_in_trimExpr2724);
                     dil=dimensionIntervalList();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dil.getTree());
-                    RBRACKET139=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_trimExpr2618); if (state.failed) return retval;
+                    RBRACKET143=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_trimExpr2726); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RBRACKET139_tree = (Object)adaptor.create(RBRACKET139);
-                    adaptor.addChild(root_0, RBRACKET139_tree);
+                    RBRACKET143_tree = (Object)adaptor.create(RBRACKET143);
+                    adaptor.addChild(root_0, RBRACKET143_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new TrimExpr((e1!=null?e1.value:null), (dil!=null?dil.value:null)); 
@@ -6325,51 +6520,51 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:257:6: TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:265:6: TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    TRIM140=(Token)match(input,TRIM,FOLLOW_TRIM_in_trimExpr2627); if (state.failed) return retval;
+                    TRIM144=(Token)match(input,TRIM,FOLLOW_TRIM_in_trimExpr2735); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    TRIM140_tree = (Object)adaptor.create(TRIM140);
-                    adaptor.addChild(root_0, TRIM140_tree);
+                    TRIM144_tree = (Object)adaptor.create(TRIM144);
+                    adaptor.addChild(root_0, TRIM144_tree);
                     }
-                    LPAREN141=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_trimExpr2629); if (state.failed) return retval;
+                    LPAREN145=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_trimExpr2737); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN141_tree = (Object)adaptor.create(LPAREN141);
-                    adaptor.addChild(root_0, LPAREN141_tree);
+                    LPAREN145_tree = (Object)adaptor.create(LPAREN145);
+                    adaptor.addChild(root_0, LPAREN145_tree);
                     }
-                    pushFollow(FOLLOW_coverageExpr_in_trimExpr2633);
+                    pushFollow(FOLLOW_coverageExpr_in_trimExpr2741);
                     e2=coverageExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-                    COMMA142=(Token)match(input,COMMA,FOLLOW_COMMA_in_trimExpr2635); if (state.failed) return retval;
+                    COMMA146=(Token)match(input,COMMA,FOLLOW_COMMA_in_trimExpr2743); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COMMA142_tree = (Object)adaptor.create(COMMA142);
-                    adaptor.addChild(root_0, COMMA142_tree);
+                    COMMA146_tree = (Object)adaptor.create(COMMA146);
+                    adaptor.addChild(root_0, COMMA146_tree);
                     }
-                    LBRACE143=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_trimExpr2637); if (state.failed) return retval;
+                    LBRACE147=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_trimExpr2745); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LBRACE143_tree = (Object)adaptor.create(LBRACE143);
-                    adaptor.addChild(root_0, LBRACE143_tree);
+                    LBRACE147_tree = (Object)adaptor.create(LBRACE147);
+                    adaptor.addChild(root_0, LBRACE147_tree);
                     }
-                    pushFollow(FOLLOW_dimensionIntervalList_in_trimExpr2641);
+                    pushFollow(FOLLOW_dimensionIntervalList_in_trimExpr2749);
                     dil=dimensionIntervalList();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dil.getTree());
-                    RBRACE144=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_trimExpr2643); if (state.failed) return retval;
+                    RBRACE148=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_trimExpr2751); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RBRACE144_tree = (Object)adaptor.create(RBRACE144);
-                    adaptor.addChild(root_0, RBRACE144_tree);
+                    RBRACE148_tree = (Object)adaptor.create(RBRACE148);
+                    adaptor.addChild(root_0, RBRACE148_tree);
                     }
-                    RPAREN145=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_trimExpr2645); if (state.failed) return retval;
+                    RPAREN149=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_trimExpr2753); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN145_tree = (Object)adaptor.create(RPAREN145);
-                    adaptor.addChild(root_0, RPAREN145_tree);
+                    RPAREN149_tree = (Object)adaptor.create(RPAREN149);
+                    adaptor.addChild(root_0, RPAREN149_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new TrimExpr((e2!=null?e2.value:null), (dil!=null?dil.value:null)); 
@@ -6394,7 +6589,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 48, trimExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 50, trimExpr_StartIndex); }
         }
         return retval;
     }
@@ -6407,21 +6602,21 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "sliceExpr"
-    // src/petascope/wcps/grammar/wcps.g:259:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );
+    // src/main/java/petascope/wcps/grammar/wcps.g:267:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );
     public final wcpsParser.sliceExpr_return sliceExpr() throws RecognitionException {
         wcpsParser.sliceExpr_return retval = new wcpsParser.sliceExpr_return();
         retval.start = input.LT(1);
         int sliceExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LBRACKET146=null;
-        Token RBRACKET147=null;
-        Token SLICE148=null;
-        Token LPAREN149=null;
-        Token COMMA150=null;
-        Token LBRACE151=null;
-        Token RBRACE152=null;
-        Token RPAREN153=null;
+        Token LBRACKET150=null;
+        Token RBRACKET151=null;
+        Token SLICE152=null;
+        Token LPAREN153=null;
+        Token COMMA154=null;
+        Token LBRACE155=null;
+        Token RBRACE156=null;
+        Token RPAREN157=null;
         wcpsParser.coverageAtom_return e1 = null;
 
         wcpsParser.dimensionPointList_return dpl = null;
@@ -6429,47 +6624,47 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageExpr_return e2 = null;
 
 
-        Object LBRACKET146_tree=null;
-        Object RBRACKET147_tree=null;
-        Object SLICE148_tree=null;
-        Object LPAREN149_tree=null;
-        Object COMMA150_tree=null;
-        Object LBRACE151_tree=null;
-        Object RBRACE152_tree=null;
-        Object RPAREN153_tree=null;
+        Object LBRACKET150_tree=null;
+        Object RBRACKET151_tree=null;
+        Object SLICE152_tree=null;
+        Object LPAREN153_tree=null;
+        Object COMMA154_tree=null;
+        Object LBRACE155_tree=null;
+        Object RBRACE156_tree=null;
+        Object RPAREN157_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 49) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:260:2: (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN )
-            int alt44=2;
-            alt44 = dfa44.predict(input);
-            switch (alt44) {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 51) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:268:2: (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN )
+            int alt45=2;
+            alt45 = dfa45.predict(input);
+            switch (alt45) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:260:4: e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET
+                    // src/main/java/petascope/wcps/grammar/wcps.g:268:4: e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_coverageAtom_in_sliceExpr2662);
+                    pushFollow(FOLLOW_coverageAtom_in_sliceExpr2770);
                     e1=coverageAtom();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    LBRACKET146=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_sliceExpr2664); if (state.failed) return retval;
+                    LBRACKET150=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_sliceExpr2772); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LBRACKET146_tree = (Object)adaptor.create(LBRACKET146);
-                    adaptor.addChild(root_0, LBRACKET146_tree);
+                    LBRACKET150_tree = (Object)adaptor.create(LBRACKET150);
+                    adaptor.addChild(root_0, LBRACKET150_tree);
                     }
-                    pushFollow(FOLLOW_dimensionPointList_in_sliceExpr2668);
+                    pushFollow(FOLLOW_dimensionPointList_in_sliceExpr2776);
                     dpl=dimensionPointList();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dpl.getTree());
-                    RBRACKET147=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_sliceExpr2670); if (state.failed) return retval;
+                    RBRACKET151=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_sliceExpr2778); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RBRACKET147_tree = (Object)adaptor.create(RBRACKET147);
-                    adaptor.addChild(root_0, RBRACKET147_tree);
+                    RBRACKET151_tree = (Object)adaptor.create(RBRACKET151);
+                    adaptor.addChild(root_0, RBRACKET151_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new SliceExpr((e1!=null?e1.value:null), (dpl!=null?dpl.value:null)); 
@@ -6478,51 +6673,51 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:261:4: SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:269:4: SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    SLICE148=(Token)match(input,SLICE,FOLLOW_SLICE_in_sliceExpr2677); if (state.failed) return retval;
+                    SLICE152=(Token)match(input,SLICE,FOLLOW_SLICE_in_sliceExpr2785); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    SLICE148_tree = (Object)adaptor.create(SLICE148);
-                    adaptor.addChild(root_0, SLICE148_tree);
+                    SLICE152_tree = (Object)adaptor.create(SLICE152);
+                    adaptor.addChild(root_0, SLICE152_tree);
                     }
-                    LPAREN149=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_sliceExpr2679); if (state.failed) return retval;
+                    LPAREN153=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_sliceExpr2787); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN149_tree = (Object)adaptor.create(LPAREN149);
-                    adaptor.addChild(root_0, LPAREN149_tree);
+                    LPAREN153_tree = (Object)adaptor.create(LPAREN153);
+                    adaptor.addChild(root_0, LPAREN153_tree);
                     }
-                    pushFollow(FOLLOW_coverageExpr_in_sliceExpr2683);
+                    pushFollow(FOLLOW_coverageExpr_in_sliceExpr2791);
                     e2=coverageExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-                    COMMA150=(Token)match(input,COMMA,FOLLOW_COMMA_in_sliceExpr2685); if (state.failed) return retval;
+                    COMMA154=(Token)match(input,COMMA,FOLLOW_COMMA_in_sliceExpr2793); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COMMA150_tree = (Object)adaptor.create(COMMA150);
-                    adaptor.addChild(root_0, COMMA150_tree);
+                    COMMA154_tree = (Object)adaptor.create(COMMA154);
+                    adaptor.addChild(root_0, COMMA154_tree);
                     }
-                    LBRACE151=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_sliceExpr2687); if (state.failed) return retval;
+                    LBRACE155=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_sliceExpr2795); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LBRACE151_tree = (Object)adaptor.create(LBRACE151);
-                    adaptor.addChild(root_0, LBRACE151_tree);
+                    LBRACE155_tree = (Object)adaptor.create(LBRACE155);
+                    adaptor.addChild(root_0, LBRACE155_tree);
                     }
-                    pushFollow(FOLLOW_dimensionPointList_in_sliceExpr2691);
+                    pushFollow(FOLLOW_dimensionPointList_in_sliceExpr2799);
                     dpl=dimensionPointList();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dpl.getTree());
-                    RBRACE152=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_sliceExpr2693); if (state.failed) return retval;
+                    RBRACE156=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_sliceExpr2801); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RBRACE152_tree = (Object)adaptor.create(RBRACE152);
-                    adaptor.addChild(root_0, RBRACE152_tree);
+                    RBRACE156_tree = (Object)adaptor.create(RBRACE156);
+                    adaptor.addChild(root_0, RBRACE156_tree);
                     }
-                    RPAREN153=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_sliceExpr2695); if (state.failed) return retval;
+                    RPAREN157=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_sliceExpr2803); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN153_tree = (Object)adaptor.create(RPAREN153);
-                    adaptor.addChild(root_0, RPAREN153_tree);
+                    RPAREN157_tree = (Object)adaptor.create(RPAREN157);
+                    adaptor.addChild(root_0, RPAREN157_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new SliceExpr((e2!=null?e2.value:null), (dpl!=null?dpl.value:null)); 
@@ -6547,7 +6742,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 49, sliceExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 51, sliceExpr_StartIndex); }
         }
         return retval;
     }
@@ -6560,65 +6755,65 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "extendExpr"
-    // src/petascope/wcps/grammar/wcps.g:263:1: extendExpr returns [ExtendExpr value] : EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:271:1: extendExpr returns [ExtendExpr value] : EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN ;
     public final wcpsParser.extendExpr_return extendExpr() throws RecognitionException {
         wcpsParser.extendExpr_return retval = new wcpsParser.extendExpr_return();
         retval.start = input.LT(1);
         int extendExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token EXTEND154=null;
-        Token LPAREN155=null;
-        Token COMMA156=null;
-        Token RPAREN157=null;
+        Token EXTEND158=null;
+        Token LPAREN159=null;
+        Token COMMA160=null;
+        Token RPAREN161=null;
         wcpsParser.coverageExpr_return e1 = null;
 
         wcpsParser.dimensionIntervalList_return dil = null;
 
 
-        Object EXTEND154_tree=null;
-        Object LPAREN155_tree=null;
-        Object COMMA156_tree=null;
-        Object RPAREN157_tree=null;
+        Object EXTEND158_tree=null;
+        Object LPAREN159_tree=null;
+        Object COMMA160_tree=null;
+        Object RPAREN161_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 50) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:264:2: ( EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN )
-            // src/petascope/wcps/grammar/wcps.g:264:4: EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN
+            if ( state.backtracking>0 && alreadyParsedRule(input, 52) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:272:2: ( EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:272:4: EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
-            EXTEND154=(Token)match(input,EXTEND,FOLLOW_EXTEND_in_extendExpr2710); if (state.failed) return retval;
+            EXTEND158=(Token)match(input,EXTEND,FOLLOW_EXTEND_in_extendExpr2818); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            EXTEND154_tree = (Object)adaptor.create(EXTEND154);
-            adaptor.addChild(root_0, EXTEND154_tree);
+            EXTEND158_tree = (Object)adaptor.create(EXTEND158);
+            adaptor.addChild(root_0, EXTEND158_tree);
             }
-            LPAREN155=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_extendExpr2712); if (state.failed) return retval;
+            LPAREN159=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_extendExpr2820); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN155_tree = (Object)adaptor.create(LPAREN155);
-            adaptor.addChild(root_0, LPAREN155_tree);
+            LPAREN159_tree = (Object)adaptor.create(LPAREN159);
+            adaptor.addChild(root_0, LPAREN159_tree);
             }
-            pushFollow(FOLLOW_coverageExpr_in_extendExpr2716);
+            pushFollow(FOLLOW_coverageExpr_in_extendExpr2824);
             e1=coverageExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            COMMA156=(Token)match(input,COMMA,FOLLOW_COMMA_in_extendExpr2718); if (state.failed) return retval;
+            COMMA160=(Token)match(input,COMMA,FOLLOW_COMMA_in_extendExpr2826); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            COMMA156_tree = (Object)adaptor.create(COMMA156);
-            adaptor.addChild(root_0, COMMA156_tree);
+            COMMA160_tree = (Object)adaptor.create(COMMA160);
+            adaptor.addChild(root_0, COMMA160_tree);
             }
-            pushFollow(FOLLOW_dimensionIntervalList_in_extendExpr2722);
+            pushFollow(FOLLOW_dimensionIntervalList_in_extendExpr2830);
             dil=dimensionIntervalList();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, dil.getTree());
-            RPAREN157=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_extendExpr2724); if (state.failed) return retval;
+            RPAREN161=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_extendExpr2832); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN157_tree = (Object)adaptor.create(RPAREN157);
-            adaptor.addChild(root_0, RPAREN157_tree);
+            RPAREN161_tree = (Object)adaptor.create(RPAREN161);
+            adaptor.addChild(root_0, RPAREN161_tree);
             }
             if ( state.backtracking==0 ) {
                retval.value = new ExtendExpr((e1!=null?e1.value:null), (dil!=null?dil.value:null)); 
@@ -6641,7 +6836,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 50, extendExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 52, extendExpr_StartIndex); }
         }
         return retval;
     }
@@ -6654,47 +6849,47 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "castExpr"
-    // src/petascope/wcps/grammar/wcps.g:266:1: castExpr returns [CastExpr value] : LPAREN e1= rangeType RPAREN e2= coverageExpr ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:274:1: castExpr returns [CastExpr value] : LPAREN e1= rangeType RPAREN e2= coverageExpr ;
     public final wcpsParser.castExpr_return castExpr() throws RecognitionException {
         wcpsParser.castExpr_return retval = new wcpsParser.castExpr_return();
         retval.start = input.LT(1);
         int castExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LPAREN158=null;
-        Token RPAREN159=null;
+        Token LPAREN162=null;
+        Token RPAREN163=null;
         wcpsParser.rangeType_return e1 = null;
 
         wcpsParser.coverageExpr_return e2 = null;
 
 
-        Object LPAREN158_tree=null;
-        Object RPAREN159_tree=null;
+        Object LPAREN162_tree=null;
+        Object RPAREN163_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 51) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:267:5: ( LPAREN e1= rangeType RPAREN e2= coverageExpr )
-            // src/petascope/wcps/grammar/wcps.g:267:7: LPAREN e1= rangeType RPAREN e2= coverageExpr
+            if ( state.backtracking>0 && alreadyParsedRule(input, 53) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:275:5: ( LPAREN e1= rangeType RPAREN e2= coverageExpr )
+            // src/main/java/petascope/wcps/grammar/wcps.g:275:7: LPAREN e1= rangeType RPAREN e2= coverageExpr
             {
             root_0 = (Object)adaptor.nil();
 
-            LPAREN158=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_castExpr2742); if (state.failed) return retval;
+            LPAREN162=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_castExpr2850); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN158_tree = (Object)adaptor.create(LPAREN158);
-            adaptor.addChild(root_0, LPAREN158_tree);
+            LPAREN162_tree = (Object)adaptor.create(LPAREN162);
+            adaptor.addChild(root_0, LPAREN162_tree);
             }
-            pushFollow(FOLLOW_rangeType_in_castExpr2746);
+            pushFollow(FOLLOW_rangeType_in_castExpr2854);
             e1=rangeType();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            RPAREN159=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_castExpr2748); if (state.failed) return retval;
+            RPAREN163=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_castExpr2856); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN159_tree = (Object)adaptor.create(RPAREN159);
-            adaptor.addChild(root_0, RPAREN159_tree);
+            RPAREN163_tree = (Object)adaptor.create(RPAREN163);
+            adaptor.addChild(root_0, RPAREN163_tree);
             }
-            pushFollow(FOLLOW_coverageExpr_in_castExpr2752);
+            pushFollow(FOLLOW_coverageExpr_in_castExpr2860);
             e2=coverageExpr();
 
             state._fsp--;
@@ -6721,7 +6916,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 51, castExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 53, castExpr_StartIndex); }
         }
         return retval;
     }
@@ -6734,7 +6929,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeType"
-    // src/petascope/wcps/grammar/wcps.g:269:1: rangeType returns [String value] : (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) );
+    // src/main/java/petascope/wcps/grammar/wcps.g:277:1: rangeType returns [String value] : (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) );
     public final wcpsParser.rangeType_return rangeType() throws RecognitionException {
         wcpsParser.rangeType_return retval = new wcpsParser.rangeType_return();
         retval.start = input.LT(1);
@@ -6742,33 +6937,33 @@ public class wcpsParser extends Parser {
         Object root_0 = null;
 
         Token type=null;
-        Token UNSIGNED160=null;
+        Token UNSIGNED164=null;
 
         Object type_tree=null;
-        Object UNSIGNED160_tree=null;
+        Object UNSIGNED164_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 52) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:270:5: (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) )
-            int alt45=2;
-            int LA45_0 = input.LA(1);
+            if ( state.backtracking>0 && alreadyParsedRule(input, 54) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:278:5: (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) )
+            int alt46=2;
+            int LA46_0 = input.LA(1);
 
-            if ( ((LA45_0>=BOOLEAN && LA45_0<=COMPLEX2)) ) {
-                alt45=1;
+            if ( ((LA46_0>=BOOLEAN && LA46_0<=COMPLEX2)) ) {
+                alt46=1;
             }
-            else if ( (LA45_0==UNSIGNED) ) {
-                alt45=2;
+            else if ( (LA46_0==UNSIGNED) ) {
+                alt46=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 45, 0, input);
+                    new NoViableAltException("", 46, 0, input);
 
                 throw nvae;
             }
-            switch (alt45) {
+            switch (alt46) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:270:7: type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 )
+                    // src/main/java/petascope/wcps/grammar/wcps.g:278:7: type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 )
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6791,14 +6986,14 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:271:7: UNSIGNED type= ( CHAR | SHORT | LONG )
+                    // src/main/java/petascope/wcps/grammar/wcps.g:279:7: UNSIGNED type= ( CHAR | SHORT | LONG )
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    UNSIGNED160=(Token)match(input,UNSIGNED,FOLLOW_UNSIGNED_in_rangeType2801); if (state.failed) return retval;
+                    UNSIGNED164=(Token)match(input,UNSIGNED,FOLLOW_UNSIGNED_in_rangeType2909); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    UNSIGNED160_tree = (Object)adaptor.create(UNSIGNED160);
-                    adaptor.addChild(root_0, UNSIGNED160_tree);
+                    UNSIGNED164_tree = (Object)adaptor.create(UNSIGNED164);
+                    adaptor.addChild(root_0, UNSIGNED164_tree);
                     }
                     type=(Token)input.LT(1);
                     if ( (input.LA(1)>=CHAR && input.LA(1)<=LONG) ) {
@@ -6835,7 +7030,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 52, rangeType_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 54, rangeType_StartIndex); }
         }
         return retval;
     }
@@ -6848,40 +7043,40 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldExpr"
-    // src/petascope/wcps/grammar/wcps.g:273:1: fieldExpr returns [SelectExpr value] : e1= coverageAtom DOT e2= fieldName ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:281:1: fieldExpr returns [SelectExpr value] : e1= coverageAtom DOT e2= fieldName ;
     public final wcpsParser.fieldExpr_return fieldExpr() throws RecognitionException {
         wcpsParser.fieldExpr_return retval = new wcpsParser.fieldExpr_return();
         retval.start = input.LT(1);
         int fieldExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token DOT161=null;
+        Token DOT165=null;
         wcpsParser.coverageAtom_return e1 = null;
 
         wcpsParser.fieldName_return e2 = null;
 
 
-        Object DOT161_tree=null;
+        Object DOT165_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 53) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:274:5: (e1= coverageAtom DOT e2= fieldName )
-            // src/petascope/wcps/grammar/wcps.g:274:7: e1= coverageAtom DOT e2= fieldName
+            if ( state.backtracking>0 && alreadyParsedRule(input, 55) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:282:5: (e1= coverageAtom DOT e2= fieldName )
+            // src/main/java/petascope/wcps/grammar/wcps.g:282:7: e1= coverageAtom DOT e2= fieldName
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_coverageAtom_in_fieldExpr2834);
+            pushFollow(FOLLOW_coverageAtom_in_fieldExpr2942);
             e1=coverageAtom();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            DOT161=(Token)match(input,DOT,FOLLOW_DOT_in_fieldExpr2836); if (state.failed) return retval;
+            DOT165=(Token)match(input,DOT,FOLLOW_DOT_in_fieldExpr2944); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            DOT161_tree = (Object)adaptor.create(DOT161);
-            adaptor.addChild(root_0, DOT161_tree);
+            DOT165_tree = (Object)adaptor.create(DOT165);
+            adaptor.addChild(root_0, DOT165_tree);
             }
-            pushFollow(FOLLOW_fieldName_in_fieldExpr2840);
+            pushFollow(FOLLOW_fieldName_in_fieldExpr2948);
             e2=fieldName();
 
             state._fsp--;
@@ -6908,7 +7103,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 53, fieldExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 55, fieldExpr_StartIndex); }
         }
         return retval;
     }
@@ -6921,7 +7116,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanScalarExpr"
-    // src/petascope/wcps/grammar/wcps.g:278:1: booleanScalarExpr returns [BooleanScalarExpr value] : e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:286:1: booleanScalarExpr returns [BooleanScalarExpr value] : e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* ;
     public final wcpsParser.booleanScalarExpr_return booleanScalarExpr() throws RecognitionException {
         wcpsParser.booleanScalarExpr_return retval = new wcpsParser.booleanScalarExpr_return();
         retval.start = input.LT(1);
@@ -6937,13 +7132,13 @@ public class wcpsParser extends Parser {
         Object op_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 54) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:279:5: (e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* )
-            // src/petascope/wcps/grammar/wcps.g:279:7: e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )*
+            if ( state.backtracking>0 && alreadyParsedRule(input, 56) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:287:5: (e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:287:7: e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_booleanScalarTerm_in_booleanScalarExpr2865);
+            pushFollow(FOLLOW_booleanScalarTerm_in_booleanScalarExpr2973);
             e1=booleanScalarTerm();
 
             state._fsp--;
@@ -6952,14 +7147,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/petascope/wcps/grammar/wcps.g:280:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*
-            loop46:
+            // src/main/java/petascope/wcps/grammar/wcps.g:288:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*
+            loop47:
             do {
-                int alt46=2;
-                alt46 = dfa46.predict(input);
-                switch (alt46) {
+                int alt47=2;
+                alt47 = dfa47.predict(input);
+                switch (alt47) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:280:8: op= ( OR | XOR ) e2= booleanScalarTerm
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:288:8: op= ( OR | XOR ) e2= booleanScalarTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -6973,7 +7168,7 @@ public class wcpsParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_booleanScalarTerm_in_booleanScalarExpr2886);
+            	    pushFollow(FOLLOW_booleanScalarTerm_in_booleanScalarExpr2994);
             	    e2=booleanScalarTerm();
 
             	    state._fsp--;
@@ -6981,100 +7176,6 @@ public class wcpsParser extends Parser {
             	    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
             	    if ( state.backtracking==0 ) {
             	       retval.value = new BooleanScalarExpr((op!=null?op.getText():null), retval.value, (e2!=null?e2.value:null));
-            	    }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop46;
-                }
-            } while (true);
-
-
-            }
-
-            retval.stop = input.LT(-1);
-
-            if ( state.backtracking==0 ) {
-
-            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
-
-        }
-        finally {
-            if ( state.backtracking>0 ) { memoize(input, 54, booleanScalarExpr_StartIndex); }
-        }
-        return retval;
-    }
-    // $ANTLR end "booleanScalarExpr"
-
-    public static class booleanScalarTerm_return extends ParserRuleReturnScope {
-        public BooleanScalarExpr value;
-        Object tree;
-        public Object getTree() { return tree; }
-    };
-
-    // $ANTLR start "booleanScalarTerm"
-    // src/petascope/wcps/grammar/wcps.g:282:1: booleanScalarTerm returns [BooleanScalarExpr value] : e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* ;
-    public final wcpsParser.booleanScalarTerm_return booleanScalarTerm() throws RecognitionException {
-        wcpsParser.booleanScalarTerm_return retval = new wcpsParser.booleanScalarTerm_return();
-        retval.start = input.LT(1);
-        int booleanScalarTerm_StartIndex = input.index();
-        Object root_0 = null;
-
-        Token op=null;
-        wcpsParser.booleanScalarNegation_return e1 = null;
-
-        wcpsParser.booleanScalarNegation_return e2 = null;
-
-
-        Object op_tree=null;
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 55) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:283:2: (e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* )
-            // src/petascope/wcps/grammar/wcps.g:283:4: e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )*
-            {
-            root_0 = (Object)adaptor.nil();
-
-            pushFollow(FOLLOW_booleanScalarNegation_in_booleanScalarTerm2908);
-            e1=booleanScalarNegation();
-
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            if ( state.backtracking==0 ) {
-               retval.value = (e1!=null?e1.value:null); 
-            }
-            // src/petascope/wcps/grammar/wcps.g:284:4: (op= AND e2= booleanScalarNegation )*
-            loop47:
-            do {
-                int alt47=2;
-                alt47 = dfa47.predict(input);
-                switch (alt47) {
-            	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:284:5: op= AND e2= booleanScalarNegation
-            	    {
-            	    op=(Token)match(input,AND,FOLLOW_AND_in_booleanScalarTerm2918); if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) {
-            	    op_tree = (Object)adaptor.create(op);
-            	    adaptor.addChild(root_0, op_tree);
-            	    }
-            	    pushFollow(FOLLOW_booleanScalarNegation_in_booleanScalarTerm2922);
-            	    e2=booleanScalarNegation();
-
-            	    state._fsp--;
-            	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-            	    if ( state.backtracking==0 ) {
-            	       retval.value = new BooleanScalarExpr((op!=null?op.getText():null), retval.value, (e2!=null?e2.value:null)); 
             	    }
 
             	    }
@@ -7103,7 +7204,101 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 55, booleanScalarTerm_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 56, booleanScalarExpr_StartIndex); }
+        }
+        return retval;
+    }
+    // $ANTLR end "booleanScalarExpr"
+
+    public static class booleanScalarTerm_return extends ParserRuleReturnScope {
+        public BooleanScalarExpr value;
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "booleanScalarTerm"
+    // src/main/java/petascope/wcps/grammar/wcps.g:290:1: booleanScalarTerm returns [BooleanScalarExpr value] : e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* ;
+    public final wcpsParser.booleanScalarTerm_return booleanScalarTerm() throws RecognitionException {
+        wcpsParser.booleanScalarTerm_return retval = new wcpsParser.booleanScalarTerm_return();
+        retval.start = input.LT(1);
+        int booleanScalarTerm_StartIndex = input.index();
+        Object root_0 = null;
+
+        Token op=null;
+        wcpsParser.booleanScalarNegation_return e1 = null;
+
+        wcpsParser.booleanScalarNegation_return e2 = null;
+
+
+        Object op_tree=null;
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 57) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:291:2: (e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:291:4: e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )*
+            {
+            root_0 = (Object)adaptor.nil();
+
+            pushFollow(FOLLOW_booleanScalarNegation_in_booleanScalarTerm3016);
+            e1=booleanScalarNegation();
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
+            if ( state.backtracking==0 ) {
+               retval.value = (e1!=null?e1.value:null); 
+            }
+            // src/main/java/petascope/wcps/grammar/wcps.g:292:4: (op= AND e2= booleanScalarNegation )*
+            loop48:
+            do {
+                int alt48=2;
+                alt48 = dfa48.predict(input);
+                switch (alt48) {
+            	case 1 :
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:292:5: op= AND e2= booleanScalarNegation
+            	    {
+            	    op=(Token)match(input,AND,FOLLOW_AND_in_booleanScalarTerm3026); if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) {
+            	    op_tree = (Object)adaptor.create(op);
+            	    adaptor.addChild(root_0, op_tree);
+            	    }
+            	    pushFollow(FOLLOW_booleanScalarNegation_in_booleanScalarTerm3030);
+            	    e2=booleanScalarNegation();
+
+            	    state._fsp--;
+            	    if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
+            	    if ( state.backtracking==0 ) {
+            	       retval.value = new BooleanScalarExpr((op!=null?op.getText():null), retval.value, (e2!=null?e2.value:null)); 
+            	    }
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop48;
+                }
+            } while (true);
+
+
+            }
+
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+            if ( state.backtracking>0 ) { memoize(input, 57, booleanScalarTerm_StartIndex); }
         }
         return retval;
     }
@@ -7116,7 +7311,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanScalarNegation"
-    // src/petascope/wcps/grammar/wcps.g:286:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );
+    // src/main/java/petascope/wcps/grammar/wcps.g:294:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );
     public final wcpsParser.booleanScalarNegation_return booleanScalarNegation() throws RecognitionException {
         wcpsParser.booleanScalarNegation_return retval = new wcpsParser.booleanScalarNegation_return();
         retval.start = input.LT(1);
@@ -7130,17 +7325,17 @@ public class wcpsParser extends Parser {
         Object op_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 56) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:287:2: (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom )
-            int alt48=2;
-            alt48 = dfa48.predict(input);
-            switch (alt48) {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 58) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:295:2: (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom )
+            int alt49=2;
+            alt49 = dfa49.predict(input);
+            switch (alt49) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:287:4: e1= booleanScalarAtom
+                    // src/main/java/petascope/wcps/grammar/wcps.g:295:4: e1= booleanScalarAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_booleanScalarAtom_in_booleanScalarNegation2943);
+                    pushFollow(FOLLOW_booleanScalarAtom_in_booleanScalarNegation3051);
                     e1=booleanScalarAtom();
 
                     state._fsp--;
@@ -7153,16 +7348,16 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:288:4: op= NOT e1= booleanScalarAtom
+                    // src/main/java/petascope/wcps/grammar/wcps.g:296:4: op= NOT e1= booleanScalarAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,NOT,FOLLOW_NOT_in_booleanScalarNegation2952); if (state.failed) return retval;
+                    op=(Token)match(input,NOT,FOLLOW_NOT_in_booleanScalarNegation3060); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    pushFollow(FOLLOW_booleanScalarAtom_in_booleanScalarNegation2956);
+                    pushFollow(FOLLOW_booleanScalarAtom_in_booleanScalarNegation3064);
                     e1=booleanScalarAtom();
 
                     state._fsp--;
@@ -7191,7 +7386,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 56, booleanScalarNegation_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 58, booleanScalarNegation_StartIndex); }
         }
         return retval;
     }
@@ -7204,7 +7399,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanScalarAtom"
-    // src/petascope/wcps/grammar/wcps.g:290:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );
+    // src/main/java/petascope/wcps/grammar/wcps.g:298:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );
     public final wcpsParser.booleanScalarAtom_return booleanScalarAtom() throws RecognitionException {
         wcpsParser.booleanScalarAtom_return retval = new wcpsParser.booleanScalarAtom_return();
         retval.start = input.LT(1);
@@ -7212,8 +7407,8 @@ public class wcpsParser extends Parser {
         Object root_0 = null;
 
         Token e=null;
-        Token LPAREN162=null;
-        Token RPAREN163=null;
+        Token LPAREN166=null;
+        Token RPAREN167=null;
         wcpsParser.booleanScalarExpr_return e1 = null;
 
         wcpsParser.stringScalarExpr_return s1 = null;
@@ -7228,35 +7423,35 @@ public class wcpsParser extends Parser {
 
 
         Object e_tree=null;
-        Object LPAREN162_tree=null;
-        Object RPAREN163_tree=null;
+        Object LPAREN166_tree=null;
+        Object RPAREN167_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 57) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:291:2: ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT )
-            int alt49=4;
-            alt49 = dfa49.predict(input);
-            switch (alt49) {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 59) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:299:2: ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT )
+            int alt50=4;
+            alt50 = dfa50.predict(input);
+            switch (alt50) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:291:4: LPAREN e1= booleanScalarExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:299:4: LPAREN e1= booleanScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    LPAREN162=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_booleanScalarAtom2971); if (state.failed) return retval;
+                    LPAREN166=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_booleanScalarAtom3079); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN162_tree = (Object)adaptor.create(LPAREN162);
-                    adaptor.addChild(root_0, LPAREN162_tree);
+                    LPAREN166_tree = (Object)adaptor.create(LPAREN166);
+                    adaptor.addChild(root_0, LPAREN166_tree);
                     }
-                    pushFollow(FOLLOW_booleanScalarExpr_in_booleanScalarAtom2975);
+                    pushFollow(FOLLOW_booleanScalarExpr_in_booleanScalarAtom3083);
                     e1=booleanScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    RPAREN163=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_booleanScalarAtom2977); if (state.failed) return retval;
+                    RPAREN167=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_booleanScalarAtom3085); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN163_tree = (Object)adaptor.create(RPAREN163);
-                    adaptor.addChild(root_0, RPAREN163_tree);
+                    RPAREN167_tree = (Object)adaptor.create(RPAREN167);
+                    adaptor.addChild(root_0, RPAREN167_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = (e1!=null?e1.value:null); 
@@ -7265,23 +7460,23 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:292:4: s1= stringScalarExpr cop= compOp s2= stringScalarExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:300:4: s1= stringScalarExpr cop= compOp s2= stringScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_stringScalarExpr_in_booleanScalarAtom2986);
+                    pushFollow(FOLLOW_stringScalarExpr_in_booleanScalarAtom3094);
                     s1=stringScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, s1.getTree());
-                    pushFollow(FOLLOW_compOp_in_booleanScalarAtom2990);
+                    pushFollow(FOLLOW_compOp_in_booleanScalarAtom3098);
                     cop=compOp();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, cop.getTree());
-                    pushFollow(FOLLOW_stringScalarExpr_in_booleanScalarAtom2994);
+                    pushFollow(FOLLOW_stringScalarExpr_in_booleanScalarAtom3102);
                     s2=stringScalarExpr();
 
                     state._fsp--;
@@ -7294,23 +7489,23 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/petascope/wcps/grammar/wcps.g:293:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:301:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_numericScalarExpr_in_booleanScalarAtom3004);
+                    pushFollow(FOLLOW_numericScalarExpr_in_booleanScalarAtom3112);
                     n1=numericScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, n1.getTree());
-                    pushFollow(FOLLOW_compOp_in_booleanScalarAtom3008);
+                    pushFollow(FOLLOW_compOp_in_booleanScalarAtom3116);
                     cop=compOp();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, cop.getTree());
-                    pushFollow(FOLLOW_numericScalarExpr_in_booleanScalarAtom3012);
+                    pushFollow(FOLLOW_numericScalarExpr_in_booleanScalarAtom3120);
                     n2=numericScalarExpr();
 
                     state._fsp--;
@@ -7323,11 +7518,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/petascope/wcps/grammar/wcps.g:294:4: e= BOOLEANCONSTANT
+                    // src/main/java/petascope/wcps/grammar/wcps.g:302:4: e= BOOLEANCONSTANT
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    e=(Token)match(input,BOOLEANCONSTANT,FOLLOW_BOOLEANCONSTANT_in_booleanScalarAtom3022); if (state.failed) return retval;
+                    e=(Token)match(input,BOOLEANCONSTANT,FOLLOW_BOOLEANCONSTANT_in_booleanScalarAtom3130); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     e_tree = (Object)adaptor.create(e);
                     adaptor.addChild(root_0, e_tree);
@@ -7355,7 +7550,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 57, booleanScalarAtom_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 59, booleanScalarAtom_StartIndex); }
         }
         return retval;
     }
@@ -7368,7 +7563,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "numericScalarExpr"
-    // src/petascope/wcps/grammar/wcps.g:296:1: numericScalarExpr returns [NumericScalarExpr value] : e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:304:1: numericScalarExpr returns [NumericScalarExpr value] : e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* ;
     public final wcpsParser.numericScalarExpr_return numericScalarExpr() throws RecognitionException {
         wcpsParser.numericScalarExpr_return retval = new wcpsParser.numericScalarExpr_return();
         retval.start = input.LT(1);
@@ -7384,13 +7579,13 @@ public class wcpsParser extends Parser {
         Object op_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 58) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:297:2: (e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* )
-            // src/petascope/wcps/grammar/wcps.g:297:4: e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
+            if ( state.backtracking>0 && alreadyParsedRule(input, 60) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:305:2: (e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:305:4: e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_numericScalarTerm_in_numericScalarExpr3039);
+            pushFollow(FOLLOW_numericScalarTerm_in_numericScalarExpr3147);
             e1=numericScalarTerm();
 
             state._fsp--;
@@ -7399,14 +7594,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null); 
             }
-            // src/petascope/wcps/grammar/wcps.g:298:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
-            loop50:
+            // src/main/java/petascope/wcps/grammar/wcps.g:306:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
+            loop51:
             do {
-                int alt50=2;
-                alt50 = dfa50.predict(input);
-                switch (alt50) {
+                int alt51=2;
+                alt51 = dfa51.predict(input);
+                switch (alt51) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:298:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:306:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -7420,109 +7615,8 @@ public class wcpsParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_numericScalarTerm_in_numericScalarExpr3057);
+            	    pushFollow(FOLLOW_numericScalarTerm_in_numericScalarExpr3165);
             	    e2=numericScalarTerm();
-
-            	    state._fsp--;
-            	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-            	    if ( state.backtracking==0 ) {
-            	       retval.value = new NumericScalarExpr((op!=null?op.getText():null), retval.value, (e2!=null?e2.value:null)); 
-            	    }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop50;
-                }
-            } while (true);
-
-
-            }
-
-            retval.stop = input.LT(-1);
-
-            if ( state.backtracking==0 ) {
-
-            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
-
-        }
-        finally {
-            if ( state.backtracking>0 ) { memoize(input, 58, numericScalarExpr_StartIndex); }
-        }
-        return retval;
-    }
-    // $ANTLR end "numericScalarExpr"
-
-    public static class numericScalarTerm_return extends ParserRuleReturnScope {
-        public NumericScalarExpr value;
-        Object tree;
-        public Object getTree() { return tree; }
-    };
-
-    // $ANTLR start "numericScalarTerm"
-    // src/petascope/wcps/grammar/wcps.g:300:1: numericScalarTerm returns [NumericScalarExpr value] : e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* ;
-    public final wcpsParser.numericScalarTerm_return numericScalarTerm() throws RecognitionException {
-        wcpsParser.numericScalarTerm_return retval = new wcpsParser.numericScalarTerm_return();
-        retval.start = input.LT(1);
-        int numericScalarTerm_StartIndex = input.index();
-        Object root_0 = null;
-
-        Token op=null;
-        wcpsParser.numericScalarFactor_return e1 = null;
-
-        wcpsParser.numericScalarFactor_return e2 = null;
-
-
-        Object op_tree=null;
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 59) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:301:2: (e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* )
-            // src/petascope/wcps/grammar/wcps.g:301:4: e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
-            {
-            root_0 = (Object)adaptor.nil();
-
-            pushFollow(FOLLOW_numericScalarFactor_in_numericScalarTerm3076);
-            e1=numericScalarFactor();
-
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            if ( state.backtracking==0 ) {
-               retval.value = (e1!=null?e1.value:null); 
-            }
-            // src/petascope/wcps/grammar/wcps.g:302:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
-            loop51:
-            do {
-                int alt51=2;
-                alt51 = dfa51.predict(input);
-                switch (alt51) {
-            	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:302:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
-            	    {
-            	    op=(Token)input.LT(1);
-            	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
-            	        input.consume();
-            	        if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(op));
-            	        state.errorRecovery=false;state.failed=false;
-            	    }
-            	    else {
-            	        if (state.backtracking>0) {state.failed=true; return retval;}
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        throw mse;
-            	    }
-
-            	    pushFollow(FOLLOW_numericScalarFactor_in_numericScalarTerm3093);
-            	    e2=numericScalarFactor();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
@@ -7557,7 +7651,108 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 59, numericScalarTerm_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 60, numericScalarExpr_StartIndex); }
+        }
+        return retval;
+    }
+    // $ANTLR end "numericScalarExpr"
+
+    public static class numericScalarTerm_return extends ParserRuleReturnScope {
+        public NumericScalarExpr value;
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "numericScalarTerm"
+    // src/main/java/petascope/wcps/grammar/wcps.g:308:1: numericScalarTerm returns [NumericScalarExpr value] : e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* ;
+    public final wcpsParser.numericScalarTerm_return numericScalarTerm() throws RecognitionException {
+        wcpsParser.numericScalarTerm_return retval = new wcpsParser.numericScalarTerm_return();
+        retval.start = input.LT(1);
+        int numericScalarTerm_StartIndex = input.index();
+        Object root_0 = null;
+
+        Token op=null;
+        wcpsParser.numericScalarFactor_return e1 = null;
+
+        wcpsParser.numericScalarFactor_return e2 = null;
+
+
+        Object op_tree=null;
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 61) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:309:2: (e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:309:4: e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
+            {
+            root_0 = (Object)adaptor.nil();
+
+            pushFollow(FOLLOW_numericScalarFactor_in_numericScalarTerm3184);
+            e1=numericScalarFactor();
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
+            if ( state.backtracking==0 ) {
+               retval.value = (e1!=null?e1.value:null); 
+            }
+            // src/main/java/petascope/wcps/grammar/wcps.g:310:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
+            loop52:
+            do {
+                int alt52=2;
+                alt52 = dfa52.predict(input);
+                switch (alt52) {
+            	case 1 :
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:310:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
+            	    {
+            	    op=(Token)input.LT(1);
+            	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
+            	        input.consume();
+            	        if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(op));
+            	        state.errorRecovery=false;state.failed=false;
+            	    }
+            	    else {
+            	        if (state.backtracking>0) {state.failed=true; return retval;}
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        throw mse;
+            	    }
+
+            	    pushFollow(FOLLOW_numericScalarFactor_in_numericScalarTerm3201);
+            	    e2=numericScalarFactor();
+
+            	    state._fsp--;
+            	    if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
+            	    if ( state.backtracking==0 ) {
+            	       retval.value = new NumericScalarExpr((op!=null?op.getText():null), retval.value, (e2!=null?e2.value:null)); 
+            	    }
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop52;
+                }
+            } while (true);
+
+
+            }
+
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+            if ( state.backtracking>0 ) { memoize(input, 61, numericScalarTerm_StartIndex); }
         }
         return retval;
     }
@@ -7570,7 +7765,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "numericScalarFactor"
-    // src/petascope/wcps/grammar/wcps.g:304:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );
+    // src/main/java/petascope/wcps/grammar/wcps.g:312:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );
     public final wcpsParser.numericScalarFactor_return numericScalarFactor() throws RecognitionException {
         wcpsParser.numericScalarFactor_return retval = new wcpsParser.numericScalarFactor_return();
         retval.start = input.LT(1);
@@ -7579,14 +7774,14 @@ public class wcpsParser extends Parser {
 
         Token op=null;
         Token e=null;
-        Token LPAREN164=null;
-        Token RPAREN165=null;
-        Token LPAREN166=null;
-        Token RPAREN167=null;
         Token LPAREN168=null;
         Token RPAREN169=null;
         Token LPAREN170=null;
         Token RPAREN171=null;
+        Token LPAREN172=null;
+        Token RPAREN173=null;
+        Token LPAREN174=null;
+        Token RPAREN175=null;
         wcpsParser.numericScalarExpr_return e1 = null;
 
         wcpsParser.numericScalarFactor_return e10 = null;
@@ -7604,41 +7799,41 @@ public class wcpsParser extends Parser {
 
         Object op_tree=null;
         Object e_tree=null;
-        Object LPAREN164_tree=null;
-        Object RPAREN165_tree=null;
-        Object LPAREN166_tree=null;
-        Object RPAREN167_tree=null;
         Object LPAREN168_tree=null;
         Object RPAREN169_tree=null;
         Object LPAREN170_tree=null;
         Object RPAREN171_tree=null;
+        Object LPAREN172_tree=null;
+        Object RPAREN173_tree=null;
+        Object LPAREN174_tree=null;
+        Object RPAREN175_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 60) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:305:5: ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName )
-            int alt52=10;
-            alt52 = dfa52.predict(input);
-            switch (alt52) {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 62) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:313:5: ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName )
+            int alt53=10;
+            alt53 = dfa53.predict(input);
+            switch (alt53) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:305:7: LPAREN e1= numericScalarExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:313:7: LPAREN e1= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    LPAREN164=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3113); if (state.failed) return retval;
+                    LPAREN168=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3221); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN164_tree = (Object)adaptor.create(LPAREN164);
-                    adaptor.addChild(root_0, LPAREN164_tree);
+                    LPAREN168_tree = (Object)adaptor.create(LPAREN168);
+                    adaptor.addChild(root_0, LPAREN168_tree);
                     }
-                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3117);
+                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3225);
                     e1=numericScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    RPAREN165=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3119); if (state.failed) return retval;
+                    RPAREN169=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3227); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN165_tree = (Object)adaptor.create(RPAREN165);
-                    adaptor.addChild(root_0, RPAREN165_tree);
+                    RPAREN169_tree = (Object)adaptor.create(RPAREN169);
+                    adaptor.addChild(root_0, RPAREN169_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = (e1!=null?e1.value:null); 
@@ -7647,16 +7842,16 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:306:7: op= MINUS e10= numericScalarFactor
+                    // src/main/java/petascope/wcps/grammar/wcps.g:314:7: op= MINUS e10= numericScalarFactor
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,MINUS,FOLLOW_MINUS_in_numericScalarFactor3131); if (state.failed) return retval;
+                    op=(Token)match(input,MINUS,FOLLOW_MINUS_in_numericScalarFactor3239); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    pushFollow(FOLLOW_numericScalarFactor_in_numericScalarFactor3135);
+                    pushFollow(FOLLOW_numericScalarFactor_in_numericScalarFactor3243);
                     e10=numericScalarFactor();
 
                     state._fsp--;
@@ -7669,30 +7864,30 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/petascope/wcps/grammar/wcps.g:307:7: op= ABS LPAREN e12= numericScalarExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:315:7: op= ABS LPAREN e12= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,ABS,FOLLOW_ABS_in_numericScalarFactor3147); if (state.failed) return retval;
+                    op=(Token)match(input,ABS,FOLLOW_ABS_in_numericScalarFactor3255); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    LPAREN166=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3149); if (state.failed) return retval;
+                    LPAREN170=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3257); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN166_tree = (Object)adaptor.create(LPAREN166);
-                    adaptor.addChild(root_0, LPAREN166_tree);
+                    LPAREN170_tree = (Object)adaptor.create(LPAREN170);
+                    adaptor.addChild(root_0, LPAREN170_tree);
                     }
-                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3153);
+                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3261);
                     e12=numericScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e12.getTree());
-                    RPAREN167=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3155); if (state.failed) return retval;
+                    RPAREN171=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3263); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN167_tree = (Object)adaptor.create(RPAREN167);
-                    adaptor.addChild(root_0, RPAREN167_tree);
+                    RPAREN171_tree = (Object)adaptor.create(RPAREN171);
+                    adaptor.addChild(root_0, RPAREN171_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e12!=null?e12.value:null)); 
@@ -7701,30 +7896,30 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/petascope/wcps/grammar/wcps.g:308:7: op= SQRT LPAREN e11= numericScalarExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:316:7: op= SQRT LPAREN e11= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,SQRT,FOLLOW_SQRT_in_numericScalarFactor3167); if (state.failed) return retval;
+                    op=(Token)match(input,SQRT,FOLLOW_SQRT_in_numericScalarFactor3275); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    LPAREN168=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3169); if (state.failed) return retval;
+                    LPAREN172=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3277); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN168_tree = (Object)adaptor.create(LPAREN168);
-                    adaptor.addChild(root_0, LPAREN168_tree);
+                    LPAREN172_tree = (Object)adaptor.create(LPAREN172);
+                    adaptor.addChild(root_0, LPAREN172_tree);
                     }
-                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3173);
+                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3281);
                     e11=numericScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e11.getTree());
-                    RPAREN169=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3175); if (state.failed) return retval;
+                    RPAREN173=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3283); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN169_tree = (Object)adaptor.create(RPAREN169);
-                    adaptor.addChild(root_0, RPAREN169_tree);
+                    RPAREN173_tree = (Object)adaptor.create(RPAREN173);
+                    adaptor.addChild(root_0, RPAREN173_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e11!=null?e11.value:null)); 
@@ -7733,30 +7928,30 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/petascope/wcps/grammar/wcps.g:309:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:317:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,ROUND,FOLLOW_ROUND_in_numericScalarFactor3187); if (state.failed) return retval;
+                    op=(Token)match(input,ROUND,FOLLOW_ROUND_in_numericScalarFactor3295); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    LPAREN170=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3189); if (state.failed) return retval;
+                    LPAREN174=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3297); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN170_tree = (Object)adaptor.create(LPAREN170);
-                    adaptor.addChild(root_0, LPAREN170_tree);
+                    LPAREN174_tree = (Object)adaptor.create(LPAREN174);
+                    adaptor.addChild(root_0, LPAREN174_tree);
                     }
-                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3193);
+                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3301);
                     e1=numericScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    RPAREN171=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3195); if (state.failed) return retval;
+                    RPAREN175=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3303); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN171_tree = (Object)adaptor.create(RPAREN171);
-                    adaptor.addChild(root_0, RPAREN171_tree);
+                    RPAREN175_tree = (Object)adaptor.create(RPAREN175);
+                    adaptor.addChild(root_0, RPAREN175_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e1!=null?e1.value:null)); 
@@ -7765,11 +7960,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/petascope/wcps/grammar/wcps.g:310:7: e= INTEGERCONSTANT
+                    // src/main/java/petascope/wcps/grammar/wcps.g:318:7: e= INTEGERCONSTANT
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    e=(Token)match(input,INTEGERCONSTANT,FOLLOW_INTEGERCONSTANT_in_numericScalarFactor3207); if (state.failed) return retval;
+                    e=(Token)match(input,INTEGERCONSTANT,FOLLOW_INTEGERCONSTANT_in_numericScalarFactor3315); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     e_tree = (Object)adaptor.create(e);
                     adaptor.addChild(root_0, e_tree);
@@ -7781,11 +7976,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // src/petascope/wcps/grammar/wcps.g:311:7: e= FLOATCONSTANT
+                    // src/main/java/petascope/wcps/grammar/wcps.g:319:7: e= FLOATCONSTANT
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    e=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_numericScalarFactor3219); if (state.failed) return retval;
+                    e=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_numericScalarFactor3327); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     e_tree = (Object)adaptor.create(e);
                     adaptor.addChild(root_0, e_tree);
@@ -7797,11 +7992,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // src/petascope/wcps/grammar/wcps.g:312:7: e2= complexConstant
+                    // src/main/java/petascope/wcps/grammar/wcps.g:320:7: e2= complexConstant
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_complexConstant_in_numericScalarFactor3231);
+                    pushFollow(FOLLOW_complexConstant_in_numericScalarFactor3339);
                     e2=complexConstant();
 
                     state._fsp--;
@@ -7814,11 +8009,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 9 :
-                    // src/petascope/wcps/grammar/wcps.g:313:7: e3= condenseExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:321:7: e3= condenseExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_condenseExpr_in_numericScalarFactor3243);
+                    pushFollow(FOLLOW_condenseExpr_in_numericScalarFactor3351);
                     e3=condenseExpr();
 
                     state._fsp--;
@@ -7831,11 +8026,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 10 :
-                    // src/petascope/wcps/grammar/wcps.g:314:7: e4= variableName
+                    // src/main/java/petascope/wcps/grammar/wcps.g:322:7: e4= variableName
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_variableName_in_numericScalarFactor3255);
+                    pushFollow(FOLLOW_variableName_in_numericScalarFactor3363);
                     e4=variableName();
 
                     state._fsp--;
@@ -7864,7 +8059,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 60, numericScalarFactor_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 62, numericScalarFactor_StartIndex); }
         }
         return retval;
     }
@@ -7877,80 +8072,80 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "compOp"
-    // src/petascope/wcps/grammar/wcps.g:316:1: compOp returns [String value] : ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE );
+    // src/main/java/petascope/wcps/grammar/wcps.g:324:1: compOp returns [String value] : ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE );
     public final wcpsParser.compOp_return compOp() throws RecognitionException {
         wcpsParser.compOp_return retval = new wcpsParser.compOp_return();
         retval.start = input.LT(1);
         int compOp_StartIndex = input.index();
         Object root_0 = null;
 
-        Token EQUALS172=null;
-        Token NOTEQUALS173=null;
-        Token LT174=null;
-        Token GT175=null;
-        Token LTE176=null;
-        Token GTE177=null;
+        Token EQUALS176=null;
+        Token NOTEQUALS177=null;
+        Token LT178=null;
+        Token GT179=null;
+        Token LTE180=null;
+        Token GTE181=null;
 
-        Object EQUALS172_tree=null;
-        Object NOTEQUALS173_tree=null;
-        Object LT174_tree=null;
-        Object GT175_tree=null;
-        Object LTE176_tree=null;
-        Object GTE177_tree=null;
+        Object EQUALS176_tree=null;
+        Object NOTEQUALS177_tree=null;
+        Object LT178_tree=null;
+        Object GT179_tree=null;
+        Object LTE180_tree=null;
+        Object GTE181_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 61) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:317:2: ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE )
-            int alt53=6;
+            if ( state.backtracking>0 && alreadyParsedRule(input, 63) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:325:2: ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE )
+            int alt54=6;
             switch ( input.LA(1) ) {
             case EQUALS:
                 {
-                alt53=1;
+                alt54=1;
                 }
                 break;
             case NOTEQUALS:
                 {
-                alt53=2;
+                alt54=2;
                 }
                 break;
             case LT:
                 {
-                alt53=3;
+                alt54=3;
                 }
                 break;
             case GT:
                 {
-                alt53=4;
+                alt54=4;
                 }
                 break;
             case LTE:
                 {
-                alt53=5;
+                alt54=5;
                 }
                 break;
             case GTE:
                 {
-                alt53=6;
+                alt54=6;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 53, 0, input);
+                    new NoViableAltException("", 54, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt53) {
+            switch (alt54) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:317:4: EQUALS
+                    // src/main/java/petascope/wcps/grammar/wcps.g:325:4: EQUALS
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    EQUALS172=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_compOp3273); if (state.failed) return retval;
+                    EQUALS176=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_compOp3381); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    EQUALS172_tree = (Object)adaptor.create(EQUALS172);
-                    adaptor.addChild(root_0, EQUALS172_tree);
+                    EQUALS176_tree = (Object)adaptor.create(EQUALS176);
+                    adaptor.addChild(root_0, EQUALS176_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new String("equals"); 
@@ -7959,14 +8154,14 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:318:4: NOTEQUALS
+                    // src/main/java/petascope/wcps/grammar/wcps.g:326:4: NOTEQUALS
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NOTEQUALS173=(Token)match(input,NOTEQUALS,FOLLOW_NOTEQUALS_in_compOp3280); if (state.failed) return retval;
+                    NOTEQUALS177=(Token)match(input,NOTEQUALS,FOLLOW_NOTEQUALS_in_compOp3388); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    NOTEQUALS173_tree = (Object)adaptor.create(NOTEQUALS173);
-                    adaptor.addChild(root_0, NOTEQUALS173_tree);
+                    NOTEQUALS177_tree = (Object)adaptor.create(NOTEQUALS177);
+                    adaptor.addChild(root_0, NOTEQUALS177_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new String("notEqual"); 
@@ -7975,14 +8170,14 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/petascope/wcps/grammar/wcps.g:319:4: LT
+                    // src/main/java/petascope/wcps/grammar/wcps.g:327:4: LT
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    LT174=(Token)match(input,LT,FOLLOW_LT_in_compOp3287); if (state.failed) return retval;
+                    LT178=(Token)match(input,LT,FOLLOW_LT_in_compOp3395); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LT174_tree = (Object)adaptor.create(LT174);
-                    adaptor.addChild(root_0, LT174_tree);
+                    LT178_tree = (Object)adaptor.create(LT178);
+                    adaptor.addChild(root_0, LT178_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new String("lessThan"); 
@@ -7991,14 +8186,14 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/petascope/wcps/grammar/wcps.g:320:4: GT
+                    // src/main/java/petascope/wcps/grammar/wcps.g:328:4: GT
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    GT175=(Token)match(input,GT,FOLLOW_GT_in_compOp3294); if (state.failed) return retval;
+                    GT179=(Token)match(input,GT,FOLLOW_GT_in_compOp3402); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    GT175_tree = (Object)adaptor.create(GT175);
-                    adaptor.addChild(root_0, GT175_tree);
+                    GT179_tree = (Object)adaptor.create(GT179);
+                    adaptor.addChild(root_0, GT179_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new String("greaterThan"); 
@@ -8007,14 +8202,14 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/petascope/wcps/grammar/wcps.g:321:4: LTE
+                    // src/main/java/petascope/wcps/grammar/wcps.g:329:4: LTE
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    LTE176=(Token)match(input,LTE,FOLLOW_LTE_in_compOp3301); if (state.failed) return retval;
+                    LTE180=(Token)match(input,LTE,FOLLOW_LTE_in_compOp3409); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LTE176_tree = (Object)adaptor.create(LTE176);
-                    adaptor.addChild(root_0, LTE176_tree);
+                    LTE180_tree = (Object)adaptor.create(LTE180);
+                    adaptor.addChild(root_0, LTE180_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new String("lessOrEqual"); 
@@ -8023,14 +8218,14 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/petascope/wcps/grammar/wcps.g:322:4: GTE
+                    // src/main/java/petascope/wcps/grammar/wcps.g:330:4: GTE
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    GTE177=(Token)match(input,GTE,FOLLOW_GTE_in_compOp3308); if (state.failed) return retval;
+                    GTE181=(Token)match(input,GTE,FOLLOW_GTE_in_compOp3416); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    GTE177_tree = (Object)adaptor.create(GTE177);
-                    adaptor.addChild(root_0, GTE177_tree);
+                    GTE181_tree = (Object)adaptor.create(GTE181);
+                    adaptor.addChild(root_0, GTE181_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new String("greaterOrEqual"); 
@@ -8055,7 +8250,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 61, compOp_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 63, compOp_StartIndex); }
         }
         return retval;
     }
@@ -8068,27 +8263,27 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionIntervalList"
-    // src/petascope/wcps/grammar/wcps.g:324:1: dimensionIntervalList returns [DimensionIntervalList value] : elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:332:1: dimensionIntervalList returns [DimensionIntervalList value] : elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* ;
     public final wcpsParser.dimensionIntervalList_return dimensionIntervalList() throws RecognitionException {
         wcpsParser.dimensionIntervalList_return retval = new wcpsParser.dimensionIntervalList_return();
         retval.start = input.LT(1);
         int dimensionIntervalList_StartIndex = input.index();
         Object root_0 = null;
 
-        Token COMMA178=null;
+        Token COMMA182=null;
         wcpsParser.dimensionIntervalElement_return elem = null;
 
 
-        Object COMMA178_tree=null;
+        Object COMMA182_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 62) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:325:5: (elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* )
-            // src/petascope/wcps/grammar/wcps.g:325:7: elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )*
+            if ( state.backtracking>0 && alreadyParsedRule(input, 64) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:333:5: (elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:333:7: elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3328);
+            pushFollow(FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3436);
             elem=dimensionIntervalElement();
 
             state._fsp--;
@@ -8097,33 +8292,33 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new DimensionIntervalList((elem!=null?elem.value:null)); 
             }
-            // src/petascope/wcps/grammar/wcps.g:326:9: ( COMMA elem= dimensionIntervalElement )*
-            loop54:
+            // src/main/java/petascope/wcps/grammar/wcps.g:334:9: ( COMMA elem= dimensionIntervalElement )*
+            loop55:
             do {
-                int alt54=2;
-                int LA54_0 = input.LA(1);
+                int alt55=2;
+                int LA55_0 = input.LA(1);
 
-                if ( (LA54_0==COMMA) ) {
-                    int LA54_1 = input.LA(2);
+                if ( (LA55_0==COMMA) ) {
+                    int LA55_1 = input.LA(2);
 
-                    if ( (LA54_1==INTEGERCONSTANT||LA54_1==STRING||LA54_1==NAME) ) {
-                        alt54=1;
+                    if ( (LA55_1==INTEGERCONSTANT||LA55_1==STRING||LA55_1==NAME) ) {
+                        alt55=1;
                     }
 
 
                 }
 
 
-                switch (alt54) {
+                switch (alt55) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:326:10: COMMA elem= dimensionIntervalElement
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:334:10: COMMA elem= dimensionIntervalElement
             	    {
-            	    COMMA178=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionIntervalList3341); if (state.failed) return retval;
+            	    COMMA182=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionIntervalList3449); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
-            	    COMMA178_tree = (Object)adaptor.create(COMMA178);
-            	    adaptor.addChild(root_0, COMMA178_tree);
+            	    COMMA182_tree = (Object)adaptor.create(COMMA182);
+            	    adaptor.addChild(root_0, COMMA182_tree);
             	    }
-            	    pushFollow(FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3345);
+            	    pushFollow(FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3453);
             	    elem=dimensionIntervalElement();
 
             	    state._fsp--;
@@ -8137,7 +8332,7 @@ public class wcpsParser extends Parser {
             	    break;
 
             	default :
-            	    break loop54;
+            	    break loop55;
                 }
             } while (true);
 
@@ -8159,7 +8354,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 62, dimensionIntervalList_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 64, dimensionIntervalList_StartIndex); }
         }
         return retval;
     }
@@ -8172,16 +8367,16 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionIntervalElement"
-    // src/petascope/wcps/grammar/wcps.g:328:1: dimensionIntervalElement returns [DimensionIntervalElement value] : aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:336:1: dimensionIntervalElement returns [DimensionIntervalElement value] : aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN ;
     public final wcpsParser.dimensionIntervalElement_return dimensionIntervalElement() throws RecognitionException {
         wcpsParser.dimensionIntervalElement_return retval = new wcpsParser.dimensionIntervalElement_return();
         retval.start = input.LT(1);
         int dimensionIntervalElement_StartIndex = input.index();
         Object root_0 = null;
 
-        Token COLON179=null;
-        Token LPAREN180=null;
-        Token RPAREN181=null;
+        Token COLON183=null;
+        Token LPAREN184=null;
+        Token RPAREN185=null;
         wcpsParser.axisName_return aname = null;
 
         wcpsParser.crsName_return crs = null;
@@ -8189,18 +8384,18 @@ public class wcpsParser extends Parser {
         wcpsParser.dimensionIntervalExpr_return die = null;
 
 
-        Object COLON179_tree=null;
-        Object LPAREN180_tree=null;
-        Object RPAREN181_tree=null;
+        Object COLON183_tree=null;
+        Object LPAREN184_tree=null;
+        Object RPAREN185_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 63) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:329:5: (aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN )
-            // src/petascope/wcps/grammar/wcps.g:329:7: aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN
+            if ( state.backtracking>0 && alreadyParsedRule(input, 65) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:337:5: (aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:337:7: aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_axisName_in_dimensionIntervalElement3370);
+            pushFollow(FOLLOW_axisName_in_dimensionIntervalElement3478);
             aname=axisName();
 
             state._fsp--;
@@ -8209,23 +8404,23 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new DimensionIntervalElement((aname!=null?aname.value:null)); 
             }
-            // src/petascope/wcps/grammar/wcps.g:329:79: ( COLON crs= crsName )?
-            int alt55=2;
-            int LA55_0 = input.LA(1);
+            // src/main/java/petascope/wcps/grammar/wcps.g:337:79: ( COLON crs= crsName )?
+            int alt56=2;
+            int LA56_0 = input.LA(1);
 
-            if ( (LA55_0==COLON) ) {
-                alt55=1;
+            if ( (LA56_0==COLON) ) {
+                alt56=1;
             }
-            switch (alt55) {
+            switch (alt56) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:329:80: COLON crs= crsName
+                    // src/main/java/petascope/wcps/grammar/wcps.g:337:80: COLON crs= crsName
                     {
-                    COLON179=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalElement3375); if (state.failed) return retval;
+                    COLON183=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalElement3483); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON179_tree = (Object)adaptor.create(COLON179);
-                    adaptor.addChild(root_0, COLON179_tree);
+                    COLON183_tree = (Object)adaptor.create(COLON183);
+                    adaptor.addChild(root_0, COLON183_tree);
                     }
-                    pushFollow(FOLLOW_crsName_in_dimensionIntervalElement3379);
+                    pushFollow(FOLLOW_crsName_in_dimensionIntervalElement3487);
                     crs=crsName();
 
                     state._fsp--;
@@ -8240,21 +8435,21 @@ public class wcpsParser extends Parser {
 
             }
 
-            LPAREN180=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionIntervalElement3390); if (state.failed) return retval;
+            LPAREN184=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionIntervalElement3498); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN180_tree = (Object)adaptor.create(LPAREN180);
-            adaptor.addChild(root_0, LPAREN180_tree);
+            LPAREN184_tree = (Object)adaptor.create(LPAREN184);
+            adaptor.addChild(root_0, LPAREN184_tree);
             }
-            pushFollow(FOLLOW_dimensionIntervalExpr_in_dimensionIntervalElement3394);
+            pushFollow(FOLLOW_dimensionIntervalExpr_in_dimensionIntervalElement3502);
             die=dimensionIntervalExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, die.getTree());
-            RPAREN181=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionIntervalElement3396); if (state.failed) return retval;
+            RPAREN185=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionIntervalElement3504); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN181_tree = (Object)adaptor.create(RPAREN181);
-            adaptor.addChild(root_0, RPAREN181_tree);
+            RPAREN185_tree = (Object)adaptor.create(RPAREN185);
+            adaptor.addChild(root_0, RPAREN185_tree);
             }
             if ( state.backtracking==0 ) {
                retval.value.setIntervalExpr((die!=null?die.value:null)); 
@@ -8277,7 +8472,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 63, dimensionIntervalElement_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 65, dimensionIntervalElement_StartIndex); }
         }
         return retval;
     }
@@ -8290,19 +8485,19 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionIntervalExpr"
-    // src/petascope/wcps/grammar/wcps.g:332:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );
+    // src/main/java/petascope/wcps/grammar/wcps.g:340:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );
     public final wcpsParser.dimensionIntervalExpr_return dimensionIntervalExpr() throws RecognitionException {
         wcpsParser.dimensionIntervalExpr_return retval = new wcpsParser.dimensionIntervalExpr_return();
         retval.start = input.LT(1);
         int dimensionIntervalExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token COLON182=null;
-        Token DOMAIN183=null;
-        Token LPAREN184=null;
-        Token COLON185=null;
         Token COLON186=null;
-        Token RPAREN187=null;
+        Token DOMAIN187=null;
+        Token LPAREN188=null;
+        Token COLON189=null;
+        Token COLON190=null;
+        Token RPAREN191=null;
         wcpsParser.scalarExpr_return e1 = null;
 
         wcpsParser.scalarExpr_return e2 = null;
@@ -8314,36 +8509,36 @@ public class wcpsParser extends Parser {
         wcpsParser.crsName_return e5 = null;
 
 
-        Object COLON182_tree=null;
-        Object DOMAIN183_tree=null;
-        Object LPAREN184_tree=null;
-        Object COLON185_tree=null;
         Object COLON186_tree=null;
-        Object RPAREN187_tree=null;
+        Object DOMAIN187_tree=null;
+        Object LPAREN188_tree=null;
+        Object COLON189_tree=null;
+        Object COLON190_tree=null;
+        Object RPAREN191_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 64) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:333:5: (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN )
-            int alt56=2;
-            alt56 = dfa56.predict(input);
-            switch (alt56) {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 66) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:341:5: (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN )
+            int alt57=2;
+            alt57 = dfa57.predict(input);
+            switch (alt57) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:333:7: e1= scalarExpr COLON e2= scalarExpr
+                    // src/main/java/petascope/wcps/grammar/wcps.g:341:7: e1= scalarExpr COLON e2= scalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_scalarExpr_in_dimensionIntervalExpr3419);
+                    pushFollow(FOLLOW_scalarExpr_in_dimensionIntervalExpr3527);
                     e1=scalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    COLON182=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3421); if (state.failed) return retval;
+                    COLON186=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3529); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON182_tree = (Object)adaptor.create(COLON182);
-                    adaptor.addChild(root_0, COLON182_tree);
+                    COLON186_tree = (Object)adaptor.create(COLON186);
+                    adaptor.addChild(root_0, COLON186_tree);
                     }
-                    pushFollow(FOLLOW_scalarExpr_in_dimensionIntervalExpr3425);
+                    pushFollow(FOLLOW_scalarExpr_in_dimensionIntervalExpr3533);
                     e2=scalarExpr();
 
                     state._fsp--;
@@ -8356,52 +8551,52 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:334:7: DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:342:7: DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    DOMAIN183=(Token)match(input,DOMAIN,FOLLOW_DOMAIN_in_dimensionIntervalExpr3435); if (state.failed) return retval;
+                    DOMAIN187=(Token)match(input,DOMAIN,FOLLOW_DOMAIN_in_dimensionIntervalExpr3543); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    DOMAIN183_tree = (Object)adaptor.create(DOMAIN183);
-                    adaptor.addChild(root_0, DOMAIN183_tree);
+                    DOMAIN187_tree = (Object)adaptor.create(DOMAIN187);
+                    adaptor.addChild(root_0, DOMAIN187_tree);
                     }
-                    LPAREN184=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionIntervalExpr3437); if (state.failed) return retval;
+                    LPAREN188=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionIntervalExpr3545); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN184_tree = (Object)adaptor.create(LPAREN184);
-                    adaptor.addChild(root_0, LPAREN184_tree);
+                    LPAREN188_tree = (Object)adaptor.create(LPAREN188);
+                    adaptor.addChild(root_0, LPAREN188_tree);
                     }
-                    pushFollow(FOLLOW_coverageName_in_dimensionIntervalExpr3441);
+                    pushFollow(FOLLOW_coverageName_in_dimensionIntervalExpr3549);
                     e3=coverageName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e3.getTree());
-                    COLON185=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3443); if (state.failed) return retval;
+                    COLON189=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3551); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON185_tree = (Object)adaptor.create(COLON185);
-                    adaptor.addChild(root_0, COLON185_tree);
+                    COLON189_tree = (Object)adaptor.create(COLON189);
+                    adaptor.addChild(root_0, COLON189_tree);
                     }
-                    pushFollow(FOLLOW_axisName_in_dimensionIntervalExpr3447);
+                    pushFollow(FOLLOW_axisName_in_dimensionIntervalExpr3555);
                     e4=axisName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e4.getTree());
-                    COLON186=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3449); if (state.failed) return retval;
+                    COLON190=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3557); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON186_tree = (Object)adaptor.create(COLON186);
-                    adaptor.addChild(root_0, COLON186_tree);
+                    COLON190_tree = (Object)adaptor.create(COLON190);
+                    adaptor.addChild(root_0, COLON190_tree);
                     }
-                    pushFollow(FOLLOW_crsName_in_dimensionIntervalExpr3453);
+                    pushFollow(FOLLOW_crsName_in_dimensionIntervalExpr3561);
                     e5=crsName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e5.getTree());
-                    RPAREN187=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionIntervalExpr3455); if (state.failed) return retval;
+                    RPAREN191=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionIntervalExpr3563); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN187_tree = (Object)adaptor.create(RPAREN187);
-                    adaptor.addChild(root_0, RPAREN187_tree);
+                    RPAREN191_tree = (Object)adaptor.create(RPAREN191);
+                    adaptor.addChild(root_0, RPAREN191_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new DimensionIntervalExpr((e3!=null?e3.value:null), (e4!=null?e4.value:null), (e5!=null?e5.value:null)); 
@@ -8426,7 +8621,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 64, dimensionIntervalExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 66, dimensionIntervalExpr_StartIndex); }
         }
         return retval;
     }
@@ -8439,29 +8634,29 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionPointList"
-    // src/petascope/wcps/grammar/wcps.g:336:1: dimensionPointList returns [DimensionPointList value] : elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:344:1: dimensionPointList returns [DimensionPointList value] : elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* ;
     public final wcpsParser.dimensionPointList_return dimensionPointList() throws RecognitionException {
         wcpsParser.dimensionPointList_return retval = new wcpsParser.dimensionPointList_return();
         retval.start = input.LT(1);
         int dimensionPointList_StartIndex = input.index();
         Object root_0 = null;
 
-        Token COMMA188=null;
+        Token COMMA192=null;
         wcpsParser.dimensionPointElement_return elem1 = null;
 
         wcpsParser.dimensionPointElement_return elem2 = null;
 
 
-        Object COMMA188_tree=null;
+        Object COMMA192_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 65) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:337:5: (elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* )
-            // src/petascope/wcps/grammar/wcps.g:337:7: elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )*
+            if ( state.backtracking>0 && alreadyParsedRule(input, 67) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:345:5: (elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* )
+            // src/main/java/petascope/wcps/grammar/wcps.g:345:7: elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_dimensionPointElement_in_dimensionPointList3478);
+            pushFollow(FOLLOW_dimensionPointElement_in_dimensionPointList3586);
             elem1=dimensionPointElement();
 
             state._fsp--;
@@ -8470,27 +8665,27 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new DimensionPointList((elem1!=null?elem1.value:null)); 
             }
-            // src/petascope/wcps/grammar/wcps.g:338:6: ( COMMA elem2= dimensionPointElement )*
-            loop57:
+            // src/main/java/petascope/wcps/grammar/wcps.g:346:6: ( COMMA elem2= dimensionPointElement )*
+            loop58:
             do {
-                int alt57=2;
-                int LA57_0 = input.LA(1);
+                int alt58=2;
+                int LA58_0 = input.LA(1);
 
-                if ( (LA57_0==COMMA) ) {
-                    alt57=1;
+                if ( (LA58_0==COMMA) ) {
+                    alt58=1;
                 }
 
 
-                switch (alt57) {
+                switch (alt58) {
             	case 1 :
-            	    // src/petascope/wcps/grammar/wcps.g:338:7: COMMA elem2= dimensionPointElement
+            	    // src/main/java/petascope/wcps/grammar/wcps.g:346:7: COMMA elem2= dimensionPointElement
             	    {
-            	    COMMA188=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionPointList3488); if (state.failed) return retval;
+            	    COMMA192=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionPointList3596); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
-            	    COMMA188_tree = (Object)adaptor.create(COMMA188);
-            	    adaptor.addChild(root_0, COMMA188_tree);
+            	    COMMA192_tree = (Object)adaptor.create(COMMA192);
+            	    adaptor.addChild(root_0, COMMA192_tree);
             	    }
-            	    pushFollow(FOLLOW_dimensionPointElement_in_dimensionPointList3492);
+            	    pushFollow(FOLLOW_dimensionPointElement_in_dimensionPointList3600);
             	    elem2=dimensionPointElement();
 
             	    state._fsp--;
@@ -8504,7 +8699,7 @@ public class wcpsParser extends Parser {
             	    break;
 
             	default :
-            	    break loop57;
+            	    break loop58;
                 }
             } while (true);
 
@@ -8526,7 +8721,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 65, dimensionPointList_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 67, dimensionPointList_StartIndex); }
         }
         return retval;
     }
@@ -8539,18 +8734,18 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionPointElement"
-    // src/petascope/wcps/grammar/wcps.g:340:1: dimensionPointElement returns [DimensionPointElement value] : (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN );
+    // src/main/java/petascope/wcps/grammar/wcps.g:348:1: dimensionPointElement returns [DimensionPointElement value] : (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN );
     public final wcpsParser.dimensionPointElement_return dimensionPointElement() throws RecognitionException {
         wcpsParser.dimensionPointElement_return retval = new wcpsParser.dimensionPointElement_return();
         retval.start = input.LT(1);
         int dimensionPointElement_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LPAREN189=null;
-        Token RPAREN190=null;
-        Token COLON191=null;
-        Token LPAREN192=null;
-        Token RPAREN193=null;
+        Token LPAREN193=null;
+        Token RPAREN194=null;
+        Token COLON195=null;
+        Token LPAREN196=null;
+        Token RPAREN197=null;
         wcpsParser.axisName_return aname = null;
 
         wcpsParser.dimensionPoint_return dpe = null;
@@ -8558,31 +8753,31 @@ public class wcpsParser extends Parser {
         wcpsParser.crsName_return crs = null;
 
 
-        Object LPAREN189_tree=null;
-        Object RPAREN190_tree=null;
-        Object COLON191_tree=null;
-        Object LPAREN192_tree=null;
-        Object RPAREN193_tree=null;
+        Object LPAREN193_tree=null;
+        Object RPAREN194_tree=null;
+        Object COLON195_tree=null;
+        Object LPAREN196_tree=null;
+        Object RPAREN197_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 66) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:341:5: (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN )
-            int alt58=2;
-            int LA58_0 = input.LA(1);
+            if ( state.backtracking>0 && alreadyParsedRule(input, 68) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:349:5: (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN )
+            int alt59=2;
+            int LA59_0 = input.LA(1);
 
-            if ( (LA58_0==INTEGERCONSTANT||LA58_0==STRING||LA58_0==NAME) ) {
-                int LA58_1 = input.LA(2);
+            if ( (LA59_0==INTEGERCONSTANT||LA59_0==STRING||LA59_0==NAME) ) {
+                int LA59_1 = input.LA(2);
 
-                if ( (LA58_1==LPAREN) ) {
-                    alt58=1;
+                if ( (LA59_1==COLON) ) {
+                    alt59=2;
                 }
-                else if ( (LA58_1==COLON) ) {
-                    alt58=2;
+                else if ( (LA59_1==LPAREN) ) {
+                    alt59=1;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 58, 1, input);
+                        new NoViableAltException("", 59, 1, input);
 
                     throw nvae;
                 }
@@ -8590,37 +8785,37 @@ public class wcpsParser extends Parser {
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 58, 0, input);
+                    new NoViableAltException("", 59, 0, input);
 
                 throw nvae;
             }
-            switch (alt58) {
+            switch (alt59) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:341:7: aname= axisName LPAREN dpe= dimensionPoint RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:349:7: aname= axisName LPAREN dpe= dimensionPoint RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_axisName_in_dimensionPointElement3517);
+                    pushFollow(FOLLOW_axisName_in_dimensionPointElement3625);
                     aname=axisName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, aname.getTree());
-                    LPAREN189=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionPointElement3519); if (state.failed) return retval;
+                    LPAREN193=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionPointElement3627); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN189_tree = (Object)adaptor.create(LPAREN189);
-                    adaptor.addChild(root_0, LPAREN189_tree);
+                    LPAREN193_tree = (Object)adaptor.create(LPAREN193);
+                    adaptor.addChild(root_0, LPAREN193_tree);
                     }
-                    pushFollow(FOLLOW_dimensionPoint_in_dimensionPointElement3523);
+                    pushFollow(FOLLOW_dimensionPoint_in_dimensionPointElement3631);
                     dpe=dimensionPoint();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dpe.getTree());
-                    RPAREN190=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionPointElement3525); if (state.failed) return retval;
+                    RPAREN194=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionPointElement3633); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN190_tree = (Object)adaptor.create(RPAREN190);
-                    adaptor.addChild(root_0, RPAREN190_tree);
+                    RPAREN194_tree = (Object)adaptor.create(RPAREN194);
+                    adaptor.addChild(root_0, RPAREN194_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new DimensionPointElement((aname!=null?aname.value:null), (dpe!=null?dpe.value:null)); 
@@ -8629,42 +8824,42 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:342:7: aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN
+                    // src/main/java/petascope/wcps/grammar/wcps.g:350:7: aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_axisName_in_dimensionPointElement3537);
+                    pushFollow(FOLLOW_axisName_in_dimensionPointElement3645);
                     aname=axisName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, aname.getTree());
-                    COLON191=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionPointElement3539); if (state.failed) return retval;
+                    COLON195=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionPointElement3647); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON191_tree = (Object)adaptor.create(COLON191);
-                    adaptor.addChild(root_0, COLON191_tree);
+                    COLON195_tree = (Object)adaptor.create(COLON195);
+                    adaptor.addChild(root_0, COLON195_tree);
                     }
-                    pushFollow(FOLLOW_crsName_in_dimensionPointElement3543);
+                    pushFollow(FOLLOW_crsName_in_dimensionPointElement3651);
                     crs=crsName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, crs.getTree());
-                    LPAREN192=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionPointElement3545); if (state.failed) return retval;
+                    LPAREN196=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionPointElement3653); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN192_tree = (Object)adaptor.create(LPAREN192);
-                    adaptor.addChild(root_0, LPAREN192_tree);
+                    LPAREN196_tree = (Object)adaptor.create(LPAREN196);
+                    adaptor.addChild(root_0, LPAREN196_tree);
                     }
-                    pushFollow(FOLLOW_dimensionPoint_in_dimensionPointElement3549);
+                    pushFollow(FOLLOW_dimensionPoint_in_dimensionPointElement3657);
                     dpe=dimensionPoint();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dpe.getTree());
-                    RPAREN193=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionPointElement3551); if (state.failed) return retval;
+                    RPAREN197=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionPointElement3659); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN193_tree = (Object)adaptor.create(RPAREN193);
-                    adaptor.addChild(root_0, RPAREN193_tree);
+                    RPAREN197_tree = (Object)adaptor.create(RPAREN197);
+                    adaptor.addChild(root_0, RPAREN197_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new DimensionPointElement((aname!=null?aname.value:null), (crs!=null?crs.value:null), (dpe!=null?dpe.value:null)); 
@@ -8689,7 +8884,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 66, dimensionPointElement_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 68, dimensionPointElement_StartIndex); }
         }
         return retval;
     }
@@ -8702,7 +8897,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionPoint"
-    // src/petascope/wcps/grammar/wcps.g:344:1: dimensionPoint returns [ScalarExpr value] : e1= scalarExpr ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:352:1: dimensionPoint returns [ScalarExpr value] : e1= scalarExpr ;
     public final wcpsParser.dimensionPoint_return dimensionPoint() throws RecognitionException {
         wcpsParser.dimensionPoint_return retval = new wcpsParser.dimensionPoint_return();
         retval.start = input.LT(1);
@@ -8714,13 +8909,13 @@ public class wcpsParser extends Parser {
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 67) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:345:5: (e1= scalarExpr )
-            // src/petascope/wcps/grammar/wcps.g:345:7: e1= scalarExpr
+            if ( state.backtracking>0 && alreadyParsedRule(input, 69) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:353:5: (e1= scalarExpr )
+            // src/main/java/petascope/wcps/grammar/wcps.g:353:7: e1= scalarExpr
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_scalarExpr_in_dimensionPoint3574);
+            pushFollow(FOLLOW_scalarExpr_in_dimensionPoint3682);
             e1=scalarExpr();
 
             state._fsp--;
@@ -8747,7 +8942,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 67, dimensionPoint_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 69, dimensionPoint_StartIndex); }
         }
         return retval;
     }
@@ -8760,58 +8955,58 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "interpolationMethod"
-    // src/petascope/wcps/grammar/wcps.g:347:1: interpolationMethod returns [InterpolationMethod value] : LPAREN type= interpolationType COLON res= nullResistence RPAREN ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:355:1: interpolationMethod returns [InterpolationMethod value] : LPAREN type= interpolationType COLON res= nullResistence RPAREN ;
     public final wcpsParser.interpolationMethod_return interpolationMethod() throws RecognitionException {
         wcpsParser.interpolationMethod_return retval = new wcpsParser.interpolationMethod_return();
         retval.start = input.LT(1);
         int interpolationMethod_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LPAREN194=null;
-        Token COLON195=null;
-        Token RPAREN196=null;
+        Token LPAREN198=null;
+        Token COLON199=null;
+        Token RPAREN200=null;
         wcpsParser.interpolationType_return type = null;
 
         wcpsParser.nullResistence_return res = null;
 
 
-        Object LPAREN194_tree=null;
-        Object COLON195_tree=null;
-        Object RPAREN196_tree=null;
+        Object LPAREN198_tree=null;
+        Object COLON199_tree=null;
+        Object RPAREN200_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 68) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:348:2: ( LPAREN type= interpolationType COLON res= nullResistence RPAREN )
-            // src/petascope/wcps/grammar/wcps.g:348:4: LPAREN type= interpolationType COLON res= nullResistence RPAREN
+            if ( state.backtracking>0 && alreadyParsedRule(input, 70) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:356:2: ( LPAREN type= interpolationType COLON res= nullResistence RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:356:4: LPAREN type= interpolationType COLON res= nullResistence RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
-            LPAREN194=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_interpolationMethod3592); if (state.failed) return retval;
+            LPAREN198=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_interpolationMethod3700); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN194_tree = (Object)adaptor.create(LPAREN194);
-            adaptor.addChild(root_0, LPAREN194_tree);
+            LPAREN198_tree = (Object)adaptor.create(LPAREN198);
+            adaptor.addChild(root_0, LPAREN198_tree);
             }
-            pushFollow(FOLLOW_interpolationType_in_interpolationMethod3596);
+            pushFollow(FOLLOW_interpolationType_in_interpolationMethod3704);
             type=interpolationType();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, type.getTree());
-            COLON195=(Token)match(input,COLON,FOLLOW_COLON_in_interpolationMethod3598); if (state.failed) return retval;
+            COLON199=(Token)match(input,COLON,FOLLOW_COLON_in_interpolationMethod3706); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            COLON195_tree = (Object)adaptor.create(COLON195);
-            adaptor.addChild(root_0, COLON195_tree);
+            COLON199_tree = (Object)adaptor.create(COLON199);
+            adaptor.addChild(root_0, COLON199_tree);
             }
-            pushFollow(FOLLOW_nullResistence_in_interpolationMethod3602);
+            pushFollow(FOLLOW_nullResistence_in_interpolationMethod3710);
             res=nullResistence();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, res.getTree());
-            RPAREN196=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_interpolationMethod3604); if (state.failed) return retval;
+            RPAREN200=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_interpolationMethod3712); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN196_tree = (Object)adaptor.create(RPAREN196);
-            adaptor.addChild(root_0, RPAREN196_tree);
+            RPAREN200_tree = (Object)adaptor.create(RPAREN200);
+            adaptor.addChild(root_0, RPAREN200_tree);
             }
             if ( state.backtracking==0 ) {
                retval.value = new InterpolationMethod((type!=null?type.value:null), (res!=null?res.value:null)); 
@@ -8834,7 +9029,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 68, interpolationMethod_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 70, interpolationMethod_StartIndex); }
         }
         return retval;
     }
@@ -8847,7 +9042,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "interpolationType"
-    // src/petascope/wcps/grammar/wcps.g:350:1: interpolationType returns [String value] : type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:358:1: interpolationType returns [String value] : type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) ;
     public final wcpsParser.interpolationType_return interpolationType() throws RecognitionException {
         wcpsParser.interpolationType_return retval = new wcpsParser.interpolationType_return();
         retval.start = input.LT(1);
@@ -8859,9 +9054,9 @@ public class wcpsParser extends Parser {
         Object type_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 69) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:351:2: (type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) )
-            // src/petascope/wcps/grammar/wcps.g:351:4: type= ( NEAREST | LINEAR | QUADRATIC | CUBIC )
+            if ( state.backtracking>0 && alreadyParsedRule(input, 71) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:359:2: (type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) )
+            // src/main/java/petascope/wcps/grammar/wcps.g:359:4: type= ( NEAREST | LINEAR | QUADRATIC | CUBIC )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -8898,7 +9093,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 69, interpolationType_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 71, interpolationType_StartIndex); }
         }
         return retval;
     }
@@ -8911,7 +9106,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "nullResistence"
-    // src/petascope/wcps/grammar/wcps.g:353:1: nullResistence returns [String value] : resistance= ( FULL | NONE | HALF | OTHER ) ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:361:1: nullResistence returns [String value] : resistance= ( FULL | NONE | HALF | OTHER ) ;
     public final wcpsParser.nullResistence_return nullResistence() throws RecognitionException {
         wcpsParser.nullResistence_return retval = new wcpsParser.nullResistence_return();
         retval.start = input.LT(1);
@@ -8923,9 +9118,9 @@ public class wcpsParser extends Parser {
         Object resistance_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 70) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:354:2: (resistance= ( FULL | NONE | HALF | OTHER ) )
-            // src/petascope/wcps/grammar/wcps.g:354:4: resistance= ( FULL | NONE | HALF | OTHER )
+            if ( state.backtracking>0 && alreadyParsedRule(input, 72) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:362:2: (resistance= ( FULL | NONE | HALF | OTHER ) )
+            // src/main/java/petascope/wcps/grammar/wcps.g:362:4: resistance= ( FULL | NONE | HALF | OTHER )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -8962,7 +9157,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 70, nullResistence_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 72, nullResistence_StartIndex); }
         }
         return retval;
     }
@@ -8975,7 +9170,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "condenseOpType"
-    // src/petascope/wcps/grammar/wcps.g:356:1: condenseOpType returns [CondenseOperation value] : op= ( PLUS | MULT | MAX | MIN | AND | OR ) ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:364:1: condenseOpType returns [CondenseOperation value] : op= ( PLUS | MULT | MAX | MIN | AND | OR ) ;
     public final wcpsParser.condenseOpType_return condenseOpType() throws RecognitionException {
         wcpsParser.condenseOpType_return retval = new wcpsParser.condenseOpType_return();
         retval.start = input.LT(1);
@@ -8987,9 +9182,9 @@ public class wcpsParser extends Parser {
         Object op_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 71) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:357:2: (op= ( PLUS | MULT | MAX | MIN | AND | OR ) )
-            // src/petascope/wcps/grammar/wcps.g:357:4: op= ( PLUS | MULT | MAX | MIN | AND | OR )
+            if ( state.backtracking>0 && alreadyParsedRule(input, 73) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:365:2: (op= ( PLUS | MULT | MAX | MIN | AND | OR ) )
+            // src/main/java/petascope/wcps/grammar/wcps.g:365:4: op= ( PLUS | MULT | MAX | MIN | AND | OR )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9026,7 +9221,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 71, condenseOpType_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 73, condenseOpType_StartIndex); }
         }
         return retval;
     }
@@ -9039,32 +9234,32 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldName"
-    // src/petascope/wcps/grammar/wcps.g:359:1: fieldName returns [String value] : name ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:367:1: fieldName returns [String value] : name ;
     public final wcpsParser.fieldName_return fieldName() throws RecognitionException {
         wcpsParser.fieldName_return retval = new wcpsParser.fieldName_return();
         retval.start = input.LT(1);
         int fieldName_StartIndex = input.index();
         Object root_0 = null;
 
-        wcpsParser.name_return name197 = null;
+        wcpsParser.name_return name201 = null;
 
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 72) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:360:2: ( name )
-            // src/petascope/wcps/grammar/wcps.g:360:4: name
+            if ( state.backtracking>0 && alreadyParsedRule(input, 74) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:368:2: ( name )
+            // src/main/java/petascope/wcps/grammar/wcps.g:368:4: name
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_name_in_fieldName3698);
-            name197=name();
+            pushFollow(FOLLOW_name_in_fieldName3806);
+            name201=name();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, name197.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, name201.getTree());
             if ( state.backtracking==0 ) {
-               retval.value = new String((name197!=null?name197.value:null));
+               retval.value = new String((name201!=null?name201.value:null));
             }
 
             }
@@ -9084,7 +9279,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 72, fieldName_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 74, fieldName_StartIndex); }
         }
         return retval;
     }
@@ -9097,7 +9292,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "constant"
-    // src/petascope/wcps/grammar/wcps.g:362:1: constant returns [String value] : (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant );
+    // src/main/java/petascope/wcps/grammar/wcps.g:370:1: constant returns [String value] : (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant );
     public final wcpsParser.constant_return constant() throws RecognitionException {
         wcpsParser.constant_return retval = new wcpsParser.constant_return();
         retval.start = input.LT(1);
@@ -9111,27 +9306,27 @@ public class wcpsParser extends Parser {
         Object e_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 73) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:363:2: (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant )
-            int alt59=2;
-            int LA59_0 = input.LA(1);
+            if ( state.backtracking>0 && alreadyParsedRule(input, 75) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:371:2: (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant )
+            int alt60=2;
+            int LA60_0 = input.LA(1);
 
-            if ( (LA59_0==INTEGERCONSTANT||LA59_0==STRING||(LA59_0>=BOOLEANCONSTANT && LA59_0<=FLOATCONSTANT)) ) {
-                alt59=1;
+            if ( (LA60_0==INTEGERCONSTANT||LA60_0==STRING||(LA60_0>=BOOLEANCONSTANT && LA60_0<=FLOATCONSTANT)) ) {
+                alt60=1;
             }
-            else if ( (LA59_0==LPAREN) ) {
-                alt59=2;
+            else if ( (LA60_0==LPAREN) ) {
+                alt60=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 59, 0, input);
+                    new NoViableAltException("", 60, 0, input);
 
                 throw nvae;
             }
-            switch (alt59) {
+            switch (alt60) {
                 case 1 :
-                    // src/petascope/wcps/grammar/wcps.g:363:4: e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT )
+                    // src/main/java/petascope/wcps/grammar/wcps.g:371:4: e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT )
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -9154,11 +9349,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/petascope/wcps/grammar/wcps.g:364:4: e1= complexConstant
+                    // src/main/java/petascope/wcps/grammar/wcps.g:372:4: e1= complexConstant
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_complexConstant_in_constant3732);
+                    pushFollow(FOLLOW_complexConstant_in_constant3840);
                     e1=complexConstant();
 
                     state._fsp--;
@@ -9187,7 +9382,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 73, constant_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 75, constant_StartIndex); }
         }
         return retval;
     }
@@ -9200,7 +9395,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "complexConstant"
-    // src/petascope/wcps/grammar/wcps.g:366:1: complexConstant returns [String value] : LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:374:1: complexConstant returns [String value] : LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN ;
     public final wcpsParser.complexConstant_return complexConstant() throws RecognitionException {
         wcpsParser.complexConstant_return retval = new wcpsParser.complexConstant_return();
         retval.start = input.LT(1);
@@ -9209,47 +9404,47 @@ public class wcpsParser extends Parser {
 
         Token re1=null;
         Token im1=null;
-        Token LPAREN198=null;
-        Token COMMA199=null;
-        Token RPAREN200=null;
+        Token LPAREN202=null;
+        Token COMMA203=null;
+        Token RPAREN204=null;
 
         Object re1_tree=null;
         Object im1_tree=null;
-        Object LPAREN198_tree=null;
-        Object COMMA199_tree=null;
-        Object RPAREN200_tree=null;
+        Object LPAREN202_tree=null;
+        Object COMMA203_tree=null;
+        Object RPAREN204_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 74) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:367:2: ( LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN )
-            // src/petascope/wcps/grammar/wcps.g:367:4: LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN
+            if ( state.backtracking>0 && alreadyParsedRule(input, 76) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:375:2: ( LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN )
+            // src/main/java/petascope/wcps/grammar/wcps.g:375:4: LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
-            LPAREN198=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_complexConstant3747); if (state.failed) return retval;
+            LPAREN202=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_complexConstant3855); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN198_tree = (Object)adaptor.create(LPAREN198);
-            adaptor.addChild(root_0, LPAREN198_tree);
+            LPAREN202_tree = (Object)adaptor.create(LPAREN202);
+            adaptor.addChild(root_0, LPAREN202_tree);
             }
-            re1=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_complexConstant3751); if (state.failed) return retval;
+            re1=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_complexConstant3859); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             re1_tree = (Object)adaptor.create(re1);
             adaptor.addChild(root_0, re1_tree);
             }
-            COMMA199=(Token)match(input,COMMA,FOLLOW_COMMA_in_complexConstant3753); if (state.failed) return retval;
+            COMMA203=(Token)match(input,COMMA,FOLLOW_COMMA_in_complexConstant3861); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            COMMA199_tree = (Object)adaptor.create(COMMA199);
-            adaptor.addChild(root_0, COMMA199_tree);
+            COMMA203_tree = (Object)adaptor.create(COMMA203);
+            adaptor.addChild(root_0, COMMA203_tree);
             }
-            im1=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_complexConstant3757); if (state.failed) return retval;
+            im1=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_complexConstant3865); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             im1_tree = (Object)adaptor.create(im1);
             adaptor.addChild(root_0, im1_tree);
             }
-            RPAREN200=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_complexConstant3759); if (state.failed) return retval;
+            RPAREN204=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_complexConstant3867); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN200_tree = (Object)adaptor.create(RPAREN200);
-            adaptor.addChild(root_0, RPAREN200_tree);
+            RPAREN204_tree = (Object)adaptor.create(RPAREN204);
+            adaptor.addChild(root_0, RPAREN204_tree);
             }
             if ( state.backtracking==0 ) {
                retval.value = new String((re1!=null?re1.getText():null) +"+i"+(im1!=null?im1.getText():null)); 
@@ -9272,7 +9467,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 74, complexConstant_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 76, complexConstant_StartIndex); }
         }
         return retval;
     }
@@ -9285,7 +9480,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "stringConstant"
-    // src/petascope/wcps/grammar/wcps.g:369:1: stringConstant returns [String value] : s= STRING ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:377:1: stringConstant returns [String value] : s= STRING ;
     public final wcpsParser.stringConstant_return stringConstant() throws RecognitionException {
         wcpsParser.stringConstant_return retval = new wcpsParser.stringConstant_return();
         retval.start = input.LT(1);
@@ -9297,13 +9492,13 @@ public class wcpsParser extends Parser {
         Object s_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 75) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:370:2: (s= STRING )
-            // src/petascope/wcps/grammar/wcps.g:370:4: s= STRING
+            if ( state.backtracking>0 && alreadyParsedRule(input, 77) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:378:2: (s= STRING )
+            // src/main/java/petascope/wcps/grammar/wcps.g:378:4: s= STRING
             {
             root_0 = (Object)adaptor.nil();
 
-            s=(Token)match(input,STRING,FOLLOW_STRING_in_stringConstant3776); if (state.failed) return retval;
+            s=(Token)match(input,STRING,FOLLOW_STRING_in_stringConstant3884); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             s_tree = (Object)adaptor.create(s);
             adaptor.addChild(root_0, s_tree);
@@ -9329,7 +9524,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 75, stringConstant_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 77, stringConstant_StartIndex); }
         }
         return retval;
     }
@@ -9342,7 +9537,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "name"
-    // src/petascope/wcps/grammar/wcps.g:372:1: name returns [String value] : var= ( NAME | STRING | INTEGERCONSTANT ) ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:380:1: name returns [String value] : var= ( NAME | STRING | INTEGERCONSTANT ) ;
     public final wcpsParser.name_return name() throws RecognitionException {
         wcpsParser.name_return retval = new wcpsParser.name_return();
         retval.start = input.LT(1);
@@ -9354,9 +9549,9 @@ public class wcpsParser extends Parser {
         Object var_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 76) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:373:2: (var= ( NAME | STRING | INTEGERCONSTANT ) )
-            // src/petascope/wcps/grammar/wcps.g:373:4: var= ( NAME | STRING | INTEGERCONSTANT )
+            if ( state.backtracking>0 && alreadyParsedRule(input, 78) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:381:2: (var= ( NAME | STRING | INTEGERCONSTANT ) )
+            // src/main/java/petascope/wcps/grammar/wcps.g:381:4: var= ( NAME | STRING | INTEGERCONSTANT )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9393,7 +9588,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 76, name_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 78, name_StartIndex); }
         }
         return retval;
     }
@@ -9406,7 +9601,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "crsName"
-    // src/petascope/wcps/grammar/wcps.g:375:1: crsName returns [String value] : s= stringConstant ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:383:1: crsName returns [String value] : s= stringConstant ;
     public final wcpsParser.crsName_return crsName() throws RecognitionException {
         wcpsParser.crsName_return retval = new wcpsParser.crsName_return();
         retval.start = input.LT(1);
@@ -9418,13 +9613,13 @@ public class wcpsParser extends Parser {
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 77) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:376:2: (s= stringConstant )
-            // src/petascope/wcps/grammar/wcps.g:376:4: s= stringConstant
+            if ( state.backtracking>0 && alreadyParsedRule(input, 79) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:384:2: (s= stringConstant )
+            // src/main/java/petascope/wcps/grammar/wcps.g:384:4: s= stringConstant
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_stringConstant_in_crsName3820);
+            pushFollow(FOLLOW_stringConstant_in_crsName3928);
             s=stringConstant();
 
             state._fsp--;
@@ -9451,7 +9646,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 77, crsName_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 79, crsName_StartIndex); }
         }
         return retval;
     }
@@ -9464,7 +9659,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "axisName"
-    // src/petascope/wcps/grammar/wcps.g:378:1: axisName returns [String value] : type1= name ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:386:1: axisName returns [String value] : type1= name ;
     public final wcpsParser.axisName_return axisName() throws RecognitionException {
         wcpsParser.axisName_return retval = new wcpsParser.axisName_return();
         retval.start = input.LT(1);
@@ -9476,13 +9671,13 @@ public class wcpsParser extends Parser {
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 78) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:379:2: (type1= name )
-            // src/petascope/wcps/grammar/wcps.g:379:4: type1= name
+            if ( state.backtracking>0 && alreadyParsedRule(input, 80) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:387:2: (type1= name )
+            // src/main/java/petascope/wcps/grammar/wcps.g:387:4: type1= name
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_name_in_axisName3837);
+            pushFollow(FOLLOW_name_in_axisName3945);
             type1=name();
 
             state._fsp--;
@@ -9509,7 +9704,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 78, axisName_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 80, axisName_StartIndex); }
         }
         return retval;
     }
@@ -9522,7 +9717,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "variableName"
-    // src/petascope/wcps/grammar/wcps.g:381:1: variableName returns [String value] : var= VARIABLE_DOLLAR ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:389:1: variableName returns [String value] : var= VARIABLE_DOLLAR ;
     public final wcpsParser.variableName_return variableName() throws RecognitionException {
         wcpsParser.variableName_return retval = new wcpsParser.variableName_return();
         retval.start = input.LT(1);
@@ -9534,13 +9729,13 @@ public class wcpsParser extends Parser {
         Object var_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 79) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:382:2: (var= VARIABLE_DOLLAR )
-            // src/petascope/wcps/grammar/wcps.g:382:4: var= VARIABLE_DOLLAR
+            if ( state.backtracking>0 && alreadyParsedRule(input, 81) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:390:2: (var= VARIABLE_DOLLAR )
+            // src/main/java/petascope/wcps/grammar/wcps.g:390:4: var= VARIABLE_DOLLAR
             {
             root_0 = (Object)adaptor.nil();
 
-            var=(Token)match(input,VARIABLE_DOLLAR,FOLLOW_VARIABLE_DOLLAR_in_variableName3854); if (state.failed) return retval;
+            var=(Token)match(input,VARIABLE_DOLLAR,FOLLOW_VARIABLE_DOLLAR_in_variableName3962); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             var_tree = (Object)adaptor.create(var);
             adaptor.addChild(root_0, var_tree);
@@ -9566,7 +9761,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 79, variableName_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 81, variableName_StartIndex); }
         }
         return retval;
     }
@@ -9579,7 +9774,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageVariable"
-    // src/petascope/wcps/grammar/wcps.g:384:1: coverageVariable returns [String value] : var= NAME ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:392:1: coverageVariable returns [String value] : var= NAME ;
     public final wcpsParser.coverageVariable_return coverageVariable() throws RecognitionException {
         wcpsParser.coverageVariable_return retval = new wcpsParser.coverageVariable_return();
         retval.start = input.LT(1);
@@ -9591,13 +9786,13 @@ public class wcpsParser extends Parser {
         Object var_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 80) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:385:2: (var= NAME )
-            // src/petascope/wcps/grammar/wcps.g:385:4: var= NAME
+            if ( state.backtracking>0 && alreadyParsedRule(input, 82) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:393:2: (var= NAME )
+            // src/main/java/petascope/wcps/grammar/wcps.g:393:4: var= NAME
             {
             root_0 = (Object)adaptor.nil();
 
-            var=(Token)match(input,NAME,FOLLOW_NAME_in_coverageVariable3871); if (state.failed) return retval;
+            var=(Token)match(input,NAME,FOLLOW_NAME_in_coverageVariable3979); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             var_tree = (Object)adaptor.create(var);
             adaptor.addChild(root_0, var_tree);
@@ -9623,7 +9818,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 80, coverageVariable_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 82, coverageVariable_StartIndex); }
         }
         return retval;
     }
@@ -9636,32 +9831,32 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageName"
-    // src/petascope/wcps/grammar/wcps.g:387:1: coverageName returns [String value] : name ;
+    // src/main/java/petascope/wcps/grammar/wcps.g:395:1: coverageName returns [String value] : name ;
     public final wcpsParser.coverageName_return coverageName() throws RecognitionException {
         wcpsParser.coverageName_return retval = new wcpsParser.coverageName_return();
         retval.start = input.LT(1);
         int coverageName_StartIndex = input.index();
         Object root_0 = null;
 
-        wcpsParser.name_return name201 = null;
+        wcpsParser.name_return name205 = null;
 
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 81) ) { return retval; }
-            // src/petascope/wcps/grammar/wcps.g:388:2: ( name )
-            // src/petascope/wcps/grammar/wcps.g:388:4: name
+            if ( state.backtracking>0 && alreadyParsedRule(input, 83) ) { return retval; }
+            // src/main/java/petascope/wcps/grammar/wcps.g:396:2: ( name )
+            // src/main/java/petascope/wcps/grammar/wcps.g:396:4: name
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_name_in_coverageName3886);
-            name201=name();
+            pushFollow(FOLLOW_name_in_coverageName3994);
+            name205=name();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, name201.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, name205.getTree());
             if ( state.backtracking==0 ) {
-               retval.value = (name201!=null?name201.value:null); 
+               retval.value = (name205!=null?name205.value:null); 
             }
 
             }
@@ -9681,7 +9876,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 81, coverageName_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 83, coverageName_StartIndex); }
         }
         return retval;
     }
@@ -9693,8 +9888,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageLogicTerm_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:67:10: (op= ( OR | XOR ) e2= coverageLogicTerm )
-        // src/petascope/wcps/grammar/wcps.g:67:10: op= ( OR | XOR ) e2= coverageLogicTerm
+        // src/main/java/petascope/wcps/grammar/wcps.g:68:10: (op= ( OR | XOR ) e2= coverageLogicTerm )
+        // src/main/java/petascope/wcps/grammar/wcps.g:68:10: op= ( OR | XOR ) e2= coverageLogicTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -9723,8 +9918,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageLogicFactor_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:71:10: (op= AND e2= coverageLogicFactor )
-        // src/petascope/wcps/grammar/wcps.g:71:10: op= AND e2= coverageLogicFactor
+        // src/main/java/petascope/wcps/grammar/wcps.g:72:10: (op= AND e2= coverageLogicFactor )
+        // src/main/java/petascope/wcps/grammar/wcps.g:72:10: op= AND e2= coverageLogicFactor
         {
         op=(Token)match(input,AND,FOLLOW_AND_in_synpred9_wcps416); if (state.failed) return ;
         pushFollow(FOLLOW_coverageLogicFactor_in_synpred9_wcps420);
@@ -9743,8 +9938,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageArithmeticExpr_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:75:10: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )
-        // src/petascope/wcps/grammar/wcps.g:75:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:76:10: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:76:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=EQUALS && input.LA(1)<=GTE) ) {
@@ -9773,8 +9968,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageArithmeticTerm_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:79:10: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )
-        // src/petascope/wcps/grammar/wcps.g:79:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
+        // src/main/java/petascope/wcps/grammar/wcps.g:80:10: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )
+        // src/main/java/petascope/wcps/grammar/wcps.g:80:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -9803,8 +9998,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageArithmeticFactor_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:83:10: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )
-        // src/petascope/wcps/grammar/wcps.g:83:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
+        // src/main/java/petascope/wcps/grammar/wcps.g:84:10: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )
+        // src/main/java/petascope/wcps/grammar/wcps.g:84:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -9833,8 +10028,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageValue_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:87:10: (op= OVERLAY e2= coverageValue )
-        // src/petascope/wcps/grammar/wcps.g:87:10: op= OVERLAY e2= coverageValue
+        // src/main/java/petascope/wcps/grammar/wcps.g:88:10: (op= OVERLAY e2= coverageValue )
+        // src/main/java/petascope/wcps/grammar/wcps.g:88:10: op= OVERLAY e2= coverageValue
         {
         op=(Token)match(input,OVERLAY,FOLLOW_OVERLAY_in_synpred20_wcps625); if (state.failed) return ;
         pushFollow(FOLLOW_coverageValue_in_synpred20_wcps629);
@@ -9852,8 +10047,8 @@ public class wcpsParser extends Parser {
         wcpsParser.subsetExpr_return e5 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:90:7: (e5= subsetExpr )
-        // src/petascope/wcps/grammar/wcps.g:90:7: e5= subsetExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:91:7: (e5= subsetExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:91:7: e5= subsetExpr
         {
         pushFollow(FOLLOW_subsetExpr_in_synpred21_wcps655);
         e5=subsetExpr();
@@ -9870,8 +10065,8 @@ public class wcpsParser extends Parser {
         wcpsParser.unaryInducedExpr_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:91:7: (e2= unaryInducedExpr )
-        // src/petascope/wcps/grammar/wcps.g:91:7: e2= unaryInducedExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:92:7: (e2= unaryInducedExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:92:7: e2= unaryInducedExpr
         {
         pushFollow(FOLLOW_unaryInducedExpr_in_synpred22_wcps668);
         e2=unaryInducedExpr();
@@ -9888,8 +10083,8 @@ public class wcpsParser extends Parser {
         wcpsParser.scalarExpr_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:97:7: (e2= scalarExpr )
-        // src/petascope/wcps/grammar/wcps.g:97:7: e2= scalarExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:98:7: (e2= scalarExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:98:7: e2= scalarExpr
         {
         pushFollow(FOLLOW_scalarExpr_in_synpred25_wcps727);
         e2=scalarExpr();
@@ -9906,8 +10101,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageExpr_return e7 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:99:7: ( LPAREN e7= coverageExpr RPAREN )
-        // src/petascope/wcps/grammar/wcps.g:99:7: LPAREN e7= coverageExpr RPAREN
+        // src/main/java/petascope/wcps/grammar/wcps.g:100:7: ( LPAREN e7= coverageExpr RPAREN )
+        // src/main/java/petascope/wcps/grammar/wcps.g:100:7: LPAREN e7= coverageExpr RPAREN
         {
         match(input,LPAREN,FOLLOW_LPAREN_in_synpred27_wcps749); if (state.failed) return ;
         pushFollow(FOLLOW_coverageExpr_in_synpred27_wcps753);
@@ -9926,8 +10121,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageConstantExpr_return e3 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:100:7: (e3= coverageConstantExpr )
-        // src/petascope/wcps/grammar/wcps.g:100:7: e3= coverageConstantExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:101:7: (e3= coverageConstantExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:101:7: e3= coverageConstantExpr
         {
         pushFollow(FOLLOW_coverageConstantExpr_in_synpred28_wcps768);
         e3=coverageConstantExpr();
@@ -9944,8 +10139,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageConstructorExpr_return e4 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:101:7: (e4= coverageConstructorExpr )
-        // src/petascope/wcps/grammar/wcps.g:101:7: e4= coverageConstructorExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:102:7: (e4= coverageConstructorExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:102:7: e4= coverageConstructorExpr
         {
         pushFollow(FOLLOW_coverageConstructorExpr_in_synpred29_wcps780);
         e4=coverageConstructorExpr();
@@ -9962,8 +10157,8 @@ public class wcpsParser extends Parser {
         wcpsParser.metaDataExpr_return e1 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:106:7: (e1= metaDataExpr )
-        // src/petascope/wcps/grammar/wcps.g:106:7: e1= metaDataExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:107:7: (e1= metaDataExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:107:7: e1= metaDataExpr
         {
         pushFollow(FOLLOW_metaDataExpr_in_synpred31_wcps830);
         e1=metaDataExpr();
@@ -9980,8 +10175,8 @@ public class wcpsParser extends Parser {
         wcpsParser.condenseExpr_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:107:7: (e2= condenseExpr )
-        // src/petascope/wcps/grammar/wcps.g:107:7: e2= condenseExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:108:7: (e2= condenseExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:108:7: e2= condenseExpr
         {
         pushFollow(FOLLOW_condenseExpr_in_synpred32_wcps843);
         e2=condenseExpr();
@@ -9998,8 +10193,8 @@ public class wcpsParser extends Parser {
         wcpsParser.booleanScalarExpr_return e3 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:108:7: (e3= booleanScalarExpr )
-        // src/petascope/wcps/grammar/wcps.g:108:7: e3= booleanScalarExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:109:7: (e3= booleanScalarExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:109:7: e3= booleanScalarExpr
         {
         pushFollow(FOLLOW_booleanScalarExpr_in_synpred33_wcps856);
         e3=booleanScalarExpr();
@@ -10016,8 +10211,8 @@ public class wcpsParser extends Parser {
         wcpsParser.numericScalarExpr_return e4 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:109:7: (e4= numericScalarExpr )
-        // src/petascope/wcps/grammar/wcps.g:109:7: e4= numericScalarExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:110:7: (e4= numericScalarExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:110:7: e4= numericScalarExpr
         {
         pushFollow(FOLLOW_numericScalarExpr_in_synpred34_wcps870);
         e4=numericScalarExpr();
@@ -10034,8 +10229,8 @@ public class wcpsParser extends Parser {
         wcpsParser.stringScalarExpr_return e5 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:110:7: (e5= stringScalarExpr )
-        // src/petascope/wcps/grammar/wcps.g:110:7: e5= stringScalarExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:111:7: (e5= stringScalarExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:111:7: e5= stringScalarExpr
         {
         pushFollow(FOLLOW_stringScalarExpr_in_synpred35_wcps883);
         e5=stringScalarExpr();
@@ -10047,34 +10242,16 @@ public class wcpsParser extends Parser {
     }
     // $ANTLR end synpred35_wcps
 
-    // $ANTLR start synpred70_wcps
-    public final void synpred70_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred71_wcps
+    public final void synpred71_wcps_fragment() throws RecognitionException {   
         wcpsParser.fieldExpr_return e6 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:204:7: (e6= fieldExpr )
-        // src/petascope/wcps/grammar/wcps.g:204:7: e6= fieldExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:212:7: (e6= fieldExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:212:7: e6= fieldExpr
         {
-        pushFollow(FOLLOW_fieldExpr_in_synpred70_wcps2013);
+        pushFollow(FOLLOW_fieldExpr_in_synpred71_wcps2121);
         e6=fieldExpr();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end synpred70_wcps
-
-    // $ANTLR start synpred71_wcps
-    public final void synpred71_wcps_fragment() throws RecognitionException {   
-        wcpsParser.unaryArithmeticExpr_return e1 = null;
-
-
-        // src/petascope/wcps/grammar/wcps.g:205:4: (e1= unaryArithmeticExpr )
-        // src/petascope/wcps/grammar/wcps.g:205:4: e1= unaryArithmeticExpr
-        {
-        pushFollow(FOLLOW_unaryArithmeticExpr_in_synpred71_wcps2022);
-        e1=unaryArithmeticExpr();
 
         state._fsp--;
         if (state.failed) return ;
@@ -10083,15 +10260,33 @@ public class wcpsParser extends Parser {
     }
     // $ANTLR end synpred71_wcps
 
-    // $ANTLR start synpred74_wcps
-    public final void synpred74_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred72_wcps
+    public final void synpred72_wcps_fragment() throws RecognitionException {   
+        wcpsParser.unaryArithmeticExpr_return e1 = null;
+
+
+        // src/main/java/petascope/wcps/grammar/wcps.g:213:4: (e1= unaryArithmeticExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:213:4: e1= unaryArithmeticExpr
+        {
+        pushFollow(FOLLOW_unaryArithmeticExpr_in_synpred72_wcps2130);
+        e1=unaryArithmeticExpr();
+
+        state._fsp--;
+        if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred72_wcps
+
+    // $ANTLR start synpred75_wcps
+    public final void synpred75_wcps_fragment() throws RecognitionException {   
         wcpsParser.booleanExpr_return e4 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:208:7: (e4= booleanExpr )
-        // src/petascope/wcps/grammar/wcps.g:208:7: e4= booleanExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:216:7: (e4= booleanExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:216:7: e4= booleanExpr
         {
-        pushFollow(FOLLOW_booleanExpr_in_synpred74_wcps2058);
+        pushFollow(FOLLOW_booleanExpr_in_synpred75_wcps2166);
         e4=booleanExpr();
 
         state._fsp--;
@@ -10099,36 +10294,18 @@ public class wcpsParser extends Parser {
 
         }
     }
-    // $ANTLR end synpred74_wcps
-
-    // $ANTLR start synpred100_wcps
-    public final void synpred100_wcps_fragment() throws RecognitionException {   
-        wcpsParser.trimExpr_return e1 = null;
-
-
-        // src/petascope/wcps/grammar/wcps.g:251:4: (e1= trimExpr )
-        // src/petascope/wcps/grammar/wcps.g:251:4: e1= trimExpr
-        {
-        pushFollow(FOLLOW_trimExpr_in_synpred100_wcps2575);
-        e1=trimExpr();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end synpred100_wcps
+    // $ANTLR end synpred75_wcps
 
     // $ANTLR start synpred101_wcps
     public final void synpred101_wcps_fragment() throws RecognitionException {   
-        wcpsParser.sliceExpr_return e2 = null;
+        wcpsParser.trimExpr_return e1 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:252:4: (e2= sliceExpr )
-        // src/petascope/wcps/grammar/wcps.g:252:4: e2= sliceExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:259:4: (e1= trimExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:259:4: e1= trimExpr
         {
-        pushFollow(FOLLOW_sliceExpr_in_synpred101_wcps2584);
-        e2=sliceExpr();
+        pushFollow(FOLLOW_trimExpr_in_synpred101_wcps2683);
+        e1=trimExpr();
 
         state._fsp--;
         if (state.failed) return ;
@@ -10137,14 +10314,32 @@ public class wcpsParser extends Parser {
     }
     // $ANTLR end synpred101_wcps
 
-    // $ANTLR start synpred115_wcps
-    public final void synpred115_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred102_wcps
+    public final void synpred102_wcps_fragment() throws RecognitionException {   
+        wcpsParser.sliceExpr_return e2 = null;
+
+
+        // src/main/java/petascope/wcps/grammar/wcps.g:260:4: (e2= sliceExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:260:4: e2= sliceExpr
+        {
+        pushFollow(FOLLOW_sliceExpr_in_synpred102_wcps2692);
+        e2=sliceExpr();
+
+        state._fsp--;
+        if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred102_wcps
+
+    // $ANTLR start synpred116_wcps
+    public final void synpred116_wcps_fragment() throws RecognitionException {   
         Token op=null;
         wcpsParser.booleanScalarTerm_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:280:8: (op= ( OR | XOR ) e2= booleanScalarTerm )
-        // src/petascope/wcps/grammar/wcps.g:280:8: op= ( OR | XOR ) e2= booleanScalarTerm
+        // src/main/java/petascope/wcps/grammar/wcps.g:288:8: (op= ( OR | XOR ) e2= booleanScalarTerm )
+        // src/main/java/petascope/wcps/grammar/wcps.g:288:8: op= ( OR | XOR ) e2= booleanScalarTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -10157,28 +10352,8 @@ public class wcpsParser extends Parser {
             throw mse;
         }
 
-        pushFollow(FOLLOW_booleanScalarTerm_in_synpred115_wcps2886);
+        pushFollow(FOLLOW_booleanScalarTerm_in_synpred116_wcps2994);
         e2=booleanScalarTerm();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end synpred115_wcps
-
-    // $ANTLR start synpred116_wcps
-    public final void synpred116_wcps_fragment() throws RecognitionException {   
-        Token op=null;
-        wcpsParser.booleanScalarNegation_return e2 = null;
-
-
-        // src/petascope/wcps/grammar/wcps.g:284:5: (op= AND e2= booleanScalarNegation )
-        // src/petascope/wcps/grammar/wcps.g:284:5: op= AND e2= booleanScalarNegation
-        {
-        op=(Token)match(input,AND,FOLLOW_AND_in_synpred116_wcps2918); if (state.failed) return ;
-        pushFollow(FOLLOW_booleanScalarNegation_in_synpred116_wcps2922);
-        e2=booleanScalarNegation();
 
         state._fsp--;
         if (state.failed) return ;
@@ -10187,28 +10362,48 @@ public class wcpsParser extends Parser {
     }
     // $ANTLR end synpred116_wcps
 
-    // $ANTLR start synpred118_wcps
-    public final void synpred118_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred117_wcps
+    public final void synpred117_wcps_fragment() throws RecognitionException {   
+        Token op=null;
+        wcpsParser.booleanScalarNegation_return e2 = null;
+
+
+        // src/main/java/petascope/wcps/grammar/wcps.g:292:5: (op= AND e2= booleanScalarNegation )
+        // src/main/java/petascope/wcps/grammar/wcps.g:292:5: op= AND e2= booleanScalarNegation
+        {
+        op=(Token)match(input,AND,FOLLOW_AND_in_synpred117_wcps3026); if (state.failed) return ;
+        pushFollow(FOLLOW_booleanScalarNegation_in_synpred117_wcps3030);
+        e2=booleanScalarNegation();
+
+        state._fsp--;
+        if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred117_wcps
+
+    // $ANTLR start synpred119_wcps
+    public final void synpred119_wcps_fragment() throws RecognitionException {   
         wcpsParser.booleanScalarExpr_return e1 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:291:4: ( LPAREN e1= booleanScalarExpr RPAREN )
-        // src/petascope/wcps/grammar/wcps.g:291:4: LPAREN e1= booleanScalarExpr RPAREN
+        // src/main/java/petascope/wcps/grammar/wcps.g:299:4: ( LPAREN e1= booleanScalarExpr RPAREN )
+        // src/main/java/petascope/wcps/grammar/wcps.g:299:4: LPAREN e1= booleanScalarExpr RPAREN
         {
-        match(input,LPAREN,FOLLOW_LPAREN_in_synpred118_wcps2971); if (state.failed) return ;
-        pushFollow(FOLLOW_booleanScalarExpr_in_synpred118_wcps2975);
+        match(input,LPAREN,FOLLOW_LPAREN_in_synpred119_wcps3079); if (state.failed) return ;
+        pushFollow(FOLLOW_booleanScalarExpr_in_synpred119_wcps3083);
         e1=booleanScalarExpr();
 
         state._fsp--;
         if (state.failed) return ;
-        match(input,RPAREN,FOLLOW_RPAREN_in_synpred118_wcps2977); if (state.failed) return ;
+        match(input,RPAREN,FOLLOW_RPAREN_in_synpred119_wcps3085); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred118_wcps
+    // $ANTLR end synpred119_wcps
 
-    // $ANTLR start synpred120_wcps
-    public final void synpred120_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred121_wcps
+    public final void synpred121_wcps_fragment() throws RecognitionException {   
         wcpsParser.numericScalarExpr_return n1 = null;
 
         wcpsParser.compOp_return cop = null;
@@ -10216,20 +10411,20 @@ public class wcpsParser extends Parser {
         wcpsParser.numericScalarExpr_return n2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:293:4: (n1= numericScalarExpr cop= compOp n2= numericScalarExpr )
-        // src/petascope/wcps/grammar/wcps.g:293:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:301:4: (n1= numericScalarExpr cop= compOp n2= numericScalarExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:301:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
         {
-        pushFollow(FOLLOW_numericScalarExpr_in_synpred120_wcps3004);
+        pushFollow(FOLLOW_numericScalarExpr_in_synpred121_wcps3112);
         n1=numericScalarExpr();
 
         state._fsp--;
         if (state.failed) return ;
-        pushFollow(FOLLOW_compOp_in_synpred120_wcps3008);
+        pushFollow(FOLLOW_compOp_in_synpred121_wcps3116);
         cop=compOp();
 
         state._fsp--;
         if (state.failed) return ;
-        pushFollow(FOLLOW_numericScalarExpr_in_synpred120_wcps3012);
+        pushFollow(FOLLOW_numericScalarExpr_in_synpred121_wcps3120);
         n2=numericScalarExpr();
 
         state._fsp--;
@@ -10237,16 +10432,16 @@ public class wcpsParser extends Parser {
 
         }
     }
-    // $ANTLR end synpred120_wcps
+    // $ANTLR end synpred121_wcps
 
-    // $ANTLR start synpred122_wcps
-    public final void synpred122_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred123_wcps
+    public final void synpred123_wcps_fragment() throws RecognitionException {   
         Token op=null;
         wcpsParser.numericScalarTerm_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:298:5: (op= ( PLUS | MINUS ) e2= numericScalarTerm )
-        // src/petascope/wcps/grammar/wcps.g:298:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
+        // src/main/java/petascope/wcps/grammar/wcps.g:306:5: (op= ( PLUS | MINUS ) e2= numericScalarTerm )
+        // src/main/java/petascope/wcps/grammar/wcps.g:306:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -10259,7 +10454,7 @@ public class wcpsParser extends Parser {
             throw mse;
         }
 
-        pushFollow(FOLLOW_numericScalarTerm_in_synpred122_wcps3057);
+        pushFollow(FOLLOW_numericScalarTerm_in_synpred123_wcps3165);
         e2=numericScalarTerm();
 
         state._fsp--;
@@ -10267,16 +10462,16 @@ public class wcpsParser extends Parser {
 
         }
     }
-    // $ANTLR end synpred122_wcps
+    // $ANTLR end synpred123_wcps
 
-    // $ANTLR start synpred124_wcps
-    public final void synpred124_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred125_wcps
+    public final void synpred125_wcps_fragment() throws RecognitionException {   
         Token op=null;
         wcpsParser.numericScalarFactor_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:302:4: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )
-        // src/petascope/wcps/grammar/wcps.g:302:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
+        // src/main/java/petascope/wcps/grammar/wcps.g:310:4: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )
+        // src/main/java/petascope/wcps/grammar/wcps.g:310:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -10289,7 +10484,7 @@ public class wcpsParser extends Parser {
             throw mse;
         }
 
-        pushFollow(FOLLOW_numericScalarFactor_in_synpred124_wcps3093);
+        pushFollow(FOLLOW_numericScalarFactor_in_synpred125_wcps3201);
         e2=numericScalarFactor();
 
         state._fsp--;
@@ -10297,37 +10492,37 @@ public class wcpsParser extends Parser {
 
         }
     }
-    // $ANTLR end synpred124_wcps
+    // $ANTLR end synpred125_wcps
 
-    // $ANTLR start synpred125_wcps
-    public final void synpred125_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred126_wcps
+    public final void synpred126_wcps_fragment() throws RecognitionException {   
         wcpsParser.numericScalarExpr_return e1 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:305:7: ( LPAREN e1= numericScalarExpr RPAREN )
-        // src/petascope/wcps/grammar/wcps.g:305:7: LPAREN e1= numericScalarExpr RPAREN
+        // src/main/java/petascope/wcps/grammar/wcps.g:313:7: ( LPAREN e1= numericScalarExpr RPAREN )
+        // src/main/java/petascope/wcps/grammar/wcps.g:313:7: LPAREN e1= numericScalarExpr RPAREN
         {
-        match(input,LPAREN,FOLLOW_LPAREN_in_synpred125_wcps3113); if (state.failed) return ;
-        pushFollow(FOLLOW_numericScalarExpr_in_synpred125_wcps3117);
+        match(input,LPAREN,FOLLOW_LPAREN_in_synpred126_wcps3221); if (state.failed) return ;
+        pushFollow(FOLLOW_numericScalarExpr_in_synpred126_wcps3225);
         e1=numericScalarExpr();
 
         state._fsp--;
         if (state.failed) return ;
-        match(input,RPAREN,FOLLOW_RPAREN_in_synpred125_wcps3119); if (state.failed) return ;
+        match(input,RPAREN,FOLLOW_RPAREN_in_synpred126_wcps3227); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred125_wcps
+    // $ANTLR end synpred126_wcps
 
-    // $ANTLR start synpred132_wcps
-    public final void synpred132_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred133_wcps
+    public final void synpred133_wcps_fragment() throws RecognitionException {   
         wcpsParser.complexConstant_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:312:7: (e2= complexConstant )
-        // src/petascope/wcps/grammar/wcps.g:312:7: e2= complexConstant
+        // src/main/java/petascope/wcps/grammar/wcps.g:320:7: (e2= complexConstant )
+        // src/main/java/petascope/wcps/grammar/wcps.g:320:7: e2= complexConstant
         {
-        pushFollow(FOLLOW_complexConstant_in_synpred132_wcps3231);
+        pushFollow(FOLLOW_complexConstant_in_synpred133_wcps3339);
         e2=complexConstant();
 
         state._fsp--;
@@ -10335,25 +10530,25 @@ public class wcpsParser extends Parser {
 
         }
     }
-    // $ANTLR end synpred132_wcps
+    // $ANTLR end synpred133_wcps
 
-    // $ANTLR start synpred141_wcps
-    public final void synpred141_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred142_wcps
+    public final void synpred142_wcps_fragment() throws RecognitionException {   
         wcpsParser.scalarExpr_return e1 = null;
 
         wcpsParser.scalarExpr_return e2 = null;
 
 
-        // src/petascope/wcps/grammar/wcps.g:333:7: (e1= scalarExpr COLON e2= scalarExpr )
-        // src/petascope/wcps/grammar/wcps.g:333:7: e1= scalarExpr COLON e2= scalarExpr
+        // src/main/java/petascope/wcps/grammar/wcps.g:341:7: (e1= scalarExpr COLON e2= scalarExpr )
+        // src/main/java/petascope/wcps/grammar/wcps.g:341:7: e1= scalarExpr COLON e2= scalarExpr
         {
-        pushFollow(FOLLOW_scalarExpr_in_synpred141_wcps3419);
+        pushFollow(FOLLOW_scalarExpr_in_synpred142_wcps3527);
         e1=scalarExpr();
 
         state._fsp--;
         if (state.failed) return ;
-        match(input,COLON,FOLLOW_COLON_in_synpred141_wcps3421); if (state.failed) return ;
-        pushFollow(FOLLOW_scalarExpr_in_synpred141_wcps3425);
+        match(input,COLON,FOLLOW_COLON_in_synpred142_wcps3529); if (state.failed) return ;
+        pushFollow(FOLLOW_scalarExpr_in_synpred142_wcps3533);
         e2=scalarExpr();
 
         state._fsp--;
@@ -10361,15 +10556,15 @@ public class wcpsParser extends Parser {
 
         }
     }
-    // $ANTLR end synpred141_wcps
+    // $ANTLR end synpred142_wcps
 
     // Delegated rules
 
-    public final boolean synpred70_wcps() {
+    public final boolean synpred102_wcps() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred70_wcps_fragment(); // can never throw exception
+            synpred102_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -10505,11 +10700,11 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred118_wcps() {
+    public final boolean synpred75_wcps() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred118_wcps_fragment(); // can never throw exception
+            synpred75_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -10519,11 +10714,11 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred115_wcps() {
+    public final boolean synpred133_wcps() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred115_wcps_fragment(); // can never throw exception
+            synpred133_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -10533,53 +10728,11 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred132_wcps() {
+    public final boolean synpred123_wcps() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred132_wcps_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred141_wcps() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred141_wcps_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred122_wcps() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred122_wcps_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred74_wcps() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred74_wcps_fragment(); // can never throw exception
+            synpred123_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -10594,6 +10747,20 @@ public class wcpsParser extends Parser {
         int start = input.mark();
         try {
             synpred20_wcps_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred119_wcps() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred119_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -10645,20 +10812,6 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred28_wcps() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred28_wcps_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
     public final boolean synpred29_wcps() {
         state.backtracking++;
         int start = input.mark();
@@ -10673,11 +10826,11 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred100_wcps() {
+    public final boolean synpred28_wcps() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred100_wcps_fragment(); // can never throw exception
+            synpred28_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -10743,11 +10896,39 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred124_wcps() {
+    public final boolean synpred121_wcps() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred124_wcps_fragment(); // can never throw exception
+            synpred121_wcps_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred142_wcps() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred142_wcps_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred117_wcps() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred117_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -10771,11 +10952,11 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred116_wcps() {
+    public final boolean synpred126_wcps() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred116_wcps_fragment(); // can never throw exception
+            synpred126_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -10785,11 +10966,25 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred120_wcps() {
+    public final boolean synpred72_wcps() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred120_wcps_fragment(); // can never throw exception
+            synpred72_wcps_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred116_wcps() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred116_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -10811,18 +11006,18 @@ public class wcpsParser extends Parser {
     protected DFA12 dfa12 = new DFA12(this);
     protected DFA13 dfa13 = new DFA13(this);
     protected DFA14 dfa14 = new DFA14(this);
-    protected DFA34 dfa34 = new DFA34(this);
-    protected DFA42 dfa42 = new DFA42(this);
+    protected DFA35 dfa35 = new DFA35(this);
     protected DFA43 dfa43 = new DFA43(this);
     protected DFA44 dfa44 = new DFA44(this);
-    protected DFA46 dfa46 = new DFA46(this);
+    protected DFA45 dfa45 = new DFA45(this);
     protected DFA47 dfa47 = new DFA47(this);
     protected DFA48 dfa48 = new DFA48(this);
     protected DFA49 dfa49 = new DFA49(this);
     protected DFA50 dfa50 = new DFA50(this);
     protected DFA51 dfa51 = new DFA51(this);
     protected DFA52 dfa52 = new DFA52(this);
-    protected DFA56 dfa56 = new DFA56(this);
+    protected DFA53 dfa53 = new DFA53(this);
+    protected DFA57 dfa57 = new DFA57(this);
     static final String DFA4_eotS =
         "\30\uffff";
     static final String DFA4_eofS =
@@ -10893,7 +11088,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA4_transition;
         }
         public String getDescription() {
-            return "53:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );";
+            return "54:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );";
         }
     }
     static final String DFA6_eotS =
@@ -11005,7 +11200,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA6_transition;
         }
         public String getDescription() {
-            return "()* loopback of 67:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*";
+            return "()* loopback of 68:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11143,7 +11338,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA7_transition;
         }
         public String getDescription() {
-            return "()* loopback of 71:9: (op= AND e2= coverageLogicFactor )*";
+            return "()* loopback of 72:9: (op= AND e2= coverageLogicFactor )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11482,7 +11677,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA8_transition;
         }
         public String getDescription() {
-            return "75:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?";
+            return "76:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11695,7 +11890,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA9_transition;
         }
         public String getDescription() {
-            return "()* loopback of 79:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*";
+            return "()* loopback of 80:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11833,7 +12028,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "()* loopback of 83:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*";
+            return "()* loopback of 84:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11971,7 +12166,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA11_transition;
         }
         public String getDescription() {
-            return "()* loopback of 87:9: (op= OVERLAY e2= coverageValue )*";
+            return "()* loopback of 88:9: (op= OVERLAY e2= coverageValue )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -12001,24 +12196,103 @@ public class wcpsParser extends Parser {
         }
     }
     static final String DFA12_eotS =
-        "\52\uffff";
+        "\u012d\uffff";
     static final String DFA12_eofS =
-        "\52\uffff";
+        "\u012d\uffff";
     static final String DFA12_minS =
-        "\1\6\36\0\13\uffff";
+        "\12\6\1\15\1\6\1\0\4\6\4\0\1\6\1\0\1\116\5\6\1\70\1\116\12\uffff"+
+        "\62\0\30\uffff\12\0\24\uffff\3\0\124\uffff\15\0\60\uffff\10\0";
     static final String DFA12_maxS =
-        "\1\154\36\0\13\uffff";
+        "\1\154\11\6\1\51\1\154\1\0\1\154\3\6\4\0\1\154\1\0\1\153\5\6\1\70"+
+        "\1\153\12\uffff\62\0\30\uffff\12\0\24\uffff\3\0\124\uffff\15\0\60"+
+        "\uffff\10\0";
     static final String DFA12_acceptS =
-        "\37\uffff\1\1\2\uffff\1\2\4\uffff\1\3\1\4\1\5";
+        "\37\uffff\1\1\2\uffff\1\2\4\uffff\1\3\1\4\111\uffff\1\5\u00ba\uffff";
     static final String DFA12_specialS =
-        "\1\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14"+
-        "\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25\1\26\1\27\1\30\1\31"+
-        "\1\32\1\33\1\34\1\35\13\uffff}>";
+        "\14\uffff\1\0\4\uffff\1\1\1\2\1\3\1\4\1\uffff\1\5\22\uffff\1\6\1"+
+        "\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1"+
+        "\24\1\25\1\26\1\27\1\30\1\31\1\32\1\33\1\34\1\35\1\36\1\37\1\40"+
+        "\1\41\1\42\1\43\1\44\1\45\1\46\1\47\1\50\1\51\1\52\1\53\1\54\1\55"+
+        "\1\56\1\57\1\60\1\61\1\62\1\63\1\64\1\65\1\66\1\67\30\uffff\1\70"+
+        "\1\71\1\72\1\73\1\74\1\75\1\76\1\77\1\100\1\101\24\uffff\1\102\1"+
+        "\103\1\104\124\uffff\1\105\1\106\1\107\1\110\1\111\1\112\1\113\1"+
+        "\114\1\115\1\116\1\117\1\120\1\121\60\uffff\1\122\1\123\1\124\1"+
+        "\125\1\126\1\127\1\130\1\131}>";
     static final String[] DFA12_transitionS = {
             "\1\13\17\uffff\1\42\1\15\3\uffff\1\1\1\2\1\3\1\4\1\6\1\7\1\10"+
             "\1\5\7\11\1\12\3\uffff\1\27\4\uffff\1\30\1\31\1\32\1\33\1\34"+
             "\1\36\1\uffff\1\35\1\50\1\17\1\16\16\42\1\25\1\42\1\21\1\20"+
             "\1\14\1\47\2\uffff\3\37\12\uffff\1\24\1\22\10\uffff\1\26\1\23",
+            "\1\51",
+            "\1\52",
+            "\1\53",
+            "\1\54",
+            "\1\55",
+            "\1\56",
+            "\1\57",
+            "\1\60",
+            "\1\61",
+            "\1\62\1\uffff\1\62\6\uffff\1\62\1\uffff\1\62\17\uffff\2\62",
+            "\1\64\17\uffff\1\124\1\65\3\uffff\1\75\1\76\1\77\1\100\1\102"+
+            "\1\103\1\104\1\101\7\72\1\73\3\uffff\1\111\4\uffff\1\112\1\113"+
+            "\1\114\1\115\1\116\1\120\1\uffff\1\117\1\132\1\67\1\66\2\125"+
+            "\3\126\11\127\1\107\1\130\1\71\1\70\1\105\1\131\2\uffff\1\121"+
+            "\1\122\1\123\11\42\1\uffff\1\106\1\63\10\uffff\1\110\1\74",
+            "\1\uffff",
+            "\1\163\20\uffff\1\164\3\uffff\10\42\7\172\1\173\3\uffff\1\42"+
+            "\4\uffff\6\42\1\uffff\1\42\1\uffff\1\166\1\165\16\uffff\1\42"+
+            "\1\uffff\1\170\1\167\1\42\20\uffff\1\42\1\171\10\uffff\1\42"+
+            "\1\174",
+            "\1\u0091",
+            "\1\u0092",
+            "\1\u0093",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\u00e8\17\uffff\1\42\1\u00eb\3\uffff\1\u00e9\7\42\7\u00f1"+
+            "\1\u00f2\3\uffff\1\42\4\uffff\6\42\1\uffff\2\42\1\u00ed\1\u00ec"+
+            "\20\42\1\u00ef\1\u00ee\1\u00ea\1\42\2\uffff\3\42\12\uffff\1"+
+            "\u00f4\1\u00f0\10\uffff\1\42\1\u00f3",
+            "\1\uffff",
+            "\1\u0125\1\uffff\1\u0125\32\uffff\1\u0125",
+            "\1\u0126",
+            "\1\u0127",
+            "\1\u0128",
+            "\1\u0129",
+            "\1\u012a",
+            "\1\u012b",
+            "\1\u012c\1\uffff\1\u012c\32\uffff\1\u012c",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -12059,7 +12333,206 @@ public class wcpsParser extends Parser {
             "",
             "",
             "",
-            ""
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff"
     };
 
     static final short[] DFA12_eot = DFA.unpackEncodedString(DFA12_eotS);
@@ -12092,200 +12565,13 @@ public class wcpsParser extends Parser {
             this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "89:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );";
+            return "90:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA12_1 = input.LA(1);
-
-                         
-                        int index12_1 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_1);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA12_2 = input.LA(1);
-
-                         
-                        int index12_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA12_3 = input.LA(1);
-
-                         
-                        int index12_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA12_4 = input.LA(1);
-
-                         
-                        int index12_4 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA12_5 = input.LA(1);
-
-                         
-                        int index12_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA12_6 = input.LA(1);
-
-                         
-                        int index12_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_6);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA12_7 = input.LA(1);
-
-                         
-                        int index12_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA12_8 = input.LA(1);
-
-                         
-                        int index12_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_8);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA12_9 = input.LA(1);
-
-                         
-                        int index12_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_9);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA12_10 = input.LA(1);
-
-                         
-                        int index12_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_10);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA12_11 = input.LA(1);
-
-                         
-                        int index12_11 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_11);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
                         int LA12_12 = input.LA(1);
 
                          
@@ -12296,81 +12582,13 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
                         input.seek(index12_12);
                         if ( s>=0 ) return s;
                         break;
-                    case 12 : 
-                        int LA12_13 = input.LA(1);
-
-                         
-                        int index12_13 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_13);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA12_14 = input.LA(1);
-
-                         
-                        int index12_14 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_14);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA12_15 = input.LA(1);
-
-                         
-                        int index12_15 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_15);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA12_16 = input.LA(1);
-
-                         
-                        int index12_16 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_16);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
+                    case 1 : 
                         int LA12_17 = input.LA(1);
 
                          
@@ -12381,13 +12599,13 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
                         input.seek(index12_17);
                         if ( s>=0 ) return s;
                         break;
-                    case 17 : 
+                    case 2 : 
                         int LA12_18 = input.LA(1);
 
                          
@@ -12398,13 +12616,13 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
                         input.seek(index12_18);
                         if ( s>=0 ) return s;
                         break;
-                    case 18 : 
+                    case 3 : 
                         int LA12_19 = input.LA(1);
 
                          
@@ -12415,13 +12633,13 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
                         input.seek(index12_19);
                         if ( s>=0 ) return s;
                         break;
-                    case 19 : 
+                    case 4 : 
                         int LA12_20 = input.LA(1);
 
                          
@@ -12432,30 +12650,13 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
                         input.seek(index12_20);
                         if ( s>=0 ) return s;
                         break;
-                    case 20 : 
-                        int LA12_21 = input.LA(1);
-
-                         
-                        int index12_21 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 41;}
-
-                         
-                        input.seek(index12_21);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 21 : 
+                    case 5 : 
                         int LA12_22 = input.LA(1);
 
                          
@@ -12466,146 +12667,1438 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
                         input.seek(index12_22);
                         if ( s>=0 ) return s;
                         break;
-                    case 22 : 
-                        int LA12_23 = input.LA(1);
+                    case 6 : 
+                        int LA12_41 = input.LA(1);
 
                          
-                        int index12_23 = input.index();
+                        int index12_41 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred21_wcps()) ) {s = 31;}
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
-                        input.seek(index12_23);
+                        input.seek(index12_41);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA12_42 = input.LA(1);
+
+                         
+                        int index12_42 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_42);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA12_43 = input.LA(1);
+
+                         
+                        int index12_43 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_43);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA12_44 = input.LA(1);
+
+                         
+                        int index12_44 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_44);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA12_45 = input.LA(1);
+
+                         
+                        int index12_45 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_45);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA12_46 = input.LA(1);
+
+                         
+                        int index12_46 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_46);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA12_47 = input.LA(1);
+
+                         
+                        int index12_47 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_47);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA12_48 = input.LA(1);
+
+                         
+                        int index12_48 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_48);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA12_49 = input.LA(1);
+
+                         
+                        int index12_49 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_49);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA12_50 = input.LA(1);
+
+                         
+                        int index12_50 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_50);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA12_51 = input.LA(1);
+
+                         
+                        int index12_51 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_51);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA12_52 = input.LA(1);
+
+                         
+                        int index12_52 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_52);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 18 : 
+                        int LA12_53 = input.LA(1);
+
+                         
+                        int index12_53 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_53);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 19 : 
+                        int LA12_54 = input.LA(1);
+
+                         
+                        int index12_54 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_54);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 20 : 
+                        int LA12_55 = input.LA(1);
+
+                         
+                        int index12_55 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_55);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 21 : 
+                        int LA12_56 = input.LA(1);
+
+                         
+                        int index12_56 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_56);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA12_57 = input.LA(1);
+
+                         
+                        int index12_57 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_57);
                         if ( s>=0 ) return s;
                         break;
                     case 23 : 
-                        int LA12_24 = input.LA(1);
+                        int LA12_58 = input.LA(1);
 
                          
-                        int index12_24 = input.index();
+                        int index12_58 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred21_wcps()) ) {s = 31;}
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
-                        input.seek(index12_24);
+                        input.seek(index12_58);
                         if ( s>=0 ) return s;
                         break;
                     case 24 : 
-                        int LA12_25 = input.LA(1);
+                        int LA12_59 = input.LA(1);
 
                          
-                        int index12_25 = input.index();
+                        int index12_59 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred21_wcps()) ) {s = 31;}
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
-                        input.seek(index12_25);
+                        input.seek(index12_59);
                         if ( s>=0 ) return s;
                         break;
                     case 25 : 
-                        int LA12_26 = input.LA(1);
+                        int LA12_60 = input.LA(1);
 
                          
-                        int index12_26 = input.index();
+                        int index12_60 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred21_wcps()) ) {s = 31;}
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
-                        input.seek(index12_26);
+                        input.seek(index12_60);
                         if ( s>=0 ) return s;
                         break;
                     case 26 : 
-                        int LA12_27 = input.LA(1);
+                        int LA12_61 = input.LA(1);
 
                          
-                        int index12_27 = input.index();
+                        int index12_61 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred21_wcps()) ) {s = 31;}
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
-                        input.seek(index12_27);
+                        input.seek(index12_61);
                         if ( s>=0 ) return s;
                         break;
                     case 27 : 
-                        int LA12_28 = input.LA(1);
+                        int LA12_62 = input.LA(1);
 
                          
-                        int index12_28 = input.index();
+                        int index12_62 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred21_wcps()) ) {s = 31;}
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
-                        input.seek(index12_28);
+                        input.seek(index12_62);
                         if ( s>=0 ) return s;
                         break;
                     case 28 : 
-                        int LA12_29 = input.LA(1);
+                        int LA12_63 = input.LA(1);
 
                          
-                        int index12_29 = input.index();
+                        int index12_63 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred21_wcps()) ) {s = 31;}
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
-                        input.seek(index12_29);
+                        input.seek(index12_63);
                         if ( s>=0 ) return s;
                         break;
                     case 29 : 
-                        int LA12_30 = input.LA(1);
+                        int LA12_64 = input.LA(1);
 
                          
-                        int index12_30 = input.index();
+                        int index12_64 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred21_wcps()) ) {s = 31;}
 
                         else if ( (synpred22_wcps()) ) {s = 34;}
 
-                        else if ( (true) ) {s = 41;}
+                        else if ( (true) ) {s = 114;}
 
                          
-                        input.seek(index12_30);
+                        input.seek(index12_64);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 30 : 
+                        int LA12_65 = input.LA(1);
+
+                         
+                        int index12_65 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_65);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 31 : 
+                        int LA12_66 = input.LA(1);
+
+                         
+                        int index12_66 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_66);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 32 : 
+                        int LA12_67 = input.LA(1);
+
+                         
+                        int index12_67 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_67);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 33 : 
+                        int LA12_68 = input.LA(1);
+
+                         
+                        int index12_68 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_68);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 34 : 
+                        int LA12_69 = input.LA(1);
+
+                         
+                        int index12_69 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_69);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 35 : 
+                        int LA12_70 = input.LA(1);
+
+                         
+                        int index12_70 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_70);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 36 : 
+                        int LA12_71 = input.LA(1);
+
+                         
+                        int index12_71 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_71);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 37 : 
+                        int LA12_72 = input.LA(1);
+
+                         
+                        int index12_72 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_72);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 38 : 
+                        int LA12_73 = input.LA(1);
+
+                         
+                        int index12_73 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_73);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 39 : 
+                        int LA12_74 = input.LA(1);
+
+                         
+                        int index12_74 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_74);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 40 : 
+                        int LA12_75 = input.LA(1);
+
+                         
+                        int index12_75 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_75);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 41 : 
+                        int LA12_76 = input.LA(1);
+
+                         
+                        int index12_76 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_76);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 42 : 
+                        int LA12_77 = input.LA(1);
+
+                         
+                        int index12_77 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_77);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 43 : 
+                        int LA12_78 = input.LA(1);
+
+                         
+                        int index12_78 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_78);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 44 : 
+                        int LA12_79 = input.LA(1);
+
+                         
+                        int index12_79 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_79);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 45 : 
+                        int LA12_80 = input.LA(1);
+
+                         
+                        int index12_80 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_80);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 46 : 
+                        int LA12_81 = input.LA(1);
+
+                         
+                        int index12_81 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_81);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 47 : 
+                        int LA12_82 = input.LA(1);
+
+                         
+                        int index12_82 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_82);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 48 : 
+                        int LA12_83 = input.LA(1);
+
+                         
+                        int index12_83 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_83);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 49 : 
+                        int LA12_84 = input.LA(1);
+
+                         
+                        int index12_84 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_84);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 50 : 
+                        int LA12_85 = input.LA(1);
+
+                         
+                        int index12_85 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_85);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 51 : 
+                        int LA12_86 = input.LA(1);
+
+                         
+                        int index12_86 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_86);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 52 : 
+                        int LA12_87 = input.LA(1);
+
+                         
+                        int index12_87 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_87);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 53 : 
+                        int LA12_88 = input.LA(1);
+
+                         
+                        int index12_88 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_88);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 54 : 
+                        int LA12_89 = input.LA(1);
+
+                         
+                        int index12_89 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_89);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 55 : 
+                        int LA12_90 = input.LA(1);
+
+                         
+                        int index12_90 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_90);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 56 : 
+                        int LA12_115 = input.LA(1);
+
+                         
+                        int index12_115 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_115);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 57 : 
+                        int LA12_116 = input.LA(1);
+
+                         
+                        int index12_116 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_116);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 58 : 
+                        int LA12_117 = input.LA(1);
+
+                         
+                        int index12_117 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_117);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 59 : 
+                        int LA12_118 = input.LA(1);
+
+                         
+                        int index12_118 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_118);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 60 : 
+                        int LA12_119 = input.LA(1);
+
+                         
+                        int index12_119 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_119);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 61 : 
+                        int LA12_120 = input.LA(1);
+
+                         
+                        int index12_120 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_120);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 62 : 
+                        int LA12_121 = input.LA(1);
+
+                         
+                        int index12_121 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_121);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 63 : 
+                        int LA12_122 = input.LA(1);
+
+                         
+                        int index12_122 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_122);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 64 : 
+                        int LA12_123 = input.LA(1);
+
+                         
+                        int index12_123 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_123);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 65 : 
+                        int LA12_124 = input.LA(1);
+
+                         
+                        int index12_124 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_124);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 66 : 
+                        int LA12_145 = input.LA(1);
+
+                         
+                        int index12_145 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_145);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 67 : 
+                        int LA12_146 = input.LA(1);
+
+                         
+                        int index12_146 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_146);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 68 : 
+                        int LA12_147 = input.LA(1);
+
+                         
+                        int index12_147 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_147);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 69 : 
+                        int LA12_232 = input.LA(1);
+
+                         
+                        int index12_232 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_232);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 70 : 
+                        int LA12_233 = input.LA(1);
+
+                         
+                        int index12_233 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_233);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 71 : 
+                        int LA12_234 = input.LA(1);
+
+                         
+                        int index12_234 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_234);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 72 : 
+                        int LA12_235 = input.LA(1);
+
+                         
+                        int index12_235 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_235);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 73 : 
+                        int LA12_236 = input.LA(1);
+
+                         
+                        int index12_236 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_236);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 74 : 
+                        int LA12_237 = input.LA(1);
+
+                         
+                        int index12_237 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_237);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 75 : 
+                        int LA12_238 = input.LA(1);
+
+                         
+                        int index12_238 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_238);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 76 : 
+                        int LA12_239 = input.LA(1);
+
+                         
+                        int index12_239 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_239);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 77 : 
+                        int LA12_240 = input.LA(1);
+
+                         
+                        int index12_240 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_240);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 78 : 
+                        int LA12_241 = input.LA(1);
+
+                         
+                        int index12_241 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_241);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 79 : 
+                        int LA12_242 = input.LA(1);
+
+                         
+                        int index12_242 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_242);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 80 : 
+                        int LA12_243 = input.LA(1);
+
+                         
+                        int index12_243 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_243);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 81 : 
+                        int LA12_244 = input.LA(1);
+
+                         
+                        int index12_244 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_244);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 82 : 
+                        int LA12_293 = input.LA(1);
+
+                         
+                        int index12_293 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_293);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 83 : 
+                        int LA12_294 = input.LA(1);
+
+                         
+                        int index12_294 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_294);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 84 : 
+                        int LA12_295 = input.LA(1);
+
+                         
+                        int index12_295 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_295);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 85 : 
+                        int LA12_296 = input.LA(1);
+
+                         
+                        int index12_296 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_296);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 86 : 
+                        int LA12_297 = input.LA(1);
+
+                         
+                        int index12_297 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_297);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 87 : 
+                        int LA12_298 = input.LA(1);
+
+                         
+                        int index12_298 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_298);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 88 : 
+                        int LA12_299 = input.LA(1);
+
+                         
+                        int index12_299 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_299);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 89 : 
+                        int LA12_300 = input.LA(1);
+
+                         
+                        int index12_300 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_300);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -12645,10 +14138,10 @@ public class wcpsParser extends Parser {
             "",
             "",
             "",
-            "\1\52\17\uffff\1\64\1\54\3\uffff\1\40\1\41\1\42\1\43\1\45\1"+
-            "\46\1\47\1\44\7\50\1\51\3\uffff\1\64\4\uffff\6\64\1\uffff\2"+
-            "\64\1\56\1\55\16\64\1\63\1\64\1\60\1\57\1\53\1\64\2\uffff\3"+
-            "\64\12\uffff\1\62\1\37\10\uffff\1\64\1\61",
+            "\1\40\17\uffff\1\64\1\41\3\uffff\1\51\1\52\1\53\1\54\1\56\1"+
+            "\57\1\60\1\55\7\46\1\47\3\uffff\1\64\4\uffff\6\64\1\uffff\2"+
+            "\64\1\43\1\42\16\64\1\63\1\64\1\45\1\44\1\61\1\64\2\uffff\3"+
+            "\64\12\uffff\1\62\1\37\10\uffff\1\64\1\50",
             "",
             "",
             "",
@@ -12743,7 +14236,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA13_transition;
         }
         public String getDescription() {
-            return "96:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );";
+            return "97:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -13090,21 +14583,21 @@ public class wcpsParser extends Parser {
     static final String DFA14_eotS =
         "\u0091\uffff";
     static final String DFA14_eofS =
-        "\14\uffff\1\56\u0084\uffff";
+        "\14\uffff\1\64\u0084\uffff";
     static final String DFA14_minS =
-        "\2\6\7\uffff\1\6\1\15\1\6\1\7\4\6\3\0\2\uffff\16\0\7\uffff\3\0\4"+
-        "\uffff\1\0\4\uffff\5\0\7\uffff\15\0\101\uffff";
+        "\2\6\7\uffff\1\6\1\15\1\6\1\7\4\6\3\0\2\uffff\5\0\7\uffff\22\0\17"+
+        "\uffff\15\0\101\uffff";
     static final String DFA14_maxS =
-        "\1\154\1\6\7\uffff\1\6\1\51\1\154\1\140\1\154\3\6\3\0\2\uffff\16"+
-        "\0\7\uffff\3\0\4\uffff\1\0\4\uffff\5\0\7\uffff\15\0\101\uffff";
+        "\1\154\1\6\7\uffff\1\6\1\51\1\154\1\140\1\154\3\6\3\0\2\uffff\5"+
+        "\0\7\uffff\22\0\17\uffff\15\0\101\uffff";
     static final String DFA14_acceptS =
-        "\2\uffff\1\1\21\uffff\1\3\17\uffff\1\6\11\uffff\1\5\66\uffff\1\4"+
+        "\2\uffff\1\1\21\uffff\1\3\6\uffff\1\6\30\uffff\1\5\60\uffff\1\4"+
         "\52\uffff\1\2";
     static final String DFA14_specialS =
-        "\21\uffff\1\0\1\1\1\2\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12"+
-        "\1\13\1\14\1\15\1\16\1\17\1\20\7\uffff\1\21\1\22\1\23\4\uffff\1"+
-        "\24\4\uffff\1\25\1\26\1\27\1\30\1\31\7\uffff\1\32\1\33\1\34\1\35"+
-        "\1\36\1\37\1\40\1\41\1\42\1\43\1\44\1\45\1\46\101\uffff}>";
+        "\21\uffff\1\0\1\1\1\2\2\uffff\1\3\1\4\1\5\1\6\1\7\7\uffff\1\10\1"+
+        "\11\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25"+
+        "\1\26\1\27\1\30\1\31\17\uffff\1\32\1\33\1\34\1\35\1\36\1\37\1\40"+
+        "\1\41\1\42\1\43\1\44\1\45\1\46\101\uffff}>";
     static final String[] DFA14_transitionS = {
             "\1\13\20\uffff\1\15\3\uffff\1\1\7\2\7\11\1\12\21\uffff\1\17"+
             "\1\16\16\uffff\1\24\1\uffff\1\21\1\20\1\14\20\uffff\1\24\1\22"+
@@ -13119,12 +14612,12 @@ public class wcpsParser extends Parser {
             "",
             "\1\27",
             "\1\30\1\uffff\1\30\6\uffff\1\30\1\uffff\1\30\17\uffff\2\30",
-            "\1\32\20\uffff\1\33\3\uffff\1\43\7\44\7\40\1\41\21\uffff\1"+
-            "\35\1\34\16\uffff\1\55\1\uffff\1\37\1\36\1\53\20\uffff\1\54"+
-            "\1\31\11\uffff\1\42",
-            "\2\56\1\uffff\1\56\2\uffff\3\56\1\62\1\67\1\70\1\71\1\72\1"+
-            "\73\5\56\21\uffff\2\56\3\uffff\1\56\7\uffff\1\56\30\uffff\1"+
-            "\56\15\uffff\1\56",
+            "\1\44\20\uffff\1\46\3\uffff\1\32\7\33\7\42\1\43\21\uffff\1"+
+            "\50\1\47\16\uffff\1\55\1\uffff\1\52\1\51\1\45\20\uffff\1\54"+
+            "\1\31\11\uffff\1\53",
+            "\2\64\1\uffff\1\64\2\uffff\3\64\1\56\1\57\1\60\1\61\1\62\1"+
+            "\63\5\64\21\uffff\2\64\3\uffff\1\64\7\uffff\1\64\30\uffff\1"+
+            "\64\15\uffff\1\64",
             "\1\103\20\uffff\1\104\13\uffff\7\112\1\113\21\uffff\1\106\1"+
             "\105\20\uffff\1\110\1\107\22\uffff\1\111\11\uffff\1\114",
             "\1\115",
@@ -13140,6 +14633,22 @@ public class wcpsParser extends Parser {
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -13156,23 +14665,7 @@ public class wcpsParser extends Parser {
             "",
             "",
             "",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
             "",
-            "",
-            "",
-            "",
-            "\1\uffff",
-            "",
-            "",
-            "",
-            "",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
             "",
             "",
             "",
@@ -13290,7 +14783,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA14_transition;
         }
         public String getDescription() {
-            return "105:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );";
+            return "106:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -13352,7 +14845,7 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred33_wcps()) ) {s = 20;}
 
-                        else if ( (synpred35_wcps()) ) {s = 46;}
+                        else if ( (synpred35_wcps()) ) {s = 52;}
 
                          
                         input.seek(index14_22);
@@ -13403,7 +14896,7 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred34_wcps()) ) {s = 101;}
 
-                        else if ( (true) ) {s = 36;}
+                        else if ( (true) ) {s = 27;}
 
                          
                         input.seek(index14_25);
@@ -13418,134 +14911,13 @@ public class wcpsParser extends Parser {
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
 
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 36;}
+                        else if ( (true) ) {s = 27;}
 
                          
                         input.seek(index14_26);
                         if ( s>=0 ) return s;
                         break;
                     case 8 : 
-                        int LA14_27 = input.LA(1);
-
-                         
-                        int index14_27 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 36;}
-
-                         
-                        input.seek(index14_27);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA14_28 = input.LA(1);
-
-                         
-                        int index14_28 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 36;}
-
-                         
-                        input.seek(index14_28);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA14_29 = input.LA(1);
-
-                         
-                        int index14_29 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 36;}
-
-                         
-                        input.seek(index14_29);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA14_30 = input.LA(1);
-
-                         
-                        int index14_30 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 36;}
-
-                         
-                        input.seek(index14_30);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
-                        int LA14_31 = input.LA(1);
-
-                         
-                        int index14_31 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 36;}
-
-                         
-                        input.seek(index14_31);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA14_32 = input.LA(1);
-
-                         
-                        int index14_32 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 36;}
-
-                         
-                        input.seek(index14_32);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA14_33 = input.LA(1);
-
-                         
-                        int index14_33 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 36;}
-
-                         
-                        input.seek(index14_33);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
                         int LA14_34 = input.LA(1);
 
                          
@@ -13556,13 +14928,13 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred34_wcps()) ) {s = 101;}
 
-                        else if ( (true) ) {s = 36;}
+                        else if ( (true) ) {s = 27;}
 
                          
                         input.seek(index14_34);
                         if ( s>=0 ) return s;
                         break;
-                    case 16 : 
+                    case 9 : 
                         int LA14_35 = input.LA(1);
 
                          
@@ -13571,10 +14943,129 @@ public class wcpsParser extends Parser {
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
 
-                        else if ( (true) ) {s = 36;}
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 27;}
 
                          
                         input.seek(index14_35);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA14_36 = input.LA(1);
+
+                         
+                        int index14_36 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 27;}
+
+                         
+                        input.seek(index14_36);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA14_37 = input.LA(1);
+
+                         
+                        int index14_37 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (true) ) {s = 27;}
+
+                         
+                        input.seek(index14_37);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA14_38 = input.LA(1);
+
+                         
+                        int index14_38 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 27;}
+
+                         
+                        input.seek(index14_38);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA14_39 = input.LA(1);
+
+                         
+                        int index14_39 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 27;}
+
+                         
+                        input.seek(index14_39);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA14_40 = input.LA(1);
+
+                         
+                        int index14_40 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 27;}
+
+                         
+                        input.seek(index14_40);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA14_41 = input.LA(1);
+
+                         
+                        int index14_41 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 27;}
+
+                         
+                        input.seek(index14_41);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA14_42 = input.LA(1);
+
+                         
+                        int index14_42 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 27;}
+
+                         
+                        input.seek(index14_42);
                         if ( s>=0 ) return s;
                         break;
                     case 17 : 
@@ -13586,7 +15077,9 @@ public class wcpsParser extends Parser {
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
 
-                        else if ( (true) ) {s = 36;}
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 27;}
 
                          
                         input.seek(index14_43);
@@ -13601,7 +15094,7 @@ public class wcpsParser extends Parser {
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
 
-                        else if ( (true) ) {s = 36;}
+                        else if ( (true) ) {s = 27;}
 
                          
                         input.seek(index14_44);
@@ -13616,13 +15109,73 @@ public class wcpsParser extends Parser {
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
 
-                        else if ( (true) ) {s = 36;}
+                        else if ( (true) ) {s = 27;}
 
                          
                         input.seek(index14_45);
                         if ( s>=0 ) return s;
                         break;
                     case 20 : 
+                        int LA14_46 = input.LA(1);
+
+                         
+                        int index14_46 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred35_wcps()) ) {s = 52;}
+
+                         
+                        input.seek(index14_46);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 21 : 
+                        int LA14_47 = input.LA(1);
+
+                         
+                        int index14_47 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred35_wcps()) ) {s = 52;}
+
+                         
+                        input.seek(index14_47);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA14_48 = input.LA(1);
+
+                         
+                        int index14_48 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred35_wcps()) ) {s = 52;}
+
+                         
+                        input.seek(index14_48);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA14_49 = input.LA(1);
+
+                         
+                        int index14_49 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred35_wcps()) ) {s = 52;}
+
+                         
+                        input.seek(index14_49);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
                         int LA14_50 = input.LA(1);
 
                          
@@ -13631,85 +15184,25 @@ public class wcpsParser extends Parser {
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
 
-                        else if ( (synpred35_wcps()) ) {s = 46;}
+                        else if ( (synpred35_wcps()) ) {s = 52;}
 
                          
                         input.seek(index14_50);
                         if ( s>=0 ) return s;
                         break;
-                    case 21 : 
-                        int LA14_55 = input.LA(1);
-
-                         
-                        int index14_55 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred35_wcps()) ) {s = 46;}
-
-                         
-                        input.seek(index14_55);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 22 : 
-                        int LA14_56 = input.LA(1);
-
-                         
-                        int index14_56 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred35_wcps()) ) {s = 46;}
-
-                         
-                        input.seek(index14_56);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 23 : 
-                        int LA14_57 = input.LA(1);
-
-                         
-                        int index14_57 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred35_wcps()) ) {s = 46;}
-
-                         
-                        input.seek(index14_57);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 24 : 
-                        int LA14_58 = input.LA(1);
-
-                         
-                        int index14_58 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred35_wcps()) ) {s = 46;}
-
-                         
-                        input.seek(index14_58);
-                        if ( s>=0 ) return s;
-                        break;
                     case 25 : 
-                        int LA14_59 = input.LA(1);
+                        int LA14_51 = input.LA(1);
 
                          
-                        int index14_59 = input.index();
+                        int index14_51 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
 
-                        else if ( (synpred35_wcps()) ) {s = 46;}
+                        else if ( (synpred35_wcps()) ) {s = 52;}
 
                          
-                        input.seek(index14_59);
+                        input.seek(index14_51);
                         if ( s>=0 ) return s;
                         break;
                     case 26 : 
@@ -13915,25 +15408,24 @@ public class wcpsParser extends Parser {
             throw nvae;
         }
     }
-    static final String DFA34_eotS =
+    static final String DFA35_eotS =
         "\u0099\uffff";
-    static final String DFA34_eofS =
+    static final String DFA35_eofS =
         "\u0099\uffff";
-    static final String DFA34_minS =
+    static final String DFA35_minS =
         "\1\6\12\uffff\1\6\1\uffff\3\6\5\uffff\1\6\7\uffff\1\70\1\116\57"+
-        "\uffff\12\0\24\uffff\3\0\7\uffff\14\0\24\uffff\2\0\1\uffff";
-    static final String DFA34_maxS =
+        "\uffff\12\0\24\uffff\17\0\33\uffff\2\0\1\uffff";
+    static final String DFA35_maxS =
         "\1\154\12\uffff\1\154\1\uffff\1\154\2\6\5\uffff\1\154\7\uffff\1"+
-        "\70\1\153\57\uffff\12\0\24\uffff\3\0\7\uffff\14\0\24\uffff\2\0\1"+
-        "\uffff";
-    static final String DFA34_acceptS =
-        "\1\uffff\1\1\35\uffff\1\2\1\uffff\1\3\1\4\1\5\16\uffff\1\6\145\uffff"+
+        "\70\1\153\57\uffff\12\0\24\uffff\17\0\33\uffff\2\0\1\uffff";
+    static final String DFA35_acceptS =
+        "\1\uffff\1\1\35\uffff\1\2\1\uffff\1\3\1\4\1\5\12\uffff\1\6\151\uffff"+
         "\1\7";
-    static final String DFA34_specialS =
+    static final String DFA35_specialS =
         "\116\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\24\uffff\1"+
-        "\12\1\13\1\14\7\uffff\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1"+
-        "\25\1\26\1\27\1\30\24\uffff\1\31\1\32\1\uffff}>";
-    static final String[] DFA34_transitionS = {
+        "\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25\1\26"+
+        "\1\27\1\30\33\uffff\1\31\1\32\1\uffff}>";
+    static final String[] DFA35_transitionS = {
             "\1\13\17\uffff\1\37\1\15\3\uffff\20\1\3\uffff\1\1\4\uffff\5"+
             "\1\1\36\1\uffff\1\35\1\uffff\1\17\1\16\2\37\3\41\11\42\1\25"+
             "\1\43\3\1\20\uffff\2\1\10\uffff\2\1",
@@ -13948,7 +15440,7 @@ public class wcpsParser extends Parser {
             "",
             "",
             "\1\1\17\uffff\2\1\3\uffff\20\1\3\uffff\1\1\4\uffff\6\1\1\uffff"+
-            "\30\1\2\uffff\3\1\11\62\1\uffff\2\1\10\uffff\2\1",
+            "\30\1\2\uffff\3\1\11\56\1\uffff\2\1\10\uffff\2\1",
             "",
             "\1\116\20\uffff\1\117\3\uffff\10\37\7\125\1\126\3\uffff\1\37"+
             "\4\uffff\6\37\1\uffff\1\37\1\uffff\1\121\1\120\16\uffff\1\37"+
@@ -13961,10 +15453,10 @@ public class wcpsParser extends Parser {
             "",
             "",
             "",
-            "\1\170\17\uffff\1\43\1\172\3\uffff\1\156\7\43\7\166\1\167\3"+
-            "\uffff\1\43\4\uffff\6\43\1\uffff\2\43\1\174\1\173\20\43\1\176"+
-            "\1\175\1\171\1\43\2\uffff\3\43\12\uffff\1\u0081\1\177\10\uffff"+
-            "\1\43\1\u0080",
+            "\1\156\17\uffff\1\43\1\161\3\uffff\1\157\7\43\7\167\1\170\3"+
+            "\uffff\1\43\4\uffff\6\43\1\uffff\2\43\1\163\1\162\20\43\1\165"+
+            "\1\164\1\160\1\43\2\uffff\3\43\12\uffff\1\172\1\166\10\uffff"+
+            "\1\43\1\171",
             "",
             "",
             "",
@@ -14054,6 +15546,18 @@ public class wcpsParser extends Parser {
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
             "",
             "",
             "",
@@ -14061,18 +15565,6 @@ public class wcpsParser extends Parser {
             "",
             "",
             "",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
             "",
             "",
             "",
@@ -14098,468 +15590,468 @@ public class wcpsParser extends Parser {
             ""
     };
 
-    static final short[] DFA34_eot = DFA.unpackEncodedString(DFA34_eotS);
-    static final short[] DFA34_eof = DFA.unpackEncodedString(DFA34_eofS);
-    static final char[] DFA34_min = DFA.unpackEncodedStringToUnsignedChars(DFA34_minS);
-    static final char[] DFA34_max = DFA.unpackEncodedStringToUnsignedChars(DFA34_maxS);
-    static final short[] DFA34_accept = DFA.unpackEncodedString(DFA34_acceptS);
-    static final short[] DFA34_special = DFA.unpackEncodedString(DFA34_specialS);
-    static final short[][] DFA34_transition;
+    static final short[] DFA35_eot = DFA.unpackEncodedString(DFA35_eotS);
+    static final short[] DFA35_eof = DFA.unpackEncodedString(DFA35_eofS);
+    static final char[] DFA35_min = DFA.unpackEncodedStringToUnsignedChars(DFA35_minS);
+    static final char[] DFA35_max = DFA.unpackEncodedStringToUnsignedChars(DFA35_maxS);
+    static final short[] DFA35_accept = DFA.unpackEncodedString(DFA35_acceptS);
+    static final short[] DFA35_special = DFA.unpackEncodedString(DFA35_specialS);
+    static final short[][] DFA35_transition;
 
     static {
-        int numStates = DFA34_transitionS.length;
-        DFA34_transition = new short[numStates][];
+        int numStates = DFA35_transitionS.length;
+        DFA35_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA34_transition[i] = DFA.unpackEncodedString(DFA34_transitionS[i]);
+            DFA35_transition[i] = DFA.unpackEncodedString(DFA35_transitionS[i]);
         }
     }
 
-    class DFA34 extends DFA {
+    class DFA35 extends DFA {
 
-        public DFA34(BaseRecognizer recognizer) {
+        public DFA35(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 34;
-            this.eot = DFA34_eot;
-            this.eof = DFA34_eof;
-            this.min = DFA34_min;
-            this.max = DFA34_max;
-            this.accept = DFA34_accept;
-            this.special = DFA34_special;
-            this.transition = DFA34_transition;
+            this.decisionNumber = 35;
+            this.eot = DFA35_eot;
+            this.eof = DFA35_eof;
+            this.min = DFA35_min;
+            this.max = DFA35_max;
+            this.accept = DFA35_accept;
+            this.special = DFA35_special;
+            this.transition = DFA35_transition;
         }
         public String getDescription() {
-            return "203:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );";
+            return "211:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA34_78 = input.LA(1);
+                        int LA35_78 = input.LA(1);
 
                          
-                        int index34_78 = input.index();
+                        int index35_78 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred71_wcps()) ) {s = 31;}
+                        else if ( (synpred72_wcps()) ) {s = 31;}
 
                          
-                        input.seek(index34_78);
+                        input.seek(index35_78);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA34_79 = input.LA(1);
+                        int LA35_79 = input.LA(1);
 
                          
-                        int index34_79 = input.index();
+                        int index35_79 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred71_wcps()) ) {s = 31;}
+                        else if ( (synpred72_wcps()) ) {s = 31;}
 
                          
-                        input.seek(index34_79);
+                        input.seek(index35_79);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA34_80 = input.LA(1);
+                        int LA35_80 = input.LA(1);
 
                          
-                        int index34_80 = input.index();
+                        int index35_80 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred71_wcps()) ) {s = 31;}
+                        else if ( (synpred72_wcps()) ) {s = 31;}
 
                          
-                        input.seek(index34_80);
+                        input.seek(index35_80);
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
-                        int LA34_81 = input.LA(1);
+                        int LA35_81 = input.LA(1);
 
                          
-                        int index34_81 = input.index();
+                        int index35_81 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred71_wcps()) ) {s = 31;}
+                        else if ( (synpred72_wcps()) ) {s = 31;}
 
                          
-                        input.seek(index34_81);
+                        input.seek(index35_81);
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA34_82 = input.LA(1);
+                        int LA35_82 = input.LA(1);
 
                          
-                        int index34_82 = input.index();
+                        int index35_82 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred71_wcps()) ) {s = 31;}
+                        else if ( (synpred72_wcps()) ) {s = 31;}
 
                          
-                        input.seek(index34_82);
+                        input.seek(index35_82);
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
-                        int LA34_83 = input.LA(1);
+                        int LA35_83 = input.LA(1);
 
                          
-                        int index34_83 = input.index();
+                        int index35_83 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred71_wcps()) ) {s = 31;}
+                        else if ( (synpred72_wcps()) ) {s = 31;}
 
                          
-                        input.seek(index34_83);
+                        input.seek(index35_83);
                         if ( s>=0 ) return s;
                         break;
                     case 6 : 
-                        int LA34_84 = input.LA(1);
+                        int LA35_84 = input.LA(1);
 
                          
-                        int index34_84 = input.index();
+                        int index35_84 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred71_wcps()) ) {s = 31;}
+                        else if ( (synpred72_wcps()) ) {s = 31;}
 
                          
-                        input.seek(index34_84);
+                        input.seek(index35_84);
                         if ( s>=0 ) return s;
                         break;
                     case 7 : 
-                        int LA34_85 = input.LA(1);
+                        int LA35_85 = input.LA(1);
 
                          
-                        int index34_85 = input.index();
+                        int index35_85 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred71_wcps()) ) {s = 31;}
+                        else if ( (synpred72_wcps()) ) {s = 31;}
 
                          
-                        input.seek(index34_85);
+                        input.seek(index35_85);
                         if ( s>=0 ) return s;
                         break;
                     case 8 : 
-                        int LA34_86 = input.LA(1);
+                        int LA35_86 = input.LA(1);
 
                          
-                        int index34_86 = input.index();
+                        int index35_86 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred71_wcps()) ) {s = 31;}
+                        else if ( (synpred72_wcps()) ) {s = 31;}
 
                          
-                        input.seek(index34_86);
+                        input.seek(index35_86);
                         if ( s>=0 ) return s;
                         break;
                     case 9 : 
-                        int LA34_87 = input.LA(1);
+                        int LA35_87 = input.LA(1);
 
                          
-                        int index34_87 = input.index();
+                        int index35_87 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred71_wcps()) ) {s = 31;}
+                        else if ( (synpred72_wcps()) ) {s = 31;}
 
                          
-                        input.seek(index34_87);
+                        input.seek(index35_87);
                         if ( s>=0 ) return s;
                         break;
                     case 10 : 
-                        int LA34_108 = input.LA(1);
+                        int LA35_108 = input.LA(1);
 
                          
-                        int index34_108 = input.index();
+                        int index35_108 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred71_wcps()) ) {s = 31;}
+                        else if ( (synpred72_wcps()) ) {s = 31;}
 
                          
-                        input.seek(index34_108);
+                        input.seek(index35_108);
                         if ( s>=0 ) return s;
                         break;
                     case 11 : 
-                        int LA34_109 = input.LA(1);
+                        int LA35_109 = input.LA(1);
 
                          
-                        int index34_109 = input.index();
+                        int index35_109 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred71_wcps()) ) {s = 31;}
+                        else if ( (synpred72_wcps()) ) {s = 31;}
 
                          
-                        input.seek(index34_109);
+                        input.seek(index35_109);
                         if ( s>=0 ) return s;
                         break;
                     case 12 : 
-                        int LA34_110 = input.LA(1);
+                        int LA35_110 = input.LA(1);
 
                          
-                        int index34_110 = input.index();
+                        int index35_110 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred74_wcps()) ) {s = 35;}
+                        else if ( (synpred75_wcps()) ) {s = 35;}
 
                          
-                        input.seek(index34_110);
+                        input.seek(index35_110);
                         if ( s>=0 ) return s;
                         break;
                     case 13 : 
-                        int LA34_118 = input.LA(1);
+                        int LA35_111 = input.LA(1);
 
                          
-                        int index34_118 = input.index();
+                        int index35_111 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred74_wcps()) ) {s = 35;}
+                        else if ( (synpred75_wcps()) ) {s = 35;}
 
                          
-                        input.seek(index34_118);
+                        input.seek(index35_111);
                         if ( s>=0 ) return s;
                         break;
                     case 14 : 
-                        int LA34_119 = input.LA(1);
+                        int LA35_112 = input.LA(1);
 
                          
-                        int index34_119 = input.index();
+                        int index35_112 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred74_wcps()) ) {s = 35;}
+                        else if ( (synpred75_wcps()) ) {s = 35;}
 
                          
-                        input.seek(index34_119);
+                        input.seek(index35_112);
                         if ( s>=0 ) return s;
                         break;
                     case 15 : 
-                        int LA34_120 = input.LA(1);
+                        int LA35_113 = input.LA(1);
 
                          
-                        int index34_120 = input.index();
+                        int index35_113 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred74_wcps()) ) {s = 35;}
+                        else if ( (synpred75_wcps()) ) {s = 35;}
 
                          
-                        input.seek(index34_120);
+                        input.seek(index35_113);
                         if ( s>=0 ) return s;
                         break;
                     case 16 : 
-                        int LA34_121 = input.LA(1);
+                        int LA35_114 = input.LA(1);
 
                          
-                        int index34_121 = input.index();
+                        int index35_114 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred74_wcps()) ) {s = 35;}
+                        else if ( (synpred75_wcps()) ) {s = 35;}
 
                          
-                        input.seek(index34_121);
+                        input.seek(index35_114);
                         if ( s>=0 ) return s;
                         break;
                     case 17 : 
-                        int LA34_122 = input.LA(1);
+                        int LA35_115 = input.LA(1);
 
                          
-                        int index34_122 = input.index();
+                        int index35_115 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred74_wcps()) ) {s = 35;}
+                        else if ( (synpred75_wcps()) ) {s = 35;}
 
                          
-                        input.seek(index34_122);
+                        input.seek(index35_115);
                         if ( s>=0 ) return s;
                         break;
                     case 18 : 
-                        int LA34_123 = input.LA(1);
+                        int LA35_116 = input.LA(1);
 
                          
-                        int index34_123 = input.index();
+                        int index35_116 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred74_wcps()) ) {s = 35;}
+                        else if ( (synpred75_wcps()) ) {s = 35;}
 
                          
-                        input.seek(index34_123);
+                        input.seek(index35_116);
                         if ( s>=0 ) return s;
                         break;
                     case 19 : 
-                        int LA34_124 = input.LA(1);
+                        int LA35_117 = input.LA(1);
 
                          
-                        int index34_124 = input.index();
+                        int index35_117 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred74_wcps()) ) {s = 35;}
+                        else if ( (synpred75_wcps()) ) {s = 35;}
 
                          
-                        input.seek(index34_124);
+                        input.seek(index35_117);
                         if ( s>=0 ) return s;
                         break;
                     case 20 : 
-                        int LA34_125 = input.LA(1);
+                        int LA35_118 = input.LA(1);
 
                          
-                        int index34_125 = input.index();
+                        int index35_118 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred74_wcps()) ) {s = 35;}
+                        else if ( (synpred75_wcps()) ) {s = 35;}
 
                          
-                        input.seek(index34_125);
+                        input.seek(index35_118);
                         if ( s>=0 ) return s;
                         break;
                     case 21 : 
-                        int LA34_126 = input.LA(1);
+                        int LA35_119 = input.LA(1);
 
                          
-                        int index34_126 = input.index();
+                        int index35_119 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred74_wcps()) ) {s = 35;}
+                        else if ( (synpred75_wcps()) ) {s = 35;}
 
                          
-                        input.seek(index34_126);
+                        input.seek(index35_119);
                         if ( s>=0 ) return s;
                         break;
                     case 22 : 
-                        int LA34_127 = input.LA(1);
+                        int LA35_120 = input.LA(1);
 
                          
-                        int index34_127 = input.index();
+                        int index35_120 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred74_wcps()) ) {s = 35;}
+                        else if ( (synpred75_wcps()) ) {s = 35;}
 
                          
-                        input.seek(index34_127);
+                        input.seek(index35_120);
                         if ( s>=0 ) return s;
                         break;
                     case 23 : 
-                        int LA34_128 = input.LA(1);
+                        int LA35_121 = input.LA(1);
 
                          
-                        int index34_128 = input.index();
+                        int index35_121 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred74_wcps()) ) {s = 35;}
+                        else if ( (synpred75_wcps()) ) {s = 35;}
 
                          
-                        input.seek(index34_128);
+                        input.seek(index35_121);
                         if ( s>=0 ) return s;
                         break;
                     case 24 : 
-                        int LA34_129 = input.LA(1);
+                        int LA35_122 = input.LA(1);
 
                          
-                        int index34_129 = input.index();
+                        int index35_122 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
-                        else if ( (synpred74_wcps()) ) {s = 35;}
+                        else if ( (synpred75_wcps()) ) {s = 35;}
 
                          
-                        input.seek(index34_129);
+                        input.seek(index35_122);
                         if ( s>=0 ) return s;
                         break;
                     case 25 : 
-                        int LA34_150 = input.LA(1);
+                        int LA35_150 = input.LA(1);
 
                          
-                        int index34_150 = input.index();
+                        int index35_150 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
                         else if ( (true) ) {s = 152;}
 
                          
-                        input.seek(index34_150);
+                        input.seek(index35_150);
                         if ( s>=0 ) return s;
                         break;
                     case 26 : 
-                        int LA34_151 = input.LA(1);
+                        int LA35_151 = input.LA(1);
 
                          
-                        int index34_151 = input.index();
+                        int index35_151 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred70_wcps()) ) {s = 1;}
+                        if ( (synpred71_wcps()) ) {s = 1;}
 
                         else if ( (true) ) {s = 152;}
 
                          
-                        input.seek(index34_151);
+                        input.seek(index35_151);
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 34, _s, input);
+                new NoViableAltException(getDescription(), 35, _s, input);
             error(nvae);
             throw nvae;
         }
     }
-    static final String DFA42_eotS =
+    static final String DFA43_eotS =
         "\u009c\uffff";
-    static final String DFA42_eofS =
+    static final String DFA43_eofS =
         "\u009c\uffff";
-    static final String DFA42_minS =
+    static final String DFA43_minS =
         "\12\6\1\15\1\6\1\20\4\6\3\20\1\15\1\6\1\122\1\116\5\6\1\70\1\116"+
         "\3\uffff\172\0";
-    static final String DFA42_maxS =
+    static final String DFA43_maxS =
         "\1\154\11\6\1\51\1\154\1\122\1\154\3\6\4\122\1\154\1\122\1\153\5"+
         "\6\1\70\1\153\3\uffff\172\0";
-    static final String DFA42_acceptS =
+    static final String DFA43_acceptS =
         "\37\uffff\1\1\1\2\1\3\172\uffff";
-    static final String DFA42_specialS =
+    static final String DFA43_specialS =
         "\42\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
         "\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25\1\26\1\27\1\30"+
         "\1\31\1\32\1\33\1\34\1\35\1\36\1\37\1\40\1\41\1\42\1\43\1\44\1\45"+
@@ -14571,7 +16063,7 @@ public class wcpsParser extends Parser {
         "\1\141\1\142\1\143\1\144\1\145\1\146\1\147\1\150\1\151\1\152\1\153"+
         "\1\154\1\155\1\156\1\157\1\160\1\161\1\162\1\163\1\164\1\165\1\166"+
         "\1\167\1\170\1\171}>";
-    static final String[] DFA42_transitionS = {
+    static final String[] DFA43_transitionS = {
             "\1\13\20\uffff\1\15\3\uffff\1\1\1\2\1\3\1\4\1\6\1\7\1\10\1\5"+
             "\7\11\1\12\3\uffff\1\27\4\uffff\1\30\1\31\1\32\1\33\1\34\1\36"+
             "\1\uffff\1\35\1\uffff\1\17\1\16\16\uffff\1\25\1\uffff\1\21\1"+
@@ -14592,7 +16084,7 @@ public class wcpsParser extends Parser {
             "\1\105\1\106\1\107\1\111\1\uffff\1\110\1\123\1\60\1\57\2\116"+
             "\3\117\11\120\1\71\1\121\1\62\1\61\1\67\1\122\2\uffff\1\112"+
             "\1\113\1\114\12\uffff\1\70\1\54\10\uffff\1\101\1\65",
-            "\1\124\1\125\1\126\1\127\1\130\1\131\74\uffff\1\132",
+            "\1\125\1\126\1\127\1\130\1\131\1\132\74\uffff\1\124",
             "\1\133\20\uffff\1\134\13\uffff\7\142\1\143\21\uffff\1\136\1"+
             "\135\20\uffff\1\140\1\137\22\uffff\1\141\11\uffff\1\144",
             "\1\145",
@@ -14602,8 +16094,8 @@ public class wcpsParser extends Parser {
             "\160",
             "\1\164\1\165\1\166\1\167\1\170\1\171\2\162\2\161\70\uffff\1"+
             "\163",
-            "\1\175\1\176\1\177\1\u0080\1\u0081\1\u0082\2\173\2\172\70\uffff"+
-            "\1\174",
+            "\1\174\1\175\1\176\1\177\1\u0080\1\u0081\2\173\2\172\70\uffff"+
+            "\1\u0082",
             "\2\u0084\1\u0083\102\uffff\1\u0085",
             "\1\u0086\20\uffff\1\u0089\3\uffff\1\u0087\7\uffff\7\u008f\1"+
             "\u0090\21\uffff\1\u008b\1\u008a\20\uffff\1\u008d\1\u008c\1\u0088"+
@@ -14744,1929 +16236,6 @@ public class wcpsParser extends Parser {
             "\1\uffff"
     };
 
-    static final short[] DFA42_eot = DFA.unpackEncodedString(DFA42_eotS);
-    static final short[] DFA42_eof = DFA.unpackEncodedString(DFA42_eofS);
-    static final char[] DFA42_min = DFA.unpackEncodedStringToUnsignedChars(DFA42_minS);
-    static final char[] DFA42_max = DFA.unpackEncodedStringToUnsignedChars(DFA42_maxS);
-    static final short[] DFA42_accept = DFA.unpackEncodedString(DFA42_acceptS);
-    static final short[] DFA42_special = DFA.unpackEncodedString(DFA42_specialS);
-    static final short[][] DFA42_transition;
-
-    static {
-        int numStates = DFA42_transitionS.length;
-        DFA42_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
-            DFA42_transition[i] = DFA.unpackEncodedString(DFA42_transitionS[i]);
-        }
-    }
-
-    class DFA42 extends DFA {
-
-        public DFA42(BaseRecognizer recognizer) {
-            this.recognizer = recognizer;
-            this.decisionNumber = 42;
-            this.eot = DFA42_eot;
-            this.eof = DFA42_eof;
-            this.min = DFA42_min;
-            this.max = DFA42_max;
-            this.accept = DFA42_accept;
-            this.special = DFA42_special;
-            this.transition = DFA42_transition;
-        }
-        public String getDescription() {
-            return "250:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );";
-        }
-        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
-            TokenStream input = (TokenStream)_input;
-        	int _s = s;
-            switch ( s ) {
-                    case 0 : 
-                        int LA42_34 = input.LA(1);
-
-                         
-                        int index42_34 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_34);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA42_35 = input.LA(1);
-
-                         
-                        int index42_35 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_35);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA42_36 = input.LA(1);
-
-                         
-                        int index42_36 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_36);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA42_37 = input.LA(1);
-
-                         
-                        int index42_37 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_37);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA42_38 = input.LA(1);
-
-                         
-                        int index42_38 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_38);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA42_39 = input.LA(1);
-
-                         
-                        int index42_39 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_39);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA42_40 = input.LA(1);
-
-                         
-                        int index42_40 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_40);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA42_41 = input.LA(1);
-
-                         
-                        int index42_41 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_41);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA42_42 = input.LA(1);
-
-                         
-                        int index42_42 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_42);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA42_43 = input.LA(1);
-
-                         
-                        int index42_43 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_43);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA42_44 = input.LA(1);
-
-                         
-                        int index42_44 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_44);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA42_45 = input.LA(1);
-
-                         
-                        int index42_45 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_45);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
-                        int LA42_46 = input.LA(1);
-
-                         
-                        int index42_46 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_46);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA42_47 = input.LA(1);
-
-                         
-                        int index42_47 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_47);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA42_48 = input.LA(1);
-
-                         
-                        int index42_48 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_48);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA42_49 = input.LA(1);
-
-                         
-                        int index42_49 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_49);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA42_50 = input.LA(1);
-
-                         
-                        int index42_50 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_50);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
-                        int LA42_51 = input.LA(1);
-
-                         
-                        int index42_51 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_51);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 18 : 
-                        int LA42_52 = input.LA(1);
-
-                         
-                        int index42_52 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_52);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 19 : 
-                        int LA42_53 = input.LA(1);
-
-                         
-                        int index42_53 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_53);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 20 : 
-                        int LA42_54 = input.LA(1);
-
-                         
-                        int index42_54 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_54);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 21 : 
-                        int LA42_55 = input.LA(1);
-
-                         
-                        int index42_55 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_55);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 22 : 
-                        int LA42_56 = input.LA(1);
-
-                         
-                        int index42_56 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_56);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 23 : 
-                        int LA42_57 = input.LA(1);
-
-                         
-                        int index42_57 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_57);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 24 : 
-                        int LA42_58 = input.LA(1);
-
-                         
-                        int index42_58 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_58);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 25 : 
-                        int LA42_59 = input.LA(1);
-
-                         
-                        int index42_59 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_59);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 26 : 
-                        int LA42_60 = input.LA(1);
-
-                         
-                        int index42_60 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_60);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 27 : 
-                        int LA42_61 = input.LA(1);
-
-                         
-                        int index42_61 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_61);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 28 : 
-                        int LA42_62 = input.LA(1);
-
-                         
-                        int index42_62 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_62);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 29 : 
-                        int LA42_63 = input.LA(1);
-
-                         
-                        int index42_63 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_63);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 30 : 
-                        int LA42_64 = input.LA(1);
-
-                         
-                        int index42_64 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_64);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 31 : 
-                        int LA42_65 = input.LA(1);
-
-                         
-                        int index42_65 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_65);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 32 : 
-                        int LA42_66 = input.LA(1);
-
-                         
-                        int index42_66 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_66);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 33 : 
-                        int LA42_67 = input.LA(1);
-
-                         
-                        int index42_67 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_67);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 34 : 
-                        int LA42_68 = input.LA(1);
-
-                         
-                        int index42_68 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_68);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 35 : 
-                        int LA42_69 = input.LA(1);
-
-                         
-                        int index42_69 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_69);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 36 : 
-                        int LA42_70 = input.LA(1);
-
-                         
-                        int index42_70 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_70);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 37 : 
-                        int LA42_71 = input.LA(1);
-
-                         
-                        int index42_71 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_71);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 38 : 
-                        int LA42_72 = input.LA(1);
-
-                         
-                        int index42_72 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_72);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 39 : 
-                        int LA42_73 = input.LA(1);
-
-                         
-                        int index42_73 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_73);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 40 : 
-                        int LA42_74 = input.LA(1);
-
-                         
-                        int index42_74 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_74);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 41 : 
-                        int LA42_75 = input.LA(1);
-
-                         
-                        int index42_75 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_75);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 42 : 
-                        int LA42_76 = input.LA(1);
-
-                         
-                        int index42_76 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_76);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 43 : 
-                        int LA42_77 = input.LA(1);
-
-                         
-                        int index42_77 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_77);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 44 : 
-                        int LA42_78 = input.LA(1);
-
-                         
-                        int index42_78 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_78);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 45 : 
-                        int LA42_79 = input.LA(1);
-
-                         
-                        int index42_79 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_79);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 46 : 
-                        int LA42_80 = input.LA(1);
-
-                         
-                        int index42_80 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_80);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 47 : 
-                        int LA42_81 = input.LA(1);
-
-                         
-                        int index42_81 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_81);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 48 : 
-                        int LA42_82 = input.LA(1);
-
-                         
-                        int index42_82 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_82);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 49 : 
-                        int LA42_83 = input.LA(1);
-
-                         
-                        int index42_83 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_83);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 50 : 
-                        int LA42_84 = input.LA(1);
-
-                         
-                        int index42_84 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_84);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 51 : 
-                        int LA42_85 = input.LA(1);
-
-                         
-                        int index42_85 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_85);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 52 : 
-                        int LA42_86 = input.LA(1);
-
-                         
-                        int index42_86 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_86);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 53 : 
-                        int LA42_87 = input.LA(1);
-
-                         
-                        int index42_87 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_87);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 54 : 
-                        int LA42_88 = input.LA(1);
-
-                         
-                        int index42_88 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_88);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 55 : 
-                        int LA42_89 = input.LA(1);
-
-                         
-                        int index42_89 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_89);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 56 : 
-                        int LA42_90 = input.LA(1);
-
-                         
-                        int index42_90 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_90);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 57 : 
-                        int LA42_91 = input.LA(1);
-
-                         
-                        int index42_91 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_91);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 58 : 
-                        int LA42_92 = input.LA(1);
-
-                         
-                        int index42_92 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_92);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 59 : 
-                        int LA42_93 = input.LA(1);
-
-                         
-                        int index42_93 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_93);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 60 : 
-                        int LA42_94 = input.LA(1);
-
-                         
-                        int index42_94 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_94);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 61 : 
-                        int LA42_95 = input.LA(1);
-
-                         
-                        int index42_95 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_95);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 62 : 
-                        int LA42_96 = input.LA(1);
-
-                         
-                        int index42_96 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_96);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 63 : 
-                        int LA42_97 = input.LA(1);
-
-                         
-                        int index42_97 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_97);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 64 : 
-                        int LA42_98 = input.LA(1);
-
-                         
-                        int index42_98 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_98);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 65 : 
-                        int LA42_99 = input.LA(1);
-
-                         
-                        int index42_99 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_99);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 66 : 
-                        int LA42_100 = input.LA(1);
-
-                         
-                        int index42_100 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_100);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 67 : 
-                        int LA42_101 = input.LA(1);
-
-                         
-                        int index42_101 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_101);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 68 : 
-                        int LA42_102 = input.LA(1);
-
-                         
-                        int index42_102 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_102);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 69 : 
-                        int LA42_103 = input.LA(1);
-
-                         
-                        int index42_103 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_103);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 70 : 
-                        int LA42_104 = input.LA(1);
-
-                         
-                        int index42_104 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_104);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 71 : 
-                        int LA42_105 = input.LA(1);
-
-                         
-                        int index42_105 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_105);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 72 : 
-                        int LA42_106 = input.LA(1);
-
-                         
-                        int index42_106 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_106);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 73 : 
-                        int LA42_107 = input.LA(1);
-
-                         
-                        int index42_107 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_107);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 74 : 
-                        int LA42_108 = input.LA(1);
-
-                         
-                        int index42_108 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_108);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 75 : 
-                        int LA42_109 = input.LA(1);
-
-                         
-                        int index42_109 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_109);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 76 : 
-                        int LA42_110 = input.LA(1);
-
-                         
-                        int index42_110 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_110);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 77 : 
-                        int LA42_111 = input.LA(1);
-
-                         
-                        int index42_111 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_111);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 78 : 
-                        int LA42_112 = input.LA(1);
-
-                         
-                        int index42_112 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_112);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 79 : 
-                        int LA42_113 = input.LA(1);
-
-                         
-                        int index42_113 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_113);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 80 : 
-                        int LA42_114 = input.LA(1);
-
-                         
-                        int index42_114 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_114);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 81 : 
-                        int LA42_115 = input.LA(1);
-
-                         
-                        int index42_115 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_115);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 82 : 
-                        int LA42_116 = input.LA(1);
-
-                         
-                        int index42_116 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_116);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 83 : 
-                        int LA42_117 = input.LA(1);
-
-                         
-                        int index42_117 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_117);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 84 : 
-                        int LA42_118 = input.LA(1);
-
-                         
-                        int index42_118 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_118);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 85 : 
-                        int LA42_119 = input.LA(1);
-
-                         
-                        int index42_119 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_119);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 86 : 
-                        int LA42_120 = input.LA(1);
-
-                         
-                        int index42_120 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_120);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 87 : 
-                        int LA42_121 = input.LA(1);
-
-                         
-                        int index42_121 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_121);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 88 : 
-                        int LA42_122 = input.LA(1);
-
-                         
-                        int index42_122 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_122);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 89 : 
-                        int LA42_123 = input.LA(1);
-
-                         
-                        int index42_123 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_123);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 90 : 
-                        int LA42_124 = input.LA(1);
-
-                         
-                        int index42_124 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_124);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 91 : 
-                        int LA42_125 = input.LA(1);
-
-                         
-                        int index42_125 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_125);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 92 : 
-                        int LA42_126 = input.LA(1);
-
-                         
-                        int index42_126 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_126);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 93 : 
-                        int LA42_127 = input.LA(1);
-
-                         
-                        int index42_127 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_127);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 94 : 
-                        int LA42_128 = input.LA(1);
-
-                         
-                        int index42_128 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_128);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 95 : 
-                        int LA42_129 = input.LA(1);
-
-                         
-                        int index42_129 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_129);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 96 : 
-                        int LA42_130 = input.LA(1);
-
-                         
-                        int index42_130 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_130);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 97 : 
-                        int LA42_131 = input.LA(1);
-
-                         
-                        int index42_131 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_131);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 98 : 
-                        int LA42_132 = input.LA(1);
-
-                         
-                        int index42_132 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_132);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 99 : 
-                        int LA42_133 = input.LA(1);
-
-                         
-                        int index42_133 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_133);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 100 : 
-                        int LA42_134 = input.LA(1);
-
-                         
-                        int index42_134 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_134);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 101 : 
-                        int LA42_135 = input.LA(1);
-
-                         
-                        int index42_135 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_135);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 102 : 
-                        int LA42_136 = input.LA(1);
-
-                         
-                        int index42_136 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_136);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 103 : 
-                        int LA42_137 = input.LA(1);
-
-                         
-                        int index42_137 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_137);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 104 : 
-                        int LA42_138 = input.LA(1);
-
-                         
-                        int index42_138 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_138);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 105 : 
-                        int LA42_139 = input.LA(1);
-
-                         
-                        int index42_139 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_139);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 106 : 
-                        int LA42_140 = input.LA(1);
-
-                         
-                        int index42_140 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_140);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 107 : 
-                        int LA42_141 = input.LA(1);
-
-                         
-                        int index42_141 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_141);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 108 : 
-                        int LA42_142 = input.LA(1);
-
-                         
-                        int index42_142 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_142);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 109 : 
-                        int LA42_143 = input.LA(1);
-
-                         
-                        int index42_143 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_143);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 110 : 
-                        int LA42_144 = input.LA(1);
-
-                         
-                        int index42_144 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_144);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 111 : 
-                        int LA42_145 = input.LA(1);
-
-                         
-                        int index42_145 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_145);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 112 : 
-                        int LA42_146 = input.LA(1);
-
-                         
-                        int index42_146 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_146);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 113 : 
-                        int LA42_147 = input.LA(1);
-
-                         
-                        int index42_147 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_147);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 114 : 
-                        int LA42_148 = input.LA(1);
-
-                         
-                        int index42_148 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_148);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 115 : 
-                        int LA42_149 = input.LA(1);
-
-                         
-                        int index42_149 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_149);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 116 : 
-                        int LA42_150 = input.LA(1);
-
-                         
-                        int index42_150 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_150);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 117 : 
-                        int LA42_151 = input.LA(1);
-
-                         
-                        int index42_151 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_151);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 118 : 
-                        int LA42_152 = input.LA(1);
-
-                         
-                        int index42_152 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_152);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 119 : 
-                        int LA42_153 = input.LA(1);
-
-                         
-                        int index42_153 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_153);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 120 : 
-                        int LA42_154 = input.LA(1);
-
-                         
-                        int index42_154 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_154);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 121 : 
-                        int LA42_155 = input.LA(1);
-
-                         
-                        int index42_155 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred100_wcps()) ) {s = 31;}
-
-                        else if ( (synpred101_wcps()) ) {s = 32;}
-
-                         
-                        input.seek(index42_155);
-                        if ( s>=0 ) return s;
-                        break;
-            }
-            if (state.backtracking>0) {state.failed=true; return -1;}
-            NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 42, _s, input);
-            error(nvae);
-            throw nvae;
-        }
-    }
-    static final String DFA43_eotS =
-        "\40\uffff";
-    static final String DFA43_eofS =
-        "\40\uffff";
-    static final String DFA43_minS =
-        "\1\6\37\uffff";
-    static final String DFA43_maxS =
-        "\1\154\37\uffff";
-    static final String DFA43_acceptS =
-        "\1\uffff\1\1\35\uffff\1\2";
-    static final String DFA43_specialS =
-        "\40\uffff}>";
-    static final String[] DFA43_transitionS = {
-            "\1\1\20\uffff\1\1\3\uffff\20\1\3\uffff\1\1\4\uffff\6\1\1\uffff"+
-            "\1\1\1\uffff\2\1\16\uffff\1\1\1\uffff\3\1\3\uffff\1\37\14\uffff"+
-            "\2\1\10\uffff\2\1",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-    };
-
     static final short[] DFA43_eot = DFA.unpackEncodedString(DFA43_eotS);
     static final short[] DFA43_eof = DFA.unpackEncodedString(DFA43_eofS);
     static final char[] DFA43_min = DFA.unpackEncodedStringToUnsignedChars(DFA43_minS);
@@ -16697,7 +16266,1848 @@ public class wcpsParser extends Parser {
             this.transition = DFA43_transition;
         }
         public String getDescription() {
-            return "255:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );";
+            return "258:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );";
+        }
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
+            TokenStream input = (TokenStream)_input;
+        	int _s = s;
+            switch ( s ) {
+                    case 0 : 
+                        int LA43_34 = input.LA(1);
+
+                         
+                        int index43_34 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_34);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+                        int LA43_35 = input.LA(1);
+
+                         
+                        int index43_35 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_35);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA43_36 = input.LA(1);
+
+                         
+                        int index43_36 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_36);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA43_37 = input.LA(1);
+
+                         
+                        int index43_37 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_37);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA43_38 = input.LA(1);
+
+                         
+                        int index43_38 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_38);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA43_39 = input.LA(1);
+
+                         
+                        int index43_39 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_39);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA43_40 = input.LA(1);
+
+                         
+                        int index43_40 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_40);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA43_41 = input.LA(1);
+
+                         
+                        int index43_41 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_41);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA43_42 = input.LA(1);
+
+                         
+                        int index43_42 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_42);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA43_43 = input.LA(1);
+
+                         
+                        int index43_43 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_43);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA43_44 = input.LA(1);
+
+                         
+                        int index43_44 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_44);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA43_45 = input.LA(1);
+
+                         
+                        int index43_45 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_45);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA43_46 = input.LA(1);
+
+                         
+                        int index43_46 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_46);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA43_47 = input.LA(1);
+
+                         
+                        int index43_47 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_47);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA43_48 = input.LA(1);
+
+                         
+                        int index43_48 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_48);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA43_49 = input.LA(1);
+
+                         
+                        int index43_49 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_49);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA43_50 = input.LA(1);
+
+                         
+                        int index43_50 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_50);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA43_51 = input.LA(1);
+
+                         
+                        int index43_51 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_51);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 18 : 
+                        int LA43_52 = input.LA(1);
+
+                         
+                        int index43_52 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_52);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 19 : 
+                        int LA43_53 = input.LA(1);
+
+                         
+                        int index43_53 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_53);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 20 : 
+                        int LA43_54 = input.LA(1);
+
+                         
+                        int index43_54 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_54);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 21 : 
+                        int LA43_55 = input.LA(1);
+
+                         
+                        int index43_55 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_55);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA43_56 = input.LA(1);
+
+                         
+                        int index43_56 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_56);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA43_57 = input.LA(1);
+
+                         
+                        int index43_57 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_57);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
+                        int LA43_58 = input.LA(1);
+
+                         
+                        int index43_58 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_58);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 25 : 
+                        int LA43_59 = input.LA(1);
+
+                         
+                        int index43_59 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_59);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 26 : 
+                        int LA43_60 = input.LA(1);
+
+                         
+                        int index43_60 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_60);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 27 : 
+                        int LA43_61 = input.LA(1);
+
+                         
+                        int index43_61 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_61);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 28 : 
+                        int LA43_62 = input.LA(1);
+
+                         
+                        int index43_62 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_62);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 29 : 
+                        int LA43_63 = input.LA(1);
+
+                         
+                        int index43_63 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_63);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 30 : 
+                        int LA43_64 = input.LA(1);
+
+                         
+                        int index43_64 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_64);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 31 : 
+                        int LA43_65 = input.LA(1);
+
+                         
+                        int index43_65 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_65);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 32 : 
+                        int LA43_66 = input.LA(1);
+
+                         
+                        int index43_66 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_66);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 33 : 
+                        int LA43_67 = input.LA(1);
+
+                         
+                        int index43_67 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_67);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 34 : 
+                        int LA43_68 = input.LA(1);
+
+                         
+                        int index43_68 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_68);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 35 : 
+                        int LA43_69 = input.LA(1);
+
+                         
+                        int index43_69 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_69);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 36 : 
+                        int LA43_70 = input.LA(1);
+
+                         
+                        int index43_70 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_70);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 37 : 
+                        int LA43_71 = input.LA(1);
+
+                         
+                        int index43_71 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_71);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 38 : 
+                        int LA43_72 = input.LA(1);
+
+                         
+                        int index43_72 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_72);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 39 : 
+                        int LA43_73 = input.LA(1);
+
+                         
+                        int index43_73 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_73);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 40 : 
+                        int LA43_74 = input.LA(1);
+
+                         
+                        int index43_74 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_74);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 41 : 
+                        int LA43_75 = input.LA(1);
+
+                         
+                        int index43_75 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_75);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 42 : 
+                        int LA43_76 = input.LA(1);
+
+                         
+                        int index43_76 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_76);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 43 : 
+                        int LA43_77 = input.LA(1);
+
+                         
+                        int index43_77 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_77);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 44 : 
+                        int LA43_78 = input.LA(1);
+
+                         
+                        int index43_78 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_78);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 45 : 
+                        int LA43_79 = input.LA(1);
+
+                         
+                        int index43_79 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_79);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 46 : 
+                        int LA43_80 = input.LA(1);
+
+                         
+                        int index43_80 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_80);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 47 : 
+                        int LA43_81 = input.LA(1);
+
+                         
+                        int index43_81 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_81);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 48 : 
+                        int LA43_82 = input.LA(1);
+
+                         
+                        int index43_82 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_82);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 49 : 
+                        int LA43_83 = input.LA(1);
+
+                         
+                        int index43_83 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_83);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 50 : 
+                        int LA43_84 = input.LA(1);
+
+                         
+                        int index43_84 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_84);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 51 : 
+                        int LA43_85 = input.LA(1);
+
+                         
+                        int index43_85 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_85);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 52 : 
+                        int LA43_86 = input.LA(1);
+
+                         
+                        int index43_86 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_86);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 53 : 
+                        int LA43_87 = input.LA(1);
+
+                         
+                        int index43_87 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_87);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 54 : 
+                        int LA43_88 = input.LA(1);
+
+                         
+                        int index43_88 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_88);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 55 : 
+                        int LA43_89 = input.LA(1);
+
+                         
+                        int index43_89 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_89);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 56 : 
+                        int LA43_90 = input.LA(1);
+
+                         
+                        int index43_90 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_90);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 57 : 
+                        int LA43_91 = input.LA(1);
+
+                         
+                        int index43_91 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_91);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 58 : 
+                        int LA43_92 = input.LA(1);
+
+                         
+                        int index43_92 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_92);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 59 : 
+                        int LA43_93 = input.LA(1);
+
+                         
+                        int index43_93 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_93);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 60 : 
+                        int LA43_94 = input.LA(1);
+
+                         
+                        int index43_94 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_94);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 61 : 
+                        int LA43_95 = input.LA(1);
+
+                         
+                        int index43_95 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_95);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 62 : 
+                        int LA43_96 = input.LA(1);
+
+                         
+                        int index43_96 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_96);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 63 : 
+                        int LA43_97 = input.LA(1);
+
+                         
+                        int index43_97 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_97);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 64 : 
+                        int LA43_98 = input.LA(1);
+
+                         
+                        int index43_98 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_98);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 65 : 
+                        int LA43_99 = input.LA(1);
+
+                         
+                        int index43_99 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_99);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 66 : 
+                        int LA43_100 = input.LA(1);
+
+                         
+                        int index43_100 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_100);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 67 : 
+                        int LA43_101 = input.LA(1);
+
+                         
+                        int index43_101 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_101);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 68 : 
+                        int LA43_102 = input.LA(1);
+
+                         
+                        int index43_102 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_102);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 69 : 
+                        int LA43_103 = input.LA(1);
+
+                         
+                        int index43_103 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_103);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 70 : 
+                        int LA43_104 = input.LA(1);
+
+                         
+                        int index43_104 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_104);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 71 : 
+                        int LA43_105 = input.LA(1);
+
+                         
+                        int index43_105 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_105);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 72 : 
+                        int LA43_106 = input.LA(1);
+
+                         
+                        int index43_106 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_106);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 73 : 
+                        int LA43_107 = input.LA(1);
+
+                         
+                        int index43_107 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_107);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 74 : 
+                        int LA43_108 = input.LA(1);
+
+                         
+                        int index43_108 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_108);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 75 : 
+                        int LA43_109 = input.LA(1);
+
+                         
+                        int index43_109 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_109);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 76 : 
+                        int LA43_110 = input.LA(1);
+
+                         
+                        int index43_110 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_110);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 77 : 
+                        int LA43_111 = input.LA(1);
+
+                         
+                        int index43_111 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_111);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 78 : 
+                        int LA43_112 = input.LA(1);
+
+                         
+                        int index43_112 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_112);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 79 : 
+                        int LA43_113 = input.LA(1);
+
+                         
+                        int index43_113 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_113);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 80 : 
+                        int LA43_114 = input.LA(1);
+
+                         
+                        int index43_114 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_114);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 81 : 
+                        int LA43_115 = input.LA(1);
+
+                         
+                        int index43_115 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_115);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 82 : 
+                        int LA43_116 = input.LA(1);
+
+                         
+                        int index43_116 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_116);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 83 : 
+                        int LA43_117 = input.LA(1);
+
+                         
+                        int index43_117 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_117);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 84 : 
+                        int LA43_118 = input.LA(1);
+
+                         
+                        int index43_118 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_118);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 85 : 
+                        int LA43_119 = input.LA(1);
+
+                         
+                        int index43_119 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_119);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 86 : 
+                        int LA43_120 = input.LA(1);
+
+                         
+                        int index43_120 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_120);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 87 : 
+                        int LA43_121 = input.LA(1);
+
+                         
+                        int index43_121 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_121);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 88 : 
+                        int LA43_122 = input.LA(1);
+
+                         
+                        int index43_122 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_122);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 89 : 
+                        int LA43_123 = input.LA(1);
+
+                         
+                        int index43_123 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_123);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 90 : 
+                        int LA43_124 = input.LA(1);
+
+                         
+                        int index43_124 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_124);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 91 : 
+                        int LA43_125 = input.LA(1);
+
+                         
+                        int index43_125 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_125);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 92 : 
+                        int LA43_126 = input.LA(1);
+
+                         
+                        int index43_126 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_126);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 93 : 
+                        int LA43_127 = input.LA(1);
+
+                         
+                        int index43_127 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_127);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 94 : 
+                        int LA43_128 = input.LA(1);
+
+                         
+                        int index43_128 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_128);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 95 : 
+                        int LA43_129 = input.LA(1);
+
+                         
+                        int index43_129 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_129);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 96 : 
+                        int LA43_130 = input.LA(1);
+
+                         
+                        int index43_130 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_130);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 97 : 
+                        int LA43_131 = input.LA(1);
+
+                         
+                        int index43_131 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_131);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 98 : 
+                        int LA43_132 = input.LA(1);
+
+                         
+                        int index43_132 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_132);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 99 : 
+                        int LA43_133 = input.LA(1);
+
+                         
+                        int index43_133 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_133);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 100 : 
+                        int LA43_134 = input.LA(1);
+
+                         
+                        int index43_134 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_134);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 101 : 
+                        int LA43_135 = input.LA(1);
+
+                         
+                        int index43_135 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_135);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 102 : 
+                        int LA43_136 = input.LA(1);
+
+                         
+                        int index43_136 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_136);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 103 : 
+                        int LA43_137 = input.LA(1);
+
+                         
+                        int index43_137 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_137);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 104 : 
+                        int LA43_138 = input.LA(1);
+
+                         
+                        int index43_138 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_138);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 105 : 
+                        int LA43_139 = input.LA(1);
+
+                         
+                        int index43_139 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_139);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 106 : 
+                        int LA43_140 = input.LA(1);
+
+                         
+                        int index43_140 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_140);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 107 : 
+                        int LA43_141 = input.LA(1);
+
+                         
+                        int index43_141 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_141);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 108 : 
+                        int LA43_142 = input.LA(1);
+
+                         
+                        int index43_142 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_142);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 109 : 
+                        int LA43_143 = input.LA(1);
+
+                         
+                        int index43_143 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_143);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 110 : 
+                        int LA43_144 = input.LA(1);
+
+                         
+                        int index43_144 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_144);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 111 : 
+                        int LA43_145 = input.LA(1);
+
+                         
+                        int index43_145 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_145);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 112 : 
+                        int LA43_146 = input.LA(1);
+
+                         
+                        int index43_146 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_146);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 113 : 
+                        int LA43_147 = input.LA(1);
+
+                         
+                        int index43_147 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_147);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 114 : 
+                        int LA43_148 = input.LA(1);
+
+                         
+                        int index43_148 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_148);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 115 : 
+                        int LA43_149 = input.LA(1);
+
+                         
+                        int index43_149 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_149);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 116 : 
+                        int LA43_150 = input.LA(1);
+
+                         
+                        int index43_150 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_150);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 117 : 
+                        int LA43_151 = input.LA(1);
+
+                         
+                        int index43_151 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_151);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 118 : 
+                        int LA43_152 = input.LA(1);
+
+                         
+                        int index43_152 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_152);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 119 : 
+                        int LA43_153 = input.LA(1);
+
+                         
+                        int index43_153 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_153);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 120 : 
+                        int LA43_154 = input.LA(1);
+
+                         
+                        int index43_154 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_154);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 121 : 
+                        int LA43_155 = input.LA(1);
+
+                         
+                        int index43_155 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred101_wcps()) ) {s = 31;}
+
+                        else if ( (synpred102_wcps()) ) {s = 32;}
+
+                         
+                        input.seek(index43_155);
+                        if ( s>=0 ) return s;
+                        break;
+            }
+            if (state.backtracking>0) {state.failed=true; return -1;}
+            NoViableAltException nvae =
+                new NoViableAltException(getDescription(), 43, _s, input);
+            error(nvae);
+            throw nvae;
         }
     }
     static final String DFA44_eotS =
@@ -16714,7 +18124,7 @@ public class wcpsParser extends Parser {
         "\40\uffff}>";
     static final String[] DFA44_transitionS = {
             "\1\1\20\uffff\1\1\3\uffff\20\1\3\uffff\1\1\4\uffff\6\1\1\uffff"+
-            "\1\1\1\uffff\2\1\16\uffff\1\1\1\uffff\3\1\4\uffff\1\37\13\uffff"+
+            "\1\1\1\uffff\2\1\16\uffff\1\1\1\uffff\3\1\3\uffff\1\37\14\uffff"+
             "\2\1\10\uffff\2\1",
             "",
             "",
@@ -16779,55 +18189,25 @@ public class wcpsParser extends Parser {
             this.transition = DFA44_transition;
         }
         public String getDescription() {
-            return "259:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );";
+            return "263:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );";
         }
     }
-    static final String DFA46_eotS =
-        "\77\uffff";
-    static final String DFA46_eofS =
-        "\1\1\76\uffff";
-    static final String DFA46_minS =
-        "\1\7\7\uffff\1\0\66\uffff";
-    static final String DFA46_maxS =
-        "\1\140\7\uffff\1\0\66\uffff";
-    static final String DFA46_acceptS =
-        "\1\uffff\1\2\74\uffff\1\1";
-    static final String DFA46_specialS =
-        "\10\uffff\1\0\66\uffff}>";
-    static final String[] DFA46_transitionS = {
-            "\2\1\1\uffff\1\1\2\uffff\2\10\14\1\21\uffff\2\1\3\uffff\1\1"+
-            "\7\uffff\1\1\30\uffff\1\1\15\uffff\1\1",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\uffff",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+    static final String DFA45_eotS =
+        "\40\uffff";
+    static final String DFA45_eofS =
+        "\40\uffff";
+    static final String DFA45_minS =
+        "\1\6\37\uffff";
+    static final String DFA45_maxS =
+        "\1\154\37\uffff";
+    static final String DFA45_acceptS =
+        "\1\uffff\1\1\35\uffff\1\2";
+    static final String DFA45_specialS =
+        "\40\uffff}>";
+    static final String[] DFA45_transitionS = {
+            "\1\1\20\uffff\1\1\3\uffff\20\1\3\uffff\1\1\4\uffff\6\1\1\uffff"+
+            "\1\1\1\uffff\2\1\16\uffff\1\1\1\uffff\3\1\4\uffff\1\37\13\uffff"+
+            "\2\1\10\uffff\2\1",
             "",
             "",
             "",
@@ -16861,63 +18241,37 @@ public class wcpsParser extends Parser {
             ""
     };
 
-    static final short[] DFA46_eot = DFA.unpackEncodedString(DFA46_eotS);
-    static final short[] DFA46_eof = DFA.unpackEncodedString(DFA46_eofS);
-    static final char[] DFA46_min = DFA.unpackEncodedStringToUnsignedChars(DFA46_minS);
-    static final char[] DFA46_max = DFA.unpackEncodedStringToUnsignedChars(DFA46_maxS);
-    static final short[] DFA46_accept = DFA.unpackEncodedString(DFA46_acceptS);
-    static final short[] DFA46_special = DFA.unpackEncodedString(DFA46_specialS);
-    static final short[][] DFA46_transition;
+    static final short[] DFA45_eot = DFA.unpackEncodedString(DFA45_eotS);
+    static final short[] DFA45_eof = DFA.unpackEncodedString(DFA45_eofS);
+    static final char[] DFA45_min = DFA.unpackEncodedStringToUnsignedChars(DFA45_minS);
+    static final char[] DFA45_max = DFA.unpackEncodedStringToUnsignedChars(DFA45_maxS);
+    static final short[] DFA45_accept = DFA.unpackEncodedString(DFA45_acceptS);
+    static final short[] DFA45_special = DFA.unpackEncodedString(DFA45_specialS);
+    static final short[][] DFA45_transition;
 
     static {
-        int numStates = DFA46_transitionS.length;
-        DFA46_transition = new short[numStates][];
+        int numStates = DFA45_transitionS.length;
+        DFA45_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA46_transition[i] = DFA.unpackEncodedString(DFA46_transitionS[i]);
+            DFA45_transition[i] = DFA.unpackEncodedString(DFA45_transitionS[i]);
         }
     }
 
-    class DFA46 extends DFA {
+    class DFA45 extends DFA {
 
-        public DFA46(BaseRecognizer recognizer) {
+        public DFA45(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 46;
-            this.eot = DFA46_eot;
-            this.eof = DFA46_eof;
-            this.min = DFA46_min;
-            this.max = DFA46_max;
-            this.accept = DFA46_accept;
-            this.special = DFA46_special;
-            this.transition = DFA46_transition;
+            this.decisionNumber = 45;
+            this.eot = DFA45_eot;
+            this.eof = DFA45_eof;
+            this.min = DFA45_min;
+            this.max = DFA45_max;
+            this.accept = DFA45_accept;
+            this.special = DFA45_special;
+            this.transition = DFA45_transition;
         }
         public String getDescription() {
-            return "()* loopback of 280:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*";
-        }
-        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
-            TokenStream input = (TokenStream)_input;
-        	int _s = s;
-            switch ( s ) {
-                    case 0 : 
-                        int LA46_8 = input.LA(1);
-
-                         
-                        int index46_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred115_wcps()) ) {s = 62;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index46_8);
-                        if ( s>=0 ) return s;
-                        break;
-            }
-            if (state.backtracking>0) {state.failed=true; return -1;}
-            NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 46, _s, input);
-            error(nvae);
-            throw nvae;
+            return "267:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );";
         }
     }
     static final String DFA47_eotS =
@@ -16933,8 +18287,8 @@ public class wcpsParser extends Parser {
     static final String DFA47_specialS =
         "\10\uffff\1\0\66\uffff}>";
     static final String[] DFA47_transitionS = {
-            "\2\1\1\uffff\1\1\2\uffff\2\1\1\10\13\1\21\uffff\2\1\3\uffff"+
-            "\1\1\7\uffff\1\1\30\uffff\1\1\15\uffff\1\1",
+            "\2\1\1\uffff\1\1\2\uffff\2\10\14\1\21\uffff\2\1\3\uffff\1\1"+
+            "\7\uffff\1\1\30\uffff\1\1\15\uffff\1\1",
             "",
             "",
             "",
@@ -17029,7 +18383,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA47_transition;
         }
         public String getDescription() {
-            return "()* loopback of 284:4: (op= AND e2= booleanScalarNegation )*";
+            return "()* loopback of 288:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -17059,20 +18413,68 @@ public class wcpsParser extends Parser {
         }
     }
     static final String DFA48_eotS =
-        "\17\uffff";
+        "\77\uffff";
     static final String DFA48_eofS =
-        "\17\uffff";
+        "\1\1\76\uffff";
     static final String DFA48_minS =
-        "\1\6\16\uffff";
+        "\1\7\7\uffff\1\0\66\uffff";
     static final String DFA48_maxS =
-        "\1\154\16\uffff";
+        "\1\140\7\uffff\1\0\66\uffff";
     static final String DFA48_acceptS =
-        "\1\uffff\1\1\14\uffff\1\2";
+        "\1\uffff\1\2\74\uffff\1\1";
     static final String DFA48_specialS =
-        "\17\uffff}>";
+        "\10\uffff\1\0\66\uffff}>";
     static final String[] DFA48_transitionS = {
-            "\1\1\20\uffff\1\1\3\uffff\1\1\7\uffff\10\1\21\uffff\2\1\16\uffff"+
-            "\1\16\1\uffff\3\1\20\uffff\2\1\11\uffff\1\1",
+            "\2\1\1\uffff\1\1\2\uffff\2\1\1\10\13\1\21\uffff\2\1\3\uffff"+
+            "\1\1\7\uffff\1\1\30\uffff\1\1\15\uffff\1\1",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "",
@@ -17119,27 +18521,50 @@ public class wcpsParser extends Parser {
             this.transition = DFA48_transition;
         }
         public String getDescription() {
-            return "286:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );";
+            return "()* loopback of 292:4: (op= AND e2= booleanScalarNegation )*";
+        }
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
+            TokenStream input = (TokenStream)_input;
+        	int _s = s;
+            switch ( s ) {
+                    case 0 : 
+                        int LA48_8 = input.LA(1);
+
+                         
+                        int index48_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred117_wcps()) ) {s = 62;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index48_8);
+                        if ( s>=0 ) return s;
+                        break;
+            }
+            if (state.backtracking>0) {state.failed=true; return -1;}
+            NoViableAltException nvae =
+                new NoViableAltException(getDescription(), 48, _s, input);
+            error(nvae);
+            throw nvae;
         }
     }
     static final String DFA49_eotS =
-        "\34\uffff";
+        "\17\uffff";
     static final String DFA49_eofS =
-        "\34\uffff";
+        "\17\uffff";
     static final String DFA49_minS =
-        "\2\6\14\uffff\12\0\4\uffff";
+        "\1\6\16\uffff";
     static final String DFA49_maxS =
-        "\2\154\14\uffff\12\0\4\uffff";
+        "\1\154\16\uffff";
     static final String DFA49_acceptS =
-        "\2\uffff\1\2\1\uffff\1\3\10\uffff\1\4\12\uffff\1\1\3\uffff";
+        "\1\uffff\1\1\14\uffff\1\2";
     static final String DFA49_specialS =
-        "\16\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\4\uffff}>";
+        "\17\uffff}>";
     static final String[] DFA49_transitionS = {
-            "\1\1\20\uffff\1\4\3\uffff\1\2\7\uffff\10\4\21\uffff\2\4\20\uffff"+
-            "\2\4\1\2\20\uffff\1\15\1\4\11\uffff\1\4",
-            "\1\17\20\uffff\1\20\3\uffff\1\30\7\uffff\7\25\1\26\21\uffff"+
-            "\1\22\1\21\16\uffff\1\30\1\uffff\1\24\1\23\1\30\20\uffff\1\30"+
-            "\1\16\11\uffff\1\27",
+            "\1\1\20\uffff\1\1\3\uffff\1\1\7\uffff\10\1\21\uffff\2\1\16\uffff"+
+            "\1\16\1\uffff\3\1\20\uffff\2\1\11\uffff\1\1",
             "",
             "",
             "",
@@ -17150,18 +18575,6 @@ public class wcpsParser extends Parser {
             "",
             "",
             "",
-            "",
-            "",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
             "",
             "",
             "",
@@ -17198,245 +18611,51 @@ public class wcpsParser extends Parser {
             this.transition = DFA49_transition;
         }
         public String getDescription() {
-            return "290:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );";
-        }
-        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
-            TokenStream input = (TokenStream)_input;
-        	int _s = s;
-            switch ( s ) {
-                    case 0 : 
-                        int LA49_14 = input.LA(1);
-
-                         
-                        int index49_14 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred118_wcps()) ) {s = 24;}
-
-                        else if ( (synpred120_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index49_14);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA49_15 = input.LA(1);
-
-                         
-                        int index49_15 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred118_wcps()) ) {s = 24;}
-
-                        else if ( (synpred120_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index49_15);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA49_16 = input.LA(1);
-
-                         
-                        int index49_16 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred118_wcps()) ) {s = 24;}
-
-                        else if ( (synpred120_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index49_16);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA49_17 = input.LA(1);
-
-                         
-                        int index49_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred118_wcps()) ) {s = 24;}
-
-                        else if ( (synpred120_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index49_17);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA49_18 = input.LA(1);
-
-                         
-                        int index49_18 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred118_wcps()) ) {s = 24;}
-
-                        else if ( (synpred120_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index49_18);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA49_19 = input.LA(1);
-
-                         
-                        int index49_19 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred118_wcps()) ) {s = 24;}
-
-                        else if ( (synpred120_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index49_19);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA49_20 = input.LA(1);
-
-                         
-                        int index49_20 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred118_wcps()) ) {s = 24;}
-
-                        else if ( (synpred120_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index49_20);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA49_21 = input.LA(1);
-
-                         
-                        int index49_21 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred118_wcps()) ) {s = 24;}
-
-                        else if ( (synpred120_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index49_21);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA49_22 = input.LA(1);
-
-                         
-                        int index49_22 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred118_wcps()) ) {s = 24;}
-
-                        else if ( (synpred120_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index49_22);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA49_23 = input.LA(1);
-
-                         
-                        int index49_23 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred118_wcps()) ) {s = 24;}
-
-                        else if ( (synpred120_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index49_23);
-                        if ( s>=0 ) return s;
-                        break;
-            }
-            if (state.backtracking>0) {state.failed=true; return -1;}
-            NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 49, _s, input);
-            error(nvae);
-            throw nvae;
+            return "294:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );";
         }
     }
     static final String DFA50_eotS =
-        "\77\uffff";
+        "\34\uffff";
     static final String DFA50_eofS =
-        "\1\1\76\uffff";
+        "\34\uffff";
     static final String DFA50_minS =
-        "\1\7\3\uffff\1\0\72\uffff";
+        "\2\6\14\uffff\2\0\2\uffff\10\0\2\uffff";
     static final String DFA50_maxS =
-        "\1\140\3\uffff\1\0\72\uffff";
+        "\2\154\14\uffff\2\0\2\uffff\10\0\2\uffff";
     static final String DFA50_acceptS =
-        "\1\uffff\1\2\74\uffff\1\1";
+        "\2\uffff\1\2\1\uffff\1\3\10\uffff\1\4\2\uffff\1\1\13\uffff";
     static final String DFA50_specialS =
-        "\4\uffff\1\0\72\uffff}>";
+        "\16\uffff\1\0\1\1\2\uffff\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\2\uffff}>";
     static final String[] DFA50_transitionS = {
-            "\2\1\1\uffff\1\1\2\uffff\11\1\2\4\3\1\21\uffff\2\1\3\uffff\1"+
-            "\1\7\uffff\1\1\30\uffff\1\1\15\uffff\1\1",
+            "\1\1\20\uffff\1\4\3\uffff\1\2\7\uffff\10\4\21\uffff\2\4\20\uffff"+
+            "\2\4\1\2\20\uffff\1\15\1\4\11\uffff\1\4",
+            "\1\17\20\uffff\1\22\3\uffff\1\20\7\uffff\7\27\1\30\21\uffff"+
+            "\1\24\1\23\16\uffff\1\20\1\uffff\1\26\1\25\1\20\20\uffff\1\20"+
+            "\1\16\11\uffff\1\31",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "",
             "\1\uffff",
+            "\1\uffff",
             "",
             "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
             "",
             ""
     };
@@ -17471,25 +18690,160 @@ public class wcpsParser extends Parser {
             this.transition = DFA50_transition;
         }
         public String getDescription() {
-            return "()* loopback of 298:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*";
+            return "298:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA50_4 = input.LA(1);
+                        int LA50_14 = input.LA(1);
 
                          
-                        int index50_4 = input.index();
+                        int index50_14 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred122_wcps()) ) {s = 62;}
+                        if ( (synpred119_wcps()) ) {s = 16;}
 
-                        else if ( (true) ) {s = 1;}
+                        else if ( (synpred121_wcps()) ) {s = 4;}
 
                          
-                        input.seek(index50_4);
+                        input.seek(index50_14);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+                        int LA50_15 = input.LA(1);
+
+                         
+                        int index50_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred119_wcps()) ) {s = 16;}
+
+                        else if ( (synpred121_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index50_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA50_18 = input.LA(1);
+
+                         
+                        int index50_18 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred119_wcps()) ) {s = 16;}
+
+                        else if ( (synpred121_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index50_18);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA50_19 = input.LA(1);
+
+                         
+                        int index50_19 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred119_wcps()) ) {s = 16;}
+
+                        else if ( (synpred121_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index50_19);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA50_20 = input.LA(1);
+
+                         
+                        int index50_20 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred119_wcps()) ) {s = 16;}
+
+                        else if ( (synpred121_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index50_20);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA50_21 = input.LA(1);
+
+                         
+                        int index50_21 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred119_wcps()) ) {s = 16;}
+
+                        else if ( (synpred121_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index50_21);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA50_22 = input.LA(1);
+
+                         
+                        int index50_22 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred119_wcps()) ) {s = 16;}
+
+                        else if ( (synpred121_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index50_22);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA50_23 = input.LA(1);
+
+                         
+                        int index50_23 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred119_wcps()) ) {s = 16;}
+
+                        else if ( (synpred121_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index50_23);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA50_24 = input.LA(1);
+
+                         
+                        int index50_24 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred119_wcps()) ) {s = 16;}
+
+                        else if ( (synpred121_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index50_24);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA50_25 = input.LA(1);
+
+                         
+                        int index50_25 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred119_wcps()) ) {s = 16;}
+
+                        else if ( (synpred121_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index50_25);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -17513,7 +18867,7 @@ public class wcpsParser extends Parser {
     static final String DFA51_specialS =
         "\4\uffff\1\0\72\uffff}>";
     static final String[] DFA51_transitionS = {
-            "\2\1\1\uffff\1\1\2\uffff\13\1\2\4\1\1\21\uffff\2\1\3\uffff\1"+
+            "\2\1\1\uffff\1\1\2\uffff\11\1\2\4\3\1\21\uffff\2\1\3\uffff\1"+
             "\1\7\uffff\1\1\30\uffff\1\1\15\uffff\1\1",
             "",
             "",
@@ -17609,7 +18963,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA51_transition;
         }
         public String getDescription() {
-            return "()* loopback of 302:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*";
+            return "()* loopback of 306:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -17622,7 +18976,7 @@ public class wcpsParser extends Parser {
                         int index51_4 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred124_wcps()) ) {s = 62;}
+                        if ( (synpred123_wcps()) ) {s = 62;}
 
                         else if ( (true) ) {s = 1;}
 
@@ -17639,33 +18993,72 @@ public class wcpsParser extends Parser {
         }
     }
     static final String DFA52_eotS =
-        "\26\uffff";
+        "\77\uffff";
     static final String DFA52_eofS =
-        "\26\uffff";
+        "\1\1\76\uffff";
     static final String DFA52_minS =
-        "\2\6\11\uffff\1\0\12\uffff";
+        "\1\7\3\uffff\1\0\72\uffff";
     static final String DFA52_maxS =
-        "\2\154\11\uffff\1\0\12\uffff";
+        "\1\140\3\uffff\1\0\72\uffff";
     static final String DFA52_acceptS =
-        "\2\uffff\1\2\1\3\1\4\1\5\1\6\1\7\1\11\1\uffff\1\12\1\uffff\1\1\10"+
-        "\uffff\1\10";
+        "\1\uffff\1\2\74\uffff\1\1";
     static final String DFA52_specialS =
-        "\13\uffff\1\0\12\uffff}>";
+        "\4\uffff\1\0\72\uffff}>";
     static final String[] DFA52_transitionS = {
-            "\1\1\20\uffff\1\2\13\uffff\10\10\21\uffff\1\4\1\3\20\uffff\1"+
-            "\6\1\5\22\uffff\1\7\11\uffff\1\12",
-            "\1\14\20\uffff\1\14\13\uffff\10\14\21\uffff\2\14\20\uffff\2"+
-            "\14\22\uffff\1\13\11\uffff\1\14",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\2\1\1\uffff\1\1\2\uffff\13\1\2\4\1\1\21\uffff\2\1\3\uffff\1"+
+            "\1\7\uffff\1\1\30\uffff\1\1\15\uffff\1\1",
             "",
             "",
             "",
             "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "",
@@ -17708,25 +19101,25 @@ public class wcpsParser extends Parser {
             this.transition = DFA52_transition;
         }
         public String getDescription() {
-            return "304:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );";
+            return "()* loopback of 310:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA52_11 = input.LA(1);
+                        int LA52_4 = input.LA(1);
 
                          
-                        int index52_11 = input.index();
+                        int index52_4 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred125_wcps()) ) {s = 12;}
+                        if ( (synpred125_wcps()) ) {s = 62;}
 
-                        else if ( (synpred132_wcps()) ) {s = 21;}
+                        else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index52_11);
+                        input.seek(index52_4);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -17737,19 +19130,118 @@ public class wcpsParser extends Parser {
             throw nvae;
         }
     }
-    static final String DFA56_eotS =
+    static final String DFA53_eotS =
+        "\26\uffff";
+    static final String DFA53_eofS =
+        "\26\uffff";
+    static final String DFA53_minS =
+        "\2\6\11\uffff\1\0\12\uffff";
+    static final String DFA53_maxS =
+        "\2\154\11\uffff\1\0\12\uffff";
+    static final String DFA53_acceptS =
+        "\2\uffff\1\2\1\3\1\4\1\5\1\6\1\7\1\11\1\uffff\1\12\1\uffff\1\1\10"+
+        "\uffff\1\10";
+    static final String DFA53_specialS =
+        "\13\uffff\1\0\12\uffff}>";
+    static final String[] DFA53_transitionS = {
+            "\1\1\20\uffff\1\2\13\uffff\10\10\21\uffff\1\4\1\3\20\uffff\1"+
+            "\6\1\5\22\uffff\1\7\11\uffff\1\12",
+            "\1\14\20\uffff\1\14\13\uffff\10\14\21\uffff\2\14\20\uffff\2"+
+            "\14\22\uffff\1\13\11\uffff\1\14",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+    };
+
+    static final short[] DFA53_eot = DFA.unpackEncodedString(DFA53_eotS);
+    static final short[] DFA53_eof = DFA.unpackEncodedString(DFA53_eofS);
+    static final char[] DFA53_min = DFA.unpackEncodedStringToUnsignedChars(DFA53_minS);
+    static final char[] DFA53_max = DFA.unpackEncodedStringToUnsignedChars(DFA53_maxS);
+    static final short[] DFA53_accept = DFA.unpackEncodedString(DFA53_acceptS);
+    static final short[] DFA53_special = DFA.unpackEncodedString(DFA53_specialS);
+    static final short[][] DFA53_transition;
+
+    static {
+        int numStates = DFA53_transitionS.length;
+        DFA53_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA53_transition[i] = DFA.unpackEncodedString(DFA53_transitionS[i]);
+        }
+    }
+
+    class DFA53 extends DFA {
+
+        public DFA53(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 53;
+            this.eot = DFA53_eot;
+            this.eof = DFA53_eof;
+            this.min = DFA53_min;
+            this.max = DFA53_max;
+            this.accept = DFA53_accept;
+            this.special = DFA53_special;
+            this.transition = DFA53_transition;
+        }
+        public String getDescription() {
+            return "312:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );";
+        }
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
+            TokenStream input = (TokenStream)_input;
+        	int _s = s;
+            switch ( s ) {
+                    case 0 : 
+                        int LA53_11 = input.LA(1);
+
+                         
+                        int index53_11 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred126_wcps()) ) {s = 12;}
+
+                        else if ( (synpred133_wcps()) ) {s = 21;}
+
+                         
+                        input.seek(index53_11);
+                        if ( s>=0 ) return s;
+                        break;
+            }
+            if (state.backtracking>0) {state.failed=true; return -1;}
+            NoViableAltException nvae =
+                new NoViableAltException(getDescription(), 53, _s, input);
+            error(nvae);
+            throw nvae;
+        }
+    }
+    static final String DFA57_eotS =
         "\30\uffff";
-    static final String DFA56_eofS =
+    static final String DFA57_eofS =
         "\30\uffff";
-    static final String DFA56_minS =
+    static final String DFA57_minS =
         "\1\6\4\uffff\1\6\20\uffff\1\0\1\uffff";
-    static final String DFA56_maxS =
+    static final String DFA57_maxS =
         "\1\154\4\uffff\1\6\20\uffff\1\0\1\uffff";
-    static final String DFA56_acceptS =
+    static final String DFA57_acceptS =
         "\1\uffff\1\1\25\uffff\1\2";
-    static final String DFA56_specialS =
+    static final String DFA57_specialS =
         "\26\uffff\1\0\1\uffff}>";
-    static final String[] DFA56_transitionS = {
+    static final String[] DFA57_transitionS = {
             "\1\1\20\uffff\1\1\3\uffff\7\1\1\5\10\1\21\uffff\2\1\16\uffff"+
             "\1\1\1\uffff\3\1\20\uffff\2\1\11\uffff\1\1",
             "",
@@ -17777,61 +19269,61 @@ public class wcpsParser extends Parser {
             ""
     };
 
-    static final short[] DFA56_eot = DFA.unpackEncodedString(DFA56_eotS);
-    static final short[] DFA56_eof = DFA.unpackEncodedString(DFA56_eofS);
-    static final char[] DFA56_min = DFA.unpackEncodedStringToUnsignedChars(DFA56_minS);
-    static final char[] DFA56_max = DFA.unpackEncodedStringToUnsignedChars(DFA56_maxS);
-    static final short[] DFA56_accept = DFA.unpackEncodedString(DFA56_acceptS);
-    static final short[] DFA56_special = DFA.unpackEncodedString(DFA56_specialS);
-    static final short[][] DFA56_transition;
+    static final short[] DFA57_eot = DFA.unpackEncodedString(DFA57_eotS);
+    static final short[] DFA57_eof = DFA.unpackEncodedString(DFA57_eofS);
+    static final char[] DFA57_min = DFA.unpackEncodedStringToUnsignedChars(DFA57_minS);
+    static final char[] DFA57_max = DFA.unpackEncodedStringToUnsignedChars(DFA57_maxS);
+    static final short[] DFA57_accept = DFA.unpackEncodedString(DFA57_acceptS);
+    static final short[] DFA57_special = DFA.unpackEncodedString(DFA57_specialS);
+    static final short[][] DFA57_transition;
 
     static {
-        int numStates = DFA56_transitionS.length;
-        DFA56_transition = new short[numStates][];
+        int numStates = DFA57_transitionS.length;
+        DFA57_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA56_transition[i] = DFA.unpackEncodedString(DFA56_transitionS[i]);
+            DFA57_transition[i] = DFA.unpackEncodedString(DFA57_transitionS[i]);
         }
     }
 
-    class DFA56 extends DFA {
+    class DFA57 extends DFA {
 
-        public DFA56(BaseRecognizer recognizer) {
+        public DFA57(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 56;
-            this.eot = DFA56_eot;
-            this.eof = DFA56_eof;
-            this.min = DFA56_min;
-            this.max = DFA56_max;
-            this.accept = DFA56_accept;
-            this.special = DFA56_special;
-            this.transition = DFA56_transition;
+            this.decisionNumber = 57;
+            this.eot = DFA57_eot;
+            this.eof = DFA57_eof;
+            this.min = DFA57_min;
+            this.max = DFA57_max;
+            this.accept = DFA57_accept;
+            this.special = DFA57_special;
+            this.transition = DFA57_transition;
         }
         public String getDescription() {
-            return "332:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );";
+            return "340:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA56_22 = input.LA(1);
+                        int LA57_22 = input.LA(1);
 
                          
-                        int index56_22 = input.index();
+                        int index57_22 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred141_wcps()) ) {s = 1;}
+                        if ( (synpred142_wcps()) ) {s = 1;}
 
                         else if ( (true) ) {s = 23;}
 
                          
-                        input.seek(index56_22);
+                        input.seek(index57_22);
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 56, _s, input);
+                new NoViableAltException(getDescription(), 57, _s, input);
             error(nvae);
             throw nvae;
         }
@@ -18079,230 +19571,238 @@ public class wcpsParser extends Parser {
     public static final BitSet FOLLOW_COLON_in_rangeConstructorExpr1889 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
     public static final BitSet FOLLOW_coverageExpr_in_rangeConstructorExpr1893 = new BitSet(new long[]{0x0202000000000000L});
     public static final BitSet FOLLOW_RBRACE_in_rangeConstructorExpr1899 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CRSTRANSFORM_in_crsTransformExpr1915 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_crsTransformExpr1917 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_crsTransformExpr1921 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_crsTransformExpr1923 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalList_in_crsTransformExpr1927 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_crsTransformExpr1929 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_fieldInterpolationList_in_crsTransformExpr1933 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_crsTransformExpr1935 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LBRACE_in_fieldInterpolationList1952 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_fieldInterpolationElement_in_fieldInterpolationList1956 = new BitSet(new long[]{0x0200000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_fieldInterpolationList1963 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_fieldInterpolationElement_in_fieldInterpolationList1967 = new BitSet(new long[]{0x0200000000000100L});
-    public static final BitSet FOLLOW_RBRACE_in_fieldInterpolationList1974 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_fieldName_in_fieldInterpolationElement1989 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_interpolationMethod_in_fieldInterpolationElement1993 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_fieldExpr_in_unaryInducedExpr2013 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unaryArithmeticExpr_in_unaryInducedExpr2022 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_exponentialExpr_in_unaryInducedExpr2034 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_trigonometricExpr_in_unaryInducedExpr2046 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_booleanExpr_in_unaryInducedExpr2058 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_castExpr_in_unaryInducedExpr2070 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rangeConstructorExpr_in_unaryInducedExpr2082 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_unaryArithmeticExpr2105 = new BitSet(new long[]{0x35F847FFF8801840L,0x000018060001D000L});
-    public static final BitSet FOLLOW_coverageAtom_in_unaryArithmeticExpr2113 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_unaryArithmeticExpr2125 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_unaryArithmeticExpr2135 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_unaryArithmeticExpr2139 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_unaryArithmeticExpr2141 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_exponentialExpr2164 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_exponentialExpr2172 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_exponentialExpr2176 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_exponentialExpr2178 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_trigonometricExpr2201 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_trigonometricExpr2221 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_trigonometricExpr2225 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_trigonometricExpr2227 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOT_in_booleanExpr2250 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_booleanExpr2254 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BIT_in_booleanExpr2266 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_booleanExpr2268 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_booleanExpr2272 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_booleanExpr2274 = new BitSet(new long[]{0x0000000000000040L,0x000000000000C000L});
-    public static final BitSet FOLLOW_indexExpr_in_booleanExpr2278 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_booleanExpr2280 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_indexTerm_in_indexExpr2303 = new BitSet(new long[]{0x0000000000C00002L});
-    public static final BitSet FOLLOW_set_in_indexExpr2313 = new BitSet(new long[]{0x0000000000000040L,0x000000000000C000L});
-    public static final BitSet FOLLOW_indexTerm_in_indexExpr2321 = new BitSet(new long[]{0x0000000000C00002L});
-    public static final BitSet FOLLOW_indexFactor_in_indexTerm2346 = new BitSet(new long[]{0x0000000003000002L});
-    public static final BitSet FOLLOW_set_in_indexTerm2359 = new BitSet(new long[]{0x0000000000000040L,0x000000000000C000L});
-    public static final BitSet FOLLOW_indexFactor_in_indexTerm2367 = new BitSet(new long[]{0x0000000003000002L});
-    public static final BitSet FOLLOW_INTEGERCONSTANT_in_indexFactor2394 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ROUND_in_indexFactor2407 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_indexFactor2409 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_indexFactor2413 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_indexFactor2415 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_indexFactor2427 = new BitSet(new long[]{0x0000000000000040L,0x000000000000C000L});
-    public static final BitSet FOLLOW_indexExpr_in_indexFactor2431 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_indexFactor2433 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENTIFIER_in_stringScalarExpr2460 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_stringScalarExpr2462 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_stringScalarExpr2466 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_stringScalarExpr2468 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_in_stringScalarExpr2481 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SCALE_in_scaleExpr2499 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_scaleExpr2501 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_scaleExpr2505 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_scaleExpr2507 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalList_in_scaleExpr2511 = new BitSet(new long[]{0x0000000000000180L});
-    public static final BitSet FOLLOW_COMMA_in_scaleExpr2528 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_fieldInterpolationList_in_scaleExpr2532 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_scaleExpr2557 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_trimExpr_in_subsetExpr2575 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sliceExpr_in_subsetExpr2584 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_extendExpr_in_subsetExpr2593 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_coverageAtom_in_trimExpr2610 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-    public static final BitSet FOLLOW_LBRACKET_in_trimExpr2612 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalList_in_trimExpr2616 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_RBRACKET_in_trimExpr2618 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRIM_in_trimExpr2627 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_trimExpr2629 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_trimExpr2633 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_trimExpr2635 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_LBRACE_in_trimExpr2637 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalList_in_trimExpr2641 = new BitSet(new long[]{0x0200000000000000L});
-    public static final BitSet FOLLOW_RBRACE_in_trimExpr2643 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_trimExpr2645 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_coverageAtom_in_sliceExpr2662 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-    public static final BitSet FOLLOW_LBRACKET_in_sliceExpr2664 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionPointList_in_sliceExpr2668 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_RBRACKET_in_sliceExpr2670 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SLICE_in_sliceExpr2677 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_sliceExpr2679 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_sliceExpr2683 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_sliceExpr2685 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_LBRACE_in_sliceExpr2687 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionPointList_in_sliceExpr2691 = new BitSet(new long[]{0x0200000000000000L});
-    public static final BitSet FOLLOW_RBRACE_in_sliceExpr2693 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_sliceExpr2695 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EXTEND_in_extendExpr2710 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_extendExpr2712 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_extendExpr2716 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_extendExpr2718 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalList_in_extendExpr2722 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_extendExpr2724 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_castExpr2742 = new BitSet(new long[]{0x0000000000000000L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_rangeType_in_castExpr2746 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_castExpr2748 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_castExpr2752 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_rangeType2775 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UNSIGNED_in_rangeType2801 = new BitSet(new long[]{0x0000000000000000L,0x0000000007000000L});
-    public static final BitSet FOLLOW_set_in_rangeType2805 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_coverageAtom_in_fieldExpr2834 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
-    public static final BitSet FOLLOW_DOT_in_fieldExpr2836 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_fieldName_in_fieldExpr2840 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_booleanScalarTerm_in_booleanScalarExpr2865 = new BitSet(new long[]{0x0000000000006002L});
-    public static final BitSet FOLLOW_set_in_booleanScalarExpr2878 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarTerm_in_booleanScalarExpr2886 = new BitSet(new long[]{0x0000000000006002L});
-    public static final BitSet FOLLOW_booleanScalarNegation_in_booleanScalarTerm2908 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_AND_in_booleanScalarTerm2918 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarNegation_in_booleanScalarTerm2922 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_booleanScalarAtom_in_booleanScalarNegation2943 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOT_in_booleanScalarNegation2952 = new BitSet(new long[]{0x300007F808800040L,0x000010060001C000L});
-    public static final BitSet FOLLOW_booleanScalarAtom_in_booleanScalarNegation2956 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_booleanScalarAtom2971 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarExpr_in_booleanScalarAtom2975 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_booleanScalarAtom2977 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stringScalarExpr_in_booleanScalarAtom2986 = new BitSet(new long[]{0x00000000003F0000L});
-    public static final BitSet FOLLOW_compOp_in_booleanScalarAtom2990 = new BitSet(new long[]{0x0000000008000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_stringScalarExpr_in_booleanScalarAtom2994 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_booleanScalarAtom3004 = new BitSet(new long[]{0x00000000003F0000L});
-    public static final BitSet FOLLOW_compOp_in_booleanScalarAtom3008 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_booleanScalarAtom3012 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BOOLEANCONSTANT_in_booleanScalarAtom3022 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_numericScalarTerm_in_numericScalarExpr3039 = new BitSet(new long[]{0x0000000000C00002L});
-    public static final BitSet FOLLOW_set_in_numericScalarExpr3049 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarTerm_in_numericScalarExpr3057 = new BitSet(new long[]{0x0000000000C00002L});
-    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarTerm3076 = new BitSet(new long[]{0x0000000003000002L});
-    public static final BitSet FOLLOW_set_in_numericScalarTerm3085 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarTerm3093 = new BitSet(new long[]{0x0000000003000002L});
-    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3113 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3117 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3119 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_numericScalarFactor3131 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarFactor3135 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ABS_in_numericScalarFactor3147 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3149 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3153 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3155 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SQRT_in_numericScalarFactor3167 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3169 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3173 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3175 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ROUND_in_numericScalarFactor3187 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3189 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3193 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3195 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INTEGERCONSTANT_in_numericScalarFactor3207 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FLOATCONSTANT_in_numericScalarFactor3219 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_complexConstant_in_numericScalarFactor3231 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_condenseExpr_in_numericScalarFactor3243 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_variableName_in_numericScalarFactor3255 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EQUALS_in_compOp3273 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOTEQUALS_in_compOp3280 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LT_in_compOp3287 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GT_in_compOp3294 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LTE_in_compOp3301 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GTE_in_compOp3308 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3328 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_COMMA_in_dimensionIntervalList3341 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3345 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_axisName_in_dimensionIntervalElement3370 = new BitSet(new long[]{0x0000200000000040L});
-    public static final BitSet FOLLOW_COLON_in_dimensionIntervalElement3375 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_crsName_in_dimensionIntervalElement3379 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_dimensionIntervalElement3390 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_dimensionIntervalExpr_in_dimensionIntervalElement3394 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_dimensionIntervalElement3396 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_scalarExpr_in_dimensionIntervalExpr3419 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3421 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_scalarExpr_in_dimensionIntervalExpr3425 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DOMAIN_in_dimensionIntervalExpr3435 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_dimensionIntervalExpr3437 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_coverageName_in_dimensionIntervalExpr3441 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3443 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_axisName_in_dimensionIntervalExpr3447 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3449 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_crsName_in_dimensionIntervalExpr3453 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_dimensionIntervalExpr3455 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_dimensionPointElement_in_dimensionPointList3478 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_COMMA_in_dimensionPointList3488 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionPointElement_in_dimensionPointList3492 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_axisName_in_dimensionPointElement3517 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_dimensionPointElement3519 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_dimensionPoint_in_dimensionPointElement3523 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_dimensionPointElement3525 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_axisName_in_dimensionPointElement3537 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_dimensionPointElement3539 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_crsName_in_dimensionPointElement3543 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_dimensionPointElement3545 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_dimensionPoint_in_dimensionPointElement3549 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_dimensionPointElement3551 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_scalarExpr_in_dimensionPoint3574 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_interpolationMethod3592 = new BitSet(new long[]{0x0000000000000000L,0x0000007800000000L});
-    public static final BitSet FOLLOW_interpolationType_in_interpolationMethod3596 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_interpolationMethod3598 = new BitSet(new long[]{0x0000000000000000L,0x0000078000000000L});
-    public static final BitSet FOLLOW_nullResistence_in_interpolationMethod3602 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_interpolationMethod3604 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_interpolationType3621 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_nullResistence3646 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_condenseOpType3671 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_name_in_fieldName3698 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_constant3715 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_complexConstant_in_constant3732 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_complexConstant3747 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_FLOATCONSTANT_in_complexConstant3751 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_complexConstant3753 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_FLOATCONSTANT_in_complexConstant3757 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_complexConstant3759 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_in_stringConstant3776 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_name3793 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stringConstant_in_crsName3820 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_name_in_axisName3837 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VARIABLE_DOLLAR_in_variableName3854 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_coverageVariable3871 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_name_in_coverageName3886 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CRSTRANSFORM_in_crsTransformExpr1922 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_crsTransformExpr1924 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_crsTransformExpr1928 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_crsTransformExpr1930 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_dimensionCrsList_in_crsTransformExpr1934 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_crsTransformExpr1936 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_fieldInterpolationList_in_crsTransformExpr1940 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_crsTransformExpr1942 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBRACE_in_dimensionCrsList1983 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionCrsElement_in_dimensionCrsList1987 = new BitSet(new long[]{0x0200000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_dimensionCrsList2000 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionCrsElement_in_dimensionCrsList2004 = new BitSet(new long[]{0x0200000000000100L});
+    public static final BitSet FOLLOW_RBRACE_in_dimensionCrsList2011 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_axisName_in_dimensionCrsElement2032 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_dimensionCrsElement2036 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_crsName_in_dimensionCrsElement2040 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBRACE_in_fieldInterpolationList2058 = new BitSet(new long[]{0x0200000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_fieldInterpolationElement_in_fieldInterpolationList2063 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_fieldInterpolationList2070 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_fieldInterpolationElement_in_fieldInterpolationList2074 = new BitSet(new long[]{0x0200000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_RBRACE_in_fieldInterpolationList2082 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_fieldName_in_fieldInterpolationElement2097 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_interpolationMethod_in_fieldInterpolationElement2101 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_fieldExpr_in_unaryInducedExpr2121 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unaryArithmeticExpr_in_unaryInducedExpr2130 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_exponentialExpr_in_unaryInducedExpr2142 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_trigonometricExpr_in_unaryInducedExpr2154 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_booleanExpr_in_unaryInducedExpr2166 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_castExpr_in_unaryInducedExpr2178 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rangeConstructorExpr_in_unaryInducedExpr2190 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_unaryArithmeticExpr2213 = new BitSet(new long[]{0x35F847FFF8801840L,0x000018060001D000L});
+    public static final BitSet FOLLOW_coverageAtom_in_unaryArithmeticExpr2221 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_unaryArithmeticExpr2233 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_unaryArithmeticExpr2243 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_unaryArithmeticExpr2247 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_unaryArithmeticExpr2249 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_exponentialExpr2272 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_exponentialExpr2280 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_exponentialExpr2284 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_exponentialExpr2286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_trigonometricExpr2309 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_trigonometricExpr2329 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_trigonometricExpr2333 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_trigonometricExpr2335 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOT_in_booleanExpr2358 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_booleanExpr2362 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BIT_in_booleanExpr2374 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_booleanExpr2376 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_booleanExpr2380 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_booleanExpr2382 = new BitSet(new long[]{0x0000000000000040L,0x000000000000C000L});
+    public static final BitSet FOLLOW_indexExpr_in_booleanExpr2386 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_booleanExpr2388 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_indexTerm_in_indexExpr2411 = new BitSet(new long[]{0x0000000000C00002L});
+    public static final BitSet FOLLOW_set_in_indexExpr2421 = new BitSet(new long[]{0x0000000000000040L,0x000000000000C000L});
+    public static final BitSet FOLLOW_indexTerm_in_indexExpr2429 = new BitSet(new long[]{0x0000000000C00002L});
+    public static final BitSet FOLLOW_indexFactor_in_indexTerm2454 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_set_in_indexTerm2467 = new BitSet(new long[]{0x0000000000000040L,0x000000000000C000L});
+    public static final BitSet FOLLOW_indexFactor_in_indexTerm2475 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_INTEGERCONSTANT_in_indexFactor2502 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ROUND_in_indexFactor2515 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_indexFactor2517 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_indexFactor2521 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_indexFactor2523 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_indexFactor2535 = new BitSet(new long[]{0x0000000000000040L,0x000000000000C000L});
+    public static final BitSet FOLLOW_indexExpr_in_indexFactor2539 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_indexFactor2541 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENTIFIER_in_stringScalarExpr2568 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_stringScalarExpr2570 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_stringScalarExpr2574 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_stringScalarExpr2576 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_in_stringScalarExpr2589 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SCALE_in_scaleExpr2607 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_scaleExpr2609 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_scaleExpr2613 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_scaleExpr2615 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalList_in_scaleExpr2619 = new BitSet(new long[]{0x0000000000000180L});
+    public static final BitSet FOLLOW_COMMA_in_scaleExpr2636 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_fieldInterpolationList_in_scaleExpr2640 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_scaleExpr2665 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_trimExpr_in_subsetExpr2683 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sliceExpr_in_subsetExpr2692 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_extendExpr_in_subsetExpr2701 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_coverageAtom_in_trimExpr2718 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+    public static final BitSet FOLLOW_LBRACKET_in_trimExpr2720 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalList_in_trimExpr2724 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_RBRACKET_in_trimExpr2726 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRIM_in_trimExpr2735 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_trimExpr2737 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_trimExpr2741 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_trimExpr2743 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_LBRACE_in_trimExpr2745 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalList_in_trimExpr2749 = new BitSet(new long[]{0x0200000000000000L});
+    public static final BitSet FOLLOW_RBRACE_in_trimExpr2751 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_trimExpr2753 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_coverageAtom_in_sliceExpr2770 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+    public static final BitSet FOLLOW_LBRACKET_in_sliceExpr2772 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionPointList_in_sliceExpr2776 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_RBRACKET_in_sliceExpr2778 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SLICE_in_sliceExpr2785 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_sliceExpr2787 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_sliceExpr2791 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_sliceExpr2793 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_LBRACE_in_sliceExpr2795 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionPointList_in_sliceExpr2799 = new BitSet(new long[]{0x0200000000000000L});
+    public static final BitSet FOLLOW_RBRACE_in_sliceExpr2801 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_sliceExpr2803 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EXTEND_in_extendExpr2818 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_extendExpr2820 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_extendExpr2824 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_extendExpr2826 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalList_in_extendExpr2830 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_extendExpr2832 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_castExpr2850 = new BitSet(new long[]{0x0000000000000000L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_rangeType_in_castExpr2854 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_castExpr2856 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_castExpr2860 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_rangeType2883 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UNSIGNED_in_rangeType2909 = new BitSet(new long[]{0x0000000000000000L,0x0000000007000000L});
+    public static final BitSet FOLLOW_set_in_rangeType2913 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_coverageAtom_in_fieldExpr2942 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_DOT_in_fieldExpr2944 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_fieldName_in_fieldExpr2948 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_booleanScalarTerm_in_booleanScalarExpr2973 = new BitSet(new long[]{0x0000000000006002L});
+    public static final BitSet FOLLOW_set_in_booleanScalarExpr2986 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarTerm_in_booleanScalarExpr2994 = new BitSet(new long[]{0x0000000000006002L});
+    public static final BitSet FOLLOW_booleanScalarNegation_in_booleanScalarTerm3016 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_AND_in_booleanScalarTerm3026 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarNegation_in_booleanScalarTerm3030 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_booleanScalarAtom_in_booleanScalarNegation3051 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOT_in_booleanScalarNegation3060 = new BitSet(new long[]{0x300007F808800040L,0x000010060001C000L});
+    public static final BitSet FOLLOW_booleanScalarAtom_in_booleanScalarNegation3064 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_booleanScalarAtom3079 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarExpr_in_booleanScalarAtom3083 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_booleanScalarAtom3085 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stringScalarExpr_in_booleanScalarAtom3094 = new BitSet(new long[]{0x00000000003F0000L});
+    public static final BitSet FOLLOW_compOp_in_booleanScalarAtom3098 = new BitSet(new long[]{0x0000000008000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_stringScalarExpr_in_booleanScalarAtom3102 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_booleanScalarAtom3112 = new BitSet(new long[]{0x00000000003F0000L});
+    public static final BitSet FOLLOW_compOp_in_booleanScalarAtom3116 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_booleanScalarAtom3120 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BOOLEANCONSTANT_in_booleanScalarAtom3130 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_numericScalarTerm_in_numericScalarExpr3147 = new BitSet(new long[]{0x0000000000C00002L});
+    public static final BitSet FOLLOW_set_in_numericScalarExpr3157 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarTerm_in_numericScalarExpr3165 = new BitSet(new long[]{0x0000000000C00002L});
+    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarTerm3184 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_set_in_numericScalarTerm3193 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarTerm3201 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3221 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3225 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3227 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_numericScalarFactor3239 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarFactor3243 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ABS_in_numericScalarFactor3255 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3257 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3261 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3263 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SQRT_in_numericScalarFactor3275 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3277 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3281 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3283 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ROUND_in_numericScalarFactor3295 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3297 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3301 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3303 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INTEGERCONSTANT_in_numericScalarFactor3315 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FLOATCONSTANT_in_numericScalarFactor3327 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_complexConstant_in_numericScalarFactor3339 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_condenseExpr_in_numericScalarFactor3351 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_variableName_in_numericScalarFactor3363 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EQUALS_in_compOp3381 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOTEQUALS_in_compOp3388 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LT_in_compOp3395 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GT_in_compOp3402 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LTE_in_compOp3409 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GTE_in_compOp3416 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3436 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_COMMA_in_dimensionIntervalList3449 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3453 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_axisName_in_dimensionIntervalElement3478 = new BitSet(new long[]{0x0000200000000040L});
+    public static final BitSet FOLLOW_COLON_in_dimensionIntervalElement3483 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_crsName_in_dimensionIntervalElement3487 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_dimensionIntervalElement3498 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_dimensionIntervalExpr_in_dimensionIntervalElement3502 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_dimensionIntervalElement3504 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_scalarExpr_in_dimensionIntervalExpr3527 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3529 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_scalarExpr_in_dimensionIntervalExpr3533 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DOMAIN_in_dimensionIntervalExpr3543 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_dimensionIntervalExpr3545 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_coverageName_in_dimensionIntervalExpr3549 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3551 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_axisName_in_dimensionIntervalExpr3555 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3557 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_crsName_in_dimensionIntervalExpr3561 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_dimensionIntervalExpr3563 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_dimensionPointElement_in_dimensionPointList3586 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_COMMA_in_dimensionPointList3596 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionPointElement_in_dimensionPointList3600 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_axisName_in_dimensionPointElement3625 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_dimensionPointElement3627 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_dimensionPoint_in_dimensionPointElement3631 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_dimensionPointElement3633 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_axisName_in_dimensionPointElement3645 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_dimensionPointElement3647 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_crsName_in_dimensionPointElement3651 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_dimensionPointElement3653 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_dimensionPoint_in_dimensionPointElement3657 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_dimensionPointElement3659 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_scalarExpr_in_dimensionPoint3682 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_interpolationMethod3700 = new BitSet(new long[]{0x0000000000000000L,0x0000007800000000L});
+    public static final BitSet FOLLOW_interpolationType_in_interpolationMethod3704 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_interpolationMethod3706 = new BitSet(new long[]{0x0000000000000000L,0x0000078000000000L});
+    public static final BitSet FOLLOW_nullResistence_in_interpolationMethod3710 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_interpolationMethod3712 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_interpolationType3729 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_nullResistence3754 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_condenseOpType3779 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_name_in_fieldName3806 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_constant3823 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_complexConstant_in_constant3840 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_complexConstant3855 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_FLOATCONSTANT_in_complexConstant3859 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_complexConstant3861 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_FLOATCONSTANT_in_complexConstant3865 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_complexConstant3867 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_in_stringConstant3884 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_name3901 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stringConstant_in_crsName3928 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_name_in_axisName3945 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VARIABLE_DOLLAR_in_variableName3962 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_coverageVariable3979 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_name_in_coverageName3994 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_synpred8_wcps366 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
     public static final BitSet FOLLOW_coverageLogicTerm_in_synpred8_wcps374 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_AND_in_synpred9_wcps416 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
@@ -18328,31 +19828,31 @@ public class wcpsParser extends Parser {
     public static final BitSet FOLLOW_booleanScalarExpr_in_synpred33_wcps856 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_numericScalarExpr_in_synpred34_wcps870 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_stringScalarExpr_in_synpred35_wcps883 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_fieldExpr_in_synpred70_wcps2013 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unaryArithmeticExpr_in_synpred71_wcps2022 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_booleanExpr_in_synpred74_wcps2058 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_trimExpr_in_synpred100_wcps2575 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sliceExpr_in_synpred101_wcps2584 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_synpred115_wcps2878 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarTerm_in_synpred115_wcps2886 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_AND_in_synpred116_wcps2918 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarNegation_in_synpred116_wcps2922 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_synpred118_wcps2971 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarExpr_in_synpred118_wcps2975 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_synpred118_wcps2977 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_synpred120_wcps3004 = new BitSet(new long[]{0x00000000003F0000L});
-    public static final BitSet FOLLOW_compOp_in_synpred120_wcps3008 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_synpred120_wcps3012 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_synpred122_wcps3049 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarTerm_in_synpred122_wcps3057 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_synpred124_wcps3085 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarFactor_in_synpred124_wcps3093 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_synpred125_wcps3113 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_synpred125_wcps3117 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_synpred125_wcps3119 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_complexConstant_in_synpred132_wcps3231 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_scalarExpr_in_synpred141_wcps3419 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_synpred141_wcps3421 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_scalarExpr_in_synpred141_wcps3425 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_fieldExpr_in_synpred71_wcps2121 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unaryArithmeticExpr_in_synpred72_wcps2130 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_booleanExpr_in_synpred75_wcps2166 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_trimExpr_in_synpred101_wcps2683 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sliceExpr_in_synpred102_wcps2692 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_synpred116_wcps2986 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarTerm_in_synpred116_wcps2994 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_AND_in_synpred117_wcps3026 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarNegation_in_synpred117_wcps3030 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_synpred119_wcps3079 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarExpr_in_synpred119_wcps3083 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_synpred119_wcps3085 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_synpred121_wcps3112 = new BitSet(new long[]{0x00000000003F0000L});
+    public static final BitSet FOLLOW_compOp_in_synpred121_wcps3116 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_synpred121_wcps3120 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_synpred123_wcps3157 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarTerm_in_synpred123_wcps3165 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_synpred125_wcps3193 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarFactor_in_synpred125_wcps3201 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_synpred126_wcps3221 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_synpred126_wcps3225 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_synpred126_wcps3227 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_complexConstant_in_synpred133_wcps3339 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_scalarExpr_in_synpred142_wcps3527 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_synpred142_wcps3529 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_scalarExpr_in_synpred142_wcps3533 = new BitSet(new long[]{0x0000000000000002L});
 
 }

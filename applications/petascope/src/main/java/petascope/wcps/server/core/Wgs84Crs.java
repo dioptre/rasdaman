@@ -31,6 +31,7 @@ import petascope.exceptions.WCPSException;
  * @version        10.Sep 2009
  * @author         Andrei Aiordachioaie
  */
+@Deprecated
 public class Wgs84Crs implements Cloneable {
 
     private String name = "WGS84";
@@ -120,4 +121,6 @@ public class Wgs84Crs implements Cloneable {
     public String getName() {
         return name;
     }
+    
+    
 }

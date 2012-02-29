@@ -68,6 +68,7 @@ import petascope.wcps.server.core.DomainElement;
 import petascope.wcps.server.core.InterpolationMethod;
 import petascope.wcps.server.core.RangeElement;
 import petascope.exceptions.WCSTException;
+import petascope.util.AxisTypes;
 import wcst.transaction.schema.CodeType;
 import wcst.transaction.schema.CoverageType;
 import wcst.transaction.schema.KeywordsType;
@@ -77,6 +78,7 @@ import wcst.transaction.schema.ReferenceType;
 import wcst.transaction.schema.TransactionResponseType;
 import wcst.transaction.schema.TransactionType;
 import petascope.wcst.transaction.tools.RasdamanUtils;
+import petascope.util.CrsUtil;
 
 /**
  * This class takes a WCS-T Transaction XML request and executes the request,
@@ -503,19 +505,19 @@ public class executeTransaction {
         BigInteger highX = new BigInteger(String.valueOf(img.getHeight() - 1));
         BigInteger lowY = new BigInteger("0");
         BigInteger highY = new BigInteger(String.valueOf(img.getWidth() - 1));
-        CellDomainElement cellX = new CellDomainElement(lowX, highX);
-        CellDomainElement cellY = new CellDomainElement(lowY, highY);
+        CellDomainElement cellX = new CellDomainElement(lowX, highX, AxisTypes.X_AXIS);
+        CellDomainElement cellY = new CellDomainElement(lowY, highY, AxisTypes.Y_AXIS);
         List<CellDomainElement> cellList = new ArrayList<CellDomainElement>(2);
         cellList.add(cellX);
         cellList.add(cellY);
 
         // Domains
         Set<String> crsSet = new HashSet<String>(1);
-        crsSet.add(DomainElement.IMAGE_CRS);
+        crsSet.add(CrsUtil.IMAGE_CRS);
         String str1 = null, str2 = null;
         /* Since we currently do not use the Domain sizes, we can set them to 0 and 1 */
-        DomainElement domX = new DomainElement("x", "x", 0.0, 1.0, str1, str2, crsSet, metaDb.getAxisNames(), null);
-        DomainElement domY = new DomainElement("y", "y", 0.0, 1.0, str1, str2, crsSet, metaDb.getAxisNames(), null);
+        DomainElement domX = new DomainElement(AxisTypes.X_AXIS, AxisTypes.X_AXIS, 0.0, 1.0, str1, str2, crsSet, metaDb.getAxisNames(), null);
+        DomainElement domY = new DomainElement(AxisTypes.Y_AXIS, AxisTypes.Y_AXIS, 0.0, 1.0, str1, str2, crsSet, metaDb.getAxisNames(), null);
         List<DomainElement> domList = new ArrayList<DomainElement>(2);
         domList.add(domX);
         domList.add(domY);
@@ -686,7 +688,7 @@ public class executeTransaction {
                     desc.getDomain().getSpatialDomain().getBoundingBox();
             if (list.size() == 1) {
                 BoundingBoxType bbox = (BoundingBoxType) list.get(0).getValue();
-                if (bbox.getCrs() == null || bbox.getCrs().equals(DomainElement.IMAGE_CRS)) {
+                if (bbox.getCrs() == null || bbox.getCrs().equals(CrsUtil.IMAGE_CRS)) {
                     meta = updateImageCrsBoundingBox(meta, bbox);
                 } else {
                     throw new WCSTException(ExceptionCode.InvalidParameterValue, "crs. Explanation: Unknown CRS " + bbox.getCrs());
@@ -695,7 +697,7 @@ public class executeTransaction {
                 Iterator i = list.iterator();
                 while (i.hasNext()) {
                     BoundingBoxType bbox = (BoundingBoxType) i.next();
-                    if (bbox.getCrs().equals(DomainElement.IMAGE_CRS)) {
+                    if (bbox.getCrs().equals(CrsUtil.IMAGE_CRS)) {
                         meta = updateImageCrsBoundingBox(meta, bbox);
                     }
                     // TODO: Implement WGS84 update
@@ -1091,8 +1093,8 @@ public class executeTransaction {
         long hiX = upper.get(0).longValue();
         long hiY = upper.get(1).longValue();
 
-        CellDomainElement cellX = new CellDomainElement(BigInteger.valueOf(loX), BigInteger.valueOf(hiX));
-        CellDomainElement cellY = new CellDomainElement(BigInteger.valueOf(loY), BigInteger.valueOf(hiY));
+        CellDomainElement cellX = new CellDomainElement(BigInteger.valueOf(loX), BigInteger.valueOf(hiX), AxisTypes.X_AXIS);
+        CellDomainElement cellY = new CellDomainElement(BigInteger.valueOf(loY), BigInteger.valueOf(hiY), AxisTypes.Y_AXIS);
 
         List<CellDomainElement> list = new ArrayList<CellDomainElement>();
         list.add(cellX);

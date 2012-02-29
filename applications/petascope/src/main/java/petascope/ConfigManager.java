@@ -130,7 +130,7 @@ public class ConfigManager {
             InputStream is = ConfigManager.class.getResourceAsStream(SETTINGS_FILE);
             if (is != null) {
                 props.load(is);
-            };
+            }
             initSettings();
         } catch (IOException e) {
             log.error("Failed to load settings. Stack trace: " + e);

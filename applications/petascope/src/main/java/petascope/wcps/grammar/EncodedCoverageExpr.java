@@ -19,7 +19,8 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
-package petascope.wcps.grammar;
+package petascope.wcps.grammar;
+
 
 /**
  * EncodedCoverageExpr
@@ -54,6 +55,7 @@ public class EncodedCoverageExpr implements IParseTreeNode {
         store = true;
     }
 
+    @Override
     public String toXML() {
         String result = "";
 

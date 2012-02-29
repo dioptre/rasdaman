@@ -105,11 +105,15 @@ public class RasUtil {
         String xmlQuery = null;
         try {
             xmlQuery = ProcessCoveragesRequest.abstractQueryToXmlQuery(query);
+            log.debug("xmlQuery: " + xmlQuery); // (to_remove)
         } catch (RecognitionException ex) {
             throw new WCPSException(ExceptionCode.InvalidParameterValue,
                     "Error translating abstract WCPS query to XML format.", ex);
         }
-        return xmlWCPSToRasql(xmlQuery, wcps);
+        String rasql = xmlWCPSToRasql(xmlQuery, wcps);
+        log.debug("rasql: " + rasql);
+        return rasql;
+        //return xmlWCPSToRasql(xmlQuery, wcps);
     }
     
     /**

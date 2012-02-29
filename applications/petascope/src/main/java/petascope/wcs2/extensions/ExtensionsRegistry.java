@@ -30,7 +30,7 @@ import petascope.wcs2.parsers.GetCoverageRequest;
 /**
  * Protocol binding extensions are managed in this class.
  *
- * @author <a href="mailto:d.misev@jacobs-university.de">Dimitar Misev</a>
+ * @author <a href="mailto:d.misev@jacobs-university.de">Dimi   tar Misev</a>
  */
 public class ExtensionsRegistry {
 
@@ -41,6 +41,9 @@ public class ExtensionsRegistry {
     public static final String SOAP_IDENTIFIER = "http://www.opengis.net/spec/WCS_protocol-binding_soap/1.0";
     public static final String ENCODING_IDENTIFIER = "http://www.opengis.net/spec/WCS_coverage-encoding/1.0/conf/coverage-encoding";
     public static final String GEOTIFF_IDENTIFIER = "http://www.opengis.net/spec/WCS_coverage-encoding_geotiff/1.0/";
+    public static final String CRS_IDENTIFIER = "http://www.opengis.net/spec/WCS_service-extension_crs/1.0/conf/crs";
+    //public static final String CRS_DISCRETE_COVERAGE_IDENTIFIER = "http://www.opengis.net/spec/WCS_service-extension_crs/1.0/conf/crs-discrete-coverage";
+    //public static final String CRS_GRIDDED_COVERAGE_IDENTIFIER = "http://www.opengis.net/spec/WCS_service-extension_crs/1.0/conf/crs-grid-coverage";
     
     private static final Set<Extension> extensions = new HashSet<Extension>();
     private static final Set<String> extensionIds = new HashSet<String>();
@@ -59,6 +62,8 @@ public class ExtensionsRegistry {
         registerExtension(new GmlFormatExtension());
         registerExtension(new GeotiffFormatExtension());
         registerExtension(new MultipartGeotiffFormatExtension());
+        registerExtension(new CRSExtension());
+        // Add crs.discrete.coverage and crs.gridded.coverage extensions ?
     }
 
     /**

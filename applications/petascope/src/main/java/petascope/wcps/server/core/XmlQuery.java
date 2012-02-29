@@ -208,6 +208,7 @@ public class XmlQuery implements IRasNode {
         return newName;
     }
 
+    @Override
     public String toRasQL() {
         String result = "select " + coverageExpr.toRasQL() + " from ";
         Iterator<CoverageIterator> it = iterators.iterator();

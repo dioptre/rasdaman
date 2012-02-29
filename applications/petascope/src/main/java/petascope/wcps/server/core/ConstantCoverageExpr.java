@@ -30,6 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 import org.w3c.dom.*;
+import petascope.util.CrsUtil;
 
 public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
 
@@ -137,10 +138,10 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
         while (i.hasNext()) {
             // Build domain metadata
             AxisIterator ai = i.next();
-            cellDomainList.add(new CellDomainElement(ai.getLow(), ai.getHigh()));
             String axisName = ai.getVar();
             String axisType = ai.getAxisType();
-            String crs = DomainElement.WGS84_CRS;
+            cellDomainList.add(new CellDomainElement(ai.getLow(), ai.getHigh(), axisType));
+            String crs = CrsUtil.WGS84_CRS;
             HashSet<String> crsset = new HashSet<String>();
             crsset.add(crs);
             DomainElement domain = new DomainElement(axisName, axisType,

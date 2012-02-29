@@ -74,14 +74,17 @@ public class DynamicMetadataSource implements IDynamicMetadataSource {
         }
     }
 
+    @Override
     public Set<String> coverages() throws PetascopeException {
         return metadataSource.coverages();
     }
 
+    @Override
     public String formatToMimetype(String format) {
         return metadataSource.formatToMimetype(format);
     }
 
+    @Override
     public Metadata read(String coverageName) throws PetascopeException {
         if ((coverageName == null) || coverageName.equals("")) {
             throw new PetascopeException(ExceptionCode.InvalidRequest,
@@ -96,6 +99,7 @@ public class DynamicMetadataSource implements IDynamicMetadataSource {
         return metadataSource.read(coverageName);
     }
 
+    @Override
     public void addDynamicMetadata(String coverageName, Metadata meta) {
         metadata.put(coverageName, meta);
         dynamicCoverageNames.add(coverageName);
@@ -103,6 +107,7 @@ public class DynamicMetadataSource implements IDynamicMetadataSource {
         allCoverageNames.addAll(dynamicCoverageNames);
     }
 
+    @Override
     public Collection<String> getAxisNames() {
         return metadataSource.getAxisNames();
     }

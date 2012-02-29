@@ -59,6 +59,7 @@ public class WCPSServlet extends HttpServlet {
     // String containing the HTML code for the default response
     private String defaultHtmlResponse;
 
+    @Override
     public void init() throws ServletException {
         try {
             ConfigManager.getInstance();
@@ -90,12 +91,14 @@ public class WCPSServlet extends HttpServlet {
 
     }
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("WCPS: invoked with GET");
         printUsage(response);
     }
 
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("WCPS: invoked with POST");
@@ -199,11 +202,13 @@ public class WCPSServlet extends HttpServlet {
         }
     }
 
+    @Override
     public void destroy() {
         super.destroy();
 
     }
 
+    @Override
     public String getServletInfo() {
         return "Web Coverage Processing Service (Project PetaScope)";
 

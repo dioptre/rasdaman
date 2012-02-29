@@ -58,6 +58,7 @@ public class SubsetOperationCoverageExpr implements IRasNode, ICoverageInfo {
         }
     }
 
+    @Override
     public String toRasQL() {
         return child.toRasQL();
     }
@@ -72,6 +73,7 @@ public class SubsetOperationCoverageExpr implements IRasNode, ICoverageInfo {
         }
     }
 
+    @Override
     public CoverageInfo getCoverageInfo() {
         return info;
     }

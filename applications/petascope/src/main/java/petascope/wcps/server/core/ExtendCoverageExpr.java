@@ -101,7 +101,7 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
             coverageInfo.setCellDimension(
                     axisId,
                     new CellDomainElement(
-                    BigInteger.valueOf(axisLo), BigInteger.valueOf(axisHi)));
+                    BigInteger.valueOf(axisLo), BigInteger.valueOf(axisHi), axis.getAxisName()));
         }
 
 

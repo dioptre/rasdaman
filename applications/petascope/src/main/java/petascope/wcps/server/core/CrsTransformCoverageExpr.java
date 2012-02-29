@@ -21,21 +21,37 @@
  */
 package petascope.wcps.server.core;
 
+import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 //TODO(smsorin): how do we do combine this ?
-public class CrsTransformCoverageExpr implements IRasNode, ICoverageInfo {
 
+/** NOTE(campalani): rasdaman enterprise already implements reprojection of coverage
+ *  through 'project' function.
+ */
+public class CrsTransformCoverageExpr implements IRasNode, ICoverageInfo {
+    
+    private static final boolean ENTERPRISE = false;
+    
     public CrsTransformCoverageExpr(Node node, XmlQuery xq)
             throws WCPSException {
-        throw new WCPSException("Method not implemented");
+        // Call function to reproject the bounding box:
+        if (ENTERPRISE) {
+            //  foreach XYplane slice (=spatialcoverage)
+            //      extract xy pixels 
+            //      project(arr, bbox, s_crs, t_crs);
+            //      replace it in the ...DOVE? data is returned in executeRasqlQuery..
+            // end
+        } else throw new WCPSException(ExceptionCode.InvalidEncodingSyntax, "crsTransform expression not allowed.");
     }
 
+    @Override
     public String toRasQL() {
         return "";
     }
 
+    @Override
     public CoverageInfo getCoverageInfo() {
         return null;
     }

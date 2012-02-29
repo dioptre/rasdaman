@@ -23,8 +23,6 @@ package petascope.util;
 
 import java.io.StringWriter;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import javax.xml.bind.JAXBException;
 import net.opengis.ows.v_1_0_0.ExceptionReport;
 import org.slf4j.Logger;
@@ -35,6 +33,7 @@ import petascope.core.Metadata;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.PetascopeException;
 import petascope.exceptions.WCSException;
+import petascope.wcps.server.core.Bbox;
 import petascope.wcps.server.core.Wgs84Crs;
 import petascope.wcs2.parsers.GetCoverageMetadata;
 import petascope.wcs2.parsers.GetCoverageMetadata.RangeField;
@@ -178,9 +177,12 @@ public class WcsUtil {
                 Pair.of("\\{uomLabels\\}", m.getUomLabels()),
                 Pair.of("\\{rangeFields\\}", rangeFields),
                 Pair.of("\\{coverageSubtype\\}", m.getCoverageType()),
-                Pair.of("\\{axisLabels\\}", m.getAxisLabels()),
+                Pair.of("\\{axisLabels\\}", AxisTypes.X_AXIS+" "+AxisTypes.Y_AXIS), //m.getAxisLabels()),
                 Pair.of("\\{gridType\\}", m.getGridType()),
                 Pair.of("\\{srsgroup\\}", getSrsGroup(m)),
+                Pair.of("\\{srsName\\}", getSrsName(m)),
+                Pair.of("\\{lowerCorner\\}", getLowerCorner(m)),
+                Pair.of("\\{upperCorner\\}", getUpperCorner(m)),
                 Pair.of("\\{additions\\}", getAdditions(m)));
 
         if (replaceBounds) {
@@ -188,14 +190,43 @@ public class WcsUtil {
                     .replaceAll("\\{high\\}", m.getHigh())
                     .replaceAll("\\{axisLabels\\}", m.getAxisLabels());
         }
+
         return ret;
     }
 
     private static String getSrsGroup(GetCoverageMetadata m) {
-        Wgs84Crs crs = m.getCrs();
-        if (crs != null) {
-            return " srsName=\"" + crs.getName() + "\" " +
+        //Wgs84Crs crs = m.getCrs();
+        Bbox bbox = m.getBbox();
+        if (bbox != null) {
+            return " srsName=\"" + bbox.getCrsName() + "\" " +
                     "srsDimension=\"" + m.getGridDimension() + "\"";
+        } else {
+            return "";
+        }
+    }
+
+    private static String getSrsName(GetCoverageMetadata m) {
+        Bbox bbox = m.getBbox();
+        if (bbox != null) {
+            return bbox.getCrsName();
+        } else {
+            return CrsUtil.IMAGE_CRS;
+        }
+    }
+    
+    private static String getLowerCorner(GetCoverageMetadata m) {
+        Bbox bbox = m.getBbox();
+        if (bbox != null) {
+            return bbox.getLow1() + " " + bbox.getLow2();
+        } else {
+            return "";
+        }
+    }
+        
+    private static String getUpperCorner(GetCoverageMetadata m) {
+        Bbox bbox = m.getBbox();
+        if (bbox != null) {
+            return bbox.getHigh1() + " " + bbox.getHigh2();
         } else {
             return "";
         }
@@ -203,16 +234,17 @@ public class WcsUtil {
 
     private static String getAdditions(GetCoverageMetadata m) {
         String ret = "";
-        Wgs84Crs crs;
+        //Wgs84Crs crs;
+        Bbox bbox;
         if (m.getCoverageType().equals(GetCoverageRequest.RECTIFIED_GRID_COVERAGE)) {
-            if (m.getCrs() != null) {
-                crs = m.getCrs();
+            if (m.getBbox() != null) {
+                bbox = m.getBbox();
                 return Templates.getTemplate(Templates.RECTIFIED_GRID_COVERAGE,
                         Pair.of("\\{pointId\\}", m.getCoverageId() + "-origin"),
-                        Pair.of("\\{srsName\\}", crs.getName()),
-                        Pair.of("\\{originPos\\}", crs.getLow1() + " " + crs.getLow2()),
-                        Pair.of("\\{offset1\\}", crs.getOffset1() + ""),
-                        Pair.of("\\{offset2\\}", crs.getOffset2() + ""));
+                        Pair.of("\\{srsName\\}", bbox.getCrsName()),
+                        Pair.of("\\{originPos\\}", bbox.getLow1() + " " + bbox.getLow2()),
+                        Pair.of("\\{offset1\\}", bbox.getOffset1() + ""),
+                        Pair.of("\\{offset2\\}", bbox.getOffset2() + ""));
             }
         }
         return ret;

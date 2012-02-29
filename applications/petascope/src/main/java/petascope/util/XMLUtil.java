@@ -206,7 +206,7 @@ public class XMLUtil {
 
         try {
             doc = builder.get().build(in, baseURI);
-        } catch (ParsingException ex) {
+        } catch (ParsingException ex) { 
             log.error(StringUtil.join("Error while building XML document: " + baseURI, ex.getMessage(),
                     "line: " + ex.getLineNumber() + ", column: " + ex.getColumnNumber()));
             throw ex;

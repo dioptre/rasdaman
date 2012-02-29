@@ -42,11 +42,11 @@ import org.slf4j.LoggerFactory;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.PetascopeException;
 import petascope.util.Pair;
+import petascope.wcps.server.core.Bbox;
 import petascope.wcps.server.core.CellDomainElement;
 import petascope.wcps.server.core.DomainElement;
 import petascope.wcps.server.core.InterpolationMethod;
 import petascope.wcps.server.core.RangeElement;
-import petascope.wcps.server.core.Wgs84Crs;
 import petascope.wcs2.parsers.GetCoverageRequest;
 import petascope.wcs2.templates.Templates;
 
@@ -399,7 +399,7 @@ public class DbMetadataSource implements IMetadataSource {
         try {
             ensureConnection();
             s = conn.createStatement();
-            ResultSet r = s.executeQuery("SELECT id FROM ps_coverage WHERE name='" + coverageName + "'");
+            ResultSet r = s.executeQuery("SELECT bbox FROM ps_coverage WHERE name='" + coverageName + "'");
             if (r.next()) {
                 return r.getString("id");
             }
@@ -418,7 +418,7 @@ public class DbMetadataSource implements IMetadataSource {
             close();
         }
     }
-
+        
     @Override
     public String formatToMimetype(String format) {
         return supportedFormats.get(format);
@@ -456,13 +456,18 @@ public class DbMetadataSource implements IMetadataSource {
             String interpolationTypeDefault = interpolationTypes.get(r.getInt("interpolationTypeDefault"));
             String nullResistanceDefault = nullResistances.get(r.getInt("nullResistanceDefault"));
 
-            r = s.executeQuery("SELECT lo, hi FROM PS_CellDomain WHERE coverage = '" + coverage + "' ORDER BY i ASC");
+            //r = s.executeQuery("SELECT lo, hi FROM PS_CellDomain WHERE coverage = '" + coverage + "' ORDER BY i ASC");
+            r = s.executeQuery("SELECT name, lo, hi FROM ps_domain, ps_celldomain "
+                    + "WHERE ps_domain.coverage = ps_celldomain.coverage "
+                    + "AND ps_domain.i = ps_celldomain.i "
+                    + "AND ps_celldomain.coverage = '" + coverage + "' "
+                    + "ORDER BY ps_celldomain.i ASC");
             CellDomainElement X = null, Y = null, cell;
             boolean twoDCoverage = true;
             List<CellDomainElement> cellDomain = new ArrayList<CellDomainElement>(r.getFetchSize());
 
             while (r.next()) {
-                cell = new CellDomainElement(BigInteger.valueOf(r.getInt("lo")), BigInteger.valueOf(r.getInt("hi")));
+                cell = new CellDomainElement(BigInteger.valueOf(r.getInt("lo")), BigInteger.valueOf(r.getInt("hi")), r.getString("name"));
                 cellDomain.add(cell);
                 if (X == null) {
                     X = cell;
@@ -540,16 +545,18 @@ public class DbMetadataSource implements IMetadataSource {
             }
 
             /* WGS84 is the only CRS we understand (except IMAGE_CRS, of course) */
-            Wgs84Crs crs = null;
+            //Wgs84Crs crs = null;
+            /* CRS-extension: store BBOX regardless of its CRS */
+            Bbox bbox = null;
             Double l1 = 0.0, l2 = 0.0, h1 = 0.0, h2 = 0.0;
             Double o1 = null, o2 = null;
             r = s.executeQuery("SELECT * FROM PS_CrsDetails WHERE coverage = '" + coverage + "'");
             if (r.next()) {
                 /* Domain extent */
-                int x0 = X.getLo().intValue();
-                int y0 = Y.getLo().intValue();
-                int x1 = X.getHi().intValue();
-                int y1 = Y.getHi().intValue();
+                int x0 = (X==null) ? null : X.getLo().intValue();
+                int y0 = (Y==null) ? null : Y.getLo().intValue();
+                int x1 = (X==null) ? null : X.getHi().intValue();
+                int y1 = (Y==null) ? null : Y.getHi().intValue();
                 /* CRS Bounding box */
                 l1 = r.getDouble("low1");
                 l2 = r.getDouble("low2");
@@ -564,7 +571,7 @@ public class DbMetadataSource implements IMetadataSource {
                     o2 = Double.parseDouble(off2);
                 }
                 /* Compute axis offsets if not predefined */
-                if (o1 == null && o2 == null) {
+                 if (o1 == null && o2 == null) {
                     o1 = (h1 - l1) / (double) (x1 - x0);
                     o2 = (h2 - l2) / (double) (y1 - y0);
                     log.debug("Calculated CRS axis offsets. For X: {}, for Y: {}", o1, o2);
@@ -572,17 +579,32 @@ public class DbMetadataSource implements IMetadataSource {
                     log.debug(Y.toString());
                 }
                 
+                // Read CRS specification of X axis (=Y) of this coverage and create the BBOX:
+                String crsName = null;
+                r = s.executeQuery(""
+                        + "SELECT ps_crs.name FROM ps_crs, ps_crsset, ps_domain, ps_coverage " 
+                        + "WHERE ps_crs.id=ps_crsset.crs "
+                        + "AND ps_crsset.axis=ps_domain.id "
+                        + "AND ps_domain.coverage=ps_coverage.id "
+                        + "AND ps_domain.name='x' " // or 'y', it's the same.
+                        + "AND ps_coverage.id='" + coverage + "'");
+                if (r.next()) {
+                    crsName = r.getString("name");
+                    log.debug("Read spatial CRS of coverage " + coverageName + ": " + crsName);
+                }
                 /* Only store CRS information if coverage is 2-D */
-                crs = new Wgs84Crs(l1, h1, l2, h2, o1, o2);
+                //crs = new Wgs84Crs(l1, h1, l2, h2, o1, o2);
+                /* CRS-Extension: store general BBOX information (can be !WGS84) */
+                bbox = new Bbox(crsName, l1, h1, l2, h2, o1, o2);
 
                 if (twoDCoverage == true) {                    
-                    log.trace("Found CRS : ", crs.toString());
+                    log.trace("Found CRS : ", bbox.toString());
                 } else {
                     log.warn("Found CRS '{}', but coverage is not 2-dimensional. "
-                            + "Ignoring CRS information.", crs.toString());                    
+                            + "Ignoring CRS information.", bbox.toString());                    
                 }
             } else if (twoDCoverage) {
-                log.warn(" WGS84 bounding box missing for 2-D coverage '" + coverageName + "'...");
+                log.warn(" Bounding box missing for 2-D coverage '" + coverageName + "'...");
             }
 
             /* Done with SQL statements */
@@ -591,7 +613,7 @@ public class DbMetadataSource implements IMetadataSource {
             /* Build the complete metadata object */
             Metadata meta = new Metadata(cellDomain, range, nullSet, nullDefault, interpolationSet,
                     new InterpolationMethod(interpolationTypeDefault, nullResistanceDefault),
-                    coverageName, coverageType, domain, crs, title, abstr, keywords);
+                    coverageName, coverageType, domain, bbox, title, abstr, keywords);
             meta.setCoverageId(coverage);
             log.trace("Caching coverage metadata.");
             cache.put(coverageName, meta);

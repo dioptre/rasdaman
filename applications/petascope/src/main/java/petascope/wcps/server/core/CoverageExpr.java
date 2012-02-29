@@ -32,7 +32,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
     private CoverageInfo info;
     private boolean scalarExpr = false;
 //    private String var;
-    private boolean simpleCoverage;    // True is the coverage is just a string
+    private boolean simpleCoverage;    // True if the coverage is just a string
 
     public CoverageExpr(Node node, XmlQuery xq) throws WCPSException {
         while ((node != null) && node.getNodeName().equals("#text")) {
@@ -145,6 +145,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
         }
     }
 
+    @Override
     public CoverageInfo getCoverageInfo() {
         return info;
     }
@@ -166,6 +167,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
         return child;
     }
 
+    @Override
     public String toRasQL() {
         if (simpleCoverage) {
             return childInfo;

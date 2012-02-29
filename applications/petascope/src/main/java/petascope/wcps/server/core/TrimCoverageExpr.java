@@ -31,7 +31,7 @@ import petascope.util.Pair;
 import petascope.util.WcsUtil;
 
 public class TrimCoverageExpr implements IRasNode, ICoverageInfo {
-
+    
     private List<DimensionIntervalElement> axisList;
     private CoverageExpr coverageExprType;
     private CoverageInfo coverageInfo;
@@ -75,7 +75,8 @@ public class TrimCoverageExpr implements IRasNode, ICoverageInfo {
             // else unknown element
             throw new WCPSException("Unknown node for TrimCoverage expression:" + child.getNodeName());
         }
-
+        
+        // Afterward
         dims = coverageInfo.getNumDimensions();
         dim = new String[dims];
 
@@ -105,15 +106,17 @@ public class TrimCoverageExpr implements IRasNode, ICoverageInfo {
             coverageInfo.setCellDimension(
                     axisId,
                     new CellDomainElement(
-                    BigInteger.valueOf(axisLo), BigInteger.valueOf(axisHi)));
+                    BigInteger.valueOf(axisLo), BigInteger.valueOf(axisHi), axis.getAxisName()));
         }
 
     }
 
+    @Override
     public CoverageInfo getCoverageInfo() {
         return coverageInfo;
     }
 
+    @Override
     public String toRasQL() {
         Pair<String[], String> res = computeRasQL();
         

@@ -23,6 +23,7 @@ package petascope.wcs2.parsers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 /**
  * Contains the common stuff found in DescribeCoverage, GetCoverage.

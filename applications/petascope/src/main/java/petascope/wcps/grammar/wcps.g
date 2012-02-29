@@ -13,6 +13,9 @@ History:
 03 06 2009 andreia	Complex expressions introduced in the "using" clause of general condense operations
 05 08 2009 andreia	Fixed definition of integer and floating-point numbers.
 31 03 2010 andreia      Added "sqrt" operation for scalar expressions
+18 02 2012 campalani    Corrected crsTransformExpr: replace dimensionIntervalList with new epxressions 
+                        dimensionCrsList/dimensionCrsElement (-> change WCPS documentation?).
+                        fieldInterpolationList's content set as optional (allow empty list {}).
 */
 grammar wcps;
 options{
@@ -23,9 +26,9 @@ language=Java;
 output=AST;
 }
 @header
-{package petascope.wcps.grammar;}}
+{package petascope.wcps.grammar;}
 @lexer::header
-{package petascope.wcps.grammar;}}
+{package petascope.wcps.grammar;}
 
 /* Parser Rules */
 
@@ -190,12 +193,19 @@ rangeConstructorExpr returns[RangeConstructorExpr value]
         (SEMICOLON field=fieldName COLON expr=coverageExpr { $value.add($field.value, $expr.value); })* RBRACE
     ;
 crsTransformExpr returns[CrsTransformExpr value]
-	: CRSTRANSFORM LPAREN e1=coverageExpr COMMA dcl=dimensionIntervalList COMMA fil=fieldInterpolationList RPAREN
-		{ $value = new CrsTransformExpr($e1.value, $dcl.value, $fil.value); }
-	;
+        : CRSTRANSFORM LPAREN e1=coverageExpr COMMA dcl=dimensionCrsList COMMA fil=fieldInterpolationList RPAREN
+                { $value = new CrsTransformExpr($e1.value, $dcl.value, $fil.value); }
+        ;
+dimensionCrsList returns[DimensionCrsList value]
+    : LBRACE elem=dimensionCrsElement { $value = new DimensionCrsList($elem.value); }
+        (COMMA elem=dimensionCrsElement { $value.add($elem.value); }) * RBRACE
+    ;
+dimensionCrsElement returns[DimensionCrsElement value]
+    : aname=axisName { $value = new DimensionCrsElement($aname.value); } COLON crs=crsName {$value.setCrs($crs.value); }
+    ;
 fieldInterpolationList returns[FieldInterpolationList value]
-	: LBRACE elem=fieldInterpolationElement { $value = new FieldInterpolationList($elem.value); }
-		(COMMA elem=fieldInterpolationElement { $value.add($elem.value); }) * RBRACE
+	: LBRACE (elem=fieldInterpolationElement { $value = new FieldInterpolationList($elem.value); }
+		(COMMA elem=fieldInterpolationElement { $value.add($elem.value); })) * RBRACE
 	;
 fieldInterpolationElement returns[FieldInterpolationElement value]
 	: aname=fieldName method=interpolationMethod { $value = new FieldInterpolationElement($aname.value, $method.value); }

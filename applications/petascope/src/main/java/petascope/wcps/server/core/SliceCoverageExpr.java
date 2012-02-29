@@ -63,7 +63,7 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo {
 
             try {
                 // Start a new axis and save it
-                elem = new DimensionPointElement(child, xq);
+                elem = new DimensionPointElement(child, xq, coverageInfo);
                 axisList.add(elem);
                 child = elem.getNextNode();
                 continue;
@@ -103,16 +103,18 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo {
             coverageInfo.setCellDimension(
                     axisId,
                     new CellDomainElement(
-                    BigInteger.valueOf(slicingPosInt), BigInteger.valueOf(slicingPosInt)));
+                    BigInteger.valueOf(slicingPosInt), BigInteger.valueOf(slicingPosInt), axis.getAxisName()));
 
         }
 
     }
 
+    @Override
     public CoverageInfo getCoverageInfo() {
         return coverageInfo;
     }
 
+    @Override
     public String toRasQL() {
         Pair<String[], String> res = computeRasQL();
         

@@ -27,14 +27,16 @@ import java.util.Iterator;
 import java.util.Set;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.WCPSException;
+import petascope.util.AxisTypes;
+import petascope.util.CrsUtil;
 
 /**
  * This is an axis in geographic coordinates. See the WCPS standard.
  */
 public class DomainElement implements Cloneable {
 
-    public static final String WGS84_CRS = "http://www.opengis.net/def/crs/EPSG/0/4326";
-    public static final String IMAGE_CRS = "CRS:1";
+    //public static final String WGS84_CRS = "http://www.opengis.net/def/crs/EPSG/0/4326";
+    //public static final String IMAGE_CRS = "CRS:1";
     private Set<String> crss;
     private String name;
     private Double numHi;
@@ -96,24 +98,24 @@ public class DomainElement implements Cloneable {
             }
         }
 
-        if ((type.equals("x") || type.equals("y")) && (numLo == null)) {
+        if ((type.equals(AxisTypes.X_AXIS) || type.equals(AxisTypes.Y_AXIS)) && (numLo == null)) {
             throw new WCPSException(ExceptionCode.InvalidMetadata, 
                     "Invalid domain element: A spatial axis must have integer extent");
-        } else if (type.equals("temporal") && (strLo == null)) {
+        } else if (type.equals(AxisTypes.TEMPORAL_AXIS) && (strLo == null)) {
             throw new WCPSException(ExceptionCode.InvalidMetadata, 
                     "Invalid domain element: A temporal axis must have string extent");
-        } else if (type.equals("t") && (numLo == null) || (numHi == null)) {
+        } else if (type.equals(AxisTypes.T_AXIS) && (numLo == null) || (numHi == null)) {
             throw new WCPSException(ExceptionCode.InvalidMetadata, "Invalid domain element: A \"t\" axis must have integer extent and optionally, string extent");
         }
 
         this.name = name;
         this.type = type;
 
-        if ((crss == null) || !crss.contains(IMAGE_CRS)) {
+        if ((crss == null) || !crss.contains(CrsUtil.IMAGE_CRS)) {
 //			throw new WCPSException(ExceptionCode.InvalidMetadata, 
 //			    "Invalid domain element: CRS set does not contain image CRS '"
-//			    + IMAGE_CRS + "'");
-            crss.add(IMAGE_CRS);
+//			    + CrsUtil.IMAGE_CRS + "'");
+            crss.add(CrsUtil.IMAGE_CRS);
         }
 
         this.crss = crss;

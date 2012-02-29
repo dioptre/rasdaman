@@ -26,10 +26,13 @@ import petascope.exceptions.WCPSException;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.LinkedList;
 import java.util.List;
 import org.w3c.dom.*;
 import petascope.exceptions.PetascopeException;
+import petascope.util.AxisTypes;
+import petascope.util.CrsUtil;
 
 public class ScalarExpr implements IRasNode, ICoverageInfo {
 
@@ -109,10 +112,12 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
         info = new CoverageInfo(meta);
     }
 
+    @Override
     public String toRasQL() {
         return child.toRasQL();
     }
 
+    @Override
     public CoverageInfo getCoverageInfo() {
         return info;
     }
@@ -121,32 +126,40 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
     private Metadata createScalarExprMetadata(XmlQuery xq) throws WCPSException {
         List<CellDomainElement> cellDomainList = new LinkedList<CellDomainElement>();
         List<RangeElement> rangeList = new LinkedList<RangeElement>();
-        HashSet<String> nullSet = new HashSet<String>();
+        //HashSet<String> nullSet = new HashSet<String>();
+        Set<String> nullSet = new HashSet<String>();
         String nullDefault = "0";
         nullSet.add(nullDefault);
-        HashSet<InterpolationMethod> interpolationSet = new HashSet<InterpolationMethod>();
+        //HashSet<InterpolationMethod> interpolationSet = new HashSet<InterpolationMethod>();
+        Set<InterpolationMethod> interpolationSet = new HashSet<InterpolationMethod>();
         InterpolationMethod interpolationDefault = new InterpolationMethod("none", "none");
         interpolationSet.add(interpolationDefault);
         String coverageName = "scalarExpr";
         List<DomainElement> domainList = new LinkedList<DomainElement>();
 
         // Build domain metadata
-        cellDomainList.add(new CellDomainElement(new BigInteger("1"), new BigInteger("1")));
-        String crs = DomainElement.IMAGE_CRS;
+        cellDomainList.add(new CellDomainElement(new BigInteger("1"), new BigInteger("1"), AxisTypes.X_AXIS));
+        String crs = CrsUtil.IMAGE_CRS;
         HashSet<String> crsset = new HashSet<String>();
         crsset.add(crs);
         Collection<String> allowedAxes = xq.getMetadataSource().getAxisNames();
-        DomainElement domain = new DomainElement("x", "x", 1.0, 1.0, null, null, crsset, allowedAxes, null);
+        DomainElement domain = new DomainElement(AxisTypes.X_AXIS, AxisTypes.X_AXIS, 1.0, 1.0, null, null, crsset, allowedAxes, null);
         domainList.add(domain);
         // "unsigned int" is default datatype
         rangeList.add(new RangeElement("dynamic_type", "unsigned int", null));
 
         try {
+            /** NOTE(campalani): nullSet and interpolationSet need to be declared
+             * as "Set" to be accepted by Metadata constructor (see above). 
+             * Then, Java polymorphism will understand the subtype (e.g. HashSet) on its own.
+             */            
             Metadata metadata = new Metadata(cellDomainList, rangeList, nullSet,
                     nullDefault, interpolationSet, interpolationDefault,
-                    coverageName, "GridCoverage", domainList, null); // FIXME
+                        coverageName, "GridCoverage", domainList, null);
             return metadata;
         } catch (PetascopeException ex) {
+            throw (WCPSException) ex;
+        } catch (Exception ex) {
             throw (WCPSException) ex;
         }
     }
@@ -157,5 +170,12 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
 
     public double getSingleValue() {
         return dvalue;
+    }
+    
+    /** (campalani)
+     * @param newD Replace numeric single value (e.g. when a coordinate transform is operated on this element).
+     */
+    public void setSingleValue(double newD) {
+        dvalue = newD;
     }
 }

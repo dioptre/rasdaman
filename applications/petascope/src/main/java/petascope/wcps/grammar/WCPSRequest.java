@@ -19,7 +19,8 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
-package petascope.wcps.grammar;
+package petascope.wcps.grammar;
+
 
 /**
  * WCPSRequest class represents a WCPSRequest.
@@ -50,6 +51,7 @@ public class WCPSRequest implements IParseTreeNode {
         returnClause = r;
     }
 
+    @Override
     public String toXML() {
         String result = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
 

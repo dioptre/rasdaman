@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Set;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.PetascopeException;
+import petascope.util.AxisTypes;
+import petascope.wcps.server.core.Bbox;
 import petascope.wcps.server.core.CellDomainElement;
 import petascope.wcps.server.core.DomainElement;
 import petascope.wcps.server.core.InterpolationMethod;
@@ -57,15 +59,17 @@ public class Metadata implements Cloneable {
     private String titleStr = "";
     private String abstractStr = "";
     private String keywordsStr = "";
-    private Wgs84Crs crs = null;
+    //private Wgs84Crs crs = null;
+    private Bbox bbox = null;
     private CellDomainElement cellX, cellY, cellT;
     private DomainElement domX, domY, domT;
 
     public Metadata(List<CellDomainElement> cellDomain, List<RangeElement> range,
             Set<String> nullSet, String nullDefault, Set<InterpolationMethod> interpolationSet,
             InterpolationMethod interpolationDefault, String coverageName, String coverageType,
-            List<DomainElement> domain, Wgs84Crs crs, String title, String abstr, String keywords) throws PetascopeException {
-        this(cellDomain, range, nullSet, nullDefault, interpolationSet, interpolationDefault, coverageName, coverageType, domain, crs);
+            //List<DomainElement> domain, Wgs84Crs crs, String title, String abstr, String keywords) throws PetascopeException {
+            List<DomainElement> domain, Bbox bbox, String title, String abstr, String keywords) throws PetascopeException {
+        this(cellDomain, range, nullSet, nullDefault, interpolationSet, interpolationDefault, coverageName, coverageType, domain, bbox);
         this.titleStr = title;
         this.abstractStr = abstr;
         this.keywordsStr = keywords;
@@ -74,7 +78,8 @@ public class Metadata implements Cloneable {
     public Metadata(List<CellDomainElement> cellDomain, List<RangeElement> range,
             Set<String> nullSet, String nullDefault, Set<InterpolationMethod> interpolationSet,
             InterpolationMethod interpolationDefault, String coverageName, String coverageType,
-            List<DomainElement> domain, Wgs84Crs crs) throws PetascopeException {
+            //List<DomainElement> domain, Wgs84Crs crs) throws PetascopeException {
+            List<DomainElement> domain, Bbox bbox) throws PetascopeException {
         if ((cellDomain == null) || (range == null) || (coverageName == null) || (nullSet == null) || (interpolationSet == null)) {
             throw new PetascopeException(ExceptionCode.InvalidMetadata, "Cell domain, range list, "
                     + "coverage name, null set, and interpolation set cannot be null for coverage " + coverageName);
@@ -187,7 +192,7 @@ public class Metadata implements Cloneable {
 
         this.interpolationSet = interpolationSet;
         this.interpolationDefault = interpolationDefault;
-        this.crs = crs;
+        this.bbox = bbox;
 
         this.coverageName = coverageName;
         this.coverageType = coverageType;
@@ -206,14 +211,14 @@ public class Metadata implements Cloneable {
                 DomainElement next = i.next();
                 CellDomainElement cell = ci.next();
                 Iterator<DomainElement> j = this.domain.iterator();
-                if (next.getType().equals("x")) {
+                
+                if (next.getType().equals(AxisTypes.X_AXIS)) {
                     cellX = cell;
                 }
-                if (next.getType().equals("y")) {
+                if (next.getType().equals(AxisTypes.Y_AXIS)) {
                     cellY = cell;
                 }
-                if (next.getType().equals("t") //                        || next.getType().equals("temporal")
-                        ) {
+                if (next.getType().equals(AxisTypes.T_AXIS) || next.getType().equals(AxisTypes.TEMPORAL_AXIS)) {
                     cellT = cell;
                     domT = next;
                 }
@@ -231,32 +236,32 @@ public class Metadata implements Cloneable {
                                 + "element name encountered for coverage " + coverageName);
                     }
 
-                    if (previous.getType().equals("temporal") && next.getType().equals("temporal")) {
+                    if (previous.getType().equals(AxisTypes.TEMPORAL_AXIS) && next.getType().equals(AxisTypes.TEMPORAL_AXIS)) {
                         throw new PetascopeException(ExceptionCode.InvalidMetadata, "Domain can contain"
                                 + " at most one temporal axis for coverage " + coverageName);
                     }
 
-                    if (previous.getType().equals("elevation") && next.getType().equals("elevation")) {
+                    if (previous.getType().equals(AxisTypes.ELEV_AXIS) && next.getType().equals(AxisTypes.ELEV_AXIS)) {
                         throw new PetascopeException(ExceptionCode.InvalidMetadata, "Domain can contain"
                                 + " at most one elevation axis for coverage " + coverageName);
                     }
 
-                    if (previous.getType().equals("x") && next.getType().equals("x")) {
+                    if (previous.getType().equals(AxisTypes.X_AXIS) && next.getType().equals(AxisTypes.X_AXIS)) {
                         throw new PetascopeException(ExceptionCode.InvalidMetadata, "Domain can contain"
                                 + " at most one x axis for coverage " + coverageName);
                     }
 
-                    if (previous.getType().equals("y") && next.getType().equals("y")) {
+                    if (previous.getType().equals(AxisTypes.Y_AXIS) && next.getType().equals(AxisTypes.Y_AXIS)) {
                         throw new PetascopeException(ExceptionCode.InvalidMetadata, "Domain can contain"
                                 + " at most one y axis for coverage " + coverageName);
                     }
 
-                    if (next.getType().equals("x")) {
+                    if (next.getType().equals(AxisTypes.X_AXIS)) {
                         boolean l = false;
                         Iterator<DomainElement> k = domain.iterator();
 
                         while (k.hasNext()) {
-                            if (k.next().getType().equals("y")) {
+                            if (k.next().getType().equals(AxisTypes.Y_AXIS)) {
                                 l = true;
                             }
                         }
@@ -266,12 +271,12 @@ public class Metadata implements Cloneable {
                                     + "contains a x axis, it must contain a y "
                                     + "axis as well for coverage " + coverageName);
                         }
-                    } else if (next.getType().equals("y")) {
+                    } else if (next.getType().equals(AxisTypes.Y_AXIS)) {
                         boolean l = false;
                         Iterator<DomainElement> k = domain.iterator();
 
                         while (k.hasNext()) {
-                            if (k.next().getType().equals("x")) {
+                            if (k.next().getType().equals(AxisTypes.X_AXIS)) {
                                 l = true;
                             }
                         }
@@ -328,7 +333,7 @@ public class Metadata implements Cloneable {
                 is.add(m.next().clone());
             }
 
-            return new Metadata(cd, r, ns, new String(nullDefault), is, interpolationDefault.clone(), new String(coverageName), new String(coverageType), d, crs, getAbstract(), getTitle(), getKeywords());
+            return new Metadata(cd, r, ns, new String(nullDefault), is, interpolationDefault.clone(), new String(coverageName), new String(coverageType), d, bbox, getAbstract(), getTitle(), getKeywords());
         } catch (PetascopeException ime) {
             throw new RuntimeException("Invalid metadata while cloning "
                     + "Metadata. This is a software bug in WCPS.", ime);
@@ -417,7 +422,20 @@ public class Metadata implements Cloneable {
 
         for (int index = 0; i.hasNext(); index++) {
             DomainElement dom = i.next();
-            if (dom.getName().equals(name)) {
+            if (dom.getName().equalsIgnoreCase(name)) {
+                return dom;
+            }
+        }
+
+        return null;
+    }
+    
+    public CellDomainElement getCellDomainByName(String name) {
+        Iterator<CellDomainElement> i = cellDomain.iterator();
+
+        for (int index = 0; i.hasNext(); index++) {
+            CellDomainElement dom = i.next();
+            if (dom.getName().equalsIgnoreCase(name)) {
                 return dom;
             }
         }
@@ -534,10 +552,13 @@ public class Metadata implements Cloneable {
         return interpolationDefault.getNullResistance();
     }
 
-    public Wgs84Crs getCrs() {
-        return crs;
+    //public Wgs84Crs getCrs() {
+    //    return crs;
+    //}
+    public Bbox getBbox() {
+        return bbox;
     }
-
+    
     /**
      * @return the X if it exists
      */

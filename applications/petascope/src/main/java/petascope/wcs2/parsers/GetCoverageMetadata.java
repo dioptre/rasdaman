@@ -33,6 +33,7 @@ import petascope.exceptions.WCSException;
 import petascope.util.ListUtil;
 import petascope.util.Pair;
 import petascope.util.WcsUtil;
+import petascope.wcps.server.core.Bbox;
 import petascope.wcps.server.core.CellDomainElement;
 import petascope.wcps.server.core.DomainElement;
 import petascope.wcps.server.core.RangeElement;
@@ -53,7 +54,8 @@ public class GetCoverageMetadata {
     private String gridType, gridId;
     private Integer gridDimension;
     private List<RangeField> rangeFields;
-    private Wgs84Crs crs;
+    //private Wgs84Crs crs;
+    private Bbox bbox;
 
     public GetCoverageMetadata(GetCoverageRequest request, DbMetadataSource meta) throws WCSException {
         coverageId = request.getCoverageId();
@@ -93,7 +95,7 @@ public class GetCoverageMetadata {
             RangeElement range = rit.next();
             rangeFields.add(new RangeField(metadata, range, ++i));
         }
-        crs = metadata.getCrs();
+        bbox = metadata.getBbox();
     }
 
     public String getAxisLabels() {
@@ -140,8 +142,11 @@ public class GetCoverageMetadata {
         return metadata;
     }
 
-    public Wgs84Crs getCrs() {
-        return crs;
+    //public Wgs84Crs getCrs() {
+    //    return crs;
+    //}
+    public Bbox getBbox() {
+        return bbox;
     }
 
     public void setAxisLabels(String axisLabels) {

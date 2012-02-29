@@ -56,6 +56,7 @@ public class GmlFormatExtension extends AbstractFormatExtension {
     @Override
     public boolean canHandle(GetCoverageRequest req) {
         return req.getFormat() == null || (!req.isMultipart() && MIME_GML.equals(req.getFormat()));
+        //return false;
     }
 
     @Override
@@ -70,7 +71,7 @@ public class GmlFormatExtension extends AbstractFormatExtension {
         setBounds(request, m, meta);
         String gml = WcsUtil.getGML(m, Templates.GRID_COVERAGE, true);
         gml = addCoverageData(gml, request, meta, m);
-
+        
         return new Response(gml);
     }
     

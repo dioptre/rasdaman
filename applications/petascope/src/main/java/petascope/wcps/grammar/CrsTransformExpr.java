@@ -19,7 +19,8 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
-package petascope.wcps.grammar;
+package petascope.wcps.grammar;
+
 
 /**
  * CrsTransformExpr
@@ -30,19 +31,23 @@ public class CrsTransformExpr implements IParseTreeNode {
 
     IParseTreeNode e1, e2, e3;
 
-    public CrsTransformExpr(CoverageExpr expr, DimensionIntervalList list1,
+    public CrsTransformExpr(CoverageExpr expr, DimensionCrsList list1,
             FieldInterpolationList list2) {
         e1 = expr;
         e2 = list1;
         e3 = list2;
     }
 
+    @Override
     public String toXML() {
         String result = "";
 
         result += e1.toXML();
         result += e2.toXML();
-        result += e3.toXML();
+        // FieldInterpolation is not mandatory
+        if (e3 != null)
+            result += e3.toXML();
+        // else: set default values?
 
         result = "<crsTransform>" + result + "</crsTransform>";
         return result;

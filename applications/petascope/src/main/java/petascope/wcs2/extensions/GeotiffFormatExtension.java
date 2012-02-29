@@ -43,6 +43,7 @@ public class GeotiffFormatExtension extends  AbstractFormatExtension {
     @Override
     public boolean canHandle(GetCoverageRequest req) {
         return !req.isMultipart() && MIME_TIFF.equals(req.getFormat());
+        //return true;
     }
 
     @Override
@@ -64,6 +65,7 @@ public class GeotiffFormatExtension extends  AbstractFormatExtension {
             // return GeoTIFF
             p = executeRasqlQuery(request, m, meta, TIFF_ENCODING, null);
         }
+
         RasQueryResult res = new RasQueryResult(p.fst);
         if (res.getMdds().isEmpty()) {
             return new Response(null, null, MIME_TIFF);

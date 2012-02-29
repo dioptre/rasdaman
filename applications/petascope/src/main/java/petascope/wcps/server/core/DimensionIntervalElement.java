@@ -25,12 +25,18 @@ import petascope.core.Metadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
-import org.w3c.dom.*;
 import petascope.exceptions.WCSException;
+import org.w3c.dom.*;
+import petascope.util.CrsUtil;
 
+/**
+ * @author <?>
+ * @author <a href="mailto:cmppri@unife.it">Piero Campalani</a>
+ */
 public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
 
     Logger log = LoggerFactory.getLogger(DimensionIntervalElement.class);
+    
     private IRasNode child;
     private CoverageInfo info = null;
     private AxisName axis;
@@ -54,7 +60,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
             throws WCPSException {
 
         if (covInfo.getCoverageName() != null) {
-            // Add WGS84 CRS information from coverage metadata, may be useful
+            // Add Bbox information from coverage metadata, may be useful
             // for converting geo-coordinates to pixel-coordinates
             String coverageName = covInfo.getCoverageName();
             try {
@@ -142,51 +148,49 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
             node = node.getNextSibling();
         }
 
-        if (finished == true) {
-            convertToPixelCoordinates();
+        // Pixel indices are retrieved from bbox, which is stored for XY plane only.
+        if (finished == true && !crs.getName().equals(CrsUtil.IMAGE_CRS)) {
+           convertToPixelCoordinates(); 
         }
     }
 
-
     /* If input coordinates are geo-, convert them to pixel coordinates. */
     private void convertToPixelCoordinates() {
-        if (meta.getCrs() == null && crs != null && crs.getName().equals(DomainElement.WGS84_CRS)) {
+        //if (meta.getCrs() == null && crs != null && crs.getName().equals(DomainElement.WGS84_CRS)) {
+        if (meta.getBbox() == null && crs != null) {
             throw new RuntimeException("Coverage '" + meta.getCoverageName()
-                    + "' is not georeferenced with 'EPSG:4326' coordinate system.");
+                    //+ "' is not georeferenced with 'EPSG:4326' coordinate system.");
+                    + "' is not georeferenced.");
         }
         if (counter == 2 && crs != null && domain1.isSingleValue() && domain2.isSingleValue()) {
-            if (crs.getName().equals(DomainElement.WGS84_CRS)) {
-                log.debug("CRS is '{}' and should be equal to '{}'", crs.getName(), DomainElement.WGS84_CRS);
+            //if (crs.getName().equals(DomainElement.WGS84_CRS)) {
+                //log.debug("CRS is '{}' and should be equal to '{}'", crs.getName(), DomainElement.WGS84_CRS);
+                log.debug("[Transformed] requested subsettingCrs is '{}', should match now native CRS is '{}'", crs.getName(), meta.getBbox().getCrsName());
                 try {
                     this.transformedCoordinates = true;
                     // Convert to pixel coordinates
                     Double val1 = domain1.getSingleValue();
                     Double val2 = domain2.getSingleValue();
-                    String axisName = axis.toRasQL().toUpperCase();
-                    if (axisName.equals("X")) {
-                        long[] pCoord = crs.convertToPixelCoordinates(meta, "X", val1, val2, null, null);
-                        coord1 = pCoord[0];
-                        coord2 = pCoord[1];
-                    }
-                    if (axisName.equals("Y")) {
-                        long[] pCoord = crs.convertToPixelCoordinates(meta, "Y", null, null, val1, val2);
-                        coord1 = pCoord[2];
-                        coord2 = pCoord[3];
-                    }
+                    String axisName = axis.toRasQL(); //.toUpperCase();
+                    int[] pCoord = crs.convertToPixelIndices(meta, axisName, val1, val2);
+                    coord1 = pCoord[0];
+                    coord2 = pCoord[1];
                 } catch (WCSException e) {
                     this.transformedCoordinates = false;
                     log.error("Error while transforming geo-coordinates to pixel coordinates."
                             + "The metadata is probably not valid.");
                 }
-            }
+            //}
         }
     }
 
     /* Not used */
+    @Override
     public String toRasQL() {
         return "<DimensionIntervalElement Not Converted to RasQL>";
     }
 
+    @Override
     public CoverageInfo getCoverageInfo() {
         return info;
     }

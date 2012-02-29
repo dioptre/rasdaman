@@ -19,7 +19,8 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
-package petascope.wcps.grammar;
+package petascope.wcps.grammar;
+
 
 /**
  * ProcessingExpr
@@ -34,6 +35,7 @@ public class ProcessingExpr implements IParseTreeNode {
         expr = e;
     }
 
+    @Override
     public String toXML() {
         return expr.toXML();
     }

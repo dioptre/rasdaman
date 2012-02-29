@@ -21,19 +21,42 @@
  */
 package petascope.wcps.server.core;
 
+import petascope.core.Metadata;
 import petascope.exceptions.WCPSException;
+import petascope.exceptions.WCSException;
 import org.w3c.dom.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import petascope.util.CrsUtil;
 
 public class DimensionPointElement implements IRasNode {
 
-    private IRasNode domain, child;
+    Logger log = LoggerFactory.getLogger(DimensionPointElement.class);
+    
+    private IRasNode child;
+    private ScalarExpr domain;
     private AxisName axis;
     private Crs crs;
     private boolean finished = false;
     private Node nextNode;
-
-    public DimensionPointElement(Node node, XmlQuery xq)
+    private Metadata meta = null;       // metadata about the current coverage
+    private boolean transformedCoordinates = false;
+    private long coord;
+    
+    public DimensionPointElement(Node node, XmlQuery xq, CoverageInfo covInfo)
             throws WCPSException {
+        
+        if (covInfo.getCoverageName() != null) {
+            // Add Bbox information from coverage metadata, may be useful
+            // for converting geo-coordinates to pixel-coordinates
+            String coverageName = covInfo.getCoverageName();
+            try {
+                meta = xq.getMetadataSource().read(coverageName);
+            } catch (Exception ex) {
+                throw new WCPSException(ex.getMessage(), ex);
+            }
+        }
+        
         String name;
 
         while ((node != null) && node.getNodeName().equals("#text")) {
@@ -104,8 +127,41 @@ public class DimensionPointElement implements IRasNode {
 
             node = node.getNextSibling();
         }
+        
+        // Pixel indices are retrieved from bbox, which is stored for XY plane only.
+        if (finished == true && !crs.getName().equals(CrsUtil.IMAGE_CRS)) {
+           convertToPixelCoordinate(); 
+        }
     }
 
+    /* If input coordinates are geo-, convert them to pixel coordinates. */
+    private void convertToPixelCoordinate() {
+        //if (meta.getCrs() == null && crs != null && crs.getName().equals(DomainElement.WGS84_CRS)) {
+        if (meta.getBbox() == null && crs != null) {
+            throw new RuntimeException("Coverage '" + meta.getCoverageName()
+                    //+ "' is not georeferenced with 'EPSG:4326' coordinate system.");
+                    + "' is not georeferenced.");
+        }        
+        if (crs != null && domain.isSingleValue()) {
+            //if (crs.getName().equals(DomainElement.WGS84_CRS)) {
+                //log.debug("CRS is '{}' and should be equal to '{}'", crs.getName(), DomainElement.WGS84_CRS);
+                log.debug("[Transformed] requested subsettingCrs is '{}', should match now native CRS is '{}'", crs.getName(), meta.getBbox().getCrsName());
+                try {
+                    this.transformedCoordinates = true;
+                    // Convert to pixel coordinates
+                    Double val = domain.getSingleValue();
+                    String axisName = axis.toRasQL(); //.toUpperCase();
+                    coord = crs.convertToPixelIndices(meta, axisName, val);
+                } catch (WCSException e) {
+                    this.transformedCoordinates = false;
+                    log.error("Error while transforming geo-coordinates to pixel coordinates."
+                            + "The metadata is probably not valid.");
+                }
+            //}
+        } // else no crs was embedded in the slice expression 
+    }
+
+    @Override
     public String toRasQL() {
         return child.toRasQL();
     }
@@ -123,6 +179,10 @@ public class DimensionPointElement implements IRasNode {
     }
 
     public String getSlicingPosition() {
-        return this.domain.toRasQL();
+        if (transformedCoordinates) {
+            return String.valueOf(coord);
+        } else {
+            return this.domain.toRasQL();
+        }
     }
 }

@@ -26,8 +26,6 @@ import petascope.wcs2.parsers.Request;
 import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import petascope.core.DbMetadataSource;
 import static petascope.util.XMLSymbols.*;
 
@@ -56,6 +54,7 @@ public abstract class AbstractRequestHandler<T extends Request> implements Reque
         root.addNamespaceDeclaration(PREFIX_OWS, NAMESPACE_OWS);
         root.addNamespaceDeclaration(PREFIX_WCS, NAMESPACE_WCS);
         root.addNamespaceDeclaration(PREFIX_GML, NAMESPACE_GML);
+        root.addNamespaceDeclaration(PREFIX_CRS, NAMESPACE_CRS);
         root.setNamespacePrefix(PREFIX_WCS);
         root.setNamespaceURI(NAMESPACE_WCS);
 

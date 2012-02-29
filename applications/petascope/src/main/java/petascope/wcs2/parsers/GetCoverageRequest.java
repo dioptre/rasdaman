@@ -23,6 +23,7 @@ package petascope.wcs2.parsers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import petascope.util.ListUtil;
 import petascope.wcs2.extensions.FormatExtension;
 
@@ -107,6 +108,7 @@ public class GetCoverageRequest extends BaseRequest {
     private final String format;
     private final boolean multipart;
     private final List<DimensionSubset> subsets;
+    private final List<CRS> crsExt;    // use List to allow lazy init of final CRS
 
     public GetCoverageRequest(String coverageId) {
         this(coverageId, FormatExtension.MIME_GML, false);
@@ -117,6 +119,7 @@ public class GetCoverageRequest extends BaseRequest {
         this.format = format;
         this.multipart = multipart;
         this.subsets = new ArrayList<DimensionSubset>();
+        this.crsExt = new ArrayList<CRS>();
     }
 
     public String getCoverageId() {
@@ -126,13 +129,28 @@ public class GetCoverageRequest extends BaseRequest {
     public List<DimensionSubset> getSubsets() {
         return subsets;
     }
+    
+    public DimensionSubset getSubset(String dim) {
+        ListIterator<DimensionSubset> it = subsets.listIterator();
+        while (it.hasNext()) {
+            if (dim.equals(it.next().getDimension())) {
+                it.previous(); 
+                return it.next();
+            }
+        }    
+        return null;
+    }
 
     public String getFormat() {
         return format;
     }
-
+    
     public boolean isMultipart() {
         return multipart;
+    }
+    
+    public List<CRS> getCRS() {
+        return crsExt;
     }
 
     @Override
@@ -143,7 +161,9 @@ public class GetCoverageRequest extends BaseRequest {
     public static class DimensionSubset {
 
         protected final String dimension;
-        protected final String crs;
+        //protected final String crs;
+        protected String crs;
+        protected boolean transformed; // on subsettingCrs specification (campalani)
 
         public DimensionSubset(String dimension) {
             this(dimension, null);
@@ -152,6 +172,7 @@ public class GetCoverageRequest extends BaseRequest {
         public DimensionSubset(String dimension, String crs) {
             this.dimension = dimension;
             this.crs = crs;
+            this.transformed = false;
         }
 
         public String getDimension() {
@@ -162,6 +183,21 @@ public class GetCoverageRequest extends BaseRequest {
             return crs;
         }
 
+        /** NOTE(campalani): to avoid second wrong CRS transformsetBounds
+         *  (both setBounds and addCoverageData loop through AbstractFormatExtension)         * 
+         */
+        public boolean isCrsTransformed() {
+            return transformed;
+        }
+        
+        public void isCrsTransformed(boolean value) {
+            transformed = value;
+        }
+        // When transforming a subset, change crs accordingly
+        public void setCrs(String value) {
+            crs = value;
+        }
+        
         @Override
         public String toString() {
             return dimension + ((crs != null) ? "," + crs : "");
@@ -170,8 +206,11 @@ public class GetCoverageRequest extends BaseRequest {
 
     public static class DimensionTrim extends DimensionSubset {
 
-        private final String trimLow;
-        private final String trimHigh;
+        //private final String trimLow;
+        //private final String trimHigh;
+        private String trimLow;
+        private String trimHigh;
+        
 
         public DimensionTrim(String dimension, String trimLow, String trimHigh) {
             this(dimension, null, trimLow, trimHigh);
@@ -190,7 +229,26 @@ public class GetCoverageRequest extends BaseRequest {
         public String getTrimLow() {
             return trimLow;
         }
-
+        /**
+         * @param value Set new lower bound to 1D domain (due to a CRS transformation).
+         */
+        public void setTrimLow(String value) {
+            trimLow = value;
+        }
+        public void setTrimLow(Double value){
+            setTrimLow(value.toString());
+        }
+                
+        /**
+         * @param value Set new upper bound to 1D domain (due to a CRS transformation).
+         */
+        public void setTrimHigh(String value) {
+            trimHigh = value;
+        }
+        public void setTrimHigh(Double value) {
+            setTrimHigh(value.toString());
+        }
+        
         @Override
         public String toString() {
             return super.toString() + "(" + trimLow + "," + trimHigh + ")";
@@ -199,7 +257,8 @@ public class GetCoverageRequest extends BaseRequest {
 
     public static class DimensionSlice extends DimensionSubset {
 
-        private final String slicePoint;
+        //private final String slicePoint;
+        private String slicePoint;
 
         public DimensionSlice(String dimension, String slicePoint) {
             this(dimension, null, slicePoint);
@@ -214,9 +273,47 @@ public class GetCoverageRequest extends BaseRequest {
             return slicePoint;
         }
 
+        public void setSlicePoint(String value) {
+            slicePoint = value;
+        }
+        public void setSlicePoint(Double value){
+            setSlicePoint(value.toString());
+        }
+        
         @Override
         public String toString() {
             return super.toString() + "(" + slicePoint + ")";
+        }
+    }
+    
+    // CRS-extension additional (optional) parameters
+    public static class CRS {
+        private String subsettingCrs;
+        private String outputCrs;
+
+        // Constructor
+        public CRS(String subset, String out) {
+            subsettingCrs = subset;
+            outputCrs = out;
+        }
+        
+        // Interface
+        public String getSubsettingCrs() {
+            return subsettingCrs;
+        }            
+
+        public String getOutputCrs() {                
+            return outputCrs;
+        }
+        
+        // NOTE(campalani): initial null values (when no CRS values as specified
+        //  need to be replaced with default values, relative to requested coverage.
+        public void setSubsettingCrs(String value) {
+            subsettingCrs = value;
+        }
+        
+        public void setOutputCrs(String value) {
+            outputCrs = value;
         }
     }
 }

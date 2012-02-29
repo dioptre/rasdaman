@@ -33,6 +33,8 @@ import java.util.regex.Pattern;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.WCSException;
 import petascope.util.ListUtil;
+import petascope.util.CrsUtil;
+import petascope.util.TimeUtil;
 import petascope.wcs2.extensions.FormatExtension;
 import petascope.wcs2.parsers.GetCoverageRequest.DimensionSlice;
 import petascope.wcs2.parsers.GetCoverageRequest.DimensionTrim;
@@ -45,7 +47,7 @@ import petascope.wcs2.parsers.GetCoverageRequest.DimensionTrim;
 public class KVPGetCoverageParser extends KVPParser<GetCoverageRequest> {
 
     //                                                          dim=$1  crs=$2      low=$4  high=$5
-    private static final Pattern PATTERN = Pattern.compile("([^,\\(]+)(,([^\\(]+))?\\(([^,\\)]+)(,([^\\)]+))?\\)");
+        private static final Pattern PATTERN = Pattern.compile("([^,\\(]+)(,([^\\(]+))?\\(([^,\\)]+)(,([^\\)]+))?\\)");
 
     /**
      * Parses any subset parameters defined as in OGC 09-147r1 standard(e.g. ...&subset=x(200,300)&subset=y(300,200))
@@ -66,7 +68,8 @@ public class KVPGetCoverageParser extends KVPParser<GetCoverageRequest> {
                     ret.put(key + value, value);
                 }
                 //Backward compatibility
-                else if (key.toLowerCase().startsWith("subset")) {                    
+                else if (key.toLowerCase().startsWith("subset") 
+                        && !key.equalsIgnoreCase("subsettingCrs")) {
                     ret.put(key + value, value);
                 }
             }
@@ -78,7 +81,7 @@ public class KVPGetCoverageParser extends KVPParser<GetCoverageRequest> {
     @Override
     public GetCoverageRequest parse(String input) throws WCSException {
         Map<String, List<String>> p = StringUtil.parseQuery(input);
-        checkEncodingSyntax(p, "coverageid", "version", "mediatype", "format");
+        checkEncodingSyntax(p, "coverageid", "version", "mediatype", "format", "subsettingcrs", "outputcrs");
         List<String> coverageIds = p.get("coverageid");
         if (coverageIds.size() != 1) {
             throw new WCSException(ExceptionCode.InvalidRequest,
@@ -90,9 +93,37 @@ public class KVPGetCoverageParser extends KVPParser<GetCoverageRequest> {
             throw new WCSException(ExceptionCode.InvalidRequest,
                     "The 'MEDIATYPE=multipart/mixed & FORMAT=application/gml+xml' combination is not applicable");
         }
+
         GetCoverageRequest ret = new GetCoverageRequest(coverageIds.get(0), format,
                 FormatExtension.MIME_MULTIPART.equals(mediaType));
 
+        /* CRS-extension parameters: */
+        // subsettingCrs
+        String subCrs=null, outCrs=null;
+        List<String> list = p.get("subsettingcrs");
+        if (list != null && list.size() > 1)
+            throw new WCSException(ExceptionCode.InvalidRequest, "Multiple \"subsettingCrs\" parameters in the request: must be unique.");
+        else {
+            subCrs = ListUtil.head(list);
+            if (!(subCrs == null) && !CrsUtil.isValidCrsCode(subCrs))
+                throw new WCSException(ExceptionCode.NotASubsettingCrs, "subsettingCrs " + subCrs + " is not valid.");
+            if (!(subCrs == null) && !CrsUtil.isSupportedCrsCode(subCrs))
+                throw new WCSException(ExceptionCode.SubsettingCrsNotSupported, "subsettingCrs " + subCrs + " is not supported.");
+        }
+        // outputCrs
+        list = p.get("outputcrs");
+        if (list != null && list.size() > 1)
+            throw new WCSException(ExceptionCode.InvalidRequest, "Multiple \"outputCrs\" parameters in the request: must be unique.");
+        else {
+            outCrs = ListUtil.head(list);
+            if (!(outCrs == null) && !CrsUtil.isValidCrsCode(outCrs))
+                throw new WCSException(ExceptionCode.NotAnOutputCrs, "outputCrs " + outCrs + " is not valid.");
+            if (!(outCrs == null) && !CrsUtil.isSupportedCrsCode(outCrs))
+                throw new WCSException(ExceptionCode.SubsettingCrsNotSupported, "outputCrs " + outCrs + " is not supported.");
+        }        
+        if (!(subCrs==null) || !(outCrs==null)) 
+            ret.getCRS().add(new GetCoverageRequest.CRS(subCrs, outCrs));
+        
         HashMap<String, String> subsets = parseSubsetParams(input);
         for (Map.Entry<String, String> subset : subsets.entrySet()) {
                 String subsetKey = (String)subset.getKey();
@@ -109,6 +140,16 @@ public class KVPGetCoverageParser extends KVPParser<GetCoverageRequest> {
                         ret.getSubsets().add(new DimensionTrim(dim, crs, low, high));
                     } else {
                         throw new WCSException(ExceptionCode.InvalidEncodingSyntax.locator(subsetKey));
+                    }
+                    
+                    // Check time-subset validity (YYYY-MM-DD)
+                    if (dim.equalsIgnoreCase("T") || dim.equalsIgnoreCase("TEMPORAL")) {
+                        if (low != null && !TimeUtil.isValidTimestamp(low)) {
+                            throw new WCSException(ExceptionCode.InvalidParameterValue, "Timestamp \"" + low + "\" is not valid (pattern is YYYY-MM-DD).");
+                        }
+                        if (high != null && !TimeUtil.isValidTimestamp(high)) {
+                            throw new WCSException(ExceptionCode.InvalidParameterValue, "Timestamp \"" + high + "\" is not valid (pattern is YYYY-MM-DD).");
+                        }
                     }
                 } else {
                     throw new WCSException(ExceptionCode.InvalidEncodingSyntax.locator(subsetKey));

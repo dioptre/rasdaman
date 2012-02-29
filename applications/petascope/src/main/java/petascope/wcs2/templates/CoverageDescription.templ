@@ -7,9 +7,9 @@
     xmlns:swe='http://www.opengis.net/swe/2.0'
     xmlns:wcs='http://www.opengis.net/wcs/2.0' gml:id="{coverageId}">
   <boundedBy>
-    <Envelope axisLabels="{axisLabels}" uomLabels="{uomLabels}" srsDimension="{gridDimension}">
-      <lowerCorner>{low}</lowerCorner>
-      <upperCorner>{high}</upperCorner>
+    <Envelope srsName="{srsName}" axisLabels="{axisLabels}" uomLabels="{uomLabels}" srsDimension="{gridDimension}">
+      <lowerCorner>{lowerCorner}</lowerCorner>
+      <upperCorner>{upperCorner}</upperCorner>
     </Envelope>
   </boundedBy>
   <wcs:CoverageId>{coverageId}</wcs:CoverageId>

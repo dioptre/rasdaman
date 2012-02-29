@@ -37,9 +37,11 @@ import petascope.ConfigManager;
 import petascope.core.DbMetadataSource;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.WCSException;
+import petascope.util.CrsUtil;
 import petascope.util.XMLUtil;
 import petascope.wcs2.Wcs2Servlet;
 import petascope.wcs2.extensions.ExtensionsRegistry;
+import petascope.wcps.server.core.Bbox;
 import static petascope.util.XMLSymbols.*;
 
 /**
@@ -97,6 +99,16 @@ public class GetCapabilitiesHandler extends AbstractRequestHandler<GetCapabiliti
         // ServiceMetadata
         Element serviceMetadata = Templates.getXmlTemplate(Templates.SERVICE_METADATA);
         if (serviceMetadata != null) {
+            //: CRS [Req9: /req/crs/wcsServiceMetadata-outputCrs]
+            Element crsMetadata = new Element(PREFIX_CRS + ":" + LABEL_CRS_METADATA, NAMESPACE_CRS);
+            Element supportedCrs;
+            for (Integer code : CrsUtil.SUPPORTED_EPSG) {
+                supportedCrs = new Element(PREFIX_CRS + ":" + ATT_SUPPORTED_CRS, NAMESPACE_CRS);
+                supportedCrs.appendChild(CrsUtil.CrsUri("EPSG", code));
+                crsMetadata.appendChild(supportedCrs);
+            }
+            serviceMetadata.appendChild(crsMetadata);
+            //:~
             root.appendChild(serviceMetadata.copy());
         }
 
@@ -108,6 +120,7 @@ public class GetCapabilitiesHandler extends AbstractRequestHandler<GetCapabiliti
             while (it.hasNext()) {
                 Element cs = new Element(LABEL_COVERAGE_SUMMARY, NAMESPACE_WCS);
                 Element c = null;
+                Element cc = null; 
                 c = new Element(LABEL_COVERAGE_ID, NAMESPACE_WCS);
                 String coverageId = it.next();
                 c.appendChild(coverageId);
@@ -116,6 +129,40 @@ public class GetCapabilitiesHandler extends AbstractRequestHandler<GetCapabiliti
                 c.appendChild(meta.coverageType(coverageId));
                 cs.appendChild(c);
                 contents.appendChild(cs);
+                /** Append Native Bbox **/
+                Bbox bbox = meta.read(coverageId).getBbox();
+                c = new Element(LABEL_BBOX, NAMESPACE_WCS);
+                // lower-left + upper-right coords
+                cc = new Element(ATT_LOWERCORNER, NAMESPACE_WCS);
+                cc.appendChild(bbox.getLow1() + " " + bbox.getLow2());
+                c.appendChild(cc);
+                cc = new Element(ATT_UPPERCORNER, NAMESPACE_WCS);
+                cc.appendChild(bbox.getHigh1() + " " + bbox.getHigh2());
+                c.appendChild(cc);
+                // dimensions and crs attributes
+                Attribute crs = new Attribute("crs", bbox.getCrsName());
+                Attribute dimensions = new Attribute("dimensions", "" + "2"); //+   meta.read(coverageId).getCellDomainList().size());
+                c.addAttribute(crs);
+                c.addAttribute(dimensions);
+                cs.appendChild(c);                
+                /** Append WGS84 Bbox **/
+                if (!bbox.getCrsName().equals(CrsUtil.WGS84_CRS) &&
+                        !bbox.getCrsName().equalsIgnoreCase(CrsUtil.IMAGE_CRS)) {
+                    c = new Element(LABEL_WGS84_BBOX, NAMESPACE_WCS);
+                    // lower-left + upper-right coords
+                    cc = new Element(ATT_LOWERCORNER, NAMESPACE_WCS);
+                    cc.appendChild(String.format("%.2f", bbox.getWgs84Low1()) + " " + String.format("%.2f", bbox.getWgs84Low2()));
+                    c.appendChild(cc);
+                    cc = new Element(ATT_UPPERCORNER, NAMESPACE_WCS);
+                    cc.appendChild(String.format("%.2f", bbox.getWgs84High1()) + " " + String.format("%.2f", bbox.getWgs84High2()));
+                    c.appendChild(cc);
+                    // dimensions and crs attributes
+                    crs = new Attribute("crs", CrsUtil.WGS84_CRS);
+                    dimensions = new Attribute("dimensions", "2");
+                    c.addAttribute(crs);
+                    c.addAttribute(dimensions);
+                    cs.appendChild(c);                    
+                }
             }
         } catch (PetascopeException ex) {
             log.error("Error", ex);

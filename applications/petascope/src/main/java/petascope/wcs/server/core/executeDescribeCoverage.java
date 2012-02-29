@@ -47,6 +47,7 @@ import net.opengis.wcs.ows.v_1_1_0.AnyValue;
 import net.opengis.wcs.v_1_1_0.TimeSequenceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import petascope.util.CrsUtil;
 
 /**
  * This class takes a WCS DescribeCoverage XML request and executes request,
@@ -156,7 +157,7 @@ public class executeDescribeCoverage {
             lo2 = Y.getLo().doubleValue();
             hi2 = Y.getHi().doubleValue();
 
-            bbox.setCrs(DomainElement.IMAGE_CRS);
+            bbox.setCrs(CrsUtil.IMAGE_CRS);
 
             bbox.getLowerCorner().add(lo1);
             bbox.getLowerCorner().add(lo2);
@@ -167,22 +168,24 @@ public class executeDescribeCoverage {
                     + "not find X and Y cell domain extents.");
         }
 
-        /* Try to use WGS84 bounding box, if available */
-        Wgs84Crs crs = cov.getCrs();
-        BoundingBoxType bbox84 = new BoundingBoxType();
-        bbox84.setCrs(DomainElement.WGS84_CRS);
-        if (crs != null) {
-            lo1 = crs.getLow1().doubleValue();
-            hi1 = crs.getHigh1().doubleValue();
-            lo2 = crs.getLow2().doubleValue();
-            hi2 = crs.getHigh2().doubleValue();
+        /* Try to use bounding box, if available */
+        //Wgs84Crs crs = cov.getCrs();
+        Bbox boundbox = cov.getBbox();
+        BoundingBoxType bboxType = new BoundingBoxType();
+        //bbox84.setCrs(DomainElement.WGS84_CRS);
+        bboxType.setCrs(boundbox.getCrsName());
+        if (boundbox != null) {
+            lo1 = boundbox.getLow1().doubleValue();
+            hi1 = boundbox.getHigh1().doubleValue();
+            lo2 = boundbox.getLow2().doubleValue();
+            hi2 = boundbox.getHigh2().doubleValue();
 
-            bbox84.getLowerCorner().add(lo1);
-            bbox84.getLowerCorner().add(lo2);
-            bbox84.getUpperCorner().add(hi1);
-            bbox84.getUpperCorner().add(hi2);
+            bboxType.getLowerCorner().add(lo1);
+            bboxType.getLowerCorner().add(lo2);
+            bboxType.getUpperCorner().add(hi1);
+            bboxType.getUpperCorner().add(hi2);
 
-            bbox = bbox84;
+            bbox = bboxType;
         }
 
         domain = new CoverageDomainType();
@@ -258,9 +261,10 @@ public class executeDescribeCoverage {
         }
 
         // Available CRSs for current coverage
-        desc.getSupportedCRS().add(DomainElement.IMAGE_CRS);
-        if (cov.getCrs() != null) {
-            desc.getSupportedCRS().add(DomainElement.WGS84_CRS);
+        desc.getSupportedCRS().add(CrsUtil.IMAGE_CRS);
+        if (cov.getBbox() != null) {
+            //desc.getSupportedCRS().add(DomainElement.WGS84_CRS);
+            desc.getSupportedCRS().add(cov.getBbox().getCrsName());
         }
 
         log.trace("Done building the Coverage Description for coverage '" + name + "'.");

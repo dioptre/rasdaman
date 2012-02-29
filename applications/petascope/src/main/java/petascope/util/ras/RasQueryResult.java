@@ -21,10 +21,12 @@ public class RasQueryResult extends AbstractRasQueryResult {
         inspect();
     }
 
+    @Override
     public void mdd(RasGMArray res) {
         mdds.add(res.getArray());
     }
 
+    @Override
     public void scalar(Object res) {
         scalars.add(res.toString());
     }

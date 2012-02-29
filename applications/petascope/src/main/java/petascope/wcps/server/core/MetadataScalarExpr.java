@@ -26,6 +26,7 @@ import org.w3c.dom.*;
 
 // TODO: implement class MetadataScalarExprType
 public class MetadataScalarExpr implements IRasNode {
+    private IRasNode child;
 
     public MetadataScalarExpr(Node node, XmlQuery xq) throws WCPSException {
         throw new WCPSException("Method not yet implemented !");

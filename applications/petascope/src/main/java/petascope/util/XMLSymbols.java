@@ -43,6 +43,7 @@ public interface XMLSymbols {
     String PREFIX_WSDL = "wsdl";
     String PREFIX_XSI = "xsi";
     String PREFIX_XLINK = "xlink";
+    String PREFIX_CRS = "crs";
     
     
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,6 +62,7 @@ public interface XMLSymbols {
     String NAMESPACE_WSDL = "http://schemas.xmlsoap.org/wsdl/";
     String NAMESPACE_XSI = "http://www.w3.org/2001/XMLSchema-instance";
     String NAMESPACE_XLINK = "http://www.w3.org/1999/xlink";
+    String NAMESPACE_CRS = "http://www.opengis.net/wcs/service-extension/crs/1.0";
     
     
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -84,6 +86,12 @@ public interface XMLSymbols {
     String LABEL_TRIM_LOW = "TrimLow";
     String LABEL_TRIM_HIGH = "TrimHigh";
     String LABEL_SLICE_POINT = "SlicePoint";
+    String LABEL_WGS84_BBOX = "Wgs84BoundingBox";
+    String LABEL_BBOX = "BoundingBox";
+    String LABEL_BUONDEDBY = "BoundedBy";
+    // wcs crs-extension
+    String LABEL_CRS_METADATA = "CrsMetadata";
+    String LABEL_CRS = "CRS";
 
     // ows
     String LABEL_SERVICE_IDENTIFICATION = "ServiceIdentification";
@@ -110,6 +118,7 @@ public interface XMLSymbols {
     // soap
     String LABEL_BODY = "Body";
     
+    
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Attributes
@@ -119,6 +128,16 @@ public interface XMLSymbols {
     String ATT_SERVICE = "service";
     String ATT_VERSION = "version";
     String ATT_SCHEMA_LOCATION = "schemaLocation";
+    
+    // crs-extension
+    String ATT_SUPPORTED_CRS = "supportedCrs";
+    String ATT_SUBSET_CRS = "subsettingCrs";
+    String ATT_OUTPUT_CRS = "outputCrs";
+    // bbox
+    String ATT_LOWERCORNER = "lowerCorner";
+    String ATT_UPPERCORNER = "upperCorner";
+    String ATT_CRS = "crs";
+    String ATT_DIMENSIONS = "dimensions";
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -128,4 +147,5 @@ public interface XMLSymbols {
 
     XPathContext CTX_XML = new XPathContext(PREFIX_XML, NAMESPACE_XML);
     XPathContext CTX_WCS = new XPathContext(PREFIX_WCS, NAMESPACE_WCS);
+    XPathContext CTX_CRS = new XPathContext(PREFIX_CRS, NAMESPACE_CRS);
 }

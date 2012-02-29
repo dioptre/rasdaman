@@ -42,6 +42,7 @@ import org.antlr.runtime.RecognitionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.core.Metadata;
+import petascope.util.CrsUtil;
 
 /**
  * This class takes a WCS GetCoverage XML request and converts this request into
@@ -155,9 +156,9 @@ public class convertGetCoverage {
             /* TODO: Implement CRS transformations */
             crsName = bbox.getCrs();
             if (crsName != null) {
-                if (crsName.equals(DomainElement.IMAGE_CRS)) {
+                if (crsName.equals(CrsUtil.IMAGE_CRS)) {
                     log.trace("CRS: NATIVE_IMAGE_CRS");
-                } else if (crsName.equals(DomainElement.WGS84_CRS)) {
+                } else if (crsName.equals(CrsUtil.WGS84_CRS)) {
                     log.trace("CRS: WGS84");
                 } else {
                     throw new WCSException(ExceptionCode.InvalidParameterValue, "BoundingBox.crs. Explanation: "
@@ -166,7 +167,7 @@ public class convertGetCoverage {
             } else {
                 log.debug("CRS: None specified for bounding box");
                 log.debug("CRS: Using default IMAGE_CRS");
-                crsName = DomainElement.IMAGE_CRS;
+                crsName = CrsUtil.IMAGE_CRS;
             }
 
             /* BBox declarations */
@@ -199,8 +200,8 @@ public class convertGetCoverage {
             px1 = u3;
             py1 = v3;
 
-            if (crsName.equals(DomainElement.IMAGE_CRS) == false
-                    && crsName.equals(DomainElement.WGS84_CRS) == false) {
+            if (crsName.equals(CrsUtil.IMAGE_CRS) == false
+                    && crsName.equals(CrsUtil.WGS84_CRS) == false) {
                 throw new WCSException(ExceptionCode.NoApplicableCode, "Unknown CRS: " + crsName);
             }
         }
