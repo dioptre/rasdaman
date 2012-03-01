@@ -601,6 +601,11 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
   TIFFGetField(tif, TIFFTAG_SAMPLEFORMAT, &sampleFormat);
   pixelAdd = Bpp*height;
   
+  TALK("Image information:");
+  TALK("  Bytes per sample: " << Bps);
+  TALK("  Samples per pixel: " << spp);
+  TALK("  Bytes per pixel: " << Bpp);
+  TALK("  Size: " << width << "x" << height);
 
 	if (planar == PLANARCONFIG_CONTIG) // must be contiguous for our case to handle, other cases not dealt yet
 	{
@@ -690,7 +695,11 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
         case 64: desc.baseType = ctype_float64; break;
       }
     }
-    else if (spp > 1 && (spp != 3 || (spp == 3 && bpp != 24)))
+    else if (spp == 3 && bpp == 24)
+    {
+      desc.baseType = ctype_rgb;
+    }
+    else if (spp > 1)
     {
       // multiband when not rgb and more than 1 sample per pixel
       desc.baseType = ctype_struct;
@@ -699,8 +708,8 @@ r_convDesc &r_Conv_TIFF::convertFrom(const char *options) throw(r_Error) // CONV
     {
       desc.baseType = bandType;
     }
-
-
+    
+    
 		if ((desc.dest = (char*)mystore.storage_alloc(width*height*typeSize*sizeof(char))) == NULL)
 		{
 			RMInit::logOut << "r_Conv_TIFF::convertFrom(): out of memory error!" << endl;
