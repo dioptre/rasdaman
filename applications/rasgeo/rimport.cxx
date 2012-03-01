@@ -1271,6 +1271,12 @@ main(int argc, char** argv)
 		showHelp();
 		return EXIT_FAILURE;
 	}
+  else
+  {
+    // sort filenames listed from a directory, so that we have some 
+    // consistent behavior and know what to expect -- DM 2012-mar-01
+    sort(vnames.begin(), vnames.end());
+  }
 
     // initiate gdal
 	GDALAllRegister();
