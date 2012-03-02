@@ -101,6 +101,10 @@ public class PetascopeInterface extends HttpServlet {
         PropertyConfigurator.configure(getServletContext().getRealPath("/log4j.properties"));
         log.info("Petascope {} starting", ConfigManager.PETASCOPE_VERSION);
         
+        // External libraries licensing issues
+        log.info("This program contains software which is in the public domain:");
+        log.info("date4j (C) 2002-2011, Hirondelle Systems");
+        
         // Force GeoTools referencing libraries to X->Y ordered CRSs
         System.setProperty("org.geotools.referencing.forceXY", "true");
 
