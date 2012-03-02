@@ -240,7 +240,7 @@ public class CrsUtil {
      * @return  boolean         True if valid CRS id.
      */
     public static boolean isValidCrsCode (String crsID) {
-        if (crsID.equals("\"" + IMAGE_CRS + "\"")) 
+        if (crsID.equals(IMAGE_CRS)) 
             return true;
         
         Pattern p = Pattern.compile(CRS_URI_PREFIX + "(EPSG|OGC|IERS|ISO)/.+/[0-9]+");
@@ -258,7 +258,7 @@ public class CrsUtil {
     public static boolean isSupportedCrsCode(String crsID) {
         try {
             // read from List e return
-            return crsID.equals("\"" + IMAGE_CRS + "\"")
+            return crsID.equals(IMAGE_CRS)
                     || (extractCommittee(crsID).equals("EPSG") && SUPPORTED_EPSG.contains(new Integer(extractCode(crsID))));
         } catch (Exception e) {
             log.warn(e.getMessage());

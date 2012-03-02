@@ -110,7 +110,11 @@ public abstract class AbstractFormatExtension implements FormatExtension {
                 if (xSubset != null && !xSubset.isCrsTransformed()                  // SetBounds not called yet
                             || ySubset != null && !ySubset.isCrsTransformed()) {    // SetBounds not called yet (if no X subsetting was specified)
                         try {
-                            if (request.getCRS().get(0).getSubsettingCrs() == null ||
+                            if (request.getCRS().get(0).getSubsettingCrs() != null &&
+                                    request.getCRS().get(0).getSubsettingCrs().equals(CrsUtil.IMAGE_CRS)) {
+                                log.info("Subset(s) defined in pixel coordinates: no CRS reprojection need to be made.");
+                                
+                            } else if (request.getCRS().get(0).getSubsettingCrs() == null ||
                                     request.getCRS().get(0).getSubsettingCrs().equals(m.getBbox().getCrsName())) {
                                 //if(!crs.getName().equals(DomainElement.WGS84_CRS)) {
                                 log.info("Requested CRS (" + request.getCRS().get(0).getSubsettingCrs() + ") and native CRS coincide: no tranform needed.");
