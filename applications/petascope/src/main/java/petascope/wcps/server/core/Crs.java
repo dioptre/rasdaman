@@ -29,6 +29,7 @@ import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 import petascope.exceptions.WCSException;
 import petascope.exceptions.ExceptionCode;
+import petascope.util.AxisTypes;
 
 public class Crs implements IRasNode {
 
@@ -139,11 +140,15 @@ public class Crs implements IRasNode {
      *          To be updated when *strlo* and *strhi* extents will be effectively possible (e.g. temporal axis).
      * @param coordMin Min value of interval
      * @param coordMax Max value of interval
+     * @param zeroIsMin Is 0-index corresponding to minimum domain value? For 'y' axis this is not true.
      * @return Interval transformed values.
      * coordinates.
      */
     public int[] convertToPixelIndices(Metadata meta, String axisName, Double coordLo, Double coordHi) throws WCSException {
        
+        // IMPORTANT: y axis are decreasing wrt pixel domain
+        boolean zeroIsMin = !axisName.equals(AxisTypes.Y_AXIS);
+        
         // Put in order to prevent call error
         if (coordHi < coordLo) {
             log.error("Argument \"high\" is lower than \"low\": " + coordHi + "<" + coordLo + " (rasql error 389 would be raised: \"in case of fixed bounds, the upper one can not be smaller than the lower one\")");
@@ -175,10 +180,19 @@ public class Crs implements IRasNode {
         double cellWidth = (domHi-domLo)/(double)(pxHi-pxLo);
 
         // Conversion to pixel domain
-        int[] out = new int[] {
-            (int)Math.round((coordLo - domLo) / cellWidth) + pxLo,
-            (int)Math.round((coordHi - domLo) / cellWidth) + pxLo
-        };
+        int[] out;
+        if (zeroIsMin) {
+            out = new int[] {
+                (int)Math.round((coordLo - domLo) / cellWidth) + pxLo,
+                (int)Math.round((coordHi - domLo) / cellWidth) + pxLo
+            };
+        } else {
+            out = new int[] {
+                // First coordHi, so that left-hand index is the lower
+                (int)Math.round((domHi - coordHi) / cellWidth) + pxLo,
+                (int)Math.round((domHi - coordLo) / cellWidth) + pxLo
+            };
+        }
         log.debug("Transformed coords indices (" + out[0] + "," + out[1] + ")");
         
         // Check outside bounds:

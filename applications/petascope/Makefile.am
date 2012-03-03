@@ -64,13 +64,15 @@ SHELL     = bash
 # Java tools
 JAVA      = java
 JAVAC     = javac
-JFLAGS    = -sourcepath $(SRC_MAIN)        \
-               -d $(CLASSES)                 \
-               -cp lib/activation.jar:lib/antlrworks-1.2.3.jar:lib/antlrworks-1.3.1.jar:lib/commons-fileupload-1.2.jar:lib/commons-io-1.3.2.jar:lib/commons-math-1.1.jar:lib/gml-v_3_1_1-schema-1.0-SNAPSHOT.jar:lib/jaxb-api.jar:lib/jaxb-impl.jar:lib/jaxb-xjc.jar:lib/joda-time-1.6.jar:lib/jsr173_1.0_api.jar:lib/log4j-1.2.15.jar:lib/ows-v_1_0_0-schema-1.0-SNAPSHOT.jar:lib/postgresql-8.3-604.jdbc4.jar:lib/rasj.jar:lib/servlet-2_5-api.jar:lib/slf4j-api-1.5.8.jar:lib/slf4j-log4j12-1.5.8.jar:lib/wcst-schema.jar:lib/wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar:lib/xom-1.2.6.jar:lib/uuid-3.2.jar:lib/cos.jar:lib/junit-4.5.jar:lib/gt-opengis-2.7.4.jar:lib/gt-referencing-2.7.4.jar:lib/jts-1.11.jar:lib/gt-api-2.7.4.jar:lib/commons-pool-1.5.4.jar:lib/gt-epsg-wkt-2.7.4.jar:lib/jai_core-1.1.3.jar:lib/jsr-275-1.0-beta-2.jar:lib/vecmath-1.3.2.jar:lib/hsqldb-1.8.0.7.jar:lib/date4j.jar				 \
+JJARS_CP  = lib/activation.jar:lib/antlrworks-1.2.3.jar:lib/antlrworks-1.3.1.jar:lib/commons-fileupload-1.2.jar:lib/commons-io-1.3.2.jar:lib/commons-math-1.1.jar:lib/gml-v_3_1_1-schema-1.0-SNAPSHOT.jar:lib/jaxb-api.jar:lib/jaxb-impl.jar:lib/jaxb-xjc.jar:lib/joda-time-1.6.jar:lib/jsr173_1.0_api.jar:lib/log4j-1.2.15.jar:lib/ows-v_1_0_0-schema-1.0-SNAPSHOT.jar:lib/postgresql-8.3-604.jdbc4.jar:lib/rasj.jar:lib/servlet-2_5-api.jar:lib/slf4j-api-1.5.8.jar:lib/slf4j-log4j12-1.5.8.jar:lib/wcst-schema.jar:lib/wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar:lib/xom-1.2.6.jar:lib/uuid-3.2.jar:lib/cos.jar:lib/junit-4.5.jar:lib/gt-opengis-2.7.4.jar:lib/gt-referencing-2.7.4.jar:lib/jts-1.11.jar:lib/gt-api-2.7.4.jar:lib/commons-pool-1.5.4.jar:lib/gt-epsg-wkt-2.7.4.jar:lib/jai_core-1.1.3.jar:lib/jsr-275-1.0-beta-2.jar:lib/vecmath-1.3.2.jar:lib/hsqldb-1.8.0.7.jar:lib/date4j.jar
+JJARS_PATHS = lib/activation.jar lib/antlrworks-1.2.3.jar lib/antlrworks-1.3.1.jar lib/commons-fileupload-1.2.jar lib/commons-io-1.3.2.jar lib/commons-math-1.1.jar lib/gml-v_3_1_1-schema-1.0-SNAPSHOT.jar lib/jaxb-api.jar lib/jaxb-impl.jar lib/jaxb-xjc.jar lib/joda-time-1.6.jar lib/jsr173_1.0_api.jar lib/log4j-1.2.15.jar lib/ows-v_1_0_0-schema-1.0-SNAPSHOT.jar lib/postgresql-8.3-604.jdbc4.jar lib/rasj.jar lib/servlet-2_5-api.jar lib/slf4j-api-1.5.8.jar lib/slf4j-log4j12-1.5.8.jar lib/wcst-schema.jar lib/wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar lib/xom-1.2.6.jar lib/uuid-3.2.jar lib/cos.jar lib/junit-4.5.jar lib/gt-opengis-2.7.4.jar lib/gt-referencing-2.7.4.jar lib/jts-1.11.jar lib/gt-api-2.7.4.jar lib/commons-pool-1.5.4.jar lib/gt-epsg-wkt-2.7.4.jar lib/jai_core-1.1.3.jar lib/jsr-275-1.0-beta-2.jar lib/vecmath-1.3.2.jar lib/hsqldb-1.8.0.7.jar lib/date4j.jar
+JFLAGS    = -sourcepath $(SRC_MAIN) \
+               -d $(CLASSES)        \
+               -cp $(JJARS_CP)	    \
                -source 1.5
 
-JVMFLAGS  = -ea                              \
-            -esa                             \
+JVMFLAGS  = -ea                     \
+            -esa                    \
             -Xfuture
 JVM       = $(JAVA) $(JVMFLAGS)
 
@@ -78,10 +80,9 @@ JAR       = jar
 JARFLAGS  = cf
 
 JAVADOC   = javadoc
-JDFLAGS   = -sourcepath $(SRC_MAIN)        \
-            -d $(APIDOCS)			\
-            -source 1.5 -classpath lib/activation.jar:lib/antlrworks-1.2.3.jar:lib/antlrworks-1.3.1.jar:lib/commons-fileupload-1.2.jar:lib/commons-io-1.3.2.jar:lib/commons-math-1.1.jar:lib/gml-v_3_1_1-schema-1.0-SNAPSHOT.jar:lib/jaxb-api.jar:lib/jaxb-impl.jar:lib/jaxb-xjc.jar:lib/joda-time-1.6.jar:lib/jsr173_1.0_api.jar:lib/log4j-1.2.15.jar:lib/ows-v_1_0_0-schema-1.0-SNAPSHOT.jar:lib/postgresql-8.3-604.jdbc4.jar:lib/rasj.jar:lib/servlet-2_5-api.jar:lib/slf4j-api-1.5.8.jar:lib/slf4j-log4j12-1.5.8.jar:lib/wcst-schema.jar:lib/wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar:lib/xom-1.2.6.jar:lib/uuid-3.2.jar:lib/cos.jar:lib/junit-4.5.jar:lib/gt-opengis-2.7.4.jar:lib/gt-referencing-2.7.4.jar:lib/jts-1.11.jar:lib/gt-api-2.7.4.jar:lib/commons-pool-1.5.4.jar:lib/gt-epsg-wkt-2.7.4.jar:lib/jai_core-1.1.3.jar:lib/jsr-275-1.0-beta-2.jar:lib/vecmath-1.3.2.jar:lib/hsqldb-1.8.0.7.jar:lib/date4j.jar
-
+JDFLAGS   = -sourcepath $(SRC_MAIN)  \
+            -d $(APIDOCS)	     \
+            -source 1.5 -classpath $(JJARS_CP)
 # ------------------------------------------------------------------------------
 #                                 TARGETS
 # ------------------------------------------------------------------------------
@@ -124,7 +125,7 @@ compile: $(all_javas) $(GEN_DOCS)
 	$(CP) $(SRC_WEB)/* $(WEB)
 	$(CP) templates xml $(SRC)/resources/log4j.properties $(WEB)
 	$(MKDIR) $(WEB)/WEB-INF/lib
-	$(CP) lib/activation.jar lib/antlrworks-1.2.3.jar lib/antlrworks-1.3.1.jar lib/commons-fileupload-1.2.jar lib/commons-io-1.3.2.jar lib/commons-math-1.1.jar lib/gml-v_3_1_1-schema-1.0-SNAPSHOT.jar lib/jaxb-api.jar lib/jaxb-impl.jar lib/jaxb-xjc.jar lib/joda-time-1.6.jar lib/jsr173_1.0_api.jar lib/log4j-1.2.15.jar lib/ows-v_1_0_0-schema-1.0-SNAPSHOT.jar lib/postgresql-8.3-604.jdbc4.jar lib/rasj.jar lib/servlet-2_5-api.jar lib/slf4j-api-1.5.8.jar lib/slf4j-log4j12-1.5.8.jar lib/wcst-schema.jar lib/wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar lib/xom-1.2.6.jar lib/uuid-3.2.jar lib/cos.jar $(WEB)/WEB-INF/lib
+	$(CP) $(JJARS_PATHS) $(WEB)/WEB-INF/lib
 	$(CP) $(SRC_MAIN)/* $(CLASSES) # copy resources (xml, xsd, properties)
 	$(FIND) $(BUILD) -name '*.java' | xargs $(RM)
 	$(FIND) $(BUILD) -name '.svn' | xargs $(RM) # remove .svn directories
@@ -160,7 +161,7 @@ dropdb:
 # run any JUnit tests
 .PHONY: test
 test:
-	${JAVA} -cp lib/activation.jar:lib/antlrworks-1.2.3.jar:lib/antlrworks-1.3.1.jar:lib/commons-fileupload-1.2.jar:lib/commons-io-1.3.2.jar:lib/commons-math-1.1.jar:lib/gml-v_3_1_1-schema-1.0-SNAPSHOT.jar:lib/jaxb-api.jar:lib/jaxb-impl.jar:lib/jaxb-xjc.jar:lib/joda-time-1.6.jar:lib/jsr173_1.0_api.jar:lib/log4j-1.2.15.jar:lib/ows-v_1_0_0-schema-1.0-SNAPSHOT.jar:lib/postgresql-8.3-604.jdbc4.jar:lib/rasj.jar:lib/servlet-2_5-api.jar:lib/slf4j-api-1.5.8.jar:lib/slf4j-log4j12-1.5.8.jar:lib/wcst-schema.jar:lib/wcs-v_1_1_0-schema-1.0-SNAPSHOT.jar:lib/xom-1.2.6.jar:lib/uuid-3.2.jar:lib/cos.jar:lib/junit-4.5.jar:lib/gt-opengis-2.7.4.jar:lib/gt-referencing-2.7.4.jar:lib/jts-1.11.jar:lib/gt-api-2.7.4.jar:lib/commons-pool-1.5.4.jar:lib/gt-epsg-wkt-2.7.4.jar:lib/jai_core-1.1.3.jar:lib/jsr-275-1.0-beta-2.jar:lib/vecmath-1.3.2.jar:lib/hsqldb-1.8.0.7.jar:lib/date4j.jar:$(BUILD)/test/classes:$(BUILD)/web/WEB-INF/classes org.junit.runner.JUnitCore petascope.AllTests
+	${JAVA} -cp $(JJARS_CP):$(BUILD)/test/classes:$(BUILD)/web/WEB-INF/classes org.junit.runner.JUnitCore petascope.AllTests
 
 # clean up
 .PHONY: clean
