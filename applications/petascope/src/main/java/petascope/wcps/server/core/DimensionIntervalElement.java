@@ -21,6 +21,7 @@
  */
 package petascope.wcps.server.core;
 
+import java.util.Iterator;
 import petascope.core.Metadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,6 +102,21 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
                 }
                 continue;
             } catch (WCPSException e) {
+              // if no CRS is specified assume native CRS -- DM 2012-mar-05
+              String axisName = axis.toRasQL();
+              
+              DomainElement axisDomain = meta.getDomainByName(axisName);
+              if (axisDomain != null) {
+                Iterator<String> crsIt = axisDomain.getCrsSet().iterator();
+                if (crsIt.hasNext()) {
+                  String crsname = crsIt.next();
+                  log.info("Using native CRS: " + crsname);
+                  crs = new Crs(crsname);
+                } else {
+                  log.warn("No native CRS specified for axis " + axisName + ", assuming pixel coordinates.");
+                  crs = new Crs(CrsUtil.IMAGE_CRS);
+                }
+              }
             }
 
             // TODO: how to implement DomainMetadataExpr ?
@@ -149,7 +165,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
         }
 
         // Pixel indices are retrieved from bbox, which is stored for XY plane only.
-        if (finished == true && !crs.getName().equals(CrsUtil.IMAGE_CRS)) {
+        if (finished == true && crs != null && !crs.getName().equals(CrsUtil.IMAGE_CRS)) {
            convertToPixelCoordinates(); 
         }
     }

@@ -53,6 +53,10 @@ public class Crs implements IRasNode {
             throw new WCPSException("Could not find a 'srsName' node !");
         }
     }
+    
+    public Crs(String srsName) {
+      crsName = srsName;
+    }
 
     /***
      * Converts an array of 4 coordinates (bounding box) expressed in the
