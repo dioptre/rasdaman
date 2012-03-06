@@ -138,7 +138,7 @@ class r_Collection : public r_Object
 
   protected:
     ///
-    typedef struct CNode
+    struct CNode
     {
       CNode* next;
       T* elem;
