@@ -67,13 +67,28 @@ public class RangeCoverageExpr implements IRasNode, ICoverageInfo {
     }
 
     public String toRasQL() {
-        String result = "";
+        String result = "(";
+        
         int length = components.size();
-        for (int i = 0; i < length - 1; i++)
-            result += components.get(i).toRasQL() + ",";
-        result += components.get(length - 1).toRasQL();
-
-        result = "{ " + result + " }";
+        
+        for (int i = 0; i < length; i++) {
+            if (i != 0)
+              result += " + ";
+            
+            result += "(" + components.get(i).toRasQL() + ") * {";
+            for (int j = 0; j < length; j++) {
+              if (j != 0) {
+                result += ",";
+              }
+              // FIXME: assumes char.. still something is better than nothing
+              if (j == i)
+                result += "1c";
+              else
+                result += "0c";
+            }
+            result += "}";
+        }
+        result += ")";
 
         return result;
     }

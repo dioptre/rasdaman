@@ -177,7 +177,7 @@ public class WcsUtil {
                 Pair.of("\\{uomLabels\\}", m.getUomLabels()),
                 Pair.of("\\{rangeFields\\}", rangeFields),
                 Pair.of("\\{coverageSubtype\\}", m.getCoverageType()),
-                Pair.of("\\{axisLabels\\}", AxisTypes.X_AXIS+" "+AxisTypes.Y_AXIS), //m.getAxisLabels()),
+                Pair.of("\\{spatialAxisLabels\\}", AxisTypes.X_AXIS+" "+AxisTypes.Y_AXIS), //m.getAxisLabels()),
                 Pair.of("\\{gridType\\}", m.getGridType()),
                 Pair.of("\\{srsgroup\\}", getSrsGroup(m)),
                 Pair.of("\\{srsName\\}", getSrsName(m)),

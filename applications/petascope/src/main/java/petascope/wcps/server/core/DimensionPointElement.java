@@ -21,6 +21,7 @@
  */
 package petascope.wcps.server.core;
 
+import java.util.Iterator;
 import petascope.core.Metadata;
 import petascope.exceptions.WCPSException;
 import petascope.exceptions.WCSException;
@@ -126,6 +127,24 @@ public class DimensionPointElement implements IRasNode {
             }
 
             node = node.getNextSibling();
+        }
+        
+        if (crs == null) {
+            // if no CRS is specified assume native CRS -- DM 2012-mar-05
+            String axisName = axis.toRasQL();
+
+            DomainElement axisDomain = meta.getDomainByName(axisName);
+            if (axisDomain != null) {
+              Iterator<String> crsIt = axisDomain.getCrsSet().iterator();
+              if (crsIt.hasNext()) {
+                String crsname = crsIt.next();
+                log.info("Using native CRS: " + crsname);
+                crs = new Crs(crsname);
+              } else {
+                log.warn("No native CRS specified for axis " + axisName + ", assuming pixel coordinates.");
+                crs = new Crs(CrsUtil.IMAGE_CRS);
+              }
+            }
         }
         
         // Pixel indices are retrieved from bbox, which is stored for XY plane only.
