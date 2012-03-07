@@ -787,13 +787,14 @@ QtUpdate::checkType()
 
   // test for compatible base types
   bool compatible = false;
-  char* type1 = ((MDDBaseType*)(targetType.getType()))->getBaseType()->getTypeStructure();
-  char* type2 = ((MDDBaseType*)(sourceType.getType()))->getBaseType()->getTypeStructure();
-  compatible = updateSource->getNodeType() == QT_CONVERSION || (strcmp(type1, type2) == 0);
-  free(type1);
-  free(type2);
-  type1 = NULL;
-  type2 = NULL;
+  const BaseType* type1 = ((MDDBaseType*)(targetType.getType()))->getBaseType();
+  const BaseType* type2 = ((MDDBaseType*)(sourceType.getType()))->getBaseType();
+  
+  // substituted the string comparison as it fails for composite types: 
+  // the update base type is usually "struct { char 0, char 1,...}" 
+  // while the target type is "struct { char red, char green, ...}"
+  // Now we rather use the compatibleWith method which handles such cases -- DM 2012-mar-07
+  compatible = updateSource->getNodeType() == QT_CONVERSION || type1->compatibleWith(type2); //(strcmp(type1, type2) == 0);
           
   if( !compatible )
   {
