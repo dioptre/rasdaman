@@ -794,7 +794,13 @@ QtUpdate::checkType()
   // the update base type is usually "struct { char 0, char 1,...}" 
   // while the target type is "struct { char red, char green, ...}"
   // Now we rather use the compatibleWith method which handles such cases -- DM 2012-mar-07
-  compatible = updateSource->getNodeType() == QT_CONVERSION || type1->compatibleWith(type2); //(strcmp(type1, type2) == 0);
+  
+  // If the source MDD comes from an inv_* function we consider it's compatible
+  // at this point, as we can't determine the type until the data is decoded -- DM 2012-mar-12
+  
+  QtNodeList* convChildren = updateSource->getChild(QT_CONVERSION, QT_ALL_NODES);
+  compatible = (convChildren != NULL && !convChildren->empty()) ||
+                type1->compatibleWith(type2); //(strcmp(type1, type2) == 0);
           
   if( !compatible )
   {
