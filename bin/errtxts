@@ -221,6 +221,7 @@
 964^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Type is not persistent.
 965^E^Update error $errorNo: MDD type $token unknown.
 966^E^Update error $errorNo: MDD type is missing.
+967^E^Update error $errorNo in line $lineNo, column $columnNo, near token $token: Source MDD domain is not within target update MDD domain.
 #
 # 1xxx errors: General errors
 #

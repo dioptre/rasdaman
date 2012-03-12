@@ -277,7 +277,43 @@ QtUpdate::evaluate()
               throw parseInfo;
 	    }
 
-            // Warning: Fixed bounds in update domain specifications are ignored.
+            // Before: Warning: Fixed bounds in update domain specifications are ignored.
+            
+            // After: Actually we should be stricter here and respect the documentation:
+            // throw an exception if the source domain isn't within the target domain -- DM 2012-mar-12
+            
+            // copied from r_Minterval::covers(..), we have to rule out slices here
+            const r_Minterval& sourceDomain = sourceMDD->getLoadDomain();
+            int j = 0;
+            for (r_Dimension i = 0; i < domain.dimension() ; i++)
+            {
+              if( (*trimFlags)[i] ) // consider only trims
+              {
+                if((domain[i].is_low_fixed()  && (!(sourceDomain[j].is_low_fixed())  || domain[i].low()  > sourceDomain[j].low())) ||
+                   (domain[i].is_high_fixed() && (!(sourceDomain[j].is_high_fixed()) || domain[i].high() < sourceDomain[j].high())))
+                {
+                  RMInit::logOut << "Error: QtUpdate::evaluate() - source domain " <<
+                      sourceDomain << " isn't within the target domain " << domain << endl;
+
+                  // delete tupel vector received by next()
+                  for( vector<QtData*>::iterator dataIter=nextTupel->begin();
+                      dataIter!=nextTupel->end(); dataIter++ )
+                  if( *dataIter ) (*dataIter)->deleteRef();
+                  delete nextTupel;
+                  nextTupel=NULL;
+
+                  // delete the operands
+                  if( target     ) target->deleteRef();
+                  if( domainData ) domainData->deleteRef();
+                  if( source     ) source->deleteRef();
+
+                  parseInfo.setErrorNo(967);
+                  throw parseInfo;
+                }
+                ++j;
+              }
+            }
+
 	  } 
 
           r_Minterval sourceMDDDomain( sourceMDD->getLoadDomain() );
@@ -724,23 +760,6 @@ QtUpdate::getInput()
 	return input;
 }
 
-/*
-void
-QtUpdate::preOptimize()
-{
-  if( updateTarget )
-    updateTarget->optimizeLoad( new QtNode::QtTrimList );
-
-  if( updateDomain )
-    updateDomain->optimizeLoad( new QtNode::QtTrimList );
-
-  if( updateSource )
-    updateSource->optimizeLoad( new QtNode::QtTrimList );
-
-  if( input )
-    input->preOptimize();
-}
-*/
 
 
 void

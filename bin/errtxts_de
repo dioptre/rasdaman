@@ -209,6 +209,7 @@
 964^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Typ ist nicht persistent.
 965^E^Update-Fehler $errorNo: MDD-Typ $token unbekannt.
 966^E^Update-Fehler $errorNo: MDD-Typ fehlt.
+967^E^Update-Fehler $errorNo in Zeile $lineNo, Spalte $columnNo, nahe Token $token: Source Update-Domäne liegt nicht innerhalb der Target MDD-Domäne.
 #
 # 1xxx errors: Allgemeiner Fehlers
 #
