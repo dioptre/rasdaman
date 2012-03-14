@@ -41,6 +41,8 @@ rasdaman GmbH.
 
 RMINITGLOBALS('C')
 
+using namespace std;
+
 class Exp {
 
 public:

@@ -35,11 +35,18 @@ rasdaman GmbH.
 #include <iostream>
 #include <malloc.h>
 
+
+#ifdef EARLY_TEMPLATE
+#define __EXECUTABLE__
+#endif
+
+#include "raslib/template_inst.hh"
 #include "raslib/minterval.hh"
 #include "raslib/sinterval.hh"
 
 #include "raslib/rminit.hh"
-RMINITGLOBALS('C')
+
+using namespace std;
    
 int main()
 {   
@@ -49,7 +56,7 @@ int main()
         
   cout << "initializing interval [1:2,3:3] : " << endl;
   r_Minterval m1 = r_Minterval(2);
-  m1 << r_Sinterval(1l,2l) << 3;
+  m1 << r_Sinterval(1,2) << 3;
   cout << m1 << endl << endl;
 
   cout << "copy the interval with copy constructor" << endl;
@@ -63,8 +70,8 @@ int main()
     cout << "FAILED" << endl << endl;
   
   cout << "union of [1:4,3:6] and [3:6,1:4] :" << endl;
-  r_Minterval m2 = r_Minterval(2) << r_Sinterval(1l,4l) << r_Sinterval(3l,6l);
-  r_Minterval m3 = r_Minterval(2) << r_Sinterval(3l,6l) << r_Sinterval(1l,4l); 
+  r_Minterval m2 = r_Minterval(2) << r_Sinterval(1,4) << r_Sinterval(3,6);
+  r_Minterval m3 = r_Minterval(2) << r_Sinterval(3,6) << r_Sinterval(1,4); 
   try
   {
     m2 += m3;
@@ -76,8 +83,8 @@ int main()
   cout << m2 << endl << endl;
 
   cout << "union of [1:4,3:6] and [3:6,8:9] : " << endl;
-  r_Minterval m4 = r_Minterval(2) << r_Sinterval(1l,4l) << r_Sinterval(3l,6l);
-  r_Minterval m5 = r_Minterval(2) << r_Sinterval(3l,6l) << r_Sinterval(8l,9l); 
+  r_Minterval m4 = r_Minterval(2) << r_Sinterval(1,4) << r_Sinterval(3,6);
+  r_Minterval m5 = r_Minterval(2) << r_Sinterval(3,6) << r_Sinterval(8,9); 
   try
   {
     m4 += m5;
@@ -89,8 +96,8 @@ int main()
   cout << m4 << endl << endl;
 
   cout << "closure of [1:4,3:6] and [7:9,1:2] : " << endl;
-  r_Minterval m6 = r_Minterval(2) << r_Sinterval(1l,4l) << r_Sinterval(3l,6l);
-  r_Minterval m7 = r_Minterval(2) << r_Sinterval(7l,9l) << r_Sinterval(1l,2l); 
+  r_Minterval m6 = r_Minterval(2) << r_Sinterval(1,4) << r_Sinterval(3,6);
+  r_Minterval m7 = r_Minterval(2) << r_Sinterval(7,9) << r_Sinterval(1,2); 
   try
   {
     m6.closure_with( m7 );
@@ -106,7 +113,7 @@ int main()
   cout << endl;
 
   cout << "initializing domain [1:4,*:6,7:*]" << endl;
-  r_Minterval m8 = r_Minterval(3) << r_Sinterval(1l,4l) << r_Sinterval('*',6l) << r_Sinterval(7l,'*');
+  r_Minterval m8 = r_Minterval(3) << r_Sinterval(1,4) << r_Sinterval('*',6) << r_Sinterval(7,'*');
   char* stringRepresentation = m8.get_string_representation();
   cout << "string representation " << stringRepresentation << " should be " << m8 << endl;
   

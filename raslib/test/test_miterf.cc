@@ -37,15 +37,18 @@ rasdaman GmbH.
 #include <math.h>
 #include <stdlib.h>
 
+#ifdef EARLY_TEMPLATE
+#define __EXECUTABLE__
+#endif
+
+#include "raslib/template_inst.hh"
 #include "raslib/mddtypes.hh"
 #include "raslib/miterf.hh"
 #include "raslib/minterval.hh"
 #include "raslib/rminit.hh"
 #include "raslib/rmdebug.hh"
 
-
-
-RMINITGLOBALS('C')
+using namespace std;
 
 
 int main(int argc, char *argv[])

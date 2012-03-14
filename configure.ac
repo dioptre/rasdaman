@@ -116,6 +116,7 @@ AC_CONFIG_FILES([Makefile
                  commline/Makefile
                  network/Makefile
                  raslib/Makefile
+                 raslib/test/Makefile
                  clientcomm/Makefile
                  servercomm/Makefile
                  rasodmg/Makefile

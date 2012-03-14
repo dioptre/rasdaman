@@ -36,7 +36,10 @@ rasdaman GmbH.
 #include "raslib/minterval.hh"
 #include "raslib/rminit.hh"
 #include "raslib/rmdebug.hh"
+
 RMINITGLOBALS('C')
+
+using namespace std;
 
 int
 main(int i, char** argv)

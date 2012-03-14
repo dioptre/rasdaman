@@ -35,33 +35,25 @@ rasdaman GmbH.
 
 #include <iostream>
 
-#ifdef __VISUALC__
-  #define __EXECUTABLE__
-  #include "raslib/itertype.hh"
-  #include "raslib/structuretype.hh"
-  #include "raslib/attribute.hh"
-  #include "raslib/primitivetype.hh"
-  #include "raslib/rminit.hh"
-  #include "raslib/basetype.hh"
-  #include "raslib/marraytype.hh"
-  #undef  __EXECUTABLE__
-#else
-  #include "raslib/itertype.hh"
-  #include "raslib/structuretype.hh"
-  #include "raslib/attribute.hh"
-  #include "raslib/primitivetype.hh"
-  #include "raslib/rminit.hh"
-  #include "raslib/basetype.hh"
-  #include "raslib/marraytype.hh"
+#ifdef EARLY_TEMPLATE
+#define __EXECUTABLE__
 #endif
+
+#include "raslib/template_inst.hh"
+#include "raslib/itertype.hh"
+#include "raslib/structuretype.hh"
+#include "raslib/attribute.hh"
+#include "raslib/primitivetype.hh"
+#include "raslib/rminit.hh"
+#include "raslib/basetype.hh"
+#include "raslib/marraytype.hh"
 
 #include "raslib/error.hh"
 #include "raslib/type.hh"
 #include "raslib/structure.hh"
 #include "raslib/primitive.hh"
 
-RMINITGLOBALS('C')
-
+using namespace std;
 
 void testType( const char* stringType )
 {
@@ -291,9 +283,8 @@ int main()
   //  cout << ((r_Marray_Type*)type)->getBaseType() << endl;  
 
   cout << "Erzeugen einer Kopie und Ausgabe..." << endl;
-  r_Marray_Type  my_marray;
+  r_Marray_Type  my_marray((r_Base_Type&) type);
 
-  my_marray = *((r_Marray_Type*)(type));
   my_marray.print_status( cout );
  
   cout << endl;

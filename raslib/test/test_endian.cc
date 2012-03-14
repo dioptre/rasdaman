@@ -43,14 +43,12 @@ rasdaman GmbH.
 #define __EXECUTABLE__
 #endif
 
+#include "raslib/template_inst.hh"
 #include "raslib/basetype.hh"
 #include "raslib/primitivetype.hh"
 #include "raslib/minterval.hh"
 #include "raslib/rminit.hh"
 #include "raslib/endian.hh"
-
-
-RMINITGLOBALS('C')
 
 
 static void print_numbers(const unsigned char *data, int size)
@@ -62,7 +60,7 @@ static void print_numbers(const unsigned char *data, int size)
     if ((i & 15) == 0)
     {
       if (i != 0)
-	printf("\n");
+        printf("\n");
 
       printf("%04x: ", i);
     }
@@ -82,7 +80,7 @@ static void test_endian(const char *schema, const r_Minterval &dom)
   unsigned long smallSize;
   unsigned long i;
 
-  cout << "test type <" << schema << ">" << endl;
+  std::cout << "test type <" << schema << ">" << endl;
 
   type = (r_Base_Type*)r_Type::get_any_type(schema);
   primType = (r_Primitive_Type*)r_Type::get_any_type("long");
@@ -98,7 +96,7 @@ static void test_endian(const char *schema, const r_Minterval &dom)
   for (i=0; i<dom.dimension(); i++)
     iterDom << r_Sinterval(dom[i].low(), (r_Range)(dom[i].low() + (dom[i].high() - dom[i].low() + 1) / 2));
 
-  cout << "dom = " << dom << ", iterDom = " << iterDom << endl;
+  std::cout << "dom = " << dom << ", iterDom = " << iterDom << endl;
 
   print_numbers(srcArray, 64);
 
@@ -109,23 +107,23 @@ static void test_endian(const char *schema, const r_Minterval &dom)
   smallArray = new unsigned char[smallSize];
   memset(smallArray, 0, smallSize);
 
-  cout << "Linear change..." << endl;
+  std::cout << "Linear change..." << endl;
   r_Endian::swap_array(primType, size, srcArray, testArray);
   print_numbers(testArray, 64);
 
-  cout << "Semi-generic change, full..." << endl;
+  std::cout << "Semi-generic change, full..." << endl;
   r_Endian::swap_array(type, dom, dom, srcArray, testArray);
   print_numbers(testArray, 64);
   
-  cout << "Semi-generic change, half..." << endl;
+  std::cout << "Semi-generic change, half..." << endl;
   r_Endian::swap_array(type, dom, iterDom, srcArray, testArray);
   print_numbers(testArray, 64);
 
-  cout << "Fully generic change, full..." << endl;
+  std::cout << "Fully generic change, full..." << endl;
   r_Endian::swap_array(type, dom, dom, dom, dom, srcArray, testArray);
   print_numbers(testArray, 64);
 
-  cout << "Fully generic change, half..." << endl;
+  std::cout << "Fully generic change, half..." << endl;
   r_Endian::swap_array(type, dom, iterDom, iterDom, iterDom, srcArray, smallArray);
   print_numbers(smallArray, 64);
 

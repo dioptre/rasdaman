@@ -43,9 +43,12 @@ rasdaman GmbH.
 
 RMINITGLOBALS('C')
 
+using namespace std;
+
 int main()
 {   
   cout << endl << "0. reading from errortxts table ----------------------------------" << endl;
+  r_Error::initTextTable();
   try
   {
     throw r_Error( 10000 );
@@ -214,7 +217,7 @@ int main()
   cout << endl;
 
   cout << "freeing error text table...";
-  freeTextTable();
+  r_Error::freeTextTable();
   cout << "ok." << endl;
 
   cout << endl << "------------------------------------------------------------------" << endl;

@@ -39,6 +39,8 @@ rasdaman GmbH.
 
 #include "raslib/rminit.hh"
 RMINITGLOBALS('C')
+
+using namespace std;
    
 int main()
 {   

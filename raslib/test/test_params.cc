@@ -43,6 +43,8 @@ rasdaman GmbH.
 
 RMINITGLOBALS('C')
 
+using namespace std;
+
 
 typedef struct test_params_s {
   r_Parse_Params *pp;

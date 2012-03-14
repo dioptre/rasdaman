@@ -37,6 +37,8 @@ rasdaman GmbH.
 
 #include "raslib/rminit.hh"
 
+using namespace std;
+
 // number of repetitions for performance tests
 static const int repeat = 100000;
 
@@ -62,9 +64,9 @@ void testFunc3(void)
   RMDebug localRMDebug("Class1", "testFunc3", "server",
 		       __FILE__, __LINE__);
 
-  RMDBGMOUT( 2, RMDebug::module_server, NULL, "D: testing 1" );
-  RMDBGMOUT( 3, RMDebug::module_server, "Class1", "D: testing 2" );
-  RMDBGMINOUT( 4, RMDebug::module_server, "Class1", "D: testing 3" );
+//  RMDBGMOUT( 2, RMDebug::module_server, NULL, "D: testing 1" );
+//  RMDBGMOUT( 3, RMDebug::module_server, "Class1", "D: testing 2" );
+//  RMDBGMINOUT( 4, RMDebug::module_server, "Class1", "D: testing 3" );
 }
 
 void testFunc4(int reclevel)
@@ -80,7 +82,7 @@ void testFunc4(int reclevel)
 
 void oldMain()
 {
-  int i;
+  int i, busy;
 
   for(i = 1; i<=5; i++)
     testFunc1();
@@ -168,7 +170,7 @@ int main()
 {
   RMDebug::initRMDebug();
   RManBenchmark = 4;
-  RMInit::bmOut = cout.rdbuf();
+//  RMInit::bmOut = cout.rdbuf();
 
   oldMain();
   // testPerf();

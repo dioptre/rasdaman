@@ -15,7 +15,6 @@
 
 @SET_MAKE@
 
-# -*-Makefile-*- (for Emacs)
 #
 # This file is part of rasdaman community.
 #
@@ -38,13 +37,11 @@
 # For more information please see <http://www.rasdaman.org>
 # or contact Peter Baumann via <baumann@rasdaman.com>. 
 # 
-# MAKEFILE FOR:  
-#   module raslib
+# MAKEFILE FOR:
 # 
 # COMMENTS: 
 # 
 ##################################################################
-
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
@@ -62,7 +59,17 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-subdir = raslib
+TESTS = test_endian$(EXEEXT) test_error$(EXEEXT) \
+	test_metaobject$(EXEEXT) test_minterval$(EXEEXT) \
+	test_miterd$(EXEEXT) test_oid$(EXEEXT) test_params$(EXEEXT) \
+	test_point$(EXEEXT) test_rmdebug$(EXEEXT) \
+	test_sinterval$(EXEEXT) test_timer$(EXEEXT)
+check_PROGRAMS = test_endian$(EXEEXT) test_error$(EXEEXT) \
+	test_metaobject$(EXEEXT) test_minterval$(EXEEXT) \
+	test_miter$(EXEEXT) test_miterd$(EXEEXT) test_oid$(EXEEXT) \
+	test_params$(EXEEXT) test_point$(EXEEXT) test_rmdebug$(EXEEXT) \
+	test_sinterval$(EXEEXT) test_timer$(EXEEXT)
+subdir = raslib/test
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ac_prog_ecpg.m4 \
@@ -76,63 +83,102 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 mkinstalldirs = $(install_sh) -d
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
-am__vpath_adj = case $$p in \
-    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
-    *) f=$$p;; \
-  esac;
-am__strip_dir = f=`echo $$p | sed -e 's|^.*/||'`;
-am__install_max = 40
-am__nobase_strip_setup = \
-  srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*|]/\\\\&/g'`
-am__nobase_strip = \
-  for p in $$list; do echo "$$p"; done | sed -e "s|$$srcdirstrip/||"
-am__nobase_list = $(am__nobase_strip_setup); \
-  for p in $$list; do echo "$$p $$p"; done | \
-  sed "s| $$srcdirstrip/| |;"' / .*\//!s/ .*/ ./; s,\( .*\)/[^/]*$$,\1,' | \
-  $(AWK) 'BEGIN { files["."] = "" } { files[$$2] = files[$$2] " " $$1; \
-    if (++n[$$2] == $(am__install_max)) \
-      { print $$2, files[$$2]; n[$$2] = 0; files[$$2] = "" } } \
-    END { for (dir in files) print dir, files[dir] }'
-am__base_list = \
-  sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
-  sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
-am__installdirs = "$(DESTDIR)$(libdir)"
-LIBRARIES = $(lib_LIBRARIES)
-AR = ar
-ARFLAGS = cru
-libraslib_a_AR = $(AR) $(ARFLAGS)
-libraslib_a_LIBADD =
-am_libraslib_a_OBJECTS = sinterval.$(OBJEXT) dlist.$(OBJEXT) \
-	point.$(OBJEXT) minterval.$(OBJEXT) error.$(OBJEXT) \
-	rmdebug.$(OBJEXT) rminit.$(OBJEXT) metaobject.$(OBJEXT) \
-	type.$(OBJEXT) marraytype.$(OBJEXT) basetype.$(OBJEXT) \
-	primitivetype.$(OBJEXT) sintervaltype.$(OBJEXT) \
-	collectiontype.$(OBJEXT) property.$(OBJEXT) \
-	attribute.$(OBJEXT) mintervaltype.$(OBJEXT) \
-	pointtype.$(OBJEXT) oidtype.$(OBJEXT) structuretype.$(OBJEXT) \
-	itertype.$(OBJEXT) oid.$(OBJEXT) scalar.$(OBJEXT) \
-	primitive.$(OBJEXT) structure.$(OBJEXT) miter.$(OBJEXT) \
-	mddtypes.$(OBJEXT) miterd.$(OBJEXT) mitera.$(OBJEXT) \
-	memblockvec.$(OBJEXT) parseparams.$(OBJEXT) \
-	storageman.$(OBJEXT) endian.$(OBJEXT) flatbasetype.$(OBJEXT) \
-	complex.$(OBJEXT) complextype.$(OBJEXT) shhopt.$(OBJEXT)
-libraslib_a_OBJECTS = $(am_libraslib_a_OBJECTS)
+am_test_endian_OBJECTS = test_endian.$(OBJEXT)
+test_endian_OBJECTS = $(am_test_endian_OBJECTS)
+test_endian_LDADD = $(LDADD)
+test_endian_DEPENDENCIES = ../../rasodmg/librasodmg.a \
+	../../clientcomm/libclientcomm.a ../libraslib.a \
+	../../conversion/libconversion.a ../../network/libnetwork.a
+am_test_error_OBJECTS = test_error.$(OBJEXT) mymalloc_cln.$(OBJEXT)
+test_error_OBJECTS = $(am_test_error_OBJECTS)
+test_error_LDADD = $(LDADD)
+test_error_DEPENDENCIES = ../../rasodmg/librasodmg.a \
+	../../clientcomm/libclientcomm.a ../libraslib.a \
+	../../conversion/libconversion.a ../../network/libnetwork.a
+am_test_metaobject_OBJECTS = test_metaobject.$(OBJEXT)
+test_metaobject_OBJECTS = $(am_test_metaobject_OBJECTS)
+test_metaobject_LDADD = $(LDADD)
+test_metaobject_DEPENDENCIES = ../../rasodmg/librasodmg.a \
+	../../clientcomm/libclientcomm.a ../libraslib.a \
+	../../conversion/libconversion.a ../../network/libnetwork.a
+am_test_minterval_OBJECTS = test_minterval.$(OBJEXT) \
+	mymalloc_cln.$(OBJEXT)
+test_minterval_OBJECTS = $(am_test_minterval_OBJECTS)
+test_minterval_LDADD = $(LDADD)
+test_minterval_DEPENDENCIES = ../../rasodmg/librasodmg.a \
+	../../clientcomm/libclientcomm.a ../libraslib.a \
+	../../conversion/libconversion.a ../../network/libnetwork.a
+am_test_miter_OBJECTS = test_miter.$(OBJEXT)
+test_miter_OBJECTS = $(am_test_miter_OBJECTS)
+test_miter_LDADD = $(LDADD)
+test_miter_DEPENDENCIES = ../../rasodmg/librasodmg.a \
+	../../clientcomm/libclientcomm.a ../libraslib.a \
+	../../conversion/libconversion.a ../../network/libnetwork.a
+am_test_miterd_OBJECTS = test_miterd.$(OBJEXT) mymalloc_cln.$(OBJEXT)
+test_miterd_OBJECTS = $(am_test_miterd_OBJECTS)
+test_miterd_LDADD = $(LDADD)
+test_miterd_DEPENDENCIES = ../../rasodmg/librasodmg.a \
+	../../clientcomm/libclientcomm.a ../libraslib.a \
+	../../conversion/libconversion.a ../../network/libnetwork.a
+am_test_oid_OBJECTS = test_oid.$(OBJEXT) mymalloc_cln.$(OBJEXT)
+test_oid_OBJECTS = $(am_test_oid_OBJECTS)
+test_oid_LDADD = $(LDADD)
+test_oid_DEPENDENCIES = ../../rasodmg/librasodmg.a \
+	../../clientcomm/libclientcomm.a ../libraslib.a \
+	../../conversion/libconversion.a ../../network/libnetwork.a
+am_test_params_OBJECTS = test_params.$(OBJEXT) mymalloc_cln.$(OBJEXT)
+test_params_OBJECTS = $(am_test_params_OBJECTS)
+test_params_LDADD = $(LDADD)
+test_params_DEPENDENCIES = ../../rasodmg/librasodmg.a \
+	../../clientcomm/libclientcomm.a ../libraslib.a \
+	../../conversion/libconversion.a ../../network/libnetwork.a
+am_test_point_OBJECTS = test_point.$(OBJEXT) mymalloc_cln.$(OBJEXT)
+test_point_OBJECTS = $(am_test_point_OBJECTS)
+test_point_LDADD = $(LDADD)
+test_point_DEPENDENCIES = ../../rasodmg/librasodmg.a \
+	../../clientcomm/libclientcomm.a ../libraslib.a \
+	../../conversion/libconversion.a ../../network/libnetwork.a
+am_test_rmdebug_OBJECTS = test_rmdebug.$(OBJEXT) \
+	mymalloc_cln.$(OBJEXT)
+test_rmdebug_OBJECTS = $(am_test_rmdebug_OBJECTS)
+test_rmdebug_LDADD = $(LDADD)
+test_rmdebug_DEPENDENCIES = ../../rasodmg/librasodmg.a \
+	../../clientcomm/libclientcomm.a ../libraslib.a \
+	../../conversion/libconversion.a ../../network/libnetwork.a
+am_test_sinterval_OBJECTS = test_sinterval.$(OBJEXT) \
+	mymalloc_cln.$(OBJEXT)
+test_sinterval_OBJECTS = $(am_test_sinterval_OBJECTS)
+test_sinterval_LDADD = $(LDADD)
+test_sinterval_DEPENDENCIES = ../../rasodmg/librasodmg.a \
+	../../clientcomm/libclientcomm.a ../libraslib.a \
+	../../conversion/libconversion.a ../../network/libnetwork.a
+am_test_timer_OBJECTS = test_timer.$(OBJEXT) mymalloc_cln.$(OBJEXT)
+test_timer_OBJECTS = $(am_test_timer_OBJECTS)
+test_timer_LDADD = $(LDADD)
+test_timer_DEPENDENCIES = ../../rasodmg/librasodmg.a \
+	../../clientcomm/libclientcomm.a ../libraslib.a \
+	../../conversion/libconversion.a ../../network/libnetwork.a
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
-COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
-	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-CCLD = $(CC)
-LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-SOURCES = $(libraslib_a_SOURCES)
-DIST_SOURCES = $(libraslib_a_SOURCES)
+SOURCES = $(test_endian_SOURCES) $(test_error_SOURCES) \
+	$(test_metaobject_SOURCES) $(test_minterval_SOURCES) \
+	$(test_miter_SOURCES) $(test_miterd_SOURCES) \
+	$(test_oid_SOURCES) $(test_params_SOURCES) \
+	$(test_point_SOURCES) $(test_rmdebug_SOURCES) \
+	$(test_sinterval_SOURCES) $(test_timer_SOURCES)
+DIST_SOURCES = $(test_endian_SOURCES) $(test_error_SOURCES) \
+	$(test_metaobject_SOURCES) $(test_minterval_SOURCES) \
+	$(test_miter_SOURCES) $(test_miterd_SOURCES) \
+	$(test_oid_SOURCES) $(test_params_SOURCES) \
+	$(test_point_SOURCES) $(test_rmdebug_SOURCES) \
+	$(test_sinterval_SOURCES) $(test_timer_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	html-recursive info-recursive install-data-recursive \
 	install-dvi-recursive install-exec-recursive \
@@ -147,6 +193,8 @@ AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
 	distdir
 ETAGS = etags
 CTAGS = ctags
+am__tty_colors = \
+red=; grn=; lgn=; blu=; std=
 DIST_SUBDIRS = $(SUBDIRS)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
@@ -313,32 +361,30 @@ wardir = @wardir@
 wpswar = @wpswar@
 AM_CXXFLAGS = @CLIENTCXXFLAGS@
 AM_LDFLAGS = @CLIENTLDFLAGS@
-lib_LIBRARIES = libraslib.a
-libraslib_a_SOURCES = sinterval.hh dlist.hh point.hh minterval.hh error.hh \
-                     rmdebug.hh rminit.hh metaobject.hh type.hh marraytype.hh \
-                     basetype.hh primitivetype.hh sintervaltype.hh \
-                     collectiontype.hh property.hh attribute.hh mintervaltype.hh \
-                     pointtype.hh oidtype.hh structuretype.hh itertype.hh \
-                     oid.hh scalar.hh primitive.hh structure.hh miter.hh mddtypes.hh \
-                     miterd.hh mitera.hh memblockvec.hh parseparams.hh storageman.hh \
-                     endian.hh flatbasetype.hh complex.hh complextype.hh shhopt.h \
-                     sinterval.cc dlist.cc point.cc minterval.cc error.cc \
-                     rmdebug.cc rminit.cc metaobject.cc type.cc marraytype.cc \
-                     basetype.cc primitivetype.cc sintervaltype.cc \
-                     collectiontype.cc property.cc attribute.cc mintervaltype.cc \
-                     pointtype.cc oidtype.cc structuretype.cc itertype.cc \
-                     oid.cc scalar.cc primitive.cc structure.cc miter.cc mddtypes.cc \
-                     miterd.cc mitera.cc memblockvec.cc parseparams.cc storageman.cc \
-                     endian.cc flatbasetype.cc complex.cc complextype.cc shhopt.c \
-                     complex.icc complextype.icc error.icc minterval.icc miterd.icc miterf.icc \
-                     miter.icc oid.icc point.icc rmdebug.icc sinterval.icc \
-                     rmdebug.hh rm.hh odmgtypes.hh miterf.hh template_inst.hh
+test_endian_SOURCES = test_endian.cc
+test_error_SOURCES = test_error.cc ../../mymalloc/mymalloc_cln.cc
+test_metaobject_SOURCES = test_metaobject.cc
+test_minterval_SOURCES = test_minterval.cc ../../mymalloc/mymalloc_cln.cc
+test_miter_SOURCES = test_miter.cc
+test_miterd_SOURCES = test_miterd.cc ../../mymalloc/mymalloc_cln.cc
 
-SUBDIRS = test
+# compiler errors in raslib/miterf.icc
+# test_miterf_SOURCES = test_miterf.cc
+test_oid_SOURCES = test_oid.cc ../../mymalloc/mymalloc_cln.cc
+test_params_SOURCES = test_params.cc ../../mymalloc/mymalloc_cln.cc
+test_point_SOURCES = test_point.cc ../../mymalloc/mymalloc_cln.cc
+test_rmdebug_SOURCES = test_rmdebug.cc ../../mymalloc/mymalloc_cln.cc
+test_sinterval_SOURCES = test_sinterval.cc ../../mymalloc/mymalloc_cln.cc
+test_timer_SOURCES = test_timer.cc ../../mymalloc/mymalloc_cln.cc
+LDADD = ../../rasodmg/librasodmg.a ../../clientcomm/libclientcomm.a \
+	../libraslib.a \
+	../../conversion/libconversion.a ../../network/libnetwork.a
+
+SUBDIRS = ../../mymalloc
 all: all-recursive
 
 .SUFFIXES:
-.SUFFIXES: .c .cc .o .obj
+.SUFFIXES: .cc .o .obj
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -348,9 +394,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu raslib/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu raslib/test/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu raslib/Makefile
+	  $(AUTOMAKE) --gnu raslib/test/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -369,42 +415,45 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
-install-libLIBRARIES: $(lib_LIBRARIES)
-	@$(NORMAL_INSTALL)
-	test -z "$(libdir)" || $(MKDIR_P) "$(DESTDIR)$(libdir)"
-	@list='$(lib_LIBRARIES)'; test -n "$(libdir)" || list=; \
-	list2=; for p in $$list; do \
-	  if test -f $$p; then \
-	    list2="$$list2 $$p"; \
-	  else :; fi; \
-	done; \
-	test -z "$$list2" || { \
-	  echo " $(INSTALL_DATA) $$list2 '$(DESTDIR)$(libdir)'"; \
-	  $(INSTALL_DATA) $$list2 "$(DESTDIR)$(libdir)" || exit $$?; }
-	@$(POST_INSTALL)
-	@list='$(lib_LIBRARIES)'; test -n "$(libdir)" || list=; \
-	for p in $$list; do \
-	  if test -f $$p; then \
-	    $(am__strip_dir) \
-	    echo " ( cd '$(DESTDIR)$(libdir)' && $(RANLIB) $$f )"; \
-	    ( cd "$(DESTDIR)$(libdir)" && $(RANLIB) $$f ) || exit $$?; \
-	  else :; fi; \
-	done
 
-uninstall-libLIBRARIES:
-	@$(NORMAL_UNINSTALL)
-	@list='$(lib_LIBRARIES)'; test -n "$(libdir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	test -n "$$files" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(libdir)' && rm -f "$$files" )"; \
-	cd "$(DESTDIR)$(libdir)" && rm -f $$files
-
-clean-libLIBRARIES:
-	-test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
-libraslib.a: $(libraslib_a_OBJECTS) $(libraslib_a_DEPENDENCIES) 
-	-rm -f libraslib.a
-	$(libraslib_a_AR) libraslib.a $(libraslib_a_OBJECTS) $(libraslib_a_LIBADD)
-	$(RANLIB) libraslib.a
+clean-checkPROGRAMS:
+	-test -z "$(check_PROGRAMS)" || rm -f $(check_PROGRAMS)
+test_endian$(EXEEXT): $(test_endian_OBJECTS) $(test_endian_DEPENDENCIES) 
+	@rm -f test_endian$(EXEEXT)
+	$(CXXLINK) $(test_endian_OBJECTS) $(test_endian_LDADD) $(LIBS)
+test_error$(EXEEXT): $(test_error_OBJECTS) $(test_error_DEPENDENCIES) 
+	@rm -f test_error$(EXEEXT)
+	$(CXXLINK) $(test_error_OBJECTS) $(test_error_LDADD) $(LIBS)
+test_metaobject$(EXEEXT): $(test_metaobject_OBJECTS) $(test_metaobject_DEPENDENCIES) 
+	@rm -f test_metaobject$(EXEEXT)
+	$(CXXLINK) $(test_metaobject_OBJECTS) $(test_metaobject_LDADD) $(LIBS)
+test_minterval$(EXEEXT): $(test_minterval_OBJECTS) $(test_minterval_DEPENDENCIES) 
+	@rm -f test_minterval$(EXEEXT)
+	$(CXXLINK) $(test_minterval_OBJECTS) $(test_minterval_LDADD) $(LIBS)
+test_miter$(EXEEXT): $(test_miter_OBJECTS) $(test_miter_DEPENDENCIES) 
+	@rm -f test_miter$(EXEEXT)
+	$(CXXLINK) $(test_miter_OBJECTS) $(test_miter_LDADD) $(LIBS)
+test_miterd$(EXEEXT): $(test_miterd_OBJECTS) $(test_miterd_DEPENDENCIES) 
+	@rm -f test_miterd$(EXEEXT)
+	$(CXXLINK) $(test_miterd_OBJECTS) $(test_miterd_LDADD) $(LIBS)
+test_oid$(EXEEXT): $(test_oid_OBJECTS) $(test_oid_DEPENDENCIES) 
+	@rm -f test_oid$(EXEEXT)
+	$(CXXLINK) $(test_oid_OBJECTS) $(test_oid_LDADD) $(LIBS)
+test_params$(EXEEXT): $(test_params_OBJECTS) $(test_params_DEPENDENCIES) 
+	@rm -f test_params$(EXEEXT)
+	$(CXXLINK) $(test_params_OBJECTS) $(test_params_LDADD) $(LIBS)
+test_point$(EXEEXT): $(test_point_OBJECTS) $(test_point_DEPENDENCIES) 
+	@rm -f test_point$(EXEEXT)
+	$(CXXLINK) $(test_point_OBJECTS) $(test_point_LDADD) $(LIBS)
+test_rmdebug$(EXEEXT): $(test_rmdebug_OBJECTS) $(test_rmdebug_DEPENDENCIES) 
+	@rm -f test_rmdebug$(EXEEXT)
+	$(CXXLINK) $(test_rmdebug_OBJECTS) $(test_rmdebug_LDADD) $(LIBS)
+test_sinterval$(EXEEXT): $(test_sinterval_OBJECTS) $(test_sinterval_DEPENDENCIES) 
+	@rm -f test_sinterval$(EXEEXT)
+	$(CXXLINK) $(test_sinterval_OBJECTS) $(test_sinterval_LDADD) $(LIBS)
+test_timer$(EXEEXT): $(test_timer_OBJECTS) $(test_timer_DEPENDENCIES) 
+	@rm -f test_timer$(EXEEXT)
+	$(CXXLINK) $(test_timer_OBJECTS) $(test_timer_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -412,57 +461,19 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/attribute.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/basetype.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/collectiontype.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/complex.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/complextype.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dlist.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/endian.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/error.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/flatbasetype.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/itertype.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/marraytype.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mddtypes.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/memblockvec.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/metaobject.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/minterval.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mintervaltype.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/miter.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mitera.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/miterd.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/oid.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/oidtype.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parseparams.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/point.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pointtype.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/primitive.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/primitivetype.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/property.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rmdebug.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rminit.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/scalar.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shhopt.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sinterval.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sintervaltype.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/storageman.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/structure.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/structuretype.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/type.Po@am__quote@
-
-.c.o:
-@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(COMPILE) -c $<
-
-.c.obj:
-@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mymalloc_cln.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_endian.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_error.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_metaobject.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_minterval.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_miter.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_miterd.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_oid.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_params.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_point.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_rmdebug.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_sinterval.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_timer.Po@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -477,6 +488,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+mymalloc_cln.o: ../../mymalloc/mymalloc_cln.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT mymalloc_cln.o -MD -MP -MF $(DEPDIR)/mymalloc_cln.Tpo -c -o mymalloc_cln.o `test -f '../../mymalloc/mymalloc_cln.cc' || echo '$(srcdir)/'`../../mymalloc/mymalloc_cln.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/mymalloc_cln.Tpo $(DEPDIR)/mymalloc_cln.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='../../mymalloc/mymalloc_cln.cc' object='mymalloc_cln.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o mymalloc_cln.o `test -f '../../mymalloc/mymalloc_cln.cc' || echo '$(srcdir)/'`../../mymalloc/mymalloc_cln.cc
+
+mymalloc_cln.obj: ../../mymalloc/mymalloc_cln.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT mymalloc_cln.obj -MD -MP -MF $(DEPDIR)/mymalloc_cln.Tpo -c -o mymalloc_cln.obj `if test -f '../../mymalloc/mymalloc_cln.cc'; then $(CYGPATH_W) '../../mymalloc/mymalloc_cln.cc'; else $(CYGPATH_W) '$(srcdir)/../../mymalloc/mymalloc_cln.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/mymalloc_cln.Tpo $(DEPDIR)/mymalloc_cln.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='../../mymalloc/mymalloc_cln.cc' object='mymalloc_cln.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o mymalloc_cln.obj `if test -f '../../mymalloc/mymalloc_cln.cc'; then $(CYGPATH_W) '../../mymalloc/mymalloc_cln.cc'; else $(CYGPATH_W) '$(srcdir)/../../mymalloc/mymalloc_cln.cc'; fi`
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
@@ -613,6 +638,98 @@ GTAGS:
 distclean-tags:
 	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
 
+check-TESTS: $(TESTS)
+	@failed=0; all=0; xfail=0; xpass=0; skip=0; \
+	srcdir=$(srcdir); export srcdir; \
+	list=' $(TESTS) '; \
+	$(am__tty_colors); \
+	if test -n "$$list"; then \
+	  for tst in $$list; do \
+	    if test -f ./$$tst; then dir=./; \
+	    elif test -f $$tst; then dir=; \
+	    else dir="$(srcdir)/"; fi; \
+	    if $(TESTS_ENVIRONMENT) $${dir}$$tst; then \
+	      all=`expr $$all + 1`; \
+	      case " $(XFAIL_TESTS) " in \
+	      *[\ \	]$$tst[\ \	]*) \
+		xpass=`expr $$xpass + 1`; \
+		failed=`expr $$failed + 1`; \
+		col=$$red; res=XPASS; \
+	      ;; \
+	      *) \
+		col=$$grn; res=PASS; \
+	      ;; \
+	      esac; \
+	    elif test $$? -ne 77; then \
+	      all=`expr $$all + 1`; \
+	      case " $(XFAIL_TESTS) " in \
+	      *[\ \	]$$tst[\ \	]*) \
+		xfail=`expr $$xfail + 1`; \
+		col=$$lgn; res=XFAIL; \
+	      ;; \
+	      *) \
+		failed=`expr $$failed + 1`; \
+		col=$$red; res=FAIL; \
+	      ;; \
+	      esac; \
+	    else \
+	      skip=`expr $$skip + 1`; \
+	      col=$$blu; res=SKIP; \
+	    fi; \
+	    echo "$${col}$$res$${std}: $$tst"; \
+	  done; \
+	  if test "$$all" -eq 1; then \
+	    tests="test"; \
+	    All=""; \
+	  else \
+	    tests="tests"; \
+	    All="All "; \
+	  fi; \
+	  if test "$$failed" -eq 0; then \
+	    if test "$$xfail" -eq 0; then \
+	      banner="$$All$$all $$tests passed"; \
+	    else \
+	      if test "$$xfail" -eq 1; then failures=failure; else failures=failures; fi; \
+	      banner="$$All$$all $$tests behaved as expected ($$xfail expected $$failures)"; \
+	    fi; \
+	  else \
+	    if test "$$xpass" -eq 0; then \
+	      banner="$$failed of $$all $$tests failed"; \
+	    else \
+	      if test "$$xpass" -eq 1; then passes=pass; else passes=passes; fi; \
+	      banner="$$failed of $$all $$tests did not behave as expected ($$xpass unexpected $$passes)"; \
+	    fi; \
+	  fi; \
+	  dashes="$$banner"; \
+	  skipped=""; \
+	  if test "$$skip" -ne 0; then \
+	    if test "$$skip" -eq 1; then \
+	      skipped="($$skip test was not run)"; \
+	    else \
+	      skipped="($$skip tests were not run)"; \
+	    fi; \
+	    test `echo "$$skipped" | wc -c` -le `echo "$$banner" | wc -c` || \
+	      dashes="$$skipped"; \
+	  fi; \
+	  report=""; \
+	  if test "$$failed" -ne 0 && test -n "$(PACKAGE_BUGREPORT)"; then \
+	    report="Please report to $(PACKAGE_BUGREPORT)"; \
+	    test `echo "$$report" | wc -c` -le `echo "$$banner" | wc -c` || \
+	      dashes="$$report"; \
+	  fi; \
+	  dashes=`echo "$$dashes" | sed s/./=/g`; \
+	  if test "$$failed" -eq 0; then \
+	    echo "$$grn$$dashes"; \
+	  else \
+	    echo "$$red$$dashes"; \
+	  fi; \
+	  echo "$$banner"; \
+	  test -z "$$skipped" || echo "$$skipped"; \
+	  test -z "$$report" || echo "$$report"; \
+	  echo "$$dashes$$std"; \
+	  test "$$failed" -eq 0; \
+	else :; fi
+
 distdir: $(DISTFILES)
 	@srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
@@ -672,13 +789,12 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 check-am: all-am
+	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
+	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
 check: check-recursive
-all-am: Makefile $(LIBRARIES)
+all-am: Makefile
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(libdir)"; do \
-	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
-	done
 install: install-recursive
 install-exec: install-exec-recursive
 install-data: install-data-recursive
@@ -706,7 +822,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-recursive
 
-clean-am: clean-generic clean-libLIBRARIES mostlyclean-am
+clean-am: clean-checkPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-recursive
 	-rm -rf ./$(DEPDIR)
@@ -732,7 +848,7 @@ install-dvi: install-dvi-recursive
 
 install-dvi-am:
 
-install-exec-am: install-libLIBRARIES
+install-exec-am:
 
 install-html: install-html-recursive
 
@@ -771,25 +887,24 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-libLIBRARIES
+uninstall-am:
 
-.MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) ctags-recursive \
-	install-am install-strip tags-recursive
+.MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) check-am \
+	ctags-recursive install-am install-strip tags-recursive
 
 .PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
-	all all-am check check-am clean clean-generic \
-	clean-libLIBRARIES ctags ctags-recursive distclean \
-	distclean-compile distclean-generic distclean-tags distdir dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-libLIBRARIES install-man \
+	all all-am check check-TESTS check-am clean \
+	clean-checkPROGRAMS clean-generic ctags ctags-recursive \
+	distclean distclean-compile distclean-generic distclean-tags \
+	distdir dvi dvi-am html html-am info info-am install \
+	install-am install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
 	install-pdf install-pdf-am install-ps install-ps-am \
 	install-strip installcheck installcheck-am installdirs \
 	installdirs-am maintainer-clean maintainer-clean-generic \
 	mostlyclean mostlyclean-compile mostlyclean-generic pdf pdf-am \
-	ps ps-am tags tags-recursive uninstall uninstall-am \
-	uninstall-libLIBRARIES
+	ps ps-am tags tags-recursive uninstall uninstall-am
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

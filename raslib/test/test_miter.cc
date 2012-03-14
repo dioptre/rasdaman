@@ -32,11 +32,17 @@ rasdaman GmbH.
 #include <math.h>
 #include <stdlib.h>
 
+#ifdef EARLY_TEMPLATE
+#define __EXECUTABLE__
+#endif
+
+#include "raslib/template_inst.hh"
 #include "raslib/miter.hh"
 #include "raslib/minterval.hh"
 #include "raslib/rminit.hh"
 #include "raslib/rmdebug.hh"
-RMINITGLOBALS('C')
+
+using namespace std;
 
 // structure storing information on iteration for each dimension
 // (perhaps add dimension for reordering later)
@@ -53,12 +59,12 @@ r_Minterval
 createCube(int size, int dim)
 {
   int i;
-  long c = pow((double)size, 1.0/(double)dim);
+  int c = pow((double)size, 1.0/(double)dim);
 
   r_Minterval res(dim);
 
   for(i=0; i<dim; i++)
-    res << r_Sinterval(0l, c-1);
+    res << r_Sinterval(0, c-1);
 
   i = 0;
   while(res.cell_count() < size) {

@@ -33,12 +33,14 @@ rasdaman GmbH.
  ************************************************************/
 
 #include <iostream>
-#include <iomanip.h>
+#include <iomanip>
 // #include <limits.h>
-#include "raslib/oid.hh"
 
+#include "raslib/oid.hh"
 #include "raslib/rminit.hh"
 RMINITGLOBALS('C')
+
+using namespace std;
    
 int main()
 {   

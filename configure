@@ -8336,7 +8336,7 @@ fi
 done
 
 
-ac_config_files="$ac_config_files Makefile catalogmgr/Makefile relblobif/Makefile relindexif/Makefile relmddif/Makefile relcatalogif/Makefile reladminif/Makefile relstorageif/Makefile indexmgr/Makefile tilemgr/Makefile storagemgr/Makefile commline/Makefile network/Makefile raslib/Makefile clientcomm/Makefile servercomm/Makefile rasodmg/Makefile qlparser/Makefile conversion/Makefile mddmgr/Makefile httpserver/Makefile mymalloc/Makefile server/Makefile rasmgr/Makefile rascontrol/Makefile rasdl/Makefile applications/Makefile applications/rasql/Makefile applications/rview/Makefile applications/rasgeo/Makefile applications/raswct/Makefile applications/petascope/Makefile bin/Makefile manuals_and_examples/Makefile manuals_and_examples/examples/c++/Makefile insertutils/Makefile include/Makefile java/Makefile systemtest/Makefile"
+ac_config_files="$ac_config_files Makefile catalogmgr/Makefile relblobif/Makefile relindexif/Makefile relmddif/Makefile relcatalogif/Makefile reladminif/Makefile relstorageif/Makefile indexmgr/Makefile tilemgr/Makefile storagemgr/Makefile commline/Makefile network/Makefile raslib/Makefile raslib/test/Makefile clientcomm/Makefile servercomm/Makefile rasodmg/Makefile qlparser/Makefile conversion/Makefile mddmgr/Makefile httpserver/Makefile mymalloc/Makefile server/Makefile rasmgr/Makefile rascontrol/Makefile rasdl/Makefile applications/Makefile applications/rasql/Makefile applications/rview/Makefile applications/rasgeo/Makefile applications/raswct/Makefile applications/petascope/Makefile bin/Makefile manuals_and_examples/Makefile manuals_and_examples/examples/c++/Makefile insertutils/Makefile include/Makefile java/Makefile systemtest/Makefile"
 
 
 # --------------- Header Template Definitions ----------------------
@@ -10523,6 +10523,7 @@ do
     "commline/Makefile") CONFIG_FILES="$CONFIG_FILES commline/Makefile" ;;
     "network/Makefile") CONFIG_FILES="$CONFIG_FILES network/Makefile" ;;
     "raslib/Makefile") CONFIG_FILES="$CONFIG_FILES raslib/Makefile" ;;
+    "raslib/test/Makefile") CONFIG_FILES="$CONFIG_FILES raslib/test/Makefile" ;;
     "clientcomm/Makefile") CONFIG_FILES="$CONFIG_FILES clientcomm/Makefile" ;;
     "servercomm/Makefile") CONFIG_FILES="$CONFIG_FILES servercomm/Makefile" ;;
     "rasodmg/Makefile") CONFIG_FILES="$CONFIG_FILES rasodmg/Makefile" ;;

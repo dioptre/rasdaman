@@ -39,6 +39,8 @@ rasdaman GmbH.
 
 #include "raslib/rminit.hh"
 RMINITGLOBALS('C')
+
+using namespace std;
    
 int main()
 {   
@@ -53,7 +55,7 @@ int main()
   if( Buffer[0] == '*' )
     interval1.set_low('*');
   else
-    interval1.set_low( atol( Buffer ) );
+    interval1.set_low( atoi( Buffer ) );
    
   cout << "upper bound ? ";
   cin  >> Buffer;
@@ -62,7 +64,7 @@ int main()
   if( Buffer[0] == '*' )
     interval1.set_high('*');
   else
-    interval1.set_high( atol( Buffer ) );
+    interval1.set_high( atoi( Buffer ) );
    
   cout << "interval1 = [";
   interval1.print_status( cout );
@@ -75,7 +77,7 @@ int main()
   if( Buffer[0] == '*' )
     interval2.set_low('*');
   else
-    interval2.set_low( atol( Buffer ) );
+    interval2.set_low( atoi( Buffer ) );
   
   cout << "upper bound ? ";
   cin  >> Buffer;
@@ -84,7 +86,7 @@ int main()
   if( Buffer[0] == '*' )
     interval2.set_high('*');
   else
-    interval2.set_high( atol( Buffer ) );
+    interval2.set_high( atoi( Buffer ) );
    
   cout << "interval1 = [";
   interval2.print_status( cout );
@@ -147,7 +149,7 @@ int main()
   
   cerr << endl;
 
-  r_Sinterval b( 4l, 10l );
+  r_Sinterval b( 4, 10 );
   char* stringRep = b.get_string_representation();
   cout << endl << "String representation of interval " << b << ": " << stringRep << endl;
   cout << "Result of string constructor: " << r_Sinterval( stringRep ) << endl;
