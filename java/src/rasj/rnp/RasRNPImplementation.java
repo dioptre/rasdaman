@@ -253,7 +253,8 @@ public class RasRNPImplementation extends RnpBaseClientComm implements RasImplem
 	 databaseName = name;	 
 	 this.accessMode = accessMode;
 	 readWrite = (accessMode != Database.OPEN_READ_ONLY) ? true:false;
-	 getFreeServer(false); // fake server
+	 //getFreeServer(false); // fake server
+	 getFreeServer(true); //Allow connections to multiple servers. Changed by: ernesto4160@gmail.com
 
 	// "turbo" doesn't work because connect delivers the client id needed for later calls
 	 // if(useTurbo==false)
