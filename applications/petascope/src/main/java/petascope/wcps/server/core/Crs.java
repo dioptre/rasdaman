@@ -53,10 +53,6 @@ public class Crs implements IRasNode {
             throw new WCPSException("Could not find a 'srsName' node !");
         }
     }
-    
-    public Crs(String srsName) {
-      crsName = srsName;
-    }
 
     /***
      * Converts an array of 4 coordinates (bounding box) expressed in the
@@ -181,7 +177,7 @@ public class Crs implements IRasNode {
         log.trace("Domain extremes coordinates: (" + domLo + "," + domHi + ")");
 
         // Get cell dimension 
-        double cellWidth = (domHi-domLo)/(double)(pxHi-pxLo);
+        double cellWidth = (domHi-domLo)/(double)((pxHi-pxLo)+1);
 
         // Conversion to pixel domain
         int[] out;
@@ -192,7 +188,7 @@ public class Crs implements IRasNode {
             };
         } else {
             out = new int[] {
-                // First coordHi, so that left-hand index is the lower
+                // First coordHi, so that left-hand index is the lower one
                 (int)Math.round((domHi - coordHi) / cellWidth) + pxLo,
                 (int)Math.round((domHi - coordLo) / cellWidth) + pxLo
             };
