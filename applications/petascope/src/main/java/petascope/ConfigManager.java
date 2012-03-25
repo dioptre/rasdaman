@@ -76,6 +76,10 @@ public class ConfigManager {
     public static String RASDAMAN_USER = "rasguest";
     public static String RASDAMAN_PASS = "rasguest";
     public static String RASDAMAN_VERSION = "8";
+
+    //Retry settings when opening a connection to rasdaman server. Ernesto Rodriguez <ernesto4160@gmail.com>
+    public static String RASDAMAN_RETRY_TIMEOUT="5";
+    public static String RASDAMAN_RETRY_ATTEMPTS="3";
     
     public static String WCST_LANGUAGE  = "en";
     public static String WCST_VERSION = "1.1.4";
@@ -177,6 +181,8 @@ public class ConfigManager {
         METADATA_URL = get("metadata_url");
         METADATA_USER = get("metadata_user");
         METADATA_PASS = get("metadata_pass");
+	RASDAMAN_RETRY_TIMEOUT=get("rasdaman_retry_timeout");
+	RASDAMAN_RETRY_ATTEMPTS=get("rasdaman_retry_attempts");
 
         CCIP_HACK = Boolean.parseBoolean(get("ccip_version"));
 

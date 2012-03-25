@@ -38,6 +38,7 @@ import petascope.exceptions.WCPSException;
 import petascope.wcps.server.core.ProcessCoveragesRequest;
 import petascope.wcps.server.core.WCPS;
 import rasj.RasImplementation;
+import rasj.RasConnectionFailedException;
 
 /**
  * Rasdaman utility classes - execute queries, etc.
@@ -52,41 +53,76 @@ public class RasUtil {
     public static Object executeRasqlQuery(String query) throws RasdamanException {
         Implementation impl = new RasImplementation(ConfigManager.RASDAMAN_URL);
         Database db = impl.newDatabase();
-        try {
-            db.open(ConfigManager.RASDAMAN_DATABASE, Database.OPEN_READ_ONLY);
-        } catch (Exception ex) {
-            try {
-                db.close();
-            } catch (ODMGException e) {
-                log.error("Error closing database connection", ex);
-            }
-            log.trace("Could not connect to rasdaman server at " + ConfigManager.RASDAMAN_URL
-                    + ", database " + ConfigManager.RASDAMAN_DATABASE);
-            throw new RasdamanException(ExceptionCode.InternalComponentError,
-                    "Could not connect to rasdaman server at " + ConfigManager.RASDAMAN_URL
-                    + ", database " + ConfigManager.RASDAMAN_DATABASE, ex);
-        }
+	int maxAttempts,timeout,attempts=0;	
 
-        Transaction tr = impl.newTransaction();
-        tr.begin();
-        OQLQuery q = impl.newOQLQuery();
-        Object ret;
-        try {
-            q.create(query);
-            log.trace("Executing query {}", query);
-            ret = q.execute();
-        } catch (QueryException ex) {
-            tr.abort();
-            throw new RasdamanException(ExceptionCode.InternalSqlError,
-                    "Error evaluating rasdaman query: '" + query, ex);
-        } finally {
-            tr.commit();
-            try {
-                db.close();
-            } catch (ODMGException ex) {
-                log.error("Error closing database connection", ex);
-            }
-        }
+	try{
+	    timeout=Integer.parseInt(ConfigManager.RASDAMAN_RETRY_TIMEOUT)*1000;
+	}catch(NumberFormatException ex){
+	    timeout=5000;
+	}
+
+	try{
+	    maxAttempts=Integer.parseInt(ConfigManager.RASDAMAN_RETRY_ATTEMPTS);
+	}catch(NumberFormatException ex){
+	    maxAttempts=3;
+	}
+	
+        Transaction tr;
+	Object ret=null;
+
+	//Try to connect until the maximum number of attempts is reached
+	//This loop handles connection attempts to a saturated rasdaman
+	//complex which will refuse the connection until a server becomes
+	//available.
+	boolean queryCompleted=false,dbOpened=false;
+	while(!queryCompleted){
+	    try{
+		db.open(ConfigManager.RASDAMAN_DATABASE, Database.OPEN_READ_ONLY);
+		dbOpened=true;
+		tr = impl.newTransaction();
+		tr.begin();
+		OQLQuery q = impl.newOQLQuery();
+		try {
+		    q.create(query);
+		    log.trace("Executing query {}", query);
+		    ret = q.execute();
+		} catch (QueryException ex) {
+		    tr.abort();
+		    throw new RasdamanException(ExceptionCode.InternalSqlError,
+						"Error evaluating rasdaman query: '" + query, ex);
+		} finally {
+		    tr.commit();
+		    queryCompleted=true;
+		    try {
+			db.close();
+		    } catch (ODMGException ex) {
+			log.error("Error closing database connection", ex);
+		    }
+		}
+	    }catch(RasConnectionFailedException ex){
+		attempts++;
+		if(dbOpened)
+		    try{
+			db.close();
+		    }catch(ODMGException e){
+			log.error("Error closing database connection", e);
+		    }
+		dbOpened=false;
+		if(!(attempts<maxAttempts))
+		    throw ex;
+		try{
+		    Thread.sleep(timeout);
+		}catch(InterruptedException e){
+		    log.error("Thread "+Thread.currentThread().getName()+
+			      " was interrupted while searching a free server.");
+		    throw new RasdamanException(ExceptionCode.RuntimeError,
+						"Error getting a free rasdaman server");
+		}
+	    }catch(ODMGException ex){
+		throw new RasdamanException(ExceptionCode.RuntimeError,
+						"Error getting a free rasdaman server");
+	    }
+	}            
         return ret;
     }
     
