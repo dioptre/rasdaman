@@ -36,6 +36,10 @@ public class Crs implements IRasNode {
     Logger log = LoggerFactory.getLogger(Crs.class);
     private String crsName;
 
+    public Crs(String srsName) {
+	 crsName = srsName;
+     }
+
     public Crs(Node node, XmlQuery xq) throws WCPSException {
              while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
