@@ -134,8 +134,8 @@ public interface XMLSymbols {
     String ATT_SUBSET_CRS = "subsettingCrs";
     String ATT_OUTPUT_CRS = "outputCrs";
     // bbox
-    String ATT_LOWERCORNER = "lowerCorner";
-    String ATT_UPPERCORNER = "upperCorner";
+    String ATT_LOWERCORNER = "LowerCorner";
+    String ATT_UPPERCORNER = "UpperCorner";
     String ATT_CRS = "crs";
     String ATT_DIMENSIONS = "dimensions";
 
