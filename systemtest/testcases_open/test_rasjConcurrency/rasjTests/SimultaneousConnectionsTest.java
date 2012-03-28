@@ -30,57 +30,56 @@ import org.junit.Test;
 import rasj.RasQueryExecutionFailedException;
 import org.odmg.ODMGException;
 
-public class SimultaneousConnectionsTest{
+public class SimultaneousConnectionsTest {
 
     public static final String RASDAMAN_URL = "http://localhost:7001";
-    public static final String QUERY= "select csv(c[0:200,0:200]) from NIR AS c";
+    public static final String QUERY = "select csv(c[0:200,0:200]) from rgb AS c";
     public static final String RASDAMAN_DATABASE = "RASBASE";
-    private final int numThreads=4;
+    private final int numThreads = 4;
 
     @Test
-	public void testQueryRasdaman() throws Exception{
+    public void testQueryRasdaman() throws Exception {
 
-	RasjQuery[] queries=new RasjQuery[numThreads];
+	RasjQuery[] queries = new RasjQuery[numThreads];
 
-	System.out.println("Starting "+numThreads+" simultaneous requests through rasj.");
-	System.out.println("Rasdaman Url: "+RASDAMAN_URL);
-	System.out.println("Rasdaman Database: "+RASDAMAN_DATABASE);
-	for(int i=0;i<queries.length;i++){
+	System.out.println("Starting " + numThreads + " simultaneous requests through rasj.");
+	System.out.println("Rasdaman Url: " + RASDAMAN_URL);
+	System.out.println("Rasdaman Database: " + RASDAMAN_DATABASE);
+	for(int i = 0; i < queries.length; i++) {
 
-	    queries[i]=new RasjQuery();
+	    queries[i] = new RasjQuery();
 	    (new Thread(queries[i])).start();
 	}
 
-	boolean done=false;
+	boolean done = false;
 
-	while(!done){
+	while(!done) {
 
-	    done=true;
-	    for(int i=0;i<queries.length;i++)		
+	    done = true;
+	    for(int i = 0; i < queries.length; i++)		
 		if(!queries[i].isDone())
-		    done=false;
+		    done = false;
 	}
 
-	int succ=0;
-	for(int i=0;i<queries.length;i++){
+	int succ = 0;
+	for(int i = 0; i < queries.length; i++) {
 
-	    try{
-		
+	    try {		
 		throw queries[i].getResultingException();
-	    }catch(RasQueryExecutionFailedException e){
+	    }catch(RasQueryExecutionFailedException e) {
 		e.printStackTrace();
 		System.out.println("A thread failed to query the database.");
 		System.out.println("Only "+succ+" threads completed successfully.");
 		throw e;
-	    }catch(ODMGException e){
+	    }catch(ODMGException e) {
 		e.printStackTrace();
 		throw e;
-	    }catch(NullPointerException e){
+	    }catch(NullPointerException e) {
 		succ++;
 		//Everything went fine.
 	    }
 	}
 	
-	System.out.println("All "+numThreads+" simultaneous requests completed successfully.");
+	System.out.println("All " + numThreads + " simultaneous requests completed successfully.");
     }
 }

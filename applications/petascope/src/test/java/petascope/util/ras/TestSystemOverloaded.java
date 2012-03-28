@@ -41,68 +41,104 @@ import java.io.IOException;
 
 public class TestSystemOverloaded extends BaseTestCase{
 
-    private int numQueries=5;
+    private int numQueries = 5;
+
+    //The default number of servers assumed if the test is unable to determine it at runtime
+    private final int DEFAULT_NUM_SERVERS=10;
+
+    //The default login credentials in case RASLOGIN is not defined
+    //user: rasadmin, password: rasadmin
+    private final String ENV[] = {"RASLOGIN=rasadmin:d293a15562d3e70b6fdc5ee452eaed40"};
 
     @Before
-	public void setUp() throws Exception{
+    public void setUp() throws Exception {
 
-	try{
-	    numQueries=getNumberOfServers()*2;
-	}catch(IOException e){
+	try {
+	    numQueries = getNumberOfServers() * 2;
+	} catch(IOException e) {
 
-	    System.out.println("Failed to obtain the number of available rasdaman servers. Using 10.");
-	    numQueries=10*2;
+	    System.out.println("Failed to obtain the number of available rasdaman servers. Assuming " + DEFAULT_NUM_SERVERS + ".");
+	    numQueries = DEFAULT_NUM_SERVERS * 2;
 	}
 
-	System.out.println("Testing system overload with "+numQueries+" concurrent queries.");
+	System.out.println("Testing system overload with " + numQueries + " concurrent queries.");
 
     }
-    private int getNumberOfServers() throws IOException{
-	Pattern line=Pattern.compile(".*N[1-9].*UP.*");
-	String env[]={"RASLOGIN=rasadmin:d293a15562d3e70b6fdc5ee452eaed40"};
-	Process proc=Runtime.getRuntime().exec("rascontrol -x list srv",env);
+    private int getNumberOfServers() throws IOException {
+
+	int numServers = 0;
+	Pattern line = Pattern.compile(".*UP.*", Pattern.CASE_INSENSITIVE);
+	Pattern loginError = Pattern.compile(".*error.*", Pattern.CASE_INSENSITIVE);
+	
+	Process proc = Runtime.getRuntime().exec("rascontrol -t");
 	Scanner scn = new Scanner(proc.getInputStream());
-	int numServers=0;
+	boolean loginSuccessful;
+
+	if (scn.hasNextLine() && !(loginError.matcher(scn.nextLine()).find()))
+	    loginSuccessful = true;
+	else {
+	    loginSuccessful = false;
+	    System.out.println("Could not log in to rascontrol. Please consider setting the envoiernmental variable RASLOGIN properly. Trying with user: rasadmin and password: rasadmin.");
+	}
+
+	scn.close();
+
+	if (loginSuccessful)
+	    proc = Runtime.getRuntime().exec("rascontrol -x list srv");
+	else
+	    proc = Runtime.getRuntime().exec("rascontrol -x list srv", ENV);
+
+	scn = new Scanner(proc.getInputStream());	
 
 	while(scn.hasNextLine()){
 
-	    String tmp=scn.nextLine();
+	    String tmp = scn.nextLine();
 
 	    if(line.matcher(tmp).find())
 		numServers++;
 	}
 	scn.close();
 
-	return numServers;
+	if (numServers <= 0) {
+	    System.out.println("Failed to obtain the number of available rasdaman servers. Assuming " + DEFAULT_NUM_SERVERS + ".");
+	    return DEFAULT_NUM_SERVERS;
+	} else	    
+	    return numServers;
     }
-
+    
+    /**
+      Test overloading a rasdaman server with queries. The queries should be properly queued until more rasdaman servers
+      become available.
+      @return void No error occurred, queries to overloaded servers were properly handled.
+      @throws Exception, if one or more queries failed to execute, failure since queries couldn't be processed due to system overload
+    */
     @Test
-	public void testSystemOverloaded() throws Exception{
+    public void testSystemOverloaded() throws Exception {
 
-	RasdamanQuery queries[]=new RasdamanQuery[numQueries];
+	RasdamanQuery queries[] = new RasdamanQuery[numQueries];
 
-	for(int i=0;i<queries.length;i++){
+	for(int i = 0; i < queries.length; i++){
 
 	    queries[i]=new RasdamanQuery();
 	    (new Thread(queries[i])).start();
 	}
 
-	boolean finished=false;
+	boolean finished = false;
 
 	while(!finished){
-	    finished=true;
-	    for(int i=0;i<queries.length;i++){
+	    finished = true;
+	    for(int i = 0; i < queries.length; i++) {
 
 		if(!queries[i].isDone())
 		    finished=false;
 	    }
 	}
 	
-	for(int i=0;i<queries.length;i++)
+	for(int i = 0; i < queries.length; i++)
 	    try{
 		throw queries[i].resultingException();
 	    }catch(NullPointerException e){
-		//The query went ok
+		//The query completed successfully
 	    }
     }
 }

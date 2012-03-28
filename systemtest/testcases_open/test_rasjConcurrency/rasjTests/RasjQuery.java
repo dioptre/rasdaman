@@ -39,7 +39,7 @@ import rasj.RasQueryExecutionFailedException;
 class RasjQuery implements Runnable{
 
     public static final String RASDAMAN_URL = "http://localhost:7001";
-    public static final String query= "select csv(c[0:200,0:200]) from NIR AS c";
+    public static final String query= "select csv(c[0:200,0:200]) from rgb AS c";
     public static final String RASDAMAN_DATABASE = "RASBASE";
 
     private Implementation impl;
@@ -47,21 +47,21 @@ class RasjQuery implements Runnable{
     private Exception e;
     private boolean isDone;
     
-    public RasjQuery(){
+    public RasjQuery() {
 
-	this.impl=new RasImplementation(RASDAMAN_URL);
-	this.db=this.impl.newDatabase();
-	isDone=false;
+	this.impl = new RasImplementation(RASDAMAN_URL);
+	this.db = this.impl.newDatabase();
+	isDone = false;
     }
 
-    public RasjQuery(Implementation impl,Database db){
+    public RasjQuery(Implementation impl, Database db) {
 
-	this.impl=impl;
-	this.db=this.impl.newDatabase();
-	isDone=false;
+	this.impl = impl;
+	this.db = this.impl.newDatabase();
+	isDone = false;
     }
 
-    public boolean isDone(){
+    public boolean isDone() {
 
 	return isDone;
     }
@@ -71,23 +71,23 @@ class RasjQuery implements Runnable{
 	return this.e;
     }
 
-    public void run(){	    
+    public void run() {	    
 	
-	isDone=false;
-	this.e=null;
-	try{
+	isDone = false;
+	this.e = null;
+	try {
 	    this.db.open(RASDAMAN_DATABASE, Database.OPEN_READ_ONLY);
 	    Transaction tr = this.impl.newTransaction();
 	    OQLQuery q = this.impl.newOQLQuery();
 	    tr.begin();
 	    q.create(query);
-	    Object r=q.execute();
+	    Object r = q.execute();
 	    tr.commit();
 	    this.db.close();
-	}catch(Exception e){
+	}catch(Exception e) {
 		
-	    this.e=e;
+	    this.e = e;
 	}
-	isDone=true;
+	isDone = true;
     }
 }

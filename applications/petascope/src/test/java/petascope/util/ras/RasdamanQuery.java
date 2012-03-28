@@ -22,15 +22,15 @@
 
 package petascope.util.ras;
 
-public class RasdamanQuery implements Runnable{
+public class RasdamanQuery implements Runnable {
 
     private Exception e;
     private boolean isDone;
-    private final String QUERY="select csv(c[0:200,0:200]) from NIR AS c";    
+    private final String QUERY = "select csv(c[0:200,0:200]) from rgb AS c";    
 
     public RasdamanQuery(){
 
-	this.isDone=false;
+	this.isDone = false;
     }
 
     public boolean isDone(){
@@ -45,14 +45,14 @@ public class RasdamanQuery implements Runnable{
     
     public void run(){
 
-	this.isDone=false;
-	try{
+	this.isDone = false;
+	try {
 	    RasUtil.executeRasqlQuery(QUERY);
-	}catch(Exception e){
+	} catch(Exception e) {
 
-	    this.e=e;
+	    this.e = e;
 	}
 
-	this.isDone=true;
+	this.isDone = true;
     }
 }

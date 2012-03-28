@@ -78,8 +78,12 @@ public class ConfigManager {
     public static String RASDAMAN_VERSION = "8";
 
     //Retry settings when opening a connection to rasdaman server. Ernesto Rodriguez <ernesto4160@gmail.com>
-    public static String RASDAMAN_RETRY_TIMEOUT="5";
-    public static String RASDAMAN_RETRY_ATTEMPTS="3";
+
+    //Time in seconds between each re-connect attempt
+    public static String RASDAMAN_RETRY_TIMEOUT="5"; 
+
+    //Maximum number of re-connect attempts
+    public static String RASDAMAN_RETRY_ATTEMPTS="3"; 
     
     public static String WCST_LANGUAGE  = "en";
     public static String WCST_VERSION = "1.1.4";
