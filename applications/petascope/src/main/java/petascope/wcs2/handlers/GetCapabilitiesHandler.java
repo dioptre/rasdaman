@@ -131,12 +131,12 @@ public class GetCapabilitiesHandler extends AbstractRequestHandler<GetCapabiliti
                 contents.appendChild(cs);
                 /** Append Native Bbox **/
                 Bbox bbox = meta.read(coverageId).getBbox();
-                c = new Element(LABEL_BBOX, NAMESPACE_WCS);
+                c = new Element(LABEL_BBOX, NAMESPACE_OWS);
                 // lower-left + upper-right coords
-                cc = new Element(ATT_LOWERCORNER, NAMESPACE_WCS);
+                cc = new Element(ATT_LOWERCORNER, NAMESPACE_OWS);
                 cc.appendChild(bbox.getLow1() + " " + bbox.getLow2());
                 c.appendChild(cc);
-                cc = new Element(ATT_UPPERCORNER, NAMESPACE_WCS);
+                cc = new Element(ATT_UPPERCORNER, NAMESPACE_OWS);
                 cc.appendChild(bbox.getHigh1() + " " + bbox.getHigh2());
                 c.appendChild(cc);
                 // dimensions and crs attributes
@@ -146,8 +146,10 @@ public class GetCapabilitiesHandler extends AbstractRequestHandler<GetCapabiliti
                 c.addAttribute(dimensions);
                 cs.appendChild(c);                
                 /** Append WGS84 Bbox **/
-                if (!bbox.getCrsName().equals(CrsUtil.WGS84_CRS) &&
-                        !bbox.getCrsName().equalsIgnoreCase(CrsUtil.IMAGE_CRS)) {
+                /** STILL DRAFT **/
+                /*if (!bbox.getCrsName().equals(CrsUtil.WGS84_CRS) &&
+                        !bbox.getCrsName().equalsIgnoreCase(CrsUtil.IMAGE_CRS) &&
+                        // AND IF IT IS AN EARTH-CRS (no Mars) ) {
                     c = new Element(LABEL_WGS84_BBOX, NAMESPACE_WCS);
                     // lower-left + upper-right coords
                     cc = new Element(ATT_LOWERCORNER, NAMESPACE_WCS);
@@ -162,7 +164,7 @@ public class GetCapabilitiesHandler extends AbstractRequestHandler<GetCapabiliti
                     c.addAttribute(crs);
                     c.addAttribute(dimensions);
                     cs.appendChild(c);                    
-                }
+                }*/
             }
         } catch (PetascopeException ex) {
             log.error("Error", ex);
