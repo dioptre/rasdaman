@@ -22,6 +22,14 @@
 
 package petascope.util.ras;
 
+/**
+ * Preform a rasdaman query through Petascope as
+ * a stanalone thread. The number of queries can
+ * be increased as needed.
+ * 
+ * @author Ernesto Rodriguez <ernesto4160@gmail.com>
+ */
+
 public class RasdamanQuery implements Runnable {
 
     private Exception e;

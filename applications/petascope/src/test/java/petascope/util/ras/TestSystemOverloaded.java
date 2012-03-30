@@ -35,13 +35,22 @@ import java.util.regex.Matcher;
 import java.io.IOException;
 
 /**
-   Test class for quering an overloaded Rasdaman server
-  @author Ernesto Rodriguez <ernesto4160@gmail.com>
-*/
+ * Test class for quering an overloaded rasdaman server.
+ * Generate concurrent queries to rasdaman until the system
+ * is overloaded, Petascope should properly queue the requests
+ * until more servers are available.
+ * 
+ * @author Ernesto Rodriguez <ernesto4160@gmail.com>
+ */
 
 public class TestSystemOverloaded extends BaseTestCase{
 
     private int numQueries = 5;
+
+    //Will be printed at the end since Rasj 
+    //provides too much output. It will
+    //contain all messages found during testing.
+    private String messages;
 
     //The default number of servers assumed if the test is unable to determine it at runtime
     private final int DEFAULT_NUM_SERVERS=10;
@@ -53,17 +62,33 @@ public class TestSystemOverloaded extends BaseTestCase{
     @Before
     public void setUp() throws Exception {
 
+	messages="\n\nResulting messages from the test: \n\n";
+
 	try {
 	    numQueries = getNumberOfServers() * 2;
 	} catch(IOException e) {
 
-	    System.out.println("Failed to obtain the number of available rasdaman servers. Assuming " + DEFAULT_NUM_SERVERS + ".");
+	    messages += "Failed to obtain the number of available rasdaman servers. Assuming " + DEFAULT_NUM_SERVERS + ".\n\n";
 	    numQueries = DEFAULT_NUM_SERVERS * 2;
 	}
 
-	System.out.println("Testing system overload with " + numQueries + " concurrent queries.");
+	messages += "Tested overloading a Rasdaman server with " + numQueries + " concurrent queries.\n\n";
 
     }
+
+    @After
+    public void result(){
+
+	System.out.println(messages);
+    }
+
+
+    /**
+     * Obtain the number of available Rasdaman servers through rascontrol.
+     * 
+     * @return The number of servers (if found)
+     * @throws IOException If an error occures while running rascontrol
+     */
     private int getNumberOfServers() throws IOException {
 
 	int numServers = 0;
@@ -78,7 +103,7 @@ public class TestSystemOverloaded extends BaseTestCase{
 	    loginSuccessful = true;
 	else {
 	    loginSuccessful = false;
-	    System.out.println("Could not log in to rascontrol. Please consider setting the envoiernmental variable RASLOGIN properly. Trying with user: rasadmin and password: rasadmin.");
+	    messages += "Could not log in to rascontrol. Please consider setting the envoiernmental variable RASLOGIN properly. Trying with user: rasadmin and password: rasadmin.\n\n";
 	}
 
 	scn.close();
@@ -100,18 +125,22 @@ public class TestSystemOverloaded extends BaseTestCase{
 	scn.close();
 
 	if (numServers <= 0) {
-	    System.out.println("Failed to obtain the number of available rasdaman servers. Assuming " + DEFAULT_NUM_SERVERS + ".");
+	    messages += "Failed to obtain the number of available rasdaman servers. Assuming " + DEFAULT_NUM_SERVERS + ".\n\n";
 	    return DEFAULT_NUM_SERVERS;
-	} else	    
+	} else {
+	    messages += "The number of available Rasdaman servers obtained is "+numServers+
+		" if this number is incorrect please check the RASLOGIN envoirnmental variable.\n\n";
 	    return numServers;
+	}
     }
     
     /**
-      Test overloading a rasdaman server with queries. The queries should be properly queued until more rasdaman servers
-      become available.
-      @return void No error occurred, queries to overloaded servers were properly handled.
-      @throws Exception, if one or more queries failed to execute, failure since queries couldn't be processed due to system overload
-    */
+     * Test overloading a rasdaman server with queries. The queries should be properly queued until more rasdaman servers
+     * become available. This method should complete without throwing an exception.
+     *
+     * @return void No error occurred, queries to overloaded servers were properly handled.
+     * @throws Exception if one or more queries failed to execute, failure since queries couldn't be processed due to system overload
+     */
     @Test
     public void testSystemOverloaded() throws Exception {
 
@@ -125,17 +154,18 @@ public class TestSystemOverloaded extends BaseTestCase{
 
 	boolean finished = false;
 
-	while(!finished){
+	while(!finished) {
+
 	    finished = true;
 	    for(int i = 0; i < queries.length; i++) {
 
 		if(!queries[i].isDone())
-		    finished=false;
+		    finished = false;
 	    }
 	}
 	
 	for(int i = 0; i < queries.length; i++)
-	    try{
+	    try {
 		throw queries[i].resultingException();
 	    }catch(NullPointerException e){
 		//The query completed successfully

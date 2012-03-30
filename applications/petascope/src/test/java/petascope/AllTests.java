@@ -31,7 +31,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    petascope.wcs2.ExamplesTest.class
+    petascope.wcs2.ExamplesTest.class,
+    petascope.util.ras.TestSystemOverloaded.class
 })
 public class AllTests {
 }
