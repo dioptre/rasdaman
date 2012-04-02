@@ -64,6 +64,10 @@ public class GmlFormatExtension extends AbstractFormatExtension {
             throws WCSException {
         GetCoverageMetadata m = new GetCoverageMetadata(request, meta);
         
+        // First, transform possible non-native CRS subsets
+        CRSExtension crsExtension = (CRSExtension) ExtensionsRegistry.getExtension(ExtensionsRegistry.CRS_IDENTIFIER);
+        crsExtension.handle(request, m, meta);
+        
         if (m.getCoverageType().equals(GetCoverageRequest.MULTIPOINT_COVERAGE)) {
             return handleMultiPoint(request, request.getCoverageId(), meta, m);
         }

@@ -22,6 +22,9 @@ import java.util.List;
  * 
  *  °The name should be registered with OGC-NA [www.epsg.org].
  * 
+ * TODO: allow 3D bboxes for x/y/elev collections.
+ *       Is Bbox to me meant as spatial? Add temporal dimension as well?
+ * 
  * @author <a href="mailto:cmppri@unife.it">Piero Campalani</a>
  */
 public class Bbox implements Cloneable {
@@ -59,7 +62,7 @@ public class Bbox implements Cloneable {
             WGS84low2 = low2;   WGS84high2 = high2;
         } else {
             try {
-                CrsUtil crsTool = new CrsUtil(crsName, CrsUtil.CrsUri("EPSG", 4326));
+                CrsUtil crsTool = new CrsUtil(crsName, CrsUtil.WGS84_CRS);
                 List<Double> temp = crsTool.transform(low1, low2, high1, high2);
                 WGS84low1 = temp.get(0);    WGS84high1 = temp.get(2);
                 WGS84low2 = temp.get(1);    WGS84high2 = temp.get(3);

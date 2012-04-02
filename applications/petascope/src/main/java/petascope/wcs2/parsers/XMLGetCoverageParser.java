@@ -35,6 +35,7 @@ import petascope.util.CrsUtil;
 import petascope.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import petascope.util.AxisTypes;
 
 /**
  * Parse a GetCapabilities XML request.
@@ -70,11 +71,15 @@ public class XMLGetCoverageParser extends XMLParser<GetCoverageRequest> {
                         if (getText(c.get(2)) != null && !TimeUtil.isValidTimestamp(getText(c.get(2)))) {
                             throw new WCSException(ExceptionCode.InvalidParameterValue, "Timestamp \"" + getText(c.get(2)) + "\" is not valid (pattern is YYYY-MM-DD).");
                         }
+                        //Check order
+                        if (getText(c.get(1))!=null && getText(c.get(2))!= null 
+                                && !TimeUtil.isOrderedTimeSubset(getText(c.get(1)), getText(c.get(2))))
+                            throw new WCSException(ExceptionCode.InvalidParameterValue, "Temporal subset \"" + getText(c.get(1)) + ":" + getText(c.get(2)) + "\" is invalid: check order.");
                     }
                 } else if (name.equals(LABEL_DIMENSION_SLICE)) {
-                    ret.getSubsets().add(new DimensionSlice(getText(c.get(0)), getText(c.get(1))));
-                    // Check timestamps validity
-                    if (getText(c.get(0)).equalsIgnoreCase("T") || getText(c.get(0)).equalsIgnoreCase("TEMPORAL")) {
+                    ret.getSubsets().add(new DimensionSlice(getText(c.get(0)), getText(c.get(1))));                    
+                    if (getText(c.get(0)).equals(AxisTypes.T_AXIS)) {  //|| getText(c.get(0)).equals(AxisTypes.TEMPORAL_AXIS) {
+                        // Check timestamps validity
                         if (getText(c.get(1)) != null && !TimeUtil.isValidTimestamp(getText(c.get(1)))) {
                             throw new WCSException(ExceptionCode.InvalidParameterValue, "Timestamp \"" + getText(c.get(1)) + "\" is not valid (pattern is YYYY-MM-DD).");
                         }

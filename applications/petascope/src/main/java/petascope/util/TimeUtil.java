@@ -50,6 +50,18 @@ public class TimeUtil {
     }
     
     /**
+     * @param   String timestampLo    YYYY-MM-DD timestamp 
+     * @param   String timestampHi    YYYY-MM-DD timestamp 
+     * @return  boolean               Is Lo < Hi ?
+     */
+    public static boolean isOrderedTimeSubset (String timestampLo, String timestampHi) {
+        DateTime dtLo = new DateTime(timestampLo);
+        DateTime dtHi = new DateTime(timestampHi);
+
+        return dtLo.lteq(dtHi);
+    }
+    
+        /**
      * @param   String timestamp    YYYY-MM-DD timestamp
      * @return  int                 ANSI day number.
      */

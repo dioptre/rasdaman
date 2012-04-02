@@ -57,6 +57,10 @@ public class GeotiffFormatExtension extends  AbstractFormatExtension {
                     + "only supports GridCoverage and RectifiedGridCoverage with exactly two dimensions");
         }
         
+        // First, transform possible non-native CRS subsets
+        CRSExtension crsExtension = (CRSExtension) ExtensionsRegistry.getExtension(ExtensionsRegistry.CRS_IDENTIFIER);
+        crsExtension.handle(request, m, meta);
+        
         Pair<Object, String> p = null;
         if (m.getCoverageType().equals(GetCoverageRequest.GRID_COVERAGE)) {
             // return plain TIFF
