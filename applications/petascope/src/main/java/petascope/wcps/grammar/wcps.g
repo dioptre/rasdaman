@@ -16,6 +16,7 @@ History:
 18 02 2012 campalani    Corrected crsTransformExpr: replace dimensionIntervalList with new epxressions 
                         dimensionCrsList/dimensionCrsElement (-> change WCPS documentation?).
                         fieldInterpolationList's content set as optional (allow empty list {}).
+02 04 2012 campalani    Missing braces around DimensionIntervalList in scaleExpr.
 */
 grammar wcps;
 options{
@@ -252,10 +253,9 @@ stringScalarExpr  returns[StringScalarExpr value]
     | e=STRING { $value = new StringScalarExpr($e.text); }
     ;
 scaleExpr returns[ScaleExpr value]
-	: SCALE LPAREN e1=coverageExpr COMMA dil=dimensionIntervalList { $value = new ScaleExpr($e1.value, $dil.value); }
+	: SCALE LPAREN e1=coverageExpr COMMA LBRACE dil=dimensionIntervalList RBRACE { $value = new ScaleExpr($e1.value, $dil.value); }
             (COMMA fil=fieldInterpolationList   {$value.addInterpolationList($fil.value); } )?
-                RPAREN
-		
+                RPAREN		
 	;
 subsetExpr returns[SubsetExpr value]
 	: e1=trimExpr { $value = new SubsetExpr($e1.value); }

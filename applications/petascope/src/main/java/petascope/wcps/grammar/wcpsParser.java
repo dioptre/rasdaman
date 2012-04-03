@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/main/java/petascope/wcps/grammar/wcps.g 2012-02-18 23:41:04
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 wcps.g 2012-04-03 13:32:27
 package petascope.wcps.grammar;
 
 import org.antlr.runtime.*;
@@ -148,7 +148,7 @@ public class wcpsParser extends Parser {
     }
 
     public String[] getTokenNames() { return wcpsParser.tokenNames; }
-    public String getGrammarFileName() { return "src/main/java/petascope/wcps/grammar/wcps.g"; }
+    public String getGrammarFileName() { return "wcps.g"; }
 
 
     public static class wcpsRequest_return extends ParserRuleReturnScope {
@@ -158,7 +158,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "wcpsRequest"
-    // src/main/java/petascope/wcps/grammar/wcps.g:33:1: wcpsRequest returns [WCPSRequest value] : e1= forClause (e2= whereClause )? e3= returnClause ;
+    // wcps.g:36:1: wcpsRequest returns [WCPSRequest value] : e1= forClause (e2= whereClause )? e3= returnClause ;
     public final wcpsParser.wcpsRequest_return wcpsRequest() throws RecognitionException {
         wcpsParser.wcpsRequest_return retval = new wcpsParser.wcpsRequest_return();
         retval.start = input.LT(1);
@@ -175,8 +175,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:34:2: (e1= forClause (e2= whereClause )? e3= returnClause )
-            // src/main/java/petascope/wcps/grammar/wcps.g:34:4: e1= forClause (e2= whereClause )? e3= returnClause
+            // wcps.g:37:2: (e1= forClause (e2= whereClause )? e3= returnClause )
+            // wcps.g:37:4: e1= forClause (e2= whereClause )? e3= returnClause
             {
             root_0 = (Object)adaptor.nil();
 
@@ -189,7 +189,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new WCPSRequest((e1!=null?e1.value:null)); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:35:3: (e2= whereClause )?
+            // wcps.g:38:3: (e2= whereClause )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -198,7 +198,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt1) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:35:4: e2= whereClause
+                    // wcps.g:38:4: e2= whereClause
                     {
                     pushFollow(FOLLOW_whereClause_in_wcpsRequest72);
                     e2=whereClause();
@@ -255,7 +255,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "forClause"
-    // src/main/java/petascope/wcps/grammar/wcps.g:38:1: forClause returns [ForClauseElements value] : FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* ;
+    // wcps.g:41:1: forClause returns [ForClauseElements value] : FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* ;
     public final wcpsParser.forClause_return forClause() throws RecognitionException {
         wcpsParser.forClause_return retval = new wcpsParser.forClause_return();
         retval.start = input.LT(1);
@@ -286,8 +286,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:39:2: ( FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:39:4: FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
+            // wcps.g:42:2: ( FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* )
+            // wcps.g:42:4: FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -326,7 +326,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new ForClauseElements((v!=null?v.value:null), (list!=null?list.value:null)); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:41:4: ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
+            // wcps.g:44:4: ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
             loop2:
             do {
                 int alt2=2;
@@ -339,7 +339,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:41:5: COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN
+            	    // wcps.g:44:5: COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN
             	    {
             	    COMMA5=(Token)match(input,COMMA,FOLLOW_COMMA_in_forClause122); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -416,7 +416,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "whereClause"
-    // src/main/java/petascope/wcps/grammar/wcps.g:44:1: whereClause returns [WhereClause value] : WHERE e1= booleanScalarExpr ;
+    // wcps.g:47:1: whereClause returns [WhereClause value] : WHERE e1= booleanScalarExpr ;
     public final wcpsParser.whereClause_return whereClause() throws RecognitionException {
         wcpsParser.whereClause_return retval = new wcpsParser.whereClause_return();
         retval.start = input.LT(1);
@@ -431,8 +431,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:45:2: ( WHERE e1= booleanScalarExpr )
-            // src/main/java/petascope/wcps/grammar/wcps.g:45:4: WHERE e1= booleanScalarExpr
+            // wcps.g:48:2: ( WHERE e1= booleanScalarExpr )
+            // wcps.g:48:4: WHERE e1= booleanScalarExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -481,7 +481,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "returnClause"
-    // src/main/java/petascope/wcps/grammar/wcps.g:47:1: returnClause returns [ReturnClause value] : RETURN e1= processingExpr ;
+    // wcps.g:50:1: returnClause returns [ReturnClause value] : RETURN e1= processingExpr ;
     public final wcpsParser.returnClause_return returnClause() throws RecognitionException {
         wcpsParser.returnClause_return retval = new wcpsParser.returnClause_return();
         retval.start = input.LT(1);
@@ -496,8 +496,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:48:2: ( RETURN e1= processingExpr )
-            // src/main/java/petascope/wcps/grammar/wcps.g:48:4: RETURN e1= processingExpr
+            // wcps.g:51:2: ( RETURN e1= processingExpr )
+            // wcps.g:51:4: RETURN e1= processingExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -546,7 +546,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageList"
-    // src/main/java/petascope/wcps/grammar/wcps.g:50:1: coverageList returns [CoverageList value] : cname= coverageName ( COMMA next= coverageName )* ;
+    // wcps.g:53:1: coverageList returns [CoverageList value] : cname= coverageName ( COMMA next= coverageName )* ;
     public final wcpsParser.coverageList_return coverageList() throws RecognitionException {
         wcpsParser.coverageList_return retval = new wcpsParser.coverageList_return();
         retval.start = input.LT(1);
@@ -563,8 +563,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:51:2: (cname= coverageName ( COMMA next= coverageName )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:51:4: cname= coverageName ( COMMA next= coverageName )*
+            // wcps.g:54:2: (cname= coverageName ( COMMA next= coverageName )* )
+            // wcps.g:54:4: cname= coverageName ( COMMA next= coverageName )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -577,7 +577,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new CoverageList((cname!=null?cname.value:null)); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:52:3: ( COMMA next= coverageName )*
+            // wcps.g:55:3: ( COMMA next= coverageName )*
             loop3:
             do {
                 int alt3=2;
@@ -590,7 +590,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:52:4: COMMA next= coverageName
+            	    // wcps.g:55:4: COMMA next= coverageName
             	    {
             	    COMMA11=(Token)match(input,COMMA,FOLLOW_COMMA_in_coverageList204); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -646,7 +646,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "processingExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:54:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );
+    // wcps.g:57:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );
     public final wcpsParser.processingExpr_return processingExpr() throws RecognitionException {
         wcpsParser.processingExpr_return retval = new wcpsParser.processingExpr_return();
         retval.start = input.LT(1);
@@ -663,12 +663,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:55:5: (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr )
+            // wcps.g:58:5: (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr )
             int alt4=3;
             alt4 = dfa4.predict(input);
             switch (alt4) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:55:7: e1= encodedCoverageExpr
+                    // wcps.g:58:7: e1= encodedCoverageExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -685,7 +685,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:56:7: e2= storeExpr
+                    // wcps.g:59:7: e2= storeExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -702,7 +702,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:57:7: e3= scalarExpr
+                    // wcps.g:60:7: e3= scalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -748,7 +748,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "encodedCoverageExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:59:1: encodedCoverageExpr returns [EncodedCoverageExpr value] : ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN ;
+    // wcps.g:62:1: encodedCoverageExpr returns [EncodedCoverageExpr value] : ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN ;
     public final wcpsParser.encodedCoverageExpr_return encodedCoverageExpr() throws RecognitionException {
         wcpsParser.encodedCoverageExpr_return retval = new wcpsParser.encodedCoverageExpr_return();
         retval.start = input.LT(1);
@@ -775,8 +775,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:60:2: ( ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN )
-            // src/main/java/petascope/wcps/grammar/wcps.g:60:4: ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN
+            // wcps.g:63:2: ( ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN )
+            // wcps.g:63:4: ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -810,7 +810,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new EncodedCoverageExpr((cov!=null?cov.value:null), (format!=null?input.toString(format.start,format.stop):null)); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:61:3: ( COMMA params= stringConstant )?
+            // wcps.g:64:3: ( COMMA params= stringConstant )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -819,7 +819,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt5) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:61:4: COMMA params= stringConstant
+                    // wcps.g:64:4: COMMA params= stringConstant
                     {
                     COMMA15=(Token)match(input,COMMA,FOLLOW_COMMA_in_encodedCoverageExpr291); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -877,7 +877,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "storeExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:63:1: storeExpr returns [StoreExpr value] : STORE LPAREN e1= encodedCoverageExpr RPAREN ;
+    // wcps.g:66:1: storeExpr returns [StoreExpr value] : STORE LPAREN e1= encodedCoverageExpr RPAREN ;
     public final wcpsParser.storeExpr_return storeExpr() throws RecognitionException {
         wcpsParser.storeExpr_return retval = new wcpsParser.storeExpr_return();
         retval.start = input.LT(1);
@@ -896,8 +896,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:64:5: ( STORE LPAREN e1= encodedCoverageExpr RPAREN )
-            // src/main/java/petascope/wcps/grammar/wcps.g:64:7: STORE LPAREN e1= encodedCoverageExpr RPAREN
+            // wcps.g:67:5: ( STORE LPAREN e1= encodedCoverageExpr RPAREN )
+            // wcps.g:67:7: STORE LPAREN e1= encodedCoverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -956,7 +956,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:66:1: coverageExpr returns [CoverageExpr value] : e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* ;
+    // wcps.g:69:1: coverageExpr returns [CoverageExpr value] : e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* ;
     public final wcpsParser.coverageExpr_return coverageExpr() throws RecognitionException {
         wcpsParser.coverageExpr_return retval = new wcpsParser.coverageExpr_return();
         retval.start = input.LT(1);
@@ -973,8 +973,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:67:5: (e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:67:7: e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )*
+            // wcps.g:70:5: (e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* )
+            // wcps.g:70:7: e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -987,14 +987,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:68:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*
+            // wcps.g:71:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*
             loop6:
             do {
                 int alt6=2;
                 alt6 = dfa6.predict(input);
                 switch (alt6) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:68:10: op= ( OR | XOR ) e2= coverageLogicTerm
+            	    // wcps.g:71:10: op= ( OR | XOR ) e2= coverageLogicTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -1057,7 +1057,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageLogicTerm"
-    // src/main/java/petascope/wcps/grammar/wcps.g:70:1: coverageLogicTerm returns [CoverageExpr value] : e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* ;
+    // wcps.g:73:1: coverageLogicTerm returns [CoverageExpr value] : e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* ;
     public final wcpsParser.coverageLogicTerm_return coverageLogicTerm() throws RecognitionException {
         wcpsParser.coverageLogicTerm_return retval = new wcpsParser.coverageLogicTerm_return();
         retval.start = input.LT(1);
@@ -1074,8 +1074,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:71:5: (e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:71:7: e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )*
+            // wcps.g:74:5: (e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* )
+            // wcps.g:74:7: e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1088,14 +1088,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:72:9: (op= AND e2= coverageLogicFactor )*
+            // wcps.g:75:9: (op= AND e2= coverageLogicFactor )*
             loop7:
             do {
                 int alt7=2;
                 alt7 = dfa7.predict(input);
                 switch (alt7) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:72:10: op= AND e2= coverageLogicFactor
+            	    // wcps.g:75:10: op= AND e2= coverageLogicFactor
             	    {
             	    op=(Token)match(input,AND,FOLLOW_AND_in_coverageLogicTerm416); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -1151,7 +1151,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageLogicFactor"
-    // src/main/java/petascope/wcps/grammar/wcps.g:74:1: coverageLogicFactor returns [CoverageExpr value] : e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? ;
+    // wcps.g:77:1: coverageLogicFactor returns [CoverageExpr value] : e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? ;
     public final wcpsParser.coverageLogicFactor_return coverageLogicFactor() throws RecognitionException {
         wcpsParser.coverageLogicFactor_return retval = new wcpsParser.coverageLogicFactor_return();
         retval.start = input.LT(1);
@@ -1168,8 +1168,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:75:5: (e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? )
-            // src/main/java/petascope/wcps/grammar/wcps.g:75:7: e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
+            // wcps.g:78:5: (e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? )
+            // wcps.g:78:7: e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1182,12 +1182,12 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null);
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:76:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
+            // wcps.g:79:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
             int alt8=2;
             alt8 = dfa8.predict(input);
             switch (alt8) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:76:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
+                    // wcps.g:79:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
                     {
                     op=(Token)input.LT(1);
                     if ( (input.LA(1)>=EQUALS && input.LA(1)<=GTE) ) {
@@ -1247,7 +1247,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageArithmeticExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:78:1: coverageArithmeticExpr returns [CoverageExpr value] : e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* ;
+    // wcps.g:81:1: coverageArithmeticExpr returns [CoverageExpr value] : e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* ;
     public final wcpsParser.coverageArithmeticExpr_return coverageArithmeticExpr() throws RecognitionException {
         wcpsParser.coverageArithmeticExpr_return retval = new wcpsParser.coverageArithmeticExpr_return();
         retval.start = input.LT(1);
@@ -1264,8 +1264,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:79:5: (e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:79:7: e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
+            // wcps.g:82:5: (e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* )
+            // wcps.g:82:7: e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1278,14 +1278,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:80:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
+            // wcps.g:83:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
             loop9:
             do {
                 int alt9=2;
                 alt9 = dfa9.predict(input);
                 switch (alt9) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:80:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
+            	    // wcps.g:83:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -1348,7 +1348,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageArithmeticTerm"
-    // src/main/java/petascope/wcps/grammar/wcps.g:82:1: coverageArithmeticTerm returns [CoverageExpr value] : e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* ;
+    // wcps.g:85:1: coverageArithmeticTerm returns [CoverageExpr value] : e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* ;
     public final wcpsParser.coverageArithmeticTerm_return coverageArithmeticTerm() throws RecognitionException {
         wcpsParser.coverageArithmeticTerm_return retval = new wcpsParser.coverageArithmeticTerm_return();
         retval.start = input.LT(1);
@@ -1365,8 +1365,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:83:5: (e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:83:9: e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
+            // wcps.g:86:5: (e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* )
+            // wcps.g:86:9: e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1379,14 +1379,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:84:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
+            // wcps.g:87:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
             loop10:
             do {
                 int alt10=2;
                 alt10 = dfa10.predict(input);
                 switch (alt10) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:84:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
+            	    // wcps.g:87:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -1449,7 +1449,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageArithmeticFactor"
-    // src/main/java/petascope/wcps/grammar/wcps.g:86:1: coverageArithmeticFactor returns [CoverageExpr value] : e1= coverageValue (op= OVERLAY e2= coverageValue )* ;
+    // wcps.g:89:1: coverageArithmeticFactor returns [CoverageExpr value] : e1= coverageValue (op= OVERLAY e2= coverageValue )* ;
     public final wcpsParser.coverageArithmeticFactor_return coverageArithmeticFactor() throws RecognitionException {
         wcpsParser.coverageArithmeticFactor_return retval = new wcpsParser.coverageArithmeticFactor_return();
         retval.start = input.LT(1);
@@ -1466,8 +1466,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:87:5: (e1= coverageValue (op= OVERLAY e2= coverageValue )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:87:7: e1= coverageValue (op= OVERLAY e2= coverageValue )*
+            // wcps.g:90:5: (e1= coverageValue (op= OVERLAY e2= coverageValue )* )
+            // wcps.g:90:7: e1= coverageValue (op= OVERLAY e2= coverageValue )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1480,14 +1480,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:88:9: (op= OVERLAY e2= coverageValue )*
+            // wcps.g:91:9: (op= OVERLAY e2= coverageValue )*
             loop11:
             do {
                 int alt11=2;
                 alt11 = dfa11.predict(input);
                 switch (alt11) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:88:10: op= OVERLAY e2= coverageValue
+            	    // wcps.g:91:10: op= OVERLAY e2= coverageValue
             	    {
             	    op=(Token)match(input,OVERLAY,FOLLOW_OVERLAY_in_coverageArithmeticFactor625); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -1543,7 +1543,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageValue"
-    // src/main/java/petascope/wcps/grammar/wcps.g:90:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );
+    // wcps.g:93:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );
     public final wcpsParser.coverageValue_return coverageValue() throws RecognitionException {
         wcpsParser.coverageValue_return retval = new wcpsParser.coverageValue_return();
         retval.start = input.LT(1);
@@ -1564,12 +1564,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:91:5: (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom )
+            // wcps.g:94:5: (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom )
             int alt12=5;
             alt12 = dfa12.predict(input);
             switch (alt12) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:91:7: e5= subsetExpr
+                    // wcps.g:94:7: e5= subsetExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1586,7 +1586,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:92:7: e2= unaryInducedExpr
+                    // wcps.g:95:7: e2= unaryInducedExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1603,7 +1603,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:93:7: e4= scaleExpr
+                    // wcps.g:96:7: e4= scaleExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1620,7 +1620,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:94:7: e3= crsTransformExpr
+                    // wcps.g:97:7: e3= crsTransformExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1637,7 +1637,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:95:7: e1= coverageAtom
+                    // wcps.g:98:7: e1= coverageAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1683,7 +1683,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageAtom"
-    // src/main/java/petascope/wcps/grammar/wcps.g:97:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );
+    // wcps.g:100:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );
     public final wcpsParser.coverageAtom_return coverageAtom() throws RecognitionException {
         wcpsParser.coverageAtom_return retval = new wcpsParser.coverageAtom_return();
         retval.start = input.LT(1);
@@ -1712,12 +1712,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:98:5: (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr )
+            // wcps.g:101:5: (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr )
             int alt13=7;
             alt13 = dfa13.predict(input);
             switch (alt13) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:98:7: e2= scalarExpr
+                    // wcps.g:101:7: e2= scalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1734,7 +1734,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:99:7: e1= coverageVariable
+                    // wcps.g:102:7: e1= coverageVariable
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1751,7 +1751,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:100:7: LPAREN e7= coverageExpr RPAREN
+                    // wcps.g:103:7: LPAREN e7= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1778,7 +1778,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:101:7: e3= coverageConstantExpr
+                    // wcps.g:104:7: e3= coverageConstantExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1795,7 +1795,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:102:7: e4= coverageConstructorExpr
+                    // wcps.g:105:7: e4= coverageConstructorExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1812,7 +1812,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:103:7: e5= setMetaDataExpr
+                    // wcps.g:106:7: e5= setMetaDataExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1829,7 +1829,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:104:7: e6= rangeConstructorExpr
+                    // wcps.g:107:7: e6= rangeConstructorExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1875,7 +1875,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "scalarExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:106:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );
+    // wcps.g:109:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );
     public final wcpsParser.scalarExpr_return scalarExpr() throws RecognitionException {
         wcpsParser.scalarExpr_return retval = new wcpsParser.scalarExpr_return();
         retval.start = input.LT(1);
@@ -1902,12 +1902,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:107:5: (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN )
+            // wcps.g:110:5: (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN )
             int alt14=6;
             alt14 = dfa14.predict(input);
             switch (alt14) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:107:7: e1= metaDataExpr
+                    // wcps.g:110:7: e1= metaDataExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1924,7 +1924,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:108:7: e2= condenseExpr
+                    // wcps.g:111:7: e2= condenseExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1941,7 +1941,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:109:7: e3= booleanScalarExpr
+                    // wcps.g:112:7: e3= booleanScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1958,7 +1958,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:110:7: e4= numericScalarExpr
+                    // wcps.g:113:7: e4= numericScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1975,7 +1975,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:111:7: e5= stringScalarExpr
+                    // wcps.g:114:7: e5= stringScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1992,7 +1992,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:112:7: LPAREN e6= scalarExpr RPAREN
+                    // wcps.g:115:7: LPAREN e6= scalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2048,7 +2048,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "metaDataExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:114:1: metaDataExpr returns [MetaDataExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN );
+    // wcps.g:117:1: metaDataExpr returns [MetaDataExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN );
     public final wcpsParser.metaDataExpr_return metaDataExpr() throws RecognitionException {
         wcpsParser.metaDataExpr_return retval = new wcpsParser.metaDataExpr_return();
         retval.start = input.LT(1);
@@ -2103,7 +2103,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:115:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN )
+            // wcps.g:118:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN )
             int alt16=8;
             switch ( input.LA(1) ) {
             case IDENTIFIER:
@@ -2156,7 +2156,7 @@ public class wcpsParser extends Parser {
 
             switch (alt16) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:115:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
+                    // wcps.g:118:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2188,7 +2188,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:116:7: op= IMAGECRS LPAREN e1= coverageExpr RPAREN
+                    // wcps.g:119:7: op= IMAGECRS LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2220,7 +2220,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:117:7: op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN
+                    // wcps.g:120:7: op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2240,7 +2240,7 @@ public class wcpsParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    // src/main/java/petascope/wcps/grammar/wcps.g:117:48: ( COMMA e2= axisName )?
+                    // wcps.g:120:48: ( COMMA e2= axisName )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -2249,7 +2249,7 @@ public class wcpsParser extends Parser {
                     }
                     switch (alt15) {
                         case 1 :
-                            // src/main/java/petascope/wcps/grammar/wcps.g:117:49: COMMA e2= axisName
+                            // wcps.g:120:49: COMMA e2= axisName
                             {
                             COMMA29=(Token)match(input,COMMA,FOLLOW_COMMA_in_metaDataExpr973); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
@@ -2280,7 +2280,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:118:7: op= CRSSET LPAREN e1= coverageExpr RPAREN
+                    // wcps.g:121:7: op= CRSSET LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2312,7 +2312,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:119:7: de= domainExpr
+                    // wcps.g:122:7: de= domainExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2329,7 +2329,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:120:7: op= NULLSET LPAREN e1= coverageExpr RPAREN
+                    // wcps.g:123:7: op= NULLSET LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2361,7 +2361,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:121:7: op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
+                    // wcps.g:124:7: op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2404,7 +2404,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:122:7: op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
+                    // wcps.g:125:7: op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2476,7 +2476,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "domainExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:124:1: domainExpr returns [DomainExpr value] : DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN ;
+    // wcps.g:127:1: domainExpr returns [DomainExpr value] : DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN ;
     public final wcpsParser.domainExpr_return domainExpr() throws RecognitionException {
         wcpsParser.domainExpr_return retval = new wcpsParser.domainExpr_return();
         retval.start = input.LT(1);
@@ -2503,8 +2503,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:125:2: ( DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN )
-            // src/main/java/petascope/wcps/grammar/wcps.g:125:4: DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN
+            // wcps.g:128:2: ( DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN )
+            // wcps.g:128:4: DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2585,7 +2585,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "condenseExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:127:1: condenseExpr returns [CondenseExpr value] : (e1= reduceExpr | e2= generalCondenseExpr );
+    // wcps.g:130:1: condenseExpr returns [CondenseExpr value] : (e1= reduceExpr | e2= generalCondenseExpr );
     public final wcpsParser.condenseExpr_return condenseExpr() throws RecognitionException {
         wcpsParser.condenseExpr_return retval = new wcpsParser.condenseExpr_return();
         retval.start = input.LT(1);
@@ -2600,7 +2600,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:128:2: (e1= reduceExpr | e2= generalCondenseExpr )
+            // wcps.g:131:2: (e1= reduceExpr | e2= generalCondenseExpr )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -2619,7 +2619,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt17) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:128:4: e1= reduceExpr
+                    // wcps.g:131:4: e1= reduceExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2636,7 +2636,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:129:4: e2= generalCondenseExpr
+                    // wcps.g:132:4: e2= generalCondenseExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2682,7 +2682,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "reduceExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:131:1: reduceExpr returns [ReduceExpr value] : op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN ;
+    // wcps.g:134:1: reduceExpr returns [ReduceExpr value] : op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN ;
     public final wcpsParser.reduceExpr_return reduceExpr() throws RecognitionException {
         wcpsParser.reduceExpr_return retval = new wcpsParser.reduceExpr_return();
         retval.start = input.LT(1);
@@ -2701,8 +2701,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:132:2: (op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN )
-            // src/main/java/petascope/wcps/grammar/wcps.g:132:4: op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN
+            // wcps.g:135:2: (op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN )
+            // wcps.g:135:4: op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2768,7 +2768,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "generalCondenseExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:134:1: generalCondenseExpr returns [GeneralCondenseExpr value] : CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr ;
+    // wcps.g:137:1: generalCondenseExpr returns [GeneralCondenseExpr value] : CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr ;
     public final wcpsParser.generalCondenseExpr_return generalCondenseExpr() throws RecognitionException {
         wcpsParser.generalCondenseExpr_return retval = new wcpsParser.generalCondenseExpr_return();
         retval.start = input.LT(1);
@@ -2795,8 +2795,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:135:2: ( CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr )
-            // src/main/java/petascope/wcps/grammar/wcps.g:135:4: CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr
+            // wcps.g:138:2: ( CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr )
+            // wcps.g:138:4: CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2825,7 +2825,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new GeneralCondenseExpr((op!=null?op.value:null), (ail!=null?ail.value:null)); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:136:3: ( WHERE cond= booleanScalarExpr )?
+            // wcps.g:139:3: ( WHERE cond= booleanScalarExpr )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -2834,7 +2834,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt18) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:136:4: WHERE cond= booleanScalarExpr
+                    // wcps.g:139:4: WHERE cond= booleanScalarExpr
                     {
                     WHERE50=(Token)match(input,WHERE,FOLLOW_WHERE_in_generalCondenseExpr1221); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -2901,7 +2901,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "axisIteratorList"
-    // src/main/java/petascope/wcps/grammar/wcps.g:139:1: axisIteratorList returns [AxisIteratorList value] : vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* ;
+    // wcps.g:142:1: axisIteratorList returns [AxisIteratorList value] : vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* ;
     public final wcpsParser.axisIteratorList_return axisIteratorList() throws RecognitionException {
         wcpsParser.axisIteratorList_return retval = new wcpsParser.axisIteratorList_return();
         retval.start = input.LT(1);
@@ -2934,8 +2934,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 23) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:140:2: (vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:140:4: vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
+            // wcps.g:143:2: (vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* )
+            // wcps.g:143:4: vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2970,7 +2970,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new AxisIteratorList(new AxisIterator((vn!=null?vn.value:null), (an!=null?an.value:null), (ie!=null?ie.value:null))); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:142:2: ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
+            // wcps.g:145:2: ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
             loop19:
             do {
                 int alt19=2;
@@ -2983,7 +2983,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt19) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:142:3: COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN
+            	    // wcps.g:145:3: COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN
             	    {
             	    COMMA54=(Token)match(input,COMMA,FOLLOW_COMMA_in_axisIteratorList1274); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -3061,7 +3061,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "intervalExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:145:1: intervalExpr returns [IntervalExpr value] : (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN );
+    // wcps.g:148:1: intervalExpr returns [IntervalExpr value] : (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN );
     public final wcpsParser.intervalExpr_return intervalExpr() throws RecognitionException {
         wcpsParser.intervalExpr_return retval = new wcpsParser.intervalExpr_return();
         retval.start = input.LT(1);
@@ -3090,7 +3090,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 24) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:146:5: (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN )
+            // wcps.g:149:5: (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN )
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -3109,7 +3109,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt20) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:146:7: lo= indexExpr COLON hi= indexExpr
+                    // wcps.g:149:7: lo= indexExpr COLON hi= indexExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3137,7 +3137,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:148:7: IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN
+                    // wcps.g:151:7: IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3209,7 +3209,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageConstantExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:151:1: coverageConstantExpr returns [CoverageConstantExpr value] : COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT ;
+    // wcps.g:154:1: coverageConstantExpr returns [CoverageConstantExpr value] : COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT ;
     public final wcpsParser.coverageConstantExpr_return coverageConstantExpr() throws RecognitionException {
         wcpsParser.coverageConstantExpr_return retval = new wcpsParser.coverageConstantExpr_return();
         retval.start = input.LT(1);
@@ -3238,8 +3238,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 25) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:152:5: ( COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT )
-            // src/main/java/petascope/wcps/grammar/wcps.g:152:7: COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT
+            // wcps.g:155:5: ( COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT )
+            // wcps.g:155:7: COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3325,7 +3325,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "constantList"
-    // src/main/java/petascope/wcps/grammar/wcps.g:155:1: constantList returns [ConstantList value] : c= constant ( SEMICOLON c= constant )* ;
+    // wcps.g:158:1: constantList returns [ConstantList value] : c= constant ( SEMICOLON c= constant )* ;
     public final wcpsParser.constantList_return constantList() throws RecognitionException {
         wcpsParser.constantList_return retval = new wcpsParser.constantList_return();
         retval.start = input.LT(1);
@@ -3340,8 +3340,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 26) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:156:5: (c= constant ( SEMICOLON c= constant )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:156:7: c= constant ( SEMICOLON c= constant )*
+            // wcps.g:159:5: (c= constant ( SEMICOLON c= constant )* )
+            // wcps.g:159:7: c= constant ( SEMICOLON c= constant )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3354,7 +3354,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new ConstantList((c!=null?c.value:null)); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:156:59: ( SEMICOLON c= constant )*
+            // wcps.g:159:59: ( SEMICOLON c= constant )*
             loop21:
             do {
                 int alt21=2;
@@ -3367,7 +3367,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt21) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:156:60: SEMICOLON c= constant
+            	    // wcps.g:159:60: SEMICOLON c= constant
             	    {
             	    SEMICOLON68=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_constantList1433); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -3423,7 +3423,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageConstructorExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:158:1: coverageConstructorExpr returns [CoverageConstructorExpr value] : COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr ;
+    // wcps.g:161:1: coverageConstructorExpr returns [CoverageConstructorExpr value] : COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr ;
     public final wcpsParser.coverageConstructorExpr_return coverageConstructorExpr() throws RecognitionException {
         wcpsParser.coverageConstructorExpr_return retval = new wcpsParser.coverageConstructorExpr_return();
         retval.start = input.LT(1);
@@ -3446,8 +3446,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 27) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:159:2: ( COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr )
-            // src/main/java/petascope/wcps/grammar/wcps.g:159:4: COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr
+            // wcps.g:162:2: ( COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr )
+            // wcps.g:162:4: COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3518,7 +3518,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "setMetaDataExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:162:1: setMetaDataExpr returns [SetMetaDataExpr value] : (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN );
+    // wcps.g:165:1: setMetaDataExpr returns [SetMetaDataExpr value] : (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN );
     public final wcpsParser.setMetaDataExpr_return setMetaDataExpr() throws RecognitionException {
         wcpsParser.setMetaDataExpr_return retval = new wcpsParser.setMetaDataExpr_return();
         retval.start = input.LT(1);
@@ -3579,7 +3579,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 28) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:163:5: (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN )
+            // wcps.g:166:5: (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN )
             int alt22=5;
             switch ( input.LA(1) ) {
             case SETIDENTIFIER:
@@ -3617,7 +3617,7 @@ public class wcpsParser extends Parser {
 
             switch (alt22) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:163:7: op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN
+                    // wcps.g:166:7: op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3660,7 +3660,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:165:7: op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN
+                    // wcps.g:168:7: op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3703,7 +3703,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:167:7: op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN
+                    // wcps.g:170:7: op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3746,7 +3746,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:169:7: op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN
+                    // wcps.g:172:7: op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3800,7 +3800,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:171:7: op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN
+                    // wcps.g:174:7: op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3883,7 +3883,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "crsList"
-    // src/main/java/petascope/wcps/grammar/wcps.g:174:1: crsList returns [CrsList value] : LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE ;
+    // wcps.g:177:1: crsList returns [CrsList value] : LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE ;
     public final wcpsParser.crsList_return crsList() throws RecognitionException {
         wcpsParser.crsList_return retval = new wcpsParser.crsList_return();
         retval.start = input.LT(1);
@@ -3902,8 +3902,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 29) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:175:5: ( LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE )
-            // src/main/java/petascope/wcps/grammar/wcps.g:175:7: LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE
+            // wcps.g:178:5: ( LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE )
+            // wcps.g:178:7: LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3915,7 +3915,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = new CrsList();
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:175:40: (crs= crsName ( COMMA crs= crsName )* )?
+            // wcps.g:178:40: (crs= crsName ( COMMA crs= crsName )* )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -3924,7 +3924,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt24) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:175:41: crs= crsName ( COMMA crs= crsName )*
+                    // wcps.g:178:41: crs= crsName ( COMMA crs= crsName )*
                     {
                     pushFollow(FOLLOW_crsName_in_crsList1680);
                     crs=crsName();
@@ -3935,7 +3935,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((crs!=null?crs.value:null)); 
                     }
-                    // src/main/java/petascope/wcps/grammar/wcps.g:175:81: ( COMMA crs= crsName )*
+                    // wcps.g:178:81: ( COMMA crs= crsName )*
                     loop23:
                     do {
                         int alt23=2;
@@ -3948,7 +3948,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt23) {
                     	case 1 :
-                    	    // src/main/java/petascope/wcps/grammar/wcps.g:175:82: COMMA crs= crsName
+                    	    // wcps.g:178:82: COMMA crs= crsName
                     	    {
                     	    COMMA90=(Token)match(input,COMMA,FOLLOW_COMMA_in_crsList1685); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4015,7 +4015,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeExprList"
-    // src/main/java/petascope/wcps/grammar/wcps.g:177:1: rangeExprList returns [RangeExprList value] : LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE ;
+    // wcps.g:180:1: rangeExprList returns [RangeExprList value] : LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE ;
     public final wcpsParser.rangeExprList_return rangeExprList() throws RecognitionException {
         wcpsParser.rangeExprList_return retval = new wcpsParser.rangeExprList_return();
         retval.start = input.LT(1);
@@ -4036,8 +4036,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 30) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:178:5: ( LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE )
-            // src/main/java/petascope/wcps/grammar/wcps.g:178:7: LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE
+            // wcps.g:181:5: ( LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE )
+            // wcps.g:181:7: LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4049,7 +4049,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new RangeExprList(); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:178:48: (re1= rangeExpr ( COMMA re2= rangeExpr )* )?
+            // wcps.g:181:48: (re1= rangeExpr ( COMMA re2= rangeExpr )* )?
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -4058,7 +4058,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt26) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:178:49: re1= rangeExpr ( COMMA re2= rangeExpr )*
+                    // wcps.g:181:49: re1= rangeExpr ( COMMA re2= rangeExpr )*
                     {
                     pushFollow(FOLLOW_rangeExpr_in_rangeExprList1724);
                     re1=rangeExpr();
@@ -4069,7 +4069,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((re1!=null?re1.value:null)); 
                     }
-                    // src/main/java/petascope/wcps/grammar/wcps.g:178:91: ( COMMA re2= rangeExpr )*
+                    // wcps.g:181:91: ( COMMA re2= rangeExpr )*
                     loop25:
                     do {
                         int alt25=2;
@@ -4082,7 +4082,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt25) {
                     	case 1 :
-                    	    // src/main/java/petascope/wcps/grammar/wcps.g:178:92: COMMA re2= rangeExpr
+                    	    // wcps.g:181:92: COMMA re2= rangeExpr
                     	    {
                     	    COMMA93=(Token)match(input,COMMA,FOLLOW_COMMA_in_rangeExprList1729); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4149,7 +4149,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "interpolationMethodList"
-    // src/main/java/petascope/wcps/grammar/wcps.g:180:1: interpolationMethodList returns [InterpolationMethodList value] : LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE ;
+    // wcps.g:183:1: interpolationMethodList returns [InterpolationMethodList value] : LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE ;
     public final wcpsParser.interpolationMethodList_return interpolationMethodList() throws RecognitionException {
         wcpsParser.interpolationMethodList_return retval = new wcpsParser.interpolationMethodList_return();
         retval.start = input.LT(1);
@@ -4168,8 +4168,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 31) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:181:2: ( LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE )
-            // src/main/java/petascope/wcps/grammar/wcps.g:181:4: LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE
+            // wcps.g:184:2: ( LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE )
+            // wcps.g:184:4: LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4181,7 +4181,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = new InterpolationMethodList();
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:181:53: (e= interpolationMethod ( COMMA e= interpolationMethod )* )?
+            // wcps.g:184:53: (e= interpolationMethod ( COMMA e= interpolationMethod )* )?
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -4190,7 +4190,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt28) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:181:54: e= interpolationMethod ( COMMA e= interpolationMethod )*
+                    // wcps.g:184:54: e= interpolationMethod ( COMMA e= interpolationMethod )*
                     {
                     pushFollow(FOLLOW_interpolationMethod_in_interpolationMethodList1765);
                     e=interpolationMethod();
@@ -4201,7 +4201,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((e!=null?e.value:null)); 
                     }
-                    // src/main/java/petascope/wcps/grammar/wcps.g:181:102: ( COMMA e= interpolationMethod )*
+                    // wcps.g:184:102: ( COMMA e= interpolationMethod )*
                     loop27:
                     do {
                         int alt27=2;
@@ -4214,7 +4214,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt27) {
                     	case 1 :
-                    	    // src/main/java/petascope/wcps/grammar/wcps.g:181:103: COMMA e= interpolationMethod
+                    	    // wcps.g:184:103: COMMA e= interpolationMethod
                     	    {
                     	    COMMA96=(Token)match(input,COMMA,FOLLOW_COMMA_in_interpolationMethodList1770); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4281,7 +4281,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:183:1: rangeExpr returns [RangeExpr value] : STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE ;
+    // wcps.g:186:1: rangeExpr returns [RangeExpr value] : STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE ;
     public final wcpsParser.rangeExpr_return rangeExpr() throws RecognitionException {
         wcpsParser.rangeExpr_return retval = new wcpsParser.rangeExpr_return();
         retval.start = input.LT(1);
@@ -4308,8 +4308,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 32) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:184:2: ( STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE )
-            // src/main/java/petascope/wcps/grammar/wcps.g:184:4: STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE
+            // wcps.g:187:2: ( STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE )
+            // wcps.g:187:4: STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4326,7 +4326,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value =new RangeExpr(); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:185:2: (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )?
+            // wcps.g:188:2: (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -4335,7 +4335,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt30) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:185:3: field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )*
+                    // wcps.g:188:3: field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )*
                     {
                     pushFollow(FOLLOW_fieldName_in_rangeExpr1805);
                     field=fieldName();
@@ -4357,7 +4357,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((field!=null?field.value:null), (expr!=null?expr.value:null)); 
                     }
-                    // src/main/java/petascope/wcps/grammar/wcps.g:186:3: ( COMMA field= fieldName COLON expr= scalarExpr )*
+                    // wcps.g:189:3: ( COMMA field= fieldName COLON expr= scalarExpr )*
                     loop29:
                     do {
                         int alt29=2;
@@ -4370,7 +4370,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt29) {
                     	case 1 :
-                    	    // src/main/java/petascope/wcps/grammar/wcps.g:186:4: COMMA field= fieldName COLON expr= scalarExpr
+                    	    // wcps.g:189:4: COMMA field= fieldName COLON expr= scalarExpr
                     	    {
                     	    COMMA101=(Token)match(input,COMMA,FOLLOW_COMMA_in_rangeExpr1818); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4448,7 +4448,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeConstructorExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:189:1: rangeConstructorExpr returns [RangeConstructorExpr value] : ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE ;
+    // wcps.g:192:1: rangeConstructorExpr returns [RangeConstructorExpr value] : ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE ;
     public final wcpsParser.rangeConstructorExpr_return rangeConstructorExpr() throws RecognitionException {
         wcpsParser.rangeConstructorExpr_return retval = new wcpsParser.rangeConstructorExpr_return();
         retval.start = input.LT(1);
@@ -4475,12 +4475,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 33) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:190:5: ( ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE )
-            // src/main/java/petascope/wcps/grammar/wcps.g:190:7: ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE
+            // wcps.g:193:5: ( ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE )
+            // wcps.g:193:7: ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
-            // src/main/java/petascope/wcps/grammar/wcps.g:190:7: ( STRUCT )?
+            // wcps.g:193:7: ( STRUCT )?
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -4489,7 +4489,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt31) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:190:8: STRUCT
+                    // wcps.g:193:8: STRUCT
                     {
                     STRUCT104=(Token)match(input,STRUCT,FOLLOW_STRUCT_in_rangeConstructorExpr1856); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -4527,7 +4527,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new RangeConstructorExpr((field!=null?field.value:null), (expr!=null?expr.value:null)); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:191:9: ( SEMICOLON field= fieldName COLON expr= coverageExpr )*
+            // wcps.g:194:9: ( SEMICOLON field= fieldName COLON expr= coverageExpr )*
             loop32:
             do {
                 int alt32=2;
@@ -4540,7 +4540,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt32) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:191:10: SEMICOLON field= fieldName COLON expr= coverageExpr
+            	    // wcps.g:194:10: SEMICOLON field= fieldName COLON expr= coverageExpr
             	    {
             	    SEMICOLON107=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_rangeConstructorExpr1883); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -4612,7 +4612,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "crsTransformExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:193:1: crsTransformExpr returns [CrsTransformExpr value] : CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN ;
+    // wcps.g:196:1: crsTransformExpr returns [CrsTransformExpr value] : CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN ;
     public final wcpsParser.crsTransformExpr_return crsTransformExpr() throws RecognitionException {
         wcpsParser.crsTransformExpr_return retval = new wcpsParser.crsTransformExpr_return();
         retval.start = input.LT(1);
@@ -4639,8 +4639,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 34) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:194:9: ( CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN )
-            // src/main/java/petascope/wcps/grammar/wcps.g:194:11: CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN
+            // wcps.g:197:9: ( CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN )
+            // wcps.g:197:11: CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4721,7 +4721,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionCrsList"
-    // src/main/java/petascope/wcps/grammar/wcps.g:197:1: dimensionCrsList returns [DimensionCrsList value] : LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE ;
+    // wcps.g:200:1: dimensionCrsList returns [DimensionCrsList value] : LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE ;
     public final wcpsParser.dimensionCrsList_return dimensionCrsList() throws RecognitionException {
         wcpsParser.dimensionCrsList_return retval = new wcpsParser.dimensionCrsList_return();
         retval.start = input.LT(1);
@@ -4740,8 +4740,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 35) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:198:5: ( LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE )
-            // src/main/java/petascope/wcps/grammar/wcps.g:198:7: LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE
+            // wcps.g:201:5: ( LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE )
+            // wcps.g:201:7: LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4759,7 +4759,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new DimensionCrsList((elem!=null?elem.value:null)); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:199:9: ( COMMA elem= dimensionCrsElement )*
+            // wcps.g:202:9: ( COMMA elem= dimensionCrsElement )*
             loop33:
             do {
                 int alt33=2;
@@ -4772,7 +4772,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt33) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:199:10: COMMA elem= dimensionCrsElement
+            	    // wcps.g:202:10: COMMA elem= dimensionCrsElement
             	    {
             	    COMMA116=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionCrsList2000); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -4833,7 +4833,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionCrsElement"
-    // src/main/java/petascope/wcps/grammar/wcps.g:201:1: dimensionCrsElement returns [DimensionCrsElement value] : aname= axisName COLON crs= crsName ;
+    // wcps.g:204:1: dimensionCrsElement returns [DimensionCrsElement value] : aname= axisName COLON crs= crsName ;
     public final wcpsParser.dimensionCrsElement_return dimensionCrsElement() throws RecognitionException {
         wcpsParser.dimensionCrsElement_return retval = new wcpsParser.dimensionCrsElement_return();
         retval.start = input.LT(1);
@@ -4850,8 +4850,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 36) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:202:5: (aname= axisName COLON crs= crsName )
-            // src/main/java/petascope/wcps/grammar/wcps.g:202:7: aname= axisName COLON crs= crsName
+            // wcps.g:205:5: (aname= axisName COLON crs= crsName )
+            // wcps.g:205:7: aname= axisName COLON crs= crsName
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4909,7 +4909,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldInterpolationList"
-    // src/main/java/petascope/wcps/grammar/wcps.g:204:1: fieldInterpolationList returns [FieldInterpolationList value] : LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE ;
+    // wcps.g:207:1: fieldInterpolationList returns [FieldInterpolationList value] : LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE ;
     public final wcpsParser.fieldInterpolationList_return fieldInterpolationList() throws RecognitionException {
         wcpsParser.fieldInterpolationList_return retval = new wcpsParser.fieldInterpolationList_return();
         retval.start = input.LT(1);
@@ -4928,8 +4928,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 37) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:205:2: ( LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE )
-            // src/main/java/petascope/wcps/grammar/wcps.g:205:4: LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE
+            // wcps.g:208:2: ( LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE )
+            // wcps.g:208:4: LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4938,7 +4938,7 @@ public class wcpsParser extends Parser {
             LBRACE119_tree = (Object)adaptor.create(LBRACE119);
             adaptor.addChild(root_0, LBRACE119_tree);
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:205:11: (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )*
+            // wcps.g:208:11: (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )*
             loop34:
             do {
                 int alt34=2;
@@ -4951,7 +4951,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt34) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:205:12: elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )
+            	    // wcps.g:208:12: elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )
             	    {
             	    pushFollow(FOLLOW_fieldInterpolationElement_in_fieldInterpolationList2063);
             	    elem=fieldInterpolationElement();
@@ -4962,8 +4962,8 @@ public class wcpsParser extends Parser {
             	    if ( state.backtracking==0 ) {
             	       retval.value = new FieldInterpolationList((elem!=null?elem.value:null)); 
             	    }
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:206:3: ( COMMA elem= fieldInterpolationElement )
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:206:4: COMMA elem= fieldInterpolationElement
+            	    // wcps.g:209:3: ( COMMA elem= fieldInterpolationElement )
+            	    // wcps.g:209:4: COMMA elem= fieldInterpolationElement
             	    {
             	    COMMA120=(Token)match(input,COMMA,FOLLOW_COMMA_in_fieldInterpolationList2070); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -5027,7 +5027,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldInterpolationElement"
-    // src/main/java/petascope/wcps/grammar/wcps.g:208:1: fieldInterpolationElement returns [FieldInterpolationElement value] : aname= fieldName method= interpolationMethod ;
+    // wcps.g:211:1: fieldInterpolationElement returns [FieldInterpolationElement value] : aname= fieldName method= interpolationMethod ;
     public final wcpsParser.fieldInterpolationElement_return fieldInterpolationElement() throws RecognitionException {
         wcpsParser.fieldInterpolationElement_return retval = new wcpsParser.fieldInterpolationElement_return();
         retval.start = input.LT(1);
@@ -5042,8 +5042,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 38) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:209:2: (aname= fieldName method= interpolationMethod )
-            // src/main/java/petascope/wcps/grammar/wcps.g:209:4: aname= fieldName method= interpolationMethod
+            // wcps.g:212:2: (aname= fieldName method= interpolationMethod )
+            // wcps.g:212:4: aname= fieldName method= interpolationMethod
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5093,7 +5093,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "unaryInducedExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:211:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );
+    // wcps.g:214:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );
     public final wcpsParser.unaryInducedExpr_return unaryInducedExpr() throws RecognitionException {
         wcpsParser.unaryInducedExpr_return retval = new wcpsParser.unaryInducedExpr_return();
         retval.start = input.LT(1);
@@ -5118,12 +5118,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 39) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:212:5: (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr )
+            // wcps.g:215:5: (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr )
             int alt35=7;
             alt35 = dfa35.predict(input);
             switch (alt35) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:212:7: e6= fieldExpr
+                    // wcps.g:215:7: e6= fieldExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5140,7 +5140,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:213:4: e1= unaryArithmeticExpr
+                    // wcps.g:216:4: e1= unaryArithmeticExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5157,7 +5157,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:214:7: e2= exponentialExpr
+                    // wcps.g:217:7: e2= exponentialExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5174,7 +5174,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:215:7: e3= trigonometricExpr
+                    // wcps.g:218:7: e3= trigonometricExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5191,7 +5191,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:216:7: e4= booleanExpr
+                    // wcps.g:219:7: e4= booleanExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5208,7 +5208,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:217:7: e5= castExpr
+                    // wcps.g:220:7: e5= castExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5225,7 +5225,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:218:7: e7= rangeConstructorExpr
+                    // wcps.g:221:7: e7= rangeConstructorExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5271,7 +5271,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "unaryArithmeticExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:220:1: unaryArithmeticExpr returns [CoverageExpr value] : (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN );
+    // wcps.g:223:1: unaryArithmeticExpr returns [CoverageExpr value] : (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN );
     public final wcpsParser.unaryArithmeticExpr_return unaryArithmeticExpr() throws RecognitionException {
         wcpsParser.unaryArithmeticExpr_return retval = new wcpsParser.unaryArithmeticExpr_return();
         retval.start = input.LT(1);
@@ -5292,7 +5292,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 40) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:221:5: (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN )
+            // wcps.g:224:5: (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN )
             int alt36=2;
             int LA36_0 = input.LA(1);
 
@@ -5311,7 +5311,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt36) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:221:7: op= ( MINUS | PLUS ) e1= coverageAtom
+                    // wcps.g:224:7: op= ( MINUS | PLUS ) e1= coverageAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5340,7 +5340,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:222:7: op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN
+                    // wcps.g:225:7: op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5408,7 +5408,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "exponentialExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:224:1: exponentialExpr returns [ExponentialExpr value] : op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN ;
+    // wcps.g:227:1: exponentialExpr returns [ExponentialExpr value] : op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN ;
     public final wcpsParser.exponentialExpr_return exponentialExpr() throws RecognitionException {
         wcpsParser.exponentialExpr_return retval = new wcpsParser.exponentialExpr_return();
         retval.start = input.LT(1);
@@ -5427,8 +5427,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 41) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:225:5: (op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN )
-            // src/main/java/petascope/wcps/grammar/wcps.g:225:7: op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN
+            // wcps.g:228:5: (op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN )
+            // wcps.g:228:7: op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5494,7 +5494,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "trigonometricExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:227:1: trigonometricExpr returns [TrigonometricExpr value] : op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN ;
+    // wcps.g:230:1: trigonometricExpr returns [TrigonometricExpr value] : op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN ;
     public final wcpsParser.trigonometricExpr_return trigonometricExpr() throws RecognitionException {
         wcpsParser.trigonometricExpr_return retval = new wcpsParser.trigonometricExpr_return();
         retval.start = input.LT(1);
@@ -5513,8 +5513,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 42) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:228:5: (op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN )
-            // src/main/java/petascope/wcps/grammar/wcps.g:228:7: op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN
+            // wcps.g:231:5: (op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN )
+            // wcps.g:231:7: op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5580,7 +5580,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:230:1: booleanExpr returns [BooleanExpr value] : (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN );
+    // wcps.g:233:1: booleanExpr returns [BooleanExpr value] : (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN );
     public final wcpsParser.booleanExpr_return booleanExpr() throws RecognitionException {
         wcpsParser.booleanExpr_return retval = new wcpsParser.booleanExpr_return();
         retval.start = input.LT(1);
@@ -5603,7 +5603,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 43) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:231:5: (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN )
+            // wcps.g:234:5: (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN )
             int alt37=2;
             int LA37_0 = input.LA(1);
 
@@ -5622,7 +5622,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt37) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:231:7: op= NOT e1= coverageExpr
+                    // wcps.g:234:7: op= NOT e1= coverageExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5644,7 +5644,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:232:7: op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN
+                    // wcps.g:235:7: op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5716,7 +5716,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "indexExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:234:1: indexExpr returns [IndexExpr value] : e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* ;
+    // wcps.g:237:1: indexExpr returns [IndexExpr value] : e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* ;
     public final wcpsParser.indexExpr_return indexExpr() throws RecognitionException {
         wcpsParser.indexExpr_return retval = new wcpsParser.indexExpr_return();
         retval.start = input.LT(1);
@@ -5733,8 +5733,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 44) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:235:5: (e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:235:7: e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )*
+            // wcps.g:238:5: (e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* )
+            // wcps.g:238:7: e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5747,7 +5747,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:236:3: (op= ( PLUS | MINUS ) e2= indexTerm )*
+            // wcps.g:239:3: (op= ( PLUS | MINUS ) e2= indexTerm )*
             loop38:
             do {
                 int alt38=2;
@@ -5760,7 +5760,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt38) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:236:4: op= ( PLUS | MINUS ) e2= indexTerm
+            	    // wcps.g:239:4: op= ( PLUS | MINUS ) e2= indexTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -5823,7 +5823,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "indexTerm"
-    // src/main/java/petascope/wcps/grammar/wcps.g:238:1: indexTerm returns [IndexExpr value] : e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* ;
+    // wcps.g:241:1: indexTerm returns [IndexExpr value] : e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* ;
     public final wcpsParser.indexTerm_return indexTerm() throws RecognitionException {
         wcpsParser.indexTerm_return retval = new wcpsParser.indexTerm_return();
         retval.start = input.LT(1);
@@ -5840,8 +5840,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 45) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:239:5: (e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:239:7: e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
+            // wcps.g:242:5: (e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* )
+            // wcps.g:242:7: e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5854,7 +5854,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:240:6: ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
+            // wcps.g:243:6: ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
             loop39:
             do {
                 int alt39=2;
@@ -5867,10 +5867,10 @@ public class wcpsParser extends Parser {
 
                 switch (alt39) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:240:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
+            	    // wcps.g:243:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
             	    {
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:240:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:240:8: op= ( MULT | DIVIDE ) e2= indexFactor
+            	    // wcps.g:243:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
+            	    // wcps.g:243:8: op= ( MULT | DIVIDE ) e2= indexFactor
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -5936,7 +5936,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "indexFactor"
-    // src/main/java/petascope/wcps/grammar/wcps.g:242:1: indexFactor returns [IndexExpr value] : (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) );
+    // wcps.g:245:1: indexFactor returns [IndexExpr value] : (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) );
     public final wcpsParser.indexFactor_return indexFactor() throws RecognitionException {
         wcpsParser.indexFactor_return retval = new wcpsParser.indexFactor_return();
         retval.start = input.LT(1);
@@ -5963,7 +5963,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 46) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:243:5: (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) )
+            // wcps.g:246:5: (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) )
             int alt40=3;
             switch ( input.LA(1) ) {
             case INTEGERCONSTANT:
@@ -5991,7 +5991,7 @@ public class wcpsParser extends Parser {
 
             switch (alt40) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:243:7: e= INTEGERCONSTANT
+                    // wcps.g:246:7: e= INTEGERCONSTANT
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6007,7 +6007,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:244:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
+                    // wcps.g:247:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6039,12 +6039,12 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:245:7: ( LPAREN e2= indexExpr RPAREN )
+                    // wcps.g:248:7: ( LPAREN e2= indexExpr RPAREN )
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    // src/main/java/petascope/wcps/grammar/wcps.g:245:7: ( LPAREN e2= indexExpr RPAREN )
-                    // src/main/java/petascope/wcps/grammar/wcps.g:245:8: LPAREN e2= indexExpr RPAREN
+                    // wcps.g:248:7: ( LPAREN e2= indexExpr RPAREN )
+                    // wcps.g:248:8: LPAREN e2= indexExpr RPAREN
                     {
                     LPAREN133=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_indexFactor2535); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -6101,7 +6101,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "stringScalarExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:247:1: stringScalarExpr returns [StringScalarExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING );
+    // wcps.g:250:1: stringScalarExpr returns [StringScalarExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING );
     public final wcpsParser.stringScalarExpr_return stringScalarExpr() throws RecognitionException {
         wcpsParser.stringScalarExpr_return retval = new wcpsParser.stringScalarExpr_return();
         retval.start = input.LT(1);
@@ -6122,7 +6122,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 47) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:249:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING )
+            // wcps.g:252:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING )
             int alt41=2;
             int LA41_0 = input.LA(1);
 
@@ -6141,7 +6141,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt41) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:249:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
+                    // wcps.g:252:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6173,7 +6173,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:250:7: e= STRING
+                    // wcps.g:253:7: e= STRING
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6218,7 +6218,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "scaleExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:252:1: scaleExpr returns [ScaleExpr value] : SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList ( COMMA fil= fieldInterpolationList )? RPAREN ;
+    // wcps.g:255:1: scaleExpr returns [ScaleExpr value] : SCALE LPAREN e1= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE ( COMMA fil= fieldInterpolationList )? RPAREN ;
     public final wcpsParser.scaleExpr_return scaleExpr() throws RecognitionException {
         wcpsParser.scaleExpr_return retval = new wcpsParser.scaleExpr_return();
         retval.start = input.LT(1);
@@ -6228,8 +6228,10 @@ public class wcpsParser extends Parser {
         Token SCALE137=null;
         Token LPAREN138=null;
         Token COMMA139=null;
-        Token COMMA140=null;
-        Token RPAREN141=null;
+        Token LBRACE140=null;
+        Token RBRACE141=null;
+        Token COMMA142=null;
+        Token RPAREN143=null;
         wcpsParser.coverageExpr_return e1 = null;
 
         wcpsParser.dimensionIntervalList_return dil = null;
@@ -6240,13 +6242,15 @@ public class wcpsParser extends Parser {
         Object SCALE137_tree=null;
         Object LPAREN138_tree=null;
         Object COMMA139_tree=null;
-        Object COMMA140_tree=null;
-        Object RPAREN141_tree=null;
+        Object LBRACE140_tree=null;
+        Object RBRACE141_tree=null;
+        Object COMMA142_tree=null;
+        Object RPAREN143_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 48) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:253:2: ( SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList ( COMMA fil= fieldInterpolationList )? RPAREN )
-            // src/main/java/petascope/wcps/grammar/wcps.g:253:4: SCALE LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList ( COMMA fil= fieldInterpolationList )? RPAREN
+            // wcps.g:256:2: ( SCALE LPAREN e1= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE ( COMMA fil= fieldInterpolationList )? RPAREN )
+            // wcps.g:256:4: SCALE LPAREN e1= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE ( COMMA fil= fieldInterpolationList )? RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -6271,16 +6275,26 @@ public class wcpsParser extends Parser {
             COMMA139_tree = (Object)adaptor.create(COMMA139);
             adaptor.addChild(root_0, COMMA139_tree);
             }
-            pushFollow(FOLLOW_dimensionIntervalList_in_scaleExpr2619);
+            LBRACE140=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_scaleExpr2617); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
+            LBRACE140_tree = (Object)adaptor.create(LBRACE140);
+            adaptor.addChild(root_0, LBRACE140_tree);
+            }
+            pushFollow(FOLLOW_dimensionIntervalList_in_scaleExpr2621);
             dil=dimensionIntervalList();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, dil.getTree());
+            RBRACE141=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_scaleExpr2623); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
+            RBRACE141_tree = (Object)adaptor.create(RBRACE141);
+            adaptor.addChild(root_0, RBRACE141_tree);
+            }
             if ( state.backtracking==0 ) {
                retval.value = new ScaleExpr((e1!=null?e1.value:null), (dil!=null?dil.value:null)); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:254:13: ( COMMA fil= fieldInterpolationList )?
+            // wcps.g:257:13: ( COMMA fil= fieldInterpolationList )?
             int alt42=2;
             int LA42_0 = input.LA(1);
 
@@ -6289,14 +6303,14 @@ public class wcpsParser extends Parser {
             }
             switch (alt42) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:254:14: COMMA fil= fieldInterpolationList
+                    // wcps.g:257:14: COMMA fil= fieldInterpolationList
                     {
-                    COMMA140=(Token)match(input,COMMA,FOLLOW_COMMA_in_scaleExpr2636); if (state.failed) return retval;
+                    COMMA142=(Token)match(input,COMMA,FOLLOW_COMMA_in_scaleExpr2640); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COMMA140_tree = (Object)adaptor.create(COMMA140);
-                    adaptor.addChild(root_0, COMMA140_tree);
+                    COMMA142_tree = (Object)adaptor.create(COMMA142);
+                    adaptor.addChild(root_0, COMMA142_tree);
                     }
-                    pushFollow(FOLLOW_fieldInterpolationList_in_scaleExpr2640);
+                    pushFollow(FOLLOW_fieldInterpolationList_in_scaleExpr2644);
                     fil=fieldInterpolationList();
 
                     state._fsp--;
@@ -6311,10 +6325,10 @@ public class wcpsParser extends Parser {
 
             }
 
-            RPAREN141=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_scaleExpr2665); if (state.failed) return retval;
+            RPAREN143=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_scaleExpr2669); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN141_tree = (Object)adaptor.create(RPAREN141);
-            adaptor.addChild(root_0, RPAREN141_tree);
+            RPAREN143_tree = (Object)adaptor.create(RPAREN143);
+            adaptor.addChild(root_0, RPAREN143_tree);
             }
 
             }
@@ -6347,7 +6361,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "subsetExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:258:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );
+    // wcps.g:260:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );
     public final wcpsParser.subsetExpr_return subsetExpr() throws RecognitionException {
         wcpsParser.subsetExpr_return retval = new wcpsParser.subsetExpr_return();
         retval.start = input.LT(1);
@@ -6364,16 +6378,16 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 49) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:259:2: (e1= trimExpr | e2= sliceExpr | e3= extendExpr )
+            // wcps.g:261:2: (e1= trimExpr | e2= sliceExpr | e3= extendExpr )
             int alt43=3;
             alt43 = dfa43.predict(input);
             switch (alt43) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:259:4: e1= trimExpr
+                    // wcps.g:261:4: e1= trimExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_trimExpr_in_subsetExpr2683);
+                    pushFollow(FOLLOW_trimExpr_in_subsetExpr2686);
                     e1=trimExpr();
 
                     state._fsp--;
@@ -6386,11 +6400,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:260:4: e2= sliceExpr
+                    // wcps.g:262:4: e2= sliceExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_sliceExpr_in_subsetExpr2692);
+                    pushFollow(FOLLOW_sliceExpr_in_subsetExpr2695);
                     e2=sliceExpr();
 
                     state._fsp--;
@@ -6403,11 +6417,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:261:4: e3= extendExpr
+                    // wcps.g:263:4: e3= extendExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_extendExpr_in_subsetExpr2701);
+                    pushFollow(FOLLOW_extendExpr_in_subsetExpr2704);
                     e3=extendExpr();
 
                     state._fsp--;
@@ -6449,21 +6463,21 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "trimExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:263:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );
+    // wcps.g:265:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );
     public final wcpsParser.trimExpr_return trimExpr() throws RecognitionException {
         wcpsParser.trimExpr_return retval = new wcpsParser.trimExpr_return();
         retval.start = input.LT(1);
         int trimExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LBRACKET142=null;
-        Token RBRACKET143=null;
-        Token TRIM144=null;
-        Token LPAREN145=null;
-        Token COMMA146=null;
-        Token LBRACE147=null;
-        Token RBRACE148=null;
-        Token RPAREN149=null;
+        Token LBRACKET144=null;
+        Token RBRACKET145=null;
+        Token TRIM146=null;
+        Token LPAREN147=null;
+        Token COMMA148=null;
+        Token LBRACE149=null;
+        Token RBRACE150=null;
+        Token RPAREN151=null;
         wcpsParser.coverageAtom_return e1 = null;
 
         wcpsParser.dimensionIntervalList_return dil = null;
@@ -6471,47 +6485,47 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageExpr_return e2 = null;
 
 
-        Object LBRACKET142_tree=null;
-        Object RBRACKET143_tree=null;
-        Object TRIM144_tree=null;
-        Object LPAREN145_tree=null;
-        Object COMMA146_tree=null;
-        Object LBRACE147_tree=null;
-        Object RBRACE148_tree=null;
-        Object RPAREN149_tree=null;
+        Object LBRACKET144_tree=null;
+        Object RBRACKET145_tree=null;
+        Object TRIM146_tree=null;
+        Object LPAREN147_tree=null;
+        Object COMMA148_tree=null;
+        Object LBRACE149_tree=null;
+        Object RBRACE150_tree=null;
+        Object RPAREN151_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 50) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:264:2: (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN )
+            // wcps.g:266:2: (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN )
             int alt44=2;
             alt44 = dfa44.predict(input);
             switch (alt44) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:264:4: e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET
+                    // wcps.g:266:4: e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_coverageAtom_in_trimExpr2718);
+                    pushFollow(FOLLOW_coverageAtom_in_trimExpr2721);
                     e1=coverageAtom();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    LBRACKET142=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_trimExpr2720); if (state.failed) return retval;
+                    LBRACKET144=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_trimExpr2723); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LBRACKET142_tree = (Object)adaptor.create(LBRACKET142);
-                    adaptor.addChild(root_0, LBRACKET142_tree);
+                    LBRACKET144_tree = (Object)adaptor.create(LBRACKET144);
+                    adaptor.addChild(root_0, LBRACKET144_tree);
                     }
-                    pushFollow(FOLLOW_dimensionIntervalList_in_trimExpr2724);
+                    pushFollow(FOLLOW_dimensionIntervalList_in_trimExpr2727);
                     dil=dimensionIntervalList();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dil.getTree());
-                    RBRACKET143=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_trimExpr2726); if (state.failed) return retval;
+                    RBRACKET145=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_trimExpr2729); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RBRACKET143_tree = (Object)adaptor.create(RBRACKET143);
-                    adaptor.addChild(root_0, RBRACKET143_tree);
+                    RBRACKET145_tree = (Object)adaptor.create(RBRACKET145);
+                    adaptor.addChild(root_0, RBRACKET145_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new TrimExpr((e1!=null?e1.value:null), (dil!=null?dil.value:null)); 
@@ -6520,51 +6534,51 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:265:6: TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN
+                    // wcps.g:267:6: TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    TRIM144=(Token)match(input,TRIM,FOLLOW_TRIM_in_trimExpr2735); if (state.failed) return retval;
+                    TRIM146=(Token)match(input,TRIM,FOLLOW_TRIM_in_trimExpr2738); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    TRIM144_tree = (Object)adaptor.create(TRIM144);
-                    adaptor.addChild(root_0, TRIM144_tree);
+                    TRIM146_tree = (Object)adaptor.create(TRIM146);
+                    adaptor.addChild(root_0, TRIM146_tree);
                     }
-                    LPAREN145=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_trimExpr2737); if (state.failed) return retval;
+                    LPAREN147=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_trimExpr2740); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN145_tree = (Object)adaptor.create(LPAREN145);
-                    adaptor.addChild(root_0, LPAREN145_tree);
+                    LPAREN147_tree = (Object)adaptor.create(LPAREN147);
+                    adaptor.addChild(root_0, LPAREN147_tree);
                     }
-                    pushFollow(FOLLOW_coverageExpr_in_trimExpr2741);
+                    pushFollow(FOLLOW_coverageExpr_in_trimExpr2744);
                     e2=coverageExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-                    COMMA146=(Token)match(input,COMMA,FOLLOW_COMMA_in_trimExpr2743); if (state.failed) return retval;
+                    COMMA148=(Token)match(input,COMMA,FOLLOW_COMMA_in_trimExpr2746); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COMMA146_tree = (Object)adaptor.create(COMMA146);
-                    adaptor.addChild(root_0, COMMA146_tree);
+                    COMMA148_tree = (Object)adaptor.create(COMMA148);
+                    adaptor.addChild(root_0, COMMA148_tree);
                     }
-                    LBRACE147=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_trimExpr2745); if (state.failed) return retval;
+                    LBRACE149=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_trimExpr2748); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LBRACE147_tree = (Object)adaptor.create(LBRACE147);
-                    adaptor.addChild(root_0, LBRACE147_tree);
+                    LBRACE149_tree = (Object)adaptor.create(LBRACE149);
+                    adaptor.addChild(root_0, LBRACE149_tree);
                     }
-                    pushFollow(FOLLOW_dimensionIntervalList_in_trimExpr2749);
+                    pushFollow(FOLLOW_dimensionIntervalList_in_trimExpr2752);
                     dil=dimensionIntervalList();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dil.getTree());
-                    RBRACE148=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_trimExpr2751); if (state.failed) return retval;
+                    RBRACE150=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_trimExpr2754); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RBRACE148_tree = (Object)adaptor.create(RBRACE148);
-                    adaptor.addChild(root_0, RBRACE148_tree);
+                    RBRACE150_tree = (Object)adaptor.create(RBRACE150);
+                    adaptor.addChild(root_0, RBRACE150_tree);
                     }
-                    RPAREN149=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_trimExpr2753); if (state.failed) return retval;
+                    RPAREN151=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_trimExpr2756); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN149_tree = (Object)adaptor.create(RPAREN149);
-                    adaptor.addChild(root_0, RPAREN149_tree);
+                    RPAREN151_tree = (Object)adaptor.create(RPAREN151);
+                    adaptor.addChild(root_0, RPAREN151_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new TrimExpr((e2!=null?e2.value:null), (dil!=null?dil.value:null)); 
@@ -6602,21 +6616,21 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "sliceExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:267:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );
+    // wcps.g:269:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );
     public final wcpsParser.sliceExpr_return sliceExpr() throws RecognitionException {
         wcpsParser.sliceExpr_return retval = new wcpsParser.sliceExpr_return();
         retval.start = input.LT(1);
         int sliceExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LBRACKET150=null;
-        Token RBRACKET151=null;
-        Token SLICE152=null;
-        Token LPAREN153=null;
-        Token COMMA154=null;
-        Token LBRACE155=null;
-        Token RBRACE156=null;
-        Token RPAREN157=null;
+        Token LBRACKET152=null;
+        Token RBRACKET153=null;
+        Token SLICE154=null;
+        Token LPAREN155=null;
+        Token COMMA156=null;
+        Token LBRACE157=null;
+        Token RBRACE158=null;
+        Token RPAREN159=null;
         wcpsParser.coverageAtom_return e1 = null;
 
         wcpsParser.dimensionPointList_return dpl = null;
@@ -6624,47 +6638,47 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageExpr_return e2 = null;
 
 
-        Object LBRACKET150_tree=null;
-        Object RBRACKET151_tree=null;
-        Object SLICE152_tree=null;
-        Object LPAREN153_tree=null;
-        Object COMMA154_tree=null;
-        Object LBRACE155_tree=null;
-        Object RBRACE156_tree=null;
-        Object RPAREN157_tree=null;
+        Object LBRACKET152_tree=null;
+        Object RBRACKET153_tree=null;
+        Object SLICE154_tree=null;
+        Object LPAREN155_tree=null;
+        Object COMMA156_tree=null;
+        Object LBRACE157_tree=null;
+        Object RBRACE158_tree=null;
+        Object RPAREN159_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 51) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:268:2: (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN )
+            // wcps.g:270:2: (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN )
             int alt45=2;
             alt45 = dfa45.predict(input);
             switch (alt45) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:268:4: e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET
+                    // wcps.g:270:4: e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_coverageAtom_in_sliceExpr2770);
+                    pushFollow(FOLLOW_coverageAtom_in_sliceExpr2773);
                     e1=coverageAtom();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    LBRACKET150=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_sliceExpr2772); if (state.failed) return retval;
+                    LBRACKET152=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_sliceExpr2775); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LBRACKET150_tree = (Object)adaptor.create(LBRACKET150);
-                    adaptor.addChild(root_0, LBRACKET150_tree);
+                    LBRACKET152_tree = (Object)adaptor.create(LBRACKET152);
+                    adaptor.addChild(root_0, LBRACKET152_tree);
                     }
-                    pushFollow(FOLLOW_dimensionPointList_in_sliceExpr2776);
+                    pushFollow(FOLLOW_dimensionPointList_in_sliceExpr2779);
                     dpl=dimensionPointList();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dpl.getTree());
-                    RBRACKET151=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_sliceExpr2778); if (state.failed) return retval;
+                    RBRACKET153=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_sliceExpr2781); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RBRACKET151_tree = (Object)adaptor.create(RBRACKET151);
-                    adaptor.addChild(root_0, RBRACKET151_tree);
+                    RBRACKET153_tree = (Object)adaptor.create(RBRACKET153);
+                    adaptor.addChild(root_0, RBRACKET153_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new SliceExpr((e1!=null?e1.value:null), (dpl!=null?dpl.value:null)); 
@@ -6673,51 +6687,51 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:269:4: SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN
+                    // wcps.g:271:4: SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    SLICE152=(Token)match(input,SLICE,FOLLOW_SLICE_in_sliceExpr2785); if (state.failed) return retval;
+                    SLICE154=(Token)match(input,SLICE,FOLLOW_SLICE_in_sliceExpr2788); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    SLICE152_tree = (Object)adaptor.create(SLICE152);
-                    adaptor.addChild(root_0, SLICE152_tree);
+                    SLICE154_tree = (Object)adaptor.create(SLICE154);
+                    adaptor.addChild(root_0, SLICE154_tree);
                     }
-                    LPAREN153=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_sliceExpr2787); if (state.failed) return retval;
+                    LPAREN155=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_sliceExpr2790); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN153_tree = (Object)adaptor.create(LPAREN153);
-                    adaptor.addChild(root_0, LPAREN153_tree);
+                    LPAREN155_tree = (Object)adaptor.create(LPAREN155);
+                    adaptor.addChild(root_0, LPAREN155_tree);
                     }
-                    pushFollow(FOLLOW_coverageExpr_in_sliceExpr2791);
+                    pushFollow(FOLLOW_coverageExpr_in_sliceExpr2794);
                     e2=coverageExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-                    COMMA154=(Token)match(input,COMMA,FOLLOW_COMMA_in_sliceExpr2793); if (state.failed) return retval;
+                    COMMA156=(Token)match(input,COMMA,FOLLOW_COMMA_in_sliceExpr2796); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COMMA154_tree = (Object)adaptor.create(COMMA154);
-                    adaptor.addChild(root_0, COMMA154_tree);
+                    COMMA156_tree = (Object)adaptor.create(COMMA156);
+                    adaptor.addChild(root_0, COMMA156_tree);
                     }
-                    LBRACE155=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_sliceExpr2795); if (state.failed) return retval;
+                    LBRACE157=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_sliceExpr2798); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LBRACE155_tree = (Object)adaptor.create(LBRACE155);
-                    adaptor.addChild(root_0, LBRACE155_tree);
+                    LBRACE157_tree = (Object)adaptor.create(LBRACE157);
+                    adaptor.addChild(root_0, LBRACE157_tree);
                     }
-                    pushFollow(FOLLOW_dimensionPointList_in_sliceExpr2799);
+                    pushFollow(FOLLOW_dimensionPointList_in_sliceExpr2802);
                     dpl=dimensionPointList();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dpl.getTree());
-                    RBRACE156=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_sliceExpr2801); if (state.failed) return retval;
+                    RBRACE158=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_sliceExpr2804); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RBRACE156_tree = (Object)adaptor.create(RBRACE156);
-                    adaptor.addChild(root_0, RBRACE156_tree);
+                    RBRACE158_tree = (Object)adaptor.create(RBRACE158);
+                    adaptor.addChild(root_0, RBRACE158_tree);
                     }
-                    RPAREN157=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_sliceExpr2803); if (state.failed) return retval;
+                    RPAREN159=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_sliceExpr2806); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN157_tree = (Object)adaptor.create(RPAREN157);
-                    adaptor.addChild(root_0, RPAREN157_tree);
+                    RPAREN159_tree = (Object)adaptor.create(RPAREN159);
+                    adaptor.addChild(root_0, RPAREN159_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new SliceExpr((e2!=null?e2.value:null), (dpl!=null?dpl.value:null)); 
@@ -6755,65 +6769,65 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "extendExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:271:1: extendExpr returns [ExtendExpr value] : EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN ;
+    // wcps.g:273:1: extendExpr returns [ExtendExpr value] : EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN ;
     public final wcpsParser.extendExpr_return extendExpr() throws RecognitionException {
         wcpsParser.extendExpr_return retval = new wcpsParser.extendExpr_return();
         retval.start = input.LT(1);
         int extendExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token EXTEND158=null;
-        Token LPAREN159=null;
-        Token COMMA160=null;
-        Token RPAREN161=null;
+        Token EXTEND160=null;
+        Token LPAREN161=null;
+        Token COMMA162=null;
+        Token RPAREN163=null;
         wcpsParser.coverageExpr_return e1 = null;
 
         wcpsParser.dimensionIntervalList_return dil = null;
 
 
-        Object EXTEND158_tree=null;
-        Object LPAREN159_tree=null;
-        Object COMMA160_tree=null;
-        Object RPAREN161_tree=null;
+        Object EXTEND160_tree=null;
+        Object LPAREN161_tree=null;
+        Object COMMA162_tree=null;
+        Object RPAREN163_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 52) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:272:2: ( EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN )
-            // src/main/java/petascope/wcps/grammar/wcps.g:272:4: EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN
+            // wcps.g:274:2: ( EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN )
+            // wcps.g:274:4: EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
-            EXTEND158=(Token)match(input,EXTEND,FOLLOW_EXTEND_in_extendExpr2818); if (state.failed) return retval;
+            EXTEND160=(Token)match(input,EXTEND,FOLLOW_EXTEND_in_extendExpr2821); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            EXTEND158_tree = (Object)adaptor.create(EXTEND158);
-            adaptor.addChild(root_0, EXTEND158_tree);
+            EXTEND160_tree = (Object)adaptor.create(EXTEND160);
+            adaptor.addChild(root_0, EXTEND160_tree);
             }
-            LPAREN159=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_extendExpr2820); if (state.failed) return retval;
+            LPAREN161=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_extendExpr2823); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN159_tree = (Object)adaptor.create(LPAREN159);
-            adaptor.addChild(root_0, LPAREN159_tree);
+            LPAREN161_tree = (Object)adaptor.create(LPAREN161);
+            adaptor.addChild(root_0, LPAREN161_tree);
             }
-            pushFollow(FOLLOW_coverageExpr_in_extendExpr2824);
+            pushFollow(FOLLOW_coverageExpr_in_extendExpr2827);
             e1=coverageExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            COMMA160=(Token)match(input,COMMA,FOLLOW_COMMA_in_extendExpr2826); if (state.failed) return retval;
+            COMMA162=(Token)match(input,COMMA,FOLLOW_COMMA_in_extendExpr2829); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            COMMA160_tree = (Object)adaptor.create(COMMA160);
-            adaptor.addChild(root_0, COMMA160_tree);
+            COMMA162_tree = (Object)adaptor.create(COMMA162);
+            adaptor.addChild(root_0, COMMA162_tree);
             }
-            pushFollow(FOLLOW_dimensionIntervalList_in_extendExpr2830);
+            pushFollow(FOLLOW_dimensionIntervalList_in_extendExpr2833);
             dil=dimensionIntervalList();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, dil.getTree());
-            RPAREN161=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_extendExpr2832); if (state.failed) return retval;
+            RPAREN163=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_extendExpr2835); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN161_tree = (Object)adaptor.create(RPAREN161);
-            adaptor.addChild(root_0, RPAREN161_tree);
+            RPAREN163_tree = (Object)adaptor.create(RPAREN163);
+            adaptor.addChild(root_0, RPAREN163_tree);
             }
             if ( state.backtracking==0 ) {
                retval.value = new ExtendExpr((e1!=null?e1.value:null), (dil!=null?dil.value:null)); 
@@ -6849,47 +6863,47 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "castExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:274:1: castExpr returns [CastExpr value] : LPAREN e1= rangeType RPAREN e2= coverageExpr ;
+    // wcps.g:276:1: castExpr returns [CastExpr value] : LPAREN e1= rangeType RPAREN e2= coverageExpr ;
     public final wcpsParser.castExpr_return castExpr() throws RecognitionException {
         wcpsParser.castExpr_return retval = new wcpsParser.castExpr_return();
         retval.start = input.LT(1);
         int castExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LPAREN162=null;
-        Token RPAREN163=null;
+        Token LPAREN164=null;
+        Token RPAREN165=null;
         wcpsParser.rangeType_return e1 = null;
 
         wcpsParser.coverageExpr_return e2 = null;
 
 
-        Object LPAREN162_tree=null;
-        Object RPAREN163_tree=null;
+        Object LPAREN164_tree=null;
+        Object RPAREN165_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 53) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:275:5: ( LPAREN e1= rangeType RPAREN e2= coverageExpr )
-            // src/main/java/petascope/wcps/grammar/wcps.g:275:7: LPAREN e1= rangeType RPAREN e2= coverageExpr
+            // wcps.g:277:5: ( LPAREN e1= rangeType RPAREN e2= coverageExpr )
+            // wcps.g:277:7: LPAREN e1= rangeType RPAREN e2= coverageExpr
             {
             root_0 = (Object)adaptor.nil();
 
-            LPAREN162=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_castExpr2850); if (state.failed) return retval;
+            LPAREN164=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_castExpr2853); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN162_tree = (Object)adaptor.create(LPAREN162);
-            adaptor.addChild(root_0, LPAREN162_tree);
+            LPAREN164_tree = (Object)adaptor.create(LPAREN164);
+            adaptor.addChild(root_0, LPAREN164_tree);
             }
-            pushFollow(FOLLOW_rangeType_in_castExpr2854);
+            pushFollow(FOLLOW_rangeType_in_castExpr2857);
             e1=rangeType();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            RPAREN163=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_castExpr2856); if (state.failed) return retval;
+            RPAREN165=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_castExpr2859); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN163_tree = (Object)adaptor.create(RPAREN163);
-            adaptor.addChild(root_0, RPAREN163_tree);
+            RPAREN165_tree = (Object)adaptor.create(RPAREN165);
+            adaptor.addChild(root_0, RPAREN165_tree);
             }
-            pushFollow(FOLLOW_coverageExpr_in_castExpr2860);
+            pushFollow(FOLLOW_coverageExpr_in_castExpr2863);
             e2=coverageExpr();
 
             state._fsp--;
@@ -6929,7 +6943,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeType"
-    // src/main/java/petascope/wcps/grammar/wcps.g:277:1: rangeType returns [String value] : (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) );
+    // wcps.g:279:1: rangeType returns [String value] : (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) );
     public final wcpsParser.rangeType_return rangeType() throws RecognitionException {
         wcpsParser.rangeType_return retval = new wcpsParser.rangeType_return();
         retval.start = input.LT(1);
@@ -6937,14 +6951,14 @@ public class wcpsParser extends Parser {
         Object root_0 = null;
 
         Token type=null;
-        Token UNSIGNED164=null;
+        Token UNSIGNED166=null;
 
         Object type_tree=null;
-        Object UNSIGNED164_tree=null;
+        Object UNSIGNED166_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 54) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:278:5: (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) )
+            // wcps.g:280:5: (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) )
             int alt46=2;
             int LA46_0 = input.LA(1);
 
@@ -6963,7 +6977,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt46) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:278:7: type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 )
+                    // wcps.g:280:7: type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 )
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6986,14 +7000,14 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:279:7: UNSIGNED type= ( CHAR | SHORT | LONG )
+                    // wcps.g:281:7: UNSIGNED type= ( CHAR | SHORT | LONG )
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    UNSIGNED164=(Token)match(input,UNSIGNED,FOLLOW_UNSIGNED_in_rangeType2909); if (state.failed) return retval;
+                    UNSIGNED166=(Token)match(input,UNSIGNED,FOLLOW_UNSIGNED_in_rangeType2912); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    UNSIGNED164_tree = (Object)adaptor.create(UNSIGNED164);
-                    adaptor.addChild(root_0, UNSIGNED164_tree);
+                    UNSIGNED166_tree = (Object)adaptor.create(UNSIGNED166);
+                    adaptor.addChild(root_0, UNSIGNED166_tree);
                     }
                     type=(Token)input.LT(1);
                     if ( (input.LA(1)>=CHAR && input.LA(1)<=LONG) ) {
@@ -7043,40 +7057,40 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:281:1: fieldExpr returns [SelectExpr value] : e1= coverageAtom DOT e2= fieldName ;
+    // wcps.g:283:1: fieldExpr returns [SelectExpr value] : e1= coverageAtom DOT e2= fieldName ;
     public final wcpsParser.fieldExpr_return fieldExpr() throws RecognitionException {
         wcpsParser.fieldExpr_return retval = new wcpsParser.fieldExpr_return();
         retval.start = input.LT(1);
         int fieldExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token DOT165=null;
+        Token DOT167=null;
         wcpsParser.coverageAtom_return e1 = null;
 
         wcpsParser.fieldName_return e2 = null;
 
 
-        Object DOT165_tree=null;
+        Object DOT167_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 55) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:282:5: (e1= coverageAtom DOT e2= fieldName )
-            // src/main/java/petascope/wcps/grammar/wcps.g:282:7: e1= coverageAtom DOT e2= fieldName
+            // wcps.g:284:5: (e1= coverageAtom DOT e2= fieldName )
+            // wcps.g:284:7: e1= coverageAtom DOT e2= fieldName
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_coverageAtom_in_fieldExpr2942);
+            pushFollow(FOLLOW_coverageAtom_in_fieldExpr2945);
             e1=coverageAtom();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            DOT165=(Token)match(input,DOT,FOLLOW_DOT_in_fieldExpr2944); if (state.failed) return retval;
+            DOT167=(Token)match(input,DOT,FOLLOW_DOT_in_fieldExpr2947); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            DOT165_tree = (Object)adaptor.create(DOT165);
-            adaptor.addChild(root_0, DOT165_tree);
+            DOT167_tree = (Object)adaptor.create(DOT167);
+            adaptor.addChild(root_0, DOT167_tree);
             }
-            pushFollow(FOLLOW_fieldName_in_fieldExpr2948);
+            pushFollow(FOLLOW_fieldName_in_fieldExpr2951);
             e2=fieldName();
 
             state._fsp--;
@@ -7116,7 +7130,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanScalarExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:286:1: booleanScalarExpr returns [BooleanScalarExpr value] : e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* ;
+    // wcps.g:288:1: booleanScalarExpr returns [BooleanScalarExpr value] : e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* ;
     public final wcpsParser.booleanScalarExpr_return booleanScalarExpr() throws RecognitionException {
         wcpsParser.booleanScalarExpr_return retval = new wcpsParser.booleanScalarExpr_return();
         retval.start = input.LT(1);
@@ -7133,12 +7147,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 56) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:287:5: (e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:287:7: e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )*
+            // wcps.g:289:5: (e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* )
+            // wcps.g:289:7: e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_booleanScalarTerm_in_booleanScalarExpr2973);
+            pushFollow(FOLLOW_booleanScalarTerm_in_booleanScalarExpr2976);
             e1=booleanScalarTerm();
 
             state._fsp--;
@@ -7147,14 +7161,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:288:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*
+            // wcps.g:290:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*
             loop47:
             do {
                 int alt47=2;
                 alt47 = dfa47.predict(input);
                 switch (alt47) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:288:8: op= ( OR | XOR ) e2= booleanScalarTerm
+            	    // wcps.g:290:8: op= ( OR | XOR ) e2= booleanScalarTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -7168,7 +7182,7 @@ public class wcpsParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_booleanScalarTerm_in_booleanScalarExpr2994);
+            	    pushFollow(FOLLOW_booleanScalarTerm_in_booleanScalarExpr2997);
             	    e2=booleanScalarTerm();
 
             	    state._fsp--;
@@ -7217,7 +7231,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanScalarTerm"
-    // src/main/java/petascope/wcps/grammar/wcps.g:290:1: booleanScalarTerm returns [BooleanScalarExpr value] : e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* ;
+    // wcps.g:292:1: booleanScalarTerm returns [BooleanScalarExpr value] : e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* ;
     public final wcpsParser.booleanScalarTerm_return booleanScalarTerm() throws RecognitionException {
         wcpsParser.booleanScalarTerm_return retval = new wcpsParser.booleanScalarTerm_return();
         retval.start = input.LT(1);
@@ -7234,12 +7248,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 57) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:291:2: (e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:291:4: e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )*
+            // wcps.g:293:2: (e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* )
+            // wcps.g:293:4: e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_booleanScalarNegation_in_booleanScalarTerm3016);
+            pushFollow(FOLLOW_booleanScalarNegation_in_booleanScalarTerm3019);
             e1=booleanScalarNegation();
 
             state._fsp--;
@@ -7248,21 +7262,21 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:292:4: (op= AND e2= booleanScalarNegation )*
+            // wcps.g:294:4: (op= AND e2= booleanScalarNegation )*
             loop48:
             do {
                 int alt48=2;
                 alt48 = dfa48.predict(input);
                 switch (alt48) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:292:5: op= AND e2= booleanScalarNegation
+            	    // wcps.g:294:5: op= AND e2= booleanScalarNegation
             	    {
-            	    op=(Token)match(input,AND,FOLLOW_AND_in_booleanScalarTerm3026); if (state.failed) return retval;
+            	    op=(Token)match(input,AND,FOLLOW_AND_in_booleanScalarTerm3029); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    op_tree = (Object)adaptor.create(op);
             	    adaptor.addChild(root_0, op_tree);
             	    }
-            	    pushFollow(FOLLOW_booleanScalarNegation_in_booleanScalarTerm3030);
+            	    pushFollow(FOLLOW_booleanScalarNegation_in_booleanScalarTerm3033);
             	    e2=booleanScalarNegation();
 
             	    state._fsp--;
@@ -7311,7 +7325,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanScalarNegation"
-    // src/main/java/petascope/wcps/grammar/wcps.g:294:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );
+    // wcps.g:296:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );
     public final wcpsParser.booleanScalarNegation_return booleanScalarNegation() throws RecognitionException {
         wcpsParser.booleanScalarNegation_return retval = new wcpsParser.booleanScalarNegation_return();
         retval.start = input.LT(1);
@@ -7326,16 +7340,16 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 58) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:295:2: (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom )
+            // wcps.g:297:2: (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom )
             int alt49=2;
             alt49 = dfa49.predict(input);
             switch (alt49) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:295:4: e1= booleanScalarAtom
+                    // wcps.g:297:4: e1= booleanScalarAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_booleanScalarAtom_in_booleanScalarNegation3051);
+                    pushFollow(FOLLOW_booleanScalarAtom_in_booleanScalarNegation3054);
                     e1=booleanScalarAtom();
 
                     state._fsp--;
@@ -7348,16 +7362,16 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:296:4: op= NOT e1= booleanScalarAtom
+                    // wcps.g:298:4: op= NOT e1= booleanScalarAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,NOT,FOLLOW_NOT_in_booleanScalarNegation3060); if (state.failed) return retval;
+                    op=(Token)match(input,NOT,FOLLOW_NOT_in_booleanScalarNegation3063); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    pushFollow(FOLLOW_booleanScalarAtom_in_booleanScalarNegation3064);
+                    pushFollow(FOLLOW_booleanScalarAtom_in_booleanScalarNegation3067);
                     e1=booleanScalarAtom();
 
                     state._fsp--;
@@ -7399,7 +7413,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanScalarAtom"
-    // src/main/java/petascope/wcps/grammar/wcps.g:298:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );
+    // wcps.g:300:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );
     public final wcpsParser.booleanScalarAtom_return booleanScalarAtom() throws RecognitionException {
         wcpsParser.booleanScalarAtom_return retval = new wcpsParser.booleanScalarAtom_return();
         retval.start = input.LT(1);
@@ -7407,8 +7421,8 @@ public class wcpsParser extends Parser {
         Object root_0 = null;
 
         Token e=null;
-        Token LPAREN166=null;
-        Token RPAREN167=null;
+        Token LPAREN168=null;
+        Token RPAREN169=null;
         wcpsParser.booleanScalarExpr_return e1 = null;
 
         wcpsParser.stringScalarExpr_return s1 = null;
@@ -7423,35 +7437,35 @@ public class wcpsParser extends Parser {
 
 
         Object e_tree=null;
-        Object LPAREN166_tree=null;
-        Object RPAREN167_tree=null;
+        Object LPAREN168_tree=null;
+        Object RPAREN169_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 59) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:299:2: ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT )
+            // wcps.g:301:2: ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT )
             int alt50=4;
             alt50 = dfa50.predict(input);
             switch (alt50) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:299:4: LPAREN e1= booleanScalarExpr RPAREN
+                    // wcps.g:301:4: LPAREN e1= booleanScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    LPAREN166=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_booleanScalarAtom3079); if (state.failed) return retval;
+                    LPAREN168=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_booleanScalarAtom3082); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN166_tree = (Object)adaptor.create(LPAREN166);
-                    adaptor.addChild(root_0, LPAREN166_tree);
+                    LPAREN168_tree = (Object)adaptor.create(LPAREN168);
+                    adaptor.addChild(root_0, LPAREN168_tree);
                     }
-                    pushFollow(FOLLOW_booleanScalarExpr_in_booleanScalarAtom3083);
+                    pushFollow(FOLLOW_booleanScalarExpr_in_booleanScalarAtom3086);
                     e1=booleanScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    RPAREN167=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_booleanScalarAtom3085); if (state.failed) return retval;
+                    RPAREN169=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_booleanScalarAtom3088); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN167_tree = (Object)adaptor.create(RPAREN167);
-                    adaptor.addChild(root_0, RPAREN167_tree);
+                    RPAREN169_tree = (Object)adaptor.create(RPAREN169);
+                    adaptor.addChild(root_0, RPAREN169_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = (e1!=null?e1.value:null); 
@@ -7460,23 +7474,23 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:300:4: s1= stringScalarExpr cop= compOp s2= stringScalarExpr
+                    // wcps.g:302:4: s1= stringScalarExpr cop= compOp s2= stringScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_stringScalarExpr_in_booleanScalarAtom3094);
+                    pushFollow(FOLLOW_stringScalarExpr_in_booleanScalarAtom3097);
                     s1=stringScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, s1.getTree());
-                    pushFollow(FOLLOW_compOp_in_booleanScalarAtom3098);
+                    pushFollow(FOLLOW_compOp_in_booleanScalarAtom3101);
                     cop=compOp();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, cop.getTree());
-                    pushFollow(FOLLOW_stringScalarExpr_in_booleanScalarAtom3102);
+                    pushFollow(FOLLOW_stringScalarExpr_in_booleanScalarAtom3105);
                     s2=stringScalarExpr();
 
                     state._fsp--;
@@ -7489,23 +7503,23 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:301:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
+                    // wcps.g:303:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_numericScalarExpr_in_booleanScalarAtom3112);
+                    pushFollow(FOLLOW_numericScalarExpr_in_booleanScalarAtom3115);
                     n1=numericScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, n1.getTree());
-                    pushFollow(FOLLOW_compOp_in_booleanScalarAtom3116);
+                    pushFollow(FOLLOW_compOp_in_booleanScalarAtom3119);
                     cop=compOp();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, cop.getTree());
-                    pushFollow(FOLLOW_numericScalarExpr_in_booleanScalarAtom3120);
+                    pushFollow(FOLLOW_numericScalarExpr_in_booleanScalarAtom3123);
                     n2=numericScalarExpr();
 
                     state._fsp--;
@@ -7518,11 +7532,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:302:4: e= BOOLEANCONSTANT
+                    // wcps.g:304:4: e= BOOLEANCONSTANT
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    e=(Token)match(input,BOOLEANCONSTANT,FOLLOW_BOOLEANCONSTANT_in_booleanScalarAtom3130); if (state.failed) return retval;
+                    e=(Token)match(input,BOOLEANCONSTANT,FOLLOW_BOOLEANCONSTANT_in_booleanScalarAtom3133); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     e_tree = (Object)adaptor.create(e);
                     adaptor.addChild(root_0, e_tree);
@@ -7563,7 +7577,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "numericScalarExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:304:1: numericScalarExpr returns [NumericScalarExpr value] : e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* ;
+    // wcps.g:306:1: numericScalarExpr returns [NumericScalarExpr value] : e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* ;
     public final wcpsParser.numericScalarExpr_return numericScalarExpr() throws RecognitionException {
         wcpsParser.numericScalarExpr_return retval = new wcpsParser.numericScalarExpr_return();
         retval.start = input.LT(1);
@@ -7580,12 +7594,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 60) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:305:2: (e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:305:4: e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
+            // wcps.g:307:2: (e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* )
+            // wcps.g:307:4: e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_numericScalarTerm_in_numericScalarExpr3147);
+            pushFollow(FOLLOW_numericScalarTerm_in_numericScalarExpr3150);
             e1=numericScalarTerm();
 
             state._fsp--;
@@ -7594,14 +7608,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:306:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
+            // wcps.g:308:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
             loop51:
             do {
                 int alt51=2;
                 alt51 = dfa51.predict(input);
                 switch (alt51) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:306:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
+            	    // wcps.g:308:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -7615,7 +7629,7 @@ public class wcpsParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_numericScalarTerm_in_numericScalarExpr3165);
+            	    pushFollow(FOLLOW_numericScalarTerm_in_numericScalarExpr3168);
             	    e2=numericScalarTerm();
 
             	    state._fsp--;
@@ -7664,7 +7678,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "numericScalarTerm"
-    // src/main/java/petascope/wcps/grammar/wcps.g:308:1: numericScalarTerm returns [NumericScalarExpr value] : e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* ;
+    // wcps.g:310:1: numericScalarTerm returns [NumericScalarExpr value] : e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* ;
     public final wcpsParser.numericScalarTerm_return numericScalarTerm() throws RecognitionException {
         wcpsParser.numericScalarTerm_return retval = new wcpsParser.numericScalarTerm_return();
         retval.start = input.LT(1);
@@ -7681,12 +7695,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 61) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:309:2: (e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:309:4: e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
+            // wcps.g:311:2: (e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* )
+            // wcps.g:311:4: e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_numericScalarFactor_in_numericScalarTerm3184);
+            pushFollow(FOLLOW_numericScalarFactor_in_numericScalarTerm3187);
             e1=numericScalarFactor();
 
             state._fsp--;
@@ -7695,14 +7709,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:310:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
+            // wcps.g:312:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
             loop52:
             do {
                 int alt52=2;
                 alt52 = dfa52.predict(input);
                 switch (alt52) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:310:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
+            	    // wcps.g:312:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -7716,7 +7730,7 @@ public class wcpsParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_numericScalarFactor_in_numericScalarTerm3201);
+            	    pushFollow(FOLLOW_numericScalarFactor_in_numericScalarTerm3204);
             	    e2=numericScalarFactor();
 
             	    state._fsp--;
@@ -7765,7 +7779,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "numericScalarFactor"
-    // src/main/java/petascope/wcps/grammar/wcps.g:312:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );
+    // wcps.g:314:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );
     public final wcpsParser.numericScalarFactor_return numericScalarFactor() throws RecognitionException {
         wcpsParser.numericScalarFactor_return retval = new wcpsParser.numericScalarFactor_return();
         retval.start = input.LT(1);
@@ -7774,14 +7788,14 @@ public class wcpsParser extends Parser {
 
         Token op=null;
         Token e=null;
-        Token LPAREN168=null;
-        Token RPAREN169=null;
         Token LPAREN170=null;
         Token RPAREN171=null;
         Token LPAREN172=null;
         Token RPAREN173=null;
         Token LPAREN174=null;
         Token RPAREN175=null;
+        Token LPAREN176=null;
+        Token RPAREN177=null;
         wcpsParser.numericScalarExpr_return e1 = null;
 
         wcpsParser.numericScalarFactor_return e10 = null;
@@ -7799,41 +7813,41 @@ public class wcpsParser extends Parser {
 
         Object op_tree=null;
         Object e_tree=null;
-        Object LPAREN168_tree=null;
-        Object RPAREN169_tree=null;
         Object LPAREN170_tree=null;
         Object RPAREN171_tree=null;
         Object LPAREN172_tree=null;
         Object RPAREN173_tree=null;
         Object LPAREN174_tree=null;
         Object RPAREN175_tree=null;
+        Object LPAREN176_tree=null;
+        Object RPAREN177_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 62) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:313:5: ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName )
+            // wcps.g:315:5: ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName )
             int alt53=10;
             alt53 = dfa53.predict(input);
             switch (alt53) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:313:7: LPAREN e1= numericScalarExpr RPAREN
+                    // wcps.g:315:7: LPAREN e1= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    LPAREN168=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3221); if (state.failed) return retval;
+                    LPAREN170=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3224); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN168_tree = (Object)adaptor.create(LPAREN168);
-                    adaptor.addChild(root_0, LPAREN168_tree);
+                    LPAREN170_tree = (Object)adaptor.create(LPAREN170);
+                    adaptor.addChild(root_0, LPAREN170_tree);
                     }
-                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3225);
+                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3228);
                     e1=numericScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    RPAREN169=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3227); if (state.failed) return retval;
+                    RPAREN171=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3230); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN169_tree = (Object)adaptor.create(RPAREN169);
-                    adaptor.addChild(root_0, RPAREN169_tree);
+                    RPAREN171_tree = (Object)adaptor.create(RPAREN171);
+                    adaptor.addChild(root_0, RPAREN171_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = (e1!=null?e1.value:null); 
@@ -7842,16 +7856,16 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:314:7: op= MINUS e10= numericScalarFactor
+                    // wcps.g:316:7: op= MINUS e10= numericScalarFactor
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,MINUS,FOLLOW_MINUS_in_numericScalarFactor3239); if (state.failed) return retval;
+                    op=(Token)match(input,MINUS,FOLLOW_MINUS_in_numericScalarFactor3242); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    pushFollow(FOLLOW_numericScalarFactor_in_numericScalarFactor3243);
+                    pushFollow(FOLLOW_numericScalarFactor_in_numericScalarFactor3246);
                     e10=numericScalarFactor();
 
                     state._fsp--;
@@ -7864,30 +7878,30 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:315:7: op= ABS LPAREN e12= numericScalarExpr RPAREN
+                    // wcps.g:317:7: op= ABS LPAREN e12= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,ABS,FOLLOW_ABS_in_numericScalarFactor3255); if (state.failed) return retval;
+                    op=(Token)match(input,ABS,FOLLOW_ABS_in_numericScalarFactor3258); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    LPAREN170=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3257); if (state.failed) return retval;
+                    LPAREN172=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3260); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN170_tree = (Object)adaptor.create(LPAREN170);
-                    adaptor.addChild(root_0, LPAREN170_tree);
+                    LPAREN172_tree = (Object)adaptor.create(LPAREN172);
+                    adaptor.addChild(root_0, LPAREN172_tree);
                     }
-                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3261);
+                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3264);
                     e12=numericScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e12.getTree());
-                    RPAREN171=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3263); if (state.failed) return retval;
+                    RPAREN173=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3266); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN171_tree = (Object)adaptor.create(RPAREN171);
-                    adaptor.addChild(root_0, RPAREN171_tree);
+                    RPAREN173_tree = (Object)adaptor.create(RPAREN173);
+                    adaptor.addChild(root_0, RPAREN173_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e12!=null?e12.value:null)); 
@@ -7896,30 +7910,30 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:316:7: op= SQRT LPAREN e11= numericScalarExpr RPAREN
+                    // wcps.g:318:7: op= SQRT LPAREN e11= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,SQRT,FOLLOW_SQRT_in_numericScalarFactor3275); if (state.failed) return retval;
+                    op=(Token)match(input,SQRT,FOLLOW_SQRT_in_numericScalarFactor3278); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    LPAREN172=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3277); if (state.failed) return retval;
+                    LPAREN174=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3280); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN172_tree = (Object)adaptor.create(LPAREN172);
-                    adaptor.addChild(root_0, LPAREN172_tree);
+                    LPAREN174_tree = (Object)adaptor.create(LPAREN174);
+                    adaptor.addChild(root_0, LPAREN174_tree);
                     }
-                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3281);
+                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3284);
                     e11=numericScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e11.getTree());
-                    RPAREN173=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3283); if (state.failed) return retval;
+                    RPAREN175=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3286); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN173_tree = (Object)adaptor.create(RPAREN173);
-                    adaptor.addChild(root_0, RPAREN173_tree);
+                    RPAREN175_tree = (Object)adaptor.create(RPAREN175);
+                    adaptor.addChild(root_0, RPAREN175_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e11!=null?e11.value:null)); 
@@ -7928,30 +7942,30 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:317:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
+                    // wcps.g:319:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    op=(Token)match(input,ROUND,FOLLOW_ROUND_in_numericScalarFactor3295); if (state.failed) return retval;
+                    op=(Token)match(input,ROUND,FOLLOW_ROUND_in_numericScalarFactor3298); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (Object)adaptor.create(op);
                     adaptor.addChild(root_0, op_tree);
                     }
-                    LPAREN174=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3297); if (state.failed) return retval;
+                    LPAREN176=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3300); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN174_tree = (Object)adaptor.create(LPAREN174);
-                    adaptor.addChild(root_0, LPAREN174_tree);
+                    LPAREN176_tree = (Object)adaptor.create(LPAREN176);
+                    adaptor.addChild(root_0, LPAREN176_tree);
                     }
-                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3301);
+                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3304);
                     e1=numericScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    RPAREN175=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3303); if (state.failed) return retval;
+                    RPAREN177=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3306); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN175_tree = (Object)adaptor.create(RPAREN175);
-                    adaptor.addChild(root_0, RPAREN175_tree);
+                    RPAREN177_tree = (Object)adaptor.create(RPAREN177);
+                    adaptor.addChild(root_0, RPAREN177_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e1!=null?e1.value:null)); 
@@ -7960,11 +7974,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:318:7: e= INTEGERCONSTANT
+                    // wcps.g:320:7: e= INTEGERCONSTANT
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    e=(Token)match(input,INTEGERCONSTANT,FOLLOW_INTEGERCONSTANT_in_numericScalarFactor3315); if (state.failed) return retval;
+                    e=(Token)match(input,INTEGERCONSTANT,FOLLOW_INTEGERCONSTANT_in_numericScalarFactor3318); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     e_tree = (Object)adaptor.create(e);
                     adaptor.addChild(root_0, e_tree);
@@ -7976,11 +7990,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:319:7: e= FLOATCONSTANT
+                    // wcps.g:321:7: e= FLOATCONSTANT
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    e=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_numericScalarFactor3327); if (state.failed) return retval;
+                    e=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_numericScalarFactor3330); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     e_tree = (Object)adaptor.create(e);
                     adaptor.addChild(root_0, e_tree);
@@ -7992,11 +8006,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:320:7: e2= complexConstant
+                    // wcps.g:322:7: e2= complexConstant
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_complexConstant_in_numericScalarFactor3339);
+                    pushFollow(FOLLOW_complexConstant_in_numericScalarFactor3342);
                     e2=complexConstant();
 
                     state._fsp--;
@@ -8009,11 +8023,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 9 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:321:7: e3= condenseExpr
+                    // wcps.g:323:7: e3= condenseExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_condenseExpr_in_numericScalarFactor3351);
+                    pushFollow(FOLLOW_condenseExpr_in_numericScalarFactor3354);
                     e3=condenseExpr();
 
                     state._fsp--;
@@ -8026,11 +8040,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 10 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:322:7: e4= variableName
+                    // wcps.g:324:7: e4= variableName
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_variableName_in_numericScalarFactor3363);
+                    pushFollow(FOLLOW_variableName_in_numericScalarFactor3366);
                     e4=variableName();
 
                     state._fsp--;
@@ -8072,30 +8086,30 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "compOp"
-    // src/main/java/petascope/wcps/grammar/wcps.g:324:1: compOp returns [String value] : ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE );
+    // wcps.g:326:1: compOp returns [String value] : ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE );
     public final wcpsParser.compOp_return compOp() throws RecognitionException {
         wcpsParser.compOp_return retval = new wcpsParser.compOp_return();
         retval.start = input.LT(1);
         int compOp_StartIndex = input.index();
         Object root_0 = null;
 
-        Token EQUALS176=null;
-        Token NOTEQUALS177=null;
-        Token LT178=null;
-        Token GT179=null;
-        Token LTE180=null;
-        Token GTE181=null;
+        Token EQUALS178=null;
+        Token NOTEQUALS179=null;
+        Token LT180=null;
+        Token GT181=null;
+        Token LTE182=null;
+        Token GTE183=null;
 
-        Object EQUALS176_tree=null;
-        Object NOTEQUALS177_tree=null;
-        Object LT178_tree=null;
-        Object GT179_tree=null;
-        Object LTE180_tree=null;
-        Object GTE181_tree=null;
+        Object EQUALS178_tree=null;
+        Object NOTEQUALS179_tree=null;
+        Object LT180_tree=null;
+        Object GT181_tree=null;
+        Object LTE182_tree=null;
+        Object GTE183_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 63) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:325:2: ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE )
+            // wcps.g:327:2: ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE )
             int alt54=6;
             switch ( input.LA(1) ) {
             case EQUALS:
@@ -8138,14 +8152,14 @@ public class wcpsParser extends Parser {
 
             switch (alt54) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:325:4: EQUALS
+                    // wcps.g:327:4: EQUALS
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    EQUALS176=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_compOp3381); if (state.failed) return retval;
+                    EQUALS178=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_compOp3384); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    EQUALS176_tree = (Object)adaptor.create(EQUALS176);
-                    adaptor.addChild(root_0, EQUALS176_tree);
+                    EQUALS178_tree = (Object)adaptor.create(EQUALS178);
+                    adaptor.addChild(root_0, EQUALS178_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new String("equals"); 
@@ -8154,14 +8168,14 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:326:4: NOTEQUALS
+                    // wcps.g:328:4: NOTEQUALS
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NOTEQUALS177=(Token)match(input,NOTEQUALS,FOLLOW_NOTEQUALS_in_compOp3388); if (state.failed) return retval;
+                    NOTEQUALS179=(Token)match(input,NOTEQUALS,FOLLOW_NOTEQUALS_in_compOp3391); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    NOTEQUALS177_tree = (Object)adaptor.create(NOTEQUALS177);
-                    adaptor.addChild(root_0, NOTEQUALS177_tree);
+                    NOTEQUALS179_tree = (Object)adaptor.create(NOTEQUALS179);
+                    adaptor.addChild(root_0, NOTEQUALS179_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new String("notEqual"); 
@@ -8170,14 +8184,14 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:327:4: LT
+                    // wcps.g:329:4: LT
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    LT178=(Token)match(input,LT,FOLLOW_LT_in_compOp3395); if (state.failed) return retval;
+                    LT180=(Token)match(input,LT,FOLLOW_LT_in_compOp3398); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LT178_tree = (Object)adaptor.create(LT178);
-                    adaptor.addChild(root_0, LT178_tree);
+                    LT180_tree = (Object)adaptor.create(LT180);
+                    adaptor.addChild(root_0, LT180_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new String("lessThan"); 
@@ -8186,14 +8200,14 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:328:4: GT
+                    // wcps.g:330:4: GT
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    GT179=(Token)match(input,GT,FOLLOW_GT_in_compOp3402); if (state.failed) return retval;
+                    GT181=(Token)match(input,GT,FOLLOW_GT_in_compOp3405); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    GT179_tree = (Object)adaptor.create(GT179);
-                    adaptor.addChild(root_0, GT179_tree);
+                    GT181_tree = (Object)adaptor.create(GT181);
+                    adaptor.addChild(root_0, GT181_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new String("greaterThan"); 
@@ -8202,14 +8216,14 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:329:4: LTE
+                    // wcps.g:331:4: LTE
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    LTE180=(Token)match(input,LTE,FOLLOW_LTE_in_compOp3409); if (state.failed) return retval;
+                    LTE182=(Token)match(input,LTE,FOLLOW_LTE_in_compOp3412); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LTE180_tree = (Object)adaptor.create(LTE180);
-                    adaptor.addChild(root_0, LTE180_tree);
+                    LTE182_tree = (Object)adaptor.create(LTE182);
+                    adaptor.addChild(root_0, LTE182_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new String("lessOrEqual"); 
@@ -8218,14 +8232,14 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:330:4: GTE
+                    // wcps.g:332:4: GTE
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    GTE181=(Token)match(input,GTE,FOLLOW_GTE_in_compOp3416); if (state.failed) return retval;
+                    GTE183=(Token)match(input,GTE,FOLLOW_GTE_in_compOp3419); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    GTE181_tree = (Object)adaptor.create(GTE181);
-                    adaptor.addChild(root_0, GTE181_tree);
+                    GTE183_tree = (Object)adaptor.create(GTE183);
+                    adaptor.addChild(root_0, GTE183_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new String("greaterOrEqual"); 
@@ -8263,27 +8277,27 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionIntervalList"
-    // src/main/java/petascope/wcps/grammar/wcps.g:332:1: dimensionIntervalList returns [DimensionIntervalList value] : elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* ;
+    // wcps.g:334:1: dimensionIntervalList returns [DimensionIntervalList value] : elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* ;
     public final wcpsParser.dimensionIntervalList_return dimensionIntervalList() throws RecognitionException {
         wcpsParser.dimensionIntervalList_return retval = new wcpsParser.dimensionIntervalList_return();
         retval.start = input.LT(1);
         int dimensionIntervalList_StartIndex = input.index();
         Object root_0 = null;
 
-        Token COMMA182=null;
+        Token COMMA184=null;
         wcpsParser.dimensionIntervalElement_return elem = null;
 
 
-        Object COMMA182_tree=null;
+        Object COMMA184_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 64) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:333:5: (elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:333:7: elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )*
+            // wcps.g:335:5: (elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* )
+            // wcps.g:335:7: elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3436);
+            pushFollow(FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3439);
             elem=dimensionIntervalElement();
 
             state._fsp--;
@@ -8292,33 +8306,27 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new DimensionIntervalList((elem!=null?elem.value:null)); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:334:9: ( COMMA elem= dimensionIntervalElement )*
+            // wcps.g:336:9: ( COMMA elem= dimensionIntervalElement )*
             loop55:
             do {
                 int alt55=2;
                 int LA55_0 = input.LA(1);
 
                 if ( (LA55_0==COMMA) ) {
-                    int LA55_1 = input.LA(2);
-
-                    if ( (LA55_1==INTEGERCONSTANT||LA55_1==STRING||LA55_1==NAME) ) {
-                        alt55=1;
-                    }
-
-
+                    alt55=1;
                 }
 
 
                 switch (alt55) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:334:10: COMMA elem= dimensionIntervalElement
+            	    // wcps.g:336:10: COMMA elem= dimensionIntervalElement
             	    {
-            	    COMMA182=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionIntervalList3449); if (state.failed) return retval;
+            	    COMMA184=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionIntervalList3452); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
-            	    COMMA182_tree = (Object)adaptor.create(COMMA182);
-            	    adaptor.addChild(root_0, COMMA182_tree);
+            	    COMMA184_tree = (Object)adaptor.create(COMMA184);
+            	    adaptor.addChild(root_0, COMMA184_tree);
             	    }
-            	    pushFollow(FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3453);
+            	    pushFollow(FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3456);
             	    elem=dimensionIntervalElement();
 
             	    state._fsp--;
@@ -8367,16 +8375,16 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionIntervalElement"
-    // src/main/java/petascope/wcps/grammar/wcps.g:336:1: dimensionIntervalElement returns [DimensionIntervalElement value] : aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN ;
+    // wcps.g:338:1: dimensionIntervalElement returns [DimensionIntervalElement value] : aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN ;
     public final wcpsParser.dimensionIntervalElement_return dimensionIntervalElement() throws RecognitionException {
         wcpsParser.dimensionIntervalElement_return retval = new wcpsParser.dimensionIntervalElement_return();
         retval.start = input.LT(1);
         int dimensionIntervalElement_StartIndex = input.index();
         Object root_0 = null;
 
-        Token COLON183=null;
-        Token LPAREN184=null;
-        Token RPAREN185=null;
+        Token COLON185=null;
+        Token LPAREN186=null;
+        Token RPAREN187=null;
         wcpsParser.axisName_return aname = null;
 
         wcpsParser.crsName_return crs = null;
@@ -8384,18 +8392,18 @@ public class wcpsParser extends Parser {
         wcpsParser.dimensionIntervalExpr_return die = null;
 
 
-        Object COLON183_tree=null;
-        Object LPAREN184_tree=null;
-        Object RPAREN185_tree=null;
+        Object COLON185_tree=null;
+        Object LPAREN186_tree=null;
+        Object RPAREN187_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 65) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:337:5: (aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN )
-            // src/main/java/petascope/wcps/grammar/wcps.g:337:7: aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN
+            // wcps.g:339:5: (aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN )
+            // wcps.g:339:7: aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_axisName_in_dimensionIntervalElement3478);
+            pushFollow(FOLLOW_axisName_in_dimensionIntervalElement3481);
             aname=axisName();
 
             state._fsp--;
@@ -8404,7 +8412,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new DimensionIntervalElement((aname!=null?aname.value:null)); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:337:79: ( COLON crs= crsName )?
+            // wcps.g:339:79: ( COLON crs= crsName )?
             int alt56=2;
             int LA56_0 = input.LA(1);
 
@@ -8413,14 +8421,14 @@ public class wcpsParser extends Parser {
             }
             switch (alt56) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:337:80: COLON crs= crsName
+                    // wcps.g:339:80: COLON crs= crsName
                     {
-                    COLON183=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalElement3483); if (state.failed) return retval;
+                    COLON185=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalElement3486); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON183_tree = (Object)adaptor.create(COLON183);
-                    adaptor.addChild(root_0, COLON183_tree);
+                    COLON185_tree = (Object)adaptor.create(COLON185);
+                    adaptor.addChild(root_0, COLON185_tree);
                     }
-                    pushFollow(FOLLOW_crsName_in_dimensionIntervalElement3487);
+                    pushFollow(FOLLOW_crsName_in_dimensionIntervalElement3490);
                     crs=crsName();
 
                     state._fsp--;
@@ -8435,21 +8443,21 @@ public class wcpsParser extends Parser {
 
             }
 
-            LPAREN184=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionIntervalElement3498); if (state.failed) return retval;
+            LPAREN186=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionIntervalElement3501); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN184_tree = (Object)adaptor.create(LPAREN184);
-            adaptor.addChild(root_0, LPAREN184_tree);
+            LPAREN186_tree = (Object)adaptor.create(LPAREN186);
+            adaptor.addChild(root_0, LPAREN186_tree);
             }
-            pushFollow(FOLLOW_dimensionIntervalExpr_in_dimensionIntervalElement3502);
+            pushFollow(FOLLOW_dimensionIntervalExpr_in_dimensionIntervalElement3505);
             die=dimensionIntervalExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, die.getTree());
-            RPAREN185=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionIntervalElement3504); if (state.failed) return retval;
+            RPAREN187=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionIntervalElement3507); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN185_tree = (Object)adaptor.create(RPAREN185);
-            adaptor.addChild(root_0, RPAREN185_tree);
+            RPAREN187_tree = (Object)adaptor.create(RPAREN187);
+            adaptor.addChild(root_0, RPAREN187_tree);
             }
             if ( state.backtracking==0 ) {
                retval.value.setIntervalExpr((die!=null?die.value:null)); 
@@ -8485,19 +8493,19 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionIntervalExpr"
-    // src/main/java/petascope/wcps/grammar/wcps.g:340:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );
+    // wcps.g:342:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );
     public final wcpsParser.dimensionIntervalExpr_return dimensionIntervalExpr() throws RecognitionException {
         wcpsParser.dimensionIntervalExpr_return retval = new wcpsParser.dimensionIntervalExpr_return();
         retval.start = input.LT(1);
         int dimensionIntervalExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token COLON186=null;
-        Token DOMAIN187=null;
-        Token LPAREN188=null;
-        Token COLON189=null;
-        Token COLON190=null;
-        Token RPAREN191=null;
+        Token COLON188=null;
+        Token DOMAIN189=null;
+        Token LPAREN190=null;
+        Token COLON191=null;
+        Token COLON192=null;
+        Token RPAREN193=null;
         wcpsParser.scalarExpr_return e1 = null;
 
         wcpsParser.scalarExpr_return e2 = null;
@@ -8509,36 +8517,36 @@ public class wcpsParser extends Parser {
         wcpsParser.crsName_return e5 = null;
 
 
-        Object COLON186_tree=null;
-        Object DOMAIN187_tree=null;
-        Object LPAREN188_tree=null;
-        Object COLON189_tree=null;
-        Object COLON190_tree=null;
-        Object RPAREN191_tree=null;
+        Object COLON188_tree=null;
+        Object DOMAIN189_tree=null;
+        Object LPAREN190_tree=null;
+        Object COLON191_tree=null;
+        Object COLON192_tree=null;
+        Object RPAREN193_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 66) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:341:5: (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN )
+            // wcps.g:343:5: (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN )
             int alt57=2;
             alt57 = dfa57.predict(input);
             switch (alt57) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:341:7: e1= scalarExpr COLON e2= scalarExpr
+                    // wcps.g:343:7: e1= scalarExpr COLON e2= scalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_scalarExpr_in_dimensionIntervalExpr3527);
+                    pushFollow(FOLLOW_scalarExpr_in_dimensionIntervalExpr3530);
                     e1=scalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    COLON186=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3529); if (state.failed) return retval;
+                    COLON188=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3532); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON186_tree = (Object)adaptor.create(COLON186);
-                    adaptor.addChild(root_0, COLON186_tree);
+                    COLON188_tree = (Object)adaptor.create(COLON188);
+                    adaptor.addChild(root_0, COLON188_tree);
                     }
-                    pushFollow(FOLLOW_scalarExpr_in_dimensionIntervalExpr3533);
+                    pushFollow(FOLLOW_scalarExpr_in_dimensionIntervalExpr3536);
                     e2=scalarExpr();
 
                     state._fsp--;
@@ -8551,52 +8559,52 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:342:7: DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN
+                    // wcps.g:344:7: DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    DOMAIN187=(Token)match(input,DOMAIN,FOLLOW_DOMAIN_in_dimensionIntervalExpr3543); if (state.failed) return retval;
+                    DOMAIN189=(Token)match(input,DOMAIN,FOLLOW_DOMAIN_in_dimensionIntervalExpr3546); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    DOMAIN187_tree = (Object)adaptor.create(DOMAIN187);
-                    adaptor.addChild(root_0, DOMAIN187_tree);
+                    DOMAIN189_tree = (Object)adaptor.create(DOMAIN189);
+                    adaptor.addChild(root_0, DOMAIN189_tree);
                     }
-                    LPAREN188=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionIntervalExpr3545); if (state.failed) return retval;
+                    LPAREN190=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionIntervalExpr3548); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN188_tree = (Object)adaptor.create(LPAREN188);
-                    adaptor.addChild(root_0, LPAREN188_tree);
+                    LPAREN190_tree = (Object)adaptor.create(LPAREN190);
+                    adaptor.addChild(root_0, LPAREN190_tree);
                     }
-                    pushFollow(FOLLOW_coverageName_in_dimensionIntervalExpr3549);
+                    pushFollow(FOLLOW_coverageName_in_dimensionIntervalExpr3552);
                     e3=coverageName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e3.getTree());
-                    COLON189=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3551); if (state.failed) return retval;
+                    COLON191=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3554); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON189_tree = (Object)adaptor.create(COLON189);
-                    adaptor.addChild(root_0, COLON189_tree);
+                    COLON191_tree = (Object)adaptor.create(COLON191);
+                    adaptor.addChild(root_0, COLON191_tree);
                     }
-                    pushFollow(FOLLOW_axisName_in_dimensionIntervalExpr3555);
+                    pushFollow(FOLLOW_axisName_in_dimensionIntervalExpr3558);
                     e4=axisName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e4.getTree());
-                    COLON190=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3557); if (state.failed) return retval;
+                    COLON192=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3560); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON190_tree = (Object)adaptor.create(COLON190);
-                    adaptor.addChild(root_0, COLON190_tree);
+                    COLON192_tree = (Object)adaptor.create(COLON192);
+                    adaptor.addChild(root_0, COLON192_tree);
                     }
-                    pushFollow(FOLLOW_crsName_in_dimensionIntervalExpr3561);
+                    pushFollow(FOLLOW_crsName_in_dimensionIntervalExpr3564);
                     e5=crsName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e5.getTree());
-                    RPAREN191=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionIntervalExpr3563); if (state.failed) return retval;
+                    RPAREN193=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionIntervalExpr3566); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN191_tree = (Object)adaptor.create(RPAREN191);
-                    adaptor.addChild(root_0, RPAREN191_tree);
+                    RPAREN193_tree = (Object)adaptor.create(RPAREN193);
+                    adaptor.addChild(root_0, RPAREN193_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new DimensionIntervalExpr((e3!=null?e3.value:null), (e4!=null?e4.value:null), (e5!=null?e5.value:null)); 
@@ -8634,29 +8642,29 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionPointList"
-    // src/main/java/petascope/wcps/grammar/wcps.g:344:1: dimensionPointList returns [DimensionPointList value] : elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* ;
+    // wcps.g:346:1: dimensionPointList returns [DimensionPointList value] : elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* ;
     public final wcpsParser.dimensionPointList_return dimensionPointList() throws RecognitionException {
         wcpsParser.dimensionPointList_return retval = new wcpsParser.dimensionPointList_return();
         retval.start = input.LT(1);
         int dimensionPointList_StartIndex = input.index();
         Object root_0 = null;
 
-        Token COMMA192=null;
+        Token COMMA194=null;
         wcpsParser.dimensionPointElement_return elem1 = null;
 
         wcpsParser.dimensionPointElement_return elem2 = null;
 
 
-        Object COMMA192_tree=null;
+        Object COMMA194_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 67) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:345:5: (elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* )
-            // src/main/java/petascope/wcps/grammar/wcps.g:345:7: elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )*
+            // wcps.g:347:5: (elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* )
+            // wcps.g:347:7: elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_dimensionPointElement_in_dimensionPointList3586);
+            pushFollow(FOLLOW_dimensionPointElement_in_dimensionPointList3589);
             elem1=dimensionPointElement();
 
             state._fsp--;
@@ -8665,7 +8673,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new DimensionPointList((elem1!=null?elem1.value:null)); 
             }
-            // src/main/java/petascope/wcps/grammar/wcps.g:346:6: ( COMMA elem2= dimensionPointElement )*
+            // wcps.g:348:6: ( COMMA elem2= dimensionPointElement )*
             loop58:
             do {
                 int alt58=2;
@@ -8678,14 +8686,14 @@ public class wcpsParser extends Parser {
 
                 switch (alt58) {
             	case 1 :
-            	    // src/main/java/petascope/wcps/grammar/wcps.g:346:7: COMMA elem2= dimensionPointElement
+            	    // wcps.g:348:7: COMMA elem2= dimensionPointElement
             	    {
-            	    COMMA192=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionPointList3596); if (state.failed) return retval;
+            	    COMMA194=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionPointList3599); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
-            	    COMMA192_tree = (Object)adaptor.create(COMMA192);
-            	    adaptor.addChild(root_0, COMMA192_tree);
+            	    COMMA194_tree = (Object)adaptor.create(COMMA194);
+            	    adaptor.addChild(root_0, COMMA194_tree);
             	    }
-            	    pushFollow(FOLLOW_dimensionPointElement_in_dimensionPointList3600);
+            	    pushFollow(FOLLOW_dimensionPointElement_in_dimensionPointList3603);
             	    elem2=dimensionPointElement();
 
             	    state._fsp--;
@@ -8734,18 +8742,18 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionPointElement"
-    // src/main/java/petascope/wcps/grammar/wcps.g:348:1: dimensionPointElement returns [DimensionPointElement value] : (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN );
+    // wcps.g:350:1: dimensionPointElement returns [DimensionPointElement value] : (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN );
     public final wcpsParser.dimensionPointElement_return dimensionPointElement() throws RecognitionException {
         wcpsParser.dimensionPointElement_return retval = new wcpsParser.dimensionPointElement_return();
         retval.start = input.LT(1);
         int dimensionPointElement_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LPAREN193=null;
-        Token RPAREN194=null;
-        Token COLON195=null;
-        Token LPAREN196=null;
-        Token RPAREN197=null;
+        Token LPAREN195=null;
+        Token RPAREN196=null;
+        Token COLON197=null;
+        Token LPAREN198=null;
+        Token RPAREN199=null;
         wcpsParser.axisName_return aname = null;
 
         wcpsParser.dimensionPoint_return dpe = null;
@@ -8753,15 +8761,15 @@ public class wcpsParser extends Parser {
         wcpsParser.crsName_return crs = null;
 
 
-        Object LPAREN193_tree=null;
-        Object RPAREN194_tree=null;
-        Object COLON195_tree=null;
-        Object LPAREN196_tree=null;
-        Object RPAREN197_tree=null;
+        Object LPAREN195_tree=null;
+        Object RPAREN196_tree=null;
+        Object COLON197_tree=null;
+        Object LPAREN198_tree=null;
+        Object RPAREN199_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 68) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:349:5: (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN )
+            // wcps.g:351:5: (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN )
             int alt59=2;
             int LA59_0 = input.LA(1);
 
@@ -8791,31 +8799,31 @@ public class wcpsParser extends Parser {
             }
             switch (alt59) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:349:7: aname= axisName LPAREN dpe= dimensionPoint RPAREN
+                    // wcps.g:351:7: aname= axisName LPAREN dpe= dimensionPoint RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_axisName_in_dimensionPointElement3625);
+                    pushFollow(FOLLOW_axisName_in_dimensionPointElement3628);
                     aname=axisName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, aname.getTree());
-                    LPAREN193=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionPointElement3627); if (state.failed) return retval;
+                    LPAREN195=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionPointElement3630); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN193_tree = (Object)adaptor.create(LPAREN193);
-                    adaptor.addChild(root_0, LPAREN193_tree);
+                    LPAREN195_tree = (Object)adaptor.create(LPAREN195);
+                    adaptor.addChild(root_0, LPAREN195_tree);
                     }
-                    pushFollow(FOLLOW_dimensionPoint_in_dimensionPointElement3631);
+                    pushFollow(FOLLOW_dimensionPoint_in_dimensionPointElement3634);
                     dpe=dimensionPoint();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dpe.getTree());
-                    RPAREN194=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionPointElement3633); if (state.failed) return retval;
+                    RPAREN196=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionPointElement3636); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN194_tree = (Object)adaptor.create(RPAREN194);
-                    adaptor.addChild(root_0, RPAREN194_tree);
+                    RPAREN196_tree = (Object)adaptor.create(RPAREN196);
+                    adaptor.addChild(root_0, RPAREN196_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new DimensionPointElement((aname!=null?aname.value:null), (dpe!=null?dpe.value:null)); 
@@ -8824,42 +8832,42 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:350:7: aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN
+                    // wcps.g:352:7: aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_axisName_in_dimensionPointElement3645);
+                    pushFollow(FOLLOW_axisName_in_dimensionPointElement3648);
                     aname=axisName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, aname.getTree());
-                    COLON195=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionPointElement3647); if (state.failed) return retval;
+                    COLON197=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionPointElement3650); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON195_tree = (Object)adaptor.create(COLON195);
-                    adaptor.addChild(root_0, COLON195_tree);
+                    COLON197_tree = (Object)adaptor.create(COLON197);
+                    adaptor.addChild(root_0, COLON197_tree);
                     }
-                    pushFollow(FOLLOW_crsName_in_dimensionPointElement3651);
+                    pushFollow(FOLLOW_crsName_in_dimensionPointElement3654);
                     crs=crsName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, crs.getTree());
-                    LPAREN196=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionPointElement3653); if (state.failed) return retval;
+                    LPAREN198=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionPointElement3656); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN196_tree = (Object)adaptor.create(LPAREN196);
-                    adaptor.addChild(root_0, LPAREN196_tree);
+                    LPAREN198_tree = (Object)adaptor.create(LPAREN198);
+                    adaptor.addChild(root_0, LPAREN198_tree);
                     }
-                    pushFollow(FOLLOW_dimensionPoint_in_dimensionPointElement3657);
+                    pushFollow(FOLLOW_dimensionPoint_in_dimensionPointElement3660);
                     dpe=dimensionPoint();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dpe.getTree());
-                    RPAREN197=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionPointElement3659); if (state.failed) return retval;
+                    RPAREN199=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionPointElement3662); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN197_tree = (Object)adaptor.create(RPAREN197);
-                    adaptor.addChild(root_0, RPAREN197_tree);
+                    RPAREN199_tree = (Object)adaptor.create(RPAREN199);
+                    adaptor.addChild(root_0, RPAREN199_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new DimensionPointElement((aname!=null?aname.value:null), (crs!=null?crs.value:null), (dpe!=null?dpe.value:null)); 
@@ -8897,7 +8905,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionPoint"
-    // src/main/java/petascope/wcps/grammar/wcps.g:352:1: dimensionPoint returns [ScalarExpr value] : e1= scalarExpr ;
+    // wcps.g:354:1: dimensionPoint returns [ScalarExpr value] : e1= scalarExpr ;
     public final wcpsParser.dimensionPoint_return dimensionPoint() throws RecognitionException {
         wcpsParser.dimensionPoint_return retval = new wcpsParser.dimensionPoint_return();
         retval.start = input.LT(1);
@@ -8910,12 +8918,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 69) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:353:5: (e1= scalarExpr )
-            // src/main/java/petascope/wcps/grammar/wcps.g:353:7: e1= scalarExpr
+            // wcps.g:355:5: (e1= scalarExpr )
+            // wcps.g:355:7: e1= scalarExpr
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_scalarExpr_in_dimensionPoint3682);
+            pushFollow(FOLLOW_scalarExpr_in_dimensionPoint3685);
             e1=scalarExpr();
 
             state._fsp--;
@@ -8955,58 +8963,58 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "interpolationMethod"
-    // src/main/java/petascope/wcps/grammar/wcps.g:355:1: interpolationMethod returns [InterpolationMethod value] : LPAREN type= interpolationType COLON res= nullResistence RPAREN ;
+    // wcps.g:357:1: interpolationMethod returns [InterpolationMethod value] : LPAREN type= interpolationType COLON res= nullResistence RPAREN ;
     public final wcpsParser.interpolationMethod_return interpolationMethod() throws RecognitionException {
         wcpsParser.interpolationMethod_return retval = new wcpsParser.interpolationMethod_return();
         retval.start = input.LT(1);
         int interpolationMethod_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LPAREN198=null;
-        Token COLON199=null;
-        Token RPAREN200=null;
+        Token LPAREN200=null;
+        Token COLON201=null;
+        Token RPAREN202=null;
         wcpsParser.interpolationType_return type = null;
 
         wcpsParser.nullResistence_return res = null;
 
 
-        Object LPAREN198_tree=null;
-        Object COLON199_tree=null;
-        Object RPAREN200_tree=null;
+        Object LPAREN200_tree=null;
+        Object COLON201_tree=null;
+        Object RPAREN202_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 70) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:356:2: ( LPAREN type= interpolationType COLON res= nullResistence RPAREN )
-            // src/main/java/petascope/wcps/grammar/wcps.g:356:4: LPAREN type= interpolationType COLON res= nullResistence RPAREN
+            // wcps.g:358:2: ( LPAREN type= interpolationType COLON res= nullResistence RPAREN )
+            // wcps.g:358:4: LPAREN type= interpolationType COLON res= nullResistence RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
-            LPAREN198=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_interpolationMethod3700); if (state.failed) return retval;
+            LPAREN200=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_interpolationMethod3703); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN198_tree = (Object)adaptor.create(LPAREN198);
-            adaptor.addChild(root_0, LPAREN198_tree);
+            LPAREN200_tree = (Object)adaptor.create(LPAREN200);
+            adaptor.addChild(root_0, LPAREN200_tree);
             }
-            pushFollow(FOLLOW_interpolationType_in_interpolationMethod3704);
+            pushFollow(FOLLOW_interpolationType_in_interpolationMethod3707);
             type=interpolationType();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, type.getTree());
-            COLON199=(Token)match(input,COLON,FOLLOW_COLON_in_interpolationMethod3706); if (state.failed) return retval;
+            COLON201=(Token)match(input,COLON,FOLLOW_COLON_in_interpolationMethod3709); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            COLON199_tree = (Object)adaptor.create(COLON199);
-            adaptor.addChild(root_0, COLON199_tree);
+            COLON201_tree = (Object)adaptor.create(COLON201);
+            adaptor.addChild(root_0, COLON201_tree);
             }
-            pushFollow(FOLLOW_nullResistence_in_interpolationMethod3710);
+            pushFollow(FOLLOW_nullResistence_in_interpolationMethod3713);
             res=nullResistence();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, res.getTree());
-            RPAREN200=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_interpolationMethod3712); if (state.failed) return retval;
+            RPAREN202=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_interpolationMethod3715); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN200_tree = (Object)adaptor.create(RPAREN200);
-            adaptor.addChild(root_0, RPAREN200_tree);
+            RPAREN202_tree = (Object)adaptor.create(RPAREN202);
+            adaptor.addChild(root_0, RPAREN202_tree);
             }
             if ( state.backtracking==0 ) {
                retval.value = new InterpolationMethod((type!=null?type.value:null), (res!=null?res.value:null)); 
@@ -9042,7 +9050,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "interpolationType"
-    // src/main/java/petascope/wcps/grammar/wcps.g:358:1: interpolationType returns [String value] : type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) ;
+    // wcps.g:360:1: interpolationType returns [String value] : type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) ;
     public final wcpsParser.interpolationType_return interpolationType() throws RecognitionException {
         wcpsParser.interpolationType_return retval = new wcpsParser.interpolationType_return();
         retval.start = input.LT(1);
@@ -9055,8 +9063,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 71) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:359:2: (type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) )
-            // src/main/java/petascope/wcps/grammar/wcps.g:359:4: type= ( NEAREST | LINEAR | QUADRATIC | CUBIC )
+            // wcps.g:361:2: (type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) )
+            // wcps.g:361:4: type= ( NEAREST | LINEAR | QUADRATIC | CUBIC )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9106,7 +9114,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "nullResistence"
-    // src/main/java/petascope/wcps/grammar/wcps.g:361:1: nullResistence returns [String value] : resistance= ( FULL | NONE | HALF | OTHER ) ;
+    // wcps.g:363:1: nullResistence returns [String value] : resistance= ( FULL | NONE | HALF | OTHER ) ;
     public final wcpsParser.nullResistence_return nullResistence() throws RecognitionException {
         wcpsParser.nullResistence_return retval = new wcpsParser.nullResistence_return();
         retval.start = input.LT(1);
@@ -9119,8 +9127,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 72) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:362:2: (resistance= ( FULL | NONE | HALF | OTHER ) )
-            // src/main/java/petascope/wcps/grammar/wcps.g:362:4: resistance= ( FULL | NONE | HALF | OTHER )
+            // wcps.g:364:2: (resistance= ( FULL | NONE | HALF | OTHER ) )
+            // wcps.g:364:4: resistance= ( FULL | NONE | HALF | OTHER )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9170,7 +9178,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "condenseOpType"
-    // src/main/java/petascope/wcps/grammar/wcps.g:364:1: condenseOpType returns [CondenseOperation value] : op= ( PLUS | MULT | MAX | MIN | AND | OR ) ;
+    // wcps.g:366:1: condenseOpType returns [CondenseOperation value] : op= ( PLUS | MULT | MAX | MIN | AND | OR ) ;
     public final wcpsParser.condenseOpType_return condenseOpType() throws RecognitionException {
         wcpsParser.condenseOpType_return retval = new wcpsParser.condenseOpType_return();
         retval.start = input.LT(1);
@@ -9183,8 +9191,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 73) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:365:2: (op= ( PLUS | MULT | MAX | MIN | AND | OR ) )
-            // src/main/java/petascope/wcps/grammar/wcps.g:365:4: op= ( PLUS | MULT | MAX | MIN | AND | OR )
+            // wcps.g:367:2: (op= ( PLUS | MULT | MAX | MIN | AND | OR ) )
+            // wcps.g:367:4: op= ( PLUS | MULT | MAX | MIN | AND | OR )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9234,32 +9242,32 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldName"
-    // src/main/java/petascope/wcps/grammar/wcps.g:367:1: fieldName returns [String value] : name ;
+    // wcps.g:369:1: fieldName returns [String value] : name ;
     public final wcpsParser.fieldName_return fieldName() throws RecognitionException {
         wcpsParser.fieldName_return retval = new wcpsParser.fieldName_return();
         retval.start = input.LT(1);
         int fieldName_StartIndex = input.index();
         Object root_0 = null;
 
-        wcpsParser.name_return name201 = null;
+        wcpsParser.name_return name203 = null;
 
 
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 74) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:368:2: ( name )
-            // src/main/java/petascope/wcps/grammar/wcps.g:368:4: name
+            // wcps.g:370:2: ( name )
+            // wcps.g:370:4: name
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_name_in_fieldName3806);
-            name201=name();
+            pushFollow(FOLLOW_name_in_fieldName3809);
+            name203=name();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, name201.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, name203.getTree());
             if ( state.backtracking==0 ) {
-               retval.value = new String((name201!=null?name201.value:null));
+               retval.value = new String((name203!=null?name203.value:null));
             }
 
             }
@@ -9292,7 +9300,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "constant"
-    // src/main/java/petascope/wcps/grammar/wcps.g:370:1: constant returns [String value] : (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant );
+    // wcps.g:372:1: constant returns [String value] : (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant );
     public final wcpsParser.constant_return constant() throws RecognitionException {
         wcpsParser.constant_return retval = new wcpsParser.constant_return();
         retval.start = input.LT(1);
@@ -9307,7 +9315,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 75) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:371:2: (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant )
+            // wcps.g:373:2: (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant )
             int alt60=2;
             int LA60_0 = input.LA(1);
 
@@ -9326,7 +9334,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt60) {
                 case 1 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:371:4: e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT )
+                    // wcps.g:373:4: e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT )
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -9349,11 +9357,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/main/java/petascope/wcps/grammar/wcps.g:372:4: e1= complexConstant
+                    // wcps.g:374:4: e1= complexConstant
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_complexConstant_in_constant3840);
+                    pushFollow(FOLLOW_complexConstant_in_constant3843);
                     e1=complexConstant();
 
                     state._fsp--;
@@ -9395,7 +9403,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "complexConstant"
-    // src/main/java/petascope/wcps/grammar/wcps.g:374:1: complexConstant returns [String value] : LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN ;
+    // wcps.g:376:1: complexConstant returns [String value] : LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN ;
     public final wcpsParser.complexConstant_return complexConstant() throws RecognitionException {
         wcpsParser.complexConstant_return retval = new wcpsParser.complexConstant_return();
         retval.start = input.LT(1);
@@ -9404,47 +9412,47 @@ public class wcpsParser extends Parser {
 
         Token re1=null;
         Token im1=null;
-        Token LPAREN202=null;
-        Token COMMA203=null;
-        Token RPAREN204=null;
+        Token LPAREN204=null;
+        Token COMMA205=null;
+        Token RPAREN206=null;
 
         Object re1_tree=null;
         Object im1_tree=null;
-        Object LPAREN202_tree=null;
-        Object COMMA203_tree=null;
-        Object RPAREN204_tree=null;
+        Object LPAREN204_tree=null;
+        Object COMMA205_tree=null;
+        Object RPAREN206_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 76) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:375:2: ( LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN )
-            // src/main/java/petascope/wcps/grammar/wcps.g:375:4: LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN
+            // wcps.g:377:2: ( LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN )
+            // wcps.g:377:4: LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
-            LPAREN202=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_complexConstant3855); if (state.failed) return retval;
+            LPAREN204=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_complexConstant3858); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN202_tree = (Object)adaptor.create(LPAREN202);
-            adaptor.addChild(root_0, LPAREN202_tree);
+            LPAREN204_tree = (Object)adaptor.create(LPAREN204);
+            adaptor.addChild(root_0, LPAREN204_tree);
             }
-            re1=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_complexConstant3859); if (state.failed) return retval;
+            re1=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_complexConstant3862); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             re1_tree = (Object)adaptor.create(re1);
             adaptor.addChild(root_0, re1_tree);
             }
-            COMMA203=(Token)match(input,COMMA,FOLLOW_COMMA_in_complexConstant3861); if (state.failed) return retval;
+            COMMA205=(Token)match(input,COMMA,FOLLOW_COMMA_in_complexConstant3864); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            COMMA203_tree = (Object)adaptor.create(COMMA203);
-            adaptor.addChild(root_0, COMMA203_tree);
+            COMMA205_tree = (Object)adaptor.create(COMMA205);
+            adaptor.addChild(root_0, COMMA205_tree);
             }
-            im1=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_complexConstant3865); if (state.failed) return retval;
+            im1=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_complexConstant3868); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             im1_tree = (Object)adaptor.create(im1);
             adaptor.addChild(root_0, im1_tree);
             }
-            RPAREN204=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_complexConstant3867); if (state.failed) return retval;
+            RPAREN206=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_complexConstant3870); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN204_tree = (Object)adaptor.create(RPAREN204);
-            adaptor.addChild(root_0, RPAREN204_tree);
+            RPAREN206_tree = (Object)adaptor.create(RPAREN206);
+            adaptor.addChild(root_0, RPAREN206_tree);
             }
             if ( state.backtracking==0 ) {
                retval.value = new String((re1!=null?re1.getText():null) +"+i"+(im1!=null?im1.getText():null)); 
@@ -9480,7 +9488,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "stringConstant"
-    // src/main/java/petascope/wcps/grammar/wcps.g:377:1: stringConstant returns [String value] : s= STRING ;
+    // wcps.g:379:1: stringConstant returns [String value] : s= STRING ;
     public final wcpsParser.stringConstant_return stringConstant() throws RecognitionException {
         wcpsParser.stringConstant_return retval = new wcpsParser.stringConstant_return();
         retval.start = input.LT(1);
@@ -9493,12 +9501,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 77) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:378:2: (s= STRING )
-            // src/main/java/petascope/wcps/grammar/wcps.g:378:4: s= STRING
+            // wcps.g:380:2: (s= STRING )
+            // wcps.g:380:4: s= STRING
             {
             root_0 = (Object)adaptor.nil();
 
-            s=(Token)match(input,STRING,FOLLOW_STRING_in_stringConstant3884); if (state.failed) return retval;
+            s=(Token)match(input,STRING,FOLLOW_STRING_in_stringConstant3887); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             s_tree = (Object)adaptor.create(s);
             adaptor.addChild(root_0, s_tree);
@@ -9537,7 +9545,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "name"
-    // src/main/java/petascope/wcps/grammar/wcps.g:380:1: name returns [String value] : var= ( NAME | STRING | INTEGERCONSTANT ) ;
+    // wcps.g:382:1: name returns [String value] : var= ( NAME | STRING | INTEGERCONSTANT ) ;
     public final wcpsParser.name_return name() throws RecognitionException {
         wcpsParser.name_return retval = new wcpsParser.name_return();
         retval.start = input.LT(1);
@@ -9550,8 +9558,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 78) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:381:2: (var= ( NAME | STRING | INTEGERCONSTANT ) )
-            // src/main/java/petascope/wcps/grammar/wcps.g:381:4: var= ( NAME | STRING | INTEGERCONSTANT )
+            // wcps.g:383:2: (var= ( NAME | STRING | INTEGERCONSTANT ) )
+            // wcps.g:383:4: var= ( NAME | STRING | INTEGERCONSTANT )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9601,7 +9609,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "crsName"
-    // src/main/java/petascope/wcps/grammar/wcps.g:383:1: crsName returns [String value] : s= stringConstant ;
+    // wcps.g:385:1: crsName returns [String value] : s= stringConstant ;
     public final wcpsParser.crsName_return crsName() throws RecognitionException {
         wcpsParser.crsName_return retval = new wcpsParser.crsName_return();
         retval.start = input.LT(1);
@@ -9614,12 +9622,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 79) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:384:2: (s= stringConstant )
-            // src/main/java/petascope/wcps/grammar/wcps.g:384:4: s= stringConstant
+            // wcps.g:386:2: (s= stringConstant )
+            // wcps.g:386:4: s= stringConstant
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_stringConstant_in_crsName3928);
+            pushFollow(FOLLOW_stringConstant_in_crsName3931);
             s=stringConstant();
 
             state._fsp--;
@@ -9659,7 +9667,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "axisName"
-    // src/main/java/petascope/wcps/grammar/wcps.g:386:1: axisName returns [String value] : type1= name ;
+    // wcps.g:388:1: axisName returns [String value] : type1= name ;
     public final wcpsParser.axisName_return axisName() throws RecognitionException {
         wcpsParser.axisName_return retval = new wcpsParser.axisName_return();
         retval.start = input.LT(1);
@@ -9672,12 +9680,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 80) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:387:2: (type1= name )
-            // src/main/java/petascope/wcps/grammar/wcps.g:387:4: type1= name
+            // wcps.g:389:2: (type1= name )
+            // wcps.g:389:4: type1= name
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_name_in_axisName3945);
+            pushFollow(FOLLOW_name_in_axisName3948);
             type1=name();
 
             state._fsp--;
@@ -9717,7 +9725,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "variableName"
-    // src/main/java/petascope/wcps/grammar/wcps.g:389:1: variableName returns [String value] : var= VARIABLE_DOLLAR ;
+    // wcps.g:391:1: variableName returns [String value] : var= VARIABLE_DOLLAR ;
     public final wcpsParser.variableName_return variableName() throws RecognitionException {
         wcpsParser.variableName_return retval = new wcpsParser.variableName_return();
         retval.start = input.LT(1);
@@ -9730,12 +9738,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 81) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:390:2: (var= VARIABLE_DOLLAR )
-            // src/main/java/petascope/wcps/grammar/wcps.g:390:4: var= VARIABLE_DOLLAR
+            // wcps.g:392:2: (var= VARIABLE_DOLLAR )
+            // wcps.g:392:4: var= VARIABLE_DOLLAR
             {
             root_0 = (Object)adaptor.nil();
 
-            var=(Token)match(input,VARIABLE_DOLLAR,FOLLOW_VARIABLE_DOLLAR_in_variableName3962); if (state.failed) return retval;
+            var=(Token)match(input,VARIABLE_DOLLAR,FOLLOW_VARIABLE_DOLLAR_in_variableName3965); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             var_tree = (Object)adaptor.create(var);
             adaptor.addChild(root_0, var_tree);
@@ -9774,7 +9782,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageVariable"
-    // src/main/java/petascope/wcps/grammar/wcps.g:392:1: coverageVariable returns [String value] : var= NAME ;
+    // wcps.g:394:1: coverageVariable returns [String value] : var= NAME ;
     public final wcpsParser.coverageVariable_return coverageVariable() throws RecognitionException {
         wcpsParser.coverageVariable_return retval = new wcpsParser.coverageVariable_return();
         retval.start = input.LT(1);
@@ -9787,12 +9795,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 82) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:393:2: (var= NAME )
-            // src/main/java/petascope/wcps/grammar/wcps.g:393:4: var= NAME
+            // wcps.g:395:2: (var= NAME )
+            // wcps.g:395:4: var= NAME
             {
             root_0 = (Object)adaptor.nil();
 
-            var=(Token)match(input,NAME,FOLLOW_NAME_in_coverageVariable3979); if (state.failed) return retval;
+            var=(Token)match(input,NAME,FOLLOW_NAME_in_coverageVariable3982); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             var_tree = (Object)adaptor.create(var);
             adaptor.addChild(root_0, var_tree);
@@ -9831,32 +9839,32 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageName"
-    // src/main/java/petascope/wcps/grammar/wcps.g:395:1: coverageName returns [String value] : name ;
+    // wcps.g:397:1: coverageName returns [String value] : name ;
     public final wcpsParser.coverageName_return coverageName() throws RecognitionException {
         wcpsParser.coverageName_return retval = new wcpsParser.coverageName_return();
         retval.start = input.LT(1);
         int coverageName_StartIndex = input.index();
         Object root_0 = null;
 
-        wcpsParser.name_return name205 = null;
+        wcpsParser.name_return name207 = null;
 
 
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 83) ) { return retval; }
-            // src/main/java/petascope/wcps/grammar/wcps.g:396:2: ( name )
-            // src/main/java/petascope/wcps/grammar/wcps.g:396:4: name
+            // wcps.g:398:2: ( name )
+            // wcps.g:398:4: name
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_name_in_coverageName3994);
-            name205=name();
+            pushFollow(FOLLOW_name_in_coverageName3997);
+            name207=name();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, name205.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, name207.getTree());
             if ( state.backtracking==0 ) {
-               retval.value = (name205!=null?name205.value:null); 
+               retval.value = (name207!=null?name207.value:null); 
             }
 
             }
@@ -9888,8 +9896,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageLogicTerm_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:68:10: (op= ( OR | XOR ) e2= coverageLogicTerm )
-        // src/main/java/petascope/wcps/grammar/wcps.g:68:10: op= ( OR | XOR ) e2= coverageLogicTerm
+        // wcps.g:71:10: (op= ( OR | XOR ) e2= coverageLogicTerm )
+        // wcps.g:71:10: op= ( OR | XOR ) e2= coverageLogicTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -9918,8 +9926,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageLogicFactor_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:72:10: (op= AND e2= coverageLogicFactor )
-        // src/main/java/petascope/wcps/grammar/wcps.g:72:10: op= AND e2= coverageLogicFactor
+        // wcps.g:75:10: (op= AND e2= coverageLogicFactor )
+        // wcps.g:75:10: op= AND e2= coverageLogicFactor
         {
         op=(Token)match(input,AND,FOLLOW_AND_in_synpred9_wcps416); if (state.failed) return ;
         pushFollow(FOLLOW_coverageLogicFactor_in_synpred9_wcps420);
@@ -9938,8 +9946,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageArithmeticExpr_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:76:10: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:76:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
+        // wcps.g:79:10: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )
+        // wcps.g:79:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=EQUALS && input.LA(1)<=GTE) ) {
@@ -9968,8 +9976,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageArithmeticTerm_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:80:10: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )
-        // src/main/java/petascope/wcps/grammar/wcps.g:80:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
+        // wcps.g:83:10: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )
+        // wcps.g:83:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -9998,8 +10006,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageArithmeticFactor_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:84:10: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )
-        // src/main/java/petascope/wcps/grammar/wcps.g:84:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
+        // wcps.g:87:10: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )
+        // wcps.g:87:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -10028,8 +10036,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageValue_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:88:10: (op= OVERLAY e2= coverageValue )
-        // src/main/java/petascope/wcps/grammar/wcps.g:88:10: op= OVERLAY e2= coverageValue
+        // wcps.g:91:10: (op= OVERLAY e2= coverageValue )
+        // wcps.g:91:10: op= OVERLAY e2= coverageValue
         {
         op=(Token)match(input,OVERLAY,FOLLOW_OVERLAY_in_synpred20_wcps625); if (state.failed) return ;
         pushFollow(FOLLOW_coverageValue_in_synpred20_wcps629);
@@ -10047,8 +10055,8 @@ public class wcpsParser extends Parser {
         wcpsParser.subsetExpr_return e5 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:91:7: (e5= subsetExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:91:7: e5= subsetExpr
+        // wcps.g:94:7: (e5= subsetExpr )
+        // wcps.g:94:7: e5= subsetExpr
         {
         pushFollow(FOLLOW_subsetExpr_in_synpred21_wcps655);
         e5=subsetExpr();
@@ -10065,8 +10073,8 @@ public class wcpsParser extends Parser {
         wcpsParser.unaryInducedExpr_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:92:7: (e2= unaryInducedExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:92:7: e2= unaryInducedExpr
+        // wcps.g:95:7: (e2= unaryInducedExpr )
+        // wcps.g:95:7: e2= unaryInducedExpr
         {
         pushFollow(FOLLOW_unaryInducedExpr_in_synpred22_wcps668);
         e2=unaryInducedExpr();
@@ -10083,8 +10091,8 @@ public class wcpsParser extends Parser {
         wcpsParser.scalarExpr_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:98:7: (e2= scalarExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:98:7: e2= scalarExpr
+        // wcps.g:101:7: (e2= scalarExpr )
+        // wcps.g:101:7: e2= scalarExpr
         {
         pushFollow(FOLLOW_scalarExpr_in_synpred25_wcps727);
         e2=scalarExpr();
@@ -10101,8 +10109,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageExpr_return e7 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:100:7: ( LPAREN e7= coverageExpr RPAREN )
-        // src/main/java/petascope/wcps/grammar/wcps.g:100:7: LPAREN e7= coverageExpr RPAREN
+        // wcps.g:103:7: ( LPAREN e7= coverageExpr RPAREN )
+        // wcps.g:103:7: LPAREN e7= coverageExpr RPAREN
         {
         match(input,LPAREN,FOLLOW_LPAREN_in_synpred27_wcps749); if (state.failed) return ;
         pushFollow(FOLLOW_coverageExpr_in_synpred27_wcps753);
@@ -10121,8 +10129,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageConstantExpr_return e3 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:101:7: (e3= coverageConstantExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:101:7: e3= coverageConstantExpr
+        // wcps.g:104:7: (e3= coverageConstantExpr )
+        // wcps.g:104:7: e3= coverageConstantExpr
         {
         pushFollow(FOLLOW_coverageConstantExpr_in_synpred28_wcps768);
         e3=coverageConstantExpr();
@@ -10139,8 +10147,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageConstructorExpr_return e4 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:102:7: (e4= coverageConstructorExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:102:7: e4= coverageConstructorExpr
+        // wcps.g:105:7: (e4= coverageConstructorExpr )
+        // wcps.g:105:7: e4= coverageConstructorExpr
         {
         pushFollow(FOLLOW_coverageConstructorExpr_in_synpred29_wcps780);
         e4=coverageConstructorExpr();
@@ -10157,8 +10165,8 @@ public class wcpsParser extends Parser {
         wcpsParser.metaDataExpr_return e1 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:107:7: (e1= metaDataExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:107:7: e1= metaDataExpr
+        // wcps.g:110:7: (e1= metaDataExpr )
+        // wcps.g:110:7: e1= metaDataExpr
         {
         pushFollow(FOLLOW_metaDataExpr_in_synpred31_wcps830);
         e1=metaDataExpr();
@@ -10175,8 +10183,8 @@ public class wcpsParser extends Parser {
         wcpsParser.condenseExpr_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:108:7: (e2= condenseExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:108:7: e2= condenseExpr
+        // wcps.g:111:7: (e2= condenseExpr )
+        // wcps.g:111:7: e2= condenseExpr
         {
         pushFollow(FOLLOW_condenseExpr_in_synpred32_wcps843);
         e2=condenseExpr();
@@ -10193,8 +10201,8 @@ public class wcpsParser extends Parser {
         wcpsParser.booleanScalarExpr_return e3 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:109:7: (e3= booleanScalarExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:109:7: e3= booleanScalarExpr
+        // wcps.g:112:7: (e3= booleanScalarExpr )
+        // wcps.g:112:7: e3= booleanScalarExpr
         {
         pushFollow(FOLLOW_booleanScalarExpr_in_synpred33_wcps856);
         e3=booleanScalarExpr();
@@ -10211,8 +10219,8 @@ public class wcpsParser extends Parser {
         wcpsParser.numericScalarExpr_return e4 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:110:7: (e4= numericScalarExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:110:7: e4= numericScalarExpr
+        // wcps.g:113:7: (e4= numericScalarExpr )
+        // wcps.g:113:7: e4= numericScalarExpr
         {
         pushFollow(FOLLOW_numericScalarExpr_in_synpred34_wcps870);
         e4=numericScalarExpr();
@@ -10229,8 +10237,8 @@ public class wcpsParser extends Parser {
         wcpsParser.stringScalarExpr_return e5 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:111:7: (e5= stringScalarExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:111:7: e5= stringScalarExpr
+        // wcps.g:114:7: (e5= stringScalarExpr )
+        // wcps.g:114:7: e5= stringScalarExpr
         {
         pushFollow(FOLLOW_stringScalarExpr_in_synpred35_wcps883);
         e5=stringScalarExpr();
@@ -10247,8 +10255,8 @@ public class wcpsParser extends Parser {
         wcpsParser.fieldExpr_return e6 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:212:7: (e6= fieldExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:212:7: e6= fieldExpr
+        // wcps.g:215:7: (e6= fieldExpr )
+        // wcps.g:215:7: e6= fieldExpr
         {
         pushFollow(FOLLOW_fieldExpr_in_synpred71_wcps2121);
         e6=fieldExpr();
@@ -10265,8 +10273,8 @@ public class wcpsParser extends Parser {
         wcpsParser.unaryArithmeticExpr_return e1 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:213:4: (e1= unaryArithmeticExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:213:4: e1= unaryArithmeticExpr
+        // wcps.g:216:4: (e1= unaryArithmeticExpr )
+        // wcps.g:216:4: e1= unaryArithmeticExpr
         {
         pushFollow(FOLLOW_unaryArithmeticExpr_in_synpred72_wcps2130);
         e1=unaryArithmeticExpr();
@@ -10283,8 +10291,8 @@ public class wcpsParser extends Parser {
         wcpsParser.booleanExpr_return e4 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:216:7: (e4= booleanExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:216:7: e4= booleanExpr
+        // wcps.g:219:7: (e4= booleanExpr )
+        // wcps.g:219:7: e4= booleanExpr
         {
         pushFollow(FOLLOW_booleanExpr_in_synpred75_wcps2166);
         e4=booleanExpr();
@@ -10301,10 +10309,10 @@ public class wcpsParser extends Parser {
         wcpsParser.trimExpr_return e1 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:259:4: (e1= trimExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:259:4: e1= trimExpr
+        // wcps.g:261:4: (e1= trimExpr )
+        // wcps.g:261:4: e1= trimExpr
         {
-        pushFollow(FOLLOW_trimExpr_in_synpred101_wcps2683);
+        pushFollow(FOLLOW_trimExpr_in_synpred101_wcps2686);
         e1=trimExpr();
 
         state._fsp--;
@@ -10319,10 +10327,10 @@ public class wcpsParser extends Parser {
         wcpsParser.sliceExpr_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:260:4: (e2= sliceExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:260:4: e2= sliceExpr
+        // wcps.g:262:4: (e2= sliceExpr )
+        // wcps.g:262:4: e2= sliceExpr
         {
-        pushFollow(FOLLOW_sliceExpr_in_synpred102_wcps2692);
+        pushFollow(FOLLOW_sliceExpr_in_synpred102_wcps2695);
         e2=sliceExpr();
 
         state._fsp--;
@@ -10338,8 +10346,8 @@ public class wcpsParser extends Parser {
         wcpsParser.booleanScalarTerm_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:288:8: (op= ( OR | XOR ) e2= booleanScalarTerm )
-        // src/main/java/petascope/wcps/grammar/wcps.g:288:8: op= ( OR | XOR ) e2= booleanScalarTerm
+        // wcps.g:290:8: (op= ( OR | XOR ) e2= booleanScalarTerm )
+        // wcps.g:290:8: op= ( OR | XOR ) e2= booleanScalarTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -10352,7 +10360,7 @@ public class wcpsParser extends Parser {
             throw mse;
         }
 
-        pushFollow(FOLLOW_booleanScalarTerm_in_synpred116_wcps2994);
+        pushFollow(FOLLOW_booleanScalarTerm_in_synpred116_wcps2997);
         e2=booleanScalarTerm();
 
         state._fsp--;
@@ -10368,11 +10376,11 @@ public class wcpsParser extends Parser {
         wcpsParser.booleanScalarNegation_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:292:5: (op= AND e2= booleanScalarNegation )
-        // src/main/java/petascope/wcps/grammar/wcps.g:292:5: op= AND e2= booleanScalarNegation
+        // wcps.g:294:5: (op= AND e2= booleanScalarNegation )
+        // wcps.g:294:5: op= AND e2= booleanScalarNegation
         {
-        op=(Token)match(input,AND,FOLLOW_AND_in_synpred117_wcps3026); if (state.failed) return ;
-        pushFollow(FOLLOW_booleanScalarNegation_in_synpred117_wcps3030);
+        op=(Token)match(input,AND,FOLLOW_AND_in_synpred117_wcps3029); if (state.failed) return ;
+        pushFollow(FOLLOW_booleanScalarNegation_in_synpred117_wcps3033);
         e2=booleanScalarNegation();
 
         state._fsp--;
@@ -10387,16 +10395,16 @@ public class wcpsParser extends Parser {
         wcpsParser.booleanScalarExpr_return e1 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:299:4: ( LPAREN e1= booleanScalarExpr RPAREN )
-        // src/main/java/petascope/wcps/grammar/wcps.g:299:4: LPAREN e1= booleanScalarExpr RPAREN
+        // wcps.g:301:4: ( LPAREN e1= booleanScalarExpr RPAREN )
+        // wcps.g:301:4: LPAREN e1= booleanScalarExpr RPAREN
         {
-        match(input,LPAREN,FOLLOW_LPAREN_in_synpred119_wcps3079); if (state.failed) return ;
-        pushFollow(FOLLOW_booleanScalarExpr_in_synpred119_wcps3083);
+        match(input,LPAREN,FOLLOW_LPAREN_in_synpred119_wcps3082); if (state.failed) return ;
+        pushFollow(FOLLOW_booleanScalarExpr_in_synpred119_wcps3086);
         e1=booleanScalarExpr();
 
         state._fsp--;
         if (state.failed) return ;
-        match(input,RPAREN,FOLLOW_RPAREN_in_synpred119_wcps3085); if (state.failed) return ;
+        match(input,RPAREN,FOLLOW_RPAREN_in_synpred119_wcps3088); if (state.failed) return ;
 
         }
     }
@@ -10411,20 +10419,20 @@ public class wcpsParser extends Parser {
         wcpsParser.numericScalarExpr_return n2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:301:4: (n1= numericScalarExpr cop= compOp n2= numericScalarExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:301:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
+        // wcps.g:303:4: (n1= numericScalarExpr cop= compOp n2= numericScalarExpr )
+        // wcps.g:303:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
         {
-        pushFollow(FOLLOW_numericScalarExpr_in_synpred121_wcps3112);
+        pushFollow(FOLLOW_numericScalarExpr_in_synpred121_wcps3115);
         n1=numericScalarExpr();
 
         state._fsp--;
         if (state.failed) return ;
-        pushFollow(FOLLOW_compOp_in_synpred121_wcps3116);
+        pushFollow(FOLLOW_compOp_in_synpred121_wcps3119);
         cop=compOp();
 
         state._fsp--;
         if (state.failed) return ;
-        pushFollow(FOLLOW_numericScalarExpr_in_synpred121_wcps3120);
+        pushFollow(FOLLOW_numericScalarExpr_in_synpred121_wcps3123);
         n2=numericScalarExpr();
 
         state._fsp--;
@@ -10440,8 +10448,8 @@ public class wcpsParser extends Parser {
         wcpsParser.numericScalarTerm_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:306:5: (op= ( PLUS | MINUS ) e2= numericScalarTerm )
-        // src/main/java/petascope/wcps/grammar/wcps.g:306:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
+        // wcps.g:308:5: (op= ( PLUS | MINUS ) e2= numericScalarTerm )
+        // wcps.g:308:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -10454,7 +10462,7 @@ public class wcpsParser extends Parser {
             throw mse;
         }
 
-        pushFollow(FOLLOW_numericScalarTerm_in_synpred123_wcps3165);
+        pushFollow(FOLLOW_numericScalarTerm_in_synpred123_wcps3168);
         e2=numericScalarTerm();
 
         state._fsp--;
@@ -10470,8 +10478,8 @@ public class wcpsParser extends Parser {
         wcpsParser.numericScalarFactor_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:310:4: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )
-        // src/main/java/petascope/wcps/grammar/wcps.g:310:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
+        // wcps.g:312:4: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )
+        // wcps.g:312:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -10484,7 +10492,7 @@ public class wcpsParser extends Parser {
             throw mse;
         }
 
-        pushFollow(FOLLOW_numericScalarFactor_in_synpred125_wcps3201);
+        pushFollow(FOLLOW_numericScalarFactor_in_synpred125_wcps3204);
         e2=numericScalarFactor();
 
         state._fsp--;
@@ -10499,16 +10507,16 @@ public class wcpsParser extends Parser {
         wcpsParser.numericScalarExpr_return e1 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:313:7: ( LPAREN e1= numericScalarExpr RPAREN )
-        // src/main/java/petascope/wcps/grammar/wcps.g:313:7: LPAREN e1= numericScalarExpr RPAREN
+        // wcps.g:315:7: ( LPAREN e1= numericScalarExpr RPAREN )
+        // wcps.g:315:7: LPAREN e1= numericScalarExpr RPAREN
         {
-        match(input,LPAREN,FOLLOW_LPAREN_in_synpred126_wcps3221); if (state.failed) return ;
-        pushFollow(FOLLOW_numericScalarExpr_in_synpred126_wcps3225);
+        match(input,LPAREN,FOLLOW_LPAREN_in_synpred126_wcps3224); if (state.failed) return ;
+        pushFollow(FOLLOW_numericScalarExpr_in_synpred126_wcps3228);
         e1=numericScalarExpr();
 
         state._fsp--;
         if (state.failed) return ;
-        match(input,RPAREN,FOLLOW_RPAREN_in_synpred126_wcps3227); if (state.failed) return ;
+        match(input,RPAREN,FOLLOW_RPAREN_in_synpred126_wcps3230); if (state.failed) return ;
 
         }
     }
@@ -10519,10 +10527,10 @@ public class wcpsParser extends Parser {
         wcpsParser.complexConstant_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:320:7: (e2= complexConstant )
-        // src/main/java/petascope/wcps/grammar/wcps.g:320:7: e2= complexConstant
+        // wcps.g:322:7: (e2= complexConstant )
+        // wcps.g:322:7: e2= complexConstant
         {
-        pushFollow(FOLLOW_complexConstant_in_synpred133_wcps3339);
+        pushFollow(FOLLOW_complexConstant_in_synpred133_wcps3342);
         e2=complexConstant();
 
         state._fsp--;
@@ -10539,16 +10547,16 @@ public class wcpsParser extends Parser {
         wcpsParser.scalarExpr_return e2 = null;
 
 
-        // src/main/java/petascope/wcps/grammar/wcps.g:341:7: (e1= scalarExpr COLON e2= scalarExpr )
-        // src/main/java/petascope/wcps/grammar/wcps.g:341:7: e1= scalarExpr COLON e2= scalarExpr
+        // wcps.g:343:7: (e1= scalarExpr COLON e2= scalarExpr )
+        // wcps.g:343:7: e1= scalarExpr COLON e2= scalarExpr
         {
-        pushFollow(FOLLOW_scalarExpr_in_synpred142_wcps3527);
+        pushFollow(FOLLOW_scalarExpr_in_synpred142_wcps3530);
         e1=scalarExpr();
 
         state._fsp--;
         if (state.failed) return ;
-        match(input,COLON,FOLLOW_COLON_in_synpred142_wcps3529); if (state.failed) return ;
-        pushFollow(FOLLOW_scalarExpr_in_synpred142_wcps3533);
+        match(input,COLON,FOLLOW_COLON_in_synpred142_wcps3532); if (state.failed) return ;
+        pushFollow(FOLLOW_scalarExpr_in_synpred142_wcps3536);
         e2=scalarExpr();
 
         state._fsp--;
@@ -11088,7 +11096,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA4_transition;
         }
         public String getDescription() {
-            return "54:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );";
+            return "57:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );";
         }
     }
     static final String DFA6_eotS =
@@ -11200,7 +11208,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA6_transition;
         }
         public String getDescription() {
-            return "()* loopback of 68:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*";
+            return "()* loopback of 71:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11338,7 +11346,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA7_transition;
         }
         public String getDescription() {
-            return "()* loopback of 72:9: (op= AND e2= coverageLogicFactor )*";
+            return "()* loopback of 75:9: (op= AND e2= coverageLogicFactor )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11677,7 +11685,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA8_transition;
         }
         public String getDescription() {
-            return "76:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?";
+            return "79:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11890,7 +11898,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA9_transition;
         }
         public String getDescription() {
-            return "()* loopback of 80:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*";
+            return "()* loopback of 83:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -12028,7 +12036,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "()* loopback of 84:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*";
+            return "()* loopback of 87:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -12166,7 +12174,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA11_transition;
         }
         public String getDescription() {
-            return "()* loopback of 88:9: (op= OVERLAY e2= coverageValue )*";
+            return "()* loopback of 91:9: (op= OVERLAY e2= coverageValue )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -12233,11 +12241,12 @@ public class wcpsParser extends Parser {
             "\1\60",
             "\1\61",
             "\1\62\1\uffff\1\62\6\uffff\1\62\1\uffff\1\62\17\uffff\2\62",
-            "\1\64\17\uffff\1\124\1\65\3\uffff\1\75\1\76\1\77\1\100\1\102"+
-            "\1\103\1\104\1\101\7\72\1\73\3\uffff\1\111\4\uffff\1\112\1\113"+
-            "\1\114\1\115\1\116\1\120\1\uffff\1\117\1\132\1\67\1\66\2\125"+
-            "\3\126\11\127\1\107\1\130\1\71\1\70\1\105\1\131\2\uffff\1\121"+
-            "\1\122\1\123\11\42\1\uffff\1\106\1\63\10\uffff\1\110\1\74",
+            "\1\64\17\uffff\1\124\1\67\3\uffff\1\65\1\101\1\102\1\103\1"+
+            "\105\1\106\1\107\1\104\7\74\1\75\3\uffff\1\111\4\uffff\1\112"+
+            "\1\113\1\114\1\115\1\116\1\120\1\uffff\1\117\1\132\1\71\1\70"+
+            "\2\125\3\126\11\127\1\100\1\130\1\73\1\72\1\66\1\131\2\uffff"+
+            "\1\121\1\122\1\123\11\42\1\uffff\1\77\1\63\10\uffff\1\110\1"+
+            "\76",
             "\1\uffff",
             "\1\163\20\uffff\1\164\3\uffff\10\42\7\172\1\173\3\uffff\1\42"+
             "\4\uffff\6\42\1\uffff\1\42\1\uffff\1\166\1\165\16\uffff\1\42"+
@@ -12565,7 +12574,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "90:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );";
+            return "93:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -14138,10 +14147,10 @@ public class wcpsParser extends Parser {
             "",
             "",
             "",
-            "\1\40\17\uffff\1\64\1\41\3\uffff\1\51\1\52\1\53\1\54\1\56\1"+
-            "\57\1\60\1\55\7\46\1\47\3\uffff\1\64\4\uffff\6\64\1\uffff\2"+
-            "\64\1\43\1\42\16\64\1\63\1\64\1\45\1\44\1\61\1\64\2\uffff\3"+
-            "\64\12\uffff\1\62\1\37\10\uffff\1\64\1\50",
+            "\1\40\17\uffff\1\64\1\43\3\uffff\1\41\1\55\1\56\1\57\1\61\1"+
+            "\62\1\63\1\60\7\50\1\51\3\uffff\1\64\4\uffff\6\64\1\uffff\2"+
+            "\64\1\45\1\44\16\64\1\54\1\64\1\47\1\46\1\42\1\64\2\uffff\3"+
+            "\64\12\uffff\1\53\1\37\10\uffff\1\64\1\52",
             "",
             "",
             "",
@@ -14236,7 +14245,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA13_transition;
         }
         public String getDescription() {
-            return "97:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );";
+            return "100:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -14585,17 +14594,17 @@ public class wcpsParser extends Parser {
     static final String DFA14_eofS =
         "\14\uffff\1\64\u0084\uffff";
     static final String DFA14_minS =
-        "\2\6\7\uffff\1\6\1\15\1\6\1\7\4\6\3\0\2\uffff\5\0\7\uffff\22\0\17"+
+        "\2\6\7\uffff\1\6\1\15\1\6\1\7\4\6\3\0\2\uffff\21\0\7\uffff\6\0\17"+
         "\uffff\15\0\101\uffff";
     static final String DFA14_maxS =
-        "\1\154\1\6\7\uffff\1\6\1\51\1\154\1\140\1\154\3\6\3\0\2\uffff\5"+
-        "\0\7\uffff\22\0\17\uffff\15\0\101\uffff";
+        "\1\154\1\6\7\uffff\1\6\1\51\1\154\1\140\1\154\3\6\3\0\2\uffff\21"+
+        "\0\7\uffff\6\0\17\uffff\15\0\101\uffff";
     static final String DFA14_acceptS =
-        "\2\uffff\1\1\21\uffff\1\3\6\uffff\1\6\30\uffff\1\5\60\uffff\1\4"+
+        "\2\uffff\1\1\21\uffff\1\3\22\uffff\1\6\14\uffff\1\5\60\uffff\1\4"+
         "\52\uffff\1\2";
     static final String DFA14_specialS =
-        "\21\uffff\1\0\1\1\1\2\2\uffff\1\3\1\4\1\5\1\6\1\7\7\uffff\1\10\1"+
-        "\11\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25"+
+        "\21\uffff\1\0\1\1\1\2\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12"+
+        "\1\13\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23\7\uffff\1\24\1\25"+
         "\1\26\1\27\1\30\1\31\17\uffff\1\32\1\33\1\34\1\35\1\36\1\37\1\40"+
         "\1\41\1\42\1\43\1\44\1\45\1\46\101\uffff}>";
     static final String[] DFA14_transitionS = {
@@ -14612,9 +14621,9 @@ public class wcpsParser extends Parser {
             "",
             "\1\27",
             "\1\30\1\uffff\1\30\6\uffff\1\30\1\uffff\1\30\17\uffff\2\30",
-            "\1\44\20\uffff\1\46\3\uffff\1\32\7\33\7\42\1\43\21\uffff\1"+
-            "\50\1\47\16\uffff\1\55\1\uffff\1\52\1\51\1\45\20\uffff\1\54"+
-            "\1\31\11\uffff\1\53",
+            "\1\32\20\uffff\1\35\3\uffff\1\33\7\47\7\42\1\43\21\uffff\1"+
+            "\37\1\36\16\uffff\1\46\1\uffff\1\41\1\40\1\34\20\uffff\1\45"+
+            "\1\31\11\uffff\1\44",
             "\2\64\1\uffff\1\64\2\uffff\3\64\1\56\1\57\1\60\1\61\1\62\1"+
             "\63\5\64\21\uffff\2\64\3\uffff\1\64\7\uffff\1\64\30\uffff\1"+
             "\64\15\uffff\1\64",
@@ -14633,6 +14642,18 @@ public class wcpsParser extends Parser {
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
             "",
             "",
             "",
@@ -14640,18 +14661,6 @@ public class wcpsParser extends Parser {
             "",
             "",
             "",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -14783,7 +14792,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA14_transition;
         }
         public String getDescription() {
-            return "106:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );";
+            return "109:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -14896,7 +14905,7 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred34_wcps()) ) {s = 101;}
 
-                        else if ( (true) ) {s = 27;}
+                        else if ( (true) ) {s = 39;}
 
                          
                         input.seek(index14_25);
@@ -14911,13 +14920,130 @@ public class wcpsParser extends Parser {
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
 
-                        else if ( (true) ) {s = 27;}
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 39;}
 
                          
                         input.seek(index14_26);
                         if ( s>=0 ) return s;
                         break;
                     case 8 : 
+                        int LA14_27 = input.LA(1);
+
+                         
+                        int index14_27 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (true) ) {s = 39;}
+
+                         
+                        input.seek(index14_27);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA14_28 = input.LA(1);
+
+                         
+                        int index14_28 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (true) ) {s = 39;}
+
+                         
+                        input.seek(index14_28);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA14_29 = input.LA(1);
+
+                         
+                        int index14_29 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 39;}
+
+                         
+                        input.seek(index14_29);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA14_30 = input.LA(1);
+
+                         
+                        int index14_30 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 39;}
+
+                         
+                        input.seek(index14_30);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA14_31 = input.LA(1);
+
+                         
+                        int index14_31 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 39;}
+
+                         
+                        input.seek(index14_31);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA14_32 = input.LA(1);
+
+                         
+                        int index14_32 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 39;}
+
+                         
+                        input.seek(index14_32);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA14_33 = input.LA(1);
+
+                         
+                        int index14_33 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
+                        else if ( (true) ) {s = 39;}
+
+                         
+                        input.seek(index14_33);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
                         int LA14_34 = input.LA(1);
 
                          
@@ -14928,13 +15054,13 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred34_wcps()) ) {s = 101;}
 
-                        else if ( (true) ) {s = 27;}
+                        else if ( (true) ) {s = 39;}
 
                          
                         input.seek(index14_34);
                         if ( s>=0 ) return s;
                         break;
-                    case 9 : 
+                    case 16 : 
                         int LA14_35 = input.LA(1);
 
                          
@@ -14945,13 +15071,13 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred34_wcps()) ) {s = 101;}
 
-                        else if ( (true) ) {s = 27;}
+                        else if ( (true) ) {s = 39;}
 
                          
                         input.seek(index14_35);
                         if ( s>=0 ) return s;
                         break;
-                    case 10 : 
+                    case 17 : 
                         int LA14_36 = input.LA(1);
 
                          
@@ -14962,13 +15088,13 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred34_wcps()) ) {s = 101;}
 
-                        else if ( (true) ) {s = 27;}
+                        else if ( (true) ) {s = 39;}
 
                          
                         input.seek(index14_36);
                         if ( s>=0 ) return s;
                         break;
-                    case 11 : 
+                    case 18 : 
                         int LA14_37 = input.LA(1);
 
                          
@@ -14977,13 +15103,13 @@ public class wcpsParser extends Parser {
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
 
-                        else if ( (true) ) {s = 27;}
+                        else if ( (true) ) {s = 39;}
 
                          
                         input.seek(index14_37);
                         if ( s>=0 ) return s;
                         break;
-                    case 12 : 
+                    case 19 : 
                         int LA14_38 = input.LA(1);
 
                          
@@ -14992,127 +15118,10 @@ public class wcpsParser extends Parser {
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
 
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 27;}
+                        else if ( (true) ) {s = 39;}
 
                          
                         input.seek(index14_38);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA14_39 = input.LA(1);
-
-                         
-                        int index14_39 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 27;}
-
-                         
-                        input.seek(index14_39);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA14_40 = input.LA(1);
-
-                         
-                        int index14_40 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 27;}
-
-                         
-                        input.seek(index14_40);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA14_41 = input.LA(1);
-
-                         
-                        int index14_41 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 27;}
-
-                         
-                        input.seek(index14_41);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA14_42 = input.LA(1);
-
-                         
-                        int index14_42 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 27;}
-
-                         
-                        input.seek(index14_42);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
-                        int LA14_43 = input.LA(1);
-
-                         
-                        int index14_43 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
-                        else if ( (true) ) {s = 27;}
-
-                         
-                        input.seek(index14_43);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 18 : 
-                        int LA14_44 = input.LA(1);
-
-                         
-                        int index14_44 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (true) ) {s = 27;}
-
-                         
-                        input.seek(index14_44);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 19 : 
-                        int LA14_45 = input.LA(1);
-
-                         
-                        int index14_45 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (true) ) {s = 27;}
-
-                         
-                        input.seek(index14_45);
                         if ( s>=0 ) return s;
                         break;
                     case 20 : 
@@ -15620,7 +15629,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA35_transition;
         }
         public String getDescription() {
-            return "211:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );";
+            return "214:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -16079,12 +16088,12 @@ public class wcpsParser extends Parser {
             "\1\51",
             "\1\52",
             "\1\53\1\uffff\1\53\6\uffff\1\53\1\uffff\1\53\17\uffff\2\53",
-            "\1\55\17\uffff\1\115\1\56\3\uffff\1\66\1\72\1\73\1\74\1\76"+
-            "\1\77\1\100\1\75\7\63\1\64\3\uffff\1\102\4\uffff\1\103\1\104"+
-            "\1\105\1\106\1\107\1\111\1\uffff\1\110\1\123\1\60\1\57\2\116"+
-            "\3\117\11\120\1\71\1\121\1\62\1\61\1\67\1\122\2\uffff\1\112"+
-            "\1\113\1\114\12\uffff\1\70\1\54\10\uffff\1\101\1\65",
-            "\1\125\1\126\1\127\1\130\1\131\1\132\74\uffff\1\124",
+            "\1\67\17\uffff\1\115\1\71\3\uffff\1\55\1\56\1\57\1\60\1\62"+
+            "\1\63\1\64\1\61\7\65\1\66\3\uffff\1\102\4\uffff\1\103\1\104"+
+            "\1\105\1\106\1\107\1\111\1\uffff\1\110\1\123\1\73\1\72\2\116"+
+            "\3\117\11\120\1\100\1\121\1\75\1\74\1\70\1\122\2\uffff\1\112"+
+            "\1\113\1\114\12\uffff\1\77\1\54\10\uffff\1\101\1\76",
+            "\1\124\1\125\1\126\1\127\1\130\1\131\74\uffff\1\132",
             "\1\133\20\uffff\1\134\13\uffff\7\142\1\143\21\uffff\1\136\1"+
             "\135\20\uffff\1\140\1\137\22\uffff\1\141\11\uffff\1\144",
             "\1\145",
@@ -16094,8 +16103,8 @@ public class wcpsParser extends Parser {
             "\160",
             "\1\164\1\165\1\166\1\167\1\170\1\171\2\162\2\161\70\uffff\1"+
             "\163",
-            "\1\174\1\175\1\176\1\177\1\u0080\1\u0081\2\173\2\172\70\uffff"+
-            "\1\u0082",
+            "\1\175\1\176\1\177\1\u0080\1\u0081\1\u0082\2\173\2\172\70\uffff"+
+            "\1\174",
             "\2\u0084\1\u0083\102\uffff\1\u0085",
             "\1\u0086\20\uffff\1\u0089\3\uffff\1\u0087\7\uffff\7\u008f\1"+
             "\u0090\21\uffff\1\u008b\1\u008a\20\uffff\1\u008d\1\u008c\1\u0088"+
@@ -16266,7 +16275,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA43_transition;
         }
         public String getDescription() {
-            return "258:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );";
+            return "260:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -18189,7 +18198,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA44_transition;
         }
         public String getDescription() {
-            return "263:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );";
+            return "265:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );";
         }
     }
     static final String DFA45_eotS =
@@ -18271,7 +18280,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA45_transition;
         }
         public String getDescription() {
-            return "267:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );";
+            return "269:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );";
         }
     }
     static final String DFA47_eotS =
@@ -18383,7 +18392,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA47_transition;
         }
         public String getDescription() {
-            return "()* loopback of 288:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*";
+            return "()* loopback of 290:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -18521,7 +18530,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA48_transition;
         }
         public String getDescription() {
-            return "()* loopback of 292:4: (op= AND e2= booleanScalarNegation )*";
+            return "()* loopback of 294:4: (op= AND e2= booleanScalarNegation )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -18611,7 +18620,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA49_transition;
         }
         public String getDescription() {
-            return "294:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );";
+            return "296:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );";
         }
     }
     static final String DFA50_eotS =
@@ -18690,7 +18699,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA50_transition;
         }
         public String getDescription() {
-            return "298:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );";
+            return "300:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -18963,7 +18972,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA51_transition;
         }
         public String getDescription() {
-            return "()* loopback of 306:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*";
+            return "()* loopback of 308:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -19101,7 +19110,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA52_transition;
         }
         public String getDescription() {
-            return "()* loopback of 310:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*";
+            return "()* loopback of 312:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -19200,7 +19209,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA53_transition;
         }
         public String getDescription() {
-            return "312:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );";
+            return "314:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -19299,7 +19308,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA57_transition;
         }
         public String getDescription() {
-            return "340:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );";
+            return "342:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -19645,164 +19654,166 @@ public class wcpsParser extends Parser {
     public static final BitSet FOLLOW_SCALE_in_scaleExpr2607 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_LPAREN_in_scaleExpr2609 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
     public static final BitSet FOLLOW_coverageExpr_in_scaleExpr2613 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_scaleExpr2615 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalList_in_scaleExpr2619 = new BitSet(new long[]{0x0000000000000180L});
-    public static final BitSet FOLLOW_COMMA_in_scaleExpr2636 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_fieldInterpolationList_in_scaleExpr2640 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_scaleExpr2665 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_trimExpr_in_subsetExpr2683 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sliceExpr_in_subsetExpr2692 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_extendExpr_in_subsetExpr2701 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_coverageAtom_in_trimExpr2718 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-    public static final BitSet FOLLOW_LBRACKET_in_trimExpr2720 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalList_in_trimExpr2724 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_RBRACKET_in_trimExpr2726 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRIM_in_trimExpr2735 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_trimExpr2737 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_trimExpr2741 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_trimExpr2743 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_LBRACE_in_trimExpr2745 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalList_in_trimExpr2749 = new BitSet(new long[]{0x0200000000000000L});
-    public static final BitSet FOLLOW_RBRACE_in_trimExpr2751 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_trimExpr2753 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_coverageAtom_in_sliceExpr2770 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-    public static final BitSet FOLLOW_LBRACKET_in_sliceExpr2772 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionPointList_in_sliceExpr2776 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_RBRACKET_in_sliceExpr2778 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SLICE_in_sliceExpr2785 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_sliceExpr2787 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_sliceExpr2791 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_sliceExpr2793 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_LBRACE_in_sliceExpr2795 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionPointList_in_sliceExpr2799 = new BitSet(new long[]{0x0200000000000000L});
-    public static final BitSet FOLLOW_RBRACE_in_sliceExpr2801 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_sliceExpr2803 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EXTEND_in_extendExpr2818 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_extendExpr2820 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_extendExpr2824 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_extendExpr2826 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalList_in_extendExpr2830 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_extendExpr2832 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_castExpr2850 = new BitSet(new long[]{0x0000000000000000L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_rangeType_in_castExpr2854 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_castExpr2856 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_castExpr2860 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_rangeType2883 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UNSIGNED_in_rangeType2909 = new BitSet(new long[]{0x0000000000000000L,0x0000000007000000L});
-    public static final BitSet FOLLOW_set_in_rangeType2913 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_coverageAtom_in_fieldExpr2942 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
-    public static final BitSet FOLLOW_DOT_in_fieldExpr2944 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_fieldName_in_fieldExpr2948 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_booleanScalarTerm_in_booleanScalarExpr2973 = new BitSet(new long[]{0x0000000000006002L});
-    public static final BitSet FOLLOW_set_in_booleanScalarExpr2986 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarTerm_in_booleanScalarExpr2994 = new BitSet(new long[]{0x0000000000006002L});
-    public static final BitSet FOLLOW_booleanScalarNegation_in_booleanScalarTerm3016 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_AND_in_booleanScalarTerm3026 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarNegation_in_booleanScalarTerm3030 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_booleanScalarAtom_in_booleanScalarNegation3051 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOT_in_booleanScalarNegation3060 = new BitSet(new long[]{0x300007F808800040L,0x000010060001C000L});
-    public static final BitSet FOLLOW_booleanScalarAtom_in_booleanScalarNegation3064 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_booleanScalarAtom3079 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarExpr_in_booleanScalarAtom3083 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_booleanScalarAtom3085 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stringScalarExpr_in_booleanScalarAtom3094 = new BitSet(new long[]{0x00000000003F0000L});
-    public static final BitSet FOLLOW_compOp_in_booleanScalarAtom3098 = new BitSet(new long[]{0x0000000008000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_stringScalarExpr_in_booleanScalarAtom3102 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_booleanScalarAtom3112 = new BitSet(new long[]{0x00000000003F0000L});
-    public static final BitSet FOLLOW_compOp_in_booleanScalarAtom3116 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_booleanScalarAtom3120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BOOLEANCONSTANT_in_booleanScalarAtom3130 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_numericScalarTerm_in_numericScalarExpr3147 = new BitSet(new long[]{0x0000000000C00002L});
-    public static final BitSet FOLLOW_set_in_numericScalarExpr3157 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarTerm_in_numericScalarExpr3165 = new BitSet(new long[]{0x0000000000C00002L});
-    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarTerm3184 = new BitSet(new long[]{0x0000000003000002L});
-    public static final BitSet FOLLOW_set_in_numericScalarTerm3193 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarTerm3201 = new BitSet(new long[]{0x0000000003000002L});
-    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3221 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3225 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3227 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_numericScalarFactor3239 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarFactor3243 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ABS_in_numericScalarFactor3255 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3257 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3261 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3263 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SQRT_in_numericScalarFactor3275 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3277 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3281 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3283 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ROUND_in_numericScalarFactor3295 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3297 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3301 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3303 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INTEGERCONSTANT_in_numericScalarFactor3315 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FLOATCONSTANT_in_numericScalarFactor3327 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_complexConstant_in_numericScalarFactor3339 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_condenseExpr_in_numericScalarFactor3351 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_variableName_in_numericScalarFactor3363 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EQUALS_in_compOp3381 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOTEQUALS_in_compOp3388 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LT_in_compOp3395 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GT_in_compOp3402 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LTE_in_compOp3409 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GTE_in_compOp3416 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3436 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_COMMA_in_dimensionIntervalList3449 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3453 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_axisName_in_dimensionIntervalElement3478 = new BitSet(new long[]{0x0000200000000040L});
-    public static final BitSet FOLLOW_COLON_in_dimensionIntervalElement3483 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_crsName_in_dimensionIntervalElement3487 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_dimensionIntervalElement3498 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_dimensionIntervalExpr_in_dimensionIntervalElement3502 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_dimensionIntervalElement3504 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_scalarExpr_in_dimensionIntervalExpr3527 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3529 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_scalarExpr_in_dimensionIntervalExpr3533 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DOMAIN_in_dimensionIntervalExpr3543 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_dimensionIntervalExpr3545 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_coverageName_in_dimensionIntervalExpr3549 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3551 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_axisName_in_dimensionIntervalExpr3555 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3557 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_crsName_in_dimensionIntervalExpr3561 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_dimensionIntervalExpr3563 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_dimensionPointElement_in_dimensionPointList3586 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_COMMA_in_dimensionPointList3596 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionPointElement_in_dimensionPointList3600 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_axisName_in_dimensionPointElement3625 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_dimensionPointElement3627 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_dimensionPoint_in_dimensionPointElement3631 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_dimensionPointElement3633 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_axisName_in_dimensionPointElement3645 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_dimensionPointElement3647 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_crsName_in_dimensionPointElement3651 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_dimensionPointElement3653 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_dimensionPoint_in_dimensionPointElement3657 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_dimensionPointElement3659 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_scalarExpr_in_dimensionPoint3682 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_interpolationMethod3700 = new BitSet(new long[]{0x0000000000000000L,0x0000007800000000L});
-    public static final BitSet FOLLOW_interpolationType_in_interpolationMethod3704 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_interpolationMethod3706 = new BitSet(new long[]{0x0000000000000000L,0x0000078000000000L});
-    public static final BitSet FOLLOW_nullResistence_in_interpolationMethod3710 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_interpolationMethod3712 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_interpolationType3729 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_nullResistence3754 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_condenseOpType3779 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_name_in_fieldName3806 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_constant3823 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_complexConstant_in_constant3840 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_complexConstant3855 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_FLOATCONSTANT_in_complexConstant3859 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_complexConstant3861 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_FLOATCONSTANT_in_complexConstant3865 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_complexConstant3867 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_in_stringConstant3884 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_name3901 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stringConstant_in_crsName3928 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_name_in_axisName3945 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VARIABLE_DOLLAR_in_variableName3962 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_coverageVariable3979 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_name_in_coverageName3994 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COMMA_in_scaleExpr2615 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_LBRACE_in_scaleExpr2617 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalList_in_scaleExpr2621 = new BitSet(new long[]{0x0200000000000000L});
+    public static final BitSet FOLLOW_RBRACE_in_scaleExpr2623 = new BitSet(new long[]{0x0000000000000180L});
+    public static final BitSet FOLLOW_COMMA_in_scaleExpr2640 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_fieldInterpolationList_in_scaleExpr2644 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_scaleExpr2669 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_trimExpr_in_subsetExpr2686 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sliceExpr_in_subsetExpr2695 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_extendExpr_in_subsetExpr2704 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_coverageAtom_in_trimExpr2721 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+    public static final BitSet FOLLOW_LBRACKET_in_trimExpr2723 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalList_in_trimExpr2727 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_RBRACKET_in_trimExpr2729 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRIM_in_trimExpr2738 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_trimExpr2740 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_trimExpr2744 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_trimExpr2746 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_LBRACE_in_trimExpr2748 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalList_in_trimExpr2752 = new BitSet(new long[]{0x0200000000000000L});
+    public static final BitSet FOLLOW_RBRACE_in_trimExpr2754 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_trimExpr2756 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_coverageAtom_in_sliceExpr2773 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+    public static final BitSet FOLLOW_LBRACKET_in_sliceExpr2775 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionPointList_in_sliceExpr2779 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_RBRACKET_in_sliceExpr2781 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SLICE_in_sliceExpr2788 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_sliceExpr2790 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_sliceExpr2794 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_sliceExpr2796 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_LBRACE_in_sliceExpr2798 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionPointList_in_sliceExpr2802 = new BitSet(new long[]{0x0200000000000000L});
+    public static final BitSet FOLLOW_RBRACE_in_sliceExpr2804 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_sliceExpr2806 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EXTEND_in_extendExpr2821 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_extendExpr2823 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_extendExpr2827 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_extendExpr2829 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalList_in_extendExpr2833 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_extendExpr2835 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_castExpr2853 = new BitSet(new long[]{0x0000000000000000L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_rangeType_in_castExpr2857 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_castExpr2859 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_castExpr2863 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_rangeType2886 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UNSIGNED_in_rangeType2912 = new BitSet(new long[]{0x0000000000000000L,0x0000000007000000L});
+    public static final BitSet FOLLOW_set_in_rangeType2916 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_coverageAtom_in_fieldExpr2945 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_DOT_in_fieldExpr2947 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_fieldName_in_fieldExpr2951 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_booleanScalarTerm_in_booleanScalarExpr2976 = new BitSet(new long[]{0x0000000000006002L});
+    public static final BitSet FOLLOW_set_in_booleanScalarExpr2989 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarTerm_in_booleanScalarExpr2997 = new BitSet(new long[]{0x0000000000006002L});
+    public static final BitSet FOLLOW_booleanScalarNegation_in_booleanScalarTerm3019 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_AND_in_booleanScalarTerm3029 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarNegation_in_booleanScalarTerm3033 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_booleanScalarAtom_in_booleanScalarNegation3054 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOT_in_booleanScalarNegation3063 = new BitSet(new long[]{0x300007F808800040L,0x000010060001C000L});
+    public static final BitSet FOLLOW_booleanScalarAtom_in_booleanScalarNegation3067 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_booleanScalarAtom3082 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarExpr_in_booleanScalarAtom3086 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_booleanScalarAtom3088 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stringScalarExpr_in_booleanScalarAtom3097 = new BitSet(new long[]{0x00000000003F0000L});
+    public static final BitSet FOLLOW_compOp_in_booleanScalarAtom3101 = new BitSet(new long[]{0x0000000008000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_stringScalarExpr_in_booleanScalarAtom3105 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_booleanScalarAtom3115 = new BitSet(new long[]{0x00000000003F0000L});
+    public static final BitSet FOLLOW_compOp_in_booleanScalarAtom3119 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_booleanScalarAtom3123 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BOOLEANCONSTANT_in_booleanScalarAtom3133 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_numericScalarTerm_in_numericScalarExpr3150 = new BitSet(new long[]{0x0000000000C00002L});
+    public static final BitSet FOLLOW_set_in_numericScalarExpr3160 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarTerm_in_numericScalarExpr3168 = new BitSet(new long[]{0x0000000000C00002L});
+    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarTerm3187 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_set_in_numericScalarTerm3196 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarTerm3204 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3224 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3228 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3230 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_numericScalarFactor3242 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarFactor3246 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ABS_in_numericScalarFactor3258 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3260 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3264 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3266 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SQRT_in_numericScalarFactor3278 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3280 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3284 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ROUND_in_numericScalarFactor3298 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3300 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3304 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3306 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INTEGERCONSTANT_in_numericScalarFactor3318 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FLOATCONSTANT_in_numericScalarFactor3330 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_complexConstant_in_numericScalarFactor3342 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_condenseExpr_in_numericScalarFactor3354 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_variableName_in_numericScalarFactor3366 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EQUALS_in_compOp3384 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOTEQUALS_in_compOp3391 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LT_in_compOp3398 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GT_in_compOp3405 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LTE_in_compOp3412 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GTE_in_compOp3419 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3439 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_COMMA_in_dimensionIntervalList3452 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3456 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_axisName_in_dimensionIntervalElement3481 = new BitSet(new long[]{0x0000200000000040L});
+    public static final BitSet FOLLOW_COLON_in_dimensionIntervalElement3486 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_crsName_in_dimensionIntervalElement3490 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_dimensionIntervalElement3501 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_dimensionIntervalExpr_in_dimensionIntervalElement3505 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_dimensionIntervalElement3507 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_scalarExpr_in_dimensionIntervalExpr3530 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3532 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_scalarExpr_in_dimensionIntervalExpr3536 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DOMAIN_in_dimensionIntervalExpr3546 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_dimensionIntervalExpr3548 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_coverageName_in_dimensionIntervalExpr3552 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3554 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_axisName_in_dimensionIntervalExpr3558 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3560 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_crsName_in_dimensionIntervalExpr3564 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_dimensionIntervalExpr3566 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_dimensionPointElement_in_dimensionPointList3589 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_COMMA_in_dimensionPointList3599 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionPointElement_in_dimensionPointList3603 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_axisName_in_dimensionPointElement3628 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_dimensionPointElement3630 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_dimensionPoint_in_dimensionPointElement3634 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_dimensionPointElement3636 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_axisName_in_dimensionPointElement3648 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_dimensionPointElement3650 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_crsName_in_dimensionPointElement3654 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_dimensionPointElement3656 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_dimensionPoint_in_dimensionPointElement3660 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_dimensionPointElement3662 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_scalarExpr_in_dimensionPoint3685 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_interpolationMethod3703 = new BitSet(new long[]{0x0000000000000000L,0x0000007800000000L});
+    public static final BitSet FOLLOW_interpolationType_in_interpolationMethod3707 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_interpolationMethod3709 = new BitSet(new long[]{0x0000000000000000L,0x0000078000000000L});
+    public static final BitSet FOLLOW_nullResistence_in_interpolationMethod3713 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_interpolationMethod3715 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_interpolationType3732 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_nullResistence3757 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_condenseOpType3782 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_name_in_fieldName3809 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_constant3826 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_complexConstant_in_constant3843 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_complexConstant3858 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_FLOATCONSTANT_in_complexConstant3862 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_complexConstant3864 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_FLOATCONSTANT_in_complexConstant3868 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_complexConstant3870 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_in_stringConstant3887 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_name3904 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stringConstant_in_crsName3931 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_name_in_axisName3948 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VARIABLE_DOLLAR_in_variableName3965 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_coverageVariable3982 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_name_in_coverageName3997 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_synpred8_wcps366 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
     public static final BitSet FOLLOW_coverageLogicTerm_in_synpred8_wcps374 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_AND_in_synpred9_wcps416 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
@@ -19831,28 +19842,28 @@ public class wcpsParser extends Parser {
     public static final BitSet FOLLOW_fieldExpr_in_synpred71_wcps2121 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_unaryArithmeticExpr_in_synpred72_wcps2130 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_booleanExpr_in_synpred75_wcps2166 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_trimExpr_in_synpred101_wcps2683 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sliceExpr_in_synpred102_wcps2692 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_synpred116_wcps2986 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarTerm_in_synpred116_wcps2994 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_AND_in_synpred117_wcps3026 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarNegation_in_synpred117_wcps3030 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_synpred119_wcps3079 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarExpr_in_synpred119_wcps3083 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_synpred119_wcps3085 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_synpred121_wcps3112 = new BitSet(new long[]{0x00000000003F0000L});
-    public static final BitSet FOLLOW_compOp_in_synpred121_wcps3116 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_synpred121_wcps3120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_synpred123_wcps3157 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarTerm_in_synpred123_wcps3165 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_synpred125_wcps3193 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarFactor_in_synpred125_wcps3201 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_synpred126_wcps3221 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_synpred126_wcps3225 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_synpred126_wcps3227 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_complexConstant_in_synpred133_wcps3339 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_scalarExpr_in_synpred142_wcps3527 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_synpred142_wcps3529 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_scalarExpr_in_synpred142_wcps3533 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_trimExpr_in_synpred101_wcps2686 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sliceExpr_in_synpred102_wcps2695 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_synpred116_wcps2989 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarTerm_in_synpred116_wcps2997 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_AND_in_synpred117_wcps3029 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarNegation_in_synpred117_wcps3033 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_synpred119_wcps3082 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarExpr_in_synpred119_wcps3086 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_synpred119_wcps3088 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_synpred121_wcps3115 = new BitSet(new long[]{0x00000000003F0000L});
+    public static final BitSet FOLLOW_compOp_in_synpred121_wcps3119 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_synpred121_wcps3123 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_synpred123_wcps3160 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarTerm_in_synpred123_wcps3168 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_synpred125_wcps3196 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarFactor_in_synpred125_wcps3204 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_synpred126_wcps3224 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_synpred126_wcps3228 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_synpred126_wcps3230 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_complexConstant_in_synpred133_wcps3342 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_scalarExpr_in_synpred142_wcps3530 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_synpred142_wcps3532 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_scalarExpr_in_synpred142_wcps3536 = new BitSet(new long[]{0x0000000000000002L});
 
 }
