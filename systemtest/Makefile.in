@@ -400,12 +400,13 @@ uninstall-am:
 .PHONY: check
 check:
 	for testcase in ${TESTSEQUENCE}; do\
-		RMANBASE=${RMANBASE}	PATH=${bindir}:${PATH}   $$testcase/test.sh; \
+		 PATH=${bindir}:${PATH}   $$testcase/*.sh; \
+               PROGTEST=$${testcase}/*.sh;\
 		 if [ $$? -ne 0 ]; \
 		 then\
-			echo $$testcase/test.sh ... FAIL>>log;\
+			echo $${PROGTEST} ... FAIL>>log;\
 		 else \
-		 	echo $$testcase/test.sh ... OK>>log;\
+		 	echo $${PROGTEST} ... OK>>log;\
 		 fi; \
 		 echo "	"see detail in $$testcase/log>>log;\
 	done;\
