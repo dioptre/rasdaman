@@ -54,7 +54,7 @@ import petascope.wcps.server.core.CellDomainElement;
  */
 public abstract class AbstractFormatExtension implements FormatExtension {
 
-    protected static WCPS wcps;
+    protected WCPS wcps;
     private static final Logger log = LoggerFactory.getLogger(AbstractFormatExtension.class);
 
     /**
