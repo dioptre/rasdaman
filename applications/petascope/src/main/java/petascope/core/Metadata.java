@@ -218,7 +218,7 @@ public class Metadata implements Cloneable {
                 if (next.getType().equals(AxisTypes.Y_AXIS)) {
                     cellY = cell;
                 }
-                if (next.getType().equals(AxisTypes.T_AXIS) || next.getType().equals(AxisTypes.TEMPORAL_AXIS)) {
+                if (next.getType().equals(AxisTypes.T_AXIS)) {
                     cellT = cell;
                     domT = next;
                 }
@@ -236,7 +236,7 @@ public class Metadata implements Cloneable {
                                 + "element name encountered for coverage " + coverageName);
                     }
 
-                    if (previous.getType().equals(AxisTypes.TEMPORAL_AXIS) && next.getType().equals(AxisTypes.TEMPORAL_AXIS)) {
+                    if (previous.getType().equals(AxisTypes.T_AXIS) && next.getType().equals(AxisTypes.T_AXIS)) {
                         throw new PetascopeException(ExceptionCode.InvalidMetadata, "Domain can contain"
                                 + " at most one temporal axis for coverage " + coverageName);
                     }

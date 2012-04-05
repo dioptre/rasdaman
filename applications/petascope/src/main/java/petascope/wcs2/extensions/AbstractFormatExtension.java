@@ -93,9 +93,9 @@ public abstract class AbstractFormatExtension implements FormatExtension {
 
         // Convert human-readable **timestamp** to ANSI day number
         // NOTE: solution is not definitive!
-        DimensionSubset tSubset = request.getSubset(AxisTypes.T_AXIS); // or TEMPORAL_AXIS?
-        if (tSubset != null && !tSubset.isCrsTransformed()) {
-                //&& m.getAxisLabels().contains(AxisTypes.T_AXIS)) {
+        DimensionSubset tSubset = request.getSubset(AxisTypes.T_AXIS);
+        if (tSubset != null && !tSubset.isCrsTransformed()
+                && m.getAxisLabels().contains(AxisTypes.T_AXIS)) {
             try {
                 if (tSubset instanceof DimensionTrim) {
                     int dayLo = TimeUtil.convert2AnsiDay(((DimensionTrim)tSubset).getTrimLow());

@@ -30,7 +30,6 @@ public interface AxisTypes {
     public static final String X_AXIS       = "x";
     public static final String Y_AXIS       = "y";
     public static final String ELEV_AXIS    = "elevation";
-    public static final String TEMPORAL_AXIS = "temporal";
     public static final String T_AXIS       = "t";
     public static final String OTHER        = "other";
 }

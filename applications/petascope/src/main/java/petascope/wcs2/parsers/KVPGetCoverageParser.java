@@ -144,14 +144,14 @@ public class KVPGetCoverageParser extends KVPParser<GetCoverageRequest> {
                     }
                     
                     // Check time-subset validity (YYYY-MM-DD)
-                    if (dim.equals(AxisTypes.T_AXIS)) { // || dim.equalsIgnoreCase(AxisTypes.TEMPORAL_AXIS)) {
+                    if (dim.equals(AxisTypes.T_AXIS)) {
                         if (low != null && !TimeUtil.isValidTimestamp(low)) {
                             throw new WCSException(ExceptionCode.InvalidParameterValue, "Timestamp \"" + low + "\" is not valid (pattern is YYYY-MM-DD).");
                         }
                         if (high != null && !TimeUtil.isValidTimestamp(high)) {
                             throw new WCSException(ExceptionCode.InvalidParameterValue, "Timestamp \"" + high + "\" is not valid (pattern is YYYY-MM-DD).");
                         }
-                        // Check low<high (Barbon)
+                        // Check low<high
                         if (low!=null && high!= null && !TimeUtil.isOrderedTimeSubset(low, high))
                             throw new WCSException(ExceptionCode.InvalidParameterValue, "Temporal subset \"" + low + ":" + high + "\" is invalid: check order.");
                     }
