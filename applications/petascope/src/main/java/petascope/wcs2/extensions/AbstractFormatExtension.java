@@ -116,7 +116,7 @@ public abstract class AbstractFormatExtension implements FormatExtension {
                             ((DimensionTrim)tSubset).setTrimHigh((double)dayHi);
                         }
                     }
-                } else if (request.getSubset(AxisTypes.TEMPORAL_AXIS) instanceof DimensionSlice) {
+                } else if (request.getSubset(AxisTypes.T_AXIS) instanceof DimensionSlice) {
                     int day = TimeUtil.convert2AnsiDay(((DimensionSlice)tSubset).getSlicePoint());
                     // Check intersection with coverage temporal domain
                     CellDomainElement tRange = m.getMetadata().getCellDomainByName(AxisTypes.T_AXIS);
