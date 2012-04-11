@@ -12,7 +12,6 @@
         <servlet-name>wcpsServlet</servlet-name>
         <servlet-class>petascope.wcps.server.servlet.WCPSServlet</servlet-class>
     </servlet>
-
     <servlet>
         <description>WCS-T Service</description>
         <servlet-name>wcstServlet</servlet-name>
@@ -23,6 +22,20 @@
         <servlet-class>petascope.PetascopeInterface</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <description>WMS Service</description>
+        <servlet-name>WmsServlet</servlet-name>
+        <servlet-class>petascope.wms.WmsServlet</servlet-class>
+	    <!--
+                Force WMS init form file and not frmo from petascopedb:
+            -->
+	    <!--init-param>
+		<param-name>configFile</param-name>
+		<param-value>/WEB-INF/foo.cfg</param-value>
+	    </init-param-->
+    </servlet>
+
+
     <servlet-mapping>
         <servlet-name>PetaScope Interface</servlet-name>
         <url-pattern>/*</url-pattern>
@@ -40,6 +53,12 @@
         <servlet-name>Wcs2Servlet</servlet-name>
         <url-pattern>/wcs2</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WmsServlet</servlet-name>
+        <url-pattern>/wms</url-pattern>
+    </servlet-mapping>
+
+
     <session-config>
         <session-timeout>
             30

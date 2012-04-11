@@ -39,7 +39,7 @@ import petascope.wps.server.WpsServer;
  */
 public class ConfigManager {
 
-    private static Logger log = LoggerFactory.getLogger(ConfigManager.class);
+    private static final Logger log = LoggerFactory.getLogger(ConfigManager.class);
 
     /* Major version number. This is the first release (1). */
     private final static String MAJOR = "1";
@@ -71,12 +71,14 @@ public class ConfigManager {
     public static String METADATA_PASS = "petapasswd";
     
     // rasdaman connection settings
-    public static String RASDAMAN_URL = "http://localhost:7001";
+    public static String RASDAMAN_SERVER = "'localhost";
+    public static String RASDAMAN_PORT = "7001";
+    public static String RASDAMAN_URL = "http://" + RASDAMAN_SERVER + ":" + RASDAMAN_PORT;
     public static String RASDAMAN_DATABASE = "RASBASE";
     public static String RASDAMAN_USER = "rasguest";
     public static String RASDAMAN_PASS = "rasguest";
     public static String RASDAMAN_VERSION = "8";
-
+    
     //Retry settings when opening a connection to rasdaman server. Ernesto Rodriguez <ernesto4160@gmail.com>
 
     //Time in seconds between each re-connect attempt
@@ -95,6 +97,8 @@ public class ConfigManager {
     public static String WCS_DEFAULT_VERSION = "2.0.0";
     public static String WCS_LANGUAGES = "en";
     public static String WCS_VERSIONS = "1.1.2,2.0.0";
+    public static String WMS_LANGUAGES = "en";
+    public static String WMS_VERSIONS = "1.0.0,1.1.0";  // (!) Keep consistent with WmsRequest.java
     public static String RASDAMAN_LANGUAGE = "en";
     
     // depends on ccip_version in the petascope settings, ccip_version=true
@@ -176,6 +180,7 @@ public class ConfigManager {
     }
 
     private void initSettings() {
+        // TODO: use String constants
         RASDAMAN_DATABASE = get("rasdaman_database");
         RASDAMAN_URL = get("rasdaman_url");
         RASDAMAN_USER = get("rasdaman_user");
@@ -245,6 +250,10 @@ public class ConfigManager {
         log.info("WPS Version   : " + WPS_VERSION);
         log.info("WPS GetCapabilities template: " + WPS_GET_CAPABILITIES_URI);
         log.info("WPS DescribeProcess template: " + WPS_DESCRIBE_PROCESS_URI);
+        log.info("       *** WMS ***       ");
+        log.info("WMS Languages : " + WMS_LANGUAGES);
+        log.info("WMS Versions  : " + WMS_VERSIONS);
+        log.info("");
         log.info("------------------------------------");
     }
 }

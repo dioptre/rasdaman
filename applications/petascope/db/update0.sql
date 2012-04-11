@@ -82,7 +82,7 @@ CREATE TABLE ps_crs (
 	primary key (id)
 );
 
-INSERT INTO ps_crs VALUES (9, 'urn:ogc:def:crs:OGC:1.3:CRS84');
+INSERT INTO ps_crs VALUES (9, 'http://www.opengis.net/def/crs/EPSG/0/4326');
 INSERT INTO ps_crs VALUES (8, 'CRS:1');
 SELECT pg_catalog.setval('ps_crs_id_seq', 9, true);
 

@@ -80,7 +80,7 @@ import petascope.wps.server.WpsServer;
  */
 public class PetascopeInterface extends HttpServlet {
 
-    private static Logger log = LoggerFactory.getLogger(PetascopeInterface.class);
+    private static final Logger log = LoggerFactory.getLogger(PetascopeInterface.class);
     private DbMetadataSource meta;
 
     // path to the default HTML response of the interface servlet
