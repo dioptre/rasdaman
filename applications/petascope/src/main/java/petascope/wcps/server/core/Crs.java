@@ -187,14 +187,14 @@ public class Crs implements IRasNode {
         int[] out;
         if (zeroIsMin) {
             out = new int[] {
-                (int)Math.round((coordLo - domLo) / cellWidth) + pxLo,
-                (int)Math.round((coordHi - domLo) / cellWidth) + pxLo
+                (int)Math.floor((coordLo - domLo) / cellWidth) + pxLo,
+                (int)Math.floor((coordHi - domLo) / cellWidth) + pxLo
             };
         } else {
             out = new int[] {
                 // First coordHi, so that left-hand index is the lower one
-                (int)Math.round((domHi - coordHi) / cellWidth) + pxLo,
-                (int)Math.round((domHi - coordLo) / cellWidth) + pxLo
+                (int)Math.floor((domHi - coordHi) / cellWidth) + pxLo,
+                (int)Math.floor((domHi - coordLo) / cellWidth) + pxLo
             };
         }
         log.debug("Transformed coords indices (" + out[0] + "," + out[1] + ")");
