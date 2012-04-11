@@ -170,9 +170,8 @@ SELECT pg_catalog.setval('ps_celldomain_id_seq', 4, true);
 -- The type is one of the axes types in the static table above.
 -- If the type is not temporal, numLo and numHi must be the lowest and highest addressable points in geo coordinates, and strLo and strHi must be left null.
 -- If the type is temporal, numLo and numHi must be left null, and strLo and strHi must be timestamps, specifying the extent.
--- Because WCPS currently does not support geo coordinates, you can use dummy values for numLo and numHi, e.g. 0 and 1.
 -- Because the current implementation does not currently support temporal axes, you can use "other" as the type and specify dummy values for numLo and numHi.
--- Fanally, geocoordinates are dependent on the CRS, so this table doesn't currently make much sense. An entry should be per coverage, axis, and CRS, rather than just per coverage and axis as it is now.
+-- Finally, geocoordinates are dependent on the CRS, so this table doesn't currently make much sense. An entry should be per coverage, axis, and CRS, rather than just per coverage and axis as it is now.
 CREATE TABLE ps_domain (
   id serial NOT NULL,
   coverage integer NOT NULL,
@@ -191,8 +190,8 @@ CREATE TABLE ps_domain (
 
 INSERT INTO ps_domain VALUES (1, 1, 0, 'x', 1, 0, 1, NULL, NULL);
 INSERT INTO ps_domain VALUES (2, 1, 1, 'y', 2, 0, 1, NULL, NULL);
-INSERT INTO ps_domain VALUES (3, 2, 0, 'x', 1, 0, 1, NULL, NULL);
-INSERT INTO ps_domain VALUES (4, 2, 1, 'y', 2, 0, 1, NULL, NULL);
+INSERT INTO ps_domain VALUES (3, 2, 0, 'x', 1, 111.975, 156.275, NULL, NULL);
+INSERT INTO ps_domain VALUES (4, 2, 1, 'y', 2, -44.525, -8.975, NULL, NULL);
 SELECT pg_catalog.setval('ps_domain_id_seq', 4, true);
 
 -- The range is the datatype of the coverage cell values.
@@ -257,8 +256,8 @@ INSERT INTO ps_nullset VALUES (2, 2, '0');
 SELECT pg_catalog.setval('ps_nullset_id_seq', 1, true);
 
 
--- Each axis of a coverage has a set of allowed coordinate reference systems. Here, "CRS:1" is once again assumed for each axis, whether present or not.
--- The current implementation does not use the contents of this table, but it does ensure that the above constraints are met. Because of this, if the PS_CrsSet is left empty, this one should be empty too.
+-- Each axis of a coverage has a set of allowed coordinate reference systems.
+-- CRS:1 is used for non-georeferenced coverages.
 CREATE TABLE ps_crsset (
   id serial NOT NULL,
   axis integer NOT NULL,
@@ -271,8 +270,8 @@ CREATE TABLE ps_crsset (
 
 INSERT INTO ps_crsset VALUES (1, 1, 8);
 INSERT INTO ps_crsset VALUES (2, 2, 8);
-INSERT INTO ps_crsset VALUES (3, 3, 8);
-INSERT INTO ps_crsset VALUES (4, 4, 8);
+INSERT INTO ps_crsset VALUES (3, 3, 9);
+INSERT INTO ps_crsset VALUES (4, 4, 9);
 
 SELECT pg_catalog.setval('ps_crsset_id_seq', 4, true);
 
