@@ -54,7 +54,6 @@ import petascope.wcps.server.core.CellDomainElement;
  */
 public abstract class AbstractFormatExtension implements FormatExtension {
 
-    protected WCPS wcps;
     private static final Logger log = LoggerFactory.getLogger(AbstractFormatExtension.class);
 
     /**
@@ -83,13 +82,15 @@ public abstract class AbstractFormatExtension implements FormatExtension {
      */
     protected Pair<Object, String> executeRasqlQuery(GetCoverageRequest request, 
             GetCoverageMetadata m, DbMetadataSource meta, String format, String params) throws WCSException {
-        if (wcps == null) {
-            try {
-                wcps = new WCPS(meta);
-            } catch (Exception ex) {
-                throw new WCSException(ExceptionCode.InternalComponentError, "Error initializing WCPS engine", ex);
-            }
-        }
+
+	//This variable is now local to the method to avoid concurrency problems
+	WCPS wcps;
+
+	try {
+	    wcps = new WCPS(meta);
+	} catch (Exception ex) {
+	    throw new WCSException(ExceptionCode.InternalComponentError, "Error initializing WCPS engine", ex);
+	}        
 
         // Convert human-readable **timestamp** to ANSI day number
         // NOTE: solution is not definitive!
