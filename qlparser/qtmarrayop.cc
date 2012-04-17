@@ -39,6 +39,7 @@ static const char rcsid[] = "@(#)qlparser, QtMarrayOp: $Header: /home/rasdev/CVS
 #include "qlparser/qtmdd.hh"
 #include "qlparser/qtpointdata.hh"
 #include "qlparser/qtmintervaldata.hh"
+#include "qlparser/qtintervaldata.hh"
 
 #include "mddmgr/mddobj.hh"
 #include "tilemgr/tile.hh"
@@ -104,6 +105,23 @@ QtMarrayOp::evaluate( QtDataList* inputList )
 
   if( getOperand( inputList, operand1, 1 ) )
   {
+
+    //idea: if operand1 is a QT_INTERVAL convert it to QT_MINTERVAL
+    if (operand1->getDataType() == QT_INTERVAL)
+    {
+      //do conversion to QT_MINTERVAL
+
+      //create one-dimensional minterval from operand1 (operand1 is a sinterval)
+      r_Minterval tmpMinterval(r_Dimension(1));
+      tmpMinterval << ((QtIntervalData*)operand1)->getIntervalData();
+
+      //save operand1-pointer to oldOp
+      QtData* oldOp=operand1;
+      //overwrite operand1 with new minterval
+      operand1=new QtMintervalData(tmpMinterval);
+      //delete old operand1
+      if( oldOp ) oldOp->deleteRef();
+    }
 
 #ifdef QT_RUNTIME_TYPE_CHECK
     if( operand1->getDataType() != QT_MINTERVAL )
@@ -256,7 +274,7 @@ QtMarrayOp::checkType( QtTypeTuple* typeTuple )
   // check domain expression
   const QtTypeElement& domainExp = input1->checkType( typeTuple );
 
-  if( domainExp.getDataType() != QT_MINTERVAL )
+  if( (domainExp.getDataType() != QT_MINTERVAL) && (domainExp.getDataType() != QT_INTERVAL) )
   {
     RMInit::logOut << "Error: QtMarrayOp::checkType() - Can not evaluate domain expression to an minterval." << endl;
     parseInfo.setErrorNo(401);

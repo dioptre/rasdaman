@@ -232,7 +232,7 @@ struct QtUpdateSpecElement
 %type <qtUnaryOperationValue> reduceIdent structSelection trimExp
 %type <qtOperationValue>      mddExp inductionExp generalExp resultList reduceExp functionExp spatialOp
 //                              integerExp mintervalExp intervalExp condenseExp variable fscale mddConfiguration
-                              integerExp mintervalExp intervalExp condenseExp variable mddConfiguration
+                              integerExp mintervalExp intervalExp condenseExp variable mddConfiguration mintervalList
 %type <tilingType>            tilingAttributes  tileTypes tileCfg statisticParameters tilingSize
                               borderCfg interestThreshold dirdecompArray dirdecomp dirdecompvals intArray
 %type <indexType> 	      indexingAttributes indexTypes
@@ -746,6 +746,24 @@ integerExp: generalExp DOT LO
 	  parseQueryTree->addDynamicObject( $$ );
 	  FREESTACK($2)
 	  FREESTACK($3)
+	};
+
+mintervalList: mintervalList mintervalExp
+	{
+	  //apply trim
+	  QtDomainOperation *dop = new QtDomainOperation( $2 );
+	  dop->setInput( $1 );
+	  parseQueryTree->removeDynamicObject( $1 );
+	  parseQueryTree->removeDynamicObject( $2 );
+	  parseQueryTree->addDynamicObject( dop );
+	  $$ = dop;
+	  if (mflag == MF_IN_CONTEXT)
+	    parseQueryTree->addDomainObject( dop );
+	}
+	| mintervalExp
+	{
+	  //delegate to mintervalExp
+	  $$=$1;
 	};
 
 mintervalExp: LEPAR spatialOpList REPAR           
@@ -2274,7 +2292,8 @@ ivList: ivList COMMA iv
           delete $1;
 	};
 			
-iv: marrayVariable IN generalExp
+iv: marrayVariable IN mintervalList
+//iv: marrayVariable IN generalExp
 	{         
 	  if (!QueryTree::symtab.putSymbol($1.value, 1)) // instead of 1 put the dimensionality
 	  {	    
