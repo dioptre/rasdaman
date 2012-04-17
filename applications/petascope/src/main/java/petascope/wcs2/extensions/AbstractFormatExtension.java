@@ -108,7 +108,7 @@ public abstract class AbstractFormatExtension implements FormatExtension {
                     } else {
                         // Check intersection with coverage temporal domain
                         CellDomainElement tRange = m.getMetadata().getCellDomainByName(AxisTypes.T_AXIS);
-                        if ((dayLo < tRange.getLo().intValue() && dayHi < tRange.getHi().intValue())          // t1,t2 < Tmin
+                        if ((dayLo < tRange.getLo().intValue() && dayHi < tRange.getLo().intValue())          // t1,t2 < Tmin
                                 || (dayLo > tRange.getHi().intValue() && dayHi > tRange.getHi().intValue())) {// t1,t2 > Tmax
                             log.error("Temporal subset does not intersect with coverage domain.");
                             throw new WCSException(ExceptionCode.InvalidParameterValue, "Temporal subset does not intersect with coverage temporal domain.");
