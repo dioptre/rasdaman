@@ -180,12 +180,12 @@ public class CRSExtension implements Extension {
         
         // Check intersection with coverage Bbox:
         // X axis
-        if (!axisDomainIntersection(request.getSubset(AxisTypes.X_AXIS), m.getBbox())) {
+        if (!axisDomainIntersection(request.getSubset(AxisTypes.X_AXIS), m, request.getCRS().get(0).getSubsettingCrs())) {
             throw new WCSException("Requested subset \"" + request.getSubset(AxisTypes.X_AXIS) + "\" is out of coverage bounds \"" + 
                     m.getBbox().getLow1() + ":" + m.getBbox().getHigh1() + "\".");
         }
         // Y axis
-        if (!axisDomainIntersection(request.getSubset(AxisTypes.Y_AXIS), m.getBbox())) {
+        if (!axisDomainIntersection(request.getSubset(AxisTypes.Y_AXIS), m, request.getCRS().get(0).getSubsettingCrs())) {
             throw new WCSException("Requested subset \"" + request.getSubset(AxisTypes.Y_AXIS) + "\" is out of coverage bounds \"" + 
                     m.getBbox().getLow2() + ":" + m.getBbox().getHigh2() + "\".");
         }
@@ -199,30 +199,41 @@ public class CRSExtension implements Extension {
      * @param   Bbox bbox    Bbox of the requested coverage
      * @return  boolean      Does request subset intersect with coverage Bbox?.
      */
-    public boolean axisDomainIntersection (DimensionSubset subset, Bbox bbox) {
+    public boolean axisDomainIntersection (DimensionSubset subset, GetCoverageMetadata meta, String subsettingCrs) {
+        // If subsettingCrs is CRS:1, need to check cellDomains instead of geo-Bbox.
+        boolean imageSubset = subsettingCrs.equals(CrsUtil.IMAGE_CRS);
+        
         // X axis
         if (subset.getDimension().equals(AxisTypes.X_AXIS)) {
             if (subset != null) {
+                // Set bounds
+                double xMin = imageSubset ? meta.getMetadata().getCellDomainByName(AxisTypes.X_AXIS).getLo().doubleValue() : meta.getBbox().getLow1();
+                double xMax = imageSubset ? meta.getMetadata().getCellDomainByName(AxisTypes.X_AXIS).getHi().doubleValue() : meta.getBbox().getHigh1();
+
                 if (subset instanceof DimensionTrim &&
-                        new Double(((DimensionTrim)subset).getTrimLow()) < bbox.getLow1() && 
-                        new Double(((DimensionTrim)subset).getTrimHigh()) < bbox.getHigh1()) {
+                        new Double(((DimensionTrim)subset).getTrimLow()) < xMin && 
+                        new Double(((DimensionTrim)subset).getTrimHigh()) < xMax) {
                     return false;
                 } else if (subset instanceof DimensionSlice &&
-                        (new Double(((DimensionSlice)subset).getSlicePoint()) < bbox.getLow1() ||
-                        new Double(((DimensionSlice)subset).getSlicePoint()) > bbox.getHigh1()))
+                        (new Double(((DimensionSlice)subset).getSlicePoint()) < xMin ||
+                        new Double(((DimensionSlice)subset).getSlicePoint()) > xMax))
                     return false;
             }
         }
         // Y axis
         if (subset.getDimension().equals(AxisTypes.Y_AXIS)) {
             if (subset != null) {
+                // Set bounds
+                double yMin = imageSubset ? meta.getMetadata().getCellDomainByName(AxisTypes.Y_AXIS).getLo().doubleValue() : meta.getBbox().getLow2();
+                double yMax = imageSubset ? meta.getMetadata().getCellDomainByName(AxisTypes.Y_AXIS).getHi().doubleValue() : meta.getBbox().getHigh2();
+                
                 if (subset instanceof DimensionTrim &&
-                        new Double(((DimensionTrim)subset).getTrimLow()) < bbox.getLow2() && 
-                        new Double(((DimensionTrim)subset).getTrimHigh()) < bbox.getHigh2()) {
+                        new Double(((DimensionTrim)subset).getTrimLow()) < yMin && 
+                        new Double(((DimensionTrim)subset).getTrimHigh()) < yMax) {
                     return false;
                 } else if (subset instanceof DimensionSlice &&
-                        (new Double(((DimensionSlice)subset).getSlicePoint()) < bbox.getLow2() ||
-                        new Double(((DimensionSlice)subset).getSlicePoint()) > bbox.getHigh2()))
+                        (new Double(((DimensionSlice)subset).getSlicePoint()) < yMin ||
+                        new Double(((DimensionSlice)subset).getSlicePoint()) > yMax))
                     return false;
             }
         }
