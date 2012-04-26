@@ -41,7 +41,7 @@ TESTSEQUENCE = $(shell ls -d testcases_mandatory/* \
 .PHONY: check
 check:
 	for testcase in ${TESTSEQUENCE}; do\
-		 PATH=${bindir}:${PATH}   $$testcase/*.sh; \
+		 RMANBASE=${RMANBASE}	PATH=${bindir}:${PATH}   $$testcase/*.sh; \
                PROGTEST=$${testcase}/*.sh;\
 		 if [ $$? -ne 0 ]; \
 		 then\
