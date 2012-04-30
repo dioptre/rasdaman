@@ -75,7 +75,7 @@ RASDAMAN_COPYRIGHT="Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Bau
 RASDAMAN_UPSTREAM_AUTHOR="Peter Baumann <baumann@rasdaman.com>"
 RASDAMAN_LICENSE="GPL version 3 see /usr/share/common-licenses/GPL-3."
 RASDAMAN_DEBIAN_PACKAGE_COPYRIGHT="Copyright (C) 2012 $RASDAMAN_PACKAGE_MAINTAINER"
-RASDAMAN_DEBIAN_PACKAGE_LICENSE="GPL version 3,\nsee /usr/share/common-licenses/GPL-3."
+RASDAMAN_DEBIAN_PACKAGE_LICENSE="GPL version 3, see /usr/share/common-licenses/GPL-3."
 #-----------COPYRIGHT SECTION CONSTANTS----------------------
 
 #-----------CHANGELOG----------------------------------------
@@ -83,6 +83,7 @@ RASDAMAN_PACKAGE_CHANGELOG="Initial Release of the package"
 #---------END CHANGELOG--------------------------------------
 
 #-----------OTHER DEBIAN PACKAGE CONSTANTS-------------------
+RASDAMAN_INIT_SCRIPT_PATH=packaging/debian/rasdaman
 DEBIAN_COMPAT_VERSION=7
 export DEBFULLNAME=$RASDAMAN_PACKAGE_MAINTAINER_NAME
 export DEBEMAIL=$RASDAMAN_PACKAGE_MAINTAINER_EMAIL
@@ -127,101 +128,106 @@ install_build_dependencies(){
 
 #Creates the files expected by debuild
 create_debian_files(){
-  CONTROL_FILE_CONTENTS="Source: $RASDAMAN_NAME\nSection: $RASDAMAN_PACKAGE_SECTION\nPriority: $RASDAMAN_PACKAGE_PRIORITY\nMaintainer: $RASDAMAN_PACKAGE_MAINTAINER\nBuild-Depends: debhelper (>= 7)\nStandards-Version: 3.8.3\nHomepage: http://rasdaman.eecs.jacobs-university.de/\n\nPackage: $RASDAMAN_NAME\nArchitecture: $RASDAMAN_PACKAGE_ARCHITECTURE\nDepends: $RASDAMAN_PACKAGE_DEPENDENCIES\nDescription: $RASDAMAN_PACKAGE_SHORT_DESCRIPTION\n $RASDAMAN_PACKAGE_LONG_DESCRIPTION"
-
-  COPYRIGHT_FILE_CONTENTS="
-This work was packaged for Debian by:
-\n\n
-    $RASDAMAN_PACKAGE_MAINTAINER on $TODAY
-\n\n
-It was downloaded from $RASDAMAN_GIT_REPOSITORY
-\n\n
-Upstream Author(s):
-\n\n
-    $RASDAMAN_UPSTREAM_AUTHOR
-\n\n
-Copyright:
-\n\n
-    $RASDAMAN_COPYRIGHT
-\n\n
-License:
-\n\n
-    $RASDAMAN_LICENSE
-\n\n
-The Debian packaging is:
-\n\n
-    $RASDAMAN_DEBIAN_PACKAGE_COPYRIGHT
-\n\n
-and is licensed under the $RASDAMAN_DEBIAN_PACKAGE_LICENSE
-"
-
-  RULES_FILE_CONTENTS="#!/usr/bin/make -f\n# -*- makefile -*-\nexport DH_VERBOSE=1\n\n# This has to be exported to make some magic below work.\nexport DH_OPTIONS\n\n%:\n\tdh	\$@\n"
-
-  POSTINST_FILE_CONTENTS="#!/bin/bash\n
-readonly RASDAMAN_USER=\"rasdaman\"\n
-\n
-\n
-#Create the init.d script\n
-INITD_FILE_CONTENTS=\"#!/bin/bash\\\n
-########################\\\n
-# RASDAMAN init.d script for debian / Ubuntu\\\n
-# Available options {start|stop|restart}\\\n
-# Usage: /etc/init.d/rasdaman start\\\n
-########################\\\n
-\\\n
-case "\\\$1" in\\\n
-    start)\n
-		echo \\\"Starting the rasdaman server...\\\"\\\n
-        su - \$RASDAMAN_USER -c start_rasdaman.sh\\\n
-        ;;\\\n
-    stop)\\\n
-    	echo \\\"Stopping the rasdaman server...\\\"\\\n
-        su - \$RASDAMAN_USER -c stop_rasdaman.sh\\\n
-        ;;\\\n
-    restart)\\\n
-    	echo \\\"Restarting the rasdaman server...\\\"\\\n
-    	su - \$RASDAMAN_USER -c stop_rasdaman.sh\\\n
-    	su - \$RASDAMAN_USER -c start_rasdaman.sh\\\n
-        ;;\\\n    
-    *)\\\n
-        echo \\\"Usage: \$0 {start|stop|restart}\\\"\\\n
-        exit 1\\\n
-        ;;\\\n
-esac\\\n
-\\\n
-exit 0\\\n\"\n
-echo -e \$INITD_FILE_CONTENTS > /etc/init.d/rasdaman
-\n
-chmod +x /etc/init.d/rasdaman
-\n
-#Create a user for our system\n
-useradd \$RASDAMAN_USER
-\n
-chown -R \$RASDAMAN_USER /usr/log
-\n
-#Create the log folder\n
-mkdir -p /var/log/rasdaman/\n
-chown \$RASDAMAN_USER /var/log/rasdaman\n
-\n
-#Create the postgresql user and create a db for it\n
-su - postgres -c \"createuser -s \$RASDAMAN_USER\"\n
-su - \$RASDAMAN_USER -c \"create_db.sh\"\n
-\n
-#Start the server\n
-/etc/init.d/rasdaman start\n
-\n
-#Insert the demo data\n
-insertdemo.sh localhost 7001 /usr/share/rasdaman/examples/images/ rasadmin rasadmin\n"
-
+  #Prepare the debian folder
   mkdir debian;
   dch --create -v $RASDAMAN_VERSION --package $RASDAMAN_NAME $RASDAMAN_PACKAGE_CHANGELOG
   cd debian
-  echo -e $CONTROL_FILE_CONTENTS > control
-  echo -e $COPYRIGHT_FILE_CONTENTS > copyright
+  #Insert debian build files
+  cat << HEREDOC > control
+Source: $RASDAMAN_NAME
+Section: $RASDAMAN_PACKAGE_SECTION
+Priority: $RASDAMAN_PACKAGE_PRIORITY
+Maintainer: $RASDAMAN_PACKAGE_MAINTAINER
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.8.3
+Homepage: http://rasdaman.eecs.jacobs-university.de/
+
+Package: $RASDAMAN_NAME
+Architecture: $RASDAMAN_PACKAGE_ARCHITECTURE
+Depends: $RASDAMAN_PACKAGE_DEPENDENCIES
+Description: $RASDAMAN_PACKAGE_SHORT_DESCRIPTION
+ $RASDAMAN_PACKAGE_LONG_DESCRIPTION
+HEREDOC
+
+  cat << HEREDOC > copyright
+This work was packaged for Debian by:
+
+
+    $RASDAMAN_PACKAGE_MAINTAINER on $TODAY
+
+
+It was downloaded from $RASDAMAN_GIT_REPOSITORY
+
+
+Upstream Author(s):
+
+
+    $RASDAMAN_UPSTREAM_AUTHOR
+
+
+Copyright:
+
+
+    $RASDAMAN_COPYRIGHT
+
+
+License:
+
+
+    $RASDAMAN_LICENSE
+
+
+The Debian packaging is:
+
+
+    $RASDAMAN_DEBIAN_PACKAGE_COPYRIGHT
+
+
+and is licensed under the $RASDAMAN_DEBIAN_PACKAGE_LICENSE
+HEREDOC
+
+cat << HEREDOC > rules
+#!/usr/bin/make -f
+# -*- makefile -*-
+export DH_VERBOSE=1
+
+# This has to be exported to make some magic below work.
+export DH_OPTIONS
+
+%:
+	dh \$@
+override_dh_auto_install:
+	make -j1 install DESTDIR=\$\$(pwd)/debian/rasdaman
+	mkdir -p debian/rasdaman/etc/init.d/
+	cp $RASDAMAN_INIT_SCRIPT_PATH debian/rasdaman/etc/init.d/rasdaman
+
+HEREDOC
+
+  cat << HEREDOC > postinst
+#!/bin/bash
+readonly RASDAMAN_USER="rasdaman"
+chmod +x /etc/init.d/rasdaman
+#Create a user for our system
+useradd \$RASDAMAN_USER
+chown -R \$RASDAMAN_USER /usr/log
+
+#Create the log folder
+mkdir -p /var/log/rasdaman/
+chown \$RASDAMAN_USER /var/log/rasdaman
+
+#Initialize the database
+/etc/init.d/rasdaman initdb
+
+#Start the server
+/etc/init.d/rasdaman start
+
+#Insert the demo data
+/etc/init.d/rasdaman insertdemo
+HEREDOC
+
+
   echo -e $DEBIAN_COMPAT_VERSION > compat
-  echo -e $RULES_FILE_CONTENTS > rules
-	chmod +x rules
-  echo -e $POSTINST_FILE_CONTENTS > postinst
+  chmod +x rules
 
   if [ $? -ne 0 ] ; then
     echo "ERROR: Could not create the files needed for the debian package. Quitting..."
@@ -244,6 +250,12 @@ start_working_directory(){
     echo "ERROR: Could not retrieve rasdaman from the repository. Tried with $RASDAMAN_GIT_REPOSITORY. Quitting..."
     exit 1
   fi
+  #Hack to make rasdaman compile without user input at this point - Should be removed when this is fixed.
+  sed -i 's/systemtest/ /g' Makefile.am
+  sed -i 's/systemtest/ /g' Makefile.in
+  sed -i 's/SUBDIRS = test/ /g' raslib/Makefile.in
+  sed -i 's/SUBDIRS = test/ /g' raslib/Makefile.am
+  #end-hack
 }
 
 build_debian_package(){
