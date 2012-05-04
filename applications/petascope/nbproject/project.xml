@@ -186,6 +186,10 @@
                     <path-in-war>/templates/</path-in-war>
                 </library>
                 <library dirs="200">
+                    <file>${file.reference.wcs2-servlet.html}</file>
+                    <path-in-war>/templates/</path-in-war>
+                </library>
+                <library dirs="200">
                     <file>${file.reference.interface-servlet.html}</file>
                     <path-in-war>/templates/</path-in-war>
                 </library>

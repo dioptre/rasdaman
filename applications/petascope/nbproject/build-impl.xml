@@ -739,9 +739,10 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.xom-1.2.6.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.wcpsProcessCoverages.xsd}" todir="${build.web.dir}//xml/ogc/wcps/1.0.0/"/>
         <copyfiles files="${file.reference.log4j.properties}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.settings.properties}" todir="${build.web.dir}//"/>
+        <copyfiles files="${file.reference.settings.properties}" todir="${build.classes.dir}//"/>
         <copyfiles files="${file.reference.wcps-servlet.html}" todir="${build.web.dir}//templates/"/>
         <copyfiles files="${file.reference.wcst-servlet.html}" todir="${build.web.dir}//templates/"/>
+        <copyfiles files="${file.reference.wcs2-servlet.html}" todir="${build.web.dir}//templates/"/>
         <copyfiles files="${file.reference.interface-servlet.html}" todir="${build.web.dir}//templates/"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update"/>
@@ -788,9 +789,10 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.xom-1.2.6.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.wcpsProcessCoverages.xsd}" todir="${build.web.dir}//xml/ogc/wcps/1.0.0/"/>
         <copyfiles files="${file.reference.log4j.properties}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.settings.properties}" todir="${build.web.dir}//"/>
+        <copyfiles files="${file.reference.settings.properties}" todir="${build.classes.dir}//"/>
         <copyfiles files="${file.reference.wcps-servlet.html}" todir="${build.web.dir}//templates/"/>
         <copyfiles files="${file.reference.wcst-servlet.html}" todir="${build.web.dir}//templates/"/>
+        <copyfiles files="${file.reference.wcs2-servlet.html}" todir="${build.web.dir}//templates/"/>
         <copyfiles files="${file.reference.interface-servlet.html}" todir="${build.web.dir}//templates/"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-clean-webinf-lib">
