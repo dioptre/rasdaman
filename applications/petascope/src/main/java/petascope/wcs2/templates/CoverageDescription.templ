@@ -15,7 +15,7 @@
   <wcs:CoverageId>{coverageId}</wcs:CoverageId>
 
   <domainSet>
-    <Grid dimension="{gridDimension}" gml:id="{gridId}">
+    <{gridType} dimension="{gridDimension}" gml:id="{gridId}">
       <limits>
         <GridEnvelope>
           <low>{low}</low>
@@ -23,7 +23,8 @@
         </GridEnvelope>
       </limits>
       <axisLabels>{axisLabels}</axisLabels>
-    </Grid>
+{additions}
+    </{gridType}>
   </domainSet>
 
   <gmlcov:rangeType>

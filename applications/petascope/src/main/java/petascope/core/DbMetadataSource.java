@@ -571,6 +571,12 @@ public class DbMetadataSource implements IMetadataSource {
                     o2 = Double.parseDouble(off2);
                 }
                 /* Compute axis offsets if not predefined */
+                /* FIXME: each offset should have a x and a y component!
+                 *  They define the rotation of the grid.
+                 *  ps_crsdetails should have room for 4 offset values,
+                 *  however this table is going to be deprecated and I suggest
+                 *  to add 2 offset values in ps_domain. 
+                 */
                  if (o1 == null && o2 == null) {
                     o1 = (h1 - l1) / (double) (x1 - x0);
                     o2 = (h2 - l2) / (double) (y1 - y0);
