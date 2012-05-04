@@ -19,7 +19,7 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
-package petascope.wcps.grammar;
+package petascope.wcps.grammar;
 
 /* Author: Sorin Stancu-Mara, Andrei Aiordachioaie
 Date: 7 Feb 2007

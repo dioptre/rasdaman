@@ -1,3 +1,24 @@
+/*
+ * This file is part of rasdaman community.
+ *
+ * Rasdaman community is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Rasdaman community is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
+ *
+ * For more information please see <http://www.rasdaman.org>
+ * or contact Peter Baumann via <baumann@rasdaman.com>.
+ */
 /*************************************************************
  * <pre>
  * WMS servlet
@@ -54,10 +75,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -135,8 +154,6 @@ public class WmsServlet extends HttpServlet
      **/
     private static WmsConfig configuration = null;
     
-    private static WmsServlet myself = null;
-    
     /**
      * Servlet configuration, to be remembered for new init() triggered by ReloadCapabilities request
      **/
@@ -164,7 +181,6 @@ public class WmsServlet extends HttpServlet
     public void init(ServletConfig servletConfig) throws ServletException
     {
         super.init(servletConfig);
-        myself = this;
         
         // no other code - especially output - before the init sequence!
         
@@ -180,7 +196,6 @@ public class WmsServlet extends HttpServlet
         
         System.setProperty("java.awt.headless","true");
         
-        int thisServlet = counter;
         log.info( "WmsServlet.init: initialising servlet #" + counter);
         // read config file and set rasdaman access data
         
@@ -250,6 +265,7 @@ public class WmsServlet extends HttpServlet
     /**
      * Clean up: close the database connection
      **/
+    @Override
     public void destroy()
     {
         closeConnection();
@@ -259,6 +275,7 @@ public class WmsServlet extends HttpServlet
     /**
      * This should actually report information on the servlet.  but does not.
      **/
+    @Override
     public String toString()
     {
         return new String(this.getClass().getName() + ": user=" + user + ", passwd=" + passwd + ", database=" + databaseName + "@" + server + ":" + port + "\n");// + myCapabilities.toString());
@@ -268,6 +285,7 @@ public class WmsServlet extends HttpServlet
     /**
      * GET access of the servlet
      */
+    @Override
     public void doGet(HttpServletRequest requ, HttpServletResponse resp)
     {
         log.info( "doGet: start. query is: " + requ.getQueryString() );
