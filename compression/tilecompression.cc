@@ -46,8 +46,6 @@ rasdaman GmbH.
 
 #include "compression/tilecompression.hh"
 #include "compression/tilecompnone.hh"
-#include "compression/tilecompother.hh"
-
 
 
 /*

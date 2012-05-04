@@ -1599,9 +1599,6 @@ int RasdamanHelper2::writePSMetadata(std::string collname,
 	// insert the collection name
 	if (!bUpdate)
 	{	
-		// TODO: GridCoverage would be more appropriate in case of an unreferenced coverage
-		//  (CRS:1), so a check might be added here instead of hardwiring the RectifiedGridCoverage type,
-		//  which however represents the great majority of cases in this kind of application.
 		query << "insert into ps_coverage (name, nulldefault, interpolationtypedefault," <<
 				 "nullresistancedefault, type) values ('" << coll << "', " << nullvalue
 				 << ", 5, 2, 'RectifiedGridCoverage')";

@@ -289,8 +289,21 @@ public class WmsConfig
         return value;
     }
     
+    /* 
+     * NOTE(pcampalani): Hashtable (`options' class) does not accept NULL values 
+     * (nor in keys), so it has no point to search for NULL values into it: 
+     * a NullPointerException would be raised when database is loaded.
+     * An HashMap might be used for the `options' object but:
+     *     1. Hashtable is synchronized, whereas HashMap is not. This makes HashMap 
+     *        better for non-threaded applications, as unsynchronized Objects 
+     *        typically perform better than synchronized ones.
+     *     2. Hashtable does not allow null keys or values. HashMap allows one null
+     *        key and any number of null values.
+     * Meanwhile I'll force default /undefined/ String for optional fields in the 
+     * database definition, like `initgeo' does.
+     */
     String getOptionalParameter(String parameterName)
-    {
+    {        
         log.debug("getOptionalParameter(" + parameterName + ")" );
         String value = (String)options.get(parameterName);
         if ((value == null) || (value.length() == 0) )

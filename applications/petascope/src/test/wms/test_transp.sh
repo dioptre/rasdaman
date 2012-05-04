@@ -42,13 +42,19 @@ RCTEXT_ERROR="NOT_OK"
 # service URI
 URI="http://localhost:8080"
 
-# service path
+# request values
 SERVICE="petascope/wms"
+LAYER="australia_wms"
+SRS='EPSG:4326'
+STYLE='standard'
+BBOX='110,-40,120,-30'
+WIDTH=900
+HEIGHT=900
 
 # background color
 BACKGROUND_COLOR=FF0000
 # request
-REQUEST="VERSION=1.1.0&SERVICE=WMS&REQUEST=GetMap&LAYERS=Hakoon_Dive_1&SRS=EPSG:32633&STYLES=standard&BBOX=489835,7988690,491154,7990009&WIDTH=400&HEIGHT=400&FORMAT=image/png&EXCEPTIONS=application/vnd.ogc.se_inimage&transparent=true"
+REQUEST="VERSION=1.1.0&SERVICE=WMS&REQUEST=GetMap&LAYERS=$LAYER&SRS=$SRS&STYLES=$STYLE&BBOX=$BBOX&WIDTH=$WIDTH&HEIGHT=$HEIGHT&FORMAT=image/png&EXCEPTIONS=application/vnd.ogc.se_inimage&transparent=true"
 
 # complete request:
 COMPLETE_REQUEST=$URI/$SERVICE?$REQUEST

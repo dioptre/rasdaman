@@ -5,7 +5,13 @@ import time
 from threading import Thread, enumerate
 from urllib import urlopen
 
-URI = "http://localhost:8080/petascope/wms?VERSION=1.1.0&SERVICE=WMS&REQUEST=GetMap&SRS=EPSG:32633&LAYERS=Hakon_Bathymetry&STYLES=blue&BBOX=490750,7989875,491750,7990875&WIDTH=400&HEIGHT=400&FORMAT=image/png&EXCEPTIONS=application/vnd.ogc.se_xml"
+LAYER = "australia_wms"
+SRS = "EPSG:4326"
+STYLE = "standard"
+BBOX = "110,-40,120,-30"
+WIDTH = "900"
+HEIGHT = "900"
+URI = "http://localhost:8080/petascope/wms?VERSION=1.1.0&SERVICE=WMS&REQUEST=GetMap&SRS=" + SRS + "&LAYERS=" + LAYER + "&STYLES=" + STYLE + "&BBOX=" + BBOX + "&WIDTH=" + WIDTH + "&HEIGHT=" + HEIGHT + "&FORMAT=image/png&EXCEPTIONS=application/vnd.ogc.se_xml"
 CTYPE = "image/png"
 COUNT = 100
 

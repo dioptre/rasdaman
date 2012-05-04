@@ -37,27 +37,23 @@ SERVICE="petascope/wms"
 
 # coordinates for basic good case (must be integer for the expr below to work):
 # VAT db:
-SRS="EPSG:32633"
-XMIN=490750
-YMIN=7989875
-XMAX=491750
-YMAX=7990875
+LAYER="australia_wms"
+SRS='EPSG:4326'
+STYLES='standard'
+
+XMIN='110'
+XMAX='120'
+YMIN='-40'
+YMAX='-30'
+
+WIDTH=900
+HEIGHT=900
 
 # coordinates for good zoom case (center of previous box, half size):
 XMIN_ZOOM=`expr \( 3 \* $XMIN + $XMAX \) / 4 `
 YMIN_ZOOM=`expr \( 3 \* $YMIN + $YMAX \) / 4 `
 XMAX_ZOOM=`expr \( $XMIN + 3 \* $XMAX \) / 4 `
 YMAX_ZOOM=`expr \( $YMIN + 3 \* $YMAX \) / 4 `
-
-# result window size:
-WIDTH=400
-HEIGHT=400
-
-# layers and styles to be extracted:
-LAYER=Hakon_Bathymetry
-# STYLES=Standard
-STYLES=blue
-CUSTOMDEM=minLevel,maxLevel,T
 
 # --- action -----------------------------------------------------------
 
@@ -164,6 +160,7 @@ $WGET -O $TMPDIR/D "$URL/$SERVICE?VERSION=1.1.0&SERVICE=WMS&REQUEST=GetMap&LAYER
 echo "BGCOLOR wrong - 0x, then string:"
 $WGET -O $TMPDIR/E "$URL/$SERVICE?VERSION=1.1.0&SERVICE=WMS&REQUEST=GetMap&LAYERS=$LAYER&SRS=$SRS&STYLES=$STYLES&BBOX=$XMIN_ZOOM,$YMIN_ZOOM,$XMAX_ZOOM,$YMAX_ZOOM&WIDTH=$WIDTH&HEIGHT=$HEIGHT&FORMAT=image/jpeg&EXCEPTIONS=application/vnd.ogc.se_inimage&BGCOLOR=0x_wrong_"
 
+# FIXME OLDDIR does not contain data. No comparison takes place: the test just lets you read the responses in TMPDIR.
 for i in `ls $OLDDIR`
 do
 	cmp $OLDDIR/$i $TMPDIR/$i || echo "Error comparing file $i"

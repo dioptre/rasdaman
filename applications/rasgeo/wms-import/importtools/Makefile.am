@@ -1,5 +1,4 @@
-# -*-Makefile-*- (for Emacs)
-#
+# -*-Makefile-*-
 # This file is part of rasdaman community.
 #
 # Rasdaman community is free software: you can redistribute it and/or modify
@@ -19,17 +18,29 @@
 # rasdaman GmbH.
 #
 # For more information please see <http://www.rasdaman.org>
-# or contact Peter Baumann via <baumann@rasdaman.com>.   
-# 
-# MAKEFILE FOR:  
-#   module compression
-# 
-# COMMENTS: 
-# 
+# or contact Peter Baumann via <baumann@rasdaman.com>.
+#
+# MAKEFILE FOR:
+#   fillpyramid
+#
+# COMMENTS:
+#
 ##################################################################
 
-AM_CXXFLAGS=@CLIENTCXXFLAGS@
+AM_CXXFLAGS=@CLIENTCXXFLAGS@ -I../../../../include -I../../../../commline -I../
 AM_LDFLAGS=@CLIENTLDFLAGS@
 
-lib_LIBRARIES = libcompression.a
-libcompression_a_SOURCES=tilecompression.cc tilecompression.hh tilecompnone.cc tilecompnone.hh 
+bin_PROGRAMS=fillpyramid
+
+fillpyramid_SOURCES = fillpyramid.cc rasgeo_util.cc import_error.cc \
+                      rasgeo_signal.cc hexcodec.cc
+fillpyramid_LDADD = ../../../../rasodmg/librasodmg.a ../../../../clientcomm/libclientcomm.a \
+              ../../../../raslib/libraslib.a \
+              ../../../../conversion/libconversion.a ../../../../commline/libcommline.a \
+              ../../../../network/libnetwork.a
+
+install:
+	cp fillpyramid $(RMANHOME)/bin
+
+SUBDIRS= ../../../../rasodmg ../../../../clientcomm \
+         ../../../../raslib ../../../../conversion ../../../../commline ../../../../network

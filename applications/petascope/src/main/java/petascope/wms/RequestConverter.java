@@ -570,6 +570,8 @@ public class RequestConverter
         {
             tempLayer = (RasPersistentScaleLayer)((Map.Entry)it.next()).getValue();
             
+            log.debug("LAYER: " + tempLayer.getName() + "/" + tempLayer.getGroundResolutionX() + "\n");
+
             // check disabled because we always want a layer (even for "far zoom out") -- PB 2005-jun-19
             // if (tempLayer.getBoundingBox().covers(boundingBox))
             {	//this is checked because we support also one huge map with a low resolution and many smaller maps with much higher resolutions.

@@ -118,6 +118,7 @@ AC_CONFIG_FILES([Makefile
                  raslib/Makefile
                  raslib/test/Makefile
                  clientcomm/Makefile
+		 compression/Makefile
                  servercomm/Makefile
                  rasodmg/Makefile
                  qlparser/Makefile
@@ -133,6 +134,8 @@ AC_CONFIG_FILES([Makefile
                  applications/rasql/Makefile
                  applications/rview/Makefile
                  applications/rasgeo/Makefile
+                 applications/rasgeo/wms-import/inittools/Makefile
+                 applications/rasgeo/wms-import/importtools/Makefile
                  applications/raswct/Makefile
                  applications/petascope/Makefile
                  bin/Makefile
@@ -340,7 +343,7 @@ RMANBASE=$abs_top_srcdir
 # If rasgeo is present then delegate configure to it.    
 if test -d "$srcdir/rasgeo"; then
     echo rasgeo
-#    AC_CONFIGURE_SUBDIRS([rasgeo])
+    #AC_CONFIGURE_SUBDIRS([rasgeo])
 fi    
 
 # ----------------

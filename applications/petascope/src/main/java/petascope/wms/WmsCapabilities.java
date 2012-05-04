@@ -388,7 +388,7 @@ public class WmsCapabilities
             retval.append("<Capability>\n");
             retval.append(" <Request>\n");
             retval.append("  <GetCapabilities>\n");
-            retval.append("   <Format>application/vnd.ogc.wms_xml</Format>\n");
+            retval.append("   <Format>" + WmsRequest.WMSCAPABILITIES + "</Format>\n");
             retval.append("   <DCPType>\n");
             retval.append("    <HTTP>\n");
             retval.append("     <Get>\n");
@@ -887,7 +887,7 @@ public class WmsCapabilities
             if (myFeatureURL != null)
             {
                 retval.append(" <FeatureListURL>\n");
-                retval.append("  <Format>application/vnd.ogc.se_xml</Format>\n");
+                retval.append("  <Format>" + WmsRequest.XMLSTRING + "</Format>\n");
                 retval.append("  <OnlineResource xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:type=\"simple\" xlink:href=\"" + myFeatureURL + "\" />\n");
                 retval.append(" </FeatureListURL>\n");
             }

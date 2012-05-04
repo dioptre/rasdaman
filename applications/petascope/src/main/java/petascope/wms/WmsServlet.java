@@ -217,8 +217,11 @@ public class WmsServlet extends HttpServlet
         }
         // -- END messageFile --
         
-        // WMS initialization priority order:
-        // configuration file --> petascopeb --> arguments
+        /* WMS initialization priority order:
+         *  1. (@Deprecated) Configuration file (.cfg)
+         *  2. Database 
+         *  3. Servlet arguments
+         */
         String configFile = getInitParameter( Globals.CONFIGFILE );
         if(configFile==null)
         {
@@ -318,7 +321,7 @@ public class WmsServlet extends HttpServlet
             // EXP throw new WMSException( Globals.ERR_ServletNotInit, failedMessage );
             
             // set default error response type, according to WMS spec
-            resp.setContentType( "application/vnd.ogc.wms_xml" );
+            resp.setContentType( WmsRequest.WMSCAPABILITIES );
             
             switch (request.getRequestType())
             {
@@ -462,21 +465,10 @@ public class WmsServlet extends HttpServlet
         BufferedOutputStream sOut;
         DBag resultBag = null;
         RasGMArray result = null;
-        //EDIT: connection is created inside executeRasqlQuery
-        //RasConnection conn = RasConnection.getInstance();
-        
-        // EXP try
-        // EXP {
+
         log.info( "answerMapReq: now executing query...");
         resultBag = (DBag) RasUtil.executeRasqlQuery(rasQuery);
         log.info( "answerMapReq: query done");
-        // EXP }
-        // EXP we propagate exceptions up
-        // EXP catch (Exception e)
-        // EXP {
-        // EXP resultBag = null;
-        // EXP throw new WMSException( Globals.ERR_QueryEval, e.getMessage() );
-        // EXP }
         
         if (resultBag != null)
         {
@@ -621,7 +613,7 @@ public class WmsServlet extends HttpServlet
         {
             PrintWriter out = resp.getWriter();
             // generate XML output
-            resp.setContentType("application/vnd.ogc.wms_xml");
+            resp.setContentType(WmsRequest.WMSCAPABILITIES);
             
             String answer = myCapabilities.toString();
             // XML output has to be checked in Browser with xml support

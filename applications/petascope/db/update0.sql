@@ -78,7 +78,7 @@ SELECT pg_catalog.setval('ps_nullresistance_id_seq', 4, true);
 -- The current implementation does not support CRSs other than CRS:1, and does not use the contents of the table.
 CREATE TABLE ps_crs (
   id serial NOT NULL,
-  name text NOT NULL,
+  name text UNIQUE NOT NULL,
 	primary key (id)
 );
 
@@ -122,7 +122,7 @@ SELECT pg_catalog.setval('ps_format_id_seq', 7, true);
 -- The nullResistanceDefault is the default null resistance used in operations that require one, but don't have one specified. It must point to an entry in the static table above.
 CREATE TABLE ps_coverage (
   id serial NOT NULL,
-  name text NOT NULL,
+  name text UNIQUE NOT NULL,
   nullvalue text,
   crs text,
   nulldefault text,
