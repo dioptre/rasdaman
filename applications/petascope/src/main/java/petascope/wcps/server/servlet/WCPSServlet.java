@@ -53,11 +53,11 @@ public class WCPSServlet extends HttpServlet {
     private DbMetadataSource meta;
     private String rasdamanDatabase;
     private String rasdamanUrl;
-    private WCPS wcps;
     // path to the default HTML response of the servlet
     private String servletHtmlPath = "/templates/wcps-servlet.html";
     // String containing the HTML code for the default response
     private String defaultHtmlResponse;
+    private final String WCPS_PROCESS_COVERAGE_XSD = "/xml/ogc/wcps/1.0.0/wcpsProcessCoverages.xsd";
 
     @Override
     public void init() throws ServletException {
@@ -71,7 +71,6 @@ public class WCPSServlet extends HttpServlet {
                     ConfigManager.METADATA_USER,
                     ConfigManager.METADATA_PASS, false);
             System.out.println("WCPS: initializing WCPS core");
-            wcps = new WCPS(new File(getServletContext().getRealPath("/xml/ogc/wcps/1.0.0/wcpsProcessCoverages.xsd")), meta);
 
             servletHtmlPath = getServletContext().getRealPath(servletHtmlPath);
             defaultHtmlResponse = FileUtils.readFileToString(new File(servletHtmlPath));
@@ -103,6 +102,15 @@ public class WCPSServlet extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("WCPS: invoked with POST");
         OutputStream webOut = null;
+
+	WCPS wcps;
+
+	try{
+	    wcps = new WCPS(new File(getServletContext().getRealPath(WCPS_PROCESS_COVERAGE_XSD)), meta);
+	}catch (Exception e) {
+
+	    throw new ServletException("Error initializing WCPS",e);
+	}
 
         try {
             String xmlRequest = null;
