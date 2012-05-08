@@ -60,8 +60,8 @@
   TEAM_URL=http://sourceforge.net/projects/teamengine/files/latest/download
   TEAM_ZIP=$DIR_NAME/teamengine2.zip 
   TEAM_DIR=$DIR_NAME/teamengine2.0 
-  TEAM_BIN_DIR=$DIR_NAME/teamengine2.0/bin
-  CTL_WCS2_URL=http://10.70.11.145/ogc/ctl/wcs2.zip
+  TEAM_BIN_TEST=$DIR_NAME/teamengine2.0
+  CTL_WCS2_URL=http://localhost/ogc/ctl/wcs2.zip
   CTL_WCS2_ZIP=$DIR_NAME/wcs2.zip
   CTL_WCS2_DIR=$DIR_NAME/wcs2
   LOG_DIR=$DIR_NAME  
@@ -91,18 +91,20 @@ fi
 #--------------------------initiation--------------------------------------------
 # download teamengine and test suites
 $WGET $TEAM_URL -O $TEAM_ZIP| tee -a $LOG
-$UNZIP -o $TEAM_ZIP| tee -a $LOG
+$UNZIP -o $TEAM_ZIP -d $TEAM_DIR| tee -a $LOG
 
-# change teamengine to excute mode
-$CHMOD +x $TEAM_BIN_DIR/*| tee -a $LOG
+# find the teamengine test script
+TEAM_BIN_TEST=`find $TEAM_DIR -name test.sh`
+# change TEAM to excute mode
+$CHMOD -R +x $TEAM_DIR/*| tee -a $LOG
 
 # download wcs2 test suites
 $WGET $CTL_WCS2_URL -O $CTL_WCS2_ZIP| tee -a $LOG
-$UNZIP -o $CTL_WCS2_ZIP| tee -a $LOG
+$UNZIP -o $CTL_WCS2_ZIP -d $CTL_WCS2_DIR| tee -a $LOG
 
 #==========================test==================================================
-# test by wcs2 ctl
-  $TEAM_BIN_DIR/test.sh -source=$CTL_WCS2_DIR/ctl| tee -a $LOG
+# test by wcs2 ctl   
+ $TEAM_BIN_TEST -source=$CTL_WCS2_DIR/wcs2/ctl| tee -a $LOG
 
 #==========================clean==================================================
 # test clean
