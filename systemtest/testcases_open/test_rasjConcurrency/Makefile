@@ -31,7 +31,7 @@
 
 SRCDIR=./rasjTests
 BINDIR=./bin
-SRCS = $(SRCDIR)/RasjQuery.java $(SRCDIR)/SimultaneousConnectionsTest.java
+SRCS = $(SRCDIR)/RasjQuery.java $(SRCDIR)/SimultaneousConnectionsTest.java $(SRCDIR)/SimultaneousConnectionsTestUtil.java
 JUNIT=find $(RMANBASE)/applications/petascope/lib -name 'junit-*.jar'
 OBJS = ${SRCS:%.java=%.class}
 CP=$(BINDIR):$(RMANBASE)/java/bin:`$(JUNIT)`

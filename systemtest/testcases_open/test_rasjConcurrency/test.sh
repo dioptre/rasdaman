@@ -49,4 +49,8 @@ CP=$BINDIR:$RMANBASE/java/bin:$JUNIT
 JAVAOPTS=`echo -cp $CP`
 
 $JAVA $JAVAOPTS org.junit.runner.JUnitCore SimultaneousConnectionsTest > $LOG
+EXIT_STATUS=$?
+pid_to_kill=$(pidof rasserver)
+kill $pid_to_kill
+exit $EXIT_STATUS
 

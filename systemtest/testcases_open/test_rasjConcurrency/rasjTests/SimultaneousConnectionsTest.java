@@ -29,16 +29,34 @@
 import org.junit.Test;
 import rasj.RasQueryExecutionFailedException;
 import org.odmg.ODMGException;
+import java.io.IOException;
 
 public class SimultaneousConnectionsTest {
 
     public static final String RASDAMAN_URL = "http://localhost:7001";
     public static final String QUERY = "select csv(c[0:200,0:200]) from rgb AS c";
     public static final String RASDAMAN_DATABASE = "RASBASE";
-    private final int numThreads = 4;
+    private final int DEFAULT_NUM_THREADS = 2;
 
     @Test
     public void testQueryRasdaman() throws Exception {
+	
+	SimultaneousConnectionsTestUtil util = new SimultaneousConnectionsTestUtil();
+
+	int numThreads;
+
+	try{
+	    numThreads = util.getNumberOfServers();
+	}catch(IOException e){
+	    
+	    System.out.println("Unable to determine the number of available Rasdaman "+
+			       "servers. The least representative test with "+DEFAULT_NUM_THREADS+
+			       " will be preformed.");
+	    numThreads = DEFAULT_NUM_THREADS;
+	}
+
+	if(numThreads < DEFAULT_NUM_THREADS)
+	    throw new Exception("At least " + DEFAULT_NUM_THREADS + " rasdaman servers are needed for this test");
 
 	RasjQuery[] queries = new RasjQuery[numThreads];
 
