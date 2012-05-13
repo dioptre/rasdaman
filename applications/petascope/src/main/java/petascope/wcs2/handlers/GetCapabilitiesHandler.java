@@ -144,27 +144,28 @@ public class GetCapabilitiesHandler extends AbstractRequestHandler<GetCapabiliti
                 Attribute dimensions = new Attribute("dimensions", "" + "2"); //+   meta.read(coverageId).getCellDomainList().size());
                 c.addAttribute(crs);
                 c.addAttribute(dimensions);
-                cs.appendChild(c);                
-                /** Append WGS84 Bbox **/
-                /** STILL DRAFT **/
-                /*if (!bbox.getCrsName().equals(CrsUtil.WGS84_CRS) &&
+                cs.appendChild(c);
+                /** WGS84 Bbox (for non-WGS84 coverages) **/
+                if (!bbox.getCrsName().equals(CrsUtil.WGS84_CRS) &&
                         !bbox.getCrsName().equalsIgnoreCase(CrsUtil.IMAGE_CRS) &&
-                        // AND IF IT IS AN EARTH-CRS (no Mars) ) {
+                        bbox.getWgs84Low1() != null)  { //&& // AND IF IT IS AN EARTH-CRS (no Mars) ) {
+                    
                     c = new Element(LABEL_WGS84_BBOX, NAMESPACE_WCS);
                     // lower-left + upper-right coords
                     cc = new Element(ATT_LOWERCORNER, NAMESPACE_WCS);
-                    cc.appendChild(String.format("%.2f", bbox.getWgs84Low1()) + " " + String.format("%.2f", bbox.getWgs84Low2()));
+                    cc.appendChild(bbox.getWgs84Low1() + " " + bbox.getWgs84Low2());
                     c.appendChild(cc);
                     cc = new Element(ATT_UPPERCORNER, NAMESPACE_WCS);
-                    cc.appendChild(String.format("%.2f", bbox.getWgs84High1()) + " " + String.format("%.2f", bbox.getWgs84High2()));
+                    cc.appendChild(bbox.getWgs84High1() + " " + bbox.getWgs84High2());
                     c.appendChild(cc);
                     // dimensions and crs attributes
-                    crs = new Attribute("crs", CrsUtil.WGS84_CRS);
-                    dimensions = new Attribute("dimensions", "2");
+                    crs = new Attribute(ATT_CRS, CrsUtil.WGS84_CRS);
+                    dimensions = new Attribute(ATT_DIMENSIONS, "2");
                     c.addAttribute(crs);
                     c.addAttribute(dimensions);
-                    cs.appendChild(c);                    
-                }*/
+                    cs.appendChild(c);
+                    
+                }
             }
         } catch (PetascopeException ex) {
             log.error("Error", ex);
