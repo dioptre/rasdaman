@@ -53,9 +53,12 @@ import petascope.exceptions.WCSException;
  */
 public class CrsUtil {
     
+    public static final String CRS_URI_PREFIX = "http://www.opengis.net/def/crs/";
     public static final String IMAGE_CRS = "CRS:1";
-    public static final String WGS84_CRS = "http://www.opengis.net/def/crs/EPSG/0/4326";
-    private static final String CRS_URI_PREFIX = "http://www.opengis.net/def/crs/";
+    public static final String CRS_DEFAULT_VERSION = "0";
+    public static final String EPSG_AUTH = "EPSG";
+    public static final String WGS84_EPSG_CODE = "4326";    
+    public static final String WGS84_URI = CRS_URI_PREFIX + EPSG_AUTH + "/" + CRS_DEFAULT_VERSION + "/" + WGS84_EPSG_CODE;   
     
     public static final List<Integer> SUPPORTED_EPSG = new ArrayList<Integer>();
     static private Map<List<String>,MathTransform> loadedTransforms = new HashMap<List<String>,MathTransform>();
@@ -225,7 +228,7 @@ public class CrsUtil {
      * @param   String crsID   OGC identification URL of CRS.
      * @return  String         Numeric EPSG code of the CRS (e.g. 4326 from "http://www.opengis.net/def/crs/EPSG/0/4326").
      */
-    private static String extractCommittee (String crsID) {
+    public static String extractAuthority (String crsID) {
         Pattern p = Pattern.compile(CRS_URI_PREFIX + "(.+)/.+/.+"); // = one or more numbers from EOL
         Matcher m = p.matcher(crsID);
         while (m.find()) {
@@ -259,7 +262,7 @@ public class CrsUtil {
         try {
             // read from List e return
             return crsID.equals(IMAGE_CRS)
-                    || (extractCommittee(crsID).equals("EPSG") && SUPPORTED_EPSG.contains(new Integer(extractCode(crsID))));
+                    || (extractAuthority(crsID).equals(EPSG_AUTH) && SUPPORTED_EPSG.contains(new Integer(extractCode(crsID))));
         } catch (Exception e) {
             log.warn(e.getMessage());
             return false;
@@ -272,6 +275,6 @@ public class CrsUtil {
      * @return  String              The URI of the CRS.
      */
     public static String CrsUri(String committee, int code ) {
-        return CRS_URI_PREFIX + committee + "/0/" + code;
+        return CRS_URI_PREFIX + committee + "/" + CRS_DEFAULT_VERSION + "/" + code;
     }
 }

@@ -158,7 +158,7 @@ public class convertGetCoverage {
             if (crsName != null) {
                 if (crsName.equals(CrsUtil.IMAGE_CRS)) {
                     log.trace("CRS: NATIVE_IMAGE_CRS");
-                } else if (crsName.equals(CrsUtil.WGS84_CRS)) {
+                } else if (crsName.equals(CrsUtil.WGS84_URI)) {
                     log.trace("CRS: WGS84");
                 } else {
                     throw new WCSException(ExceptionCode.InvalidParameterValue, "BoundingBox.crs. Explanation: "
@@ -201,7 +201,7 @@ public class convertGetCoverage {
             py1 = v3;
 
             if (crsName.equals(CrsUtil.IMAGE_CRS) == false
-                    && crsName.equals(CrsUtil.WGS84_CRS) == false) {
+                    && crsName.equals(CrsUtil.WGS84_URI) == false) {
                 throw new WCSException(ExceptionCode.NoApplicableCode, "Unknown CRS: " + crsName);
             }
         }

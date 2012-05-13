@@ -30,9 +30,17 @@ import java.util.List;
 public class Bbox implements Cloneable {
 
     private String crsName;
-    private Double low1, high1, low2, high2;
-    private Double WGS84low1, WGS84high1, WGS84low2, WGS84high2;
-    private Double offset1, offset2;        // precomputed world-to-crs offsets
+    private Double low1;
+    private Double high1;
+    private Double low2;
+    private Double high2;
+    private Double WGS84low1;       // For Wgs84BoundingBox WCS tag
+    private Double WGS84high1;      // in GetCapabilities responses
+    private Double WGS84low2;
+    private Double WGS84high2;
+    private Double offset1;         // For RectifiedGridCoverages metadata
+    private Double offset2;         // 
+    private Boolean hasWgs84Bbox;
     
     public Bbox(String crs, Double l1, Double h1, Double l2, Double h2, Double o1, Double o2) throws WCPSException, WCSException {
         if ((l1 == null) || (h1 == null) || (l2 == null) || (h2 == null)) {
@@ -56,19 +64,24 @@ public class Bbox implements Cloneable {
         offset1 = o1;
         offset2 = o2;
         
+        hasWgs84Bbox = false;
+        
         // Get WGS84 bounding box (GetCapabilites WCS 2.0)
-        if (crsName.equals(CrsUtil.WGS84_CRS)) {
+        if (crsName.equals(CrsUtil.WGS84_URI)) {
             WGS84low1 = low1;   WGS84high1 = high1;
             WGS84low2 = low2;   WGS84high2 = high2;
-        } else {
+            hasWgs84Bbox = true;
+        } else if (CrsUtil.extractAuthority(crsName) != null &&
+                CrsUtil.extractAuthority(crsName).equals(CrsUtil.EPSG_AUTH)) {
             try {
-                CrsUtil crsTool = new CrsUtil(crsName, CrsUtil.WGS84_CRS);
+                CrsUtil crsTool = new CrsUtil(crsName, CrsUtil.WGS84_URI);
                 List<Double> temp = crsTool.transform(low1, low2, high1, high2);
                 WGS84low1 = temp.get(0);    WGS84high1 = temp.get(2);
                 WGS84low2 = temp.get(1);    WGS84high2 = temp.get(3);
+                hasWgs84Bbox = true;
             } catch (WCSException e) {
                 //throw (WCSException)e;
-            }            
+            }
         }
     }
 
@@ -168,6 +181,13 @@ public class Bbox implements Cloneable {
      */
     public Double getWgs84High2() {
         return WGS84high2;
+    }
+    
+   /**
+     * @return Whether a WGS84 bounding box has been computed for this object.
+     */
+    public Boolean hasWgs84Bbox() {
+        return hasWgs84Bbox;
     }
 
 }

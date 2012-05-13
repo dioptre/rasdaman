@@ -104,7 +104,7 @@ public class GetCapabilitiesHandler extends AbstractRequestHandler<GetCapabiliti
             Element supportedCrs;
             for (Integer code : CrsUtil.SUPPORTED_EPSG) {
                 supportedCrs = new Element(PREFIX_CRS + ":" + ATT_SUPPORTED_CRS, NAMESPACE_CRS);
-                supportedCrs.appendChild(CrsUtil.CrsUri("EPSG", code));
+                supportedCrs.appendChild(CrsUtil.CrsUri(CrsUtil.EPSG_AUTH, code));
                 crsMetadata.appendChild(supportedCrs);
             }
             serviceMetadata.appendChild(crsMetadata);
@@ -140,15 +140,13 @@ public class GetCapabilitiesHandler extends AbstractRequestHandler<GetCapabiliti
                 cc.appendChild(bbox.getHigh1() + " " + bbox.getHigh2());
                 c.appendChild(cc);
                 // dimensions and crs attributes
-                Attribute crs = new Attribute("crs", bbox.getCrsName());
-                Attribute dimensions = new Attribute("dimensions", "" + "2"); //+   meta.read(coverageId).getCellDomainList().size());
+                Attribute crs = new Attribute(ATT_CRS, bbox.getCrsName());
+                Attribute dimensions = new Attribute(ATT_DIMENSIONS, "" + "2"); //+   meta.read(coverageId).getCellDomainList().size());
                 c.addAttribute(crs);
                 c.addAttribute(dimensions);
                 cs.appendChild(c);
-                /** WGS84 Bbox (for non-WGS84 coverages) **/
-                if (!bbox.getCrsName().equals(CrsUtil.WGS84_CRS) &&
-                        !bbox.getCrsName().equalsIgnoreCase(CrsUtil.IMAGE_CRS) &&
-                        bbox.getWgs84Low1() != null)  { //&& // AND IF IT IS AN EARTH-CRS (no Mars) ) {
+                /** WGS84 Bbox (for 2D EPSG-defined CRSs only, currently) **/
+                if (bbox.hasWgs84Bbox()) {
                     
                     c = new Element(LABEL_WGS84_BBOX, NAMESPACE_WCS);
                     // lower-left + upper-right coords
@@ -159,7 +157,7 @@ public class GetCapabilitiesHandler extends AbstractRequestHandler<GetCapabiliti
                     cc.appendChild(bbox.getWgs84High1() + " " + bbox.getWgs84High2());
                     c.appendChild(cc);
                     // dimensions and crs attributes
-                    crs = new Attribute(ATT_CRS, CrsUtil.WGS84_CRS);
+                    crs = new Attribute(ATT_CRS, CrsUtil.WGS84_URI);
                     dimensions = new Attribute(ATT_DIMENSIONS, "2");
                     c.addAttribute(crs);
                     c.addAttribute(dimensions);
