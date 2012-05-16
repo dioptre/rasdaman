@@ -458,9 +458,9 @@ BLOBTile::kill(const OId& target, unsigned int range)
 		}
 		else if (PQntuples(pgResult) != 1)
 		{
-			LEAVE( "BLOBTile::kill() libpq 'select' did not yield 1 result but " << PQntuples(pgResult) );
+			LEAVE( "BLOBTile::kill() data corruption, no blob was found for blob id " << indbmyOId5 << "!" );
 			PQclear( pgResult );
-			generateException();
+			return;
 		}
 		blobOid = atoi( PQgetvalue( pgResult, 0, 0 ) );	// extract value from result
 		PQclear( pgResult );
