@@ -56,6 +56,7 @@ public class WcsUtil {
         try {
             return meta.read(coverageId);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new WCSException(ExceptionCode.NoApplicableCode.locator(coverageId),
                     "Metadata for coverage '" + coverageId + "' is not valid.");
         }

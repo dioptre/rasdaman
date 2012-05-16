@@ -114,6 +114,10 @@ public class BooleanScalarExpr implements IRasNode {
         } else if (nodeName.equals("booleanNot")) {
             op = "not";
             first = new BooleanScalarExpr(node.getFirstChild(), xq);
+        } else if (nodeName.equals("bit")) {
+            op = "bit";
+            first = new CoverageExpr(node.getFirstChild(), xq);
+            second = new NumericScalarExpr(node.getFirstChild().getNextSibling(), xq);
         } else {
             throw new WCPSException("Unexpected Binary Expression node : "
                     + node.getNodeName());
@@ -128,6 +132,8 @@ public class BooleanScalarExpr implements IRasNode {
 
         if (op.equals("not")) {
             return "not(" + first.toRasQL() + ")";
+        } else if (op.equals("bit")) {
+            return "bit(" + first.toRasQL() + "," + second.toRasQL() + ")";
         }
 
         return "(" + first.toRasQL() + ")" + op + "(" + second.toRasQL() + ")";

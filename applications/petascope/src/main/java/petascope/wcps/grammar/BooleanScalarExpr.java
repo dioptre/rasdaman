@@ -68,6 +68,8 @@ public class BooleanScalarExpr implements IParseTreeNode {
             return "<booleanConstant>" + booleanConstant + "</booleanConstant>";
         } else if (op.equals("not")) {
             return "<booleanNot>" + left.toXML() + "</booleanNot>";
+        } else if (op.equals("bit")) {
+            return "<bit>" + left.toXML() + right.toXML() + "</bit>";
         } else {
             if (this.left != null) {
                 node1 = this.left.toXML();

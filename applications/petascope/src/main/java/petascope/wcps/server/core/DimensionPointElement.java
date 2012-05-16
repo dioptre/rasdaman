@@ -148,7 +148,7 @@ public class DimensionPointElement implements IRasNode {
         }
         
         // Pixel indices are retrieved from bbox, which is stored for XY plane only.
-        if (finished == true && !crs.getName().equals(CrsUtil.IMAGE_CRS)) {
+        if (finished == true && crs != null && !crs.getName().equals(CrsUtil.IMAGE_CRS)) {
            convertToPixelCoordinate(); 
         }
     }
