@@ -50,6 +50,7 @@ install-data-hook:
 	if test -f $(DESTDIR)$(sysconfdir)/rasmgr.conf; then \
 		echo "$@ will not overwrite existing $(DESTDIR)$(sysconfdir)/rasmgr.conf"; \
 	else \
+		$(MKDIR_P) $(DESTDIR)$(sysconfdir); \
 		echo " $(INSTALL_DATA) rasmgr.conf $(DESTDIR)$(sysconfdir)/rasmgr.conf"; \
 		$(INSTALL_DATA) rasmgr.conf $(DESTDIR)$(sysconfdir)/rasmgr.conf; \
 	fi;
