@@ -25,7 +25,6 @@
 bin_SCRIPTS = start_rasdaman.sh stop_rasdaman.sh create_db.sh rasmgr.conf
 EXTRA_DIST = stop_rasdaman.sh.in start_rasdaman.sh.in create_db.sh.in rasmgr.conf.in
 CLEANFILES = start_rasdaman.sh stop_rasdaman.sh create_db.sh rasmgr.conf
-dist_sysconf_DATA=rasmgr.conf
 dist_pkgdata_DATA=errtxts_en errtxts_de errtxts_fr errtxts
 
 script_edit = $(SED) \
@@ -45,3 +44,12 @@ create_db.sh: create_db.sh.in
 rasmgr.conf: rasmgr.conf.in Makefile
 	rm -f $@
 	$(SED) -e "s|@hostname[@]|`hostname`|g" '$@.in' >$@
+
+# don't overwrite rasmgr.conf if it's already there -- DM 2012-may-16
+install-data-hook:
+	if test -f $(DESTDIR)$(sysconfdir)/rasmgr.conf; then \
+		echo "$@ will not overwrite existing $(DESTDIR)$(sysconfdir)/rasmgr.conf"; \
+	else \
+		echo " $(INSTALL_DATA) rasmgr.conf $(DESTDIR)$(sysconfdir)/rasmgr.conf"; \
+		$(INSTALL_DATA) rasmgr.conf $(DESTDIR)$(sysconfdir)/rasmgr.conf; \
+	fi;
