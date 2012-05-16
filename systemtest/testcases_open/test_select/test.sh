@@ -219,7 +219,7 @@ else
 	fi
 fi
 #==========================test by queries==================================================
-  if [ ! -f "$QUERY_DIR/*.rasql" ]
+  if [ ! -f $QUERY_DIR/*.rasql ]
   then
 	echo "there is no rasql for test in the "$QUERY_DIR
   else	
@@ -234,11 +234,11 @@ fi
 		QUERY=`cat $i`
   		if $RASQL -q  "$QUERY"
 			then 
-				echo bug is fixed
-				NUM_SUC=$(($NUM_SUC + 1))				 
+				echo "bug is fixed"
+				NUM_SUC=$(($NUM_SUC + 1))		
 			else 
-				echo bug is unfixed
-				NUM_FAIL=$(($NUM_FAIL + 1)) 
+				echo "bug is unfixed"
+                NUM_FAIL=$(($NUM_FAIL + 1))
 		fi
   
 	done

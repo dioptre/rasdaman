@@ -104,7 +104,7 @@ using namespace std;
 #include "raslib/structuretype.hh"
 #include "raslib/primitivetype.hh"
 
-#include "cmlparser.hh"
+#include "commline/cmlparser.hh"
 
 #include "directql_error.hh"
 

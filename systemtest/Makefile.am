@@ -41,8 +41,10 @@ TESTSEQUENCE = $(shell ls -d testcases_mandatory/* \
 .PHONY: check
 check:
 	for testcase in ${TESTSEQUENCE}; do\
-		 RMANBASE=${RMANBASE}	PATH=${bindir}:${PATH}   $$testcase/*.sh; \
-               PROGTEST=$${testcase}/*.sh;\
+		 RMANBASE=${RMANBASE}\
+		 PATH=${bindir}:${PATH}\
+		 PROGTEST=$${testcase}/*.sh;\
+     $$testcase/*.sh;\
 		 if [ $$? -ne 0 ]; \
 		 then\
 			echo $${PROGTEST} ... FAIL>>log;\

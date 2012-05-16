@@ -35,6 +35,7 @@ rasdaman GmbH.
  *
  ************************************************************/
 
+
 // PG stuff:
 #include "libpq-fe.h"           /* C interface to PgSQL */
 #include "libpq/libpq-fs.h"     /* large object (lo) api */
@@ -489,7 +490,7 @@ DBHierIndex::updateInDb() throw (r_Error)
 	RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "domain " << myDomain << " stored as " << InlineMinterval(dimension4, &(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[0])));
 
 	KeyObjectVector::iterator it = myKeyObjects.begin();
-                    	InlineMinterval indom;
+	InlineMinterval indom;
 	for (unsigned int i = 0; i < size4; i++, it++)
 	{
 		indom = (*it).getDomain();

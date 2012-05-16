@@ -119,6 +119,8 @@ EMBEDDEDSQLPRECOMPILER = @EMBEDDEDSQLPRECOMPILER@
 EXEEXT = @EXEEXT@
 GCJ_OPTS = @GCJ_OPTS@
 GDAL_CONFIG = @GDAL_CONFIG@
+GDAL_CXXFLAGS = @GDAL_CXXFLAGS@
+GDAL_LDFLAGS = @GDAL_LDFLAGS@
 GREP = @GREP@
 INFORMIX_INC = @INFORMIX_INC@
 INSTALL = @INSTALL@
@@ -215,6 +217,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+wardir = @wardir@
+wpswar = @wpswar@
 
 ########################### Targets ##############################
 TESTSEQUENCE = $(shell ls -d testcases_mandatory/* \
@@ -233,9 +237,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu systemtest/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign systemtest/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu systemtest/Makefile
+	  $(AUTOMAKE) --foreign systemtest/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -400,8 +404,10 @@ uninstall-am:
 .PHONY: check
 check:
 	for testcase in ${TESTSEQUENCE}; do\
-		 RMANBASE=${RMANBASE}	PATH=${bindir}:${PATH}   $$testcase/*.sh; \
-               PROGTEST=$${testcase}/*.sh;\
+		 RMANBASE=${RMANBASE}\
+		 PATH=${bindir}:${PATH}\
+		 PROGTEST=$${testcase}/*.sh;\
+     $$testcase/*.sh;\
 		 if [ $$? -ne 0 ]; \
 		 then\
 			echo $${PROGTEST} ... FAIL>>log;\

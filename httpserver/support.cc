@@ -431,13 +431,13 @@ rc_t ParseString( char *String, char *Token, ... )
   if( ( String[0] == '#' ) ||                           /* Kommentar,                  */
       ( String[0] == '\n' ) ||                          /* oder Leerzeile?             */
       ( String[0] == '\r' ) )
-    return( ERROR );                                    /*   => Zur�ck.                */
+    return( ERROR );                                    /*   => Zurück.                */
 
   Keyword = strtok( String, Delim );                    /* 1. Token suchen             */
   if( Keyword != NULL )                                 /*   Etwas gefunden?           */
     {
       if( Keyword[0] == '#' )                           /* Auch Kommentarzeile:        */
-	return( ERROR );                                /*   => Zur�ck.                */
+	return( ERROR );                                /*   => Zurück.                */
       strcpy( Token, Keyword );                         /* Keyword in Buffer kopieren  */
 
       /* Var.Arg. Liste abarbeiten bis Arg == NULL.                                    */
@@ -457,15 +457,15 @@ rc_t ParseString( char *String, char *Token, ... )
 	      else                                      /* Ansonsten:                  */
 		strcpy( NextToken, "\0" );              /*   Leerstring uebergeben     */
 	      NextToken = NNextToken;                   
-	      NNextToken = va_arg( ArgPtr, char * );    /* Zeiger auf n�chstes Arg.    */
+	      NNextToken = va_arg( ArgPtr, char * );    /* Zeiger auf nächstes Arg.    */
 	    }
 	  Value = strtok( NULL, "\n\r" );               /* Zeiger auf Reststring holen */
 	  if( Value != NULL )                           /* Wenn vorhanden,             */
-	    strcpy( NextToken, Value );                 /*   in letztes Arg. �bergeben */
+	    strcpy( NextToken, Value );                 /*   in letztes Arg. übergeben */
 	  else                                          /* wenn nicht,                 */
-	    strcpy( NextToken, "\0" );                  /*   Leerstring �bergeben      */
+	    strcpy( NextToken, "\0" );                  /*   Leerstring übergeben      */
 	}
-      va_end( ArgPtr );                                 /* VarArg aufr�umen            */
+      va_end( ArgPtr );                                 /* VarArg aufräumen            */
       return( OK );                                     /* OK: Es wurde etwas gefunden */
     }
   return( ERROR );                                      /* ERROR: String war leer.     */

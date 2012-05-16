@@ -1,1 +1,1 @@
-select scale( mr, [0.5,0.5] ) from mr
+select scale( test_grey, [0.5,0.5] ) from test_grey

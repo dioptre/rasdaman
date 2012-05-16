@@ -88,6 +88,11 @@ r_Conv_NETCDF::r_Conv_NETCDF(const char *src, const r_Minterval &interv, int tp)
 
 /// destructor
 r_Conv_NETCDF::~r_Conv_NETCDF(void) {
+    if (variable != NULL)
+    {
+      delete [] variable;
+      variable = NULL;
+    }
 }
 
 /// convert to NETCDF

@@ -35,6 +35,7 @@ rasdaman GmbH.
  *
  ***********************************************************************/
 
+
 // general embedded SQL related definitions
 EXEC SQL include "../reladminif/sqlglobals.h";
 

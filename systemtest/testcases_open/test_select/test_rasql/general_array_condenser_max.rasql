@@ -1,1 +1,1 @@
-select condense max over x in sdom(a) using a[x] from mr as a
+select condense max over x in sdom(a) using a[x] from test_grey as a

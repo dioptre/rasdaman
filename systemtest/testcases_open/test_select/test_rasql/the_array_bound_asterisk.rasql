@@ -1,1 +1,1 @@
-select mr[ *:*, *:sdom(a)[1].hi - 1] from mr
+select test_grey[ *:*, *:sdom(a)[1].hi - 1] from test_grey

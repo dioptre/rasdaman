@@ -57,7 +57,7 @@ using std::fill_n;
 #include "raslib/itertype.hh"
 #include "raslib/dlist.hh"
 
-#include "tile.hh"
+#include "tilemgr/tile.hh"
 
 #include "indexmgr/keyobject.hh"
 
