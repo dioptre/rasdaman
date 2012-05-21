@@ -11,7 +11,7 @@
  *               by   $Author: dmisev $
  * 
  * Copyright (C) 2007,2008 the KWARC group (http://kwarc.info)
- * Licensed under the GNU Public License v3 (GPL3).
+ * Licensed under the GNU  Public License v3 (GPL3).
  * For other licensing contact Michael Kohlhase <m.kohlhase@jacobs-university.de>
  */
 package petascope.util;
