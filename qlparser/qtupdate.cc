@@ -557,6 +557,26 @@ RMDBGIF(1, RMDebug::module_qlparser, "QtUpdate", \
 		for (retvalIt = retval.begin(); retvalIt != retval.end(); retvalIt++)
 			{
 			targetObj->insertTile((Tile*)(*retvalIt));
+			
+			// Copy data from source tiles to the newly inserted tiles -- DM 2012-may-23
+			for (sourceIt = sourceTiles->begin(), domIt = sourceDomains.begin();
+					sourceIt != sourceTiles->end(); sourceIt++, domIt++)
+				{
+				if ((*domIt).intersects_with((*retvalIt)->getDomain()))
+					{
+					r_Minterval intersectRetvalTileDomain = (*domIt).create_intersection((*retvalIt)->getDomain());
+					r_Minterval intersectSourceTileDomain = intersectRetvalTileDomain;
+					if( trimFlags )
+						{
+						for( int i=0, j=0; i<trimFlags->size(); i++ )
+							if( !((*trimFlags)[i]) )
+								intersectSourceTileDomain.delete_dimension( j );
+							else
+								j++;
+						}
+					(*retvalIt)->copyTile(intersectRetvalTileDomain, *sourceIt, intersectSourceTileDomain);
+					}
+				}
 			}
 		RMDBGMIDDLE( 2, RMDebug::module_qlparser, "QtUpdate", "insertion of the rest is done")
 		}
