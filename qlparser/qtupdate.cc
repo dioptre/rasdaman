@@ -415,6 +415,7 @@ RMDBGIF(1, RMDebug::module_qlparser, "QtUpdate", \
 	if (sourceIt != sourceTiles->end())
 		tempOp = Ops::getUnaryOp(Ops::OP_IDENTITY, targetObj->getCellType(), (*sourceIt)->getType(), 0, 0);
 	std::auto_ptr<UnaryOp> myOp(tempOp);
+  const vector<bool>* trimFlags = NULL;
 	for( ; sourceIt != sourceTiles->end(); sourceIt++ )
 		{
 		// calculate relevant area of source tile
@@ -428,7 +429,7 @@ RMDBGIF(1, RMDebug::module_qlparser, "QtUpdate", \
 		if( domainData )
 			{
 			updateSourceTileDomain = r_Minterval( targetMDD->getLoadDomain().dimension() );
-			const vector<bool>* trimFlags = ((QtMintervalData*)domainData)->getTrimFlags();
+			trimFlags = ((QtMintervalData*)domainData)->getTrimFlags();
 
 			for( int i=0, j=0; i<trimFlags->size(); i++ )
 				if( (*trimFlags)[i] )
@@ -516,8 +517,35 @@ RMDBGIF(1, RMDebug::module_qlparser, "QtUpdate", \
 					}
 			insertedDomains.erase(intervalIt);
 			}
-		for (sourceIt = sourceTiles->begin(); sourceIt != sourceTiles->end(); sourceIt++)
-			sourceDomains.push_back((*sourceIt)->getDomain());
+		for (sourceIt = sourceTiles->begin(); sourceIt != sourceTiles->end(); sourceIt++) {
+			
+			/*
+			* When we try to update an object of N dimensions with data of less
+			* dimensions, we should extend the source data here to N dimensions as well,
+			* otherwise an index violation error is thrown.
+			* 
+			* Example: "update Coll as m set m[5,*:*,*:*] assign marray x in [0:10,0:10] values 1c"
+			* Coll is 3D but we update it with a 2D array, by restricting the target update interval
+			* to slice 5. So the update array is extended to [5:5,0:10,0:10]
+			* 
+			* -- DM 2012-may-23
+			*/
+			
+			r_Minterval tdom = (*sourceIt)->getDomain();
+			r_Minterval tres;
+			if (trimFlags) {
+				r_Minterval targetLoadDomain = targetMDD->getLoadDomain();
+				tres = r_Minterval(targetLoadDomain.dimension());
+				for (int i = 0, j = 0; i < trimFlags->size(); i++)
+					if ((*trimFlags)[i])
+						tres << tdom[j++];
+					else
+						tres << targetLoadDomain[i];
+			} else
+			  tres = tdom;
+			sourceDomains.push_back(tres);
+//			sourceDomains.push_back((*sourceIt)->getDomain());
+		}
 		for (targetIt = targetTiles->begin(); targetIt != targetTiles->end(); targetIt++)
 			targetDomains.push_back((*targetIt)->getDomain());
 		r_Tiler t(sourceDomains, targetDomains);
