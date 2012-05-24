@@ -42,18 +42,18 @@ static const char rasdl_rcsid[] = "@(#)rasdl,rasdl.cc: $Id: rasdl.cc,v 1.48 2007
 #define DEBUG_MAIN
 #include "debug/debug.hh"
 
-#ifndef RMANVERSION
-#error "Please specify RMANVERSION variable!"
-#endif
-
-#ifndef COMPDATE
-#error "Please specify the COMPDATE variable!"
-/*
-COMPDATE=`date +"%d.%m.%Y %H:%M:%S"`
-
-and -DCOMPDATE="\"$(COMPDATE)\"" when compiling
-*/
-#endif
+//#ifndef RMANVERSION
+//#error "Please specify RMANVERSION variable!"
+//#endif
+//
+//#ifndef COMPDATE
+//#error "Please specify the COMPDATE variable!"
+///*
+//COMPDATE=`date +"%d.%m.%Y %H:%M:%S"`
+//
+//and -DCOMPDATE="\"$(COMPDATE)\"" when compiling
+//*/
+//#endif
 
 
 #ifdef EARLY_TEMPLATE
@@ -279,12 +279,10 @@ printNames()
 	while(setIter.not_done()) 
 	{
 		SetType* typePtr       = setIter.get_element();
-		char*    typeStructure = typePtr->getTypeStructure();
-
-		cout << "typedef " << typeStructure << " " << typePtr->getTypeName() << ";" << endl;
-
-		free( typeStructure );
-		typeStructure = NULL;
+    
+    // print the MDD type name instead of the whole type structure -- DM 2012-may-24
+    // ticket: http://rasdaman.eecs.jacobs-university.de/trac/rasdaman/ticket/140
+		cout << "typedef set <" << typePtr->getMDDType()->getTypeName() << "> " << typePtr->getTypeName() << ";" << endl;
 
 		setIter.advance();
 	}
