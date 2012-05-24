@@ -55,6 +55,7 @@ using namespace std;
 #include "catalogmgr/ops.hh"
 #include "relcatalogif/mddbasetype.hh"
 #include "relcatalogif/ulongtype.hh"
+#include "mymalloc/mymalloc.h"
 
 #include <iostream>
 
@@ -594,14 +595,36 @@ QtDomainOperation::evaluate( QtDataList* inputList )
               }
               else
 	      {
-                RMInit::logOut << "Error: QtDomainOperation::evaluate() - the load domain does not intersect with tiles in the current MDD." << endl;
-                parseInfo.setErrorNo(356);
-   
-                // delete index and operand data
-                indexData->deleteRef();
-                operand  ->deleteRef();
-
-                throw parseInfo;
+                // Instead of throwing an exception, return an MDD initialized
+                // with null values when selecting an area that doesn't intersect
+                // with any existing tiles in the database -- DM 2012-may-24
+                
+                const MDDBaseType* mddType = currentMDDObj->getMDDBaseType();
+                r_Area cellCount = projectedDom.cell_count();
+                
+                // create a transient MDD object for the query result
+                MDDObj* resultMDD = new MDDObj( mddType, projectedDom );
+                char* data = (char*)mymalloc( cellCount * mddType->getBaseType()->getSize() );
+                
+                // fill with null value
+                memset( data, 0, cellCount );
+                
+                // create transient tile
+                Tile* resTile = new Tile( projectedDom, mddType->getBaseType(), data, cellCount );
+                resTile->setPersistent(false);
+                
+                  // insert Tile in result mddObj
+                resultMDD->insertTile( resTile );
+                returnValue = new QtMDD( (MDDObj*)resultMDD );
+                
+//                RMInit::logOut << "Error: QtDomainOperation::evaluate() - the load domain does not intersect with tiles in the current MDD." << endl;
+//                parseInfo.setErrorNo(356);
+//   
+//                // delete index and operand data
+//                indexData->deleteRef();
+//                operand  ->deleteRef();
+//
+//                throw parseInfo;
               }
 
             } // trimming || projection 
