@@ -53,6 +53,14 @@ rasdaman GmbH.
 #include <cmath>
 
 #define DEFAULT_VAR "data"
+#define VALID_MIN "valid_min"
+#define VALID_MAX "valid_max"
+#define VALID_MIN_BYTE 0
+#define VALID_MAX_BYTE 255
+#define VALID_MIN_SHORT 0
+#define VALID_MAX_SHORT 65535
+#define VALID_MIN_INT 0.0
+#define VALID_MAX_INT 4294967295.0
 
 using namespace std;
 
@@ -151,94 +159,105 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
       varName = variable;
     }
     switch (desc.baseType) {
-        case ctype_char:
-        case ctype_uint8:
         case ctype_int8:
         {
-            r_Char *val = (r_Char* &) src;
-            char *data = new char[dataSize];
-            if (data == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertTo(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            for (int i = 0; i < dataSize; i++, val++) {
-                data[i] = (char) val[0];
-            }
-            // Define a netCDF variable, in this case of type ncChar
-            NcVar *ncVar = dataFile.add_var(varName, ncChar, dimNo, dims);
+            r_Octet *val = (r_Octet* &) src;
+            NcVar *ncVar = dataFile.add_var(varName, ncByte, dimNo, dims);
             // Write the data to the file.
-            ncVar->put(&data[0], dimSizes);
-            delete [] data;
+            ncVar->put(val, dimSizes);
             break;
         }
-        case ctype_int16:
-        case ctype_uint16:
+        case ctype_char:
+        case ctype_uint8:
         {
-            r_Short *val = (r_Short* &) src;
+            // unsigned data has to be transformed to data of 2x more bytes
+            // as NetCDF only supports exporting signed data..
+            // so unsigned char is transformed to short, and we add the
+            // valid_min/valid_max attributes to describe the range -- DM 2012-may-24
+          
+            r_Char *val = (r_Char* &) src;
             short *data = new short[dataSize];
             if (data == NULL) {
                 RMInit::logOut << "r_Conv_NETCDF::convertTo(): out of memory error!" << endl;
                 throw r_Error(r_Error::r_Error_MemoryAllocation);
             }
             for (int i = 0; i < dataSize; i++, val++) {
-                data[i] = (short) val[0];
+                data[i] = (short) ((r_Char) val[0]);
             }
             NcVar *ncVar = dataFile.add_var(varName, ncShort, dimNo, dims);
             ncVar->put(&data[0], dimSizes);
+            ncVar->add_att(VALID_MIN, VALID_MIN_BYTE);
+            ncVar->add_att(VALID_MAX, VALID_MAX_BYTE);
             delete [] data;
             break;
         }
-        case ctype_int32:
-        case ctype_uint32:
-        case ctype_int64:
-        case ctype_uint64:
+        case ctype_int16:
         {
-            r_Long *val = (r_Long* &) src;
+            r_Short *val = (r_Short* &) src;
+            NcVar *ncVar = dataFile.add_var(varName, ncShort, dimNo, dims);
+            ncVar->put(val, dimSizes);
+            break;
+        }
+        case ctype_uint16:
+        {
+            r_UShort *val = (r_UShort* &) src;
             int *data = new int[dataSize];
             if (data == NULL) {
                 RMInit::logOut << "r_Conv_NETCDF::convertTo(): out of memory error!" << endl;
                 throw r_Error(r_Error::r_Error_MemoryAllocation);
             }
             for (int i = 0; i < dataSize; i++, val++) {
-                data[i] = (int) val[0];
+                data[i] = (int) ((r_UShort) val[0]);
             }
             NcVar *ncVar = dataFile.add_var(varName, ncInt, dimNo, dims);
             ncVar->put(&data[0], dimSizes);
+            ncVar->add_att(VALID_MIN, VALID_MIN_SHORT);
+            ncVar->add_att(VALID_MAX, VALID_MAX_SHORT);
+            delete [] data;
+            break;
+        }
+        case ctype_int32:
+        {
+            r_Long *val = (r_Long* &) src;
+            NcVar *ncVar = dataFile.add_var(varName, ncInt, dimNo, dims);
+            ncVar->put(val, dimSizes);
+            break;
+        }
+        case ctype_uint32:
+        {
+            // upscale unsigned long to float, as it can't be exported directly as uint
+            r_ULong *val = (r_ULong* &) src;
+            float *data = new float[dataSize];
+            if (data == NULL) {
+                RMInit::logOut << "r_Conv_NETCDF::convertTo(): out of memory error!" << endl;
+                throw r_Error(r_Error::r_Error_MemoryAllocation);
+            }
+            for (int i = 0; i < dataSize; i++, val++) {
+                data[i] = (float) ((r_ULong) val[0]);
+            }
+            NcVar *ncVar = dataFile.add_var(varName, ncFloat, dimNo, dims);
+            ncVar->put(&data[0], dimSizes);
+            ncVar->add_att(VALID_MIN, VALID_MIN_INT);
+            ncVar->add_att(VALID_MAX, VALID_MAX_INT);
             delete [] data;
             break;
         }
         case ctype_float32:
         {
             r_Float *val = (r_Float* &) src;
-            float *data = new float[dataSize];
-            if (data == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertTo(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            for (int i = 0; i < dataSize; i++) {
-                data[i] = (float) val[i];
-            }
             NcVar *ncVar = dataFile.add_var(varName, ncFloat, dimNo, dims);
-            ncVar->put(&data[0], dimSizes);
+            ncVar->put(val, dimSizes);
             ncVar->add_att("missing_value", "NaNf");
-            delete [] data;
             break;
         }
+        case ctype_int64:
+        case ctype_uint64:
         case ctype_float64:
         {
             r_Double *val = (r_Double* &) src;
-            double *data = new double[dataSize];
-            if (data == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertTo(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            for (int i = 0; i < dataSize; i++, val++) {
-                data[i] = (double) val[0];
-            }
             NcVar *ncVar = dataFile.add_var(varName, ncDouble, dimNo, dims);
-            ncVar->put(&data[0], dimSizes);
+            ncVar->put(val, dimSizes);
             ncVar->add_att("missing_value", "NaN");
-            delete [] data;
             break;
         }
         default:
