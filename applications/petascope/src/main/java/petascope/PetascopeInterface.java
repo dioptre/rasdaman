@@ -70,7 +70,6 @@ import petascope.wcs2.handlers.RequestHandler;
 import petascope.wcs2.handlers.Response;
 import petascope.wcs2.templates.Templates;
 import petascope.wcst.server.WcstServer;
-import petascope.wps.server.WpsServer;
 
 /** 
  * This servlet is a unified entry-point for all the PetaScope services.
@@ -236,10 +235,12 @@ public class PetascopeInterface extends HttpServlet {
                 // GET interface processing
                 String service = paramMap.get("service");
                 if (service != null) {
-                    if (service.equals("WPS")) {
-                        WpsServer wpsServer = new WpsServer(httpResponse, httpRequest);
-                        request = wpsServer.request;
-                    } else if (service.equals("WCS")) {
+                  // Removed WPS support as it doesn't work. Using 52n instead -- DM 2012-may-24
+//                    if (service.equals("WPS")) {
+//                        WpsServer wpsServer = new WpsServer(httpResponse, httpRequest);
+//                        request = wpsServer.request;
+//                    } else
+                    if (service.equals("WCS")) {
                         // extract version
                         String version = null;
                         String operation = paramMap.get("request");
