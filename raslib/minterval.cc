@@ -520,6 +520,12 @@ r_Minterval::scale(const vector<double>& scaleVec) throw(r_Eno_interval)
 		//correction by 1e-6 to avoid the strage bug when high was a 
 	        //integer value and floor return value-1(e.g. query 47.ql)
 		high = floor(scaleVec[i] * (intervals[i].high() +1) + 0.000001) - 1; 
+    
+		// apparently the above correction doesn't work for certain big numbers,
+		// e.g. 148290:148290 is scaled to 74145:74144 (invalid) by factor 0.5 -- DM 2012-may-25
+		if (high < low) {
+			high = low;
+		}
 
 //		FIXME BUG it was not forseen to be able to scale [a:a] with a very low factor f
 //		to [af, af] 
