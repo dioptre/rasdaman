@@ -120,6 +120,7 @@ public class Wcs2Servlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) {
         setServletURL(req);
+        meta.clearCache();
 
         String request = null;
         try {
