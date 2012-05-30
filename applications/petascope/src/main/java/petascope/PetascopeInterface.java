@@ -52,7 +52,7 @@ import petascope.core.DbMetadataSource;
 import petascope.exceptions.RasdamanException;
 import petascope.exceptions.WCSTException;
 import petascope.wcps.server.core.ProcessCoveragesRequest;
-import petascope.wcps.server.core.WCPS;
+import petascope.wcps.server.core.Wcps;
 import petascope.exceptions.WCPSException;
 import petascope.exceptions.WCSException;
 import petascope.exceptions.ExceptionCode;
@@ -89,7 +89,7 @@ public class PetascopeInterface extends HttpServlet {
     /* Instance of WcsServer-T service */
     private WcstServer wcst;
     /* Instance of WCPS service */
-    private WCPS wcps;
+    private Wcps wcps;
     /* Instance of WcsServer service */
     private WcsServer wcs;
 
@@ -134,7 +134,7 @@ public class PetascopeInterface extends HttpServlet {
         /* Initialize WCPS Service */
         try {
             log.info("WCPS: Initializing...");
-            wcps = new WCPS(meta);
+            wcps = new Wcps(meta);
             log.info("WCPS: initialization complete.");
         } catch (Exception e) {
             log.error("Stack trace: {}", e);

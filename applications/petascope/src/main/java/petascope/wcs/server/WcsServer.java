@@ -30,7 +30,7 @@ import net.opengis.wcs.v_1_1_0.GetCapabilities;
 import net.opengis.wcs.v_1_1_0.GetCoverage;
 import petascope.core.DbMetadataSource;
 import petascope.exceptions.PetascopeException;
-import petascope.wcps.server.core.WCPS;
+import petascope.wcps.server.core.Wcps;
 import petascope.exceptions.WCPSException;
 import petascope.exceptions.WCSException;
 import petascope.exceptions.ExceptionCode;
@@ -134,7 +134,7 @@ public class WcsServer {
     /**
      * WcsServer GetCoverage operation
      */
-    public String GetCoverage(String stringXml, WCPS wcps) throws WCSException {
+    public String GetCoverage(String stringXml, Wcps wcps) throws WCSException {
         String output = "Default output. ";
 
         try {

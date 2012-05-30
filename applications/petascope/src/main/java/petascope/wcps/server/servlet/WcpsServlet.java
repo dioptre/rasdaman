@@ -26,7 +26,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import petascope.core.DbMetadataSource;
 import petascope.wcps.server.core.ProcessCoveragesRequest;
-import petascope.wcps.server.core.WCPS;
+import petascope.wcps.server.core.Wcps;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -46,7 +46,7 @@ import petascope.util.ras.RasQueryResult;
 //the user.
 //This is the servlet interface of WCPS. It mostly consists of sanity checks and initialization,
 //the meat is onyl a few lines. The WCPS class does the actual work.
-public class WCPSServlet extends HttpServlet {
+public class WcpsServlet extends HttpServlet {
     
     private DbMetadataSource meta;
     private String rasdamanDatabase;
@@ -63,8 +63,7 @@ public class WCPSServlet extends HttpServlet {
             ConfigManager.getInstance();
             
             System.out.println("WCPS: initializing metadata database");
-            meta =
-                    new DbMetadataSource(ConfigManager.METADATA_DRIVER,
+            meta = new DbMetadataSource(ConfigManager.METADATA_DRIVER,
                     ConfigManager.METADATA_URL,
                     ConfigManager.METADATA_USER,
                     ConfigManager.METADATA_PASS, false);
@@ -84,8 +83,7 @@ public class WCPSServlet extends HttpServlet {
             
             System.out.println("WCPS: done with init error");
             throw new ServletException("WCPS initialization error", e);
-        }
-        
+        }        
     }
     
     @Override
@@ -102,10 +100,10 @@ public class WCPSServlet extends HttpServlet {
         OutputStream webOut = null;
         
         meta.clearCache();        
-        WCPS wcps;
+        Wcps wcps;
         
         try{
-            wcps = new WCPS(new File(getServletContext().getRealPath(WCPS_PROCESS_COVERAGE_XSD)), meta);
+            wcps = new Wcps(new File(getServletContext().getRealPath(WCPS_PROCESS_COVERAGE_XSD)), meta);
         }catch (Exception e) {
             
             throw new ServletException("Error initializing WCPS",e);

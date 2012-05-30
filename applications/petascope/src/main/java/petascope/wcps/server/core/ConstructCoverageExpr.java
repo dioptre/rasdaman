@@ -154,7 +154,7 @@ public class ConstructCoverageExpr implements IRasNode, ICoverageInfo {
                 nullDefault, interpolationSet, interpolationDefault,
                 coverageName, "GridCoverage", domainList, null); // FIXME
         // Let the top-level query know the full metadata about us
-        xq.getMetadataSource().addDynamicMetadata(covName, metadata);
+        xq.getMetadataSource().read(covName);
         info = new CoverageInfo(metadata);
     }
 }

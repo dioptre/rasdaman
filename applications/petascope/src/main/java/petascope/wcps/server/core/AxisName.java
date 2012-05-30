@@ -21,10 +21,10 @@
  */
 package petascope.wcps.server.core;
 
-import petascope.core.IDynamicMetadataSource;
 import petascope.exceptions.WCPSException;
 import java.util.Collection;
 import org.w3c.dom.*;
+import petascope.core.DbMetadataSource;
 import petascope.exceptions.ExceptionCode;
 
 public class AxisName implements IRasNode {
@@ -39,7 +39,7 @@ public class AxisName implements IRasNode {
         if (node != null && node.getNodeName().equals("axis")) {
             String axis = node.getTextContent();
             // validate axis name
-            IDynamicMetadataSource meta = xq.getMetadataSource();
+            DbMetadataSource meta = (DbMetadataSource) xq.getMetadataSource();
             Collection<String> axisNames = meta.getAxisNames();
             if (axisNames.contains(axis)) {
                 this.name = axis;

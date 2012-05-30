@@ -22,7 +22,6 @@
 package petascope.wcs2;
 
 import com.oreilly.servlet.MultipartResponse;
-import petascope.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -37,6 +36,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import petascope.ConfigManager;
 import petascope.core.DbMetadataSource;
 import petascope.exceptions.WCSException;
 import petascope.exceptions.ExceptionCode;

@@ -23,7 +23,7 @@ package petascope.wcps.server.cli;
 
 import petascope.core.DbMetadataSource;
 import petascope.wcps.server.core.ProcessCoveragesRequest;
-import petascope.wcps.server.core.WCPS;
+import petascope.wcps.server.core.Wcps;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.StringReader;
@@ -37,7 +37,7 @@ import org.xml.sax.InputSource;
  */
 public class xml {
 
-    private static WCPS wcps;
+    private static Wcps wcps;
     private static DbMetadataSource metadataSource;
 
     private static void initMetadata() {
@@ -66,7 +66,7 @@ public class xml {
                     dbParams.getProperty("metadata_url"),
                     dbParams.getProperty("metadata_user"),
                     dbParams.getProperty("metadata_pass"), false);
-            wcps = new WCPS(pcSchemaFile, metadataSource);
+            wcps = new Wcps(pcSchemaFile, metadataSource);
         } catch (Exception e) {
             System.err.println("WCPS: could not initialize WCPS:");
             e.printStackTrace(System.err);

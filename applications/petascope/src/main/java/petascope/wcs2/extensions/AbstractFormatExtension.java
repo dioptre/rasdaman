@@ -33,7 +33,7 @@ import petascope.util.ras.RasUtil;
 import petascope.util.WcsUtil;
 import petascope.util.ras.RasQueryResult;
 import petascope.wcps.server.core.DomainElement;
-import petascope.wcps.server.core.WCPS;
+import petascope.wcps.server.core.Wcps;
 import petascope.wcs2.parsers.GetCoverageMetadata;
 import petascope.wcs2.parsers.GetCoverageRequest;
 import petascope.wcs2.parsers.GetCoverageRequest.DimensionSlice;
@@ -84,10 +84,10 @@ public abstract class AbstractFormatExtension implements FormatExtension {
             GetCoverageMetadata m, DbMetadataSource meta, String format, String params) throws WCSException {
 
 	//This variable is now local to the method to avoid concurrency problems
-	WCPS wcps;
+	Wcps wcps;
 
 	try {
-	    wcps = new WCPS(meta);
+	    wcps = new Wcps(meta);
 	} catch (Exception ex) {
 	    throw new WCSException(ExceptionCode.InternalComponentError, "Error initializing WCPS engine", ex);
 	}        

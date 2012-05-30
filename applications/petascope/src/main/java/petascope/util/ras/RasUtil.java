@@ -37,7 +37,7 @@ import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.RasdamanException;
 import petascope.exceptions.WCPSException;
 import petascope.wcps.server.core.ProcessCoveragesRequest;
-import petascope.wcps.server.core.WCPS;
+import petascope.wcps.server.core.Wcps;
 import rasj.RasImplementation;
 import rasj.RasConnectionFailedException;
 
@@ -172,7 +172,7 @@ public class RasUtil {
      * @param wcps WCPS engine
      * @return the corresponding rasql query
      */
-    public static String abstractWCPSToRasql(String query, WCPS wcps) throws WCPSException {
+    public static String abstractWCPSToRasql(String query, Wcps wcps) throws WCPSException {
         if (query == null) {
             throw new WCPSException(ExceptionCode.InvalidParameterValue, "Can't convert null query");
         }
@@ -198,7 +198,7 @@ public class RasUtil {
      * @param wcps WCPS engine
      * @return the corresponding rasql query
      */
-    public static String xmlWCPSToRasql(String query, WCPS wcps) throws WCPSException {
+    public static String xmlWCPSToRasql(String query, Wcps wcps) throws WCPSException {
         if (query == null) {
             throw new WCPSException(ExceptionCode.InvalidParameterValue, "Can't convert null query");
         }
@@ -224,7 +224,7 @@ public class RasUtil {
      * @return result from executing query
      * @throws WCPSException 
      */
-    public static Object executeWcpsQuery(String query, WCPS wcps) throws WCPSException, RasdamanException {
+    public static Object executeWcpsQuery(String query, Wcps wcps) throws WCPSException, RasdamanException {
         if (query == null) {
             throw new WCPSException(ExceptionCode.InvalidParameterValue, "Can't execute null query");
         }
@@ -245,7 +245,7 @@ public class RasUtil {
      * @return result from executing query
      * @throws WCPSException 
      */
-    public static Object executeAbstractWcpsQuery(String query, WCPS wcps) throws WCPSException, RasdamanException {
+    public static Object executeAbstractWcpsQuery(String query, Wcps wcps) throws WCPSException, RasdamanException {
         if (query == null) {
             throw new WCPSException(ExceptionCode.InvalidParameterValue, "Can't execute null query");
         }
@@ -261,7 +261,7 @@ public class RasUtil {
      * @return the result from executing query
      * @throws WCPSException 
      */
-    public static Object executeXmlWcpsQuery(String query, WCPS wcps) throws WCPSException, RasdamanException {
+    public static Object executeXmlWcpsQuery(String query, Wcps wcps) throws WCPSException, RasdamanException {
         if (query == null) {
             throw new WCPSException(ExceptionCode.InvalidParameterValue, "Can't execute null query");
         }

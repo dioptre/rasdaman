@@ -21,7 +21,6 @@
  */
 package petascope.wcps.server.core;
 
-import petascope.core.IDynamicMetadataSource;
 import petascope.exceptions.PetascopeException;
 import petascope.exceptions.RasdamanException;
 import petascope.exceptions.WCPSException;
@@ -34,12 +33,12 @@ import java.io.StringReader;
 import org.antlr.runtime.RecognitionException;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-import java.util.ArrayList;
-import java.util.List;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.xml.sax.InputSource;
+import petascope.core.DbMetadataSource;
+import petascope.core.IMetadataSource;
 import petascope.exceptions.ExceptionCode;
 import petascope.util.ras.RasUtil;
 
@@ -51,17 +50,17 @@ import petascope.util.ras.RasUtil;
 public class ProcessCoveragesRequest {
 
     private String database;
-    private IDynamicMetadataSource source;
+    private DbMetadataSource meta;
     private String url;
-    private WCPS wcps;
+    private Wcps wcps;
     private String rasqlQuery;
     private String mime;
     private XmlQuery xmlQuery;
 
-    public ProcessCoveragesRequest(String url, String database, Node node, IDynamicMetadataSource source, WCPS wcps)
+    public ProcessCoveragesRequest(String url, String database, Node node, IMetadataSource meta, Wcps wcps)
             throws WCPSException, SAXException, IOException, PetascopeException {
         super();
-        this.source = source;
+        this.meta = (DbMetadataSource) meta;
         this.url = url;
         this.database = database;
         this.wcps = wcps;
@@ -95,7 +94,7 @@ public class ProcessCoveragesRequest {
          */
         if (queryNode.getNodeName().equals("xmlSyntax")) {
             System.err.println("Found XML Syntax query");
-            this.xmlQuery = new XmlQuery(this.source);
+            this.xmlQuery = new XmlQuery(this.meta);
             xmlQuery.startParsing(queryNode);
         } else if (queryNode.getNodeName().equals("abstractSyntax")) {
             try {

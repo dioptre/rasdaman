@@ -24,7 +24,7 @@ import org.apache.commons.io.IOUtils;
 import petascope.ConfigManager;
 import petascope.core.DbMetadataSource;
 import petascope.wcps.server.core.ProcessCoveragesRequest;
-import petascope.wcps.server.core.WCPS;
+import petascope.wcps.server.core.Wcps;
 
 /*
  * To change this template, choose Tools | Templates
@@ -48,7 +48,7 @@ public class Test {
                     ConfigManager.METADATA_USER,
                     ConfigManager.METADATA_PASS, false);
             System.out.println("WCPS: initializing WCPS core");
-            WCPS wcps = new WCPS(meta);
+            Wcps wcps = new Wcps(meta);
             
             String query = "";
             String xmlRequest = ProcessCoveragesRequest.abstractQueryToXmlQuery(query);

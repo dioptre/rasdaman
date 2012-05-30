@@ -38,7 +38,7 @@ import petascope.exceptions.PetascopeException;
 import petascope.exceptions.WCPSException;
 import petascope.util.IOUtil;
 import petascope.util.ras.RasUtil;
-import petascope.wcps.server.core.WCPS;
+import petascope.wcps.server.core.Wcps;
 import petascope.wcs2.extensions.ExtensionsRegistry;
 import petascope.wcs2.extensions.ProtocolExtension;
 import petascope.wcs2.handlers.Response;
@@ -55,7 +55,7 @@ public class ExamplesTest extends BaseTestCase {
 
     private List<File> files;
     private final DbMetadataSource meta;
-    private final WCPS wcps;
+    private final Wcps wcps;
     private PrintStream l;
 
     public ExamplesTest() throws PetascopeException, ServletException, ParserConfigurationException {
@@ -73,7 +73,7 @@ public class ExamplesTest extends BaseTestCase {
                 ConfigManager.METADATA_URL,
                 ConfigManager.METADATA_USER,
                 ConfigManager.METADATA_PASS, false);
-        wcps = new WCPS(meta);
+        wcps = new Wcps(meta);
         try {
             l = new PrintStream(new File(PETASCOPE_PATH + "test.log"));
         } catch (FileNotFoundException ex) {

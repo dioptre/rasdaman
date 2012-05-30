@@ -21,7 +21,7 @@
  */
 package petascope.wcps.server.core;
 
-import petascope.core.IDynamicMetadataSource;
+import petascope.core.DbMetadataSource;
 import petascope.exceptions.PetascopeException;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
@@ -36,7 +36,7 @@ public class CoverageIterator implements IRasNode {
     private boolean dynamic = false;    // created from a Construct Coverage expr?
 
     public CoverageIterator(Node x, XmlQuery xq) throws WCPSException, PetascopeException {
-        IDynamicMetadataSource source = xq.getMetadataSource();
+        DbMetadataSource meta = (DbMetadataSource) xq.getMetadataSource();
         coverageNames = new ArrayList<String>();
         if (!x.getNodeName().equals("coverageIterator")) {
             throw new WCPSException("Invalid cast from " + x.getNodeName()
@@ -56,7 +56,7 @@ public class CoverageIterator implements IRasNode {
             } else if (it.getNodeName().equals("coverageName")) {
                 String cn = it.getFirstChild().getNodeValue();
                 System.err.println("*** Coverage reference : " + cn);
-                if (!source.coverages().contains(cn)) {
+                if (!meta.coverages().contains(cn)) {
                     throw new WCPSException("Unknown coverage " + cn);
                 }
 
