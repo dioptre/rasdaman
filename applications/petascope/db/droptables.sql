@@ -24,8 +24,8 @@ DROP TABLE ps_axistype;
 DROP TABLE ps_uom;
 DROP TABLE ps_dbupdates;
 
-DROP TABLE ps_services;
-DROP TABLE ps_layers;
-DROP TABLE ps_servicelayer;
 DROP TABLE ps_styles;
 DROP TABLE ps_pyramidLevels;
+DROP TABLE ps_servicelayer;
+DROP TABLE ps_services;
+DROP TABLE ps_layers;
