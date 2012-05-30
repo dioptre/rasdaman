@@ -650,19 +650,31 @@ Tile::execScaleOp(const Tile* opTile, const r_Minterval& sourceDomain, const r_P
 	r_Miter iterDest(&domain, &domain, typeLength, getContents());
 
 	// optimize for common basetypes
-	switch (typeLength)
+	switch (getType()->getType())
 		{
-		case 1:
-			tile_scale_core(iterDest, iterSrc, (char*)0);
+    case OCTET:
+			tile_scale_core(iterDest, iterSrc, (r_Octet*)0);
 			break;
-		case 2:
-			tile_scale_core(iterDest, iterSrc, (short*)0);
+		case CHAR:
+			tile_scale_core(iterDest, iterSrc, (r_Char*)0);
 			break;
-		case 4:
-			tile_scale_core(iterDest, iterSrc, (long*)0);
+		case SHORT:
+			tile_scale_core(iterDest, iterSrc, (r_Short*)0);
 			break;
-		case 8:
-			tile_scale_core(iterDest, iterSrc, (double*)0);
+		case USHORT:
+			tile_scale_core(iterDest, iterSrc, (r_UShort*)0);
+			break;
+		case LONG:
+			tile_scale_core(iterDest, iterSrc, (r_Long*)0);
+			break;
+		case ULONG:
+			tile_scale_core(iterDest, iterSrc, (r_ULong*)0);
+			break;
+		case FLOAT:
+			tile_scale_core(iterDest, iterSrc, (r_Float*)0);
+			break;
+		case DOUBLE:
+			tile_scale_core(iterDest, iterSrc, (r_Double*)0);
 			break;
 		default:
 			while (!iterDest.isDone())
