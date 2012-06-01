@@ -68,8 +68,6 @@
 
 package petascope.wms;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -89,6 +87,7 @@ import petascope.ConfigManager;
 import rasj.RasGMArray;
 import petascope.util.ras.RasUtil;
 import petascope.exceptions.WMSException;
+import javax.imageio.ImageIO;
 
 public class WmsServlet extends HttpServlet
 {
@@ -582,9 +581,7 @@ public class WmsServlet extends HttpServlet
             Rectangle rect = new Rectangle(0,0,bImage.getWidth(),bImage.getHeight());
             gr.setColor(Color.white);
             gr.fill(rect);
-            
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(sOut);
-            encoder.encode(bImage);
+            ImageIO.write(bImage,"jpeg",sOut);
         }
         catch (Exception m)
         {

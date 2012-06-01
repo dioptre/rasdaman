@@ -40,6 +40,8 @@ import java.io.ByteArrayInputStream;
 import java.util.Iterator;
 import petascope.ConfigManager;
 import petascope.exceptions.RasdamanException;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 
 /**
  * Utility class for doing various tasks that involve the Rasdaman server.
@@ -141,12 +143,11 @@ public class RasdamanUtils {
             if (iter.hasNext()) {
                 RasGMArray result = (RasGMArray) iter.next();
                 byte[] ba = result.getArray();
-                ByteArrayInputStream bas = new ByteArrayInputStream(ba);
-                com.sun.image.codec.jpeg.JPEGImageDecoder decoder = com.sun.image.codec.jpeg.JPEGCodec.createJPEGDecoder(bas);
+                ImageInputStream bas = ImageIO.createImageInputStream(ba);
                 BufferedImage bufImg = null;
 
                 try {
-                    bufImg = decoder.decodeAsBufferedImage();
+                    bufImg = javax.imageio.ImageIO.read(bas);
                 } catch (Exception e) {
                     System.err.println("Error decoding the image !!!");
                 }

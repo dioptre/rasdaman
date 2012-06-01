@@ -27,8 +27,6 @@
 
 package petascope.exceptions;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -40,6 +38,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.wms.Globals;
 import petascope.wms.WmsServlet;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 
 // import rasj.*;
 
@@ -170,10 +170,9 @@ public class WMSException extends Exception
             gr.drawString((String)lines.get(i),1,ycoord);
             ycoord += LINEHEIGHT;
         }
-        
+
         // ship image as JPEG
-        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
-        encoder.encode(bImage);
+        ImageIO.write(bImage,"jpeg",os);
     }
     
     /**
