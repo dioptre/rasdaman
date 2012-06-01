@@ -455,8 +455,8 @@ public class WmsCapabilities
                 retval.append("  <Format>" + WmsRequest.BLANKSTRING + "</Format>\n");
             retval.append(" </Exception>\n");
             //not required
-            if (myVendorCapabilities != null)
-                retval.append(myVendorCapabilities);
+            //if (myVendorCapabilities != null)
+            //    retval.append(myVendorCapabilities);
             //not required
             /*
              * <UserDefinedSymbolization SupportSLD=\"
@@ -499,7 +499,6 @@ public class WmsCapabilities
              * retval.append(layer);
              * }
              */
-            retval.append("<Layer>");
             
             WmsLayer layer = null;
             for(int i = 0; i< myLayers.getLayerCounter(); i++)
@@ -508,7 +507,6 @@ public class WmsCapabilities
                 retval.append(layer);
             }
             
-            retval.append("</Layer>");
             retval.append("</Capability>\n");
             return retval.toString();
         }

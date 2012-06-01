@@ -360,7 +360,7 @@ public class WmsConfig
         LayerContainer wmslayermap   = buildWMSLayerMapAndLayers( getRequiredParameter(PARAMETER_WMS_LAYERS) );
         String WMSHostName = getRequiredParameter(PARAMETER_WMS_HOST_NAME);
         int wmsport = getRequiredIntegerParameter(PARAMETER_WMS_PORT);
-        String WMSPath = getRequiredParameter(PARAMETER_WMS_PORT);
+        String WMSPath = getRequiredParameter(PARAMETER_WMS_PATH);
         List wmsformatslist = buildWMSFormatsList( getRequiredParameter(PARAMETER_WMS_FORMATS) );
         
         // ---- these parameters are deprecated & ignored, raswms supports all exception types -- PB 2003-jun-09
