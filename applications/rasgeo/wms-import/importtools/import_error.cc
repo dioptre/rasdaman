@@ -19,26 +19,6 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
-/*************************************************************
- *
- * SOURCE: import_error.cc
- *
- * MODULE: 
- * CLASS:	ImportError
- *
- * PURPOSE:
- *
- * CHANGE HISTORY (append further entries):
- * when		 who	what
- * ----------------------------------------------------------
- * 2003-jul-03   PB	created (cloned from raslib/error.cc)
- * 2003-dec-05   PB	file renamed from rasgeo_error.?? to export_error.??
- * 2004-mar-17   PB	new error codes: BASETYPEMISMATCH, DOMAINEXTENTMISMATCH
- * 2005-apr-28   PB     errno -> importErrno (name clash with system macro in gcc3)
- *
- * COMMENTS:
- *
- ************************************************************/
 
 using namespace std;
 

@@ -542,6 +542,9 @@ exists or setup the property manually. For example like this:
         <copy todir="${build.web.dir}">
             <fileset dir="${web.docbase.dir}" excludes="${build.web.excludes},${excludes}" includes="${includes}"/>
         </copy>
+        <copy todir="${webinf.dir}/${wms.messages.dir}" flatten="true">
+            <fileset dir="${resources.dir}/${wms.messages.dir}"/>
+        </copy>
         <copy todir="${build.web.dir}/WEB-INF">
             <fileset dir="${webinf.dir}" excludes="${build.web.excludes}"/>
         </copy>

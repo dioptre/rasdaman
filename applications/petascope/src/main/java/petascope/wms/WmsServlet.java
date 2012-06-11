@@ -29,40 +29,13 @@
  * <LI>Styles are not supported (RasQL should be integrated into the styles/the queryable interface should be supported)</LI>
  * <LI>There is a problem when requesting images that are not squares but rectangles (just happened to come accross one)</LI>
  * </UL>
- * @version $Revision: 1.8 $
- *
- * CHANGE HISTORY (append further entries):
- * when		who		what
- * ----------------------------------------------------------
- * 02-07-2001	Beinhofer	created
- * 2003-may-15	PB	   added parameter "debug" for web.xml (method uniqueInit())
- *			   added revision string in src
- *			   use Debug for diagnostic output, not log
- *			   timer is used always
- *			   added request timer for doGet()
- *			   added request type ReloadCapabilities
- * 2003-jun-02  PB         init: instead of waiting for inUniqueInit: terminate servlet with exception, because multiple instances are not supported.
- * 2003-jun-04  PB         added parameter "
- * 2003-jun-06  PB         toLog removed, not used any longer; instead setDebugChannel()
- * 2004-apr-24  PB         init() bug fix: "isInitialised=true;" was missing
- * 2004-jun-20  PB         new web.xml variable "messageFile" added
- *                         web.xml variable names now taken from Globals.java
- * 2006-jan-11  PB         v6.0
- * 2006-jan-18  PB         use Version info
- * 2007-feb-21  PB         doGet(): preset exception content type as WMS spec prescribes
- * 2007-oct-20  Sorin      fixed the bug which did not send the small requests results back to client
- * 2008-jun-11  PB         doGet(): catch null query string situation
- * 2009-jan-26  shikhar    answerMapReq(): caching implementation -- RasTileCache
- * 2009-mar-23	shikhar	   new init parameters: cacheDir, serveFromCache, cacheTiles
- * 2012-apr-22  pcampalani Remove init of RasConnection: multliplexing of requests now handled by
- *                         the web server. Use String constants from Config.java .
+ * @version $Revision: 1.8 $ * 
  *
  * COMMENTS:
  * - exception type BLANK and INIMAGE return only JPEG, FORMAT is ignored
  * - these exception types do not consider the corresp. rasocg.cfg settings
  * - look at FIXME for syncing!
  *
- * Copyright (C) 2001 Dr. Peter Baumann
  * </pre>
  *********************************************************** */
 

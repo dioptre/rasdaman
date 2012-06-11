@@ -21,23 +21,6 @@
  */
 /*************************************************************
  *
- * SOURCE: fillpyramid.cc
- *
- * MODULE: rasodmg/test
- *
- * PURPOSE:
- *
- * CHANGE HISTORY (append further entries):
- * when         who     what
- * ----------------------------------------------------------
- * 2003-jul-02  PB      created
- * 2003-oct-04	PB	use both RMANVERSION and COMPDATE, check their presence
- * 2003-dec-05  PB	file renamed from rasgeo_error.?? to export_error.??
- * 2005-jul-19  PB	use help_input instead of HELP_DATAFORMAT
- * 2005-sep-07  PB	introduced --verbose flag
- * 2006-jan-17  PB	use globals.hh, addLong
- * 2007-may-09  PB      RasgeoUtil::storageFormatParams set to null explicitly if not used
- *
  * COMMENTS:
  * - built from old rasodmg/test/system_update
  *

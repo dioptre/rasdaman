@@ -19,22 +19,6 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
-/** ***********************************************************
- *
- * SOURCE: InvalidInputException.java
- *
- * PACKAGE: petascope.wms.commander
- * CLASS: InvalidInputException
- *
- * CHANGE HISTORY (append further entries):
- * when         who       what
- * ----------------------------------------------------------
- * 2007-feb-15  SS        created
- *
- * Copyright (C) 2007 Dr. Peter Baumann
- *
- *********************************************************** */
-
 
 package petascope.wms.commander;
 

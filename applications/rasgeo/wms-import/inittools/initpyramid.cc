@@ -21,26 +21,8 @@
  */
 /*************************************************************
  *
- * SOURCE: initpyramid.cc
- *
- * MODULE: rasgeo
- *
  * PURPOSE:
  * initializes a 2D rasgeo map by writing a lower left and upper right tile.
- *
- * CHANGE HISTORY (append further entries):
- * when         who         what
- * ----------------------------------------------------------
- * 2003-aug-24  PB          created
- * 2005-jan-12  PB          finalized using the "unofficial" RNP raslib interface of Walter Schatz :(
- * 2005-feb-11  PB          floor() -> floorl() to avoid gcc3 errors
- * 2006-jan-04  PB          dynamic pyramid height, controoled via '--levels auto'
- *                          have compile variable TEST for running w/o db access
- * 2006-jan-17  PB          use globals.hh
- * 2008-may-11  CJ          removed coordinate conversion
- * 2008-may-11  CJ          pyramid steps are given as parameters of level
- * 2008-jul-04  PB          cast to double in ceil() for gcc 3.3.x
- * 2009-jan-26  PB          map type now case insensitive
  *
  * COMMENTS:
  * - NOTE: probably does not work with RPC and HTTP server mode due to "unofficial" fct use!

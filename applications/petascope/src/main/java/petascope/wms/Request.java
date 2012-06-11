@@ -30,11 +30,6 @@
  *
  * USES:
  *
- * CHANGE HISTORY (append further entries):
- * when 	who		what
- * -----------------------------------------------------------
- * 2007-dec-06  smsorin		created
- *
  * COMMENTS:
  *
  * </pre>

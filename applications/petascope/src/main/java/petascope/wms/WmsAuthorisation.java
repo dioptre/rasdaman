@@ -25,16 +25,8 @@
  * An interface which allows the customer to implement his own authentication mechanism.
  * @version $Revision: 1.2 $
  *
- * CHANGE HISTORY (append further entries):
- * when        who         what
- * ----------------------------------------------------------
- * 10-10-2001  hoefner   created
- * 2003-may-15  PB      code-embedded version string
- *
- *
  * COMMENTS:
  *
- * Copyright (C) 2001 Dr. Peter Baumann
  * </pre>
  *********************************************************** */
 

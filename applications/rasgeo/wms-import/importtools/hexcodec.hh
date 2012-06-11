@@ -19,23 +19,6 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
-/*************************************************************
- *
- * SOURCE: hexcodec.hh
- *
- * MODULE: rasgeo
- *
- * PURPOSE:
- *
- * CHANGE HISTORY (append further entries):
- * when         who    what
- * ----------------------------------------------------------
- * 2003-jul-10  PB     cloned from exportutils
- * 2003-dec-05  PB     file renamed from rasgeo_error.?? to export_error.??
- *
- * COMMENTS:
- *
- ************************************************************/
 
 #ifndef __HEXCODEC_HH__
 #define __HEXCODEC_HH__

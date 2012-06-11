@@ -20,28 +20,13 @@
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 /************************************************************************
- *
- * SOURCE: rasgeo.Table_Layer
- *
- * PACKAGE: petascope.wms.commander
- * CLASS: Table_Layer
- *
+ * 
  * PURPOSE
  * provide access to the "Layer" table of rasgeo commander.
  * There are insert, update, and fetch statements.
- *
- * CHANGE HISTORY (append further entries):
- * when         who       what
- * ----------------------------------------------------------
- * 2007-apr-09  PB        created
- * 2007-jun-17  BS	  corrected
- * 2007-jul-22  BS	  added resolution, map type
- * 2007-aug-08  BS	  coordinates: double -> String
- *
+ * 
  * COMMENTS
  * - uses CommanderConnection for JDBC access.
- *
- * Copyright (C) 2007 Dr. Peter Baumann
  *
  *********************************************************** */
 

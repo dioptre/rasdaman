@@ -133,6 +133,7 @@ compile: $(all_javas) $(GEN_DOCS)
 	$(JAVAC) $(JFLAGS) @$<
 	$(CP) src/main/resources/settings.properties $(CLASSES) # copy default settings, and then custom settings in db/settings.properties if they exist
 	if test -e db/settings.properties; then $(CP) db/settings.properties $(CLASSES); fi
+	$(CP) src/main/resources/wms-messages $(WEB)/WEB-INF
 
 # Generate the Java doc from sources
 .PHONY: javadoc

@@ -21,22 +21,7 @@
  */
 /*************************************************************
  * <PRE>
- * constructs a rasql query from a request passed.
- *
- * CHANGE HISTORY (append further entries):
- * when         who         what
- * ----------------------------------------------------------
- * 15-may-03    PB        started documentation
- *                        use Debug diganostic instad of log
- * 2003-may-15  PB        code-embedded version string
- * 2005-jun-19  PB        generateQuery() extended to also cover zoom-out beyond map limits
- *                        reformatted uniformly
- *                        buildLayersAndStyles(): no more limit checking far zoom
- *                        getNearestScaleLayer(): we always want a layer
- * 2005-jul-08  PB        testExceptionType() obsolete since all exception types are supported
- * 2005-jul-13  PB        support transparency for PNG format
- * 2005-aug-26  PB        generateQuery(): big fix for RGB img generation even out of map
- * 2012-apr-22 pcampalani Add String constants for rasql image formats.
+ * constructs a rasql query from a request passed. *
  *
  * COMMENT:
  * - FIXME: for export, large zoom out has not been inspected yet
@@ -44,7 +29,6 @@
  * - test of exception capabilities is not necessary, as code supports it anyway
  *   so exception capabilities should always be set to true in raswms.cfg
  *
- * Copyright (C) 2001 Dr. Peter Baumann
  * </PRE>
  ************************************************************/
 
@@ -316,10 +300,12 @@ public class RequestConverter
         
         // initialize select clause string
         // - format encoding
-        selectClause.append(RASQL_SELECT + " " + convertImageFormat(imageFormat) + "( ");
+        String buf = RASQL_SELECT + " " + convertImageFormat(imageFormat) + "( ";
+        selectClause.append(buf);
         // - set background
-        selectClause.append( "(" + RASQL_MARRAY + " x " + RASQL_IN + " " + targetBox + " " + RASQL_VALUES + " {" + bgColorRed + "c," + bgColorGreen + "c," + bgColorBlue + "c})" );
-        
+        buf = "(" + RASQL_SCALE + "(" + RASQL_MARRAY + " x " + RASQL_IN + " [1:1,1:1] " + 
+                RASQL_VALUES + " {" + bgColorRed + "c," + bgColorGreen + "c," + bgColorBlue + "c}, " + targetBox + "))";
+        selectClause.append(buf);
         // initialize from clause string
         fromClause.append( " " + RASQL_FROM + " " );				// initialize FROM clause
         boolean firstFrom = true;				// first FROM variable? otherwise need to append ","
@@ -330,14 +316,15 @@ public class RequestConverter
         while (it.hasNext())
         {	//iterate through the requested layers
             //create the renamed variable
-            imgName = new String( FROM_VAR_TEMPLATE + imgNum );
+            imgName = FROM_VAR_TEMPLATE + imgNum;
             wmslayer = (WmsCapabilities.WmsLayer)it.next();
             wmsstyle = (WmsCapabilities.WmsStyle)its.next();
             
             //find nearest ground resolution in persistent scale layers, ie, best fitting layer
             pslayer = getNearestScaleLayer(wmslayer, boundingBox, requestedGroundResolution);
             if (pslayer == null)
-                throw new WMSException( Globals.ERR_NoPyramidLayer, "layer=" + wmslayer.getName() + ", boundingBox=" + boundingBox + ", resolution=" + requestedGroundResolution);
+                throw new WMSException( Globals.ERR_NoPyramidLayer, 
+                        "layer=" + wmslayer.getName() + ", boundingBox=" + boundingBox + ", resolution=" + requestedGroundResolution);
             
             pLayerName = pslayer.getName();
             //compute scale from persistent collection ground resolution to requested ground resolution
@@ -352,7 +339,8 @@ public class RequestConverter
                 long boxPixMinY = (long)((pLayerBox.maxY - boundingBox.maxY) / pLayerFactor);
                 long boxPixMaxX = (long)((boundingBox.maxX - pLayerBox.minX) / pLayerFactor);
                 long boxPixMaxY = (long)((pLayerBox.maxY - boundingBox.minY) / pLayerFactor);
-                imgExp = new String(RASQL_SCALE + "( " + imgName + "[" + boxPixMinX + ":" + boxPixMaxX + "," + boxPixMinY + ":" + boxPixMaxY + "]," + targetBox + " )");
+                imgExp = RASQL_SCALE + "( " + imgName + "[" + 
+                        boxPixMinX + ":" + boxPixMaxX + "," + boxPixMinY + ":" + boxPixMaxY + "]," + targetBox + " )";
                 fullImgExp=buildFullImgExp(wmsstyle, imgExp);	// add WMS rasql op fragment
             }
             else if ( pLayerBox.disjoint(boundingBox) )
@@ -360,7 +348,8 @@ public class RequestConverter
                 // -> add transparent layer (don't omit, it might be the only one!)
             {
                 log.debug( "generateQuery: request bbox completely outside this layer " + pLayerBox + ", adding all-transparent layer." );
-                fullImgExp = new String( "(" + RASQL_MARRAY + " x in " + targetBox + " " + RASQL_VALUES + " {0c,0c,0c})" );
+                fullImgExp = "(" + RASQL_SCALE + "(" + RASQL_MARRAY + " x " + 
+                        RASQL_IN + " [1:1,1:1] " + RASQL_VALUES + " {0c,0c,0c}, " + targetBox + "))";
                 // thought imgExpr is adequate, but that leaves fullImgExpr undefined -- PB 2005-oct-07
                 // note: here no WMS rasql op fragment to add, we're complete already
             }
@@ -394,7 +383,9 @@ public class RequestConverter
                 long boxPixMinY = (long)((pLayerBox.maxY - boundingBox.maxY) / pLayerFactor);
                 long boxPixMaxY = (long)((pLayerBox.maxY - boundingBox.minY) / pLayerFactor);
                 
-                imgExp = new String( RASQL_SCALE + "( " + RASQL_EXTEND + "( " + imgName + "[" + trimPixMinX + ":" + trimPixMaxX + "," + trimPixMinY + ":" + trimPixMaxY + "], [" + boxPixMinX + ":" + boxPixMaxX + "," + boxPixMinY + ":" + boxPixMaxY + "] ), " + targetBox + " )" );
+                imgExp = RASQL_SCALE + "( " + RASQL_EXTEND + "( " + 
+                        imgName + "[" + trimPixMinX + ":" + trimPixMaxX + "," + trimPixMinY + ":" + trimPixMaxY + "], [" + 
+                        boxPixMinX + ":" + boxPixMaxX + "," + boxPixMinY + ":" + boxPixMaxY + "] ), " + targetBox + " )";
                 fullImgExp=buildFullImgExp(wmsstyle, imgExp);	// add WMS rasql op fragment
             }
             
@@ -411,8 +402,10 @@ public class RequestConverter
             firstFrom = false;
             
             // append collection iterator (even if map not used - we otherwise might end up without any one, leading to a rasql error)
-            fromClause.append(pLayerName + " " + RASQL_AS + " " + imgName);
-            selectClause.append( " " + RASQL_OVERLAY + " (" + fullImgExp + ")" );
+            buf = pLayerName + " " + RASQL_AS + " " + imgName;
+            fromClause.append(buf);
+            buf = " " + RASQL_OVERLAY + " (" + fullImgExp + ")";
+            selectClause.append(buf);
             
             imgNum++;
         }
@@ -421,7 +414,8 @@ public class RequestConverter
         // on transparency, add resp. option if it's PNG (currently only format ssupported which allows transparency) -- PB 2005-jul-13
         if ( hasTransparency && imageFormat==WmsRequest.PNG)
         {					// add transparency parameters to function call
-            selectClause.append( ", \"tRNS=(" + bgColorRed + ";" + bgColorGreen + ";" + bgColorBlue + ")\" )" );
+            buf = ", \"tRNS=(" + bgColorRed + ";" + bgColorGreen + ";" + bgColorBlue + ")\" )";
+            selectClause.append(buf);
         }
         else					// simply close FORMAT() function call
             selectClause.append( " )" );
@@ -525,7 +519,7 @@ public class RequestConverter
     {
         log.info( "buildFullImgExp start: imgExp =" + imgExp );
         
-        String rasql = wmsstyle.getRasQL(); // pe aici trebuie
+        String rasql = wmsstyle.getRasQL();
         String styleName = wmsstyle.getName();
         
         if(rasql.equals(RASQL_DYNAMIC))

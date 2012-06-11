@@ -19,26 +19,6 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
-/*************************************************************
- *
- * SOURCE: rasgeo_util.hh
- *
- * MODULE: rasgeo
- *
- * PURPOSE:
- * general functions to be used by rasgeo apps
- * 
- * CHANGE HISTORY (append further entries):
- * when         who    what
- * ----------------------------------------------------------
- * 2003-jul-02  PB     cloned from rasodmg/test/system_basic.hh
- * 2003-dec-05  PB     file renamed from rasgeo_error.?? to export_error.??
- * 2005-sep-07  PB     added verbose flag
- * 2007-apr-07  CJ     removed RasgeoUtil:: before method names. Needed for gcc 4.1.
- *
- * COMMENTS:
- *
- ************************************************************/
 
 #ifndef _RASGEO_UTIL_HH_
 #define _RASGEO_UTIL_HH_

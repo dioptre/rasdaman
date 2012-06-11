@@ -19,21 +19,6 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
-/*************************************************************
- *
- * INCLUDE: rasgeo_error.hh
- *
- * MODULE:  
- * CLASS:   InitError
- *
- * CHANGE HISTORY (append further entries):
- * when         who	what
- * ----------------------------------------------------------
- * 2003-aug-24	PB	cloned from rasgeo/importools/rasgeo_error.hh
- *
- * COMMENTS:
- *
- ************************************************************/
 
 #ifndef _RASGEO_ERROR_HH_
 #define _RASGEO_ERROR_HH_

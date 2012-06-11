@@ -1,0 +1,216 @@
+# ~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+# This file is part of rasdaman community.
+#
+# Rasdaman community is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Rasdaman community is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+# rasdaman GmbH.
+#
+# For more information please see <http://www.rasdaman.org>
+# or contact Peter Baumann via <baumann@rasdaman.com>.
+# ~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+# 
+# PURPOSE:
+# Provide a list of all rasogc error messages, plus shorthands.
+# By convention, error texts ending with a colon ":" are
+# expected to get appended detailing information.
+#
+# SYNTAX:
+#       <nr>=<short>:<long>
+# where
+#       <nr>    message identifier (decimal digits)
+#       <short> message text shorthand, must not contain "|"
+#       <long>  long message text
+# Use HTML entities for non-ASCII characters!
+# Continuation lines are possible with a "\" at the end of the line.
+# Leading whitespace in a line and comment lines ("#") are eaten up.
+#
+# The nr code is used internally as message identifier, DO NOT CHANGE IT!
+
+# internally used followup exception indicator:
+000=ParsingError:\
+    (Aucun d&eacute;tail n'est disponible.)
+
+# WMS standard errors (not used directly):
+001=OperationNotSupported:\
+    Op&eacute;tion non disponible.
+002=InvalidRequest:\
+    Requ&ecirc;te invalide.
+003=InvalidSRS:\
+    Syst&egrave;me de coordonn&eacute;es non suppot&eacute;.
+004=LayerNotDefined:\
+    Couche non d&eacute;finie.
+005=LayerNotQueryable:\
+    Couche non requ&ecirc;table.
+006=ImageFormatNotSupported:\
+    Format d'image non support&eacute;.
+007=ExceptionTypeNotSupported:\
+    Type d'exception non support&eacute;.
+008=StyleNotDefined:\
+    Style non d&eacute;fini.
+009=OutOfLayerBounds:\
+    Hors emprise de la couche.
+010=ParsingError:\
+    Erreur &agrave; l'analyse de la requ&ecirc;te.
+011=CurrentUpdateSequence:\
+    S&eacute;quence de mise &agrave; jour courante.
+012=InvalidUpdateSequence:\
+    S&eacute;quence de mise &agrave; incorrecte.
+013=ConfigurationError:\
+    Erreur de configuration.
+014=AuthorisationError:\
+    Erreur d'authentification.
+
+# rasdaman specific errors:
+100=ParsingError:\
+    Erreur d'ex&eacute;cution de la requ&ecirc;te de la base:.
+101=ConfigurationError:\
+    Impossible de se connecter au serveur.
+
+# rasogc specific errors:
+200=ParsingError:\
+    Erreur interne: 
+201=OperationNotSupported:\
+    Type de r&eacute;ponse XML non support&eacute; ici.
+202=OperationNotSupported:\
+    R&eacute;ponse de type BLANK non support&eacute;e ici.
+203=OperationNotSupported:\
+    R&eacute;ponse de type INIMAGE non support&eacute;e ici.
+204=ParsingError:\
+    Erreur interne: perte du format de donn&eacute;es.
+205=ParsingError:\
+    La couche ne supporte pas le syst&egrave;me de coordonn&eacute;es fourni: 
+206=ParsingError:\
+    WIDTH doit &ecirc;tre un entier positif: 
+207=ParsingError:\
+    HEIGHT doit &ecirc;tre un entier positif: 
+208=ConfigurationError:\
+    Erreur de configuration: aucune base de donn&eacute;es n'est associ&eacute;e &agrave; la couche:
+209=OperationNotSupported:\
+    l'option BACKGROUND n'est pas encore support&eacute;e.
+210=OperationNotSupported:\
+    l'option TRANSPARENT n'est pas encore support&eacute;e.
+211=StyleNotDefined:\
+    Erreur de configuration: aucun niveau de la pyramide n'a &eacute;t&eacute; trouv&eacute;: 
+212=StyleNotDefined:\
+    Aucun style ne correspond &agrave; la couche demand&eacute;e: 
+213=LayerNotDefined:\
+    Couche demand&eacute;e non d&eacute;finie:
+214=OutOfLayerBounds:\
+    Zone d'int&eacute;r&ecirc;t non compl&egrave;tement dans l'emprise de la couche: 
+215=ParsingError:\
+    Servlet non correctement initialis&eacute;e: 
+216=ParsingError:\
+    Erreur interne: type de requ&ecirc;te ill&eacute;gal.
+217=ParsingError:\
+    Erreur: requ&ecirc;te invalide: 
+218=ParsingError:\
+    Requ&ecirc;te GetFeature non support&eacute;e.
+219=ParsingError:\
+    Impossible d'ouvrir le flux d'&eacute;criture: 
+220=InvalidRequest:\
+    Param&egrave;tre REQUEST obligatoire absent.
+221=InvalidRequest:\
+    Valeur du param&egrave;tre REQUEST incoonue:
+222=InvalidRequest:\
+    Param&egrave;tre VERSION/WMTVER obligatoire absent.
+223=InvalidRequest:\
+    Incompatibilit&eacute;e des versions.
+224=InvalidRequest:\
+    Param&egrave;tre WIDTH obligatoire absent.
+225=InvalidRequest:\
+    Param&egrave;tre HEIGHT obligatoire absent.
+226=InvalidRequest:\
+    Valeur d'exception ill&eacute;gale:
+227=InvalidRequest:\
+    Param&egrave;tre LAYERS obligatoire absent.
+228=InvalidRequest:\
+    Param&egrave;tre STYLES obligatoire absent.
+229=InvalidRequest:\
+    Param&egrave;tre SRS obligatoire absent.
+230=InvalidRequest:\
+    Param&egrave;tre BBOX obligatoire absent.
+231=InvalidRequest:\
+    Valeur BBOX ill&eacute;gale: 
+232=InvalidRequest:\
+    Valeur WIDTH ill&eacute;gale: 
+233=InvalidRequest:\
+    Valeur HEIGHT ill&eacute;gale: 
+234=InvalidRequest:\
+    Nombre de valeur de STYLES ne correspond pas au nombre de LAYERS: 
+235=InvalidRequest:\
+    Valeur SERVICE ill&eacute;gale: 
+236=InvalidRequest:\
+    Valeur UPDATESEQUENCE ill&eacute;gale: 
+237=InvalidRequest:\
+    Valeur FORMAT ill&eacute;gale: 
+238=InvalidRequest:\
+    Param&egrave;tre FORMAT obligatoire absent.
+239=InvalidRequest:\
+    Valeur TIME ill&eacute;gale: 
+240=InvalidRequest:\
+    Valeur ELEVATION ill&eacute;gale: 
+241=AuthorisationError:\
+    VSyntaxe du param&egrave;tre AUTHORISATION incorrecte.
+242=AuthorisationError:\
+    &Eacute;chec &agrave; l'authentification: 
+243=CurrentUpdateSequence:\
+    S&eacute;quence de mise &agrave identique &agrave; la valeur courante.
+244=InvalidRequest:\
+    S&eacute;quence de mise &agrave sup&eacute;rieure &agrave; la valeur courante.
+245=InvalidRequest:\
+    Valeur du param&egrave;tre REQUEST vide.
+246=InvalidRequest:\
+    Valeur du param&egrave;tre LAYERS vide.
+247=InvalidRequest:\
+    Valeur du param&egrave;tre STYLES vide.
+248=InvalidRequest:\
+    Valeur du param&egrave;tre SRS vide.
+249=InvalidRequest:\
+    Valeur du param&egrave;tre BBOX vide.
+250=InvalidRequest:\
+    Valeur du param&egrave;tre FORMAT vide.
+251=InvalidRequest:\
+    Valeur du param&egrave;tre TRANSPARENCY ill&eacute;gale.
+252=InvalidRequest:\
+    Valeur du param&egrave;tre BGCOLOR ill&eacute;gale.
+253=InvalidRequest:\
+    ill&eacute;gale BBOX: xmin sup&eacute;rieur &agrave; xmax.
+254=InvalidRequest:\
+    ill&eacute;gale BBOX: ymin sup&eacute;rieur &agrave; ymax.
+255=InvalidRequest:\
+    ill&eacute;gale r&eacutesolution, doit &ecirc;tre sup&eacute;rieure &agrave; 0.
+
+# database configuration specific error
+300=ConfigurationError:\
+        Mandatory parameter needed for database configuration is missing:
+301=ConfigurationDatabaseError:\
+        Connection to configuration database failed.
+302=ServiceNotDefinedError:\
+        Service definition not found in database.
+303=ServiceNotAvailable:\
+        Service currently disabled.
+304=DatabaseConectionNotDefined:\
+        Undefined rasdaman database connection.
+305=LayersDefinitionError:\
+        Error while loading layer definitions.
+306=StyleDefinitionError:\
+        Error while loading style definitions.
+307=NoStylesDefined:\
+        No styles defined for layer:
+308=NoPyramidLevelsDefined:\
+        No pyramid levels defined for layer:
+# end of rasogc_msgs_en
+
+# end of rasogc_msgs_fr

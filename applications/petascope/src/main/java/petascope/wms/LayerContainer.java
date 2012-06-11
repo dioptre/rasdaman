@@ -23,17 +23,11 @@
  * <pre>
  * This class is used to get the actual configuration options.
  *
- * CHANGE HISTORY (append further entries):
- * when        who      what
- * ----------------------------------------------------------
- * 20-03-2002  schatz   created
- * 2003-may-15 PB       code-embedded version string
- *
  * COMMENTS:
  * A quick solution fo replacing a TreeMap which holded the layer definitions
  * needed because we want to get the layers in the same order they where defined
- * not in alfabetical order
- * Copyright (C) 2001 Dr. Peter Baumann
+ * not in alfabetical order.
+ * 
  * </pre>
  *********************************************************** */
 

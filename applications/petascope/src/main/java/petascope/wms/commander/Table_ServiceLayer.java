@@ -21,24 +21,12 @@
  */
 /************************************************************************
  *
- * SOURCE: rasgeo.Table_ServiceLayer
- *
- * PACKAGE: petascope.wms.commander
- * CLASS: Table_ServiceLayer
- *
  * PURPOSE
  * provide access to the "ServiceLayer" table of rasgeo commander.
  * There are insert, update, and fetch statements.
  *
- * CHANGE HISTORY (append further entries):
- * when         who       what
- * ----------------------------------------------------------
- * 2007-apr-09  PB        created
- * 2007-jun-28  DS        updated with availability paramter
  * COMMENTS
  * - uses CommanderConnection for JDBC access.
- *
- * Copyright (C) 2007 Dr. Peter Baumann
  *
  *********************************************************** */
 

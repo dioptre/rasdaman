@@ -21,23 +21,10 @@
  */
 /************************************************************************
  *
- * SOURCE: rasgeo.MapType
- *
- * PACKAGE: petascope.wms.commander
- * CLASS: MapType
- *
  * PURPOSE
  * auxiliary class for map type enumeration values
  *
- * CHANGE HISTORY (append further entries):
- * when         who       what
- * ----------------------------------------------------------
- * 2007-jul-27  PB        created
- *
  * COMMENTS
- * - none -
- *
- * Copyright (C) 2007 Dr. Peter Baumann
  *
  *********************************************************** */
 

@@ -24,18 +24,9 @@
  * This class contains can read the configuration saved with the commander
  * in the database and create the options needed to instantiate the service.
  *
- * CHANGE HISTORY (append further entries):
- * when        who       what
- * ----------------------------------------------------------
- * 19-05-2008  smsorin      Created
- * 2009-jan-26 PB           unified error msgs and trace output
- *                          layerInfo.getMapType delivered now
- * 2012-apr-22 pcampalani   Use String constants from Config.java
- *
  * COMMENTS:
  * The class only holds the translate method, therefore it cannot be instantiated.
  *
- * Copyright (C) 2008 Dr. Peter Baumann
  * </pre>
  *************************************************************/
 

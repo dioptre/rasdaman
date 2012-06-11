@@ -19,23 +19,6 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
-/*************************************************************
- *
- * SOURCE: hexcodec.cc
- *
- * MODULE: rasgeo
- *
- * PURPOSE:
- *
- * CHANGE HISTORY (append further entries):
- * when         who         what
- * ----------------------------------------------------------
- * 2003-jul-10  PB          cloned from exportutils
- *
- * COMMENTS:
- *
- ************************************************************/
-
 
 #include <cctype>
 #include <sstream>

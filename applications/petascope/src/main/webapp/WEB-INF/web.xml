@@ -32,7 +32,14 @@
         <!--init-param>
 		<param-name>configFile</param-name>
 		<param-value>/WEB-INF/foo.cfg</param-value>
-	    </init-param-->
+        </init-param-->
+        <!--
+                WMS error messages (EN, DE or FR available.)
+        -->
+        <init-param>
+		<param-name>messageFile</param-name>
+		<param-value>/wms-messages/raswms_msgs_en</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>PetaScope Interface</servlet-name>

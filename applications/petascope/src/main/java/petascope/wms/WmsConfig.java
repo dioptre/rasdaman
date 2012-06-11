@@ -33,24 +33,9 @@
  * empty string, <em>not</em> a <tt>null</tt> value!
  * This makes it possible to use it without checking against
  * <tt>null</tt>.
- *
- * CHANGE HISTORY (append further entries):
- * when        who       what
- * ----------------------------------------------------------
- * 09-05-2000  weber       created
- * 10-07-2001  beinhofer   changed for use in openGIS
- * 2003-may-15  PB         code-embedded version string
- * 2003-jun-09  PB         rasogc.cfg parameters for exceptions are deprecated & ignored, as all exc types are supported now
- * 2004-apr-24  PB         createCapability(), buildOGCLayerMapAndLayers(), createLayer() recognize new BoundingBox exception
- * 2004-jun-15  PB         improved error messages
- * 2005-sep-29  PB         OGCSupportxxxException: getRequired -> getOptional so that missing deprecated param doesn't crash
- * 2006-jan-04  PB         added more trace output
- * 2009-jan-26  PB         allow "" for string config parameters
- * 2012-apr-22  pcampalani Define and use String constants.
- *
+ * 
  * COMMENTS:
  *
- * Copyright (C) 2001 Dr. Peter Baumann
  * </pre>
  *************************************************************/
 package petascope.wms;

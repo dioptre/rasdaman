@@ -21,22 +21,6 @@
  */
 /*************************************************************
  *
- * SOURCE: rasgeo_util.cc
- *
- * MODULE: rasgeo
- *
- * PURPOSE:
- *
- * CHANGE HISTORY (append further entries):
- * when         who         what
- * ----------------------------------------------------------
- * 2003-jul-02  PB          created
- * 2004-mar-17  PB          more differentiated error codes for DOMAINDATAMISMATCH
- * 2004-jul-16  PB          changed obsolete occurrences of "ImportOrtho" to "RasgeoUtil"
- * 2005-feb-13  PB          floor(uint) -> floorl(uint) for gcc3
- * 2005-sep-07  PB          conditional log output
- * 2006-jan-17  PB          DEFAULT_DB -> DEFAULT_DBNAME
- *
  * COMMENTS:
  * - built from old rasodmg/test/system_update
  * - generalized to be used by (at least) all import tools
@@ -45,6 +29,7 @@
  * - --aling without --tiledupdate goes wild
  * - drop mddtype, deduce from collection type
  * - add new option --transpcolor 0xXXXXXX to set transparency
+ * 
  ************************************************************/
 
 static const char rcsid[] = "@(#)rasgeo/rasgeo_util,RasgeoUtil: $Id: rasgeo_util.cc,v 1.8 2006/01/17 09:18:33 rasdev Exp $";

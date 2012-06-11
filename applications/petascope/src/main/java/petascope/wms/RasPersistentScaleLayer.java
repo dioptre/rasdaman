@@ -24,15 +24,8 @@
  * This is a little helper class that keeps information on the rasdaman collection name, the ground resolution of the collection, and its bounding box.
  * @version $Revision: 1.3 $
  *
- * CHANGE HISTORY (append further entries):
- * when         who             what
- * ----------------------------------------------------------
- * 2003-may-15  PB      started documentation
- *                      added revision string in src
- *
  * COMMENTS:
  *
- * Copyright (C) 2001 Dr. Peter Baumann
  * </pre>
  ************************************************************/
 

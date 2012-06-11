@@ -23,8 +23,59 @@
 # or contact Peter Baumann via <baumann@rasdaman.com>.
 # ~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 #
-# SYNTAX
-#	$ $0 ARGS [OPTS]
+# SYNTAX: see below
+	ME="$( basename $0 )"
+	VALUE_KEYWORD='VALUE'
+	#
+	     NAME_ARG='--name'
+	    TITLE_ARG='--title'
+	     HOST_ARG='--host'
+	     PORT_ARG='--port'
+	     PATH_ARG='--path'
+	  FORMATS_ARG='--formats'
+	    AVAIL_ARG='--availability'
+	BASELAYER_ARG='--baselayer-name'
+	   ARGS_COUNT=8		# Update this number in case the mandatory args change
+	#
+	CONTACTPERSON_OPT='--contact-person'
+	   CONTACTORG_OPT='--contact-organization'
+	  ADDRESSTYPE_OPT='--address-type'
+	      ADDRESS_OPT='--address'
+		 CITY_OPT='--city'
+	  STATEORPROV_OPT='--state-or-province'
+	     POSTCODE_OPT='--postcode'
+	      COUNTRY_OPT='--country'
+	 CONTACTVOICE_OPT='--contact-tel'
+	   CONTACTFAX_OPT='--contact-fax'
+	 CONTACTEMAIL_OPT='--contact-email'
+	    USEQUENCE_OPT='--update-sequence'
+	     ABSTRACT_OPT='--abstract'
+	     KEYWORDS_OPT='--keywords'
+		 FEES_OPT='--fees'
+	       ACCESS_OPT='--access-constraints'
+	    VENDORCAP_OPT='--vendor-capabilities'
+	       OPTS_COUNT=17	# Update this number in case the optional args change
+	#
+	USAGE="
+	$ME
+	    $NAME_ARG $VALUE_KEYWORD
+	    $TITLE_ARG $VALUE_KEYWORD
+	    $HOST_ARG $VALUE_KEYWORD
+	    $PORT_ARG $VALUE_KEYWORD
+	    $PATH_ARG $VALUE_KEYWORD
+	    $FORMATS_ARG $VALUE_KEYWORD
+	    $AVAIL_ARG $VALUE_KEYWORD
+	    $BASELAYER_ARG $VALUE_KEYWORD
+	    [$CONTACTPERSON_OPT $VALUE_KEYWORD] [$CONTACTORG_OPT $VALUE_KEYWORD]
+	    [$ADDRESSTYPE_OPT $VALUE_KEYWORD]   [$ADDRESS_OPT $VALUE_KEYWORD]
+	    [$CITY_OPT $VALUE_KEYWORD]           [$STATEORPROV_OPT $VALUE_KEYWORD]
+	    [$POSTCODE_OPT $VALUE_KEYWORD]       [$COUNTRY_OPT $VALUE_KEYWORD]
+	    [$CONTACTVOICE_OPT $VALUE_KEYWORD]    [$CONTACTFAX_OPT $VALUE_KEYWORD]
+	    [$CONTACTEMAIL_OPT $VALUE_KEYWORD]  [$USEQUENCE_OPT $VALUE_KEYWORD]
+	    [$ABSTRACT_OPT $VALUE_KEYWORD]       [$KEYWORDS_OPT $VALUE_KEYWORD]
+	    [$FEES_OPT $VALUE_KEYWORD]           [$ACCESS_OPT $VALUE_KEYWORD]
+	    [$VENDORCAP_OPT $VALUE_KEYWORD]
+	"
 #
 # DESCRIPTION
 #       Inserts a tuple in $PETADB::$TABLE_SERVICES table.
@@ -37,69 +88,11 @@
 #       - a metadata database has been set up (usually petascopedb)
 #	- no service with the same name is present in the database
 #
-# CHANGE HISTORY
-#       2012-may-11     pcampalani	created
-#
-# COPYRIGHT (c) 2003 Dr. Peter Baumann
 #####################################################################################################
 
 #################
 #   CONSTANTS   #
 #################
-
-# Arguments 
-VALUE_KEYWORD='VALUE'
-#
-     NAME_ARG='--name'
-    TITLE_ARG='--title'
-     HOST_ARG='--host'
-     PORT_ARG='--port'
-     PATH_ARG='--path'
-  FORMATS_ARG='--formats'
-    AVAIL_ARG='--availability'
-BASELAYER_ARG='--baselayer-name'
-   ARGS_COUNT=8		# Update this number in case the mandatory args change
-#
-CONTACTPERSON_OPT='--contact-person'
-   CONTACTORG_OPT='--contact-organization'
-  ADDRESSTYPE_OPT='--address-type'
-      ADDRESS_OPT='--address'
-         CITY_OPT='--city'
-  STATEORPROV_OPT='--state-or-province'
-     POSTCODE_OPT='--postcode'
-      COUNTRY_OPT='--country'
- CONTACTVOICE_OPT='--contact-tel'
-   CONTACTFAX_OPT='--contact-fax'
- CONTACTEMAIL_OPT='--contact-email'
-    USEQUENCE_OPT='--update-sequence'
-     ABSTRACT_OPT='--abstract'
-     KEYWORDS_OPT='--keywords'
-         FEES_OPT='--fees'
-       ACCESS_OPT='--access-constraints'
-    VENDORCAP_OPT='--vendor-capabilities'
-       OPTS_COUNT=17	# Update this number in case the optional args change
-#
-USAGE=$( cat << EOF
-$0
-    $NAME_ARG $VALUE_KEYWORD
-    $TITLE_ARG $VALUE_KEYWORD
-    $HOST_ARG $VALUE_KEYWORD
-    $PORT_ARG $VALUE_KEYWORD
-    $PATH_ARG $VALUE_KEYWORD
-    $FORMATS_ARG $VALUE_KEYWORD
-    $AVAIL_ARG $VALUE_KEYWORD
-    $BASELAYER_ARG $VALUE_KEYWORD
-    [$CONTACTPERSON_OPT $VALUE_KEYWORD] [$CONTACTORG_OPT $VALUE_KEYWORD]
-    [$ADDRESSTYPE_OPT $VALUE_KEYWORD]   [$ADDRESS_OPT $VALUE_KEYWORD]
-    [$CITY_OPT $VALUE_KEYWORD]           [$STATEORPROV_OPT $VALUE_KEYWORD]
-    [$POSTCODE_OPT $VALUE_KEYWORD]       [$COUNTRY_OPT $VALUE_KEYWORD]
-    [$CONTACTVOICE_OPT $VALUE_KEYWORD]    [$CONTACTFAX_OPT $VALUE_KEYWORD]
-    [$CONTACTEMAIL_OPT $VALUE_KEYWORD]  [$USEQUENCE_OPT $VALUE_KEYWORD]
-    [$ABSTRACT_OPT $VALUE_KEYWORD]       [$KEYWORDS_OPT $VALUE_KEYWORD]
-    [$FEES_OPT $VALUE_KEYWORD]           [$ACCESS_OPT $VALUE_KEYWORD]
-    [$VENDORCAP_OPT $VALUE_KEYWORD]
-EOF
-)
 
 # Database connections
           USER=rasadmin
@@ -141,7 +134,7 @@ SERVICES_CONTACTVOICE=contactvoicetelephone
 SERVICES_CONTACTFAX=contactfacsimiletelephone
 SERVICES_CONTACTEMAIL=contactelectronicmailaddress
 SERVICES_USEQUENCE=updatesequence
-SERVICES_AVAIL=availability #TODO turn it to bool, add table contraint that only one service can be ON, then change PETASCOPE WMS!!
+SERVICES_AVAIL=availability #TODO turn it to bool, add table contraint that only one service can be ON, then change PETASCOPE WMS!
 SERVICES_ABSTRACT=abstract
 SERVICES_KEYWORDS=keywords
 SERVICES_FEES=fees
@@ -165,7 +158,7 @@ if [ $# -lt "$MIN_ARGS" -o $# -gt "$MAX_ARGS" ]; then
 fi
 
 # Store arguments value
-echo -en "\nParsing arguments... "
+echo -en "\n$ME: Parsing arguments... "
 while [ $# -gt 0 ]; do
  
        case "$1" in
@@ -218,7 +211,7 @@ echo "Done."
 ###################
 # INSERT INTO DB  #
 ###################
-echo "*** Using database $PETADB_NAME@$PETADB_HOST:$PETADB_PORT."
+echo "$ME: Using database $PETADB_NAME@$PETADB_HOST:$PETADB_PORT."
 # Export variables to open session with psql
 export PGUSER="$PETAUSER"
 export PGPASSWORD="$PETAPASSWD"
@@ -227,7 +220,7 @@ export PGPASSWORD="$PETAPASSWD"
 # TODO: allow the update of an existing WMS service
 # TODO: allow the deletion of an existing WMS service.
 # TODO: create script to activate a specified WMS service
-echo -n "Checking presence of homonymous WMS services in $PETADB_NAME::$TABLE_SERVICES... "
+echo -n "$ME: Checking presence of homonymous WMS services in $PETADB_NAME::$TABLE_SERVICES... "
 query="SELECT $SERVICES_SERVICEID FROM $TABLE_SERVICES WHERE $SERVICES_NAME='$NAME';"
 ret=$( echo "$query" | psql -f - --single-transaction -h "$PETADB_HOST" -p "$PETADB_PORT" "$PETADB_NAME" )
 #
@@ -261,7 +254,7 @@ if [ "$?"  -eq 0 ]; then
 
 	echo "$ret" | grep "$PG_INSERT_OK" 1>/dev/null
 	if [ "$?" -ne 0 ]; then
-		echo "Error while inserting tuple in $TABLE_SERVICES table of $PETADB_NAME@$PETADB_HOST:$PETADB_PORT. Postgres response:"
+		echo "$ME: Error while inserting tuple in $TABLE_SERVICES table of $PETADB_NAME@$PETADB_HOST:$PETADB_PORT. Postgres response:"
 		echo "$ret"
 		exit $RC_ERROR
 	else
@@ -270,8 +263,10 @@ if [ "$?"  -eq 0 ]; then
 	echo "Done: serviceId=$serviceID."
 else
 	serviceID=$(  echo $ret | awk 'BEGIN { FS=" " }; { print $3 };' )
-	echo -e "WMS service '$NAME' present in the database (serviceid=$serviceID).\nWill now exit..."
+	echo -e "$ME: WMS service '$NAME' present in the database (serviceid=$serviceID).\nWill now exit..."
 	exit $RC_ERROR
 fi
 
+echo
+echo "$ME: done."
 exit $RC_OK

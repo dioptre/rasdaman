@@ -21,24 +21,9 @@
  */
 /*************************************************************
  * <pre>
- * CHANGE HISTORY (append further entries):
- * when        who       what
- * ----------------------------------------------------------
- * 06-08-2001  Beinhofer created
- * 2003-may-15 PB        code-embedded version string
- *                       reorganised exception handling, concentrated all error msgs here
- * 2003-jun-04 PB        added reloadCap response string
- * 2004-apr-24 PB        added Bbox_* response strings
- * 2005-apr-18 PB        ROGC101 rephrased
- * 2005-jun-20 PB        Adapted to new WMSException message resources, no more msg texts here
- *                       web.xml parameter names maintained here
- * 2005-jul-03 PB        ERR_Followup = -1
- * 2008-may-25 PB        default thresholds for server connection balancing
- * 2009-mar-23 shikhar   added cache-related constants
  *
  * COMMENTS:
  *
- * Copyright (C) 2001 Dr. Peter Baumann
  * </pre>
  *********************************************************** */
 

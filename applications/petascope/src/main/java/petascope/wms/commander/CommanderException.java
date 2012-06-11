@@ -19,27 +19,6 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
-/** ***********************************************************
- *
- * SOURCE: CommanderException.java
- *
- * PACKAGE: petascope.wms.commander
- * CLASS: CommanderException
- *
- * CHANGE HISTORY (append further entries):
- * when         who       what
- * ----------------------------------------------------------
- * 2007-jan-05  PB        created
- *
- * Copyright (C) 2007 Dr. Peter Baumann
- *
- *********************************************************** */
-
-/*
- * RCS:
- *   $RCSfile: CommanderException.java,v $ $Revision: 1.1 $ $State: Exp $
- *   $Locker:  $
- */
 
 package petascope.wms.commander;
 

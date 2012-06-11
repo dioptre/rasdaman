@@ -21,20 +21,9 @@
  */
 /*************************************************************
  *
- * SOURCE: rasgeo_globals.cc
- *
- * MODULE: rasgeo
- *
  * PURPOSE:
  * provide global basic services used by the rasgeo tools:
  * signal handling, db/ta open/close, ...
- *
- * CHANGE HISTORY (append further entries):
- * when         who         what
- * ----------------------------------------------------------
- * 2003-jul-02  PB          cloned from rasodmg/test/system_basic.cc
- *
- * COMMENTS:
  *
  ************************************************************/
 

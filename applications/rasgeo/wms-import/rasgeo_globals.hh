@@ -21,30 +21,9 @@
  */
 /*************************************************************
  *
- * INCLUDE: globals.hh
- * Contains general defs used by the rasgeo tools and
+ * PURPOSE: Contains general defs used by the rasgeo tools and
  * provides uniform command line parameter definitions (names,
  * defaults, help texts) for the parameters used.
- *
- * CHANGE HISTORY (append further entries):
- * when         who	what
- * ----------------------------------------------------------
- * 2003-jul-10	PB	created
- * 2003-aug-26	PB	user and passwd are mandatory
- * 2003-oct-06	PB	inputformat: "ASC" synonymous for "DEM", new "int16"
- * 2003-oct-22	PB	remove unused *_FLIP; *_NOFLIPY flag param
- * 2003-dec-02	PB	added exportdem section
- *                      DEFAULT_USER, DEFAULT_PASSWD set to "rasguest"
- * 2005-apr-27	PB	added TIF32
- * 2005-jul-19	PB	added NTF to help_input
- * 2005-jul-19	PB	added VERBOSE
- * 2005-dec-21	PB	added --tifftag, --bbox ingredients
- * 2005-dec-31	PB	added --geotiftag
- * 2006-jan-17	PB	use globals.hh
- * 2007-may-09	PB	corrected NOFLIPY text
- * 2007-dec-03	PB	subdivided tiling parameter, added SEGY
- *
- * COMMENTS:
  *
  ************************************************************/
 

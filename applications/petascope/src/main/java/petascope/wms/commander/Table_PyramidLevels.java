@@ -21,24 +21,12 @@
  */
 /************************************************************************
  *
- * SOURCE: rasgeo.Table_PyramidLevel
- *
- * PACKAGE: petascope.wms.commander
- * CLASS: Table_PyramidLevel
- *
  * PURPOSE
  * provide access to the "PyramidLevel" table of rasgeo commander.
  * There are insert, update, and fetch statements.
  *
- * CHANGE HISTORY (append further entries):
- * when         who       what
- * ----------------------------------------------------------
- * 2007-apr-09  PB        created
- *
  * COMMENTS
  * - uses CommanderConnection for JDBC access.
- *
- * Copyright (C) 2007 Dr. Peter Baumann
  *
  *********************************************************** */
 

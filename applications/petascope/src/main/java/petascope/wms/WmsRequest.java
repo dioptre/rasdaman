@@ -22,38 +22,11 @@
 /*************************************************************
  * <pre>
  * class for parsing the parameters passed to the WmsServlet.  it supports version 1.1.0 and 1.0.0 requests.
- * @version $Revision: 1.3 $
- *
- * CHANGE HISTORY (append further entries):
- * when		who		what
- * ----------------------------------------------------------
- * 12-09-2001	Beinhofer	created
- * 2003-may-15	PB	   restarted documentation
- * 2003-may-15  PB         code-embedded version string
- *			   changed enum values so 0 can be UNDEF
- *			   catch exceptions in parseRequest() and always return valid object
- *			   new variable answerPossible to show if object is minimally valid
- *			   new variable valid to indicate if request object is valid
- * 			   rearranged parseMapRequest() code to find WIDTH/HEIGTH/EXCEPTION first
- *                         data format indicator case insensitive
- *
- * 2003-may-16  PB         added RELOAD_CAPABILITIES request type
- * 2004-feb-10  PB         prepareRequestParamTable(): added charset conversion
- *                         bug fix in prepareRequestParamTable(): param/value pair "p=" doesn't crash
- *                         parseMapRequest(): allow less style elements than layer elements in request
- *                         partial reformatting; debug output added
- * 2004-apr-24  PB         updated parseRequest() doc: no exception thrown
- *                         bug fix: this class was not thread safe; changed static vars/methods to non-static
- *                         added static counter to label request instances, plus debug output wrappers
- *                         plausi check for non-positive WIDTH, HEIGHT
- * 2005-jul-13  PB         transparency supported now
- * 2012-apr-22  pcampalani Define String constants.
+ * @version $Revision: 1.3 $ 
  *
  * COMMENTS:
- * - must be thread-safe!
  * - FIXME: ReloadCapabilities only supports XML response
  *
- * Copyright (C) 2001 Dr. Peter Baumann
  * </pre>
  *********************************************************** */
 package petascope.wms;

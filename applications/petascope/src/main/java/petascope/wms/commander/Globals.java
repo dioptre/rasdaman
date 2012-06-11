@@ -20,32 +20,14 @@
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 /** ******************************************************************
- *
- * SOURCE: rasgeo.Globals
- *
- * PACKAGE: petascope.wms.commander
- * CLASS: Globals
- *
+ * 
  * PURPOSE:
  * This interface contains the global definitions and values.
  * They are either used cross-Java-source, or even in the
  * JavaScript code of commander.js etc.
  * Hence, BEWARE that all changes here must be in sync with all places affected!
  *
- * CHANGE HISTORY (append further entries):
- * when         who       what
- * ----------------------------------------------------------
- * 2007-jan-05  PB        created
- * 2007-jun-26  DS        added availability paramaters
- * 2008-jun-07  DS        DEFAULT_SCRIPTDIR changed to WEB-INF/bin; deleted unused DEFAULT_MGRDIR
- * 2008-jun-11  DS        more SCRIPT_* constants
- * 2009-feb-26  PB        added HTML_LAYER_MAPTYPE_OPTIONS
- * 2012-apr-23 pcampalani Changed tables' prefixes to PS (for PetaScope)
- *
  * COMMENTS:
- * - none
- *
- * Copyright (C) 2007 Dr. Peter Baumann
  *
  ****************************************************************** */
 

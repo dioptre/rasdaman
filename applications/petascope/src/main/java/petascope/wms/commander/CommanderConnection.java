@@ -21,11 +21,6 @@
  */
 /************************************************************************
  *
- * SOURCE: rasgeo.CommanderConnection
- *
- * PACKAGE: petascope.wms.commander
- * CLASS: CommanderConnection
- *
  * PURPOSE
  * maintains database connection, using the Singleton patternn.
  * The connection is opened and closed explicitly.
@@ -34,17 +29,8 @@
  * Statement processing is available for both parametrized, prepared queries
  * and for ad-hoc queries (parametrized NOT YET).
  *
- * CHANGE HISTORY (append further entries):
- * when         who       what
- * ----------------------------------------------------------
- * 2007-jan-05  PB        created
- * 2007-feb-14  SS        modified to work with the local configuration
- * 2008-may-10  CJ        added getConnection()
- *
  * COMMENTS
  * - uses TableLocked for maintaining a temporary lock against concurrent use
- *
- * Copyright (C) 2007 Dr. Peter Baumann
  *
  *********************************************************** */
 

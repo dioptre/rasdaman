@@ -1,0 +1,217 @@
+# ~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+# This file is part of rasdaman community.
+#
+# Rasdaman community is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Rasdaman community is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyright 2003, 2004, 2005, 2006, 2007, 2008, 2009 Peter Baumann /
+# rasdaman GmbH.
+#
+# For more information please see <http://www.rasdaman.org>
+# or contact Peter Baumann via <baumann@rasdaman.com>.
+# ~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+#
+# PURPOSE:
+# Provide a list of all rasogc error messages, plus shorthands.
+# By convention, error texts ending with a colon ":" are
+# expected to get appended detailing information.
+#
+# SYNTAX:
+#       <nr>=<short>:<long>
+# where
+#       <nr>    message identifier (decimal digits)
+#       <short> message text shorthand, must not contain "|"
+#       <long>  long message text
+# Use HTML entities for non-ASCII characters!
+# Continuation lines are possible with a "\" at the end of the line.
+# Leading whitespace in a line is eaten up.
+#
+# The nr code is used internally as message identifier, DO NOT CHANGE IT!
+
+# internally used followup exception indicator:
+000=ParsingError:\
+    Request received does not conform with OGC WMS syntax.
+
+# WMS standard errors (not used directly):
+001=OperationNotSupported:\
+    Operation not yet supported.
+002=InvalidRequest:\
+    InvalidRequest.
+003=InvalidSRS:\
+    SRS not supported.
+004=LayerNotDefined:\
+    LayerNotDefined.
+005=LayerNotQueryable:\
+    LayerNotQueryable.
+006=ImageFormatNotSupported:\
+    ImageFormatNotSupported.
+007=ExceptionTypeNotSupported:\
+    ExceptionTypeNotSupported.
+008=StyleNotDefined:\
+    StyleNotDefined.
+009=OutOfLayerBounds:\
+    OutOfLayerBounds.
+010=ParsingError:\
+    ParsingError.
+011=CurrentUpdateSequence:\
+    CurrentUpdateSequence.
+012=InvalidUpdateSequence:\
+    InvalidUpdateSequence.
+013=ConfigurationError:\
+    ConfigurationError.
+014=AuthorisationError:\
+    AuthorisationError.
+
+# rasdaman specific errors:
+100=ParsingError:\
+    Database query evaluation error: 
+101=ConnectionError:\
+    All server processes currently busy, please retry.
+	
+# rasogc specific errors:
+200=ParsingError:\
+    Internal error: 
+201=OperationNotSupported:\
+    Exception response type XML not supported here.
+202=OperationNotSupported:\
+    Exception response type BLANK not supported.
+203=OperationNotSupported:\
+    Exception response type INIMAGE not supported here.
+204=ParsingError:\
+    Internal error: Data format lost.
+205=ParsingError:\
+    Layer does not support SRS requested:
+206=ParsingError:\
+    WIDTH must be a positive integer, got: 
+207=ParsingError:\
+    HEIGHT must be a positive integer, got: 
+208=ConfigurationError:\
+    Configuration error: no database object associated with layer: 
+209=OperationNotSupported:\
+    BACKGROUND option not yet supported.
+210=OperationNotSupported:\
+    TRANSPARENT option not yet supported.
+211=StyleNotDefined:\
+    Configuration error: no suitable pyramid layer found: 
+212=StyleNotDefined:\
+    No such style defined for requested layer: 
+213=LayerNotDefined:\
+    Requested layer not defined: 
+214=OutOfLayerBounds:\
+    Area requested not completely within layer bounding box: 
+215=ParsingError:\
+    Servlet not correctly initialised: 
+216=ParsingError:\
+    Internal error: illegal request type.
+217=ParsingError:\
+    Error: Invalid request object: 
+218=ParsingError:\
+    GetFeature request not supported.
+219=ParsingError:\
+    Cannot open output stream: 
+220=InvalidRequest:\
+    Mandatory Parameter REQUEST is missing.
+221=InvalidRequest:\
+    Unknown REQUEST parameter value: 
+222=InvalidRequest:\
+    Mandatory parameter VERSION/WMTVER is missing.
+223=InvalidRequest:\
+    Version mismatch.
+224=InvalidRequest:\
+    Mandatory parameter WIDTH is missing.
+225=InvalidRequest:\
+    Mandatory parameter HEIGHT is missing.
+226=InvalidRequest:\
+    Illegal EXCEPTIONS value: 
+227=InvalidRequest:\
+    Mandatory parameter LAYERS is missing.
+228=InvalidRequest:\
+    Mandatory parameter STYLES is missing.
+229=InvalidRequest:\
+    Mandatory parameter SRS is missing.
+230=InvalidRequest:\
+    Mandatory parameter BBOX is missing.
+231=InvalidRequest:\
+    Illegal BBOX value: 
+232=InvalidRequest:\
+    Illegal WIDTH value: 
+233=InvalidRequest:\
+    Illegal HEIGHT value: 
+234=InvalidRequest:\
+    Number of STYLES parameters does not match number of LAYERS parameters: 
+235=InvalidRequest:\
+    Illegal SERVICE value: 
+236=InvalidRequest:\
+    Illegal UPDATESEQUENCE value: 
+237=InvalidRequest:\
+    Illegal FORMAT value: 
+238=InvalidRequest:\
+    Mandatory parameter FORMAT is missing.
+239=InvalidRequest:\
+    Illegal TIME value: 
+240=InvalidRequest:\
+    Illegal ELEVATION value: 
+241=AuthorisationError:\
+    Illegal authorentication parameter syntax.
+242=AuthorisationError:\
+    Authentication failed: 
+243=CurrentUpdateSequence:\
+    Update sequence is the same as current value.
+244=InvalidRequest:\
+    Update sequence is higher than current value.
+245=InvalidRequest:\
+    Empty REQUEST parameter value.
+246=InvalidRequest:\
+    Empty LAYERS parameter value.
+247=InvalidRequest:\
+    Empty STYLES parameter value.
+248=InvalidRequest:\
+    Empty SRS parameter value.
+249=InvalidRequest:\
+    Empty BBOX parameter value.
+250=InvalidRequest:\
+    Empty FORMAT parameter value.
+251=InvalidRequest:\
+    Illegal TRANSPARENCY parameter value.
+252=InvalidRequest:\
+    Illegal BGCOLOR parameter value.
+253=InvalidRequest:\
+    Illegal BBOX: lower x boundary higher than upper boundary.
+254=InvalidRequest:\
+    Illegal BBOX: lower y boundary higher than upper boundary.
+255=InvalidRequest:\
+    Illegal resolution, must be greater than zero.
+
+# database configuration specific error	
+300=ConfigurationError:\
+	Mandatory parameter needed for database configuration is missing:
+301=ConfigurationDatabaseError:\
+	Connection to configuration database failed.
+302=ServiceNotDefinedError:\
+	Service definition not found in database.
+303=ServiceNotAvailable:\
+	Service currently disabled.
+304=DatabaseConectionNotDefined:\
+	Undefined rasdaman database connection.
+305=LayersDefinitionError:\
+	Error while loading layer definitions.
+306=StyleDefinitionError:\
+	Error while loading style definitions.
+307=NoStylesDefined:\	
+	No styles defined for layer:
+308=NoPyramidLevelsDefined:\
+	No pyramid levels defined for layer:	
+309=NotInit:\
+	Cannot query configuration before it is initialized.	
+# end of rasogc_msgs_en
+

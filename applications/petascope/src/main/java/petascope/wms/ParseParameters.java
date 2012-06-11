@@ -21,23 +21,10 @@
  */
 /*************************************************************
  * <pre>
- * SOURCE:  ParseParameters.java
- *
- * PACKAGE: raswms
- * CLASS:   ParseParameters
  *
  * PURPOSE:
- * unused!
- *
- * CHANGE HISTORY (append further entries):
- * when        who         what
- * ----------------------------------------------------------
- * 05-07-2001  Beinhofer   created
- * 2012-apr-22 pcampalani  Refer to String constants for parsing.
  *
  * COMMENTS:
- *
- * Copyright (C) 2003 Dr. Peter Baumann
  *
  * </pre>
  *********************************************************** */

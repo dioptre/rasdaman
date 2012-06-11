@@ -28,14 +28,17 @@
 # SYNTAX
 	ME="$( basename $0 )"
 	ARG_KEEPPYR="--keep-pyramids"
-	USAGE1="usage: $ME <layerName> [$ARG_KEEPPYR]"
-	USAGE2="where"
-	USAGE3="    <layerName> must be an existing WMS layer in Petascope."
-	USAGE4="    $ARG_KEEPPYR might be optionally set to keep the related pyramid collections in rasdaman."
-#
-#USAGE4="    $ARG_METADATA can be used to update the associated WMS metadata (in case 
-#	    of a change in the extents of the coverage)."
-#
+	ARG_DELSERVICE="--del-service"
+	USAGE="
+	usage: $ME <layerName> [$ARG_KEEPPYR] [$ARG_DELSERVICE]
+	where
+		<layerName> must be an existing WMS layer in Petascope.
+		$ARG_KEEPPYR might be optionally set to keep the related pyramid collections in rasdaman.
+		$ARG_DELSERVICE to reset the service (delete all the layers and remove the service).
+	"
+	# In case the usage changes, consequently adjust these values:
+	MIN_ARGS=1
+	MAX_ARGS=3
 # DESCRIPTION
 #  	Given a previously published WMS layer from an existing rasdaman collection 
 #	(via init_wms.sh utility), this script just reverts the situation, unpublishing
@@ -51,14 +54,9 @@
 #	- rasgeo connectfile is set up in $HOME/.rasdaman/ (see rasgeo README file);
 #       - of course, rasdaman and postgres are up and running.
 #
-# CHANGE HISTORY
-#       2012-jun-04     pcampalani      created
-#
 # TODO: 
 #    ...
 #
-# COPYRIGHT (c) 2003 Dr. Peter Baumann
-
 # --- DEFAULTS ------------------------------------------------------
 
 # user / password for logging in to rasdaman
@@ -97,6 +95,7 @@ PASSWD_OPT='--passwd'
  DROP_COMM='drop collection'
 
 # Tables to be updated in the metadata database
+     TABLE_SERVICES=ps_services
  TABLE_SERVICELAYER=ps_servicelayer
        TABLE_LAYERS=ps_layers
        TABLE_STYLES=ps_styles
@@ -125,35 +124,33 @@ WMS_RELOADCAPABILITIES='reloadcapabilities'
 
 # --- PARAMETER EVALUATION ------------------------------------------
 
-echo "Using databases {$RASDB_NAME,$PETADB_NAME}@$RAS_HOST:$PG_PORT."
+echo "$ME: Using databases {$RASDB_NAME,$PETADB_NAME}@$RAS_HOST:$PG_PORT."
 
 # check whether wget tool is available
 if [ ! -x "$WGET" ]
 then
-	echo "$ME: $ERROR_WGET"
+	echo "$ME: ERROR: $WGET is not executable."
 	exit $RC_ERROR
 fi
 
 # check number of parameters
-if [ $# -lt 1 -o $# -gt 2 ]
+if [ $# -lt $MIN_ARGS -o $# -gt $MAX_ARGS ]
 then
-	echo "$USAGE1"
-	echo "$USAGE2"
-	echo "$USAGE3"
-	echo "$USAGE4"
+	echo "$USAGE"
 	exit $RC_ERROR
 fi
 
 # get parameters and check them
 layerName="$1"
-KEEPPYR="$( [[ "$2" = "$ARG_KEEPPYR" ]] && echo "$2" || echo "$2" )"
-if [ "$KEEPPYR" != "$ARG_KEEPPYR" -a "$KEEPPYR" != "" ]; then
-        echo "$USAGE1"
-        echo "$USAGE2"
-        echo "$USAGE3"
-        echo "$USAGE4"
-        exit $RC_ERROR
-fi
+while [ $# -gt 0 ]; do 
+	case "$1" in
+          $ARG_KEEPPYR)    KEEPPYR="$1";;
+ 	  $ARG_DELSERVICE) DELSERVICE="$1";;
+ 	  $layerName);;
+          *) echo -e "(!) Unknown argument \"$1\".\n $USAGE"; exit $RC_ERROR;;
+	esac
+        shift
+done
 
 # Check existence of WMS layer
 query="	SELECT $LAYERS_LAYERID FROM $TABLE_LAYERS WHERE $LAYERS_NAME = '$layerName'; "
@@ -162,11 +159,11 @@ ret=$( echo "$query" | psql -f - --single-transaction -h "$RAS_HOST" -p "$PG_POR
 #
 echo "$ret" | grep "$PG_SELECT_NULL" 1>/dev/null
 if [ "$?" -eq 0 ]; then
-	echo "ERROR: "$layerName" must be an existing collection in $PETADB_NAME@$RAS_HOST:$PG_PORT."
+	echo "$ME: ERROR: "$layerName" must be an existing collection in $PETADB_NAME@$RAS_HOST:$PG_PORT."
 	exit $RC_ERROR
 else 
 	layerId=$( echo "$ret" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=" " }; { print $3 };' )
-	echo "WMS layer $layerName has ID #$layerId."
+	echo "$ME: WMS layer $layerName has ID #$layerId."
 
 fi
 
@@ -174,7 +171,7 @@ fi
 # --- ACTION --------------------------------------------------------
 
 if [ "$KEEPPYR" != "$ARG_KEEPPYR" ]; then
-	echo -n "Dropping pyramid collections associated to $layerName... "
+	echo -n "$ME: Dropping pyramid collections associated to $layerName... "
 	# Fetch pyramid collection names (don't remove baselayer!)
 	query=" SELECT $TABLE_PYRAMIDLEVELS.$PYRAMIDLEVELS_COLLECTIONNAME, $TABLE_PYRAMIDLEVELS.$PYRAMIDLEVELS_SCALEFACTOR
 		FROM $TABLE_PYRAMIDLEVELS, $TABLE_LAYERS
@@ -184,20 +181,34 @@ if [ "$KEEPPYR" != "$ARG_KEEPPYR" ]; then
 		pyramidName=$( echo "$line" | awk 'BEGIN {FS=" " }; { print $1 };' )
 		pyramidFactor=$( echo "$line" | awk 'BEGIN {FS=" " }; { print $3 };' )
 		if [ "$pyramidFactor" -ne 1 ]; then 
-			echo -n "Dropping pyramid level $pyramidName... "
+			echo -n "$ME: Dropping pyramid level $pyramidName... "
 			"$RASQL" "$QUERY_OPT" "$DROP_COMM $pyramidName" "$USER_OPT" "$USER" "$PASSWD_OPT" "$PASSWD" 1>/dev/null
 			echo "Done."
 		fi
 	done <<< "$( echo "$query" | psql -f - --single-transaction -h "$RAS_HOST" -p "$PG_PORT" "$PETADB_NAME"  | grep "$COLLNAME"_ )"
 fi
 
-echo "Cleaning WMS metadata of $layerName... "
+echo "$ME: Cleaning WMS metadata of $layerName... "
 for wmsTable in "$TABLE_PYRAMIDLEVELS" "$TABLE_STYLES" "$TABLE_SERVICELAYER" "$TABLE_LAYERS"; do
-	echo -n "Removing metadata from $wmsTable... "
+	echo -n "$ME: Removing metadata from $wmsTable... "
 	query=" DELETE FROM $wmsTable WHERE $LAYERS_LAYERID = $layerId; "
 	ret=$( echo "$query" | psql -f - --single-transaction -h "$RAS_HOST" -p "$PG_PORT" "$PETADB_NAME" )
 	echo "Done."
 done
+
+# If WMS need to be reset, then just remove all metadata from the tables:
+if [ "$DELSERVICE" = "$ARG_DELSERVICE" ]; then
+	echo -n "$ME: Dropping all tuples from WMS tables... "
+	query=" 
+		DELETE FROM $TABLE_PYRAMIDLEVELS;
+		DELETE FROM $TABLE_STYLES;
+		DELETE FROM $TABLE_SERVICELAYER;
+		DELETE FROM $TABLE_SERVICES;
+		DELETE FROM $TABLE_LAYERS;
+	"
+	ret=$( echo "$query" | psql -f - --single-transaction -h "$RAS_HOST" -p "$PG_PORT" "$PETADB_NAME" )
+	echo "$ME: done."
+fi
 
 # reload new capabilities file into rasogc
 echo "$ME: reloading capabilities into rasgeo URL=$PETASCOPEWMS_URL..."

@@ -23,19 +23,8 @@
  * <pre>
  * Class for representing an wms bounding box.
  *
- * CHANGE HISTORY (append further entries):
- * when         who       what
- * ----------------------------------------------------------
- * 06-07-2001   Beinhofer created
- * 2003-may-15  PB        code-embedded version string
- * 2004-apr-24  PB        constructors: parameter plausi check with exception
- * 2005-jun-20  PB        added disjoint()
- *                        bugfix in covers(): maxY coordinate was not checked
- * 2005-oct-07  PB        srs unused -> commented
- *
  * COMMENTS:
  *
- * Copyright (C) 2001 Dr. Peter Baumann
  * </pre>
  ************************************************************/
 

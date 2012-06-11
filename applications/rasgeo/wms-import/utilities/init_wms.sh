@@ -30,13 +30,22 @@
 # Scale factors of the pyramid levels which will be created on top of the base layer ('1').
 # Baselayer (factor1) must be already be existing in RASBASE.
 	LEVELS_STRING='2:4:8:16:32:64:128:256'
+	PYRAMID_ARG='-l'
+	HOST_ARG='-h'
+	PORT_ARG='-p'
 	ME="$( basename $0 )"
-	USAGE1="usage: $ME <layerName> <collName> <crs> [<pyramidLevels>]"
-	USAGE2="where"
-	USAGE3="    <layerName> is the arbitrary name for the /new/ WMS layer."
-	USAGE4="    <collName> must be an existing collection in rasdaman (but not already a published WMS coverage)."
-	USAGE5="    <crs> is the 2D Coordinate Reference System and must be expressed as AUTHORITY:CODE (e.g. EPSG:4326)"
-	USAGE6="    <pyramidLevels> must be a string of colon-separated scale factors, one for each pyramid. Default is '$LEVELS_STRING'. Each scale factor must be twice the previous one."
+	USAGE="
+	usage: $ME <layerName> <collName> <crs> [$PYRAMID_ARG <pyramidLevels>] [$HOST_ARG <host>] [$PORT_ARG <port>]
+	where
+		<layerName> is the arbitrary name for the /new/ WMS layer;
+		<collName> must be an existing collection in rasdaman (but not already a published WMS coverage);
+		<crs> is the 2D Coordinate Reference System and must be expressed as AUTHORITY:CODE (e.g. EPSG:4326);
+		<pyramidLevels> must be a string of colon-separated scale factors, one for each pyramid. Default is '$LEVELS_STRING'. Each scale factor must be twice the previous one.
+		<host:port> of the WMS (->Petascope): important for for pluggin the WMS service into client softwares [default localhost:8080]. Argument are considered if this is the first WMS layer that is added, hence no WMS service has previously been defined.
+	"
+	# In case the usage changes, consequently adjust these values:
+	MIN_ARGS=3
+	MAX_ARGS=9
 #
 # DESCRIPTION
 #       Given an existing 2D coverage in rasdaman, the script fetches its metadata
@@ -72,7 +81,6 @@
 #    - what if X resolution != Y resolution?
 #    - ...
 #
-
 # --- DEFAULTS ------------------------------------------------------
 # --- values here can (and should) be adjusted to local choices -----
 
@@ -101,14 +109,7 @@ PETADB_NAME="$(cat $CONNECT_FILE | grep $PETADBNAME_KEY | awk 'BEGIN { FS="=" };
 # --- CONSTANTS -----------------------------------------------------
 # --- do not change anything here unless you have a real clue
 
-
-ERROR_MISSING_PARAMETER="EIN000 Error: wrong number of parameters."
-    ERROR_BASEVAR_WRONG="EIN001 Error: environment variable RMANHOME does not point to the rasdaman/rasgeo directory:"
-ERROR_CANNOT_CREATE_MAP="EIN004 Error: cannot initialize rasdaman map."
-  ERROR_ILLEGAL_MAPTYPE="EIN005 Error: illegal map type specification:"
-             ERROR_WGET="EIN008 Error: cannot find wget utility."
-
-INITPROG="$( which initpyramid )"
+INITPROG="initpyramid"
 WGET="$( which wget )"
 
 # temp file names
@@ -118,9 +119,9 @@ TEMPFILE=`mktemp /tmp/$ME.output.XXXXXX`
 PRECISION=10
 
 # known options for map types
-MAPTYPE_GREY=GreySet
-MAPTYPE_RGB=RGBSet
-MAPTYPE_DEM=DoubleSet
+GREY_COLLTYPE=GreySet
+RGB_COLLTYPE=RGBSet
+DEM_COLLTYPE=DoubleSet
 # aliases for fillpyramid
 MAPTYPE_GREY_WMS=GREY
 MAPTYPE_RGB_WMS=RGB
@@ -128,7 +129,7 @@ MAPTYPE_DEM_WMS=DEM
 # aliases for initpyramid
 MAPTYPE_GREY_INIT=gray8
 MAPTYPE_RGB_INIT=rgb24
-MAPTYPE_DEM_INIT=
+MAPTYPE_DEM_INIT=dem32
 
 # Tables to be used to fetch metadata in rasdaman
 TABLE_MDDCOLLNAMES=ras_mddcollnames
@@ -217,13 +218,14 @@ DEFAULT_AVAILABILITY=2
      WMS_SERVICENAME='default_WMS'
       PYRAMID_SUFFIX='pyr' # suffix which is appended to the baselayer name for pyramids
 # WGS84 CRS identifiers for gdaltransform
-WGS84='EPSG:4326'
+               WGS84='EPSG:4326'
+         QL_MAXCELLS=max_cells
+              QL_OUT='Result element 1:'
 
 # WMS service
 PETASCOPE_HOST='localhost'
 PETASCOPE_PORT=8080
 WMS_PATH='petascope/wms'
-PETASCOPEWMS_URL="http://$PETASCOPE_HOST:$PETASCOPE_PORT/$WMS_PATH"	# add argument option?
 WMS_VERSION='1.1.0'
 WMS_RELOADCAPABILITIES='reloadcapabilities'
 JPEG_FORMAT='image/jpeg'		# For supported image output formats see petascope.wms.WmsRequest.java::WMSREQ_FORMAT_*
@@ -235,8 +237,7 @@ TIFF_FORMAT='image/tiff'
 #BLANK_FORMAT='application/vnd.ogc.se_blank'
 # Format list must use colons ';' as separator, see  petascope.wms.WmsConfig.java::buildWMSFormatsList()
 WMS_FORMATS="$JPEG_FORMAT;$PNG_FORMAT;$TIFF_FORMAT"  
-WMS_SERVICE_INSERT='./add_wms_service.sh'
-
+WMS_SERVICE_INSERT="$( locate add_wms_service.sh )"
 # PSQL return values
   PG_INSERT_OK="INSERT 0 1"
 PG_SELECT_NULL="(0 rows)"
@@ -247,24 +248,24 @@ PG_SELECT_NULL="(0 rows)"
 
 # --- PARAMETER EVALUATION ------------------------------------------
 
-echo "Using databases {$RASDB_NAME,$PETADB_NAME}@$RAS_HOST:$PG_PORT."
+echo "$ME: Using databases {$RASDB_NAME,$PETADB_NAME}@$RAS_HOST:$PG_PORT."
 
-# check whether wget tool is available
+# check whether the required tools are available
 if [ ! -x "$WGET" ]
 then
-	echo "$ME: $ERROR_WGET"
+	echo "$ME: ERROR: $WGET is not executable."
+	exit $RC_ERROR
+fi
+if [ ! -x "$WMS_SERVICE_INSERT" ]
+then
+	echo "$ME: ERROR: $WMS_SERVICE_INSERT is not executable."
 	exit $RC_ERROR
 fi
 
 # check number of parameters
-if [ $# -lt 3 -o $# -gt 4 ]
+if [ $# -lt $MIN_ARGS -o $# -gt $MAX_ARGS ]
 then
-	echo "$USAGE1"
-	echo "$USAGE2"
-	echo "$USAGE3"
-	echo "$USAGE4"
-	echo "$USAGE5"
-	echo "$USAGE6"
+	echo "$USAGE"
 	exit $RC_ERROR
 fi
 
@@ -272,21 +273,30 @@ fi
 MAPNAME=$1
 COLLNAME=$2
 CRS=$3
-LEVELS_STRING=$( [[ "$4" = "" ]] && echo $LEVELS_STRING || echo "$4" )
+echo -en "\n$ME: Parsing arguments... "
+while [ $# -gt 0 ]; do 
+	case "$1" in
+          $PYRAMID_ARG) LEVELS_STRING="$2";  shift;;
+ 	  $HOST_ARG)    PETASCOPE_HOST="$2"; shift;;
+ 	  $PORT_ARG)    PETASCOPE_PORT="$2"; shift;;
+	esac
+        shift
+done
+PETASCOPEWMS_URL="http://$PETASCOPE_HOST:$PETASCOPE_PORT/$WMS_PATH"
 
 if [ ! -d $RMANHOME ]
 then
-	echo "$ME: $ERROR_BASEVAR_WRONG $RMANHOME"
+	echo "$ME: ERROR: environment variable RMANHOME does not point to the rasdaman/rasgeo directory: $RMANHOME"
 	exit $RC_ERROR
 fi
 
 # Check existence of rasdaman collection 
-flag=0
+collExists=0
 while read coll; do 
-	if [ "$coll" = "$COLLNAME" ]; then flag=1; fi
+	if [ "$coll" = "$COLLNAME" ]; then collExists=1; fi
 done <<< "$( rasql -q "select r from RAS_COLLECTIONNAMES as r" --out string | grep "Result object" | awk 'BEGIN { FS=" "}; { print $4 };' )"
-if [ "$flag" -eq 0 ]; then
-	echo "ERROR: "$COLLNAME" must be an existing collection in $RASDB_NAME@$RAS_HOST:$PG_PORT."
+if [ "$collExists" -eq 0 ]; then
+	echo "$ME: ERROR: "$COLLNAME" must be an existing collection in $RASDB_NAME@$RAS_HOST:$PG_PORT."
 	exit $RC_ERROR
 fi
 
@@ -296,7 +306,7 @@ ret=$( echo "$query" | psql -f - --single-transaction -h "$RAS_HOST" -p "$PG_POR
 #
 echo "$ret" | grep "$PG_SELECT_NULL" 1>/dev/null
 if [ "$?" -ne 0 ]; then
-	echo "ERROR: "$MAPNAME" already exists in $PETADB_NAME@$RAS_HOST:$PG_PORT."
+	echo "$ME: ERROR: "$MAPNAME" already exists in $PETADB_NAME@$RAS_HOST:$PG_PORT."
 	exit $RC_ERROR
 fi
 
@@ -309,7 +319,7 @@ ret=$( echo "$query" | psql -f - --single-transaction -h "$RAS_HOST" -p "$PG_POR
 echo "$ret" | grep "$PG_SELECT_NULL" 1>/dev/null
 if [ "$?" -ne 0 ]; then
 	wmsName=$( echo "$ret" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=" " }; { print $3 };' )
-	echo "ERROR: "$COLLNAME" was already published as WMS layer in $PETADB_NAME@$RAS_HOST:$PG_PORT, as '$wmsName'."
+	echo "$ME: ERROR: "$COLLNAME" was already published as WMS layer in $PETADB_NAME@$RAS_HOST:$PG_PORT, as '$wmsName'."
 	exit $RC_ERROR
 fi
 
@@ -319,18 +329,18 @@ fi
 
 # Deletes previously inserted pyramid collections in RASBASE after failures in metadata insertion:
 function rollback {
-	echo -n "Rollback: "
+	echo "$ME: Rollback: "
 	while read coll; do 
 		echo -n "  Deleting $coll... "
 		rasql -q "drop collection $coll" --user $USER --passwd $PASSWD 1>/dev/null
 		echo "Done."
 	done <<< "$( rasql -q "select r from RAS_COLLECTIONNAMES as r" --out string | grep "$COLLNAME"_"$PYRAMID_SUFFIX" | awk 'BEGIN { FS=" "}; { print $4 };' )"
-	echo "Done."
+	echo "$ME: Done."
 }
 
 # --- ACTION --------------------------------------------------------
 
-echo -n "Fetching metadata of $COLLNAME... "
+echo "$ME: Fetching metadata of $COLLNAME... "
 
 # Fetch metadata of the collection:
 query="	SELECT $SETTYPES_TYPENAME FROM $TABLE_MDDCOLLNAMES, $TABLE_SETTYPES 
@@ -341,26 +351,25 @@ ret=$( echo "$query" | psql -f - --single-transaction -h "$RAS_HOST" -p "$PG_POR
 echo "$ret" | grep "$PG_SELECT_OK" 1>/dev/null
 if [ "$?" -eq 0 ]; then
 	MAPTYPE=$(  echo "$ret" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=" " }; { print $3 };' )
-	#echo @@@ MAPTYPE=$MAPTYPE # Debug
 else 
-	echo "ERROR: could not fetch data type from $RASDB_NAME."
+	echo "$ME: ERROR: could not fetch data type from $RASDB_NAME."
 	exit $RC_ERROR
 fi
 # standardise maptype keyword, with special care for initpyramid call
-if [ "$MAPTYPE" == "$MAPTYPE_GREY" ]; then
+if [ "$MAPTYPE" == "$GREY_COLLTYPE" ]; then
 	INITMAP_MAPTYPE=$MAPTYPE_GREY_INIT
-	MAPTYPE=$MAPTYPE_GREY
+	MAPTYPE=$GREY_COLLTYPE
 	PETAMAPTYPE="$MAPTYPE_GREY_WMS"
-elif [ "$MAPTYPE" == "$MAPTYPE_RGB" ]; then
+elif [ "$MAPTYPE" == "$RGB_COLLTYPE" ]; then
 	INITMAP_MAPTYPE=$MAPTYPE_RGB_INIT
-	MAPTYPE=$MAPTYPE_RGB
+	MAPTYPE=$RGB_COLLTYPE
 	PETAMAPTYPE="$MAPTYPE_RGB_WMS"
-elif [ "$MAPTYPE" == "$MAPTYPE_DEM" ]; then
+elif [ "$MAPTYPE" == "$DEM_COLLTYPE" ]; then
 	INITMAP_MAPTYPE=$MAPTYPE_DEM_INIT
-	MAPTYPE=$MAPTYPE_DEM
+	MAPTYPE=$DEM_COLLTYPE
 	PETAMAPTYPE="$MAPTYPE_DEM_WMS"
 else
-	echo "$ME: $ERROR_ILLEGAL_MAPTYPE $MAPTYPE"
+	echo "$ME: $MAPTYPE is not a WMS supported map type (allowed types: $GREY_COLLTYPE, $RGB_COLLTYPE, $DEM_COLLTYPE)."
 	exit $RC_ERROR
 fi
 
@@ -378,7 +387,7 @@ if [ "$?" -eq 0 ]; then
 	XMAX=$(  echo "$ret" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=" " }; { print $13 };' )
 	YMAX=$(  echo "$ret" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=" " }; { print $15 };' )
 else 
-	echo "ERROR while fetching bounding box information of $COLLNAME from $PETADB_NAME@$RAS_HOST:$PG_PORT."
+	echo "$ME: ERROR while fetching bounding box information of $COLLNAME from $PETADB_NAME@$RAS_HOST:$PG_PORT."
 	exit $RC_ERROR
 fi
 
@@ -398,7 +407,7 @@ if [ "$?" -eq 0 ]; then
 	PIXEL_YMIN=$(  echo "$ret" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=" " }; { print $8 };' )
 	PIXEL_YMAX=$(  echo "$ret" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=" " }; { print $10 };' )
 else 
-	echo "ERROR while fetching pixel-domain information of $COLLNAME from $PETADB_NAME@$RAS_HOST:$PG_PORT."
+	echo "$ME: ERROR while fetching pixel-domain information of $COLLNAME from $PETADB_NAME@$RAS_HOST:$PG_PORT."
 	exit $RC_ERROR
 fi
 # resolution (it is assumed to be equal in both X and Y directions)
@@ -413,15 +422,15 @@ echo "$ME: adding map $MAPNAME / collection $COLLNAME, bbox is [ $XMIN : $XMAX, 
 
 # perform pyramid initialization in rasdasman database
 export RMANPROTOCOL=RNP
-echo $INITPROG --user $USER --passwd $PASSWD --mapname "$COLLNAME"_$PYRAMID_SUFFIX --maptype $INITMAP_MAPTYPE -x $PIXEL_XMIN -y $PIXEL_YMIN -X $PIXEL_XMAX -Y $PIXEL_YMAX --levels "$LEVELS_STRING"
+echo "$ME: executing '$INITPROG --user $USER --passwd $PASSWD --mapname ${COLLNAME}_$PYRAMID_SUFFIX --maptype $INITMAP_MAPTYPE -x $PIXEL_XMIN -y $PIXEL_YMIN -X $PIXEL_XMAX -Y $PIXEL_YMAX --levels $LEVELS_STRING'"...
 $INITPROG --user $USER --passwd $PASSWD --mapname "$COLLNAME"_$PYRAMID_SUFFIX --maptype $INITMAP_MAPTYPE \
     -x $PIXEL_XMIN -y $PIXEL_YMIN -X $PIXEL_XMAX -Y $PIXEL_YMAX --levels "$LEVELS_STRING" | tee $TEMPFILE || echo -n "return code $?..."
 export RMANPROTOCOL=
 if [ "`grep Error $TEMPFILE 2>/dev/null`" == "" ]
 then
-	echo "map creation successfully done."
+	echo "$ME: map creation successfully done."
 else
-	echo "$ERROR_CANNOT_CREATE_MAP"
+	echo "$ME: ERROR: cannot initialize rasdaman map."
 	exit $RC_ERROR
 fi
 
@@ -429,14 +438,21 @@ fi
 PYRAMID=`awk '/Creating collection:/ { print \$3; }' < $TEMPFILE`
 
 # set rasql op specific for this
-if [ "$MAPTYPE" == "$MAPTYPE_GREY" ]
+if [ "$MAPTYPE" == "$GREY_COLLTYPE" ]
 then
 	RASQLOP="standard * { 1c, 1c, 1c}"
-elif [ "$MAPTYPE" == "$MAPTYPE_RGB" ]
+elif [ "$MAPTYPE" == "$RGB_COLLTYPE" ]
 then
 	RASQLOP="standard"
+elif [ "$MAPTYPE" == "$DEM_COLLTYPE" ]
+then
+	# parse the max_value of the collection so that the servlet does not need to find it at every request:
+	maxValue="$( rasql -q "select $QL_MAXCELLS(x) from $COLLNAME as x" --out string | 
+			grep "$QL_OUT" | awk 'BEGIN { FS=" " }; { print $4 };' )"	
+	RASQLOP="(char)(255*standard/$maxValue)*{1c,1c,1c}"
 else	# has been checked earlier, but we want to be sure
-	echo "$ME: $ERROR_ILLEGAL_MAPTYPE $MAPTYPE"
+	echo "$ME: $MAPTYPE is not a WMS supported map type (allowed types: $GREY_COLLTYPE, $RGB_COLLTYPE, $DEM_COLLTYPE)."
+	rollback
 	exit $RC_ERROR
 fi
 
@@ -453,10 +469,10 @@ export PGPASSWORD="$PETAPASSWD"
 #############################
 #      UPDATE METADATA      #
 #############################
-echo "*** Update WMS metadata in $PETADB_NAME@$RAS_HOST:$PG_PORT :"
+echo "$ME: Update WMS metadata in $PETADB_NAME@$RAS_HOST:$PG_PORT :"
 
 # If the WMS service is not in the database, create it with default values (otherwise check its ID)
-echo -n "Checking existence of $WMS_SERVICENAME inside $TABLE_SERVICES... "
+echo -n "$ME: Checking existence of $WMS_SERVICENAME inside $TABLE_SERVICES... "
 while [ "$serviceID" = "" ]; do
 	query="SELECT $SERVICES_SERVICEID FROM $TABLE_SERVICES WHERE $SERVICES_NAME='$WMS_SERVICENAME';"
 	ret=$( echo "$query" | psql -f - --single-transaction -h "$RAS_HOST" -p "$PG_PORT" "$PETADB_NAME" )
@@ -468,7 +484,7 @@ while [ "$serviceID" = "" ]; do
 		echo -n "NO --> Add it to the database... "
 		$WMS_SERVICE_INSERT --name "$WMS_SERVICENAME" --title "$WMS_SERVICENAME WMS Service" --host $PETASCOPE_HOST --port $PETASCOPE_PORT --path $WMS_PATH --formats "$WMS_FORMATS" --availability $DEFAULT_AVAILABILITY  --baselayer-name "$MAPNAME"
 		if [ "$?" -eq "$RC_ERROR" ]; then
-			echo -n "Error during insertion.\nAbort procedure."
+			echo -n "$ME: ERROR during insertion.\nAbort procedure."
 			rollback
 			exit $RC_ERROR
 		fi
@@ -477,7 +493,7 @@ done
 echo " Done (ID#$serviceID)."
 
 # Add new layer to the metadata database
-echo -n "Inserting $MAPNAME layer into $TABLE_LAYERS... "
+echo -n "$ME: Inserting $MAPNAME layer into $TABLE_LAYERS... "
 queryLayers="INSERT INTO $TABLE_LAYERS (\
 	$LAYERS_NAME, $LAYERS_TITLE, $LAYERS_SRS, $LAYERS_AUTHORITY, \
 	  $LAYERS_LATLONBOXXMIN, $LAYERS_LATLONBOXXMAX, $LAYERS_LATLONBOXYMIN, $LAYERS_LATLONBOXYMAX,\
@@ -495,12 +511,12 @@ ret=$( echo "$queryLayers" | psql -f - --single-transaction -h "$RAS_HOST" -p "$
 
 echo "$ret" | grep "$PG_INSERT_OK" 1>/dev/null
 if [ "$?" -ne 0 ]; then 
-	echo "Error while updating $TABLE_LAYERS table of $PETADB_NAME@$RAS_HOST:$PG_PORT. Postgres response:"
+	echo "$ME: ERROR while updating $TABLE_LAYERS table of $PETADB_NAME@$RAS_HOST:$PG_PORT. Postgres response:"
 	echo "$ret"
 	rollback
 	exit $RC_ERROR
 else 
-	layerID=$(  echo "$ret" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=" " }; { print $3 };' )
+	layerID=$( echo "$ret" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=" " }; { print $3 };' )
 fi
 echo "Done."
 
@@ -534,7 +550,7 @@ queriesPyramids="
 RES=$( echo "$LEVELS_STRING" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=":" }; { print $1 }' )
 TOT_INSERTS=1
 for COLLECTION in $PYRAMID; do
-	echo "Pyramid level $COLLECTION to have scale factor $RES... "
+	echo "$ME: Pyramid level $COLLECTION to have scale factor $RES... "
 
 	queriesPyramids+="INSERT INTO $TABLE_PYRAMIDLEVELS (\
 		$LAYERS_LAYERID, $PYRAMIDLEVELS_COLLECTIONNAME, $PYRAMIDLEVELS_SCALEFACTOR )\
@@ -547,17 +563,17 @@ for COLLECTION in $PYRAMID; do
 done
 
 # Group queries in a unique transaction
-echo -n "Adding styles and pyramids metadata... "
+echo -n "$ME: Adding styles and pyramids metadata... "
 ret=$( echo "$queryServiceLayer $queryStyles $queriesPyramids" | psql -f - --single-transaction -h "$RAS_HOST" -p "$PG_PORT" "$PETADB_NAME" )
 echo "Done."
 
 # Total of ServiceLayer + NPyramidLevels + Style = N+2 inserts.
 TOT_INSERTS=$(( TOT_INSERTS + 2 ))
 if [ $( echo "$ret" | grep "$PG_INSERT_OK" | wc -l ) -ne $TOT_INSERTS ]; then
-	echo "Error while updating $TABLE_SERVICELAYER, $TABLE_STYLES and $TABLE_PYRAMIDLEVELS tables of $PETADB_NAME@$RAS_HOST:$PG_PORT. Postgres response:"
+	echo "$ME: ERROR while updating $TABLE_SERVICELAYER, $TABLE_STYLES and $TABLE_PYRAMIDLEVELS tables of $PETADB_NAME@$RAS_HOST:$PG_PORT. Postgres response:"
 	echo "'$ret'"
 	# Manually remove previously inserted layer metadata
-	echo "Removing "$COLLNAME" layer metadata... "
+	echo "$ME: Removing "$COLLNAME" layer metadata... "
 	query="DELETE FROM $TABLE_LAYERS WHERE $LAYERS_LAYERID=$layerID"
 	echo "$query" | psql -f - --single-transaction -h "$RAS_HOST" -p "$PG_PORT" "$PETADB_NAME"
 	#Manually rollback layers query and delete collectins in RASBASE
@@ -572,6 +588,7 @@ $WGET -q "$PETASCOPEWMS_URL?request=$WMS_RELOADCAPABILITIES&service=wms&version=
 rm -f *$WMS_RELOADCAPABILITIES*	# wget bug? Redirects output to wms?.... file.
 echo "$ME: Database $PETADB_NAME has been updated and WMS servlet ($PETASCOPEWMS_URL) refreshed."
 
+echo
 echo "$ME: done."
 exit $RC_OK
 # --- END ACTION --------------------------------------------------------

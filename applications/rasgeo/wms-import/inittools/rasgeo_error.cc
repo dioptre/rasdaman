@@ -19,23 +19,6 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
-/*************************************************************
- *
- * SOURCE: rasgeo_error.cc
- *
- * MODULE: 
- * CLASS:	InitError
- *
- * PURPOSE:
- *
- * CHANGE HISTORY (append further entries):
- * when		 who	what
- * ----------------------------------------------------------
- * 2003-aug-24   PB	cloned from rasgeo/importools/rasgeo_error.cc
- *
- * COMMENTS:
- *
- ************************************************************/
 
 using namespace std;
 

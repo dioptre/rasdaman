@@ -24,16 +24,8 @@
  * Very basic typed pair<string> class.  Holds the name of the layer and its style.
  * @version $Revision: 1.4 $
  *
- * CHANGE HISTORY (append further entries):
- * when        who         what
- * ----------------------------------------------------------
- * 06-07-2001  Beinhofer   created
- * 2003-may-15  PB      code-embedded version string
- * 2009-jan-21  shikhar implement Comparable interface, so List<LayerStyle> can be sorted
- *
  * COMMENTS:
  *
- * Copyright (C) 2001 Dr. Peter Baumann
  * </pre>
  *********************************************************** */
 

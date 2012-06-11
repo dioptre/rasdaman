@@ -26,20 +26,19 @@
 # Populate the pyramid levels associated to a specified rasdaman collection.
 #
 # SYNTAX
-#ARG_METADATA='--updated-wms-metadata'
 	ME="$( basename $0 )"
-	USAGE1="usage: $ME <collName>" #[$ARG_METADATA]"
-	USAGE2="where"
-	USAGE3="    <collName> must be an existing collection in rasdaman with an associated pyramid."
-#USAGE4="    $ARG_METADATA can be used to update the associated WMS metadata (in case 
-#	    of a change in the extents of the coverage)."
+	USAGE="
+	usage: $ME <collName>
+	where
+		<collName> must be an existing collection in rasdaman with an associated pyramid.
+	"
 #
 # DESCRIPTION
 #       Given a precedently initialized WMS layer (empty pyramid creation and metadata push to
 #	the database), this script is used to either populate the pyramid collections associated
 #	to the baselayer, or to update their content in case the baselayer changed as well.
-#	Chance is offered to update the WMS metadata in the database as well with respect to the 
-#	XY extents of the baselayer.
+#	WMS layer metadata are meant to be fixed, so a change in the extent of a rasdaman collection
+#	that is published as WMS layer shall prompt a new WMS layer creation.
 # RETURN CODES
         RC_OK=0         # all went fine
         RC_ERROR=1      # something went wrong
@@ -51,14 +50,9 @@
 #       - Output of rasdaman SELECT still matches with "Result object ...".
 #       - of course, rasdaman and postgres are up and running.
 #
-# CHANGE HISTORY
-#       2012-jun-01     pcampalani      created
-#
 # TODO: 
-#    - implement the ARG_METADATA option
 #    ...
 #
-
 # --- DEFAULTS ------------------------------------------------------
 
 # user / password for logging in to rasdaman
@@ -95,7 +89,7 @@ PETADB_NAME="$(cat $CONNECT_FILE | grep $PETADBNAME_KEY | awk 'BEGIN { FS="=" };
 # --- CONSTANTS -----------------------------------------------------
 # --- do not change anything here unless you have a real clue
 
-IMPORT_BIN="$( which fillpyramid )"
+IMPORT_BIN="fillpyramid"
 ARG_COLLNAME='--collname'
 ARG_MDDDOMAIN='--mdddomain'
 ARG_MDDTYPE='--mddtype'
@@ -155,20 +149,12 @@ PG_SELECT_NULL="(0 rows)"
 
 # --- PARAMETER EVALUATION ------------------------------------------
 
-echo "Using databases {$RASDB_NAME,$PETADB_NAME}@$RAS_HOST:$PG_PORT."
-
-if [ ! -x "$IMPORT_BIN" ]
-then
-	echo "ERROR: $IMPORT_BIN is not executable."
-	exit $RC_ERROR
-fi
+echo "$ME: Using databases {$RASDB_NAME,$PETADB_NAME}@$RAS_HOST:$PG_PORT."
 
 # check number of parameters
 if [ $# -lt 1 -o $# -gt 1 ]
 then
-	echo "$USAGE1"
-	echo "$USAGE2"
-	echo "$USAGE3"
+	echo "$USAGE"
 	exit $RC_ERROR
 fi
 
@@ -176,12 +162,12 @@ fi
 COLLNAME=$1
 
 # Check existence of rasdaman collection 
-flag=0
+collExists=0
 while read coll; do 
-	if [ "$coll" = "$COLLNAME" ]; then flag=1; fi
+	if [ "$coll" = "$COLLNAME" ]; then collExists=1; fi
 done <<< "$( rasql -q "select r from RAS_COLLECTIONNAMES as r" --out string | grep "Result object" | awk 'BEGIN { FS=" "}; { print $4 };' )"
-if [ "$flag" -eq 0 ]; then
-	echo "ERROR: "$COLLNAME" must be an existing collection in $RASDB_NAME@$RAS_HOST:$PG_PORT."
+if [ "$collExists" -eq 0 ]; then
+	echo "$ME: ERROR: "$COLLNAME" must be an existing collection in $RASDB_NAME@$RAS_HOST:$PG_PORT."
 	exit $RC_ERROR
 fi
 
@@ -193,18 +179,18 @@ ret=$( echo "$query" | psql -f - --single-transaction -h "$RAS_HOST" -p "$PG_POR
 #
 echo "$ret" | grep "$PG_SELECT_OK" 1>/dev/null
 if [ "$?" -ne 0 ]; then
-	echo "ERROR: "$MAPNAME" already exists in $PETADB_NAME@$RAS_HOST:$PG_PORT."
+	echo "$ME: ERROR: "$MAPNAME" already exists in $PETADB_NAME@$RAS_HOST:$PG_PORT."
 	exit $RC_ERROR
 else 
 	layerId=$( echo "$ret" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=" " }; { print $5 };' )
 	layerName=$( echo "$ret" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=" " }; { print $7 };' )
-	echo "Associated WMS layer: $layerName (ID #$layerId)."
+	echo "$ME: Associated WMS layer: $layerName (ID #$layerId)."
 fi
 
 # --- END PARAMETER EVALUATION --------------------------------------
 # --- ACTION --------------------------------------------------------
 
-echo -n "Fetching dimensions of $COLLNAME... "
+echo -n "$ME: Fetching dimensions of $COLLNAME... "
 
 # Read the pixel dimensions:
 query="	SELECT $CELLDOMAIN_LO, $CELLDOMAIN_HI FROM $TABLE_CELLDOMAIN, $TABLE_COVERAGE
@@ -221,7 +207,8 @@ if [ "$?" -eq 0 ]; then
 	PIXEL_YMAX=$(  echo "$ret" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=" " }; { print $10 };' )
 	echo "read [$PIXEL_XMIN:$PIXEL_XMAX,$PIXEL_YMIN:$PIXEL_YMAX]"
 else 
-	echo "ERROR while fetching pixel-domain information of $COLLNAME from $PETADB_NAME@$RAS_HOST:$PG_PORT."
+	echo 
+	echo "$ME: ERROR while fetching pixel-domain information of $COLLNAME from $PETADB_NAME@$RAS_HOST:$PG_PORT."
 	exit $RC_ERROR
 fi
 
@@ -234,8 +221,12 @@ levelsString=""	# argument for import executable: exclude baselayer from inputs:
 while read line; do 
 	pyramidName=$( echo "$line" | awk 'BEGIN {FS=" " }; { print $1 };' )
 	pyramidFactor=$( echo "$line" | awk 'BEGIN {FS=" " }; { print $3 };' )
-	echo "Found pyramid level $pyramidName with scale factor $pyramidFactor..."
-	if [ "$levelsString" == "" ]; then levelsString="$pyramidName:$pyramidFactor"; else levelsString="$levelsString;$pyramidName:$pyramidFactor"; fi
+	echo "$ME: Found pyramid level $pyramidName with scale factor $pyramidFactor..."
+	if [ "$levelsString" == "" ]; then 
+		levelsString="$pyramidName:$pyramidFactor"
+	else 
+		levelsString="$levelsString;$pyramidName:$pyramidFactor"
+	fi
 done <<< "$( echo "$query" | psql -f - --single-transaction -h "$RAS_HOST" -p "$PG_PORT" "$PETADB_NAME"  | grep "$COLLNAME"_ )"
 
 # Check type of collection and translate it to be compatible with import binary.
@@ -247,9 +238,9 @@ ret=$( echo "$query" | psql -f - --single-transaction -h "$RAS_HOST" -p "$PG_POR
 echo "$ret" | grep "$PG_SELECT_OK" 1>/dev/null
 if [ "$?" -eq 0 ]; then
 	MAPTYPE=$(  echo "$ret" | sed ':a;N;$!ba;s/\n/ /g' | awk 'BEGIN { FS=" " }; { print $3 };' )
-	echo "Map is of type $MAPTYPE."
+	echo "$ME: Map is of type $MAPTYPE."
 else 
-	echo "ERROR: could not fetch data type from $RASDB_NAME."
+	echo "$ME: ERROR: could not fetch data type from $RASDB_NAME."
 	exit $RC_ERROR
 fi
 # standardise maptype keyword, with special care for initpyramid call
@@ -257,11 +248,13 @@ fi
 [[ "$MAPTYPE" = "$RGB_COLLTYPE"  ]] && mddType="$RGB_MDDTYPE"
 [[ "$MAPTYPE" = "$DEM_COLLTYPE"  ]] && mddType="$DEM_MDDTYPE"
 if [ "$mddType" == "" ]; then
-	echo "$ME: $ERROR_ILLEGAL_MAPTYPE $MAPTYPE"
+	echo "$ME: $MAPTYPE is not a WMS supported map type (allowed types: $GREY_COLLTYPE, $RGB_COLLTYPE, $DEM_COLLTYPE)."
 	exit $RC_ERROR
 fi
 
 # Now it ispossible to call the executable that populates/updates the pyramid content:
+ARG_VERBOSE='-v'
+echo "$ME: executing '$IMPORT_BIN $ARG_VERBOSE $ARG_COLLNAME $COLLNAME $ARG_MDDDOMAIN [$PIXEL_XMIN:$PIXEL_XMAX,$PIXEL_YMIN:$PIXEL_YMAX] $ARG_MDDTYPE $mddType $ARG_SCALELEVELS $levelsString $ARG_USER $USER $ARG_PASSWD $PASSWD'"...
 "$IMPORT_BIN" $ARG_VERBOSE "$ARG_COLLNAME" "$COLLNAME" "$ARG_MDDDOMAIN" "[$PIXEL_XMIN:$PIXEL_XMAX,$PIXEL_YMIN:$PIXEL_YMAX]" $ARG_MDDTYPE $mddType $ARG_SCALELEVELS "$levelsString" $ARG_USER $USER $ARG_PASSWD $PASSWD
 
 echo 

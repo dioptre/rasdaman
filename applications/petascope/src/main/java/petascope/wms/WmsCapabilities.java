@@ -27,19 +27,8 @@
  * This version returns version 1.1.0 compliant xml (hopefully).
  * @version $Revision: 1.5 $
  *
- * CHANGE HISTORY (append further entries):
- * when        who         what
- * ----------------------------------------------------------
- * 2003-may-15  PB      documented; code-embedded version string
- * 2004-apr-24  PB      RasOGCLayer() recognizes new BoundingBox exception
- * 2005-may-05  PB      name(): "GetMap" -> "OGC:WMS" for conformance with 1.1.0
- * 2005-jul-08  PB      supports...Exception() deleted, not used any longer
- * 2007-feb-21  PB      DTD URL digitalearth.com -> schemas.opengis.net
- * 2009-jan-27  PB      do not print rasql in XML
- *
  * COMMENTS:
  *
- * Copyright (C) 2001 Dr. Peter Baumann
  * </pre>
  *********************************************************** */
 
