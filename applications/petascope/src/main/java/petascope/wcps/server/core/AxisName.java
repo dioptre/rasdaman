@@ -38,14 +38,7 @@ public class AxisName implements IRasNode {
 
         if (node != null && node.getNodeName().equals("axis")) {
             String axis = node.getTextContent();
-            // validate axis name
-            DbMetadataSource meta = (DbMetadataSource) xq.getMetadataSource();
-            Collection<String> axisNames = meta.getAxisNames();
-            if (axisNames.contains(axis)) {
-                this.name = axis;
-            } else {
-                throw new WCPSException(ExceptionCode.InvalidRequest, "Unknown axis name " + axis);
-            }
+            this.name = axis;
         } else {
             throw new WCPSException(ExceptionCode.InvalidRequest, "Could not find an axis node !");
         }
