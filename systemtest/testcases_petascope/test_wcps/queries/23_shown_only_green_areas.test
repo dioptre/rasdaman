@@ -1,0 +1,4 @@
+for r in (rgb)
+return  encode(
+            r * ((r.green > 130) and (r.red < 110) and (r.blue < 140))
+        , "jpeg")

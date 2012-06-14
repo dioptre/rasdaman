@@ -308,7 +308,7 @@ int string_yyinput( char* buf, int max_size )
 "}"                                      { SETTOKEN( RCPAR, commandToken, RCPAR ) }
 #MDD[0-9]+#                              { SETTOKEN( MDDPARAM, commandToken, atoi(&(yytext[1])) ) }
 $[0-9]+                                  { llerror("unresolved query parameter"); columnNo++; }
-W
+
 "true"|"false"|"TRUE"|"FALSE"            { SETTOKEN( BooleanLit, booleanToken, yytext[0] == 't' || yytext[0] == 'T') }
 [a-zA-Z_][a-zA-Z0-9_]*			 { SETSTRTOKEN( Identifier, identifierToken, yytext ) }
 "'"[^']"'"                               { SETTOKEN( CharacterLit, characterToken, yytext[1] ) }

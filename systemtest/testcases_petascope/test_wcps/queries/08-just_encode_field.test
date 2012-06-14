@@ -1,0 +1,1 @@
+for m in ( NIR ) return encode( m.red, "jpeg" )

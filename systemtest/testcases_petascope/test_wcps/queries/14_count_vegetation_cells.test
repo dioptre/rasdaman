@@ -1,0 +1,2 @@
+for s in ( rgb, rgb, rgb ) return	
+	count( (s.0+s.1)/(s.0-s.1) >= 0)

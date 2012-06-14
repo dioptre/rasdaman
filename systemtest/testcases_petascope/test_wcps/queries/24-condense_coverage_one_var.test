@@ -1,0 +1,4 @@
+for a in (rgb) return
+    condense +
+    over $x x(1:10)
+    using $x * (a[x($x), y(10)]).red

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * This file is part of PetaScope.
+ *
+ * PetaScope is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU  General Public License as
+ * published by the Free Software Foundation, either version 3 of
+ * the License, or (at your option) any later version.
+ *
+ * PetaScope is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU  General Public License for more details.
+ *
+ * You should have received a copy of the GNU  General Public
+ * License along with PetaScope. If not, see "http://www.gnu.org/licenses/".
+ *
+ * For more information please see "http://www.PetaScope.org"
+ * or contact Peter Baumann via <baumann@rasdaman.com>.
+ *
+ * Copyright 2009 Jacobs University Bremen, Peter Baumann.
+-->
+
+
+
+
+
+<ProcessCoveragesRequest xmlns="http://www.opengis.net/wcps/1.0" service="WCPS" version="1.0.0">
+    <query>
+        <xmlSyntax>
+            <coverageIterator>
+                <iteratorVar>c</iteratorVar>
+                <coverageName>rgb</coverageName>
+            </coverageIterator>
+            <encode store="false">
+                <mult>
+                    <fieldSelect>
+                        <coverage>c</coverage>
+                        <field>
+                            <name>red</name>
+                        </field>
+                    </fieldSelect>
+                    <rangeConstructor>
+                        <component>
+                            <field>red</field>
+                            <cast>
+                                <numericConstant>1</numericConstant>
+                                <type>char</type>
+                            </cast>
+                        </component>
+                        <component>
+                            <field>green</field>
+                            <cast>
+                                <numericConstant>2</numericConstant>
+                                <type>char</type>
+                            </cast>
+                        </component>
+                        <component>
+                            <field>blue</field>
+                            <cast>
+                                <numericConstant>3</numericConstant>
+                                <type>char</type>
+                            </cast>
+                        </component>
+                    </rangeConstructor>
+                </mult>
+                <format>jpeg</format>
+            </encode>
+        </xmlSyntax>
+    </query>
+</ProcessCoveragesRequest>

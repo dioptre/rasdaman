@@ -1,0 +1,1 @@
+select jpeg(marray ii in [65:70, 65:70] values condense + over ij in [65:70, 65:70] using ((c[ij[0],ij[1]])*(cos((((-2)*((22.0)/(7.0)))*((((double)(((ij[0])*(ii[0]))/(((70)-(65))+(1))))+((double)(((ij[1])*(ii[1]))/(((70)-(65))+(1))))))))))) from rgb AS c

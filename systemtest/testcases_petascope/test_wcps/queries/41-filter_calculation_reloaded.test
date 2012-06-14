@@ -1,0 +1,17 @@
+for c in (mr) return encode((char)
+  coverage filteredImage
+    over $px x(1:100),
+              $py y(1:100)
+    values
+                  sqrt(abs(
+                    condense +
+                          over $kx x(-1:1),
+                                 $ky y(-1:1)
+                          using
+                               ((((double)coverage kernel
+                                                    over $x x (-1:1),
+                                                           $y y(-1:1)
+                                                     value list < -1; 0; 1; -2; 0; 2;-1; 0; 1 >) [x($kx),y($ky)])
+                                                               *(c[x($px+$kx),y($py+$ky)])/(8*5.13712275))
+                     ))
+, "jpeg")
