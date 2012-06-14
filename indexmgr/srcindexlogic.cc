@@ -136,8 +136,8 @@ SRCIndexLogic::insertObject(IndexDS* ixDS, const KeyObject& newKeyObject, const 
 	//this method should check if the tile is actually in the tiling
 	RMDBGENTER(4, RMDebug::module_indexmgr, "SRCIndexLogic", "insertObject(" << newKeyObject << ")");
 	
-	RMInit::logOut << "SRCIndexLogic::insertObject(" << ixDS->getIdentifier() << ", " << newKeyObject << ", sl) insert operation not allowed" << endl;
-	throw r_Error(INSERTINTORCINDEX);
+	/* RMInit::logOut << "SRCIndexLogic::insertObject(" << ixDS->getIdentifier() << ", " << newKeyObject << ", sl) insert operation not allowed" << endl;
+	throw r_Error(INSERTINTORCINDEX); // thrown without a check and therefore commented out in order to make rc_index work MR 29.05.2012 */
 	//if src is able to extend:
 	r_Minterval newKeyObjectDomain = newKeyObject.getDomain();
 	r_Minterval tileConfig = sl.getTileConfiguration();
