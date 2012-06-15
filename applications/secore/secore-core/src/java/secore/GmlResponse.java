@@ -21,6 +21,9 @@
  */
 package secore;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import secore.util.Constants;
 import static secore.util.Constants.*;
 
 /**
@@ -29,6 +32,8 @@ import static secore.util.Constants.*;
  * @author Dimitar Misev
  */
 public class GmlResponse {
+  
+  private static Logger log = LoggerFactory.getLogger(GmlResponse.class);
   
   private final String data;
 
@@ -49,7 +54,29 @@ public class GmlResponse {
           secondPart;
     }
     
+    // add missing namespaces
+    int topLevelTagEnd = data.indexOf(">", XML_DECL.length() + 1);
+    data = addMissingNamespace(data, GMD_PREFIX, GMD_NAMESPACE, topLevelTagEnd);
+    data = addMissingNamespace(data, GCO_PREFIX, GCO_NAMESPACE, topLevelTagEnd);
+    
     this.data = data;
+  }
+  
+  /**
+   * Adds missing namespace to XML data
+   * @param data XML document
+   * @param prefix XML prefix
+   * @param namespace XML namespace
+   * @param topLevelTagEnd the index of the closing '>' of the top-level XML tag in data
+   * @return the same XML data with the namespace possibly added.
+   */
+  private String addMissingNamespace(String data, String prefix, String namespace, int topLevelTagEnd) {
+    String ret = data;
+    int namespaceIndex = data.indexOf(namespace);
+    if (namespaceIndex > topLevelTagEnd || namespaceIndex == -1) {
+      ret = data.substring(0, topLevelTagEnd) + " xmlns:" + prefix + "=\"" + namespace + "\"" + data.substring(topLevelTagEnd);
+    }
+    return ret;
   }
   
   /**
