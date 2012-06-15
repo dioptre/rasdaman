@@ -56,8 +56,10 @@ public class GmlResponse {
     
     // add missing namespaces
     int topLevelTagEnd = data.indexOf(">", XML_DECL.length() + 1);
-    data = addMissingNamespace(data, GMD_PREFIX, GMD_NAMESPACE, topLevelTagEnd);
-    data = addMissingNamespace(data, GCO_PREFIX, GCO_NAMESPACE, topLevelTagEnd);
+    if (topLevelTagEnd != -1) {
+      data = addMissingNamespace(data, GMD_PREFIX, GMD_NAMESPACE, topLevelTagEnd);
+      data = addMissingNamespace(data, GCO_PREFIX, GCO_NAMESPACE, topLevelTagEnd);
+    }
     
     this.data = data;
   }

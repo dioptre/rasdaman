@@ -102,12 +102,14 @@ public class ParameterizedCrsHandler extends GeneralHandler {
         request.getService(), request.getFullUri());
     int i = 0;
     for (Pair<String, String> p : request.getParams()) {
-      if (p.snd == null) { // it's REST
-        req.addParam(p.fst, p.snd);
+      String key = p.fst;
+      String val = p.snd;
+      if (val == null) { // it's REST
+        req.addParam(key, val);
         ++i;
       } else {
-        if (p.fst.equals(CODE_KEY) || p.fst.equals(VERSION_KEY) || p.fst.equals(AUTHORITY_KEY)) {
-          req.addParam(p.fst, p.snd);
+        if (key.equalsIgnoreCase(CODE_KEY) || key.equalsIgnoreCase(VERSION_KEY) || key.equalsIgnoreCase(AUTHORITY_KEY)) {
+          req.addParam(key, val);
           ++i;
         }
       }
@@ -160,8 +162,8 @@ public class ParameterizedCrsHandler extends GeneralHandler {
     for (Pair<String, String> p : request.getParams()) {
       String name = p.fst;
       String value = p.snd;
-      if (!name.equals(AUTHORITY_KEY) && !name.equals(CODE_KEY) &&
-          !name.equals(VERSION_KEY) && value != null) {
+      if (!name.equalsIgnoreCase(AUTHORITY_KEY) && !name.equalsIgnoreCase(CODE_KEY) &&
+          !name.equalsIgnoreCase(VERSION_KEY) && value != null) {
         Parameter parameter = parameters.get(name);
         if (parameter == null) {
           throw new SecoreException(ExceptionCode.InvalidRequest.locator(name),

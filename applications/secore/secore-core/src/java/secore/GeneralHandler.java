@@ -102,11 +102,11 @@ public class GeneralHandler extends AbstractHandler {
           } else if (code.equals(EMPTY)) {
             code = key;
           }
-        } else if (key.equals(AUTHORITY_KEY)) {
+        } else if (key.equalsIgnoreCase(AUTHORITY_KEY)) {
           authority = val;
-        } else if (key.equals(VERSION_KEY)) {
+        } else if (key.equalsIgnoreCase(VERSION_KEY)) {
           version = val;
-        } else if (key.equals(CODE_KEY)) {
+        } else if (key.equalsIgnoreCase(CODE_KEY)) {
           code = val;
         }
       }
