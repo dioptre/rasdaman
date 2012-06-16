@@ -43,6 +43,12 @@ public class GeneralHandler extends AbstractHandler {
   public static final String VERSION_KEY = "version";
   public static final String DEFAULT_VERSION = "0";
   public static final String CODE_KEY = "code";
+  
+  // flatten possibilites
+  public static final String EXPAND_KEY = "expand";
+  public static final String EXPAND_FULL = "full";
+  public static final String EXPAND_NONE = "none";
+  public static final int EXPAND_DEFAULT = 2;
 
   @Override
   public boolean canHandle(ResolveRequest request) {
@@ -51,11 +57,12 @@ public class GeneralHandler extends AbstractHandler {
 
   public GmlResponse handle(ResolveRequest request) throws SecoreException {
     log.debug("Handling resolve request...");
-    return resolveRequest(request, 2);
+    return resolveRequest(request);
   }
   
-  public GmlResponse resolveRequest(ResolveRequest request, int depth) throws SecoreException {
+  public GmlResponse resolveRequest(ResolveRequest request) throws SecoreException {
     Pair<String, String> p = parseRequest(request);
+    int depth = request.getExpandDepth();
 
     // try to resolve a URN first
     String res = null;

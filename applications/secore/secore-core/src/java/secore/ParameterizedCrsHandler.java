@@ -108,7 +108,8 @@ public class ParameterizedCrsHandler extends GeneralHandler {
         req.addParam(key, val);
         ++i;
       } else {
-        if (key.equalsIgnoreCase(CODE_KEY) || key.equalsIgnoreCase(VERSION_KEY) || key.equalsIgnoreCase(AUTHORITY_KEY)) {
+        if (key.equalsIgnoreCase(CODE_KEY) || key.equalsIgnoreCase(VERSION_KEY) ||
+            key.equalsIgnoreCase(AUTHORITY_KEY) || key.equals(EXPAND_KEY)) {
           req.addParam(key, val);
           ++i;
         }
@@ -120,7 +121,7 @@ public class ParameterizedCrsHandler extends GeneralHandler {
     if (req.getParams().size() != 3) {
       throw new SecoreException(ExceptionCode.InvalidRequest, "Invalid Parameterized CRS request");
     }
-    GmlResponse gml = resolveRequest(req, 0);
+    GmlResponse gml = resolveRequest(req);
     
     // check if the result is a ParameterizedCRS
     String rootElementName = StringUtil.getRootElementName(gml.getData());

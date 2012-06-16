@@ -28,6 +28,7 @@ import secore.util.ExceptionCode;
 import java.util.ArrayList;
 import java.util.List;
 import static secore.util.Constants.*;
+import static secore.GeneralHandler.*;
 
 /**
  * Wrapper for resolving requests.
@@ -40,6 +41,7 @@ public class ResolveRequest {
   private final String operation;
   private final String service;
   private final String fulUri;
+  private int expand;
   
   /**
    * Create a new request to resolve. Note: the service URL specified
@@ -62,6 +64,7 @@ public class ResolveRequest {
     this.operation = operation;
     this.service = service;
     this.fulUri = fullUri;
+    this.expand = EXPAND_DEFAULT;
   }
 
   /**
@@ -74,7 +77,24 @@ public class ResolveRequest {
     if (key == null) {
       throw new SecoreException(ExceptionCode.InvalidRequest, "Null key encountered");
     }
-    params.add(Pair.of(key, value));
+    if (key.equalsIgnoreCase(EXPAND_KEY) && value != null) {
+      if (value.equalsIgnoreCase(EXPAND_NONE)) {
+        expand = 0;
+      } else if (value.equalsIgnoreCase(EXPAND_FULL)) {
+        expand = Integer.MAX_VALUE;
+      } else {
+        try {
+          expand = Integer.parseInt(value);
+          if (expand < 0) {
+            throw new Exception();
+          }
+        } catch (Exception ex) {
+          throw new SecoreException(ExceptionCode.InvalidRequest, "Invalid expand level specified: " + value);
+        }
+      }
+    } else {
+      params.add(Pair.of(key, value));
+    }
   }
 
   /**
@@ -92,6 +112,9 @@ public class ResolveRequest {
       } else {
         ret += PAIR_SEPARATOR + p.fst + KEY_VALUE_SEPARATOR + p.snd;
       }
+    }
+    if (expand != EXPAND_DEFAULT) {
+      ret += PAIR_SEPARATOR + EXPAND_KEY + KEY_VALUE_SEPARATOR + expand;
     }
     return ret;
   }
@@ -116,6 +139,13 @@ public class ResolveRequest {
   public String getFullUri() {
     return fulUri;
   }
+  
+  /**
+   * @return the depth to which links in the returned XML document should be resolved
+   */
+  public int getExpandDepth() {
+    return expand;
+  }
 
   @Override
   public String toString() {
@@ -124,6 +154,7 @@ public class ResolveRequest {
         "\n\toperation=" + operation +
         "\n\tservice=" + service +
         "\n\tfullUri=" + fulUri +
+        "\n\texpand=" + expand +
         "\n}";
   }
 }
