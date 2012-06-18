@@ -35,5 +35,5 @@ install-data-hook:
 	(cd ..; doxygen manuals_and_examples/doxygen-all.cfg)
 	(cd ..; doxygen manuals_and_examples/doxygen-api.cfg)
 	(cd ..; doxygen manuals_and_examples/doxygen-basedbms.cfg)
-	cp -r manuals/ $(DESTDIR)$(pkgdatadir)/doc
+	mkdir -p $(DESTDIR)$(pkgdatadir)/doc && cp -r manuals/* $(DESTDIR)$(pkgdatadir)/doc
 endif
