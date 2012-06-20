@@ -201,22 +201,24 @@ public class CRSExtension implements Extension {
      */
     public boolean axisDomainIntersection (DimensionSubset subset, GetCoverageMetadata meta, String subsettingCrs) {
         // If subsettingCrs is CRS:1, need to check cellDomains instead of geo-Bbox.
-        boolean imageSubset = subsettingCrs.equals(CrsUtil.IMAGE_CRS);
+        boolean cellSpace = subsettingCrs.equals(CrsUtil.IMAGE_CRS);
         
         // X axis
         if (subset.getDimension().equals(AxisTypes.X_AXIS)) {
             if (subset != null) {
                 // Set bounds
-                double xMin = imageSubset ? meta.getMetadata().getCellDomainByName(AxisTypes.X_AXIS).getLo().doubleValue() : meta.getBbox().getLow1();
-                double xMax = imageSubset ? meta.getMetadata().getCellDomainByName(AxisTypes.X_AXIS).getHi().doubleValue() : meta.getBbox().getHigh1();
+                double bboxXMin = cellSpace ? meta.getMetadata().getCellDomainByName(AxisTypes.X_AXIS).getLo().doubleValue() : meta.getBbox().getLow1();
+                double bboxXMax = cellSpace ? meta.getMetadata().getCellDomainByName(AxisTypes.X_AXIS).getHi().doubleValue() : meta.getBbox().getHigh1();
 
-                if (subset instanceof DimensionTrim &&
-                        new Double(((DimensionTrim)subset).getTrimLow()) < xMin && 
-                        new Double(((DimensionTrim)subset).getTrimHigh()) < xMax) {
+                if (subset instanceof DimensionTrim) {
+                    double subsetXMin = new Double(((DimensionTrim)subset).getTrimLow());
+                    double subsetXMax = new Double(((DimensionTrim)subset).getTrimHigh());                            
+                    if ((subsetXMin < bboxXMin && subsetXMax < bboxXMin)
+                            || (subsetXMin > bboxXMax && subsetXMax > bboxXMax))
                     return false;
                 } else if (subset instanceof DimensionSlice &&
-                        (new Double(((DimensionSlice)subset).getSlicePoint()) < xMin ||
-                        new Double(((DimensionSlice)subset).getSlicePoint()) > xMax))
+                        (new Double(((DimensionSlice)subset).getSlicePoint()) < bboxXMin ||
+                        new Double(((DimensionSlice)subset).getSlicePoint()) > bboxXMax))
                     return false;
             }
         }
@@ -224,16 +226,18 @@ public class CRSExtension implements Extension {
         if (subset.getDimension().equals(AxisTypes.Y_AXIS)) {
             if (subset != null) {
                 // Set bounds
-                double yMin = imageSubset ? meta.getMetadata().getCellDomainByName(AxisTypes.Y_AXIS).getLo().doubleValue() : meta.getBbox().getLow2();
-                double yMax = imageSubset ? meta.getMetadata().getCellDomainByName(AxisTypes.Y_AXIS).getHi().doubleValue() : meta.getBbox().getHigh2();
+                double bboxYMin = cellSpace ? meta.getMetadata().getCellDomainByName(AxisTypes.Y_AXIS).getLo().doubleValue() : meta.getBbox().getLow2();
+                double bboxYMax = cellSpace ? meta.getMetadata().getCellDomainByName(AxisTypes.Y_AXIS).getHi().doubleValue() : meta.getBbox().getHigh2();
                 
-                if (subset instanceof DimensionTrim &&
-                        new Double(((DimensionTrim)subset).getTrimLow()) < yMin && 
-                        new Double(((DimensionTrim)subset).getTrimHigh()) < yMax) {
+                if (subset instanceof DimensionTrim) {
+                    double subsetYMin = new Double(((DimensionTrim)subset).getTrimLow());
+                    double subsetYMax = new Double(((DimensionTrim)subset).getTrimHigh());                            
+                    if ((subsetYMin < bboxYMin && subsetYMax < bboxYMin)
+                            || (subsetYMin > bboxYMax && subsetYMax > bboxYMax))
                     return false;
                 } else if (subset instanceof DimensionSlice &&
-                        (new Double(((DimensionSlice)subset).getSlicePoint()) < yMin ||
-                        new Double(((DimensionSlice)subset).getSlicePoint()) > yMax))
+                        (new Double(((DimensionSlice)subset).getSlicePoint()) < bboxYMin ||
+                        new Double(((DimensionSlice)subset).getSlicePoint()) > bboxYMax))
                     return false;
             }
         }
