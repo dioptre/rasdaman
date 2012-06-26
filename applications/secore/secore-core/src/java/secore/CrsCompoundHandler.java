@@ -138,6 +138,7 @@ class CrsCompoundHandler extends AbstractHandler {
           "         <epsg:type>compound</epsg:type>\n" +
           "      </epsg:CommonMetaData>\n" +
           "   </metaDataProperty>\n" +
+          "   <scope>not known</scope>\n" +
           "   <identifier codeSpace='" + Config.getInstance().getCodespace() +
           "'>" + request.getFullUri().replaceAll("&", "%26") + "</identifier>" +
           "   <name>" + name + "</name>\n" + comp +
