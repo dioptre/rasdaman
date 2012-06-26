@@ -39,6 +39,9 @@ public class GmlResponse {
 
   public GmlResponse(String data) {
     // Add copyright
+
+// results in invalid GML, so commented out until we find a way to inject the credits
+/*
     int ind = data.indexOf(METADATA_LABEL);
     if (ind != -1) {
       int end = data.indexOf(">", ind);
@@ -53,6 +56,7 @@ public class GmlResponse {
           "<credits xmlns=\"http://rasdaman.org/ns\">" + COPYRIGHT + "</credits>" +
           secondPart;
     }
+*/
     
     // add missing namespaces
     int topLevelTagEnd = data.indexOf(">", XML_DECL.length() + 1);
