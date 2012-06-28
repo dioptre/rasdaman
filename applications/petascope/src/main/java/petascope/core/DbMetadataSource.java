@@ -625,6 +625,7 @@ public class DbMetadataSource implements IMetadataSource {
             cache.put(coverageName, meta);
             return meta;
         } catch (PetascopeException ime) {
+            log.error("Failed reading metadata", ime);
             if (checkAtInit && !initializing) {
                 throw new PetascopeException(ExceptionCode.ResourceError,
                         "Previously valid metadata is now invalid. The metadata for coverage '" + coverageName + "' has been modified incorrectly.", ime);
@@ -633,6 +634,7 @@ public class DbMetadataSource implements IMetadataSource {
                         "Coverage '" + coverageName + "' has invalid metadata", ime);
             }
         } catch (SQLException sqle) {
+            log.error("Failed reading metadata", sqle);
             if (s != null) {
                 try {
                     s.close();
