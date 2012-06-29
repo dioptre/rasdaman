@@ -149,9 +149,6 @@ mkdir -p %{buildroot}/etc/rc.d/init.d
 sed 's/^RASVERSION=.*$/RASVERSION=%{version}/' < %{SOURCE1} > %{_sourcedir}/rasdaman.init
 install -m 755 %{_sourcedir}/rasdaman.init %{buildroot}/etc/rc.d/init.d/rasdaman
 
-# Rename scripts to recognizable names
-mv %{buildroot}%{_bindir}/insertdemo.sh %{buildroot}%{_bindir}/rasdaman_insertdemo.sh
-
 # Change hostname in rasmgr.conf to localhost
 bhostname=`hostname`
 cat %{buildroot}%{_bindir}/rasmgr.conf | sed -e "s/$bhostname/localhost/g" > %{buildroot}%{_sysconfdir}/rasdaman/rasmgr.conf
@@ -297,6 +294,10 @@ fi
 %{_datadir}/rasdaman/raswct
 
 %changelog
+
+* Fri Jun 29  2012 Dimitar Misev <misev@rasdaman.com> - 8.3.1
+
+- insertdemo.sh renamed to rasdaman_insertdemo.sh in trunk
 
 * Sun Feb 26  2012 Dimitar Misev <misev@rasdaman.com> - 8.3.0
 

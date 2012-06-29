@@ -54,4 +54,10 @@ petascope/build
 petascope/db/settings.properties
 petascope/nbproject/private/
 Makefile
-/applications/petascope/nbproject/private/
+applications/petascope/nbproject/private/
+applications/secore/secore-core/dist/
+applications/secore/secore-web/dist/applications/petascope/build/
+applications/rasgeo/raserase
+applications/rasgeo/rasimport
+applications/secore/secore-core/build
+applications/secore/secore-web/build

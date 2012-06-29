@@ -32,19 +32,19 @@
 AM_CXXFLAGS = $(COMMCXXFLAGS)
 AM_LDFLAGS = $(COMMLDFLAGS)    
 bin_PROGRAMS = insertppm
-bin_SCRIPTS = insertdemo.sh
+bin_SCRIPTS = rasdaman_insertdemo.sh
 insertppm_SOURCES=insertppm.cc ../mymalloc/mymalloc_cln.cc
 insertppm_LDADD=../rasodmg/librasodmg.a ../clientcomm/libclientcomm.a \
                 ../conversion/libconversion.a \
                 ../raslib/libraslib.a \
                 ../network/libnetwork.a
-CLEANFILES = insertdemo.sh
-EXTRA_DIST = insertdemo.sh.in
+CLEANFILES = rasdaman_insertdemo.sh
+EXTRA_DIST = rasdaman_insertdemo.sh.in
 
-insertdemo.sh: insertdemo.sh.in Makefile
-	rm -f insertdemo.sh
+rasdaman_insertdemo.sh: rasdaman_insertdemo.sh.in Makefile
+	rm -f rasdaman_insertdemo.sh
 	sed -e 's|@bindir[@]|$(bindir)/|g' \
         -e 's|@pkgdatadir[@]|$(pkgdatadir)/|g'\
-        <insertdemo.sh.in >insertdemo.sh
-	chmod +x insertdemo.sh
-	chmod a-w insertdemo.sh
+        <rasdaman_insertdemo.sh.in >rasdaman_insertdemo.sh
+	chmod +x rasdaman_insertdemo.sh
+	chmod a-w rasdaman_insertdemo.sh

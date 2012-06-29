@@ -143,8 +143,8 @@ stop() {
   [ $RETVAL = 0 ] && rm -f ${lockfile} ${pidfile}
 }
 
-insertdemo(){
-  insertdemo.sh localhost 7001 /usr/share/rasdaman/examples/images/ rasadmin rasadmin
+rasdaman_insertdemo(){
+  rasdaman_insertdemo.sh localhost 7001 /usr/share/rasdaman/examples/images/ rasadmin rasadmin
 }
 
 #
@@ -327,8 +327,8 @@ case "$1" in
   initdb)
   initdb
   ;;
-  insertdemo)
-  insertdemo
+  rasdaman_insertdemo)
+  rasdaman_insertdemo
   ;;
   initpetascopedb)
   initpetascopedb
@@ -340,7 +340,7 @@ case "$1" in
   droppetascopedb
   ;;
   *)
-  echo $"Usage: $prog {start|stop|restart|condrestart|status|initdb|insertdemo|dropdb|initpetascopedb|droppetascopedb}"
+  echo $"Usage: $prog {start|stop|restart|condrestart|status|initdb|rasdaman_insertdemo|dropdb|initpetascopedb|droppetascopedb}"
   RETVAL=3
 esac
 
