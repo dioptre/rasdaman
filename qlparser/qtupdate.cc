@@ -517,6 +517,14 @@ RMDBGIF(1, RMDebug::module_qlparser, "QtUpdate", \
 					}
 			insertedDomains.erase(intervalIt);
 			}
+    
+		r_Minterval targetTileDomain;
+		for (targetIt = targetTiles->begin(); targetIt != targetTiles->end(); targetIt++)
+			{
+			targetTileDomain = (*targetIt)->getDomain();
+			targetDomains.push_back(targetTileDomain);
+			}
+    
 		for (sourceIt = sourceTiles->begin(); sourceIt != sourceTiles->end(); sourceIt++) {
 			
 			/*
@@ -531,23 +539,21 @@ RMDBGIF(1, RMDebug::module_qlparser, "QtUpdate", \
 			* -- DM 2012-may-23
 			*/
 			
-			r_Minterval tdom = (*sourceIt)->getDomain();
-			r_Minterval tres;
+			r_Minterval origSourceDomain = (*sourceIt)->getDomain();
+			r_Minterval resSourceDomain;
 			if (trimFlags) {
-				r_Minterval targetLoadDomain = targetMDD->getLoadDomain();
-				tres = r_Minterval(targetLoadDomain.dimension());
+				resSourceDomain = r_Minterval(targetTileDomain.dimension());
 				for (int i = 0, j = 0; i < trimFlags->size(); i++)
 					if ((*trimFlags)[i])
-						tres << tdom[j++];
+						resSourceDomain << origSourceDomain[j++];
 					else
-						tres << targetLoadDomain[i];
+						resSourceDomain << targetTileDomain[i];
 			} else
-			  tres = tdom;
-			sourceDomains.push_back(tres);
+			  resSourceDomain = origSourceDomain;
+			sourceDomains.push_back(resSourceDomain);
 //			sourceDomains.push_back((*sourceIt)->getDomain());
 		}
-		for (targetIt = targetTiles->begin(); targetIt != targetTiles->end(); targetIt++)
-			targetDomains.push_back((*targetIt)->getDomain());
+    
 		r_Tiler t(sourceDomains, targetDomains);
 		t.split();
 		t.removeDoubleDomains();
