@@ -1,4 +1,4 @@
-for c in ( climate_clouds )
+for c in ( mr )
 return  encode(
           coverage histogram
           over $n x(0:2)

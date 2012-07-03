@@ -1,1 +1,1 @@
- select jpeg(c[1:100,-31:274]) from lena AS c
+ select jpeg(c[1:100,1:100]) from mr AS c

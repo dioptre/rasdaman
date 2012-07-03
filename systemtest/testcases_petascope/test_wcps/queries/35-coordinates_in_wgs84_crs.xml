@@ -4,7 +4,7 @@
         <xmlSyntax>
             <coverageIterator>
                 <iteratorVar>c</iteratorVar>
-                <coverageName>lena</coverageName>
+                <coverageName>mr</coverageName>
             </coverageIterator>
             <encode store="false">
                 <trim>
@@ -18,7 +18,7 @@
                         <numericConstant>100</numericConstant>
                     </upperBound>
                     <axis>y</axis>
-                    <srsName>EPSG:4326</srsName>
+                    <srsName>CRS:1</srsName>
                     <lowerBound>
                         <numericConstant>1</numericConstant>
                     </lowerBound>

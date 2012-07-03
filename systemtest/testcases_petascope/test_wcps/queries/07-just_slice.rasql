@@ -1,1 +1,1 @@
-select jpeg(m[*:*,100,*:*]) from Modis AS m
+select jpeg(m[*:*,100,*:*]) from mr AS m

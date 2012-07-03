@@ -1,1 +1,1 @@
-for c in (lena) return encode(c [x:"CRS:1" (1:100), y:"EPSG:4326" (1:100) ], "jpeg")
+for c in (mr) return encode(c [x:"CRS:1" (1:100), y:"CRS:1" (1:100) ], "jpeg")

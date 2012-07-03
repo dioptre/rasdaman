@@ -1,1 +1,1 @@
-select jpeg((m).red) from NIR AS m
+select jpeg((m).red) from rgb AS m
