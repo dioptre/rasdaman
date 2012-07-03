@@ -26,6 +26,7 @@
 
 #include "RasdamanConnector.h"
 #include <fstream>
+#include <unistd.h>
 
 RasdamanConnector::RasdamanConnector()
 {

@@ -46,6 +46,7 @@ rasdaman GmbH.
 #include "raslib/rmdebug.hh"
 #include "sqlerror.hh"
 #include "objectbroker.hh"
+#include <unistd.h>
 
 #include "externs.h"
 
