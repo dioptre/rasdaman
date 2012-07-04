@@ -600,17 +600,19 @@ QtDomainOperation::evaluate( QtDataList* inputList )
                 // with any existing tiles in the database -- DM 2012-may-24
                 
                 const MDDBaseType* mddType = currentMDDObj->getMDDBaseType();
-                r_Area cellCount = projectedDom.cell_count();
+                const unsigned int mddTypeSize = mddType->getBaseType()->getSize();
+                const r_Area cellCount = projectedDom.cell_count();
+                const r_Bytes arrayLength = cellCount * mddTypeSize;
                 
                 // create a transient MDD object for the query result
                 MDDObj* resultMDD = new MDDObj( mddType, projectedDom );
-                char* data = (char*)mymalloc( cellCount * mddType->getBaseType()->getSize() );
+                char* data = (char*)mymalloc( arrayLength );
                 
                 // fill with null value
-                memset( data, 0, cellCount );
+                memset( data, 0, arrayLength );
                 
                 // create transient tile
-                Tile* resTile = new Tile( projectedDom, mddType->getBaseType(), data, cellCount );
+                Tile* resTile = new Tile( projectedDom, mddType->getBaseType(), (char*)data, arrayLength );
                 resTile->setPersistent(false);
                 
                   // insert Tile in result mddObj
