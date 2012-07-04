@@ -27,8 +27,7 @@ import org.w3c.dom.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import petascope.core.DbMetadataSource;
-import petascope.core.IMetadataSource;
+import petascope.core.IDynamicMetadataSource;
 
 /**
  *
@@ -40,7 +39,7 @@ public class XmlQuery implements IRasNode {
     private ArrayList<CoverageIterator> iterators;
     private BooleanScalarExpr where;
     private IRasNode coverageExpr;
-    private DbMetadataSource meta;
+    private IDynamicMetadataSource meta;
     private ArrayList<CoverageIterator> dynamicIterators;
     /* Variables used in the XML query are renamed. The renaming is explained below.
      *
@@ -64,9 +63,9 @@ public class XmlQuery implements IRasNode {
         return mime;
     }
 
-    public XmlQuery(IMetadataSource meta) {
+    public XmlQuery(IDynamicMetadataSource source) {
         super();
-        this.meta = (DbMetadataSource) meta;
+        this.meta = source;
         iterators = new ArrayList<CoverageIterator>();
         dynamicIterators = new ArrayList<CoverageIterator>();
         variableTranslator = new HashMap<String, String>();
@@ -232,7 +231,7 @@ public class XmlQuery implements IRasNode {
         return result;
     }
 
-    public IMetadataSource getMetadataSource() {
+    public IDynamicMetadataSource getMetadataSource() {
         return meta;
     }
 }

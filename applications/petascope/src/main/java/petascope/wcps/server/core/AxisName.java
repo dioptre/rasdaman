@@ -22,9 +22,7 @@
 package petascope.wcps.server.core;
 
 import petascope.exceptions.WCPSException;
-import java.util.Collection;
 import org.w3c.dom.*;
-import petascope.core.DbMetadataSource;
 import petascope.exceptions.ExceptionCode;
 
 public class AxisName implements IRasNode {

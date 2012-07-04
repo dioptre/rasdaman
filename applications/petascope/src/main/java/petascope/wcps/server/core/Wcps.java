@@ -30,8 +30,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import petascope.core.DbMetadataSource;
 import petascope.core.IMetadataSource;
+import petascope.core.DynamicMetadataSource;
+import petascope.core.IDynamicMetadataSource;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.PetascopeException;
 import petascope.exceptions.WCPSException;
@@ -46,7 +47,7 @@ which executes a ProcessCoverageRequests and returns data.
 public class Wcps {
 
     private DocumentBuilder wcpsDocumentBuilder;
-    private DbMetadataSource meta;
+    private IDynamicMetadataSource dynamicMetadataSource;
 
     public Wcps(File pcSchema, IMetadataSource metadataSource) throws WCPSException, PetascopeException {
         try {
@@ -60,7 +61,7 @@ public class Wcps {
             wcpsDocumentBuilder = dbconfig.newDocumentBuilder();
             System.out.println("WCPS: Finished loading the schema !");
             
-            this.meta = (DbMetadataSource) metadataSource;
+            this.dynamicMetadataSource = new DynamicMetadataSource(metadataSource);
             
         } catch (Exception e) {
             throw new WCPSException(
@@ -69,7 +70,7 @@ public class Wcps {
     }
 
     public Wcps(IMetadataSource metadataSource) throws ParserConfigurationException, PetascopeException {
-        this.meta = (DbMetadataSource) metadataSource;
+        this.dynamicMetadataSource = new DynamicMetadataSource(metadataSource);
         wcpsDocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
     }
 
@@ -164,7 +165,7 @@ public class Wcps {
     private ProcessCoveragesRequest pcPrepare(String url, String database, Document doc)
             throws WCPSException, SAXException, IOException {
         try {
-            return new ProcessCoveragesRequest(url, database, doc, meta, this);
+            return new ProcessCoveragesRequest(url, database, doc, dynamicMetadataSource, this);
         } catch (PetascopeException ex) {
             throw (WCPSException) ex;
         }
