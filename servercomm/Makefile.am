@@ -55,7 +55,7 @@ libservercomm_a_CPPFLAGS=-I../rnprotocol
 
 BUILT_SOURCES=../clientcomm/rpcif_xdr.c ../clientcomm/rpcif.h ../clientcomm/rpcif_svc.cc
 
-.PHONY: ../clientcomm/rpcif_xdr.c ../clientcomm/rpcif.h ../clientcomm/rpcif_svc.cc
+#.PHONY: ../clientcomm/rpcif_xdr.c ../clientcomm/rpcif.h ../clientcomm/rpcif_svc.cc
 ../clientcomm/rpcif_xdr.c:
 	cd ../clientcomm ; $(MAKE) rpcif_xdr.c
 
