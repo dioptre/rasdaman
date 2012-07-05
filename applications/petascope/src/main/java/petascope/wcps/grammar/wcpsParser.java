@@ -1,28 +1,4 @@
-/*
- * This file is part of rasdaman community.
- *
- * Rasdaman community is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Rasdaman community is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
- *
- * Copyright 2003 - 2010 Peter Baumann / rasdaman GmbH.
- *
- * For more information please see <http://www.rasdaman.org>
- * or contact Peter Baumann via <baumann@rasdaman.com>.
- */
-
-
-
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 wcps.g 2012-04-03 13:32:27
+// $ANTLR 3.2 debian-6 wcps.g 2012-07-05 21:51:44
 package petascope.wcps.grammar;
 
 import org.antlr.runtime.*;
@@ -157,7 +133,7 @@ public class wcpsParser extends Parser {
         }
         public wcpsParser(TokenStream input, RecognizerSharedState state) {
             super(input, state);
-            this.state.ruleMemo = new HashMap[244+1];
+            this.state.ruleMemo = new HashMap[249+1];
              
              
         }
@@ -182,7 +158,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "wcpsRequest"
-    // wcps.g:36:1: wcpsRequest returns [WCPSRequest value] : e1= forClause (e2= whereClause )? e3= returnClause ;
+    // wcps.g:37:1: wcpsRequest returns [WCPSRequest value] : e1= forClause (e2= whereClause )? e3= returnClause ;
     public final wcpsParser.wcpsRequest_return wcpsRequest() throws RecognitionException {
         wcpsParser.wcpsRequest_return retval = new wcpsParser.wcpsRequest_return();
         retval.start = input.LT(1);
@@ -199,8 +175,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return retval; }
-            // wcps.g:37:2: (e1= forClause (e2= whereClause )? e3= returnClause )
-            // wcps.g:37:4: e1= forClause (e2= whereClause )? e3= returnClause
+            // wcps.g:38:2: (e1= forClause (e2= whereClause )? e3= returnClause )
+            // wcps.g:38:4: e1= forClause (e2= whereClause )? e3= returnClause
             {
             root_0 = (Object)adaptor.nil();
 
@@ -213,7 +189,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new WCPSRequest((e1!=null?e1.value:null)); 
             }
-            // wcps.g:38:3: (e2= whereClause )?
+            // wcps.g:39:3: (e2= whereClause )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -222,7 +198,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt1) {
                 case 1 :
-                    // wcps.g:38:4: e2= whereClause
+                    // wcps.g:39:4: e2= whereClause
                     {
                     pushFollow(FOLLOW_whereClause_in_wcpsRequest72);
                     e2=whereClause();
@@ -279,7 +255,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "forClause"
-    // wcps.g:41:1: forClause returns [ForClauseElements value] : FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* ;
+    // wcps.g:42:1: forClause returns [ForClauseElements value] : FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* ;
     public final wcpsParser.forClause_return forClause() throws RecognitionException {
         wcpsParser.forClause_return retval = new wcpsParser.forClause_return();
         retval.start = input.LT(1);
@@ -310,8 +286,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return retval; }
-            // wcps.g:42:2: ( FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* )
-            // wcps.g:42:4: FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
+            // wcps.g:43:2: ( FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )* )
+            // wcps.g:43:4: FOR v= coverageVariable IN LPAREN list= coverageList RPAREN ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -350,7 +326,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new ForClauseElements((v!=null?v.value:null), (list!=null?list.value:null)); 
             }
-            // wcps.g:44:4: ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
+            // wcps.g:45:4: ( COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN )*
             loop2:
             do {
                 int alt2=2;
@@ -363,7 +339,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // wcps.g:44:5: COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN
+            	    // wcps.g:45:5: COMMA v= coverageVariable IN LPAREN list= coverageList RPAREN
             	    {
             	    COMMA5=(Token)match(input,COMMA,FOLLOW_COMMA_in_forClause122); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -440,7 +416,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "whereClause"
-    // wcps.g:47:1: whereClause returns [WhereClause value] : WHERE e1= booleanScalarExpr ;
+    // wcps.g:48:1: whereClause returns [WhereClause value] : WHERE e1= booleanScalarExpr ;
     public final wcpsParser.whereClause_return whereClause() throws RecognitionException {
         wcpsParser.whereClause_return retval = new wcpsParser.whereClause_return();
         retval.start = input.LT(1);
@@ -455,8 +431,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return retval; }
-            // wcps.g:48:2: ( WHERE e1= booleanScalarExpr )
-            // wcps.g:48:4: WHERE e1= booleanScalarExpr
+            // wcps.g:49:2: ( WHERE e1= booleanScalarExpr )
+            // wcps.g:49:4: WHERE e1= booleanScalarExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -505,7 +481,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "returnClause"
-    // wcps.g:50:1: returnClause returns [ReturnClause value] : RETURN e1= processingExpr ;
+    // wcps.g:51:1: returnClause returns [ReturnClause value] : RETURN e1= processingExpr ;
     public final wcpsParser.returnClause_return returnClause() throws RecognitionException {
         wcpsParser.returnClause_return retval = new wcpsParser.returnClause_return();
         retval.start = input.LT(1);
@@ -520,8 +496,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return retval; }
-            // wcps.g:51:2: ( RETURN e1= processingExpr )
-            // wcps.g:51:4: RETURN e1= processingExpr
+            // wcps.g:52:2: ( RETURN e1= processingExpr )
+            // wcps.g:52:4: RETURN e1= processingExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -570,7 +546,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageList"
-    // wcps.g:53:1: coverageList returns [CoverageList value] : cname= coverageName ( COMMA next= coverageName )* ;
+    // wcps.g:54:1: coverageList returns [CoverageList value] : cname= coverageName ( COMMA next= coverageName )* ;
     public final wcpsParser.coverageList_return coverageList() throws RecognitionException {
         wcpsParser.coverageList_return retval = new wcpsParser.coverageList_return();
         retval.start = input.LT(1);
@@ -587,8 +563,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return retval; }
-            // wcps.g:54:2: (cname= coverageName ( COMMA next= coverageName )* )
-            // wcps.g:54:4: cname= coverageName ( COMMA next= coverageName )*
+            // wcps.g:55:2: (cname= coverageName ( COMMA next= coverageName )* )
+            // wcps.g:55:4: cname= coverageName ( COMMA next= coverageName )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -601,7 +577,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new CoverageList((cname!=null?cname.value:null)); 
             }
-            // wcps.g:55:3: ( COMMA next= coverageName )*
+            // wcps.g:56:3: ( COMMA next= coverageName )*
             loop3:
             do {
                 int alt3=2;
@@ -614,7 +590,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // wcps.g:55:4: COMMA next= coverageName
+            	    // wcps.g:56:4: COMMA next= coverageName
             	    {
             	    COMMA11=(Token)match(input,COMMA,FOLLOW_COMMA_in_coverageList204); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -670,7 +646,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "processingExpr"
-    // wcps.g:57:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );
+    // wcps.g:58:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );
     public final wcpsParser.processingExpr_return processingExpr() throws RecognitionException {
         wcpsParser.processingExpr_return retval = new wcpsParser.processingExpr_return();
         retval.start = input.LT(1);
@@ -687,12 +663,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return retval; }
-            // wcps.g:58:5: (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr )
+            // wcps.g:59:5: (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr )
             int alt4=3;
             alt4 = dfa4.predict(input);
             switch (alt4) {
                 case 1 :
-                    // wcps.g:58:7: e1= encodedCoverageExpr
+                    // wcps.g:59:7: e1= encodedCoverageExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -709,7 +685,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:59:7: e2= storeExpr
+                    // wcps.g:60:7: e2= storeExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -726,7 +702,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // wcps.g:60:7: e3= scalarExpr
+                    // wcps.g:61:7: e3= scalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -772,7 +748,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "encodedCoverageExpr"
-    // wcps.g:62:1: encodedCoverageExpr returns [EncodedCoverageExpr value] : ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN ;
+    // wcps.g:63:1: encodedCoverageExpr returns [EncodedCoverageExpr value] : ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN ;
     public final wcpsParser.encodedCoverageExpr_return encodedCoverageExpr() throws RecognitionException {
         wcpsParser.encodedCoverageExpr_return retval = new wcpsParser.encodedCoverageExpr_return();
         retval.start = input.LT(1);
@@ -799,8 +775,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return retval; }
-            // wcps.g:63:2: ( ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN )
-            // wcps.g:63:4: ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN
+            // wcps.g:64:2: ( ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN )
+            // wcps.g:64:4: ENCODE LPAREN cov= coverageExpr COMMA format= stringConstant ( COMMA params= stringConstant )? RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -834,7 +810,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new EncodedCoverageExpr((cov!=null?cov.value:null), (format!=null?input.toString(format.start,format.stop):null)); 
             }
-            // wcps.g:64:3: ( COMMA params= stringConstant )?
+            // wcps.g:65:3: ( COMMA params= stringConstant )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -843,7 +819,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt5) {
                 case 1 :
-                    // wcps.g:64:4: COMMA params= stringConstant
+                    // wcps.g:65:4: COMMA params= stringConstant
                     {
                     COMMA15=(Token)match(input,COMMA,FOLLOW_COMMA_in_encodedCoverageExpr291); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -901,7 +877,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "storeExpr"
-    // wcps.g:66:1: storeExpr returns [StoreExpr value] : STORE LPAREN e1= encodedCoverageExpr RPAREN ;
+    // wcps.g:67:1: storeExpr returns [StoreExpr value] : STORE LPAREN e1= encodedCoverageExpr RPAREN ;
     public final wcpsParser.storeExpr_return storeExpr() throws RecognitionException {
         wcpsParser.storeExpr_return retval = new wcpsParser.storeExpr_return();
         retval.start = input.LT(1);
@@ -920,8 +896,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return retval; }
-            // wcps.g:67:5: ( STORE LPAREN e1= encodedCoverageExpr RPAREN )
-            // wcps.g:67:7: STORE LPAREN e1= encodedCoverageExpr RPAREN
+            // wcps.g:68:5: ( STORE LPAREN e1= encodedCoverageExpr RPAREN )
+            // wcps.g:68:7: STORE LPAREN e1= encodedCoverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -980,7 +956,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageExpr"
-    // wcps.g:69:1: coverageExpr returns [CoverageExpr value] : e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* ;
+    // wcps.g:70:1: coverageExpr returns [CoverageExpr value] : e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* ;
     public final wcpsParser.coverageExpr_return coverageExpr() throws RecognitionException {
         wcpsParser.coverageExpr_return retval = new wcpsParser.coverageExpr_return();
         retval.start = input.LT(1);
@@ -997,8 +973,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return retval; }
-            // wcps.g:70:5: (e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* )
-            // wcps.g:70:7: e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )*
+            // wcps.g:71:5: (e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )* )
+            // wcps.g:71:7: e1= coverageLogicTerm (op= ( OR | XOR ) e2= coverageLogicTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1011,14 +987,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // wcps.g:71:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*
+            // wcps.g:72:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*
             loop6:
             do {
                 int alt6=2;
                 alt6 = dfa6.predict(input);
                 switch (alt6) {
             	case 1 :
-            	    // wcps.g:71:10: op= ( OR | XOR ) e2= coverageLogicTerm
+            	    // wcps.g:72:10: op= ( OR | XOR ) e2= coverageLogicTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -1081,7 +1057,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageLogicTerm"
-    // wcps.g:73:1: coverageLogicTerm returns [CoverageExpr value] : e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* ;
+    // wcps.g:74:1: coverageLogicTerm returns [CoverageExpr value] : e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* ;
     public final wcpsParser.coverageLogicTerm_return coverageLogicTerm() throws RecognitionException {
         wcpsParser.coverageLogicTerm_return retval = new wcpsParser.coverageLogicTerm_return();
         retval.start = input.LT(1);
@@ -1098,8 +1074,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return retval; }
-            // wcps.g:74:5: (e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* )
-            // wcps.g:74:7: e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )*
+            // wcps.g:75:5: (e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )* )
+            // wcps.g:75:7: e1= coverageLogicFactor (op= AND e2= coverageLogicFactor )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1112,14 +1088,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // wcps.g:75:9: (op= AND e2= coverageLogicFactor )*
+            // wcps.g:76:9: (op= AND e2= coverageLogicFactor )*
             loop7:
             do {
                 int alt7=2;
                 alt7 = dfa7.predict(input);
                 switch (alt7) {
             	case 1 :
-            	    // wcps.g:75:10: op= AND e2= coverageLogicFactor
+            	    // wcps.g:76:10: op= AND e2= coverageLogicFactor
             	    {
             	    op=(Token)match(input,AND,FOLLOW_AND_in_coverageLogicTerm416); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -1175,7 +1151,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageLogicFactor"
-    // wcps.g:77:1: coverageLogicFactor returns [CoverageExpr value] : e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? ;
+    // wcps.g:78:1: coverageLogicFactor returns [CoverageExpr value] : e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? ;
     public final wcpsParser.coverageLogicFactor_return coverageLogicFactor() throws RecognitionException {
         wcpsParser.coverageLogicFactor_return retval = new wcpsParser.coverageLogicFactor_return();
         retval.start = input.LT(1);
@@ -1192,8 +1168,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return retval; }
-            // wcps.g:78:5: (e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? )
-            // wcps.g:78:7: e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
+            // wcps.g:79:5: (e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )? )
+            // wcps.g:79:7: e1= coverageArithmeticExpr (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1206,12 +1182,12 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null);
             }
-            // wcps.g:79:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
+            // wcps.g:80:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?
             int alt8=2;
             alt8 = dfa8.predict(input);
             switch (alt8) {
                 case 1 :
-                    // wcps.g:79:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
+                    // wcps.g:80:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
                     {
                     op=(Token)input.LT(1);
                     if ( (input.LA(1)>=EQUALS && input.LA(1)<=GTE) ) {
@@ -1271,7 +1247,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageArithmeticExpr"
-    // wcps.g:81:1: coverageArithmeticExpr returns [CoverageExpr value] : e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* ;
+    // wcps.g:82:1: coverageArithmeticExpr returns [CoverageExpr value] : e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* ;
     public final wcpsParser.coverageArithmeticExpr_return coverageArithmeticExpr() throws RecognitionException {
         wcpsParser.coverageArithmeticExpr_return retval = new wcpsParser.coverageArithmeticExpr_return();
         retval.start = input.LT(1);
@@ -1288,8 +1264,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return retval; }
-            // wcps.g:82:5: (e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* )
-            // wcps.g:82:7: e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
+            // wcps.g:83:5: (e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )* )
+            // wcps.g:83:7: e1= coverageArithmeticTerm (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1302,14 +1278,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null); 
             }
-            // wcps.g:83:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
+            // wcps.g:84:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*
             loop9:
             do {
                 int alt9=2;
                 alt9 = dfa9.predict(input);
                 switch (alt9) {
             	case 1 :
-            	    // wcps.g:83:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
+            	    // wcps.g:84:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -1372,7 +1348,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageArithmeticTerm"
-    // wcps.g:85:1: coverageArithmeticTerm returns [CoverageExpr value] : e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* ;
+    // wcps.g:86:1: coverageArithmeticTerm returns [CoverageExpr value] : e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* ;
     public final wcpsParser.coverageArithmeticTerm_return coverageArithmeticTerm() throws RecognitionException {
         wcpsParser.coverageArithmeticTerm_return retval = new wcpsParser.coverageArithmeticTerm_return();
         retval.start = input.LT(1);
@@ -1389,8 +1365,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return retval; }
-            // wcps.g:86:5: (e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* )
-            // wcps.g:86:9: e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
+            // wcps.g:87:5: (e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )* )
+            // wcps.g:87:9: e1= coverageArithmeticFactor (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1403,14 +1379,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = (e1!=null?e1.value:null); 
             }
-            // wcps.g:87:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
+            // wcps.g:88:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*
             loop10:
             do {
                 int alt10=2;
                 alt10 = dfa10.predict(input);
                 switch (alt10) {
             	case 1 :
-            	    // wcps.g:87:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
+            	    // wcps.g:88:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -1473,7 +1449,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageArithmeticFactor"
-    // wcps.g:89:1: coverageArithmeticFactor returns [CoverageExpr value] : e1= coverageValue (op= OVERLAY e2= coverageValue )* ;
+    // wcps.g:90:1: coverageArithmeticFactor returns [CoverageExpr value] : e1= coverageValue (op= OVERLAY e2= coverageValue )* ;
     public final wcpsParser.coverageArithmeticFactor_return coverageArithmeticFactor() throws RecognitionException {
         wcpsParser.coverageArithmeticFactor_return retval = new wcpsParser.coverageArithmeticFactor_return();
         retval.start = input.LT(1);
@@ -1490,8 +1466,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return retval; }
-            // wcps.g:90:5: (e1= coverageValue (op= OVERLAY e2= coverageValue )* )
-            // wcps.g:90:7: e1= coverageValue (op= OVERLAY e2= coverageValue )*
+            // wcps.g:91:5: (e1= coverageValue (op= OVERLAY e2= coverageValue )* )
+            // wcps.g:91:7: e1= coverageValue (op= OVERLAY e2= coverageValue )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1504,14 +1480,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // wcps.g:91:9: (op= OVERLAY e2= coverageValue )*
+            // wcps.g:92:9: (op= OVERLAY e2= coverageValue )*
             loop11:
             do {
                 int alt11=2;
                 alt11 = dfa11.predict(input);
                 switch (alt11) {
             	case 1 :
-            	    // wcps.g:91:10: op= OVERLAY e2= coverageValue
+            	    // wcps.g:92:10: op= OVERLAY e2= coverageValue
             	    {
             	    op=(Token)match(input,OVERLAY,FOLLOW_OVERLAY_in_coverageArithmeticFactor625); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -1567,7 +1543,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageValue"
-    // wcps.g:93:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );
+    // wcps.g:94:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );
     public final wcpsParser.coverageValue_return coverageValue() throws RecognitionException {
         wcpsParser.coverageValue_return retval = new wcpsParser.coverageValue_return();
         retval.start = input.LT(1);
@@ -1588,12 +1564,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return retval; }
-            // wcps.g:94:5: (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom )
+            // wcps.g:95:5: (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom )
             int alt12=5;
             alt12 = dfa12.predict(input);
             switch (alt12) {
                 case 1 :
-                    // wcps.g:94:7: e5= subsetExpr
+                    // wcps.g:95:7: e5= subsetExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1610,7 +1586,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:95:7: e2= unaryInducedExpr
+                    // wcps.g:96:7: e2= unaryInducedExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1627,7 +1603,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // wcps.g:96:7: e4= scaleExpr
+                    // wcps.g:97:7: e4= scaleExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1644,7 +1620,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // wcps.g:97:7: e3= crsTransformExpr
+                    // wcps.g:98:7: e3= crsTransformExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1661,7 +1637,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // wcps.g:98:7: e1= coverageAtom
+                    // wcps.g:99:7: e1= coverageAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1707,7 +1683,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageAtom"
-    // wcps.g:100:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );
+    // wcps.g:101:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );
     public final wcpsParser.coverageAtom_return coverageAtom() throws RecognitionException {
         wcpsParser.coverageAtom_return retval = new wcpsParser.coverageAtom_return();
         retval.start = input.LT(1);
@@ -1736,12 +1712,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return retval; }
-            // wcps.g:101:5: (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr )
+            // wcps.g:102:5: (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr )
             int alt13=7;
             alt13 = dfa13.predict(input);
             switch (alt13) {
                 case 1 :
-                    // wcps.g:101:7: e2= scalarExpr
+                    // wcps.g:102:7: e2= scalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1758,7 +1734,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:102:7: e1= coverageVariable
+                    // wcps.g:103:7: e1= coverageVariable
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1775,7 +1751,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // wcps.g:103:7: LPAREN e7= coverageExpr RPAREN
+                    // wcps.g:104:7: LPAREN e7= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1802,7 +1778,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // wcps.g:104:7: e3= coverageConstantExpr
+                    // wcps.g:105:7: e3= coverageConstantExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1819,7 +1795,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // wcps.g:105:7: e4= coverageConstructorExpr
+                    // wcps.g:106:7: e4= coverageConstructorExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1836,7 +1812,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // wcps.g:106:7: e5= setMetaDataExpr
+                    // wcps.g:107:7: e5= setMetaDataExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1853,7 +1829,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // wcps.g:107:7: e6= rangeConstructorExpr
+                    // wcps.g:108:7: e6= rangeConstructorExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1899,7 +1875,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "scalarExpr"
-    // wcps.g:109:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );
+    // wcps.g:110:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );
     public final wcpsParser.scalarExpr_return scalarExpr() throws RecognitionException {
         wcpsParser.scalarExpr_return retval = new wcpsParser.scalarExpr_return();
         retval.start = input.LT(1);
@@ -1926,12 +1902,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return retval; }
-            // wcps.g:110:5: (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN )
+            // wcps.g:111:5: (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN )
             int alt14=6;
             alt14 = dfa14.predict(input);
             switch (alt14) {
                 case 1 :
-                    // wcps.g:110:7: e1= metaDataExpr
+                    // wcps.g:111:7: e1= metaDataExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1948,7 +1924,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:111:7: e2= condenseExpr
+                    // wcps.g:112:7: e2= condenseExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1965,7 +1941,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // wcps.g:112:7: e3= booleanScalarExpr
+                    // wcps.g:113:7: e3= booleanScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1982,7 +1958,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // wcps.g:113:7: e4= numericScalarExpr
+                    // wcps.g:114:7: e4= numericScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1999,7 +1975,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // wcps.g:114:7: e5= stringScalarExpr
+                    // wcps.g:115:7: e5= stringScalarExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2016,7 +1992,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // wcps.g:115:7: LPAREN e6= scalarExpr RPAREN
+                    // wcps.g:116:7: LPAREN e6= scalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2072,7 +2048,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "metaDataExpr"
-    // wcps.g:117:1: metaDataExpr returns [MetaDataExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN );
+    // wcps.g:118:1: metaDataExpr returns [MetaDataExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN );
     public final wcpsParser.metaDataExpr_return metaDataExpr() throws RecognitionException {
         wcpsParser.metaDataExpr_return retval = new wcpsParser.metaDataExpr_return();
         retval.start = input.LT(1);
@@ -2127,7 +2103,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return retval; }
-            // wcps.g:118:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN )
+            // wcps.g:119:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | op= IMAGECRS LPAREN e1= coverageExpr RPAREN | op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN | op= CRSSET LPAREN e1= coverageExpr RPAREN | de= domainExpr | op= NULLSET LPAREN e1= coverageExpr RPAREN | op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN | op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN )
             int alt16=8;
             switch ( input.LA(1) ) {
             case IDENTIFIER:
@@ -2180,7 +2156,7 @@ public class wcpsParser extends Parser {
 
             switch (alt16) {
                 case 1 :
-                    // wcps.g:118:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
+                    // wcps.g:119:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2212,7 +2188,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:119:7: op= IMAGECRS LPAREN e1= coverageExpr RPAREN
+                    // wcps.g:120:7: op= IMAGECRS LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2244,7 +2220,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // wcps.g:120:7: op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN
+                    // wcps.g:121:7: op= IMAGECRSDOMAIN LPAREN e1= coverageExpr ( COMMA e2= axisName )? RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2264,7 +2240,7 @@ public class wcpsParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    // wcps.g:120:48: ( COMMA e2= axisName )?
+                    // wcps.g:121:48: ( COMMA e2= axisName )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -2273,7 +2249,7 @@ public class wcpsParser extends Parser {
                     }
                     switch (alt15) {
                         case 1 :
-                            // wcps.g:120:49: COMMA e2= axisName
+                            // wcps.g:121:49: COMMA e2= axisName
                             {
                             COMMA29=(Token)match(input,COMMA,FOLLOW_COMMA_in_metaDataExpr973); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
@@ -2304,7 +2280,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // wcps.g:121:7: op= CRSSET LPAREN e1= coverageExpr RPAREN
+                    // wcps.g:122:7: op= CRSSET LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2336,7 +2312,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // wcps.g:122:7: de= domainExpr
+                    // wcps.g:123:7: de= domainExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2353,7 +2329,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // wcps.g:123:7: op= NULLSET LPAREN e1= coverageExpr RPAREN
+                    // wcps.g:124:7: op= NULLSET LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2385,7 +2361,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // wcps.g:124:7: op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
+                    // wcps.g:125:7: op= INTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2428,7 +2404,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // wcps.g:125:7: op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
+                    // wcps.g:126:7: op= INTERPOLATIONSET LPAREN e1= coverageExpr COMMA f1= fieldName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2500,7 +2476,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "domainExpr"
-    // wcps.g:127:1: domainExpr returns [DomainExpr value] : DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN ;
+    // wcps.g:128:1: domainExpr returns [DomainExpr value] : DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN ;
     public final wcpsParser.domainExpr_return domainExpr() throws RecognitionException {
         wcpsParser.domainExpr_return retval = new wcpsParser.domainExpr_return();
         retval.start = input.LT(1);
@@ -2527,8 +2503,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return retval; }
-            // wcps.g:128:2: ( DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN )
-            // wcps.g:128:4: DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN
+            // wcps.g:129:2: ( DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN )
+            // wcps.g:129:4: DOMAIN LPAREN var= coverageVariable COMMA axis= axisName COMMA crs= crsName RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2609,7 +2585,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "condenseExpr"
-    // wcps.g:130:1: condenseExpr returns [CondenseExpr value] : (e1= reduceExpr | e2= generalCondenseExpr );
+    // wcps.g:131:1: condenseExpr returns [CondenseExpr value] : (e1= reduceExpr | e2= generalCondenseExpr );
     public final wcpsParser.condenseExpr_return condenseExpr() throws RecognitionException {
         wcpsParser.condenseExpr_return retval = new wcpsParser.condenseExpr_return();
         retval.start = input.LT(1);
@@ -2624,7 +2600,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return retval; }
-            // wcps.g:131:2: (e1= reduceExpr | e2= generalCondenseExpr )
+            // wcps.g:132:2: (e1= reduceExpr | e2= generalCondenseExpr )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -2643,7 +2619,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt17) {
                 case 1 :
-                    // wcps.g:131:4: e1= reduceExpr
+                    // wcps.g:132:4: e1= reduceExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2660,7 +2636,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:132:4: e2= generalCondenseExpr
+                    // wcps.g:133:4: e2= generalCondenseExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2706,7 +2682,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "reduceExpr"
-    // wcps.g:134:1: reduceExpr returns [ReduceExpr value] : op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN ;
+    // wcps.g:135:1: reduceExpr returns [ReduceExpr value] : op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN ;
     public final wcpsParser.reduceExpr_return reduceExpr() throws RecognitionException {
         wcpsParser.reduceExpr_return retval = new wcpsParser.reduceExpr_return();
         retval.start = input.LT(1);
@@ -2725,8 +2701,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return retval; }
-            // wcps.g:135:2: (op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN )
-            // wcps.g:135:4: op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN
+            // wcps.g:136:2: (op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN )
+            // wcps.g:136:4: op= ( ALL | SOME | COUNT | ADD | AVG | MIN | MAX ) LPAREN e1= coverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2792,7 +2768,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "generalCondenseExpr"
-    // wcps.g:137:1: generalCondenseExpr returns [GeneralCondenseExpr value] : CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr ;
+    // wcps.g:138:1: generalCondenseExpr returns [GeneralCondenseExpr value] : CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr ;
     public final wcpsParser.generalCondenseExpr_return generalCondenseExpr() throws RecognitionException {
         wcpsParser.generalCondenseExpr_return retval = new wcpsParser.generalCondenseExpr_return();
         retval.start = input.LT(1);
@@ -2819,8 +2795,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return retval; }
-            // wcps.g:138:2: ( CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr )
-            // wcps.g:138:4: CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr
+            // wcps.g:139:2: ( CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr )
+            // wcps.g:139:4: CONDENSE op= condenseOpType OVER ail= axisIteratorList ( WHERE cond= booleanScalarExpr )? USING ce= coverageExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2849,7 +2825,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new GeneralCondenseExpr((op!=null?op.value:null), (ail!=null?ail.value:null)); 
             }
-            // wcps.g:139:3: ( WHERE cond= booleanScalarExpr )?
+            // wcps.g:140:3: ( WHERE cond= booleanScalarExpr )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -2858,7 +2834,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt18) {
                 case 1 :
-                    // wcps.g:139:4: WHERE cond= booleanScalarExpr
+                    // wcps.g:140:4: WHERE cond= booleanScalarExpr
                     {
                     WHERE50=(Token)match(input,WHERE,FOLLOW_WHERE_in_generalCondenseExpr1221); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -2925,7 +2901,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "axisIteratorList"
-    // wcps.g:142:1: axisIteratorList returns [AxisIteratorList value] : vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* ;
+    // wcps.g:143:1: axisIteratorList returns [AxisIteratorList value] : vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* ;
     public final wcpsParser.axisIteratorList_return axisIteratorList() throws RecognitionException {
         wcpsParser.axisIteratorList_return retval = new wcpsParser.axisIteratorList_return();
         retval.start = input.LT(1);
@@ -2958,8 +2934,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 23) ) { return retval; }
-            // wcps.g:143:2: (vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* )
-            // wcps.g:143:4: vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
+            // wcps.g:144:2: (vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )* )
+            // wcps.g:144:4: vn= variableName an= axisName LPAREN ie= intervalExpr RPAREN ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2994,7 +2970,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new AxisIteratorList(new AxisIterator((vn!=null?vn.value:null), (an!=null?an.value:null), (ie!=null?ie.value:null))); 
             }
-            // wcps.g:145:2: ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
+            // wcps.g:146:2: ( COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN )*
             loop19:
             do {
                 int alt19=2;
@@ -3007,7 +2983,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt19) {
             	case 1 :
-            	    // wcps.g:145:3: COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN
+            	    // wcps.g:146:3: COMMA vn2= variableName an2= axisName LPAREN ie2= intervalExpr RPAREN
             	    {
             	    COMMA54=(Token)match(input,COMMA,FOLLOW_COMMA_in_axisIteratorList1274); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -3085,7 +3061,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "intervalExpr"
-    // wcps.g:148:1: intervalExpr returns [IntervalExpr value] : (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN );
+    // wcps.g:149:1: intervalExpr returns [IntervalExpr value] : (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN );
     public final wcpsParser.intervalExpr_return intervalExpr() throws RecognitionException {
         wcpsParser.intervalExpr_return retval = new wcpsParser.intervalExpr_return();
         retval.start = input.LT(1);
@@ -3114,7 +3090,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 24) ) { return retval; }
-            // wcps.g:149:5: (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN )
+            // wcps.g:150:5: (lo= indexExpr COLON hi= indexExpr | IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN )
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -3133,7 +3109,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt20) {
                 case 1 :
-                    // wcps.g:149:7: lo= indexExpr COLON hi= indexExpr
+                    // wcps.g:150:7: lo= indexExpr COLON hi= indexExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3161,7 +3137,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:151:7: IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN
+                    // wcps.g:152:7: IMAGECRSDOMAIN LPAREN e1= coverageName COMMA e2= axisName RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3233,7 +3209,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageConstantExpr"
-    // wcps.g:154:1: coverageConstantExpr returns [CoverageConstantExpr value] : COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT ;
+    // wcps.g:155:1: coverageConstantExpr returns [CoverageConstantExpr value] : COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT ;
     public final wcpsParser.coverageConstantExpr_return coverageConstantExpr() throws RecognitionException {
         wcpsParser.coverageConstantExpr_return retval = new wcpsParser.coverageConstantExpr_return();
         retval.start = input.LT(1);
@@ -3262,8 +3238,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 25) ) { return retval; }
-            // wcps.g:155:5: ( COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT )
-            // wcps.g:155:7: COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT
+            // wcps.g:156:5: ( COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT )
+            // wcps.g:156:7: COVERAGE aname= coverageName OVER iter= axisIteratorList VALUE LIST LT values= constantList GT
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3349,7 +3325,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "constantList"
-    // wcps.g:158:1: constantList returns [ConstantList value] : c= constant ( SEMICOLON c= constant )* ;
+    // wcps.g:159:1: constantList returns [ConstantList value] : c= constant ( SEMICOLON c= constant )* ;
     public final wcpsParser.constantList_return constantList() throws RecognitionException {
         wcpsParser.constantList_return retval = new wcpsParser.constantList_return();
         retval.start = input.LT(1);
@@ -3364,8 +3340,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 26) ) { return retval; }
-            // wcps.g:159:5: (c= constant ( SEMICOLON c= constant )* )
-            // wcps.g:159:7: c= constant ( SEMICOLON c= constant )*
+            // wcps.g:160:5: (c= constant ( SEMICOLON c= constant )* )
+            // wcps.g:160:7: c= constant ( SEMICOLON c= constant )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3378,7 +3354,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new ConstantList((c!=null?c.value:null)); 
             }
-            // wcps.g:159:59: ( SEMICOLON c= constant )*
+            // wcps.g:160:59: ( SEMICOLON c= constant )*
             loop21:
             do {
                 int alt21=2;
@@ -3391,7 +3367,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt21) {
             	case 1 :
-            	    // wcps.g:159:60: SEMICOLON c= constant
+            	    // wcps.g:160:60: SEMICOLON c= constant
             	    {
             	    SEMICOLON68=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_constantList1433); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -3447,7 +3423,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageConstructorExpr"
-    // wcps.g:161:1: coverageConstructorExpr returns [CoverageConstructorExpr value] : COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr ;
+    // wcps.g:162:1: coverageConstructorExpr returns [CoverageConstructorExpr value] : COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr ;
     public final wcpsParser.coverageConstructorExpr_return coverageConstructorExpr() throws RecognitionException {
         wcpsParser.coverageConstructorExpr_return retval = new wcpsParser.coverageConstructorExpr_return();
         retval.start = input.LT(1);
@@ -3470,8 +3446,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 27) ) { return retval; }
-            // wcps.g:162:2: ( COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr )
-            // wcps.g:162:4: COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr
+            // wcps.g:163:2: ( COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr )
+            // wcps.g:163:4: COVERAGE coverage= coverageName OVER ail= axisIteratorList VALUES se= scalarExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3542,7 +3518,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "setMetaDataExpr"
-    // wcps.g:165:1: setMetaDataExpr returns [SetMetaDataExpr value] : (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN );
+    // wcps.g:166:1: setMetaDataExpr returns [SetMetaDataExpr value] : (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN );
     public final wcpsParser.setMetaDataExpr_return setMetaDataExpr() throws RecognitionException {
         wcpsParser.setMetaDataExpr_return retval = new wcpsParser.setMetaDataExpr_return();
         retval.start = input.LT(1);
@@ -3603,7 +3579,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 28) ) { return retval; }
-            // wcps.g:166:5: (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN )
+            // wcps.g:167:5: (op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN | op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN | op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN | op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN | op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN )
             int alt22=5;
             switch ( input.LA(1) ) {
             case SETIDENTIFIER:
@@ -3641,7 +3617,7 @@ public class wcpsParser extends Parser {
 
             switch (alt22) {
                 case 1 :
-                    // wcps.g:166:7: op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN
+                    // wcps.g:167:7: op= SETIDENTIFIER LPAREN s= stringConstant COMMA e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3684,7 +3660,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:168:7: op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN
+                    // wcps.g:169:7: op= SETCRSSET LPAREN e1= coverageExpr COMMA crs= crsList RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3727,7 +3703,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // wcps.g:170:7: op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN
+                    // wcps.g:171:7: op= SETNULLSET LPAREN e1= coverageExpr COMMA rel= rangeExprList RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3770,7 +3746,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // wcps.g:172:7: op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN
+                    // wcps.g:173:7: op= SETINTERPOLATIONDEFAULT LPAREN e1= coverageExpr COMMA fn= fieldName COMMA im= interpolationMethod RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3824,7 +3800,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // wcps.g:174:7: op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN
+                    // wcps.g:175:7: op= SETINTERPOLATIONSET LPAREN e1= coverageExpr COMMA fn= fieldName COMMA iml= interpolationMethodList RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -3907,7 +3883,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "crsList"
-    // wcps.g:177:1: crsList returns [CrsList value] : LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE ;
+    // wcps.g:178:1: crsList returns [CrsList value] : LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE ;
     public final wcpsParser.crsList_return crsList() throws RecognitionException {
         wcpsParser.crsList_return retval = new wcpsParser.crsList_return();
         retval.start = input.LT(1);
@@ -3926,8 +3902,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 29) ) { return retval; }
-            // wcps.g:178:5: ( LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE )
-            // wcps.g:178:7: LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE
+            // wcps.g:179:5: ( LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE )
+            // wcps.g:179:7: LBRACE (crs= crsName ( COMMA crs= crsName )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3939,7 +3915,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = new CrsList();
             }
-            // wcps.g:178:40: (crs= crsName ( COMMA crs= crsName )* )?
+            // wcps.g:179:40: (crs= crsName ( COMMA crs= crsName )* )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -3948,7 +3924,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt24) {
                 case 1 :
-                    // wcps.g:178:41: crs= crsName ( COMMA crs= crsName )*
+                    // wcps.g:179:41: crs= crsName ( COMMA crs= crsName )*
                     {
                     pushFollow(FOLLOW_crsName_in_crsList1680);
                     crs=crsName();
@@ -3959,7 +3935,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((crs!=null?crs.value:null)); 
                     }
-                    // wcps.g:178:81: ( COMMA crs= crsName )*
+                    // wcps.g:179:81: ( COMMA crs= crsName )*
                     loop23:
                     do {
                         int alt23=2;
@@ -3972,7 +3948,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt23) {
                     	case 1 :
-                    	    // wcps.g:178:82: COMMA crs= crsName
+                    	    // wcps.g:179:82: COMMA crs= crsName
                     	    {
                     	    COMMA90=(Token)match(input,COMMA,FOLLOW_COMMA_in_crsList1685); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4039,7 +4015,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeExprList"
-    // wcps.g:180:1: rangeExprList returns [RangeExprList value] : LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE ;
+    // wcps.g:181:1: rangeExprList returns [RangeExprList value] : LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE ;
     public final wcpsParser.rangeExprList_return rangeExprList() throws RecognitionException {
         wcpsParser.rangeExprList_return retval = new wcpsParser.rangeExprList_return();
         retval.start = input.LT(1);
@@ -4060,8 +4036,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 30) ) { return retval; }
-            // wcps.g:181:5: ( LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE )
-            // wcps.g:181:7: LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE
+            // wcps.g:182:5: ( LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE )
+            // wcps.g:182:7: LBRACE (re1= rangeExpr ( COMMA re2= rangeExpr )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4073,7 +4049,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new RangeExprList(); 
             }
-            // wcps.g:181:48: (re1= rangeExpr ( COMMA re2= rangeExpr )* )?
+            // wcps.g:182:48: (re1= rangeExpr ( COMMA re2= rangeExpr )* )?
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -4082,7 +4058,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt26) {
                 case 1 :
-                    // wcps.g:181:49: re1= rangeExpr ( COMMA re2= rangeExpr )*
+                    // wcps.g:182:49: re1= rangeExpr ( COMMA re2= rangeExpr )*
                     {
                     pushFollow(FOLLOW_rangeExpr_in_rangeExprList1724);
                     re1=rangeExpr();
@@ -4093,7 +4069,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((re1!=null?re1.value:null)); 
                     }
-                    // wcps.g:181:91: ( COMMA re2= rangeExpr )*
+                    // wcps.g:182:91: ( COMMA re2= rangeExpr )*
                     loop25:
                     do {
                         int alt25=2;
@@ -4106,7 +4082,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt25) {
                     	case 1 :
-                    	    // wcps.g:181:92: COMMA re2= rangeExpr
+                    	    // wcps.g:182:92: COMMA re2= rangeExpr
                     	    {
                     	    COMMA93=(Token)match(input,COMMA,FOLLOW_COMMA_in_rangeExprList1729); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4173,7 +4149,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "interpolationMethodList"
-    // wcps.g:183:1: interpolationMethodList returns [InterpolationMethodList value] : LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE ;
+    // wcps.g:184:1: interpolationMethodList returns [InterpolationMethodList value] : LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE ;
     public final wcpsParser.interpolationMethodList_return interpolationMethodList() throws RecognitionException {
         wcpsParser.interpolationMethodList_return retval = new wcpsParser.interpolationMethodList_return();
         retval.start = input.LT(1);
@@ -4192,8 +4168,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 31) ) { return retval; }
-            // wcps.g:184:2: ( LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE )
-            // wcps.g:184:4: LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE
+            // wcps.g:185:2: ( LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE )
+            // wcps.g:185:4: LBRACE (e= interpolationMethod ( COMMA e= interpolationMethod )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4205,7 +4181,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
               retval.value = new InterpolationMethodList();
             }
-            // wcps.g:184:53: (e= interpolationMethod ( COMMA e= interpolationMethod )* )?
+            // wcps.g:185:53: (e= interpolationMethod ( COMMA e= interpolationMethod )* )?
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -4214,7 +4190,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt28) {
                 case 1 :
-                    // wcps.g:184:54: e= interpolationMethod ( COMMA e= interpolationMethod )*
+                    // wcps.g:185:54: e= interpolationMethod ( COMMA e= interpolationMethod )*
                     {
                     pushFollow(FOLLOW_interpolationMethod_in_interpolationMethodList1765);
                     e=interpolationMethod();
@@ -4225,7 +4201,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((e!=null?e.value:null)); 
                     }
-                    // wcps.g:184:102: ( COMMA e= interpolationMethod )*
+                    // wcps.g:185:102: ( COMMA e= interpolationMethod )*
                     loop27:
                     do {
                         int alt27=2;
@@ -4238,7 +4214,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt27) {
                     	case 1 :
-                    	    // wcps.g:184:103: COMMA e= interpolationMethod
+                    	    // wcps.g:185:103: COMMA e= interpolationMethod
                     	    {
                     	    COMMA96=(Token)match(input,COMMA,FOLLOW_COMMA_in_interpolationMethodList1770); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4305,7 +4281,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeExpr"
-    // wcps.g:186:1: rangeExpr returns [RangeExpr value] : STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE ;
+    // wcps.g:187:1: rangeExpr returns [RangeExpr value] : STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE ;
     public final wcpsParser.rangeExpr_return rangeExpr() throws RecognitionException {
         wcpsParser.rangeExpr_return retval = new wcpsParser.rangeExpr_return();
         retval.start = input.LT(1);
@@ -4332,8 +4308,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 32) ) { return retval; }
-            // wcps.g:187:2: ( STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE )
-            // wcps.g:187:4: STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE
+            // wcps.g:188:2: ( STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE )
+            // wcps.g:188:4: STRUCT LBRACE (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )? RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4350,7 +4326,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value =new RangeExpr(); 
             }
-            // wcps.g:188:2: (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )?
+            // wcps.g:189:2: (field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )* )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -4359,7 +4335,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt30) {
                 case 1 :
-                    // wcps.g:188:3: field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )*
+                    // wcps.g:189:3: field= fieldName COLON expr= scalarExpr ( COMMA field= fieldName COLON expr= scalarExpr )*
                     {
                     pushFollow(FOLLOW_fieldName_in_rangeExpr1805);
                     field=fieldName();
@@ -4381,7 +4357,7 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) {
                        retval.value.add((field!=null?field.value:null), (expr!=null?expr.value:null)); 
                     }
-                    // wcps.g:189:3: ( COMMA field= fieldName COLON expr= scalarExpr )*
+                    // wcps.g:190:3: ( COMMA field= fieldName COLON expr= scalarExpr )*
                     loop29:
                     do {
                         int alt29=2;
@@ -4394,7 +4370,7 @@ public class wcpsParser extends Parser {
 
                         switch (alt29) {
                     	case 1 :
-                    	    // wcps.g:189:4: COMMA field= fieldName COLON expr= scalarExpr
+                    	    // wcps.g:190:4: COMMA field= fieldName COLON expr= scalarExpr
                     	    {
                     	    COMMA101=(Token)match(input,COMMA,FOLLOW_COMMA_in_rangeExpr1818); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -4472,7 +4448,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeConstructorExpr"
-    // wcps.g:192:1: rangeConstructorExpr returns [RangeConstructorExpr value] : ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE ;
+    // wcps.g:193:1: rangeConstructorExpr returns [RangeConstructorExpr value] : ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE ;
     public final wcpsParser.rangeConstructorExpr_return rangeConstructorExpr() throws RecognitionException {
         wcpsParser.rangeConstructorExpr_return retval = new wcpsParser.rangeConstructorExpr_return();
         retval.start = input.LT(1);
@@ -4499,12 +4475,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 33) ) { return retval; }
-            // wcps.g:193:5: ( ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE )
-            // wcps.g:193:7: ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE
+            // wcps.g:194:5: ( ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE )
+            // wcps.g:194:7: ( STRUCT )? LBRACE field= fieldName COLON expr= coverageExpr ( SEMICOLON field= fieldName COLON expr= coverageExpr )* RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
-            // wcps.g:193:7: ( STRUCT )?
+            // wcps.g:194:7: ( STRUCT )?
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -4513,7 +4489,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt31) {
                 case 1 :
-                    // wcps.g:193:8: STRUCT
+                    // wcps.g:194:8: STRUCT
                     {
                     STRUCT104=(Token)match(input,STRUCT,FOLLOW_STRUCT_in_rangeConstructorExpr1856); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -4551,7 +4527,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new RangeConstructorExpr((field!=null?field.value:null), (expr!=null?expr.value:null)); 
             }
-            // wcps.g:194:9: ( SEMICOLON field= fieldName COLON expr= coverageExpr )*
+            // wcps.g:195:9: ( SEMICOLON field= fieldName COLON expr= coverageExpr )*
             loop32:
             do {
                 int alt32=2;
@@ -4564,7 +4540,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt32) {
             	case 1 :
-            	    // wcps.g:194:10: SEMICOLON field= fieldName COLON expr= coverageExpr
+            	    // wcps.g:195:10: SEMICOLON field= fieldName COLON expr= coverageExpr
             	    {
             	    SEMICOLON107=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_rangeConstructorExpr1883); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -4636,7 +4612,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "crsTransformExpr"
-    // wcps.g:196:1: crsTransformExpr returns [CrsTransformExpr value] : CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN ;
+    // wcps.g:197:1: crsTransformExpr returns [CrsTransformExpr value] : CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN ;
     public final wcpsParser.crsTransformExpr_return crsTransformExpr() throws RecognitionException {
         wcpsParser.crsTransformExpr_return retval = new wcpsParser.crsTransformExpr_return();
         retval.start = input.LT(1);
@@ -4663,8 +4639,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 34) ) { return retval; }
-            // wcps.g:197:9: ( CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN )
-            // wcps.g:197:11: CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN
+            // wcps.g:198:9: ( CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN )
+            // wcps.g:198:11: CRSTRANSFORM LPAREN e1= coverageExpr COMMA dcl= dimensionCrsList COMMA fil= fieldInterpolationList RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4745,7 +4721,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionCrsList"
-    // wcps.g:200:1: dimensionCrsList returns [DimensionCrsList value] : LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE ;
+    // wcps.g:201:1: dimensionCrsList returns [DimensionCrsList value] : LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE ;
     public final wcpsParser.dimensionCrsList_return dimensionCrsList() throws RecognitionException {
         wcpsParser.dimensionCrsList_return retval = new wcpsParser.dimensionCrsList_return();
         retval.start = input.LT(1);
@@ -4764,8 +4740,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 35) ) { return retval; }
-            // wcps.g:201:5: ( LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE )
-            // wcps.g:201:7: LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE
+            // wcps.g:202:5: ( LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE )
+            // wcps.g:202:7: LBRACE elem= dimensionCrsElement ( COMMA elem= dimensionCrsElement )* RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4783,7 +4759,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new DimensionCrsList((elem!=null?elem.value:null)); 
             }
-            // wcps.g:202:9: ( COMMA elem= dimensionCrsElement )*
+            // wcps.g:203:9: ( COMMA elem= dimensionCrsElement )*
             loop33:
             do {
                 int alt33=2;
@@ -4796,7 +4772,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt33) {
             	case 1 :
-            	    // wcps.g:202:10: COMMA elem= dimensionCrsElement
+            	    // wcps.g:203:10: COMMA elem= dimensionCrsElement
             	    {
             	    COMMA116=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionCrsList2000); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -4857,7 +4833,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionCrsElement"
-    // wcps.g:204:1: dimensionCrsElement returns [DimensionCrsElement value] : aname= axisName COLON crs= crsName ;
+    // wcps.g:205:1: dimensionCrsElement returns [DimensionCrsElement value] : aname= axisName COLON crs= crsName ;
     public final wcpsParser.dimensionCrsElement_return dimensionCrsElement() throws RecognitionException {
         wcpsParser.dimensionCrsElement_return retval = new wcpsParser.dimensionCrsElement_return();
         retval.start = input.LT(1);
@@ -4874,8 +4850,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 36) ) { return retval; }
-            // wcps.g:205:5: (aname= axisName COLON crs= crsName )
-            // wcps.g:205:7: aname= axisName COLON crs= crsName
+            // wcps.g:206:5: (aname= axisName COLON crs= crsName )
+            // wcps.g:206:7: aname= axisName COLON crs= crsName
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4933,7 +4909,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldInterpolationList"
-    // wcps.g:207:1: fieldInterpolationList returns [FieldInterpolationList value] : LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE ;
+    // wcps.g:208:1: fieldInterpolationList returns [FieldInterpolationList value] : LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE ;
     public final wcpsParser.fieldInterpolationList_return fieldInterpolationList() throws RecognitionException {
         wcpsParser.fieldInterpolationList_return retval = new wcpsParser.fieldInterpolationList_return();
         retval.start = input.LT(1);
@@ -4952,8 +4928,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 37) ) { return retval; }
-            // wcps.g:208:2: ( LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE )
-            // wcps.g:208:4: LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE
+            // wcps.g:209:2: ( LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE )
+            // wcps.g:209:4: LBRACE (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )* RBRACE
             {
             root_0 = (Object)adaptor.nil();
 
@@ -4962,7 +4938,7 @@ public class wcpsParser extends Parser {
             LBRACE119_tree = (Object)adaptor.create(LBRACE119);
             adaptor.addChild(root_0, LBRACE119_tree);
             }
-            // wcps.g:208:11: (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )*
+            // wcps.g:209:11: (elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement ) )*
             loop34:
             do {
                 int alt34=2;
@@ -4975,7 +4951,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt34) {
             	case 1 :
-            	    // wcps.g:208:12: elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )
+            	    // wcps.g:209:12: elem= fieldInterpolationElement ( COMMA elem= fieldInterpolationElement )
             	    {
             	    pushFollow(FOLLOW_fieldInterpolationElement_in_fieldInterpolationList2063);
             	    elem=fieldInterpolationElement();
@@ -4986,8 +4962,8 @@ public class wcpsParser extends Parser {
             	    if ( state.backtracking==0 ) {
             	       retval.value = new FieldInterpolationList((elem!=null?elem.value:null)); 
             	    }
-            	    // wcps.g:209:3: ( COMMA elem= fieldInterpolationElement )
-            	    // wcps.g:209:4: COMMA elem= fieldInterpolationElement
+            	    // wcps.g:210:3: ( COMMA elem= fieldInterpolationElement )
+            	    // wcps.g:210:4: COMMA elem= fieldInterpolationElement
             	    {
             	    COMMA120=(Token)match(input,COMMA,FOLLOW_COMMA_in_fieldInterpolationList2070); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -5051,7 +5027,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldInterpolationElement"
-    // wcps.g:211:1: fieldInterpolationElement returns [FieldInterpolationElement value] : aname= fieldName method= interpolationMethod ;
+    // wcps.g:212:1: fieldInterpolationElement returns [FieldInterpolationElement value] : aname= fieldName method= interpolationMethod ;
     public final wcpsParser.fieldInterpolationElement_return fieldInterpolationElement() throws RecognitionException {
         wcpsParser.fieldInterpolationElement_return retval = new wcpsParser.fieldInterpolationElement_return();
         retval.start = input.LT(1);
@@ -5066,8 +5042,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 38) ) { return retval; }
-            // wcps.g:212:2: (aname= fieldName method= interpolationMethod )
-            // wcps.g:212:4: aname= fieldName method= interpolationMethod
+            // wcps.g:213:2: (aname= fieldName method= interpolationMethod )
+            // wcps.g:213:4: aname= fieldName method= interpolationMethod
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5117,7 +5093,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "unaryInducedExpr"
-    // wcps.g:214:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );
+    // wcps.g:215:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );
     public final wcpsParser.unaryInducedExpr_return unaryInducedExpr() throws RecognitionException {
         wcpsParser.unaryInducedExpr_return retval = new wcpsParser.unaryInducedExpr_return();
         retval.start = input.LT(1);
@@ -5142,12 +5118,12 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 39) ) { return retval; }
-            // wcps.g:215:5: (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr )
+            // wcps.g:216:5: (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr )
             int alt35=7;
             alt35 = dfa35.predict(input);
             switch (alt35) {
                 case 1 :
-                    // wcps.g:215:7: e6= fieldExpr
+                    // wcps.g:216:7: e6= fieldExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5164,7 +5140,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:216:4: e1= unaryArithmeticExpr
+                    // wcps.g:217:4: e1= unaryArithmeticExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5181,7 +5157,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // wcps.g:217:7: e2= exponentialExpr
+                    // wcps.g:218:7: e2= exponentialExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5198,7 +5174,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // wcps.g:218:7: e3= trigonometricExpr
+                    // wcps.g:219:7: e3= trigonometricExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5215,7 +5191,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // wcps.g:219:7: e4= booleanExpr
+                    // wcps.g:220:7: e4= booleanExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5232,7 +5208,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // wcps.g:220:7: e5= castExpr
+                    // wcps.g:221:7: e5= castExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5249,7 +5225,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // wcps.g:221:7: e7= rangeConstructorExpr
+                    // wcps.g:222:7: e7= rangeConstructorExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5295,7 +5271,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "unaryArithmeticExpr"
-    // wcps.g:223:1: unaryArithmeticExpr returns [CoverageExpr value] : (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN );
+    // wcps.g:224:1: unaryArithmeticExpr returns [CoverageExpr value] : (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN );
     public final wcpsParser.unaryArithmeticExpr_return unaryArithmeticExpr() throws RecognitionException {
         wcpsParser.unaryArithmeticExpr_return retval = new wcpsParser.unaryArithmeticExpr_return();
         retval.start = input.LT(1);
@@ -5316,7 +5292,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 40) ) { return retval; }
-            // wcps.g:224:5: (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN )
+            // wcps.g:225:5: (op= ( MINUS | PLUS ) e1= coverageAtom | op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN )
             int alt36=2;
             int LA36_0 = input.LA(1);
 
@@ -5335,7 +5311,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt36) {
                 case 1 :
-                    // wcps.g:224:7: op= ( MINUS | PLUS ) e1= coverageAtom
+                    // wcps.g:225:7: op= ( MINUS | PLUS ) e1= coverageAtom
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5364,7 +5340,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:225:7: op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN
+                    // wcps.g:226:7: op= ( SQRT | ABS | RE | IM ) LPAREN e2= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5432,7 +5408,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "exponentialExpr"
-    // wcps.g:227:1: exponentialExpr returns [ExponentialExpr value] : op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN ;
+    // wcps.g:228:1: exponentialExpr returns [ExponentialExpr value] : op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN ;
     public final wcpsParser.exponentialExpr_return exponentialExpr() throws RecognitionException {
         wcpsParser.exponentialExpr_return retval = new wcpsParser.exponentialExpr_return();
         retval.start = input.LT(1);
@@ -5451,8 +5427,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 41) ) { return retval; }
-            // wcps.g:228:5: (op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN )
-            // wcps.g:228:7: op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN
+            // wcps.g:229:5: (op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN )
+            // wcps.g:229:7: op= ( EXP | LOG | LN ) LPAREN e1= coverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5518,7 +5494,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "trigonometricExpr"
-    // wcps.g:230:1: trigonometricExpr returns [TrigonometricExpr value] : op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN ;
+    // wcps.g:231:1: trigonometricExpr returns [TrigonometricExpr value] : op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN ;
     public final wcpsParser.trigonometricExpr_return trigonometricExpr() throws RecognitionException {
         wcpsParser.trigonometricExpr_return retval = new wcpsParser.trigonometricExpr_return();
         retval.start = input.LT(1);
@@ -5537,8 +5513,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 42) ) { return retval; }
-            // wcps.g:231:5: (op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN )
-            // wcps.g:231:7: op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN
+            // wcps.g:232:5: (op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN )
+            // wcps.g:232:7: op= ( SIN | COS | TAN | SINH | COSH | TANH | ARCSIN | ARCCOS | ARCTAN ) LPAREN e1= coverageExpr RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5604,7 +5580,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanExpr"
-    // wcps.g:233:1: booleanExpr returns [BooleanExpr value] : (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN );
+    // wcps.g:234:1: booleanExpr returns [BooleanExpr value] : (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN );
     public final wcpsParser.booleanExpr_return booleanExpr() throws RecognitionException {
         wcpsParser.booleanExpr_return retval = new wcpsParser.booleanExpr_return();
         retval.start = input.LT(1);
@@ -5627,7 +5603,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 43) ) { return retval; }
-            // wcps.g:234:5: (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN )
+            // wcps.g:235:5: (op= NOT e1= coverageExpr | op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN )
             int alt37=2;
             int LA37_0 = input.LA(1);
 
@@ -5646,7 +5622,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt37) {
                 case 1 :
-                    // wcps.g:234:7: op= NOT e1= coverageExpr
+                    // wcps.g:235:7: op= NOT e1= coverageExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5668,7 +5644,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:235:7: op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN
+                    // wcps.g:236:7: op= BIT LPAREN e1= coverageExpr COMMA e2= indexExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -5740,7 +5716,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "indexExpr"
-    // wcps.g:237:1: indexExpr returns [IndexExpr value] : e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* ;
+    // wcps.g:238:1: indexExpr returns [IndexExpr value] : e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* ;
     public final wcpsParser.indexExpr_return indexExpr() throws RecognitionException {
         wcpsParser.indexExpr_return retval = new wcpsParser.indexExpr_return();
         retval.start = input.LT(1);
@@ -5757,8 +5733,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 44) ) { return retval; }
-            // wcps.g:238:5: (e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* )
-            // wcps.g:238:7: e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )*
+            // wcps.g:239:5: (e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )* )
+            // wcps.g:239:7: e1= indexTerm (op= ( PLUS | MINUS ) e2= indexTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5771,7 +5747,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // wcps.g:239:3: (op= ( PLUS | MINUS ) e2= indexTerm )*
+            // wcps.g:240:3: (op= ( PLUS | MINUS ) e2= indexTerm )*
             loop38:
             do {
                 int alt38=2;
@@ -5784,7 +5760,7 @@ public class wcpsParser extends Parser {
 
                 switch (alt38) {
             	case 1 :
-            	    // wcps.g:239:4: op= ( PLUS | MINUS ) e2= indexTerm
+            	    // wcps.g:240:4: op= ( PLUS | MINUS ) e2= indexTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -5847,7 +5823,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "indexTerm"
-    // wcps.g:241:1: indexTerm returns [IndexExpr value] : e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* ;
+    // wcps.g:242:1: indexTerm returns [IndexExpr value] : e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* ;
     public final wcpsParser.indexTerm_return indexTerm() throws RecognitionException {
         wcpsParser.indexTerm_return retval = new wcpsParser.indexTerm_return();
         retval.start = input.LT(1);
@@ -5864,8 +5840,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 45) ) { return retval; }
-            // wcps.g:242:5: (e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* )
-            // wcps.g:242:7: e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
+            // wcps.g:243:5: (e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )* )
+            // wcps.g:243:7: e1= indexFactor ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -5878,7 +5854,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // wcps.g:243:6: ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
+            // wcps.g:244:6: ( (op= ( MULT | DIVIDE ) e2= indexFactor ) )*
             loop39:
             do {
                 int alt39=2;
@@ -5891,10 +5867,10 @@ public class wcpsParser extends Parser {
 
                 switch (alt39) {
             	case 1 :
-            	    // wcps.g:243:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
+            	    // wcps.g:244:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
             	    {
-            	    // wcps.g:243:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
-            	    // wcps.g:243:8: op= ( MULT | DIVIDE ) e2= indexFactor
+            	    // wcps.g:244:7: (op= ( MULT | DIVIDE ) e2= indexFactor )
+            	    // wcps.g:244:8: op= ( MULT | DIVIDE ) e2= indexFactor
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -5960,7 +5936,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "indexFactor"
-    // wcps.g:245:1: indexFactor returns [IndexExpr value] : (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) );
+    // wcps.g:246:1: indexFactor returns [IndexExpr value] : (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) );
     public final wcpsParser.indexFactor_return indexFactor() throws RecognitionException {
         wcpsParser.indexFactor_return retval = new wcpsParser.indexFactor_return();
         retval.start = input.LT(1);
@@ -5987,7 +5963,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 46) ) { return retval; }
-            // wcps.g:246:5: (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) )
+            // wcps.g:247:5: (e= INTEGERCONSTANT | op= ROUND LPAREN e1= numericScalarExpr RPAREN | ( LPAREN e2= indexExpr RPAREN ) )
             int alt40=3;
             switch ( input.LA(1) ) {
             case INTEGERCONSTANT:
@@ -6015,7 +5991,7 @@ public class wcpsParser extends Parser {
 
             switch (alt40) {
                 case 1 :
-                    // wcps.g:246:7: e= INTEGERCONSTANT
+                    // wcps.g:247:7: e= INTEGERCONSTANT
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6031,7 +6007,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:247:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
+                    // wcps.g:248:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6063,12 +6039,12 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // wcps.g:248:7: ( LPAREN e2= indexExpr RPAREN )
+                    // wcps.g:249:7: ( LPAREN e2= indexExpr RPAREN )
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    // wcps.g:248:7: ( LPAREN e2= indexExpr RPAREN )
-                    // wcps.g:248:8: LPAREN e2= indexExpr RPAREN
+                    // wcps.g:249:7: ( LPAREN e2= indexExpr RPAREN )
+                    // wcps.g:249:8: LPAREN e2= indexExpr RPAREN
                     {
                     LPAREN133=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_indexFactor2535); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -6125,7 +6101,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "stringScalarExpr"
-    // wcps.g:250:1: stringScalarExpr returns [StringScalarExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING );
+    // wcps.g:251:1: stringScalarExpr returns [StringScalarExpr value] : (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING );
     public final wcpsParser.stringScalarExpr_return stringScalarExpr() throws RecognitionException {
         wcpsParser.stringScalarExpr_return retval = new wcpsParser.stringScalarExpr_return();
         retval.start = input.LT(1);
@@ -6146,7 +6122,7 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 47) ) { return retval; }
-            // wcps.g:252:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING )
+            // wcps.g:253:5: (op= IDENTIFIER LPAREN e1= coverageExpr RPAREN | e= STRING )
             int alt41=2;
             int LA41_0 = input.LA(1);
 
@@ -6165,7 +6141,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt41) {
                 case 1 :
-                    // wcps.g:252:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
+                    // wcps.g:253:7: op= IDENTIFIER LPAREN e1= coverageExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6197,7 +6173,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:253:7: e= STRING
+                    // wcps.g:254:7: e= STRING
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6242,7 +6218,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "scaleExpr"
-    // wcps.g:255:1: scaleExpr returns [ScaleExpr value] : SCALE LPAREN e1= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE ( COMMA fil= fieldInterpolationList )? RPAREN ;
+    // wcps.g:256:1: scaleExpr returns [ScaleExpr value] : SCALE LPAREN e1= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE ( COMMA fil= fieldInterpolationList )? RPAREN ;
     public final wcpsParser.scaleExpr_return scaleExpr() throws RecognitionException {
         wcpsParser.scaleExpr_return retval = new wcpsParser.scaleExpr_return();
         retval.start = input.LT(1);
@@ -6273,8 +6249,8 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 48) ) { return retval; }
-            // wcps.g:256:2: ( SCALE LPAREN e1= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE ( COMMA fil= fieldInterpolationList )? RPAREN )
-            // wcps.g:256:4: SCALE LPAREN e1= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE ( COMMA fil= fieldInterpolationList )? RPAREN
+            // wcps.g:257:2: ( SCALE LPAREN e1= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE ( COMMA fil= fieldInterpolationList )? RPAREN )
+            // wcps.g:257:4: SCALE LPAREN e1= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE ( COMMA fil= fieldInterpolationList )? RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
@@ -6318,7 +6294,7 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = new ScaleExpr((e1!=null?e1.value:null), (dil!=null?dil.value:null)); 
             }
-            // wcps.g:257:13: ( COMMA fil= fieldInterpolationList )?
+            // wcps.g:258:13: ( COMMA fil= fieldInterpolationList )?
             int alt42=2;
             int LA42_0 = input.LA(1);
 
@@ -6327,7 +6303,7 @@ public class wcpsParser extends Parser {
             }
             switch (alt42) {
                 case 1 :
-                    // wcps.g:257:14: COMMA fil= fieldInterpolationList
+                    // wcps.g:258:14: COMMA fil= fieldInterpolationList
                     {
                     COMMA142=(Token)match(input,COMMA,FOLLOW_COMMA_in_scaleExpr2640); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -6385,7 +6361,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "subsetExpr"
-    // wcps.g:260:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );
+    // wcps.g:261:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr | e4= trimSliceExpr );
     public final wcpsParser.subsetExpr_return subsetExpr() throws RecognitionException {
         wcpsParser.subsetExpr_return retval = new wcpsParser.subsetExpr_return();
         retval.start = input.LT(1);
@@ -6398,16 +6374,18 @@ public class wcpsParser extends Parser {
 
         wcpsParser.extendExpr_return e3 = null;
 
+        wcpsParser.trimSliceExpr_return e4 = null;
+
 
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 49) ) { return retval; }
-            // wcps.g:261:2: (e1= trimExpr | e2= sliceExpr | e3= extendExpr )
-            int alt43=3;
+            // wcps.g:262:2: (e1= trimExpr | e2= sliceExpr | e3= extendExpr | e4= trimSliceExpr )
+            int alt43=4;
             alt43 = dfa43.predict(input);
             switch (alt43) {
                 case 1 :
-                    // wcps.g:261:4: e1= trimExpr
+                    // wcps.g:262:4: e1= trimExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6424,7 +6402,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:262:4: e2= sliceExpr
+                    // wcps.g:263:4: e2= sliceExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6441,7 +6419,7 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // wcps.g:263:4: e3= extendExpr
+                    // wcps.g:264:4: e3= extendExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -6453,6 +6431,23 @@ public class wcpsParser extends Parser {
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e3.getTree());
                     if ( state.backtracking==0 ) {
                        retval.value = new SubsetExpr((e3!=null?e3.value:null)); 
+                    }
+
+                    }
+                    break;
+                case 4 :
+                    // wcps.g:265:7: e4= trimSliceExpr
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    pushFollow(FOLLOW_trimSliceExpr_in_subsetExpr2716);
+                    e4=trimSliceExpr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e4.getTree());
+                    if ( state.backtracking==0 ) {
+                       retval.value = new SubsetExpr((e4!=null?e4.value:null)); 
                     }
 
                     }
@@ -6487,7 +6482,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "trimExpr"
-    // wcps.g:265:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );
+    // wcps.g:267:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );
     public final wcpsParser.trimExpr_return trimExpr() throws RecognitionException {
         wcpsParser.trimExpr_return retval = new wcpsParser.trimExpr_return();
         retval.start = input.LT(1);
@@ -6520,33 +6515,33 @@ public class wcpsParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 50) ) { return retval; }
-            // wcps.g:266:2: (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN )
+            // wcps.g:268:2: (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN )
             int alt44=2;
             alt44 = dfa44.predict(input);
             switch (alt44) {
                 case 1 :
-                    // wcps.g:266:4: e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET
+                    // wcps.g:268:4: e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_coverageAtom_in_trimExpr2721);
+                    pushFollow(FOLLOW_coverageAtom_in_trimExpr2733);
                     e1=coverageAtom();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    LBRACKET144=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_trimExpr2723); if (state.failed) return retval;
+                    LBRACKET144=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_trimExpr2735); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     LBRACKET144_tree = (Object)adaptor.create(LBRACKET144);
                     adaptor.addChild(root_0, LBRACKET144_tree);
                     }
-                    pushFollow(FOLLOW_dimensionIntervalList_in_trimExpr2727);
+                    pushFollow(FOLLOW_dimensionIntervalList_in_trimExpr2739);
                     dil=dimensionIntervalList();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dil.getTree());
-                    RBRACKET145=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_trimExpr2729); if (state.failed) return retval;
+                    RBRACKET145=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_trimExpr2741); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     RBRACKET145_tree = (Object)adaptor.create(RBRACKET145);
                     adaptor.addChild(root_0, RBRACKET145_tree);
@@ -6558,48 +6553,48 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:267:6: TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN
+                    // wcps.g:269:6: TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    TRIM146=(Token)match(input,TRIM,FOLLOW_TRIM_in_trimExpr2738); if (state.failed) return retval;
+                    TRIM146=(Token)match(input,TRIM,FOLLOW_TRIM_in_trimExpr2750); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     TRIM146_tree = (Object)adaptor.create(TRIM146);
                     adaptor.addChild(root_0, TRIM146_tree);
                     }
-                    LPAREN147=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_trimExpr2740); if (state.failed) return retval;
+                    LPAREN147=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_trimExpr2752); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     LPAREN147_tree = (Object)adaptor.create(LPAREN147);
                     adaptor.addChild(root_0, LPAREN147_tree);
                     }
-                    pushFollow(FOLLOW_coverageExpr_in_trimExpr2744);
+                    pushFollow(FOLLOW_coverageExpr_in_trimExpr2756);
                     e2=coverageExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-                    COMMA148=(Token)match(input,COMMA,FOLLOW_COMMA_in_trimExpr2746); if (state.failed) return retval;
+                    COMMA148=(Token)match(input,COMMA,FOLLOW_COMMA_in_trimExpr2758); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     COMMA148_tree = (Object)adaptor.create(COMMA148);
                     adaptor.addChild(root_0, COMMA148_tree);
                     }
-                    LBRACE149=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_trimExpr2748); if (state.failed) return retval;
+                    LBRACE149=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_trimExpr2760); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     LBRACE149_tree = (Object)adaptor.create(LBRACE149);
                     adaptor.addChild(root_0, LBRACE149_tree);
                     }
-                    pushFollow(FOLLOW_dimensionIntervalList_in_trimExpr2752);
+                    pushFollow(FOLLOW_dimensionIntervalList_in_trimExpr2764);
                     dil=dimensionIntervalList();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dil.getTree());
-                    RBRACE150=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_trimExpr2754); if (state.failed) return retval;
+                    RBRACE150=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_trimExpr2766); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     RBRACE150_tree = (Object)adaptor.create(RBRACE150);
                     adaptor.addChild(root_0, RBRACE150_tree);
                     }
-                    RPAREN151=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_trimExpr2756); if (state.failed) return retval;
+                    RPAREN151=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_trimExpr2768); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     RPAREN151_tree = (Object)adaptor.create(RPAREN151);
                     adaptor.addChild(root_0, RPAREN151_tree);
@@ -6633,6 +6628,297 @@ public class wcpsParser extends Parser {
     }
     // $ANTLR end "trimExpr"
 
+    public static class trimSliceExpr_return extends ParserRuleReturnScope {
+        public TrimSliceExpr value;
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "trimSliceExpr"
+    // wcps.g:271:1: trimSliceExpr returns [TrimSliceExpr value] : e1= coverageAtom LBRACKET (el1= dimensionIntervalElement | el2= dimensionPointElement ) ( COMMA (el3= dimensionIntervalElement | el4= dimensionPointElement ) )* RBRACKET ;
+    public final wcpsParser.trimSliceExpr_return trimSliceExpr() throws RecognitionException {
+        wcpsParser.trimSliceExpr_return retval = new wcpsParser.trimSliceExpr_return();
+        retval.start = input.LT(1);
+        int trimSliceExpr_StartIndex = input.index();
+        Object root_0 = null;
+
+        Token LBRACKET152=null;
+        Token COMMA153=null;
+        Token RBRACKET154=null;
+        wcpsParser.coverageAtom_return e1 = null;
+
+        wcpsParser.dimensionIntervalElement_return el1 = null;
+
+        wcpsParser.dimensionPointElement_return el2 = null;
+
+        wcpsParser.dimensionIntervalElement_return el3 = null;
+
+        wcpsParser.dimensionPointElement_return el4 = null;
+
+
+        Object LBRACKET152_tree=null;
+        Object COMMA153_tree=null;
+        Object RBRACKET154_tree=null;
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 51) ) { return retval; }
+            // wcps.g:272:2: (e1= coverageAtom LBRACKET (el1= dimensionIntervalElement | el2= dimensionPointElement ) ( COMMA (el3= dimensionIntervalElement | el4= dimensionPointElement ) )* RBRACKET )
+            // wcps.g:272:4: e1= coverageAtom LBRACKET (el1= dimensionIntervalElement | el2= dimensionPointElement ) ( COMMA (el3= dimensionIntervalElement | el4= dimensionPointElement ) )* RBRACKET
+            {
+            root_0 = (Object)adaptor.nil();
+
+            pushFollow(FOLLOW_coverageAtom_in_trimSliceExpr2785);
+            e1=coverageAtom();
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
+            LBRACKET152=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_trimSliceExpr2787); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
+            LBRACKET152_tree = (Object)adaptor.create(LBRACKET152);
+            adaptor.addChild(root_0, LBRACKET152_tree);
+            }
+            if ( state.backtracking==0 ) {
+               retval.value = new TrimSliceExpr((e1!=null?e1.value:null)); 
+            }
+            // wcps.g:273:30: (el1= dimensionIntervalElement | el2= dimensionPointElement )
+            int alt45=2;
+            int LA45_0 = input.LA(1);
+
+            if ( (LA45_0==INTEGERCONSTANT||LA45_0==STRING||LA45_0==NAME) ) {
+                int LA45_1 = input.LA(2);
+
+                if ( (LA45_1==COLON) ) {
+                    int LA45_2 = input.LA(3);
+
+                    if ( (synpred105_wcps()) ) {
+                        alt45=1;
+                    }
+                    else if ( (true) ) {
+                        alt45=2;
+                    }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return retval;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 45, 2, input);
+
+                        throw nvae;
+                    }
+                }
+                else if ( (LA45_1==LPAREN) ) {
+                    int LA45_3 = input.LA(3);
+
+                    if ( (synpred105_wcps()) ) {
+                        alt45=1;
+                    }
+                    else if ( (true) ) {
+                        alt45=2;
+                    }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return retval;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 45, 3, input);
+
+                        throw nvae;
+                    }
+                }
+                else {
+                    if (state.backtracking>0) {state.failed=true; return retval;}
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 45, 1, input);
+
+                    throw nvae;
+                }
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return retval;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 45, 0, input);
+
+                throw nvae;
+            }
+            switch (alt45) {
+                case 1 :
+                    // wcps.g:273:32: el1= dimensionIntervalElement
+                    {
+                    pushFollow(FOLLOW_dimensionIntervalElement_in_trimSliceExpr2824);
+                    el1=dimensionIntervalElement();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, el1.getTree());
+                    if ( state.backtracking==0 ) {
+                       retval.value.add((el1!=null?el1.value:null)); 
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // wcps.g:274:32: el2= dimensionPointElement
+                    {
+                    pushFollow(FOLLOW_dimensionPointElement_in_trimSliceExpr2861);
+                    el2=dimensionPointElement();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, el2.getTree());
+                    if ( state.backtracking==0 ) {
+                       retval.value.add((el2!=null?el2.value:null)); 
+                    }
+
+                    }
+                    break;
+
+            }
+
+            // wcps.g:275:30: ( COMMA (el3= dimensionIntervalElement | el4= dimensionPointElement ) )*
+            loop47:
+            do {
+                int alt47=2;
+                int LA47_0 = input.LA(1);
+
+                if ( (LA47_0==COMMA) ) {
+                    alt47=1;
+                }
+
+
+                switch (alt47) {
+            	case 1 :
+            	    // wcps.g:275:31: COMMA (el3= dimensionIntervalElement | el4= dimensionPointElement )
+            	    {
+            	    COMMA153=(Token)match(input,COMMA,FOLLOW_COMMA_in_trimSliceExpr2897); if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) {
+            	    COMMA153_tree = (Object)adaptor.create(COMMA153);
+            	    adaptor.addChild(root_0, COMMA153_tree);
+            	    }
+            	    // wcps.g:276:30: (el3= dimensionIntervalElement | el4= dimensionPointElement )
+            	    int alt46=2;
+            	    int LA46_0 = input.LA(1);
+
+            	    if ( (LA46_0==INTEGERCONSTANT||LA46_0==STRING||LA46_0==NAME) ) {
+            	        int LA46_1 = input.LA(2);
+
+            	        if ( (LA46_1==COLON) ) {
+            	            int LA46_2 = input.LA(3);
+
+            	            if ( (synpred106_wcps()) ) {
+            	                alt46=1;
+            	            }
+            	            else if ( (true) ) {
+            	                alt46=2;
+            	            }
+            	            else {
+            	                if (state.backtracking>0) {state.failed=true; return retval;}
+            	                NoViableAltException nvae =
+            	                    new NoViableAltException("", 46, 2, input);
+
+            	                throw nvae;
+            	            }
+            	        }
+            	        else if ( (LA46_1==LPAREN) ) {
+            	            int LA46_3 = input.LA(3);
+
+            	            if ( (synpred106_wcps()) ) {
+            	                alt46=1;
+            	            }
+            	            else if ( (true) ) {
+            	                alt46=2;
+            	            }
+            	            else {
+            	                if (state.backtracking>0) {state.failed=true; return retval;}
+            	                NoViableAltException nvae =
+            	                    new NoViableAltException("", 46, 3, input);
+
+            	                throw nvae;
+            	            }
+            	        }
+            	        else {
+            	            if (state.backtracking>0) {state.failed=true; return retval;}
+            	            NoViableAltException nvae =
+            	                new NoViableAltException("", 46, 1, input);
+
+            	            throw nvae;
+            	        }
+            	    }
+            	    else {
+            	        if (state.backtracking>0) {state.failed=true; return retval;}
+            	        NoViableAltException nvae =
+            	            new NoViableAltException("", 46, 0, input);
+
+            	        throw nvae;
+            	    }
+            	    switch (alt46) {
+            	        case 1 :
+            	            // wcps.g:276:32: el3= dimensionIntervalElement
+            	            {
+            	            pushFollow(FOLLOW_dimensionIntervalElement_in_trimSliceExpr2933);
+            	            el3=dimensionIntervalElement();
+
+            	            state._fsp--;
+            	            if (state.failed) return retval;
+            	            if ( state.backtracking==0 ) adaptor.addChild(root_0, el3.getTree());
+            	            if ( state.backtracking==0 ) {
+            	               retval.value.add((el3!=null?el3.value:null)); 
+            	            }
+
+            	            }
+            	            break;
+            	        case 2 :
+            	            // wcps.g:277:32: el4= dimensionPointElement
+            	            {
+            	            pushFollow(FOLLOW_dimensionPointElement_in_trimSliceExpr2970);
+            	            el4=dimensionPointElement();
+
+            	            state._fsp--;
+            	            if (state.failed) return retval;
+            	            if ( state.backtracking==0 ) adaptor.addChild(root_0, el4.getTree());
+            	            if ( state.backtracking==0 ) {
+            	               retval.value.add((el4!=null?el4.value:null)); 
+            	            }
+
+            	            }
+            	            break;
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop47;
+                }
+            } while (true);
+
+            RBRACKET154=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_trimSliceExpr3001); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
+            RBRACKET154_tree = (Object)adaptor.create(RBRACKET154);
+            adaptor.addChild(root_0, RBRACKET154_tree);
+            }
+
+            }
+
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+            if ( state.backtracking>0 ) { memoize(input, 51, trimSliceExpr_StartIndex); }
+        }
+        return retval;
+    }
+    // $ANTLR end "trimSliceExpr"
+
     public static class sliceExpr_return extends ParserRuleReturnScope {
         public SliceExpr value;
         Object tree;
@@ -6640,21 +6926,21 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "sliceExpr"
-    // wcps.g:269:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );
+    // wcps.g:280:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );
     public final wcpsParser.sliceExpr_return sliceExpr() throws RecognitionException {
         wcpsParser.sliceExpr_return retval = new wcpsParser.sliceExpr_return();
         retval.start = input.LT(1);
         int sliceExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LBRACKET152=null;
-        Token RBRACKET153=null;
-        Token SLICE154=null;
-        Token LPAREN155=null;
-        Token COMMA156=null;
-        Token LBRACE157=null;
-        Token RBRACE158=null;
-        Token RPAREN159=null;
+        Token LBRACKET155=null;
+        Token RBRACKET156=null;
+        Token SLICE157=null;
+        Token LPAREN158=null;
+        Token COMMA159=null;
+        Token LBRACE160=null;
+        Token RBRACE161=null;
+        Token RPAREN162=null;
         wcpsParser.coverageAtom_return e1 = null;
 
         wcpsParser.dimensionPointList_return dpl = null;
@@ -6662,47 +6948,47 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageExpr_return e2 = null;
 
 
-        Object LBRACKET152_tree=null;
-        Object RBRACKET153_tree=null;
-        Object SLICE154_tree=null;
-        Object LPAREN155_tree=null;
-        Object COMMA156_tree=null;
-        Object LBRACE157_tree=null;
-        Object RBRACE158_tree=null;
-        Object RPAREN159_tree=null;
+        Object LBRACKET155_tree=null;
+        Object RBRACKET156_tree=null;
+        Object SLICE157_tree=null;
+        Object LPAREN158_tree=null;
+        Object COMMA159_tree=null;
+        Object LBRACE160_tree=null;
+        Object RBRACE161_tree=null;
+        Object RPAREN162_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 51) ) { return retval; }
-            // wcps.g:270:2: (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN )
-            int alt45=2;
-            alt45 = dfa45.predict(input);
-            switch (alt45) {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 52) ) { return retval; }
+            // wcps.g:281:2: (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN )
+            int alt48=2;
+            alt48 = dfa48.predict(input);
+            switch (alt48) {
                 case 1 :
-                    // wcps.g:270:4: e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET
+                    // wcps.g:281:4: e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_coverageAtom_in_sliceExpr2773);
+                    pushFollow(FOLLOW_coverageAtom_in_sliceExpr3020);
                     e1=coverageAtom();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    LBRACKET152=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_sliceExpr2775); if (state.failed) return retval;
+                    LBRACKET155=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_sliceExpr3022); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LBRACKET152_tree = (Object)adaptor.create(LBRACKET152);
-                    adaptor.addChild(root_0, LBRACKET152_tree);
+                    LBRACKET155_tree = (Object)adaptor.create(LBRACKET155);
+                    adaptor.addChild(root_0, LBRACKET155_tree);
                     }
-                    pushFollow(FOLLOW_dimensionPointList_in_sliceExpr2779);
+                    pushFollow(FOLLOW_dimensionPointList_in_sliceExpr3026);
                     dpl=dimensionPointList();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dpl.getTree());
-                    RBRACKET153=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_sliceExpr2781); if (state.failed) return retval;
+                    RBRACKET156=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_sliceExpr3028); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RBRACKET153_tree = (Object)adaptor.create(RBRACKET153);
-                    adaptor.addChild(root_0, RBRACKET153_tree);
+                    RBRACKET156_tree = (Object)adaptor.create(RBRACKET156);
+                    adaptor.addChild(root_0, RBRACKET156_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new SliceExpr((e1!=null?e1.value:null), (dpl!=null?dpl.value:null)); 
@@ -6711,51 +6997,51 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:271:4: SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN
+                    // wcps.g:282:4: SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    SLICE154=(Token)match(input,SLICE,FOLLOW_SLICE_in_sliceExpr2788); if (state.failed) return retval;
+                    SLICE157=(Token)match(input,SLICE,FOLLOW_SLICE_in_sliceExpr3035); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    SLICE154_tree = (Object)adaptor.create(SLICE154);
-                    adaptor.addChild(root_0, SLICE154_tree);
+                    SLICE157_tree = (Object)adaptor.create(SLICE157);
+                    adaptor.addChild(root_0, SLICE157_tree);
                     }
-                    LPAREN155=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_sliceExpr2790); if (state.failed) return retval;
+                    LPAREN158=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_sliceExpr3037); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN155_tree = (Object)adaptor.create(LPAREN155);
-                    adaptor.addChild(root_0, LPAREN155_tree);
+                    LPAREN158_tree = (Object)adaptor.create(LPAREN158);
+                    adaptor.addChild(root_0, LPAREN158_tree);
                     }
-                    pushFollow(FOLLOW_coverageExpr_in_sliceExpr2794);
+                    pushFollow(FOLLOW_coverageExpr_in_sliceExpr3041);
                     e2=coverageExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-                    COMMA156=(Token)match(input,COMMA,FOLLOW_COMMA_in_sliceExpr2796); if (state.failed) return retval;
+                    COMMA159=(Token)match(input,COMMA,FOLLOW_COMMA_in_sliceExpr3043); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COMMA156_tree = (Object)adaptor.create(COMMA156);
-                    adaptor.addChild(root_0, COMMA156_tree);
+                    COMMA159_tree = (Object)adaptor.create(COMMA159);
+                    adaptor.addChild(root_0, COMMA159_tree);
                     }
-                    LBRACE157=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_sliceExpr2798); if (state.failed) return retval;
+                    LBRACE160=(Token)match(input,LBRACE,FOLLOW_LBRACE_in_sliceExpr3045); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LBRACE157_tree = (Object)adaptor.create(LBRACE157);
-                    adaptor.addChild(root_0, LBRACE157_tree);
+                    LBRACE160_tree = (Object)adaptor.create(LBRACE160);
+                    adaptor.addChild(root_0, LBRACE160_tree);
                     }
-                    pushFollow(FOLLOW_dimensionPointList_in_sliceExpr2802);
+                    pushFollow(FOLLOW_dimensionPointList_in_sliceExpr3049);
                     dpl=dimensionPointList();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dpl.getTree());
-                    RBRACE158=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_sliceExpr2804); if (state.failed) return retval;
+                    RBRACE161=(Token)match(input,RBRACE,FOLLOW_RBRACE_in_sliceExpr3051); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RBRACE158_tree = (Object)adaptor.create(RBRACE158);
-                    adaptor.addChild(root_0, RBRACE158_tree);
+                    RBRACE161_tree = (Object)adaptor.create(RBRACE161);
+                    adaptor.addChild(root_0, RBRACE161_tree);
                     }
-                    RPAREN159=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_sliceExpr2806); if (state.failed) return retval;
+                    RPAREN162=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_sliceExpr3053); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN159_tree = (Object)adaptor.create(RPAREN159);
-                    adaptor.addChild(root_0, RPAREN159_tree);
+                    RPAREN162_tree = (Object)adaptor.create(RPAREN162);
+                    adaptor.addChild(root_0, RPAREN162_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new SliceExpr((e2!=null?e2.value:null), (dpl!=null?dpl.value:null)); 
@@ -6780,7 +7066,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 51, sliceExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 52, sliceExpr_StartIndex); }
         }
         return retval;
     }
@@ -6793,65 +7079,65 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "extendExpr"
-    // wcps.g:273:1: extendExpr returns [ExtendExpr value] : EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN ;
+    // wcps.g:284:1: extendExpr returns [ExtendExpr value] : EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN ;
     public final wcpsParser.extendExpr_return extendExpr() throws RecognitionException {
         wcpsParser.extendExpr_return retval = new wcpsParser.extendExpr_return();
         retval.start = input.LT(1);
         int extendExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token EXTEND160=null;
-        Token LPAREN161=null;
-        Token COMMA162=null;
-        Token RPAREN163=null;
+        Token EXTEND163=null;
+        Token LPAREN164=null;
+        Token COMMA165=null;
+        Token RPAREN166=null;
         wcpsParser.coverageExpr_return e1 = null;
 
         wcpsParser.dimensionIntervalList_return dil = null;
 
 
-        Object EXTEND160_tree=null;
-        Object LPAREN161_tree=null;
-        Object COMMA162_tree=null;
-        Object RPAREN163_tree=null;
+        Object EXTEND163_tree=null;
+        Object LPAREN164_tree=null;
+        Object COMMA165_tree=null;
+        Object RPAREN166_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 52) ) { return retval; }
-            // wcps.g:274:2: ( EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN )
-            // wcps.g:274:4: EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN
+            if ( state.backtracking>0 && alreadyParsedRule(input, 53) ) { return retval; }
+            // wcps.g:285:2: ( EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN )
+            // wcps.g:285:4: EXTEND LPAREN e1= coverageExpr COMMA dil= dimensionIntervalList RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
-            EXTEND160=(Token)match(input,EXTEND,FOLLOW_EXTEND_in_extendExpr2821); if (state.failed) return retval;
+            EXTEND163=(Token)match(input,EXTEND,FOLLOW_EXTEND_in_extendExpr3068); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            EXTEND160_tree = (Object)adaptor.create(EXTEND160);
-            adaptor.addChild(root_0, EXTEND160_tree);
+            EXTEND163_tree = (Object)adaptor.create(EXTEND163);
+            adaptor.addChild(root_0, EXTEND163_tree);
             }
-            LPAREN161=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_extendExpr2823); if (state.failed) return retval;
+            LPAREN164=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_extendExpr3070); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN161_tree = (Object)adaptor.create(LPAREN161);
-            adaptor.addChild(root_0, LPAREN161_tree);
+            LPAREN164_tree = (Object)adaptor.create(LPAREN164);
+            adaptor.addChild(root_0, LPAREN164_tree);
             }
-            pushFollow(FOLLOW_coverageExpr_in_extendExpr2827);
+            pushFollow(FOLLOW_coverageExpr_in_extendExpr3074);
             e1=coverageExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            COMMA162=(Token)match(input,COMMA,FOLLOW_COMMA_in_extendExpr2829); if (state.failed) return retval;
+            COMMA165=(Token)match(input,COMMA,FOLLOW_COMMA_in_extendExpr3076); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            COMMA162_tree = (Object)adaptor.create(COMMA162);
-            adaptor.addChild(root_0, COMMA162_tree);
+            COMMA165_tree = (Object)adaptor.create(COMMA165);
+            adaptor.addChild(root_0, COMMA165_tree);
             }
-            pushFollow(FOLLOW_dimensionIntervalList_in_extendExpr2833);
+            pushFollow(FOLLOW_dimensionIntervalList_in_extendExpr3080);
             dil=dimensionIntervalList();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, dil.getTree());
-            RPAREN163=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_extendExpr2835); if (state.failed) return retval;
+            RPAREN166=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_extendExpr3082); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN163_tree = (Object)adaptor.create(RPAREN163);
-            adaptor.addChild(root_0, RPAREN163_tree);
+            RPAREN166_tree = (Object)adaptor.create(RPAREN166);
+            adaptor.addChild(root_0, RPAREN166_tree);
             }
             if ( state.backtracking==0 ) {
                retval.value = new ExtendExpr((e1!=null?e1.value:null), (dil!=null?dil.value:null)); 
@@ -6874,7 +7160,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 52, extendExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 53, extendExpr_StartIndex); }
         }
         return retval;
     }
@@ -6887,47 +7173,47 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "castExpr"
-    // wcps.g:276:1: castExpr returns [CastExpr value] : LPAREN e1= rangeType RPAREN e2= coverageExpr ;
+    // wcps.g:287:1: castExpr returns [CastExpr value] : LPAREN e1= rangeType RPAREN e2= coverageExpr ;
     public final wcpsParser.castExpr_return castExpr() throws RecognitionException {
         wcpsParser.castExpr_return retval = new wcpsParser.castExpr_return();
         retval.start = input.LT(1);
         int castExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LPAREN164=null;
-        Token RPAREN165=null;
+        Token LPAREN167=null;
+        Token RPAREN168=null;
         wcpsParser.rangeType_return e1 = null;
 
         wcpsParser.coverageExpr_return e2 = null;
 
 
-        Object LPAREN164_tree=null;
-        Object RPAREN165_tree=null;
+        Object LPAREN167_tree=null;
+        Object RPAREN168_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 53) ) { return retval; }
-            // wcps.g:277:5: ( LPAREN e1= rangeType RPAREN e2= coverageExpr )
-            // wcps.g:277:7: LPAREN e1= rangeType RPAREN e2= coverageExpr
+            if ( state.backtracking>0 && alreadyParsedRule(input, 54) ) { return retval; }
+            // wcps.g:288:5: ( LPAREN e1= rangeType RPAREN e2= coverageExpr )
+            // wcps.g:288:7: LPAREN e1= rangeType RPAREN e2= coverageExpr
             {
             root_0 = (Object)adaptor.nil();
 
-            LPAREN164=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_castExpr2853); if (state.failed) return retval;
+            LPAREN167=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_castExpr3100); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN164_tree = (Object)adaptor.create(LPAREN164);
-            adaptor.addChild(root_0, LPAREN164_tree);
+            LPAREN167_tree = (Object)adaptor.create(LPAREN167);
+            adaptor.addChild(root_0, LPAREN167_tree);
             }
-            pushFollow(FOLLOW_rangeType_in_castExpr2857);
+            pushFollow(FOLLOW_rangeType_in_castExpr3104);
             e1=rangeType();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            RPAREN165=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_castExpr2859); if (state.failed) return retval;
+            RPAREN168=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_castExpr3106); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN165_tree = (Object)adaptor.create(RPAREN165);
-            adaptor.addChild(root_0, RPAREN165_tree);
+            RPAREN168_tree = (Object)adaptor.create(RPAREN168);
+            adaptor.addChild(root_0, RPAREN168_tree);
             }
-            pushFollow(FOLLOW_coverageExpr_in_castExpr2863);
+            pushFollow(FOLLOW_coverageExpr_in_castExpr3110);
             e2=coverageExpr();
 
             state._fsp--;
@@ -6954,7 +7240,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 53, castExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 54, castExpr_StartIndex); }
         }
         return retval;
     }
@@ -6967,7 +7253,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "rangeType"
-    // wcps.g:279:1: rangeType returns [String value] : (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) );
+    // wcps.g:290:1: rangeType returns [String value] : (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) );
     public final wcpsParser.rangeType_return rangeType() throws RecognitionException {
         wcpsParser.rangeType_return retval = new wcpsParser.rangeType_return();
         retval.start = input.LT(1);
@@ -6975,33 +7261,33 @@ public class wcpsParser extends Parser {
         Object root_0 = null;
 
         Token type=null;
-        Token UNSIGNED166=null;
+        Token UNSIGNED169=null;
 
         Object type_tree=null;
-        Object UNSIGNED166_tree=null;
+        Object UNSIGNED169_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 54) ) { return retval; }
-            // wcps.g:280:5: (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) )
-            int alt46=2;
-            int LA46_0 = input.LA(1);
+            if ( state.backtracking>0 && alreadyParsedRule(input, 55) ) { return retval; }
+            // wcps.g:291:5: (type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 ) | UNSIGNED type= ( CHAR | SHORT | LONG ) )
+            int alt49=2;
+            int LA49_0 = input.LA(1);
 
-            if ( ((LA46_0>=BOOLEAN && LA46_0<=COMPLEX2)) ) {
-                alt46=1;
+            if ( ((LA49_0>=BOOLEAN && LA49_0<=COMPLEX2)) ) {
+                alt49=1;
             }
-            else if ( (LA46_0==UNSIGNED) ) {
-                alt46=2;
+            else if ( (LA49_0==UNSIGNED) ) {
+                alt49=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 46, 0, input);
+                    new NoViableAltException("", 49, 0, input);
 
                 throw nvae;
             }
-            switch (alt46) {
+            switch (alt49) {
                 case 1 :
-                    // wcps.g:280:7: type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 )
+                    // wcps.g:291:7: type= ( BOOLEAN | CHAR | SHORT | LONG | FLOAT | DOUBLE | COMPLEX | COMPLEX2 )
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -7024,14 +7310,14 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:281:7: UNSIGNED type= ( CHAR | SHORT | LONG )
+                    // wcps.g:292:7: UNSIGNED type= ( CHAR | SHORT | LONG )
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    UNSIGNED166=(Token)match(input,UNSIGNED,FOLLOW_UNSIGNED_in_rangeType2912); if (state.failed) return retval;
+                    UNSIGNED169=(Token)match(input,UNSIGNED,FOLLOW_UNSIGNED_in_rangeType3159); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    UNSIGNED166_tree = (Object)adaptor.create(UNSIGNED166);
-                    adaptor.addChild(root_0, UNSIGNED166_tree);
+                    UNSIGNED169_tree = (Object)adaptor.create(UNSIGNED169);
+                    adaptor.addChild(root_0, UNSIGNED169_tree);
                     }
                     type=(Token)input.LT(1);
                     if ( (input.LA(1)>=CHAR && input.LA(1)<=LONG) ) {
@@ -7068,7 +7354,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 54, rangeType_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 55, rangeType_StartIndex); }
         }
         return retval;
     }
@@ -7081,40 +7367,40 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldExpr"
-    // wcps.g:283:1: fieldExpr returns [SelectExpr value] : e1= coverageAtom DOT e2= fieldName ;
+    // wcps.g:294:1: fieldExpr returns [SelectExpr value] : e1= coverageAtom DOT e2= fieldName ;
     public final wcpsParser.fieldExpr_return fieldExpr() throws RecognitionException {
         wcpsParser.fieldExpr_return retval = new wcpsParser.fieldExpr_return();
         retval.start = input.LT(1);
         int fieldExpr_StartIndex = input.index();
         Object root_0 = null;
 
-        Token DOT167=null;
+        Token DOT170=null;
         wcpsParser.coverageAtom_return e1 = null;
 
         wcpsParser.fieldName_return e2 = null;
 
 
-        Object DOT167_tree=null;
+        Object DOT170_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 55) ) { return retval; }
-            // wcps.g:284:5: (e1= coverageAtom DOT e2= fieldName )
-            // wcps.g:284:7: e1= coverageAtom DOT e2= fieldName
+            if ( state.backtracking>0 && alreadyParsedRule(input, 56) ) { return retval; }
+            // wcps.g:295:5: (e1= coverageAtom DOT e2= fieldName )
+            // wcps.g:295:7: e1= coverageAtom DOT e2= fieldName
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_coverageAtom_in_fieldExpr2945);
+            pushFollow(FOLLOW_coverageAtom_in_fieldExpr3192);
             e1=coverageAtom();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            DOT167=(Token)match(input,DOT,FOLLOW_DOT_in_fieldExpr2947); if (state.failed) return retval;
+            DOT170=(Token)match(input,DOT,FOLLOW_DOT_in_fieldExpr3194); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            DOT167_tree = (Object)adaptor.create(DOT167);
-            adaptor.addChild(root_0, DOT167_tree);
+            DOT170_tree = (Object)adaptor.create(DOT170);
+            adaptor.addChild(root_0, DOT170_tree);
             }
-            pushFollow(FOLLOW_fieldName_in_fieldExpr2951);
+            pushFollow(FOLLOW_fieldName_in_fieldExpr3198);
             e2=fieldName();
 
             state._fsp--;
@@ -7141,7 +7427,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 55, fieldExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 56, fieldExpr_StartIndex); }
         }
         return retval;
     }
@@ -7154,7 +7440,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanScalarExpr"
-    // wcps.g:288:1: booleanScalarExpr returns [BooleanScalarExpr value] : e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* ;
+    // wcps.g:299:1: booleanScalarExpr returns [BooleanScalarExpr value] : e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* ;
     public final wcpsParser.booleanScalarExpr_return booleanScalarExpr() throws RecognitionException {
         wcpsParser.booleanScalarExpr_return retval = new wcpsParser.booleanScalarExpr_return();
         retval.start = input.LT(1);
@@ -7170,13 +7456,13 @@ public class wcpsParser extends Parser {
         Object op_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 56) ) { return retval; }
-            // wcps.g:289:5: (e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* )
-            // wcps.g:289:7: e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )*
+            if ( state.backtracking>0 && alreadyParsedRule(input, 57) ) { return retval; }
+            // wcps.g:300:5: (e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )* )
+            // wcps.g:300:7: e1= booleanScalarTerm (op= ( OR | XOR ) e2= booleanScalarTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_booleanScalarTerm_in_booleanScalarExpr2976);
+            pushFollow(FOLLOW_booleanScalarTerm_in_booleanScalarExpr3223);
             e1=booleanScalarTerm();
 
             state._fsp--;
@@ -7185,14 +7471,14 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // wcps.g:290:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*
-            loop47:
+            // wcps.g:301:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*
+            loop50:
             do {
-                int alt47=2;
-                alt47 = dfa47.predict(input);
-                switch (alt47) {
+                int alt50=2;
+                alt50 = dfa50.predict(input);
+                switch (alt50) {
             	case 1 :
-            	    // wcps.g:290:8: op= ( OR | XOR ) e2= booleanScalarTerm
+            	    // wcps.g:301:8: op= ( OR | XOR ) e2= booleanScalarTerm
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -7206,7 +7492,7 @@ public class wcpsParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_booleanScalarTerm_in_booleanScalarExpr2997);
+            	    pushFollow(FOLLOW_booleanScalarTerm_in_booleanScalarExpr3244);
             	    e2=booleanScalarTerm();
 
             	    state._fsp--;
@@ -7220,7 +7506,7 @@ public class wcpsParser extends Parser {
             	    break;
 
             	default :
-            	    break loop47;
+            	    break loop50;
                 }
             } while (true);
 
@@ -7242,7 +7528,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 56, booleanScalarExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 57, booleanScalarExpr_StartIndex); }
         }
         return retval;
     }
@@ -7255,7 +7541,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "booleanScalarTerm"
-    // wcps.g:292:1: booleanScalarTerm returns [BooleanScalarExpr value] : e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* ;
+    // wcps.g:303:1: booleanScalarTerm returns [BooleanScalarExpr value] : e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* ;
     public final wcpsParser.booleanScalarTerm_return booleanScalarTerm() throws RecognitionException {
         wcpsParser.booleanScalarTerm_return retval = new wcpsParser.booleanScalarTerm_return();
         retval.start = input.LT(1);
@@ -7271,13 +7557,13 @@ public class wcpsParser extends Parser {
         Object op_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 57) ) { return retval; }
-            // wcps.g:293:2: (e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* )
-            // wcps.g:293:4: e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )*
+            if ( state.backtracking>0 && alreadyParsedRule(input, 58) ) { return retval; }
+            // wcps.g:304:2: (e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )* )
+            // wcps.g:304:4: e1= booleanScalarNegation (op= AND e2= booleanScalarNegation )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_booleanScalarNegation_in_booleanScalarTerm3019);
+            pushFollow(FOLLOW_booleanScalarNegation_in_booleanScalarTerm3266);
             e1=booleanScalarNegation();
 
             state._fsp--;
@@ -7286,21 +7572,21 @@ public class wcpsParser extends Parser {
             if ( state.backtracking==0 ) {
                retval.value = (e1!=null?e1.value:null); 
             }
-            // wcps.g:294:4: (op= AND e2= booleanScalarNegation )*
-            loop48:
+            // wcps.g:305:4: (op= AND e2= booleanScalarNegation )*
+            loop51:
             do {
-                int alt48=2;
-                alt48 = dfa48.predict(input);
-                switch (alt48) {
+                int alt51=2;
+                alt51 = dfa51.predict(input);
+                switch (alt51) {
             	case 1 :
-            	    // wcps.g:294:5: op= AND e2= booleanScalarNegation
+            	    // wcps.g:305:5: op= AND e2= booleanScalarNegation
             	    {
-            	    op=(Token)match(input,AND,FOLLOW_AND_in_booleanScalarTerm3029); if (state.failed) return retval;
+            	    op=(Token)match(input,AND,FOLLOW_AND_in_booleanScalarTerm3276); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    op_tree = (Object)adaptor.create(op);
             	    adaptor.addChild(root_0, op_tree);
             	    }
-            	    pushFollow(FOLLOW_booleanScalarNegation_in_booleanScalarTerm3033);
+            	    pushFollow(FOLLOW_booleanScalarNegation_in_booleanScalarTerm3280);
             	    e2=booleanScalarNegation();
 
             	    state._fsp--;
@@ -7308,359 +7594,6 @@ public class wcpsParser extends Parser {
             	    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
             	    if ( state.backtracking==0 ) {
             	       retval.value = new BooleanScalarExpr((op!=null?op.getText():null), retval.value, (e2!=null?e2.value:null)); 
-            	    }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop48;
-                }
-            } while (true);
-
-
-            }
-
-            retval.stop = input.LT(-1);
-
-            if ( state.backtracking==0 ) {
-
-            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
-
-        }
-        finally {
-            if ( state.backtracking>0 ) { memoize(input, 57, booleanScalarTerm_StartIndex); }
-        }
-        return retval;
-    }
-    // $ANTLR end "booleanScalarTerm"
-
-    public static class booleanScalarNegation_return extends ParserRuleReturnScope {
-        public BooleanScalarExpr value;
-        Object tree;
-        public Object getTree() { return tree; }
-    };
-
-    // $ANTLR start "booleanScalarNegation"
-    // wcps.g:296:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );
-    public final wcpsParser.booleanScalarNegation_return booleanScalarNegation() throws RecognitionException {
-        wcpsParser.booleanScalarNegation_return retval = new wcpsParser.booleanScalarNegation_return();
-        retval.start = input.LT(1);
-        int booleanScalarNegation_StartIndex = input.index();
-        Object root_0 = null;
-
-        Token op=null;
-        wcpsParser.booleanScalarAtom_return e1 = null;
-
-
-        Object op_tree=null;
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 58) ) { return retval; }
-            // wcps.g:297:2: (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom )
-            int alt49=2;
-            alt49 = dfa49.predict(input);
-            switch (alt49) {
-                case 1 :
-                    // wcps.g:297:4: e1= booleanScalarAtom
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_booleanScalarAtom_in_booleanScalarNegation3054);
-                    e1=booleanScalarAtom();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    if ( state.backtracking==0 ) {
-                       retval.value = (e1!=null?e1.value:null); 
-                    }
-
-                    }
-                    break;
-                case 2 :
-                    // wcps.g:298:4: op= NOT e1= booleanScalarAtom
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    op=(Token)match(input,NOT,FOLLOW_NOT_in_booleanScalarNegation3063); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    op_tree = (Object)adaptor.create(op);
-                    adaptor.addChild(root_0, op_tree);
-                    }
-                    pushFollow(FOLLOW_booleanScalarAtom_in_booleanScalarNegation3067);
-                    e1=booleanScalarAtom();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    if ( state.backtracking==0 ) {
-                       retval.value = new BooleanScalarExpr((op!=null?op.getText():null), (e1!=null?e1.value:null)); 
-                    }
-
-                    }
-                    break;
-
-            }
-            retval.stop = input.LT(-1);
-
-            if ( state.backtracking==0 ) {
-
-            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
-
-        }
-        finally {
-            if ( state.backtracking>0 ) { memoize(input, 58, booleanScalarNegation_StartIndex); }
-        }
-        return retval;
-    }
-    // $ANTLR end "booleanScalarNegation"
-
-    public static class booleanScalarAtom_return extends ParserRuleReturnScope {
-        public BooleanScalarExpr value;
-        Object tree;
-        public Object getTree() { return tree; }
-    };
-
-    // $ANTLR start "booleanScalarAtom"
-    // wcps.g:300:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );
-    public final wcpsParser.booleanScalarAtom_return booleanScalarAtom() throws RecognitionException {
-        wcpsParser.booleanScalarAtom_return retval = new wcpsParser.booleanScalarAtom_return();
-        retval.start = input.LT(1);
-        int booleanScalarAtom_StartIndex = input.index();
-        Object root_0 = null;
-
-        Token e=null;
-        Token LPAREN168=null;
-        Token RPAREN169=null;
-        wcpsParser.booleanScalarExpr_return e1 = null;
-
-        wcpsParser.stringScalarExpr_return s1 = null;
-
-        wcpsParser.compOp_return cop = null;
-
-        wcpsParser.stringScalarExpr_return s2 = null;
-
-        wcpsParser.numericScalarExpr_return n1 = null;
-
-        wcpsParser.numericScalarExpr_return n2 = null;
-
-
-        Object e_tree=null;
-        Object LPAREN168_tree=null;
-        Object RPAREN169_tree=null;
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 59) ) { return retval; }
-            // wcps.g:301:2: ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT )
-            int alt50=4;
-            alt50 = dfa50.predict(input);
-            switch (alt50) {
-                case 1 :
-                    // wcps.g:301:4: LPAREN e1= booleanScalarExpr RPAREN
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    LPAREN168=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_booleanScalarAtom3082); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    LPAREN168_tree = (Object)adaptor.create(LPAREN168);
-                    adaptor.addChild(root_0, LPAREN168_tree);
-                    }
-                    pushFollow(FOLLOW_booleanScalarExpr_in_booleanScalarAtom3086);
-                    e1=booleanScalarExpr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    RPAREN169=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_booleanScalarAtom3088); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    RPAREN169_tree = (Object)adaptor.create(RPAREN169);
-                    adaptor.addChild(root_0, RPAREN169_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = (e1!=null?e1.value:null); 
-                    }
-
-                    }
-                    break;
-                case 2 :
-                    // wcps.g:302:4: s1= stringScalarExpr cop= compOp s2= stringScalarExpr
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_stringScalarExpr_in_booleanScalarAtom3097);
-                    s1=stringScalarExpr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, s1.getTree());
-                    pushFollow(FOLLOW_compOp_in_booleanScalarAtom3101);
-                    cop=compOp();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, cop.getTree());
-                    pushFollow(FOLLOW_stringScalarExpr_in_booleanScalarAtom3105);
-                    s2=stringScalarExpr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, s2.getTree());
-                    if ( state.backtracking==0 ) {
-                       retval.value = new BooleanScalarExpr((cop!=null?cop.value:null), (s1!=null?s1.value:null), (s2!=null?s2.value:null)); 
-                    }
-
-                    }
-                    break;
-                case 3 :
-                    // wcps.g:303:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_numericScalarExpr_in_booleanScalarAtom3115);
-                    n1=numericScalarExpr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, n1.getTree());
-                    pushFollow(FOLLOW_compOp_in_booleanScalarAtom3119);
-                    cop=compOp();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, cop.getTree());
-                    pushFollow(FOLLOW_numericScalarExpr_in_booleanScalarAtom3123);
-                    n2=numericScalarExpr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, n2.getTree());
-                    if ( state.backtracking==0 ) {
-                       retval.value = new BooleanScalarExpr((cop!=null?cop.value:null), (n1!=null?n1.value:null), (n2!=null?n2.value:null)); 
-                    }
-
-                    }
-                    break;
-                case 4 :
-                    // wcps.g:304:4: e= BOOLEANCONSTANT
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    e=(Token)match(input,BOOLEANCONSTANT,FOLLOW_BOOLEANCONSTANT_in_booleanScalarAtom3133); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    e_tree = (Object)adaptor.create(e);
-                    adaptor.addChild(root_0, e_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = new BooleanScalarExpr((e!=null?e.getText():null)); 
-                    }
-
-                    }
-                    break;
-
-            }
-            retval.stop = input.LT(-1);
-
-            if ( state.backtracking==0 ) {
-
-            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
-
-        }
-        finally {
-            if ( state.backtracking>0 ) { memoize(input, 59, booleanScalarAtom_StartIndex); }
-        }
-        return retval;
-    }
-    // $ANTLR end "booleanScalarAtom"
-
-    public static class numericScalarExpr_return extends ParserRuleReturnScope {
-        public NumericScalarExpr value;
-        Object tree;
-        public Object getTree() { return tree; }
-    };
-
-    // $ANTLR start "numericScalarExpr"
-    // wcps.g:306:1: numericScalarExpr returns [NumericScalarExpr value] : e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* ;
-    public final wcpsParser.numericScalarExpr_return numericScalarExpr() throws RecognitionException {
-        wcpsParser.numericScalarExpr_return retval = new wcpsParser.numericScalarExpr_return();
-        retval.start = input.LT(1);
-        int numericScalarExpr_StartIndex = input.index();
-        Object root_0 = null;
-
-        Token op=null;
-        wcpsParser.numericScalarTerm_return e1 = null;
-
-        wcpsParser.numericScalarTerm_return e2 = null;
-
-
-        Object op_tree=null;
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 60) ) { return retval; }
-            // wcps.g:307:2: (e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* )
-            // wcps.g:307:4: e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
-            {
-            root_0 = (Object)adaptor.nil();
-
-            pushFollow(FOLLOW_numericScalarTerm_in_numericScalarExpr3150);
-            e1=numericScalarTerm();
-
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-            if ( state.backtracking==0 ) {
-              retval.value = (e1!=null?e1.value:null); 
-            }
-            // wcps.g:308:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
-            loop51:
-            do {
-                int alt51=2;
-                alt51 = dfa51.predict(input);
-                switch (alt51) {
-            	case 1 :
-            	    // wcps.g:308:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
-            	    {
-            	    op=(Token)input.LT(1);
-            	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
-            	        input.consume();
-            	        if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(op));
-            	        state.errorRecovery=false;state.failed=false;
-            	    }
-            	    else {
-            	        if (state.backtracking>0) {state.failed=true; return retval;}
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        throw mse;
-            	    }
-
-            	    pushFollow(FOLLOW_numericScalarTerm_in_numericScalarExpr3168);
-            	    e2=numericScalarTerm();
-
-            	    state._fsp--;
-            	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-            	    if ( state.backtracking==0 ) {
-            	       retval.value = new NumericScalarExpr((op!=null?op.getText():null), retval.value, (e2!=null?e2.value:null)); 
             	    }
 
             	    }
@@ -7689,61 +7622,313 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 60, numericScalarExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 58, booleanScalarTerm_StartIndex); }
         }
         return retval;
     }
-    // $ANTLR end "numericScalarExpr"
+    // $ANTLR end "booleanScalarTerm"
 
-    public static class numericScalarTerm_return extends ParserRuleReturnScope {
+    public static class booleanScalarNegation_return extends ParserRuleReturnScope {
+        public BooleanScalarExpr value;
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "booleanScalarNegation"
+    // wcps.g:307:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );
+    public final wcpsParser.booleanScalarNegation_return booleanScalarNegation() throws RecognitionException {
+        wcpsParser.booleanScalarNegation_return retval = new wcpsParser.booleanScalarNegation_return();
+        retval.start = input.LT(1);
+        int booleanScalarNegation_StartIndex = input.index();
+        Object root_0 = null;
+
+        Token op=null;
+        wcpsParser.booleanScalarAtom_return e1 = null;
+
+
+        Object op_tree=null;
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 59) ) { return retval; }
+            // wcps.g:308:2: (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom )
+            int alt52=2;
+            alt52 = dfa52.predict(input);
+            switch (alt52) {
+                case 1 :
+                    // wcps.g:308:4: e1= booleanScalarAtom
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    pushFollow(FOLLOW_booleanScalarAtom_in_booleanScalarNegation3301);
+                    e1=booleanScalarAtom();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
+                    if ( state.backtracking==0 ) {
+                       retval.value = (e1!=null?e1.value:null); 
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // wcps.g:309:4: op= NOT e1= booleanScalarAtom
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    op=(Token)match(input,NOT,FOLLOW_NOT_in_booleanScalarNegation3310); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    op_tree = (Object)adaptor.create(op);
+                    adaptor.addChild(root_0, op_tree);
+                    }
+                    pushFollow(FOLLOW_booleanScalarAtom_in_booleanScalarNegation3314);
+                    e1=booleanScalarAtom();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
+                    if ( state.backtracking==0 ) {
+                       retval.value = new BooleanScalarExpr((op!=null?op.getText():null), (e1!=null?e1.value:null)); 
+                    }
+
+                    }
+                    break;
+
+            }
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+            if ( state.backtracking>0 ) { memoize(input, 59, booleanScalarNegation_StartIndex); }
+        }
+        return retval;
+    }
+    // $ANTLR end "booleanScalarNegation"
+
+    public static class booleanScalarAtom_return extends ParserRuleReturnScope {
+        public BooleanScalarExpr value;
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "booleanScalarAtom"
+    // wcps.g:311:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );
+    public final wcpsParser.booleanScalarAtom_return booleanScalarAtom() throws RecognitionException {
+        wcpsParser.booleanScalarAtom_return retval = new wcpsParser.booleanScalarAtom_return();
+        retval.start = input.LT(1);
+        int booleanScalarAtom_StartIndex = input.index();
+        Object root_0 = null;
+
+        Token e=null;
+        Token LPAREN171=null;
+        Token RPAREN172=null;
+        wcpsParser.booleanScalarExpr_return e1 = null;
+
+        wcpsParser.stringScalarExpr_return s1 = null;
+
+        wcpsParser.compOp_return cop = null;
+
+        wcpsParser.stringScalarExpr_return s2 = null;
+
+        wcpsParser.numericScalarExpr_return n1 = null;
+
+        wcpsParser.numericScalarExpr_return n2 = null;
+
+
+        Object e_tree=null;
+        Object LPAREN171_tree=null;
+        Object RPAREN172_tree=null;
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 60) ) { return retval; }
+            // wcps.g:312:2: ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT )
+            int alt53=4;
+            alt53 = dfa53.predict(input);
+            switch (alt53) {
+                case 1 :
+                    // wcps.g:312:4: LPAREN e1= booleanScalarExpr RPAREN
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    LPAREN171=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_booleanScalarAtom3329); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    LPAREN171_tree = (Object)adaptor.create(LPAREN171);
+                    adaptor.addChild(root_0, LPAREN171_tree);
+                    }
+                    pushFollow(FOLLOW_booleanScalarExpr_in_booleanScalarAtom3333);
+                    e1=booleanScalarExpr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
+                    RPAREN172=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_booleanScalarAtom3335); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    RPAREN172_tree = (Object)adaptor.create(RPAREN172);
+                    adaptor.addChild(root_0, RPAREN172_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = (e1!=null?e1.value:null); 
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // wcps.g:313:4: s1= stringScalarExpr cop= compOp s2= stringScalarExpr
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    pushFollow(FOLLOW_stringScalarExpr_in_booleanScalarAtom3344);
+                    s1=stringScalarExpr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, s1.getTree());
+                    pushFollow(FOLLOW_compOp_in_booleanScalarAtom3348);
+                    cop=compOp();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, cop.getTree());
+                    pushFollow(FOLLOW_stringScalarExpr_in_booleanScalarAtom3352);
+                    s2=stringScalarExpr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, s2.getTree());
+                    if ( state.backtracking==0 ) {
+                       retval.value = new BooleanScalarExpr((cop!=null?cop.value:null), (s1!=null?s1.value:null), (s2!=null?s2.value:null)); 
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // wcps.g:314:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    pushFollow(FOLLOW_numericScalarExpr_in_booleanScalarAtom3362);
+                    n1=numericScalarExpr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, n1.getTree());
+                    pushFollow(FOLLOW_compOp_in_booleanScalarAtom3366);
+                    cop=compOp();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, cop.getTree());
+                    pushFollow(FOLLOW_numericScalarExpr_in_booleanScalarAtom3370);
+                    n2=numericScalarExpr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, n2.getTree());
+                    if ( state.backtracking==0 ) {
+                       retval.value = new BooleanScalarExpr((cop!=null?cop.value:null), (n1!=null?n1.value:null), (n2!=null?n2.value:null)); 
+                    }
+
+                    }
+                    break;
+                case 4 :
+                    // wcps.g:315:4: e= BOOLEANCONSTANT
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    e=(Token)match(input,BOOLEANCONSTANT,FOLLOW_BOOLEANCONSTANT_in_booleanScalarAtom3380); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    e_tree = (Object)adaptor.create(e);
+                    adaptor.addChild(root_0, e_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = new BooleanScalarExpr((e!=null?e.getText():null)); 
+                    }
+
+                    }
+                    break;
+
+            }
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+            if ( state.backtracking>0 ) { memoize(input, 60, booleanScalarAtom_StartIndex); }
+        }
+        return retval;
+    }
+    // $ANTLR end "booleanScalarAtom"
+
+    public static class numericScalarExpr_return extends ParserRuleReturnScope {
         public NumericScalarExpr value;
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start "numericScalarTerm"
-    // wcps.g:310:1: numericScalarTerm returns [NumericScalarExpr value] : e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* ;
-    public final wcpsParser.numericScalarTerm_return numericScalarTerm() throws RecognitionException {
-        wcpsParser.numericScalarTerm_return retval = new wcpsParser.numericScalarTerm_return();
+    // $ANTLR start "numericScalarExpr"
+    // wcps.g:317:1: numericScalarExpr returns [NumericScalarExpr value] : e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* ;
+    public final wcpsParser.numericScalarExpr_return numericScalarExpr() throws RecognitionException {
+        wcpsParser.numericScalarExpr_return retval = new wcpsParser.numericScalarExpr_return();
         retval.start = input.LT(1);
-        int numericScalarTerm_StartIndex = input.index();
+        int numericScalarExpr_StartIndex = input.index();
         Object root_0 = null;
 
         Token op=null;
-        wcpsParser.numericScalarFactor_return e1 = null;
+        wcpsParser.numericScalarTerm_return e1 = null;
 
-        wcpsParser.numericScalarFactor_return e2 = null;
+        wcpsParser.numericScalarTerm_return e2 = null;
 
 
         Object op_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 61) ) { return retval; }
-            // wcps.g:311:2: (e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* )
-            // wcps.g:311:4: e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
+            // wcps.g:318:2: (e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )* )
+            // wcps.g:318:4: e1= numericScalarTerm (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_numericScalarFactor_in_numericScalarTerm3187);
-            e1=numericScalarFactor();
+            pushFollow(FOLLOW_numericScalarTerm_in_numericScalarExpr3397);
+            e1=numericScalarTerm();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
             if ( state.backtracking==0 ) {
-               retval.value = (e1!=null?e1.value:null); 
+              retval.value = (e1!=null?e1.value:null); 
             }
-            // wcps.g:312:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
-            loop52:
+            // wcps.g:319:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*
+            loop54:
             do {
-                int alt52=2;
-                alt52 = dfa52.predict(input);
-                switch (alt52) {
+                int alt54=2;
+                alt54 = dfa54.predict(input);
+                switch (alt54) {
             	case 1 :
-            	    // wcps.g:312:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
+            	    // wcps.g:319:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
             	    {
             	    op=(Token)input.LT(1);
-            	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
+            	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
             	        input.consume();
             	        if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(op));
             	        state.errorRecovery=false;state.failed=false;
@@ -7754,8 +7939,8 @@ public class wcpsParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_numericScalarFactor_in_numericScalarTerm3204);
-            	    e2=numericScalarFactor();
+            	    pushFollow(FOLLOW_numericScalarTerm_in_numericScalarExpr3415);
+            	    e2=numericScalarTerm();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
@@ -7768,7 +7953,7 @@ public class wcpsParser extends Parser {
             	    break;
 
             	default :
-            	    break loop52;
+            	    break loop54;
                 }
             } while (true);
 
@@ -7790,574 +7975,79 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 61, numericScalarTerm_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 61, numericScalarExpr_StartIndex); }
         }
         return retval;
     }
-    // $ANTLR end "numericScalarTerm"
+    // $ANTLR end "numericScalarExpr"
 
-    public static class numericScalarFactor_return extends ParserRuleReturnScope {
+    public static class numericScalarTerm_return extends ParserRuleReturnScope {
         public NumericScalarExpr value;
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start "numericScalarFactor"
-    // wcps.g:314:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );
-    public final wcpsParser.numericScalarFactor_return numericScalarFactor() throws RecognitionException {
-        wcpsParser.numericScalarFactor_return retval = new wcpsParser.numericScalarFactor_return();
+    // $ANTLR start "numericScalarTerm"
+    // wcps.g:321:1: numericScalarTerm returns [NumericScalarExpr value] : e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* ;
+    public final wcpsParser.numericScalarTerm_return numericScalarTerm() throws RecognitionException {
+        wcpsParser.numericScalarTerm_return retval = new wcpsParser.numericScalarTerm_return();
         retval.start = input.LT(1);
-        int numericScalarFactor_StartIndex = input.index();
+        int numericScalarTerm_StartIndex = input.index();
         Object root_0 = null;
 
         Token op=null;
-        Token e=null;
-        Token LPAREN170=null;
-        Token RPAREN171=null;
-        Token LPAREN172=null;
-        Token RPAREN173=null;
-        Token LPAREN174=null;
-        Token RPAREN175=null;
-        Token LPAREN176=null;
-        Token RPAREN177=null;
-        wcpsParser.numericScalarExpr_return e1 = null;
+        wcpsParser.numericScalarFactor_return e1 = null;
 
-        wcpsParser.numericScalarFactor_return e10 = null;
-
-        wcpsParser.numericScalarExpr_return e12 = null;
-
-        wcpsParser.numericScalarExpr_return e11 = null;
-
-        wcpsParser.complexConstant_return e2 = null;
-
-        wcpsParser.condenseExpr_return e3 = null;
-
-        wcpsParser.variableName_return e4 = null;
+        wcpsParser.numericScalarFactor_return e2 = null;
 
 
         Object op_tree=null;
-        Object e_tree=null;
-        Object LPAREN170_tree=null;
-        Object RPAREN171_tree=null;
-        Object LPAREN172_tree=null;
-        Object RPAREN173_tree=null;
-        Object LPAREN174_tree=null;
-        Object RPAREN175_tree=null;
-        Object LPAREN176_tree=null;
-        Object RPAREN177_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 62) ) { return retval; }
-            // wcps.g:315:5: ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName )
-            int alt53=10;
-            alt53 = dfa53.predict(input);
-            switch (alt53) {
-                case 1 :
-                    // wcps.g:315:7: LPAREN e1= numericScalarExpr RPAREN
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    LPAREN170=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3224); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    LPAREN170_tree = (Object)adaptor.create(LPAREN170);
-                    adaptor.addChild(root_0, LPAREN170_tree);
-                    }
-                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3228);
-                    e1=numericScalarExpr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    RPAREN171=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3230); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    RPAREN171_tree = (Object)adaptor.create(RPAREN171);
-                    adaptor.addChild(root_0, RPAREN171_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = (e1!=null?e1.value:null); 
-                    }
-
-                    }
-                    break;
-                case 2 :
-                    // wcps.g:316:7: op= MINUS e10= numericScalarFactor
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    op=(Token)match(input,MINUS,FOLLOW_MINUS_in_numericScalarFactor3242); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    op_tree = (Object)adaptor.create(op);
-                    adaptor.addChild(root_0, op_tree);
-                    }
-                    pushFollow(FOLLOW_numericScalarFactor_in_numericScalarFactor3246);
-                    e10=numericScalarFactor();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e10.getTree());
-                    if ( state.backtracking==0 ) {
-                       retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e10!=null?e10.value:null)); 
-                    }
-
-                    }
-                    break;
-                case 3 :
-                    // wcps.g:317:7: op= ABS LPAREN e12= numericScalarExpr RPAREN
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    op=(Token)match(input,ABS,FOLLOW_ABS_in_numericScalarFactor3258); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    op_tree = (Object)adaptor.create(op);
-                    adaptor.addChild(root_0, op_tree);
-                    }
-                    LPAREN172=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3260); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    LPAREN172_tree = (Object)adaptor.create(LPAREN172);
-                    adaptor.addChild(root_0, LPAREN172_tree);
-                    }
-                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3264);
-                    e12=numericScalarExpr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e12.getTree());
-                    RPAREN173=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3266); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    RPAREN173_tree = (Object)adaptor.create(RPAREN173);
-                    adaptor.addChild(root_0, RPAREN173_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e12!=null?e12.value:null)); 
-                    }
-
-                    }
-                    break;
-                case 4 :
-                    // wcps.g:318:7: op= SQRT LPAREN e11= numericScalarExpr RPAREN
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    op=(Token)match(input,SQRT,FOLLOW_SQRT_in_numericScalarFactor3278); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    op_tree = (Object)adaptor.create(op);
-                    adaptor.addChild(root_0, op_tree);
-                    }
-                    LPAREN174=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3280); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    LPAREN174_tree = (Object)adaptor.create(LPAREN174);
-                    adaptor.addChild(root_0, LPAREN174_tree);
-                    }
-                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3284);
-                    e11=numericScalarExpr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e11.getTree());
-                    RPAREN175=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3286); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    RPAREN175_tree = (Object)adaptor.create(RPAREN175);
-                    adaptor.addChild(root_0, RPAREN175_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e11!=null?e11.value:null)); 
-                    }
-
-                    }
-                    break;
-                case 5 :
-                    // wcps.g:319:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    op=(Token)match(input,ROUND,FOLLOW_ROUND_in_numericScalarFactor3298); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    op_tree = (Object)adaptor.create(op);
-                    adaptor.addChild(root_0, op_tree);
-                    }
-                    LPAREN176=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3300); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    LPAREN176_tree = (Object)adaptor.create(LPAREN176);
-                    adaptor.addChild(root_0, LPAREN176_tree);
-                    }
-                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3304);
-                    e1=numericScalarExpr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    RPAREN177=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3306); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    RPAREN177_tree = (Object)adaptor.create(RPAREN177);
-                    adaptor.addChild(root_0, RPAREN177_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e1!=null?e1.value:null)); 
-                    }
-
-                    }
-                    break;
-                case 6 :
-                    // wcps.g:320:7: e= INTEGERCONSTANT
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    e=(Token)match(input,INTEGERCONSTANT,FOLLOW_INTEGERCONSTANT_in_numericScalarFactor3318); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    e_tree = (Object)adaptor.create(e);
-                    adaptor.addChild(root_0, e_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = new NumericScalarExpr((e!=null?e.getText():null)); 
-                    }
-
-                    }
-                    break;
-                case 7 :
-                    // wcps.g:321:7: e= FLOATCONSTANT
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    e=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_numericScalarFactor3330); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    e_tree = (Object)adaptor.create(e);
-                    adaptor.addChild(root_0, e_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = new NumericScalarExpr((e!=null?e.getText():null)); 
-                    }
-
-                    }
-                    break;
-                case 8 :
-                    // wcps.g:322:7: e2= complexConstant
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_complexConstant_in_numericScalarFactor3342);
-                    e2=complexConstant();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
-                    if ( state.backtracking==0 ) {
-                       retval.value = new NumericScalarExpr((e2!=null?e2.value:null)); 
-                    }
-
-                    }
-                    break;
-                case 9 :
-                    // wcps.g:323:7: e3= condenseExpr
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_condenseExpr_in_numericScalarFactor3354);
-                    e3=condenseExpr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e3.getTree());
-                    if ( state.backtracking==0 ) {
-                       retval.value = new NumericScalarExpr((e3!=null?e3.value:null)); 
-                    }
-
-                    }
-                    break;
-                case 10 :
-                    // wcps.g:324:7: e4= variableName
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_variableName_in_numericScalarFactor3366);
-                    e4=variableName();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e4.getTree());
-                    if ( state.backtracking==0 ) {
-                       retval.value = new NumericScalarExpr("var", (e4!=null?e4.value:null)); 
-                    }
-
-                    }
-                    break;
-
-            }
-            retval.stop = input.LT(-1);
-
-            if ( state.backtracking==0 ) {
-
-            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
-
-        }
-        finally {
-            if ( state.backtracking>0 ) { memoize(input, 62, numericScalarFactor_StartIndex); }
-        }
-        return retval;
-    }
-    // $ANTLR end "numericScalarFactor"
-
-    public static class compOp_return extends ParserRuleReturnScope {
-        public String value;
-        Object tree;
-        public Object getTree() { return tree; }
-    };
-
-    // $ANTLR start "compOp"
-    // wcps.g:326:1: compOp returns [String value] : ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE );
-    public final wcpsParser.compOp_return compOp() throws RecognitionException {
-        wcpsParser.compOp_return retval = new wcpsParser.compOp_return();
-        retval.start = input.LT(1);
-        int compOp_StartIndex = input.index();
-        Object root_0 = null;
-
-        Token EQUALS178=null;
-        Token NOTEQUALS179=null;
-        Token LT180=null;
-        Token GT181=null;
-        Token LTE182=null;
-        Token GTE183=null;
-
-        Object EQUALS178_tree=null;
-        Object NOTEQUALS179_tree=null;
-        Object LT180_tree=null;
-        Object GT181_tree=null;
-        Object LTE182_tree=null;
-        Object GTE183_tree=null;
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 63) ) { return retval; }
-            // wcps.g:327:2: ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE )
-            int alt54=6;
-            switch ( input.LA(1) ) {
-            case EQUALS:
-                {
-                alt54=1;
-                }
-                break;
-            case NOTEQUALS:
-                {
-                alt54=2;
-                }
-                break;
-            case LT:
-                {
-                alt54=3;
-                }
-                break;
-            case GT:
-                {
-                alt54=4;
-                }
-                break;
-            case LTE:
-                {
-                alt54=5;
-                }
-                break;
-            case GTE:
-                {
-                alt54=6;
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return retval;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 54, 0, input);
-
-                throw nvae;
-            }
-
-            switch (alt54) {
-                case 1 :
-                    // wcps.g:327:4: EQUALS
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    EQUALS178=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_compOp3384); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    EQUALS178_tree = (Object)adaptor.create(EQUALS178);
-                    adaptor.addChild(root_0, EQUALS178_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = new String("equals"); 
-                    }
-
-                    }
-                    break;
-                case 2 :
-                    // wcps.g:328:4: NOTEQUALS
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    NOTEQUALS179=(Token)match(input,NOTEQUALS,FOLLOW_NOTEQUALS_in_compOp3391); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    NOTEQUALS179_tree = (Object)adaptor.create(NOTEQUALS179);
-                    adaptor.addChild(root_0, NOTEQUALS179_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = new String("notEqual"); 
-                    }
-
-                    }
-                    break;
-                case 3 :
-                    // wcps.g:329:4: LT
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    LT180=(Token)match(input,LT,FOLLOW_LT_in_compOp3398); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    LT180_tree = (Object)adaptor.create(LT180);
-                    adaptor.addChild(root_0, LT180_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = new String("lessThan"); 
-                    }
-
-                    }
-                    break;
-                case 4 :
-                    // wcps.g:330:4: GT
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    GT181=(Token)match(input,GT,FOLLOW_GT_in_compOp3405); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    GT181_tree = (Object)adaptor.create(GT181);
-                    adaptor.addChild(root_0, GT181_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = new String("greaterThan"); 
-                    }
-
-                    }
-                    break;
-                case 5 :
-                    // wcps.g:331:4: LTE
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    LTE182=(Token)match(input,LTE,FOLLOW_LTE_in_compOp3412); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    LTE182_tree = (Object)adaptor.create(LTE182);
-                    adaptor.addChild(root_0, LTE182_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = new String("lessOrEqual"); 
-                    }
-
-                    }
-                    break;
-                case 6 :
-                    // wcps.g:332:4: GTE
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    GTE183=(Token)match(input,GTE,FOLLOW_GTE_in_compOp3419); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    GTE183_tree = (Object)adaptor.create(GTE183);
-                    adaptor.addChild(root_0, GTE183_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = new String("greaterOrEqual"); 
-                    }
-
-                    }
-                    break;
-
-            }
-            retval.stop = input.LT(-1);
-
-            if ( state.backtracking==0 ) {
-
-            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
-
-        }
-        finally {
-            if ( state.backtracking>0 ) { memoize(input, 63, compOp_StartIndex); }
-        }
-        return retval;
-    }
-    // $ANTLR end "compOp"
-
-    public static class dimensionIntervalList_return extends ParserRuleReturnScope {
-        public DimensionIntervalList value;
-        Object tree;
-        public Object getTree() { return tree; }
-    };
-
-    // $ANTLR start "dimensionIntervalList"
-    // wcps.g:334:1: dimensionIntervalList returns [DimensionIntervalList value] : elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* ;
-    public final wcpsParser.dimensionIntervalList_return dimensionIntervalList() throws RecognitionException {
-        wcpsParser.dimensionIntervalList_return retval = new wcpsParser.dimensionIntervalList_return();
-        retval.start = input.LT(1);
-        int dimensionIntervalList_StartIndex = input.index();
-        Object root_0 = null;
-
-        Token COMMA184=null;
-        wcpsParser.dimensionIntervalElement_return elem = null;
-
-
-        Object COMMA184_tree=null;
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 64) ) { return retval; }
-            // wcps.g:335:5: (elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* )
-            // wcps.g:335:7: elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )*
+            // wcps.g:322:2: (e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )* )
+            // wcps.g:322:4: e1= numericScalarFactor (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3439);
-            elem=dimensionIntervalElement();
+            pushFollow(FOLLOW_numericScalarFactor_in_numericScalarTerm3434);
+            e1=numericScalarFactor();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, elem.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
             if ( state.backtracking==0 ) {
-               retval.value = new DimensionIntervalList((elem!=null?elem.value:null)); 
+               retval.value = (e1!=null?e1.value:null); 
             }
-            // wcps.g:336:9: ( COMMA elem= dimensionIntervalElement )*
+            // wcps.g:323:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*
             loop55:
             do {
                 int alt55=2;
-                int LA55_0 = input.LA(1);
-
-                if ( (LA55_0==COMMA) ) {
-                    alt55=1;
-                }
-
-
+                alt55 = dfa55.predict(input);
                 switch (alt55) {
             	case 1 :
-            	    // wcps.g:336:10: COMMA elem= dimensionIntervalElement
+            	    // wcps.g:323:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
             	    {
-            	    COMMA184=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionIntervalList3452); if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) {
-            	    COMMA184_tree = (Object)adaptor.create(COMMA184);
-            	    adaptor.addChild(root_0, COMMA184_tree);
+            	    op=(Token)input.LT(1);
+            	    if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
+            	        input.consume();
+            	        if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(op));
+            	        state.errorRecovery=false;state.failed=false;
             	    }
-            	    pushFollow(FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3456);
-            	    elem=dimensionIntervalElement();
+            	    else {
+            	        if (state.backtracking>0) {state.failed=true; return retval;}
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        throw mse;
+            	    }
+
+            	    pushFollow(FOLLOW_numericScalarFactor_in_numericScalarTerm3451);
+            	    e2=numericScalarFactor();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, elem.getTree());
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
             	    if ( state.backtracking==0 ) {
-            	       retval.value.add((elem!=null?elem.value:null)); 
+            	       retval.value = new NumericScalarExpr((op!=null?op.getText():null), retval.value, (e2!=null?e2.value:null)); 
             	    }
 
             	    }
@@ -8386,252 +8076,292 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 64, dimensionIntervalList_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 62, numericScalarTerm_StartIndex); }
         }
         return retval;
     }
-    // $ANTLR end "dimensionIntervalList"
+    // $ANTLR end "numericScalarTerm"
 
-    public static class dimensionIntervalElement_return extends ParserRuleReturnScope {
-        public DimensionIntervalElement value;
+    public static class numericScalarFactor_return extends ParserRuleReturnScope {
+        public NumericScalarExpr value;
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start "dimensionIntervalElement"
-    // wcps.g:338:1: dimensionIntervalElement returns [DimensionIntervalElement value] : aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN ;
-    public final wcpsParser.dimensionIntervalElement_return dimensionIntervalElement() throws RecognitionException {
-        wcpsParser.dimensionIntervalElement_return retval = new wcpsParser.dimensionIntervalElement_return();
+    // $ANTLR start "numericScalarFactor"
+    // wcps.g:325:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );
+    public final wcpsParser.numericScalarFactor_return numericScalarFactor() throws RecognitionException {
+        wcpsParser.numericScalarFactor_return retval = new wcpsParser.numericScalarFactor_return();
         retval.start = input.LT(1);
-        int dimensionIntervalElement_StartIndex = input.index();
+        int numericScalarFactor_StartIndex = input.index();
         Object root_0 = null;
 
-        Token COLON185=null;
-        Token LPAREN186=null;
-        Token RPAREN187=null;
-        wcpsParser.axisName_return aname = null;
+        Token op=null;
+        Token e=null;
+        Token LPAREN173=null;
+        Token RPAREN174=null;
+        Token LPAREN175=null;
+        Token RPAREN176=null;
+        Token LPAREN177=null;
+        Token RPAREN178=null;
+        Token LPAREN179=null;
+        Token RPAREN180=null;
+        wcpsParser.numericScalarExpr_return e1 = null;
 
-        wcpsParser.crsName_return crs = null;
+        wcpsParser.numericScalarFactor_return e10 = null;
 
-        wcpsParser.dimensionIntervalExpr_return die = null;
+        wcpsParser.numericScalarExpr_return e12 = null;
+
+        wcpsParser.numericScalarExpr_return e11 = null;
+
+        wcpsParser.complexConstant_return e2 = null;
+
+        wcpsParser.condenseExpr_return e3 = null;
+
+        wcpsParser.variableName_return e4 = null;
 
 
-        Object COLON185_tree=null;
-        Object LPAREN186_tree=null;
-        Object RPAREN187_tree=null;
+        Object op_tree=null;
+        Object e_tree=null;
+        Object LPAREN173_tree=null;
+        Object RPAREN174_tree=null;
+        Object LPAREN175_tree=null;
+        Object RPAREN176_tree=null;
+        Object LPAREN177_tree=null;
+        Object RPAREN178_tree=null;
+        Object LPAREN179_tree=null;
+        Object RPAREN180_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 65) ) { return retval; }
-            // wcps.g:339:5: (aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN )
-            // wcps.g:339:7: aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN
-            {
-            root_0 = (Object)adaptor.nil();
-
-            pushFollow(FOLLOW_axisName_in_dimensionIntervalElement3481);
-            aname=axisName();
-
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, aname.getTree());
-            if ( state.backtracking==0 ) {
-               retval.value = new DimensionIntervalElement((aname!=null?aname.value:null)); 
-            }
-            // wcps.g:339:79: ( COLON crs= crsName )?
-            int alt56=2;
-            int LA56_0 = input.LA(1);
-
-            if ( (LA56_0==COLON) ) {
-                alt56=1;
-            }
+            if ( state.backtracking>0 && alreadyParsedRule(input, 63) ) { return retval; }
+            // wcps.g:326:5: ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName )
+            int alt56=10;
+            alt56 = dfa56.predict(input);
             switch (alt56) {
                 case 1 :
-                    // wcps.g:339:80: COLON crs= crsName
-                    {
-                    COLON185=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalElement3486); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    COLON185_tree = (Object)adaptor.create(COLON185);
-                    adaptor.addChild(root_0, COLON185_tree);
-                    }
-                    pushFollow(FOLLOW_crsName_in_dimensionIntervalElement3490);
-                    crs=crsName();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, crs.getTree());
-                    if ( state.backtracking==0 ) {
-                      retval.value.setCrs((crs!=null?crs.value:null)); 
-                    }
-
-                    }
-                    break;
-
-            }
-
-            LPAREN186=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionIntervalElement3501); if (state.failed) return retval;
-            if ( state.backtracking==0 ) {
-            LPAREN186_tree = (Object)adaptor.create(LPAREN186);
-            adaptor.addChild(root_0, LPAREN186_tree);
-            }
-            pushFollow(FOLLOW_dimensionIntervalExpr_in_dimensionIntervalElement3505);
-            die=dimensionIntervalExpr();
-
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, die.getTree());
-            RPAREN187=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionIntervalElement3507); if (state.failed) return retval;
-            if ( state.backtracking==0 ) {
-            RPAREN187_tree = (Object)adaptor.create(RPAREN187);
-            adaptor.addChild(root_0, RPAREN187_tree);
-            }
-            if ( state.backtracking==0 ) {
-               retval.value.setIntervalExpr((die!=null?die.value:null)); 
-            }
-
-            }
-
-            retval.stop = input.LT(-1);
-
-            if ( state.backtracking==0 ) {
-
-            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
-
-        }
-        finally {
-            if ( state.backtracking>0 ) { memoize(input, 65, dimensionIntervalElement_StartIndex); }
-        }
-        return retval;
-    }
-    // $ANTLR end "dimensionIntervalElement"
-
-    public static class dimensionIntervalExpr_return extends ParserRuleReturnScope {
-        public DimensionIntervalExpr value;
-        Object tree;
-        public Object getTree() { return tree; }
-    };
-
-    // $ANTLR start "dimensionIntervalExpr"
-    // wcps.g:342:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );
-    public final wcpsParser.dimensionIntervalExpr_return dimensionIntervalExpr() throws RecognitionException {
-        wcpsParser.dimensionIntervalExpr_return retval = new wcpsParser.dimensionIntervalExpr_return();
-        retval.start = input.LT(1);
-        int dimensionIntervalExpr_StartIndex = input.index();
-        Object root_0 = null;
-
-        Token COLON188=null;
-        Token DOMAIN189=null;
-        Token LPAREN190=null;
-        Token COLON191=null;
-        Token COLON192=null;
-        Token RPAREN193=null;
-        wcpsParser.scalarExpr_return e1 = null;
-
-        wcpsParser.scalarExpr_return e2 = null;
-
-        wcpsParser.coverageName_return e3 = null;
-
-        wcpsParser.axisName_return e4 = null;
-
-        wcpsParser.crsName_return e5 = null;
-
-
-        Object COLON188_tree=null;
-        Object DOMAIN189_tree=null;
-        Object LPAREN190_tree=null;
-        Object COLON191_tree=null;
-        Object COLON192_tree=null;
-        Object RPAREN193_tree=null;
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 66) ) { return retval; }
-            // wcps.g:343:5: (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN )
-            int alt57=2;
-            alt57 = dfa57.predict(input);
-            switch (alt57) {
-                case 1 :
-                    // wcps.g:343:7: e1= scalarExpr COLON e2= scalarExpr
+                    // wcps.g:326:7: LPAREN e1= numericScalarExpr RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_scalarExpr_in_dimensionIntervalExpr3530);
-                    e1=scalarExpr();
+                    LPAREN173=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3471); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    LPAREN173_tree = (Object)adaptor.create(LPAREN173);
+                    adaptor.addChild(root_0, LPAREN173_tree);
+                    }
+                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3475);
+                    e1=numericScalarExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
-                    COLON188=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3532); if (state.failed) return retval;
+                    RPAREN174=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3477); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON188_tree = (Object)adaptor.create(COLON188);
-                    adaptor.addChild(root_0, COLON188_tree);
+                    RPAREN174_tree = (Object)adaptor.create(RPAREN174);
+                    adaptor.addChild(root_0, RPAREN174_tree);
                     }
-                    pushFollow(FOLLOW_scalarExpr_in_dimensionIntervalExpr3536);
-                    e2=scalarExpr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
                     if ( state.backtracking==0 ) {
-                       retval.value = new DimensionIntervalExpr((e1!=null?e1.value:null), (e2!=null?e2.value:null)); 
+                       retval.value = (e1!=null?e1.value:null); 
                     }
 
                     }
                     break;
                 case 2 :
-                    // wcps.g:344:7: DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN
+                    // wcps.g:327:7: op= MINUS e10= numericScalarFactor
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    DOMAIN189=(Token)match(input,DOMAIN,FOLLOW_DOMAIN_in_dimensionIntervalExpr3546); if (state.failed) return retval;
+                    op=(Token)match(input,MINUS,FOLLOW_MINUS_in_numericScalarFactor3489); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    DOMAIN189_tree = (Object)adaptor.create(DOMAIN189);
-                    adaptor.addChild(root_0, DOMAIN189_tree);
+                    op_tree = (Object)adaptor.create(op);
+                    adaptor.addChild(root_0, op_tree);
                     }
-                    LPAREN190=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionIntervalExpr3548); if (state.failed) return retval;
+                    pushFollow(FOLLOW_numericScalarFactor_in_numericScalarFactor3493);
+                    e10=numericScalarFactor();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e10.getTree());
                     if ( state.backtracking==0 ) {
-                    LPAREN190_tree = (Object)adaptor.create(LPAREN190);
-                    adaptor.addChild(root_0, LPAREN190_tree);
+                       retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e10!=null?e10.value:null)); 
                     }
-                    pushFollow(FOLLOW_coverageName_in_dimensionIntervalExpr3552);
-                    e3=coverageName();
+
+                    }
+                    break;
+                case 3 :
+                    // wcps.g:328:7: op= ABS LPAREN e12= numericScalarExpr RPAREN
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    op=(Token)match(input,ABS,FOLLOW_ABS_in_numericScalarFactor3505); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    op_tree = (Object)adaptor.create(op);
+                    adaptor.addChild(root_0, op_tree);
+                    }
+                    LPAREN175=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3507); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    LPAREN175_tree = (Object)adaptor.create(LPAREN175);
+                    adaptor.addChild(root_0, LPAREN175_tree);
+                    }
+                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3511);
+                    e12=numericScalarExpr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e12.getTree());
+                    RPAREN176=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3513); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    RPAREN176_tree = (Object)adaptor.create(RPAREN176);
+                    adaptor.addChild(root_0, RPAREN176_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e12!=null?e12.value:null)); 
+                    }
+
+                    }
+                    break;
+                case 4 :
+                    // wcps.g:329:7: op= SQRT LPAREN e11= numericScalarExpr RPAREN
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    op=(Token)match(input,SQRT,FOLLOW_SQRT_in_numericScalarFactor3525); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    op_tree = (Object)adaptor.create(op);
+                    adaptor.addChild(root_0, op_tree);
+                    }
+                    LPAREN177=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3527); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    LPAREN177_tree = (Object)adaptor.create(LPAREN177);
+                    adaptor.addChild(root_0, LPAREN177_tree);
+                    }
+                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3531);
+                    e11=numericScalarExpr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e11.getTree());
+                    RPAREN178=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3533); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    RPAREN178_tree = (Object)adaptor.create(RPAREN178);
+                    adaptor.addChild(root_0, RPAREN178_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e11!=null?e11.value:null)); 
+                    }
+
+                    }
+                    break;
+                case 5 :
+                    // wcps.g:330:7: op= ROUND LPAREN e1= numericScalarExpr RPAREN
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    op=(Token)match(input,ROUND,FOLLOW_ROUND_in_numericScalarFactor3545); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    op_tree = (Object)adaptor.create(op);
+                    adaptor.addChild(root_0, op_tree);
+                    }
+                    LPAREN179=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_numericScalarFactor3547); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    LPAREN179_tree = (Object)adaptor.create(LPAREN179);
+                    adaptor.addChild(root_0, LPAREN179_tree);
+                    }
+                    pushFollow(FOLLOW_numericScalarExpr_in_numericScalarFactor3551);
+                    e1=numericScalarExpr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
+                    RPAREN180=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_numericScalarFactor3553); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    RPAREN180_tree = (Object)adaptor.create(RPAREN180);
+                    adaptor.addChild(root_0, RPAREN180_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = new NumericScalarExpr((op!=null?op.getText():null), (e1!=null?e1.value:null)); 
+                    }
+
+                    }
+                    break;
+                case 6 :
+                    // wcps.g:331:7: e= INTEGERCONSTANT
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    e=(Token)match(input,INTEGERCONSTANT,FOLLOW_INTEGERCONSTANT_in_numericScalarFactor3565); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    e_tree = (Object)adaptor.create(e);
+                    adaptor.addChild(root_0, e_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = new NumericScalarExpr((e!=null?e.getText():null)); 
+                    }
+
+                    }
+                    break;
+                case 7 :
+                    // wcps.g:332:7: e= FLOATCONSTANT
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    e=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_numericScalarFactor3577); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    e_tree = (Object)adaptor.create(e);
+                    adaptor.addChild(root_0, e_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = new NumericScalarExpr((e!=null?e.getText():null)); 
+                    }
+
+                    }
+                    break;
+                case 8 :
+                    // wcps.g:333:7: e2= complexConstant
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    pushFollow(FOLLOW_complexConstant_in_numericScalarFactor3589);
+                    e2=complexConstant();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
+                    if ( state.backtracking==0 ) {
+                       retval.value = new NumericScalarExpr((e2!=null?e2.value:null)); 
+                    }
+
+                    }
+                    break;
+                case 9 :
+                    // wcps.g:334:7: e3= condenseExpr
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    pushFollow(FOLLOW_condenseExpr_in_numericScalarFactor3601);
+                    e3=condenseExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e3.getTree());
-                    COLON191=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3554); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON191_tree = (Object)adaptor.create(COLON191);
-                    adaptor.addChild(root_0, COLON191_tree);
+                       retval.value = new NumericScalarExpr((e3!=null?e3.value:null)); 
                     }
-                    pushFollow(FOLLOW_axisName_in_dimensionIntervalExpr3558);
-                    e4=axisName();
+
+                    }
+                    break;
+                case 10 :
+                    // wcps.g:335:7: e4= variableName
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    pushFollow(FOLLOW_variableName_in_numericScalarFactor3613);
+                    e4=variableName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, e4.getTree());
-                    COLON192=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3560); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON192_tree = (Object)adaptor.create(COLON192);
-                    adaptor.addChild(root_0, COLON192_tree);
-                    }
-                    pushFollow(FOLLOW_crsName_in_dimensionIntervalExpr3564);
-                    e5=crsName();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e5.getTree());
-                    RPAREN193=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionIntervalExpr3566); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    RPAREN193_tree = (Object)adaptor.create(RPAREN193);
-                    adaptor.addChild(root_0, RPAREN193_tree);
-                    }
-                    if ( state.backtracking==0 ) {
-                       retval.value = new DimensionIntervalExpr((e3!=null?e3.value:null), (e4!=null?e4.value:null), (e5!=null?e5.value:null)); 
+                       retval.value = new NumericScalarExpr("var", (e4!=null?e4.value:null)); 
                     }
 
                     }
@@ -8653,51 +8383,240 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 66, dimensionIntervalExpr_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 63, numericScalarFactor_StartIndex); }
         }
         return retval;
     }
-    // $ANTLR end "dimensionIntervalExpr"
+    // $ANTLR end "numericScalarFactor"
 
-    public static class dimensionPointList_return extends ParserRuleReturnScope {
-        public DimensionPointList value;
+    public static class compOp_return extends ParserRuleReturnScope {
+        public String value;
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start "dimensionPointList"
-    // wcps.g:346:1: dimensionPointList returns [DimensionPointList value] : elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* ;
-    public final wcpsParser.dimensionPointList_return dimensionPointList() throws RecognitionException {
-        wcpsParser.dimensionPointList_return retval = new wcpsParser.dimensionPointList_return();
+    // $ANTLR start "compOp"
+    // wcps.g:337:1: compOp returns [String value] : ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE );
+    public final wcpsParser.compOp_return compOp() throws RecognitionException {
+        wcpsParser.compOp_return retval = new wcpsParser.compOp_return();
         retval.start = input.LT(1);
-        int dimensionPointList_StartIndex = input.index();
+        int compOp_StartIndex = input.index();
         Object root_0 = null;
 
-        Token COMMA194=null;
-        wcpsParser.dimensionPointElement_return elem1 = null;
+        Token EQUALS181=null;
+        Token NOTEQUALS182=null;
+        Token LT183=null;
+        Token GT184=null;
+        Token LTE185=null;
+        Token GTE186=null;
 
-        wcpsParser.dimensionPointElement_return elem2 = null;
-
-
-        Object COMMA194_tree=null;
+        Object EQUALS181_tree=null;
+        Object NOTEQUALS182_tree=null;
+        Object LT183_tree=null;
+        Object GT184_tree=null;
+        Object LTE185_tree=null;
+        Object GTE186_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 67) ) { return retval; }
-            // wcps.g:347:5: (elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* )
-            // wcps.g:347:7: elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )*
+            if ( state.backtracking>0 && alreadyParsedRule(input, 64) ) { return retval; }
+            // wcps.g:338:2: ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE )
+            int alt57=6;
+            switch ( input.LA(1) ) {
+            case EQUALS:
+                {
+                alt57=1;
+                }
+                break;
+            case NOTEQUALS:
+                {
+                alt57=2;
+                }
+                break;
+            case LT:
+                {
+                alt57=3;
+                }
+                break;
+            case GT:
+                {
+                alt57=4;
+                }
+                break;
+            case LTE:
+                {
+                alt57=5;
+                }
+                break;
+            case GTE:
+                {
+                alt57=6;
+                }
+                break;
+            default:
+                if (state.backtracking>0) {state.failed=true; return retval;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 57, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt57) {
+                case 1 :
+                    // wcps.g:338:4: EQUALS
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    EQUALS181=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_compOp3631); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    EQUALS181_tree = (Object)adaptor.create(EQUALS181);
+                    adaptor.addChild(root_0, EQUALS181_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = new String("equals"); 
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // wcps.g:339:4: NOTEQUALS
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    NOTEQUALS182=(Token)match(input,NOTEQUALS,FOLLOW_NOTEQUALS_in_compOp3638); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    NOTEQUALS182_tree = (Object)adaptor.create(NOTEQUALS182);
+                    adaptor.addChild(root_0, NOTEQUALS182_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = new String("notEqual"); 
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // wcps.g:340:4: LT
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    LT183=(Token)match(input,LT,FOLLOW_LT_in_compOp3645); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    LT183_tree = (Object)adaptor.create(LT183);
+                    adaptor.addChild(root_0, LT183_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = new String("lessThan"); 
+                    }
+
+                    }
+                    break;
+                case 4 :
+                    // wcps.g:341:4: GT
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    GT184=(Token)match(input,GT,FOLLOW_GT_in_compOp3652); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    GT184_tree = (Object)adaptor.create(GT184);
+                    adaptor.addChild(root_0, GT184_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = new String("greaterThan"); 
+                    }
+
+                    }
+                    break;
+                case 5 :
+                    // wcps.g:342:4: LTE
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    LTE185=(Token)match(input,LTE,FOLLOW_LTE_in_compOp3659); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    LTE185_tree = (Object)adaptor.create(LTE185);
+                    adaptor.addChild(root_0, LTE185_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = new String("lessOrEqual"); 
+                    }
+
+                    }
+                    break;
+                case 6 :
+                    // wcps.g:343:4: GTE
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    GTE186=(Token)match(input,GTE,FOLLOW_GTE_in_compOp3666); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    GTE186_tree = (Object)adaptor.create(GTE186);
+                    adaptor.addChild(root_0, GTE186_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = new String("greaterOrEqual"); 
+                    }
+
+                    }
+                    break;
+
+            }
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+            if ( state.backtracking>0 ) { memoize(input, 64, compOp_StartIndex); }
+        }
+        return retval;
+    }
+    // $ANTLR end "compOp"
+
+    public static class dimensionIntervalList_return extends ParserRuleReturnScope {
+        public DimensionIntervalList value;
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "dimensionIntervalList"
+    // wcps.g:345:1: dimensionIntervalList returns [DimensionIntervalList value] : elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* ;
+    public final wcpsParser.dimensionIntervalList_return dimensionIntervalList() throws RecognitionException {
+        wcpsParser.dimensionIntervalList_return retval = new wcpsParser.dimensionIntervalList_return();
+        retval.start = input.LT(1);
+        int dimensionIntervalList_StartIndex = input.index();
+        Object root_0 = null;
+
+        Token COMMA187=null;
+        wcpsParser.dimensionIntervalElement_return elem = null;
+
+
+        Object COMMA187_tree=null;
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 65) ) { return retval; }
+            // wcps.g:346:5: (elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )* )
+            // wcps.g:346:7: elem= dimensionIntervalElement ( COMMA elem= dimensionIntervalElement )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_dimensionPointElement_in_dimensionPointList3589);
-            elem1=dimensionPointElement();
+            pushFollow(FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3686);
+            elem=dimensionIntervalElement();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, elem1.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, elem.getTree());
             if ( state.backtracking==0 ) {
-               retval.value = new DimensionPointList((elem1!=null?elem1.value:null)); 
+               retval.value = new DimensionIntervalList((elem!=null?elem.value:null)); 
             }
-            // wcps.g:348:6: ( COMMA elem2= dimensionPointElement )*
+            // wcps.g:347:9: ( COMMA elem= dimensionIntervalElement )*
             loop58:
             do {
                 int alt58=2;
@@ -8710,21 +8629,21 @@ public class wcpsParser extends Parser {
 
                 switch (alt58) {
             	case 1 :
-            	    // wcps.g:348:7: COMMA elem2= dimensionPointElement
+            	    // wcps.g:347:10: COMMA elem= dimensionIntervalElement
             	    {
-            	    COMMA194=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionPointList3599); if (state.failed) return retval;
+            	    COMMA187=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionIntervalList3699); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
-            	    COMMA194_tree = (Object)adaptor.create(COMMA194);
-            	    adaptor.addChild(root_0, COMMA194_tree);
+            	    COMMA187_tree = (Object)adaptor.create(COMMA187);
+            	    adaptor.addChild(root_0, COMMA187_tree);
             	    }
-            	    pushFollow(FOLLOW_dimensionPointElement_in_dimensionPointList3603);
-            	    elem2=dimensionPointElement();
+            	    pushFollow(FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3703);
+            	    elem=dimensionIntervalElement();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, elem2.getTree());
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, elem.getTree());
             	    if ( state.backtracking==0 ) {
-            	       retval.value.add((elem2!=null?elem2.value:null)); 
+            	       retval.value.add((elem!=null?elem.value:null)); 
             	    }
 
             	    }
@@ -8753,7 +8672,374 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 67, dimensionPointList_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 65, dimensionIntervalList_StartIndex); }
+        }
+        return retval;
+    }
+    // $ANTLR end "dimensionIntervalList"
+
+    public static class dimensionIntervalElement_return extends ParserRuleReturnScope {
+        public DimensionIntervalElement value;
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "dimensionIntervalElement"
+    // wcps.g:349:1: dimensionIntervalElement returns [DimensionIntervalElement value] : aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN ;
+    public final wcpsParser.dimensionIntervalElement_return dimensionIntervalElement() throws RecognitionException {
+        wcpsParser.dimensionIntervalElement_return retval = new wcpsParser.dimensionIntervalElement_return();
+        retval.start = input.LT(1);
+        int dimensionIntervalElement_StartIndex = input.index();
+        Object root_0 = null;
+
+        Token COLON188=null;
+        Token LPAREN189=null;
+        Token RPAREN190=null;
+        wcpsParser.axisName_return aname = null;
+
+        wcpsParser.crsName_return crs = null;
+
+        wcpsParser.dimensionIntervalExpr_return die = null;
+
+
+        Object COLON188_tree=null;
+        Object LPAREN189_tree=null;
+        Object RPAREN190_tree=null;
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 66) ) { return retval; }
+            // wcps.g:350:5: (aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN )
+            // wcps.g:350:7: aname= axisName ( COLON crs= crsName )? LPAREN die= dimensionIntervalExpr RPAREN
+            {
+            root_0 = (Object)adaptor.nil();
+
+            pushFollow(FOLLOW_axisName_in_dimensionIntervalElement3728);
+            aname=axisName();
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, aname.getTree());
+            if ( state.backtracking==0 ) {
+               retval.value = new DimensionIntervalElement((aname!=null?aname.value:null)); 
+            }
+            // wcps.g:350:79: ( COLON crs= crsName )?
+            int alt59=2;
+            int LA59_0 = input.LA(1);
+
+            if ( (LA59_0==COLON) ) {
+                alt59=1;
+            }
+            switch (alt59) {
+                case 1 :
+                    // wcps.g:350:80: COLON crs= crsName
+                    {
+                    COLON188=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalElement3733); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    COLON188_tree = (Object)adaptor.create(COLON188);
+                    adaptor.addChild(root_0, COLON188_tree);
+                    }
+                    pushFollow(FOLLOW_crsName_in_dimensionIntervalElement3737);
+                    crs=crsName();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, crs.getTree());
+                    if ( state.backtracking==0 ) {
+                      retval.value.setCrs((crs!=null?crs.value:null)); 
+                    }
+
+                    }
+                    break;
+
+            }
+
+            LPAREN189=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionIntervalElement3748); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
+            LPAREN189_tree = (Object)adaptor.create(LPAREN189);
+            adaptor.addChild(root_0, LPAREN189_tree);
+            }
+            pushFollow(FOLLOW_dimensionIntervalExpr_in_dimensionIntervalElement3752);
+            die=dimensionIntervalExpr();
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, die.getTree());
+            RPAREN190=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionIntervalElement3754); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
+            RPAREN190_tree = (Object)adaptor.create(RPAREN190);
+            adaptor.addChild(root_0, RPAREN190_tree);
+            }
+            if ( state.backtracking==0 ) {
+               retval.value.setIntervalExpr((die!=null?die.value:null)); 
+            }
+
+            }
+
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+            if ( state.backtracking>0 ) { memoize(input, 66, dimensionIntervalElement_StartIndex); }
+        }
+        return retval;
+    }
+    // $ANTLR end "dimensionIntervalElement"
+
+    public static class dimensionIntervalExpr_return extends ParserRuleReturnScope {
+        public DimensionIntervalExpr value;
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "dimensionIntervalExpr"
+    // wcps.g:353:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );
+    public final wcpsParser.dimensionIntervalExpr_return dimensionIntervalExpr() throws RecognitionException {
+        wcpsParser.dimensionIntervalExpr_return retval = new wcpsParser.dimensionIntervalExpr_return();
+        retval.start = input.LT(1);
+        int dimensionIntervalExpr_StartIndex = input.index();
+        Object root_0 = null;
+
+        Token COLON191=null;
+        Token DOMAIN192=null;
+        Token LPAREN193=null;
+        Token COLON194=null;
+        Token COLON195=null;
+        Token RPAREN196=null;
+        wcpsParser.scalarExpr_return e1 = null;
+
+        wcpsParser.scalarExpr_return e2 = null;
+
+        wcpsParser.coverageName_return e3 = null;
+
+        wcpsParser.axisName_return e4 = null;
+
+        wcpsParser.crsName_return e5 = null;
+
+
+        Object COLON191_tree=null;
+        Object DOMAIN192_tree=null;
+        Object LPAREN193_tree=null;
+        Object COLON194_tree=null;
+        Object COLON195_tree=null;
+        Object RPAREN196_tree=null;
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 67) ) { return retval; }
+            // wcps.g:354:5: (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN )
+            int alt60=2;
+            alt60 = dfa60.predict(input);
+            switch (alt60) {
+                case 1 :
+                    // wcps.g:354:7: e1= scalarExpr COLON e2= scalarExpr
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    pushFollow(FOLLOW_scalarExpr_in_dimensionIntervalExpr3777);
+                    e1=scalarExpr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e1.getTree());
+                    COLON191=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3779); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    COLON191_tree = (Object)adaptor.create(COLON191);
+                    adaptor.addChild(root_0, COLON191_tree);
+                    }
+                    pushFollow(FOLLOW_scalarExpr_in_dimensionIntervalExpr3783);
+                    e2=scalarExpr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e2.getTree());
+                    if ( state.backtracking==0 ) {
+                       retval.value = new DimensionIntervalExpr((e1!=null?e1.value:null), (e2!=null?e2.value:null)); 
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // wcps.g:355:7: DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+                    DOMAIN192=(Token)match(input,DOMAIN,FOLLOW_DOMAIN_in_dimensionIntervalExpr3793); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    DOMAIN192_tree = (Object)adaptor.create(DOMAIN192);
+                    adaptor.addChild(root_0, DOMAIN192_tree);
+                    }
+                    LPAREN193=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionIntervalExpr3795); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    LPAREN193_tree = (Object)adaptor.create(LPAREN193);
+                    adaptor.addChild(root_0, LPAREN193_tree);
+                    }
+                    pushFollow(FOLLOW_coverageName_in_dimensionIntervalExpr3799);
+                    e3=coverageName();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e3.getTree());
+                    COLON194=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3801); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    COLON194_tree = (Object)adaptor.create(COLON194);
+                    adaptor.addChild(root_0, COLON194_tree);
+                    }
+                    pushFollow(FOLLOW_axisName_in_dimensionIntervalExpr3805);
+                    e4=axisName();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e4.getTree());
+                    COLON195=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionIntervalExpr3807); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    COLON195_tree = (Object)adaptor.create(COLON195);
+                    adaptor.addChild(root_0, COLON195_tree);
+                    }
+                    pushFollow(FOLLOW_crsName_in_dimensionIntervalExpr3811);
+                    e5=crsName();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, e5.getTree());
+                    RPAREN196=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionIntervalExpr3813); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    RPAREN196_tree = (Object)adaptor.create(RPAREN196);
+                    adaptor.addChild(root_0, RPAREN196_tree);
+                    }
+                    if ( state.backtracking==0 ) {
+                       retval.value = new DimensionIntervalExpr((e3!=null?e3.value:null), (e4!=null?e4.value:null), (e5!=null?e5.value:null)); 
+                    }
+
+                    }
+                    break;
+
+            }
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+            if ( state.backtracking>0 ) { memoize(input, 67, dimensionIntervalExpr_StartIndex); }
+        }
+        return retval;
+    }
+    // $ANTLR end "dimensionIntervalExpr"
+
+    public static class dimensionPointList_return extends ParserRuleReturnScope {
+        public DimensionPointList value;
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "dimensionPointList"
+    // wcps.g:357:1: dimensionPointList returns [DimensionPointList value] : elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* ;
+    public final wcpsParser.dimensionPointList_return dimensionPointList() throws RecognitionException {
+        wcpsParser.dimensionPointList_return retval = new wcpsParser.dimensionPointList_return();
+        retval.start = input.LT(1);
+        int dimensionPointList_StartIndex = input.index();
+        Object root_0 = null;
+
+        Token COMMA197=null;
+        wcpsParser.dimensionPointElement_return elem1 = null;
+
+        wcpsParser.dimensionPointElement_return elem2 = null;
+
+
+        Object COMMA197_tree=null;
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 68) ) { return retval; }
+            // wcps.g:358:5: (elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )* )
+            // wcps.g:358:7: elem1= dimensionPointElement ( COMMA elem2= dimensionPointElement )*
+            {
+            root_0 = (Object)adaptor.nil();
+
+            pushFollow(FOLLOW_dimensionPointElement_in_dimensionPointList3836);
+            elem1=dimensionPointElement();
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, elem1.getTree());
+            if ( state.backtracking==0 ) {
+               retval.value = new DimensionPointList((elem1!=null?elem1.value:null)); 
+            }
+            // wcps.g:359:6: ( COMMA elem2= dimensionPointElement )*
+            loop61:
+            do {
+                int alt61=2;
+                int LA61_0 = input.LA(1);
+
+                if ( (LA61_0==COMMA) ) {
+                    alt61=1;
+                }
+
+
+                switch (alt61) {
+            	case 1 :
+            	    // wcps.g:359:7: COMMA elem2= dimensionPointElement
+            	    {
+            	    COMMA197=(Token)match(input,COMMA,FOLLOW_COMMA_in_dimensionPointList3846); if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) {
+            	    COMMA197_tree = (Object)adaptor.create(COMMA197);
+            	    adaptor.addChild(root_0, COMMA197_tree);
+            	    }
+            	    pushFollow(FOLLOW_dimensionPointElement_in_dimensionPointList3850);
+            	    elem2=dimensionPointElement();
+
+            	    state._fsp--;
+            	    if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, elem2.getTree());
+            	    if ( state.backtracking==0 ) {
+            	       retval.value.add((elem2!=null?elem2.value:null)); 
+            	    }
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop61;
+                }
+            } while (true);
+
+
+            }
+
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+            if ( state.backtracking>0 ) { memoize(input, 68, dimensionPointList_StartIndex); }
         }
         return retval;
     }
@@ -8766,18 +9052,18 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionPointElement"
-    // wcps.g:350:1: dimensionPointElement returns [DimensionPointElement value] : (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN );
+    // wcps.g:361:1: dimensionPointElement returns [DimensionPointElement value] : (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN );
     public final wcpsParser.dimensionPointElement_return dimensionPointElement() throws RecognitionException {
         wcpsParser.dimensionPointElement_return retval = new wcpsParser.dimensionPointElement_return();
         retval.start = input.LT(1);
         int dimensionPointElement_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LPAREN195=null;
-        Token RPAREN196=null;
-        Token COLON197=null;
         Token LPAREN198=null;
         Token RPAREN199=null;
+        Token COLON200=null;
+        Token LPAREN201=null;
+        Token RPAREN202=null;
         wcpsParser.axisName_return aname = null;
 
         wcpsParser.dimensionPoint_return dpe = null;
@@ -8785,31 +9071,31 @@ public class wcpsParser extends Parser {
         wcpsParser.crsName_return crs = null;
 
 
-        Object LPAREN195_tree=null;
-        Object RPAREN196_tree=null;
-        Object COLON197_tree=null;
         Object LPAREN198_tree=null;
         Object RPAREN199_tree=null;
+        Object COLON200_tree=null;
+        Object LPAREN201_tree=null;
+        Object RPAREN202_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 68) ) { return retval; }
-            // wcps.g:351:5: (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN )
-            int alt59=2;
-            int LA59_0 = input.LA(1);
+            if ( state.backtracking>0 && alreadyParsedRule(input, 69) ) { return retval; }
+            // wcps.g:362:5: (aname= axisName LPAREN dpe= dimensionPoint RPAREN | aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN )
+            int alt62=2;
+            int LA62_0 = input.LA(1);
 
-            if ( (LA59_0==INTEGERCONSTANT||LA59_0==STRING||LA59_0==NAME) ) {
-                int LA59_1 = input.LA(2);
+            if ( (LA62_0==INTEGERCONSTANT||LA62_0==STRING||LA62_0==NAME) ) {
+                int LA62_1 = input.LA(2);
 
-                if ( (LA59_1==COLON) ) {
-                    alt59=2;
+                if ( (LA62_1==LPAREN) ) {
+                    alt62=1;
                 }
-                else if ( (LA59_1==LPAREN) ) {
-                    alt59=1;
+                else if ( (LA62_1==COLON) ) {
+                    alt62=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 59, 1, input);
+                        new NoViableAltException("", 62, 1, input);
 
                     throw nvae;
                 }
@@ -8817,37 +9103,37 @@ public class wcpsParser extends Parser {
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 59, 0, input);
+                    new NoViableAltException("", 62, 0, input);
 
                 throw nvae;
             }
-            switch (alt59) {
+            switch (alt62) {
                 case 1 :
-                    // wcps.g:351:7: aname= axisName LPAREN dpe= dimensionPoint RPAREN
+                    // wcps.g:362:7: aname= axisName LPAREN dpe= dimensionPoint RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_axisName_in_dimensionPointElement3628);
+                    pushFollow(FOLLOW_axisName_in_dimensionPointElement3875);
                     aname=axisName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, aname.getTree());
-                    LPAREN195=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionPointElement3630); if (state.failed) return retval;
+                    LPAREN198=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionPointElement3877); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN195_tree = (Object)adaptor.create(LPAREN195);
-                    adaptor.addChild(root_0, LPAREN195_tree);
+                    LPAREN198_tree = (Object)adaptor.create(LPAREN198);
+                    adaptor.addChild(root_0, LPAREN198_tree);
                     }
-                    pushFollow(FOLLOW_dimensionPoint_in_dimensionPointElement3634);
+                    pushFollow(FOLLOW_dimensionPoint_in_dimensionPointElement3881);
                     dpe=dimensionPoint();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dpe.getTree());
-                    RPAREN196=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionPointElement3636); if (state.failed) return retval;
+                    RPAREN199=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionPointElement3883); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN196_tree = (Object)adaptor.create(RPAREN196);
-                    adaptor.addChild(root_0, RPAREN196_tree);
+                    RPAREN199_tree = (Object)adaptor.create(RPAREN199);
+                    adaptor.addChild(root_0, RPAREN199_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new DimensionPointElement((aname!=null?aname.value:null), (dpe!=null?dpe.value:null)); 
@@ -8856,42 +9142,42 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:352:7: aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN
+                    // wcps.g:363:7: aname= axisName COLON crs= crsName LPAREN dpe= dimensionPoint RPAREN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_axisName_in_dimensionPointElement3648);
+                    pushFollow(FOLLOW_axisName_in_dimensionPointElement3895);
                     aname=axisName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, aname.getTree());
-                    COLON197=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionPointElement3650); if (state.failed) return retval;
+                    COLON200=(Token)match(input,COLON,FOLLOW_COLON_in_dimensionPointElement3897); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    COLON197_tree = (Object)adaptor.create(COLON197);
-                    adaptor.addChild(root_0, COLON197_tree);
+                    COLON200_tree = (Object)adaptor.create(COLON200);
+                    adaptor.addChild(root_0, COLON200_tree);
                     }
-                    pushFollow(FOLLOW_crsName_in_dimensionPointElement3654);
+                    pushFollow(FOLLOW_crsName_in_dimensionPointElement3901);
                     crs=crsName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, crs.getTree());
-                    LPAREN198=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionPointElement3656); if (state.failed) return retval;
+                    LPAREN201=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_dimensionPointElement3903); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LPAREN198_tree = (Object)adaptor.create(LPAREN198);
-                    adaptor.addChild(root_0, LPAREN198_tree);
+                    LPAREN201_tree = (Object)adaptor.create(LPAREN201);
+                    adaptor.addChild(root_0, LPAREN201_tree);
                     }
-                    pushFollow(FOLLOW_dimensionPoint_in_dimensionPointElement3660);
+                    pushFollow(FOLLOW_dimensionPoint_in_dimensionPointElement3907);
                     dpe=dimensionPoint();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, dpe.getTree());
-                    RPAREN199=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionPointElement3662); if (state.failed) return retval;
+                    RPAREN202=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_dimensionPointElement3909); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    RPAREN199_tree = (Object)adaptor.create(RPAREN199);
-                    adaptor.addChild(root_0, RPAREN199_tree);
+                    RPAREN202_tree = (Object)adaptor.create(RPAREN202);
+                    adaptor.addChild(root_0, RPAREN202_tree);
                     }
                     if ( state.backtracking==0 ) {
                        retval.value = new DimensionPointElement((aname!=null?aname.value:null), (crs!=null?crs.value:null), (dpe!=null?dpe.value:null)); 
@@ -8916,7 +9202,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 68, dimensionPointElement_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 69, dimensionPointElement_StartIndex); }
         }
         return retval;
     }
@@ -8929,7 +9215,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "dimensionPoint"
-    // wcps.g:354:1: dimensionPoint returns [ScalarExpr value] : e1= scalarExpr ;
+    // wcps.g:365:1: dimensionPoint returns [ScalarExpr value] : e1= scalarExpr ;
     public final wcpsParser.dimensionPoint_return dimensionPoint() throws RecognitionException {
         wcpsParser.dimensionPoint_return retval = new wcpsParser.dimensionPoint_return();
         retval.start = input.LT(1);
@@ -8941,13 +9227,13 @@ public class wcpsParser extends Parser {
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 69) ) { return retval; }
-            // wcps.g:355:5: (e1= scalarExpr )
-            // wcps.g:355:7: e1= scalarExpr
+            if ( state.backtracking>0 && alreadyParsedRule(input, 70) ) { return retval; }
+            // wcps.g:366:5: (e1= scalarExpr )
+            // wcps.g:366:7: e1= scalarExpr
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_scalarExpr_in_dimensionPoint3685);
+            pushFollow(FOLLOW_scalarExpr_in_dimensionPoint3932);
             e1=scalarExpr();
 
             state._fsp--;
@@ -8974,7 +9260,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 69, dimensionPoint_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 70, dimensionPoint_StartIndex); }
         }
         return retval;
     }
@@ -8987,58 +9273,58 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "interpolationMethod"
-    // wcps.g:357:1: interpolationMethod returns [InterpolationMethod value] : LPAREN type= interpolationType COLON res= nullResistence RPAREN ;
+    // wcps.g:368:1: interpolationMethod returns [InterpolationMethod value] : LPAREN type= interpolationType COLON res= nullResistence RPAREN ;
     public final wcpsParser.interpolationMethod_return interpolationMethod() throws RecognitionException {
         wcpsParser.interpolationMethod_return retval = new wcpsParser.interpolationMethod_return();
         retval.start = input.LT(1);
         int interpolationMethod_StartIndex = input.index();
         Object root_0 = null;
 
-        Token LPAREN200=null;
-        Token COLON201=null;
-        Token RPAREN202=null;
+        Token LPAREN203=null;
+        Token COLON204=null;
+        Token RPAREN205=null;
         wcpsParser.interpolationType_return type = null;
 
         wcpsParser.nullResistence_return res = null;
 
 
-        Object LPAREN200_tree=null;
-        Object COLON201_tree=null;
-        Object RPAREN202_tree=null;
+        Object LPAREN203_tree=null;
+        Object COLON204_tree=null;
+        Object RPAREN205_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 70) ) { return retval; }
-            // wcps.g:358:2: ( LPAREN type= interpolationType COLON res= nullResistence RPAREN )
-            // wcps.g:358:4: LPAREN type= interpolationType COLON res= nullResistence RPAREN
+            if ( state.backtracking>0 && alreadyParsedRule(input, 71) ) { return retval; }
+            // wcps.g:369:2: ( LPAREN type= interpolationType COLON res= nullResistence RPAREN )
+            // wcps.g:369:4: LPAREN type= interpolationType COLON res= nullResistence RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
-            LPAREN200=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_interpolationMethod3703); if (state.failed) return retval;
+            LPAREN203=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_interpolationMethod3950); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN200_tree = (Object)adaptor.create(LPAREN200);
-            adaptor.addChild(root_0, LPAREN200_tree);
+            LPAREN203_tree = (Object)adaptor.create(LPAREN203);
+            adaptor.addChild(root_0, LPAREN203_tree);
             }
-            pushFollow(FOLLOW_interpolationType_in_interpolationMethod3707);
+            pushFollow(FOLLOW_interpolationType_in_interpolationMethod3954);
             type=interpolationType();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, type.getTree());
-            COLON201=(Token)match(input,COLON,FOLLOW_COLON_in_interpolationMethod3709); if (state.failed) return retval;
+            COLON204=(Token)match(input,COLON,FOLLOW_COLON_in_interpolationMethod3956); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            COLON201_tree = (Object)adaptor.create(COLON201);
-            adaptor.addChild(root_0, COLON201_tree);
+            COLON204_tree = (Object)adaptor.create(COLON204);
+            adaptor.addChild(root_0, COLON204_tree);
             }
-            pushFollow(FOLLOW_nullResistence_in_interpolationMethod3713);
+            pushFollow(FOLLOW_nullResistence_in_interpolationMethod3960);
             res=nullResistence();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, res.getTree());
-            RPAREN202=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_interpolationMethod3715); if (state.failed) return retval;
+            RPAREN205=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_interpolationMethod3962); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN202_tree = (Object)adaptor.create(RPAREN202);
-            adaptor.addChild(root_0, RPAREN202_tree);
+            RPAREN205_tree = (Object)adaptor.create(RPAREN205);
+            adaptor.addChild(root_0, RPAREN205_tree);
             }
             if ( state.backtracking==0 ) {
                retval.value = new InterpolationMethod((type!=null?type.value:null), (res!=null?res.value:null)); 
@@ -9061,7 +9347,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 70, interpolationMethod_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 71, interpolationMethod_StartIndex); }
         }
         return retval;
     }
@@ -9074,7 +9360,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "interpolationType"
-    // wcps.g:360:1: interpolationType returns [String value] : type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) ;
+    // wcps.g:371:1: interpolationType returns [String value] : type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) ;
     public final wcpsParser.interpolationType_return interpolationType() throws RecognitionException {
         wcpsParser.interpolationType_return retval = new wcpsParser.interpolationType_return();
         retval.start = input.LT(1);
@@ -9086,9 +9372,9 @@ public class wcpsParser extends Parser {
         Object type_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 71) ) { return retval; }
-            // wcps.g:361:2: (type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) )
-            // wcps.g:361:4: type= ( NEAREST | LINEAR | QUADRATIC | CUBIC )
+            if ( state.backtracking>0 && alreadyParsedRule(input, 72) ) { return retval; }
+            // wcps.g:372:2: (type= ( NEAREST | LINEAR | QUADRATIC | CUBIC ) )
+            // wcps.g:372:4: type= ( NEAREST | LINEAR | QUADRATIC | CUBIC )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9125,7 +9411,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 71, interpolationType_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 72, interpolationType_StartIndex); }
         }
         return retval;
     }
@@ -9138,7 +9424,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "nullResistence"
-    // wcps.g:363:1: nullResistence returns [String value] : resistance= ( FULL | NONE | HALF | OTHER ) ;
+    // wcps.g:374:1: nullResistence returns [String value] : resistance= ( FULL | NONE | HALF | OTHER ) ;
     public final wcpsParser.nullResistence_return nullResistence() throws RecognitionException {
         wcpsParser.nullResistence_return retval = new wcpsParser.nullResistence_return();
         retval.start = input.LT(1);
@@ -9150,9 +9436,9 @@ public class wcpsParser extends Parser {
         Object resistance_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 72) ) { return retval; }
-            // wcps.g:364:2: (resistance= ( FULL | NONE | HALF | OTHER ) )
-            // wcps.g:364:4: resistance= ( FULL | NONE | HALF | OTHER )
+            if ( state.backtracking>0 && alreadyParsedRule(input, 73) ) { return retval; }
+            // wcps.g:375:2: (resistance= ( FULL | NONE | HALF | OTHER ) )
+            // wcps.g:375:4: resistance= ( FULL | NONE | HALF | OTHER )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9189,7 +9475,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 72, nullResistence_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 73, nullResistence_StartIndex); }
         }
         return retval;
     }
@@ -9202,7 +9488,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "condenseOpType"
-    // wcps.g:366:1: condenseOpType returns [CondenseOperation value] : op= ( PLUS | MULT | MAX | MIN | AND | OR ) ;
+    // wcps.g:377:1: condenseOpType returns [CondenseOperation value] : op= ( PLUS | MULT | MAX | MIN | AND | OR ) ;
     public final wcpsParser.condenseOpType_return condenseOpType() throws RecognitionException {
         wcpsParser.condenseOpType_return retval = new wcpsParser.condenseOpType_return();
         retval.start = input.LT(1);
@@ -9214,9 +9500,9 @@ public class wcpsParser extends Parser {
         Object op_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 73) ) { return retval; }
-            // wcps.g:367:2: (op= ( PLUS | MULT | MAX | MIN | AND | OR ) )
-            // wcps.g:367:4: op= ( PLUS | MULT | MAX | MIN | AND | OR )
+            if ( state.backtracking>0 && alreadyParsedRule(input, 74) ) { return retval; }
+            // wcps.g:378:2: (op= ( PLUS | MULT | MAX | MIN | AND | OR ) )
+            // wcps.g:378:4: op= ( PLUS | MULT | MAX | MIN | AND | OR )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9253,7 +9539,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 73, condenseOpType_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 74, condenseOpType_StartIndex); }
         }
         return retval;
     }
@@ -9266,32 +9552,32 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "fieldName"
-    // wcps.g:369:1: fieldName returns [String value] : name ;
+    // wcps.g:380:1: fieldName returns [String value] : name ;
     public final wcpsParser.fieldName_return fieldName() throws RecognitionException {
         wcpsParser.fieldName_return retval = new wcpsParser.fieldName_return();
         retval.start = input.LT(1);
         int fieldName_StartIndex = input.index();
         Object root_0 = null;
 
-        wcpsParser.name_return name203 = null;
+        wcpsParser.name_return name206 = null;
 
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 74) ) { return retval; }
-            // wcps.g:370:2: ( name )
-            // wcps.g:370:4: name
+            if ( state.backtracking>0 && alreadyParsedRule(input, 75) ) { return retval; }
+            // wcps.g:381:2: ( name )
+            // wcps.g:381:4: name
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_name_in_fieldName3809);
-            name203=name();
+            pushFollow(FOLLOW_name_in_fieldName4056);
+            name206=name();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, name203.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, name206.getTree());
             if ( state.backtracking==0 ) {
-               retval.value = new String((name203!=null?name203.value:null));
+               retval.value = new String((name206!=null?name206.value:null));
             }
 
             }
@@ -9311,7 +9597,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 74, fieldName_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 75, fieldName_StartIndex); }
         }
         return retval;
     }
@@ -9324,7 +9610,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "constant"
-    // wcps.g:372:1: constant returns [String value] : (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant );
+    // wcps.g:383:1: constant returns [String value] : (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant );
     public final wcpsParser.constant_return constant() throws RecognitionException {
         wcpsParser.constant_return retval = new wcpsParser.constant_return();
         retval.start = input.LT(1);
@@ -9338,27 +9624,27 @@ public class wcpsParser extends Parser {
         Object e_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 75) ) { return retval; }
-            // wcps.g:373:2: (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant )
-            int alt60=2;
-            int LA60_0 = input.LA(1);
+            if ( state.backtracking>0 && alreadyParsedRule(input, 76) ) { return retval; }
+            // wcps.g:384:2: (e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT ) | e1= complexConstant )
+            int alt63=2;
+            int LA63_0 = input.LA(1);
 
-            if ( (LA60_0==INTEGERCONSTANT||LA60_0==STRING||(LA60_0>=BOOLEANCONSTANT && LA60_0<=FLOATCONSTANT)) ) {
-                alt60=1;
+            if ( (LA63_0==INTEGERCONSTANT||LA63_0==STRING||(LA63_0>=BOOLEANCONSTANT && LA63_0<=FLOATCONSTANT)) ) {
+                alt63=1;
             }
-            else if ( (LA60_0==LPAREN) ) {
-                alt60=2;
+            else if ( (LA63_0==LPAREN) ) {
+                alt63=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 60, 0, input);
+                    new NoViableAltException("", 63, 0, input);
 
                 throw nvae;
             }
-            switch (alt60) {
+            switch (alt63) {
                 case 1 :
-                    // wcps.g:373:4: e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT )
+                    // wcps.g:384:4: e= ( STRING | BOOLEANCONSTANT | INTEGERCONSTANT | FLOATCONSTANT )
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -9381,11 +9667,11 @@ public class wcpsParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // wcps.g:374:4: e1= complexConstant
+                    // wcps.g:385:4: e1= complexConstant
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_complexConstant_in_constant3843);
+                    pushFollow(FOLLOW_complexConstant_in_constant4090);
                     e1=complexConstant();
 
                     state._fsp--;
@@ -9414,7 +9700,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 75, constant_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 76, constant_StartIndex); }
         }
         return retval;
     }
@@ -9427,7 +9713,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "complexConstant"
-    // wcps.g:376:1: complexConstant returns [String value] : LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN ;
+    // wcps.g:387:1: complexConstant returns [String value] : LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN ;
     public final wcpsParser.complexConstant_return complexConstant() throws RecognitionException {
         wcpsParser.complexConstant_return retval = new wcpsParser.complexConstant_return();
         retval.start = input.LT(1);
@@ -9436,47 +9722,47 @@ public class wcpsParser extends Parser {
 
         Token re1=null;
         Token im1=null;
-        Token LPAREN204=null;
-        Token COMMA205=null;
-        Token RPAREN206=null;
+        Token LPAREN207=null;
+        Token COMMA208=null;
+        Token RPAREN209=null;
 
         Object re1_tree=null;
         Object im1_tree=null;
-        Object LPAREN204_tree=null;
-        Object COMMA205_tree=null;
-        Object RPAREN206_tree=null;
+        Object LPAREN207_tree=null;
+        Object COMMA208_tree=null;
+        Object RPAREN209_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 76) ) { return retval; }
-            // wcps.g:377:2: ( LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN )
-            // wcps.g:377:4: LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN
+            if ( state.backtracking>0 && alreadyParsedRule(input, 77) ) { return retval; }
+            // wcps.g:388:2: ( LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN )
+            // wcps.g:388:4: LPAREN re1= FLOATCONSTANT COMMA im1= FLOATCONSTANT RPAREN
             {
             root_0 = (Object)adaptor.nil();
 
-            LPAREN204=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_complexConstant3858); if (state.failed) return retval;
+            LPAREN207=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_complexConstant4105); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LPAREN204_tree = (Object)adaptor.create(LPAREN204);
-            adaptor.addChild(root_0, LPAREN204_tree);
+            LPAREN207_tree = (Object)adaptor.create(LPAREN207);
+            adaptor.addChild(root_0, LPAREN207_tree);
             }
-            re1=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_complexConstant3862); if (state.failed) return retval;
+            re1=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_complexConstant4109); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             re1_tree = (Object)adaptor.create(re1);
             adaptor.addChild(root_0, re1_tree);
             }
-            COMMA205=(Token)match(input,COMMA,FOLLOW_COMMA_in_complexConstant3864); if (state.failed) return retval;
+            COMMA208=(Token)match(input,COMMA,FOLLOW_COMMA_in_complexConstant4111); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            COMMA205_tree = (Object)adaptor.create(COMMA205);
-            adaptor.addChild(root_0, COMMA205_tree);
+            COMMA208_tree = (Object)adaptor.create(COMMA208);
+            adaptor.addChild(root_0, COMMA208_tree);
             }
-            im1=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_complexConstant3868); if (state.failed) return retval;
+            im1=(Token)match(input,FLOATCONSTANT,FOLLOW_FLOATCONSTANT_in_complexConstant4115); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             im1_tree = (Object)adaptor.create(im1);
             adaptor.addChild(root_0, im1_tree);
             }
-            RPAREN206=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_complexConstant3870); if (state.failed) return retval;
+            RPAREN209=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_complexConstant4117); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RPAREN206_tree = (Object)adaptor.create(RPAREN206);
-            adaptor.addChild(root_0, RPAREN206_tree);
+            RPAREN209_tree = (Object)adaptor.create(RPAREN209);
+            adaptor.addChild(root_0, RPAREN209_tree);
             }
             if ( state.backtracking==0 ) {
                retval.value = new String((re1!=null?re1.getText():null) +"+i"+(im1!=null?im1.getText():null)); 
@@ -9499,7 +9785,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 76, complexConstant_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 77, complexConstant_StartIndex); }
         }
         return retval;
     }
@@ -9512,7 +9798,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "stringConstant"
-    // wcps.g:379:1: stringConstant returns [String value] : s= STRING ;
+    // wcps.g:390:1: stringConstant returns [String value] : s= STRING ;
     public final wcpsParser.stringConstant_return stringConstant() throws RecognitionException {
         wcpsParser.stringConstant_return retval = new wcpsParser.stringConstant_return();
         retval.start = input.LT(1);
@@ -9524,13 +9810,13 @@ public class wcpsParser extends Parser {
         Object s_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 77) ) { return retval; }
-            // wcps.g:380:2: (s= STRING )
-            // wcps.g:380:4: s= STRING
+            if ( state.backtracking>0 && alreadyParsedRule(input, 78) ) { return retval; }
+            // wcps.g:391:2: (s= STRING )
+            // wcps.g:391:4: s= STRING
             {
             root_0 = (Object)adaptor.nil();
 
-            s=(Token)match(input,STRING,FOLLOW_STRING_in_stringConstant3887); if (state.failed) return retval;
+            s=(Token)match(input,STRING,FOLLOW_STRING_in_stringConstant4134); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             s_tree = (Object)adaptor.create(s);
             adaptor.addChild(root_0, s_tree);
@@ -9556,7 +9842,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 77, stringConstant_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 78, stringConstant_StartIndex); }
         }
         return retval;
     }
@@ -9569,7 +9855,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "name"
-    // wcps.g:382:1: name returns [String value] : var= ( NAME | STRING | INTEGERCONSTANT ) ;
+    // wcps.g:393:1: name returns [String value] : var= ( NAME | STRING | INTEGERCONSTANT ) ;
     public final wcpsParser.name_return name() throws RecognitionException {
         wcpsParser.name_return retval = new wcpsParser.name_return();
         retval.start = input.LT(1);
@@ -9581,9 +9867,9 @@ public class wcpsParser extends Parser {
         Object var_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 78) ) { return retval; }
-            // wcps.g:383:2: (var= ( NAME | STRING | INTEGERCONSTANT ) )
-            // wcps.g:383:4: var= ( NAME | STRING | INTEGERCONSTANT )
+            if ( state.backtracking>0 && alreadyParsedRule(input, 79) ) { return retval; }
+            // wcps.g:394:2: (var= ( NAME | STRING | INTEGERCONSTANT ) )
+            // wcps.g:394:4: var= ( NAME | STRING | INTEGERCONSTANT )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -9620,7 +9906,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 78, name_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 79, name_StartIndex); }
         }
         return retval;
     }
@@ -9633,7 +9919,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "crsName"
-    // wcps.g:385:1: crsName returns [String value] : s= stringConstant ;
+    // wcps.g:396:1: crsName returns [String value] : s= stringConstant ;
     public final wcpsParser.crsName_return crsName() throws RecognitionException {
         wcpsParser.crsName_return retval = new wcpsParser.crsName_return();
         retval.start = input.LT(1);
@@ -9645,13 +9931,13 @@ public class wcpsParser extends Parser {
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 79) ) { return retval; }
-            // wcps.g:386:2: (s= stringConstant )
-            // wcps.g:386:4: s= stringConstant
+            if ( state.backtracking>0 && alreadyParsedRule(input, 80) ) { return retval; }
+            // wcps.g:397:2: (s= stringConstant )
+            // wcps.g:397:4: s= stringConstant
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_stringConstant_in_crsName3931);
+            pushFollow(FOLLOW_stringConstant_in_crsName4178);
             s=stringConstant();
 
             state._fsp--;
@@ -9678,7 +9964,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 79, crsName_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 80, crsName_StartIndex); }
         }
         return retval;
     }
@@ -9691,7 +9977,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "axisName"
-    // wcps.g:388:1: axisName returns [String value] : type1= name ;
+    // wcps.g:399:1: axisName returns [String value] : type1= name ;
     public final wcpsParser.axisName_return axisName() throws RecognitionException {
         wcpsParser.axisName_return retval = new wcpsParser.axisName_return();
         retval.start = input.LT(1);
@@ -9703,13 +9989,13 @@ public class wcpsParser extends Parser {
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 80) ) { return retval; }
-            // wcps.g:389:2: (type1= name )
-            // wcps.g:389:4: type1= name
+            if ( state.backtracking>0 && alreadyParsedRule(input, 81) ) { return retval; }
+            // wcps.g:400:2: (type1= name )
+            // wcps.g:400:4: type1= name
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_name_in_axisName3948);
+            pushFollow(FOLLOW_name_in_axisName4195);
             type1=name();
 
             state._fsp--;
@@ -9736,7 +10022,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 80, axisName_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 81, axisName_StartIndex); }
         }
         return retval;
     }
@@ -9749,7 +10035,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "variableName"
-    // wcps.g:391:1: variableName returns [String value] : var= VARIABLE_DOLLAR ;
+    // wcps.g:402:1: variableName returns [String value] : var= VARIABLE_DOLLAR ;
     public final wcpsParser.variableName_return variableName() throws RecognitionException {
         wcpsParser.variableName_return retval = new wcpsParser.variableName_return();
         retval.start = input.LT(1);
@@ -9761,13 +10047,13 @@ public class wcpsParser extends Parser {
         Object var_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 81) ) { return retval; }
-            // wcps.g:392:2: (var= VARIABLE_DOLLAR )
-            // wcps.g:392:4: var= VARIABLE_DOLLAR
+            if ( state.backtracking>0 && alreadyParsedRule(input, 82) ) { return retval; }
+            // wcps.g:403:2: (var= VARIABLE_DOLLAR )
+            // wcps.g:403:4: var= VARIABLE_DOLLAR
             {
             root_0 = (Object)adaptor.nil();
 
-            var=(Token)match(input,VARIABLE_DOLLAR,FOLLOW_VARIABLE_DOLLAR_in_variableName3965); if (state.failed) return retval;
+            var=(Token)match(input,VARIABLE_DOLLAR,FOLLOW_VARIABLE_DOLLAR_in_variableName4212); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             var_tree = (Object)adaptor.create(var);
             adaptor.addChild(root_0, var_tree);
@@ -9793,7 +10079,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 81, variableName_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 82, variableName_StartIndex); }
         }
         return retval;
     }
@@ -9806,7 +10092,7 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageVariable"
-    // wcps.g:394:1: coverageVariable returns [String value] : var= NAME ;
+    // wcps.g:405:1: coverageVariable returns [String value] : var= NAME ;
     public final wcpsParser.coverageVariable_return coverageVariable() throws RecognitionException {
         wcpsParser.coverageVariable_return retval = new wcpsParser.coverageVariable_return();
         retval.start = input.LT(1);
@@ -9818,13 +10104,13 @@ public class wcpsParser extends Parser {
         Object var_tree=null;
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 82) ) { return retval; }
-            // wcps.g:395:2: (var= NAME )
-            // wcps.g:395:4: var= NAME
+            if ( state.backtracking>0 && alreadyParsedRule(input, 83) ) { return retval; }
+            // wcps.g:406:2: (var= NAME )
+            // wcps.g:406:4: var= NAME
             {
             root_0 = (Object)adaptor.nil();
 
-            var=(Token)match(input,NAME,FOLLOW_NAME_in_coverageVariable3982); if (state.failed) return retval;
+            var=(Token)match(input,NAME,FOLLOW_NAME_in_coverageVariable4229); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             var_tree = (Object)adaptor.create(var);
             adaptor.addChild(root_0, var_tree);
@@ -9850,7 +10136,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 82, coverageVariable_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 83, coverageVariable_StartIndex); }
         }
         return retval;
     }
@@ -9863,32 +10149,32 @@ public class wcpsParser extends Parser {
     };
 
     // $ANTLR start "coverageName"
-    // wcps.g:397:1: coverageName returns [String value] : name ;
+    // wcps.g:408:1: coverageName returns [String value] : name ;
     public final wcpsParser.coverageName_return coverageName() throws RecognitionException {
         wcpsParser.coverageName_return retval = new wcpsParser.coverageName_return();
         retval.start = input.LT(1);
         int coverageName_StartIndex = input.index();
         Object root_0 = null;
 
-        wcpsParser.name_return name207 = null;
+        wcpsParser.name_return name210 = null;
 
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 83) ) { return retval; }
-            // wcps.g:398:2: ( name )
-            // wcps.g:398:4: name
+            if ( state.backtracking>0 && alreadyParsedRule(input, 84) ) { return retval; }
+            // wcps.g:409:2: ( name )
+            // wcps.g:409:4: name
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_name_in_coverageName3997);
-            name207=name();
+            pushFollow(FOLLOW_name_in_coverageName4244);
+            name210=name();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, name207.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, name210.getTree());
             if ( state.backtracking==0 ) {
-               retval.value = (name207!=null?name207.value:null); 
+               retval.value = (name210!=null?name210.value:null); 
             }
 
             }
@@ -9908,7 +10194,7 @@ public class wcpsParser extends Parser {
 
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 83, coverageName_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 84, coverageName_StartIndex); }
         }
         return retval;
     }
@@ -9920,8 +10206,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageLogicTerm_return e2 = null;
 
 
-        // wcps.g:71:10: (op= ( OR | XOR ) e2= coverageLogicTerm )
-        // wcps.g:71:10: op= ( OR | XOR ) e2= coverageLogicTerm
+        // wcps.g:72:10: (op= ( OR | XOR ) e2= coverageLogicTerm )
+        // wcps.g:72:10: op= ( OR | XOR ) e2= coverageLogicTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -9950,8 +10236,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageLogicFactor_return e2 = null;
 
 
-        // wcps.g:75:10: (op= AND e2= coverageLogicFactor )
-        // wcps.g:75:10: op= AND e2= coverageLogicFactor
+        // wcps.g:76:10: (op= AND e2= coverageLogicFactor )
+        // wcps.g:76:10: op= AND e2= coverageLogicFactor
         {
         op=(Token)match(input,AND,FOLLOW_AND_in_synpred9_wcps416); if (state.failed) return ;
         pushFollow(FOLLOW_coverageLogicFactor_in_synpred9_wcps420);
@@ -9970,8 +10256,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageArithmeticExpr_return e2 = null;
 
 
-        // wcps.g:79:10: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )
-        // wcps.g:79:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
+        // wcps.g:80:10: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )
+        // wcps.g:80:10: op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=EQUALS && input.LA(1)<=GTE) ) {
@@ -10000,8 +10286,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageArithmeticTerm_return e2 = null;
 
 
-        // wcps.g:83:10: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )
-        // wcps.g:83:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
+        // wcps.g:84:10: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )
+        // wcps.g:84:10: op= ( PLUS | MINUS ) e2= coverageArithmeticTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -10030,8 +10316,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageArithmeticFactor_return e2 = null;
 
 
-        // wcps.g:87:10: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )
-        // wcps.g:87:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
+        // wcps.g:88:10: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )
+        // wcps.g:88:10: op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -10060,8 +10346,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageValue_return e2 = null;
 
 
-        // wcps.g:91:10: (op= OVERLAY e2= coverageValue )
-        // wcps.g:91:10: op= OVERLAY e2= coverageValue
+        // wcps.g:92:10: (op= OVERLAY e2= coverageValue )
+        // wcps.g:92:10: op= OVERLAY e2= coverageValue
         {
         op=(Token)match(input,OVERLAY,FOLLOW_OVERLAY_in_synpred20_wcps625); if (state.failed) return ;
         pushFollow(FOLLOW_coverageValue_in_synpred20_wcps629);
@@ -10079,8 +10365,8 @@ public class wcpsParser extends Parser {
         wcpsParser.subsetExpr_return e5 = null;
 
 
-        // wcps.g:94:7: (e5= subsetExpr )
-        // wcps.g:94:7: e5= subsetExpr
+        // wcps.g:95:7: (e5= subsetExpr )
+        // wcps.g:95:7: e5= subsetExpr
         {
         pushFollow(FOLLOW_subsetExpr_in_synpred21_wcps655);
         e5=subsetExpr();
@@ -10097,8 +10383,8 @@ public class wcpsParser extends Parser {
         wcpsParser.unaryInducedExpr_return e2 = null;
 
 
-        // wcps.g:95:7: (e2= unaryInducedExpr )
-        // wcps.g:95:7: e2= unaryInducedExpr
+        // wcps.g:96:7: (e2= unaryInducedExpr )
+        // wcps.g:96:7: e2= unaryInducedExpr
         {
         pushFollow(FOLLOW_unaryInducedExpr_in_synpred22_wcps668);
         e2=unaryInducedExpr();
@@ -10115,8 +10401,8 @@ public class wcpsParser extends Parser {
         wcpsParser.scalarExpr_return e2 = null;
 
 
-        // wcps.g:101:7: (e2= scalarExpr )
-        // wcps.g:101:7: e2= scalarExpr
+        // wcps.g:102:7: (e2= scalarExpr )
+        // wcps.g:102:7: e2= scalarExpr
         {
         pushFollow(FOLLOW_scalarExpr_in_synpred25_wcps727);
         e2=scalarExpr();
@@ -10133,8 +10419,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageExpr_return e7 = null;
 
 
-        // wcps.g:103:7: ( LPAREN e7= coverageExpr RPAREN )
-        // wcps.g:103:7: LPAREN e7= coverageExpr RPAREN
+        // wcps.g:104:7: ( LPAREN e7= coverageExpr RPAREN )
+        // wcps.g:104:7: LPAREN e7= coverageExpr RPAREN
         {
         match(input,LPAREN,FOLLOW_LPAREN_in_synpred27_wcps749); if (state.failed) return ;
         pushFollow(FOLLOW_coverageExpr_in_synpred27_wcps753);
@@ -10153,8 +10439,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageConstantExpr_return e3 = null;
 
 
-        // wcps.g:104:7: (e3= coverageConstantExpr )
-        // wcps.g:104:7: e3= coverageConstantExpr
+        // wcps.g:105:7: (e3= coverageConstantExpr )
+        // wcps.g:105:7: e3= coverageConstantExpr
         {
         pushFollow(FOLLOW_coverageConstantExpr_in_synpred28_wcps768);
         e3=coverageConstantExpr();
@@ -10171,8 +10457,8 @@ public class wcpsParser extends Parser {
         wcpsParser.coverageConstructorExpr_return e4 = null;
 
 
-        // wcps.g:105:7: (e4= coverageConstructorExpr )
-        // wcps.g:105:7: e4= coverageConstructorExpr
+        // wcps.g:106:7: (e4= coverageConstructorExpr )
+        // wcps.g:106:7: e4= coverageConstructorExpr
         {
         pushFollow(FOLLOW_coverageConstructorExpr_in_synpred29_wcps780);
         e4=coverageConstructorExpr();
@@ -10189,8 +10475,8 @@ public class wcpsParser extends Parser {
         wcpsParser.metaDataExpr_return e1 = null;
 
 
-        // wcps.g:110:7: (e1= metaDataExpr )
-        // wcps.g:110:7: e1= metaDataExpr
+        // wcps.g:111:7: (e1= metaDataExpr )
+        // wcps.g:111:7: e1= metaDataExpr
         {
         pushFollow(FOLLOW_metaDataExpr_in_synpred31_wcps830);
         e1=metaDataExpr();
@@ -10207,8 +10493,8 @@ public class wcpsParser extends Parser {
         wcpsParser.condenseExpr_return e2 = null;
 
 
-        // wcps.g:111:7: (e2= condenseExpr )
-        // wcps.g:111:7: e2= condenseExpr
+        // wcps.g:112:7: (e2= condenseExpr )
+        // wcps.g:112:7: e2= condenseExpr
         {
         pushFollow(FOLLOW_condenseExpr_in_synpred32_wcps843);
         e2=condenseExpr();
@@ -10225,8 +10511,8 @@ public class wcpsParser extends Parser {
         wcpsParser.booleanScalarExpr_return e3 = null;
 
 
-        // wcps.g:112:7: (e3= booleanScalarExpr )
-        // wcps.g:112:7: e3= booleanScalarExpr
+        // wcps.g:113:7: (e3= booleanScalarExpr )
+        // wcps.g:113:7: e3= booleanScalarExpr
         {
         pushFollow(FOLLOW_booleanScalarExpr_in_synpred33_wcps856);
         e3=booleanScalarExpr();
@@ -10243,8 +10529,8 @@ public class wcpsParser extends Parser {
         wcpsParser.numericScalarExpr_return e4 = null;
 
 
-        // wcps.g:113:7: (e4= numericScalarExpr )
-        // wcps.g:113:7: e4= numericScalarExpr
+        // wcps.g:114:7: (e4= numericScalarExpr )
+        // wcps.g:114:7: e4= numericScalarExpr
         {
         pushFollow(FOLLOW_numericScalarExpr_in_synpred34_wcps870);
         e4=numericScalarExpr();
@@ -10261,8 +10547,8 @@ public class wcpsParser extends Parser {
         wcpsParser.stringScalarExpr_return e5 = null;
 
 
-        // wcps.g:114:7: (e5= stringScalarExpr )
-        // wcps.g:114:7: e5= stringScalarExpr
+        // wcps.g:115:7: (e5= stringScalarExpr )
+        // wcps.g:115:7: e5= stringScalarExpr
         {
         pushFollow(FOLLOW_stringScalarExpr_in_synpred35_wcps883);
         e5=stringScalarExpr();
@@ -10279,8 +10565,8 @@ public class wcpsParser extends Parser {
         wcpsParser.fieldExpr_return e6 = null;
 
 
-        // wcps.g:215:7: (e6= fieldExpr )
-        // wcps.g:215:7: e6= fieldExpr
+        // wcps.g:216:7: (e6= fieldExpr )
+        // wcps.g:216:7: e6= fieldExpr
         {
         pushFollow(FOLLOW_fieldExpr_in_synpred71_wcps2121);
         e6=fieldExpr();
@@ -10297,8 +10583,8 @@ public class wcpsParser extends Parser {
         wcpsParser.unaryArithmeticExpr_return e1 = null;
 
 
-        // wcps.g:216:4: (e1= unaryArithmeticExpr )
-        // wcps.g:216:4: e1= unaryArithmeticExpr
+        // wcps.g:217:4: (e1= unaryArithmeticExpr )
+        // wcps.g:217:4: e1= unaryArithmeticExpr
         {
         pushFollow(FOLLOW_unaryArithmeticExpr_in_synpred72_wcps2130);
         e1=unaryArithmeticExpr();
@@ -10315,8 +10601,8 @@ public class wcpsParser extends Parser {
         wcpsParser.booleanExpr_return e4 = null;
 
 
-        // wcps.g:219:7: (e4= booleanExpr )
-        // wcps.g:219:7: e4= booleanExpr
+        // wcps.g:220:7: (e4= booleanExpr )
+        // wcps.g:220:7: e4= booleanExpr
         {
         pushFollow(FOLLOW_booleanExpr_in_synpred75_wcps2166);
         e4=booleanExpr();
@@ -10333,8 +10619,8 @@ public class wcpsParser extends Parser {
         wcpsParser.trimExpr_return e1 = null;
 
 
-        // wcps.g:261:4: (e1= trimExpr )
-        // wcps.g:261:4: e1= trimExpr
+        // wcps.g:262:4: (e1= trimExpr )
+        // wcps.g:262:4: e1= trimExpr
         {
         pushFollow(FOLLOW_trimExpr_in_synpred101_wcps2686);
         e1=trimExpr();
@@ -10351,8 +10637,8 @@ public class wcpsParser extends Parser {
         wcpsParser.sliceExpr_return e2 = null;
 
 
-        // wcps.g:262:4: (e2= sliceExpr )
-        // wcps.g:262:4: e2= sliceExpr
+        // wcps.g:263:4: (e2= sliceExpr )
+        // wcps.g:263:4: e2= sliceExpr
         {
         pushFollow(FOLLOW_sliceExpr_in_synpred102_wcps2695);
         e2=sliceExpr();
@@ -10364,14 +10650,50 @@ public class wcpsParser extends Parser {
     }
     // $ANTLR end synpred102_wcps
 
-    // $ANTLR start synpred116_wcps
-    public final void synpred116_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred105_wcps
+    public final void synpred105_wcps_fragment() throws RecognitionException {   
+        wcpsParser.dimensionIntervalElement_return el1 = null;
+
+
+        // wcps.g:273:32: (el1= dimensionIntervalElement )
+        // wcps.g:273:32: el1= dimensionIntervalElement
+        {
+        pushFollow(FOLLOW_dimensionIntervalElement_in_synpred105_wcps2824);
+        el1=dimensionIntervalElement();
+
+        state._fsp--;
+        if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred105_wcps
+
+    // $ANTLR start synpred106_wcps
+    public final void synpred106_wcps_fragment() throws RecognitionException {   
+        wcpsParser.dimensionIntervalElement_return el3 = null;
+
+
+        // wcps.g:276:32: (el3= dimensionIntervalElement )
+        // wcps.g:276:32: el3= dimensionIntervalElement
+        {
+        pushFollow(FOLLOW_dimensionIntervalElement_in_synpred106_wcps2933);
+        el3=dimensionIntervalElement();
+
+        state._fsp--;
+        if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred106_wcps
+
+    // $ANTLR start synpred120_wcps
+    public final void synpred120_wcps_fragment() throws RecognitionException {   
         Token op=null;
         wcpsParser.booleanScalarTerm_return e2 = null;
 
 
-        // wcps.g:290:8: (op= ( OR | XOR ) e2= booleanScalarTerm )
-        // wcps.g:290:8: op= ( OR | XOR ) e2= booleanScalarTerm
+        // wcps.g:301:8: (op= ( OR | XOR ) e2= booleanScalarTerm )
+        // wcps.g:301:8: op= ( OR | XOR ) e2= booleanScalarTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=OR && input.LA(1)<=XOR) ) {
@@ -10384,7 +10706,7 @@ public class wcpsParser extends Parser {
             throw mse;
         }
 
-        pushFollow(FOLLOW_booleanScalarTerm_in_synpred116_wcps2997);
+        pushFollow(FOLLOW_booleanScalarTerm_in_synpred120_wcps3244);
         e2=booleanScalarTerm();
 
         state._fsp--;
@@ -10392,72 +10714,20 @@ public class wcpsParser extends Parser {
 
         }
     }
-    // $ANTLR end synpred116_wcps
+    // $ANTLR end synpred120_wcps
 
-    // $ANTLR start synpred117_wcps
-    public final void synpred117_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred121_wcps
+    public final void synpred121_wcps_fragment() throws RecognitionException {   
         Token op=null;
         wcpsParser.booleanScalarNegation_return e2 = null;
 
 
-        // wcps.g:294:5: (op= AND e2= booleanScalarNegation )
-        // wcps.g:294:5: op= AND e2= booleanScalarNegation
+        // wcps.g:305:5: (op= AND e2= booleanScalarNegation )
+        // wcps.g:305:5: op= AND e2= booleanScalarNegation
         {
-        op=(Token)match(input,AND,FOLLOW_AND_in_synpred117_wcps3029); if (state.failed) return ;
-        pushFollow(FOLLOW_booleanScalarNegation_in_synpred117_wcps3033);
+        op=(Token)match(input,AND,FOLLOW_AND_in_synpred121_wcps3276); if (state.failed) return ;
+        pushFollow(FOLLOW_booleanScalarNegation_in_synpred121_wcps3280);
         e2=booleanScalarNegation();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end synpred117_wcps
-
-    // $ANTLR start synpred119_wcps
-    public final void synpred119_wcps_fragment() throws RecognitionException {   
-        wcpsParser.booleanScalarExpr_return e1 = null;
-
-
-        // wcps.g:301:4: ( LPAREN e1= booleanScalarExpr RPAREN )
-        // wcps.g:301:4: LPAREN e1= booleanScalarExpr RPAREN
-        {
-        match(input,LPAREN,FOLLOW_LPAREN_in_synpred119_wcps3082); if (state.failed) return ;
-        pushFollow(FOLLOW_booleanScalarExpr_in_synpred119_wcps3086);
-        e1=booleanScalarExpr();
-
-        state._fsp--;
-        if (state.failed) return ;
-        match(input,RPAREN,FOLLOW_RPAREN_in_synpred119_wcps3088); if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end synpred119_wcps
-
-    // $ANTLR start synpred121_wcps
-    public final void synpred121_wcps_fragment() throws RecognitionException {   
-        wcpsParser.numericScalarExpr_return n1 = null;
-
-        wcpsParser.compOp_return cop = null;
-
-        wcpsParser.numericScalarExpr_return n2 = null;
-
-
-        // wcps.g:303:4: (n1= numericScalarExpr cop= compOp n2= numericScalarExpr )
-        // wcps.g:303:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
-        {
-        pushFollow(FOLLOW_numericScalarExpr_in_synpred121_wcps3115);
-        n1=numericScalarExpr();
-
-        state._fsp--;
-        if (state.failed) return ;
-        pushFollow(FOLLOW_compOp_in_synpred121_wcps3119);
-        cop=compOp();
-
-        state._fsp--;
-        if (state.failed) return ;
-        pushFollow(FOLLOW_numericScalarExpr_in_synpred121_wcps3123);
-        n2=numericScalarExpr();
 
         state._fsp--;
         if (state.failed) return ;
@@ -10468,12 +10738,64 @@ public class wcpsParser extends Parser {
 
     // $ANTLR start synpred123_wcps
     public final void synpred123_wcps_fragment() throws RecognitionException {   
+        wcpsParser.booleanScalarExpr_return e1 = null;
+
+
+        // wcps.g:312:4: ( LPAREN e1= booleanScalarExpr RPAREN )
+        // wcps.g:312:4: LPAREN e1= booleanScalarExpr RPAREN
+        {
+        match(input,LPAREN,FOLLOW_LPAREN_in_synpred123_wcps3329); if (state.failed) return ;
+        pushFollow(FOLLOW_booleanScalarExpr_in_synpred123_wcps3333);
+        e1=booleanScalarExpr();
+
+        state._fsp--;
+        if (state.failed) return ;
+        match(input,RPAREN,FOLLOW_RPAREN_in_synpred123_wcps3335); if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred123_wcps
+
+    // $ANTLR start synpred125_wcps
+    public final void synpred125_wcps_fragment() throws RecognitionException {   
+        wcpsParser.numericScalarExpr_return n1 = null;
+
+        wcpsParser.compOp_return cop = null;
+
+        wcpsParser.numericScalarExpr_return n2 = null;
+
+
+        // wcps.g:314:4: (n1= numericScalarExpr cop= compOp n2= numericScalarExpr )
+        // wcps.g:314:4: n1= numericScalarExpr cop= compOp n2= numericScalarExpr
+        {
+        pushFollow(FOLLOW_numericScalarExpr_in_synpred125_wcps3362);
+        n1=numericScalarExpr();
+
+        state._fsp--;
+        if (state.failed) return ;
+        pushFollow(FOLLOW_compOp_in_synpred125_wcps3366);
+        cop=compOp();
+
+        state._fsp--;
+        if (state.failed) return ;
+        pushFollow(FOLLOW_numericScalarExpr_in_synpred125_wcps3370);
+        n2=numericScalarExpr();
+
+        state._fsp--;
+        if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred125_wcps
+
+    // $ANTLR start synpred127_wcps
+    public final void synpred127_wcps_fragment() throws RecognitionException {   
         Token op=null;
         wcpsParser.numericScalarTerm_return e2 = null;
 
 
-        // wcps.g:308:5: (op= ( PLUS | MINUS ) e2= numericScalarTerm )
-        // wcps.g:308:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
+        // wcps.g:319:5: (op= ( PLUS | MINUS ) e2= numericScalarTerm )
+        // wcps.g:319:5: op= ( PLUS | MINUS ) e2= numericScalarTerm
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -10486,7 +10808,7 @@ public class wcpsParser extends Parser {
             throw mse;
         }
 
-        pushFollow(FOLLOW_numericScalarTerm_in_synpred123_wcps3168);
+        pushFollow(FOLLOW_numericScalarTerm_in_synpred127_wcps3415);
         e2=numericScalarTerm();
 
         state._fsp--;
@@ -10494,16 +10816,16 @@ public class wcpsParser extends Parser {
 
         }
     }
-    // $ANTLR end synpred123_wcps
+    // $ANTLR end synpred127_wcps
 
-    // $ANTLR start synpred125_wcps
-    public final void synpred125_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred129_wcps
+    public final void synpred129_wcps_fragment() throws RecognitionException {   
         Token op=null;
         wcpsParser.numericScalarFactor_return e2 = null;
 
 
-        // wcps.g:312:4: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )
-        // wcps.g:312:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
+        // wcps.g:323:4: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )
+        // wcps.g:323:4: op= ( MULT | DIVIDE ) e2= numericScalarFactor
         {
         op=(Token)input.LT(1);
         if ( (input.LA(1)>=MULT && input.LA(1)<=DIVIDE) ) {
@@ -10516,7 +10838,7 @@ public class wcpsParser extends Parser {
             throw mse;
         }
 
-        pushFollow(FOLLOW_numericScalarFactor_in_synpred125_wcps3204);
+        pushFollow(FOLLOW_numericScalarFactor_in_synpred129_wcps3451);
         e2=numericScalarFactor();
 
         state._fsp--;
@@ -10524,37 +10846,37 @@ public class wcpsParser extends Parser {
 
         }
     }
-    // $ANTLR end synpred125_wcps
+    // $ANTLR end synpred129_wcps
 
-    // $ANTLR start synpred126_wcps
-    public final void synpred126_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred130_wcps
+    public final void synpred130_wcps_fragment() throws RecognitionException {   
         wcpsParser.numericScalarExpr_return e1 = null;
 
 
-        // wcps.g:315:7: ( LPAREN e1= numericScalarExpr RPAREN )
-        // wcps.g:315:7: LPAREN e1= numericScalarExpr RPAREN
+        // wcps.g:326:7: ( LPAREN e1= numericScalarExpr RPAREN )
+        // wcps.g:326:7: LPAREN e1= numericScalarExpr RPAREN
         {
-        match(input,LPAREN,FOLLOW_LPAREN_in_synpred126_wcps3224); if (state.failed) return ;
-        pushFollow(FOLLOW_numericScalarExpr_in_synpred126_wcps3228);
+        match(input,LPAREN,FOLLOW_LPAREN_in_synpred130_wcps3471); if (state.failed) return ;
+        pushFollow(FOLLOW_numericScalarExpr_in_synpred130_wcps3475);
         e1=numericScalarExpr();
 
         state._fsp--;
         if (state.failed) return ;
-        match(input,RPAREN,FOLLOW_RPAREN_in_synpred126_wcps3230); if (state.failed) return ;
+        match(input,RPAREN,FOLLOW_RPAREN_in_synpred130_wcps3477); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred126_wcps
+    // $ANTLR end synpred130_wcps
 
-    // $ANTLR start synpred133_wcps
-    public final void synpred133_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred137_wcps
+    public final void synpred137_wcps_fragment() throws RecognitionException {   
         wcpsParser.complexConstant_return e2 = null;
 
 
-        // wcps.g:322:7: (e2= complexConstant )
-        // wcps.g:322:7: e2= complexConstant
+        // wcps.g:333:7: (e2= complexConstant )
+        // wcps.g:333:7: e2= complexConstant
         {
-        pushFollow(FOLLOW_complexConstant_in_synpred133_wcps3342);
+        pushFollow(FOLLOW_complexConstant_in_synpred137_wcps3589);
         e2=complexConstant();
 
         state._fsp--;
@@ -10562,25 +10884,25 @@ public class wcpsParser extends Parser {
 
         }
     }
-    // $ANTLR end synpred133_wcps
+    // $ANTLR end synpred137_wcps
 
-    // $ANTLR start synpred142_wcps
-    public final void synpred142_wcps_fragment() throws RecognitionException {   
+    // $ANTLR start synpred146_wcps
+    public final void synpred146_wcps_fragment() throws RecognitionException {   
         wcpsParser.scalarExpr_return e1 = null;
 
         wcpsParser.scalarExpr_return e2 = null;
 
 
-        // wcps.g:343:7: (e1= scalarExpr COLON e2= scalarExpr )
-        // wcps.g:343:7: e1= scalarExpr COLON e2= scalarExpr
+        // wcps.g:354:7: (e1= scalarExpr COLON e2= scalarExpr )
+        // wcps.g:354:7: e1= scalarExpr COLON e2= scalarExpr
         {
-        pushFollow(FOLLOW_scalarExpr_in_synpred142_wcps3530);
+        pushFollow(FOLLOW_scalarExpr_in_synpred146_wcps3777);
         e1=scalarExpr();
 
         state._fsp--;
         if (state.failed) return ;
-        match(input,COLON,FOLLOW_COLON_in_synpred142_wcps3532); if (state.failed) return ;
-        pushFollow(FOLLOW_scalarExpr_in_synpred142_wcps3536);
+        match(input,COLON,FOLLOW_COLON_in_synpred146_wcps3779); if (state.failed) return ;
+        pushFollow(FOLLOW_scalarExpr_in_synpred146_wcps3783);
         e2=scalarExpr();
 
         state._fsp--;
@@ -10588,7 +10910,7 @@ public class wcpsParser extends Parser {
 
         }
     }
-    // $ANTLR end synpred142_wcps
+    // $ANTLR end synpred146_wcps
 
     // Delegated rules
 
@@ -10597,6 +10919,34 @@ public class wcpsParser extends Parser {
         int start = input.mark();
         try {
             synpred102_wcps_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred146_wcps() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred146_wcps_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred130_wcps() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred130_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -10732,6 +11082,20 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
+    public final boolean synpred127_wcps() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred127_wcps_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
     public final boolean synpred75_wcps() {
         state.backtracking++;
         int start = input.mark();
@@ -10746,11 +11110,11 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred133_wcps() {
+    public final boolean synpred106_wcps() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred133_wcps_fragment(); // can never throw exception
+            synpred106_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -10779,20 +11143,6 @@ public class wcpsParser extends Parser {
         int start = input.mark();
         try {
             synpred20_wcps_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred119_wcps() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred119_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -10844,20 +11194,6 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred29_wcps() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred29_wcps_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
     public final boolean synpred28_wcps() {
         state.backtracking++;
         int start = input.mark();
@@ -10872,11 +11208,53 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
+    public final boolean synpred29_wcps() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred29_wcps_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
     public final boolean synpred25_wcps() {
         state.backtracking++;
         int start = input.mark();
         try {
             synpred25_wcps_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred105_wcps() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred105_wcps_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred129_wcps() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred129_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -10942,34 +11320,6 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred142_wcps() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred142_wcps_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred117_wcps() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred117_wcps_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
     public final boolean synpred8_wcps() {
         state.backtracking++;
         int start = input.mark();
@@ -10984,11 +11334,11 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred126_wcps() {
+    public final boolean synpred137_wcps() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred126_wcps_fragment(); // can never throw exception
+            synpred137_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -11012,11 +11362,11 @@ public class wcpsParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred116_wcps() {
+    public final boolean synpred120_wcps() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred116_wcps_fragment(); // can never throw exception
+            synpred120_wcps_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -11041,15 +11391,15 @@ public class wcpsParser extends Parser {
     protected DFA35 dfa35 = new DFA35(this);
     protected DFA43 dfa43 = new DFA43(this);
     protected DFA44 dfa44 = new DFA44(this);
-    protected DFA45 dfa45 = new DFA45(this);
-    protected DFA47 dfa47 = new DFA47(this);
     protected DFA48 dfa48 = new DFA48(this);
-    protected DFA49 dfa49 = new DFA49(this);
     protected DFA50 dfa50 = new DFA50(this);
     protected DFA51 dfa51 = new DFA51(this);
     protected DFA52 dfa52 = new DFA52(this);
     protected DFA53 dfa53 = new DFA53(this);
-    protected DFA57 dfa57 = new DFA57(this);
+    protected DFA54 dfa54 = new DFA54(this);
+    protected DFA55 dfa55 = new DFA55(this);
+    protected DFA56 dfa56 = new DFA56(this);
+    protected DFA60 dfa60 = new DFA60(this);
     static final String DFA4_eotS =
         "\30\uffff";
     static final String DFA4_eofS =
@@ -11120,7 +11470,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA4_transition;
         }
         public String getDescription() {
-            return "57:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );";
+            return "58:1: processingExpr returns [ProcessingExpr value] : (e1= encodedCoverageExpr | e2= storeExpr | e3= scalarExpr );";
         }
     }
     static final String DFA6_eotS =
@@ -11232,7 +11582,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA6_transition;
         }
         public String getDescription() {
-            return "()* loopback of 71:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*";
+            return "()* loopback of 72:9: (op= ( OR | XOR ) e2= coverageLogicTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11370,7 +11720,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA7_transition;
         }
         public String getDescription() {
-            return "()* loopback of 75:9: (op= AND e2= coverageLogicFactor )*";
+            return "()* loopback of 76:9: (op= AND e2= coverageLogicFactor )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11709,7 +12059,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA8_transition;
         }
         public String getDescription() {
-            return "79:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?";
+            return "80:9: (op= ( EQUALS | NOTEQUALS | LT | GT | LTE | GTE ) e2= coverageArithmeticExpr )?";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -11922,7 +12272,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA9_transition;
         }
         public String getDescription() {
-            return "()* loopback of 83:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*";
+            return "()* loopback of 84:9: (op= ( PLUS | MINUS ) e2= coverageArithmeticTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -12060,7 +12410,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "()* loopback of 87:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*";
+            return "()* loopback of 88:9: (op= ( MULT | DIVIDE ) e2= coverageArithmeticFactor )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -12198,7 +12548,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA11_transition;
         }
         public String getDescription() {
-            return "()* loopback of 91:9: (op= OVERLAY e2= coverageValue )*";
+            return "()* loopback of 92:9: (op= OVERLAY e2= coverageValue )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -12233,11 +12583,12 @@ public class wcpsParser extends Parser {
         "\u012d\uffff";
     static final String DFA12_minS =
         "\12\6\1\15\1\6\1\0\4\6\4\0\1\6\1\0\1\116\5\6\1\70\1\116\12\uffff"+
-        "\62\0\30\uffff\12\0\24\uffff\3\0\124\uffff\15\0\60\uffff\10\0";
+        "\62\0\30\uffff\12\0\24\uffff\3\0\124\uffff\1\0\7\uffff\14\0\51\uffff"+
+        "\10\0";
     static final String DFA12_maxS =
         "\1\154\11\6\1\51\1\154\1\0\1\154\3\6\4\0\1\154\1\0\1\153\5\6\1\70"+
-        "\1\153\12\uffff\62\0\30\uffff\12\0\24\uffff\3\0\124\uffff\15\0\60"+
-        "\uffff\10\0";
+        "\1\153\12\uffff\62\0\30\uffff\12\0\24\uffff\3\0\124\uffff\1\0\7"+
+        "\uffff\14\0\51\uffff\10\0";
     static final String DFA12_acceptS =
         "\37\uffff\1\1\2\uffff\1\2\4\uffff\1\3\1\4\111\uffff\1\5\u00ba\uffff";
     static final String DFA12_specialS =
@@ -12247,9 +12598,9 @@ public class wcpsParser extends Parser {
         "\1\41\1\42\1\43\1\44\1\45\1\46\1\47\1\50\1\51\1\52\1\53\1\54\1\55"+
         "\1\56\1\57\1\60\1\61\1\62\1\63\1\64\1\65\1\66\1\67\30\uffff\1\70"+
         "\1\71\1\72\1\73\1\74\1\75\1\76\1\77\1\100\1\101\24\uffff\1\102\1"+
-        "\103\1\104\124\uffff\1\105\1\106\1\107\1\110\1\111\1\112\1\113\1"+
-        "\114\1\115\1\116\1\117\1\120\1\121\60\uffff\1\122\1\123\1\124\1"+
-        "\125\1\126\1\127\1\130\1\131}>";
+        "\103\1\104\124\uffff\1\105\7\uffff\1\106\1\107\1\110\1\111\1\112"+
+        "\1\113\1\114\1\115\1\116\1\117\1\120\1\121\51\uffff\1\122\1\123"+
+        "\1\124\1\125\1\126\1\127\1\130\1\131}>";
     static final String[] DFA12_transitionS = {
             "\1\13\17\uffff\1\42\1\15\3\uffff\1\1\1\2\1\3\1\4\1\6\1\7\1\10"+
             "\1\5\7\11\1\12\3\uffff\1\27\4\uffff\1\30\1\31\1\32\1\33\1\34"+
@@ -12265,12 +12616,11 @@ public class wcpsParser extends Parser {
             "\1\60",
             "\1\61",
             "\1\62\1\uffff\1\62\6\uffff\1\62\1\uffff\1\62\17\uffff\2\62",
-            "\1\64\17\uffff\1\124\1\67\3\uffff\1\65\1\101\1\102\1\103\1"+
-            "\105\1\106\1\107\1\104\7\74\1\75\3\uffff\1\111\4\uffff\1\112"+
-            "\1\113\1\114\1\115\1\116\1\120\1\uffff\1\117\1\132\1\71\1\70"+
-            "\2\125\3\126\11\127\1\100\1\130\1\73\1\72\1\66\1\131\2\uffff"+
-            "\1\121\1\122\1\123\11\42\1\uffff\1\77\1\63\10\uffff\1\110\1"+
-            "\76",
+            "\1\76\17\uffff\1\124\1\100\3\uffff\1\64\1\65\1\66\1\67\1\71"+
+            "\1\72\1\73\1\70\7\74\1\75\3\uffff\1\111\4\uffff\1\112\1\113"+
+            "\1\114\1\115\1\116\1\120\1\uffff\1\117\1\132\1\102\1\101\2\125"+
+            "\3\126\11\127\1\107\1\130\1\104\1\103\1\77\1\131\2\uffff\1\121"+
+            "\1\122\1\123\11\42\1\uffff\1\106\1\63\10\uffff\1\110\1\105",
             "\1\uffff",
             "\1\163\20\uffff\1\164\3\uffff\10\42\7\172\1\173\3\uffff\1\42"+
             "\4\uffff\6\42\1\uffff\1\42\1\uffff\1\166\1\165\16\uffff\1\42"+
@@ -12283,10 +12633,10 @@ public class wcpsParser extends Parser {
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
-            "\1\u00e8\17\uffff\1\42\1\u00eb\3\uffff\1\u00e9\7\42\7\u00f1"+
-            "\1\u00f2\3\uffff\1\42\4\uffff\6\42\1\uffff\2\42\1\u00ed\1\u00ec"+
-            "\20\42\1\u00ef\1\u00ee\1\u00ea\1\42\2\uffff\3\42\12\uffff\1"+
-            "\u00f4\1\u00f0\10\uffff\1\42\1\u00f3",
+            "\1\u00f2\17\uffff\1\42\1\u00f4\3\uffff\1\u00e8\7\42\7\u00f0"+
+            "\1\u00f1\3\uffff\1\42\4\uffff\6\42\1\uffff\2\42\1\u00f6\1\u00f5"+
+            "\20\42\1\u00f8\1\u00f7\1\u00f3\1\42\2\uffff\3\42\12\uffff\1"+
+            "\u00fb\1\u00f9\10\uffff\1\42\1\u00fa",
             "\1\uffff",
             "\1\u0125\1\uffff\1\u0125\32\uffff\1\u0125",
             "\1\u0126",
@@ -12498,18 +12848,6 @@ public class wcpsParser extends Parser {
             "",
             "",
             "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
             "",
             "",
             "",
@@ -12517,6 +12855,18 @@ public class wcpsParser extends Parser {
             "",
             "",
             "",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
             "",
             "",
             "",
@@ -12598,7 +12948,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "93:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );";
+            return "94:1: coverageValue returns [CoverageExpr value] : (e5= subsetExpr | e2= unaryInducedExpr | e4= scaleExpr | e3= crsTransformExpr | e1= coverageAtom );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -13795,125 +14145,6 @@ public class wcpsParser extends Parser {
                         if ( s>=0 ) return s;
                         break;
                     case 70 : 
-                        int LA12_233 = input.LA(1);
-
-                         
-                        int index12_233 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 114;}
-
-                         
-                        input.seek(index12_233);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 71 : 
-                        int LA12_234 = input.LA(1);
-
-                         
-                        int index12_234 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 114;}
-
-                         
-                        input.seek(index12_234);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 72 : 
-                        int LA12_235 = input.LA(1);
-
-                         
-                        int index12_235 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 114;}
-
-                         
-                        input.seek(index12_235);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 73 : 
-                        int LA12_236 = input.LA(1);
-
-                         
-                        int index12_236 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 114;}
-
-                         
-                        input.seek(index12_236);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 74 : 
-                        int LA12_237 = input.LA(1);
-
-                         
-                        int index12_237 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 114;}
-
-                         
-                        input.seek(index12_237);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 75 : 
-                        int LA12_238 = input.LA(1);
-
-                         
-                        int index12_238 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 114;}
-
-                         
-                        input.seek(index12_238);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 76 : 
-                        int LA12_239 = input.LA(1);
-
-                         
-                        int index12_239 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred21_wcps()) ) {s = 31;}
-
-                        else if ( (synpred22_wcps()) ) {s = 34;}
-
-                        else if ( (true) ) {s = 114;}
-
-                         
-                        input.seek(index12_239);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 77 : 
                         int LA12_240 = input.LA(1);
 
                          
@@ -13930,7 +14161,7 @@ public class wcpsParser extends Parser {
                         input.seek(index12_240);
                         if ( s>=0 ) return s;
                         break;
-                    case 78 : 
+                    case 71 : 
                         int LA12_241 = input.LA(1);
 
                          
@@ -13947,7 +14178,7 @@ public class wcpsParser extends Parser {
                         input.seek(index12_241);
                         if ( s>=0 ) return s;
                         break;
-                    case 79 : 
+                    case 72 : 
                         int LA12_242 = input.LA(1);
 
                          
@@ -13964,7 +14195,7 @@ public class wcpsParser extends Parser {
                         input.seek(index12_242);
                         if ( s>=0 ) return s;
                         break;
-                    case 80 : 
+                    case 73 : 
                         int LA12_243 = input.LA(1);
 
                          
@@ -13981,7 +14212,7 @@ public class wcpsParser extends Parser {
                         input.seek(index12_243);
                         if ( s>=0 ) return s;
                         break;
-                    case 81 : 
+                    case 74 : 
                         int LA12_244 = input.LA(1);
 
                          
@@ -13996,6 +14227,125 @@ public class wcpsParser extends Parser {
 
                          
                         input.seek(index12_244);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 75 : 
+                        int LA12_245 = input.LA(1);
+
+                         
+                        int index12_245 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_245);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 76 : 
+                        int LA12_246 = input.LA(1);
+
+                         
+                        int index12_246 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_246);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 77 : 
+                        int LA12_247 = input.LA(1);
+
+                         
+                        int index12_247 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_247);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 78 : 
+                        int LA12_248 = input.LA(1);
+
+                         
+                        int index12_248 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_248);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 79 : 
+                        int LA12_249 = input.LA(1);
+
+                         
+                        int index12_249 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_249);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 80 : 
+                        int LA12_250 = input.LA(1);
+
+                         
+                        int index12_250 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_250);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 81 : 
+                        int LA12_251 = input.LA(1);
+
+                         
+                        int index12_251 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred21_wcps()) ) {s = 31;}
+
+                        else if ( (synpred22_wcps()) ) {s = 34;}
+
+                        else if ( (true) ) {s = 114;}
+
+                         
+                        input.seek(index12_251);
                         if ( s>=0 ) return s;
                         break;
                     case 82 : 
@@ -14171,10 +14521,10 @@ public class wcpsParser extends Parser {
             "",
             "",
             "",
-            "\1\40\17\uffff\1\64\1\43\3\uffff\1\41\1\55\1\56\1\57\1\61\1"+
-            "\62\1\63\1\60\7\50\1\51\3\uffff\1\64\4\uffff\6\64\1\uffff\2"+
-            "\64\1\45\1\44\16\64\1\54\1\64\1\47\1\46\1\42\1\64\2\uffff\3"+
-            "\64\12\uffff\1\53\1\37\10\uffff\1\64\1\52",
+            "\1\52\17\uffff\1\64\1\54\3\uffff\1\40\1\41\1\42\1\43\1\45\1"+
+            "\46\1\47\1\44\7\50\1\51\3\uffff\1\64\4\uffff\6\64\1\uffff\2"+
+            "\64\1\56\1\55\16\64\1\63\1\64\1\60\1\57\1\53\1\64\2\uffff\3"+
+            "\64\12\uffff\1\62\1\37\10\uffff\1\64\1\61",
             "",
             "",
             "",
@@ -14269,7 +14619,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA13_transition;
         }
         public String getDescription() {
-            return "100:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );";
+            return "101:1: coverageAtom returns [CoverageExpr value] : (e2= scalarExpr | e1= coverageVariable | LPAREN e7= coverageExpr RPAREN | e3= coverageConstantExpr | e4= coverageConstructorExpr | e5= setMetaDataExpr | e6= rangeConstructorExpr );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -14645,9 +14995,9 @@ public class wcpsParser extends Parser {
             "",
             "\1\27",
             "\1\30\1\uffff\1\30\6\uffff\1\30\1\uffff\1\30\17\uffff\2\30",
-            "\1\32\20\uffff\1\35\3\uffff\1\33\7\47\7\42\1\43\21\uffff\1"+
-            "\37\1\36\16\uffff\1\46\1\uffff\1\41\1\40\1\34\20\uffff\1\45"+
-            "\1\31\11\uffff\1\44",
+            "\1\32\20\uffff\1\33\3\uffff\1\43\7\47\7\40\1\41\21\uffff\1"+
+            "\35\1\34\16\uffff\1\46\1\uffff\1\37\1\36\1\44\20\uffff\1\45"+
+            "\1\31\11\uffff\1\42",
             "\2\64\1\uffff\1\64\2\uffff\3\64\1\56\1\57\1\60\1\61\1\62\1"+
             "\63\5\64\21\uffff\2\64\3\uffff\1\64\7\uffff\1\64\30\uffff\1"+
             "\64\15\uffff\1\64",
@@ -14816,7 +15166,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA14_transition;
         }
         public String getDescription() {
-            return "109:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );";
+            return "110:1: scalarExpr returns [ScalarExpr value] : (e1= metaDataExpr | e2= condenseExpr | e3= booleanScalarExpr | e4= numericScalarExpr | e5= stringScalarExpr | LPAREN e6= scalarExpr RPAREN );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -14961,6 +15311,8 @@ public class wcpsParser extends Parser {
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
 
+                        else if ( (synpred34_wcps()) ) {s = 101;}
+
                         else if ( (true) ) {s = 39;}
 
                          
@@ -14975,6 +15327,8 @@ public class wcpsParser extends Parser {
                         input.rewind();
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
+
+                        else if ( (synpred34_wcps()) ) {s = 101;}
 
                         else if ( (true) ) {s = 39;}
 
@@ -15093,8 +15447,6 @@ public class wcpsParser extends Parser {
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
 
-                        else if ( (synpred34_wcps()) ) {s = 101;}
-
                         else if ( (true) ) {s = 39;}
 
                          
@@ -15109,8 +15461,6 @@ public class wcpsParser extends Parser {
                         input.rewind();
                         s = -1;
                         if ( (synpred33_wcps()) ) {s = 20;}
-
-                        else if ( (synpred34_wcps()) ) {s = 101;}
 
                         else if ( (true) ) {s = 39;}
 
@@ -15446,18 +15796,19 @@ public class wcpsParser extends Parser {
     static final String DFA35_eofS =
         "\u0099\uffff";
     static final String DFA35_minS =
-        "\1\6\12\uffff\1\6\1\uffff\3\6\5\uffff\1\6\7\uffff\1\70\1\116\57"+
-        "\uffff\12\0\24\uffff\17\0\33\uffff\2\0\1\uffff";
+        "\1\6\12\uffff\1\6\1\uffff\3\6\5\uffff\1\6\7\uffff\1\70\1\116\67"+
+        "\uffff\3\0\1\uffff\7\0\13\uffff\17\0\33\uffff\2\0\1\uffff";
     static final String DFA35_maxS =
         "\1\154\12\uffff\1\154\1\uffff\1\154\2\6\5\uffff\1\154\7\uffff\1"+
-        "\70\1\153\57\uffff\12\0\24\uffff\17\0\33\uffff\2\0\1\uffff";
+        "\70\1\153\67\uffff\3\0\1\uffff\7\0\13\uffff\17\0\33\uffff\2\0\1"+
+        "\uffff";
     static final String DFA35_acceptS =
-        "\1\uffff\1\1\35\uffff\1\2\1\uffff\1\3\1\4\1\5\12\uffff\1\6\151\uffff"+
+        "\1\uffff\1\1\35\uffff\1\2\1\uffff\1\3\1\4\1\5\50\uffff\1\6\113\uffff"+
         "\1\7";
     static final String DFA35_specialS =
-        "\116\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\24\uffff\1"+
-        "\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25\1\26"+
-        "\1\27\1\30\33\uffff\1\31\1\32\1\uffff}>";
+        "\126\uffff\1\0\1\1\1\2\1\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11\13"+
+        "\uffff\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1"+
+        "\25\1\26\1\27\1\30\33\uffff\1\31\1\32\1\uffff}>";
     static final String[] DFA35_transitionS = {
             "\1\13\17\uffff\1\37\1\15\3\uffff\20\1\3\uffff\1\1\4\uffff\5"+
             "\1\1\36\1\uffff\1\35\1\uffff\1\17\1\16\2\37\3\41\11\42\1\25"+
@@ -15473,12 +15824,12 @@ public class wcpsParser extends Parser {
             "",
             "",
             "\1\1\17\uffff\2\1\3\uffff\20\1\3\uffff\1\1\4\uffff\6\1\1\uffff"+
-            "\30\1\2\uffff\3\1\11\56\1\uffff\2\1\10\uffff\2\1",
+            "\30\1\2\uffff\3\1\11\114\1\uffff\2\1\10\uffff\2\1",
             "",
-            "\1\116\20\uffff\1\117\3\uffff\10\37\7\125\1\126\3\uffff\1\37"+
-            "\4\uffff\6\37\1\uffff\1\37\1\uffff\1\121\1\120\16\uffff\1\37"+
-            "\1\uffff\1\123\1\122\1\37\20\uffff\1\37\1\124\10\uffff\1\37"+
-            "\1\127",
+            "\1\130\20\uffff\1\132\3\uffff\10\37\7\126\1\127\3\uffff\1\37"+
+            "\4\uffff\6\37\1\uffff\1\37\1\uffff\1\134\1\133\16\uffff\1\37"+
+            "\1\uffff\1\136\1\135\1\37\20\uffff\1\37\1\137\10\uffff\1\37"+
+            "\1\140",
             "\1\154",
             "\1\155",
             "",
@@ -15546,16 +15897,6 @@ public class wcpsParser extends Parser {
             "",
             "",
             "",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
             "",
             "",
             "",
@@ -15564,7 +15905,17 @@ public class wcpsParser extends Parser {
             "",
             "",
             "",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
             "",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
             "",
             "",
             "",
@@ -15653,133 +16004,13 @@ public class wcpsParser extends Parser {
             this.transition = DFA35_transition;
         }
         public String getDescription() {
-            return "214:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );";
+            return "215:1: unaryInducedExpr returns [CoverageExpr value] : (e6= fieldExpr | e1= unaryArithmeticExpr | e2= exponentialExpr | e3= trigonometricExpr | e4= booleanExpr | e5= castExpr | e7= rangeConstructorExpr );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA35_78 = input.LA(1);
-
-                         
-                        int index35_78 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred71_wcps()) ) {s = 1;}
-
-                        else if ( (synpred72_wcps()) ) {s = 31;}
-
-                         
-                        input.seek(index35_78);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA35_79 = input.LA(1);
-
-                         
-                        int index35_79 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred71_wcps()) ) {s = 1;}
-
-                        else if ( (synpred72_wcps()) ) {s = 31;}
-
-                         
-                        input.seek(index35_79);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA35_80 = input.LA(1);
-
-                         
-                        int index35_80 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred71_wcps()) ) {s = 1;}
-
-                        else if ( (synpred72_wcps()) ) {s = 31;}
-
-                         
-                        input.seek(index35_80);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA35_81 = input.LA(1);
-
-                         
-                        int index35_81 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred71_wcps()) ) {s = 1;}
-
-                        else if ( (synpred72_wcps()) ) {s = 31;}
-
-                         
-                        input.seek(index35_81);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA35_82 = input.LA(1);
-
-                         
-                        int index35_82 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred71_wcps()) ) {s = 1;}
-
-                        else if ( (synpred72_wcps()) ) {s = 31;}
-
-                         
-                        input.seek(index35_82);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA35_83 = input.LA(1);
-
-                         
-                        int index35_83 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred71_wcps()) ) {s = 1;}
-
-                        else if ( (synpred72_wcps()) ) {s = 31;}
-
-                         
-                        input.seek(index35_83);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA35_84 = input.LA(1);
-
-                         
-                        int index35_84 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred71_wcps()) ) {s = 1;}
-
-                        else if ( (synpred72_wcps()) ) {s = 31;}
-
-                         
-                        input.seek(index35_84);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA35_85 = input.LA(1);
-
-                         
-                        int index35_85 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred71_wcps()) ) {s = 1;}
-
-                        else if ( (synpred72_wcps()) ) {s = 31;}
-
-                         
-                        input.seek(index35_85);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
                         int LA35_86 = input.LA(1);
 
                          
@@ -15794,7 +16025,7 @@ public class wcpsParser extends Parser {
                         input.seek(index35_86);
                         if ( s>=0 ) return s;
                         break;
-                    case 9 : 
+                    case 1 : 
                         int LA35_87 = input.LA(1);
 
                          
@@ -15807,6 +16038,126 @@ public class wcpsParser extends Parser {
 
                          
                         input.seek(index35_87);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA35_88 = input.LA(1);
+
+                         
+                        int index35_88 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred71_wcps()) ) {s = 1;}
+
+                        else if ( (synpred72_wcps()) ) {s = 31;}
+
+                         
+                        input.seek(index35_88);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA35_90 = input.LA(1);
+
+                         
+                        int index35_90 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred71_wcps()) ) {s = 1;}
+
+                        else if ( (synpred72_wcps()) ) {s = 31;}
+
+                         
+                        input.seek(index35_90);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA35_91 = input.LA(1);
+
+                         
+                        int index35_91 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred71_wcps()) ) {s = 1;}
+
+                        else if ( (synpred72_wcps()) ) {s = 31;}
+
+                         
+                        input.seek(index35_91);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA35_92 = input.LA(1);
+
+                         
+                        int index35_92 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred71_wcps()) ) {s = 1;}
+
+                        else if ( (synpred72_wcps()) ) {s = 31;}
+
+                         
+                        input.seek(index35_92);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA35_93 = input.LA(1);
+
+                         
+                        int index35_93 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred71_wcps()) ) {s = 1;}
+
+                        else if ( (synpred72_wcps()) ) {s = 31;}
+
+                         
+                        input.seek(index35_93);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA35_94 = input.LA(1);
+
+                         
+                        int index35_94 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred71_wcps()) ) {s = 1;}
+
+                        else if ( (synpred72_wcps()) ) {s = 31;}
+
+                         
+                        input.seek(index35_94);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA35_95 = input.LA(1);
+
+                         
+                        int index35_95 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred71_wcps()) ) {s = 1;}
+
+                        else if ( (synpred72_wcps()) ) {s = 31;}
+
+                         
+                        input.seek(index35_95);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA35_96 = input.LA(1);
+
+                         
+                        int index35_96 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred71_wcps()) ) {s = 1;}
+
+                        else if ( (synpred72_wcps()) ) {s = 31;}
+
+                         
+                        input.seek(index35_96);
                         if ( s>=0 ) return s;
                         break;
                     case 10 : 
@@ -16073,17 +16424,17 @@ public class wcpsParser extends Parser {
         }
     }
     static final String DFA43_eotS =
-        "\u009c\uffff";
+        "\u009d\uffff";
     static final String DFA43_eofS =
-        "\u009c\uffff";
+        "\u009d\uffff";
     static final String DFA43_minS =
         "\12\6\1\15\1\6\1\20\4\6\3\20\1\15\1\6\1\122\1\116\5\6\1\70\1\116"+
-        "\3\uffff\172\0";
+        "\3\uffff\172\0\1\uffff";
     static final String DFA43_maxS =
         "\1\154\11\6\1\51\1\154\1\122\1\154\3\6\4\122\1\154\1\122\1\153\5"+
-        "\6\1\70\1\153\3\uffff\172\0";
+        "\6\1\70\1\153\3\uffff\172\0\1\uffff";
     static final String DFA43_acceptS =
-        "\37\uffff\1\1\1\2\1\3\172\uffff";
+        "\37\uffff\1\1\1\2\1\3\172\uffff\1\4";
     static final String DFA43_specialS =
         "\42\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
         "\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25\1\26\1\27\1\30"+
@@ -16095,7 +16446,7 @@ public class wcpsParser extends Parser {
         "\1\126\1\127\1\130\1\131\1\132\1\133\1\134\1\135\1\136\1\137\1\140"+
         "\1\141\1\142\1\143\1\144\1\145\1\146\1\147\1\150\1\151\1\152\1\153"+
         "\1\154\1\155\1\156\1\157\1\160\1\161\1\162\1\163\1\164\1\165\1\166"+
-        "\1\167\1\170\1\171}>";
+        "\1\167\1\170\1\171\1\uffff}>";
     static final String[] DFA43_transitionS = {
             "\1\13\20\uffff\1\15\3\uffff\1\1\1\2\1\3\1\4\1\6\1\7\1\10\1\5"+
             "\7\11\1\12\3\uffff\1\27\4\uffff\1\30\1\31\1\32\1\33\1\34\1\36"+
@@ -16112,21 +16463,21 @@ public class wcpsParser extends Parser {
             "\1\51",
             "\1\52",
             "\1\53\1\uffff\1\53\6\uffff\1\53\1\uffff\1\53\17\uffff\2\53",
-            "\1\67\17\uffff\1\115\1\71\3\uffff\1\55\1\56\1\57\1\60\1\62"+
-            "\1\63\1\64\1\61\7\65\1\66\3\uffff\1\102\4\uffff\1\103\1\104"+
-            "\1\105\1\106\1\107\1\111\1\uffff\1\110\1\123\1\73\1\72\2\116"+
-            "\3\117\11\120\1\100\1\121\1\75\1\74\1\70\1\122\2\uffff\1\112"+
-            "\1\113\1\114\12\uffff\1\77\1\54\10\uffff\1\101\1\76",
-            "\1\124\1\125\1\126\1\127\1\130\1\131\74\uffff\1\132",
+            "\1\55\17\uffff\1\115\1\60\3\uffff\1\56\1\72\1\73\1\74\1\76"+
+            "\1\77\1\100\1\75\7\65\1\66\3\uffff\1\102\4\uffff\1\103\1\104"+
+            "\1\105\1\106\1\107\1\111\1\uffff\1\110\1\123\1\62\1\61\2\116"+
+            "\3\117\11\120\1\71\1\121\1\64\1\63\1\57\1\122\2\uffff\1\112"+
+            "\1\113\1\114\12\uffff\1\70\1\54\10\uffff\1\101\1\67",
+            "\1\125\1\126\1\127\1\130\1\131\1\132\74\uffff\1\124",
             "\1\133\20\uffff\1\134\13\uffff\7\142\1\143\21\uffff\1\136\1"+
             "\135\20\uffff\1\140\1\137\22\uffff\1\141\11\uffff\1\144",
             "\1\145",
             "\1\146",
             "\1\147",
-            "\1\152\1\153\1\154\1\155\1\156\1\157\2\151\2\150\70\uffff\1"+
-            "\160",
-            "\1\164\1\165\1\166\1\167\1\170\1\171\2\162\2\161\70\uffff\1"+
-            "\163",
+            "\1\153\1\154\1\155\1\156\1\157\1\160\2\151\2\150\70\uffff\1"+
+            "\152",
+            "\1\163\1\164\1\165\1\166\1\167\1\170\2\162\2\161\70\uffff\1"+
+            "\171",
             "\1\175\1\176\1\177\1\u0080\1\u0081\1\u0082\2\173\2\172\70\uffff"+
             "\1\174",
             "\2\u0084\1\u0083\102\uffff\1\u0085",
@@ -16266,7 +16617,8 @@ public class wcpsParser extends Parser {
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
-            "\1\uffff"
+            "\1\uffff",
+            ""
     };
 
     static final short[] DFA43_eot = DFA.unpackEncodedString(DFA43_eotS);
@@ -16299,7 +16651,7 @@ public class wcpsParser extends Parser {
             this.transition = DFA43_transition;
         }
         public String getDescription() {
-            return "260:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr );";
+            return "261:1: subsetExpr returns [SubsetExpr value] : (e1= trimExpr | e2= sliceExpr | e3= extendExpr | e4= trimSliceExpr );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -16316,6 +16668,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_34);
                         if ( s>=0 ) return s;
@@ -16330,6 +16684,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_35);
@@ -16346,6 +16702,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_36);
                         if ( s>=0 ) return s;
@@ -16360,6 +16718,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_37);
@@ -16376,6 +16736,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_38);
                         if ( s>=0 ) return s;
@@ -16390,6 +16752,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_39);
@@ -16406,6 +16770,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_40);
                         if ( s>=0 ) return s;
@@ -16420,6 +16786,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_41);
@@ -16436,6 +16804,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_42);
                         if ( s>=0 ) return s;
@@ -16450,6 +16820,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_43);
@@ -16466,6 +16838,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_44);
                         if ( s>=0 ) return s;
@@ -16480,6 +16854,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_45);
@@ -16496,6 +16872,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_46);
                         if ( s>=0 ) return s;
@@ -16510,6 +16888,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_47);
@@ -16526,6 +16906,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_48);
                         if ( s>=0 ) return s;
@@ -16540,6 +16922,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_49);
@@ -16556,6 +16940,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_50);
                         if ( s>=0 ) return s;
@@ -16570,6 +16956,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_51);
@@ -16586,6 +16974,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_52);
                         if ( s>=0 ) return s;
@@ -16600,6 +16990,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_53);
@@ -16616,6 +17008,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_54);
                         if ( s>=0 ) return s;
@@ -16630,6 +17024,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_55);
@@ -16646,6 +17042,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_56);
                         if ( s>=0 ) return s;
@@ -16660,6 +17058,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_57);
@@ -16676,6 +17076,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_58);
                         if ( s>=0 ) return s;
@@ -16690,6 +17092,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_59);
@@ -16706,6 +17110,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_60);
                         if ( s>=0 ) return s;
@@ -16720,6 +17126,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_61);
@@ -16736,6 +17144,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_62);
                         if ( s>=0 ) return s;
@@ -16750,6 +17160,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_63);
@@ -16766,6 +17178,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_64);
                         if ( s>=0 ) return s;
@@ -16780,6 +17194,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_65);
@@ -16796,6 +17212,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_66);
                         if ( s>=0 ) return s;
@@ -16810,6 +17228,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_67);
@@ -16826,6 +17246,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_68);
                         if ( s>=0 ) return s;
@@ -16840,6 +17262,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_69);
@@ -16856,6 +17280,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_70);
                         if ( s>=0 ) return s;
@@ -16870,6 +17296,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_71);
@@ -16886,6 +17314,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_72);
                         if ( s>=0 ) return s;
@@ -16900,6 +17330,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_73);
@@ -16916,6 +17348,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_74);
                         if ( s>=0 ) return s;
@@ -16930,6 +17364,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_75);
@@ -16946,6 +17382,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_76);
                         if ( s>=0 ) return s;
@@ -16960,6 +17398,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_77);
@@ -16976,6 +17416,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_78);
                         if ( s>=0 ) return s;
@@ -16990,6 +17432,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_79);
@@ -17006,6 +17450,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_80);
                         if ( s>=0 ) return s;
@@ -17020,6 +17466,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_81);
@@ -17036,6 +17484,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_82);
                         if ( s>=0 ) return s;
@@ -17050,6 +17500,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_83);
@@ -17066,6 +17518,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_84);
                         if ( s>=0 ) return s;
@@ -17080,6 +17534,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_85);
@@ -17096,6 +17552,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_86);
                         if ( s>=0 ) return s;
@@ -17110,6 +17568,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_87);
@@ -17126,6 +17586,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_88);
                         if ( s>=0 ) return s;
@@ -17140,6 +17602,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_89);
@@ -17156,6 +17620,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_90);
                         if ( s>=0 ) return s;
@@ -17170,6 +17636,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_91);
@@ -17186,6 +17654,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_92);
                         if ( s>=0 ) return s;
@@ -17200,6 +17670,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_93);
@@ -17216,6 +17688,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_94);
                         if ( s>=0 ) return s;
@@ -17230,6 +17704,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_95);
@@ -17246,6 +17722,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_96);
                         if ( s>=0 ) return s;
@@ -17260,6 +17738,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_97);
@@ -17276,6 +17756,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_98);
                         if ( s>=0 ) return s;
@@ -17290,6 +17772,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_99);
@@ -17306,6 +17790,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_100);
                         if ( s>=0 ) return s;
@@ -17320,6 +17806,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_101);
@@ -17336,6 +17824,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_102);
                         if ( s>=0 ) return s;
@@ -17350,6 +17840,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_103);
@@ -17366,6 +17858,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_104);
                         if ( s>=0 ) return s;
@@ -17380,6 +17874,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_105);
@@ -17396,6 +17892,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_106);
                         if ( s>=0 ) return s;
@@ -17410,6 +17908,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_107);
@@ -17426,6 +17926,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_108);
                         if ( s>=0 ) return s;
@@ -17440,6 +17942,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_109);
@@ -17456,6 +17960,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_110);
                         if ( s>=0 ) return s;
@@ -17470,6 +17976,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_111);
@@ -17486,6 +17994,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_112);
                         if ( s>=0 ) return s;
@@ -17500,6 +18010,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_113);
@@ -17516,6 +18028,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_114);
                         if ( s>=0 ) return s;
@@ -17530,6 +18044,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_115);
@@ -17546,6 +18062,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_116);
                         if ( s>=0 ) return s;
@@ -17560,6 +18078,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_117);
@@ -17576,6 +18096,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_118);
                         if ( s>=0 ) return s;
@@ -17590,6 +18112,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_119);
@@ -17606,6 +18130,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_120);
                         if ( s>=0 ) return s;
@@ -17620,6 +18146,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_121);
@@ -17636,6 +18164,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_122);
                         if ( s>=0 ) return s;
@@ -17650,6 +18180,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_123);
@@ -17666,6 +18198,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_124);
                         if ( s>=0 ) return s;
@@ -17680,6 +18214,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_125);
@@ -17696,6 +18232,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_126);
                         if ( s>=0 ) return s;
@@ -17710,6 +18248,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_127);
@@ -17726,6 +18266,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_128);
                         if ( s>=0 ) return s;
@@ -17740,6 +18282,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_129);
@@ -17756,6 +18300,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_130);
                         if ( s>=0 ) return s;
@@ -17770,6 +18316,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_131);
@@ -17786,6 +18334,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_132);
                         if ( s>=0 ) return s;
@@ -17800,6 +18350,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_133);
@@ -17816,6 +18368,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_134);
                         if ( s>=0 ) return s;
@@ -17830,6 +18384,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_135);
@@ -17846,6 +18402,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_136);
                         if ( s>=0 ) return s;
@@ -17860,6 +18418,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_137);
@@ -17876,6 +18436,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_138);
                         if ( s>=0 ) return s;
@@ -17890,6 +18452,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_139);
@@ -17906,6 +18470,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_140);
                         if ( s>=0 ) return s;
@@ -17920,6 +18486,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_141);
@@ -17936,6 +18504,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_142);
                         if ( s>=0 ) return s;
@@ -17950,6 +18520,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_143);
@@ -17966,6 +18538,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_144);
                         if ( s>=0 ) return s;
@@ -17980,6 +18554,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_145);
@@ -17996,6 +18572,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_146);
                         if ( s>=0 ) return s;
@@ -18010,6 +18588,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_147);
@@ -18026,6 +18606,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_148);
                         if ( s>=0 ) return s;
@@ -18040,6 +18622,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_149);
@@ -18056,6 +18640,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_150);
                         if ( s>=0 ) return s;
@@ -18070,6 +18656,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_151);
@@ -18086,6 +18674,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_152);
                         if ( s>=0 ) return s;
@@ -18100,6 +18690,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_153);
@@ -18116,6 +18708,8 @@ public class wcpsParser extends Parser {
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
 
+                        else if ( (true) ) {s = 156;}
+
                          
                         input.seek(index43_154);
                         if ( s>=0 ) return s;
@@ -18130,6 +18724,8 @@ public class wcpsParser extends Parser {
                         if ( (synpred101_wcps()) ) {s = 31;}
 
                         else if ( (synpred102_wcps()) ) {s = 32;}
+
+                        else if ( (true) ) {s = 156;}
 
                          
                         input.seek(index43_155);
@@ -18222,22 +18818,22 @@ public class wcpsParser extends Parser {
             this.transition = DFA44_transition;
         }
         public String getDescription() {
-            return "265:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );";
+            return "267:1: trimExpr returns [TrimExpr value] : (e1= coverageAtom LBRACKET dil= dimensionIntervalList RBRACKET | TRIM LPAREN e2= coverageExpr COMMA LBRACE dil= dimensionIntervalList RBRACE RPAREN );";
         }
     }
-    static final String DFA45_eotS =
+    static final String DFA48_eotS =
         "\40\uffff";
-    static final String DFA45_eofS =
+    static final String DFA48_eofS =
         "\40\uffff";
-    static final String DFA45_minS =
+    static final String DFA48_minS =
         "\1\6\37\uffff";
-    static final String DFA45_maxS =
+    static final String DFA48_maxS =
         "\1\154\37\uffff";
-    static final String DFA45_acceptS =
+    static final String DFA48_acceptS =
         "\1\uffff\1\1\35\uffff\1\2";
-    static final String DFA45_specialS =
+    static final String DFA48_specialS =
         "\40\uffff}>";
-    static final String[] DFA45_transitionS = {
+    static final String[] DFA48_transitionS = {
             "\1\1\20\uffff\1\1\3\uffff\20\1\3\uffff\1\1\4\uffff\6\1\1\uffff"+
             "\1\1\1\uffff\2\1\16\uffff\1\1\1\uffff\3\1\4\uffff\1\37\13\uffff"+
             "\2\1\10\uffff\2\1",
@@ -18274,52 +18870,52 @@ public class wcpsParser extends Parser {
             ""
     };
 
-    static final short[] DFA45_eot = DFA.unpackEncodedString(DFA45_eotS);
-    static final short[] DFA45_eof = DFA.unpackEncodedString(DFA45_eofS);
-    static final char[] DFA45_min = DFA.unpackEncodedStringToUnsignedChars(DFA45_minS);
-    static final char[] DFA45_max = DFA.unpackEncodedStringToUnsignedChars(DFA45_maxS);
-    static final short[] DFA45_accept = DFA.unpackEncodedString(DFA45_acceptS);
-    static final short[] DFA45_special = DFA.unpackEncodedString(DFA45_specialS);
-    static final short[][] DFA45_transition;
+    static final short[] DFA48_eot = DFA.unpackEncodedString(DFA48_eotS);
+    static final short[] DFA48_eof = DFA.unpackEncodedString(DFA48_eofS);
+    static final char[] DFA48_min = DFA.unpackEncodedStringToUnsignedChars(DFA48_minS);
+    static final char[] DFA48_max = DFA.unpackEncodedStringToUnsignedChars(DFA48_maxS);
+    static final short[] DFA48_accept = DFA.unpackEncodedString(DFA48_acceptS);
+    static final short[] DFA48_special = DFA.unpackEncodedString(DFA48_specialS);
+    static final short[][] DFA48_transition;
 
     static {
-        int numStates = DFA45_transitionS.length;
-        DFA45_transition = new short[numStates][];
+        int numStates = DFA48_transitionS.length;
+        DFA48_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA45_transition[i] = DFA.unpackEncodedString(DFA45_transitionS[i]);
+            DFA48_transition[i] = DFA.unpackEncodedString(DFA48_transitionS[i]);
         }
     }
 
-    class DFA45 extends DFA {
+    class DFA48 extends DFA {
 
-        public DFA45(BaseRecognizer recognizer) {
+        public DFA48(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 45;
-            this.eot = DFA45_eot;
-            this.eof = DFA45_eof;
-            this.min = DFA45_min;
-            this.max = DFA45_max;
-            this.accept = DFA45_accept;
-            this.special = DFA45_special;
-            this.transition = DFA45_transition;
+            this.decisionNumber = 48;
+            this.eot = DFA48_eot;
+            this.eof = DFA48_eof;
+            this.min = DFA48_min;
+            this.max = DFA48_max;
+            this.accept = DFA48_accept;
+            this.special = DFA48_special;
+            this.transition = DFA48_transition;
         }
         public String getDescription() {
-            return "269:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );";
+            return "280:1: sliceExpr returns [SliceExpr value] : (e1= coverageAtom LBRACKET dpl= dimensionPointList RBRACKET | SLICE LPAREN e2= coverageExpr COMMA LBRACE dpl= dimensionPointList RBRACE RPAREN );";
         }
     }
-    static final String DFA47_eotS =
+    static final String DFA50_eotS =
         "\77\uffff";
-    static final String DFA47_eofS =
+    static final String DFA50_eofS =
         "\1\1\76\uffff";
-    static final String DFA47_minS =
+    static final String DFA50_minS =
         "\1\7\7\uffff\1\0\66\uffff";
-    static final String DFA47_maxS =
+    static final String DFA50_maxS =
         "\1\140\7\uffff\1\0\66\uffff";
-    static final String DFA47_acceptS =
+    static final String DFA50_acceptS =
         "\1\uffff\1\2\74\uffff\1\1";
-    static final String DFA47_specialS =
+    static final String DFA50_specialS =
         "\10\uffff\1\0\66\uffff}>";
-    static final String[] DFA47_transitionS = {
+    static final String[] DFA50_transitionS = {
             "\2\1\1\uffff\1\1\2\uffff\2\10\14\1\21\uffff\2\1\3\uffff\1\1"+
             "\7\uffff\1\1\30\uffff\1\1\15\uffff\1\1",
             "",
@@ -18386,313 +18982,6 @@ public class wcpsParser extends Parser {
             ""
     };
 
-    static final short[] DFA47_eot = DFA.unpackEncodedString(DFA47_eotS);
-    static final short[] DFA47_eof = DFA.unpackEncodedString(DFA47_eofS);
-    static final char[] DFA47_min = DFA.unpackEncodedStringToUnsignedChars(DFA47_minS);
-    static final char[] DFA47_max = DFA.unpackEncodedStringToUnsignedChars(DFA47_maxS);
-    static final short[] DFA47_accept = DFA.unpackEncodedString(DFA47_acceptS);
-    static final short[] DFA47_special = DFA.unpackEncodedString(DFA47_specialS);
-    static final short[][] DFA47_transition;
-
-    static {
-        int numStates = DFA47_transitionS.length;
-        DFA47_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
-            DFA47_transition[i] = DFA.unpackEncodedString(DFA47_transitionS[i]);
-        }
-    }
-
-    class DFA47 extends DFA {
-
-        public DFA47(BaseRecognizer recognizer) {
-            this.recognizer = recognizer;
-            this.decisionNumber = 47;
-            this.eot = DFA47_eot;
-            this.eof = DFA47_eof;
-            this.min = DFA47_min;
-            this.max = DFA47_max;
-            this.accept = DFA47_accept;
-            this.special = DFA47_special;
-            this.transition = DFA47_transition;
-        }
-        public String getDescription() {
-            return "()* loopback of 290:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*";
-        }
-        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
-            TokenStream input = (TokenStream)_input;
-        	int _s = s;
-            switch ( s ) {
-                    case 0 : 
-                        int LA47_8 = input.LA(1);
-
-                         
-                        int index47_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred116_wcps()) ) {s = 62;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index47_8);
-                        if ( s>=0 ) return s;
-                        break;
-            }
-            if (state.backtracking>0) {state.failed=true; return -1;}
-            NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 47, _s, input);
-            error(nvae);
-            throw nvae;
-        }
-    }
-    static final String DFA48_eotS =
-        "\77\uffff";
-    static final String DFA48_eofS =
-        "\1\1\76\uffff";
-    static final String DFA48_minS =
-        "\1\7\7\uffff\1\0\66\uffff";
-    static final String DFA48_maxS =
-        "\1\140\7\uffff\1\0\66\uffff";
-    static final String DFA48_acceptS =
-        "\1\uffff\1\2\74\uffff\1\1";
-    static final String DFA48_specialS =
-        "\10\uffff\1\0\66\uffff}>";
-    static final String[] DFA48_transitionS = {
-            "\2\1\1\uffff\1\1\2\uffff\2\1\1\10\13\1\21\uffff\2\1\3\uffff"+
-            "\1\1\7\uffff\1\1\30\uffff\1\1\15\uffff\1\1",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\uffff",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-    };
-
-    static final short[] DFA48_eot = DFA.unpackEncodedString(DFA48_eotS);
-    static final short[] DFA48_eof = DFA.unpackEncodedString(DFA48_eofS);
-    static final char[] DFA48_min = DFA.unpackEncodedStringToUnsignedChars(DFA48_minS);
-    static final char[] DFA48_max = DFA.unpackEncodedStringToUnsignedChars(DFA48_maxS);
-    static final short[] DFA48_accept = DFA.unpackEncodedString(DFA48_acceptS);
-    static final short[] DFA48_special = DFA.unpackEncodedString(DFA48_specialS);
-    static final short[][] DFA48_transition;
-
-    static {
-        int numStates = DFA48_transitionS.length;
-        DFA48_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
-            DFA48_transition[i] = DFA.unpackEncodedString(DFA48_transitionS[i]);
-        }
-    }
-
-    class DFA48 extends DFA {
-
-        public DFA48(BaseRecognizer recognizer) {
-            this.recognizer = recognizer;
-            this.decisionNumber = 48;
-            this.eot = DFA48_eot;
-            this.eof = DFA48_eof;
-            this.min = DFA48_min;
-            this.max = DFA48_max;
-            this.accept = DFA48_accept;
-            this.special = DFA48_special;
-            this.transition = DFA48_transition;
-        }
-        public String getDescription() {
-            return "()* loopback of 294:4: (op= AND e2= booleanScalarNegation )*";
-        }
-        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
-            TokenStream input = (TokenStream)_input;
-        	int _s = s;
-            switch ( s ) {
-                    case 0 : 
-                        int LA48_8 = input.LA(1);
-
-                         
-                        int index48_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred117_wcps()) ) {s = 62;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index48_8);
-                        if ( s>=0 ) return s;
-                        break;
-            }
-            if (state.backtracking>0) {state.failed=true; return -1;}
-            NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 48, _s, input);
-            error(nvae);
-            throw nvae;
-        }
-    }
-    static final String DFA49_eotS =
-        "\17\uffff";
-    static final String DFA49_eofS =
-        "\17\uffff";
-    static final String DFA49_minS =
-        "\1\6\16\uffff";
-    static final String DFA49_maxS =
-        "\1\154\16\uffff";
-    static final String DFA49_acceptS =
-        "\1\uffff\1\1\14\uffff\1\2";
-    static final String DFA49_specialS =
-        "\17\uffff}>";
-    static final String[] DFA49_transitionS = {
-            "\1\1\20\uffff\1\1\3\uffff\1\1\7\uffff\10\1\21\uffff\2\1\16\uffff"+
-            "\1\16\1\uffff\3\1\20\uffff\2\1\11\uffff\1\1",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-    };
-
-    static final short[] DFA49_eot = DFA.unpackEncodedString(DFA49_eotS);
-    static final short[] DFA49_eof = DFA.unpackEncodedString(DFA49_eofS);
-    static final char[] DFA49_min = DFA.unpackEncodedStringToUnsignedChars(DFA49_minS);
-    static final char[] DFA49_max = DFA.unpackEncodedStringToUnsignedChars(DFA49_maxS);
-    static final short[] DFA49_accept = DFA.unpackEncodedString(DFA49_acceptS);
-    static final short[] DFA49_special = DFA.unpackEncodedString(DFA49_specialS);
-    static final short[][] DFA49_transition;
-
-    static {
-        int numStates = DFA49_transitionS.length;
-        DFA49_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
-            DFA49_transition[i] = DFA.unpackEncodedString(DFA49_transitionS[i]);
-        }
-    }
-
-    class DFA49 extends DFA {
-
-        public DFA49(BaseRecognizer recognizer) {
-            this.recognizer = recognizer;
-            this.decisionNumber = 49;
-            this.eot = DFA49_eot;
-            this.eof = DFA49_eof;
-            this.min = DFA49_min;
-            this.max = DFA49_max;
-            this.accept = DFA49_accept;
-            this.special = DFA49_special;
-            this.transition = DFA49_transition;
-        }
-        public String getDescription() {
-            return "296:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );";
-        }
-    }
-    static final String DFA50_eotS =
-        "\34\uffff";
-    static final String DFA50_eofS =
-        "\34\uffff";
-    static final String DFA50_minS =
-        "\2\6\14\uffff\2\0\2\uffff\10\0\2\uffff";
-    static final String DFA50_maxS =
-        "\2\154\14\uffff\2\0\2\uffff\10\0\2\uffff";
-    static final String DFA50_acceptS =
-        "\2\uffff\1\2\1\uffff\1\3\10\uffff\1\4\2\uffff\1\1\13\uffff";
-    static final String DFA50_specialS =
-        "\16\uffff\1\0\1\1\2\uffff\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\2\uffff}>";
-    static final String[] DFA50_transitionS = {
-            "\1\1\20\uffff\1\4\3\uffff\1\2\7\uffff\10\4\21\uffff\2\4\20\uffff"+
-            "\2\4\1\2\20\uffff\1\15\1\4\11\uffff\1\4",
-            "\1\17\20\uffff\1\22\3\uffff\1\20\7\uffff\7\27\1\30\21\uffff"+
-            "\1\24\1\23\16\uffff\1\20\1\uffff\1\26\1\25\1\20\20\uffff\1\20"+
-            "\1\16\11\uffff\1\31",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\uffff",
-            "\1\uffff",
-            "",
-            "",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "",
-            ""
-    };
-
     static final short[] DFA50_eot = DFA.unpackEncodedString(DFA50_eotS);
     static final short[] DFA50_eof = DFA.unpackEncodedString(DFA50_eofS);
     static final char[] DFA50_min = DFA.unpackEncodedStringToUnsignedChars(DFA50_minS);
@@ -18723,160 +19012,25 @@ public class wcpsParser extends Parser {
             this.transition = DFA50_transition;
         }
         public String getDescription() {
-            return "300:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );";
+            return "()* loopback of 301:7: (op= ( OR | XOR ) e2= booleanScalarTerm )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA50_14 = input.LA(1);
+                        int LA50_8 = input.LA(1);
 
                          
-                        int index50_14 = input.index();
+                        int index50_8 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred119_wcps()) ) {s = 16;}
+                        if ( (synpred120_wcps()) ) {s = 62;}
 
-                        else if ( (synpred121_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index50_14);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA50_15 = input.LA(1);
+                        else if ( (true) ) {s = 1;}
 
                          
-                        int index50_15 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred119_wcps()) ) {s = 16;}
-
-                        else if ( (synpred121_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index50_15);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA50_18 = input.LA(1);
-
-                         
-                        int index50_18 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred119_wcps()) ) {s = 16;}
-
-                        else if ( (synpred121_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index50_18);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA50_19 = input.LA(1);
-
-                         
-                        int index50_19 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred119_wcps()) ) {s = 16;}
-
-                        else if ( (synpred121_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index50_19);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA50_20 = input.LA(1);
-
-                         
-                        int index50_20 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred119_wcps()) ) {s = 16;}
-
-                        else if ( (synpred121_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index50_20);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA50_21 = input.LA(1);
-
-                         
-                        int index50_21 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred119_wcps()) ) {s = 16;}
-
-                        else if ( (synpred121_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index50_21);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA50_22 = input.LA(1);
-
-                         
-                        int index50_22 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred119_wcps()) ) {s = 16;}
-
-                        else if ( (synpred121_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index50_22);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA50_23 = input.LA(1);
-
-                         
-                        int index50_23 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred119_wcps()) ) {s = 16;}
-
-                        else if ( (synpred121_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index50_23);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA50_24 = input.LA(1);
-
-                         
-                        int index50_24 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred119_wcps()) ) {s = 16;}
-
-                        else if ( (synpred121_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index50_24);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA50_25 = input.LA(1);
-
-                         
-                        int index50_25 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred119_wcps()) ) {s = 16;}
-
-                        else if ( (synpred121_wcps()) ) {s = 4;}
-
-                         
-                        input.seek(index50_25);
+                        input.seek(index50_8);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -18892,24 +19046,24 @@ public class wcpsParser extends Parser {
     static final String DFA51_eofS =
         "\1\1\76\uffff";
     static final String DFA51_minS =
-        "\1\7\3\uffff\1\0\72\uffff";
+        "\1\7\7\uffff\1\0\66\uffff";
     static final String DFA51_maxS =
-        "\1\140\3\uffff\1\0\72\uffff";
+        "\1\140\7\uffff\1\0\66\uffff";
     static final String DFA51_acceptS =
         "\1\uffff\1\2\74\uffff\1\1";
     static final String DFA51_specialS =
-        "\4\uffff\1\0\72\uffff}>";
+        "\10\uffff\1\0\66\uffff}>";
     static final String[] DFA51_transitionS = {
-            "\2\1\1\uffff\1\1\2\uffff\11\1\2\4\3\1\21\uffff\2\1\3\uffff\1"+
-            "\1\7\uffff\1\1\30\uffff\1\1\15\uffff\1\1",
+            "\2\1\1\uffff\1\1\2\uffff\2\1\1\10\13\1\21\uffff\2\1\3\uffff"+
+            "\1\1\7\uffff\1\1\30\uffff\1\1\15\uffff\1\1",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "",
             "\1\uffff",
-            "",
-            "",
-            "",
-            "",
             "",
             "",
             "",
@@ -18996,25 +19150,25 @@ public class wcpsParser extends Parser {
             this.transition = DFA51_transition;
         }
         public String getDescription() {
-            return "()* loopback of 308:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*";
+            return "()* loopback of 305:4: (op= AND e2= booleanScalarNegation )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA51_4 = input.LA(1);
+                        int LA51_8 = input.LA(1);
 
                          
-                        int index51_4 = input.index();
+                        int index51_8 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred123_wcps()) ) {s = 62;}
+                        if ( (synpred121_wcps()) ) {s = 62;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index51_4);
+                        input.seek(index51_8);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -19026,18 +19180,460 @@ public class wcpsParser extends Parser {
         }
     }
     static final String DFA52_eotS =
-        "\77\uffff";
+        "\17\uffff";
     static final String DFA52_eofS =
-        "\1\1\76\uffff";
+        "\17\uffff";
     static final String DFA52_minS =
-        "\1\7\3\uffff\1\0\72\uffff";
+        "\1\6\16\uffff";
     static final String DFA52_maxS =
-        "\1\140\3\uffff\1\0\72\uffff";
+        "\1\154\16\uffff";
     static final String DFA52_acceptS =
-        "\1\uffff\1\2\74\uffff\1\1";
+        "\1\uffff\1\1\14\uffff\1\2";
     static final String DFA52_specialS =
-        "\4\uffff\1\0\72\uffff}>";
+        "\17\uffff}>";
     static final String[] DFA52_transitionS = {
+            "\1\1\20\uffff\1\1\3\uffff\1\1\7\uffff\10\1\21\uffff\2\1\16\uffff"+
+            "\1\16\1\uffff\3\1\20\uffff\2\1\11\uffff\1\1",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+    };
+
+    static final short[] DFA52_eot = DFA.unpackEncodedString(DFA52_eotS);
+    static final short[] DFA52_eof = DFA.unpackEncodedString(DFA52_eofS);
+    static final char[] DFA52_min = DFA.unpackEncodedStringToUnsignedChars(DFA52_minS);
+    static final char[] DFA52_max = DFA.unpackEncodedStringToUnsignedChars(DFA52_maxS);
+    static final short[] DFA52_accept = DFA.unpackEncodedString(DFA52_acceptS);
+    static final short[] DFA52_special = DFA.unpackEncodedString(DFA52_specialS);
+    static final short[][] DFA52_transition;
+
+    static {
+        int numStates = DFA52_transitionS.length;
+        DFA52_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA52_transition[i] = DFA.unpackEncodedString(DFA52_transitionS[i]);
+        }
+    }
+
+    class DFA52 extends DFA {
+
+        public DFA52(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 52;
+            this.eot = DFA52_eot;
+            this.eof = DFA52_eof;
+            this.min = DFA52_min;
+            this.max = DFA52_max;
+            this.accept = DFA52_accept;
+            this.special = DFA52_special;
+            this.transition = DFA52_transition;
+        }
+        public String getDescription() {
+            return "307:1: booleanScalarNegation returns [BooleanScalarExpr value] : (e1= booleanScalarAtom | op= NOT e1= booleanScalarAtom );";
+        }
+    }
+    static final String DFA53_eotS =
+        "\34\uffff";
+    static final String DFA53_eofS =
+        "\34\uffff";
+    static final String DFA53_minS =
+        "\2\6\14\uffff\12\0\4\uffff";
+    static final String DFA53_maxS =
+        "\2\154\14\uffff\12\0\4\uffff";
+    static final String DFA53_acceptS =
+        "\2\uffff\1\2\1\uffff\1\3\10\uffff\1\4\12\uffff\1\1\3\uffff";
+    static final String DFA53_specialS =
+        "\16\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\4\uffff}>";
+    static final String[] DFA53_transitionS = {
+            "\1\1\20\uffff\1\4\3\uffff\1\2\7\uffff\10\4\21\uffff\2\4\20\uffff"+
+            "\2\4\1\2\20\uffff\1\15\1\4\11\uffff\1\4",
+            "\1\17\20\uffff\1\20\3\uffff\1\30\7\uffff\7\25\1\26\21\uffff"+
+            "\1\22\1\21\16\uffff\1\30\1\uffff\1\24\1\23\1\30\20\uffff\1\30"+
+            "\1\16\11\uffff\1\27",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "",
+            "",
+            "",
+            ""
+    };
+
+    static final short[] DFA53_eot = DFA.unpackEncodedString(DFA53_eotS);
+    static final short[] DFA53_eof = DFA.unpackEncodedString(DFA53_eofS);
+    static final char[] DFA53_min = DFA.unpackEncodedStringToUnsignedChars(DFA53_minS);
+    static final char[] DFA53_max = DFA.unpackEncodedStringToUnsignedChars(DFA53_maxS);
+    static final short[] DFA53_accept = DFA.unpackEncodedString(DFA53_acceptS);
+    static final short[] DFA53_special = DFA.unpackEncodedString(DFA53_specialS);
+    static final short[][] DFA53_transition;
+
+    static {
+        int numStates = DFA53_transitionS.length;
+        DFA53_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA53_transition[i] = DFA.unpackEncodedString(DFA53_transitionS[i]);
+        }
+    }
+
+    class DFA53 extends DFA {
+
+        public DFA53(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 53;
+            this.eot = DFA53_eot;
+            this.eof = DFA53_eof;
+            this.min = DFA53_min;
+            this.max = DFA53_max;
+            this.accept = DFA53_accept;
+            this.special = DFA53_special;
+            this.transition = DFA53_transition;
+        }
+        public String getDescription() {
+            return "311:1: booleanScalarAtom returns [BooleanScalarExpr value] : ( LPAREN e1= booleanScalarExpr RPAREN | s1= stringScalarExpr cop= compOp s2= stringScalarExpr | n1= numericScalarExpr cop= compOp n2= numericScalarExpr | e= BOOLEANCONSTANT );";
+        }
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
+            TokenStream input = (TokenStream)_input;
+        	int _s = s;
+            switch ( s ) {
+                    case 0 : 
+                        int LA53_14 = input.LA(1);
+
+                         
+                        int index53_14 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred123_wcps()) ) {s = 24;}
+
+                        else if ( (synpred125_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index53_14);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+                        int LA53_15 = input.LA(1);
+
+                         
+                        int index53_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred123_wcps()) ) {s = 24;}
+
+                        else if ( (synpred125_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index53_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA53_16 = input.LA(1);
+
+                         
+                        int index53_16 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred123_wcps()) ) {s = 24;}
+
+                        else if ( (synpred125_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index53_16);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA53_17 = input.LA(1);
+
+                         
+                        int index53_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred123_wcps()) ) {s = 24;}
+
+                        else if ( (synpred125_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index53_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA53_18 = input.LA(1);
+
+                         
+                        int index53_18 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred123_wcps()) ) {s = 24;}
+
+                        else if ( (synpred125_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index53_18);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA53_19 = input.LA(1);
+
+                         
+                        int index53_19 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred123_wcps()) ) {s = 24;}
+
+                        else if ( (synpred125_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index53_19);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA53_20 = input.LA(1);
+
+                         
+                        int index53_20 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred123_wcps()) ) {s = 24;}
+
+                        else if ( (synpred125_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index53_20);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA53_21 = input.LA(1);
+
+                         
+                        int index53_21 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred123_wcps()) ) {s = 24;}
+
+                        else if ( (synpred125_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index53_21);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA53_22 = input.LA(1);
+
+                         
+                        int index53_22 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred123_wcps()) ) {s = 24;}
+
+                        else if ( (synpred125_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index53_22);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA53_23 = input.LA(1);
+
+                         
+                        int index53_23 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred123_wcps()) ) {s = 24;}
+
+                        else if ( (synpred125_wcps()) ) {s = 4;}
+
+                         
+                        input.seek(index53_23);
+                        if ( s>=0 ) return s;
+                        break;
+            }
+            if (state.backtracking>0) {state.failed=true; return -1;}
+            NoViableAltException nvae =
+                new NoViableAltException(getDescription(), 53, _s, input);
+            error(nvae);
+            throw nvae;
+        }
+    }
+    static final String DFA54_eotS =
+        "\77\uffff";
+    static final String DFA54_eofS =
+        "\1\1\76\uffff";
+    static final String DFA54_minS =
+        "\1\7\3\uffff\1\0\72\uffff";
+    static final String DFA54_maxS =
+        "\1\140\3\uffff\1\0\72\uffff";
+    static final String DFA54_acceptS =
+        "\1\uffff\1\2\74\uffff\1\1";
+    static final String DFA54_specialS =
+        "\4\uffff\1\0\72\uffff}>";
+    static final String[] DFA54_transitionS = {
+            "\2\1\1\uffff\1\1\2\uffff\11\1\2\4\3\1\21\uffff\2\1\3\uffff\1"+
+            "\1\7\uffff\1\1\30\uffff\1\1\15\uffff\1\1",
+            "",
+            "",
+            "",
+            "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+    };
+
+    static final short[] DFA54_eot = DFA.unpackEncodedString(DFA54_eotS);
+    static final short[] DFA54_eof = DFA.unpackEncodedString(DFA54_eofS);
+    static final char[] DFA54_min = DFA.unpackEncodedStringToUnsignedChars(DFA54_minS);
+    static final char[] DFA54_max = DFA.unpackEncodedStringToUnsignedChars(DFA54_maxS);
+    static final short[] DFA54_accept = DFA.unpackEncodedString(DFA54_acceptS);
+    static final short[] DFA54_special = DFA.unpackEncodedString(DFA54_specialS);
+    static final short[][] DFA54_transition;
+
+    static {
+        int numStates = DFA54_transitionS.length;
+        DFA54_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA54_transition[i] = DFA.unpackEncodedString(DFA54_transitionS[i]);
+        }
+    }
+
+    class DFA54 extends DFA {
+
+        public DFA54(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 54;
+            this.eot = DFA54_eot;
+            this.eof = DFA54_eof;
+            this.min = DFA54_min;
+            this.max = DFA54_max;
+            this.accept = DFA54_accept;
+            this.special = DFA54_special;
+            this.transition = DFA54_transition;
+        }
+        public String getDescription() {
+            return "()* loopback of 319:4: (op= ( PLUS | MINUS ) e2= numericScalarTerm )*";
+        }
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
+            TokenStream input = (TokenStream)_input;
+        	int _s = s;
+            switch ( s ) {
+                    case 0 : 
+                        int LA54_4 = input.LA(1);
+
+                         
+                        int index54_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred127_wcps()) ) {s = 62;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index54_4);
+                        if ( s>=0 ) return s;
+                        break;
+            }
+            if (state.backtracking>0) {state.failed=true; return -1;}
+            NoViableAltException nvae =
+                new NoViableAltException(getDescription(), 54, _s, input);
+            error(nvae);
+            throw nvae;
+        }
+    }
+    static final String DFA55_eotS =
+        "\77\uffff";
+    static final String DFA55_eofS =
+        "\1\1\76\uffff";
+    static final String DFA55_minS =
+        "\1\7\3\uffff\1\0\72\uffff";
+    static final String DFA55_maxS =
+        "\1\140\3\uffff\1\0\72\uffff";
+    static final String DFA55_acceptS =
+        "\1\uffff\1\2\74\uffff\1\1";
+    static final String DFA55_specialS =
+        "\4\uffff\1\0\72\uffff}>";
+    static final String[] DFA55_transitionS = {
             "\2\1\1\uffff\1\1\2\uffff\13\1\2\4\1\1\21\uffff\2\1\3\uffff\1"+
             "\1\7\uffff\1\1\30\uffff\1\1\15\uffff\1\1",
             "",
@@ -19104,79 +19700,79 @@ public class wcpsParser extends Parser {
             ""
     };
 
-    static final short[] DFA52_eot = DFA.unpackEncodedString(DFA52_eotS);
-    static final short[] DFA52_eof = DFA.unpackEncodedString(DFA52_eofS);
-    static final char[] DFA52_min = DFA.unpackEncodedStringToUnsignedChars(DFA52_minS);
-    static final char[] DFA52_max = DFA.unpackEncodedStringToUnsignedChars(DFA52_maxS);
-    static final short[] DFA52_accept = DFA.unpackEncodedString(DFA52_acceptS);
-    static final short[] DFA52_special = DFA.unpackEncodedString(DFA52_specialS);
-    static final short[][] DFA52_transition;
+    static final short[] DFA55_eot = DFA.unpackEncodedString(DFA55_eotS);
+    static final short[] DFA55_eof = DFA.unpackEncodedString(DFA55_eofS);
+    static final char[] DFA55_min = DFA.unpackEncodedStringToUnsignedChars(DFA55_minS);
+    static final char[] DFA55_max = DFA.unpackEncodedStringToUnsignedChars(DFA55_maxS);
+    static final short[] DFA55_accept = DFA.unpackEncodedString(DFA55_acceptS);
+    static final short[] DFA55_special = DFA.unpackEncodedString(DFA55_specialS);
+    static final short[][] DFA55_transition;
 
     static {
-        int numStates = DFA52_transitionS.length;
-        DFA52_transition = new short[numStates][];
+        int numStates = DFA55_transitionS.length;
+        DFA55_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA52_transition[i] = DFA.unpackEncodedString(DFA52_transitionS[i]);
+            DFA55_transition[i] = DFA.unpackEncodedString(DFA55_transitionS[i]);
         }
     }
 
-    class DFA52 extends DFA {
+    class DFA55 extends DFA {
 
-        public DFA52(BaseRecognizer recognizer) {
+        public DFA55(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 52;
-            this.eot = DFA52_eot;
-            this.eof = DFA52_eof;
-            this.min = DFA52_min;
-            this.max = DFA52_max;
-            this.accept = DFA52_accept;
-            this.special = DFA52_special;
-            this.transition = DFA52_transition;
+            this.decisionNumber = 55;
+            this.eot = DFA55_eot;
+            this.eof = DFA55_eof;
+            this.min = DFA55_min;
+            this.max = DFA55_max;
+            this.accept = DFA55_accept;
+            this.special = DFA55_special;
+            this.transition = DFA55_transition;
         }
         public String getDescription() {
-            return "()* loopback of 312:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*";
+            return "()* loopback of 323:3: (op= ( MULT | DIVIDE ) e2= numericScalarFactor )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA52_4 = input.LA(1);
+                        int LA55_4 = input.LA(1);
 
                          
-                        int index52_4 = input.index();
+                        int index55_4 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred125_wcps()) ) {s = 62;}
+                        if ( (synpred129_wcps()) ) {s = 62;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index52_4);
+                        input.seek(index55_4);
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 52, _s, input);
+                new NoViableAltException(getDescription(), 55, _s, input);
             error(nvae);
             throw nvae;
         }
     }
-    static final String DFA53_eotS =
+    static final String DFA56_eotS =
         "\26\uffff";
-    static final String DFA53_eofS =
+    static final String DFA56_eofS =
         "\26\uffff";
-    static final String DFA53_minS =
+    static final String DFA56_minS =
         "\2\6\11\uffff\1\0\12\uffff";
-    static final String DFA53_maxS =
+    static final String DFA56_maxS =
         "\2\154\11\uffff\1\0\12\uffff";
-    static final String DFA53_acceptS =
+    static final String DFA56_acceptS =
         "\2\uffff\1\2\1\3\1\4\1\5\1\6\1\7\1\11\1\uffff\1\12\1\uffff\1\1\10"+
         "\uffff\1\10";
-    static final String DFA53_specialS =
+    static final String DFA56_specialS =
         "\13\uffff\1\0\12\uffff}>";
-    static final String[] DFA53_transitionS = {
+    static final String[] DFA56_transitionS = {
             "\1\1\20\uffff\1\2\13\uffff\10\10\21\uffff\1\4\1\3\20\uffff\1"+
             "\6\1\5\22\uffff\1\7\11\uffff\1\12",
             "\1\14\20\uffff\1\14\13\uffff\10\14\21\uffff\2\14\20\uffff\2"+
@@ -19203,78 +19799,78 @@ public class wcpsParser extends Parser {
             ""
     };
 
-    static final short[] DFA53_eot = DFA.unpackEncodedString(DFA53_eotS);
-    static final short[] DFA53_eof = DFA.unpackEncodedString(DFA53_eofS);
-    static final char[] DFA53_min = DFA.unpackEncodedStringToUnsignedChars(DFA53_minS);
-    static final char[] DFA53_max = DFA.unpackEncodedStringToUnsignedChars(DFA53_maxS);
-    static final short[] DFA53_accept = DFA.unpackEncodedString(DFA53_acceptS);
-    static final short[] DFA53_special = DFA.unpackEncodedString(DFA53_specialS);
-    static final short[][] DFA53_transition;
+    static final short[] DFA56_eot = DFA.unpackEncodedString(DFA56_eotS);
+    static final short[] DFA56_eof = DFA.unpackEncodedString(DFA56_eofS);
+    static final char[] DFA56_min = DFA.unpackEncodedStringToUnsignedChars(DFA56_minS);
+    static final char[] DFA56_max = DFA.unpackEncodedStringToUnsignedChars(DFA56_maxS);
+    static final short[] DFA56_accept = DFA.unpackEncodedString(DFA56_acceptS);
+    static final short[] DFA56_special = DFA.unpackEncodedString(DFA56_specialS);
+    static final short[][] DFA56_transition;
 
     static {
-        int numStates = DFA53_transitionS.length;
-        DFA53_transition = new short[numStates][];
+        int numStates = DFA56_transitionS.length;
+        DFA56_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA53_transition[i] = DFA.unpackEncodedString(DFA53_transitionS[i]);
+            DFA56_transition[i] = DFA.unpackEncodedString(DFA56_transitionS[i]);
         }
     }
 
-    class DFA53 extends DFA {
+    class DFA56 extends DFA {
 
-        public DFA53(BaseRecognizer recognizer) {
+        public DFA56(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 53;
-            this.eot = DFA53_eot;
-            this.eof = DFA53_eof;
-            this.min = DFA53_min;
-            this.max = DFA53_max;
-            this.accept = DFA53_accept;
-            this.special = DFA53_special;
-            this.transition = DFA53_transition;
+            this.decisionNumber = 56;
+            this.eot = DFA56_eot;
+            this.eof = DFA56_eof;
+            this.min = DFA56_min;
+            this.max = DFA56_max;
+            this.accept = DFA56_accept;
+            this.special = DFA56_special;
+            this.transition = DFA56_transition;
         }
         public String getDescription() {
-            return "314:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );";
+            return "325:1: numericScalarFactor returns [NumericScalarExpr value] : ( LPAREN e1= numericScalarExpr RPAREN | op= MINUS e10= numericScalarFactor | op= ABS LPAREN e12= numericScalarExpr RPAREN | op= SQRT LPAREN e11= numericScalarExpr RPAREN | op= ROUND LPAREN e1= numericScalarExpr RPAREN | e= INTEGERCONSTANT | e= FLOATCONSTANT | e2= complexConstant | e3= condenseExpr | e4= variableName );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA53_11 = input.LA(1);
+                        int LA56_11 = input.LA(1);
 
                          
-                        int index53_11 = input.index();
+                        int index56_11 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred126_wcps()) ) {s = 12;}
+                        if ( (synpred130_wcps()) ) {s = 12;}
 
-                        else if ( (synpred133_wcps()) ) {s = 21;}
+                        else if ( (synpred137_wcps()) ) {s = 21;}
 
                          
-                        input.seek(index53_11);
+                        input.seek(index56_11);
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 53, _s, input);
+                new NoViableAltException(getDescription(), 56, _s, input);
             error(nvae);
             throw nvae;
         }
     }
-    static final String DFA57_eotS =
+    static final String DFA60_eotS =
         "\30\uffff";
-    static final String DFA57_eofS =
+    static final String DFA60_eofS =
         "\30\uffff";
-    static final String DFA57_minS =
+    static final String DFA60_minS =
         "\1\6\4\uffff\1\6\20\uffff\1\0\1\uffff";
-    static final String DFA57_maxS =
+    static final String DFA60_maxS =
         "\1\154\4\uffff\1\6\20\uffff\1\0\1\uffff";
-    static final String DFA57_acceptS =
+    static final String DFA60_acceptS =
         "\1\uffff\1\1\25\uffff\1\2";
-    static final String DFA57_specialS =
+    static final String DFA60_specialS =
         "\26\uffff\1\0\1\uffff}>";
-    static final String[] DFA57_transitionS = {
+    static final String[] DFA60_transitionS = {
             "\1\1\20\uffff\1\1\3\uffff\7\1\1\5\10\1\21\uffff\2\1\16\uffff"+
             "\1\1\1\uffff\3\1\20\uffff\2\1\11\uffff\1\1",
             "",
@@ -19302,61 +19898,61 @@ public class wcpsParser extends Parser {
             ""
     };
 
-    static final short[] DFA57_eot = DFA.unpackEncodedString(DFA57_eotS);
-    static final short[] DFA57_eof = DFA.unpackEncodedString(DFA57_eofS);
-    static final char[] DFA57_min = DFA.unpackEncodedStringToUnsignedChars(DFA57_minS);
-    static final char[] DFA57_max = DFA.unpackEncodedStringToUnsignedChars(DFA57_maxS);
-    static final short[] DFA57_accept = DFA.unpackEncodedString(DFA57_acceptS);
-    static final short[] DFA57_special = DFA.unpackEncodedString(DFA57_specialS);
-    static final short[][] DFA57_transition;
+    static final short[] DFA60_eot = DFA.unpackEncodedString(DFA60_eotS);
+    static final short[] DFA60_eof = DFA.unpackEncodedString(DFA60_eofS);
+    static final char[] DFA60_min = DFA.unpackEncodedStringToUnsignedChars(DFA60_minS);
+    static final char[] DFA60_max = DFA.unpackEncodedStringToUnsignedChars(DFA60_maxS);
+    static final short[] DFA60_accept = DFA.unpackEncodedString(DFA60_acceptS);
+    static final short[] DFA60_special = DFA.unpackEncodedString(DFA60_specialS);
+    static final short[][] DFA60_transition;
 
     static {
-        int numStates = DFA57_transitionS.length;
-        DFA57_transition = new short[numStates][];
+        int numStates = DFA60_transitionS.length;
+        DFA60_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA57_transition[i] = DFA.unpackEncodedString(DFA57_transitionS[i]);
+            DFA60_transition[i] = DFA.unpackEncodedString(DFA60_transitionS[i]);
         }
     }
 
-    class DFA57 extends DFA {
+    class DFA60 extends DFA {
 
-        public DFA57(BaseRecognizer recognizer) {
+        public DFA60(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 57;
-            this.eot = DFA57_eot;
-            this.eof = DFA57_eof;
-            this.min = DFA57_min;
-            this.max = DFA57_max;
-            this.accept = DFA57_accept;
-            this.special = DFA57_special;
-            this.transition = DFA57_transition;
+            this.decisionNumber = 60;
+            this.eot = DFA60_eot;
+            this.eof = DFA60_eof;
+            this.min = DFA60_min;
+            this.max = DFA60_max;
+            this.accept = DFA60_accept;
+            this.special = DFA60_special;
+            this.transition = DFA60_transition;
         }
         public String getDescription() {
-            return "342:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );";
+            return "353:1: dimensionIntervalExpr returns [DimensionIntervalExpr value] : (e1= scalarExpr COLON e2= scalarExpr | DOMAIN LPAREN e3= coverageName COLON e4= axisName COLON e5= crsName RPAREN );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA57_22 = input.LA(1);
+                        int LA60_22 = input.LA(1);
 
                          
-                        int index57_22 = input.index();
+                        int index60_22 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred142_wcps()) ) {s = 1;}
+                        if ( (synpred146_wcps()) ) {s = 1;}
 
                         else if ( (true) ) {s = 23;}
 
                          
-                        input.seek(index57_22);
+                        input.seek(index60_22);
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 57, _s, input);
+                new NoViableAltException(getDescription(), 60, _s, input);
             error(nvae);
             throw nvae;
         }
@@ -19688,156 +20284,165 @@ public class wcpsParser extends Parser {
     public static final BitSet FOLLOW_trimExpr_in_subsetExpr2686 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_sliceExpr_in_subsetExpr2695 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_extendExpr_in_subsetExpr2704 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_coverageAtom_in_trimExpr2721 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-    public static final BitSet FOLLOW_LBRACKET_in_trimExpr2723 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalList_in_trimExpr2727 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_RBRACKET_in_trimExpr2729 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRIM_in_trimExpr2738 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_trimExpr2740 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_trimExpr2744 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_trimExpr2746 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_LBRACE_in_trimExpr2748 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalList_in_trimExpr2752 = new BitSet(new long[]{0x0200000000000000L});
-    public static final BitSet FOLLOW_RBRACE_in_trimExpr2754 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_trimExpr2756 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_coverageAtom_in_sliceExpr2773 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-    public static final BitSet FOLLOW_LBRACKET_in_sliceExpr2775 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionPointList_in_sliceExpr2779 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_RBRACKET_in_sliceExpr2781 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SLICE_in_sliceExpr2788 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_sliceExpr2790 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_sliceExpr2794 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_sliceExpr2796 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_LBRACE_in_sliceExpr2798 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionPointList_in_sliceExpr2802 = new BitSet(new long[]{0x0200000000000000L});
-    public static final BitSet FOLLOW_RBRACE_in_sliceExpr2804 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_sliceExpr2806 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EXTEND_in_extendExpr2821 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_extendExpr2823 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_extendExpr2827 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_extendExpr2829 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalList_in_extendExpr2833 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_extendExpr2835 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_castExpr2853 = new BitSet(new long[]{0x0000000000000000L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_rangeType_in_castExpr2857 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_castExpr2859 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
-    public static final BitSet FOLLOW_coverageExpr_in_castExpr2863 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_rangeType2886 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UNSIGNED_in_rangeType2912 = new BitSet(new long[]{0x0000000000000000L,0x0000000007000000L});
-    public static final BitSet FOLLOW_set_in_rangeType2916 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_coverageAtom_in_fieldExpr2945 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
-    public static final BitSet FOLLOW_DOT_in_fieldExpr2947 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_fieldName_in_fieldExpr2951 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_booleanScalarTerm_in_booleanScalarExpr2976 = new BitSet(new long[]{0x0000000000006002L});
-    public static final BitSet FOLLOW_set_in_booleanScalarExpr2989 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarTerm_in_booleanScalarExpr2997 = new BitSet(new long[]{0x0000000000006002L});
-    public static final BitSet FOLLOW_booleanScalarNegation_in_booleanScalarTerm3019 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_AND_in_booleanScalarTerm3029 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarNegation_in_booleanScalarTerm3033 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_booleanScalarAtom_in_booleanScalarNegation3054 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOT_in_booleanScalarNegation3063 = new BitSet(new long[]{0x300007F808800040L,0x000010060001C000L});
-    public static final BitSet FOLLOW_booleanScalarAtom_in_booleanScalarNegation3067 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_booleanScalarAtom3082 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarExpr_in_booleanScalarAtom3086 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_booleanScalarAtom3088 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stringScalarExpr_in_booleanScalarAtom3097 = new BitSet(new long[]{0x00000000003F0000L});
-    public static final BitSet FOLLOW_compOp_in_booleanScalarAtom3101 = new BitSet(new long[]{0x0000000008000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_stringScalarExpr_in_booleanScalarAtom3105 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_booleanScalarAtom3115 = new BitSet(new long[]{0x00000000003F0000L});
-    public static final BitSet FOLLOW_compOp_in_booleanScalarAtom3119 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_booleanScalarAtom3123 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BOOLEANCONSTANT_in_booleanScalarAtom3133 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_numericScalarTerm_in_numericScalarExpr3150 = new BitSet(new long[]{0x0000000000C00002L});
-    public static final BitSet FOLLOW_set_in_numericScalarExpr3160 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarTerm_in_numericScalarExpr3168 = new BitSet(new long[]{0x0000000000C00002L});
-    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarTerm3187 = new BitSet(new long[]{0x0000000003000002L});
-    public static final BitSet FOLLOW_set_in_numericScalarTerm3196 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarTerm3204 = new BitSet(new long[]{0x0000000003000002L});
-    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3224 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3228 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3230 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_numericScalarFactor3242 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarFactor3246 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ABS_in_numericScalarFactor3258 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3260 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3264 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3266 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SQRT_in_numericScalarFactor3278 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3280 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3284 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3286 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ROUND_in_numericScalarFactor3298 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3300 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3304 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3306 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INTEGERCONSTANT_in_numericScalarFactor3318 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FLOATCONSTANT_in_numericScalarFactor3330 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_complexConstant_in_numericScalarFactor3342 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_condenseExpr_in_numericScalarFactor3354 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_variableName_in_numericScalarFactor3366 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EQUALS_in_compOp3384 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOTEQUALS_in_compOp3391 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LT_in_compOp3398 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GT_in_compOp3405 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LTE_in_compOp3412 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GTE_in_compOp3419 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3439 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_COMMA_in_dimensionIntervalList3452 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3456 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_axisName_in_dimensionIntervalElement3481 = new BitSet(new long[]{0x0000200000000040L});
-    public static final BitSet FOLLOW_COLON_in_dimensionIntervalElement3486 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_crsName_in_dimensionIntervalElement3490 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_dimensionIntervalElement3501 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_dimensionIntervalExpr_in_dimensionIntervalElement3505 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_dimensionIntervalElement3507 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_scalarExpr_in_dimensionIntervalExpr3530 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3532 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_scalarExpr_in_dimensionIntervalExpr3536 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DOMAIN_in_dimensionIntervalExpr3546 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_dimensionIntervalExpr3548 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_coverageName_in_dimensionIntervalExpr3552 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3554 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_axisName_in_dimensionIntervalExpr3558 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3560 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_crsName_in_dimensionIntervalExpr3564 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_dimensionIntervalExpr3566 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_dimensionPointElement_in_dimensionPointList3589 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_COMMA_in_dimensionPointList3599 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
-    public static final BitSet FOLLOW_dimensionPointElement_in_dimensionPointList3603 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_axisName_in_dimensionPointElement3628 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_dimensionPointElement3630 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_dimensionPoint_in_dimensionPointElement3634 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_dimensionPointElement3636 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_axisName_in_dimensionPointElement3648 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_dimensionPointElement3650 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_crsName_in_dimensionPointElement3654 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LPAREN_in_dimensionPointElement3656 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_dimensionPoint_in_dimensionPointElement3660 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_dimensionPointElement3662 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_scalarExpr_in_dimensionPoint3685 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_interpolationMethod3703 = new BitSet(new long[]{0x0000000000000000L,0x0000007800000000L});
-    public static final BitSet FOLLOW_interpolationType_in_interpolationMethod3707 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_interpolationMethod3709 = new BitSet(new long[]{0x0000000000000000L,0x0000078000000000L});
-    public static final BitSet FOLLOW_nullResistence_in_interpolationMethod3713 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_interpolationMethod3715 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_interpolationType3732 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_nullResistence3757 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_condenseOpType3782 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_name_in_fieldName3809 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_constant3826 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_complexConstant_in_constant3843 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_complexConstant3858 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_FLOATCONSTANT_in_complexConstant3862 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_COMMA_in_complexConstant3864 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_FLOATCONSTANT_in_complexConstant3868 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_complexConstant3870 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_in_stringConstant3887 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_name3904 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stringConstant_in_crsName3931 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_name_in_axisName3948 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VARIABLE_DOLLAR_in_variableName3965 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_coverageVariable3982 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_name_in_coverageName3997 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_trimSliceExpr_in_subsetExpr2716 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_coverageAtom_in_trimExpr2733 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+    public static final BitSet FOLLOW_LBRACKET_in_trimExpr2735 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalList_in_trimExpr2739 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_RBRACKET_in_trimExpr2741 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRIM_in_trimExpr2750 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_trimExpr2752 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_trimExpr2756 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_trimExpr2758 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_LBRACE_in_trimExpr2760 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalList_in_trimExpr2764 = new BitSet(new long[]{0x0200000000000000L});
+    public static final BitSet FOLLOW_RBRACE_in_trimExpr2766 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_trimExpr2768 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_coverageAtom_in_trimSliceExpr2785 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+    public static final BitSet FOLLOW_LBRACKET_in_trimSliceExpr2787 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalElement_in_trimSliceExpr2824 = new BitSet(new long[]{0x0000000000000100L,0x0000000000080000L});
+    public static final BitSet FOLLOW_dimensionPointElement_in_trimSliceExpr2861 = new BitSet(new long[]{0x0000000000000100L,0x0000000000080000L});
+    public static final BitSet FOLLOW_COMMA_in_trimSliceExpr2897 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalElement_in_trimSliceExpr2933 = new BitSet(new long[]{0x0000000000000100L,0x0000000000080000L});
+    public static final BitSet FOLLOW_dimensionPointElement_in_trimSliceExpr2970 = new BitSet(new long[]{0x0000000000000100L,0x0000000000080000L});
+    public static final BitSet FOLLOW_RBRACKET_in_trimSliceExpr3001 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_coverageAtom_in_sliceExpr3020 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+    public static final BitSet FOLLOW_LBRACKET_in_sliceExpr3022 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionPointList_in_sliceExpr3026 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_RBRACKET_in_sliceExpr3028 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SLICE_in_sliceExpr3035 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_sliceExpr3037 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_sliceExpr3041 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_sliceExpr3043 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_LBRACE_in_sliceExpr3045 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionPointList_in_sliceExpr3049 = new BitSet(new long[]{0x0200000000000000L});
+    public static final BitSet FOLLOW_RBRACE_in_sliceExpr3051 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_sliceExpr3053 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EXTEND_in_extendExpr3068 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_extendExpr3070 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_extendExpr3074 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_extendExpr3076 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalList_in_extendExpr3080 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_extendExpr3082 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_castExpr3100 = new BitSet(new long[]{0x0000000000000000L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_rangeType_in_castExpr3104 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_castExpr3106 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
+    public static final BitSet FOLLOW_coverageExpr_in_castExpr3110 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_rangeType3133 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UNSIGNED_in_rangeType3159 = new BitSet(new long[]{0x0000000000000000L,0x0000000007000000L});
+    public static final BitSet FOLLOW_set_in_rangeType3163 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_coverageAtom_in_fieldExpr3192 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_DOT_in_fieldExpr3194 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_fieldName_in_fieldExpr3198 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_booleanScalarTerm_in_booleanScalarExpr3223 = new BitSet(new long[]{0x0000000000006002L});
+    public static final BitSet FOLLOW_set_in_booleanScalarExpr3236 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarTerm_in_booleanScalarExpr3244 = new BitSet(new long[]{0x0000000000006002L});
+    public static final BitSet FOLLOW_booleanScalarNegation_in_booleanScalarTerm3266 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_AND_in_booleanScalarTerm3276 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarNegation_in_booleanScalarTerm3280 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_booleanScalarAtom_in_booleanScalarNegation3301 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOT_in_booleanScalarNegation3310 = new BitSet(new long[]{0x300007F808800040L,0x000010060001C000L});
+    public static final BitSet FOLLOW_booleanScalarAtom_in_booleanScalarNegation3314 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_booleanScalarAtom3329 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarExpr_in_booleanScalarAtom3333 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_booleanScalarAtom3335 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stringScalarExpr_in_booleanScalarAtom3344 = new BitSet(new long[]{0x00000000003F0000L});
+    public static final BitSet FOLLOW_compOp_in_booleanScalarAtom3348 = new BitSet(new long[]{0x0000000008000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_stringScalarExpr_in_booleanScalarAtom3352 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_booleanScalarAtom3362 = new BitSet(new long[]{0x00000000003F0000L});
+    public static final BitSet FOLLOW_compOp_in_booleanScalarAtom3366 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_booleanScalarAtom3370 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BOOLEANCONSTANT_in_booleanScalarAtom3380 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_numericScalarTerm_in_numericScalarExpr3397 = new BitSet(new long[]{0x0000000000C00002L});
+    public static final BitSet FOLLOW_set_in_numericScalarExpr3407 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarTerm_in_numericScalarExpr3415 = new BitSet(new long[]{0x0000000000C00002L});
+    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarTerm3434 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_set_in_numericScalarTerm3443 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarTerm3451 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3471 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3475 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3477 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_numericScalarFactor3489 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarFactor_in_numericScalarFactor3493 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ABS_in_numericScalarFactor3505 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3507 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3511 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3513 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SQRT_in_numericScalarFactor3525 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3527 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3531 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3533 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ROUND_in_numericScalarFactor3545 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_numericScalarFactor3547 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_numericScalarFactor3551 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_numericScalarFactor3553 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INTEGERCONSTANT_in_numericScalarFactor3565 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FLOATCONSTANT_in_numericScalarFactor3577 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_complexConstant_in_numericScalarFactor3589 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_condenseExpr_in_numericScalarFactor3601 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_variableName_in_numericScalarFactor3613 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EQUALS_in_compOp3631 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOTEQUALS_in_compOp3638 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LT_in_compOp3645 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GT_in_compOp3652 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LTE_in_compOp3659 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GTE_in_compOp3666 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3686 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_COMMA_in_dimensionIntervalList3699 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionIntervalElement_in_dimensionIntervalList3703 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_axisName_in_dimensionIntervalElement3728 = new BitSet(new long[]{0x0000200000000040L});
+    public static final BitSet FOLLOW_COLON_in_dimensionIntervalElement3733 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_crsName_in_dimensionIntervalElement3737 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_dimensionIntervalElement3748 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_dimensionIntervalExpr_in_dimensionIntervalElement3752 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_dimensionIntervalElement3754 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_scalarExpr_in_dimensionIntervalExpr3777 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3779 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_scalarExpr_in_dimensionIntervalExpr3783 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DOMAIN_in_dimensionIntervalExpr3793 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_dimensionIntervalExpr3795 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_coverageName_in_dimensionIntervalExpr3799 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3801 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_axisName_in_dimensionIntervalExpr3805 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_dimensionIntervalExpr3807 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_crsName_in_dimensionIntervalExpr3811 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_dimensionIntervalExpr3813 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_dimensionPointElement_in_dimensionPointList3836 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_COMMA_in_dimensionPointList3846 = new BitSet(new long[]{0x0000000000000000L,0x0000080000014000L});
+    public static final BitSet FOLLOW_dimensionPointElement_in_dimensionPointList3850 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_axisName_in_dimensionPointElement3875 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_dimensionPointElement3877 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_dimensionPoint_in_dimensionPointElement3881 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_dimensionPointElement3883 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_axisName_in_dimensionPointElement3895 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_dimensionPointElement3897 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_crsName_in_dimensionPointElement3901 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_LPAREN_in_dimensionPointElement3903 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_dimensionPoint_in_dimensionPointElement3907 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_dimensionPointElement3909 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_scalarExpr_in_dimensionPoint3932 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_interpolationMethod3950 = new BitSet(new long[]{0x0000000000000000L,0x0000007800000000L});
+    public static final BitSet FOLLOW_interpolationType_in_interpolationMethod3954 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_interpolationMethod3956 = new BitSet(new long[]{0x0000000000000000L,0x0000078000000000L});
+    public static final BitSet FOLLOW_nullResistence_in_interpolationMethod3960 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_interpolationMethod3962 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_interpolationType3979 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_nullResistence4004 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_condenseOpType4029 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_name_in_fieldName4056 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_constant4073 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_complexConstant_in_constant4090 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_complexConstant4105 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_FLOATCONSTANT_in_complexConstant4109 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_COMMA_in_complexConstant4111 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_FLOATCONSTANT_in_complexConstant4115 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_complexConstant4117 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_in_stringConstant4134 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_name4151 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stringConstant_in_crsName4178 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_name_in_axisName4195 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VARIABLE_DOLLAR_in_variableName4212 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_coverageVariable4229 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_name_in_coverageName4244 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_synpred8_wcps366 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
     public static final BitSet FOLLOW_coverageLogicTerm_in_synpred8_wcps374 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_AND_in_synpred9_wcps416 = new BitSet(new long[]{0xFDF847FFF8C01840L,0x000018060073FFFFL});
@@ -19868,26 +20473,28 @@ public class wcpsParser extends Parser {
     public static final BitSet FOLLOW_booleanExpr_in_synpred75_wcps2166 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_trimExpr_in_synpred101_wcps2686 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_sliceExpr_in_synpred102_wcps2695 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_synpred116_wcps2989 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarTerm_in_synpred116_wcps2997 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_AND_in_synpred117_wcps3029 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarNegation_in_synpred117_wcps3033 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_synpred119_wcps3082 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
-    public static final BitSet FOLLOW_booleanScalarExpr_in_synpred119_wcps3086 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_synpred119_wcps3088 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_synpred121_wcps3115 = new BitSet(new long[]{0x00000000003F0000L});
-    public static final BitSet FOLLOW_compOp_in_synpred121_wcps3119 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_synpred121_wcps3123 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_synpred123_wcps3160 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarTerm_in_synpred123_wcps3168 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_synpred125_wcps3196 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarFactor_in_synpred125_wcps3204 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_synpred126_wcps3224 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
-    public static final BitSet FOLLOW_numericScalarExpr_in_synpred126_wcps3228 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_RPAREN_in_synpred126_wcps3230 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_complexConstant_in_synpred133_wcps3342 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_scalarExpr_in_synpred142_wcps3530 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_COLON_in_synpred142_wcps3532 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
-    public static final BitSet FOLLOW_scalarExpr_in_synpred142_wcps3536 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_dimensionIntervalElement_in_synpred105_wcps2824 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_dimensionIntervalElement_in_synpred106_wcps2933 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_synpred120_wcps3236 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarTerm_in_synpred120_wcps3244 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_AND_in_synpred121_wcps3276 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarNegation_in_synpred121_wcps3280 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_synpred123_wcps3329 = new BitSet(new long[]{0x300007F808800040L,0x000010060001D000L});
+    public static final BitSet FOLLOW_booleanScalarExpr_in_synpred123_wcps3333 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_synpred123_wcps3335 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_synpred125_wcps3362 = new BitSet(new long[]{0x00000000003F0000L});
+    public static final BitSet FOLLOW_compOp_in_synpred125_wcps3366 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_synpred125_wcps3370 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_synpred127_wcps3407 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarTerm_in_synpred127_wcps3415 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_synpred129_wcps3443 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarFactor_in_synpred129_wcps3451 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_synpred130_wcps3471 = new BitSet(new long[]{0x300007F800800040L,0x000010040000C000L});
+    public static final BitSet FOLLOW_numericScalarExpr_in_synpred130_wcps3475 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_RPAREN_in_synpred130_wcps3477 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_complexConstant_in_synpred137_wcps3589 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_scalarExpr_in_synpred146_wcps3777 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_COLON_in_synpred146_wcps3779 = new BitSet(new long[]{0x300007FFF8801840L,0x000010060001D000L});
+    public static final BitSet FOLLOW_scalarExpr_in_synpred146_wcps3783 = new BitSet(new long[]{0x0000000000000002L});
 
 }

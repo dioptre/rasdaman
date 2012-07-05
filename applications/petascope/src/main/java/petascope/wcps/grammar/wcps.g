@@ -17,6 +17,7 @@ History:
                         dimensionCrsList/dimensionCrsElement (-> change WCPS documentation?).
                         fieldInterpolationList's content set as optional (allow empty list {}).
 02 04 2012 campalani    Missing braces around DimensionIntervalList in scaleExpr.
+05 06 2012 misev    Allow mixing of slices and trims
 */
 grammar wcps;
 options{
@@ -261,11 +262,21 @@ subsetExpr returns[SubsetExpr value]
 	: e1=trimExpr { $value = new SubsetExpr($e1.value); }
 	| e2=sliceExpr { $value = new SubsetExpr($e2.value); }
 	| e3=extendExpr { $value = new SubsetExpr($e3.value); }
+    | e4=trimSliceExpr { $value = new SubsetExpr($e4.value); }
 	;
 trimExpr returns[TrimExpr value]
 	: e1=coverageAtom LBRACKET dil=dimensionIntervalList RBRACKET { $value = new TrimExpr($e1.value, $dil.value); }
   	| TRIM LPAREN e2=coverageExpr COMMA LBRACE dil=dimensionIntervalList RBRACE RPAREN { $value = new TrimExpr($e2.value, $dil.value); }
 	;
+trimSliceExpr returns[TrimSliceExpr value]
+	: e1=coverageAtom LBRACKET { $value = new TrimSliceExpr($e1.value); }
+                             ( el1=dimensionIntervalElement { $value.add($el1.value); }
+                             | el2=dimensionPointElement { $value.add($el2.value); } )
+                             (COMMA 
+                             ( el3=dimensionIntervalElement { $value.add($el3.value); }
+                             | el4=dimensionPointElement { $value.add($el4.value); } ))* 
+                      RBRACKET 
+    ;
 sliceExpr returns[SliceExpr value]
 	: e1=coverageAtom LBRACKET dpl=dimensionPointList RBRACKET { $value = new SliceExpr($e1.value, $dpl.value); }
 	| SLICE LPAREN e2=coverageExpr COMMA LBRACE dpl=dimensionPointList RBRACE RPAREN { $value = new SliceExpr($e2.value, $dpl.value); }

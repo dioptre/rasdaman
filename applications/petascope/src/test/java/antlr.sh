@@ -26,5 +26,5 @@
  */
 
 COMMENT
-java -Xms128m -Xmx300m -jar ../lib/antlrworks-1.2.3.jar ../src/java/grammar/wcps.g
+java -Xms128m -Xmx300m -jar ../../../lib/antlrworks-1.2.3.jar ../../../src/main/java/petascope/wcps/grammar/wcps.g
 

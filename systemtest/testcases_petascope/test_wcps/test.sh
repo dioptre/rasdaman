@@ -111,6 +111,7 @@ pushd "$QUERIES_PATH" > /dev/null
 for f in *.test; do
 
   [ -f "$f" ] || continue
+#  [ "$f" == "46-mix_scale_trim.test" ] || continue
 
   # test header
   loge ""
