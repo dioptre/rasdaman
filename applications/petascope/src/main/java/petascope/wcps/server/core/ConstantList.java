@@ -24,9 +24,13 @@ package petascope.wcps.server.core;
 import petascope.exceptions.WCPSException;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 
 public class ConstantList implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(ConstantList.class);
 
     private ArrayList<String> list;
     private String val;
@@ -57,7 +61,7 @@ public class ConstantList implements IRasNode {
             }
         }
 
-        System.err.println("Parsed constant list with " + list.size() + " elements !");
+        log.trace("Parsed constant list with " + list.size() + " elements");
     }
 
     private void checkConstant(String val) throws WCPSException {

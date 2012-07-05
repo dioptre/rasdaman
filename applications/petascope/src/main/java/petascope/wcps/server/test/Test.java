@@ -23,6 +23,7 @@
 import org.apache.commons.io.IOUtils;
 import petascope.ConfigManager;
 import petascope.core.DbMetadataSource;
+import petascope.util.ras.RasUtil;
 import petascope.wcps.server.core.ProcessCoveragesRequest;
 import petascope.wcps.server.core.Wcps;
 
@@ -51,7 +52,7 @@ public class Test {
             Wcps wcps = new Wcps(meta);
             
             String query = "";
-            String xmlRequest = ProcessCoveragesRequest.abstractQueryToXmlQuery(query);
+            String xmlRequest = RasUtil.abstractWCPStoXML(query);
             ProcessCoveragesRequest pc = wcps.pcPrepare(
                     ConfigManager.RASDAMAN_URL, ConfigManager.RASDAMAN_DATABASE,
                     IOUtils.toInputStream(xmlRequest));

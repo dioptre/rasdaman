@@ -32,7 +32,6 @@ public class DimensionIntervalList {
 
     public DimensionIntervalList(Node node, XmlQuery xq, CoverageInfo info)
             throws WCPSException {
-        System.err.println("Parsing a Dimension Interval List ...");
 
         while (node != null) {
             list = new ArrayList<IRasNode>();

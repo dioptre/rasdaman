@@ -28,12 +28,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import petascope.core.IDynamicMetadataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Andrei Aiordachioaie
  */
 public class XmlQuery implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(XmlQuery.class);
 
     private String mime;
     private ArrayList<CoverageIterator> iterators;
@@ -81,7 +85,7 @@ public class XmlQuery implements IRasNode {
     }
 
     public void startParsing(Node node) throws WCPSException, PetascopeException {
-        System.err.println("Processing XML Request: " + node.getNodeName());
+        log.debug("Processing XML Request: " + node.getNodeName());
 
         Node x = node.getFirstChild();
 
@@ -92,7 +96,7 @@ public class XmlQuery implements IRasNode {
                 continue;
             }
 
-            System.err.println("The current node is: " + x.getNodeName());
+            log.info("The current node is: " + x.getNodeName());
 
             if (x.getNodeName().equals("coverageIterator")) {
                 iterators.add(new CoverageIterator(x, this));

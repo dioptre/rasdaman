@@ -29,10 +29,14 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 import petascope.util.CrsUtil;
 
 public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
+
+    private static Logger log = LoggerFactory.getLogger(ConstantCoverageExpr.class);
 
     private String covName;
     private Vector<AxisIterator> iterators;
@@ -117,7 +121,7 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
 
         axisIteratorString += "]";
 
-        System.err.println("Axes for ConstantCoverage tell us that the constant"
+        log.error("Axes for ConstantCoverage tell us that the constant"
                 + "list should have exactly " + requiredListSize + " elements !");
     }
 

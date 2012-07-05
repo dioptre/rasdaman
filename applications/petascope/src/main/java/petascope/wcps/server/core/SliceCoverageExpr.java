@@ -26,11 +26,15 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import petascope.util.Pair;
 import petascope.util.WcsUtil;
 
 public class SliceCoverageExpr implements IRasNode, ICoverageInfo {
+    
+    private static Logger log = LoggerFactory.getLogger(SliceCoverageExpr.class);
 
     private List<DimensionPointElement> axisList;
     private CoverageExpr coverageExprType;
@@ -68,7 +72,7 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo {
                 child = elem.getNextNode();
                 continue;
             } catch (WCPSException e) {
-                System.err.println("This was no Dimension Point ELement: " + child.getNodeName());
+                log.error("This was no Dimension Point ELement: " + child.getNodeName());
             }
 
             // else unknown element

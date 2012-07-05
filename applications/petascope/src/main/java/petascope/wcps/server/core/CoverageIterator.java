@@ -28,8 +28,12 @@ import org.w3c.dom.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CoverageIterator implements IRasNode {
+
+    private static Logger log = LoggerFactory.getLogger(CoverageIterator.class);
 
     private List<String> coverageNames;
     private String iteratorName;
@@ -52,10 +56,10 @@ public class CoverageIterator implements IRasNode {
 
             if (it.getNodeName().equals("iteratorVar")) {
                 iteratorName = it.getFirstChild().getNodeValue();
-                System.err.println("*** Iterator variable : " + iteratorName);
+                log.trace("Iterator variable : " + iteratorName);
             } else if (it.getNodeName().equals("coverageName")) {
                 String cn = it.getFirstChild().getNodeValue();
-                System.err.println("*** Coverage reference : " + cn);
+                log.trace("Coverage reference : " + cn);
                 if (!source.coverages().contains(cn)) {
                     throw new WCPSException("Unknown coverage " + cn);
                 }

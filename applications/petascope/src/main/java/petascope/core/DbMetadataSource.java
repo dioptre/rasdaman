@@ -750,7 +750,7 @@ public class DbMetadataSource implements IMetadataSource {
             } catch (Exception e) {
             }
         }
-        System.out.println("Coverage with ID " + id + (result == false ? " does not " : "") + " exists.");
+        log.trace("Coverage with ID " + id + (result == false ? " does not " : "") + " exists.");
         return result;
     }
 
@@ -820,7 +820,6 @@ public class DbMetadataSource implements IMetadataSource {
             i = 0;
             while (rangeIt.hasNext()) {
                 RangeElement range = rangeIt.next();
-                System.out.println(range);
                 int dataType = revDataTypes.get(range.getType());
                 setQuery("INSERT INTO PS_Range (coverage, i, name, type) VALUES "
                         + " ('" + coverageId + "', '" + i + "', '" + range.getName() + "', '"
@@ -886,7 +885,6 @@ public class DbMetadataSource implements IMetadataSource {
                 int axisId = r1.getInt("id");
                 axes.add((Integer) axisId);
             }
-            System.out.println(axes);
             for (i = 0; i < axes.size(); i++) {
                 int axisId = ((Integer) axes.elementAt(i)).intValue();
                 setQuery("DELETE FROM PS_CrsSet WHERE axis='" + axisId + "'");
@@ -977,7 +975,6 @@ public class DbMetadataSource implements IMetadataSource {
 
                 // Table PS_CrsSet
                 Set<String> crsSet = dom.getCrsSet();
-                System.out.println(crsSet);
                 Iterator<String> crsIt = crsSet.iterator();
                 while (crsIt.hasNext()) {
                     String crs = crsIt.next();
@@ -1119,7 +1116,6 @@ public class DbMetadataSource implements IMetadataSource {
             i = 0;
             while (rangeIt.hasNext()) {
                 RangeElement range = rangeIt.next();
-                System.out.println(range);
                 int dataType = revDataTypes.get(range.getType());
                 setQuery("INSERT INTO PS_Range (coverage, i, name, type) VALUES "
                         + " ('" + coverageId + "', '" + i + "', '" + range.getName() + "', '"

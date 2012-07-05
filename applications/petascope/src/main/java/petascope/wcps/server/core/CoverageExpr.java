@@ -24,8 +24,12 @@ package petascope.wcps.server.core;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 import java.util.Iterator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CoverageExpr implements IRasNode, ICoverageInfo {
+    
+    private static Logger log = LoggerFactory.getLogger(CoverageExpr.class);
 
     private IRasNode child;
     private String childInfo;
@@ -46,7 +50,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
         String nodeName = node.getNodeName();
 
         simpleCoverage = false;
-        System.err.println("CoverageExprType: node " + nodeName);
+        log.trace("CoverageExprType: node " + nodeName);
 
         if (nodeName.equals("coverage")) {
             simpleCoverage = true;
@@ -75,7 +79,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
                 throw new WCPSException(ex.getMessage(), ex);
             }
 
-            System.err.println("Found simple coverage definition: " + childInfo + ", "
+            log.trace("Found simple coverage definition: " + childInfo + ", "
                     + info.toString());
         } else if (nodeName.equals("crsTransform")) {
             // TODO: implement CrsTransform class
@@ -97,7 +101,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
             if (child == null) {
                 try {
                     child = new SetMetadataCoverageExpr(node, xq);
-                    System.err.println("Matched set metadata operation.");
+                    log.trace("Matched set metadata operation.");
                 } catch (WCPSException e) {
                     child = null;
                 }
@@ -106,7 +110,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
             if (child == null) {
                 try {
                     child = new InducedOperationCoverageExpr(node, xq);
-                    System.err.println("Matched induced coverage expression operation.");
+                    log.trace("Matched induced coverage expression operation.");
                 } catch (WCPSException e) {
                     child = null;
                     if (e.getMessage().equals("Method not implemented")) {
@@ -118,7 +122,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
             if (child == null) {
                 try {
                     child = new SubsetOperationCoverageExpr(node, xq);
-                    System.err.println("Matched subset operation.");
+                    log.trace("Matched subset operation.");
                 } catch (WCPSException e) {
                     child = null;
                 }
@@ -128,7 +132,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
                 try {
                     child = new ScalarExpr(node, xq);
                     this.scalarExpr = true;
-                    System.err.println("Matched scalar expression.");
+                    log.trace("Matched scalar expression.");
                 } catch (WCPSException e) {
                     child = null;
                 }

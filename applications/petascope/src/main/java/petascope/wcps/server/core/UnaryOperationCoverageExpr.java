@@ -21,10 +21,14 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
+    
+    private static Logger log = LoggerFactory.getLogger(UnaryOperationCoverageExpr.class);
 
     private CoverageExpr child;
     private CoverageInfo info;
@@ -64,7 +68,7 @@ public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
                     try {
                         params = c.getFirstChild().getNodeValue();
                         int i = Integer.parseInt(params);
-                        System.err.println("Found bitIndex = " + params);
+                        log.trace("Found bitIndex = " + params);
                     } catch (NumberFormatException e) {
                         throw new WCPSException("Invalid Number as bitIndex: " + params);
                     }

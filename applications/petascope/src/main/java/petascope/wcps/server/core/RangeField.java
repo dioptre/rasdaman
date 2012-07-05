@@ -24,8 +24,12 @@ package petascope.wcps.server.core;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 import java.util.Iterator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RangeField implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(RangeField.class);
 
     private String type;
 
@@ -43,7 +47,7 @@ public class RangeField implements IRasNode {
         if (nodeName.equals("type")) {
             this.type = node.getTextContent();
 
-            System.err.println("Found range field type: " + type);
+            log.trace("Found range field type: " + type);
         }
     }
 

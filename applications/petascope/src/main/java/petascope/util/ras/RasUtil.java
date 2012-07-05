@@ -22,6 +22,9 @@
 
 package petascope.util.ras;
 
+import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.apache.commons.io.IOUtils;
 import org.odmg.Database;
@@ -36,6 +39,9 @@ import petascope.ConfigManager;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.RasdamanException;
 import petascope.exceptions.WCPSException;
+import petascope.wcps.grammar.WCPSRequest;
+import petascope.wcps.grammar.wcpsLexer;
+import petascope.wcps.grammar.wcpsParser;
 import petascope.wcps.server.core.ProcessCoveragesRequest;
 import petascope.wcps.server.core.Wcps;
 import rasj.RasImplementation;
@@ -166,7 +172,8 @@ public class RasUtil {
     }
     
     /**
-     * Convert WCPS query in abstract syntax to a rasql query.
+     * Convert WCPS query in abstract syntax to a rasql query. This is done as
+     * abstract -> XML -> rasql conversion.
      * 
      * @param query WCPS query in abstract syntax
      * @param wcps WCPS engine
@@ -177,18 +184,47 @@ public class RasUtil {
             throw new WCPSException(ExceptionCode.InvalidParameterValue, "Can't convert null query");
         }
         log.trace("Converting abstract WCPS query\n{}", query);
-        String xmlQuery = null;
-        try {
-            xmlQuery = ProcessCoveragesRequest.abstractQueryToXmlQuery(query);
-            log.debug("xmlQuery: " + xmlQuery); // (to_remove)
-        } catch (RecognitionException ex) {
-            throw new WCPSException(ExceptionCode.InvalidParameterValue,
-                    "Error translating abstract WCPS query to XML format.", ex);
-        }
+        String xmlQuery = abstractWCPStoXML(query);
         String rasql = xmlWCPSToRasql(xmlQuery, wcps);
         log.debug("rasql: " + rasql);
         return rasql;
         //return xmlWCPSToRasql(xmlQuery, wcps);
+    }
+    
+    /**
+     * Convert abstract WCPS query to XML syntax.
+     * 
+     * @param query WCPS query in abstract syntax
+     * @return the same query in XML
+     * @throws WCPSException in case of error during the parsing/translation
+     */
+    public static String abstractWCPStoXML(String query) throws WCPSException {
+        String ret = null;
+        WCPSRequest request = null;
+        try {
+            CharStream cs = new ANTLRStringStream(query);
+            wcpsLexer lexer = new wcpsLexer(cs);
+            CommonTokenStream tokens = new CommonTokenStream();
+            tokens.setTokenSource(lexer);
+            wcpsParser parser = new wcpsParser(tokens);
+
+            log.trace("Parsing abstract WCPS query...");
+            wcpsParser.wcpsRequest_return rrequest = parser.wcpsRequest();
+            request = rrequest.value;
+        } catch (RecognitionException ex) {
+            throw new WCPSException(ExceptionCode.InternalComponentError,
+                    "Error parsing abstract WCPS query.", ex);
+        }
+
+        try {
+            log.trace("Converting parsed request to XML...");
+            ret = request.toXML();
+            log.debug("Done, xml query: " + ret);
+        } catch (Exception ex) {
+            throw new WCPSException(ExceptionCode.InternalComponentError,
+                    "Error translating parsed abstract WCPS query to XML format.", ex);
+        }
+        return ret;
     }
     
     /**
@@ -209,7 +245,7 @@ public class RasUtil {
                     ConfigManager.RASDAMAN_DATABASE, IOUtils.toInputStream(query));
         } catch (Exception ex) {
             throw new WCPSException(ExceptionCode.InternalComponentError,
-                    "Error preparing process coverage request.", ex);
+                    "Error translating XML WCPS query to rasql.", ex);
         }
         log.trace("Resulting RasQL query: [{}] {}", pcReq.getMime(), pcReq.getRasqlQuery());
         String ret = pcReq.getRasqlQuery();
@@ -217,7 +253,7 @@ public class RasUtil {
     }
 
     /**
-     * Execute a WCPS query given in abstract syntax.
+     * Execute a WCPS query given in abstract or XML syntax.
      * 
      * @param query a WCPS query given in abstract syntax
      * @param wcps WCPS engine

@@ -21,12 +21,17 @@
  */
 package petascope.wcps.grammar;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * NumericScalarExpr
  * Creation date: (3/3/2003 2:28:43 AM)
  * @author: mattia parigiani, Sorin Stancu-Mara, Andrei Aiordachioaie
  */
 public class NumericScalarExpr implements IParseTreeNode {
+    
+    private static Logger log = LoggerFactory.getLogger(NumericScalarExpr.class);
 
     CondenseExpr condense;
     String constValue;
@@ -62,7 +67,7 @@ public class NumericScalarExpr implements IParseTreeNode {
         if (op.equals("abs")) {
             function = "numericAbs";
         } else {
-            System.err.println("Unary Operator " + op + " is not recognized!");
+            log.error("Unary Operator " + op + " is not recognized!");
         }
     }
 
@@ -71,7 +76,7 @@ public class NumericScalarExpr implements IParseTreeNode {
             function = "variableRef";
             constValue = varName;
         } else {
-            System.err.println("Internal error: this should have been a variable name:" + varName);
+            log.error("Internal error: this should have been a variable name:" + varName);
         }
     }
 
@@ -88,7 +93,7 @@ public class NumericScalarExpr implements IParseTreeNode {
         } else if (op.equals("/")) {
             function = "numericDiv";
         } else {
-            System.err.println("Operator " + op + " is not recognized!");
+            log.error("Operator " + op + " is not recognized!");
         }
     }
 

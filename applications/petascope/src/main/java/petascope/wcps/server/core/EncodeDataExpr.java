@@ -21,11 +21,15 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 // This is the equivalent of the "ProcessingExprType" complex XML type.
 public class EncodeDataExpr implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(EncodeDataExpr.class);
 
     private IRasNode coverageExprType;
     private String extraParams;
@@ -44,7 +48,7 @@ public class EncodeDataExpr implements IRasNode {
                 continue;
             }
 
-            System.err.println("Encode : node : " + child.getNodeName());
+            log.trace("Encode : node : " + child.getNodeName());
 
             if (nodeName.equals("format")) {
                 format = child.getFirstChild().getNodeValue();
@@ -89,7 +93,7 @@ public class EncodeDataExpr implements IRasNode {
             result = result + ")";
         }
 
-        System.err.println("Returning EncodeExpression:" + result);
+        log.trace("Returning EncodeExpression:" + result);
         return result;
     }
 }

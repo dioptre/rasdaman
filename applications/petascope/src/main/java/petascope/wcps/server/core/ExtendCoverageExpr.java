@@ -26,9 +26,13 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 
 public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
+    
+    private static Logger log = LoggerFactory.getLogger(ExtendCoverageExpr.class);
 
     private List<DimensionIntervalElement> axisList;
     private CoverageExpr coverageExprType;
@@ -68,7 +72,7 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
                 child = elem.getNextNode();
                 continue;
             } catch (WCPSException e) {
-                System.err.println("This was no Dimension Interval ELement: " + child.getNodeName());
+                log.error("This was no Dimension Interval ELement: " + child.getNodeName());
             }
 
             // else unknown element
@@ -91,9 +95,9 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
         while (i.hasNext()) {
             axis = i.next();
             axisId = coverageInfo.getDomainIndexByName(axis.getAxisName());
-            System.out.println("Axis ID: " + axisId);
-            System.out.println("Axis name: " + axis.getAxisName());
-            System.out.print("Axis coords: ");
+            log.trace("Axis ID: " + axisId);
+            log.trace("Axis name: " + axis.getAxisName());
+            log.trace("Axis coords: ");
 
             axisLo = Integer.parseInt(axis.getLowCoord());
             axisHi = Integer.parseInt(axis.getHighCoord());

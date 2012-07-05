@@ -21,10 +21,14 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 public class VariableReference implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(VariableReference.class);
 
     private String name;
     private String translatedName;
@@ -37,7 +41,7 @@ public class VariableReference implements IRasNode {
         if (node != null && node.getNodeName().equals("variableRef")) {
             name = node.getTextContent();
             translatedName = xq.getReferenceVariableName(name);
-            System.err.println("Variable " + name + " has been renamed into "
+            log.trace("Variable " + name + " has been renamed into "
                     + translatedName);
         } else {
             throw new WCPSException("Could not find any variable reference !");

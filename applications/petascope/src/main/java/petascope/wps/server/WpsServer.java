@@ -39,6 +39,8 @@ import petascope.wcps.server.core.ProcessCoveragesRequest;
 
 
 import petascope.ConfigManager;
+import petascope.exceptions.WCPSException;
+import petascope.util.ras.RasUtil;
 
 /**
  *
@@ -49,7 +51,7 @@ public class WpsServer {
     private static Logger LOG = LoggerFactory.getLogger(WpsServer.class);
     public String request = null;
 
-    public WpsServer(HttpServletResponse httpResponse, HttpServletRequest httpRequest) throws URISyntaxException, IOException, RecognitionException {
+    public WpsServer(HttpServletResponse httpResponse, HttpServletRequest httpRequest) throws URISyntaxException, IOException, WCPSException {
         Map requestMap = httpRequest.getParameterMap();
         if ((requestMap.containsKey("request") && httpRequest.getParameter("request").equalsIgnoreCase("GetCapabilities")) || (requestMap.containsKey("Request") && httpRequest.getParameter("Request").equalsIgnoreCase("GetCapabilities"))) {
             GetCapabilities(httpResponse);
@@ -63,7 +65,7 @@ public class WpsServer {
                 pos = wpsRequest.indexOf("=");
                 if (wpsRequest.substring(0, pos).equalsIgnoreCase("WcpsAbstractSyntax")) {
                     wpsRequest = wpsRequest.substring(pos + 1, wpsRequest.length());
-                    wpsRequest = ProcessCoveragesRequest.abstractQueryToXmlQuery(wpsRequest);
+                    wpsRequest = RasUtil.abstractWCPStoXML(wpsRequest);
                     System.out.println("WPS  request is :" + wpsRequest);
                     request = wpsRequest;
                 }

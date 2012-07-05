@@ -21,10 +21,14 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 public class FieldName implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(FieldName.class);
 
     private String name;
 
@@ -42,7 +46,7 @@ public class FieldName implements IRasNode {
         if (nodeName.equals("name")) {
             this.name = node.getTextContent();
 
-            System.err.println("Found field name: " + name);
+            log.trace("Found field name: " + name);
         }
     }
 

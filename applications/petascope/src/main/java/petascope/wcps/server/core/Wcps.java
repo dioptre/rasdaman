@@ -27,6 +27,8 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -45,13 +47,15 @@ for the time being, is just a list of rasdaman queries (RasQuery). The second st
 which executes a ProcessCoverageRequests and returns data.
  */
 public class Wcps {
+    
+    private static Logger log = LoggerFactory.getLogger(Wcps.class);
 
     private DocumentBuilder wcpsDocumentBuilder;
     private IDynamicMetadataSource dynamicMetadataSource;
 
     public Wcps(File pcSchema, IMetadataSource metadataSource) throws WCPSException, PetascopeException {
         try {
-            System.out.println("WCPS: Loading and parsing XML Schema ...");
+            log.info("WCPS: Loading and parsing XML Schema ...");
             DocumentBuilderFactory dbconfig = DocumentBuilderFactory.newInstance();
 
             dbconfig.setValidating(false);    // use XML schema not DTD
@@ -59,7 +63,7 @@ public class Wcps {
             dbconfig.setIgnoringElementContentWhitespace(true);    // remve the ignorable whitespace
 
             wcpsDocumentBuilder = dbconfig.newDocumentBuilder();
-            System.out.println("WCPS: Finished loading the schema !");
+            log.info("WCPS: Finished loading the schema !");
             
             this.dynamicMetadataSource = new DynamicMetadataSource(metadataSource);
             
@@ -76,59 +80,6 @@ public class Wcps {
 
     public List<byte[]> pcExecute(String url, String database, ProcessCoveragesRequest pcRequest) throws WCPSException {
         throw new WCPSException(ExceptionCode.ResourceError, "Method not implemented! pcExecute");
-
-        /*
-         *         List<RasQuery> queries = pcRequest.getQueries();
-         * List<byte[]> results = new ArrayList<byte[]>( queries.size() );
-         * synchronized( this ) {
-         * Implementation impl = new RasImplementation( url );
-         * Database db = impl.newDatabase();
-         * try {
-         * db.open( database, Database.OPEN_READ_ONLY );
-         * }
-         * catch( ODMGException odmge ) {
-         * try {
-         * db.close();
-         * }
-         * catch (ODMGException e) {}
-         * throw new WCPSException(ExceptionCode.ResourceError,  "Could not connect to rasdaman at " + url + ", database " +
-         *          database, odmge );
-         * }
-         * Transaction tr = impl.newTransaction();
-         * tr.begin();
-         * Iterator<RasQuery> queryIterator = queries.iterator();
-         * while( queryIterator.hasNext() ) {
-         * String query = queryIterator.next().toString();
-         * OQLQuery q = impl.newOQLQuery();
-         * DBag resultSet;
-         * try {
-         * q.create( query );
-         * resultSet = (DBag) q.execute();
-         * if( resultSet != null ) {
-         * Iterator resultIterator = resultSet.iterator();
-         * while( resultIterator.hasNext() ) {
-         * RasGMArray result = (RasGMArray) resultIterator.next();
-         * results.add( result.getArray() );
-         * }
-         * }
-         * }
-         * catch (QueryException qe) {
-         * tr.commit();
-         * try {
-         * db.close();
-         * }
-         * catch (ODMGException odmge) {}
-         * throw new ResourceException ( "Could not evaluate rasdaman query: '" + query + "'", qe );
-         * }
-         * }
-         * tr.commit();
-         * try {
-         * db.close();
-         * }
-         * catch (ODMGException odmge) {}
-         * }
-         * return results;
-         */
     }
 
     public ProcessCoveragesRequest pcPrepare(String url, String database, File f)

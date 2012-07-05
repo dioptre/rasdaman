@@ -21,6 +21,8 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 
@@ -31,6 +33,8 @@ import org.w3c.dom.*;
  * @author Andrei Aiordachioaie
  */
 public class RangeComponent implements IRasNode, ICoverageInfo {
+    
+    private static Logger log = LoggerFactory.getLogger(RangeComponent.class);
 
     private String field = null;
     private CoverageInfo info = null;
@@ -62,7 +66,7 @@ public class RangeComponent implements IRasNode, ICoverageInfo {
                 }
                 catch (WCPSException e)
                 {
-                    System.err.println("Could not match CoverageExpr inside RangeExpr. Next node: " + nodeName);
+                    log.error("Could not match CoverageExpr inside RangeExpr. Next node: " + nodeName);
                     throw e;
                 }
 

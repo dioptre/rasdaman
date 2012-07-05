@@ -21,12 +21,17 @@
  */
 package petascope.wcps.grammar;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * MetaDataExpr
  * Creation date: (3/3/2003 2:28:43 AM)
  * @author: mattia parigiani, Sorin Stancu-Mara, Andrei Aiordachioaie
  */
 public class MetaDataExpr implements IParseTreeNode {
+    
+    private static Logger log = LoggerFactory.getLogger(MetaDataExpr.class);
 
     CoverageExpr expr;
     String field;
@@ -82,7 +87,7 @@ public class MetaDataExpr implements IParseTreeNode {
             result += expr.toXML();
             result += "</" + function + ">";
         } else {
-            System.err.println("Unknown MetadataExpr operation: " + function);
+            log.error("Unknown MetadataExpr operation: " + function);
         }
 
         return result;

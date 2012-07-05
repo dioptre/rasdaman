@@ -27,10 +27,14 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.util.Pair;
 import petascope.util.WcsUtil;
 
 public class TrimCoverageExpr implements IRasNode, ICoverageInfo {
+    
+    private static Logger log = LoggerFactory.getLogger(TrimCoverageExpr.class);
     
     private List<DimensionIntervalElement> axisList;
     private CoverageExpr coverageExprType;
@@ -69,7 +73,7 @@ public class TrimCoverageExpr implements IRasNode, ICoverageInfo {
                 child = elem.getNextNode();
                 continue;
             } catch (WCPSException e) {
-                System.err.println("This was no Dimension Interval ELement: " + child.getNodeName());
+                log.error("This was no Dimension Interval ELement: " + child.getNodeName());
             }
 
             // else unknown element
@@ -87,7 +91,7 @@ public class TrimCoverageExpr implements IRasNode, ICoverageInfo {
 
         Iterator<DimensionIntervalElement> i = axisList.iterator();
 
-        System.out.println("Axis List count: " + axisList.size());
+        log.trace("Axis List count: " + axisList.size());
         DimensionIntervalElement axis;
         int axisId;
         int axisLo, axisHi;
@@ -95,14 +99,14 @@ public class TrimCoverageExpr implements IRasNode, ICoverageInfo {
         while (i.hasNext()) {
             axis = i.next();
             axisId = coverageInfo.getDomainIndexByName(axis.getAxisName());
-            System.out.println("Axis ID: " + axisId);
-            System.out.println("Axis name: " + axis.getAxisName());
-            System.out.print("Axis coords: ");
+            log.trace("Axis ID: " + axisId);
+            log.trace("Axis name: " + axis.getAxisName());
+            log.trace("Axis coords: ");
 
             axisLo = Integer.parseInt(axis.getLowCoord());
             axisHi = Integer.parseInt(axis.getHighCoord());
             dim[axisId] = axisLo + ":" + axisHi;
-            System.out.println(dim[axisId]);
+            log.trace(dim[axisId]);
             coverageInfo.setCellDimension(
                     axisId,
                     new CellDomainElement(

@@ -29,12 +29,16 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.LinkedList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 import petascope.exceptions.PetascopeException;
 import petascope.util.AxisTypes;
 import petascope.util.CrsUtil;
 
 public class ScalarExpr implements IRasNode, ICoverageInfo {
+    
+    private static Logger log = LoggerFactory.getLogger(ScalarExpr.class);
 
     private IRasNode child;
     private CoverageInfo info;
@@ -54,7 +58,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
         if (child == null) {
             try {
                 child = new MetadataScalarExpr(node, xq);
-                System.err.println("Matched metadata scalar expression.");
+                log.trace("Matched metadata scalar expression.");
             } catch (WCPSException e) {
                 child = null;
             }
@@ -64,7 +68,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
         if (child == null) {
             try {
                 child = new BooleanScalarExpr(node, xq);
-                System.err.println("Matched boolean scalar expression.");
+                log.trace("Matched boolean scalar expression.");
             } catch (WCPSException e) {
                 child = null;
             }
@@ -76,7 +80,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
                 child = new NumericScalarExpr(node, xq);
                 singleNumericValue = ((NumericScalarExpr) child).isSingleValue();
                 dvalue = ((NumericScalarExpr) child).getSingleValue();
-                System.err.println("Matched numeric scalar expression.");
+                log.trace("Matched numeric scalar expression.");
             } catch (WCPSException e) {
                 child = null;
             }
@@ -86,7 +90,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
         if (child == null) {
             try {
                 child = new ReduceScalarExpr(node, xq);
-                System.err.println("Matched reduce scalar expression.");
+                log.trace("Matched reduce scalar expression.");
             } catch (WCPSException e) {
                 child = null;
             }
@@ -96,7 +100,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
         if (child == null) {
             try {
                 child = new StringScalarExpr(node, xq);
-                System.err.println("Matched string scalar expression.");
+                log.trace("Matched string scalar expression.");
             } catch (WCPSException e) {
                 child = null;
             }

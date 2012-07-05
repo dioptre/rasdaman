@@ -21,10 +21,14 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 public class NumericScalarExpr implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(NumericScalarExpr.class);
 
     private IRasNode first, second;
     private String op, value;
@@ -81,16 +85,16 @@ public class NumericScalarExpr implements IRasNode {
                 first = new NumericScalarExpr(child, xq);
                 second = new NumericScalarExpr(child.getNextSibling(), xq);
             } catch (WCPSException e) {
-                System.err.println("Failed to parse a numeric expression pair !");
+                log.error("Failed to parse a numeric expression pair !");
             }
         } else if (nodeName.equals("variableRef")) {
             try {
                 op = code(nodeName);
                 twoChildren = false;
                 first = new VariableReference(node, xq);
-                System.err.println("Matched variable reference: " + first.toRasQL());
+                log.trace("Matched variable reference: " + first.toRasQL());
             } catch (WCPSException e) {
-                System.err.println("Failed to match variable reference: "
+                log.error("Failed to match variable reference: "
                         + e.toString());
             }
         } else {

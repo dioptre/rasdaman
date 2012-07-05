@@ -24,18 +24,12 @@ package petascope.wcps.server.core;
 import petascope.exceptions.PetascopeException;
 import petascope.exceptions.RasdamanException;
 import petascope.exceptions.WCPSException;
-import petascope.wcps.grammar.WCPSRequest;
-import petascope.wcps.grammar.wcpsLexer;
-import petascope.wcps.grammar.wcpsParser;
-import petascope.wcps.grammar.wcpsParser.wcpsRequest_return;
 import java.io.IOException;
 import java.io.StringReader;
-import org.antlr.runtime.RecognitionException;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonTokenStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 import petascope.exceptions.ExceptionCode;
 import petascope.util.ras.RasUtil;
@@ -47,6 +41,8 @@ import petascope.core.IDynamicMetadataSource;
  *
  */
 public class ProcessCoveragesRequest {
+
+    private static Logger log = LoggerFactory.getLogger(ProcessCoveragesRequest.class);
 
     private String database;
     private IDynamicMetadataSource source;
@@ -92,25 +88,20 @@ public class ProcessCoveragesRequest {
          * 2) the xml contains an <abstractSyntax> request
          */
         if (queryNode.getNodeName().equals("xmlSyntax")) {
-            System.err.println("Found XML Syntax query");
+            log.debug("Found XML Syntax query");
             this.xmlQuery = new XmlQuery(this.source);
             xmlQuery.startParsing(queryNode);
         } else if (queryNode.getNodeName().equals("abstractSyntax")) {
-            try {
                 String abstractQuery = queryNode.getFirstChild().getNodeValue();
-                System.err.println("Found Abstract Syntax query: " + abstractQuery);
-                String xmlString = abstractQueryToXmlQuery(abstractQuery);
+            log.debug("Found Abstract Syntax query: " + abstractQuery);
+            String xmlString = RasUtil.abstractWCPStoXML(abstractQuery);
                 InputSource xmlStringSource = new InputSource(new StringReader(xmlString));
-                System.err.println("Coverted the Abstract syntax query to an XML query:");
-                System.err.println("***********************************************");
-                System.err.println(xmlString);
-                System.err.println("***********************************************");
+            log.debug("Coverted the Abstract syntax query to an XML query:");
+            log.debug("***********************************************");
+            log.debug(xmlString);
+            log.debug("***********************************************");
                 ProcessCoveragesRequest newRequest = wcps.pcPrepare(url, database, xmlStringSource);
                 this.xmlQuery = newRequest.getXmlRequestStructure();
-            } catch (RecognitionException e) {
-                throw new WCPSException("Abstract Syntax query is invalid: "
-                        + e.getMessage());
-            }
         } else {
             throw new WCPSException("Error ! Unexpected node: " + queryNode.getNodeName());
         }

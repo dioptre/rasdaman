@@ -43,6 +43,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.core.Metadata;
 import petascope.util.CrsUtil;
+import petascope.util.ras.RasUtil;
 
 /**
  * This class takes a WCS GetCoverage XML request and converts this request into
@@ -102,7 +103,7 @@ public class convertGetCoverage {
     }
 
     /**
-     * * Retrieves the WCPS request object that is
+     * Retrieves the WCPS request object that is
      * equivalent to the WCS request. If it is not yet converted, it will
      * perform the conversion.
      *
@@ -117,9 +118,9 @@ public class convertGetCoverage {
 
             /* Convert the abstract syntax query to a ProcessCoveragesRequest */
             log.debug("Converting WCPS abstract query '{}' to xml", abstractRequest);
-            xmlRequest = ProcessCoveragesRequest.abstractQueryToXmlQuery(abstractRequest);
+            xmlRequest = RasUtil.abstractWCPStoXML(abstractRequest);
             log.debug("Resulting XML query is: \n{}", xmlRequest);
-        } catch (RecognitionException re) {
+        } catch (WCPSException re) {
             throw new WCSException(ExceptionCode.NoApplicableCode, "Internal error: Generated abstract syntax query was not valid.", re);
         }
 

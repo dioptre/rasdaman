@@ -71,7 +71,7 @@ public class DimensionPointElement implements IRasNode {
             }
 
             name = node.getNodeName();
-            System.err.println("Current node is " + name);
+            log.trace("Current node is " + name);
 
             // Try Axis
             try {
@@ -79,7 +79,7 @@ public class DimensionPointElement implements IRasNode {
                 node = node.getNextSibling();
                 continue;
             } catch (WCPSException e) {
-                System.err.println("Failed to parse an axis!");
+                log.error("Failed to parse an axis!");
             }
 
             // Try CRS name
@@ -91,7 +91,7 @@ public class DimensionPointElement implements IRasNode {
                 }
                 continue;
             } catch (WCPSException e) {
-                System.err.println("Failed to parse a crs!");
+                log.error("Failed to parse a crs!");
             }
 
             // TODO: how to implement DomainMetadataExpr ?
@@ -105,7 +105,7 @@ public class DimensionPointElement implements IRasNode {
 //            }
 //            catch (WCPSException e)
 //            {
-//                System.err.println("Failed to parse domain metadata!");
+//                log.error("Failed to parse domain metadata!");
 //            }
 
             // Then it must be a "slicingPosition"

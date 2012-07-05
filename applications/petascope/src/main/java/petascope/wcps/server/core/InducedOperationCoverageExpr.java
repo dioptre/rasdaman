@@ -21,10 +21,14 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo {
+    
+    private static Logger log = LoggerFactory.getLogger(InducedOperationCoverageExpr.class);
 
     private IRasNode child;
     private CoverageInfo info;
@@ -47,7 +51,7 @@ public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo {
                 try {
                     child = new UnaryOperationCoverageExpr(node, xq);
                     info = new CoverageInfo((((ICoverageInfo) child).getCoverageInfo()));
-                    System.err.println("*** Induced Operation SUCCESS: " + node.getNodeName());
+                    log.trace("Induced Operation SUCCESS: " + node.getNodeName());
                 } catch (WCPSException e) {
                     child = null;
                     if (e.getMessage().equals("Method not implemented")) {
@@ -60,7 +64,7 @@ public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo {
                 try {
                     child = new BinaryOperationCoverageExpr(node, xq);
                     info = new CoverageInfo((((ICoverageInfo) child).getCoverageInfo()));
-                    System.err.println("*** Binary Operation SUCCESS: " + node.getNodeName());
+                    log.trace("Binary Operation SUCCESS: " + node.getNodeName());
                 } catch (WCPSException e) {
                     child = null;
                 }

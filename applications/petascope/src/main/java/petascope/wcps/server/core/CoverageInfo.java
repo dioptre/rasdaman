@@ -26,8 +26,12 @@ import petascope.exceptions.WCPSException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CoverageInfo {
+    
+    private static Logger log = LoggerFactory.getLogger(CoverageInfo.class);
 
     private List<CellDomainElement> cellDomains;
     private List<DomainElement> domains;
@@ -69,7 +73,7 @@ public class CoverageInfo {
 
     public boolean isCompatible(CoverageInfo other) {
         if (getNumDimensions() != other.getNumDimensions()) {
-            System.err.println("The number of dimensions doesn't match");
+            log.error("The number of dimensions doesn't match");
             return false;
         }
 
@@ -84,14 +88,14 @@ public class CoverageInfo {
                 you = other.getCellDomainElement(index++);
 
                 if (!me.getHi().equals(you.getHi())) {
-                    System.err.println("High values don't match: "
+                    log.error("High values don't match: "
                             + me.getHi().toString() + ", "
                             + you.getHi().toString());
                     return false;
                 }
 
                 if (!me.getLo().equals(you.getLo())) {
-                    System.err.println("Low values don't match: "
+                    log.error("Low values don't match: "
                             + me.getLo().toString() + ", "
                             + you.getLo().toString());
                     return false;
@@ -109,7 +113,7 @@ public class CoverageInfo {
                 you = other.getDomainElement(index++);
 
                 if (!me.getName().equals(you.getName())) {
-                    System.err.println("Domain element names don't match: '"
+                    log.error("Domain element names don't match: '"
                             + me.getName() + "' and '"
                             + you.getName() + "'.");
                     return false;
@@ -167,7 +171,7 @@ public class CoverageInfo {
             index++;
         }
 
-        System.err.println("ERROR: Axis name not found: " + name);
+        log.error("Axis name not found: " + name);
         throw new WCPSException("Domain name not found: " + name);
     }
 

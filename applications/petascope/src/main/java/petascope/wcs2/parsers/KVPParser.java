@@ -25,6 +25,8 @@ package petascope.wcs2.parsers;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.WCSException;
 import petascope.util.ListUtil;
@@ -37,6 +39,8 @@ import petascope.wcs2.handlers.RequestHandler;
  * @author <a href="mailto:d.misev@jacobs-university.de">Dimitar Misev</a>
  */
 public abstract class KVPParser<T extends Request> extends AbstractRequestParser<T> {
+    
+    private static Logger log = LoggerFactory.getLogger(KVPParser.class);
 
     @Override
     public boolean canParse(String input) {
@@ -67,7 +71,7 @@ public abstract class KVPParser<T extends Request> extends AbstractRequestParser
         if (!RequestHandler.GET_CAPABILITIES.equals(request)) {
             String version = get("version", m);
             if (version == null || !version.matches(BaseRequest.VERSION)) {
-                System.err.println("Version = " + version);
+                log.error("Version = " + version);
                 throw new WCSException(ExceptionCode.InvalidEncodingSyntax.locator("version"));
             }
         }

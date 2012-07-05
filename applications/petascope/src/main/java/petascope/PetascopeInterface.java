@@ -62,6 +62,7 @@ import petascope.util.Pair;
 import petascope.util.StringUtil;
 import petascope.util.XMLUtil;
 import petascope.util.ras.RasQueryResult;
+import petascope.util.ras.RasUtil;
 import petascope.wcs.server.WcsServer;
 import petascope.wcs2.extensions.ExtensionsRegistry;
 import petascope.wcs2.extensions.FormatExtension;
@@ -280,7 +281,7 @@ public class PetascopeInterface extends HttpServlet {
                 }
                 if (request2 != null) {
                     log.debug("Received Abstract Syntax Request via GET: \n\t\t{}", request2);
-                    request2 = ProcessCoveragesRequest.abstractQueryToXmlQuery(request2);
+                    request2 = RasUtil.abstractWCPStoXML(request2);
                 }
                 if (request == null && request2 != null) {
                     request = request2;
