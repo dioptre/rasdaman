@@ -21,10 +21,14 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 public class BooleanScalarExpr implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(BooleanScalarExpr.class);
 
     private IRasNode first, second;
     private String op;
@@ -122,7 +126,7 @@ public class BooleanScalarExpr implements IRasNode {
             throw new WCPSException("Unexpected Binary Expression node : "
                     + node.getNodeName());
         }
-        System.err.println("*** Boolean Scalar Expr SUCCESS: " + node.getNodeName());
+        log.trace("Boolean Scalar Expr SUCCESS: " + node.getNodeName());
     }
 
     public String toRasQL() {

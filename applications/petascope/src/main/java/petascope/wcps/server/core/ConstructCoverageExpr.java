@@ -139,7 +139,7 @@ public class ConstructCoverageExpr implements IRasNode, ICoverageInfo {
             String axisName = ai.getVar();
             String axisType = ai.getAxisType();
             cellDomainList.add(new CellDomainElement(ai.getLow(), ai.getHigh(), axisType));
-            String crs = CrsUtil.WGS84_URI;
+            String crs = CrsUtil.IMAGE_CRS;
             HashSet<String> crsset = new HashSet<String>();
             crsset.add(crs);
             DomainElement domain = new DomainElement(axisName, axisType,

@@ -21,11 +21,15 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 import petascope.exceptions.ExceptionCode;
 
 public class AxisName implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(AxisName.class);
 
     private String name;
 
@@ -33,10 +37,13 @@ public class AxisName implements IRasNode {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
+        
+        log.trace(node.getNodeName());
 
         if (node != null && node.getNodeName().equals("axis")) {
             String axis = node.getTextContent();
             this.name = axis;
+            log.trace("  axis name: " + name);
         } else {
             throw new WCPSException(ExceptionCode.InvalidRequest, "Could not find an axis node !");
         }

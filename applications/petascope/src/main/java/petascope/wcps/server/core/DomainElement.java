@@ -25,6 +25,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.WCPSException;
 import petascope.util.AxisTypes;
@@ -34,6 +36,8 @@ import petascope.util.CrsUtil;
  * This is an axis in geographic coordinates. See the WCPS standard.
  */
 public class DomainElement implements Cloneable {
+    
+    private static Logger log = LoggerFactory.getLogger(DomainElement.class);
 
     //public static final String WGS84_CRS = "http://www.opengis.net/def/crs/EPSG/0/4326";
     //public static final String IMAGE_CRS = "CRS:1";
@@ -116,7 +120,8 @@ public class DomainElement implements Cloneable {
         }
 
         this.crss = crss;
-
+        
+        log.trace(toString());
     }
 
     @Override

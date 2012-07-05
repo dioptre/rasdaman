@@ -24,9 +24,13 @@ package petascope.wcps.server.core;
 import petascope.exceptions.WCPSException;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 
 public class RangeCoverageExpr implements IRasNode, ICoverageInfo {
+    
+    private static Logger log = LoggerFactory.getLogger(RangeCoverageExpr.class);
 
     private IRasNode child;
     private CoverageInfo info = null;
@@ -34,6 +38,8 @@ public class RangeCoverageExpr implements IRasNode, ICoverageInfo {
 
     public RangeCoverageExpr(Node node, XmlQuery xq)
             throws WCPSException {
+        
+        log.trace(node.getNodeName());
 
         components = new ArrayList<IRasNode>();
 
@@ -42,8 +48,6 @@ public class RangeCoverageExpr implements IRasNode, ICoverageInfo {
 
         if (node.getNodeName().equals("#text"))
                 node = node.getNextSibling();
-
-        String nodeName = node.getNodeName();
 
         while (node != null) {
             if (node.getNodeName().equals("#text")) {

@@ -21,6 +21,8 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
@@ -32,18 +34,19 @@ import org.w3c.dom.*;
  */
 public class CrsTransformCoverageExpr implements IRasNode, ICoverageInfo {
     
-    private static final boolean ENTERPRISE = false;
+    private static Logger log = LoggerFactory.getLogger(CrsTransformCoverageExpr.class);
     
     public CrsTransformCoverageExpr(Node node, XmlQuery xq)
             throws WCPSException {
+        log.trace(node.getNodeName());
         // Call function to reproject the bounding box:
-        if (ENTERPRISE) {
-            //  foreach XYplane slice (=spatialcoverage)
+
+        //  foreach XYplane slice (=spatialcoverage)
             //      extract xy pixels 
             //      project(arr, bbox, s_crs, t_crs);
             //      replace it in the ...DOVE? data is returned in executeRasqlQuery..
             // end
-        } else throw new WCPSException(ExceptionCode.InvalidEncodingSyntax, "crsTransform expression not allowed.");
+        throw new WCPSException(ExceptionCode.NoApplicableCode, "crsTransform expression not implemented.");
     }
 
     @Override

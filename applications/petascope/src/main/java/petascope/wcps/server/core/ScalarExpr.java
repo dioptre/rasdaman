@@ -49,6 +49,8 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
+        
+        log.trace(node.getNodeName());
 
         // Try one of the groups
         child = null;
@@ -58,7 +60,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
         if (child == null) {
             try {
                 child = new MetadataScalarExpr(node, xq);
-                log.trace("Matched metadata scalar expression.");
+                log.trace("  matched metadata scalar expression.");
             } catch (WCPSException e) {
                 child = null;
             }
@@ -68,7 +70,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
         if (child == null) {
             try {
                 child = new BooleanScalarExpr(node, xq);
-                log.trace("Matched boolean scalar expression.");
+                log.trace("  matched boolean scalar expression.");
             } catch (WCPSException e) {
                 child = null;
             }
@@ -80,7 +82,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
                 child = new NumericScalarExpr(node, xq);
                 singleNumericValue = ((NumericScalarExpr) child).isSingleValue();
                 dvalue = ((NumericScalarExpr) child).getSingleValue();
-                log.trace("Matched numeric scalar expression.");
+                log.trace("  matched numeric scalar expression.");
             } catch (WCPSException e) {
                 child = null;
             }
@@ -90,7 +92,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
         if (child == null) {
             try {
                 child = new ReduceScalarExpr(node, xq);
-                log.trace("Matched reduce scalar expression.");
+                log.trace("  matched reduce scalar expression.");
             } catch (WCPSException e) {
                 child = null;
             }
@@ -100,7 +102,7 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
         if (child == null) {
             try {
                 child = new StringScalarExpr(node, xq);
-                log.trace("Matched string scalar expression.");
+                log.trace("  matched string scalar expression.");
             } catch (WCPSException e) {
                 child = null;
             }
@@ -108,8 +110,8 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
 
         // Error check
         if (child == null) {
-            throw new WCPSException("Invalid coverage Expression, next node: "
-                    + node.getNodeName());
+            log.error("  invalid coverage Expression, next node: " + node.getNodeName());
+            throw new WCPSException("Invalid coverage Expression, next node: " + node.getNodeName());
         }
 
         Metadata meta = createScalarExprMetadata(xq);

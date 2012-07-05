@@ -54,6 +54,7 @@ public class DynamicMetadataSource implements IDynamicMetadataSource {
     private IMetadataSource metadataSource;
 
     public DynamicMetadataSource(IMetadataSource metadataSource) throws PetascopeException {
+        log.trace("Creating dynamic metadata source from: " + metadataSource.getClass().getSimpleName());
         this.metadataSource = metadataSource;
         staticCoverageNames = metadataSource.coverages();
         dynamicCoverageNames = new HashSet<String>();
@@ -61,22 +62,22 @@ public class DynamicMetadataSource implements IDynamicMetadataSource {
         metadata = new HashMap<String, Metadata>();
 
         // Init metadata for static coverages
-        Iterator<String> i = staticCoverageNames.iterator();
-        while (i.hasNext()) {
-            String coverage = i.next();
-            // catch any possible exception thrown while the coverage is being read:
-            // it's not good to bring down petascope just because one coverage can't be read
-            try {
-                metadata.put(coverage, metadataSource.read(coverage));
-            } catch (PetascopeException ex) {
-                log.error("Error reading the coverage " + coverage + " from the database", ex);
-            }
-        }
+//        Iterator<String> i = staticCoverageNames.iterator();
+//        while (i.hasNext()) {
+//            String coverage = i.next();
+//            // catch any possible exception thrown while the coverage is being read:
+//            // it's not good to bring down petascope just because one coverage can't be read
+//            try {
+//                metadata.put(coverage, metadataSource.read(coverage));
+//            } catch (PetascopeException ex) {
+//                log.error("Error reading the coverage " + coverage + " from the database", ex);
+//            }
+//        }
     }
 
     @Override
     public Set<String> coverages() throws PetascopeException {
-        return metadataSource.coverages();
+        return allCoverageNames;
     }
 
     @Override
@@ -86,21 +87,29 @@ public class DynamicMetadataSource implements IDynamicMetadataSource {
 
     @Override
     public Metadata read(String coverageName) throws PetascopeException {
+        log.trace("Reading metadata for dynamic coverage: " + coverageName);
         if ((coverageName == null) || coverageName.equals("")) {
             throw new PetascopeException(ExceptionCode.InvalidRequest,
                     "Cannot retrieve coverage with null or empty name");
         }
-
+        
+        log.trace("coverages: " + this.coverages().toString());
         if (!this.coverages().contains(coverageName)) {
             throw new PetascopeException(ExceptionCode.InvalidRequest,
                     "Coverage '" + coverageName + "' is not served by this server");
         }
 
-        return metadataSource.read(coverageName);
+        if (dynamicCoverageNames.contains(coverageName)) {
+            // dynamic coverage
+            return metadata.get(coverageName);
+        } else {
+            return metadataSource.read(coverageName);
+        }
     }
 
     @Override
     public void addDynamicMetadata(String coverageName, Metadata meta) {
+        log.trace("adding dynamic metadata for coverage: " + coverageName);
         metadata.put(coverageName, meta);
         dynamicCoverageNames.add(coverageName);
         allCoverageNames = staticCoverageNames;

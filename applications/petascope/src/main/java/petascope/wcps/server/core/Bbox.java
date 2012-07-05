@@ -34,6 +34,8 @@ import petascope.exceptions.WCPSException;
 import petascope.exceptions.WCSException;
 import petascope.util.CrsUtil;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *  Generalization of Wgs84Crs class (the source is almost cloned).
@@ -53,6 +55,8 @@ import java.util.List;
  * @author <a href="mailto:cmppri@unife.it">Piero Campalani</a>
  */
 public class Bbox implements Cloneable {
+    
+    private static Logger log = LoggerFactory.getLogger(Bbox.class);
 
     private String crsName;
     private Double low1;
@@ -108,6 +112,8 @@ public class Bbox implements Cloneable {
                 //throw (WCSException)e;
             }
         }
+        
+        log.trace(toString());
     }
 
     @Override

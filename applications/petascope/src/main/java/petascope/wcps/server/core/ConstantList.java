@@ -42,6 +42,8 @@ public class ConstantList implements IRasNode {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
+        
+        log.trace(node.getNodeName());
 
         while (node != null) {
             String nodeName = node.getNodeName();
@@ -49,9 +51,11 @@ public class ConstantList implements IRasNode {
             if (nodeName.equals("value")) {
                 val = node.getTextContent();
                 checkConstant(val);
+                log.trace("  adding value: " + val);
                 list.add(val);
                 lastNode = node;
             } else {
+                log.error("  unknown node in constant list: " + nodeName);
                 throw new WCPSException("Unknown node in ConstantList: " + nodeName);
             }
 
@@ -61,7 +65,7 @@ public class ConstantList implements IRasNode {
             }
         }
 
-        log.trace("Parsed constant list with " + list.size() + " elements");
+        log.trace("  parsed constant list with " + list.size() + " elements");
     }
 
     private void checkConstant(String val) throws WCPSException {

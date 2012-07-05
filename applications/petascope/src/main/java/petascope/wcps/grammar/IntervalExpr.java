@@ -21,23 +21,29 @@
  */
 package petascope.wcps.grammar;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * IntervalExpr
  *
  * @author Andrei Aiordachioaie
  */
 public class IntervalExpr implements IParseTreeNode {
+    private static Logger log = LoggerFactory.getLogger(IntervalExpr.class);
 
     IParseTreeNode e1, e2;
     String function;
 
     public IntervalExpr(IndexExpr n1, IndexExpr n2) {
+        log.trace("Creating IntervalExpr of two indexes");
         this.e1 = n1;
         this.e2 = n2;
         function = "two indexes";
     }
 
     public IntervalExpr(String coverage, String axis) {
+        log.trace("Creating IntervalExpr of coverage: " + coverage + " and axis: " + axis);
         function = "crs metadata";
         this.e1 = new ImageCrsDomainMetadataExpr(coverage, axis);
     }

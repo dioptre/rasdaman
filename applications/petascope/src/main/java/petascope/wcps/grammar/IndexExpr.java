@@ -21,12 +21,17 @@
  */
 package petascope.wcps.grammar;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * IndexExpr
  *
  * @author Andrei Aiordachioaie
  */
 public class IndexExpr implements IParseTreeNode {
+    
+    private static Logger log = LoggerFactory.getLogger(IndexExpr.class);
 
     String constant;
     IParseTreeNode e1, e2;
@@ -34,17 +39,20 @@ public class IndexExpr implements IParseTreeNode {
     String op;
 
     public IndexExpr(String constant) {
+        log.trace("IndexExpr: " + constant);
         function = "constant";
         this.constant = constant;
     }
 
     public IndexExpr(String op, NumericScalarExpr e1) {
+        log.trace("IndexExpr: " + op + " num");
         this.op = op;
         this.e1 = e1;
         function = "op1";
     }
 
     public IndexExpr(String op, IndexExpr e1, IndexExpr e2) {
+        log.trace("IndexExpr: a " + op + " b");
         this.op = op;
         this.e1 = e1;
         this.e2 = e2;

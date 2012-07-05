@@ -76,7 +76,7 @@ function cleanup()
   fi
 
   log "cleanup..."
-  raserase_colls
+  #raserase_colls
   [ $failed -eq 0 ]
   exit
 }
@@ -97,9 +97,13 @@ check_postgres
 check_rasdaman
 check_wget
 
-raserase_colls
-$RASIMPORT -f "$TESTDATA_PATH"/rgb.png -coll rgb || error "failed importing testdata"
-$RASIMPORT -f "$TESTDATA_PATH"/mr_1.png -coll mr || error "failed importing testdata"
+check_collection rgb
+if [ $? -ne 0 ]; then
+  raserase_colls
+
+  $RASIMPORT -f "$TESTDATA_PATH"/rgb.png -coll rgb -t RGBImage:RGBSet || error "failed importing testdata"
+  $RASIMPORT -f "$TESTDATA_PATH"/mr_1.png -coll mr || error "failed importing testdata"
+fi
 
 mkdir -p "$OUTPUT_PATH"
 pushd "$QUERIES_PATH" > /dev/null

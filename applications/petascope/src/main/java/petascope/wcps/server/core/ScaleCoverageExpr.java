@@ -44,6 +44,7 @@ public class ScaleCoverageExpr implements IRasNode, ICoverageInfo {
     private FieldInterpolationElement fieldInterp;
 
     public ScaleCoverageExpr(Node node, XmlQuery xq) throws WCPSException {
+        log.trace(node.getNodeName());
         Node child;
         String nodeName;
 
@@ -58,37 +59,32 @@ public class ScaleCoverageExpr implements IRasNode, ICoverageInfo {
                 continue;
             }
 
-            try {
-                coverageExprType = new CoverageExpr(child, xq);
-                coverageInfo = coverageExprType.getCoverageInfo();
-                child = child.getNextSibling();
-                continue;
-            } catch (WCPSException e) {
-            }
-
-            try {
+            if (nodeName.equals("axis")) {
                 // Start a new axis and save it
+                log.trace("  axis");
                 elem = new DimensionIntervalElement(child, xq, coverageInfo);
                 axisList.add(elem);
                 child = elem.getNextNode();
-                continue;
-            } catch (WCPSException e) {
-                log.error("This was no Dimension Interval ELement: " + child.getNodeName());
-            }
-
-            try {
+            } else if (nodeName.equals("name")) {
+                log.trace("  field interpolation");
                 fieldInterp = new FieldInterpolationElement(child, xq);
                 child = fieldInterp.getNextNode();
-                continue;
-            } catch (WCPSException e) {
-                log.error("This was no Field Interpolation Element: " + child.getNodeName());
+            } else {
+                // has to be the coverage expression
+                try {
+                    log.trace("  coverage expression");
+                    coverageExprType = new CoverageExpr(child, xq);
+                    coverageInfo = coverageExprType.getCoverageInfo();
+                    child = child.getNextSibling();
+                } catch (WCPSException ex) {
+                    log.error("  unknown node for ScaleCoverageExpr expression:" + child.getNodeName());
+                    throw new WCPSException(ExceptionCode.InvalidMetadata, "Unknown node for ScaleCoverageExpr expression:" + child.getNodeName());
+                }
             }
-
-            // else unknown element
-            throw new WCPSException(ExceptionCode.InvalidMetadata, "Unknown node for ScaleCoverageExpr expression:" + child.getNodeName());
         }
 
         dims = coverageInfo.getNumDimensions();
+        log.trace("  number of dimensions: " + dims);
         dim = new String[dims];
 
         for (int j = 0; j < dims; ++j) {
@@ -98,7 +94,7 @@ public class ScaleCoverageExpr implements IRasNode, ICoverageInfo {
 
         Iterator<DimensionIntervalElement> i = axisList.iterator();
 
-        log.trace("Axis List count:" + axisList.size());
+        log.trace("  axis List count:" + axisList.size());
         DimensionIntervalElement axis;
         int axisId;
         int axisLo, axisHi;
@@ -106,15 +102,15 @@ public class ScaleCoverageExpr implements IRasNode, ICoverageInfo {
         while (i.hasNext()) {
             axis = i.next();
             axisId = coverageInfo.getDomainIndexByName(axis.getAxisName());
-            log.trace("Axis ID: " + axisId);
-            log.trace("Axis name: " + axis.getAxisName());
-            log.trace("Axis coords: ");
+            log.trace("    axis ID: " + axisId);
+            log.trace("    axis name: " + axis.getAxisName());
 
             axisLo = Integer.parseInt(axis.getLowCoord());
             axisHi = Integer.parseInt(axis.getHighCoord());
             dim[axisId] = axisLo + ":" + axisHi;
-            coverageInfo.setCellDimension(
-                    axisId,
+            log.trace("    axis coords: " + dim[axisId]);
+            
+            coverageInfo.setCellDimension(axisId,
                     new CellDomainElement(
                     BigInteger.valueOf(axisLo), BigInteger.valueOf(axisHi), axis.getAxisName()));
         }

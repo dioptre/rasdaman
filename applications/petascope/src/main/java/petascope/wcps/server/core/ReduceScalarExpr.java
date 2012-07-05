@@ -21,15 +21,20 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 public class ReduceScalarExpr implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(ReduceScalarExpr.class);
 
     CoverageExpr expr;
     String op;
 
     public ReduceScalarExpr(Node node, XmlQuery xq) throws WCPSException {
+        log.trace(node.getNodeName());
         if (node.getNodeName().equals("reduce")) {
             node = node.getFirstChild();
         }
@@ -47,6 +52,7 @@ public class ReduceScalarExpr implements IRasNode {
             if (!op.equals("all") && !op.equals("some")) {
                 op = op + "_cells";
             }
+            log.trace("  reduce operation: " + op);
 
             node = node.getFirstChild();
 
@@ -56,7 +62,7 @@ public class ReduceScalarExpr implements IRasNode {
 
             expr = new CoverageExpr(node, xq);
         } else {
-            throw new WCPSException("invalid ReduceScalarExprType node : " + nodeName);
+            throw new WCPSException("invalid ReduceScalarExprType node: " + nodeName);
         }
     }
 

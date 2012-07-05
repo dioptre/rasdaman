@@ -40,6 +40,7 @@ public class EncodeDataExpr implements IRasNode {
     public EncodeDataExpr(Node node, XmlQuery request) throws WCPSException {
         Node child;
         String nodeName;
+        log.trace(node.getNodeName());
 
         for (child = node.getFirstChild(); child != null; child = child.getNextSibling()) {
             nodeName = child.getNodeName();
@@ -48,16 +49,16 @@ public class EncodeDataExpr implements IRasNode {
                 continue;
             }
 
-            log.trace("Encode : node : " + child.getNodeName());
-
             if (nodeName.equals("format")) {
                 format = child.getFirstChild().getNodeValue();
                 mime = request.getMetadataSource().formatToMimetype(format);
+                log.trace("  format: " + format + ", mime: " + mime);
                 continue;
             }
 
             if (nodeName.equals("extraParameters")) {
                 extraParams = child.getFirstChild().getNodeValue();
+                log.trace("  extra params: " + extraParams);
                 continue;
             }
 
@@ -65,7 +66,6 @@ public class EncodeDataExpr implements IRasNode {
         }
 
         Node _store = node.getAttributes().getNamedItem("store");
-
         if (_store != null) {
             store = _store.getNodeValue().equals("true");
         }

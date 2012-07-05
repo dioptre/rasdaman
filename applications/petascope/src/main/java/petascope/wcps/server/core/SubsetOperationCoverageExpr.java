@@ -21,12 +21,16 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 import petascope.util.Pair;
 
 // TODO: Implement class SubsetOperation
 public class SubsetOperationCoverageExpr implements IRasNode, ICoverageInfo {
+    
+    private static Logger log = LoggerFactory.getLogger(SubsetOperationCoverageExpr.class);
 
     private IRasNode child;
     private CoverageInfo info = null;
@@ -43,17 +47,22 @@ public class SubsetOperationCoverageExpr implements IRasNode, ICoverageInfo {
         }
 
         String nodeName = node.getNodeName();
+        log.trace(nodeName);
 
         if (nodeName.equals("trim")) {
+            log.trace("  trim child");
             child = new TrimCoverageExpr(node, xq);
             info = ((TrimCoverageExpr) child).getCoverageInfo();
         } else if (nodeName.equals("extend")) {
+            log.trace("  extend child");
             child = new ExtendCoverageExpr(node, xq);
             info = ((ExtendCoverageExpr) child).getCoverageInfo();
         } else if (nodeName.equals("slice")) {
+            log.trace("  slice child");
             child = new SliceCoverageExpr(node, xq);
             info = ((SliceCoverageExpr) child).getCoverageInfo();
         } else {
+            log.error("  failed to match SubsetOperation: " + nodeName);
             throw new WCPSException("Failed to match SubsetOperation: " + nodeName);
         }
     }

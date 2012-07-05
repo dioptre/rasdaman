@@ -44,7 +44,9 @@ public class TrimCoverageExpr implements IRasNode, ICoverageInfo {
     private DimensionIntervalElement elem;
 
     public TrimCoverageExpr(Node node, XmlQuery xq) throws WCPSException {
-        Node child, axisNode;
+        log.trace(node.getNodeName());
+        
+        Node child;
         String nodeName;
 
         axisList = new ArrayList<DimensionIntervalElement>();
@@ -58,30 +60,29 @@ public class TrimCoverageExpr implements IRasNode, ICoverageInfo {
                 continue;
             }
 
-            try {
-                coverageExprType = new CoverageExpr(child, xq);
-                coverageInfo = coverageExprType.getCoverageInfo();
-                child = child.getNextSibling();
-                continue;
-            } catch (WCPSException e) {
-            }
-
-            try {
+            if (nodeName.equals("axis")) {
                 // Start a new axis and save it
+                log.trace("  axis");
                 elem = new DimensionIntervalElement(child, xq, coverageInfo);
                 axisList.add(elem);
                 child = elem.getNextNode();
-                continue;
-            } catch (WCPSException e) {
-                log.error("This was no Dimension Interval ELement: " + child.getNodeName());
+            } else {
+                try {
+                    log.trace("  coverage");
+                    coverageExprType = new CoverageExpr(child, xq);
+                    coverageInfo = coverageExprType.getCoverageInfo();
+                    child = child.getNextSibling();
+                    continue;
+                } catch (WCPSException e) {
+                    log.error("  expected coverage node, got " + nodeName);
+                    throw new WCPSException("Unknown node for TrimCoverage expression:" + child.getNodeName());
+                }
             }
-
-            // else unknown element
-            throw new WCPSException("Unknown node for TrimCoverage expression:" + child.getNodeName());
         }
         
         // Afterward
         dims = coverageInfo.getNumDimensions();
+        log.trace("  number of dimensions: " + dims);
         dim = new String[dims];
 
         for (int j = 0; j < dims; ++j) {
@@ -91,7 +92,7 @@ public class TrimCoverageExpr implements IRasNode, ICoverageInfo {
 
         Iterator<DimensionIntervalElement> i = axisList.iterator();
 
-        log.trace("Axis List count: " + axisList.size());
+        log.trace("  axis list count: " + axisList.size());
         DimensionIntervalElement axis;
         int axisId;
         int axisLo, axisHi;
@@ -99,14 +100,13 @@ public class TrimCoverageExpr implements IRasNode, ICoverageInfo {
         while (i.hasNext()) {
             axis = i.next();
             axisId = coverageInfo.getDomainIndexByName(axis.getAxisName());
-            log.trace("Axis ID: " + axisId);
-            log.trace("Axis name: " + axis.getAxisName());
-            log.trace("Axis coords: ");
+            log.trace("    axis ID: " + axisId);
+            log.trace("    axis name: " + axis.getAxisName());
 
             axisLo = Integer.parseInt(axis.getLowCoord());
             axisHi = Integer.parseInt(axis.getHighCoord());
             dim[axisId] = axisLo + ":" + axisHi;
-            log.trace(dim[axisId]);
+            log.trace("    axis coords: " + dim[axisId]);
             coverageInfo.setCellDimension(
                     axisId,
                     new CellDomainElement(

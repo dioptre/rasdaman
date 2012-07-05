@@ -39,11 +39,13 @@ public class NumericScalarExpr implements IParseTreeNode {
     NumericScalarExpr leftNumericScalarExpr, rightNumericScalarExpr;
 
     public NumericScalarExpr(CondenseExpr c) {
+        log.trace("NumericScalarExpr condense");
         condense = c;
         function = "condense";
     }
 
     public NumericScalarExpr(String val) {
+        log.trace("NumericScalarExpr " + val);
         if (val.contains("+i")) {
             ComplexConst cc = new ComplexConst(val);
 
@@ -56,6 +58,7 @@ public class NumericScalarExpr implements IParseTreeNode {
     }
 
     public NumericScalarExpr(String op, NumericScalarExpr expr) {
+        log.trace("NumericScalarExpr " + op + " num");
         leftNumericScalarExpr = expr;
 
         if (op.equals("-")) {
@@ -72,6 +75,7 @@ public class NumericScalarExpr implements IParseTreeNode {
     }
 
     public NumericScalarExpr(String varOp, String varName) {
+        log.trace("NumericScalarExpr " + varOp + ", " + varName);
         if (varOp.equals("var")) {
             function = "variableRef";
             constValue = varName;
@@ -81,6 +85,7 @@ public class NumericScalarExpr implements IParseTreeNode {
     }
 
     public NumericScalarExpr(String op, NumericScalarExpr lbe, NumericScalarExpr rbe) {
+        log.trace("NumericScalarExpr a " + op + " b");
         leftNumericScalarExpr = lbe;
         rightNumericScalarExpr = rbe;
 

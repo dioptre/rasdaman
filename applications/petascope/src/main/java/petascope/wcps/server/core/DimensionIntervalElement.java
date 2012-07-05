@@ -60,6 +60,11 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
     public DimensionIntervalElement(Node node, XmlQuery xq, CoverageInfo covInfo)
             throws WCPSException {
 
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
+        log.trace(node.getNodeName());
+        
         if (covInfo.getCoverageName() != null) {
             // Add Bbox information from coverage metadata, may be useful
             // for converting geo-coordinates to pixel-coordinates
@@ -67,14 +72,9 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
             try {
                 meta = xq.getMetadataSource().read(coverageName);
             } catch (Exception ex) {
+                log.error(ex.getMessage());
                 throw new WCPSException(ex.getMessage(), ex);
             }
-        }
-
-        String name;
-
-        while ((node != null) && node.getNodeName().equals("#text")) {
-            node = node.getNextSibling();
         }
 
         while (node != null && finished == false) {
@@ -82,8 +82,6 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
                 node = node.getNextSibling();
                 continue;
             }
-
-            name = node.getNodeName();
 
             // Try Axis
             try {
@@ -123,15 +121,18 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
                 counter = 2;
                 domain1 = new ScalarExpr(node.getFirstChild(), xq);
                 if (axis == null) {
+                    log.error("Expected <axis> node before <lowerBound> !");
                     throw new WCPSException("Expected <axis> node before <lowerBound> !");
                 }
             } else if (node.getNodeName().equals("upperBound")) {
                 counter = 2;
                 domain2 = new ScalarExpr(node.getFirstChild(), xq);
                 if (axis == null) {
+                    log.error("Expected <lowerBound> node before <upperBound> !");
                     throw new WCPSException("Expected <lowerBound> node before <upperBound> !");
                 }
             } else {
+                log.error("  unexpected node: " + node.getFirstChild().getNodeName());
                 throw new WCPSException("Unexpected node: " + node.getFirstChild().getNodeName());
             }
 
@@ -158,10 +159,10 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
               Iterator<String> crsIt = axisDomain.getCrsSet().iterator();
               if (crsIt.hasNext()) {
                 String crsname = crsIt.next();
-                log.info("Using native CRS: " + crsname);
+                log.info("  Using native CRS: " + crsname);
                 crs = new Crs(crsname);
               } else {
-                log.warn("No native CRS specified for axis " + axisName + ", assuming pixel coordinates.");
+                log.warn("  No native CRS specified for axis " + axisName + ", assuming pixel coordinates.");
                 crs = new Crs(CrsUtil.IMAGE_CRS);
               }
             }

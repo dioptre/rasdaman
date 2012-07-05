@@ -2,4 +2,4 @@ for clouds in ( mr),
 	mask in ( mr) 
 return encode( 
 	(char) clouds[ x(0) ] * (mask[ x(0) ] = 0)
-, "png" )
+, "csv" )

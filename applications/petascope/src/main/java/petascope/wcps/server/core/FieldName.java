@@ -42,11 +42,12 @@ public class FieldName implements IRasNode {
         }
 
         String nodeName = node.getNodeName();
+        log.trace(nodeName);
 
         if (nodeName.equals("name")) {
             this.name = node.getTextContent();
 
-            log.trace("Found field name: " + name);
+            log.trace("  found field name: " + name);
         }
     }
 

@@ -41,15 +41,16 @@ public class Crs implements IRasNode {
      }
 
     public Crs(Node node, XmlQuery xq) throws WCPSException {
-             while ((node != null) && node.getNodeName().equals("#text")) {
+        while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
+        log.trace(node.getNodeName());
 
         if (node != null && node.getNodeName().equals("srsName")) {
             String val = node.getTextContent();
             this.crsName = val;
             //if (crsName.equals(DomainElement.IMAGE_CRS) || crsName.equals(DomainElement.WGS84_CRS)) {
-                log.trace("Found CRS: " + crsName);
+                log.trace("  found CRS: " + crsName);
             //} else {
             //    throw new WCPSException("Invalid CRS: '" + crsName + "'");
             //}

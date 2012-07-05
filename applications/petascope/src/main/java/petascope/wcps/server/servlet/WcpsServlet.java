@@ -169,10 +169,7 @@ public class WcpsServlet extends HttpServlet {
                 }
             }
             
-            log.debug("WCPS: received the following request:");
-            log.debug(xmlRequest);
-            
-            log.debug("WCPS: preparing request");
+            log.debug("Converting to rasql");
             ProcessCoveragesRequest processCoverageRequest = wcps.pcPrepare(
                     ConfigManager.RASDAMAN_URL, ConfigManager.RASDAMAN_DATABASE, IOUtils.toInputStream(xmlRequest));
             

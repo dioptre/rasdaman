@@ -23,9 +23,13 @@ package petascope.wcps.server.core;
 
 import petascope.exceptions.WCPSException;
 import java.util.Vector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 
 public class CondenseScalarExpr implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(CondenseScalarExpr.class);
 
     private CondenseOperation op;
     private Vector<AxisIterator> iterators;
@@ -41,6 +45,8 @@ public class CondenseScalarExpr implements IRasNode {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
+        
+        log.trace(node.getNodeName());
 
         iterators = new Vector();
         newIteratorName = xq.registerNewExpressionWithVariables();

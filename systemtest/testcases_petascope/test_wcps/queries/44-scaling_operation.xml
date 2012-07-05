@@ -1,6 +1,3 @@
-
-<ProcessCoveragesRequest xmlns="http://www.opengis.net/wcps/1.0" service="WCPS" version="1.0.0">
-
 <!--
  * This file is part of PetaScope.
  *
@@ -23,31 +20,46 @@
  * Copyright 2009 Jacobs University Bremen, Peter Baumann.
 -->
 
-
-
-
+<?xml version="1.0" encoding="UTF-8" ?>
+<ProcessCoveragesRequest xmlns="http://www.opengis.net/wcps/1.0" service="WCPS" version="1.0.0">
   <query>
     <xmlSyntax>
       <coverageIterator>
         <iteratorVar>c</iteratorVar>
-        <coverageName>rgb</coverageName>
+        <coverageName>mr</coverageName>
       </coverageIterator>
       <encode store="false">
         <scale>
-          <coverage>c</coverage>
+          <trim>
+            <coverage>c</coverage>
+            <axis>x</axis>
+            <lowerBound>
+              <numericConstant>120</numericConstant>
+            </lowerBound>
+            <upperBound>
+              <numericConstant>130</numericConstant>
+            </upperBound>
+            <axis>y</axis>
+            <lowerBound>
+              <numericConstant>50</numericConstant>
+            </lowerBound>
+            <upperBound>
+              <numericConstant>60</numericConstant>
+            </upperBound>
+          </trim>
           <axis>x</axis>
           <lowerBound>
-            <numericConstant>1</numericConstant>
+            <numericConstant>0</numericConstant>
           </lowerBound>
           <upperBound>
-            <numericConstant>600</numericConstant>
+            <numericConstant>100</numericConstant>
           </upperBound>
           <axis>y</axis>
           <lowerBound>
-            <numericConstant>1</numericConstant>
+            <numericConstant>0</numericConstant>
           </lowerBound>
           <upperBound>
-            <numericConstant>600</numericConstant>
+            <numericConstant>100</numericConstant>
           </upperBound>
         </scale>
         <format>png</format>

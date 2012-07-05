@@ -22,12 +22,16 @@
 package petascope.wcps.server.core;
 
 import java.math.BigInteger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.WCPSException;
 import petascope.wcs2.parsers.GetCoverageRequest;
 
 //A coverage axis in pixel coordinates. See the WCPS standard.
 public class CellDomainElement implements Cloneable {
+    
+    private static Logger log = LoggerFactory.getLogger(CellDomainElement.class);
 
     GetCoverageRequest.DimensionSubset subsetElement;
 
@@ -43,8 +47,9 @@ public class CellDomainElement implements Cloneable {
 
         if (lo.compareTo(hi) == 1) {
             throw new WCPSException(ExceptionCode.InvalidMetadata, 
-                    "Invalid cell domain element: Lower bound cannot be larger than upper bound");
+                    "Invalid cell domain element: Lower bound " + lo + " cannot be larger than upper bound " + hi);
         }
+        log.trace("cell domain " + lo + ":" + hi);
 
         this.lo = lo;
         this.hi = hi;

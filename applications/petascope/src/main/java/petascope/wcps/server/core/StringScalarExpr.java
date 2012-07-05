@@ -21,10 +21,14 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 public class StringScalarExpr implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(StringScalarExpr.class);
 
     private String op, string;
     private CoverageExpr cov;
@@ -33,6 +37,7 @@ public class StringScalarExpr implements IRasNode {
         while ((node != null) && (node.getNodeName().equals("#text"))) {
             node = node.getNextSibling();
         }
+        log.trace(node.getNodeName());
 
         if (node.getNodeName().equals("stringIdentifier")) {
             Node child = node.getFirstChild();
@@ -44,6 +49,8 @@ public class StringScalarExpr implements IRasNode {
         } else {
             throw new WCPSException("Unknown String expr node: " + node.getNodeName());
         }
+        
+        log.trace("  operation: " + op + ", value: " + string);
     }
 
     public String toRasQL() {

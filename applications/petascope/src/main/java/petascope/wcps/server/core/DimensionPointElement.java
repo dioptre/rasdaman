@@ -46,6 +46,12 @@ public class DimensionPointElement implements IRasNode {
     
     public DimensionPointElement(Node node, XmlQuery xq, CoverageInfo covInfo)
             throws WCPSException {
+
+        while ((node != null) && node.getNodeName().equals("#text")) {
+            node = node.getNextSibling();
+        }
+        
+        log.trace(node.getNodeName());
         
         if (covInfo.getCoverageName() != null) {
             // Add Bbox information from coverage metadata, may be useful
@@ -54,15 +60,12 @@ public class DimensionPointElement implements IRasNode {
             try {
                 meta = xq.getMetadataSource().read(coverageName);
             } catch (Exception ex) {
+                log.error(ex.getMessage());
                 throw new WCPSException(ex.getMessage(), ex);
             }
         }
         
         String name;
-
-        while ((node != null) && node.getNodeName().equals("#text")) {
-            node = node.getNextSibling();
-        }
 
         while (node != null && finished == false) {
             if (node.getNodeName().equals("#text")) {
@@ -70,20 +73,18 @@ public class DimensionPointElement implements IRasNode {
                 continue;
             }
 
-            name = node.getNodeName();
-            log.trace("Current node is " + name);
-
             // Try Axis
             try {
+                log.trace("  matching axis name");
                 axis = new AxisName(node, xq);
                 node = node.getNextSibling();
                 continue;
             } catch (WCPSException e) {
-                log.error("Failed to parse an axis!");
             }
 
             // Try CRS name
             try {
+                log.trace("  matching crs");
                 crs = new Crs(node, xq);
                 node = node.getNextSibling();
                 if (axis == null) {
@@ -91,7 +92,6 @@ public class DimensionPointElement implements IRasNode {
                 }
                 continue;
             } catch (WCPSException e) {
-                log.error("Failed to parse a crs!");
             }
 
             // TODO: how to implement DomainMetadataExpr ?
@@ -110,6 +110,7 @@ public class DimensionPointElement implements IRasNode {
 
             // Then it must be a "slicingPosition"
             if (node.getNodeName().equals("slicingPosition")) {
+                log.trace("  slice position");
                 domain = new ScalarExpr(node.getFirstChild(), xq);
                 if (axis == null) {
                     throw new WCPSException("Expected <axis> node before <slicingPosition> !");

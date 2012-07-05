@@ -37,13 +37,15 @@ public class NumericScalarExpr implements IRasNode {
 
     public NumericScalarExpr(Node node, XmlQuery xq) throws WCPSException {
         twoChildren = false;
-        String nodeName = node.getNodeName();
-
-        op = "";
 
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
+        String nodeName = node.getNodeName();
+        
+        log.trace(nodeName);
+
+        op = "";
 
         if (nodeName.equals("numericConstant")) {
             twoChildren = false;
@@ -101,6 +103,7 @@ public class NumericScalarExpr implements IRasNode {
             throw new WCPSException("Unexpected Numeric Scalar Expression node : "
                     + node.getNodeName());
         }
+        log.trace("  operation: " + op + ", binary: " + twoChildren);
     }
 
     public String toRasQL() {

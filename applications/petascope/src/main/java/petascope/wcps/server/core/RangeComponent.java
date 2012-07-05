@@ -44,6 +44,7 @@ public class RangeComponent implements IRasNode, ICoverageInfo {
             throws WCPSException {
 
         String nodeName = node.getNodeName();
+        log.trace(nodeName);
         if (nodeName.equals("component"))
             node = node.getFirstChild();
             
@@ -56,9 +57,10 @@ public class RangeComponent implements IRasNode, ICoverageInfo {
                 continue;
             }
 
-            if (nodeName.equals("field"))
+            if (nodeName.equals("field")) {
                 this.field = node.getTextContent();
-            else
+                log.trace("  field: " + field);
+            } else
                 try
                 {
                     this.expr = new CoverageExpr(node, xq);
@@ -66,7 +68,7 @@ public class RangeComponent implements IRasNode, ICoverageInfo {
                 }
                 catch (WCPSException e)
                 {
-                    log.error("Could not match CoverageExpr inside RangeExpr. Next node: " + nodeName);
+                    log.error("  Could not match CoverageExpr inside RangeExpr. Next node: " + nodeName);
                     throw e;
                 }
 

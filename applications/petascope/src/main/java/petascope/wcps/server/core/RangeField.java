@@ -37,6 +37,7 @@ public class RangeField implements IRasNode {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
+        log.trace(node.getNodeName());
 
         if (node == null) {
             throw new WCPSException("RangeFieldType parsing error!");
@@ -47,7 +48,7 @@ public class RangeField implements IRasNode {
         if (nodeName.equals("type")) {
             this.type = node.getTextContent();
 
-            log.trace("Found range field type: " + type);
+            log.trace("  range field type: " + type);
         }
     }
 

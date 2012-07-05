@@ -42,8 +42,10 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
     private DimensionIntervalElement elem;
 
     public ExtendCoverageExpr(Node node, XmlQuery xq) throws WCPSException {
+        
+        log.trace(node.getNodeName());
 
-        Node child, axisNode;
+        Node child;
         String nodeName;
 
         axisList = new ArrayList<DimensionIntervalElement>();
@@ -68,6 +70,7 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
             try {
                 // Start a new axis and save it
                 elem = new DimensionIntervalElement(child, xq, coverageInfo);
+                log.trace("  added new axis to list: " + elem.getAxisName());
                 axisList.add(elem);
                 child = elem.getNextNode();
                 continue;
@@ -80,6 +83,7 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
         }
 
         dims = coverageInfo.getNumDimensions();
+        log.trace("  number of dimensions: " + dims);
         dim = new String[dims];
 
         for (int j = 0; j < dims; ++j) {
@@ -95,9 +99,9 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
         while (i.hasNext()) {
             axis = i.next();
             axisId = coverageInfo.getDomainIndexByName(axis.getAxisName());
-            log.trace("Axis ID: " + axisId);
-            log.trace("Axis name: " + axis.getAxisName());
-            log.trace("Axis coords: ");
+            log.trace("  axis ID: " + axisId);
+            log.trace("  axis name: " + axis.getAxisName());
+            log.trace("  axis coords: ");
 
             axisLo = Integer.parseInt(axis.getLowCoord());
             axisHi = Integer.parseInt(axis.getHighCoord());

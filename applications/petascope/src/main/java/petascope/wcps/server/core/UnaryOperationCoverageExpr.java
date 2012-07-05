@@ -38,6 +38,7 @@ public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
     public UnaryOperationCoverageExpr(Node node, XmlQuery xq)
             throws WCPSException {
         String nodeName = node.getNodeName();
+        log.trace(nodeName);
 
         if (nodeName.equals("unaryPlus")) {
             operation = "+";
@@ -83,6 +84,7 @@ public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
             Node c = node.getFirstChild();
 
             while (c != null) {
+                log.trace("  child name: " + c.getNodeName());
                 if (c.getNodeName().equals("#text")) {
                     c = c.getNextSibling();
                     continue;
@@ -121,6 +123,7 @@ public class UnaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
         }
 
         info = new CoverageInfo(child.getCoverageInfo());
+        log.trace("  operation: " + operation);
     }
 
     public CoverageInfo getCoverageInfo() {

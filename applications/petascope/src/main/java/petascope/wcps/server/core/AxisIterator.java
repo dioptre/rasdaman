@@ -23,10 +23,14 @@ package petascope.wcps.server.core;
 
 import petascope.exceptions.WCPSException;
 import java.math.BigInteger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 import petascope.exceptions.ExceptionCode;
 
 public class AxisIterator implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(AxisIterator.class);
 
     private String var, varTranslation;
     private AxisName axis;
@@ -36,6 +40,8 @@ public class AxisIterator implements IRasNode {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
+        
+        log.trace(node.getNodeName());
 
         while (node != null) {
             String nodeName = node.getNodeName();
@@ -45,6 +51,9 @@ public class AxisIterator implements IRasNode {
                 // This variable will be referenced later on. Translate it.
                 xq.addReferenceVariable(var, newIteratorName);
                 varTranslation = xq.getReferenceVariableName(var);
+                log.trace("  iterator var: " + var);
+                log.trace("  reference to: " + newIteratorName);
+                log.trace("  var translation: " + varTranslation);
             } else if (nodeName.equals("axis")) {
                 axis = new AxisName(node, xq);
             } else {

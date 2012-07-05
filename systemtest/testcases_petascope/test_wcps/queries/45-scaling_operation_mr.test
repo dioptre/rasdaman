@@ -1,0 +1,5 @@
+for c in (mr) return encode(
+    scale(
+        trim(c, { x (120:130), y(50:60) }),
+        { x (0:100), y(0:100) }, { }),
+"png")

@@ -48,9 +48,9 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
         }
 
         String nodeName = node.getNodeName();
+        log.trace(nodeName);
 
         simpleCoverage = false;
-        log.trace("CoverageExprType: node " + nodeName);
 
         if (nodeName.equals("coverage")) {
             simpleCoverage = true;
@@ -85,7 +85,6 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
             // TODO: implement CrsTransform class
             child = new CrsTransformCoverageExpr(node, xq);
         } else if (nodeName.equals("scale")) {
-            // TODO: implement class ScaleCoverageExprType
             child = new ScaleCoverageExpr(node, xq);
         } else if (nodeName.equals("construct")) {
             child = new ConstructCoverageExpr(node.getFirstChild(), xq);
@@ -101,7 +100,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
             if (child == null) {
                 try {
                     child = new SetMetadataCoverageExpr(node, xq);
-                    log.trace("Matched set metadata operation.");
+                    log.trace("  matched set metadata operation.");
                 } catch (WCPSException e) {
                     child = null;
                 }
@@ -110,7 +109,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
             if (child == null) {
                 try {
                     child = new InducedOperationCoverageExpr(node, xq);
-                    log.trace("Matched induced coverage expression operation.");
+                    log.trace("  matched induced coverage expression operation.");
                 } catch (WCPSException e) {
                     child = null;
                     if (e.getMessage().equals("Method not implemented")) {
@@ -122,7 +121,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
             if (child == null) {
                 try {
                     child = new SubsetOperationCoverageExpr(node, xq);
-                    log.trace("Matched subset operation.");
+                    log.trace("  matched subset operation.");
                 } catch (WCPSException e) {
                     child = null;
                 }

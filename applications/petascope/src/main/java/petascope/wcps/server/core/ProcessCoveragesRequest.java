@@ -41,7 +41,7 @@ import petascope.core.IDynamicMetadataSource;
  *
  */
 public class ProcessCoveragesRequest {
-
+    
     private static Logger log = LoggerFactory.getLogger(ProcessCoveragesRequest.class);
 
     private String database;
@@ -92,37 +92,24 @@ public class ProcessCoveragesRequest {
             this.xmlQuery = new XmlQuery(this.source);
             xmlQuery.startParsing(queryNode);
         } else if (queryNode.getNodeName().equals("abstractSyntax")) {
-                String abstractQuery = queryNode.getFirstChild().getNodeValue();
+            String abstractQuery = queryNode.getFirstChild().getNodeValue();
             log.debug("Found Abstract Syntax query: " + abstractQuery);
             String xmlString = RasUtil.abstractWCPStoXML(abstractQuery);
-                InputSource xmlStringSource = new InputSource(new StringReader(xmlString));
+            InputSource xmlStringSource = new InputSource(new StringReader(xmlString));
             log.debug("Coverted the Abstract syntax query to an XML query:");
             log.debug("***********************************************");
             log.debug(xmlString);
             log.debug("***********************************************");
-                ProcessCoveragesRequest newRequest = wcps.pcPrepare(url, database, xmlStringSource);
-                this.xmlQuery = newRequest.getXmlRequestStructure();
+            ProcessCoveragesRequest newRequest = wcps.pcPrepare(url, database, xmlStringSource);
+            this.xmlQuery = newRequest.getXmlRequestStructure();
         } else {
             throw new WCPSException("Error ! Unexpected node: " + queryNode.getNodeName());
         }
 
         // If everything went well, we now have a proper value for "xmlQuery"
         this.rasqlQuery = xmlQuery.toRasQL();
-        System.err.println("Final RasQL query: " + rasqlQuery);
+        log.debug("Final RasQL query: " + rasqlQuery);
         this.mime = xmlQuery.getMimeType();
-    }
-
-    public static String abstractQueryToXmlQuery(String abstractQuery) throws RecognitionException {
-        CharStream cs = new ANTLRStringStream(abstractQuery);
-        wcpsLexer lexer = new wcpsLexer(cs);
-        CommonTokenStream tokens = new CommonTokenStream();
-        tokens.setTokenSource(lexer);
-        wcpsParser parser = new wcpsParser(tokens);
-        wcpsRequest_return rrequest = parser.wcpsRequest();
-        WCPSRequest request = rrequest.value;
-        String xmlRequest = request.toXML();
-
-        return xmlRequest;
     }
 
     public String getMime() {

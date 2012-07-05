@@ -40,9 +40,10 @@ public class CoverageIterator implements IRasNode {
     private boolean dynamic = false;    // created from a Construct Coverage expr?
 
     public CoverageIterator(Node x, XmlQuery xq) throws WCPSException, PetascopeException {
-        IDynamicMetadataSource source = xq.getMetadataSource();
+        log.trace(x.getNodeName());
         coverageNames = new ArrayList<String>();
         if (!x.getNodeName().equals("coverageIterator")) {
+            log.error("Invalid cast from " + x.getNodeName() + " XML node to CoverageIterator node");
             throw new WCPSException("Invalid cast from " + x.getNodeName()
                     + " XML node to CoverageIterator node");
         }
@@ -56,11 +57,12 @@ public class CoverageIterator implements IRasNode {
 
             if (it.getNodeName().equals("iteratorVar")) {
                 iteratorName = it.getFirstChild().getNodeValue();
-                log.trace("Iterator variable : " + iteratorName);
+                log.trace("  iterator variable : " + iteratorName);
             } else if (it.getNodeName().equals("coverageName")) {
                 String cn = it.getFirstChild().getNodeValue();
-                log.trace("Coverage reference : " + cn);
-                if (!source.coverages().contains(cn)) {
+                log.trace("  coverage reference : " + cn);
+                if (!xq.getMetadataSource().coverages().contains(cn)) {
+                    log.error("  unknown coverage " + cn);
                     throw new WCPSException("Unknown coverage " + cn);
                 }
 
@@ -72,6 +74,7 @@ public class CoverageIterator implements IRasNode {
     }
 
     public CoverageIterator(String iterator, String coverage) throws WCPSException {
+        log.trace("iterator: " + iterator + ", for coverage: " + coverage);
         coverageNames = new ArrayList<String>();
         iteratorName = iterator;
         coverageNames.add(coverage);

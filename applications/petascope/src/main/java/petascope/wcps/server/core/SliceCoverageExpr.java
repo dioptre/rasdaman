@@ -44,6 +44,8 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo {
     private int dims;
 
     public SliceCoverageExpr(Node node, XmlQuery xq) throws WCPSException {
+        log.trace(node.getNodeName());
+        
         Node child = node.getFirstChild();
         String nodeName;
 
@@ -57,29 +59,28 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo {
                 continue;
             }
 
-            try {
-                coverageExprType = new CoverageExpr(child, xq);
-                coverageInfo = coverageExprType.getCoverageInfo();
-                child = child.getNextSibling();
-                continue;
-            } catch (WCPSException e) {
-            }
-
-            try {
+            if (nodeName.equals("axis")) {
                 // Start a new axis and save it
+                log.trace("  axis");
                 elem = new DimensionPointElement(child, xq, coverageInfo);
                 axisList.add(elem);
                 child = elem.getNextNode();
-                continue;
-            } catch (WCPSException e) {
-                log.error("This was no Dimension Point ELement: " + child.getNodeName());
+            } else {
+                try {
+                    log.trace("  coverage");
+                    coverageExprType = new CoverageExpr(child, xq);
+                    coverageInfo = coverageExprType.getCoverageInfo();
+                    child = child.getNextSibling();
+                    continue;
+                } catch (WCPSException e) {
+                    log.error("  expected coverage node, got " + nodeName);
+                    throw new WCPSException("Unknown node for SliceCoverage expression:" + child.getNodeName());
+                }
             }
-
-            // else unknown element
-            throw new WCPSException("Unknown node for TrimCoverage expression:" + child.getNodeName());
         }
 
         dims = coverageInfo.getNumDimensions();
+        log.trace("  number of dimensions: " + dims);
         dim = new String[dims];
 
         for (int j = 0; j < dims; ++j) {
@@ -104,6 +105,7 @@ public class SliceCoverageExpr implements IRasNode, ICoverageInfo {
             } catch (NumberFormatException e) {
                 slicingPosInt = 1;
             }
+            log.trace("  slice at axis id: " + axisId + ", axis name: " + axis.getAxisName() + ", slicing position: " + slicingPosInt);
             coverageInfo.setCellDimension(
                     axisId,
                     new CellDomainElement(

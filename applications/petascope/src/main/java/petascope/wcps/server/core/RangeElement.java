@@ -23,10 +23,14 @@ package petascope.wcps.server.core;
 
 
 //A single component of a coverage's range. See the WCPS standard for more information.
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.WCPSException;
 
 public class RangeElement implements Cloneable {
+    
+    private static Logger log = LoggerFactory.getLogger(RangeElement.class);
 
     private String name;
     private String type;
@@ -55,6 +59,8 @@ public class RangeElement implements Cloneable {
         this.name = name;
         this.type = type;
         this.uom = uom;
+        
+        log.trace(toString());
     }
 
     public String getUom() {

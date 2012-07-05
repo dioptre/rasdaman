@@ -21,10 +21,14 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 
 public class BinaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
+    
+    private static Logger log = LoggerFactory.getLogger(BinaryOperationCoverageExpr.class);
 
     private IRasNode first, second;
     private CoverageExprPairType pair;
@@ -34,6 +38,7 @@ public class BinaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
     public BinaryOperationCoverageExpr(Node node, XmlQuery xq)
             throws WCPSException {
         String nodeName = node.getNodeName();
+        log.trace(nodeName);
 
         boolean okay = false;    // will be true if the node is recognized
 
@@ -78,6 +83,8 @@ public class BinaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
         if (!okay) {
             throw new WCPSException("Unexpected binary operation : " + nodeName);
         }
+        log.trace("  operation: " + operation);
+        
         Node operand = node.getFirstChild();
         while (operand.getNodeName().equals("#text")) {
             operand = operand.getNextSibling();

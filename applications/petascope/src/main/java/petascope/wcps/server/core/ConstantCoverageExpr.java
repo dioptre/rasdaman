@@ -50,6 +50,7 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
+        log.trace(node.getNodeName());
 
         iterators = new Vector();
 
@@ -57,10 +58,13 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
             String name = node.getNodeName();
             if (name.equals("name")) {
                 covName = node.getTextContent();
+                log.trace("  coverage " + covName);
             } else if (name.equals("axisIterator")) {
+                log.trace("  over: add axis iterator");
                 AxisIterator it = new AxisIterator(node.getFirstChild(), xq, "temp");
                 iterators.add(it);
             } else {
+                log.trace("  value list");
                 valueList = new ConstantList(node, xq);
                 node = valueList.getLastNode();
             }
@@ -120,13 +124,11 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
         }
 
         axisIteratorString += "]";
-
-        log.error("Axes for ConstantCoverage tell us that the constant"
-                + "list should have exactly " + requiredListSize + " elements !");
     }
 
     /** Builds full metadata for the newly constructed coverage **/
     private void buildMetadata(XmlQuery xq) throws WCPSException, PetascopeException {
+        log.trace("  building metadata...");
         List<CellDomainElement> cellDomainList = new LinkedList<CellDomainElement>();
         List<RangeElement> rangeList = new LinkedList<RangeElement>();
         HashSet<String> nullSet = new HashSet<String>();
@@ -145,7 +147,7 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
             String axisName = ai.getVar();
             String axisType = ai.getAxisType();
             cellDomainList.add(new CellDomainElement(ai.getLow(), ai.getHigh(), axisType));
-            String crs = CrsUtil.WGS84_URI;
+            String crs = CrsUtil.IMAGE_CRS;
             HashSet<String> crsset = new HashSet<String>();
             crsset.add(crs);
             DomainElement domain = new DomainElement(axisName, axisType,

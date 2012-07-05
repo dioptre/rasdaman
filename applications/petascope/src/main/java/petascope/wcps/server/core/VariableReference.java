@@ -37,14 +37,15 @@ public class VariableReference implements IRasNode {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
+        log.trace(node.getNodeName());
 
         if (node != null && node.getNodeName().equals("variableRef")) {
             name = node.getTextContent();
             translatedName = xq.getReferenceVariableName(name);
-            log.trace("Variable " + name + " has been renamed into "
-                    + translatedName);
+            log.trace("  variable " + name + " has been renamed into " + translatedName);
         } else {
-            throw new WCPSException("Could not find any variable reference !");
+            log.error("  no variable reference found");
+            throw new WCPSException("Could not find any variable reference");
         }
     }
 

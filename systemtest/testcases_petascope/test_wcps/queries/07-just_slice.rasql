@@ -1,1 +1,1 @@
-select jpeg(m[*:*,100,*:*]) from mr AS m
+select csv(m[10,*:*]) from mr AS m
