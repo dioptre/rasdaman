@@ -52,6 +52,8 @@ public interface Constants {
   String GMD_NAMESPACE = "http://www.isotc211.org/2005/gmd";
   String GCO_PREFIX = "gco";
   String GCO_NAMESPACE = "http://www.isotc211.org/2005/gco";
+  String CRSNTS_PREFIX = "crs-nts";
+  String CRSNTS_NAMESPACE = "http://www.opengis.net/crs-nts/1.0";
   
   
   String ADMIN_FILE = "browse.jsp";

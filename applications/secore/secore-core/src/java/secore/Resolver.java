@@ -46,10 +46,12 @@ public class Resolver {
 
   static {
     handlers = new ArrayList<Handler>();
+    registerHandler(new EqualityHandler());
     registerHandler(new CrsCompoundHandler());
     registerHandler(new ParameterizedCrsHandler());
     registerHandler(new GeneralHandler());
     registerHandler(new AxisHandler());
+    
   }
 
   /**

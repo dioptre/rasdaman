@@ -66,19 +66,21 @@ then
 fi
 
 # war file or directory preexisting?
-if [ -f $TARGET_WAR -o -d $TARGET_EXPANDED ]
+if [ -f $TARGET_WAR ]
 then
-	panic "too scared to overwrite existing servlet $TARGET_WAR and/or $TARGET_EXPANDED"
+	echo "existing servlet $TARGET_WAR will be moved to $TARGET_WAR.bak"
+	mv $TARGET_WAR $TARGET_WAR.bak
 fi
 
 # - prepare -----------------------------------------------
-cd $CORE && ant clean && ant compile || panic "cannot generate $CORE"
-cd ..
-cd $WEB && ant clean && ant dist || panic "cannot generate $WEB"
+echo -n $ME: building...
+ant -f secore-web/build.xml -DforceRedeploy=false dist > /dev/null || panic "cannot generate $WEB"
+echo " ok."
 
 # - deploy ------------------------------------------------
-echo $ME: deploying war file...
-cp dist/secore-web.war $TARGET_WAR
+echo -n $ME: deploying war file...
+cp secore-web/dist/secore-web.war $TARGET_WAR || panic "failed"
+echo " ok."
 
 echo $ME: done.
 exit 0

@@ -92,6 +92,6 @@ public class GmlResponse {
    * @return the GML definition of the resource requested 
    */
   public String getData() {
-    return XML_DECL + data;
+    return data;
   }
 }

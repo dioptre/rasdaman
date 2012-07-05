@@ -25,7 +25,11 @@ import secore.db.DbManager;
 import secore.util.SecoreException;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import static secore.util.Constants.*;
+import secore.util.ExceptionCode;
+import secore.util.Pair;
 
 /**
  * An abstract implementation of {@link Handler}, which provides some
@@ -34,6 +38,8 @@ import static secore.util.Constants.*;
  * @author Dimitar Misev
  */
 public abstract class AbstractHandler implements Handler {
+  
+  private static Logger log = LoggerFactory.getLogger(AbstractHandler.class);
 
   public boolean canHandle(ResolveRequest request) {
     return getOperation().equals(request.getOperation());
@@ -135,5 +141,69 @@ public abstract class AbstractHandler implements Handler {
       + "let $d := doc('gml')\n"
       + "return data($d//gml:" + el + "[text() = '" + id + "']/../@identifier)";
     return DbManager.getInstance().getDb().query(query);
+  }
+  
+  public List<String> getComponentCRSs(ResolveRequest request, int componentNo) throws SecoreException {
+    
+    List<Pair<String, String>> params = request.getParams();
+
+    // component CRS URIs
+    List<String> components = new ArrayList<String>();
+
+    // get the component CRSs
+    for (int i = 0; i < params.size(); i++) {
+      String key = params.get(i).fst;
+      String val = params.get(i).snd;
+      if (val != null) {
+        try {
+          int ind = Integer.parseInt(key);
+          if (ind == components.size() + 1) {
+            // the value is a CRS reference, e.g. 1=crs_ref
+            checkCrsRef(val);
+            components.add(val);
+          } else {
+            // error
+            log.error("Invalid " + getOperation() + " request, expected number "
+                + (components.size() + 1) + " but got " + ind);
+            throw new SecoreException(ExceptionCode.InvalidParameterValue,
+                "Invalid " + getOperation() + " request, expected number "
+                + (components.size() + 1) + " but got " + ind);
+          }
+        } catch (NumberFormatException ex) {
+          // this is a key=value pair that needs to be added to the last component
+          int ind = components.size() - 1;
+          if (ind < 0) {
+            log.error("Invalid " + getOperation() + " request");
+            throw new SecoreException(ExceptionCode.InvalidRequest,
+                "Invalid " + getOperation() + " request");
+          }
+          // append to last component
+          String component = components.get(ind);
+          if (component.contains(FRAGMENT_SEPARATOR)) {
+            component += PAIR_SEPARATOR;
+          } else {
+            component += FRAGMENT_SEPARATOR;
+          }
+          components.set(ind, component + key + KEY_VALUE_SEPARATOR + val);
+        }
+      }
+    }
+
+    // they both must be specified
+    if (components.size() < componentNo) {
+      log.error("Expected at least " + componentNo + " CRSs, got " + components.size());
+      throw new SecoreException(ExceptionCode.MissingParameterValue,
+          "Expected at least " + componentNo + " CRSs, got " + components.size());
+    }
+
+    return components;
+  }
+  
+  private void checkCrsRef(String crsRef) throws SecoreException {
+    if (!crsRef.contains("/def/crs")) {
+       log.error("Invalid " + getOperation() + " request, expected a CRS reference, but got " + crsRef);
+       throw new SecoreException(ExceptionCode.InvalidParameterValue, 
+           "Invalid " + getOperation() + " request, expected a CRS reference, but got " + crsRef);
+    }
   }
 }

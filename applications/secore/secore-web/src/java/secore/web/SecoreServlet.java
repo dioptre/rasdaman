@@ -72,7 +72,7 @@ public class SecoreServlet extends HttpServlet {
       ResolveRequest request = StringUtil.buildRequest(uri);
       log.trace("Translated request\n" + request);
       GmlResponse res = Resolver.resolve(request);
-      writeResult(req, resp, res.getData());
+      writeResult(req, resp, XML_DECL + res.getData());
     } catch (SecoreException ex) {
         writeError(resp, ex);
     }

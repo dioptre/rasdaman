@@ -50,53 +50,7 @@ class CrsCompoundHandler extends AbstractHandler {
     if (request.getOperation().equals(getOperation()) && params.size() >= 1) {
       
       // component CRS URIs
-      List<String> components = new ArrayList<String>();
-    
-      // get the component CRSs
-      for (int i = 0; i < params.size(); i++) {
-        String key = params.get(i).fst;
-        String val = params.get(i).snd;
-        if (val != null) {
-          try {
-            int ind = Integer.parseInt(key);
-            if (ind == components.size() + 1) {
-              // the value is a CRS reference, e.g. 1=crs_ref
-              checkCrsRef(val);
-              components.add(val);
-            } else {
-              // error
-              log.error("Invalid " + getOperation() + " request, expected number " + 
-                  (components.size() + 1) + " but got " + ind);
-              throw new SecoreException(ExceptionCode.InvalidParameterValue, 
-                  "Invalid " + getOperation() + " request, expected number " + 
-                  (components.size() + 1) + " but got " + ind);
-            }
-          } catch (NumberFormatException ex) {
-            // this is a key=value pair that needs to be added to the last component
-            int ind = components.size() - 1;
-            if (ind < 0) {
-              log.error("Invalid " + getOperation() + " request");
-              throw new SecoreException(ExceptionCode.InvalidRequest, 
-                  "Invalid " + getOperation() + " request");
-            }
-            // append to last component
-            String component = components.get(ind);
-            if (component.contains(FRAGMENT_SEPARATOR)) {
-               component += PAIR_SEPARATOR;
-            } else {
-               component += FRAGMENT_SEPARATOR;
-            }
-            components.set(ind, component + key + KEY_VALUE_SEPARATOR + val);
-          }
-        }
-      }
-      
-      // they both must be specified
-      if (components.size() < 2) {
-        log.error("Can not combine less than two CRSs");
-        throw new SecoreException(ExceptionCode.MissingParameterValue, 
-            "Can not combine less than two CRSs");
-      }
+      List<String> components = getComponentCRSs(request, 2);
       
       // do some checking first, whether they are existing references
       String name = EMPTY;
