@@ -214,22 +214,30 @@ public class XmlQuery implements IRasNode {
 
     @Override
     public String toRasQL() {
-        String result = "select " + coverageExpr.toRasQL() + " from ";
-        Iterator<CoverageIterator> it = iterators.iterator();
-        boolean first = true;
+        String result = "";
+        if (coverageExpr instanceof ScalarExpr &&
+            ((ScalarExpr)coverageExpr).isMetadataExpr()) {
+            // in this case we shouldn't make any rasql query
+            result = coverageExpr.toRasQL();
+        } else {
+            // rasql query
+            result = "select " + coverageExpr.toRasQL() + " from ";
+            Iterator<CoverageIterator> it = iterators.iterator();
+            boolean first = true;
 
-        while (it.hasNext()) {
-            if (first) {
-                first = false;
-            } else {
-                result += ", ";
+            while (it.hasNext()) {
+                if (first) {
+                    first = false;
+                } else {
+                    result += ", ";
+                }
+
+                result += it.next().toRasQL();
             }
 
-            result += it.next().toRasQL();
-        }
-
-        if (where != null) {
-            result += " where " + where.toRasQL();
+            if (where != null) {
+                result += " where " + where.toRasQL();
+            }
         }
 
         return result;

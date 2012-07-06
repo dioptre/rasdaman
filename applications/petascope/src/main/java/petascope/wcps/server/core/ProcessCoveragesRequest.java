@@ -108,8 +108,16 @@ public class ProcessCoveragesRequest {
 
         // If everything went well, we now have a proper value for "xmlQuery"
         this.rasqlQuery = xmlQuery.toRasQL();
-        log.debug("Final RasQL query: " + rasqlQuery);
+        if (isRasqlQuery()) {
+            log.debug("Final RasQL query: " + rasqlQuery);
+        } else {
+            log.debug("Final metadata result: " + rasqlQuery);
+        }
         this.mime = xmlQuery.getMimeType();
+    }
+    
+    public boolean isRasqlQuery() {
+        return rasqlQuery != null && rasqlQuery.startsWith("select");
     }
 
     public String getMime() {

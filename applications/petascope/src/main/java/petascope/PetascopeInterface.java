@@ -566,47 +566,52 @@ public class PetascopeInterface extends HttpServlet {
         try {
             log.debug("Received a ProcessCoverages request: \n{}", xmlRequest);
 
-            log.debug("WCPS: preparing request");
+            log.debug("-------------------------------------------------------");
+            log.debug("Converting to rasql");
             ProcessCoveragesRequest processCoverageRequest =
                     wcps.pcPrepare(ConfigManager.RASDAMAN_URL, ConfigManager.RASDAMAN_DATABASE,
                     IOUtils.toInputStream(xmlRequest));
+            log.debug("-------------------------------------------------------");
 
             String query = processCoverageRequest.getRasqlQuery();
             String mime = processCoverageRequest.getMime();
-
-            log.debug("Resulting RasQL query: [{}] {}", mime, query);
-
-            log.trace("WCPS: executing request");
-
-            log.debug("WCPS: setting response mimetype to " + mime);
+            
             response.setContentType(mime);
-            log.trace("WCPS: returning response");
             webOut = response.getOutputStream();
-            RasQueryResult res = new RasQueryResult(processCoverageRequest.execute());
-            if (!res.getMdds().isEmpty() || !res.getScalars().isEmpty()) {
-                for (String s : res.getScalars()) {
-                    webOut.write(s.getBytes());
-                }
-                for (byte[] bs : res.getMdds()) {
-                    webOut.write(bs);
 
-                    if (ConfigManager.CCIP_HACK == true) {
-                        try {
-                            String dir = getServletContext().getRealPath("/");
-                            File f = new File(dir + "image.jpeg");
+            if (processCoverageRequest.isRasqlQuery()) {
+                log.debug("executing request");
+                log.debug("[" + mime + "] " + query);
+                
+                RasQueryResult res = new RasQueryResult(processCoverageRequest.execute());
+                if (!res.getMdds().isEmpty() || !res.getScalars().isEmpty()) {
+                    for (String s : res.getScalars()) {
+                        webOut.write(s.getBytes());
+                    }
+                    for (byte[] bs : res.getMdds()) {
+                        webOut.write(bs);
 
-                            log.info("HACK: Writing image to: " + f.getAbsolutePath());
-                            OutputStream os = new DataOutputStream(new FileOutputStream(f, false));
-                            os.write(bs);
-                            os.close();
-                            log.info("HACK: Wrote image successfully !");
-                        } catch (Exception e) {
-                            log.warn("Error while evaluating CCIP hack: '{}'", e.getMessage());
+                        if (ConfigManager.CCIP_HACK == true) {
+                            try {
+                                String dir = getServletContext().getRealPath("/");
+                                File f = new File(dir + "image.jpeg");
+
+                                log.info("HACK: Writing image to: " + f.getAbsolutePath());
+                                OutputStream os = new DataOutputStream(new FileOutputStream(f, false));
+                                os.write(bs);
+                                os.close();
+                                log.info("HACK: Wrote image successfully !");
+                            } catch (Exception e) {
+                                log.warn("Error while evaluating CCIP hack: '{}'", e.getMessage());
+                            }
                         }
                     }
+                } else {
+                    log.warn("WCPS: Warning! No result returned from rasql query.");
                 }
             } else {
-                log.warn("WCPS: Warning! No result returned from rasql query.");
+                log.debug("metadata result, no rasql to execute");
+                webOut.write(query.getBytes());
             }
 
             log.debug("WCPS: done");

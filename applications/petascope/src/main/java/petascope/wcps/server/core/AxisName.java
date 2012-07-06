@@ -37,10 +37,9 @@ public class AxisName implements IRasNode {
         while ((node != null) && node.getNodeName().equals("#text")) {
             node = node.getNextSibling();
         }
-        
-        log.trace(node.getNodeName());
 
         if (node != null && node.getNodeName().equals("axis")) {
+            log.trace(node.getNodeName());
             String axis = node.getTextContent();
             this.name = axis;
             log.trace("  axis name: " + name);

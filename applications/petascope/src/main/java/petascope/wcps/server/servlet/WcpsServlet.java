@@ -169,28 +169,32 @@ public class WcpsServlet extends HttpServlet {
                 }
             }
             
+            log.debug("-------------------------------------------------------");
             log.debug("Converting to rasql");
             ProcessCoveragesRequest processCoverageRequest = wcps.pcPrepare(
                     ConfigManager.RASDAMAN_URL, ConfigManager.RASDAMAN_DATABASE, IOUtils.toInputStream(xmlRequest));
+            log.debug("-------------------------------------------------------");
             
             String query = processCoverageRequest.getRasqlQuery();
             String mime = processCoverageRequest.getMime();
             
-            log.debug("[" + mime + "] " + query);
-            
-            log.debug("WCPS: executing request");
-            
-            log.debug("WCPS: setting response mimetype to " + mime);
             response.setContentType(mime);
-            log.debug("WCPS: returning response");
             webOut = response.getOutputStream();
             
-            RasQueryResult res = new RasQueryResult(processCoverageRequest.execute());
-            for (String s : res.getScalars()) {
-                webOut.write(s.getBytes());
-            }
-            for (byte[] bs : res.getMdds()) {
-                webOut.write(bs);
+            if (processCoverageRequest.isRasqlQuery()) {
+                log.debug("executing request");
+                log.debug("[" + mime + "] " + query);
+
+                RasQueryResult res = new RasQueryResult(processCoverageRequest.execute());
+                for (String s : res.getScalars()) {
+                    webOut.write(s.getBytes());
+                }
+                for (byte[] bs : res.getMdds()) {
+                    webOut.write(bs);
+                }
+            } else {
+                log.debug("metadata result, no rasql to execute");
+                webOut.write(query.getBytes());
             }
             log.debug("WCPS: done");
         } catch (Exception e) {

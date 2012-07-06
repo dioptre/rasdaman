@@ -55,7 +55,6 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
         // Try one of the groups
         child = null;
 
-//      TODO: Implement class MetadataScalarExprType
 //      MetadataScalarExprType
         if (child == null) {
             try {
@@ -183,5 +182,9 @@ public class ScalarExpr implements IRasNode, ICoverageInfo {
      */
     public void setSingleValue(double newD) {
         dvalue = newD;
+    }
+    
+    public boolean isMetadataExpr() {
+        return child instanceof MetadataScalarExpr;
     }
 }

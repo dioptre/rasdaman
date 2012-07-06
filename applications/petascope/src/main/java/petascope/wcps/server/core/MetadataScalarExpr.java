@@ -21,18 +21,73 @@
  */
 package petascope.wcps.server.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
+import petascope.exceptions.ExceptionCode;
+import petascope.util.CrsUtil;
 
 // TODO: implement class MetadataScalarExprType
 public class MetadataScalarExpr implements IRasNode {
+    
+    private static Logger log = LoggerFactory.getLogger(MetadataScalarExpr.class);
+    
     private IRasNode child;
+    private CoverageExpr coverageExprType;
+    private CoverageInfo coverageInfo;
+    private String op;
+    private String lo, hi;
 
     public MetadataScalarExpr(Node node, XmlQuery xq) throws WCPSException {
-        throw new WCPSException("Method not yet implemented !");
+        String nodeName = node.getNodeName();
+        log.trace(nodeName);
+        
+        Node child = node.getFirstChild();
+        while (child.getNodeName().equals("#text")) {
+            child = child.getNextSibling();
+        }
+        
+        // the first argument is always a coverage expression
+        try {
+            coverageExprType = new CoverageExpr(child, xq);
+            coverageInfo = coverageExprType.getCoverageInfo();
+            child = child.getNextSibling();
+        } catch (WCPSException ex) {
+            log.error("  expected a valid coverage expression as the first argument of a metadata expression", ex);
+            throw ex;
+        }
+        
+        op = nodeName;
+        if (nodeName.equals("DomainMetadata")) {
+            AxisName axis = new AxisName(child, xq);
+            int axisIndex = coverageInfo.getDomainIndexByName(axis.toRasQL());
+            DomainElement domainElement = coverageInfo.getDomainElement(axisIndex);
+            if (domainElement.getNumLo() == null) {
+                lo = domainElement.getStrLo();
+                hi = domainElement.getStrHi();
+            } else {
+                lo = domainElement.getNumLo().toString();
+                hi = domainElement.getNumHi().toString();
+            }
+        } else if (nodeName.equals("imageCrsDomain")) {
+            AxisName axis = new AxisName(child, xq);
+            int axisIndex = coverageInfo.getDomainIndexByName(axis.toRasQL());
+            CellDomainElement cellDomain = coverageInfo.getCellDomainElement(axisIndex);
+            lo = cellDomain.getLo().toString();
+            hi = cellDomain.getHi().toString();
+        }
     }
 
     public String toRasQL() {
-        return "";
+        String ret = "";
+        if (op.equals("identifier")) {
+            ret = coverageInfo.getCoverageName();
+        } else if (op.equals("imageCrs")) {
+            ret = CrsUtil.IMAGE_CRS;
+        } else if (op.equals("DomainMetadata") || op.equals("imageCrsDomain")) {
+            ret = "(" + lo + "," + hi + ")";
+        }
+        return ret;
     }
 }
