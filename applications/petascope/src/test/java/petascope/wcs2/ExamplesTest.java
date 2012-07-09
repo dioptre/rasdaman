@@ -68,7 +68,6 @@ public class ExamplesTest extends BaseTestCase {
             }
         });
 
-        ConfigManager.getInstance();
         meta = new DbMetadataSource(ConfigManager.METADATA_DRIVER,
                 ConfigManager.METADATA_URL,
                 ConfigManager.METADATA_USER,

@@ -21,12 +21,17 @@
  */
 package petascope;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Properties;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import petascope.util.IOUtil;
 import petascope.util.XMLUtil;
 import petascope.wps.server.WpsServer;
 
@@ -42,7 +47,7 @@ public class ConfigManager {
     private static final Logger log = LoggerFactory.getLogger(ConfigManager.class);
 
     /* Major version number. This is the first release (1). */
-    private final static String MAJOR = "1";
+    private final static String MAJOR = "2";
     /* 
      * Minor version number.
      * v2 adds the reference implementation of WCS 2.0.
@@ -50,7 +55,7 @@ public class ConfigManager {
      * v4 adds a WPS implementation.
      * v5 adds integration to n52 WPS framework
      */
-    private final static String MINOR = "5";
+    private final static String MINOR = "0";
     /* Bug-fix count. We have a hack: every WCPS response is written to disk. */
     private final static String BUGFIX = "0";
 
@@ -118,8 +123,10 @@ public class ConfigManager {
     private static ConfigManager instance;
     private static Properties props;
     
-    private static final String SETTINGS_FILE = "/settings.properties";
-    private static final String LOG_PROPERTIES_FILE = "/log4j.properties";
+    // confdir parameter name
+    public static final String CONF_DIR = "confDir";
+    private static final String SETTINGS_FILE = "petascope.properties";
+    private static final String LOG_PROPERTIES_FILE = "log4j.properties";
     
     // path to the default HTML response of the interface servlet
 
@@ -129,17 +136,27 @@ public class ConfigManager {
      * @param settingsPath Path to the settings properties file
      * @param servletRoot Path to the root folder where the servlet is deployed
      */
-    private ConfigManager() {
-//        try {
-//            PropertyConfigurator.configure(LOG_PROPERTIES_FILE);
-//        } catch (Exception ex) {
-//            log.warn("Error loading logger configuration " + LOG_PROPERTIES_FILE);
-//        }
+    private ConfigManager(String confDir) {
+        confDir = IOUtil.wrapDir(confDir);
         
+        // moved configuration files from the war file to a directory specified in web.xml -- DM 2012-jul-09
+        System.out.println("Configuration dir: " + confDir);
+        
+        // load logging configuration
+        try {
+            PropertyConfigurator.configure(confDir + LOG_PROPERTIES_FILE);
+        } catch (Exception ex) {
+            System.err.println("Error loading logger configuration " + confDir + LOG_PROPERTIES_FILE);
+            BasicConfigurator.configure();
+        }
+        
+        // init XML parser
         XMLUtil.init();
+        
+        // load petascope configuration
         props = new Properties();
         try {
-            InputStream is = ConfigManager.class.getResourceAsStream(SETTINGS_FILE);
+            InputStream is = new FileInputStream(new File(confDir + SETTINGS_FILE));
             if (is != null) {
                 props.load(is);
             }
@@ -158,9 +175,9 @@ public class ConfigManager {
      * @param servletRoot Path to the deployed servlet root
      * @return instance of the ConfigManager class
      */
-    public static ConfigManager getInstance() {
+    public static ConfigManager getInstance(String confDir) {
         if (instance == null) {
-            instance = new ConfigManager();
+            instance = new ConfigManager(confDir);
         }
         return instance;
     }
@@ -190,8 +207,8 @@ public class ConfigManager {
         METADATA_URL = get("metadata_url");
         METADATA_USER = get("metadata_user");
         METADATA_PASS = get("metadata_pass");
-	RASDAMAN_RETRY_TIMEOUT=get("rasdaman_retry_timeout");
-	RASDAMAN_RETRY_ATTEMPTS=get("rasdaman_retry_attempts");
+        RASDAMAN_RETRY_TIMEOUT=get("rasdaman_retry_timeout");
+        RASDAMAN_RETRY_ATTEMPTS=get("rasdaman_retry_attempts");
 
         CCIP_HACK = Boolean.parseBoolean(get("ccip_version"));
 
@@ -250,6 +267,7 @@ public class ConfigManager {
         log.info("WPS Version   : " + WPS_VERSION);
         log.info("WPS GetCapabilities template: " + WPS_GET_CAPABILITIES_URI);
         log.info("WPS DescribeProcess template: " + WPS_DESCRIBE_PROCESS_URI);
+        log.info("");
         log.info("       *** WMS ***       ");
         log.info("WMS Languages : " + WMS_LANGUAGES);
         log.info("WMS Versions  : " + WMS_VERSIONS);

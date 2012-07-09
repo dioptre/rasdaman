@@ -74,7 +74,6 @@ public class WcsServer {
      * Public minimal constructor
      */
     public WcsServer(DbMetadataSource source) throws ServletException {
-        ConfigManager.getInstance();
         meta = source;
         ok = true;
     }

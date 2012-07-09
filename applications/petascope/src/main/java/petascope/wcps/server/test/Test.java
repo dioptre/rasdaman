@@ -40,8 +40,6 @@ public class Test {
 
     public static void main(String[] args) {
         try {
-            ConfigManager.getInstance();
-
             System.out.println("WCPS: initializing metadata database");
             DbMetadataSource meta =
                     new DbMetadataSource(ConfigManager.METADATA_DRIVER,

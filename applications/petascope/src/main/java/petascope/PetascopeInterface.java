@@ -97,8 +97,12 @@ public class PetascopeInterface extends HttpServlet {
     /* Initialize the various services: WCPS, WcsServer and WcsServer-T */
     @Override
     public void init() throws ServletException {
+        String confDir = this.getServletContext().getInitParameter(ConfigManager.CONF_DIR);
+
+        // Initialize the singleton configuration manager. Now all classes can read the settings.
+        ConfigManager.getInstance(confDir);
+        
         // Initialize the logging system
-        PropertyConfigurator.configure(getServletContext().getRealPath("/log4j.properties"));
         log.info("Petascope {} starting", ConfigManager.PETASCOPE_VERSION);
         
         // External libraries licensing issues
@@ -107,9 +111,6 @@ public class PetascopeInterface extends HttpServlet {
         
         // Force GeoTools referencing libraries to X->Y ordered CRSs
         System.setProperty("org.geotools.referencing.forceXY", "true");
-
-        // Initialize the singleton configuration manager. Now all classes can read the settings.
-        ConfigManager.getInstance();
 
         // Read servlet HTML usage message from disk
         try {

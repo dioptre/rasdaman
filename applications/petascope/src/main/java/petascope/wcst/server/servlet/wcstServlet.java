@@ -43,15 +43,11 @@ public class wcstServlet extends HttpServlet {
     private String defaultHtmlResponse;
     private String relativeServletHtmlPath = "/templates/wcst-servlet.html";
     private String servletHtmlPath;
-    private String relativeSettingsPath = "/settings.properties";
     private WcstServer server;
     private DbMetadataSource metadataSource;
 
     @Override
     public void init() throws ServletException {
-        // Initialize the configuration manager. Now all classes can read the settings.
-        String settingsPath = getServletContext().getRealPath(relativeSettingsPath);
-        ConfigManager config = ConfigManager.getInstance();
 
         try {
             metadataSource = new DbMetadataSource(

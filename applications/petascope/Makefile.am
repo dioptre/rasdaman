@@ -124,15 +124,14 @@ $(all_javas):
 compile: $(all_javas) $(GEN_DOCS)
 	$(MKDIR) $(BUILD)
 	$(CP) $(SRC_WEB)/* $(WEB)
-	$(CP) templates xml $(SRC)/resources/log4j.properties $(WEB)
+	$(CP) templates xml $(WEB)
 	$(MKDIR) $(WEB)/WEB-INF/lib
 	$(CP) $(JJARS_PATHS) $(WEB)/WEB-INF/lib
 	$(CP) $(SRC_MAIN)/* $(CLASSES) # copy resources (xml, xsd, properties)
 	$(FIND) $(BUILD) -name '*.java' | xargs $(RM)
 	$(FIND) $(BUILD) -name '.svn' | xargs $(RM) # remove .svn directories
 	$(JAVAC) $(JFLAGS) @$<
-	$(CP) src/main/resources/settings.properties $(CLASSES) # copy default settings, and then custom settings in db/settings.properties if they exist
-	if test -e db/settings.properties; then $(CP) db/settings.properties $(CLASSES); fi
+	$(SED) -i 's|@confdir@|$(DESTDIR)$(sysconfdir)/|g' $(WEB)/WEB-INF/web.xml
 	$(CP) src/main/resources/wms-messages $(WEB)/WEB-INF
 
 # Generate the Java doc from sources
@@ -149,6 +148,20 @@ if GENERATE_DOCS
 	$(MKDIR) $(DESTDIR)$(pkgdatadir)/doc
 	$(CP) $(APIDOCS) $(DESTDIR)$(pkgdatadir)/doc/petascope
 endif
+	if test -f $(DESTDIR)$(sysconfdir)/petascope.properties; then \
+		echo "$@ will not overwrite existing $(DESTDIR)$(sysconfdir)/petascope.properties"; \
+	else \
+		$(MKDIR_P) $(DESTDIR)$(sysconfdir); \
+		echo " $(INSTALL_DATA) src/main/resources/petascope.properties $(DESTDIR)$(sysconfdir)/petascope.properties"; \
+		$(INSTALL_DATA) src/main/resources/petascope.properties $(DESTDIR)$(sysconfdir)/petascope.properties; \
+	fi;
+	if test -f $(DESTDIR)$(sysconfdir)/log4j.properties; then \
+		echo "$@ will not overwrite existing $(DESTDIR)$(sysconfdir)/log4j.properties"; \
+	else \
+		$(MKDIR_P) $(DESTDIR)$(sysconfdir); \
+		echo " $(INSTALL_DATA) src/main/resources/log4j.properties $(DESTDIR)$(sysconfdir)/log4j.properties"; \
+		$(INSTALL_DATA) src/main/resources/log4j.properties $(DESTDIR)$(sysconfdir)/log4j.properties; \
+	fi;
 
 # setup database
 .PHONY: setupdb

@@ -93,8 +93,6 @@ public class convertGetCoverage {
      */
     public convertGetCoverage(GetCoverage cov, DbMetadataSource source)
             throws WCSException, WCPSException {
-        /* Init Config Manager and global */
-        ConfigManager globals = ConfigManager.getInstance();
         /* Setup objects */
         wcs = cov;
         finished = false;

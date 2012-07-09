@@ -65,7 +65,8 @@ public class WcpsServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         try {
-            ConfigManager.getInstance();
+            String confDir = this.getServletContext().getInitParameter(ConfigManager.CONF_DIR);
+            ConfigManager.getInstance(confDir);
             
             System.out.println("WCPS: initializing metadata database");
             meta = new DbMetadataSource(ConfigManager.METADATA_DRIVER,

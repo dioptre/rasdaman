@@ -76,6 +76,9 @@ public class MetadataScalarExpr implements IRasNode {
             CellDomainElement cellDomain = coverageInfo.getCellDomainElement(axisIndex);
             lo = cellDomain.getLo().toString();
             hi = cellDomain.getHi().toString();
+        } else if (!nodeName.equals("identifier") && 
+                   !nodeName.equals("imageCrs")) {
+            throw new WCPSException("No metadata node: " + nodeName);
         }
     }
 

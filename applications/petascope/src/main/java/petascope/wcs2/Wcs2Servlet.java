@@ -65,9 +65,11 @@ public class Wcs2Servlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        log.info("WCS 2.0 servlet starting");
 
-        ConfigManager.getInstance();
+        String confDir = this.getServletContext().getInitParameter(ConfigManager.CONF_DIR);
+        ConfigManager.getInstance(confDir);
+        
+        log.info("WCS 2.0 servlet starting");
 
         // Read servlet HTML usage message from disk
         try {
