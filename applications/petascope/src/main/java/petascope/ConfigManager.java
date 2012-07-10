@@ -125,6 +125,7 @@ public class ConfigManager {
     
     // confdir parameter name
     public static final String CONF_DIR = "confDir";
+    public static final String CONF_DIR_DEFAULT = "@confdir@";
     private static final String SETTINGS_FILE = "petascope.properties";
     private static final String LOG_PROPERTIES_FILE = "log4j.properties";
     
@@ -133,10 +134,36 @@ public class ConfigManager {
     /**
      * Private constructor. Use <i>getInstance()</i>.
      *
-     * @param settingsPath Path to the settings properties file
-     * @param servletRoot Path to the root folder where the servlet is deployed
+     * @param confDir Path to the settings directory
      */
     private ConfigManager(String confDir) {
+        
+        if (confDir == null) {
+            StringBuilder msg = new StringBuilder();
+            msg.append("Your web.xml file is missing the configuration dir parameter.\n");
+            msg.append("Please add the following in your $CATALINA_HOME/webapps/petascope/WEB-INF/web.xml:\n");
+            msg.append("<context-param>\n");
+            msg.append("    <description>Directory containing the configuration files</description>\n");
+            msg.append("    <param-name>confDir</param-name>\n");
+            msg.append("    <param-value>/path/to/petascope/configuration/files</param-value>\n");
+            msg.append("</context-param>\n");
+            
+            System.err.println(msg.toString());
+            throw new IllegalArgumentException(msg.toString());
+        }
+        
+        if (confDir.equals(CONF_DIR_DEFAULT)) {
+            String msg = "Please set a valid path in your $CATALINA_HOME/webapps/petascope/WEB-INF/web.xml for the confDir parameter.";
+            System.err.println(msg);
+            throw new IllegalArgumentException(msg);
+        }
+        
+        if (!(new File(confDir)).isDirectory()) {
+            String msg = "Configuration directory not found, please update the confDir in your $CATALINA_HOME/webapps/petascope/WEB-INF/web.xml";
+            System.err.println(msg);
+            throw new IllegalArgumentException(msg);
+        }
+        
         confDir = IOUtil.wrapDir(confDir);
         
         // moved configuration files from the war file to a directory specified in web.xml -- DM 2012-jul-09
@@ -147,6 +174,7 @@ public class ConfigManager {
             PropertyConfigurator.configure(confDir + LOG_PROPERTIES_FILE);
         } catch (Exception ex) {
             System.err.println("Error loading logger configuration " + confDir + LOG_PROPERTIES_FILE);
+            ex.printStackTrace();
             BasicConfigurator.configure();
         }
         
@@ -162,8 +190,8 @@ public class ConfigManager {
             }
             initSettings();
         } catch (IOException e) {
-            log.error("Failed to load settings. Stack trace: " + e);
-            throw new RuntimeException("Failed loading settings");
+            log.error("Failed loading the settings file " + confDir + SETTINGS_FILE, e);
+            throw new RuntimeException("Failed loading the settings file " + confDir + SETTINGS_FILE, e);
         }
     }
 
