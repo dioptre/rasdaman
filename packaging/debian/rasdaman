@@ -190,79 +190,7 @@ initdb(){
 # Initializes the petascope database
 #
 initpetascopedb(){
-
-  # check if the petascope settings can be found
-  if [ ! -e "$SETTINGS" ]
-  then
-    echo $"petascope settings not found in $SETTINGS"
-    exit 1
-  fi
-
-  # create database
-  $SU -l rasdaman -s "$rasshell" -c "createdb petascopedb"
-  RETVAL=$?
-  if [[ $RETVAL != 0 ]]
-  then
-    echo $"creating petascopedb in postgres failed"
-    exit $!
-  fi
-  
-  # get connection details from the settings file
-  DB=`grep metadata_url "$SETTINGS" | awk -F "/" '{print $4}' | tr -d '\n'`
-  PORT=`grep metadata_url "$SETTINGS" | awk -F ":|/" '{print $6}' | tr -d '\n'`
-  PSQL="psql -d $DB -p $PORT"
-  echo Postgres connection details
-  echo Database: $DB
-  echo Port: $PORT
-  echo
-  echo -n "Testing connection... "
-  $SU -l rasdaman -s "$rasshell" -c "$PSQL -c 'create table ps_tmp (id integer)' > /dev/null"
-  if [ $? -ne 0 ]; then
-    echo FAIL
-    exit 1
-  else
-    $SU -l rasdaman -s "$rasshell" -c "$PSQL -c 'drop table ps_tmp' > /dev/null"
-    echo OK
-  fi
-
-  # get rasdaman connection details
-  RAS_USER=`grep rasdaman_admin_user "$SETTINGS" | awk -F "=" '{print $2}' | tr -d '\n'`
-  RAS_PASS=`grep rasdaman_admin_pass "$SETTINGS" | awk -F "=" '{print $2}' | tr -d '\n'`
-  RAS_DB=`grep rasdaman_database "$SETTINGS" | awk -F "=" '{print $2}' | tr -d '\n'`
-  RAS_SERVER=`grep rasdaman_url "$SETTINGS" | awk -F ":|/" '{print $4}' | tr -d '\n'`
-  RAS_PORT=`grep rasdaman_url "$SETTINGS" | awk -F ":|/" '{print $5}' | tr -d '\n'`
-  echo Rasdaman connection details:
-  echo User: $RAS_USER
-  echo Database: $RAS_DB
-  echo Server: $RAS_SERVER
-  echo Port: $RAS_PORT
-  echo
-  RASQL="rasql --user $RAS_USER --passwd $RAS_PASS -d $RAS_DB -s $RAS_SERVER -p $RAS_PORT"
-
-  # insert sample data
-  $SU -l rasdaman -s "$rasshell" -c "$RASQL -q 'create collection FalseColor RGBSet' > /dev/null 2>&1"
-  if [ $? -ne 0 ]; then
-    echo Sample coverage data FalseColor already inserted
-  else
-    echo Inserting coverage FalseColor into rasdaman
-    $SU -l rasdaman -s "$rasshell" -c "$RASQL -q 'insert into FalseColor values inv_tiff(\$1)' --file $petapath/nir.tiff > /dev/null 2>&1"
-  fi
-  $SU -l rasdaman -s "$rasshell" -c "$RASQL -q 'create collection mean_summer_airtemp GreySet' > /dev/null 2>&1"
-  if [ $? -ne 0 ]; then
-    echo Sample coverage data mean_summer_airtemp already inserted
-  else
-    echo Inserting coverage mean_summer_airtemp into rasdaman
-    $SU -l rasdaman -s "$rasshell" -c "$RASQL -q 'insert into mean_summer_airtemp values inv_tiff(\$1)' --file $petapath/mean_summer_airtemp.tif > /dev/null 2>&1"
-  fi
-  
-  # update petascope db
-  counter=0
-  while [ -e $petapath/update$counter.sql ]; do
-    $SU -l rasdaman -s "$rasshell" -c "$PSQL < $petapath/update$counter.sql > /dev/null 2>&1"
-    let counter="$counter"+1
-  done
-  let counter="$counter"-1
-  $SU -l rasdaman -s "$rasshell" -c "$PSQL -c 'update ps_dbupdates set update=$counter where id=1' > /dev/null 2>&1"
+  $SU -l rasdaman -s "$rasshell" -c "update_petascopedb.sh"
 }
 
 #
@@ -333,6 +261,9 @@ case "$1" in
   initpetascopedb)
   initpetascopedb
   ;;
+  updatepetascopedb)
+  initpetascopedb
+  ;;
   dropdb)
   dropdb
   ;;
@@ -340,7 +271,7 @@ case "$1" in
   droppetascopedb
   ;;
   *)
-  echo $"Usage: $prog {start|stop|restart|condrestart|status|initdb|rasdaman_insertdemo|dropdb|initpetascopedb|droppetascopedb}"
+  echo $"Usage: $prog {start|stop|restart|condrestart|status|initdb|rasdaman_insertdemo|dropdb|initpetascopedb|updatepetascopedb|droppetascopedb}"
   RETVAL=3
 esac
 

@@ -222,7 +222,7 @@ chown \$RASDAMAN_USER /var/log/rasdaman
 /etc/init.d/rasdaman start
 
 #Insert the demo data
-/etc/init.d/rasdaman insertdemo
+/etc/init.d/rasdaman rasdaman_insertdemo
 HEREDOC
 
 

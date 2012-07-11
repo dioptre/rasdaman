@@ -128,8 +128,8 @@ CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" CXX="g++ -L%{_libdi
 		--with-pic \
 		--with-docs \
     --with-wardir=/var/lib/tomcat6/webapps
-sed -i 's/^metadata_user=.\+/metadata_user=rasdaman/' applications/petascope/src/main/resources/settings.properties
-sed -i 's/^metadata_pass=.\+/metadata_pass=/' applications/petascope/src/main/resources/settings.properties
+sed -i 's/^metadata_user=.\+/metadata_user=rasdaman/' applications/petascope/src/main/resources/petascope.properties
+sed -i 's/^metadata_pass=.\+/metadata_pass=/' applications/petascope/src/main/resources/petascope.properties
 make DESTDIR=%{buildroot}
 
 %install
@@ -137,12 +137,6 @@ rm -rf %{buildroot}
 
 mkdir -p %{buildroot}/var/lib/tomcat6/webapps
 make install DESTDIR=%{buildroot}
-
-# install petascope
-mkdir -p %{buildroot}%{_datadir}/rasdaman/petascope
-cp applications/petascope/db/*.sql %{buildroot}%{_datadir}/rasdaman/petascope
-cp applications/petascope/db/*.tif* %{buildroot}%{_datadir}/rasdaman/petascope
-cp applications/petascope/db/*.sh %{buildroot}%{_datadir}/rasdaman/petascope
 
 # install SYSV init stuff
 mkdir -p %{buildroot}/etc/rc.d/init.d
@@ -278,6 +272,10 @@ fi
 %defattr(-,root,root,-)
 %{_datadir}/rasdaman/petascope/*
 /var/lib/tomcat6/webapps/petascope.war
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/rasdaman/petascope.properties
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/rasdaman/log4j.properties
+%{_bindir}/petascope_insertdemo.sh
+%{_bindir}/update_petascopedb.sh
 
 %files rasdaview
 %defattr(-,root,root,-)
@@ -294,6 +292,11 @@ fi
 %{_datadir}/rasdaman/raswct
 
 %changelog
+
+* Wed Jul 11  2012 Dimitar Misev <misev@rasdaman.com> - 8.3.1
+
+- Moved petascope settings files to /etc/rasdaman
+- Split update_db.sh into update_petascopedb.sh and petascope_insertdemo.sh
 
 * Fri Jun 29  2012 Dimitar Misev <misev@rasdaman.com> - 8.3.1
 
