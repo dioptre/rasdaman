@@ -44,7 +44,7 @@ public class MetadataScalarExpr implements IRasNode {
         log.trace(nodeName);
         
         Node child = node.getFirstChild();
-        while (child.getNodeName().equals("#text")) {
+        while (child != null && child.getNodeName().equals("#text")) {
             child = child.getNextSibling();
         }
         
