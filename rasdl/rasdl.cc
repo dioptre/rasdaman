@@ -628,7 +628,8 @@ main( int argc, char* argv[] )
 	{
 		parseParams(argc,argv);
 	
-		strcpy(globalConnectId, baseName);
+    // don't overwrite the value of the --connect!! -- DM 2012-jul-11
+		//strcpy(globalConnectId, baseName);
 		switch( progMode )
 		{
 			case M_READ:     
