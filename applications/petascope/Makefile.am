@@ -123,6 +123,7 @@ $(all_javas):
 .PHONY: compile
 compile: $(all_javas) $(GEN_DOCS)
 	$(MKDIR) $(BUILD)
+	$(SED) 's|@confdir@|$(DESTDIR)$(sysconfdir)/|g' $(SRC_WEB)/WEB-INF/web.xml.in > $(SRC_WEB)/WEB-INF/web.xml
 	$(CP) $(SRC_WEB)/* $(WEB)
 	$(CP) templates xml $(WEB)
 	$(MKDIR) $(WEB)/WEB-INF/lib
@@ -131,8 +132,6 @@ compile: $(all_javas) $(GEN_DOCS)
 	$(FIND) $(BUILD) -name '*.java' | xargs $(RM)
 	$(FIND) $(BUILD) -name '.svn' | xargs $(RM) # remove .svn directories
 	$(JAVAC) $(JFLAGS) @$<
-	$(SED) -i 's|@confdir@|$(DESTDIR)$(sysconfdir)/|g' $(WEB)/WEB-INF/web.xml
-	$(CP) src/main/resources/wms-messages $(WEB)/WEB-INF
 
 # Generate the Java doc from sources
 .PHONY: javadoc
@@ -181,7 +180,7 @@ test:
 # clean up
 .PHONY: clean
 clean:
-	$(RM) $(BUILD)
+	$(RM) $(BUILD) dist
 
 # build jar file
 .PHONY: jar

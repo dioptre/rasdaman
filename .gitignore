@@ -50,9 +50,8 @@ insertutils/insertdemo.sh
 *.class
 *.war
 dbparams.properties
-petascope/build
-petascope/db/settings.properties
-petascope/nbproject/private/
+applications/petascope/build
+applications/petascope/nbproject/private/
 Makefile
 applications/petascope/nbproject/private/
 applications/secore/secore-core/dist/
@@ -61,3 +60,11 @@ applications/rasgeo/raserase
 applications/rasgeo/rasimport
 applications/secore/secore-core/build
 applications/secore/secore-web/build
+update_petascopedb.sh
+petascope_insertdemo.sh
+rasdaman_insertdemo.sh
+web.xml
+applications/raswct/bin
+glassfish-web.xml
+sun-web.xml
+web.xml

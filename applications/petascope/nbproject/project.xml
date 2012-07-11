@@ -163,7 +163,16 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
-            <web-module-additional-libraries/>
+            <web-module-additional-libraries>
+                <library dirs="200">
+                    <file>${file.reference.petascope-templates}</file>
+                    <path-in-war>/templates</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.resources-wms-messages}</file>
+                    <path-in-war>/WEB-INF/wms-messages</path-in-war>
+                </library>
+            </web-module-additional-libraries>
             <source-roots>
                 <root id="src.java.dir" name="Source Packages"/>
             </source-roots>

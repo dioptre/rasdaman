@@ -5,7 +5,7 @@
     <context-param>
         <description>Directory containing the configuration files</description>
         <param-name>confDir</param-name>
-        <param-value>/home/dimitar/projects/rasdaman/community/install-src/etc/</param-value>
+        <param-value>@confdir@</param-value>
     </context-param>
     <servlet>
         <description>WCS 2.0 Service</description>
