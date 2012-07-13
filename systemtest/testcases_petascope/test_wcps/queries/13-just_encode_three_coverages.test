@@ -1,1 +1,1 @@
-for s in ( rgb, rgb, rgb ) return encode( s, "jpeg" )
+for s in ( rgb, rgb, rgb ) return encode( s[ x(0:100), y(0:100) ], "jpeg" )

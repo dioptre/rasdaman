@@ -49,14 +49,9 @@ public class MetadataScalarExpr implements IRasNode {
         }
         
         // the first argument is always a coverage expression
-        try {
-            coverageExprType = new CoverageExpr(child, xq);
-            coverageInfo = coverageExprType.getCoverageInfo();
-            child = child.getNextSibling();
-        } catch (WCPSException ex) {
-            log.error("  expected a valid coverage expression as the first argument of a metadata expression", ex);
-            throw ex;
-        }
+        coverageExprType = new CoverageExpr(child, xq);
+        coverageInfo = coverageExprType.getCoverageInfo();
+        child = child.getNextSibling();
         
         op = nodeName;
         if (nodeName.equals("DomainMetadata")) {

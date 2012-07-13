@@ -50,6 +50,8 @@ TESTDATA_PATH="$SCRIPT_DIR/testdata"
 [ -d "$TESTDATA_PATH" ] || error "Testdata directory not found: $TESTDATA_PATH"
 QUERIES_PATH="$SCRIPT_DIR/queries"
 [ -d "$QUERIES_PATH" ] || error "Queries directory not found: $QUERIES_PATH"
+ORACLE_PATH="$SCRIPT_DIR/oracle"
+[ -d "$ORACLE_PATH" ] || error "Oracle directory not found: $ORACLE_PATH"
 OUTPUT_PATH="$SCRIPT_DIR/output"
 mkdir -p "$OUTPUT_PATH"
 
@@ -96,6 +98,8 @@ check_petascope
 check_postgres
 check_rasdaman
 check_wget
+check_gdal
+check_netcdf
 
 check_collection rgb
 if [ $? -ne 0 ]; then
@@ -111,7 +115,9 @@ pushd "$QUERIES_PATH" > /dev/null
 for f in *.test; do
 
   [ -f "$f" ] || continue
-#  [ "$f" == "46-mix_scale_trim.test" ] || continue
+  
+  # test single file
+  #[ "$f" == "21-just_exponent.test" ] || continue
 
   # test header
   loge ""
@@ -121,6 +127,9 @@ for f in *.test; do
   cat "$f"
   loge
   
+  # expected result
+  f_exp="$ORACLE_PATH/$f.out.gz"
+  
   # URL encode query
   f_enc=`cat $f | xxd -plain | tr -d '\n' | sed 's/\(..\)/%\1/g'`
 
@@ -128,14 +137,35 @@ for f in *.test; do
   f_out="$OUTPUT_PATH/$f.out"
   time $WGET -q --post-data "query=$f_enc" $WCPS_URL -O "$f_out"
 
-  # grep for errors
   loge
-  egrep -i "(error|exception)" "$f_out" > /dev/null
-  if [ $? -eq 0 ]; then
+  
+  # check file type
+  file "$f_out" | grep "ASCII" > /dev/null
+  if [ $? -ne 0 ]; then
+    # it's an image so we convert to text with gdal/ncdump
+    mv "$f_out" "$f_out.tmp"
+    gdal_translate -of netCDF "$f_out.tmp" "$f_out" > /dev/null 2>&1
+    
+    # convert to netcdf cdl, removing lines that will certainly be different
+    ncdump "$f_out" | sed '/:GDAL =/d' | sed '/:history =/d' > "$f_out.tmp"
+    mv "$f_out.tmp" "$f_out"
+  fi
+
+  if [ ! -f "$f_exp" ]; then
+    log "can not compare result, expected file not found: $f_exp"
     failed=$(($failed + 1))
     log " ->  QUERY FAILED"
   else
-    log " ->  QUERY PASSED"
+    # compare
+    gunzip -c "$f_exp" | cmp "$f_out" > /dev/null
+    if [ $? -ne 0 ]; then
+      # comparison failed
+      failed=$(($failed + 1))
+      log " ->  QUERY FAILED"
+    else
+      # comparison ok
+      log " ->  QUERY PASSED"
+    fi
   fi
   
   total=$(($total + 1))

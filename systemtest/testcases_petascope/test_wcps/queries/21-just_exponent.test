@@ -1,1 +1,1 @@
-for c in (rgb) return encode(exp(c.1/100), "jpeg")
+for c in (rgb) return encode(exp((c.1)[ x(100:200), y(100:200) ]/100), "jpeg")

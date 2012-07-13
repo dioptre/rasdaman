@@ -1,1 +1,1 @@
-for s in ( rgb ) return encode( log(s.2), "jpeg" )
+for s in ( rgb ) return encode( log((s.2)[ x(100:200), y(100:200) ] ), "jpeg" )

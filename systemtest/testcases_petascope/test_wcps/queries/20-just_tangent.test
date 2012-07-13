@@ -1,1 +1,1 @@
-for c in (rgb) return encode(tan(c.1), "jpeg")
+for c in (rgb) return encode(tan((c.1)[ x(100:200), y(100:200) ]), "jpeg")

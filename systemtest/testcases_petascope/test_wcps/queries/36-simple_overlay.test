@@ -1,1 +1,1 @@
-for c in (rgb) return encode(c overlay (char)(c*3), "jpeg")
+for c in (rgb) return encode(c[ x(0:100), y(0:100) ] overlay (char)(c[ x(0:100), y(0:100) ] * 3), "jpeg")
