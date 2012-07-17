@@ -29,19 +29,19 @@
 ##################################################################
 
 AM_CXXFLAGS=@CLIENTCXXFLAGS@ @BASEDBCXXFLAGS@ @GDAL_CXXFLAGS@
-AM_LDFLAGS=@CLIENTLDFLAGS@ @BASEDBLDFLAGS@ @GDAL_LDFLAGS@
+AM_LDFLAGS=@CLIENTLDFLAGS@
 
 bin_PROGRAMS=rasimport raserase
 rasimport_SOURCES= rimport.cxx rimport.h RasdamanConnector.cxx RasdamanHelper2.cxx nmlog.h rasgeo_template_inst.hh RasdamanConnector.h RasdamanHelper2.h
 rasimport_LDADD = ../../rasodmg/librasodmg.a ../../clientcomm/libclientcomm.a \
               ../../raslib/libraslib.a \
               ../../conversion/libconversion.a ../../commline/libcommline.a \
-              ../../network/libnetwork.a
+              ../../network/libnetwork.a @GDAL_LDFLAGS@
 raserase_SOURCES= rerase.cxx rerase.h RasdamanConnector.cxx RasdamanHelper2.cxx nmlog.h rasgeo_template_inst.hh RasdamanConnector.h RasdamanHelper2.h
 raserase_LDADD = ../../rasodmg/librasodmg.a ../../clientcomm/libclientcomm.a \
               ../../raslib/libraslib.a \
               ../../conversion/libconversion.a ../../commline/libcommline.a \
-              ../../network/libnetwork.a
+              ../../network/libnetwork.a @GDAL_LDFLAGS@
 
 SUBDIRS= ../../rasodmg ../../clientcomm \
          ../../raslib ../../conversion ../../commline ../../network

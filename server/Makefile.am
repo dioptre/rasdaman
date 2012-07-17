@@ -30,7 +30,7 @@
 ##################################################################
 
 AM_CXXFLAGS=@BASEDBCXXFLAGS@
-AM_LDFLAGS=@BASEDBLDFLAGS@
+AM_LDFLAGS=
 
 bin_PROGRAMS=rasserver
 rasserver_SOURCES=rasserver_main.cc rasserver_config.cc rasserver_entry.cc \
@@ -47,7 +47,7 @@ rasserver_LDADD=../servercomm/libservercomm.a ../qlparser/libqlparser.a ../conve
                 ../relcatalogif/librelcatalogif.a ../indexmgr/libindexmgr.a ../relblobif/librelblobif.a \
                 ../relindexif/librelindexif.a ../httpserver/libhttpserver.a \
                 ../network/libnetwork.a ../commline/libcommline.a \
-                ../relcatalogif/librelcatalogif.a ../raslib/libraslib.a 
+                ../relcatalogif/librelcatalogif.a ../raslib/libraslib.a @BASEDBLDFLAGS@
 
 SUBDIRS = ../relblobif ../relindexif ../relmddif ../relcatalogif ../reladminif ../relstorageif \
           ../indexmgr ../catalogmgr ../tilemgr ../storagemgr ../commline ../network \

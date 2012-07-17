@@ -33,7 +33,7 @@ AM_LFLAGS=-I
 YACC = bison 
 AM_YFLAGS=-d -y
 AM_CXXFLAGS=@BASEDBCXXFLAGS@
-AM_LDFLAGS=@BASEDBLDFLAGS@
+AM_LDFLAGS=
 
 bin_PROGRAMS=rasdl
 rasdl_SOURCES=lex.ll odl.yy parse.cc parse.hh symbtbl.cc symbtbl.hh \
@@ -46,7 +46,7 @@ rasdl_LDADD = ../reladminif/libreladminif.a ../relmddif/librelmddif.a \
               ../indexmgr/libindexmgr.a ../catalogmgr/libcatalogmgr.a \
               ../storagemgr/libstoragemgr.a ../tilemgr/libtilemgr.a \
               ../commline/libcommline.a ../raslib/libraslib.a \
-              ../conversion/libconversion.a ../rasodmg/librasodmg.a
+              ../conversion/libconversion.a ../rasodmg/librasodmg.a @BASEDBLDFLAGS@
 
 BUILT_SOURCES=lex.cc odl.cc odl.h              
 CLEANFILES=lex.cc odl.cc odl.h
