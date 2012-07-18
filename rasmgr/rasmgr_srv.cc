@@ -385,6 +385,10 @@ int RasServer::startServerInDebugger(char *command)
 	const char *rasmgrHost = ptrServerHost->useLocalHost() ? "localhost" : config.getHostName();    
 	sprintf(command,                "%s --rsn %s %s --lport %ld ",executableName,serverName,sTypeString,listenPort);
 	sprintf(command+strlen(command),"--mgr %s --mgrport %d --connect %s ",rasmgrHost,config.getListenPort(),ptrDatabaseHost->getConnectionString());
+  if (strlen(ptrDatabaseHost->getUser()) > 0)
+    sprintf(command+strlen(command),"-u %s ",ptrDatabaseHost->getUser());
+  if (strlen(ptrDatabaseHost->getPasswd()) > 0)
+    sprintf(command+strlen(command),"-p %s ",ptrDatabaseHost->getPasswd());
 	sprintf(command+strlen(command),"--sync %s %s",authorization.getSyncroString(),extraParam);
 	
 	currentCountDown=initialCountDown;
@@ -409,7 +413,17 @@ int RasServer::startServer()
 	
 	const char *rasmgrHost = ptrServerHost->useLocalHost() ? "localhost" : config.getHostName();    
 	char command[ARG_MAX+1];
-	const char *SPRINTF_FORMAT = "%s %s %s --rsn %s %s --lport %ld --mgr %s --mgrport %ld --connect %s %s";
+  
+	const char *SPRINTF_FORMAT;
+  int userOptLen = strlen(ptrDatabaseHost->getUser()), passOptLen = strlen(ptrDatabaseHost->getPasswd());
+  if (userOptLen > 0)
+    if (passOptLen > 0)
+      SPRINTF_FORMAT = "%s %s %s --rsn %s %s --lport %ld --mgr %s --mgrport %ld --connect %s -u %s -p %s %s";
+    else
+      SPRINTF_FORMAT = "%s %s %s --rsn %s %s --lport %ld --mgr %s --mgrport %ld --connect %s -u %s %s";
+  else
+    SPRINTF_FORMAT = "%s %s %s --rsn %s %s --lport %ld --mgr %s --mgrport %ld --connect %s %s";
+  
 	// check for buffer oflo
 	unsigned int commandLen =
 	     strlen(SPRINTF_FORMAT)
@@ -418,6 +432,8 @@ int RasServer::startServer()
 	   + strlen(rasmgrHost)
 	   + 4 // aka strlen(config.getListenPort())
 	   + strlen(ptrDatabaseHost->getConnectionString())
+     + userOptLen
+     + passOptLen
 	   + strlen(extraParam);
 	if (commandLen > ARG_MAX)
 	{
@@ -425,7 +441,17 @@ int RasServer::startServer()
 		RMInit::logOut<<"Error: rasserver command line too long, cannot launch. Disappointedly aborting server start." <<std::endl;
 		return RASSERVER_CMDLINEOFLO;
 	}
-	sprintf(command, SPRINTF_FORMAT, serverName,executableName,executableName,serverName,sTypeString,listenPort, rasmgrHost,config.getListenPort(),ptrDatabaseHost->getConnectionString(), extraParam);
+  
+  if (userOptLen > 0)
+    if (passOptLen > 0)
+      sprintf(command, SPRINTF_FORMAT, serverName,executableName,executableName,serverName,sTypeString,
+            listenPort, rasmgrHost,config.getListenPort(),ptrDatabaseHost->getConnectionString(),ptrDatabaseHost->getUser(),ptrDatabaseHost->getPasswd(),extraParam);
+    else
+      sprintf(command, SPRINTF_FORMAT, serverName,executableName,executableName,serverName,sTypeString,
+            listenPort, rasmgrHost,config.getListenPort(),ptrDatabaseHost->getConnectionString(),ptrDatabaseHost->getUser(),extraParam);
+  else
+    sprintf(command, SPRINTF_FORMAT, serverName,executableName,executableName,serverName,sTypeString,
+            listenPort, rasmgrHost,config.getListenPort(),ptrDatabaseHost->getConnectionString(),extraParam);
 
 	if(isinternal)
 	{

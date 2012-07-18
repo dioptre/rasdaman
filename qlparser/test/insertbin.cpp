@@ -66,6 +66,8 @@ extern int   noTimeOut= 0;
 #include "mddmgr/mddcolliter.hh"
 
 char globalConnectId[256]="RASBASE";
+char globalDbUser[255] = {0};
+char globalDbPasswd[255] = {0};
 
 // init globals for server initialization
 

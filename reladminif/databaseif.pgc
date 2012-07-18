@@ -67,6 +67,9 @@ PGconn *pgConn = NULL;
 #include "adminif.hh"
 
 extern char globalConnectId[256];
+extern char globalDbUser[256];
+extern char globalDbPasswd[256];
+
 // size of ARCHITECTURE attribute in RAS_ADMIN:
 #define SIZE_ARCH_RASADMIN 20
 
@@ -113,12 +116,34 @@ DatabaseIf::connect() throw (r_Error)
 
 	EXEC SQL BEGIN DECLARE SECTION;
 		char	id[STRING_MAXLEN];
+		char	user[STRING_MAXLEN];
+		char	passwd[STRING_MAXLEN];
 	EXEC SQL END DECLARE SECTION;
 
 	strcpy((char *)&id, globalConnectId);
+	strcpy((char *)&user, globalDbUser);
+	strcpy((char *)&passwd, globalDbPasswd);
+  
+  TALK("user " << globalDbUser << ", pass: " << globalDbPasswd);
 	
+  if (strlen(globalDbUser) > 0)
+  {
+    if (strlen(globalDbPasswd) > 0)
+    {
+      TALK( "EXEC SQL CONNECT TO " << id << " USER " << globalDbUser << " USING secret_pass" );
+      EXEC SQL CONNECT TO :id AS rasdaConn USER :user USING :passwd;
+    }
+    else
+    {
+      TALK( "EXEC SQL CONNECT TO " << id << " USER " << globalDbUser );
+      EXEC SQL CONNECT TO :id AS rasdaConn USER :user;
+    }
+  }
+  else
+  {
     TALK( "EXEC SQL CONNECT TO " << id );
-	EXEC SQL CONNECT TO :id AS rasdaConn;		// "AS" param must be same as down in ECPGget_connection()
+    EXEC SQL CONNECT TO :id AS rasdaConn;		// "AS" param must be same as down in ECPGget_connection()
+  }
 	if (SQLCODE != SQLOK)
 	{
 	check("DatabaseIf::connect() CONNECT");
@@ -126,6 +151,15 @@ DatabaseIf::connect() throw (r_Error)
 		TALK( "error in connect, SQLCODE=" << SQLCODE );
 		generateException();
    }
+  
+  if (strlen(globalDbUser) > 0)
+  {
+    if (strlen(globalDbPasswd) > 0)
+      pgConn = PQsetdbLogin(NULL,NULL,NULL,NULL,globalConnectId,globalDbUser,globalDbPasswd);
+    else
+      pgConn = PQsetdbLogin(NULL,NULL,NULL,NULL,globalConnectId,globalDbUser,NULL);
+  }
+  else
     pgConn = PQsetdb(NULL,NULL,NULL,NULL,globalConnectId);
     if (pgConn == NULL || PQstatus(pgConn) == CONNECTION_BAD) {
 		RMDBGMIDDLE(4, RMDebug::module_adminif, "DatabaseIf", "Error: cannot obtain libpq connection" );

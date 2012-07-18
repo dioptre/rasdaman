@@ -93,6 +93,8 @@ bool ObjectBroker::freeMemory()
 
 /// from server/rasserver_main.cc:
 char globalConnectId[256];
+char globalDbUser[255] = {0};
+char globalDbPasswd[255] = {0};
 
 /// doTest(): run the test cases
 /// preconditions:

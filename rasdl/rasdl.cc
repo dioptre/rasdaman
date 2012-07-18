@@ -208,6 +208,8 @@ ProgModes progMode = M_INVALID;
 
 // this variable is provided for Admin/DatabaseIf for opening connections, it holds the connect string
 char globalConnectId[256];
+char globalDbUser[255] = {0};
+char globalDbPasswd[255] = {0};
 
 
 const char *baseName = DEFAULT_BASENAME;

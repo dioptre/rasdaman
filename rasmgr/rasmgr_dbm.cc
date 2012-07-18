@@ -59,6 +59,14 @@ const char* DatabaseHost::getConnectionString()
   { return connectString;
    }
 
+const char* DatabaseHost::getUser()
+  { return userString;
+   }
+
+const char* DatabaseHost::getPasswd()
+  { return passwdString;
+   }
+
 void  DatabaseHost::changeConnectionString(const char *connectString)
   { strcpy(this->connectString,connectString);
    }
@@ -66,10 +74,18 @@ void DatabaseHost::changeName(const char *newName)
   { strcpy(hostName,newName);
    }
 
-void  DatabaseHost::init(const char* hostName,const char* connectString)
+void  DatabaseHost::init(const char* hostName,const char* connectString,const char* userString,const char* passwdString)
   {
     strcpy(this->hostName,hostName);
     strcpy(this->connectString,connectString);
+    if (userString != NULL && strlen(userString) > 0)
+      strcpy(this->userString,userString);
+    else
+      this->userString[0] = '\0';
+    if (passwdString != NULL && strlen(passwdString) > 0)
+      strcpy(this->passwdString,passwdString);
+    else
+      this->passwdString[0] = '\0';
     valid=true;
    }
    
@@ -119,7 +135,7 @@ DatabaseHostManager::~DatabaseHostManager()
     
    }
    
-bool DatabaseHostManager::insertNewHost(const char* hostName,const char* connectString)
+bool DatabaseHostManager::insertNewHost(const char* hostName,const char* connectString,const char* userString,const char* passwdString)
   { 
     char tempHostName[200];
     strcpy(tempHostName,hostName);
@@ -131,7 +147,7 @@ bool DatabaseHostManager::insertNewHost(const char* hostName,const char* connect
     hostList.push_back(tempDatabaseHost);
     DatabaseHost &refDatabaseHost=hostList.back();
     
-    refDatabaseHost.init(tempHostName,connectString); 
+    refDatabaseHost.init(tempHostName,connectString,userString,passwdString); 
     
     return true;
    }

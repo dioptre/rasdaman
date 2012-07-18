@@ -48,6 +48,8 @@ class Configuration
       int         getMaxTransferBufferSize();
       int         getTimeout();
       const char* getDbConnectionID();
+      const char* getDbUser();
+      const char* getDbPasswd();
       
       int         getDefaultTileSize();
       int         getDefaultPCTMin();
@@ -91,6 +93,8 @@ class Configuration
 
       CommandLineParameter *cmlOptLevel;
       CommandLineParameter *cmlConnectStr;
+      CommandLineParameter *cmlUserStr;
+      CommandLineParameter *cmlPasswdStr;
       CommandLineParameter *cmlLog;
 
       CommandLineParameter *cmlTileSize;
@@ -121,6 +125,8 @@ class Configuration
       bool        httpServ;
       bool        rnpServ;
       const char* dbConnection;
+      const char* dbUser;
+      const char* dbPasswd;
 
       int         tileSize;
       int         pctMin;

@@ -216,6 +216,8 @@ typedef enum
 
 
 char	     globalConnectId[255] = {0};
+char	     globalDbUser[255] = {0};
+char	     globalDbPasswd[255] = {0};
 ServerComm   *server;
 
 // global variables and default settings

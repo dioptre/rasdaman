@@ -223,7 +223,11 @@ bool Configuration::saveConfigFile()
 	for(i=0;i<dbHostManager.countHosts();i++)
 	{
 		DatabaseHost &xx=dbHostManager[i];
-		ofs<<"define dbh "<<xx.getName()<<" -connect "<<xx.getConnectionString()<<std::endl;
+		ofs<<"define dbh "<<xx.getName()<<" -connect "<<xx.getConnectionString();
+    if (strlen(xx.getUser()) > 0)
+      ofs<<" -user " << xx.getUser();
+    if (strlen(xx.getPasswd()) > 0)
+      ofs<<" -passwd " << xx.getPasswd();
 	}
 	//rasservers
 	for(i=0;i<rasManager.countServers();i++)

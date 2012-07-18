@@ -517,13 +517,15 @@ void RasControl::defineDBHosts()
     checkPermission(admR_config);
         
     const char *dbhName=getValueOf("dbh");
-    const char *connStr=getValueOf("-connect");
+    const char *connStr=getValueOf("-connect", true);
+    const char *userStr=getValueOf("-user", true);
+    const char *passwdStr=getValueOf("-passwd", true);
     
     checkUnexpectedTokens();
     checkNotNull(dbhName,"database host name");
     checkNotNull(connStr,"connection string");
        
-    if(dbHostManager.insertNewHost(dbhName,connStr))
+    if(dbHostManager.insertNewHost(dbhName,connStr,userStr,passwdStr))
       {
         sprintf(answBuffer,"Defining database host %s with connection string: %s",dbhName,connStr);
 	}

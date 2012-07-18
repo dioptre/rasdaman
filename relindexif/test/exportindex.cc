@@ -57,6 +57,8 @@ get domain
 #define UNKNOWNDATAFORMAT	8
 
 char globalConnectId[256];
+char globalDbUser[255] = {0};
+char globalDbPasswd[255] = {0};
 
 RMINITGLOBALS('S')
 

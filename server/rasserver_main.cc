@@ -90,6 +90,9 @@ extern int           noTimeOut = 0;
 // here the id string for connecting to the RDBMS is stored (used by rel* modules).
 // FIXME: bad hack -- PB 2003-oct-12
 char globalConnectId[256];
+char globalDbUser[255] = {0};
+char globalDbPasswd[255] = {0};
+
 int  globalHTTPPort;
 // do we allow for User-Defined Functions? (aka rasql routines)
 bool udfEnabled = true;
@@ -230,7 +233,14 @@ bool initialization()
 
 	//  globalConnectId         = configuration.getDbConnectionID();
 	strcpy(globalConnectId,configuration.getDbConnectionID());
-	RMInit::logOut << ", connecting to " << BASEDBSTRING << " as '" << globalConnectId <<  "'." << endl;
+	RMInit::logOut << ", connecting to " << BASEDBSTRING << " as '" << globalConnectId <<  "'";
+  
+  strcpy(globalDbUser,configuration.getDbUser());
+  if (strlen(configuration.getDbUser()) > 0) {
+    RMInit::logOut << ", user " << globalDbUser;
+  }
+  RMInit::logOut << ".";
+  strcpy(globalDbPasswd,configuration.getDbPasswd());
 
 	rasmgrHost = configuration.getRasmgrHost();
 	rasmgrPort = configuration.getRasmgrPort();

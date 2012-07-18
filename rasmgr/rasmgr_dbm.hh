@@ -47,10 +47,12 @@ class DatabaseHost
       DatabaseHost();
       ~DatabaseHost();
       
-      void  init(const char* hostName,const char *connectString);      
+      void  init(const char* hostName,const char *connectString,const char* userString,const char* passwdString);      
       
       const char* getName();
       const char* getConnectionString();
+      const char* getUser();
+      const char* getPasswd();
       void  changeConnectionString(const char *connectString);
       void  changeName(const char *newName);
       void  regStartServer();
@@ -65,6 +67,8 @@ class DatabaseHost
     private:
       char hostName[100];
       char connectString[100];
+      char userString[100];
+      char passwdString[100];
       int  activServers;
       //int  connServers;
       //int  connDatabases;
@@ -79,7 +83,7 @@ class DatabaseHostManager
     public:
       DatabaseHostManager();
       ~DatabaseHostManager();
-      bool insertNewHost(const char* hostName,const char* connectString);
+      bool insertNewHost(const char* hostName,const char* connectString,const char* userString,const char* passwdString);
       bool removeHost(const char* hostName);
       int  countHosts();
       DatabaseHost& operator[](int);
