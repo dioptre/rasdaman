@@ -153,7 +153,7 @@ RMINITGLOBALS('S')
 
 #define PARAM_CONNECT	"connect"
 #define HELP_CONNECT	"<connect-str> connect string for underlying database (syntax depending on base DBMS, e.g., rasbase@serverhost)"
-#define DEFAULT_CONNECT	"/"
+#define DEFAULT_CONNECT	"RASBASE"
 
 #define PARAM_DEBUG	"debug"
 #define HELP_DEBUG	"print diagnostic output"
