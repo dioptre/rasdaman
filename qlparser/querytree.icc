@@ -22,8 +22,6 @@ rasdaman GmbH.
 */
 /*************************************************************
  *
- * Copyright (C) 1996 FORWISS
- *
  * INLINE SOURCE: querytree.icc
  *
  * MODULE:  qlparser
