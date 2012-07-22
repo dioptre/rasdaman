@@ -25,111 +25,113 @@ rasdaman GmbH.
 #include "tilemgr/tile.hh"
 
 ostream& operator<<(ostream& in,  const KeyObject& d)
-	{
-	if (d.isPersCarrier())
-		{
-		in << "Carrier{" << d.getDomain() << ", " << d.getObject().getOId() << "}";
-		}
-	else	{
-		in << "Carrier{" << d.getDomain() << ", TransTile}";
-		}
-	return in;
-	}
+{
+    if (d.isPersCarrier())
+    {
+        in << "Carrier{" << d.getDomain() << ", " << d.getObject().getOId() << "}";
+    }
+    else
+    {
+        in << "Carrier{" << d.getDomain() << ", TransTile}";
+    }
+    return in;
+}
 
 KeyObject::KeyObject()
-	:	transobject(NULL)
-	{
-	}
+    :   transobject(NULL)
+{
+}
 
 KeyObject::KeyObject(const KeyObject& old)
-	:	persobject(old.persobject),
-		domain(old.domain),
-		transobject(old.transobject)
-	{
-	}
+    :   persobject(old.persobject),
+        domain(old.domain),
+        transobject(old.transobject)
+{
+}
 
 KeyObject::KeyObject(const Tile* tile)
-	:	persobject(),
-		domain(tile->getDomain()),
-		transobject(NULL)
-	{
-	if (tile->isPersistent())
-		{
-		persobject = (const DBObjectId&)((Tile*)tile)->getDBTile();
-		}
-	else	{
-		transobject = (Tile*)tile;
-		}
-	}
+    :   persobject(),
+        domain(tile->getDomain()),
+        transobject(NULL)
+{
+    if (tile->isPersistent())
+    {
+        persobject = (const DBObjectId&)((Tile*)tile)->getDBTile();
+    }
+    else
+    {
+        transobject = (Tile*)tile;
+    }
+}
 
 KeyObject::KeyObject(const DBObjectId& obj, const r_Minterval& dom)
-	:	persobject(obj),
-		domain(dom),
-		transobject(NULL)
-	{
-	}
+    :   persobject(obj),
+        domain(dom),
+        transobject(NULL)
+{
+}
 
 KeyObject::~KeyObject()
-	{
-	transobject = NULL;
-	}
+{
+    transobject = NULL;
+}
 
 void
 KeyObject::setDomain(const r_Minterval& dom)
-	{
-	domain = dom;
-	}
+{
+    domain = dom;
+}
 
 void
 KeyObject::setTransObject(const Tile* tile)
-	{
-	domain = tile->getDomain();
-	transobject = (Tile*)tile;
-	}
+{
+    domain = tile->getDomain();
+    transobject = (Tile*)tile;
+}
 
 void
 KeyObject::setObject(const DBObjectId& obj)
-	{
-	persobject = obj;
-	}
+{
+    persobject = obj;
+}
 
 bool
-KeyObject::isInitialised() const	
-	{
-	if (transobject)
-		return true;
-	if (persobject.isInitialised())
-		return true;
-	return false;
-	}
+KeyObject::isInitialised() const
+{
+    if (transobject)
+        return true;
+    if (persobject.isInitialised())
+        return true;
+    return false;
+}
 
 bool
 KeyObject::isPersCarrier() const
-	{
-	return (transobject == NULL);
-	}
+{
+    return (transobject == NULL);
+}
 
 Tile*
 KeyObject::getTransObject() const
-	{
-	return transobject;
-	}
+{
+    return transobject;
+}
 
 const DBObjectId&
 KeyObject::getObject() const
-	{
-	return persobject;
-	}
+{
+    return persobject;
+}
 
 r_Minterval
 KeyObject::getDomain() const
-	{
-	return domain;
-	}
+{
+    return domain;
+}
 /*
 const r_Minterval&
 KeyObject::getDomain() const
-	{
-	return domain;
-A	}
+    {
+    return domain;
+A   }
 */

@@ -50,30 +50,30 @@ rasdaman GmbH.
 
 class r_Conv_PNG : public r_Convert_Memory
 {
-  public:
-  /// constructor using an r_Type object
-  r_Conv_PNG( const char *src, const r_Minterval &interv, const r_Type *tp ) throw(r_Error);
-  /// constructor using convert_type_e shortcut
-  r_Conv_PNG( const char *src, const r_Minterval &interv, int tp ) throw(r_Error);
-  /// destructor
-  ~r_Conv_PNG( void );
+public:
+    /// constructor using an r_Type object
+    r_Conv_PNG( const char *src, const r_Minterval &interv, const r_Type *tp ) throw(r_Error);
+    /// constructor using convert_type_e shortcut
+    r_Conv_PNG( const char *src, const r_Minterval &interv, int tp ) throw(r_Error);
+    /// destructor
+    ~r_Conv_PNG( void );
 
-  /// convert to PNG
-  virtual r_convDesc &convertTo( const char *options=NULL ) throw(r_Error);
-  /// convert from PNG
-  virtual r_convDesc &convertFrom( const char *options=NULL ) throw(r_Error);
-  /// cloning
-  virtual r_Convertor *clone( void ) const;
-  /// identification
-  virtual const char *get_name( void ) const;
-  virtual r_Data_Format get_data_format( void ) const;
+    /// convert to PNG
+    virtual r_convDesc &convertTo( const char *options=NULL ) throw(r_Error);
+    /// convert from PNG
+    virtual r_convDesc &convertFrom( const char *options=NULL ) throw(r_Error);
+    /// cloning
+    virtual r_Convertor *clone( void ) const;
+    /// identification
+    virtual const char *get_name( void ) const;
+    virtual r_Data_Format get_data_format( void ) const;
 
-  private:
-  /// names
-  static const char *name_InfoKey;
-  static const char *name_InfoText;
-  static const char *method_convertTo;
-  static const char *method_convertFrom;
+private:
+    /// names
+    static const char *name_InfoKey;
+    static const char *name_InfoText;
+    static const char *method_convertTo;
+    static const char *method_convertFrom;
 };
 
 #endif

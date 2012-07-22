@@ -24,21 +24,21 @@ rasdaman GmbH.
  * INCLUDE: akgnet_common.hh
  *
  * MODULE:  akg network
- * CLASS:   
+ * CLASS:
  *
  * COMMENTS:
  * Namespace akg
  * Contains common definitions for the whole package
- * 
+ *
 */
 
 #ifndef AKGNET_COMMON_HH
 #define AKGNET_COMMON_HH
 
 #if defined(DECALPHA) || defined(LINUX)
- #ifndef _XOPEN_SOURCE_EXTENDED
-  #define _XOPEN_SOURCE_EXTENDED // for gethostid
- #endif //_XOPEN_SOURCE_EXTENDED
+#ifndef _XOPEN_SOURCE_EXTENDED
+#define _XOPEN_SOURCE_EXTENDED // for gethostid
+#endif //_XOPEN_SOURCE_EXTENDED
 #endif //DECALPHA || LINUX
 
 
@@ -47,8 +47,8 @@ rasdaman GmbH.
 #include<errno.h>
 
 #if defined(DECALPHA)
-  #include<strings.h>
-  #include <arpa/inet.h>
+#include<strings.h>
+#include <arpa/inet.h>
 #endif
 #include<string.h>
 
@@ -68,26 +68,26 @@ rasdaman GmbH.
 
 //##### System dependent data types #############
 
-#ifdef X86 
- #define akgSocklen_t socklen_t
+#ifdef X86
+#define akgSocklen_t socklen_t
 #endif
 
 #ifdef AIX
- #define akgSocklen_t socklen_t
+#define akgSocklen_t socklen_t
 #endif
 
 #ifdef SOLARIS
- #define akgSocklen_t socklen_t
- #define INADDR_NONE  ((uint32_t) 0xffffffff)
+#define akgSocklen_t socklen_t
+#define INADDR_NONE  ((uint32_t) 0xffffffff)
 #endif
 
-#ifdef DECALPHA 
- #define akgSocklen_t size_t
- typedef in_addr_t  uint32_t;
-#endif 
+#ifdef DECALPHA
+#define akgSocklen_t size_t
+typedef in_addr_t  uint32_t;
+#endif
 
 #ifndef akgSocklen_t
- #error "What Operating System is this?"
+#error "What Operating System is this?"
 #endif
 //##### Debugging stuff ########################
 

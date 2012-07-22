@@ -22,7 +22,7 @@ rasdaman GmbH.
 /
 /*************************************************************
  *
- * 
+ *
  *
  *
  * COMMENTS:
@@ -48,10 +48,10 @@ QLMarrayOp::QLMarrayOp( QtOperation*     newCellExpression,
                         std::string           &newIteratorName,
                         BaseType*        newResType,
                         unsigned int     newResOff        ) :
-     MarrayOp( newResType, newResOff ),
-     cellExpression( newCellExpression ),
-     dataList( newDataList ),
-     iteratorName( newIteratorName )
+    MarrayOp( newResType, newResOff ),
+    cellExpression( newCellExpression ),
+    dataList( newDataList ),
+    iteratorName( newIteratorName )
 {
 }
 
@@ -66,25 +66,28 @@ QLMarrayOp::~QLMarrayOp()
 void
 QLMarrayOp::operator() ( char *result, const r_Point &p )
 {
-  // update point data of input list
-  if ( dataList ) 
-    ((QtPointData *)dataList->back())->setPointData( p );
+    // update point data of input list
+    if ( dataList )
+        ((QtPointData *)dataList->back())->setPointData( p );
 
-  if ( cellExpression ) {
-    QtData* resultData = cellExpression->evaluate( dataList );
+    if ( cellExpression )
+    {
+        QtData* resultData = cellExpression->evaluate( dataList );
 
-    if( resultData ) {
-      if( resultData->isScalarData() ) {
-	QtScalarData* scalarResultData = (QtScalarData*)resultData;
-	memcpy( (void*)result,
-        	(void*)scalarResultData->getValueBuffer(),
-        	scalarResultData->getValueType()->getSize() );
-      }
-      else
-	RMInit::logOut << "Internal Error: QLMarrayOp::operator() - cell type invalid." << endl;
-      resultData->deleteRef();
+        if( resultData )
+        {
+            if( resultData->isScalarData() )
+            {
+                QtScalarData* scalarResultData = (QtScalarData*)resultData;
+                memcpy( (void*)result,
+                        (void*)scalarResultData->getValueBuffer(),
+                        scalarResultData->getValueType()->getSize() );
+            }
+            else
+                RMInit::logOut << "Internal Error: QLMarrayOp::operator() - cell type invalid." << endl;
+            resultData->deleteRef();
+        }
     }
-  }
 }
 
 
@@ -95,37 +98,37 @@ QLCondenseOp::QLCondenseOp( QtOperation*     newCellExpression,
                             std::vector<QtData*>* newDataList,
                             std::string           &newIteratorName,
                             BaseType*        newResType,
-	                    unsigned int     newResOff,
+                            unsigned int     newResOff,
                             BinaryOp*        newAccuOp,
                             char*            newInitVal          )
 
-  :  GenCondenseOp( newResType, newResOff, newAccuOp, newInitVal ),
-     cellExpression( newCellExpression ),
-     condExpression( newCondExpression ),
-     dataList( newDataList ),
-     iteratorName( newIteratorName )
+    :  GenCondenseOp( newResType, newResOff, newAccuOp, newInitVal ),
+       cellExpression( newCellExpression ),
+       condExpression( newCondExpression ),
+       dataList( newDataList ),
+       iteratorName( newIteratorName )
 {
-  //
-  // add point with its iterator name to the data list  
-  //
+    //
+    // add point with its iterator name to the data list
+    //
 
-  // create QtPointData object 
-  QtPointData* pointData = new QtPointData( r_Point() );
+    // create QtPointData object
+    QtPointData* pointData = new QtPointData( r_Point() );
 
-  // set its iterator name
-  pointData->setIteratorName( iteratorName );
+    // set its iterator name
+    pointData->setIteratorName( iteratorName );
 
-  // add it to the list
-  dataList->push_back( pointData );
+    // add it to the list
+    dataList->push_back( pointData );
 }
 
 
 
 QLCondenseOp::~QLCondenseOp()
 {
-  // remove point data object from inputList again
-  dataList->back()->deleteRef();
-  dataList->pop_back();
+    // remove point data object from inputList again
+    dataList->back()->deleteRef();
+    dataList->pop_back();
 }
 
 
@@ -133,40 +136,45 @@ QLCondenseOp::~QLCondenseOp()
 void
 QLCondenseOp::operator() ( const r_Point& p )
 {
-  unsigned int currentCellValid = 1;
+    unsigned int currentCellValid = 1;
 
-  // update point data of input list
-  if ( dataList )
-    ((QtPointData*)dataList->back())->setPointData( p );
+    // update point data of input list
+    if ( dataList )
+        ((QtPointData*)dataList->back())->setPointData( p );
 
-  if ( condExpression ) {
-    QtData* condData = condExpression->evaluate( dataList );
+    if ( condExpression )
+    {
+        QtData* condData = condExpression->evaluate( dataList );
 #ifdef QT_RUNTIME_TYPE_CHECK
-    if( condData->getDataType() != QT_BOOL ) {
-      RMInit::logOut << "Internal error in QLCondenseOp::operator() - "
-                       << "runtime type checking failed (BOOL)." << endl; 
-    }
-    else
+        if( condData->getDataType() != QT_BOOL )
+        {
+            RMInit::logOut << "Internal error in QLCondenseOp::operator() - "
+                           << "runtime type checking failed (BOOL)." << endl;
+        }
+        else
 #endif
-    currentCellValid = ((QtAtomicData*)condData)->getUnsignedValue();    
-    condData->deleteRef();
-  }
+            currentCellValid = ((QtAtomicData*)condData)->getUnsignedValue();
+        condData->deleteRef();
+    }
 
-  if ( currentCellValid ) {
-    QtData* resultData = cellExpression->evaluate( dataList );
-    if ( resultData ) {
+    if ( currentCellValid )
+    {
+        QtData* resultData = cellExpression->evaluate( dataList );
+        if ( resultData )
+        {
 #ifdef QT_RUNTIME_TYPE_CHECK
-      if ( !(resultData->isScalarData()) ) {
-        RMInit::logOut << "Internal Error: QLCondenseOp::operator() - cell type invalid." << endl;
-      }
-      else
+            if ( !(resultData->isScalarData()) )
+            {
+                RMInit::logOut << "Internal Error: QLCondenseOp::operator() - cell type invalid." << endl;
+            }
+            else
 #endif
-      {
-        QtScalarData* scalarResultData = (QtScalarData*)resultData;
-        (*accuOp)( initVal, initVal, scalarResultData->getValueBuffer() );
-      }
+            {
+                QtScalarData* scalarResultData = (QtScalarData*)resultData;
+                (*accuOp)( initVal, initVal, scalarResultData->getValueBuffer() );
+            }
 
-      resultData->deleteRef();
+            resultData->deleteRef();
+        }
     }
-  }
 }

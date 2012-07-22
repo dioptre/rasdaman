@@ -30,48 +30,48 @@ static const char rcsid[] = "@(#)raslib, r_Type: $Header: /home/rasdev/CVS-repos
 #include "raslib/attribute.hh"
 
 r_Base_Type::r_Base_Type()
-	:	r_Type(),
-		typeSize(0)
-	{
-	}
+    :   r_Type(),
+        typeSize(0)
+{
+}
 
-r_Base_Type::r_Base_Type(const char* newTypeName, r_Bytes newTypeSize) 
-	:	r_Type(newTypeName),
-		typeSize(newTypeSize)
-	{
-	}
+r_Base_Type::r_Base_Type(const char* newTypeName, r_Bytes newTypeSize)
+    :   r_Type(newTypeName),
+        typeSize(newTypeSize)
+{
+}
 
-r_Base_Type::r_Base_Type(const r_Base_Type& oldObj) 
-	: r_Type(oldObj),
-	typeSize(oldObj.typeSize)
-	{
-	}
+r_Base_Type::r_Base_Type(const r_Base_Type& oldObj)
+    : r_Type(oldObj),
+      typeSize(oldObj.typeSize)
+{
+}
 
-const r_Base_Type& 
+const r_Base_Type&
 r_Base_Type::operator=(const r_Base_Type& oldObj)
-	{
-	// Gracefully handle self assignment
-	if (this == &oldObj) return *this;
+{
+    // Gracefully handle self assignment
+    if (this == &oldObj) return *this;
 
-	r_Type::operator=(oldObj);
-	typeSize = oldObj.typeSize;
+    r_Type::operator=(oldObj);
+    typeSize = oldObj.typeSize;
 
-	return *this;
-	}
+    return *this;
+}
 
 r_Base_Type::~r_Base_Type()
-	{
-	}
+{
+}
 
 bool
 r_Base_Type::isBaseType() const
-	{
-	return true;
-	}
+{
+    return true;
+}
 
 r_Bytes
 r_Base_Type::size() const
-	{
-	return typeSize;
-	}
+{
+    return typeSize;
+}
 

@@ -54,45 +54,45 @@ values. The value of a Float is stored in four chars.
   * \ingroup Relcatalogifs
   */
 class FloatType : public RealType
-	{
-	public:
-		FloatType(const OId& id) throw (r_Error);
+{
+public:
+    FloatType(const OId& id) throw (r_Error);
 
-		FloatType();
-		/*@Doc:
-		default constructor, sets type name to "Float".
-		*/
+    FloatType();
+    /*@Doc:
+    default constructor, sets type name to "Float".
+    */
 
-		FloatType(const FloatType& old);
-		/*@Doc:
-		copy constructor.
-		*/
+    FloatType(const FloatType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-		FloatType& operator=(const FloatType& old);
-		/*@Doc:
-		assignment operator.
-		*/
+    FloatType& operator=(const FloatType& old);
+    /*@Doc:
+    assignment operator.
+    */
 
-		virtual ~FloatType();
-		/*@Doc:
-		virtual destructor.
-		*/
+    virtual ~FloatType();
+    /*@Doc:
+    virtual destructor.
+    */
 
-		virtual void printCell(ostream& stream, const char* cell) const;
-		
-		virtual double* convertToCDouble(const char* cell, double* value) const;
+    virtual void printCell(ostream& stream, const char* cell) const;
 
-		virtual char* makeFromCDouble(char* cell, const double* value) const;
+    virtual double* convertToCDouble(const char* cell, double* value) const;
 
-		static const char* Name;
+    virtual char* makeFromCDouble(char* cell, const double* value) const;
 
-	protected:
+    static const char* Name;
 
-		virtual void readFromDb() throw (r_Error);
-		/*@Doc:
-		initializes the attributes of this type.
-		there is no database activity.  this is hard coded.
-		*/
-	};
+protected:
+
+    virtual void readFromDb() throw (r_Error);
+    /*@Doc:
+    initializes the attributes of this type.
+    there is no database activity.  this is hard coded.
+    */
+};
 
 #endif

@@ -56,54 +56,54 @@ is stored in one char. CharType is a persistence capable class.
   * \ingroup Relcatalogifs
   */
 class CharType : public UIntegralType
-	{
-	public:
-		CharType();
-		/*@Doc:
-		default constructor, no initialization needed for CharType.
-		*/
+{
+public:
+    CharType();
+    /*@Doc:
+    default constructor, no initialization needed for CharType.
+    */
 
-		CharType(const OId& id) throw (r_Error);
-		/*@Doc:
-		*/
+    CharType(const OId& id) throw (r_Error);
+    /*@Doc:
+    */
 
-		CharType(const CharType& old);
-		/*@Doc:
-		copy constructor.
-		*/
+    CharType(const CharType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-		CharType& operator=(const CharType& old);
-		/*@Doc:
-		assignment operator.
-		*/
+    CharType& operator=(const CharType& old);
+    /*@Doc:
+    assignment operator.
+    */
 
-		virtual ~CharType();
-		/*@Doc:
-		virtual destructor.
-		*/
+    virtual ~CharType();
+    /*@Doc:
+    virtual destructor.
+    */
 
-		virtual void printCell(ostream& stream, const char* cell) const;
-		/*@Doc:
-		*/
-	 
-		virtual r_ULong* convertToCULong(const char* cell, r_ULong* value) const;
-		/*@Doc:
-		*/
-		
-		virtual char* makeFromCULong(char* cell, const r_ULong* value) const;
-		/*@Doc:
-		*/
+    virtual void printCell(ostream& stream, const char* cell) const;
+    /*@Doc:
+    */
 
-		static const char* Name;
+    virtual r_ULong* convertToCULong(const char* cell, r_ULong* value) const;
+    /*@Doc:
+    */
 
-	protected:
-		
-		virtual void readFromDb() throw (r_Error);
-		/*@Doc:
-		initializes the attributes of this type.
-		there is no database activity.  this is hard coded.
-		*/
+    virtual char* makeFromCULong(char* cell, const r_ULong* value) const;
+    /*@Doc:
+    */
 
-	};
+    static const char* Name;
+
+protected:
+
+    virtual void readFromDb() throw (r_Error);
+    /*@Doc:
+    initializes the attributes of this type.
+    there is no database activity.  this is hard coded.
+    */
+
+};
 
 #endif

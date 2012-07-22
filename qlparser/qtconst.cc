@@ -58,18 +58,18 @@ const QtNode::QtNodeType QtConst::nodeType = QtNode::QT_CONST;
 
 
 QtConst::QtConst( QtData* newDataObj )
-  :  QtOperation(),
-     dataObj( newDataObj )
+    :  QtOperation(),
+       dataObj( newDataObj )
 {
-  // store parse info of the data object
-  setParseInfo( dataObj->getParseInfo() );
+    // store parse info of the data object
+    setParseInfo( dataObj->getParseInfo() );
 }
 
 
 
 QtConst::~QtConst()
 {
-  if( dataObj ) dataObj->deleteRef();
+    if( dataObj ) dataObj->deleteRef();
 }
 
 
@@ -77,101 +77,101 @@ QtConst::~QtConst()
 bool
 QtConst::equalMeaning( QtNode* node )
 {
-  RMDBCLASS( "QtConst", "equalMeaning( QtNode* )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtConst", "equalMeaning( QtNode* )", "qlparser", __FILE__, __LINE__ )
 
-  bool result = false;
+    bool result = false;
 
-  if( nodeType == node->getNodeType() )
-  {
-    QtConst* constObj = (QtConst*) node;
+    if( nodeType == node->getNodeType() )
+    {
+        QtConst* constObj = (QtConst*) node;
 
-    result = dataObj->equal( constObj->getDataObj() );
-  }
+        result = dataObj->equal( constObj->getDataObj() );
+    }
 
-  return result;
+    return result;
 }
 
 
 string
 QtConst::getSpelling()
 {
-  char tempStr[20];
-  sprintf(tempStr, "%ud", (unsigned long)getNodeType());
-  string result  = string(tempStr);
-  result.append( dataObj->getSpelling() );
+    char tempStr[20];
+    sprintf(tempStr, "%ud", (unsigned long)getNodeType());
+    string result  = string(tempStr);
+    result.append( dataObj->getSpelling() );
 
-  return result;
+    return result;
 }
 
 
 QtNode::QtAreaType
 QtConst::getAreaType()
 {
-  if( dataObj && dataObj->getDataType() == QT_MDD )
-    return QT_AREA_MDD;
-  else
-    return QT_AREA_SCALAR;
+    if( dataObj && dataObj->getDataType() == QT_MDD )
+        return QT_AREA_MDD;
+    else
+        return QT_AREA_SCALAR;
 }
 
 
 void
 QtConst::optimizeLoad( QtTrimList* trimList )
 {
-  RMDBCLASS( "QtConst", "optimizeLoad( QtTrimList* )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtConst", "optimizeLoad( QtTrimList* )", "qlparser", __FILE__, __LINE__ )
 
-  if( trimList )
-  {
-    if( trimList->size() )
+    if( trimList )
     {
-      if( dataObj && dataObj->getDataType() == QT_MDD )
-      {
-        // get the highest specified dimension
-        r_Dimension maxDimension=0;
-        QtTrimList::iterator i;
+        if( trimList->size() )
+        {
+            if( dataObj && dataObj->getDataType() == QT_MDD )
+            {
+                // get the highest specified dimension
+                r_Dimension maxDimension=0;
+                QtTrimList::iterator i;
 
-        for( i=trimList->begin(); i!=trimList->end(); i++ )
-          // get the maximum
-          maxDimension = maxDimension > (*i)->dimension ? maxDimension : (*i)->dimension;
+                for( i=trimList->begin(); i!=trimList->end(); i++ )
+                    // get the maximum
+                    maxDimension = maxDimension > (*i)->dimension ? maxDimension : (*i)->dimension;
 
-        // create a new loadDomain object and initialize it with open bounds
-        r_Minterval loadDomain(maxDimension+1);
+                // create a new loadDomain object and initialize it with open bounds
+                r_Minterval loadDomain(maxDimension+1);
 
-        // fill the loadDomain object with the QtTrimList specifications
-        for( i=trimList->begin(); i!=trimList->end(); i++ )
-          loadDomain[(*i)->dimension]    = (*i)->interval;
+                // fill the loadDomain object with the QtTrimList specifications
+                for( i=trimList->begin(); i!=trimList->end(); i++ )
+                    loadDomain[(*i)->dimension]    = (*i)->interval;
 
-        ((QtMDD*)dataObj)->setLoadDomain( loadDomain );
-      }
+                ((QtMDD*)dataObj)->setLoadDomain( loadDomain );
+            }
 
-      // release( trimList->begin(), trimList->end() );
-      vector<QtNode::QtTrimElement*>::iterator iter;
-      for( iter=trimList->begin(); iter!=trimList->end(); iter++ )
-      {
-        delete *iter;
-        *iter=NULL;
-      }
+            // release( trimList->begin(), trimList->end() );
+            vector<QtNode::QtTrimElement*>::iterator iter;
+            for( iter=trimList->begin(); iter!=trimList->end(); iter++ )
+            {
+                delete *iter;
+                *iter=NULL;
+            }
+        }
+
+        delete trimList;
+        trimList=NULL;
     }
-
-    delete trimList;
-    trimList=NULL;
-  }
 }
 
 
 QtData*
 QtConst::evaluate( QtDataList* /*inputList*/ )
 {
-  RMDBCLASS( "QtConst", "evaluate( QtDataList* )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtConst", "evaluate( QtDataList* )", "qlparser", __FILE__, __LINE__ )
 
-  QtData* returnValue = NULL;
+    QtData* returnValue = NULL;
 
-  if( dataObj )
-  {
-    dataObj->incRef();
-    returnValue = dataObj;
-  }
+    if( dataObj )
+    {
+        dataObj->incRef();
+        returnValue = dataObj;
+    }
 
-  return returnValue;
+    return returnValue;
 }
 
 
@@ -179,18 +179,18 @@ QtConst::evaluate( QtDataList* /*inputList*/ )
 void
 QtConst::printTree( int tab, ostream& s, QtChildType /*mode*/ )
 {
-  s << SPACE_STR(tab).c_str() << "QtConst Object: type " << flush;
-  dataStreamType.printStatus( s );
-  s << endl;
+    s << SPACE_STR(tab).c_str() << "QtConst Object: type " << flush;
+    dataStreamType.printStatus( s );
+    s << endl;
 
-  s << SPACE_STR(tab).c_str() << "  ";
+    s << SPACE_STR(tab).c_str() << "  ";
 
-  if( dataObj )
-    dataObj->printStatus( s );
-  else
-    s << "<no data object>";
+    if( dataObj )
+        dataObj->printStatus( s );
+    else
+        s << "<no data object>";
 
-  s << endl;
+    s << endl;
 }
 
 
@@ -198,36 +198,36 @@ QtConst::printTree( int tab, ostream& s, QtChildType /*mode*/ )
 void
 QtConst::printAlgebraicExpression( ostream& s )
 {
-  if( dataObj->isScalarData() )
-  {
-    QtScalarData* scalarDataObj = (QtScalarData*)dataObj;
-
-    if( scalarDataObj->getValueType() )
+    if( dataObj->isScalarData() )
     {
-      // Print the value but first cut leading blanks.
-      char valueString[1024];
-      // replaced deprecated ostrstream -- PB 2005-jan-14
-      // ostrstream valueStream( valueString, 1024 );
-      ostringstream valueStream( valueString );
+        QtScalarData* scalarDataObj = (QtScalarData*)dataObj;
 
-      scalarDataObj->getValueType()->printCell( valueStream, scalarDataObj->getValueBuffer() );
+        if( scalarDataObj->getValueType() )
+        {
+            // Print the value but first cut leading blanks.
+            char valueString[1024];
+            // replaced deprecated ostrstream -- PB 2005-jan-14
+            // ostrstream valueStream( valueString, 1024 );
+            ostringstream valueStream( valueString );
 
-      valueStream << ends;
-      
-      char* p = valueString;
-      while( *p == ' ' ) p++;
+            scalarDataObj->getValueType()->printCell( valueStream, scalarDataObj->getValueBuffer() );
 
-      s << p;
-    } 
+            valueStream << ends;
+
+            char* p = valueString;
+            while( *p == ' ' ) p++;
+
+            s << p;
+        }
+        else
+            s << "<nn>";
+    }
+    else if( dataObj->getDataType() == QT_STRING )
+    {
+        s << ((QtStringData*)dataObj)->getStringData().c_str();
+    }
     else
-      s << "<nn>";
-  }
-  else if( dataObj->getDataType() == QT_STRING )
-  {
-    s << ((QtStringData*)dataObj)->getStringData().c_str();
-  } 
-  else
-    s << "<nn>";
+        s << "<nn>";
 }
 
 
@@ -235,30 +235,30 @@ QtConst::printAlgebraicExpression( ostream& s )
 const QtTypeElement&
 QtConst::checkType( QtTypeTuple* typeTuple )
 {
-  RMDBCLASS( "QtConst", "checkType( QtTypeTuple* )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtConst", "checkType( QtTypeTuple* )", "qlparser", __FILE__, __LINE__ )
 
-  dataStreamType.setDataType( QT_TYPE_UNKNOWN );
+    dataStreamType.setDataType( QT_TYPE_UNKNOWN );
 
-  if( dataObj )
-  {
-    switch( dataObj->getDataType() )
+    if( dataObj )
     {
-      case QT_STRING:    
-      case QT_INTERVAL:  
-      case QT_MINTERVAL: 
-      case QT_POINT: 
-        dataStreamType.setDataType( dataObj->getDataType() );    
-        break;
-      case QT_MDD:
-        if( ((QtMDD*)dataObj)->getMDDObject() )
-          dataStreamType.setType((Type*)((QtMDD*)dataObj)->getMDDObject()->getMDDBaseType() );
-        break;
-      default:
-        dataStreamType.setType( ((QtScalarData*)dataObj)->getValueType() );
+        switch( dataObj->getDataType() )
+        {
+        case QT_STRING:
+        case QT_INTERVAL:
+        case QT_MINTERVAL:
+        case QT_POINT:
+            dataStreamType.setDataType( dataObj->getDataType() );
+            break;
+        case QT_MDD:
+            if( ((QtMDD*)dataObj)->getMDDObject() )
+                dataStreamType.setType((Type*)((QtMDD*)dataObj)->getMDDObject()->getMDDBaseType() );
+            break;
+        default:
+            dataStreamType.setType( ((QtScalarData*)dataObj)->getValueType() );
+        }
     }
-  }
 
-  return dataStreamType;
+    return dataStreamType;
 }
 
 

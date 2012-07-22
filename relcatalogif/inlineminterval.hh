@@ -42,35 +42,35 @@ domain data fast and efficiently.
   * \ingroup Relcatalogifs
   */
 class InlineMinterval : public r_Minterval
-	{
-	public:
-		InlineMinterval();
-		
-		InlineMinterval(r_Dimension dim);
-	
-		InlineMinterval(r_Dimension dim, r_Range* lowerbound, r_Range* upperbound, char* lowerfixed, char* upperfixed);
-		/*@Doc:
-		construct a InlineMinterval with dimension dim from the
-		arrays lowerbound, upperbound, lowerfixed, upperfixed.
-		*/
+{
+public:
+    InlineMinterval();
 
-		InlineMinterval(const r_Minterval& old);
+    InlineMinterval(r_Dimension dim);
 
-		InlineMinterval(const InlineMinterval& old);
-		
-		virtual ~InlineMinterval();
+    InlineMinterval(r_Dimension dim, r_Range* lowerbound, r_Range* upperbound, char* lowerfixed, char* upperfixed);
+    /*@Doc:
+    construct a InlineMinterval with dimension dim from the
+    arrays lowerbound, upperbound, lowerfixed, upperfixed.
+    */
 
-		//replaces only the r_Minterval part of the object
-		virtual InlineMinterval& operator=(const InlineMinterval& old);
+    InlineMinterval(const r_Minterval& old);
 
-		//replaces only the r_Minterval part of the object
-		virtual InlineMinterval& operator=(const r_Minterval& old);
+    InlineMinterval(const InlineMinterval& old);
 
-		virtual void insertInDb(r_Range* lowerbound, r_Range* upperbound, char* lowerfixed, char* upperfixed) const;
-		/*@Doc:
-		stores the attributes of the InlineMinterval into the four
-		supplied arrays.  the arrays must be large enough.
-		*/
-	};
+    virtual ~InlineMinterval();
+
+    //replaces only the r_Minterval part of the object
+    virtual InlineMinterval& operator=(const InlineMinterval& old);
+
+    //replaces only the r_Minterval part of the object
+    virtual InlineMinterval& operator=(const r_Minterval& old);
+
+    virtual void insertInDb(r_Range* lowerbound, r_Range* upperbound, char* lowerfixed, char* upperfixed) const;
+    /*@Doc:
+    stores the attributes of the InlineMinterval into the four
+    supplied arrays.  the arrays must be large enough.
+    */
+};
 
 #endif

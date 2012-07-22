@@ -27,7 +27,7 @@
 *
 * COMMENTS:
 *
-* 		No Comments
+*       No Comments
 */
 
 #ifndef _RASQL_ERROR_HH_
@@ -45,7 +45,7 @@
 */
 
 
-    /// valid error codes:
+/// valid error codes:
 #define ALLDONE                         -1
 #define OK                              0
 #define NOQUERY                         1
@@ -59,18 +59,18 @@
 
 class RasqlError // : public std::exception
 {
-  public:
+public:
 
     /// constructor receiving an error number
     RasqlError( unsigned int e );
-    
+
     /// destructor
     virtual ~RasqlError();
-  
-    /// get an error description
-    virtual const char * what(); 
 
-  private:
+    /// get an error description
+    virtual const char * what();
+
+private:
     /// error information
     unsigned int errno;
 };

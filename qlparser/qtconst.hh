@@ -45,20 +45,20 @@ rasdaman GmbH.
 /*@Doc:
 
  The class serves as a carrier for a {\tt QtData} object
- and, additionally, provides functionality necessary in 
+ and, additionally, provides functionality necessary in
  the query tree.
 
 */
 
 class QtConst : public QtOperation
 {
-  public:
-    /// constructor getting a pointer to the data object 
+public:
+    /// constructor getting a pointer to the data object
     QtConst( QtData* newDataObj );
     /**
       Lifetime of {\tt newDataObj} is managed by this class from now on.
     */
-    
+
     /// virtual destructor
     virtual ~QtConst();
 
@@ -77,7 +77,7 @@ class QtConst : public QtOperation
     /// method for evaluating the node
     QtData* evaluate( QtDataList* inputList );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -95,15 +95,15 @@ class QtConst : public QtOperation
     //@Man: Read/Write methods:
     //@{
     ///
-      /// return the data object
-      inline QtData* getDataObj();
+    /// return the data object
+    inline QtData* getDataObj();
     ///
     //@}
 
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /// pointer to the data object
     QtData* dataObj;
 

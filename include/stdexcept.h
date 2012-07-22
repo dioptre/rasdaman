@@ -47,98 +47,101 @@ rasdaman GmbH.
 
 class exception
 {
-  public:
+public:
     exception() throw() : errorString(0) {};
 
     exception( const char* s ) throw()
     {
-      errorString = new char[strlen(s)+1];
-      strcpy( errorString, s );
+        errorString = new char[strlen(s)+1];
+        strcpy( errorString, s );
     };
-       
+
     exception( const exception& ex ) throw()
     {
-      errorString = new char[strlen(ex.what())+1];
-      strcpy( errorString, ex.what() );      
+        errorString = new char[strlen(ex.what())+1];
+        strcpy( errorString, ex.what() );
     };
-    
+
     ~exception() throw()
     {
-      if( errorString ) delete[] errorString;
+        if( errorString ) delete[] errorString;
     };
-  
+
     exception& operator=( const exception& ex ) throw()
     {
-      if( this != &ex )
-      {
-        if( errorString ) delete[] errorString;
-	  
-        errorString = new char[strlen(ex.what())+1];
-        strcpy( errorString, ex.what() );      	
-      }
-      return *this;
+        if( this != &ex )
+        {
+            if( errorString ) delete[] errorString;
+
+            errorString = new char[strlen(ex.what())+1];
+            strcpy( errorString, ex.what() );
+        }
+        return *this;
     };
-    
-    inline virtual const char* what() const throw() { return errorString; };
-  
-  private:
+
+    inline virtual const char* what() const throw()
+    {
+        return errorString;
+    };
+
+private:
     char* errorString;
 };
 
 
 class logic_error : public exception
 {
-  public:
-    logic_error( const char* what_arg ) throw() : exception( what_arg ) {};   
+public:
+    logic_error( const char* what_arg ) throw() : exception( what_arg ) {};
 };
 
 
 class domain_error : public logic_error
 {
-  public:
-    domain_error( const char* what_arg ) throw() : logic_error( what_arg ) {};   
+public:
+    domain_error( const char* what_arg ) throw() : logic_error( what_arg ) {};
 };
 
 
 class invalid_argument : public logic_error
 {
-  public:
-    invalid_argument( const char* what_arg ) throw() : logic_error( what_arg ) {};   
+public:
+    invalid_argument( const char* what_arg ) throw() : logic_error( what_arg ) {};
 };
 
 
 class length_error : public logic_error
 {
-  public:
-    length_error( const char* what_arg ) throw() : logic_error( what_arg ) {};   
+public:
+    length_error( const char* what_arg ) throw() : logic_error( what_arg ) {};
 };
 
 
 class out_of_range : public logic_error
 {
-  public:
-    out_of_range( const char* what_arg ) throw() : logic_error( what_arg ) {};   
+public:
+    out_of_range( const char* what_arg ) throw() : logic_error( what_arg ) {};
 };
 
 
 class runtime_error : public exception
 {
-  public:
-    runtime_error( const char* what_arg ) throw() : exception( what_arg ) {};   
+public:
+    runtime_error( const char* what_arg ) throw() : exception( what_arg ) {};
 };
 
 
 class range_error : public runtime_error
 {
-  public:
-    range_error( const char* what_arg ) throw() : runtime_error( what_arg ) {};   
+public:
+    range_error( const char* what_arg ) throw() : runtime_error( what_arg ) {};
 };
 
 
 class overflow_error : public runtime_error
 {
-  public:
-    overflow_error( const char* what_arg ) throw() : runtime_error( what_arg ) {};   
+public:
+    overflow_error( const char* what_arg ) throw() : runtime_error( what_arg ) {};
 };
 
 #endif

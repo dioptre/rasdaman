@@ -56,7 +56,7 @@ computed value is returned.
 
 class QtOperation : public QtNode
 {
-  public:
+public:
     /// default constructor
     QtOperation();
 
@@ -87,30 +87,30 @@ class QtOperation : public QtNode
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
     /**
       The method triggers type checking of the node's subtree. If an error occurs, an exception
-      is raised. 
+      is raised.
     */
 
     //@Man: Read/Write methods
     //@{
     ///
-      /// 
-      inline void                 setDataStreamType( const QtTypeElement& type );
-      ///
-      inline const QtTypeElement& getDataStreamType() const;
+    ///
+    inline void                 setDataStreamType( const QtTypeElement& type );
+    ///
+    inline const QtTypeElement& getDataStreamType() const;
     ///
     //@}
 
     void printTree( int tab, std::ostream& s, QtChildType mode=QT_ALL_NODES );
-    
+
     void printAlgebraicExpression( std::ostream& s );
 
-  protected:
+protected:
     /// result type of the node
     QtTypeElement dataStreamType;
 
-  private:
-	/// atribute for indetification of nodes
-	static const QtNodeType nodeType;	
+private:
+    /// atribute for indetification of nodes
+    static const QtNodeType nodeType;
 };
 
 #include "qlparser/qtoperation.icc"

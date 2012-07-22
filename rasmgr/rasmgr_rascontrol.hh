@@ -28,9 +28,9 @@ rasdaman GmbH.
  *
  * PURPOSE:
  *   Decodes, verifies and xecutes the commands
- *    
+ *
  * COMMENTS:
- *   		None
+ *          None
  *
 */
 #ifndef RASMGR_RASCONTROL_HH
@@ -46,123 +46,124 @@ rasdaman GmbH.
   * \ingroup Rasmgrs
   */
 class RasControl
-  {
-    public:
-      int processRequest(char* reqMessage, char *answMessage);
-      void setConfigDirty( bool isDirty );
-      void setAuthDirty( bool isDirty );
+{
+public:
+    int processRequest(char* reqMessage, char *answMessage);
+    void setConfigDirty( bool isDirty );
+    void setAuthDirty( bool isDirty );
 
-    private:
-      void helloCommand();
-      void exitCommand();
-      void helpCommand();
-         void helpHelp();
-	 void exitHelp();
-      void listCommand(); 
-         void listRasServers();
-         void listRasHosts();  
-	 void listDBHosts();
-	 void listDatabases();
-	 void listUsers();
-	 void listModus();
-         void listVersion();
-	 void listConnections();
-      	 void listRights();
-         void listHelp();
-      void defineCommand();
-         void defineRasServers();   
-         void defineRasHosts();
-         void defineDBHosts();
-         void defineDatabases();
-	 void defineUsers();
-	 void defineHelp();
-      void removeCommand();
-         void removeRasServers();   
-         void removeRasHosts();
-         void removeDBHosts();
-         void removeDatabases();
-	 void removeUsers();	 
-         void removeHelp();
-      void checkCommand();
-         void checkRasHosts();
-         void checkHelp();
-      void upCommand();
-         void upRasServers();
-	   int upAllServersOnHost(const char*hostName);   
-         void upHelp();
-      void downCommand();
-         void downRasServers();
-	   int downAllServersOnHost(const char *hostName);
-         void downRasHosts();
-	   int downRasHost(const char *hostName);
-         void downHelp();
-      void changeCommand();
-         void changeHost();
-         void changeUser();
-	 void changeRasServer();
-	   void changeRasServer(const char *serverName, const char *dbhName, const char *countString, const char *extraString, const char *autoRestart, const char* execName);
-	 void changeDBHost();
-	 void changeDB();
-	 void changeHelp();
-      void saveCommand();
-         void saveHelp();
-     // void stopCommand();
-      void resetCommand();	
-      
-      void grantCommand();
-      void revokeCommand();
+private:
+    void helloCommand();
+    void exitCommand();
+    void helpCommand();
+    void helpHelp();
+    void exitHelp();
+    void listCommand();
+    void listRasServers();
+    void listRasHosts();
+    void listDBHosts();
+    void listDatabases();
+    void listUsers();
+    void listModus();
+    void listVersion();
+    void listConnections();
+    void listRights();
+    void listHelp();
+    void defineCommand();
+    void defineRasServers();
+    void defineRasHosts();
+    void defineDBHosts();
+    void defineDatabases();
+    void defineUsers();
+    void defineHelp();
+    void removeCommand();
+    void removeRasServers();
+    void removeRasHosts();
+    void removeDBHosts();
+    void removeDatabases();
+    void removeUsers();
+    void removeHelp();
+    void checkCommand();
+    void checkRasHosts();
+    void checkHelp();
+    void upCommand();
+    void upRasServers();
+    int upAllServersOnHost(const char*hostName);
+    void upHelp();
+    void downCommand();
+    void downRasServers();
+    int downAllServersOnHost(const char *hostName);
+    void downRasHosts();
+    int downRasHost(const char *hostName);
+    void downHelp();
+    void changeCommand();
+    void changeHost();
+    void changeUser();
+    void changeRasServer();
+    void changeRasServer(const char *serverName, const char *dbhName, const char *countString, const char *extraString, const char *autoRestart, const char* execName);
+    void changeDBHost();
+    void changeDB();
+    void changeHelp();
+    void saveCommand();
+    void saveHelp();
+    // void stopCommand();
+    void resetCommand();
 
-      // flag whether conf or auth file must be written before exit	
-      bool configDirty;
-      bool authDirty;
+    void grantCommand();
+    void revokeCommand();
 
-      void errorInCommand(const char*);
-      int  prepareAnswer(char *answMessage);
-      char answBuffer[MAXMSGOUTBUFF+20];  
-      bool isCommand(const char *key);
-      char commandBuffer[MAXMSG+20]; //for bug search blva
-      
-      void splitRequest(const char* reqMessage);
-      bool         isFlag(const char*,int pos=-1);
-      const char * getValueOf(const char*,bool acceptMinus=false); //'-' alone, only void right string
-      const char * getValueIfFlag(const char*,bool acceptMinus=false);
-      void checkUnexpectedTokens();
-      void checkPermission(int reqRights);
-      void checkNotNull(const char *ptr, const char *what);
-      unsigned long convertToULong(const char *stringValue,const char *what);
-      
-      RasServer&    getServer(const char*); //later, just use rasmanager[serverName]
-      Database&     getDatabase(const char *name);
-      DatabaseHost& getDatabaseHost(const char *name);
-      ServerHost&   getServerHost(const char *name);
-      User&         getUser(const char *name);
-      
-      struct Token
-        { char *argv;
-	  bool  used;
-	  void set(char*);
-	  const char *take();
-	 };
-      int  argc;
-      Token token[30];
+    // flag whether conf or auth file must be written before exit
+    bool configDirty;
+    bool authDirty;
 
-   };
-extern RasControl rascontrol;   
+    void errorInCommand(const char*);
+    int  prepareAnswer(char *answMessage);
+    char answBuffer[MAXMSGOUTBUFF+20];
+    bool isCommand(const char *key);
+    char commandBuffer[MAXMSG+20]; //for bug search blva
+
+    void splitRequest(const char* reqMessage);
+    bool         isFlag(const char*,int pos=-1);
+    const char * getValueOf(const char*,bool acceptMinus=false); //'-' alone, only void right string
+    const char * getValueIfFlag(const char*,bool acceptMinus=false);
+    void checkUnexpectedTokens();
+    void checkPermission(int reqRights);
+    void checkNotNull(const char *ptr, const char *what);
+    unsigned long convertToULong(const char *stringValue,const char *what);
+
+    RasServer&    getServer(const char*); //later, just use rasmanager[serverName]
+    Database&     getDatabase(const char *name);
+    DatabaseHost& getDatabaseHost(const char *name);
+    ServerHost&   getServerHost(const char *name);
+    User&         getUser(const char *name);
+
+    struct Token
+    {
+        char *argv;
+        bool  used;
+        void set(char*);
+        const char *take();
+    };
+    int  argc;
+    Token token[30];
+
+};
+extern RasControl rascontrol;
 
 /* obsolete, but in the future...
       void grantCommand();
       void revokeCommand();
-      
-      void connectCommand();	 
-         void connectRasServerToDBH();	 
-         void connectDatabaseToDBH();	 
-         void connectHelp();	 
-      void disconnectCommand();	 
-         void disconnectRasServerFromDBH();	 
-         void disconnectDatabaseFromDBH();	 
-         void disconnectHelp();	 
-	   void listRasServersOnDBH(const char*);
-	   void listRasServersDatabase(const char*);
+
+      void connectCommand();
+         void connectRasServerToDBH();
+         void connectDatabaseToDBH();
+         void connectHelp();
+      void disconnectCommand();
+         void disconnectRasServerFromDBH();
+         void disconnectDatabaseFromDBH();
+         void disconnectHelp();
+       void listRasServersOnDBH(const char*);
+       void listRasServersDatabase(const char*);
 
 */
 #endif

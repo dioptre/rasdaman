@@ -46,269 +46,271 @@ EXEC SQL include "../reladminif/sqlglobals.h";
 #include "relcatalogif/collectiontype.hh"
 
 DBMDDSet::DBMDDSet(const char* name, const OId& id, const CollectionType* type) throw (r_Error)
-	:	DBNamedObject(id, name),
-		collType(type)
+    :   DBNamedObject(id, name),
+        collType(type)
 {
-	RMDBGENTER(4, RMDebug::module_mddif, "DBMDDSet", "DBMDDSet(" << getName() << ", " << myOId << ", " << collType->getName() << ")");
-	ENTER( "DBMDDSet::DBMDDSet, name=" << name << ", oid=" << id );
+    RMDBGENTER(4, RMDebug::module_mddif, "DBMDDSet", "DBMDDSet(" << getName() << ", " << myOId << ", " << collType->getName() << ")");
+    ENTER( "DBMDDSet::DBMDDSet, name=" << name << ", oid=" << id );
 
-	if (name == NULL)
-		setName("unnamed collection");
-	if (type == NULL)
-	{
-		RMDBGONCE(0, RMDebug::module_mddif, "DBMDDSet", "DBMDDSet(" << name << ", NULL)")
-		throw r_Error(r_Error::r_Error_General);
-	}
-	if (!type->isPersistent())
-	{
-		r_Error t(RASTYPEUNKNOWN);
-		t.setTextParameter("type", type->getName());
-		RMDBGONCE(0, RMDebug::module_mddif, "DBMDDSet", "DBMDDSet(" << name << ", " << type->getName() << " not persistent)")
-		throw t;
-	}
-	DBMDDSet* set = NULL;
-	try
-	{
-		set = (DBMDDSet*)ObjectBroker::getObjectByName(OId::MDDCOLLOID, getName());
-	}
-	catch	(r_Error& err)
-	{
-		if (err.get_kind() == r_Error::r_Error_ObjectUnknown)
-			set = NULL;
-		else
-			throw;
-	}
-	if (set)
-	{
-		RMDBGMIDDLE(5, RMDebug::module_mddif, "DBMDDSet", "already have a set with name " << getName());
-		RMInit::logOut << "DBMDDSet::DBMDDSet() mdd collection with name \"" << getName() << "\" exists already" << endl;
-		throw r_Error(r_Error::r_Error_NameNotUnique);
-	}
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	testoid1;
-	EXEC SQL END DECLARE SECTION;
+    if (name == NULL)
+        setName("unnamed collection");
+    if (type == NULL)
+    {
+        RMDBGONCE(0, RMDebug::module_mddif, "DBMDDSet", "DBMDDSet(" << name << ", NULL)")
+        throw r_Error(r_Error::r_Error_General);
+    }
+    if (!type->isPersistent())
+    {
+        r_Error t(RASTYPEUNKNOWN);
+        t.setTextParameter("type", type->getName());
+        RMDBGONCE(0, RMDebug::module_mddif, "DBMDDSet", "DBMDDSet(" << name << ", " << type->getName() << " not persistent)")
+        throw t;
+    }
+    DBMDDSet* set = NULL;
+    try
+    {
+        set = (DBMDDSet*)ObjectBroker::getObjectByName(OId::MDDCOLLOID, getName());
+    }
+    catch   (r_Error& err)
+    {
+        if (err.get_kind() == r_Error::r_Error_ObjectUnknown)
+            set = NULL;
+        else
+            throw;
+    }
+    if (set)
+    {
+        RMDBGMIDDLE(5, RMDebug::module_mddif, "DBMDDSet", "already have a set with name " << getName());
+        RMInit::logOut << "DBMDDSet::DBMDDSet() mdd collection with name \"" << getName() << "\" exists already" << endl;
+        throw r_Error(r_Error::r_Error_NameNotUnique);
+    }
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    testoid1;
+    EXEC SQL END DECLARE SECTION;
 
-	testoid1 = id.getCounter();
-	TALK( "EXEC SQL SELECT MDDCollId INTO :testoid1 FROM RAS_MDDCOLLNAMES WHERE MDDCollId = " << testoid1 );
-	EXEC SQL SELECT MDDCollId INTO :testoid1 FROM RAS_MDDCOLLNAMES WHERE MDDCollId = :testoid1;
-	if (SQLCODE == SQLNODATAFOUND)
-	{	//the code is most of the time 100
-		_isInDatabase = false;
-		_isPersistent = true;
-		_isModified = true;
-		objecttype = OId::MDDCOLLOID;
-		myOId = id;
-		ObjectBroker::registerDBObject(this);
-	}
-	else
-	{
-		if (SQLCODE == SQLOK)
-		{
-			RMDBGMIDDLE(2, RMDebug::module_mddif, "DBMDDSet", "already have a DBMDDSet with this OId " << id);
-			RMInit::logOut << "DBMDDSet::DBMDDSet() mdd collection with oid \"" << id << "\" exists already" << endl;
-			throw r_Error(r_Error::r_Error_OIdNotUnique);
-		}
-		else
-		{
-			check("DBMDDSet::DBMDDSet(name, oid, settype)");
-			generateException();
-		}
-	}
+    testoid1 = id.getCounter();
+    TALK( "EXEC SQL SELECT MDDCollId INTO :testoid1 FROM RAS_MDDCOLLNAMES WHERE MDDCollId = " << testoid1 );
+    EXEC SQL SELECT MDDCollId INTO :testoid1 FROM RAS_MDDCOLLNAMES WHERE MDDCollId = :testoid1;
+    if (SQLCODE == SQLNODATAFOUND)
+    {
+        //the code is most of the time 100
+        _isInDatabase = false;
+        _isPersistent = true;
+        _isModified = true;
+        objecttype = OId::MDDCOLLOID;
+        myOId = id;
+        ObjectBroker::registerDBObject(this);
+    }
+    else
+    {
+        if (SQLCODE == SQLOK)
+        {
+            RMDBGMIDDLE(2, RMDebug::module_mddif, "DBMDDSet", "already have a DBMDDSet with this OId " << id);
+            RMInit::logOut << "DBMDDSet::DBMDDSet() mdd collection with oid \"" << id << "\" exists already" << endl;
+            throw r_Error(r_Error::r_Error_OIdNotUnique);
+        }
+        else
+        {
+            check("DBMDDSet::DBMDDSet(name, oid, settype)");
+            generateException();
+        }
+    }
 
-	LEAVE( "DBMDDSet::DBMDDSet" );
-	RMDBGEXIT(4, RMDebug::module_mddif, "DBMDDSet", "DBMDDSet(" << name << ", " << id << ") " << myOId);
+    LEAVE( "DBMDDSet::DBMDDSet" );
+    RMDBGEXIT(4, RMDebug::module_mddif, "DBMDDSet", "DBMDDSet(" << name << ", " << id << ") " << myOId);
 }
 
 void
 DBMDDSet::insertInDb() throw (r_Error)
 {
-	RMDBGENTER(4, RMDebug::module_mddif, "DBMDDSet", "insertInDb() " << myOId);
-	ENTER( "DBMDDSet::insertInDb" );
+    RMDBGENTER(4, RMDebug::module_mddif, "DBMDDSet", "insertInDb() " << myOId);
+    ENTER( "DBMDDSet::insertInDb" );
 
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	mddoid;
-		long	mddcolloid;
-		long	colltypeoid;
-		char	collname[VARCHAR_MAXLEN];
-	EXEC SQL END DECLARE SECTION;
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    mddoid;
+        long    mddcolloid;
+        long    colltypeoid;
+        char    collname[VARCHAR_MAXLEN];
+    EXEC SQL END DECLARE SECTION;
 
-	mddcolloid = myOId.getCounter();
-	colltypeoid = collType->getOId().getCounter();
+    mddcolloid = myOId.getCounter();
+    colltypeoid = collType->getOId().getCounter();
 
-	(void) strncpy( collname, (char*) getName(), (size_t) sizeof(collname) );
+    (void) strncpy( collname, (char*) getName(), (size_t) sizeof(collname) );
 
-	TALK( "EXEC SQL INSERT INTO RAS_MDDCOLLNAMES ( MDDCollName, MDDCollId, SetTypeId) VALUES( " << collname << "," << mddcolloid << "," << colltypeoid << ")" );
+    TALK( "EXEC SQL INSERT INTO RAS_MDDCOLLNAMES ( MDDCollName, MDDCollId, SetTypeId) VALUES( " << collname << "," << mddcolloid << "," << colltypeoid << ")" );
 
-	EXEC SQL INSERT INTO RAS_MDDCOLLNAMES ( MDDCollName, MDDCollId, SetTypeId)
-		VALUES	( :collname, :mddcolloid, :colltypeoid);
-	if (SQLCODE != SQLOK)
-	{
-		check("DBMDDSet::insertInDb() INSERT INTO RAS_MDDCOLLNAMES\0");
-		generateException();
-	}
+    EXEC SQL INSERT INTO RAS_MDDCOLLNAMES ( MDDCollName, MDDCollId, SetTypeId)
+       VALUES   ( :collname, :mddcolloid, :colltypeoid);
+    if (SQLCODE != SQLOK)
+    {
+        check("DBMDDSet::insertInDb() INSERT INTO RAS_MDDCOLLNAMES\0");
+        generateException();
+    }
 
-	for (DBMDDObjIdSet::iterator i = mySet.begin(); i != mySet.end(); i++)
-	{
-		mddoid = (*i).getOId().getCounter();
-		RMDBGMIDDLE(5, RMDebug::module_mddif, "DBMDDSet", "mddobject with id " << mddoid);
-		TALK( "EXEC SQL INSERT INTO RAS_MDDCOLLECTIONS ( MDDId, MDDCollId) VALUES( " << mddoid << "," << mddcolloid << ")" );
-		EXEC SQL INSERT INTO RAS_MDDCOLLECTIONS ( MDDId, MDDCollId)
-			VALUES	( :mddoid, :mddcolloid);
-		if (SQLCODE != SQLOK)
-		{
-			check("DBMDDSet::insertInDb() INSERT INTO RAS_MDDCOLLECTIONS\0");
-			generateException();
-		}
-		else
-		{
-			RMDBGMIDDLE(5, RMDebug::module_mddif, "DBMDDSet", "wrote mddobjoid\t: " << (*i).getOId());
-		}
-	}
-	
-	DBObject::insertInDb();
+    for (DBMDDObjIdSet::iterator i = mySet.begin(); i != mySet.end(); i++)
+    {
+        mddoid = (*i).getOId().getCounter();
+        RMDBGMIDDLE(5, RMDebug::module_mddif, "DBMDDSet", "mddobject with id " << mddoid);
+        TALK( "EXEC SQL INSERT INTO RAS_MDDCOLLECTIONS ( MDDId, MDDCollId) VALUES( " << mddoid << "," << mddcolloid << ")" );
+        EXEC SQL INSERT INTO RAS_MDDCOLLECTIONS ( MDDId, MDDCollId)
+        VALUES  ( :mddoid, :mddcolloid);
+        if (SQLCODE != SQLOK)
+        {
+            check("DBMDDSet::insertInDb() INSERT INTO RAS_MDDCOLLECTIONS\0");
+            generateException();
+        }
+        else
+        {
+            RMDBGMIDDLE(5, RMDebug::module_mddif, "DBMDDSet", "wrote mddobjoid\t: " << (*i).getOId());
+        }
+    }
 
-	LEAVE( "DBMDDSet::insertInDb" );
-	RMDBGEXIT(4, RMDebug::module_mddif, "DBMDDSet", "insertInDb() " << myOId);
+    DBObject::insertInDb();
+
+    LEAVE( "DBMDDSet::insertInDb" );
+    RMDBGEXIT(4, RMDebug::module_mddif, "DBMDDSet", "insertInDb() " << myOId);
 }
 
 void
 DBMDDSet::deleteFromDb() throw (r_Error)
 {
-	RMDBGENTER(4, RMDebug::module_mddif, "DBMDDSet", "deleteFromDb() " << myOId);
-	ENTER( "DBMDDSet::deleteFromDb" );
+    RMDBGENTER(4, RMDebug::module_mddif, "DBMDDSet", "deleteFromDb() " << myOId);
+    ENTER( "DBMDDSet::deleteFromDb" );
 
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	mddcolloid1;
-	EXEC SQL END DECLARE SECTION;
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    mddcolloid1;
+    EXEC SQL END DECLARE SECTION;
 
-	mddcolloid1 = myOId.getCounter();
-	TALK( "EXEC SQL DELETE FROM RAS_MDDCOLLNAMES WHERE MDDCollId = " << mddcolloid1 );
-	EXEC SQL DELETE FROM RAS_MDDCOLLNAMES WHERE MDDCollId = :mddcolloid1;
-	if (SQLCODE != SQLOK)
-	{
-		check("DBMDDSet::deleteFromDb() DELETE FROM RAS_MDDCOLLNAMES\0");
-		generateException();
-	}
+    mddcolloid1 = myOId.getCounter();
+    TALK( "EXEC SQL DELETE FROM RAS_MDDCOLLNAMES WHERE MDDCollId = " << mddcolloid1 );
+    EXEC SQL DELETE FROM RAS_MDDCOLLNAMES WHERE MDDCollId = :mddcolloid1;
+    if (SQLCODE != SQLOK)
+    {
+        check("DBMDDSet::deleteFromDb() DELETE FROM RAS_MDDCOLLNAMES\0");
+        generateException();
+    }
 
-	TALK( "EXEC SQL DELETE FROM RAS_MDDCOLLECTIONS WHERE MDDCollId = " << mddcolloid1 );
-	EXEC SQL DELETE FROM RAS_MDDCOLLECTIONS WHERE MDDCollId = :mddcolloid1;
-	if (SQLCODE != SQLOK)
-	{
-		if (SQLCODE != SQLNODATAFOUND)
-		{
-			check("DBMDDSet::deleteFromDb() DELETE FROM RAS_MDDCOLLECTIONS\0");
-			generateException();
-		}
-		else
-		{
-			//there may be empty collections
-		}
-	}
-		
-	DBObject::deleteFromDb();
+    TALK( "EXEC SQL DELETE FROM RAS_MDDCOLLECTIONS WHERE MDDCollId = " << mddcolloid1 );
+    EXEC SQL DELETE FROM RAS_MDDCOLLECTIONS WHERE MDDCollId = :mddcolloid1;
+    if (SQLCODE != SQLOK)
+    {
+        if (SQLCODE != SQLNODATAFOUND)
+        {
+            check("DBMDDSet::deleteFromDb() DELETE FROM RAS_MDDCOLLECTIONS\0");
+            generateException();
+        }
+        else
+        {
+            //there may be empty collections
+        }
+    }
 
-	LEAVE( "DBMDDSet::deleteFromDb" );
-	RMDBGEXIT(4, RMDebug::module_mddif, "DBMDDSet", "deleteFromDb() " << myOId);
+    DBObject::deleteFromDb();
+
+    LEAVE( "DBMDDSet::deleteFromDb" );
+    RMDBGEXIT(4, RMDebug::module_mddif, "DBMDDSet", "deleteFromDb() " << myOId);
 }
 
 void
 DBMDDSet::readFromDb() throw (r_Error)
 {
-	RMDBGENTER(4, RMDebug::module_mddif, "DBMDDSet", "readFromDb() " << myOId);
-	ENTER( "DBMDDSet::readFromDb" );
+    RMDBGENTER(4, RMDebug::module_mddif, "DBMDDSet", "readFromDb() " << myOId);
+    ENTER( "DBMDDSet::readFromDb" );
 
 #ifdef RMANBENCHMARK
-	DBObject::readTimer.resume();
+    DBObject::readTimer.resume();
 #endif
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	mddoid2;
-		long	mddcolloid2;
-		long	colltypeoid2;
-		char	collname2[VARCHAR_MAXLEN];
-	EXEC SQL END DECLARE SECTION;
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    mddoid2;
+        long    mddcolloid2;
+        long    colltypeoid2;
+        char    collname2[VARCHAR_MAXLEN];
+    EXEC SQL END DECLARE SECTION;
 
-	mddcolloid2 = myOId.getCounter();
+    mddcolloid2 = myOId.getCounter();
 
-	TALK( "EXEC SQL SELECT MDDCollName, SetTypeId INTO :collname2, :colltypeoid2 FROM RAS_MDDCOLLNAMES WHERE MDDCollId = " << mddcolloid2 );
-	
-	EXEC SQL SELECT MDDCollName, SetTypeId
-		INTO :collname2, :colltypeoid2
-		FROM RAS_MDDCOLLNAMES
-		WHERE MDDCollId = :mddcolloid2;
-	if (SQLCODE != SQLOK)
-	{
-		if (SQLCODE == SQLNODATAFOUND)
-		{
-			RMDBGMIDDLE(7, RMDebug::module_mddif, "DBMDDSet", "object not found");
-			LEAVE( "DBMDDSet::readFromDb(): object not found" );
-			throw r_Error(r_Error::r_Error_ObjectUnknown);
-		}
-		else
-		{
-			LEAVE( "DBMDDSet::readFromDb(): db access error: " << SQLCODE );
-			check("DBMDDSet::readFromDb() SELECT FROM RAS_MDDCOLLNAMES\0");
-			generateException();
-		}
-	}
-	
-	setName(collname2);
-	collType = (const CollectionType*)ObjectBroker::getObjectByOId(OId(colltypeoid2, OId::SETTYPEOID));
-	
-	TALK( "EXEC SQL DECLARE c CURSOR FOR SELECT MDDId FROM RAS_MDDCOLLECTIONS WHERE MDDCollId = " << mddcolloid2 << " ORDER BY MDDId" );
-	EXEC SQL DECLARE c CURSOR FOR
-		SELECT MDDId
-		FROM RAS_MDDCOLLECTIONS
-		WHERE MDDCollId = :mddcolloid2
-		ORDER BY MDDId;
-	if (SQLCODE != SQLOK)
-	{
-		LEAVE( "DBMDDSet::readFromDb(): db access error: " << SQLCODE );
-		check("DBMDDSet::readFromDb() DECLARE CURSOR");
-		generateException();
-	}
+    TALK( "EXEC SQL SELECT MDDCollName, SetTypeId INTO :collname2, :colltypeoid2 FROM RAS_MDDCOLLNAMES WHERE MDDCollId = " << mddcolloid2 );
 
-	TALK( "EXEC SQL OPEN c" );
-	EXEC SQL OPEN c;
-	if (SQLCODE != SQLOK)
-	{
-		LEAVE( "DBMDDSet::readFromDb(): db access error: " << SQLCODE );
-		check("DBMDDSet::readFromDb() OPEN CURSOR");
-		generateException();
-	}
-	
-	do
-	{
-		TALK( "EXEC SQL FETCH c INTO :mddoid2" );
-		EXEC SQL FETCH c INTO :mddoid2;
-		if (SQLCODE == SQLOK)
-		{
-			RMDBGMIDDLE(7, RMDebug::module_mddif, "DBMDDSet", "fetched mddobjectoid " << mddoid2);
-			mySet.insert(OId(mddoid2, OId::MDDOID));
-		}
-		else
-		{
-			if (SQLCODE == SQLNODATAFOUND)
-			{
-				//no more data to read
-				break;
-			}
-			else
-			{
-				LEAVE( "DBMDDSet::readFromDb(): db access error: " << SQLCODE );
-				check("DBMDDSet::readFromDb() FETCHING\0");
-				generateException();
-			}
-		}
-	} while (true);
-	TALK( "EXEC SQL CLOSE c" );
-	EXEC SQL CLOSE c;
+    EXEC SQL SELECT MDDCollName, SetTypeId
+       INTO :collname2, :colltypeoid2
+       FROM RAS_MDDCOLLNAMES
+       WHERE MDDCollId = :mddcolloid2;
+    if (SQLCODE != SQLOK)
+    {
+        if (SQLCODE == SQLNODATAFOUND)
+        {
+            RMDBGMIDDLE(7, RMDebug::module_mddif, "DBMDDSet", "object not found");
+            LEAVE( "DBMDDSet::readFromDb(): object not found" );
+            throw r_Error(r_Error::r_Error_ObjectUnknown);
+        }
+        else
+        {
+            LEAVE( "DBMDDSet::readFromDb(): db access error: " << SQLCODE );
+            check("DBMDDSet::readFromDb() SELECT FROM RAS_MDDCOLLNAMES\0");
+            generateException();
+        }
+    }
 
-	DBObject::readFromDb();
+    setName(collname2);
+    collType = (const CollectionType*)ObjectBroker::getObjectByOId(OId(colltypeoid2, OId::SETTYPEOID));
+
+    TALK( "EXEC SQL DECLARE c CURSOR FOR SELECT MDDId FROM RAS_MDDCOLLECTIONS WHERE MDDCollId = " << mddcolloid2 << " ORDER BY MDDId" );
+    EXEC SQL DECLARE c CURSOR FOR
+       SELECT MDDId
+       FROM RAS_MDDCOLLECTIONS
+       WHERE MDDCollId = :mddcolloid2
+       ORDER BY MDDId;
+    if (SQLCODE != SQLOK)
+    {
+        LEAVE( "DBMDDSet::readFromDb(): db access error: " << SQLCODE );
+        check("DBMDDSet::readFromDb() DECLARE CURSOR");
+        generateException();
+    }
+
+    TALK( "EXEC SQL OPEN c" );
+    EXEC SQL OPEN c;
+    if (SQLCODE != SQLOK)
+    {
+        LEAVE( "DBMDDSet::readFromDb(): db access error: " << SQLCODE );
+        check("DBMDDSet::readFromDb() OPEN CURSOR");
+        generateException();
+    }
+
+    do
+    {
+        TALK( "EXEC SQL FETCH c INTO :mddoid2" );
+        EXEC SQL FETCH c INTO :mddoid2;
+        if (SQLCODE == SQLOK)
+        {
+            RMDBGMIDDLE(7, RMDebug::module_mddif, "DBMDDSet", "fetched mddobjectoid " << mddoid2);
+            mySet.insert(OId(mddoid2, OId::MDDOID));
+        }
+        else
+        {
+            if (SQLCODE == SQLNODATAFOUND)
+            {
+                //no more data to read
+                break;
+            }
+            else
+            {
+                LEAVE( "DBMDDSet::readFromDb(): db access error: " << SQLCODE );
+                check("DBMDDSet::readFromDb() FETCHING\0");
+                generateException();
+            }
+        }
+    }
+    while (true);
+    TALK( "EXEC SQL CLOSE c" );
+    EXEC SQL CLOSE c;
+
+    DBObject::readFromDb();
 #ifdef RMANBENCHMARK
-	DBObject::readTimer.pause();
+    DBObject::readTimer.pause();
 #endif
 
-	LEAVE( "DBMDDSet::readFromDb" );
-	RMDBGEXIT(4, RMDebug::module_mddif, "DBMDDSet", "readFromDb() " << myOId);
+    LEAVE( "DBMDDSet::readFromDb" );
+    RMDBGEXIT(4, RMDebug::module_mddif, "DBMDDSet", "readFromDb() " << myOId);
 }
 

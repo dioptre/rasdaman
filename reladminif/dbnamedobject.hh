@@ -38,86 +38,86 @@ Implements set/getName functionality.
   * \ingroup Reladminifs
   */
 class DBNamedObject : public DBObject
-	{
-	public:
-		DBNamedObject();
-		/*@Doc:
-		sets Name to defaultName
-		*/
+{
+public:
+    DBNamedObject();
+    /*@Doc:
+    sets Name to defaultName
+    */
 
-		DBNamedObject(const OId& id) throw (r_Error);
-		/*@Doc:
-		only initializes itself
-		*/
+    DBNamedObject(const OId& id) throw (r_Error);
+    /*@Doc:
+    only initializes itself
+    */
 
-		DBNamedObject(const DBNamedObject& old);
-		/*@Doc:
-		sets myName to the name of the old object
-		*/
+    DBNamedObject(const DBNamedObject& old);
+    /*@Doc:
+    sets myName to the name of the old object
+    */
 
-		DBNamedObject(const char* name);
-		/*@Doc:
-		sets myName to name	
-		*/
+    DBNamedObject(const char* name);
+    /*@Doc:
+    sets myName to name
+    */
 
-		DBNamedObject(const OId& id, const char* name);
-		/*@Doc:
-		sets myName to name and calls DBObject(OId).  this is needed by MDDSet.
-		*/
+    DBNamedObject(const OId& id, const char* name);
+    /*@Doc:
+    sets myName to name and calls DBObject(OId).  this is needed by MDDSet.
+    */
 
-		virtual ~DBNamedObject();
-		/*@Doc:
-		frees myName
-		*/
+    virtual ~DBNamedObject();
+    /*@Doc:
+    frees myName
+    */
 
-		const char* getName() const;
-		/*@Doc:
-		returns a pointer to myName.
-		*/
+    const char* getName() const;
+    /*@Doc:
+    returns a pointer to myName.
+    */
 
-		static short MAXNAMELENGTH;
-		/*@Doc:
-		the maximum length of a name.
-		*/
+    static short MAXNAMELENGTH;
+    /*@Doc:
+    the maximum length of a name.
+    */
 
-		DBNamedObject& operator=(const DBNamedObject& old);
-		/*@Doc:
-		takes care of the name
-		*/
+    DBNamedObject& operator=(const DBNamedObject& old);
+    /*@Doc:
+    takes care of the name
+    */
 
-		virtual r_Bytes getMemorySize() const;
-		/*@Doc:
-		Should be revised not to include attribute sizes
-		*/
+    virtual r_Bytes getMemorySize() const;
+    /*@Doc:
+    Should be revised not to include attribute sizes
+    */
 
-		virtual void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
-		/*@Doc:
-		prints the status of DBObject + Name: myName
-		*/
-		
-	protected:
+    virtual void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
+    /*@Doc:
+    prints the status of DBObject + Name: myName
+    */
 
-		void setName(const char* newname);
-		/*@Doc:
-		renames the object
-		*/
+protected:
 
-		void setName(const short length, const char* data);
-		/*@Doc:
-		sets the name from a VARCHAR structure
-		*/
+    void setName(const char* newname);
+    /*@Doc:
+    renames the object
+    */
 
-		char* myName;
-		/*@Doc:
-		the name of the object
-		*/
+    void setName(const short length, const char* data);
+    /*@Doc:
+    sets the name from a VARCHAR structure
+    */
 
-		unsigned short myNameSize;
-		/*@Doc:
-		the size of the name
-		*/
+    char* myName;
+    /*@Doc:
+    the name of the object
+    */
 
-		static const char* defaultName;
-	};
+    unsigned short myNameSize;
+    /*@Doc:
+    the size of the name
+    */
 
-#endif 
+    static const char* defaultName;
+};
+
+#endif

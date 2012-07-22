@@ -49,42 +49,42 @@ const char AdminIf::dbmsName[SYSTEMNAME_MAXLEN]="PostgreSQL";
 
 AdminIf::AdminIf() throw (r_Error)
 {
-	RMDBGENTER(4, RMDebug::module_adminif, "Adminif", "AdminIf()");      
-	ENTER( "AdminIf::AdminIf" );
+    RMDBGENTER(4, RMDebug::module_adminif, "Adminif", "AdminIf()");
+    ENTER( "AdminIf::AdminIf" );
 
-	EXEC SQL BEGIN DECLARE SECTION;
-		char    id[STRING_MAXLEN];
-	EXEC SQL END DECLARE SECTION;
+    EXEC SQL BEGIN DECLARE SECTION;
+        char    id[STRING_MAXLEN];
+    EXEC SQL END DECLARE SECTION;
 
-	strncpy((char *)&id, globalConnectId, sizeof(id)-1);
+    strncpy((char *)&id, globalConnectId, sizeof(id)-1);
 
-	TALK( "EXEC SQL CONNECT TO " << id );
-	EXEC SQL CONNECT TO :id;
+    TALK( "EXEC SQL CONNECT TO " << id );
+    EXEC SQL CONNECT TO :id;
 
-	if (check("AdminIf Connect\0"))
-	{
-		validConnection = false;
-		TALK( "connect unsuccessful; wrong connect string?" );
-		cout << "Error: connect unsuccessful; wrong connect string '" << globalConnectId << "' ?" << endl;
-		throw r_Error( 830 );
-	}
-	else
-	{
-		validConnection = true;
-		TALK( "connect ok" );
-	}
+    if (check("AdminIf Connect\0"))
+    {
+        validConnection = false;
+        TALK( "connect unsuccessful; wrong connect string?" );
+        cout << "Error: connect unsuccessful; wrong connect string '" << globalConnectId << "' ?" << endl;
+        throw r_Error( 830 );
+    }
+    else
+    {
+        validConnection = true;
+        TALK( "connect ok" );
+    }
 
-	TALK( "EXEC SQL ROLLBACK WORK" );
-	EXEC SQL ROLLBACK WORK;
+    TALK( "EXEC SQL ROLLBACK WORK" );
+    EXEC SQL ROLLBACK WORK;
 
 #ifndef FASTCONNECT
-	TALK( "EXEC SQL DISCONNECT CURRENT" );
-	EXEC SQL DISCONNECT CURRENT;
+    TALK( "EXEC SQL DISCONNECT CURRENT" );
+    EXEC SQL DISCONNECT CURRENT;
 #endif
 
-	ObjectBroker::init();
+    ObjectBroker::init();
 
-	LEAVE( "AdminIf::AdminIf, SQLCODE=" << SQLCODE );
-	RMDBGEXIT(4, RMDebug::module_adminif, "Adminif", "AdminIf() " << validConnection);      
+    LEAVE( "AdminIf::AdminIf, SQLCODE=" << SQLCODE );
+    RMDBGEXIT(4, RMDebug::module_adminif, "Adminif", "AdminIf() " << validConnection);
 }
 

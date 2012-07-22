@@ -32,7 +32,7 @@ rasdaman GmbH.
  *  possible. The binary search is performed by the lookup member
  *  function.
  *
- * 	COMMENTS: 	None
+ *  COMMENTS:   None
  */
 
 
@@ -56,102 +56,147 @@ rasdaman GmbH.
 
 labelManager::labelManager(const char *resourceFile)
 {
-  FILE *fp;
-  size_t filesize;
-  int i;
-  char c, *b, *upper;
+    FILE *fp;
+    size_t filesize;
+    int i;
+    char c, *b, *upper;
 
-  buffer = NULL; lineTable = NULL; lines = 0;
-  strncpy(badSymbol, "???", 4);
+    buffer = NULL;
+    lineTable = NULL;
+    lines = 0;
+    strncpy(badSymbol, "???", 4);
 
-  if ((fp = fopen(resourceFile, "r")) == NULL)
-  {
-    cerr << "Unable to open resource file " << resourceFile << endl;
-    return;
-  }
-
-  // Position to end of file to determine its length.
-  fseek(fp, 0, SEEK_END);
-  filesize = ftell(fp);
-
-  if ((buffer = new char[filesize+1]) == NULL)
-  {
-    cerr << "Not enough memory for buffer!" << endl;
-  }
-
-  fseek(fp, 0, SEEK_SET);
-  // Read in the file and make sure it's terminated by a newline char.
-  fread((void*)buffer, 1, filesize, fp);
-  buffer[filesize] = '\n';
-  fclose(fp);
-
-  upper = buffer + filesize; b = buffer;
-
-  // Pass 1: calculate how much memory is needed for the lineTable.
-  do
-  {
-    // for (i=0; b[i] != '\n'; i++) {cout << b[i];} cout << endl;
-    // Ignore leading whitespace
-    do {c = *b++;} while ((c == ' ') || (c == '\t'));
-    // Commentary line?
-    if (c == '#')
+    if ((fp = fopen(resourceFile, "r")) == NULL)
     {
-      do {c = *b++;} while (c != '\n');
+        cerr << "Unable to open resource file " << resourceFile << endl;
+        return;
     }
-    // Line not empty?
-    else if (c != '\n')
+
+    // Position to end of file to determine its length.
+    fseek(fp, 0, SEEK_END);
+    filesize = ftell(fp);
+
+    if ((buffer = new char[filesize+1]) == NULL)
     {
-      lines++; i = 0; i = (b - buffer) - 1;
-      // Make sure it contains a colon!
-      do {c = *b++; if (c == ':') {i = -1;}} while (c != '\n');
-      if (i >= 0)
-      {
-	cerr << "Bad line format (missing colon): ";
-	while (buffer[i] != '\n') {cout << buffer[i]; i++;} cout << endl;
-        delete [] buffer; buffer = NULL; lines = 0; return;
-      }
+        cerr << "Not enough memory for buffer!" << endl;
     }
-  }
-  while (b < upper);
 
-  if ((lineTable = new char*[lines]) == NULL)
-  {
-    cerr << "Not enough memory for lineTable!" << endl;
-    delete [] buffer; buffer = NULL; lines = 0; return;
-  }
+    fseek(fp, 0, SEEK_SET);
+    // Read in the file and make sure it's terminated by a newline char.
+    fread((void*)buffer, 1, filesize, fp);
+    buffer[filesize] = '\n';
+    fclose(fp);
 
-  b = buffer; i = 0;
+    upper = buffer + filesize;
+    b = buffer;
 
-  // Pass 2: fill in lineTable
-  do
-  {
-    do {c = *b++;} while ((c == ' ') || (c == '\t'));
-    if (c == '#')
+    // Pass 1: calculate how much memory is needed for the lineTable.
+    do
     {
-      do {c = *b++;} while (c != '\n');
+        // for (i=0; b[i] != '\n'; i++) {cout << b[i];} cout << endl;
+        // Ignore leading whitespace
+        do
+        {
+            c = *b++;
+        }
+        while ((c == ' ') || (c == '\t'));
+        // Commentary line?
+        if (c == '#')
+        {
+            do
+            {
+                c = *b++;
+            }
+            while (c != '\n');
+        }
+        // Line not empty?
+        else if (c != '\n')
+        {
+            lines++;
+            i = 0;
+            i = (b - buffer) - 1;
+            // Make sure it contains a colon!
+            do
+            {
+                c = *b++;
+                if (c == ':')
+                {
+                    i = -1;
+                }
+            }
+            while (c != '\n');
+            if (i >= 0)
+            {
+                cerr << "Bad line format (missing colon): ";
+                while (buffer[i] != '\n')
+                {
+                    cout << buffer[i];
+                    i++;
+                }
+                cout << endl;
+                delete [] buffer;
+                buffer = NULL;
+                lines = 0;
+                return;
+            }
+        }
     }
-    else if (c != '\n')
+    while (b < upper);
+
+    if ((lineTable = new char*[lines]) == NULL)
     {
-      lineTable[i++] = b-1;
-      do {c = *b++;} while (c != '\n');
-      // terminate all non-empty lines with '\0'
-      *(b-1) = '\0';
+        cerr << "Not enough memory for lineTable!" << endl;
+        delete [] buffer;
+        buffer = NULL;
+        lines = 0;
+        return;
     }
-  }
-  while (b < upper);
 
-  if ((unsigned int)i != lines)
-  {
-    cerr << "Fatal error: passes incompatible!" << endl;
-  }
+    b = buffer;
+    i = 0;
 
-  sortResources(0, lines-1);
+    // Pass 2: fill in lineTable
+    do
+    {
+        do
+        {
+            c = *b++;
+        }
+        while ((c == ' ') || (c == '\t'));
+        if (c == '#')
+        {
+            do
+            {
+                c = *b++;
+            }
+            while (c != '\n');
+        }
+        else if (c != '\n')
+        {
+            lineTable[i++] = b-1;
+            do
+            {
+                c = *b++;
+            }
+            while (c != '\n');
+            // terminate all non-empty lines with '\0'
+            *(b-1) = '\0';
+        }
+    }
+    while (b < upper);
 
-  /*cout << lines << " label definitions found." << endl;
-  for (i=0; i<lines; i++)
-  {
-    cout << lineTable[i] << endl;
-  }*/
+    if ((unsigned int)i != lines)
+    {
+        cerr << "Fatal error: passes incompatible!" << endl;
+    }
+
+    sortResources(0, lines-1);
+
+    /*cout << lines << " label definitions found." << endl;
+    for (i=0; i<lines; i++)
+    {
+      cout << lineTable[i] << endl;
+    }*/
 }
 
 
@@ -162,42 +207,53 @@ labelManager::labelManager(const char *resourceFile)
 
 void labelManager::sortResources(int from, int to)
 {
-  int i, j;
-  char *swap, *l, *m;
+    int i, j;
+    char *swap, *l, *m;
 
-  while (from < to)
-  {
-    i = (from + to) / 2;
-    swap = lineTable[from]; lineTable[from] = lineTable[i]; lineTable[i] = swap;
-    j = from;
+    while (from < to)
+    {
+        i = (from + to) / 2;
+        swap = lineTable[from];
+        lineTable[from] = lineTable[i];
+        lineTable[i] = swap;
+        j = from;
 
-    for (i=from+1; i<=to; i++)
-    {
-      l = lineTable[from]; m = lineTable[i];
-      while ((*l == *m) && (*l != ':')) {l++; m++;}
-      // End of first idf reached ==> second string can at best be =, not <
-      if (*l == ':') continue;
-      // If end of second idf was reached the second string is <. Otherwise check chars.
-      if ((*m == ':') || (*m < *l))
-      {
-        j++;
-        swap = lineTable[j]; lineTable[j] = lineTable[i]; lineTable[i] = swap;
-      }
-    }
-    swap = lineTable[from]; lineTable[from] = lineTable[j]; lineTable[j] = swap;
+        for (i=from+1; i<=to; i++)
+        {
+            l = lineTable[from];
+            m = lineTable[i];
+            while ((*l == *m) && (*l != ':'))
+            {
+                l++;
+                m++;
+            }
+            // End of first idf reached ==> second string can at best be =, not <
+            if (*l == ':') continue;
+            // If end of second idf was reached the second string is <. Otherwise check chars.
+            if ((*m == ':') || (*m < *l))
+            {
+                j++;
+                swap = lineTable[j];
+                lineTable[j] = lineTable[i];
+                lineTable[i] = swap;
+            }
+        }
+        swap = lineTable[from];
+        lineTable[from] = lineTable[j];
+        lineTable[j] = swap;
 
-    // Select cheaper recursion branch
-    if ((j - from) < (to - j))
-    {
-      sortResources(from, j-1);
-      from = j+1;
+        // Select cheaper recursion branch
+        if ((j - from) < (to - j))
+        {
+            sortResources(from, j-1);
+            from = j+1;
+        }
+        else
+        {
+            sortResources(j+1, to);
+            to = j-1;
+        }
     }
-    else
-    {
-      sortResources(j+1, to);
-      to = j-1;
-    }
-  }
 }
 
 
@@ -209,8 +265,8 @@ void labelManager::sortResources(int from, int to)
 
 labelManager::~labelManager(void)
 {
-  if (lineTable != NULL) delete [] lineTable;
-  if (buffer != NULL) delete [] buffer;
+    if (lineTable != NULL) delete [] lineTable;
+    if (buffer != NULL) delete [] buffer;
 }
 
 
@@ -223,42 +279,53 @@ labelManager::~labelManager(void)
 
 char *labelManager::lookup(const char *symbol)
 {
-  int at, step, iter;
-  char *s, *l;
+    int at, step, iter;
+    char *s, *l;
 
-  if (lines == 0) return badSymbol;
-  at = (lines+1)/2; step = (at+1)/2; iter = lines << 1;
-  if (at >= (int)lines) at = lines-1;
-  // Do a binary search over the sorted items
-  while (iter != 0)
-  {
-    // The symbol may be terminated by a colon or any character <= 32
-    s = (char*)symbol; l = lineTable[at];
-    while ((*s == *l) && (*l != ':')) {s++; l++;}
-    // Was the symbol's end reached?
-    if (((unsigned char)(*s) <= 32) || (*s == ':'))
+    if (lines == 0) return badSymbol;
+    at = (lines+1)/2;
+    step = (at+1)/2;
+    iter = lines << 1;
+    if (at >= (int)lines) at = lines-1;
+    // Do a binary search over the sorted items
+    while (iter != 0)
     {
-      // Both read to the end. Success.
-      if (*l == ':') return (l+1);
-      // Symbol's end reached but not label's ==> label >, i.e. step down
-      at -= step; if (at < 0) at = 0;
+        // The symbol may be terminated by a colon or any character <= 32
+        s = (char*)symbol;
+        l = lineTable[at];
+        while ((*s == *l) && (*l != ':'))
+        {
+            s++;
+            l++;
+        }
+        // Was the symbol's end reached?
+        if (((unsigned char)(*s) <= 32) || (*s == ':'))
+        {
+            // Both read to the end. Success.
+            if (*l == ':') return (l+1);
+            // Symbol's end reached but not label's ==> label >, i.e. step down
+            at -= step;
+            if (at < 0) at = 0;
+        }
+        else
+        {
+            // label's end reached ==> label <, i.e. step up. Otherwise use chars.
+            if ((*l == ':') || (*l < *s))
+            {
+                at += step;
+                if (at >= (int)lines) at = lines-1;
+            }
+            else
+            {
+                at -= step;
+                if (at < 0) at = 0;
+            }
+        }
+        step = (step+1)/2;
+        iter >>= 1;
+        //cout << at << ", " << step << ", " << iter << ": " << lineTable[at] << endl;
     }
-    else
-    {
-      // label's end reached ==> label <, i.e. step up. Otherwise use chars.
-      if ((*l == ':') || (*l < *s))
-      {
-	at += step; if (at >= (int)lines) at = lines-1;
-      }
-      else
-      {
-	at -= step; if (at < 0) at = 0;
-      }
-    }
-    step = (step+1)/2; iter >>= 1;
-    //cout << at << ", " << step << ", " << iter << ": " << lineTable[at] << endl;
-  }
-  return badSymbol;
+    return badSymbol;
 }
 
 
@@ -270,7 +337,7 @@ char *labelManager::lookup(const char *symbol)
 
 int labelManager::numberOfLabels(void)
 {
-  return lines;
+    return lines;
 }
 
 
@@ -283,11 +350,11 @@ int labelManager::numberOfLabels(void)
 
 char *labelManager::returnLabelNumber(unsigned int index)
 {
-  if (index >= lines)
-  {
-    return NULL;
-  }
-  return lineTable[index];
+    if (index >= lines)
+    {
+        return NULL;
+    }
+    return lineTable[index];
 }
 
 

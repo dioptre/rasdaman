@@ -42,12 +42,12 @@ rasdaman GmbH.
  ****************************************************************************/
 
 //@ManMemo: Module: {\bf relstorageif}
-/*@Doc: 
-    Each instance of the {\tt DBStorageLayout} class describes a physical 
+/*@Doc:
+    Each instance of the {\tt DBStorageLayout} class describes a physical
     storage layout for an MDD object or collection.
     Every storage parameter which is not defined using the proper set* methods will result in a default value to be returned.  the supports* methods will tell if the value is a default value defined at instantiation time through the static storagemgr/StorageLayout attributes or an explicitly defined value.
     For information on the meaning of these attributes refere to storagemgr/storagelayout
-*/      
+*/
 /**
   * \defgroup Relstorageifs Relstorageif Classes
   */
@@ -55,167 +55,167 @@ rasdaman GmbH.
 /**
   * \ingroup Relstorageifs
   */
- 
+
 class DBStorageLayout : public DBObject
-	{
-	public:
-		//@Man: Creation 
-		//@{ 
-		
-		/// Construct object that uses system defaults.
-		DBStorageLayout();
-		
-		//@}
-		
-		void printStatus(unsigned int level = 0,std::ostream& stream = std::cout) const;
-		
-		//@Man: check operations
-		//@{
-		bool supportsTileSize() const;
+{
+public:
+    //@Man: Creation
+    //@{
 
-		bool supportsPCTMin() const;
+    /// Construct object that uses system defaults.
+    DBStorageLayout();
 
-		bool supportsPCTMax() const;
+    //@}
 
-		bool supportsIndexSize() const;
+    void printStatus(unsigned int level = 0,std::ostream& stream = std::cout) const;
 
-		bool supportsIndexType() const;
+    //@Man: check operations
+    //@{
+    bool supportsTileSize() const;
 
-		bool supportsTilingScheme() const;
+    bool supportsPCTMin() const;
 
-		//is checked by OId::INVALID on tilingConfiguration
-		bool supportsTileConfiguration() const;
+    bool supportsPCTMax() const;
 
-		bool supportsDataFormat() const;
-		//@}
+    bool supportsIndexSize() const;
 
-		//@Man: Get operations
-		//@{	
-		
-		r_Bytes getPCTMin() const;
+    bool supportsIndexType() const;
 
-		r_Bytes getPCTMax() const;
+    bool supportsTilingScheme() const;
 
-		unsigned int getIndexSize() const;
+    //is checked by OId::INVALID on tilingConfiguration
+    bool supportsTileConfiguration() const;
 
-		r_Index_Type getIndexType() const;
-	 
-		r_Tiling_Scheme getTilingScheme() const;
-		
-		r_Bytes getTileSize() const;
-		
-		r_Minterval getTileConfiguration() const;
-		
-		r_Data_Format getDataFormat() const;
-		
-		//@}	
-		
-		//@Man: Set operations 
-		//@{	
+    bool supportsDataFormat() const;
+    //@}
 
-		void setPCTMin(r_Bytes bytes);
+    //@Man: Get operations
+    //@{
 
-		void setPCTMax(r_Bytes bytes);
+    r_Bytes getPCTMin() const;
 
-		void setIndexSize(unsigned int entries);
+    r_Bytes getPCTMax() const;
 
-		void setIndexType(r_Index_Type it);
-		
-		void setTilingScheme(r_Tiling_Scheme ts);
-	 
-		void setTileSize(r_Bytes ts);
-	 
-		void setTileConfiguration(const r_Minterval& tc);
+    unsigned int getIndexSize() const;
 
-		void setDataFormat(r_Data_Format df);
-	 
-		//@}	
-		
-		
-		//@Man: Destruction
-		//@{ 
-		/// 
-		~DBStorageLayout();
-		//@}
+    r_Index_Type getIndexType() const;
 
-	protected:
-		DBStorageLayout(const OId& id) throw (r_Error);
+    r_Tiling_Scheme getTilingScheme() const;
 
-		friend class ObjectBroker;
-		
-		//@Man: Operations 
-		//@{	
+    r_Bytes getTileSize() const;
 
-		virtual void readFromDb() throw (r_Error);
-		
-		virtual void insertInDb() throw	(r_Error);
+    r_Minterval getTileConfiguration() const;
 
-		virtual void deleteFromDb() throw (r_Error);
+    r_Data_Format getDataFormat() const;
 
-		virtual void updateInDb() throw (r_Error);
-		
-	 
-		//@}	
-		
-	private: 
+    //@}
 
-		//@Man: Actual Parameters: 
-		//@{ 
-		
-		/// Name of the storage layout represented by this object
-		// char* stName;
-	 
-		//@Man: Index Structure:
-		//@{ 
-		/// Which type of index should be used
-		r_Index_Type indexType;
+    //@Man: Set operations
+    //@{
 
-		unsigned int indexSize;
-		//@}
-		
-		//@Man: Tiling:
-		//@{ 
-		/// How the object should be tiled
-		r_Tiling_Scheme tilingScheme;
+    void setPCTMin(r_Bytes bytes);
 
-		r_Bytes pctMin;
+    void setPCTMax(r_Bytes bytes);
 
-		r_Bytes pctMax;
+    void setIndexSize(unsigned int entries);
 
-		/// Tile size in bytes.
-		r_Bytes tileSize;
+    void setIndexType(r_Index_Type it);
 
-		/// Default configuration of the tiles.
-		DBMintervalId tileConfiguration;
-		/**
-			Describe the shape of the tiles. For instance, [2:4,0:1,0:2].
-			The tiling will start at the point [2,0,0].
-			Tiles will be appended from there according to the tileConfig.
-		*/
-		//@}
-		
-		//@Man: DataFormat
-		//@{
-		/// How the tiles of the object should be compressed
-		r_Data_Format dataFormat;	
-		//@}
-		
-		//@}
-		bool _supportsTileSize;
+    void setTilingScheme(r_Tiling_Scheme ts);
 
-		bool _supportsPCTMin;
+    void setTileSize(r_Bytes ts);
 
-		bool _supportsPCTMax;
+    void setTileConfiguration(const r_Minterval& tc);
 
-		bool _supportsIndexSize;
+    void setDataFormat(r_Data_Format df);
 
-		bool _supportsIndexType;
+    //@}
 
-		bool _supportsTiling;
 
-		bool _supportsDataFormat;
+    //@Man: Destruction
+    //@{
+    ///
+    ~DBStorageLayout();
+    //@}
 
-		bool _supportsTileConfiguration;
-	};
+protected:
+    DBStorageLayout(const OId& id) throw (r_Error);
+
+    friend class ObjectBroker;
+
+    //@Man: Operations
+    //@{
+
+    virtual void readFromDb() throw (r_Error);
+
+    virtual void insertInDb() throw (r_Error);
+
+    virtual void deleteFromDb() throw (r_Error);
+
+    virtual void updateInDb() throw (r_Error);
+
+
+    //@}
+
+private:
+
+    //@Man: Actual Parameters:
+    //@{
+
+    /// Name of the storage layout represented by this object
+    // char* stName;
+
+    //@Man: Index Structure:
+    //@{
+    /// Which type of index should be used
+    r_Index_Type indexType;
+
+    unsigned int indexSize;
+    //@}
+
+    //@Man: Tiling:
+    //@{
+    /// How the object should be tiled
+    r_Tiling_Scheme tilingScheme;
+
+    r_Bytes pctMin;
+
+    r_Bytes pctMax;
+
+    /// Tile size in bytes.
+    r_Bytes tileSize;
+
+    /// Default configuration of the tiles.
+    DBMintervalId tileConfiguration;
+    /**
+        Describe the shape of the tiles. For instance, [2:4,0:1,0:2].
+        The tiling will start at the point [2,0,0].
+        Tiles will be appended from there according to the tileConfig.
+    */
+    //@}
+
+    //@Man: DataFormat
+    //@{
+    /// How the tiles of the object should be compressed
+    r_Data_Format dataFormat;
+    //@}
+
+    //@}
+    bool _supportsTileSize;
+
+    bool _supportsPCTMin;
+
+    bool _supportsPCTMax;
+
+    bool _supportsIndexSize;
+
+    bool _supportsIndexType;
+
+    bool _supportsTiling;
+
+    bool _supportsDataFormat;
+
+    bool _supportsTileConfiguration;
+};
 
 #endif

@@ -53,14 +53,15 @@ struct memFSContext;
 class r_Parse_Params;
 
 
-typedef struct r_convDesc {
-  const char *src;		// pointer to source data
-  char *dest;			// pointer to destination data
-  r_Minterval srcInterv;	// dimensions of source data
-  r_Minterval destInterv;       // dimensions of destination data
-  int baseType;			// shortcut to src basetype
-  const r_Type *srcType;	// basetypes of src data
-  r_Type *destType;             // basetypes of dest data
+typedef struct r_convDesc
+{
+    const char *src;      // pointer to source data
+    char *dest;           // pointer to destination data
+    r_Minterval srcInterv;    // dimensions of source data
+    r_Minterval destInterv;       // dimensions of destination data
+    int baseType;         // shortcut to src basetype
+    const r_Type *srcType;    // basetypes of src data
+    r_Type *destType;             // basetypes of dest data
 } r_convDesc;
 
 
@@ -109,121 +110,123 @@ typedef struct r_convDesc {
 
 class r_Convertor
 {
-  public:
-  /// default constructor (should not be used)
-  r_Convertor( void );
-  /// constructor using an r_Type object
-  r_Convertor( const char *src, const r_Minterval &interv, const r_Type *tp,
-	       bool fullTypes=false) throw(r_Error);
-  /// constructor using convert_type_e shortcut
-  r_Convertor( const char *src, const r_Minterval &interv, int type ) throw(r_Error);
-  /**
-     convert_type_e is an enumerator that acts as a shortcut to base types
-     relevant for DEFs. The values and what they correspond to are listed
-     below (the types below the line are for HDF):
+public:
+    /// default constructor (should not be used)
+    r_Convertor( void );
+    /// constructor using an r_Type object
+    r_Convertor( const char *src, const r_Minterval &interv, const r_Type *tp,
+                 bool fullTypes=false) throw(r_Error);
+    /// constructor using convert_type_e shortcut
+    r_Convertor( const char *src, const r_Minterval &interv, int type ) throw(r_Error);
+    /**
+       convert_type_e is an enumerator that acts as a shortcut to base types
+       relevant for DEFs. The values and what they correspond to are listed
+       below (the types below the line are for HDF):
 
-     \begin{tabular}{ll}
-     ctype_void && No type, used for errors\\
-     ctype_bool && bool\\
-     ctype_char && char\\
-     ctype_rgb && struct {char, char, char}\\
-     \hline
-     ctype_int8 && signed char\\
-     ctype_uint8 && unsigned char\\
-     ctype_int16 && short\\
-     ctype_uint16 && unsigned short\\
-     ctype_int32 && int\\
-     ctype_uint32 && unsigned int\\
-     ctype_int64 && (unsupported)\\
-     ctype_uint64 && (unsupported)\\
-     ctype_float32 && float\\
-     ctype_float64 && double\\
-     ctype_struct && struct \\
-     \end{tabular}
-  */
+       \begin{tabular}{ll}
+       ctype_void && No type, used for errors\\
+       ctype_bool && bool\\
+       ctype_char && char\\
+       ctype_rgb && struct {char, char, char}\\
+       \hline
+       ctype_int8 && signed char\\
+       ctype_uint8 && unsigned char\\
+       ctype_int16 && short\\
+       ctype_uint16 && unsigned short\\
+       ctype_int32 && int\\
+       ctype_uint32 && unsigned int\\
+       ctype_int64 && (unsupported)\\
+       ctype_uint64 && (unsupported)\\
+       ctype_float32 && float\\
+       ctype_float64 && double\\
+       ctype_struct && struct \\
+       \end{tabular}
+    */
 
-  /// destructor
-  virtual ~r_Convertor( void );
+    /// destructor
+    virtual ~r_Convertor( void );
 
-  //@Man: Interface
-  /// convert array to DEF
-  virtual r_convDesc &convertTo( const char *options=NULL ) throw(r_Error) = 0;
+    //@Man: Interface
+    /// convert array to DEF
+    virtual r_convDesc &convertTo( const char *options=NULL ) throw(r_Error) = 0;
 
-  /// convert DEF to array
-  virtual r_convDesc &convertFrom( const char *options=NULL ) throw(r_Error) = 0;
+    /// convert DEF to array
+    virtual r_convDesc &convertFrom( const char *options=NULL ) throw(r_Error) = 0;
 
-  /// cloning
-  virtual r_Convertor *clone( void ) const = 0;
+    /// cloning
+    virtual r_Convertor *clone( void ) const = 0;
 
-  /// identification
-  virtual const char *get_name( void ) const = 0;
-  virtual r_Data_Format get_data_format( void ) const = 0;
+    /// identification
+    virtual const char *get_name( void ) const = 0;
+    virtual r_Data_Format get_data_format( void ) const = 0;
 
-  /// set storage handler, default is malloc/free
-  void set_storage_handler( const r_Storage_Man &newStore );
-  
-  /// get storage handler, default is malloc/free
-  const r_Storage_Man& get_storage_handler( ) const;
+    /// set storage handler, default is malloc/free
+    void set_storage_handler( const r_Storage_Man &newStore );
+
+    /// get storage handler, default is malloc/free
+    const r_Storage_Man& get_storage_handler( ) const;
 
 
-  /// base type shortcuts
-  enum convert_type_e {
-    // undefined type 
-    ctype_void,
-    // Shortcut for the three important base types r_Boolean, r_Char and RGBPixel
-    ctype_bool,
-    ctype_char,
-    ctype_rgb,
-    // More generic types for HDF
-    ctype_int8,
-    ctype_uint8,
-    ctype_int16,
-    ctype_uint16,
-    ctype_int32,
-    ctype_uint32,
-    ctype_int64,
-    ctype_uint64,
-    ctype_float32,
-    ctype_float64,
-    // shortcut for structures
-    ctype_struct
-  };
-  
-  //@{ helper structure for encoding string-to-int parameters
-  typedef struct convert_string_s {
-    const char *key;
-    int id;
-  } convert_string_t;
-  //@}
-  
-  /// get a string representation of the internal type
-  static char* type_to_string( int ctype ) throw(r_Error);
+    /// base type shortcuts
+    enum convert_type_e
+    {
+        // undefined type
+        ctype_void,
+        // Shortcut for the three important base types r_Boolean, r_Char and RGBPixel
+        ctype_bool,
+        ctype_char,
+        ctype_rgb,
+        // More generic types for HDF
+        ctype_int8,
+        ctype_uint8,
+        ctype_int16,
+        ctype_uint16,
+        ctype_int32,
+        ctype_uint32,
+        ctype_int64,
+        ctype_uint64,
+        ctype_float32,
+        ctype_float64,
+        // shortcut for structures
+        ctype_struct
+    };
 
-  /// get a r_Type from an internal type
-  static r_Type *get_external_type( int ctype ) throw(r_Error);
+    //@{ helper structure for encoding string-to-int parameters
+    typedef struct convert_string_s
+    {
+        const char *key;
+        int id;
+    } convert_string_t;
+    //@}
 
-  /// get a internal type from a r_Type
-  static convert_type_e get_internal_type( const r_Type* type, bool fullTypes=false ) throw(r_Error);  
+    /// get a string representation of the internal type
+    static char* type_to_string( int ctype ) throw(r_Error);
 
-  protected:
-  /// initialize internal structures
-  void initShare( const char *src, const r_Minterval &interv );
-  
-  /// true if we should free the src area (in case the input was converted to rgb)
-  bool destroySrc;
+    /// get a r_Type from an internal type
+    static r_Type *get_external_type( int ctype ) throw(r_Error);
 
-  /// convert unsupported type to rgb by applying the default color scheme
-  template <class baseType>
-  void applyColorScheme();
+    /// get a internal type from a r_Type
+    static convert_type_e get_internal_type( const r_Type* type, bool fullTypes=false ) throw(r_Error);
 
-  /// conversion context
-  r_convDesc desc;
+protected:
+    /// initialize internal structures
+    void initShare( const char *src, const r_Minterval &interv );
 
-  /// parameter parser
-  r_Parse_Params *params;
+    /// true if we should free the src area (in case the input was converted to rgb)
+    bool destroySrc;
 
-  /// storage manager
-  r_Storage_Man mystore;
+    /// convert unsupported type to rgb by applying the default color scheme
+    template <class baseType>
+    void applyColorScheme();
+
+    /// conversion context
+    r_convDesc desc;
+
+    /// parameter parser
+    r_Parse_Params *params;
+
+    /// storage manager
+    r_Storage_Man mystore;
 };
 
 ///ostream operator for convert_type_e
@@ -236,23 +239,23 @@ std::ostream& operator<<(std::ostream& os, r_Convertor::convert_type_e& cte);
 
 class r_Convert_Memory : public r_Convertor
 {
-  public:
-  /// constructor using an r_Type object
-  r_Convert_Memory( const char *src, const r_Minterval &interv, const r_Type *tp,
-		    int fullTypes=0) throw(r_Error);
-  /// constructur using convert_type_e shortcut
-  r_Convert_Memory( const char *src, const r_Minterval &interv, int type ) throw(r_Error);
-  /// destructor
-  virtual ~r_Convert_Memory( void );
+public:
+    /// constructor using an r_Type object
+    r_Convert_Memory( const char *src, const r_Minterval &interv, const r_Type *tp,
+                      int fullTypes=0) throw(r_Error);
+    /// constructur using convert_type_e shortcut
+    r_Convert_Memory( const char *src, const r_Minterval &interv, int type ) throw(r_Error);
+    /// destructor
+    virtual ~r_Convert_Memory( void );
 
 
-  protected:
-  /// init memfs
-  void initMemory( void ) throw(r_Error);
+protected:
+    /// init memfs
+    void initMemory( void ) throw(r_Error);
 
-  /// variables
-  memFSContext *memFS;
-  void *handle;
+    /// variables
+    memFSContext *memFS;
+    void *handle;
 };
 
 #endif

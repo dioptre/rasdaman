@@ -28,10 +28,10 @@ rasdaman GmbH.
  * PURPOSE: generate patterns for r_StatTiling.
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
-/* 
+/*
    ATENTION: The format of the input file for using with this program is:
 
      number_of_patterns minterval_domain
@@ -40,7 +40,7 @@ rasdaman GmbH.
      ...
 
    Example:
-   
+
      1000 [1:800,1:600]
      10 10
      0.40 [10:600,30:300]
@@ -77,7 +77,7 @@ struct IArea
     double percent;
 
     IArea(r_Minterval& area, double percentage)
-      : iarea(area), percent(percentage)
+        : iarea(area), percent(percentage)
     {
     }
 };
@@ -86,163 +86,163 @@ DList<IArea*> IAreas;
 
 void parse(int argc, char** argv)
 {
-  if ((argc == 1) || ((argc == 2) && (strcmp(argv[1], "-h") == 0)))
-  {
-    cout << "Usage: " << argv[0] << " [input_filename] [output_filename]"
-         << endl;
-    exit(0);
-  }
-  
-  if (argc != 3)
-  {
-    cout << "Usage: " << argv[0] << " [input_filename] [output_filename]"
-         << endl;
-    exit(0);
-  }
+    if ((argc == 1) || ((argc == 2) && (strcmp(argv[1], "-h") == 0)))
+    {
+        cout << "Usage: " << argv[0] << " [input_filename] [output_filename]"
+             << endl;
+        exit(0);
+    }
 
-  in_filename = argv[1];
-  out_filename = argv[2];
+    if (argc != 3)
+    {
+        cout << "Usage: " << argv[0] << " [input_filename] [output_filename]"
+             << endl;
+        exit(0);
+    }
+
+    in_filename = argv[1];
+    out_filename = argv[2];
 }
 
 void get_specification()
 {
-  char buf[BUF_SIZE+1], buf2[BUF_SIZE+1];
-  double perc;
+    char buf[BUF_SIZE+1], buf2[BUF_SIZE+1];
+    double perc;
 
-  ifstream is(in_filename);
-  if (!is)
-  {
-    cout << "Could not open " << in_filename << "." << endl;
-    exit(0);
-  }
-
-  cout << "Reading parameters... " << endl;
-
-  is >> total_patterns;
-  is.getline(buf, BUF_SIZE);
-  domain = new r_Minterval(buf);
-  dim = domain->dimension();
-
-  if (total_patterns <= 0)
-  {
-    cout << "Invalid number of patterns: " << total_patterns << endl;
-    exit(0);
-  }
-
-  if (dim <= 0)
-  {
-    cout << "Invalid domain: " << *domain << endl;
-    delete domain;
-    exit(0);
-  }
-
-  cout << endl << "Patterns: " << total_patterns << endl;
-  cout << "Domain: " << *domain << endl;
-  cout << "Dimension: " << dim << "  (";
-
-  delta = new int[dim];
-
-  for (int i=0; i<dim; i++)
-  {
-    is >> delta[i];
-    cout << "*";
-  }
-
-  cout << ")" << endl;
-  cout << "Reading patterns... (";
-  
-  while (!is.eof())
-  {
-    is >> perc;
-    is.getline(buf, BUF_SIZE);
-    if (!is.bad() && sscanf(buf, "%s", buf2) == 1)
+    ifstream is(in_filename);
+    if (!is)
     {
-      r_Minterval area(buf2);
-      IArea* ia = new IArea(area, perc);
-      IAreas += ia;
-
-      cout << "*";
+        cout << "Could not open " << in_filename << "." << endl;
+        exit(0);
     }
-    else
-      break;
-  }
 
-  cout << ") -Done- " << endl;
-  
-  is.close();
+    cout << "Reading parameters... " << endl;
+
+    is >> total_patterns;
+    is.getline(buf, BUF_SIZE);
+    domain = new r_Minterval(buf);
+    dim = domain->dimension();
+
+    if (total_patterns <= 0)
+    {
+        cout << "Invalid number of patterns: " << total_patterns << endl;
+        exit(0);
+    }
+
+    if (dim <= 0)
+    {
+        cout << "Invalid domain: " << *domain << endl;
+        delete domain;
+        exit(0);
+    }
+
+    cout << endl << "Patterns: " << total_patterns << endl;
+    cout << "Domain: " << *domain << endl;
+    cout << "Dimension: " << dim << "  (";
+
+    delta = new int[dim];
+
+    for (int i=0; i<dim; i++)
+    {
+        is >> delta[i];
+        cout << "*";
+    }
+
+    cout << ")" << endl;
+    cout << "Reading patterns... (";
+
+    while (!is.eof())
+    {
+        is >> perc;
+        is.getline(buf, BUF_SIZE);
+        if (!is.bad() && sscanf(buf, "%s", buf2) == 1)
+        {
+            r_Minterval area(buf2);
+            IArea* ia = new IArea(area, perc);
+            IAreas += ia;
+
+            cout << "*";
+        }
+        else
+            break;
+    }
+
+    cout << ") -Done- " << endl;
+
+    is.close();
 }
 
 void generate_patterns()
 {
-  srand((unsigned int) time(NULL));
+    srand((unsigned int) time(NULL));
 
 
-  DListIterator<IArea*> it = IAreas.create_iterator();
+    DListIterator<IArea*> it = IAreas.create_iterator();
 
-  ofstream os(out_filename);
-  if (!os)
-  {
-    cout << "Could not open " << out_filename << "." << endl;
-    exit(0);
-  }
-  
-  while (it.not_done())
-  {
-    IArea* ia = *it;
-    ++it;
-
-    int total = (int)(ia->percent * total_patterns);
-
-    for (int i=0; i<total; i++)
+    ofstream os(out_filename);
+    if (!os)
     {
-      os << "[";
-      
-      for (int j=0; j<dim; j++)
-      {
-        long xmin = ia->iarea[j].low();
-        long xmax = ia->iarea[j].high();
-        long total = xmax-xmin;
-
-        if (delta[j] > total)
-	  delta[j] = total;
-         
-        long dxmin = (rand() % (2*delta[j] + 1)) - delta[j];
-        long dxmax = (rand() % (2*delta[j] + 1)) - delta[j];
-
-        xmin = xmin + dxmin;
-        if (xmin < (*domain)[j].low())
-          xmin = (*domain)[j].low() + ((*domain)[j].low() - xmin);
-            
-        xmax = xmax + dxmax;
-	if (xmax > (*domain)[j].high())
-          xmax = (*domain)[j].high() - (xmax - (*domain)[j].high());
-
-        if (xmin > xmax)
-        {
-          long temp = xmin;
-          xmin = xmax;
-          xmax = temp;
-        }
-
-        os << xmin << ":" << xmax;
-
-        if (j != dim-1)
-          os << ",";
-      }
-      
-      os << "]" << endl;
+        cout << "Could not open " << out_filename << "." << endl;
+        exit(0);
     }
-  }
 
-  delete [] delta;
-  delete domain;
+    while (it.not_done())
+    {
+        IArea* ia = *it;
+        ++it;
+
+        int total = (int)(ia->percent * total_patterns);
+
+        for (int i=0; i<total; i++)
+        {
+            os << "[";
+
+            for (int j=0; j<dim; j++)
+            {
+                long xmin = ia->iarea[j].low();
+                long xmax = ia->iarea[j].high();
+                long total = xmax-xmin;
+
+                if (delta[j] > total)
+                    delta[j] = total;
+
+                long dxmin = (rand() % (2*delta[j] + 1)) - delta[j];
+                long dxmax = (rand() % (2*delta[j] + 1)) - delta[j];
+
+                xmin = xmin + dxmin;
+                if (xmin < (*domain)[j].low())
+                    xmin = (*domain)[j].low() + ((*domain)[j].low() - xmin);
+
+                xmax = xmax + dxmax;
+                if (xmax > (*domain)[j].high())
+                    xmax = (*domain)[j].high() - (xmax - (*domain)[j].high());
+
+                if (xmin > xmax)
+                {
+                    long temp = xmin;
+                    xmin = xmax;
+                    xmax = temp;
+                }
+
+                os << xmin << ":" << xmax;
+
+                if (j != dim-1)
+                    os << ",";
+            }
+
+            os << "]" << endl;
+        }
+    }
+
+    delete [] delta;
+    delete domain;
 }
 
 int main(int argc, char** argv)
 {
-  parse(argc, argv);
-  get_specification();
-  generate_patterns();
-  
-  return 0;
+    parse(argc, argv);
+    get_specification();
+    generate_patterns();
+
+    return 0;
 }

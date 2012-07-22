@@ -44,30 +44,30 @@ rasdaman GmbH.
 
 class QtConversion : public QtUnaryOperation
 {
-  public:
+public:
     enum QtConversionType
     {
-      QT_UNKNOWN,
-      QT_TOTIFF,
-      QT_TOBMP,
-      QT_TOHDF,
-      QT_TONETCDF,
-      QT_TOCSV,
-      QT_TOJPEG,
-      QT_TOPNG,
-      QT_TOVFF,
-      QT_TOTOR,
-      QT_TODEM,
-      QT_FROMTIFF,
-      QT_FROMBMP,
-      QT_FROMHDF,
-      QT_FROMNETCDF,
-      QT_FROMCSV,
-      QT_FROMJPEG,
-      QT_FROMPNG,
-      QT_FROMVFF,
-      QT_FROMTOR,
-      QT_FROMDEM      
+        QT_UNKNOWN,
+        QT_TOTIFF,
+        QT_TOBMP,
+        QT_TOHDF,
+        QT_TONETCDF,
+        QT_TOCSV,
+        QT_TOJPEG,
+        QT_TOPNG,
+        QT_TOVFF,
+        QT_TOTOR,
+        QT_TODEM,
+        QT_FROMTIFF,
+        QT_FROMBMP,
+        QT_FROMHDF,
+        QT_FROMNETCDF,
+        QT_FROMCSV,
+        QT_FROMJPEG,
+        QT_FROMPNG,
+        QT_FROMVFF,
+        QT_FROMTOR,
+        QT_FROMDEM
     };
 
     /// constructor getting operand and format conversion type
@@ -85,7 +85,7 @@ class QtConversion : public QtUnaryOperation
     /// evaluates the node
     QtData* evaluate( QtDataList* inputList );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -97,7 +97,7 @@ class QtConversion : public QtUnaryOperation
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /// attribute storing conversion type
     QtConversionType conversionType;
 

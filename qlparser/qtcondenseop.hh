@@ -44,18 +44,18 @@ rasdaman GmbH.
 //@ManMemo: Module: {\bf qlparser}
 
 /*@Doc:
- 
+
   The class represents the root of a cond expression.
 
 */
 
 class QtCondenseOp : public QtBinaryOperation
 {
-  public:
+public:
     /// constructor getting iterator, minterval exp, cell exp, and cell condition exp (optional)
     QtCondenseOp( Ops::OpType   newOperation,
-                  const std::string& initIteratorName, 
-                  QtOperation*  mintervalExp, 
+                  const std::string& initIteratorName,
+                  QtOperation*  mintervalExp,
                   QtOperation*  cellExp,
                   QtOperation*  condExp = NULL     );
 
@@ -88,7 +88,7 @@ class QtCondenseOp : public QtBinaryOperation
     /**
      */
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -98,8 +98,8 @@ class QtCondenseOp : public QtBinaryOperation
     //@{
     ///
 
-      /// 
-      inline QtOperation* getCondOp();
+    ///
+    inline QtOperation* getCondOp();
 
     ///
     //@}
@@ -110,7 +110,7 @@ class QtCondenseOp : public QtBinaryOperation
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 

@@ -71,228 +71,228 @@ char* colect_name;
 
 void parse(int argc, char* argv[])
 {
-  if (argc != 4)
-  {
-    cout << "Usage: " << argv[0] << " [server name] [db name] [colection name]"
-         << endl;
+    if (argc != 4)
+    {
+        cout << "Usage: " << argv[0] << " [server name] [db name] [colection name]"
+             << endl;
 
-    exit(0);
-  }
+        exit(0);
+    }
 
-  server_name = argv[1];
-  dbase_name  = argv[2];
-  colect_name = argv[3];
+    server_name = argv[1];
+    dbase_name  = argv[2];
+    colect_name = argv[3];
 }
 
 r_ULong init(const r_Point& pnt )
 {
-  return (long)(rand() % MAX_SALES);
+    return (long)(rand() % MAX_SALES);
 }
 
 void insert_datacube()
 {
 
-  r_Ref< r_Set< r_Ref< r_Marray<r_ULong> > > >  cube_set;
-  // r_Ref< r_Marray<r_ULong> >                 cube[TOTAL_CUBES];
-  r_Minterval                                   domain, block_config;
-  r_Domain_Storage_Layout*                      dsl[TOTAL_CUBES];
-  r_OId                                         oid[TOTAL_CUBES];
-  
-  domain = r_Minterval(3);
-  domain << r_Sinterval(1L, TOTAL_DAYS)
-         << r_Sinterval(1L, TOTAL_PRODUCTS)
-         << r_Sinterval(1L, TOTAL_STORES);
+    r_Ref< r_Set< r_Ref< r_Marray<r_ULong> > > >  cube_set;
+    // r_Ref< r_Marray<r_ULong> >                 cube[TOTAL_CUBES];
+    r_Minterval                                   domain, block_config;
+    r_Domain_Storage_Layout*                      dsl[TOTAL_CUBES];
+    r_OId                                         oid[TOTAL_CUBES];
+
+    domain = r_Minterval(3);
+    domain << r_Sinterval(1L, TOTAL_DAYS)
+           << r_Sinterval(1L, TOTAL_PRODUCTS)
+           << r_Sinterval(1L, TOTAL_STORES);
 
 
-  block_config = r_Minterval(3);
-  block_config << r_Sinterval(0L, TOTAL_DAYS)
-               << r_Sinterval(0L, TOTAL_PRODUCTS)
-               << r_Sinterval(0L, TOTAL_STORES);
-  
-  // Each storage object must have an own dynamic tiling obj or else the client 
-  // ( and server ) crashes because memory is released for a non heap memory free 
-  // r_Marray become responsible for managing the memory allocated for the
-  // tiling object.
-  r_Aligned_Tiling* til_reg_32k = new r_Aligned_Tiling(block_config, S_32K);
-  r_Aligned_Tiling* til_reg_64k = new r_Aligned_Tiling(block_config, S_64K);
-  r_Aligned_Tiling* til_reg_128k = new r_Aligned_Tiling(block_config, S_128K);
-  r_Aligned_Tiling* til_reg_256k = new r_Aligned_Tiling(block_config, S_256K);
+    block_config = r_Minterval(3);
+    block_config << r_Sinterval(0L, TOTAL_DAYS)
+                 << r_Sinterval(0L, TOTAL_PRODUCTS)
+                 << r_Sinterval(0L, TOTAL_STORES);
+
+    // Each storage object must have an own dynamic tiling obj or else the client
+    // ( and server ) crashes because memory is released for a non heap memory free
+    // r_Marray become responsible for managing the memory allocated for the
+    // tiling object.
+    r_Aligned_Tiling* til_reg_32k = new r_Aligned_Tiling(block_config, S_32K);
+    r_Aligned_Tiling* til_reg_64k = new r_Aligned_Tiling(block_config, S_64K);
+    r_Aligned_Tiling* til_reg_128k = new r_Aligned_Tiling(block_config, S_128K);
+    r_Aligned_Tiling* til_reg_256k = new r_Aligned_Tiling(block_config, S_256K);
 
 
-  // For directional tiling
+    // For directional tiling
 
-  r_Dir_Decompose decomp[3];
-    
-  //                Jan  Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dez
-  unsigned int daysMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-  int ix = 0; 
-  int year;
-  int month;
-  decomp[0] << 1;
-  for ( year = 0; year < YEARS ; year++)
-  {
-    for (month = 0; month < 12; month++ )
+    r_Dir_Decompose decomp[3];
+
+    //                Jan  Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dez
+    unsigned int daysMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int ix = 0;
+    int year;
+    int month;
+    decomp[0] << 1;
+    for ( year = 0; year < YEARS ; year++)
     {
-      decomp[0] << ix + daysMonth[month];
-      ix += daysMonth[month];  
-    }  
-  }
-
-  decomp[1] << 1 << 60;
-
-  // << 1 << 1 + 26 << 27 + 8 << 35 + 6 << 41 + 18 << 59 + 14 << 73 + 16 << 89 + 8 << 97 + 3;
-  decomp[2] << 1 <<  27 <<  35 << 41 << 59 << 73 << 89 << 97 << 100;
-  
-
-  r_Dir_Tiling* til_dir_32k = new r_Dir_Tiling(3, decomp, S_32K);
-  r_Dir_Tiling* til_dir_64k = new r_Dir_Tiling(3, decomp, S_64K);
-  r_Dir_Tiling* til_dir_128k = new r_Dir_Tiling(3, decomp, S_128K);
-  r_Dir_Tiling* til_dir_256k = new r_Dir_Tiling(3, decomp, S_256K);
-
-
-  r_Dir_Decompose decomp1[3];
-
-  ix = 0;
-  decomp1[0] << 1;
-  for ( year = 0; year < YEARS ; year++)
-  {
-    for (month = 0; month < 12; month++ )
-    {
-      decomp1[0] << ix + daysMonth[month];
-      ix += daysMonth[month];  
-    }  
-  }
-
-  // Products 
-  // << 1<< 1+ 26 << 27 + 15 << 42 + 28
-  decomp1[1] << 1 <<  27 <<  42 << 60;
-
-  // Stores 
-  // << 1 << 1 + 26 << 27 + 8 << 35 + 6 << 41 + 18 << 59 + 14 << 73 + 16 << 89 + 8 << 97 + 3;
-  decomp1[2] << 1 <<  27 <<  35 << 41 << 59 << 73 << 89 << 97 << 100;
-
-  r_Dir_Tiling* til_dir1_32k = new r_Dir_Tiling(3, decomp1, S_32K);
-  r_Dir_Tiling* til_dir1_64k = new r_Dir_Tiling(3, decomp1, S_64K);
-
-  // Domain storage layouts
-
-  dsl[0] = new r_Domain_Storage_Layout(domain, til_reg_32k);
-  dsl[1] = new r_Domain_Storage_Layout(domain, til_reg_64k);
-  dsl[2] = new r_Domain_Storage_Layout(domain, til_reg_128k);
-  dsl[3] = new r_Domain_Storage_Layout(domain, til_reg_256k);
-
-  dsl[4] = new r_Domain_Storage_Layout(domain, til_dir_32k);
-  dsl[5] = new r_Domain_Storage_Layout(domain, til_dir_64k);
-  dsl[6] = new r_Domain_Storage_Layout(domain, til_dir_128k);
-  dsl[7] = new r_Domain_Storage_Layout(domain, til_dir_256k);
-
-  dsl[8] = new r_Domain_Storage_Layout(domain, til_dir1_32k);
-  dsl[9] = new r_Domain_Storage_Layout(domain, til_dir1_64k);
-
-  
-for (int i= 0 ; i< TOTAL_CUBES ; i++)
-{
-  r_Database db;
-  r_Transaction trans;
-  // The main phase of the database creation
-  r_Ref< r_Marray<r_ULong> > cube1;
-   
-  db.set_servername(server_name);
-  
-  try
-  {
-    cout << "Opening database " << dbase_name << " on " << server_name
-         << "... " << flush;
-    
-    db.open(dbase_name);
-    
-    cout << "Ok" << endl;   
-    cout << "Starting transaction... " << flush;
-    
-    trans.begin();
-
-
-    cout << "Ok" << endl;
-    cout << "Opening the set... " << flush;
-
-    try
-    {
-      cube_set = db.lookup_object(colect_name);
+        for (month = 0; month < 12; month++ )
+        {
+            decomp[0] << ix + daysMonth[month];
+            ix += daysMonth[month];
+        }
     }
-    catch (...)
+
+    decomp[1] << 1 << 60;
+
+    // << 1 << 1 + 26 << 27 + 8 << 35 + 6 << 41 + 18 << 59 + 14 << 73 + 16 << 89 + 8 << 97 + 3;
+    decomp[2] << 1 <<  27 <<  35 << 41 << 59 << 73 << 89 << 97 << 100;
+
+
+    r_Dir_Tiling* til_dir_32k = new r_Dir_Tiling(3, decomp, S_32K);
+    r_Dir_Tiling* til_dir_64k = new r_Dir_Tiling(3, decomp, S_64K);
+    r_Dir_Tiling* til_dir_128k = new r_Dir_Tiling(3, decomp, S_128K);
+    r_Dir_Tiling* til_dir_256k = new r_Dir_Tiling(3, decomp, S_256K);
+
+
+    r_Dir_Decompose decomp1[3];
+
+    ix = 0;
+    decomp1[0] << 1;
+    for ( year = 0; year < YEARS ; year++)
     {
-      cout << "*Failed*" << endl;      
-      cout << "Creating the set... " << flush;
-
-      cube_set = new(&db, "ULong_3D_Set") r_Set< r_Ref< r_Marray<r_ULong> > >;
-      db.set_object_name(*cube_set, colect_name);
-    } 
-
-    cout << "Ok" << endl;
-    cout << "Creating the datacube... " << flush;
-
-    // for (int i=0; i<TOTAL_CUBES; i++)
-    //  {
-    // cube[i] =
-      cout << "domain == " << domain << endl;
-      cube1 =
-          new(&db, "ULong_3D_Cube") r_Marray<r_ULong>(domain, 1L/* &init */, dsl[i]);
-
-      // cube_set->insert_element(cube[i]);
-      // oid[i] = cube[i].get_oid();
-      cube_set->insert_element(cube1);
-      oid[i] = cube1->get_oid();
-      
-      cout << "*" << flush;
-
-
-    cout << " ... Ok" << endl;
-    
-    cout << "  Cube[" << i+1 << "]:  " << oid[i] << endl;
-    cout << "  Spatial domain: " << cube1->spatial_domain( ) << endl;
-    cout << "  Type length: " << cube1->get_type_length( ) << endl;
-    cout << "  Storage Layout:  "; 
-    if( i < 4 )
-     cout << "regular; tile size " << dsl[i]->get_tile_size( ) << endl;
-    else 
-    {
-     cout << "directional; tile size " << dsl[i]->get_tile_size( ) << endl;
-     cout << "Dir decompose:  ";              
-     for ( int j = 0; j < 3 ; j++ )
-     {
-       for ( int k = 0; k < 3 ; k++)
-       {
-         if ( i < 8 ) 
-           decomp[k].print_status(cout );
-         else 
-           decomp1[k].print_status( cout );
-       }
-     }
-     cout << endl;
+        for (month = 0; month < 12; month++ )
+        {
+            decomp1[0] << ix + daysMonth[month];
+            ix += daysMonth[month];
+        }
     }
-		    
-    cout << "Commiting transaction... " << flush;    
 
-    trans.commit();
-    
-    cout << "Ok" << endl; 
+    // Products
+    // << 1<< 1+ 26 << 27 + 15 << 42 + 28
+    decomp1[1] << 1 <<  27 <<  42 << 60;
 
-    cout << "Closing database... " << flush;
+    // Stores
+    // << 1 << 1 + 26 << 27 + 8 << 35 + 6 << 41 + 18 << 59 + 14 << 73 + 16 << 89 + 8 << 97 + 3;
+    decomp1[2] << 1 <<  27 <<  35 << 41 << 59 << 73 << 89 << 97 << 100;
 
-    db.close();
-     
-  }   
-  catch (r_Error& e)
-  {
-    cout << e.what() << endl;
-    exit(0);
-  }
-  catch (...)
-  {
-    cout << "Undefined error..." << endl;
-    exit(0);
-  }
-}
+    r_Dir_Tiling* til_dir1_32k = new r_Dir_Tiling(3, decomp1, S_32K);
+    r_Dir_Tiling* til_dir1_64k = new r_Dir_Tiling(3, decomp1, S_64K);
+
+    // Domain storage layouts
+
+    dsl[0] = new r_Domain_Storage_Layout(domain, til_reg_32k);
+    dsl[1] = new r_Domain_Storage_Layout(domain, til_reg_64k);
+    dsl[2] = new r_Domain_Storage_Layout(domain, til_reg_128k);
+    dsl[3] = new r_Domain_Storage_Layout(domain, til_reg_256k);
+
+    dsl[4] = new r_Domain_Storage_Layout(domain, til_dir_32k);
+    dsl[5] = new r_Domain_Storage_Layout(domain, til_dir_64k);
+    dsl[6] = new r_Domain_Storage_Layout(domain, til_dir_128k);
+    dsl[7] = new r_Domain_Storage_Layout(domain, til_dir_256k);
+
+    dsl[8] = new r_Domain_Storage_Layout(domain, til_dir1_32k);
+    dsl[9] = new r_Domain_Storage_Layout(domain, til_dir1_64k);
+
+
+    for (int i= 0 ; i< TOTAL_CUBES ; i++)
+    {
+        r_Database db;
+        r_Transaction trans;
+        // The main phase of the database creation
+        r_Ref< r_Marray<r_ULong> > cube1;
+
+        db.set_servername(server_name);
+
+        try
+        {
+            cout << "Opening database " << dbase_name << " on " << server_name
+                 << "... " << flush;
+
+            db.open(dbase_name);
+
+            cout << "Ok" << endl;
+            cout << "Starting transaction... " << flush;
+
+            trans.begin();
+
+
+            cout << "Ok" << endl;
+            cout << "Opening the set... " << flush;
+
+            try
+            {
+                cube_set = db.lookup_object(colect_name);
+            }
+            catch (...)
+            {
+                cout << "*Failed*" << endl;
+                cout << "Creating the set... " << flush;
+
+                cube_set = new(&db, "ULong_3D_Set") r_Set< r_Ref< r_Marray<r_ULong> > >;
+                db.set_object_name(*cube_set, colect_name);
+            }
+
+            cout << "Ok" << endl;
+            cout << "Creating the datacube... " << flush;
+
+            // for (int i=0; i<TOTAL_CUBES; i++)
+            //  {
+            // cube[i] =
+            cout << "domain == " << domain << endl;
+            cube1 =
+                new(&db, "ULong_3D_Cube") r_Marray<r_ULong>(domain, 1L/* &init */, dsl[i]);
+
+            // cube_set->insert_element(cube[i]);
+            // oid[i] = cube[i].get_oid();
+            cube_set->insert_element(cube1);
+            oid[i] = cube1->get_oid();
+
+            cout << "*" << flush;
+
+
+            cout << " ... Ok" << endl;
+
+            cout << "  Cube[" << i+1 << "]:  " << oid[i] << endl;
+            cout << "  Spatial domain: " << cube1->spatial_domain( ) << endl;
+            cout << "  Type length: " << cube1->get_type_length( ) << endl;
+            cout << "  Storage Layout:  ";
+            if( i < 4 )
+                cout << "regular; tile size " << dsl[i]->get_tile_size( ) << endl;
+            else
+            {
+                cout << "directional; tile size " << dsl[i]->get_tile_size( ) << endl;
+                cout << "Dir decompose:  ";
+                for ( int j = 0; j < 3 ; j++ )
+                {
+                    for ( int k = 0; k < 3 ; k++)
+                    {
+                        if ( i < 8 )
+                            decomp[k].print_status(cout );
+                        else
+                            decomp1[k].print_status( cout );
+                    }
+                }
+                cout << endl;
+            }
+
+            cout << "Commiting transaction... " << flush;
+
+            trans.commit();
+
+            cout << "Ok" << endl;
+
+            cout << "Closing database... " << flush;
+
+            db.close();
+
+        }
+        catch (r_Error& e)
+        {
+            cout << e.what() << endl;
+            exit(0);
+        }
+        catch (...)
+        {
+            cout << "Undefined error..." << endl;
+            exit(0);
+        }
+    }
 
     cout << "Ok [******************]" << endl << flush;
 
@@ -303,10 +303,10 @@ for (int i= 0 ; i< TOTAL_CUBES ; i++)
 
 int main(int argc, char* argv[])
 {
-  parse(argc, argv);
-  insert_datacube();
-  
-  return 0;
+    parse(argc, argv);
+    insert_datacube();
+
+    return 0;
 }
 
 

@@ -27,10 +27,10 @@ rasdaman GmbH.
  * CLASS:  TesterConf
  *
  * PURPOSE:
- *  Configuration from commandline and environment for rasmgrtest 
- *    
+ *  Configuration from commandline and environment for rasmgrtest
+ *
  * COMMENTS:
- * 
+ *
 */
 
 
@@ -39,88 +39,105 @@ rasdaman GmbH.
 
 
 TesterConf::TesterConf()
-  { 
+{
     strcpy(rasmgrHost,"localhost");
     rasmgrPort = RASMGRPORT;
-    
+
     commandListFile[0] =  EOS_CHAR;
-           testFile[0] =  EOS_CHAR;
-	   
+    testFile[0] =  EOS_CHAR;
+
     strcpy(logFile,"rasmgrtest.log");
-    
+
     workModus=WKMUNKNOWN;
     quiet = false;
-   }
-      
+}
+
 bool TesterConf::interpretArguments(int argc, char **argv)
-  {
-    if(argc < 2) { printHelp(); return false;}
-    
+{
+    if(argc < 2)
+    {
+        printHelp();
+        return false;
+    }
+
     if(argv[1][0] != '-') strcpy(rasmgrHost,argv[1]);
-    
+
     int optionValueIndex;
-    
+
     if( checkArguments( argc, argv, "-h", optionValueIndex ) )
-     { printHelp();
-       return false;
-      } 
-    
+    {
+        printHelp();
+        return false;
+    }
+
     if(checkArguments( argc, argv, "-port", optionValueIndex ) )
-      {  if(optionValueIndex)
+    {
+        if(optionValueIndex)
             rasmgrPort = strtoul(argv[optionValueIndex],(char**)NULL,10);
-       }
+    }
     if(checkArguments( argc, argv, "-cf", optionValueIndex ) )
-      {  if(optionValueIndex)
+    {
+        if(optionValueIndex)
             strcpy(commandListFile,argv[optionValueIndex]);
-       }
-    
+    }
+
     if(checkArguments( argc, argv, "-tf", optionValueIndex ) )
-      {  if(optionValueIndex)
+    {
+        if(optionValueIndex)
             strcpy(testFile,argv[optionValueIndex]);
-       }
-    
+    }
+
     if(checkArguments( argc, argv, "-lf", optionValueIndex ) )
-      {  if(optionValueIndex) 
+    {
+        if(optionValueIndex)
             strcpy(logFile,argv[optionValueIndex]);
-       }
-    
+    }
+
     if(checkArguments( argc, argv, "-quiet", optionValueIndex ) )
-      {  quiet = true;
-       }
-    
+    {
+        quiet = true;
+    }
+
     if( commandListFile[0] && testFile[0]) workModus = WKMCREATE;
-    
+
     else if(testFile[0]) workModus = WKMTSLANG;
-    
+
     return true;
-   }
+}
 int TesterConf::getWorkModus()
-  { return workModus;
-   }      
+{
+    return workModus;
+}
 const char* TesterConf::getRasMgrHost()
-  { return rasmgrHost;
-   }
-   
+{
+    return rasmgrHost;
+}
+
 int TesterConf::getRasMgrPort()
-  { return rasmgrPort;
-   }     
-  
+{
+    return rasmgrPort;
+}
+
 const char* TesterConf::getCommandListFile()
-  { return commandListFile;
-   }
+{
+    return commandListFile;
+}
 const char* TesterConf::getTestFile()
-  { return testFile;
-   }
+{
+    return testFile;
+}
 const char* TesterConf::getLogFile()
-  { return logFile;
-   } 
-   
+{
+    return logFile;
+}
+
 bool TesterConf::beQuiet()
-  { return quiet; 
-   }
-    
+{
+    return quiet;
+}
+
 void TesterConf::printHelp()
-  {
+{
     cout<<"Usage: rasmgrtest mainhost [options]"<<endl;
     cout<<"\tmainhost       ... the hostname  where the master RasMgr runs"<<endl;
     cout<<"\t-port          ... the listen port of the master RasMgr (default: "<<RASMGRPORT<<") "<<endl;
@@ -129,5 +146,5 @@ void TesterConf::printHelp()
     cout<<"\t-tf <file>     ... test file"<<endl;
     cout<<"\t-lf <file>     ... log file (default rasmgrtest.log)"<<endl;
     cout<<endl;
-   }
+}
 

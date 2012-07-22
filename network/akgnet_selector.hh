@@ -28,7 +28,7 @@ rasdaman GmbH.
  *
  * COMMENTS:
  * Namespace akg
- * 
+ *
 */
 
 #ifndef AKGNET_SELECTOR
@@ -37,63 +37,63 @@ rasdaman GmbH.
 #include "akgnet_common.hh"
 
 namespace akg
-  {
-  
+{
+
 /** This class envelops the 'select' function of the C-library
 */
 
 /**
   * \ingroup Networks
-  */ 
-  
+  */
+
 class Selector
-  {
-    public:
-      /// Default constructor
-      Selector() throw();
-      
-      /// Sets the timeout interval
-      void setTimeout(int sec,int milisec) throw();
-      
-      /// Disables the timeout
-      void disableTimeout() throw();
-      
-      /// Registers the file descriptor for reading
-      void setRead(int fdescr) throw();
-      /// Unregisters the file descriptor from reading
-      void clearRead(int fdescr) throw();
-      
-      /// Registers the file descriptor for writing
-      void setWrite(int fdescr) throw();
-      /// Unregisters the file descriptor from writing
-      void clearWrite(int fdescr) throw();
-    
-      /// The real 'select' operation. The return value is the one of 'select'
-      int operator()() throw();
-      
-      /// Returns true if the file descriptor is registered for read
-      bool isRead(int fdescr) throw();
-      /// Returns true if the file descriptor is registered for write
-      bool isWrite(int fdescr) throw();
-      
-      /** Closes all file descriptors. Usefull when forking so 
-          child processes don't inherit this file descriptors
-      */ 
-      void closeForcedAllFileDescriptors() throw();
-    private:
-      fd_set watchReadFdSet;
-      fd_set watchWriteFdSet;  
-      fd_set watchExceptFdSet; // unused but ...
-    
-      fd_set resultReadFdSet;
-      fd_set resultWriteFdSet; 
-      fd_set resultExceptFdSet; // unused but ...
-    
-      struct timeval tvinit;
-      struct timeval tv;
-      timeval *tvptr;
-      
-   };
+{
+public:
+    /// Default constructor
+    Selector() throw();
+
+    /// Sets the timeout interval
+    void setTimeout(int sec,int milisec) throw();
+
+    /// Disables the timeout
+    void disableTimeout() throw();
+
+    /// Registers the file descriptor for reading
+    void setRead(int fdescr) throw();
+    /// Unregisters the file descriptor from reading
+    void clearRead(int fdescr) throw();
+
+    /// Registers the file descriptor for writing
+    void setWrite(int fdescr) throw();
+    /// Unregisters the file descriptor from writing
+    void clearWrite(int fdescr) throw();
+
+    /// The real 'select' operation. The return value is the one of 'select'
+    int operator()() throw();
+
+    /// Returns true if the file descriptor is registered for read
+    bool isRead(int fdescr) throw();
+    /// Returns true if the file descriptor is registered for write
+    bool isWrite(int fdescr) throw();
+
+    /** Closes all file descriptors. Usefull when forking so
+        child processes don't inherit this file descriptors
+    */
+    void closeForcedAllFileDescriptors() throw();
+private:
+    fd_set watchReadFdSet;
+    fd_set watchWriteFdSet;
+    fd_set watchExceptFdSet; // unused but ...
+
+    fd_set resultReadFdSet;
+    fd_set resultWriteFdSet;
+    fd_set resultExceptFdSet; // unused but ...
+
+    struct timeval tvinit;
+    struct timeval tv;
+    timeval *tvptr;
+
+};
 
 } // namespace
 #endif

@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   r_Complex
  *
  * COMMENTS:
- * 		The class represents a complex type value. 
+ *      The class represents a complex type value.
  *
 */
 
@@ -42,45 +42,45 @@ class r_Complex_Type;
 #include "raslib/mddtypes.hh"
 #include "raslib/primitive.hh"
 
- 
+
 //@ManMemo: Module: {\bf raslib}
 
 /*@Doc:
 
  Class \Ref{r_Complex} represents a complex type value.
- 
+
 */
 
 
 class r_Complex: public r_Primitive
-	{
-	public:
-	
-	explicit
-		/// constructs a scalar type value
-		r_Complex(const char* newBuffer, const r_Complex_Type* newType);
-		
-		/// copy constructor
-		r_Complex(const r_Complex& obj);
+{
+public:
 
-		/// destructor
-		~r_Complex();
+    explicit
+    /// constructs a scalar type value
+    r_Complex(const char* newBuffer, const r_Complex_Type* newType);
 
-		virtual bool isComplex() const;
+    /// copy constructor
+    r_Complex(const r_Complex& obj);
 
-		/// clone operator
-		virtual r_Scalar* clone() const;
+    /// destructor
+    ~r_Complex();
 
-		/// operator for assigning a primitive
-		virtual const r_Complex& operator =(const r_Complex&);
-		
-		r_Double get_re() const throw(r_Error);
-		r_Double get_im() const throw(r_Error);
-		
-		void set_re(r_Double) throw(r_Error);
-		void set_im(r_Double) throw(r_Error);
+    virtual bool isComplex() const;
 
-	};
+    /// clone operator
+    virtual r_Scalar* clone() const;
+
+    /// operator for assigning a primitive
+    virtual const r_Complex& operator =(const r_Complex&);
+
+    r_Double get_re() const throw(r_Error);
+    r_Double get_im() const throw(r_Error);
+
+    void set_re(r_Double) throw(r_Error);
+    void set_im(r_Double) throw(r_Error);
+
+};
 
 
 #endif

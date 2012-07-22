@@ -59,11 +59,11 @@ and -DCOMPDATE="\"$(COMPDATE)\"" when compiling
 
 using std::vector;
 using std::iterator;
- 
+
 #if defined(SOLARIS)
-#	include <strings.h>
+#   include <strings.h>
 #else
-#	include <cstring>
+#   include <cstring>
 #endif
 
 #include "mymalloc/mymalloc.h"
@@ -92,74 +92,74 @@ const char* passwd          = DEFAULT_PASSWD;
 void
 openDatabase() throw (r_Error)
 {
-        ENTER( "openDatabase" );
+    ENTER( "openDatabase" );
 
-	if (! dbIsOpen)
-	{
-		cout << "Opening database " <<  database  << " at " << server << ":" << port << "..." << flush;
-        	db.set_servername(server, port);
-        	db.set_useridentification( user, passwd);
-        	TALK( "database was closed, opening database=" <<  database  << ", server=" << server << ", port=" << port << ", user=" <<  user << ", passwd=" << passwd << "..." );
-        	db.open( database );
-		TALK( "done" );
-		dbIsOpen = true;
-		cout << "ok" << endl << flush;
-	}
+    if (! dbIsOpen)
+    {
+        cout << "Opening database " <<  database  << " at " << server << ":" << port << "..." << flush;
+        db.set_servername(server, port);
+        db.set_useridentification( user, passwd);
+        TALK( "database was closed, opening database=" <<  database  << ", server=" << server << ", port=" << port << ", user=" <<  user << ", passwd=" << passwd << "..." );
+        db.open( database );
+        TALK( "done" );
+        dbIsOpen = true;
+        cout << "ok" << endl << flush;
+    }
 
-        LEAVE( "openDatabase" );
+    LEAVE( "openDatabase" );
 }
 
 void
 closeDatabase() throw (r_Error)
 {
-        ENTER( "closeDatabase" );
+    ENTER( "closeDatabase" );
 
-	if (dbIsOpen)
-	{
-        	TALK( "database was open, closing it" );
-		db.close();
-		dbIsOpen = false;
-	}
+    if (dbIsOpen)
+    {
+        TALK( "database was open, closing it" );
+        db.close();
+        dbIsOpen = false;
+    }
 
-        LEAVE( "closeDatabase" );
-        return;
+    LEAVE( "closeDatabase" );
+    return;
 }
 
 
 int main(int argc, char** argv)
 {
-	SET_OUTPUT( false );		// inhibit unconditional debug output, await cmd line evaluation
+    SET_OUTPUT( false );        // inhibit unconditional debug output, await cmd line evaluation
 
-	int retval = EXIT_FAILURE;
+    int retval = EXIT_FAILURE;
 
-	cout << argv[0] << ": rasdaman test 'failure upon multiple db open' for rasdaman v" << RMANVERSION/1000 << " -- generated on " << COMPDATE << endl;
+    cout << argv[0] << ": rasdaman test 'failure upon multiple db open' for rasdaman v" << RMANVERSION/1000 << " -- generated on " << COMPDATE << endl;
 
-	try
-	{
-		openDatabase();
+    try
+    {
+        openDatabase();
 
-		closeDatabase();
+        closeDatabase();
 
-		retval = EXIT_SUCCESS;
-	}
-	catch (ExportError& e)
-	{
-		cout << argv[0] << ": " << e.what() << endl;
-		retval = EXIT_FAILURE;
-	}
-	catch (const r_Error& e)
-	{
-		cout << argv[0] << ": rasdaman error " << e.get_errorno() << ": " << e.what() << endl;
-		retval = EXIT_FAILURE;
-	}
-	catch (...)
-	{
-		cout << argv[0] << ": panic: unexpected internal exception." << endl;
-		retval = EXIT_FAILURE;
-	}
+        retval = EXIT_SUCCESS;
+    }
+    catch (ExportError& e)
+    {
+        cout << argv[0] << ": " << e.what() << endl;
+        retval = EXIT_FAILURE;
+    }
+    catch (const r_Error& e)
+    {
+        cout << argv[0] << ": rasdaman error " << e.get_errorno() << ": " << e.what() << endl;
+        retval = EXIT_FAILURE;
+    }
+    catch (...)
+    {
+        cout << argv[0] << ": panic: unexpected internal exception." << endl;
+        retval = EXIT_FAILURE;
+    }
 
-	cout << argv[0] << " done." << endl;
+    cout << argv[0] << " done." << endl;
 
-	return retval;
+    return retval;
 }
 

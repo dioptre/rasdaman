@@ -55,7 +55,7 @@ unsigned int  RMInit::rpcMaxRetry = 5;
 r_Bytes RMInit::clientTileSize = 786432;
 
 RMInit::RMInit( char initApplicationType )
-  : applicationType( initApplicationType )
+    : applicationType( initApplicationType )
 {
     char* optString;
 
@@ -77,7 +77,8 @@ RMInit::RMInit( char initApplicationType )
                 logOut.rdbuf(logFileOut.rdbuf());
                 delete[] value;
             }
-            else {
+            else
+            {
                 logOut.rdbuf(cout.rdbuf());
             }
         }
@@ -100,7 +101,8 @@ RMInit::RMInit( char initApplicationType )
                 dbgOut.rdbuf(dbgFileOut.rdbuf());
                 delete[] value;
             }
-            else {
+            else
+            {
                 dbgOut.rdbuf(cout.rdbuf());
             }
         }
@@ -203,7 +205,7 @@ RMInit::RMInit( char initApplicationType )
         else
             noTimeOut = 0;
     }
-    else	// applicationType != 'C' (i.e.: =='S')
+    else    // applicationType != 'C' (i.e.: =='S')
     {
         // default
         logOut.rdbuf(cout.rdbuf());
@@ -213,7 +215,7 @@ RMInit::RMInit( char initApplicationType )
 
 
     // initialize error text table
-	r_Error::initTextTable(); 
+    r_Error::initTextTable();
 
     // initialize user name
     if( userName )
@@ -249,7 +251,7 @@ RMInit::~RMInit()
     bmOut.rdbuf(NULL);
 
     // free error text table
-	r_Error::freeTextTable(); 
+    r_Error::freeTextTable();
 
     if( userName )
     {
@@ -260,7 +262,7 @@ RMInit::~RMInit()
 
 
 
-    int
+int
 RMInit::checkOptionString( const char* optString, const char* option, char* &value )
 {
     char* optPos=0;
@@ -278,8 +280,9 @@ RMInit::checkOptionString( const char* optString, const char* option, char* &val
 
         optPos = (char*)optString;
 
-        do{
-            optPos = strstr( optPos, option );   
+        do
+        {
+            optPos = strstr( optPos, option );
 
             if( optPos )
             {
@@ -293,7 +296,8 @@ RMInit::checkOptionString( const char* optString, const char* option, char* &val
                 if( !found ) optPos = continuePos;
             }
 
-        }while( !found && optPos != 0 );
+        }
+        while( !found && optPos != 0 );
 
     }
 
@@ -319,7 +323,7 @@ RMInit::checkOptionString( const char* optString, const char* option, char* &val
     }
 
     /*
-       if( optPos )  
+       if( optPos )
        {
        cout << "Option " << option << " specified;" << flush;
 
@@ -327,7 +331,7 @@ RMInit::checkOptionString( const char* optString, const char* option, char* &val
        cout << " value: " << value << " length: " << strlen(value) << endl;
        else
        cout << endl;
-       }  
+       }
        else
        cout << "Option " << option << " not specified." << endl;
      */

@@ -41,7 +41,7 @@ rasdaman GmbH.
  *
  ************************************************************/
 
- //@ManMemo: Module: {\bf qlparser}
+//@ManMemo: Module: {\bf qlparser}
 
 /*@Doc:
 
@@ -53,7 +53,7 @@ rasdaman GmbH.
 
 class QtVariable : public QtOperation
 {
-  public:
+public:
     /// constructor getting iterator variable name
     QtVariable( const std::string& iteratorName );
 
@@ -78,7 +78,7 @@ class QtVariable : public QtOperation
     /// method for evaluating the node
     QtData* evaluate( QtDataList* inputList ) throw (ParseInfo);
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -87,7 +87,7 @@ class QtVariable : public QtOperation
     /// methods for iterator name
     inline const std::string getIteratorName() const;
     inline void setIteratorName( std::string& str );
-    
+
     /// method for loadDomain
     inline const r_Minterval getLoadDomain() const;
 
@@ -109,8 +109,8 @@ class QtVariable : public QtOperation
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL ) throw (ParseInfo);
 
-  private:
-     
+private:
+
     /// attribute storing the iterator name
     std::string iteratorName;
 

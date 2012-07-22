@@ -56,88 +56,88 @@ class OId;
   * \ingroup Relcatalogifs
   */
 class MDDType : public Type
-	{
-	public:
-		enum MDDTypeEnum { MDDONLYTYPE, MDDBASETYPE, MDDDOMAINTYPE, MDDDIMENSIONTYPE };
-		/*@Doc:
-		enum used for runtime typing.
-		could be superceded by OId::OIdType
-		*/
+{
+public:
+    enum MDDTypeEnum { MDDONLYTYPE, MDDBASETYPE, MDDDOMAINTYPE, MDDDIMENSIONTYPE };
+    /*@Doc:
+    enum used for runtime typing.
+    could be superceded by OId::OIdType
+    */
 
-		virtual char* getTypeStructure() const;
-		/*@Doc:
-		returns type as string:
-			marray <>
-		*/
-		
-		MDDType(const OId& id) throw (r_Error);
+    virtual char* getTypeStructure() const;
+    /*@Doc:
+    returns type as string:
+        marray <>
+    */
 
-		MDDType();
-		/*@Doc:
-		constructor.
-		*/
-		
-		MDDType(const char* newTypeName);
-		/*@Doc:
-		constructor using type name.
-		*/
-		
-		MDDType(const MDDType& old);
-		/*@Doc:
-		copy constructor.
-		*/
-		
-		MDDType& operator=(const MDDType& old);
-		/*@Doc:
-		assignment operator.
-		*/
-	 
-		virtual void print_status( ostream& s ) const;
-		/*@Doc:
-		writes the state of the object to the specified stream:
-			\tr_Marray<>
-		*/
-		
-		MDDType::MDDTypeEnum getSubtype() const;
-		/*@Doc:
-		return subclass of MDDType (runtime typing)
-		*/
+    MDDType(const OId& id) throw (r_Error);
 
-		virtual ~MDDType();
-		/*@Doc:
-		virtual destructor.
-		*/
+    MDDType();
+    /*@Doc:
+    constructor.
+    */
 
-		virtual int compatibleWith(const Type* aType) const;
-		/*@Doc:
-		check for compatibility of MDDTypes:
-			if aType is a MDDTYPE Type (don't confuse with MDDType!!)
-		*/
-		
-		virtual int compatibleWithDomain(const r_Minterval* aDomain) const;
-		/*@Doc:
-		check for compatibility with a certain domain.
-		always returns 1.
-		*/
+    MDDType(const char* newTypeName);
+    /*@Doc:
+    constructor using type name.
+    */
 
-		virtual r_Bytes getMemorySize() const;
-		/*@Doc:
-		the memory space is computed by:
-			sizeof(MDDType::MDDTypeEnum) + DBNamedObject::getMemorySize();
-		*/
+    MDDType(const MDDType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-	protected:
+    MDDType& operator=(const MDDType& old);
+    /*@Doc:
+    assignment operator.
+    */
 
-		virtual void insertInDb() throw (r_Error);
-		
-		virtual void readFromDb() throw (r_Error);
+    virtual void print_status( ostream& s ) const;
+    /*@Doc:
+    writes the state of the object to the specified stream:
+        \tr_Marray<>
+    */
 
-		virtual void deleteFromDb() throw (r_Error);
-		
-		MDDTypeEnum mySubclass;
-		/*@Doc:
-		used for runtime typing and comparison operation.
-		*/
-	};
+    MDDType::MDDTypeEnum getSubtype() const;
+    /*@Doc:
+    return subclass of MDDType (runtime typing)
+    */
+
+    virtual ~MDDType();
+    /*@Doc:
+    virtual destructor.
+    */
+
+    virtual int compatibleWith(const Type* aType) const;
+    /*@Doc:
+    check for compatibility of MDDTypes:
+        if aType is a MDDTYPE Type (don't confuse with MDDType!!)
+    */
+
+    virtual int compatibleWithDomain(const r_Minterval* aDomain) const;
+    /*@Doc:
+    check for compatibility with a certain domain.
+    always returns 1.
+    */
+
+    virtual r_Bytes getMemorySize() const;
+    /*@Doc:
+    the memory space is computed by:
+        sizeof(MDDType::MDDTypeEnum) + DBNamedObject::getMemorySize();
+    */
+
+protected:
+
+    virtual void insertInDb() throw (r_Error);
+
+    virtual void readFromDb() throw (r_Error);
+
+    virtual void deleteFromDb() throw (r_Error);
+
+    MDDTypeEnum mySubclass;
+    /*@Doc:
+    used for runtime typing and comparison operation.
+    */
+};
 
 #endif

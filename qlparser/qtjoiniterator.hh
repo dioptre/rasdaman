@@ -51,7 +51,7 @@ The class represents the FROM part of a query.
 
 class QtJoinIterator : public QtIterator
 {
-  public:
+public:
     /// default constructor
     QtJoinIterator();
 
@@ -61,7 +61,7 @@ class QtJoinIterator : public QtIterator
     /// virtual destructor
     virtual ~QtJoinIterator();
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -98,13 +98,13 @@ class QtJoinIterator : public QtIterator
     /// type checking
     virtual const QtTypeTuple& checkType();
 
-  private:
+private:
     /// inidicates if the output stream is empty or not
     bool outputStreamIsEmpty;
     /** The output stream is empty if at least one of the input streams is empty.
         In that case, the cross product has no elements. This is indicated
-	by the variable {\tt outputStreamIsEmpty} which is set in the method
-	{\tt open()}.
+    by the variable {\tt outputStreamIsEmpty} which is set in the method
+    {\tt open()}.
     */
 
     /// pointer to a copy of the last passed tupel

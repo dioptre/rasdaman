@@ -38,63 +38,65 @@ class YSymbol;
 /**
   * \ingroup Rasdls
   */
-class YSymbolTable {
+class YSymbolTable
+{
 
-   friend class YSymbol;
+    friend class YSymbol;
 
 public:
-   ///
-   YSymbolTable();
+    ///
+    YSymbolTable();
 
-   /// get the corresponding symbol to name 
-   const YSymbol  *get_symbol(const char*name)const;
-   /// creates a symbol in the current scoped
-   bool scoped_symbol(YSymbol**result,const char*name,const YWhere&where);
-   /// get the symbol that defines this scope 
-   const YSymbol  *get_defining_symbol   ()const;
+    /// get the corresponding symbol to name
+    const YSymbol  *get_symbol(const char*name)const;
+    /// creates a symbol in the current scoped
+    bool scoped_symbol(YSymbol**result,const char*name,const YWhere&where);
+    /// get the symbol that defines this scope
+    const YSymbol  *get_defining_symbol   ()const;
 
-   /// search only current scope 
-   bool     search_scope         (const char*,YSymbol*&)const;               
-   /// search current scope and all abov
-   bool     search_scopes        (const char*,YSymbol*&)const;
-   /// search me all scopes above me, and not myself
-   bool     search_scopes_above  (const YSymbol*,YSymbol*&)const;      
-   /// search a specified scope of a symbol 
-   bool     search_my_scope      (const char*,const YSymbol*,YSymbol*&)const;
-   /// search the global_scope 
-   bool     search_global_scope  (const char*,YSymbol*&)const;
+    /// search only current scope
+    bool     search_scope         (const char*,YSymbol*&)const;
+    /// search current scope and all abov
+    bool     search_scopes        (const char*,YSymbol*&)const;
+    /// search me all scopes above me, and not myself
+    bool     search_scopes_above  (const YSymbol*,YSymbol*&)const;
+    /// search a specified scope of a symbol
+    bool     search_my_scope      (const char*,const YSymbol*,YSymbol*&)const;
+    /// search the global_scope
+    bool     search_global_scope  (const char*,YSymbol*&)const;
 
-   ///
-   void     insert_symbol        (YSymbol*)const;
+    ///
+    void     insert_symbol        (YSymbol*)const;
 
-   ///
-   void           push_scope(YSymbol*);
+    ///
+    void           push_scope(YSymbol*);
 
-   ///
-   const YSymbol  *pop_scope();
+    ///
+    const YSymbol  *pop_scope();
 
-   ///
-   struct Scope {
-      void output(FILE*out) const;
-      void insertData() const;
+    ///
+    struct Scope
+    {
+        void output(FILE*out) const;
+        void insertData() const;
 
-      struct Scope      *up;
-      struct Scope      *next,*son;
+        struct Scope      *up;
+        struct Scope      *next,*son;
 
-      YSymbol            *symbols;
-      YSymbol            *last_symbol;      // last symbol defined in list {to assure correct order of symbols}
+        YSymbol            *symbols;
+        YSymbol            *last_symbol;      // last symbol defined in list {to assure correct order of symbols}
 
-      const YSymbol      *owner;            // which symbol is the owner of this scope
-   };
+        const YSymbol      *owner;            // which symbol is the owner of this scope
+    };
 
-   ///
-   Scope      *scope;
+    ///
+    Scope      *scope;
 
-   ///
-   Scope      *global_scope;
+    ///
+    Scope      *global_scope;
 
-   ///
-   inline bool  search_this_scope (const char*,const Scope*,YSymbol*&)const;
+    ///
+    inline bool  search_this_scope (const char*,const Scope*,YSymbol*&)const;
 
 };
 
@@ -105,23 +107,25 @@ public:
 /**
   Literal used during parse process for result of an expression.
 */
-struct YLiteral {
-   ///
-   enum Literal_type {dLfloat,dLinteger,dLchar,dLbool,dLstring} type;
+struct YLiteral
+{
+    ///
+    enum Literal_type {dLfloat,dLinteger,dLchar,dLbool,dLstring} type;
 
-   ///
-   union {
-      ///
-      double      Real;
-      ///
-      long        Integer;
-      ///
-      const char   *String;
-      ///
-      char        Character;
-      ///
-      bool        Boolean;
-   };
+    ///
+    union
+    {
+        ///
+        double      Real;
+        ///
+        long        Integer;
+        ///
+        const char   *String;
+        ///
+        char        Character;
+        ///
+        bool        Boolean;
+    };
 };
 
 
@@ -133,10 +137,10 @@ struct YLiteral {
 */
 struct YConstant
 {
-   ///
-   YLiteral      value;
-   ///
-   Parse_type   *type;
+    ///
+    YLiteral      value;
+    ///
+    Parse_type   *type;
 };
 
 
@@ -152,53 +156,57 @@ struct YConstant
   */
 class YSymbol
 {
-   friend class YSymbolTable;
+    friend class YSymbolTable;
 
 public:
-   ///
-   YSymbol();
-   ///
-   YSymbol(const char*);
+    ///
+    YSymbol();
+    ///
+    YSymbol(const char*);
 
-   ///
-   const char                *get_name()const{return(name);};
+    ///
+    const char                *get_name()const
+    {
+        return(name);
+    };
 
-   /// defined where
-   YWhere                   where;
-   /// defines wether this symbol is owned by another symbol or by a scope 
-   bool                     owned_by_symbol;
+    /// defined where
+    YWhere                   where;
+    /// defines wether this symbol is owned by another symbol or by a scope
+    bool                     owned_by_symbol;
 
 private:
-   ///
-   const char                 *name;
+    ///
+    const char                 *name;
 
 public:
-   ///
-   YSymbol                         *next;
-   ///
-   const YSymbolTable::Scope      *scope;
-   ///
-   const YSymbolTable::Scope      *defines;
+    ///
+    YSymbol                         *next;
+    ///
+    const YSymbolTable::Scope      *scope;
+    ///
+    const YSymbolTable::Scope      *defines;
 
-   ///
-   enum YSymbol_type {   dParse_Type,
-                        dParse_Attribute,
-                        dParse_Const,
-                        dParse_Function,
-                        dParse_Enumerator} type;
-   ///
-   union
-   {
-      ///
-      Parse_type                   *Type;
-      ///
-      Parse_composite::Element   *Attribute;
-      ///
-      YConstant                  constant;
+    ///
+    enum YSymbol_type {   dParse_Type,
+                          dParse_Attribute,
+                          dParse_Const,
+                          dParse_Function,
+                          dParse_Enumerator
+                      } type;
+    ///
+    union
+    {
+        ///
+        Parse_type                   *Type;
+        ///
+        Parse_composite::Element   *Attribute;
+        ///
+        YConstant                  constant;
 
-      ///
-      Parse_enum::Enumerator      *enumerator;
-   };
+        ///
+        Parse_enum::Enumerator      *enumerator;
+    };
 };
 #endif
 

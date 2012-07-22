@@ -29,13 +29,13 @@ rasdaman GmbH.
  *  class rView's member functions.
  *
  * COMMENTS:
- *		None
+ *      None
  */
 
 /**
-*	@file rviewQuery.hh
+*   @file rviewQuery.hh
 *
-*	@ingroup Applications
+*   @ingroup Applications
 */
 
 #ifndef _RVIEW_QUERY_H_
@@ -57,76 +57,76 @@ rasdaman GmbH.
 
 class rviewQuery: public rviewFrame
 {
-  public:
+public:
 
-  rviewQuery(rviewDatabase *db, char *query=NULL);
-  ~rviewQuery(void);
+    rviewQuery(rviewDatabase *db, char *query=NULL);
+    ~rviewQuery(void);
 
-  void OnSize(int w, int h);
-  void OnMenuCommand(int id);
+    void OnSize(int w, int h);
+    void OnMenuCommand(int id);
 
-  void label(void);
-  int process(wxObject &obj, wxEvent &evt);
+    void label(void);
+    int process(wxObject &obj, wxEvent &evt);
 
-  int userEvent(const user_event &ue);
+    int userEvent(const user_event &ue);
 
-  virtual const char *getFrameName(void) const;
-  virtual rviewFrameType getFrameType(void) const;
+    virtual const char *getFrameName(void) const;
+    virtual rviewFrameType getFrameType(void) const;
 
-  // Returns the query window ID
-  int getIdentifier(void) const;
-  int getQueryCounter(void) const;
-
-
-  protected:
-
-  void buildMenubar(void);
-  bool loadQuery(char *file);
-  bool saveQuery(char *file);
-  void newDBState(bool newState);
-  void updateTitle(void);
-
-  wxTextWindow *twin;
-  wxMenuBar *mbar;
-  wxMenu *mbarMenus[3];
-  wxPanel *panel;
-  rviewButton *butClear, *butExec, *butUpdt;
-  wxFont *font;
-  int hotNumber;
-  DynamicString hotPath;
-  DynamicString lastHotPath;
-  rviewDatabase *queryDb;
-  // For update queries
-  rviewDisplay *updateDisplay;
-  r_Ref<r_GMarray> updateMddObj;
-  int qwindowID;
-  int updateID;
-
-  static const char query_extension[];
-  static const char query_firstline[];
-
-  static const keyword_to_ident_c fontNameTab[];
-  static const keyword_to_ident_c fontStyleTab[];
-  static const keyword_to_ident_c fontWeightTab[];
-
-  // constants
-  // Width and height of query window
-  static const int query_width;
-  static const int query_height;
-  // Borders in query window
-  static const int query_border;
-  // Height of control area at the bottom of the query
-  static const int query_bottom;
-  // Button dimensions
-  static const int query_bwidth;
-  static const int query_bheight;
+    // Returns the query window ID
+    int getIdentifier(void) const;
+    int getQueryCounter(void) const;
 
 
-  private:
+protected:
 
-  // Query window counter, realises a unique integer ID for each
-  // query window.
-  static int queryCounter;
+    void buildMenubar(void);
+    bool loadQuery(char *file);
+    bool saveQuery(char *file);
+    void newDBState(bool newState);
+    void updateTitle(void);
+
+    wxTextWindow *twin;
+    wxMenuBar *mbar;
+    wxMenu *mbarMenus[3];
+    wxPanel *panel;
+    rviewButton *butClear, *butExec, *butUpdt;
+    wxFont *font;
+    int hotNumber;
+    DynamicString hotPath;
+    DynamicString lastHotPath;
+    rviewDatabase *queryDb;
+    // For update queries
+    rviewDisplay *updateDisplay;
+    r_Ref<r_GMarray> updateMddObj;
+    int qwindowID;
+    int updateID;
+
+    static const char query_extension[];
+    static const char query_firstline[];
+
+    static const keyword_to_ident_c fontNameTab[];
+    static const keyword_to_ident_c fontStyleTab[];
+    static const keyword_to_ident_c fontWeightTab[];
+
+    // constants
+    // Width and height of query window
+    static const int query_width;
+    static const int query_height;
+    // Borders in query window
+    static const int query_border;
+    // Height of control area at the bottom of the query
+    static const int query_bottom;
+    // Button dimensions
+    static const int query_bwidth;
+    static const int query_bheight;
+
+
+private:
+
+    // Query window counter, realises a unique integer ID for each
+    // query window.
+    static int queryCounter;
 };
 
 #endif

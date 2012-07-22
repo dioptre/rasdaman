@@ -41,61 +41,61 @@ rasdaman GmbH.
 /**
   * \ingroup Rasmgrs
   */
-class DatabaseHost 
-  {
-    public:
-      DatabaseHost();
-      ~DatabaseHost();
-      
-      void  init(const char* hostName,const char *connectString,const char* userString,const char* passwdString);      
-      
-      const char* getName();
-      const char* getConnectionString();
-      const char* getUser();
-      const char* getPasswd();
-      void  changeConnectionString(const char *connectString);
-      void  changeName(const char *newName);
-      void  regStartServer();
-      void  regDownServer();
-      //void  incrConnServers();
-      //void  decrConnServers();
-      //void  incrConnDatabases();
-      //void  decrConnDatabases();
-      bool  prepareToBeRemoved();
-      bool  isBusy();
-      bool  isValid();
-    private:
-      char hostName[100];
-      char connectString[100];
-      char userString[100];
-      char passwdString[100];
-      int  activServers;
-      //int  connServers;
-      //int  connDatabases;
-      bool valid;
-   };
+class DatabaseHost
+{
+public:
+    DatabaseHost();
+    ~DatabaseHost();
+
+    void  init(const char* hostName,const char *connectString,const char* userString,const char* passwdString);
+
+    const char* getName();
+    const char* getConnectionString();
+    const char* getUser();
+    const char* getPasswd();
+    void  changeConnectionString(const char *connectString);
+    void  changeName(const char *newName);
+    void  regStartServer();
+    void  regDownServer();
+    //void  incrConnServers();
+    //void  decrConnServers();
+    //void  incrConnDatabases();
+    //void  decrConnDatabases();
+    bool  prepareToBeRemoved();
+    bool  isBusy();
+    bool  isValid();
+private:
+    char hostName[100];
+    char connectString[100];
+    char userString[100];
+    char passwdString[100];
+    int  activServers;
+    //int  connServers;
+    //int  connDatabases;
+    bool valid;
+};
 
 /**
   * \ingroup Rasmgrs
   */
 class DatabaseHostManager
-  { 
-    public:
-      DatabaseHostManager();
-      ~DatabaseHostManager();
-      bool insertNewHost(const char* hostName,const char* connectString,const char* userString,const char* passwdString);
-      bool removeHost(const char* hostName);
-      int  countHosts();
-      DatabaseHost& operator[](int);
-      DatabaseHost& operator[](const char* hostName);
-      bool reset();
-      bool acceptChangeName(const char *oldName,const char *newName);      
-    private:
-      bool testUniqueness(const char* hostName);
-      list<DatabaseHost> hostList;
-      DatabaseHost       protElem;      
-   };
-   
+{
+public:
+    DatabaseHostManager();
+    ~DatabaseHostManager();
+    bool insertNewHost(const char* hostName,const char* connectString,const char* userString,const char* passwdString);
+    bool removeHost(const char* hostName);
+    int  countHosts();
+    DatabaseHost& operator[](int);
+    DatabaseHost& operator[](const char* hostName);
+    bool reset();
+    bool acceptChangeName(const char *oldName,const char *newName);
+private:
+    bool testUniqueness(const char* hostName);
+    list<DatabaseHost> hostList;
+    DatabaseHost       protElem;
+};
+
 extern DatabaseHostManager dbHostManager;
 
 
@@ -106,81 +106,81 @@ class RasServer;
 /**
   * \ingroup Rasmgrs
   */
-class Database 
-  {
-    public:
-      Database();
-      ~Database();
-      
-      void  init(const char* databaseName);      
-      const char* getName();
-      void  changeName(const char* databaseName);
-      
-      static const char* getDescriptionHeader(char *destBuffer);
-             const char* getDescription(char *destBuffer);
+class Database
+{
+public:
+    Database();
+    ~Database();
 
-      bool  connectToDBHost(const char* hostName);
-      bool  disconnectFromDBHost(const char* hostName);
-      bool  isConnectedToDBHost(const char* hostName);
-      int   countConnectionsToDBHosts();
-      const char* getDBHostName(int);
-      
-      bool  connectToRasServer(const char *serverName);
-      bool  disconnectFromRasServer(const char *serverName);
-      bool  isConnectedToRasServer(const char *serverName);
-      int   countConnectionsToRasServers();
-      const char* getRasServerName(int);
-      
-      void  disconnectForRemove();
-      
-      void startWriteTransaction();
-      void endWriteTransaction();
-      void startReadTransaction();
-      void endReadTransaction();
-      
-      int  getWriteTransactionCount();
-      int  getReadTransactionCount();
-      bool isBusy();
-      
-      void setTraceWriteTrans(bool);
-      
-      bool isValid();
-    private:
-      bool checkConnection(DatabaseHost &);
-      bool checkConnection(RasServer &);
-      char databaseName[100];
-      list<DatabaseHost*> hostPtrList;
-      list<RasServer*>    rasPtrList;
-      
-      bool traceWT;
-      int countWriteTransactions;
-      int countReadTransactions;
-      
-      bool valid;  
-   };
+    void  init(const char* databaseName);
+    const char* getName();
+    void  changeName(const char* databaseName);
+
+    static const char* getDescriptionHeader(char *destBuffer);
+    const char* getDescription(char *destBuffer);
+
+    bool  connectToDBHost(const char* hostName);
+    bool  disconnectFromDBHost(const char* hostName);
+    bool  isConnectedToDBHost(const char* hostName);
+    int   countConnectionsToDBHosts();
+    const char* getDBHostName(int);
+
+    bool  connectToRasServer(const char *serverName);
+    bool  disconnectFromRasServer(const char *serverName);
+    bool  isConnectedToRasServer(const char *serverName);
+    int   countConnectionsToRasServers();
+    const char* getRasServerName(int);
+
+    void  disconnectForRemove();
+
+    void startWriteTransaction();
+    void endWriteTransaction();
+    void startReadTransaction();
+    void endReadTransaction();
+
+    int  getWriteTransactionCount();
+    int  getReadTransactionCount();
+    bool isBusy();
+
+    void setTraceWriteTrans(bool);
+
+    bool isValid();
+private:
+    bool checkConnection(DatabaseHost &);
+    bool checkConnection(RasServer &);
+    char databaseName[100];
+    list<DatabaseHost*> hostPtrList;
+    list<RasServer*>    rasPtrList;
+
+    bool traceWT;
+    int countWriteTransactions;
+    int countReadTransactions;
+
+    bool valid;
+};
 
 /**
   * \ingroup Rasmgrs
   */
 class DatabaseManager
-  { 
-    public:
-      DatabaseManager();
-      ~DatabaseManager();
-      bool insertNewDatabase(const char* databaseName);
-      bool removeDatabase(const char* databaseName);
-      int  countDatabases();
-      Database& operator[](int);
-      Database& operator[](const char*);
-      void disconnectAllDatabasesFromDBH(const char* dbhName);
-      bool reset();
-      bool acceptChangeName(const char *oldName,const char *newName);      
-    private:
-      bool testUniqueness(const char* dbName);
-      list<Database> dtbList;      
-      Database      protElem; 
-   };
-   
+{
+public:
+    DatabaseManager();
+    ~DatabaseManager();
+    bool insertNewDatabase(const char* databaseName);
+    bool removeDatabase(const char* databaseName);
+    int  countDatabases();
+    Database& operator[](int);
+    Database& operator[](const char*);
+    void disconnectAllDatabasesFromDBH(const char* dbhName);
+    bool reset();
+    bool acceptChangeName(const char *oldName,const char *newName);
+private:
+    bool testUniqueness(const char* dbName);
+    list<Database> dtbList;
+    Database      protElem;
+};
+
 extern DatabaseManager dbManager;
 
 

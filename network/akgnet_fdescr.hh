@@ -28,84 +28,84 @@ rasdaman GmbH.
  *
  * COMMENTS:
  * Namespace akg
- * 
+ *
 */
- 
+
 #ifndef AKGNET_FDESCR_HH
 #define AKGNET_FDESCR_HH
 
 #include "akgnet_common.hh"
 
 namespace akg
-  {
-  
+{
+
 /**
   This class the base class for a hierarchie, which are
-  envelopes for the usual OS file descriptors. They offer 
+  envelopes for the usual OS file descriptors. They offer
   only that much functionallity as needed for our library
   The objects of this hierarchie can't be copied!
 */
 
 /**
   * \ingroup Networks
-  */ 
-  
-class FileDescriptor
-  {
-    public:
-      /// Destructor, if open, closes the file descriptor
-      ~FileDescriptor() throw();
-      
-      /// Returns the OS file descriptor
-      int  operator()() throw ();
-      
-      /** Returns true if the descriptor is open.
-          Be aware that closing the file descriptor by 
-	  using SO specific functions instead of the 
-	  methods of this class can lead to incorrect results
-      */
-      bool isOpen() throw();
-      
-      /// Closes the descriptor
-      void close()  throw();
-      
-      /// Returns the error number of the last operation
-      int  getErrno() throw();
-      
-      /** Writes the specified number of bytes from the
-          specified buffer. 
-	  Returns the number of bytes actually written
-      */
-      int  write(const void *buffer, int count) throw();
-      
-      /** Reads the specified number of bytes into the
-          specified buffer. 
-	  Returns the number of bytes actually read
-      */
-      int  read (void *buffer, int count) throw();
-      
-      /** Sets the non-blocking mode on or off
-          Returns true o succes
-      */
-      bool setNonBlocking(bool nonBlocking) throw();
-      
-      ///  Returns true if the descriptors is in non-blocking mode
-      bool isNonBlocking() throw();
-    protected:
-      /// Protected constructor
-      FileDescriptor() throw();
-      
-      /// Saves the errno
-      void saveErrno() throw();
-      
-      int  fileDescriptor;
-      int  savedErrno;
-    private:
-      /// unimplemented, objects can't be copied
-      FileDescriptor(const FileDescriptor&);
-      /// unimplemented, objects can't be copied
-      FileDescriptor& operator=(const FileDescriptor&);
-   }; 
+  */
 
-} // namespace 
+class FileDescriptor
+{
+public:
+    /// Destructor, if open, closes the file descriptor
+    ~FileDescriptor() throw();
+
+    /// Returns the OS file descriptor
+    int  operator()() throw ();
+
+    /** Returns true if the descriptor is open.
+        Be aware that closing the file descriptor by
+    using SO specific functions instead of the
+    methods of this class can lead to incorrect results
+    */
+    bool isOpen() throw();
+
+    /// Closes the descriptor
+    void close()  throw();
+
+    /// Returns the error number of the last operation
+    int  getErrno() throw();
+
+    /** Writes the specified number of bytes from the
+        specified buffer.
+    Returns the number of bytes actually written
+    */
+    int  write(const void *buffer, int count) throw();
+
+    /** Reads the specified number of bytes into the
+        specified buffer.
+    Returns the number of bytes actually read
+    */
+    int  read (void *buffer, int count) throw();
+
+    /** Sets the non-blocking mode on or off
+        Returns true o succes
+    */
+    bool setNonBlocking(bool nonBlocking) throw();
+
+    ///  Returns true if the descriptors is in non-blocking mode
+    bool isNonBlocking() throw();
+protected:
+    /// Protected constructor
+    FileDescriptor() throw();
+
+    /// Saves the errno
+    void saveErrno() throw();
+
+    int  fileDescriptor;
+    int  savedErrno;
+private:
+    /// unimplemented, objects can't be copied
+    FileDescriptor(const FileDescriptor&);
+    /// unimplemented, objects can't be copied
+    FileDescriptor& operator=(const FileDescriptor&);
+};
+
+} // namespace
 #endif

@@ -29,14 +29,14 @@ rasdaman GmbH.
  *  display any number of MDD objects in contrast to regular viewers
  *  which manage exactly one object.
  *
- *	COMMENTS:
- *		None
+ *  COMMENTS:
+ *      None
  */
 
 /**
-*	@file rviewThumb.hh
+*   @file rviewThumb.hh
 *
-*	@ingroup Applications
+*   @ingroup Applications
 */
 
 #ifndef _RVIEW_THUMB_H_
@@ -64,19 +64,21 @@ class rviewThumb;
 // List holding all the pixmap items for one mddObject.
 // This chain is 1 item long for 2D data, but can be any length
 // for higher dimensions
-typedef struct rviewThumbPixList {
-  wxPixmap *pixmap;
-  int dimproj, projval;
-  rviewThumbPixList *next;
+typedef struct rviewThumbPixList
+{
+    wxPixmap *pixmap;
+    int dimproj, projval;
+    rviewThumbPixList *next;
 } rviewThumbPixList;
 
 // List holding mdd/pixmap items
-typedef struct rviewThumbList {
-  r_Ref<r_GMarray> mdd;
-  rviewBaseType baseType;
-  int numPix;
-  rviewThumbPixList *pixmaps;
-  rviewThumbList *next;
+typedef struct rviewThumbList
+{
+    r_Ref<r_GMarray> mdd;
+    rviewBaseType baseType;
+    int numPix;
+    rviewThumbPixList *pixmaps;
+    rviewThumbList *next;
 } rviewThumbList;
 
 
@@ -87,19 +89,19 @@ typedef struct rviewThumbList {
  */
 class thumbCanvas: public wxCanvas
 {
-  public:
+public:
 
-  thumbCanvas(rviewThumb *par, int x, int y, int width, int height);
-  ~thumbCanvas(void);
+    thumbCanvas(rviewThumb *par, int x, int y, int width, int height);
+    ~thumbCanvas(void);
 
-  void OnPaint(void);
-  void updateDisplay(void);
+    void OnPaint(void);
+    void updateDisplay(void);
 
 
-  protected:
+protected:
 
-  wxBrush brush;
-  rviewThumb *parent;
+    wxBrush brush;
+    rviewThumb *parent;
 };
 
 
@@ -109,99 +111,99 @@ class thumbCanvas: public wxCanvas
  */
 class rviewThumb: public rviewFrame
 {
-  public:
+public:
 
-  rviewThumb(void);
-  ~rviewThumb(void);
+    rviewThumb(void);
+    ~rviewThumb(void);
 
-  int addMDD(r_Ref<r_GMarray> &newMdd);
-  int deleteMDD(r_Ref<r_GMarray> &obsMdd);
-  void setLayout(int width, int npl);
-  void newThumbWidth(int newWidth);
+    int addMDD(r_Ref<r_GMarray> &newMdd);
+    int deleteMDD(r_Ref<r_GMarray> &obsMdd);
+    void setLayout(int width, int npl);
+    void newThumbWidth(int newWidth);
 
-  void label(void);
-  int process(wxObject &obj, wxEvent &evt);
-  virtual const char *getFrameName(void) const;
-  virtual rviewFrameType getFrameType(void) const;
+    void label(void);
+    int process(wxObject &obj, wxEvent &evt);
+    virtual const char *getFrameName(void) const;
+    virtual rviewFrameType getFrameType(void) const;
 
-  void OnSize(int w, int h);
-  void OnMenuCommand(int id);
+    void OnSize(int w, int h);
+    void OnMenuCommand(int id);
 
-  int userEvent(const user_event &ue);
+    int userEvent(const user_event &ue);
 
-  // Used by canvas to get data
-  wxPixmap *getPixmapNumber(int no, char *caption);
-  void getThumbInfo(int &num, int &npl);
-  void getGridInfo(int &gx, int &gy);
+    // Used by canvas to get data
+    wxPixmap *getPixmapNumber(int no, char *caption);
+    void getThumbInfo(int &num, int &npl);
+    void getGridInfo(int &gx, int &gy);
 
-  // constants
-  // Initial dimensions of window
-  static const int thumb_width;
-  static const int thumb_height;
-  // Default width of thumbnail images
-  static const int thumb_imgwidth;
-  // Default number of thumbnails per line
-  static const int thumb_perline;
-  // Space between thumbnails
-  static const int thumb_space;
-  // Borders used in thumbnail window
-  static const int thumb_border;
-  // Scrolling values
-  static const int thumb_scrstep;
-  static const int thumb_pgstep;
-  // Dimensions of checkboxs
-  static const int thumb_chkwidth;
-  static const int thumb_chkheight;
-  // Minimum / maximum width of thumbnails
-  static const int thumb_minwidth;
-  static const int thumb_maxwidth;
-  // Minimum / maximum number of thumbnails per line
-  static const int thumb_mincols;
-  static const int thumb_maxcols;
-  // Height of control panel at the top
-  static const int thumb_cheight;
-  // Height of text items
-  static const int thumb_twidth;
-  static const int thumb_theight;
-  // Width of projDim / step widgets
-  static const int thumb_prjwidth;
+    // constants
+    // Initial dimensions of window
+    static const int thumb_width;
+    static const int thumb_height;
+    // Default width of thumbnail images
+    static const int thumb_imgwidth;
+    // Default number of thumbnails per line
+    static const int thumb_perline;
+    // Space between thumbnails
+    static const int thumb_space;
+    // Borders used in thumbnail window
+    static const int thumb_border;
+    // Scrolling values
+    static const int thumb_scrstep;
+    static const int thumb_pgstep;
+    // Dimensions of checkboxs
+    static const int thumb_chkwidth;
+    static const int thumb_chkheight;
+    // Minimum / maximum width of thumbnails
+    static const int thumb_minwidth;
+    static const int thumb_maxwidth;
+    // Minimum / maximum number of thumbnails per line
+    static const int thumb_mincols;
+    static const int thumb_maxcols;
+    // Height of control panel at the top
+    static const int thumb_cheight;
+    // Height of text items
+    static const int thumb_twidth;
+    static const int thumb_theight;
+    // Width of projDim / step widgets
+    static const int thumb_prjwidth;
 
 
-  protected:
+protected:
 
-  void deletePixmapChain(rviewThumbList *tlst);
-  int pixmapsFromMDD(rviewThumbList *tlst);
-  wxPixmap *buildThumbnail(r_Ref<r_GMarray> &mddObj, rviewBaseType baseType, int dimproject, int projval);
-  void updateCanvasSize(void);
-  void rebuildThumbnails(bool fromScratch);
-  void initForObject(r_Ref<r_GMarray> &mddObj);
-  int parseProjection(r_Ref<r_GMarray> &mddObj);
-  void configureCspace(bool mode);
+    void deletePixmapChain(rviewThumbList *tlst);
+    int pixmapsFromMDD(rviewThumbList *tlst);
+    wxPixmap *buildThumbnail(r_Ref<r_GMarray> &mddObj, rviewBaseType baseType, int dimproject, int projval);
+    void updateCanvasSize(void);
+    void rebuildThumbnails(bool fromScratch);
+    void initForObject(r_Ref<r_GMarray> &mddObj);
+    int parseProjection(r_Ref<r_GMarray> &mddObj);
+    void configureCspace(bool mode);
 
-  char projString[STRINGSIZE];
-  r_Point pt1, pt2, mapIndex;
-  int thumbs, thumbsperline, numPixmaps;
-  int maxHeight;
-  int gridX, gridY;
-  int imgWidth;
-  int dimMDD;		// should be constant for all objects!
-  int dim1, dim2;	// dimensions to iterate over
-  int dimproj;		// projection dim for 3+D objects
-  int projstep;		// stepping value in dimproj
-  unsigned int freeDims;
-  rviewThumbList *listHead;
-  thumbCanvas *canvas;
-  wxMenuBar *mbar;
-  wxPanel *panel;
-  rviewText *thumbWidth;
-  rviewText *thumbCols;
-  rviewText *project;
-  rviewText *thumbProj, *thumbStep;
-  wxFont *font;
-  colourspaceMapper *csmap;
-  bool doValToCspace;
-  bool doFullRangeCspace;
-  bool canDoCspace;
+    char projString[STRINGSIZE];
+    r_Point pt1, pt2, mapIndex;
+    int thumbs, thumbsperline, numPixmaps;
+    int maxHeight;
+    int gridX, gridY;
+    int imgWidth;
+    int dimMDD;       // should be constant for all objects!
+    int dim1, dim2;   // dimensions to iterate over
+    int dimproj;      // projection dim for 3+D objects
+    int projstep;     // stepping value in dimproj
+    unsigned int freeDims;
+    rviewThumbList *listHead;
+    thumbCanvas *canvas;
+    wxMenuBar *mbar;
+    wxPanel *panel;
+    rviewText *thumbWidth;
+    rviewText *thumbCols;
+    rviewText *project;
+    rviewText *thumbProj, *thumbStep;
+    wxFont *font;
+    colourspaceMapper *csmap;
+    bool doValToCspace;
+    bool doFullRangeCspace;
+    bool canDoCspace;
 };
 
 #endif

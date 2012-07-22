@@ -55,91 +55,91 @@ class OId;
   * \ingroup Relcatalogifs
   */
 class MDDBaseType : public MDDType
-	{
-	public:
-		virtual char* getTypeStructure() const;
-		/*@Doc:
-		returns a string: marray < myBaseType->getTypeStructure >
-		*/
+{
+public:
+    virtual char* getTypeStructure() const;
+    /*@Doc:
+    returns a string: marray < myBaseType->getTypeStructure >
+    */
 
-		MDDBaseType(const OId& id) throw (r_Error);
-		/*@Doc:
-		constructs a MDDBaseType out of the database.
-		*/
+    MDDBaseType(const OId& id) throw (r_Error);
+    /*@Doc:
+    constructs a MDDBaseType out of the database.
+    */
 
-		MDDBaseType(const char* newTypeName, const BaseType* newBaseType);
-		/*@Doc:
-		constructor.
-		*/
+    MDDBaseType(const char* newTypeName, const BaseType* newBaseType);
+    /*@Doc:
+    constructor.
+    */
 
-		MDDBaseType();
-		/*@Doc:
-		default constructor, cannot be used.
-		*/
+    MDDBaseType();
+    /*@Doc:
+    default constructor, cannot be used.
+    */
 
-		
-		MDDBaseType(const char* newtypename);
-		/*@Doc:
-		*/
 
-		MDDBaseType(const MDDBaseType& old);
-		/*@Doc:
-		copy constructor.
-		*/
+    MDDBaseType(const char* newtypename);
+    /*@Doc:
+    */
 
-		MDDBaseType& operator=(const MDDBaseType& old);
-		/*@Doc:
-		assignment operator.
-		*/
+    MDDBaseType(const MDDBaseType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-		const BaseType* getBaseType() const;
-		/*@Doc:
-		returns base type.
-		*/
+    MDDBaseType& operator=(const MDDBaseType& old);
+    /*@Doc:
+    assignment operator.
+    */
 
-		virtual void print_status( ostream& s ) const;
-		/*@Doc:
-		writes the state of the object to the specified stream:
-		\tr_Marray < myBaseType->getTypeName() \t>
-		*/
+    const BaseType* getBaseType() const;
+    /*@Doc:
+    returns base type.
+    */
 
-		virtual ~MDDBaseType();
-		/*@Doc:
-		virtual destructor.
-		validates the object.
-		*/
+    virtual void print_status( ostream& s ) const;
+    /*@Doc:
+    writes the state of the object to the specified stream:
+    \tr_Marray < myBaseType->getTypeName() \t>
+    */
 
-		virtual int compatibleWith(const Type* aType) const;
-		/*@Doc:
-		to be compatible the following must be true:
-			aType must be MDDBASETYPE or subclass and
-			myBaseType must be compatible with aType->myBaseType
-		*/
+    virtual ~MDDBaseType();
+    /*@Doc:
+    virtual destructor.
+    validates the object.
+    */
 
-		virtual int compatibleWithDomain(const r_Minterval* aDomain) const;
-		/*@Doc:
-		create a new MDDDomainType with itself and aDomain, then it
-		checks compatibility with self.
-		*/
+    virtual int compatibleWith(const Type* aType) const;
+    /*@Doc:
+    to be compatible the following must be true:
+        aType must be MDDBASETYPE or subclass and
+        myBaseType must be compatible with aType->myBaseType
+    */
 
-		virtual r_Bytes getMemorySize() const;
-		/*@Doc:
-		computes memory size by:
-		MDDType::getMemorySize() + myBaseType->getMemorySize() + sizeof(BaseType*);
-		*/
+    virtual int compatibleWithDomain(const r_Minterval* aDomain) const;
+    /*@Doc:
+    create a new MDDDomainType with itself and aDomain, then it
+    checks compatibility with self.
+    */
 
-	protected:
+    virtual r_Bytes getMemorySize() const;
+    /*@Doc:
+    computes memory size by:
+    MDDType::getMemorySize() + myBaseType->getMemorySize() + sizeof(BaseType*);
+    */
 
-		virtual void insertInDb() throw (r_Error);
+protected:
 
-		virtual void readFromDb() throw (r_Error);
+    virtual void insertInDb() throw (r_Error);
 
-		virtual void deleteFromDb() throw (r_Error);
-		
-		const BaseType* myBaseType;
-		/*@Doc:
-		reference to the basetype
-		*/
-	};
+    virtual void readFromDb() throw (r_Error);
+
+    virtual void deleteFromDb() throw (r_Error);
+
+    const BaseType* myBaseType;
+    /*@Doc:
+    reference to the basetype
+    */
+};
 
 #endif

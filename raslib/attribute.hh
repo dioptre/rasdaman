@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   r_Attribute
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 #ifndef _D_ATTRIBUTE_
@@ -45,88 +45,88 @@ class r_Error;
 //@ManMemo: Module: {\bf raslib}
 
 /*@Doc:
-  This class represents attributes of structs in the ODMG 
+  This class represents attributes of structs in the ODMG
   conformant representation of the RasDaMan type system.
 */
- 
+
 
 class r_Attribute : public r_Property
-	{
-	public:
-		/// default constructor.
-		/// initialise important attributes to NULL
-		r_Attribute();
+{
+public:
+    /// default constructor.
+    /// initialise important attributes to NULL
+    r_Attribute();
 
-		/// constructor getting name and type of attribute.
-		r_Attribute(const char* newTypeName, const r_Base_Type& newType);
+    /// constructor getting name and type of attribute.
+    r_Attribute(const char* newTypeName, const r_Base_Type& newType);
 
-		/// copy constructor.
-		r_Attribute(const r_Attribute& oldObj);
+    /// copy constructor.
+    r_Attribute(const r_Attribute& oldObj);
 
-		/// assignment operator.
-		const r_Attribute& operator=(const r_Attribute& oldObj);
+    /// assignment operator.
+    const r_Attribute& operator=(const r_Attribute& oldObj);
 
-		/// destructor.
-		virtual ~r_Attribute();
+    /// destructor.
+    virtual ~r_Attribute();
 
-		/// retrieve (local) offset
-		r_Bytes offset() const;
+    /// retrieve (local) offset
+    r_Bytes offset() const;
 
-		/// set (local) offset
-		void set_offset(r_Bytes newOffset);
+    /// set (local) offset
+    void set_offset(r_Bytes newOffset);
 
-		/// retrieve global offset
-		r_Bytes global_offset() const;
+    /// retrieve global offset
+    r_Bytes global_offset() const;
 
-		/// set global offset
-		void set_global_offset(r_Bytes newOffset);
+    /// set global offset
+    void set_global_offset(r_Bytes newOffset);
 
-		/// writes state of object to specified stream
-		virtual void print_status(std::ostream& s = std::cout) const;  
+    /// writes state of object to specified stream
+    virtual void print_status(std::ostream& s = std::cout) const;
 
-		/// subscript operator to access attributes of a structured attribute
-		/// throws error when type is not a struct type
-		r_Attribute operator[](unsigned int number) const throw(r_Error);
+    /// subscript operator to access attributes of a structured attribute
+    /// throws error when type is not a struct type
+    r_Attribute operator[](unsigned int number) const throw(r_Error);
 
-		//@Man: Type-safe value access methods. In case of type mismatch, an exception is raised.
-		//@{
-		/// 
-		r_Boolean get_boolean(const char* cell) const throw(r_Error);
+    //@Man: Type-safe value access methods. In case of type mismatch, an exception is raised.
+    //@{
+    ///
+    r_Boolean get_boolean(const char* cell) const throw(r_Error);
 
-		/// 
-		r_Char    get_char(const char* cell)    const throw(r_Error);
+    ///
+    r_Char    get_char(const char* cell)    const throw(r_Error);
 
-		///  
-		r_Octet   get_octet(const char* cell)   const throw(r_Error);
+    ///
+    r_Octet   get_octet(const char* cell)   const throw(r_Error);
 
-		/// 
-		r_Short   get_short(const char* cell)   const throw(r_Error);
+    ///
+    r_Short   get_short(const char* cell)   const throw(r_Error);
 
-		/// 
-		r_UShort  get_ushort(const char* cell)  const throw(r_Error);
+    ///
+    r_UShort  get_ushort(const char* cell)  const throw(r_Error);
 
-		/// 
-		r_Long    get_long(const char* cell)    const throw(r_Error);
+    ///
+    r_Long    get_long(const char* cell)    const throw(r_Error);
 
-		/// 
-		r_ULong   get_ulong(const char* cell)   const throw(r_Error);
+    ///
+    r_ULong   get_ulong(const char* cell)   const throw(r_Error);
 
-		/// 
-		r_Float   get_float(const char* cell)   const throw(r_Error);
+    ///
+    r_Float   get_float(const char* cell)   const throw(r_Error);
 
-		/// 
-		r_Double  get_double(const char* cell)  const throw(r_Error);
+    ///
+    r_Double  get_double(const char* cell)  const throw(r_Error);
 
-		///
-		//@}
+    ///
+    //@}
 
-	protected:
-		/// local offset
-		r_Bytes localOffset;
+protected:
+    /// local offset
+    r_Bytes localOffset;
 
-		/// global offset
-		r_Bytes globalOffset;
-	};
+    /// global offset
+    r_Bytes globalOffset;
+};
 
 //@Doc: write the status of a attribute to a stream
 extern std::ostream &operator<<( std::ostream &str, const r_Attribute &type );

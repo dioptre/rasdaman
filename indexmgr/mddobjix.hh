@@ -52,32 +52,32 @@ class r_Point;
  ****************************************************************************/
 
 /**
- *	@file mddobjix.hh
+ *  @file mddobjix.hh
  *
- *	@ingroup indexmgr
+ *  @ingroup indexmgr
  */
 
 
 /*@Doc:
-      
+
 Each MDD Object is composed of a set of tiles which are accessed through an index.
 The task of the index is to determine the tiles affected by a spatial operation and to allow fast access to them.  It will also take care of memory management of the tiles.
 
 {\bfMDD Objects indexes: }
 
-MDD Objects indexes are multidimensional since they provide access to multidimensional rectangular tiles existing in multidimensional intervals. An MDDObjIx has to be able to deal with different dimensionalities. 
+MDD Objects indexes are multidimensional since they provide access to multidimensional rectangular tiles existing in multidimensional intervals. An MDDObjIx has to be able to deal with different dimensionalities.
 
-The index of an MDD object keeps the information about the current domain of the MDD object. During the lifetime of the object, it is possible that the definition (or current) domain of an object is not completely covered by the tiles already inserted. 
-At each moment, the current domain of an object is the closure of the domains of all tiles. All tiles should be completely contained 
-in the definition domain of an object. 
+The index of an MDD object keeps the information about the current domain of the MDD object. During the lifetime of the object, it is possible that the definition (or current) domain of an object is not completely covered by the tiles already inserted.
+At each moment, the current domain of an object is the closure of the domains of all tiles. All tiles should be completely contained
+in the definition domain of an object.
 The definition domain may have open boundaries, but the current domain is always a closed interval.
 
 The lower classes in the indexmgr support storage of any kind of persistent object.
 This class has to be changed to reflect this aability.
 
-     In the future, functions have to be implemented which allow the user 
-     to give indication about priorities for freeing tiles from main memory. 
-     
+     In the future, functions have to be implemented which allow the user
+     to give indication about priorities for freeing tiles from main memory.
+
 */
 
 //function pointer to the static function which inserts objects
@@ -95,185 +95,185 @@ typedef void (*IxLogic_containPointQuery) (const IndexDS* theIx, const r_Point& 
 //function pointer to the static function which inserts objects
 typedef void (*IxLogic_getObjects) (const IndexDS* theIx, KeyObjectVector& objs, const StorageLayout& sl);
 
-class MDDObjIx             
-	{ 
-	public:
+class MDDObjIx
+{
+public:
 
-		MDDObjIx(const StorageLayout& sl, const r_Minterval& dom, const BaseType* bt = 0);
-		/*@Doc:
-			When bt is NULL this index will behave as if it were a transient index.
-		*/
+    MDDObjIx(const StorageLayout& sl, const r_Minterval& dom, const BaseType* bt = 0);
+    /*@Doc:
+        When bt is NULL this index will behave as if it were a transient index.
+    */
 
-		MDDObjIx(DBObjectId newDBIx, const StorageLayout& sl, const BaseType* bt);
-		/*@Doc:
-			When bt is NULL this index will behave as if it were a transient index.
-		*/
+    MDDObjIx(DBObjectId newDBIx, const StorageLayout& sl, const BaseType* bt);
+    /*@Doc:
+        When bt is NULL this index will behave as if it were a transient index.
+    */
 
-		void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
-	
-		~MDDObjIx();
+    void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
 
-		DBObjectId getDBMDDObjIxId() const;
+    ~MDDObjIx();
 
-		r_Minterval getCurrentDomain() const;
+    DBObjectId getDBMDDObjIxId() const;
 
-		r_Dimension getDimension() const;
+    r_Minterval getCurrentDomain() const;
 
-		void insertTile(const Tile* newTile);
+    r_Dimension getDimension() const;
 
-		bool removeTile(const Tile *);
+    void insertTile(const Tile* newTile);
 
-		std::vector<Tile *> * intersect(const r_Minterval &) const;
+    bool removeTile(const Tile *);
 
-		char* pointQuery(const r_Point& searchPoint);
+    std::vector<Tile *> * intersect(const r_Minterval &) const;
 
-		const char* pointQuery(const r_Point& searchPoint) const;
+    char* pointQuery(const r_Point& searchPoint);
 
-		Tile* containPointQuery(const r_Point& searchPoint) const;
+    const char* pointQuery(const r_Point& searchPoint) const;
 
-		std::vector< Tile* >* getTiles() const;
-		
-		bool isPersistent() const;
-		
-		void releasePersTiles();
-		/*@Doc:
-			This function has to be called by the destructors of persistent subclasses which use the cache, to make sure that the memory for the tiles in the cache is freed.
-			This will only have effect on persistent indexes.
-			Transient indexes keep their tiles in TransDirIx which deletes its tiles in the destructor.
-		*/
-		
-	protected:
+    Tile* containPointQuery(const r_Point& searchPoint) const;
 
-		void setNewLastAccess(const r_Minterval& newLastAccess, const std::vector<Tile*>* newLastTiles);
+    std::vector< Tile* >* getTiles() const;
 
-		void setNewLastAccess(const Tile* newLastTile, bool te = true);
-		/*@Doc:
-			Add a new tile to the cache and reset the access domain 
-			If clear:
-				clear the cache
-				release all tiles
-		*/
-		
-		std::vector< Tile* >* lastAccessIntersect(const r_Minterval& searchInter) const;
-		
-		Tile* lastAccessPointQuery(const r_Point& searchPoint) const;
-		
-		bool removeTileFromLastAccesses(const Tile* tileToRemove);
-		/*@Doc:
-			Does NOT free tileToRemove allocated memory. Only removes this pointer from lastAccesses list if it finds it there.
-			Returns true if found. 
-			Subclasses which use the cache must call this function before removing a tile from the index, or else the tile may remain in main memory. 
-		*/
-		
-		r_Minterval lastAccess;
-		/*@Doc:
-			Either empty interval, if not to search in the cache, or an interval 
-			corresponding to the search done the last time. The algorithms which
-			search this cache for an intersection take this into account.
-			It works simultaneously as a flag and as the specification for the last
-			access, if valid.
-			Last searched region.
-		*/
-		
-		std::vector< Tile* > lastAccessTiles; 
-		/*@Doc:
-			Internal cache of {\tt Tile}s accessed the last time.
-			Contents change everytime there is an insert, an intersect, a getTiles 
-			or a poin query, in the following way:
-			- insert: cache invalid, last Access is put to empty interval, 
-				lastAccessTiles contains the inserted tiles. This is needed 
-				if we want the index to automatically manage the memory 
-				allocated for persistent tiles or else the just inserted 
-				tiles are immediately invalid for the user after insertion 
-				in the object. The lastAccess can not be put to the area 
-				because it's impossible to determine the area corresponding 
-				to inserted tiles (there may be empty areas and so on, it 
-				would be rather complex to calculate these things).
-			- intersect/pointquery: cache and lastAccessTiles get the new result. 
-						The old access and tiles are thrown away. 
-			- getTiles: it would be very inefficient to search here for smaller 
-					regions, so lastAccess is made empty and lastAccessTiles 
-					contains the tiles accessed (because of PersTiles and 
-					automatic management of their memory, they have to be 
-					kept by the MDDObjIx).
-			For this reason, tiles passed by PersMDDObj are only valid until the 
-			next intersect/pointQuery/insert/getTiles operation.
-			Alternative implementation for getTiles - always put in the cache 
-			correctly.
-			Make a check about the search interval and what is in the cache (for 
-			example, if cell_count < 90% cache cell count , access index).
-			Such a check should also be done in lastAccessPointQuery(): if the 
-			cache has more than 10 elements, it is not worth searching in it for 
-			a point.
-		*/
+    bool isPersistent() const;
 
-		const BaseType* cellBaseType;  
-		/*@Doc:
-			This is needed because the PersTile constructor expects a BaseType.
-			It Should be considered to move the creation of PersTiles into the
-			MDDObj class.
-		*/
-		
-		
-		IndexDS* actualIx;
-		/*@Doc:
-			The real index structure
-		*/
-		
-		IxLogic_insertObject do_insertObj;
-		/*@Doc:
-			Function pointer to insert tile logic
-		*/
+    void releasePersTiles();
+    /*@Doc:
+        This function has to be called by the destructors of persistent subclasses which use the cache, to make sure that the memory for the tiles in the cache is freed.
+        This will only have effect on persistent indexes.
+        Transient indexes keep their tiles in TransDirIx which deletes its tiles in the destructor.
+    */
 
-		IxLogic_removeObject do_removeObj;
-		/*@Doc:
-			Function pointer to remove tile logic
-		*/
+protected:
 
-		IxLogic_intersect do_intersect;
-		/*@Doc:
-			Function pointer to find tiles logic
-		*/
+    void setNewLastAccess(const r_Minterval& newLastAccess, const std::vector<Tile*>* newLastTiles);
 
-		IxLogic_containPointQuery do_pointQuery;
-		/*@Doc:
-			Function pointer to find tile logic
-		*/
+    void setNewLastAccess(const Tile* newLastTile, bool te = true);
+    /*@Doc:
+        Add a new tile to the cache and reset the access domain
+        If clear:
+            clear the cache
+            release all tiles
+    */
 
-		IxLogic_getObjects do_getObjs;
-		/*@Doc:
-			Function pointer to get all tiles logic
-		*/
-		
-	#ifdef RMANBENCHMARK
+    std::vector< Tile* >* lastAccessIntersect(const r_Minterval& searchInter) const;
 
-		void initializeTimerPointers();
-		/*@Doc:
-			This code was commented out because it crashed
-		*/
-		
-		RMTimer *pointQueryTimer;
-		RMTimer *intersectTimer;
-		RMTimer *getTilesTimer;
-	#endif
-		void initializeLogicStructure();
-		/**
-			{\tt actualDBIx} and {\tt cellBaseType} must be already correctly set.
-			The function pointers are set according to the index type.
-		*/
-	
-		bool _isPersistent;
-		/*@Doc:
-			This class is used for both persistent and tranisent objects
-			To be able to distinguish whether it is persistent or transient
-			this attribute is used.
-		*/
+    Tile* lastAccessPointQuery(const r_Point& searchPoint) const;
 
-		const StorageLayout& myStorageLayout;
-		/*@Doc:
-			Nifty object which holds information on how to store data in the database.
-			It tells you which index to use, hos large a index might become and so on.
-		*/
-	};
+    bool removeTileFromLastAccesses(const Tile* tileToRemove);
+    /*@Doc:
+        Does NOT free tileToRemove allocated memory. Only removes this pointer from lastAccesses list if it finds it there.
+        Returns true if found.
+        Subclasses which use the cache must call this function before removing a tile from the index, or else the tile may remain in main memory.
+    */
+
+    r_Minterval lastAccess;
+    /*@Doc:
+        Either empty interval, if not to search in the cache, or an interval
+        corresponding to the search done the last time. The algorithms which
+        search this cache for an intersection take this into account.
+        It works simultaneously as a flag and as the specification for the last
+        access, if valid.
+        Last searched region.
+    */
+
+    std::vector< Tile* > lastAccessTiles;
+    /*@Doc:
+        Internal cache of {\tt Tile}s accessed the last time.
+        Contents change everytime there is an insert, an intersect, a getTiles
+        or a poin query, in the following way:
+        - insert: cache invalid, last Access is put to empty interval,
+            lastAccessTiles contains the inserted tiles. This is needed
+            if we want the index to automatically manage the memory
+            allocated for persistent tiles or else the just inserted
+            tiles are immediately invalid for the user after insertion
+            in the object. The lastAccess can not be put to the area
+            because it's impossible to determine the area corresponding
+            to inserted tiles (there may be empty areas and so on, it
+            would be rather complex to calculate these things).
+        - intersect/pointquery: cache and lastAccessTiles get the new result.
+                    The old access and tiles are thrown away.
+        - getTiles: it would be very inefficient to search here for smaller
+                regions, so lastAccess is made empty and lastAccessTiles
+                contains the tiles accessed (because of PersTiles and
+                automatic management of their memory, they have to be
+                kept by the MDDObjIx).
+        For this reason, tiles passed by PersMDDObj are only valid until the
+        next intersect/pointQuery/insert/getTiles operation.
+        Alternative implementation for getTiles - always put in the cache
+        correctly.
+        Make a check about the search interval and what is in the cache (for
+        example, if cell_count < 90% cache cell count , access index).
+        Such a check should also be done in lastAccessPointQuery(): if the
+        cache has more than 10 elements, it is not worth searching in it for
+        a point.
+    */
+
+    const BaseType* cellBaseType;
+    /*@Doc:
+        This is needed because the PersTile constructor expects a BaseType.
+        It Should be considered to move the creation of PersTiles into the
+        MDDObj class.
+    */
+
+
+    IndexDS* actualIx;
+    /*@Doc:
+        The real index structure
+    */
+
+    IxLogic_insertObject do_insertObj;
+    /*@Doc:
+        Function pointer to insert tile logic
+    */
+
+    IxLogic_removeObject do_removeObj;
+    /*@Doc:
+        Function pointer to remove tile logic
+    */
+
+    IxLogic_intersect do_intersect;
+    /*@Doc:
+        Function pointer to find tiles logic
+    */
+
+    IxLogic_containPointQuery do_pointQuery;
+    /*@Doc:
+        Function pointer to find tile logic
+    */
+
+    IxLogic_getObjects do_getObjs;
+    /*@Doc:
+        Function pointer to get all tiles logic
+    */
+
+#ifdef RMANBENCHMARK
+
+    void initializeTimerPointers();
+    /*@Doc:
+        This code was commented out because it crashed
+    */
+
+    RMTimer *pointQueryTimer;
+    RMTimer *intersectTimer;
+    RMTimer *getTilesTimer;
+#endif
+    void initializeLogicStructure();
+    /**
+        {\tt actualDBIx} and {\tt cellBaseType} must be already correctly set.
+        The function pointers are set according to the index type.
+    */
+
+    bool _isPersistent;
+    /*@Doc:
+        This class is used for both persistent and tranisent objects
+        To be able to distinguish whether it is persistent or transient
+        this attribute is used.
+    */
+
+    const StorageLayout& myStorageLayout;
+    /*@Doc:
+        Nifty object which holds information on how to store data in the database.
+        It tells you which index to use, hos large a index might become and so on.
+    */
+};
 
 #endif

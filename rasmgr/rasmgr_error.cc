@@ -37,65 +37,65 @@ rasdaman GmbH.
 
 
 RCError::RCError()
- {
-  }   
-  
+{
+}
+
 
 RCErrorUnexpToken::RCErrorUnexpToken(const char *token)
-:pcc(token)
-  {
-   }
-     
+    :pcc(token)
+{
+}
+
 const char* RCErrorUnexpToken::getString(char *destBuffer)
-  {
+{
     sprintf(destBuffer,"Unexpected token %s in command.",pcc);
     return destBuffer;
-   }
+}
 
 
 RCErrorNoPermission::RCErrorNoPermission()
-  {
-   }
+{
+}
 
 const char* RCErrorNoPermission::getString(char *destBuffer)
-  {
-   sprintf(destBuffer,"You don't have permission for this operation.");
-   return destBuffer;
-   }   
+{
+    sprintf(destBuffer,"You don't have permission for this operation.");
+    return destBuffer;
+}
 
 
 RCErrorInvalidName::RCErrorInvalidName(const char *name)
-:pcc(name)
-  {
-   }
+    :pcc(name)
+{
+}
 
 const char* RCErrorInvalidName::getString(char *destBuffer)
-  {
+{
     sprintf(destBuffer,"Invalid %s name.",pcc);
     return destBuffer;
-   }   
+}
 
 
 RCErrorMissingParam::RCErrorMissingParam(const char *what)
-:pcc(what)
-  {
-   }
+    :pcc(what)
+{
+}
 
 const char* RCErrorMissingParam::getString(char *destBuffer)
-  {
+{
     sprintf(destBuffer,"Missing %s.",pcc);
     return destBuffer;
-   }
+}
 
 
 RCErrorIncorNumberValue::RCErrorIncorNumberValue(const char *what)
-:pcc(what)
-  {
-   }
-   
+    :pcc(what)
+{
+}
+
 const char* RCErrorIncorNumberValue::getString(char *destBuffer)
-  {
+{
     sprintf(destBuffer,"Incorect number value for parameter %s.",pcc);
     return destBuffer;
-   }
+}
 

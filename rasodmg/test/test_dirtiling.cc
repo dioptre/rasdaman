@@ -28,7 +28,7 @@ rasdaman GmbH.
  * PURPOSE: test class r_Dir_Tiling.
  *
  * COMMENTS:
- *			None
+ *          None
 */
 
 
@@ -42,46 +42,46 @@ rasdaman GmbH.
 
 int main(int argc, char* argv[])
 {
-  int tilesize = 10000;
+    int tilesize = 10000;
 
-  // Get tile size
-  if (argc == 2)
-    tilesize = atoi(argv[1]);
+    // Get tile size
+    if (argc == 2)
+        tilesize = atoi(argv[1]);
 
-  // Create a domain decomposition
+    // Create a domain decomposition
 
-  r_Dir_Decompose decomp[2];
-  decomp[0] << 0 << 50 << 200 << 600 << 700 << 950 << 999;
+    r_Dir_Decompose decomp[2];
+    decomp[0] << 0 << 50 << 200 << 600 << 700 << 950 << 999;
 
-  r_Dir_Tiling tiling(2, decomp, tilesize);
-  tiling.print_status(cout);
+    r_Dir_Tiling tiling(2, decomp, tilesize);
+    tiling.print_status(cout);
 
-  cout << endl << "----- Domain decomposition -----" << endl;
+    cout << endl << "----- Domain decomposition -----" << endl;
 
-  // Create a domain and an image
+    // Create a domain and an image
 
-  r_Minterval domain(2);
-  domain << r_Sinterval(0L, 999L) << r_Sinterval(0L, 99L);
+    r_Minterval domain(2);
+    domain << r_Sinterval(0L, 999L) << r_Sinterval(0L, 99L);
 
-  r_Marray<char> image(domain);
+    r_Marray<char> image(domain);
 
-  // Compute tiles
+    // Compute tiles
 
-  DList<r_Minterval>* tiles = tiling.compute_tiles(domain, sizeof(char));
+    DList<r_Minterval>* tiles = tiling.compute_tiles(domain, sizeof(char));
 
-  // Output the information
+    // Output the information
 
-  cout << "Domain: " << domain << endl << endl;
-  cout << "Tiles:  " << endl;
+    cout << "Domain: " << domain << endl << endl;
+    cout << "Tiles:  " << endl;
 
-  DListIterator<r_Minterval> it = tiles->create_iterator();
-  for (; it.not_done(); it++)
-  {
-    r_Minterval inter = *it;
-    cout << "   " << inter << endl;
-  }
+    DListIterator<r_Minterval> it = tiles->create_iterator();
+    for (; it.not_done(); it++)
+    {
+        r_Minterval inter = *it;
+        cout << "   " << inter << endl;
+    }
 
-  delete tiles;
+    delete tiles;
 }
 
 

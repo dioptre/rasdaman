@@ -24,22 +24,23 @@ rasdaman GmbH.
 #ifndef __READLN_HH__
 #define __READLN_HH__
 
-class ReadLn {
+class ReadLn
+{
 public:
-//	typedef void (* worker_t)(const char *);
-		
-	ReadLn(bool (*f)(char*) = 0, char* p = "> ", bool useTab = false);
-	~ReadLn();
-	void loop();			
-	
+//  typedef void (* worker_t)(const char *);
+
+    ReadLn(bool (*f)(char*) = 0, char* p = "> ", bool useTab = false);
+    ~ReadLn();
+    void loop();
+
 protected:
-	void initLn();
-		
+    void initLn();
+
 private:
-	char* prompt;
-	bool (*worker)(char*);
-	char *line;
-	
+    char* prompt;
+    bool (*worker)(char*);
+    char *line;
+
 };
 
 #endif

@@ -42,182 +42,182 @@ See indexmgr/hierindexds.hh and indexmgr/indexds.hh for documentation.
   * \ingroup Relindexifs
   */
 
-class DBHierIndex	:	public HierIndexDS
-	{
-	public:
-		DBHierIndex(r_Dimension dim, bool isNode, bool makePersistent);
-		/*@Doc:
-			constructs a new index with type ixType, dimension dim.
-			if isNode is true the index behaves as a node, else as
-			a leaf instance is imediately persistent
-		*/
+class DBHierIndex   :   public HierIndexDS
+{
+public:
+    DBHierIndex(r_Dimension dim, bool isNode, bool makePersistent);
+    /*@Doc:
+        constructs a new index with type ixType, dimension dim.
+        if isNode is true the index behaves as a node, else as
+        a leaf instance is imediately persistent
+    */
 
-		virtual double getOccupancy() const;
+    virtual double getOccupancy() const;
 
-		HierIndexDS* getParent() const;
-	
-		void setParent(const HierIndexDS* newPa);
-	
-		virtual void setIsNode(bool beNode);
-	
-		virtual bool isLeaf() const;
-	
-		virtual bool isRoot() const;
-		/*@Doc:
-			is a check for a valid myParent OId
-		*/
+    HierIndexDS* getParent() const;
 
-		virtual unsigned int getHeight() const;
-	
-		virtual unsigned int getHeightOfTree() const;
-		/*@Doc:
-			Recursive function to get height of the tree.
-		*/
-		
-		virtual unsigned int getHeightToRoot() const;
-		/*@Doc:
-			Recursive function to get the number of levels to the root.
-		*/
-		
-		virtual unsigned int getHeightToLeaf() const;
-		/*@Doc:
-			Recursive function to get the number of levels to the
-			leafs.
-		*/
-		
-		virtual unsigned int getTotalEntryCount() const;
-	
-		virtual unsigned int getTotalNodeCount() const;
+    void setParent(const HierIndexDS* newPa);
 
-		virtual unsigned int getTotalLeafCount() const;
+    virtual void setIsNode(bool beNode);
 
-		virtual r_Minterval getCoveredDomain() const;
-		
-		virtual r_Minterval getAssignedDomain() const;	
-		
-		virtual r_Minterval getObjectDomain(unsigned int pos) const;	
-		
-		virtual r_Dimension getDimension() const;
-		
-		virtual void setAssignedDomain(const r_Minterval& domain);
-		
-		virtual unsigned int getSize() const;
-		
-		virtual r_Bytes getTotalStorageSize() const;
-		
-		virtual bool isValid() const;
+    virtual bool isLeaf() const;
 
-		virtual bool isUnderFull() const;
+    virtual bool isRoot() const;
+    /*@Doc:
+        is a check for a valid myParent OId
+    */
 
-		virtual bool isOverFull() const;
+    virtual unsigned int getHeight() const;
 
-		virtual bool isSameAs(const IndexDS* pix) const; 
-		
-		virtual bool removeObject(unsigned int pos);
-		
-		virtual bool removeObject(const KeyObject& theKey);
+    virtual unsigned int getHeightOfTree() const;
+    /*@Doc:
+        Recursive function to get height of the tree.
+    */
 
-		virtual void insertObject(const KeyObject& theKey, unsigned int pos);
+    virtual unsigned int getHeightToRoot() const;
+    /*@Doc:
+        Recursive function to get the number of levels to the root.
+    */
 
-		virtual void setObject(const KeyObject& theKey, unsigned int pos);
+    virtual unsigned int getHeightToLeaf() const;
+    /*@Doc:
+        Recursive function to get the number of levels to the
+        leafs.
+    */
 
-		virtual void setObjectDomain(const r_Minterval& dom, unsigned int pos);
+    virtual unsigned int getTotalEntryCount() const;
 
-		virtual const KeyObject& getObject(unsigned int pos) const;
+    virtual unsigned int getTotalNodeCount() const;
 
-		virtual void getObjects(KeyObjectVector& objs) const;
+    virtual unsigned int getTotalLeafCount() const;
 
-		virtual unsigned int getOptimalSize() const;
+    virtual r_Minterval getCoveredDomain() const;
 
-		static unsigned int getOptimalSize(r_Dimension dim);
-			/*@Doc:
-				Used to calculate the optimal number of entries for
-				that dimension
-			*/
+    virtual r_Minterval getAssignedDomain() const;
 
-		virtual void freeDS();
-		
-		virtual OId::OIdPrimitive getIdentifier() const;
-		
-		static r_Bytes BytesPerTupel; 
-		/*@Doc:
-			tuning parameter.  used to calculate the optimal size of
-			an index.  this is also the number of bytes written to the
-			database.
-		*/
+    virtual r_Minterval getObjectDomain(unsigned int pos) const;
 
-		virtual void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
+    virtual r_Dimension getDimension() const;
 
-		virtual ~DBHierIndex();
+    virtual void setAssignedDomain(const r_Minterval& domain);
 
-		virtual void destroy();
+    virtual unsigned int getSize() const;
 
-		virtual IndexDS* getNewInstance() const;
+    virtual r_Bytes getTotalStorageSize() const;
 
-		virtual BinaryRepresentation getBinaryRepresentation() const throw (r_Error);
+    virtual bool isValid() const;
 
-		virtual void setBinaryRepresentation(const BinaryRepresentation&) throw (r_Error);
+    virtual bool isUnderFull() const;
 
-	protected:
-		friend class ObjectBroker;
-		/*@Doc:
-			ObjectBroker needs to access OId constructor
-		*/
+    virtual bool isOverFull() const;
 
-		DBHierIndex(const OId& id);
-		/*@Doc:
-		*/
-	
-		virtual void readFromDb() throw (r_Error);
-		/*@Doc:
-		*/
+    virtual bool isSameAs(const IndexDS* pix) const;
 
-		virtual void updateInDb() throw (r_Error);
-		/*@Doc:
-		*/
+    virtual bool removeObject(unsigned int pos);
 
-		virtual void deleteFromDb() throw (r_Error);
-		/*@Doc:
-		*/
+    virtual bool removeObject(const KeyObject& theKey);
 
-		virtual void insertInDb() throw (r_Error);
-		/*@Doc:
-		*/
+    virtual void insertObject(const KeyObject& theKey, unsigned int pos);
 
-		void extendCoveredDomain(const r_Minterval& newTilesExtents) throw (r_Edim_mismatch, r_Eno_interval);
-			/*@Doc:
-				Recalculates the current domain of this index to
-				include newTilesExtents.
-			*/
+    virtual void setObject(const KeyObject& theKey, unsigned int pos);
 
-		OId parent;
-		/*@Doc:
-			persistent, identifies the parent
-		*/
+    virtual void setObjectDomain(const r_Minterval& dom, unsigned int pos);
 
-		bool _isNode;
-		/*@Doc:
-			persistent, tells the object what it is.
-		*/
+    virtual const KeyObject& getObject(unsigned int pos) const;
+
+    virtual void getObjects(KeyObjectVector& objs) const;
+
+    virtual unsigned int getOptimalSize() const;
+
+    static unsigned int getOptimalSize(r_Dimension dim);
+    /*@Doc:
+        Used to calculate the optimal number of entries for
+        that dimension
+    */
+
+    virtual void freeDS();
+
+    virtual OId::OIdPrimitive getIdentifier() const;
+
+    static r_Bytes BytesPerTupel;
+    /*@Doc:
+        tuning parameter.  used to calculate the optimal size of
+        an index.  this is also the number of bytes written to the
+        database.
+    */
+
+    virtual void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
+
+    virtual ~DBHierIndex();
+
+    virtual void destroy();
+
+    virtual IndexDS* getNewInstance() const;
+
+    virtual BinaryRepresentation getBinaryRepresentation() const throw (r_Error);
+
+    virtual void setBinaryRepresentation(const BinaryRepresentation&) throw (r_Error);
+
+protected:
+    friend class ObjectBroker;
+    /*@Doc:
+        ObjectBroker needs to access OId constructor
+    */
+
+    DBHierIndex(const OId& id);
+    /*@Doc:
+    */
+
+    virtual void readFromDb() throw (r_Error);
+    /*@Doc:
+    */
+
+    virtual void updateInDb() throw (r_Error);
+    /*@Doc:
+    */
+
+    virtual void deleteFromDb() throw (r_Error);
+    /*@Doc:
+    */
+
+    virtual void insertInDb() throw (r_Error);
+    /*@Doc:
+    */
+
+    void extendCoveredDomain(const r_Minterval& newTilesExtents) throw (r_Edim_mismatch, r_Eno_interval);
+    /*@Doc:
+        Recalculates the current domain of this index to
+        include newTilesExtents.
+    */
+
+    OId parent;
+    /*@Doc:
+        persistent, identifies the parent
+    */
+
+    bool _isNode;
+    /*@Doc:
+        persistent, tells the object what it is.
+    */
 
 
-		unsigned int maxSize;
-			/*@Doc:
-				Non persistent attribute.  a cache so the maxSize does not have to be calculated all the time.
-			*/
+    unsigned int maxSize;
+    /*@Doc:
+        Non persistent attribute.  a cache so the maxSize does not have to be calculated all the time.
+    */
 
-		KeyObjectVector myKeyObjects;
+    KeyObjectVector myKeyObjects;
 
-		InlineMinterval myDomain;
-		/*@Doc:
-			Defined domain of this index.
-		*/
+    InlineMinterval myDomain;
+    /*@Doc:
+        Defined domain of this index.
+    */
 
-		short currentDbRows;
-		/*@Doc:
-			is needed to support update of index in database
-			keeps the number of rows currently taken up in the db by
-			this instance
-		*/
-	};
+    short currentDbRows;
+    /*@Doc:
+        is needed to support update of index in database
+        keeps the number of rows currently taken up in the db by
+        this instance
+    */
+};
 #endif

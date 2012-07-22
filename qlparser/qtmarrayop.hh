@@ -41,14 +41,14 @@ rasdaman GmbH.
 //@ManMemo: Module: {\bf qlparser}
 
 /*@Doc:
- 
+
   The class represents the root of an marray expression.
 
 */
 
 class QtMarrayOp : public QtBinaryOperation
 {
-  public:
+public:
     /// constructor getting iterator, minterval expression, and cell expression
     QtMarrayOp( const std::string& initIteratorName, QtOperation* mintervalExp, QtOperation* cellExp );
 
@@ -63,7 +63,7 @@ class QtMarrayOp : public QtBinaryOperation
     /**
      */
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -75,7 +75,7 @@ class QtMarrayOp : public QtBinaryOperation
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 

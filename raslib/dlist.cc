@@ -29,21 +29,21 @@ rasdaman GmbH.
 template <class T>
 std::ostream& operator<< (std::ostream& os, const std::vector<T>& list)
 {
-  os << "[ ";
-  for (typename std::vector<T>::const_iterator it = list.begin(); it != list.end(); it++)
-	os << (*it) << " ";
-  os << "]";
-  return os;
+    os << "[ ";
+    for (typename std::vector<T>::const_iterator it = list.begin(); it != list.end(); it++)
+        os << (*it) << " ";
+    os << "]";
+    return os;
 }
 
 template <class T>
 std::ostream& operator<< (const std::vector<T>& list, std::ostream& os)
 {
-  os << "[ ";
-  for (typename std::vector<T>::const_iterator it = list.begin(); it != list.end(); it++)
-	os << (*it) << " ";
-  os << "]";
-  return os;
+    os << "[ ";
+    for (typename std::vector<T>::const_iterator it = list.begin(); it != list.end(); it++)
+        os << (*it) << " ";
+    os << "]";
+    return os;
 }
 
 #if defined(SOLARIS) && ! defined(EARLY_TEMPLATE)
@@ -51,21 +51,21 @@ std::ostream& operator<< (const std::vector<T>& list, std::ostream& os)
 template <>
 std::ostream& operator<< (std::ostream& os, const std::vector<r_Minterval>& list)
 {
-  os << "[ ";
-  for (typename std::vector<r_Minterval>::const_iterator it = list.begin(); it != list.end(); it++)
-	os << (*it) << " ";
-  os << "]";
-  return os;
+    os << "[ ";
+    for (typename std::vector<r_Minterval>::const_iterator it = list.begin(); it != list.end(); it++)
+        os << (*it) << " ";
+    os << "]";
+    return os;
 }
 
 template <>
 std::ostream& operator<< (const std::vector<r_Minterval>& list, std::ostream& os)
 {
-  os << "[ ";
-  for (typename std::vector<r_Minterval>::const_iterator it = list.begin(); it != list.end(); it++)
-	os << (*it) << " ";
-  os << "]";
-  return os;
+    os << "[ ";
+    for (typename std::vector<r_Minterval>::const_iterator it = list.begin(); it != list.end(); it++)
+        os << (*it) << " ";
+    os << "]";
+    return os;
 }
 
 #endif

@@ -29,11 +29,12 @@ rasdaman GmbH.
 #include<iostream>
 #include<fstream>
 
-namespace RasNITF 
+namespace RasNITF
 {
 
-class graphic{
- private: 
+class graphic
+{
+private:
     char m_sy[2];
     char m_sid[10];
     char m_sname[20];
@@ -64,19 +65,19 @@ class graphic{
     char m_sbnd2[10];
     char m_sres2[2];
     char m_sxshdl[5];
-    char m_sxsofl[3];	 
-    char* m_sxshd;			
+    char m_sxsofl[3];
+    char* m_sxshd;
     char *m_graphic_data;
 
     int header_length;
-    int data_length;	 
-    int n_sxshdl;		
-    int n_sxsofl;		
+    int data_length;
+    int n_sxshdl;
+    int n_sxsofl;
 
     std::string graphic_hl ;
     std::string graphic_dl ;
 
- public:
+public:
     graphic();
     ~graphic();
     int read_file(std::istream&, long, long);

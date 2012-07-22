@@ -55,34 +55,34 @@
 
 class r_Storage_Man
 {
-  public:
+public:
 
-  /// types of storage management functions
-  typedef void *(*storage_man_alloc)( size_t );
-  typedef void (*storage_man_free)( void *data );
+    /// types of storage management functions
+    typedef void *(*storage_man_alloc)( size_t );
+    typedef void (*storage_man_free)( void *data );
 
-  /// default constructor, switches to c-style allocation
-  r_Storage_Man( void );
-  /// constructor setting the storage functions
-  r_Storage_Man( storage_man_alloc a, storage_man_free f );
-  /// copy constructor
-  r_Storage_Man( const r_Storage_Man &src );
-  /// destructor
-  ~r_Storage_Man( void );
-  /// setting the storage functions
-  void set_storage_functions( storage_man_alloc a, storage_man_free f );
-  /// assignment
-  r_Storage_Man &operator=( const r_Storage_Man &src );
-  /// allocation
-  void *storage_alloc( size_t size ) const throw(r_Error);
-  /// deallocation
-  void storage_free( void *data ) const;
+    /// default constructor, switches to c-style allocation
+    r_Storage_Man( void );
+    /// constructor setting the storage functions
+    r_Storage_Man( storage_man_alloc a, storage_man_free f );
+    /// copy constructor
+    r_Storage_Man( const r_Storage_Man &src );
+    /// destructor
+    ~r_Storage_Man( void );
+    /// setting the storage functions
+    void set_storage_functions( storage_man_alloc a, storage_man_free f );
+    /// assignment
+    r_Storage_Man &operator=( const r_Storage_Man &src );
+    /// allocation
+    void *storage_alloc( size_t size ) const throw(r_Error);
+    /// deallocation
+    void storage_free( void *data ) const;
 
 
-  protected:
-  /// the storage functions
-  storage_man_alloc myalloc;
-  storage_man_free myfree;
+protected:
+    /// the storage functions
+    storage_man_alloc myalloc;
+    storage_man_free myfree;
 };
 
 
@@ -92,11 +92,11 @@ class r_Storage_Man
 
 class r_Storage_Man_C : public r_Storage_Man
 {
-  public:
-  /// default constructor
-  r_Storage_Man_C( void );
-  /// default destructor
-  ~r_Storage_Man_C( void );
+public:
+    /// default constructor
+    r_Storage_Man_C( void );
+    /// default destructor
+    ~r_Storage_Man_C( void );
 };
 
 
@@ -106,11 +106,11 @@ class r_Storage_Man_C : public r_Storage_Man
 
 class r_Storage_Man_CPP : public r_Storage_Man
 {
-  public:
-  /// default constructor
-  r_Storage_Man_CPP( void );
-  /// destructor
-  ~r_Storage_Man_CPP( void );
+public:
+    /// default constructor
+    r_Storage_Man_CPP( void );
+    /// destructor
+    ~r_Storage_Man_CPP( void );
 };
 
 #endif

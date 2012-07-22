@@ -27,7 +27,7 @@
  * Contains the RMInit class.
  *
  * COMMENTS:
- *		- RASMGRPORT should be centrally defined
+ *      - RASMGRPORT should be centrally defined
  */
 
 #ifndef _RMINIT_
@@ -89,7 +89,7 @@ const unsigned int RNP_MAX_RETRY = 10;
 
 class RMInit : public RM_Class
 {
-  public:
+public:
     /// constructor
     RMInit( char applicationType );
 
@@ -137,7 +137,7 @@ class RMInit : public RM_Class
 
     static unsigned int rpcMaxRetry;
 
-  private:
+private:
     /// check the option string for the occurance of an option and return its value if available
     int checkOptionString( const char* optString, const char* option, char* &value );
     /**

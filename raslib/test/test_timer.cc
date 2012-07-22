@@ -43,61 +43,62 @@ RMINITGLOBALS('C')
 
 using namespace std;
 
-class Exp {
+class Exp
+{
 
 public:
-   Exp( char* name );
-   
-   void useTimer( );
-   
-   ~Exp( );
-   
-   RMTimer* t1;
-   RMTimer t2;
-   char* name;
+    Exp( char* name );
+
+    void useTimer( );
+
+    ~Exp( );
+
+    RMTimer* t1;
+    RMTimer t2;
+    char* name;
 };
 
 Exp::Exp( char* n)
-   :t2("Test Timer ", "t2" ), name( n )
+    :t2("Test Timer ", "t2" ), name( n )
 {
-  t1 = new RMTimer( "Test Timer ", "t1" );
+    t1 = new RMTimer( "Test Timer ", "t1" );
 }
 
 void Exp::useTimer( )
 {
-   cout << "useTimer "<< name << " t1 ... "<<endl;
-   t1->start( );
-   t1->stop( );
-   cout << "and  t2"<<endl;
-   t2.start( );
-   t2.stop( );
+    cout << "useTimer "<< name << " t1 ... "<<endl;
+    t1->start( );
+    t1->stop( );
+    cout << "and  t2"<<endl;
+    t2.start( );
+    t2.stop( );
 }
 
 Exp::~Exp( )
 {
-  cout << "Exp::~Exp( " << name << " ) "<< endl;
-  delete t1;
+    cout << "Exp::~Exp( " << name << " ) "<< endl;
+    delete t1;
 }
 
 static const Exp exp1("Static Exp Object");
 
 int main()
 {
-   
-  /*
-  RMTimer tt(  "Test Timer ", "tt" );
 
-  cout << "RMTimer start( )" <<endl;
-  tt.start( );
-  tt.stop( );
-  */
+    /*
+    RMTimer tt(  "Test Timer ", "tt" );
 
-  Exp e( "Exp Object" );
-  e.useTimer( );
-  
-  Exp* ep = new Exp("Pointer to Exp Object");
-  ep->useTimer( );
-  delete ep;
+    cout << "RMTimer start( )" <<endl;
+    tt.start( );
+    tt.stop( );
+    */
 
-  return 0;
+    Exp e( "Exp Object" );
+    e.useTimer( );
+
+    Exp* ep = new Exp("Pointer to Exp Object");
+    ep->useTimer( );
+    delete ep;
+
+    return 0;
 }

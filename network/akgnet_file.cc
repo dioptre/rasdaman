@@ -34,18 +34,18 @@ rasdaman GmbH.
 #include<akgnet_file.hh>
 
 akg::File::File() throw()
-  {
-   }
+{
+}
 
 akg::File::File(int osFileDescriptor) throw()
-  {
+{
     assert(osFileDescriptor > 0);
     fileDescriptor = osFileDescriptor;
-   }
+}
 
 void akg::File::connectToDescriptor(int osFileDescriptor) throw()
-  {
+{
     assert(osFileDescriptor > 0);
     fileDescriptor = osFileDescriptor;
-   }
+}
 

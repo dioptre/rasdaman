@@ -24,26 +24,26 @@ rasdaman GmbH.
  * SOURCE: ras_crypto.hh
  *
  * MODULE: rasmgr
- * CLASS:  
+ * CLASS:
  *
  * PURPOSE:
  *   Interface to OpenSSL MD5 - functions
- *    
+ *
  * COMMENTS:
- *   		None
+ *          None
 */
 
 #ifndef RAS_CRYPTO_HH
 #define RAS_CRYPTO_HH
 
 #include <openssl/evp.h>
- 
+
 // to use this functions you have to link libcrypto ( parameter -lcrypto in gcc command line)
 
 
 bool testIsMessageDigestAvailable(const char *mdName);
- 
+
 int messageDigest(const char *input,char *output,const char *mdName);
- 
- 
-#endif 
+
+
+#endif

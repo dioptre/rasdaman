@@ -28,7 +28,7 @@ rasdaman GmbH.
  *
  * PURPOSE:
  *   Performs reliable, non-blocking HTTP communication. used by the master rasmgr
- *    
+ *
  * COMMENTS:
  *   none
  *
@@ -49,157 +49,158 @@ rasdaman GmbH.
   * \ingroup Rasmgrs
   */
 class IOSelector
-  {
-    public:
-      IOSelector();
-      void setTimeout(int sec,int milisec);
-      void disableTimeout();
-      void setReadSocket(int socket);
-      void clearReadSocket(int socket);
-      void setWriteSocket(int socket);
-      void clearWriteSocket(int socket);
-    
-      int waitForRequest();
-      int someWaitingSocket();
+{
+public:
+    IOSelector();
+    void setTimeout(int sec,int milisec);
+    void disableTimeout();
+    void setReadSocket(int socket);
+    void clearReadSocket(int socket);
+    void setWriteSocket(int socket);
+    void clearWriteSocket(int socket);
 
-      bool isReadSocket(int socket);
-      bool isWriteSocket(int socket);
-      
-      void closeForcedAllSockets(); // useful for childs which don't have to inherit this sockets
-    private:
-      fd_set watchReadFdSet;
-      fd_set watchWriteFdSet;  
-      fd_set watchExceptFdSet; // unused but ...
-    
-      fd_set resultReadFdSet;
-      fd_set resultWriteFdSet; 
-      fd_set resultExceptFdSet; // unused but ...
-    
-      struct timeval tvinit;
-      struct timeval tv;
-      timeval *tvptr;		// set to &tv... for timeout, NULL for no timeout
-      
-   };
+    int waitForRequest();
+    int someWaitingSocket();
+
+    bool isReadSocket(int socket);
+    bool isWriteSocket(int socket);
+
+    void closeForcedAllSockets(); // useful for childs which don't have to inherit this sockets
+private:
+    fd_set watchReadFdSet;
+    fd_set watchWriteFdSet;
+    fd_set watchExceptFdSet; // unused but ...
+
+    fd_set resultReadFdSet;
+    fd_set resultWriteFdSet;
+    fd_set resultExceptFdSet; // unused but ...
+
+    struct timeval tvinit;
+    struct timeval tv;
+    timeval *tvptr;       // set to &tv... for timeout, NULL for no timeout
+
+};
 
 /**
   * \ingroup Rasmgrs
   */
 class NbJob
-  {
-    public:
-      NbJob();
-      void init(IOSelector *pselector,int maxInputBuffer);
-      
-      enum acceptStatus
-        { acs_nopending = 0,
-	  acs_Iambusy   = 1,
-	  acs_accepted  = 2,
-	  acs_outofmem  = 3,
-	  acs_invalidsocket = 4
-	 };
-      acceptStatus acceptConnection(int listenSocket);
+{
+public:
+    NbJob();
+    void init(IOSelector *pselector,int maxInputBuffer);
 
-      bool readPartialMessage();
-      bool isMessageOK();
-      const char *getMessage();
-      
-      bool initSendAnswer(const char*);
-      bool writePartialMessage();
-      bool isOperationPending();
-      
-      int  getSocket();
-      const char *getRequestor();	// added -- PB 2004-jul-16
+    enum acceptStatus
+    {
+        acs_nopending = 0,
+        acs_Iambusy   = 1,
+        acs_accepted  = 2,
+        acs_outofmem  = 3,
+        acs_invalidsocket = 4
+    };
+    acceptStatus acceptConnection(int listenSocket);
 
-      bool wasError();
-      void closeConnection();
-      void closeSocket();
-      bool cleanUpIfTimeout();
-      bool processJobTimeout();
-      void printStatus();
-      // void reset(); replaced by closeConnection() -- PB 2003-jun-04
-      void clearConnection();
-    private:
-      void clearInputBuffer();
-      void clearOutputBuffer();
-      int socket;
-      IOSelector *pselector;
-      
-      // reading
-      char *inputBuffer;
-      int   nextReadPos;
-      int   maxInputLength;
-      char  messageTerminator;
-      // writing
-      char *outputBuffer;
-      int  answerLength;
-      int  nextWritePos;
-      // errors
-      bool bigError;
+    bool readPartialMessage();
+    bool isMessageOK();
+    const char *getMessage();
 
-      // timing
-      time_t lastActionTime;
-      time_t messageReadyTime;
-      void   markAction();
-    // public:  
-      static time_t timeOutInterv;
-      static time_t currentTime;
-      
-   };
-   
-//###################   
+    bool initSendAnswer(const char*);
+    bool writePartialMessage();
+    bool isOperationPending();
+
+    int  getSocket();
+    const char *getRequestor();   // added -- PB 2004-jul-16
+
+    bool wasError();
+    void closeConnection();
+    void closeSocket();
+    bool cleanUpIfTimeout();
+    bool processJobTimeout();
+    void printStatus();
+    // void reset(); replaced by closeConnection() -- PB 2003-jun-04
+    void clearConnection();
+private:
+    void clearInputBuffer();
+    void clearOutputBuffer();
+    int socket;
+    IOSelector *pselector;
+
+    // reading
+    char *inputBuffer;
+    int   nextReadPos;
+    int   maxInputLength;
+    char  messageTerminator;
+    // writing
+    char *outputBuffer;
+    int  answerLength;
+    int  nextWritePos;
+    // errors
+    bool bigError;
+
+    // timing
+    time_t lastActionTime;
+    time_t messageReadyTime;
+    void   markAction();
+    // public:
+    static time_t timeOutInterv;
+    static time_t currentTime;
+
+};
+
+//###################
 
 /**
   * \ingroup Rasmgrs
-  */         
+  */
 class NbServerComm
-  {
-    public:
-      NbServerComm();
-      ~NbServerComm();
-      
-     // void work();
-      void shouldExit();
-      void closeForcedAllSockets(); // useful for children which don't have to inherit these sockets
-      void printStatus(); 
-    protected:
-       void initJobs(int maxJobs);
-       bool initListenSocket(int port);
-       void closeListenSocket();
-       
-       // void itsRinging();		doesn't exit -- PB 2003-may-04
-       void dispatchReadRequest();
-       void dispatchWriteRequest();
-      
-       void connectNewClients();
-       
-       void lookForTimeout();
-       int listenSocket;
-      
-       NbJob *job;
-       int   maxJobs;
-      
-       volatile bool exitRequest;
-       bool mayExit();
-      
-       IOSelector selector;
-       pid_t mypid;
-       
-   };
+{
+public:
+    NbServerComm();
+    ~NbServerComm();
+
+    // void work();
+    void shouldExit();
+    void closeForcedAllSockets(); // useful for children which don't have to inherit these sockets
+    void printStatus();
+protected:
+    void initJobs(int maxJobs);
+    bool initListenSocket(int port);
+    void closeListenSocket();
+
+    // void itsRinging();        doesn't exit -- PB 2003-may-04
+    void dispatchReadRequest();
+    void dispatchWriteRequest();
+
+    void connectNewClients();
+
+    void lookForTimeout();
+    int listenSocket;
+
+    NbJob *job;
+    int   maxJobs;
+
+    volatile bool exitRequest;
+    bool mayExit();
+
+    IOSelector selector;
+    pid_t mypid;
+
+};
 
 #ifdef X86
- #define r_Socklen_t socklen_t
+#define r_Socklen_t socklen_t
 #endif
 
 #ifdef AIX
- #define r_Socklen_t socklen_t
+#define r_Socklen_t socklen_t
 #endif
 
 #ifdef SOLARIS
- #define r_Socklen_t socklen_t
+#define r_Socklen_t socklen_t
 #endif
 
-#ifdef DECALPHA 
- #define r_Socklen_t int
-#endif 
+#ifdef DECALPHA
+#define r_Socklen_t int
+#endif
 
-#endif   
+#endif

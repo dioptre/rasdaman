@@ -55,7 +55,7 @@ using namespace std;
 const QtNode::QtNodeType QtMintervalOp::nodeType = QT_MINTERVALOP;
 
 QtMintervalOp::QtMintervalOp( QtOperationList* opList )
-  :  QtNaryOperation( opList )
+    :  QtNaryOperation( opList )
 {
 }
 
@@ -64,97 +64,98 @@ QtMintervalOp::QtMintervalOp( QtOperationList* opList )
 QtData*
 QtMintervalOp::evaluate( QtDataList* inputList )
 {
-  RMDBCLASS( "QtMintervalOp", "evaluate( QtDataList* )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtMintervalOp", "evaluate( QtDataList* )", "qlparser", __FILE__, __LINE__ )
 
-  QtData*     returnValue = NULL;
-  QtDataList* operandList = NULL;
+    QtData*     returnValue = NULL;
+    QtDataList* operandList = NULL;
 
-  if( getOperands( inputList, operandList ) )
-  {
-    vector<QtData*>::iterator dataIter;
-    bool              goOn=true;
-
-    // check for point operand
-    if( operandList->size() == 1 && ((*operandList)[0])->getDataType() == QT_MINTERVAL )
+    if( getOperands( inputList, operandList ) )
     {
-      // pass point as minterval projection
-      returnValue = (*operandList)[0];
+        vector<QtData*>::iterator dataIter;
+        bool              goOn=true;
 
-      delete operandList;
-      operandList=NULL;
+        // check for point operand
+        if( operandList->size() == 1 && ((*operandList)[0])->getDataType() == QT_MINTERVAL )
+        {
+            // pass point as minterval projection
+            returnValue = (*operandList)[0];
+
+            delete operandList;
+            operandList=NULL;
+        }
+        else
+        {
+            // first check operand types
+            for( dataIter=operandList->begin(); dataIter!=operandList->end() && goOn; dataIter++ )
+                if (!( (*dataIter)->getDataType() == QT_SHORT || (*dataIter)->getDataType() == QT_USHORT ||
+                        (*dataIter)->getDataType() == QT_LONG  || (*dataIter)->getDataType() == QT_ULONG  ||
+                        (*dataIter)->getDataType() == QT_OCTET || (*dataIter)->getDataType() == QT_CHAR   ||
+                        (*dataIter)->getDataType() == QT_INTERVAL))
+                {
+                    goOn=false;
+                    break;
+                }
+
+            if( !goOn )
+            {
+                RMInit::logOut << "Error: QtMintervalOp::evaluate() - expressions for minterval dimensions must be either of type integer or interval." << endl;
+                parseInfo.setErrorNo(390);
+
+                // delete the old operands
+                if( operandList )
+                {
+                    for( dataIter=operandList->begin(); dataIter!=operandList->end(); dataIter++ )
+                        if( (*dataIter) ) (*dataIter)->deleteRef();
+
+                    delete operandList;
+                    operandList=NULL;
+                }
+
+                throw parseInfo;
+            }
+
+            //
+            // create a QtMintervalData object and fill it
+            //
+            r_Minterval   domainData( operandList->size() );
+            vector<bool>* trimFlags = new vector<bool>( operandList->size() );
+            int           pos;
+
+            for( dataIter=operandList->begin(), pos=0; dataIter!=operandList->end(); dataIter++,pos++ )
+            {
+                if( (*dataIter)->getDataType() == QT_INTERVAL )
+                {
+                    domainData << ((QtIntervalData*)(*dataIter))->getIntervalData();
+                    (*trimFlags)[pos] = true;
+                }
+                else
+                {
+                    if( (*dataIter)->getDataType() == QT_SHORT ||
+                            (*dataIter)->getDataType() == QT_LONG  ||
+                            (*dataIter)->getDataType() == QT_OCTET )
+                        domainData << ((QtAtomicData*)(*dataIter))->getSignedValue();
+                    else
+                        domainData << ((QtAtomicData*)(*dataIter))->getUnsignedValue();
+
+                    (*trimFlags)[pos] = false;
+                }
+            }
+
+            returnValue = new QtMintervalData( domainData, trimFlags );
+
+            // delete the old operands
+            if( operandList )
+            {
+                for( dataIter=operandList->begin(); dataIter!=operandList->end(); dataIter++ )
+                    if( (*dataIter) ) (*dataIter)->deleteRef();
+
+                delete operandList;
+                operandList=NULL;
+            }
+        }
     }
-    else
-    {
-      // first check operand types
-      for( dataIter=operandList->begin(); dataIter!=operandList->end() && goOn; dataIter++ )
-        if (!( (*dataIter)->getDataType() == QT_SHORT || (*dataIter)->getDataType() == QT_USHORT ||
-                (*dataIter)->getDataType() == QT_LONG  || (*dataIter)->getDataType() == QT_ULONG  ||
-                (*dataIter)->getDataType() == QT_OCTET || (*dataIter)->getDataType() == QT_CHAR   ||
-                (*dataIter)->getDataType() == QT_INTERVAL))
-        {
-          goOn=false; 
-          break;
-        }
 
-      if( !goOn )
-      {
-        RMInit::logOut << "Error: QtMintervalOp::evaluate() - expressions for minterval dimensions must be either of type integer or interval." << endl;
-        parseInfo.setErrorNo(390);
-
-        // delete the old operands
-        if( operandList )
-        {
-          for( dataIter=operandList->begin(); dataIter!=operandList->end(); dataIter++ )
-            if( (*dataIter) ) (*dataIter)->deleteRef();
-
-          delete operandList;
-          operandList=NULL;
-        }
-
-        throw parseInfo;
-      }
-
-      //
-      // create a QtMintervalData object and fill it
-      //
-      r_Minterval   domainData( operandList->size() );
-      vector<bool>* trimFlags = new vector<bool>( operandList->size() );
-      int           pos;
-
-      for( dataIter=operandList->begin(), pos=0; dataIter!=operandList->end(); dataIter++,pos++ )
-      {
-        if( (*dataIter)->getDataType() == QT_INTERVAL )
-        {
-          domainData << ((QtIntervalData*)(*dataIter))->getIntervalData();
-  	  (*trimFlags)[pos] = true;
-        }else
-        {
-          if( (*dataIter)->getDataType() == QT_SHORT || 
-              (*dataIter)->getDataType() == QT_LONG  || 
-              (*dataIter)->getDataType() == QT_OCTET )
-            domainData << ((QtAtomicData*)(*dataIter))->getSignedValue();
-          else
-            domainData << ((QtAtomicData*)(*dataIter))->getUnsignedValue();
-
-	  (*trimFlags)[pos] = false;
-        }
-      }    
-    
-      returnValue = new QtMintervalData( domainData, trimFlags ); 
-
-      // delete the old operands
-      if( operandList )
-      {
-        for( dataIter=operandList->begin(); dataIter!=operandList->end(); dataIter++ )
-          if( (*dataIter) ) (*dataIter)->deleteRef();
-
-        delete operandList;
-        operandList=NULL;
-      }
-    }
-  }
-
-  return returnValue;
+    return returnValue;
 }
 
 
@@ -162,9 +163,9 @@ QtMintervalOp::evaluate( QtDataList* inputList )
 void
 QtMintervalOp::printTree( int tab, ostream& s, QtChildType mode )
 {
-  s << SPACE_STR(tab).c_str() << "QtMintervalOp Object " << getNodeType() << endl;
+    s << SPACE_STR(tab).c_str() << "QtMintervalOp Object " << getNodeType() << endl;
 
-  QtNaryOperation::printTree( tab, s, mode );
+    QtNaryOperation::printTree( tab, s, mode );
 }
 
 
@@ -172,11 +173,11 @@ QtMintervalOp::printTree( int tab, ostream& s, QtChildType mode )
 void
 QtMintervalOp::printAlgebraicExpression( ostream& s )
 {
-  s << "[";
- 
-  QtNaryOperation::printAlgebraicExpression( s );
- 
-  s << "]";
+    s << "[";
+
+    QtNaryOperation::printAlgebraicExpression( s );
+
+    s << "]";
 }
 
 
@@ -184,39 +185,39 @@ QtMintervalOp::printAlgebraicExpression( ostream& s )
 const QtTypeElement&
 QtMintervalOp::checkType( QtTypeTuple* typeTuple )
 {
-  RMDBCLASS( "QtMintervalOp", "checkType( QtTypeTuple* )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtMintervalOp", "checkType( QtTypeTuple* )", "qlparser", __FILE__, __LINE__ )
 
-  dataStreamType.setDataType( QT_TYPE_UNKNOWN );  
+    dataStreamType.setDataType( QT_TYPE_UNKNOWN );
 
-  QtOperationList::iterator iter;
-  bool              opTypesValid = true;
-    
-  for( iter=operationList->begin(); iter!=operationList->end() && opTypesValid; iter++ )
-  {
-    const QtTypeElement& type = (*iter)->checkType( typeTuple );
+    QtOperationList::iterator iter;
+    bool              opTypesValid = true;
 
-    // valid types: interval, integers
-    if (!( type.getDataType() == QT_INTERVAL ||
-                       type.getDataType() == QT_SHORT    ||
-                       type.getDataType() == QT_LONG     ||
-                       type.getDataType() == QT_OCTET    ||
-                       type.getDataType() == QT_USHORT   ||
-                       type.getDataType() == QT_ULONG    ||
-                       type.getDataType() == QT_CHAR))
+    for( iter=operationList->begin(); iter!=operationList->end() && opTypesValid; iter++ )
     {
-      opTypesValid=false;
-      break;
+        const QtTypeElement& type = (*iter)->checkType( typeTuple );
+
+        // valid types: interval, integers
+        if (!( type.getDataType() == QT_INTERVAL ||
+                type.getDataType() == QT_SHORT    ||
+                type.getDataType() == QT_LONG     ||
+                type.getDataType() == QT_OCTET    ||
+                type.getDataType() == QT_USHORT   ||
+                type.getDataType() == QT_ULONG    ||
+                type.getDataType() == QT_CHAR))
+        {
+            opTypesValid=false;
+            break;
+        }
     }
-  }
 
-  if( !opTypesValid )
-  {
-    RMInit::logOut << "Error: QtMintervalOp::checkType() - expressions for minterval dimensions must be either of type integer or interval." << endl;
-    parseInfo.setErrorNo(390);
-    throw parseInfo; 
-  }
+    if( !opTypesValid )
+    {
+        RMInit::logOut << "Error: QtMintervalOp::checkType() - expressions for minterval dimensions must be either of type integer or interval." << endl;
+        parseInfo.setErrorNo(390);
+        throw parseInfo;
+    }
 
-  dataStreamType.setDataType( QT_MINTERVAL );
+    dataStreamType.setDataType( QT_MINTERVAL );
 
-  return dataStreamType;
+    return dataStreamType;
 }

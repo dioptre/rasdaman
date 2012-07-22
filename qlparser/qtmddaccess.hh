@@ -54,7 +54,7 @@ element.
 
 class QtMDDAccess : public QtONCStream
 {
-  public:
+public:
     /// constructor getting the collection name if no iterator name is specified
     QtMDDAccess( const std::string& collectionName );
 
@@ -76,7 +76,7 @@ class QtMDDAccess : public QtONCStream
     void        reset();
     //@}
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -91,7 +91,7 @@ class QtMDDAccess : public QtONCStream
     /// type checking
     virtual const QtTypeTuple& checkType();
 
-  private:
+private:
     /// name of the MDD collection
     std::string collectionName;
 

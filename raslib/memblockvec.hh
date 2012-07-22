@@ -46,39 +46,48 @@ rasdaman GmbH.
 class r_Memory_Block_Vector
 {
 public:
-  /// constructor, receiving the size of each memory block and the granularity
-  /// for extending the number of blocks.
-  r_Memory_Block_Vector( r_Bytes bsize=4096, unsigned int gran=8 );
-  /// destructor
-  ~r_Memory_Block_Vector( void );
-  /// return number of blocks
-  inline unsigned int get_number( void ) const {return numBlocks;}
-  /// return block size
-  inline r_Bytes get_block_size( void ) const {return blockSize;}
-  /// return granularity
-  inline unsigned int get_granularity( void ) const {return granularity;}
-  /// get a block
-  void* operator[]( unsigned int idx ) const;
-  /// add a new block and return a pointer to it
-  void* add( void );
-  /// free all blocks (but not the vector, call the destructor for that)
-  void free_data( void );
-  /// get number of bytes stored. lastFill is the number of bytes used
-  /// in the last block
-  r_Bytes get_size( r_Bytes lastFill ) const;
-  /// Copy the data stored in blocks into linear memory. lastFill is the
-  /// number of bytes in the last block
-  void copy_data( void* dest, r_Bytes lastFill ) const;
+    /// constructor, receiving the size of each memory block and the granularity
+    /// for extending the number of blocks.
+    r_Memory_Block_Vector( r_Bytes bsize=4096, unsigned int gran=8 );
+    /// destructor
+    ~r_Memory_Block_Vector( void );
+    /// return number of blocks
+    inline unsigned int get_number( void ) const
+    {
+        return numBlocks;
+    }
+    /// return block size
+    inline r_Bytes get_block_size( void ) const
+    {
+        return blockSize;
+    }
+    /// return granularity
+    inline unsigned int get_granularity( void ) const
+    {
+        return granularity;
+    }
+    /// get a block
+    void* operator[]( unsigned int idx ) const;
+    /// add a new block and return a pointer to it
+    void* add( void );
+    /// free all blocks (but not the vector, call the destructor for that)
+    void free_data( void );
+    /// get number of bytes stored. lastFill is the number of bytes used
+    /// in the last block
+    r_Bytes get_size( r_Bytes lastFill ) const;
+    /// Copy the data stored in blocks into linear memory. lastFill is the
+    /// number of bytes in the last block
+    void copy_data( void* dest, r_Bytes lastFill ) const;
 
 protected:
-  /// the array of memory block pointers
-  void** blocks;
-  unsigned int numBlocks;
-  unsigned int maxBlocks;
-  /// the size of the blocks
-  r_Bytes blockSize;
-  /// the granularity
-  unsigned int granularity;
+    /// the array of memory block pointers
+    void** blocks;
+    unsigned int numBlocks;
+    unsigned int maxBlocks;
+    /// the size of the blocks
+    r_Bytes blockSize;
+    /// the granularity
+    unsigned int granularity;
 };
 
 #endif

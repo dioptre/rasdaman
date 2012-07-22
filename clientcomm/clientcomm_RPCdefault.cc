@@ -29,7 +29,7 @@ rasdaman GmbH.
  * PURPOSE:
  *
  * COMMENTS:
- *		No Comments
+ *      No Comments
 */
 
 static const char rcsid[] = "@(#)clientcomm, ClientComm: $Id: clientcomm.cc,v 1.143 2005/09/09 16:16:29 rasdev Exp $";
@@ -45,82 +45,91 @@ using namespace std;
 int
 ClientComm::changeEndianness( r_GMarray* mdd, const r_Base_Type *bt )
 {
-  const r_Base_Type *baseType;
-  const r_Minterval &interv = mdd->spatial_domain();
+    const r_Base_Type *baseType;
+    const r_Minterval &interv = mdd->spatial_domain();
 
-  baseType = (bt == NULL) ? mdd->get_base_type_schema() : bt;
+    baseType = (bt == NULL) ? mdd->get_base_type_schema() : bt;
 
-  if (baseType == NULL )
-  {
-    cerr << "ClientComm::changeEndianness: No base type information!" << endl;
-    return 0;
-  }
+    if (baseType == NULL )
+    {
+        cerr << "ClientComm::changeEndianness: No base type information!" << endl;
+        return 0;
+    }
 
-  r_Endian::swap_array(baseType, interv, interv, mdd->get_array(), mdd->get_array());
+    r_Endian::swap_array(baseType, interv, interv, mdd->get_array(), mdd->get_array());
 
-  return 1;
+    return 1;
 }
 
 
 int
 ClientComm::changeEndianness( const r_GMarray* mdd, void *newMdd, const r_Base_Type* bt )
 {
-  const r_Base_Type *baseType;
-  const r_Minterval &interv = mdd->spatial_domain();
+    const r_Base_Type *baseType;
+    const r_Minterval &interv = mdd->spatial_domain();
 
-  // Get the base type...
-  baseType = (bt == NULL) ? ((r_GMarray*)mdd)->get_base_type_schema() : bt;
+    // Get the base type...
+    baseType = (bt == NULL) ? ((r_GMarray*)mdd)->get_base_type_schema() : bt;
 
-  if ( baseType == NULL )
-  {
-    cerr << "ClientComm::changeEndianness: No base type information!" << endl;
-    memcpy( newMdd, mdd->get_array(), mdd->get_array_size());
-    return 0;
-  }
+    if ( baseType == NULL )
+    {
+        cerr << "ClientComm::changeEndianness: No base type information!" << endl;
+        memcpy( newMdd, mdd->get_array(), mdd->get_array_size());
+        return 0;
+    }
 
-  r_Endian::swap_array(baseType, interv, interv, mdd->get_array(), newMdd);
+    r_Endian::swap_array(baseType, interv, interv, mdd->get_array(), newMdd);
 
-  return 1;
+    return 1;
 }
 
 ClientComm::ClientComm( ) throw( r_Error )
-  {
-    
-   }
+{
+
+}
 
 ClientComm* ClientComm::createObject(const char* rasmgrName, int rasmgrPort)
-  {
+{
     char *env = getenv("RMANPROTOCOL");
-    
+
     bool createRNP = currentProtocolIsRNP;
-    
+
     if(env != 0)
-      {
+    {
         if(strcmp(env,"RNP") == 0 || strcmp(env,"HTTP") == 0)   createRNP = true;
         if(strcmp(env,"RPC") == 0 || strcmp(env,"COMPAT") == 0) createRNP = false;
-	// rest is ignored
-       }
-	
+        // rest is ignored
+    }
+
     if(createRNP)
         return new RnpClientComm( rasmgrName, rasmgrPort);
-    
+
     return new RpcClientComm(rasmgrName, rasmgrPort);
-   }
+}
 
 ClientComm::~ClientComm() throw()
 {
- }
+}
 
 // default comm protocol to be used:
-//	true	use RNP
-//	false	use RPC
+//  true    use RNP
+//  false   use RPC
 bool ClientComm::currentProtocolIsRNP=true; // up to (excl) 6.0 'false' for MOSS to maintain compat with old apps
 
-void ClientComm::useRNP() throw() { currentProtocolIsRNP = true;  }
+void ClientComm::useRNP() throw()
+{
+    currentProtocolIsRNP = true;
+}
 
-void ClientComm::useRPC() throw() { currentProtocolIsRNP = false; }
+void ClientComm::useRPC() throw()
+{
+    currentProtocolIsRNP = false;
+}
 
-bool ClientComm::internalSettingIsRNP()  throw() { return currentProtocolIsRNP;}
+bool ClientComm::internalSettingIsRNP()  throw()
+{
+    return currentProtocolIsRNP;
+}
 
 
 

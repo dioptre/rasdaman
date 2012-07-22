@@ -21,15 +21,15 @@
 */
 
 /**
- * INCLUDE: rm.hh 
+ * INCLUDE: rm.hh
  *
  * PURPOSE:
- * 		Artificial class to manipulate hierarchy tree. 
+ *      Artificial class to manipulate hierarchy tree.
  *
  * COMMENTS:
  *
 */
- 
+
 #ifndef _RM_CLASS_
 #define _RM_CLASS_
 

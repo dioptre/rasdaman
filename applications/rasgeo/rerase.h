@@ -19,7 +19,7 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
- 
+
 /*
  * Contributed to rasdaman by Alexander Herzig, Landcare Research New Zealand
  */
@@ -53,8 +53,8 @@
 
 // required variables, if rasdaman is compiled with DEBUG enabled
 #ifdef RMANDEBUG
-	int indentLevel;
-	bool debugOutput;
+int indentLevel;
+bool debugOutput;
 #endif
 
 void showEraseHelp();

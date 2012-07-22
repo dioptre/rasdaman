@@ -41,42 +41,42 @@
 // auxiliary static functions
 static void *alloc_c_style( size_t size )
 {
-  return mymalloc( size );
+    return mymalloc( size );
 }
 
 static void free_c_style( void *data )
 {
-  free(data);
+    free(data);
 }
 
 static void *alloc_cpp_style( size_t size )
 {
-  return new char[size];
+    return new char[size];
 }
 
 static void free_cpp_style( void *data )
 {
-  delete [] data;
+    delete [] data;
 }
 
 
 
 r_Storage_Man::r_Storage_Man( void )
 {
-  myalloc = alloc_c_style;
-  myfree = free_c_style;
+    myalloc = alloc_c_style;
+    myfree = free_c_style;
 }
 
 r_Storage_Man::r_Storage_Man( storage_man_alloc a, storage_man_free f )
 {
-  myalloc = a;
-  myfree = f;
+    myalloc = a;
+    myfree = f;
 }
 
 r_Storage_Man::r_Storage_Man( const r_Storage_Man &src )
 {
-  myalloc = src.myalloc;
-  myfree = src.myfree;
+    myalloc = src.myalloc;
+    myfree = src.myfree;
 }
 
 r_Storage_Man::~r_Storage_Man( void )
@@ -85,32 +85,32 @@ r_Storage_Man::~r_Storage_Man( void )
 
 void r_Storage_Man::set_storage_functions( storage_man_alloc a, storage_man_free f )
 {
-  myalloc = a;
-  myfree = f;
+    myalloc = a;
+    myfree = f;
 }
 
 r_Storage_Man &r_Storage_Man::operator=( const r_Storage_Man &src )
 {
-  myalloc = src.myalloc;
-  myfree = src.myfree;
-  return *this;
+    myalloc = src.myalloc;
+    myfree = src.myfree;
+    return *this;
 }
 
 void *r_Storage_Man::storage_alloc( size_t size ) const throw(r_Error)
 {
-  void *result;
+    void *result;
 
-  if ((result = myalloc(size)) == NULL)
-  {
-    r_Error err(r_Error::r_Error_General);
-    throw(err);
-  }
-  return result;
+    if ((result = myalloc(size)) == NULL)
+    {
+        r_Error err(r_Error::r_Error_General);
+        throw(err);
+    }
+    return result;
 }
 
 void r_Storage_Man::storage_free( void *data ) const
 {
-  myfree(data);
+    myfree(data);
 }
 
 

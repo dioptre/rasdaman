@@ -36,41 +36,41 @@ rasdaman GmbH.
 //@ManMemo: Module: {\bf raslib}
 
 /*@Doc:
-  This class realizes the iterator used to access 
+  This class realizes the iterator used to access
   single elements of \Ref{r_Structure_Type}.
 */
- 
+
 template <class T>
 class r_IterType
 {
 public:
-  /// default constructor
-  r_IterType();
-  /// constructor used in r_Structure_Type
-  r_IterType( T* newLastElem, T* newElems );
-  /// constructor used in r_Structure_Type
-  r_IterType( T* newLastElem, T* newElems, T* newCurrPos );
-  /// copy constructor
-  r_IterType( const r_IterType<T>& iter );
-  /// destructor
-  ~r_IterType();
-  /// assignment operator
-  r_IterType<T>& operator=( const r_IterType<T>& iter );
-  /// equal comparison: equal if they point to the same element.
-  bool operator==( const r_IterType<T>& otherIter );
-  /// no equal comparison: not equal if they point to different elements
-  bool operator!=( const r_IterType<T>& otherIter );
-  /// prefix incrementor
-  r_IterType<T>& operator++();
-  /// postfix incrementor
-  r_IterType<T> operator++( int );
-  /// the dereference operator gets the actual element
-  T operator*();
+    /// default constructor
+    r_IterType();
+    /// constructor used in r_Structure_Type
+    r_IterType( T* newLastElem, T* newElems );
+    /// constructor used in r_Structure_Type
+    r_IterType( T* newLastElem, T* newElems, T* newCurrPos );
+    /// copy constructor
+    r_IterType( const r_IterType<T>& iter );
+    /// destructor
+    ~r_IterType();
+    /// assignment operator
+    r_IterType<T>& operator=( const r_IterType<T>& iter );
+    /// equal comparison: equal if they point to the same element.
+    bool operator==( const r_IterType<T>& otherIter );
+    /// no equal comparison: not equal if they point to different elements
+    bool operator!=( const r_IterType<T>& otherIter );
+    /// prefix incrementor
+    r_IterType<T>& operator++();
+    /// postfix incrementor
+    r_IterType<T> operator++( int );
+    /// the dereference operator gets the actual element
+    T operator*();
 
 protected:
-  T* lastElem;
-  T* myElems;
-  T* currPos;
+    T* lastElem;
+    T* myElems;
+    T* currPos;
 };
 
 #ifdef EARLY_TEMPLATE
@@ -80,7 +80,7 @@ protected:
 #else
 #include "itertype.cc"
 #endif
-#endif 
+#endif
 #endif
 
 #endif

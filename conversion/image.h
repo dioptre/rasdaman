@@ -27,11 +27,13 @@ rasdaman GmbH.
 #include <fstream>
 #include <iostream>
 
-namespace RasNITF{
+namespace RasNITF
+{
 
-class image_band{
-    
- public:
+class image_band
+{
+
+public:
 
     char irepbandnn[2];
     char isubcatnn[6];
@@ -45,10 +47,11 @@ class image_band{
 
     image_band();
     ~image_band();
-    
+
 };
 
-class image {
+class image
+{
 
     /*********************************
      * image header fields
@@ -85,13 +88,13 @@ class image {
     char m_abpp[2];
     char m_pjust[1];
     char m_icords[1];
-    char m_igeolo[60];    
+    char m_igeolo[60];
     char m_nicom[1];
     char* m_icom;
     char m_ic[2];
     char m_comrat[4];
     char m_nbands[1];
-    char m_xbands[5];  
+    char m_xbands[5];
     image_band* m_bands;
     char m_isync[1];
     char m_imode[1];
@@ -115,20 +118,20 @@ class image {
      *  image data mask table
      ****************************/
 
-    /*      
+    /*
     long imdataoff;
     unsigned short bmrlnth;
     unsigned short tmrlnth;
     unsigned short tpxcdlnth;
     long tpxcd;
-    char* BMRnBNDm; 
+    char* BMRnBNDm;
     char* TMRnBNDm;
     */
 
     /*****************************
      * raw image data
      *****************************/
- 
+
     char* m_data;
 
     /*****************************
@@ -139,37 +142,37 @@ class image {
     int n_nicom;
     int n_nbands;
     int n_xbands;
-    int numbands; 
+    int numbands;
     int n_udidl;
     int n_ixshdl;
     long header_length;
     long data_length;
     char texthl[6];
     char textdl[10];
-    int n_nbpr;                    
-    int n_nbpc;                    
-    int n_nppbh;                   
-    int n_nppbv;                   
+    int n_nbpr;
+    int n_nbpc;
+    int n_nppbh;
+    int n_nppbv;
 
     /*****************************
      *  variables for data reordering
      *  populated by compute_data_reordering_variables()
      *****************************/
-        
+
     int n_nrows;
     int n_ncols;
     int px_comp_size;
     int px_size;
     int numblocks;
-    
+
     long block_size_bytes;
     long block_size_pixels;
     long block_row_size; //bytes
     long block_band_size; //bytes
     long block_band_size_px;
     long image_band_size;
-  
- 
+
+
     int copy_block_data(char* writeto, int hor_block_index, int ver_block_index );
 
     // functions for data reordering
@@ -190,9 +193,9 @@ class image {
     int imode_ps2r(char*);
     int imode_ps2p(char*);
     int imode_ps2s(char*);
-   
- 
- public:    
+
+
+public:
 
     image();
     ~image();

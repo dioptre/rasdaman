@@ -27,14 +27,14 @@ rasdaman GmbH.
  * CLASS:   r_Collection
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 template<class T>
 inline unsigned long
 r_Collection<T>::cardinality() const
 {
-  return card;
+    return card;
 }
 
 
@@ -42,10 +42,10 @@ template<class T>
 inline int
 r_Collection<T>::is_empty() const
 {
-  if ( coll->elem )
-    return false;
-  else
-    return true;
+    if ( coll->elem )
+        return false;
+    else
+        return true;
 }
 
 
@@ -53,7 +53,7 @@ template<class T>
 inline int
 r_Collection<T>::is_ordered() const
 {
-  return isOrdered;
+    return isOrdered;
 }
 
 
@@ -61,7 +61,7 @@ template<class T>
 inline int
 r_Collection<T>::allows_duplicates() const
 {
-  return allowsDuplicates;
+    return allowsDuplicates;
 }
 
 
@@ -69,5 +69,5 @@ template<class T>
 inline void*
 r_Collection<T>::get_internal_representation() const
 {
-  return (void*)coll;
+    return (void*)coll;
 }

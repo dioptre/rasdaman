@@ -57,50 +57,50 @@ stored in one char. OctetType is a persistence capable class.
   * \ingroup Relcatalogifs
   */
 class OctetType : public IntegralType
-	{
-	public:
-		OctetType(const OId& id);
+{
+public:
+    OctetType(const OId& id);
 
-		OctetType();
-		/*@Doc:
-		default constructor, no initialization needed for OctetType.
-		*/
-		
-		OctetType(const OctetType& old);
-		/*@Doc:
-		copy constructor.
-		*/
+    OctetType();
+    /*@Doc:
+    default constructor, no initialization needed for OctetType.
+    */
 
-		OctetType& operator=(const OctetType& old);
-		/*@Doc:
-		assignment operator.
-		*/
+    OctetType(const OctetType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-		virtual ~OctetType();
-		/*@Doc:
-		virtual destructor.
-		*/
+    OctetType& operator=(const OctetType& old);
+    /*@Doc:
+    assignment operator.
+    */
 
-		virtual void printCell(ostream& stream, const char* cell) const;
-		/*@Doc:
-		*/
+    virtual ~OctetType();
+    /*@Doc:
+    virtual destructor.
+    */
 
-		virtual r_Long* convertToCLong(const char* cell, r_Long* value) const;
-		/*@Doc:
-		*/
+    virtual void printCell(ostream& stream, const char* cell) const;
+    /*@Doc:
+    */
 
-		virtual char* makeFromCLong(char* cell, const r_Long* value) const;
+    virtual r_Long* convertToCLong(const char* cell, r_Long* value) const;
+    /*@Doc:
+    */
 
-		static const char* Name;
-		
-	protected:
+    virtual char* makeFromCLong(char* cell, const r_Long* value) const;
 
-		virtual void readFromDb() throw (r_Error);
-		/*@Doc:
-		initializes the attributes of this type.
-		there is no database activity.  this is hard coded.
-		*/
+    static const char* Name;
 
-	};
+protected:
+
+    virtual void readFromDb() throw (r_Error);
+    /*@Doc:
+    initializes the attributes of this type.
+    there is no database activity.  this is hard coded.
+    */
+
+};
 
 #endif

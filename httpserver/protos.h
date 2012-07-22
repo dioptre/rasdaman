@@ -26,14 +26,14 @@ rasdaman GmbH.
 /*
  * RCS:
  *   $RCSfile: protos.h,v $ $Revision: 1.10 $ $State: Exp $
- *   $Locker:  $ 
+ *   $Locker:  $
  */
 
 #ifndef _PROTOS_H
 #define _PROTOS_H
 
 #include "server.h"
- 
+
 /*------------------------------------------------------------------------*/
 /*  Protoypes from main.c                                                 */
 /*------------------------------------------------------------------------*/

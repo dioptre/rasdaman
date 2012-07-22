@@ -24,7 +24,7 @@ rasdaman GmbH.
 /*************************************************************
  *
  * CHANGE HISTORY (append further entries):
- * when         who        	 	what
+ * when         who             what
  * ----------------------------------------------------------
  * 10-11-08     Shams      Created the class
  * COMMENTS:
@@ -46,37 +46,37 @@ using namespace std;
 
 
 QtMddCfgOp::QtMddCfgOp()
-  :  QtOperation(),
-     input(NULL)
+    :  QtOperation(),
+       input(NULL)
 {
 }
 
 
 QtMddCfgOp::QtMddCfgOp( QtOperation* inputInit )
-  :  QtOperation(),
-     input( inputInit )
+    :  QtOperation(),
+       input( inputInit )
 {
-  if( input )
-    input->setParent( this );
+    if( input )
+        input->setParent( this );
 }
 
 QtMddCfgOp::QtMddCfgOp( int tilingType, int tileSize, int borderThreshold,
-            double interestThreshold, QtOperation* tileCfg, QtNode::QtOperationList* box,std::vector<r_Dir_Decompose>* dDecomp,
-            int indexType)
+                        double interestThreshold, QtOperation* tileCfg, QtNode::QtOperationList* box,std::vector<r_Dir_Decompose>* dDecomp,
+                        int indexType)
 {
     mddCfgObj = new QtMDDConfig(tilingType,tileSize, borderThreshold, interestThreshold, tileCfg, box, dDecomp, indexType);
 
 }
 
 QtMddCfgOp::QtMddCfgOp( int tilingType, int tileSize, int borderThreshold,
-            double interestThreshold, QtOperation* tileCfg, QtNode::QtOperationList* box,std::vector<r_Dir_Decompose>* dDecomp)
+                        double interestThreshold, QtOperation* tileCfg, QtNode::QtOperationList* box,std::vector<r_Dir_Decompose>* dDecomp)
 {
     mddCfgObj = new QtMDDConfig(tilingType,tileSize, borderThreshold, interestThreshold, tileCfg, box, dDecomp, QtMDDConfig::r_DEFAULT_INDEX);
 
 }
 
 QtMddCfgOp::QtMddCfgOp(int index)
-  :  QtOperation()
+    :  QtOperation()
 {
     mddCfgObj = new QtMDDConfig(QtMDDConfig::r_DEFAULT_TLG, -1, -1, -1, NULL, NULL,NULL,index);
 
@@ -84,34 +84,35 @@ QtMddCfgOp::QtMddCfgOp(int index)
 
 QtMddCfgOp::~QtMddCfgOp()
 {
-  if( input )
-  {
-    delete input;
-    input=NULL;
-  }
+    if( input )
+    {
+        delete input;
+        input=NULL;
+    }
 }
 
 
 void
 QtMddCfgOp::optimizeLoad( QtTrimList* trimList )
 {
-  RMDBCLASS( "QtMddCfgOp", "optimizeLoad( QtTrimList* )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtMddCfgOp", "optimizeLoad( QtTrimList* )", "qlparser", __FILE__, __LINE__ )
 
-  // by default, pass load domain to the input
-  if( input )
-    input->optimizeLoad( trimList );
-  else
-  {
-    delete trimList;
-    trimList=NULL;
-  }
+    // by default, pass load domain to the input
+    if( input )
+        input->optimizeLoad( trimList );
+    else
+    {
+        delete trimList;
+        trimList=NULL;
+    }
 }
 
-QtMDDConfig* 
+QtMDDConfig*
 QtMddCfgOp::evaluate(QtDataList* inputList)
 {
     QtMDDConfig* retvalue = NULL;
-    for (int i = 0 ; i < inputList->size() ; i++){
+    for (int i = 0 ; i < inputList->size() ; i++)
+    {
         retvalue = (QtMDDConfig*)inputList->at(i);
     }
     return retvalue;

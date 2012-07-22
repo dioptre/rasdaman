@@ -26,7 +26,7 @@ rasdaman GmbH.
  * MODULE: rasodmg
  *
  * COMMENTS:
- * 			None
+ *          None
 */
 
 #ifdef EARLY_TEMPLATE
@@ -39,31 +39,31 @@ rasdaman GmbH.
 
 class X
 {
-  public:
+public:
     int a;
 };
 
 int main()
-{   
-  cout << endl << endl;
-  cout << "r_Ref tests" << endl;
-  cout << "===========" << endl << endl;
-    
-  r_Ref<X>   ptr;
-  r_Ref<int> ptr2;
-  
-  cout << "r_Ref created. is_null() ? " << ptr.is_null() << endl;
-  
-  ptr = new X;
-  
-  cout << "r_Ref assigned to pointer of base type. is_null() ? " << ptr.is_null() << endl;
-  
-  (*ptr).a = 1;
-  cout << "assignment *ptr.a = 1. Current value ? " << (*ptr).a << endl;
-  ptr->a = 2;
-  cout << "assignment ptr->a = 2. Current value ? " << ptr->a << endl;
+{
+    cout << endl << endl;
+    cout << "r_Ref tests" << endl;
+    cout << "===========" << endl << endl;
 
-  ptr.destroy(); // delete from memory
-  
-  return 0;
+    r_Ref<X>   ptr;
+    r_Ref<int> ptr2;
+
+    cout << "r_Ref created. is_null() ? " << ptr.is_null() << endl;
+
+    ptr = new X;
+
+    cout << "r_Ref assigned to pointer of base type. is_null() ? " << ptr.is_null() << endl;
+
+    (*ptr).a = 1;
+    cout << "assignment *ptr.a = 1. Current value ? " << (*ptr).a << endl;
+    ptr->a = 2;
+    cout << "assignment ptr->a = 2. Current value ? " << ptr->a << endl;
+
+    ptr.destroy(); // delete from memory
+
+    return 0;
 }

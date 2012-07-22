@@ -24,7 +24,7 @@
  * INCLUDE: rmdebug.hh
  *
  * PURPOSE:
- * 		Contains debug stuff.
+ *      Contains debug stuff.
  *
  * COMMENTS:
  *
@@ -32,7 +32,7 @@
 
 #ifndef _RMDEBUG_
 #define _RMDEBUG_
- 
+
 #ifdef __VISUALC__
 #include <time.h>
 #else
@@ -134,7 +134,7 @@ the files {\tt rmdbmodules} and {\tt rmdbclasses}. The files
 should contain names of modules resp. classes to be debugged, each
 (including the last one!) followed by end of line. */
 
-/** 
+/**
   * \defgroup RMs RM Classes
   */
 
@@ -145,113 +145,117 @@ should contain names of modules resp. classes to be debugged, each
 class RMDebug : public RM_Class
 {
 public:
-  /// constructor, initializes members and prints message.
-  RMDebug(const char* newClass, const char* newFunc, const char* newModule,
-	  const char* newFile, int newLine);
-  /// constructor taking an identifier to the module for more efficiency
-  RMDebug(int newLevel, const char* newClass, const char* newFun, int newModuleNum,
-	  const char* newFile, int newLine);
-  /// destructor, prints message.
-  ~RMDebug(void);
+    /// constructor, initializes members and prints message.
+    RMDebug(const char* newClass, const char* newFunc, const char* newModule,
+            const char* newFile, int newLine);
+    /// constructor taking an identifier to the module for more efficiency
+    RMDebug(int newLevel, const char* newClass, const char* newFun, int newModuleNum,
+            const char* newFile, int newLine);
+    /// destructor, prints message.
+    ~RMDebug(void);
 
-  /// for initializing modules and classes to debug.
-  static int initRMDebug(void);
+    /// for initializing modules and classes to debug.
+    static int initRMDebug(void);
 
-  /// get the debug level of a module by its number
-  static inline int getModuleDebugLevel(int modNum) {
-    return allModuleLevels[modNum];
-  }
-  /// get the name of a module by its number
-  static inline const char* getModuleName(int modNum) {
-    return allModuleNames[modNum];
-  }
-  /// indent by the amount specified by level
-  static inline void indentLine(void) {
-    for (int i=0; i<level; i++) RMInit::dbgOut << "  ";
-  }
+    /// get the debug level of a module by its number
+    static inline int getModuleDebugLevel(int modNum)
+    {
+        return allModuleLevels[modNum];
+    }
+    /// get the name of a module by its number
+    static inline const char* getModuleName(int modNum)
+    {
+        return allModuleNames[modNum];
+    }
+    /// indent by the amount specified by level
+    static inline void indentLine(void)
+    {
+        for (int i=0; i<level; i++) RMInit::dbgOut << "  ";
+    }
 
-  /// return whether debug output should happen for the given module, class
-  /// and debugging level
-  static int debugOutput(int dbgLevel, int modNum, const char* className);
+    /// return whether debug output should happen for the given module, class
+    /// and debugging level
+    static int debugOutput(int dbgLevel, int modNum, const char* className);
 
-  /// all modules for debugging
-  enum {
-    module_adminif = 0,
-    module_applications,
-    module_blobif,
-    module_cachetamgr,
-    module_catalogif,
-    module_catalogmgr,
-    module_clientcomm,
-    module_conversion,
-    module_httpserver,
-    module_indexif,
-    module_indexmgr,
-    module_insertutils,
-    module_mddif,
-    module_mddmgr,
-    module_qlparser,
-    module_rasdl,
-    module_raslib,
-    module_rasodmg,
-    module_rasql,
-    module_server,
-    module_servercomm,
-    module_storageif,
-    module_storagemgr,
-    module_tilemgr,
-    module_tools,
-    module_utilities,
-    module_number
-  } RMDebugModules;
-  /*@ManMemo level of function calls (incremented by constructor,
-             decremented by destrctor. */
-  static int level;
+    /// all modules for debugging
+    enum
+    {
+        module_adminif = 0,
+        module_applications,
+        module_blobif,
+        module_cachetamgr,
+        module_catalogif,
+        module_catalogmgr,
+        module_clientcomm,
+        module_conversion,
+        module_httpserver,
+        module_indexif,
+        module_indexmgr,
+        module_insertutils,
+        module_mddif,
+        module_mddmgr,
+        module_qlparser,
+        module_rasdl,
+        module_raslib,
+        module_rasodmg,
+        module_rasql,
+        module_server,
+        module_servercomm,
+        module_storageif,
+        module_storagemgr,
+        module_tilemgr,
+        module_tools,
+        module_utilities,
+        module_number
+    } RMDebugModules;
+    /*@ManMemo level of function calls (incremented by constructor,
+               decremented by destrctor. */
+    static int level;
 
 private:
-  /// checks, if messages should be printed.
-  int checkDebug(void);
-  /// loads a file containing text and returns a 0-terminated string
-  static char* loadTextFile(const char* name);
-  /*@Doc:
-     If {\tt debugModules} or {\tt debugClasses} is set, checks
-     if myModule or myClass is in the corresponding array.
-  */
+    /// checks, if messages should be printed.
+    int checkDebug(void);
+    /// loads a file containing text and returns a 0-terminated string
+    static char* loadTextFile(const char* name);
+    /*@Doc:
+       If {\tt debugModules} or {\tt debugClasses} is set, checks
+       if myModule or myClass is in the corresponding array.
+    */
 
-  /// name of class.
-  const char* myClass;
-  /// name of function (no parameters).
-  const char* myFunc;
-  /// name of module.
-  const char* myModule;
-  /// name of source file.
-  const char* myFile;
-  /// line of code where destructor call is.
-  int myLine;
-  /// number of module
-  int myModuleNum;
-  /// debugging level for this instance
-  int myDebugLevel;
-  /// debugging on for this class?
-  int myDebugOn;
-  /// number of strings in {\tt debugModules}.
-  static int numDebugModules;
-  /// array with pointers into names of modules to be debugged.
-  static char** debugModules;
-  /// names of modules to be debugged.
-  static char* debugModulesText;
-  /// number of strings in {\tt debugClasses}.
-  static int numDebugClasses;
-  /// array with pointers into names of classes to be debugged.
-  static char** debugClasses;
-  /// names of class es to be debugged.
-  static char* debugClassesText;
-  /// translate index of debug module into index of all modules
-  static int* transDebugModules;
-  /// names of all modules
-  static const char* allModuleNames[];
-  /// the debug levels for all modules
-  static int allModuleLevels[];
+    /// name of class.
+    const char* myClass;
+    /// name of function (no parameters).
+    const char* myFunc;
+    /// name of module.
+    const char* myModule;
+    /// name of source file.
+    const char* myFile;
+    /// line of code where destructor call is.
+    int myLine;
+    /// number of module
+    int myModuleNum;
+    /// debugging level for this instance
+    int myDebugLevel;
+    /// debugging on for this class?
+    int myDebugOn;
+    /// number of strings in {\tt debugModules}.
+    static int numDebugModules;
+    /// array with pointers into names of modules to be debugged.
+    static char** debugModules;
+    /// names of modules to be debugged.
+    static char* debugModulesText;
+    /// number of strings in {\tt debugClasses}.
+    static int numDebugClasses;
+    /// array with pointers into names of classes to be debugged.
+    static char** debugClasses;
+    /// names of class es to be debugged.
+    static char* debugClassesText;
+    /// translate index of debug module into index of all modules
+    static int* transDebugModules;
+    /// names of all modules
+    static const char* allModuleNames[];
+    /// the debug levels for all modules
+    static int allModuleLevels[];
 };
 
 ///Module: {\bf raslib}.
@@ -294,67 +298,67 @@ destructor is called possibly causing a crash.
 class RMTimer : public RM_Class
 {
 public:
-  /// constructor, initializes members and starts timer.
-  inline RMTimer(const char* newClass, const char* newFunc, 
-		 int newBmLevel = 0);
-  /**
-    The parameters newClass and newFunc have to be string literals. Just
-    a pointer to them is stored. No output is generated if RManBenchmark
-    < newBmLevel. 
-  */
-  /// destructor, calls stop().
-  inline ~RMTimer();
-  /// switch output on RMInit::bmOut on and off.
-  inline void setOutput(int newOutput);
-  /**
-    If newOutoutput is FALSE no output is created on RMInit::bmOut on
-    the following calls to stop() and ~RMTimer() until the next start().
-  */
-  /// pauses timer.
-  inline void pause();
-  /// resumes timer.
-  inline void resume();
-  /// resets timer.
-  inline void start();
-  /**
-    Also switches output to RMInit::bmOut on again.
-  */
-  /// prints time spent if output is TRUE.
-  inline void stop();
-  /** 
-    Time spent is the time since construction or last start() excluding
-    the times between pause() and resume().
-  */
-  /// delivers current time count.
-  inline int getTime();
+    /// constructor, initializes members and starts timer.
+    inline RMTimer(const char* newClass, const char* newFunc,
+                   int newBmLevel = 0);
+    /**
+      The parameters newClass and newFunc have to be string literals. Just
+      a pointer to them is stored. No output is generated if RManBenchmark
+      < newBmLevel.
+    */
+    /// destructor, calls stop().
+    inline ~RMTimer();
+    /// switch output on RMInit::bmOut on and off.
+    inline void setOutput(int newOutput);
+    /**
+      If newOutoutput is FALSE no output is created on RMInit::bmOut on
+      the following calls to stop() and ~RMTimer() until the next start().
+    */
+    /// pauses timer.
+    inline void pause();
+    /// resumes timer.
+    inline void resume();
+    /// resets timer.
+    inline void start();
+    /**
+      Also switches output to RMInit::bmOut on again.
+    */
+    /// prints time spent if output is TRUE.
+    inline void stop();
+    /**
+      Time spent is the time since construction or last start() excluding
+      the times between pause() and resume().
+    */
+    /// delivers current time count.
+    inline int getTime();
 
 private:
-  /// name of class.
-  const char* myClass; 
-  /// name of function (no parameters).
-  const char* myFunc;  
-  /// flag, if stop() should print timing information
-  int output;
-  /// stores benchmark level, checked before output.
-  int bmLevel;
-  // reference parameter for gettimeofday().
+    /// name of class.
+    const char* myClass;
+    /// name of function (no parameters).
+    const char* myFunc;
+    /// flag, if stop() should print timing information
+    int output;
+    /// stores benchmark level, checked before output.
+    int bmLevel;
+    // reference parameter for gettimeofday().
 #ifdef __VISUALC__
-  time_t acttime;
+    time_t acttime;
 #else
-  timeval acttime;
+    timeval acttime;
 #endif
-  /// accu for saving time in us
-  long accuTime;
-  /// flag indicating if the timer is currently running.
-  unsigned short running;
-  // reference parameter for gettimeofday, not used.
-  static struct timezone dummy;
-  /// used to calculate time spent in function.
-  long oldsec;
-  /// used to calculate time spent in function.
-  long oldusec;
-  /// aux function to determine clock time elapsed so far.
-  inline void fetchTime();
+    /// accu for saving time in us
+    long accuTime;
+    /// flag indicating if the timer is currently running.
+    unsigned short running;
+    // reference parameter for gettimeofday, not used.
+    static struct timezone dummy;
+    /// used to calculate time spent in function.
+    long oldsec;
+    /// used to calculate time spent in function.
+    long oldusec;
+    /// aux function to determine clock time elapsed so far.
+    inline void fetchTime();
 };
 ///Module: {\bf raslib}.
 
@@ -369,12 +373,12 @@ Objects of this class increment the indent level of RMDebug at construction time
 class RMCounter : public RM_Class
 {
 public:
-  /// constructor, increments indent level if the class should be debugged.
-  RMCounter(int levell, int module, const char* cls);
-  /// destructor, decrements indent level.
-  ~RMCounter();
+    /// constructor, increments indent level if the class should be debugged.
+    RMCounter(int levell, int module, const char* cls);
+    /// destructor, decrements indent level.
+    ~RMCounter();
 private:
-  bool doStuff;
+    bool doStuff;
 };
 
 #include "raslib/rmdebug.icc"

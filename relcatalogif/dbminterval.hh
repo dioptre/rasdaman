@@ -45,62 +45,62 @@ for a more efficient storage system refere to InlineMInterval
   * \ingroup Relcatalogifs
   */
 class DBMinterval : public DBObject, public r_Minterval
-	{
-	public:
-		DBMinterval();
+{
+public:
+    DBMinterval();
 
-		DBMinterval(const OId& id) throw (r_Error);
+    DBMinterval(const OId& id) throw (r_Error);
 
-		DBMinterval(r_Dimension dim);
+    DBMinterval(r_Dimension dim);
 
-		DBMinterval(const char* dom);
+    DBMinterval(const char* dom);
 
-		DBMinterval(const r_Minterval& old);
+    DBMinterval(const r_Minterval& old);
 
-		DBMinterval(const DBMinterval& old);
+    DBMinterval(const DBMinterval& old);
 
-		~DBMinterval();
-		/*@Doc:
-		validates the object in the database.
-		*/
-		
-		virtual DBMinterval& operator=(const DBMinterval& old);
-		/*@Doc:
-		replaces only the r_Minterval part of the object
-		*/
+    ~DBMinterval();
+    /*@Doc:
+    validates the object in the database.
+    */
 
-		virtual DBMinterval& operator=(const r_Minterval& old);
-		/*@Doc:
-		replaces only the r_Minterval part of the object
-		*/
+    virtual DBMinterval& operator=(const DBMinterval& old);
+    /*@Doc:
+    replaces only the r_Minterval part of the object
+    */
 
-		virtual r_Bytes getMemorySize() const;
-		/*@Doc:
-		esimates the space taken up by this object with:
-		DBObject::getMemorySize() + sizeof(r_Minterval)
-			+ dimensionality * (4 + 4 + 1 + 1)
-		*/
+    virtual DBMinterval& operator=(const r_Minterval& old);
+    /*@Doc:
+    replaces only the r_Minterval part of the object
+    */
 
-	protected:
+    virtual r_Bytes getMemorySize() const;
+    /*@Doc:
+    esimates the space taken up by this object with:
+    DBObject::getMemorySize() + sizeof(r_Minterval)
+        + dimensionality * (4 + 4 + 1 + 1)
+    */
 
-		virtual void insertInDb() throw (r_Error);
-		/*@Doc:
-		inserts the object into the database.  it uses one table
-		for the fixed length attributes (oid, size, dimension) and
-		another for dynamic data (lower/upper bounds/fixed ranges)
-		*/
+protected:
 
-		virtual void updateInDb() throw (r_Error);
-		/*@Doc:
-		*/
+    virtual void insertInDb() throw (r_Error);
+    /*@Doc:
+    inserts the object into the database.  it uses one table
+    for the fixed length attributes (oid, size, dimension) and
+    another for dynamic data (lower/upper bounds/fixed ranges)
+    */
 
-		virtual void deleteFromDb() throw (r_Error);
-		/*@Doc:
-		*/
+    virtual void updateInDb() throw (r_Error);
+    /*@Doc:
+    */
 
-		virtual void readFromDb() throw (r_Error);
-		/*@Doc:
-		*/
-	};
+    virtual void deleteFromDb() throw (r_Error);
+    /*@Doc:
+    */
+
+    virtual void readFromDb() throw (r_Error);
+    /*@Doc:
+    */
+};
 
 #endif

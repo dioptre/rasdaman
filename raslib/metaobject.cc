@@ -35,51 +35,51 @@ static const char rcsid[] = "@(#)raslib, r_Meta_Object: $Header: /home/rasdev/CV
 #include <string.h>
 
 r_Meta_Object::r_Meta_Object()
-  : typeName(NULL)
+    : typeName(NULL)
 {
 }
 
 r_Meta_Object::r_Meta_Object( const char* newTypeName )
 {
-  typeName = (char*)mymalloc(strlen(newTypeName) + 1);
-  strcpy(typeName, newTypeName);
+    typeName = (char*)mymalloc(strlen(newTypeName) + 1);
+    strcpy(typeName, newTypeName);
 }
 
 r_Meta_Object::r_Meta_Object( const r_Meta_Object& oldObj )
-  : typeName(NULL)
+    : typeName(NULL)
 {
-  if( oldObj.typeName )
-  {
-    typeName = (char*)mymalloc(strlen(oldObj.typeName) + 1);
-    strcpy(typeName, oldObj.typeName);
-  }
+    if( oldObj.typeName )
+    {
+        typeName = (char*)mymalloc(strlen(oldObj.typeName) + 1);
+        strcpy(typeName, oldObj.typeName);
+    }
 }
 
-const r_Meta_Object& 
+const r_Meta_Object&
 r_Meta_Object::operator=( const r_Meta_Object& oldObj )
 {
-  // Gracefully handle self assignment
-  if (this == &oldObj) return *this;
+    // Gracefully handle self assignment
+    if (this == &oldObj) return *this;
 
-  free(typeName);
-  typeName = NULL;
-  if( oldObj.typeName )
-  {
-    typeName = (char*)mymalloc(strlen(oldObj.typeName) + 1);
-    strcpy(typeName, oldObj.typeName);
-  }
+    free(typeName);
+    typeName = NULL;
+    if( oldObj.typeName )
+    {
+        typeName = (char*)mymalloc(strlen(oldObj.typeName) + 1);
+        strcpy(typeName, oldObj.typeName);
+    }
 
-  return *this;
+    return *this;
 }
 
 r_Meta_Object::~r_Meta_Object()
 {
-  if(typeName)
-    free(typeName);
+    if(typeName)
+        free(typeName);
 }
 
-const char* 
+const char*
 r_Meta_Object::name() const
 {
-  return typeName;
+    return typeName;
 }

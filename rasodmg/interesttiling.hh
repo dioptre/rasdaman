@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   r_Interest_Tiling
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 #ifndef _R_INTERESTTILING_HH_
@@ -47,7 +47,7 @@ class r_Interest_Tiling;
   Example of usage:
     The user says that [10:20, 50:60] and [18:50, 65:70] are of interest
     to him in the [0:1000, 0:1000] domain. Tiling should be done according
-    to this setting. To specify this with this class the following code 
+    to this setting. To specify this with this class the following code
     would work:
 
       ...
@@ -75,19 +75,19 @@ class r_Interest_Tiling;
   */
 class r_Interest_Tiling : public r_Dimension_Tiling
 {
-  public:
+public:
 
     /// Possible strategies to limit the tilesize
     enum Tilesize_Limit {NO_LIMIT, REGROUP, SUB_TILING, REGROUP_AND_SUBTILING, NUMBER};
 
-   /// read everything from an encoded string
-   /// e.g. "2;[0:9,0:9];[100:109,0:9];100;REGROUPSUBTILING"
+    /// read everything from an encoded string
+    /// e.g. "2;[0:9,0:9];[100:109,0:9];100;REGROUPSUBTILING"
     r_Interest_Tiling(const char* encoded) throw (r_Error);
 
     r_Interest_Tiling(r_Dimension dim,
                       const std::vector<r_Minterval>& interest_areas,
-		      r_Bytes ts = RMInit::clientTileSize,
-		      Tilesize_Limit strat = SUB_TILING) throw (r_Error);
+                      r_Bytes ts = RMInit::clientTileSize,
+                      Tilesize_Limit strat = SUB_TILING) throw (r_Error);
     /**
       It takes as parameter a list containing the areas of interest to
       the user and also the tilesize to be used.
@@ -95,21 +95,21 @@ class r_Interest_Tiling : public r_Dimension_Tiling
       strategy, that can be the following:
 
         NO_LIMIT:   The generated blocks can have any size.
-	REGROUP:    Only when performing grouping/merging of blocks, the
-	            size of the resulting block of two merges is checked
-		    against tilesize. If it's bigger, they are not merged.
-		    Blocks larger than tilesize may exist (for instance,
-		    if the user specifies an interest area larger then
-		    tilesize).
+    REGROUP:    Only when performing grouping/merging of blocks, the
+                size of the resulting block of two merges is checked
+            against tilesize. If it's bigger, they are not merged.
+            Blocks larger than tilesize may exist (for instance,
+            if the user specifies an interest area larger then
+            tilesize).
         SUB_TILING: In this strategie, regrouping is done regardless of the
-	            size of the generated blocks. After all the blocks are
-		    created, sub-tiling is performed on those whose size is
-		    larger than tilesize.
-	REGROUP_AND_SUBTILING: This combines the last two strategies. When
-	            merging blocks, blocks larger than tilesize are never 
-		    created and, when the final blocks are all created, 
-		    sub-tiling is performed on those whose size is larger
-		    then tilesize.
+                size of the generated blocks. After all the blocks are
+            created, sub-tiling is performed on those whose size is
+            larger than tilesize.
+    REGROUP_AND_SUBTILING: This combines the last two strategies. When
+                merging blocks, blocks larger than tilesize are never
+            created and, when the final blocks are all created,
+            sub-tiling is performed on those whose size is larger
+            then tilesize.
     An exception is thrown when the dimensions of the domains does not match the
     specified dimension.
     */
@@ -119,11 +119,11 @@ class r_Interest_Tiling : public r_Dimension_Tiling
     std::vector<r_Minterval>* compute_tiles(const r_Minterval& obj_domain, r_Bytes cell_size) const throw (r_Error);
 
     virtual void print_status(std::ostream& os) const;
-    
+
     virtual r_Tiling* clone() const;
 
     virtual r_Tiling_Scheme get_tiling_scheme() const;
-    
+
     //@ManMemo: Module: {\bf raslib}
     /**
        Get a tilesize limit for a tilisize limit name
@@ -137,7 +137,7 @@ class r_Interest_Tiling : public r_Dimension_Tiling
 
     static const char* description;
 
-  protected: // methods.
+protected: // methods.
 
     /// Given a domain and a set of interest areas (internal) gener. partition
     std::vector<r_Dir_Decompose>* make_partition(const r_Minterval& domain) const;
@@ -167,20 +167,20 @@ class r_Interest_Tiling : public r_Dimension_Tiling
     std::vector<r_Minterval> iareas;
 
 
-   //@ManMemo: Module: {\bf raslib}
-   /**
-     The names of all tilesizelimit types, to avoid redundant storage and inconsistencies.
-     The variable name convention is the prefix tilisizelimit_name_ followed by the name
-     of the data format in lower case, i.e. for NOLIMIT tilisizelimit_name_nolimit.
-     In addition there's an array of names all_tilesizelimit_names  where the tilesize limit
-     can be used as index to get the name.
-   */
-   static const char* tilesizelimit_name_nolimit;
-   static const char* tilesizelimit_name_regroup;
-   static const char* tilesizelimit_name_subtiling;
-   static const char* tilesizelimit_name_regroupandsubtiling;
-   
-   static const char* all_tilesizelimit_names[r_Interest_Tiling::NUMBER]; 
+    //@ManMemo: Module: {\bf raslib}
+    /**
+      The names of all tilesizelimit types, to avoid redundant storage and inconsistencies.
+      The variable name convention is the prefix tilisizelimit_name_ followed by the name
+      of the data format in lower case, i.e. for NOLIMIT tilisizelimit_name_nolimit.
+      In addition there's an array of names all_tilesizelimit_names  where the tilesize limit
+      can be used as index to get the name.
+    */
+    static const char* tilesizelimit_name_nolimit;
+    static const char* tilesizelimit_name_regroup;
+    static const char* tilesizelimit_name_subtiling;
+    static const char* tilesizelimit_name_regroupandsubtiling;
+
+    static const char* all_tilesizelimit_names[r_Interest_Tiling::NUMBER];
 };
 
 #endif

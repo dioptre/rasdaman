@@ -28,7 +28,7 @@ rasdaman GmbH.
  * CLASSES: r_Convertor_Factory
  *
  * COMMENTS:
- * 		Create convertors out of data formats
+ *      Create convertors out of data formats
 */
 
 #include "raslib/mddtypes.hh"
@@ -52,13 +52,13 @@ class r_Type;
 
 class r_Convertor_Factory
 {
-  public:
-  /// check for support
-  static bool is_supported( r_Data_Format fmt );
-  /// creating from r_Type
-  static r_Convertor *create( r_Data_Format fmt, const char *src, const r_Minterval &interv,
-			      const r_Type *tp ) throw(r_Error);
-  /// creating from internal type
-  static r_Convertor *create( r_Data_Format fmt, const char *src, const r_Minterval &interv,
-			      int type ) throw(r_Error);
+public:
+    /// check for support
+    static bool is_supported( r_Data_Format fmt );
+    /// creating from r_Type
+    static r_Convertor *create( r_Data_Format fmt, const char *src, const r_Minterval &interv,
+                                const r_Type *tp ) throw(r_Error);
+    /// creating from internal type
+    static r_Convertor *create( r_Data_Format fmt, const char *src, const r_Minterval &interv,
+                                int type ) throw(r_Error);
 };

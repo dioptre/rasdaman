@@ -47,82 +47,82 @@ EXEC SQL include "../reladminif/sqlglobals.h";
 void
 MDDType::deleteFromDb() throw (r_Error)
 {
-	RMDBGENTER(7, RMDebug::module_catalogif, "MDDType", "deleteFromDb() " << myOId << " " << getTypeName());
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	mddtypeid3;
-	EXEC SQL END DECLARE SECTION;
+    RMDBGENTER(7, RMDebug::module_catalogif, "MDDType", "deleteFromDb() " << myOId << " " << getTypeName());
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    mddtypeid3;
+    EXEC SQL END DECLARE SECTION;
 
-	mddtypeid3 = myOId.getCounter();
+    mddtypeid3 = myOId.getCounter();
 
-	EXEC SQL DELETE FROM RAS_MDDTYPES
-		WHERE RAS_MDDTYPES.MDDTypeOId = :mddtypeid3;
-	if (check("MDDType::deleteFromDb()\0"))
-		generateException();
+    EXEC SQL DELETE FROM RAS_MDDTYPES
+       WHERE RAS_MDDTYPES.MDDTypeOId = :mddtypeid3;
+    if (check("MDDType::deleteFromDb()\0"))
+        generateException();
 
-	DBObject::deleteFromDb();
+    DBObject::deleteFromDb();
 
-	RMDBGEXIT(7, RMDebug::module_catalogif, "MDDType", "deleteFromDb() " << myOId);
+    RMDBGEXIT(7, RMDebug::module_catalogif, "MDDType", "deleteFromDb() " << myOId);
 }
 
 void
 MDDType::insertInDb() throw (r_Error)
 {
-	RMDBGENTER(7, RMDebug::module_catalogif, "MDDType", "insertInDb() " << myOId << " " << getTypeName());
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	mddtypeid;
-		char	mddtypename[VARCHAR_MAXLEN];
-	EXEC SQL END DECLARE SECTION;
+    RMDBGENTER(7, RMDebug::module_catalogif, "MDDType", "insertInDb() " << myOId << " " << getTypeName());
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    mddtypeid;
+        char    mddtypename[VARCHAR_MAXLEN];
+    EXEC SQL END DECLARE SECTION;
 
-	mddtypeid = 0;
-	(void) strncpy( mddtypename, (char*) getName(), (size_t) sizeof(mddtypename) );
-	mddtypeid = myOId.getCounter();
-	EXEC SQL INSERT INTO RAS_MDDTYPES ( MDDTypeOId, MDDTypeName)
-		VALUES	( :mddtypeid, :mddtypename);
-	if (check("MDDType::insertInDb()\0"))
-		generateException();
+    mddtypeid = 0;
+    (void) strncpy( mddtypename, (char*) getName(), (size_t) sizeof(mddtypename) );
+    mddtypeid = myOId.getCounter();
+    EXEC SQL INSERT INTO RAS_MDDTYPES ( MDDTypeOId, MDDTypeName)
+       VALUES   ( :mddtypeid, :mddtypename);
+    if (check("MDDType::insertInDb()\0"))
+        generateException();
 
-	DBObject::insertInDb();
+    DBObject::insertInDb();
 
-	RMDBGEXIT(7, RMDebug::module_catalogif, "MDDType", "insertInDb() " << myOId);
+    RMDBGEXIT(7, RMDebug::module_catalogif, "MDDType", "insertInDb() " << myOId);
 }
 
 void
 MDDType::readFromDb() throw (r_Error)
 {
-	RMDBGENTER(7, RMDebug::module_catalogif, "MDDType", "readFromDb() " << myOId);
+    RMDBGENTER(7, RMDebug::module_catalogif, "MDDType", "readFromDb() " << myOId);
 #ifdef RMANBENCHMARK
-	DBObject::readTimer.resume();
+    DBObject::readTimer.resume();
 #endif
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	mddtypeid1;
-		char	mddtypename1[VARCHAR_MAXLEN];
-	EXEC SQL END DECLARE SECTION;
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    mddtypeid1;
+        char    mddtypename1[VARCHAR_MAXLEN];
+    EXEC SQL END DECLARE SECTION;
 
-	mddtypeid1 = myOId.getCounter();
-	
-	EXEC SQL SELECT
-			MDDTypeName
-		INTO
-			:mddtypename1
-		FROM
-			RAS_MDDTYPES
-		WHERE
-			MDDTypeOId = :mddtypeid1;
-	if (check("MDDType::readFromDb()\0") != 0)
-	{
-		if (SQLCODE == SQLNODATAFOUND)	// was: 100 -- PB 2005-feb-13
-			throw r_Error(r_Error::r_Error_ObjectUnknown);
-		else
-			generateException();
-	}
+    mddtypeid1 = myOId.getCounter();
 
-	setName(mddtypename1);
+    EXEC SQL SELECT
+        MDDTypeName
+       INTO
+        :mddtypename1
+       FROM
+        RAS_MDDTYPES
+       WHERE
+        MDDTypeOId = :mddtypeid1;
+    if (check("MDDType::readFromDb()\0") != 0)
+    {
+        if (SQLCODE == SQLNODATAFOUND)  // was: 100 -- PB 2005-feb-13
+            throw r_Error(r_Error::r_Error_ObjectUnknown);
+        else
+            generateException();
+    }
+
+    setName(mddtypename1);
 
 #ifdef RMANBENCHMARK
-	DBObject::readTimer.pause();
+    DBObject::readTimer.pause();
 #endif
 
-	DBObject::readFromDb();
+    DBObject::readFromDb();
 
-	RMDBGEXIT(7, RMDebug::module_catalogif, "MDDType", "readFromDb() " << myOId);
-} 
+    RMDBGEXIT(7, RMDebug::module_catalogif, "MDDType", "readFromDb() " << myOId);
+}

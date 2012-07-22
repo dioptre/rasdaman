@@ -24,7 +24,7 @@ rasdaman GmbH.
 /*************************************************************
  *
  * CHANGE HISTORY (append further entries):
- * when         who        	 	what
+ * when         who             what
  * ----------------------------------------------------------
  * 10-11-08     Shams      Created the class
  * 14-08-09     Andrei      Reimplemented the class
@@ -46,29 +46,35 @@ using namespace std;
 #include <fstream>
 
 
-QtMDDConfig::QtMDDConfig() : QtData() {
+QtMDDConfig::QtMDDConfig() : QtData()
+{
 }
 
-QtDataType QtMDDConfig::getDataType() const {
+QtDataType QtMDDConfig::getDataType() const
+{
     return QT_MDD_CONFIG;
 }
 
-char* QtMDDConfig::getTypeStructure() const {
-	return NULL;
+char* QtMDDConfig::getTypeStructure() const
+{
+    return NULL;
 }
 
-bool QtMDDConfig::equal(const QtData* p) const {
-	bool eq = false;
-	return eq;
+bool QtMDDConfig::equal(const QtData* p) const
+{
+    bool eq = false;
+    return eq;
 }
 
-string QtMDDConfig::getSpelling() const {
-	return "";
+string QtMDDConfig::getSpelling() const
+{
+    return "";
 }
 
 QtMDDConfig::QtMDDConfig(int tilingType, int tileSize, int borderThreshold,
-        double interestThreshold, QtOperation* tileCfg, QtNode::QtOperationList* box, std::vector<r_Dir_Decompose>* dDecomp,
-        int indexType) {
+                         double interestThreshold, QtOperation* tileCfg, QtNode::QtOperationList* box, std::vector<r_Dir_Decompose>* dDecomp,
+                         int indexType)
+{
     this->tilingType = tilingType;
     this->tileSize = tileSize;
     this->borderThreshold = borderThreshold;
@@ -80,7 +86,8 @@ QtMDDConfig::QtMDDConfig(int tilingType, int tileSize, int borderThreshold,
 }
 
 QtMDDConfig::QtMDDConfig(int tilingType, int tileSize, int borderThreshold,
-        double interestThreshold, QtOperation* tileCfg, QtNode::QtOperationList* box, std::vector<r_Dir_Decompose>* dDecomp) {
+                         double interestThreshold, QtOperation* tileCfg, QtNode::QtOperationList* box, std::vector<r_Dir_Decompose>* dDecomp)
+{
     this->tilingType = tilingType;
     this->tileSize = tileSize;
     this->borderThreshold = borderThreshold;
@@ -92,7 +99,8 @@ QtMDDConfig::QtMDDConfig(int tilingType, int tileSize, int borderThreshold,
 }
 
 QtMDDConfig::QtMDDConfig(int index)
-: QtData() {
+    : QtData()
+{
     this->tilingType = this->r_DEFAULT_TLG;
     this->tileSize = -1;
     this->borderThreshold = -1;
@@ -103,43 +111,53 @@ QtMDDConfig::QtMDDConfig(int index)
     this->indexType = index;
 }
 
-int QtMDDConfig::getTileSize() {
+int QtMDDConfig::getTileSize()
+{
     return tileSize;
 }
 
-int QtMDDConfig::getBorderThreshold() {
+int QtMDDConfig::getBorderThreshold()
+{
     return borderThreshold;
 }
 
-double QtMDDConfig::getInterestThreshold() {
+double QtMDDConfig::getInterestThreshold()
+{
     return interestThreshold;
 }
 
-std::vector<r_Dir_Decompose>* QtMDDConfig::getDirDecomp() {
+std::vector<r_Dir_Decompose>* QtMDDConfig::getDirDecomp()
+{
     return dDecomp;
 }
 
-int QtMDDConfig::getStorageType() {
+int QtMDDConfig::getStorageType()
+{
     return QtMDDConfig::r_DEFAULT_STG;
 }
 
-int QtMDDConfig::getWltValue() {
+int QtMDDConfig::getWltValue()
+{
     return param;
-} 
+}
 
-int QtMDDConfig::getIndexType() {
+int QtMDDConfig::getIndexType()
+{
     return indexType;
 }
 
-int QtMDDConfig::getTilingType() {
+int QtMDDConfig::getTilingType()
+{
     return tilingType;
 }
 
-QtNode::QtOperationList* QtMDDConfig::getBboxList() {
+QtNode::QtOperationList* QtMDDConfig::getBboxList()
+{
     return box;
 }
 
-QtOperation* QtMDDConfig::getTileCfg() {
+QtOperation* QtMDDConfig::getTileCfg()
+{
     return tileCfg;
 }
 

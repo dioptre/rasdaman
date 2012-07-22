@@ -44,8 +44,8 @@ static const char rcsid[] = "@(#)rasgeo, InitError: $Id: rasgeo_error.cc,v 1.1 2
 /// error object, carrying int error code
 InitError::InitError( unsigned int e )
 {
-	TALK( "Exception: " << e << " for this=" << this );
-	errorCode = e;
+    TALK( "Exception: " << e << " for this=" << this );
+    errorCode = e;
 }
 
 /// default destructor
@@ -57,79 +57,79 @@ InitError::~InitError()
 const char*
 InitError::what()
 {
-	char *errorMsg;
-	TALK( "error code is: " << errorCode );
-	switch (errorCode)
-	{
-		case NOCOLLNAME:
-			errorMsg = "Mandatory parameter --mapname missing.";
-			break;
-		case INVALIDFLOAT:
-			errorMsg = "Invalid floating point number";
-			break;
-		case NOXMIN:
-			errorMsg = "Mandatory parameter -x missing.";
-			break;
-		case NOXMAX:
-			errorMsg = "Mandatory parameter -X missing.";
-			break;
-		case NOYMIN:
-			errorMsg = "Mandatory parameter -y missing.";
-			break;
-		case NOYMAX:
-			errorMsg = "Mandatory parameter -Y missing.";
-			break;
-		case NORES:
-			errorMsg = "Mandatory pararmeter --res missing.";
-			break;
-		case ERRORPARSINGCOMMANDLINE:
-			errorMsg = "Error parsing command line.";
-			break;
-		case INVALIDBBOX:
-			errorMsg = "Coordinates do not outline a valid bounding box.";
-			break;
-		case INVALIDLEVEL:
-			errorMsg = "Invalid level parameter, must be greater or equal to zero.";
-			break;
-		case ILLEGALMAPTYPE:
-			errorMsg = "Illegal map type, use -h for choices available.";
-			break;
-		case NOMAPTYPE:
-			errorMsg = "Mandatory parameter --maptype missing.";
-			break;
-		case INVALIDTILEEDGE:
-			errorMsg = "Invalid tileedge parameter, must be greater than zero.";
-			break;
-		case ALLOCFAIL:
-			errorMsg = "Cannot allocate tile buffer.";
-			break;
-		case NOTINSERTED:
-			errorMsg = "Cannot insert object into collection.";
-			break;
-		default :
-			errorMsg = "Unknown error code.";
-			break;
-		case  ALLDONE:
-		case 0:
-			errorMsg = "No errors.";
-	}
+    char *errorMsg;
+    TALK( "error code is: " << errorCode );
+    switch (errorCode)
+    {
+    case NOCOLLNAME:
+        errorMsg = "Mandatory parameter --mapname missing.";
+        break;
+    case INVALIDFLOAT:
+        errorMsg = "Invalid floating point number";
+        break;
+    case NOXMIN:
+        errorMsg = "Mandatory parameter -x missing.";
+        break;
+    case NOXMAX:
+        errorMsg = "Mandatory parameter -X missing.";
+        break;
+    case NOYMIN:
+        errorMsg = "Mandatory parameter -y missing.";
+        break;
+    case NOYMAX:
+        errorMsg = "Mandatory parameter -Y missing.";
+        break;
+    case NORES:
+        errorMsg = "Mandatory pararmeter --res missing.";
+        break;
+    case ERRORPARSINGCOMMANDLINE:
+        errorMsg = "Error parsing command line.";
+        break;
+    case INVALIDBBOX:
+        errorMsg = "Coordinates do not outline a valid bounding box.";
+        break;
+    case INVALIDLEVEL:
+        errorMsg = "Invalid level parameter, must be greater or equal to zero.";
+        break;
+    case ILLEGALMAPTYPE:
+        errorMsg = "Illegal map type, use -h for choices available.";
+        break;
+    case NOMAPTYPE:
+        errorMsg = "Mandatory parameter --maptype missing.";
+        break;
+    case INVALIDTILEEDGE:
+        errorMsg = "Invalid tileedge parameter, must be greater than zero.";
+        break;
+    case ALLOCFAIL:
+        errorMsg = "Cannot allocate tile buffer.";
+        break;
+    case NOTINSERTED:
+        errorMsg = "Cannot insert object into collection.";
+        break;
+    default :
+        errorMsg = "Unknown error code.";
+        break;
+    case  ALLDONE:
+    case 0:
+        errorMsg = "No errors.";
+    }
 
 // size of error text buffer below
 #define ERRTEXT_BUFSIZ 200
 
-	static char errorText[ERRTEXT_BUFSIZ];
+    static char errorText[ERRTEXT_BUFSIZ];
 
 // text constants for error msg
 #define MODULE_TAG "IN"
 #define ERROR_TEXT " Error: "
 
-	// check for buffer overflow
-	if (strlen(MODULE_TAG) + 3 + strlen(ERROR_TEXT) + strlen(errorMsg) + 1 > ERRTEXT_BUFSIZ)
-		sprintf( errorText, "%s%03d%s", MODULE_TAG, errorCode, "(error message too long, cannot display)" );
-	else
-		sprintf( errorText, "%s%03d%s%s", MODULE_TAG, errorCode, ERROR_TEXT, errorMsg );
+    // check for buffer overflow
+    if (strlen(MODULE_TAG) + 3 + strlen(ERROR_TEXT) + strlen(errorMsg) + 1 > ERRTEXT_BUFSIZ)
+        sprintf( errorText, "%s%03d%s", MODULE_TAG, errorCode, "(error message too long, cannot display)" );
+    else
+        sprintf( errorText, "%s%03d%s%s", MODULE_TAG, errorCode, ERROR_TEXT, errorMsg );
 
-	return errorText;
+    return errorText;
 } // what()
 
- 
+

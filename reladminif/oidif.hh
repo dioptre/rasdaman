@@ -27,13 +27,13 @@ rasdaman GmbH.
  *
  *
  * PURPOSE:
- *	 
+ *
  *
  * COMMENTS:
  *
  ***********************************************************************/
 
- //@ManMemo: Module: {\bf adminif}.
+//@ManMemo: Module: {\bf adminif}.
 
 class OId;
 
@@ -65,241 +65,242 @@ transactions.
   * \ingroup Reladminifs
   */
 class OId
-	{ 
-	public:
-		enum OIdType {	INVALID = 0,
-				MDDOID,
-				MDDCOLLOID,
-				MDDTYPEOID,
-				MDDBASETYPEOID,
-				MDDDIMTYPEOID,
-				MDDDOMTYPEOID,
-				STRUCTTYPEOID,
-				SETTYPEOID,
-				BLOBOID,
-				DBMINTERVALOID,
-				STORAGEOID,
-				MDDHIERIXOID,
-				DBTCINDEXOID,
-				INLINETILEOID,
-				INNEROID,
-				ATOMICTYPEOID,
-				UDFOID,
-				UDFPACKAGEOID,
-				MDDRCIXOID};
-		/*@Doc: 
-		every persistent class needs a unique OIdType.
-		There is as always an exception: INNEROID is only used by DBTCIndex internally
-		*/
+{
+public:
+    enum OIdType {  INVALID = 0,
+                    MDDOID,
+                    MDDCOLLOID,
+                    MDDTYPEOID,
+                    MDDBASETYPEOID,
+                    MDDDIMTYPEOID,
+                    MDDDOMTYPEOID,
+                    STRUCTTYPEOID,
+                    SETTYPEOID,
+                    BLOBOID,
+                    DBMINTERVALOID,
+                    STORAGEOID,
+                    MDDHIERIXOID,
+                    DBTCINDEXOID,
+                    INLINETILEOID,
+                    INNEROID,
+                    ATOMICTYPEOID,
+                    UDFOID,
+                    UDFPACKAGEOID,
+                    MDDRCIXOID
+                 };
+    /*@Doc:
+    every persistent class needs a unique OIdType.
+    There is as always an exception: INNEROID is only used by DBTCIndex internally
+    */
 
-		typedef int OIdCounter;
-		/*@Doc: 
-		every persistent object needs a unique OIdCounter within all persistent objects
-		with the same OIdType.
-		*/
+    typedef int OIdCounter;
+    /*@Doc:
+    every persistent object needs a unique OIdCounter within all persistent objects
+    with the same OIdType.
+    */
 
-		typedef double OIdPrimitive;
-		/*@Doc: 
-		an oid can be converted from and to a primitive of this type.
-		*/
+    typedef double OIdPrimitive;
+    /*@Doc:
+    an oid can be converted from and to a primitive of this type.
+    */
 
-		static OIdPrimitive ID_MULTIPLIER;
-		/*@Doc: 
-		is used to calculate the actual id and type from a given double
-		*/
+    static OIdPrimitive ID_MULTIPLIER;
+    /*@Doc:
+    is used to calculate the actual id and type from a given double
+    */
 
-		static void allocateOId(OId& id, OIdType type, OIdCounter howMany = 1);
-		/*@Doc: 
-		allocates a OId for an object of the specified type or a whole bunch of them.
-		*/
+    static void allocateOId(OId& id, OIdType type, OIdCounter howMany = 1);
+    /*@Doc:
+    allocates a OId for an object of the specified type or a whole bunch of them.
+    */
 
-		static void deinitialize();
-		/*@Doc: 
-		writes the current state of the oid counters back
-		into the database.
-		*/
+    static void deinitialize();
+    /*@Doc:
+    writes the current state of the oid counters back
+    into the database.
+    */
 
-		static void initialize();
-		/*@Doc: 
-		reads the state of the oid counters from the database.
-		*/
+    static void initialize();
+    /*@Doc:
+    reads the state of the oid counters from the database.
+    */
 
-		OId::OIdType getType() const;
-		/*@Doc: 
-		Returns type of the object with this OId.
-		*/
-		
-		OId(const OId& oldOId);
-		/*@Doc: 
-		Copy constructor
-		*/
+    OId::OIdType getType() const;
+    /*@Doc:
+    Returns type of the object with this OId.
+    */
 
-		OId(OIdCounter newId, OIdType type);
-		/*@Doc: 
-		New OId with counter = newId, oidtype = type
-		*/
+    OId(const OId& oldOId);
+    /*@Doc:
+    Copy constructor
+    */
 
-		OId(OIdPrimitive oidd);
-		/*@Doc: 
-		generate a oid from a double.
-		*/
-	 
-		OId();
-		/*@Doc: 
-		invalid oid
-		*/
-	 
-		OIdCounter getCounter() const;
-		/*@Doc: 
-		returns the counter part of the oid.
-		*/
-	 
-		void print_status(std::ostream& s = std::cout) const;
-		/*@Doc: 
-		prints a double
-		*/
+    OId(OIdCounter newId, OIdType type);
+    /*@Doc:
+    New OId with counter = newId, oidtype = type
+    */
 
-		operator double() const;
-		/*@Doc: 
-		converts the oid to a double:
-		oid * OId::ID_MULTIPLIER + oidtype;
-		*/
+    OId(OIdPrimitive oidd);
+    /*@Doc:
+    generate a oid from a double.
+    */
 
-		static const char* counterNames[];
-		/*@Doc: 
-		holds the names of the counters in RAS_ADMIN, to go with counterIds
-		*/
+    OId();
+    /*@Doc:
+    invalid oid
+    */
 
-		static unsigned int maxCounter;
+    OIdCounter getCounter() const;
+    /*@Doc:
+    returns the counter part of the oid.
+    */
 
-		OId& operator=(const OId& old);
+    void print_status(std::ostream& s = std::cout) const;
+    /*@Doc:
+    prints a double
+    */
 
-		bool operator== (const OId& one) const;
+    operator double() const;
+    /*@Doc:
+    converts the oid to a double:
+    oid * OId::ID_MULTIPLIER + oidtype;
+    */
 
-		bool operator!= (const OId& one) const;
+    static const char* counterNames[];
+    /*@Doc:
+    holds the names of the counters in RAS_ADMIN, to go with counterIds
+    */
 
-		bool operator< (const OId& old) const;
+    static unsigned int maxCounter;
 
-		bool operator> (const OId& old) const;
+    OId& operator=(const OId& old);
 
-		bool operator<= (const OId& old) const;
+    bool operator== (const OId& one) const;
 
-		bool operator>= (const OId& old) const;
+    bool operator!= (const OId& one) const;
 
-             #ifdef RMANBENCHMARK
-	        static RMTimer oidAlloc;
-	        static RMTimer oidResolve;
-	     #endif
-	protected:
-		// protection agains writing back unloaded counters => inconsistent DB!!
-		static bool loadedOk;
-		
-		
-		OIdCounter oid;
-		/*@Doc: 
-		the counter inside the oid
-		*/
-		
-		OIdType oidtype;
-		/*@Doc: 
-		the type of object
-		*/
+    bool operator< (const OId& old) const;
 
-		static OIdCounter nextMDDOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+    bool operator> (const OId& old) const;
 
-		static OIdCounter nextMDDCOLLOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+    bool operator<= (const OId& old) const;
 
-		static OIdCounter nextMDDTYPEOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+    bool operator>= (const OId& old) const;
 
-		static OIdCounter nextMDDBASETYPEOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+#ifdef RMANBENCHMARK
+    static RMTimer oidAlloc;
+    static RMTimer oidResolve;
+#endif
+protected:
+    // protection agains writing back unloaded counters => inconsistent DB!!
+    static bool loadedOk;
 
-		static OIdCounter nextMDDDIMTYPEOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
 
-		static OIdCounter nextMDDDOMTYPEOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+    OIdCounter oid;
+    /*@Doc:
+    the counter inside the oid
+    */
 
-		static OIdCounter nextSTRUCTTYPEOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+    OIdType oidtype;
+    /*@Doc:
+    the type of object
+    */
 
-		static OIdCounter nextSETTYPEOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+    static OIdCounter nextMDDOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
 
-		static OIdCounter nextBLOBOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+    static OIdCounter nextMDDCOLLOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
 
-		static OIdCounter nextDBMINTERVALOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+    static OIdCounter nextMDDTYPEOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
 
-		static OIdCounter nextSTORAGEOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+    static OIdCounter nextMDDBASETYPEOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
 
-		static OIdCounter nextMDDHIERIXOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+    static OIdCounter nextMDDDIMTYPEOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
 
-		//static OIdCounter nextDBTCINDEXOID;
-		/*@Doc: 
-		this counter is not used because mddhierix takes care of that
-		*/
+    static OIdCounter nextMDDDOMTYPEOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
 
-		//static OIdCounter nextINLINETILEOID;
-		/*@Doc: 
-		not used because they are the same as bloboid counter
-		*/
+    static OIdCounter nextSTRUCTTYPEOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
 
-		static OIdCounter nextATOMICTYPEOID;
-		/*@Doc:
-		not used now because they are hard coded
-		*/
+    static OIdCounter nextSETTYPEOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
 
-		static OIdCounter nextMDDRCIXOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+    static OIdCounter nextBLOBOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
 
-		static OIdCounter nextUDFOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+    static OIdCounter nextDBMINTERVALOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
 
-		static OIdCounter nextUDFPACKAGEOID;
-		/*@Doc: 
-		counter which holds the next oid
-		*/
+    static OIdCounter nextSTORAGEOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
 
-		static OIdCounter* counterIds[];
-		/*@Doc: 
-		holds all OIdCounters of next* sort, to go with the counterNames.
-		*/
-	};
+    static OIdCounter nextMDDHIERIXOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
+
+    //static OIdCounter nextDBTCINDEXOID;
+    /*@Doc:
+    this counter is not used because mddhierix takes care of that
+    */
+
+    //static OIdCounter nextINLINETILEOID;
+    /*@Doc:
+    not used because they are the same as bloboid counter
+    */
+
+    static OIdCounter nextATOMICTYPEOID;
+    /*@Doc:
+    not used now because they are hard coded
+    */
+
+    static OIdCounter nextMDDRCIXOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
+
+    static OIdCounter nextUDFOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
+
+    static OIdCounter nextUDFPACKAGEOID;
+    /*@Doc:
+    counter which holds the next oid
+    */
+
+    static OIdCounter* counterIds[];
+    /*@Doc:
+    holds all OIdCounters of next* sort, to go with the counterNames.
+    */
+};
 
 extern std::ostream& operator<<(std::ostream& in, const OId& d);
 

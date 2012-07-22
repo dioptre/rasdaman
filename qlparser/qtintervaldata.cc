@@ -43,7 +43,7 @@ using namespace std;
 
 
 QtIntervalData::QtIntervalData( const r_Sinterval& interval )
-  : intervalData(interval), QtData()
+    : intervalData(interval), QtData()
 {
 }
 
@@ -52,7 +52,7 @@ QtIntervalData::QtIntervalData( const r_Sinterval& interval )
 QtDataType
 QtIntervalData::getDataType() const
 {
-  return QT_INTERVAL;
+    return QT_INTERVAL;
 }
 
 
@@ -60,12 +60,12 @@ QtIntervalData::getDataType() const
 bool
 QtIntervalData::equal( const QtData* obj ) const
 {
-  int returnValue = false;  // not equal by initialization
+    int returnValue = false;  // not equal by initialization
 
-  if( obj->getDataType() == QT_INTERVAL )
-    returnValue = (intervalData == ((QtIntervalData*)obj)->getIntervalData());
+    if( obj->getDataType() == QT_INTERVAL )
+        returnValue = (intervalData == ((QtIntervalData*)obj)->getIntervalData());
 
-  return returnValue;
+    return returnValue;
 }
 
 
@@ -73,30 +73,30 @@ QtIntervalData::equal( const QtData* obj ) const
 std::string
 QtIntervalData::getSpelling() const
 {
-  std::string result;
+    std::string result;
 
-  // buffer
-  int        bufferLen = 256; // on the save side for two integers plus colon
-  char*      buffer    = new char[ bufferLen ];
-  // replaced deprecated ostrstream -- PB 2005-jan-14
-  // ostrstream bufferStream( buffer, bufferLen );
-  ostringstream bufferStream( buffer );
+    // buffer
+    int        bufferLen = 256; // on the save side for two integers plus colon
+    char*      buffer    = new char[ bufferLen ];
+    // replaced deprecated ostrstream -- PB 2005-jan-14
+    // ostrstream bufferStream( buffer, bufferLen );
+    ostringstream bufferStream( buffer );
 
-  bufferStream << intervalData << std::ends;
+    bufferStream << intervalData << std::ends;
 
-  result.append( std::string( buffer ) );
+    result.append( std::string( buffer ) );
 
-  delete[] buffer;
-  buffer = NULL;
+    delete[] buffer;
+    buffer = NULL;
 
-  return result;
+    return result;
 }
 
 
 
 char* QtIntervalData::getTypeStructure() const
 {
-  return strdup("interval");
+    return strdup("interval");
 }
 
 
@@ -104,8 +104,8 @@ char* QtIntervalData::getTypeStructure() const
 void
 QtIntervalData::printStatus( std::ostream& stream ) const
 {
-  stream << "interval, value: " << intervalData << std::flush; 
-  QtData::printStatus( stream );
+    stream << "interval, value: " << intervalData << std::flush;
+    QtData::printStatus( stream );
 }
 
 

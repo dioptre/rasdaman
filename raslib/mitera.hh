@@ -53,40 +53,41 @@ rasdaman GmbH.
 class r_MiterArea
 {
 public:
-  /// constructor.
-  /// An exception is thrown if newIterDom and newImgDom have different dimension
-  r_MiterArea( const r_Minterval* newIterDom, 
-	       const r_Minterval* newImgDom ) throw(r_Error);
-  /**
-    The pointers are stored, do not delete the objects as long
-    as the iterator is used!
-  */
-  
-  /// destructor.
-  ~r_MiterArea();                    
-  /// resets iterator to beginning.
-  void reset();
-  /// returns current cell and sets iterator to next cell.
-  r_Minterval nextArea();
-  /// returns TRUE if iteration is finished.
-  bool isDone();
+    /// constructor.
+    /// An exception is thrown if newIterDom and newImgDom have different dimension
+    r_MiterArea( const r_Minterval* newIterDom,
+                 const r_Minterval* newImgDom ) throw(r_Error);
+    /**
+      The pointers are stored, do not delete the objects as long
+      as the iterator is used!
+    */
+
+    /// destructor.
+    ~r_MiterArea();
+    /// resets iterator to beginning.
+    void reset();
+    /// returns current cell and sets iterator to next cell.
+    r_Minterval nextArea();
+    /// returns TRUE if iteration is finished.
+    bool isDone();
 protected:
-  // structure storing information on iteration for each dimension
-  // (perhaps add dimension for reordering later)
-  typedef struct {
-    int repeat; // total number of repeats
-    int curr;   // current repeat
-  } incArrElem;
-  /// area to be iterated through
-  const r_Minterval* iterDom;
-  /// area of tile.
-  const r_Minterval* imgDom;
-  /// array with increments
-  incArrElem* incArrIter;
-  /// flag set if iteration is finished.
-  bool done;
-  /// This is used for the return value in nextArea()
-  r_Minterval retVal;
+    // structure storing information on iteration for each dimension
+    // (perhaps add dimension for reordering later)
+    typedef struct
+    {
+        int repeat; // total number of repeats
+        int curr;   // current repeat
+    } incArrElem;
+    /// area to be iterated through
+    const r_Minterval* iterDom;
+    /// area of tile.
+    const r_Minterval* imgDom;
+    /// array with increments
+    incArrElem* incArrIter;
+    /// flag set if iteration is finished.
+    bool done;
+    /// This is used for the return value in nextArea()
+    r_Minterval retVal;
 };
 
 #endif

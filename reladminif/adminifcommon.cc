@@ -69,104 +69,104 @@ bool AdminIf::_isAborted = false;
 
 bool
 AdminIf::isAborted()
-	{
-	RMDBGENTER(4, RMDebug::module_adminif, "Adminif", "isAborted()");
-	bool retval=false;
+{
+    RMDBGENTER(4, RMDebug::module_adminif, "Adminif", "isAborted()");
+    bool retval=false;
 
 #ifdef READ_ONLY_RMAN
-	retval=true;
+    retval=true;
 #else
-	retval=_isAborted;
+    retval=_isAborted;
 #endif
-	RMDBGEXIT(4, RMDebug::module_adminif, "AdminIf", "isAborted() " << retval);
-	return retval;
-	}
+    RMDBGEXIT(4, RMDebug::module_adminif, "AdminIf", "isAborted() " << retval);
+    return retval;
+}
 
 void
 AdminIf::setAborted(bool newAborted)
-	{
-	RMDBGONCE(4, RMDebug::module_adminif, "AdminIf", "setAborted(" << newAborted << ") " << _isAborted);
-	_isAborted = newAborted;
-	}
+{
+    RMDBGONCE(4, RMDebug::module_adminif, "AdminIf", "setAborted(" << newAborted << ") " << _isAborted);
+    _isAborted = newAborted;
+}
 
 DatabaseIf*
 AdminIf::getCurrentDatabaseIf()
-	{
-	RMDBGONCE(4, RMDebug::module_adminif, "Adminif", "getCurrentDatabaseIf() " << myDatabaseIf);
-	return myDatabaseIf;
-	}
+{
+    RMDBGONCE(4, RMDebug::module_adminif, "Adminif", "getCurrentDatabaseIf() " << myDatabaseIf);
+    return myDatabaseIf;
+}
 
 void
 AdminIf::setCurrentDatabaseIf(DatabaseIf* db)
-	{
-	RMDBGONCE(4, RMDebug::module_adminif, "Adminif", "setCurrentDatabaseIf(" << db << ") " << myDatabaseIf);
-	myDatabaseIf = db;
-	}
+{
+    RMDBGONCE(4, RMDebug::module_adminif, "Adminif", "setCurrentDatabaseIf(" << db << ") " << myDatabaseIf);
+    myDatabaseIf = db;
+}
 
-AdminIf* 
+AdminIf*
 AdminIf::instance()
-	{
-        RMDBGENTER(4, RMDebug::module_adminif, "Adminif", "instance() " << myInstance);      
-        AdminIf* retval=NULL;
+{
+    RMDBGENTER(4, RMDebug::module_adminif, "Adminif", "instance() " << myInstance);
+    AdminIf* retval=NULL;
 
-  int hostResult = gethostname(systemName, sizeof(systemName) );
-  if (hostResult =! 0)
-  {
-    RMDBGONCE(4, RMDebug::module_adminif, "Adminif", "Error: cannot obtain hostname, using 'localhost'; errno=" << errno );
-    (void) strcpy( systemName, DEFAULT_SYSTEM_NAME );
-  }
-	if(!myInstance)
-		{
-		myInstance = new AdminIf();
-		}
-	if(validConnection)
-	  retval=myInstance;
+    int hostResult = gethostname(systemName, sizeof(systemName) );
+    if (hostResult =! 0)
+    {
+        RMDBGONCE(4, RMDebug::module_adminif, "Adminif", "Error: cannot obtain hostname, using 'localhost'; errno=" << errno );
+        (void) strcpy( systemName, DEFAULT_SYSTEM_NAME );
+    }
+    if(!myInstance)
+    {
+        myInstance = new AdminIf();
+    }
+    if(validConnection)
+        retval=myInstance;
 
-        RMDBGEXIT(4, RMDebug::module_adminif, "Adminif", "instance() " << retval);      
-	return retval;
-	}
+    RMDBGEXIT(4, RMDebug::module_adminif, "Adminif", "instance() " << retval);
+    return retval;
+}
 
 AdminIf::~AdminIf()
-	{
-	RMDBGENTER(4, RMDebug::module_adminif, "Adminif", "~AdminIf()");      
+{
+    RMDBGENTER(4, RMDebug::module_adminif, "Adminif", "~AdminIf()");
 
-	myInstance = NULL;
-	ObjectBroker::deinit();
+    myInstance = NULL;
+    ObjectBroker::deinit();
 
 #ifdef RMANBENCHMARK
-	DBObject::readTimer.setOutput(0);
-	
-	DBObject::updateTimer.setOutput(0);
-	
-	DBObject::deleteTimer.setOutput(0);
-	
-	DBObject::insertTimer.setOutput(0);
+    DBObject::readTimer.setOutput(0);
 
-        OId::oidAlloc.setOutput(0);
+    DBObject::updateTimer.setOutput(0);
 
-        OId::oidResolve.setOutput(0);
+    DBObject::deleteTimer.setOutput(0);
+
+    DBObject::insertTimer.setOutput(0);
+
+    OId::oidAlloc.setOutput(0);
+
+    OId::oidResolve.setOutput(0);
 #endif
-	RMDBGEXIT(4, RMDebug::module_adminif, "Adminif", "~AdminIf()");      
-	}
+    RMDBGEXIT(4, RMDebug::module_adminif, "Adminif", "~AdminIf()");
+}
 
-void 
+void
 AdminIf::setReadOnlyTA(bool newReadOnlyTA)
-	{
-	RMDBGONCE(4, RMDebug::module_adminif, "Adminif", "setReadOnlyTA(" << newReadOnlyTA << ")" << readOnlyTA);
-	readOnlyTA = newReadOnlyTA;
-	}
+{
+    RMDBGONCE(4, RMDebug::module_adminif, "Adminif", "setReadOnlyTA(" << newReadOnlyTA << ")" << readOnlyTA);
+    readOnlyTA = newReadOnlyTA;
+}
 
-bool 
+bool
 AdminIf::isReadOnlyTA()
-	{
-	RMDBGONCE(4, RMDebug::module_adminif, "Adminif", "isReadOnlyTA()" << readOnlyTA);
-	return readOnlyTA;
-	}
+{
+    RMDBGONCE(4, RMDebug::module_adminif, "Adminif", "isReadOnlyTA()" << readOnlyTA);
+    return readOnlyTA;
+}
 
 char*
 AdminIf::getSystemName()
-	{
-	RMDBGONCE(4, RMDebug::module_adminif, "Adminif", "getSystemName()" <<systemName);    
-	return systemName;
-	}
+{
+    RMDBGONCE(4, RMDebug::module_adminif, "Adminif", "getSystemName()" <<systemName);
+    return systemName;
+}
 

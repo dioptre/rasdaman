@@ -24,7 +24,7 @@ rasdaman GmbH.
  *
  *
  * PURPOSE:
- * The interface used by the file storage modules. 
+ * The interface used by the file storage modules.
  *
  *
  * COMMENTS:
@@ -41,19 +41,19 @@ class OId;
 /**
   * \ingroup Relblobifs
   */
-class IFileStorage 
+class IFileStorage
 {
-	public:
-		// Update the content of a blob. The blob should exist already.
-		virtual void update(const char* data, r_Bytes size, int BlobId) throw (r_Error) = 0;
-		// Store the content of a new blob.
-		virtual void insert(const char* data, r_Bytes size, int BlobId) throw (r_Error) = 0;
-		// Retrive the content of a previously stored blob
-		virtual void retrieve(int BlobId, char** data, r_Bytes *size) throw (r_Error) = 0;
-		// Delete a previously stored blob.
-		virtual void remove(int BlobId) throw (r_Error) = 0;
+public:
+    // Update the content of a blob. The blob should exist already.
+    virtual void update(const char* data, r_Bytes size, int BlobId) throw (r_Error) = 0;
+    // Store the content of a new blob.
+    virtual void insert(const char* data, r_Bytes size, int BlobId) throw (r_Error) = 0;
+    // Retrive the content of a previously stored blob
+    virtual void retrieve(int BlobId, char** data, r_Bytes *size) throw (r_Error) = 0;
+    // Delete a previously stored blob.
+    virtual void remove(int BlobId) throw (r_Error) = 0;
 
-		//virtual ~IFileStorage() = 0;
+    //virtual ~IFileStorage() = 0;
 };  // class IFileStorage
 
 #endif  // _IFILESTORAGE_H__

@@ -29,9 +29,9 @@ rasdaman GmbH.
  * PURPOSE:
  * special comparison function for host names (cf. man gethostname).
  * speciality: "a.x.y"=="a"
- *    
+ *
  * COMMENTS:
- * 		  none
+ *        none
  *
 */
 
@@ -41,27 +41,27 @@ rasdaman GmbH.
 
 bool hostCmp( const char *h1, const char *h2)
 {
-	ENTER( "hostCmp( " << h1 << ", " << h2 << " )" );
+    ENTER( "hostCmp( " << h1 << ", " << h2 << " )" );
 
-	bool result = false;
+    bool result = false;
 
-	if ( h1 == NULL && h2 == NULL )
-		result = true;
-	else if ( h1 == NULL )
-		result = false;
-	else if ( h2 == NULL )
-		result = false;
-	else
-	{
-		if (strlen(h1)==strlen(h2))
-			result = ( strcmp(h1,h2) == 0 );
-		else if (strlen(h1)>strlen(h2))
-			result = ( strncmp(h1,h2,strlen(h2))==0 && h1[strlen(h2)]=='.' );
-		else // (strlen(h1)<strlen(h2))
-			result = ( strncmp(h1,h2,strlen(h1))==0 && h2[strlen(h1)]=='.' );
-	}
+    if ( h1 == NULL && h2 == NULL )
+        result = true;
+    else if ( h1 == NULL )
+        result = false;
+    else if ( h2 == NULL )
+        result = false;
+    else
+    {
+        if (strlen(h1)==strlen(h2))
+            result = ( strcmp(h1,h2) == 0 );
+        else if (strlen(h1)>strlen(h2))
+            result = ( strncmp(h1,h2,strlen(h2))==0 && h1[strlen(h2)]=='.' );
+        else // (strlen(h1)<strlen(h2))
+            result = ( strncmp(h1,h2,strlen(h1))==0 && h2[strlen(h1)]=='.' );
+    }
 
-	LEAVE( "Configuration::hostCmp() -> " << result );
-	return result;
+    LEAVE( "Configuration::hostCmp() -> " << result );
+    return result;
 }
 

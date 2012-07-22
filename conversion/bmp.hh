@@ -57,35 +57,35 @@ rasdaman GmbH.
 
 class r_Conv_BMP : public r_Convertor
 {
-  public:
-  /// constructor using an r_Type object
-  r_Conv_BMP( const char *src, const r_Minterval &interv, const r_Type *tp ) throw(r_Error);
-  /// constructor using convert_type_e shortcut
-  r_Conv_BMP( const char *src, const r_Minterval &interv, int tp ) throw(r_Error);
-  /// destructor
-  ~r_Conv_BMP( void );
+public:
+    /// constructor using an r_Type object
+    r_Conv_BMP( const char *src, const r_Minterval &interv, const r_Type *tp ) throw(r_Error);
+    /// constructor using convert_type_e shortcut
+    r_Conv_BMP( const char *src, const r_Minterval &interv, int tp ) throw(r_Error);
+    /// destructor
+    ~r_Conv_BMP( void );
 
-  /// convert to BMP
-  virtual r_convDesc &convertTo( const char *options=NULL ) throw(r_Error);
-  /// convert from BMP
-  virtual r_convDesc &convertFrom( const char *options=NULL ) throw(r_Error);
-  /// cloning
-  virtual r_Convertor *clone( void ) const;
-  /// identification
-  virtual const char *get_name( void ) const;
-  virtual r_Data_Format get_data_format( void ) const;
+    /// convert to BMP
+    virtual r_convDesc &convertTo( const char *options=NULL ) throw(r_Error);
+    /// convert from BMP
+    virtual r_convDesc &convertFrom( const char *options=NULL ) throw(r_Error);
+    /// cloning
+    virtual r_Convertor *clone( void ) const;
+    /// identification
+    virtual const char *get_name( void ) const;
+    virtual r_Data_Format get_data_format( void ) const;
 
 
-  private:
-  /// initalize BMP class
-  void initBMP( void );
-  /// Needed by the encoder in RLE mode
-  unsigned char *flushLiterals(int numLit, int pixelAdd, unsigned char *dest, const unsigned char *lastLit, const unsigned char *mapColours);
+private:
+    /// initalize BMP class
+    void initBMP( void );
+    /// Needed by the encoder in RLE mode
+    unsigned char *flushLiterals(int numLit, int pixelAdd, unsigned char *dest, const unsigned char *lastLit, const unsigned char *mapColours);
 
-  memFSContext *memFS;
+    memFSContext *memFS;
 
-  /// parameters
-  int compress;
+    /// parameters
+    int compress;
 };
 
 #endif

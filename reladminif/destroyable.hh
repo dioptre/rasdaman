@@ -40,15 +40,15 @@ is required to allow other interfaces to be defined without a virtual destructor
 /**
   * \ingroup Reladminifs
   */
-class Destroyable 
-	{
-	public:
-		virtual void destroy() = 0;
-		/*@Doc:
-			delete the object.
-			object may not be deleted when reference counting is enabled.
-		*/
-	
-	};
+class Destroyable
+{
+public:
+    virtual void destroy() = 0;
+    /*@Doc:
+        delete the object.
+        object may not be deleted when reference counting is enabled.
+    */
+
+};
 
 #endif

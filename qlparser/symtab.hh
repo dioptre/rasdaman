@@ -43,62 +43,63 @@ rasdaman GmbH.
 
 //@ManMemo: Module: {\bf qlparser}
 
-/*@Doc:                                                                                                                               
+/*@Doc:
 
   This class represents a generic symbol table. The operations on
   symbols in the symbol table are: putSymbol, getSymbol, lookupSymbol.
   The operations on scopes are: initScope, exitScope, outScope, clearScope,
-  wipe. 
+  wipe.
 
 */
 
 template <class T>
-class SymbolTable {
+class SymbolTable
+{
 public:
-  /// This vector stores keys available in the map.
-  std::vector<std::string > keys;                    
-  /// This is an iterator for the vector storing the keys available in the map.
-  std::vector<std::string >::iterator keyIterator;  
+    /// This vector stores keys available in the map.
+    std::vector<std::string > keys;
+    /// This is an iterator for the vector storing the keys available in the map.
+    std::vector<std::string >::iterator keyIterator;
 
-  /// default constructor creates an empty symbol table, calls initScope(), clears local symbols. 
-  SymbolTable();
+    /// default constructor creates an empty symbol table, calls initScope(), clears local symbols.
+    SymbolTable();
 
-  /// default destructor, calls exitScope().
- ~SymbolTable();
+    /// default destructor, calls exitScope().
+    ~SymbolTable();
 
-  //@Man: Methods for symbol manipulation
-  //@{
-  /// Puts value at position symbol in the table. Returns true if it succeeded, otherwise false.
-  bool    putSymbol( const std::string& symbol, T value ); 
-  /// Get value at position symbol from the table. If symbol doesn't exist, it returns NULL.
-  T       getSymbol( const std::string& symbol );
-  /// Returns true if symbol is in table.
-  bool lookupSymbol( const std::string& symbol );
-  //@}
+    //@Man: Methods for symbol manipulation
+    //@{
+    /// Puts value at position symbol in the table. Returns true if it succeeded, otherwise false.
+    bool    putSymbol( const std::string& symbol, T value );
+    /// Get value at position symbol from the table. If symbol doesn't exist, it returns NULL.
+    T       getSymbol( const std::string& symbol );
+    /// Returns true if symbol is in table.
+    bool lookupSymbol( const std::string& symbol );
+    //@}
 
-  //@Man: Methods for scope manipulation
-  //@{
-  /// Enter new scope.
-  void  initScope();                                
-  /// Exit current scope.
-  void  exitScope();                                
-  /// Output current scope to RMInit::logOut.
-  void   outScope();                               
-  /// Init scope by clearing inner symbols.
-  void clearScope();                                
-  /// Clear all symbols in all scopes.
-  void       wipe();
-  //@}
+    //@Man: Methods for scope manipulation
+    //@{
+    /// Enter new scope.
+    void  initScope();
+    /// Exit current scope.
+    void  exitScope();
+    /// Output current scope to RMInit::logOut.
+    void   outScope();
+    /// Init scope by clearing inner symbols.
+    void clearScope();
+    /// Clear all symbols in all scopes.
+    void       wipe();
+    //@}
 
 private:
-  /// Store symbol in map.
-  void storeSymbol( const std::string& symbol, T value ); // put only in the hash_map
+    /// Store symbol in map.
+    void storeSymbol( const std::string& symbol, T value ); // put only in the hash_map
 
-  /// Stores local variables.
-         std::map<std::string , T>   STVars;	
+    /// Stores local variables.
+    std::map<std::string , T>   STVars;
 
-  /// Stores scopes.
-  std::vector<std::map<std::string , T> > STScopes;
+    /// Stores scopes.
+    std::vector<std::map<std::string , T> > STScopes;
 };
 
 #ifdef EARLY_TEMPLATE

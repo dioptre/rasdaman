@@ -28,7 +28,7 @@ rasdaman GmbH.
  *
  * COMMENTS:
  * Namespace akg
- * 
+ *
 */
 
 #ifndef AKGNET_SERVER_HH
@@ -44,124 +44,124 @@ rasdaman GmbH.
 
 
 namespace akg
-  {
+{
 /** Abstract base class for servers. Offers basic functionality
     for opening the listen socket and accepting a new connection
     and other helper functions for more evoluate servers
-*/   
+*/
 
 /**
   * \ingroup Networks
-  */ 
-  
+  */
+
 class GenericServer
-  {
-    public:
-      /// Default constructor
-      GenericServer() throw();
-      
-      /// Destructor
-      virtual ~GenericServer() throw();
-      
-      //*************************
-      /** Pure function to run the server. Has to initialize 
-          the listen socket, than makes a loop by listening,
-          accepting and dispatching the connection 
-	  for processing. It should'n throw, it has to handle
-	  correcty every exception
-       */
-      virtual bool runServer() throw() =0;
-      //*************************
-      
-      /// Instructs the server to leave the loop (runServer())
-      void shouldExit() throw();
-    
-      /// Sets the listen port
-      void setListenPort(int) throw();
-      
-      /// Returns the listen port
-      int  getListenPort() throw();
-      
-      /** Sets the timeout, how much time the selector should
-          wait for incomming requests
-      */
-      void setTimeout(int sec,int milisec) throw();
-      
-      /// Disables timeout, means wait unlimited
-      void disableTimeout() throw();
-      
-    protected:
-      /// Init the listen socket
-      bool initListenSocket(int port, bool nonblocking) throw();
-      
-      /** Connects a new client by accepting the connection 
-          and setting the ServerSocket in read modus
-      */
-      bool connectNewClient(ServerSocket&) throw();
-      
-      /** Closes the given Socket and removes it
-          from the Selector
-      */
-      void closeSocket(Socket&) throw();
-      
-      ListenSocket listenSocket;
-      int          listenPort;
-      
-      Selector     selector;
-      
-      bool exitRequest;
-      
-    private:
-      /// unimplemented, objects of this type can't be copied
-      GenericServer(const GenericServer&);
-      /// unimplemented, objects of this type can't be copied
-      GenericServer& operator=(const GenericServer&);
-   }; 
+{
+public:
+    /// Default constructor
+    GenericServer() throw();
+
+    /// Destructor
+    virtual ~GenericServer() throw();
+
+    //*************************
+    /** Pure function to run the server. Has to initialize
+        the listen socket, than makes a loop by listening,
+        accepting and dispatching the connection
+    for processing. It should'n throw, it has to handle
+    correcty every exception
+     */
+    virtual bool runServer() throw() =0;
+    //*************************
+
+    /// Instructs the server to leave the loop (runServer())
+    void shouldExit() throw();
+
+    /// Sets the listen port
+    void setListenPort(int) throw();
+
+    /// Returns the listen port
+    int  getListenPort() throw();
+
+    /** Sets the timeout, how much time the selector should
+        wait for incomming requests
+    */
+    void setTimeout(int sec,int milisec) throw();
+
+    /// Disables timeout, means wait unlimited
+    void disableTimeout() throw();
+
+protected:
+    /// Init the listen socket
+    bool initListenSocket(int port, bool nonblocking) throw();
+
+    /** Connects a new client by accepting the connection
+        and setting the ServerSocket in read modus
+    */
+    bool connectNewClient(ServerSocket&) throw();
+
+    /** Closes the given Socket and removes it
+        from the Selector
+    */
+    void closeSocket(Socket&) throw();
+
+    ListenSocket listenSocket;
+    int          listenPort;
+
+    Selector     selector;
+
+    bool exitRequest;
+
+private:
+    /// unimplemented, objects of this type can't be copied
+    GenericServer(const GenericServer&);
+    /// unimplemented, objects of this type can't be copied
+    GenericServer& operator=(const GenericServer&);
+};
 
 
 /** Base class for a simple blocking server, capable
     of dealing with a single client. Don't use except for
-    very simple cases. 
+    very simple cases.
     This version doesn't care much about errors
-*/     
+*/
 
 /**
   * \ingroup Networks
-  */ 
-  
+  */
+
 class BlockingServer : public GenericServer
-  {
-    public:
-      /// Default constructor
-      BlockingServer()  throw();
-      /// Destructor
-      ~BlockingServer() throw();
-      
-      /** runs the server. Accepts only one connection
-          and blocks until the request is done
-      */
-      bool runServer() throw();
-    protected:
-      //************************************************
-      /** Pure function to process the request. It has to read,
-          process and write the answer, because afterwards 
-	  the socket is closed. Don't throw!
-	*/ 
-      virtual void executeRequest(ServerSocket&) throw() =0;
-      
-      /** Pure function to execute on timeout. Don't throw!
-      */
-      virtual void executeTimeout() throw() =0;
-      //************************************************
-    private:
-      ServerSocket serverSocket;
-      
-      /// unimplemented, objects of this type can't be copied
-      BlockingServer(const BlockingServer&);
-      /// unimplemented, objects of this type can't be copied
-      BlockingServer& operator=(const BlockingServer&);
-   }; 
-   
-   
+{
+public:
+    /// Default constructor
+    BlockingServer()  throw();
+    /// Destructor
+    ~BlockingServer() throw();
+
+    /** runs the server. Accepts only one connection
+        and blocks until the request is done
+    */
+    bool runServer() throw();
+protected:
+    //************************************************
+    /** Pure function to process the request. It has to read,
+        process and write the answer, because afterwards
+    the socket is closed. Don't throw!
+    */
+    virtual void executeRequest(ServerSocket&) throw() =0;
+
+    /** Pure function to execute on timeout. Don't throw!
+    */
+    virtual void executeTimeout() throw() =0;
+    //************************************************
+private:
+    ServerSocket serverSocket;
+
+    /// unimplemented, objects of this type can't be copied
+    BlockingServer(const BlockingServer&);
+    /// unimplemented, objects of this type can't be copied
+    BlockingServer& operator=(const BlockingServer&);
+};
+
+
 } //namespace
 #endif

@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:  CallBackManager
  *
  * COMMENTS:
- *		No Comments
+ *      No Comments
 */
 
 
@@ -49,88 +49,89 @@ rasdaman GmbH.
 
 class CallBackManager
 {
-  public:
-  /// constructor
-  CallBackManager(unsigned int size=1024);
-  /**
-    Constructor; size is the maximum number of callback slots to
-    reserve.
-  */
+public:
+    /// constructor
+    CallBackManager(unsigned int size=1024);
+    /**
+      Constructor; size is the maximum number of callback slots to
+      reserve.
+    */
 
-  /// destructor
-  ~CallBackManager(void);
+    /// destructor
+    ~CallBackManager(void);
 
-  /// Resizes the number of callback slots at run-time
-  void setMaximumSize(unsigned int size);
+    /// Resizes the number of callback slots at run-time
+    void setMaximumSize(unsigned int size);
 
-  /// callback function type
-  typedef void (*callback_f)(void*);
-  /**
-    The type of a callback function is void f(void *context). The
-    value of context is the one specified when registering. It's
-    up to the function to cast the value.
-  */
+    /// callback function type
+    typedef void (*callback_f)(void*);
+    /**
+      The type of a callback function is void f(void *context). The
+      value of context is the one specified when registering. It's
+      up to the function to cast the value.
+    */
 
-  /// register new callback
-  int registerCallback(callback_f function, void *context);
-  /**
-    Register a new callback function. Returns 0 for OK, -1 if
-    the callback table had an overflow. Since it must be possible
-    to call this function from an alarm handler there may not be
-    any mallocs or prints here.
-  */
+    /// register new callback
+    int registerCallback(callback_f function, void *context);
+    /**
+      Register a new callback function. Returns 0 for OK, -1 if
+      the callback table had an overflow. Since it must be possible
+      to call this function from an alarm handler there may not be
+      any mallocs or prints here.
+    */
 
-  /// register new callback, ensuring uniqueness
-  int registerUniqueCallback(callback_f function, void *context);
-  /**
-    Same as registerCallback, but makes sure this callback isn't
-    pending already in which case it does nothing.
-  */
+    /// register new callback, ensuring uniqueness
+    int registerUniqueCallback(callback_f function, void *context);
+    /**
+      Same as registerCallback, but makes sure this callback isn't
+      pending already in which case it does nothing.
+    */
 
-  /// remove callback
-  int removeCallback(callback_f function, void *context);
-  /**
-    Deregister a callback function. Returns 0 for OK, -1 for
-    not found.
-  */
+    /// remove callback
+    int removeCallback(callback_f function, void *context);
+    /**
+      Deregister a callback function. Returns 0 for OK, -1 for
+      not found.
+    */
 
-  /// Get the number of callback functions registered.
-  unsigned int getNumCallbacks(void) const;
+    /// Get the number of callback functions registered.
+    unsigned int getNumCallbacks(void) const;
 
-  /// execute pending callbacks
-  int executePending(void);
-  /**
-    Execute all pending callback functions and clear the list
-    afterwards. Returns the number of callback functions executed.
-  */
+    /// execute pending callbacks
+    int executePending(void);
+    /**
+      Execute all pending callback functions and clear the list
+      afterwards. Returns the number of callback functions executed.
+    */
 
 
-  private:
+private:
 
-  /// find a matching function/context pair
-  int findCallback(callback_f function, void *context) const;
-  /**
-    Searches the pending callbacks for the one specified by the
-    function parameters and returns its index if found, -1 otherwise.
-  */
+    /// find a matching function/context pair
+    int findCallback(callback_f function, void *context) const;
+    /**
+      Searches the pending callbacks for the one specified by the
+      function parameters and returns its index if found, -1 otherwise.
+    */
 
-  //@{ Internal storage structure for callbacks.
-  typedef struct callback_desc_s {
-    callback_f function;
-    void *context;
-  } callback_desc_t;
-  //@}
+    //@{ Internal storage structure for callbacks.
+    typedef struct callback_desc_s
+    {
+        callback_f function;
+        void *context;
+    } callback_desc_t;
+    //@}
 
-  callback_desc_t *callbacks;
+    callback_desc_t *callbacks;
 
-  /// Maximum size of callback list
-  unsigned int maxCallbacks;
+    /// Maximum size of callback list
+    unsigned int maxCallbacks;
 
-  /// Currently occupied callback slots
-  unsigned int numPending;
+    /// Currently occupied callback slots
+    unsigned int numPending;
 
-  /// Flag that's set to 1 if the callback table overflowed.
-  int overflowDetected;
+    /// Flag that's set to 1 if the callback table overflowed.
+    int overflowDetected;
 };
 
 #endif

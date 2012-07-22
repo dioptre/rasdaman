@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   r_Iterator
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 #ifndef _D_ITERATOR_
@@ -54,8 +54,8 @@ template <class T> class r_Collection;
   When an iterator is constructed, it is either initialized with
   another iterator or is set to null. When an iterator is constructed
   via the {\tt create_iterator()} method defined in \Ref{r_Collection},
-  the iterator is initailized to point to the first element, if there 
-  is one. 
+  the iterator is initailized to point to the first element, if there
+  is one.
 */
 
 /**
@@ -64,7 +64,7 @@ template <class T> class r_Collection;
 template <class T>
 class r_Iterator
 {
-  public:
+public:
     /// default constructor
     r_Iterator();
     /// copy constructor
@@ -108,14 +108,14 @@ class r_Iterator
     T    operator*() throw( r_Error );
     /// gets the actual element
     T    get_element() const throw( r_Error );
-    
+
     /// gets the actual element, advances one element, and returns whether iteration is complete or not
     int  next( T& element );
-    
+
     /// replaces the actual element (can only be used with r_List)
     void replace_element( const T& element );
 
-  private:
+private:
     /// flag for end of iteration
     int ndone;
     /// pointer to the collection on which is iterated
@@ -134,7 +134,7 @@ class r_Iterator
 #else
 #include "iterator.cc"
 #endif
-#endif 
+#endif
 #endif
 
 #endif

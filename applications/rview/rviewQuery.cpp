@@ -28,8 +28,8 @@ rasdaman GmbH.
  *  of RasQL queries. Actual database accesses are performed through
  *  class rView's member functions.
  *
- *	COMMENTS:
- *		None
+ *  COMMENTS:
+ *      None
  */
 
 
@@ -94,23 +94,26 @@ int rviewQuery::queryCounter = 0;
 
 
 // Lookup tables for fonts. These have to be sorted case-sensitively!
-const keyword_to_ident_c rviewQuery::fontNameTab[] = {
-  {wxDECORATIVE, "decorative"},
-  {wxDEFAULT,	"default"},
-  {wxMODERN,	"modern"},
-  {wxROMAN,	"roman"},
-  {wxSCRIPT,	"script"},
-  {wxSWISS,	"swiss"},
-  {wxTELETYPE,	"teletype"}
+const keyword_to_ident_c rviewQuery::fontNameTab[] =
+{
+    {wxDECORATIVE, "decorative"},
+    {wxDEFAULT,   "default"},
+    {wxMODERN,    "modern"},
+    {wxROMAN, "roman"},
+    {wxSCRIPT,    "script"},
+    {wxSWISS, "swiss"},
+    {wxTELETYPE,  "teletype"}
 };
-const keyword_to_ident_c rviewQuery::fontStyleTab[] = {
-  {wxITALIC,	"italic"},
-  {wxSLANT,	"slant"}
+const keyword_to_ident_c rviewQuery::fontStyleTab[] =
+{
+    {wxITALIC,    "italic"},
+    {wxSLANT, "slant"}
 };
 
-const keyword_to_ident_c rviewQuery::fontWeightTab[] = {
-  {wxBOLD,	"bold"},
-  {wxLIGHT,	"light"}
+const keyword_to_ident_c rviewQuery::fontWeightTab[] =
+{
+    {wxBOLD,  "bold"},
+    {wxLIGHT, "light"}
 };
 
 
@@ -118,530 +121,554 @@ const keyword_to_ident_c rviewQuery::fontWeightTab[] = {
 
 rviewQuery::rviewQuery(rviewDatabase *db, char *query) : rviewFrame(NULL, NULL, 0, 0, query_width, query_height)
 {
-  int w, h;
-  const char *b;
-  char *d;
-  char buffer[STRINGSIZE];
-  int fontSize, fontName, fontStyle, fontWeight;
-  const int fontNameSize = sizeof(fontNameTab) / sizeof(keyword_to_ident);
-  const int fontStyleSize = sizeof(fontStyleTab) / sizeof(keyword_to_ident);
-  const int fontWeightSize = sizeof(fontWeightTab) / sizeof(keyword_to_ident);
+    int w, h;
+    const char *b;
+    char *d;
+    char buffer[STRINGSIZE];
+    int fontSize, fontName, fontStyle, fontWeight;
+    const int fontNameSize = sizeof(fontNameTab) / sizeof(keyword_to_ident);
+    const int fontStyleSize = sizeof(fontStyleTab) / sizeof(keyword_to_ident);
+    const int fontWeightSize = sizeof(fontWeightTab) / sizeof(keyword_to_ident);
 
- RMDBGENTER(3, RMDebug::module_applications, "rviewQuery", "rviewQuery()");
+    RMDBGENTER(3, RMDebug::module_applications, "rviewQuery", "rviewQuery()");
 
-  queryDb = db;
-  updateDisplay = NULL;
+    queryDb = db;
+    updateDisplay = NULL;
 
-  CreateStatusLine(1);
+    CreateStatusLine(1);
 
-  mbar = NULL;
-  for (w=0; w<3; w++) mbarMenus[w] = NULL;
+    mbar = NULL;
+    for (w=0; w<3; w++) mbarMenus[w] = NULL;
 
-  if (::wxDirExists((char*)(prefs->queryPath.ptr())))
-    hotPath = prefs->queryPath;
-  else
-    hotPath = ".";
-
-  // Read font from prefs
-  b = prefs->queryFont;
-  fontSize = 12; fontName = wxDEFAULT; fontStyle = wxNORMAL; fontWeight = wxNORMAL;
-  while (*b != 0)
-  {
-    while ((*b == ' ') || (*b == ',')) b++;
-    if (*b == 0) break;
-    d = buffer;
-    while ((*b != ' ') && (*b != ',') && (*b != 0)) {*d++ = *b++;}
-    *d++ = 0;
-    w = atoi(buffer);
-    if (w != 0) fontSize = w;
+    if (::wxDirExists((char*)(prefs->queryPath.ptr())))
+        hotPath = prefs->queryPath;
     else
+        hotPath = ".";
+
+    // Read font from prefs
+    b = prefs->queryFont;
+    fontSize = 12;
+    fontName = wxDEFAULT;
+    fontStyle = wxNORMAL;
+    fontWeight = wxNORMAL;
+    while (*b != 0)
     {
-      if ((w = rviewLookupKeyword(buffer, fontNameTab, fontNameSize, FALSE)) >= 0)
-	fontName = w;
-      else if ((w = rviewLookupKeyword(buffer, fontStyleTab, fontStyleSize, FALSE)) >= 0)
-	fontStyle = w;
-      else if ((w = rviewLookupKeyword(buffer, fontWeightTab, fontWeightSize, FALSE)) >= 0)
-	fontWeight = w;
-      else
-	cerr << "Bad identifier in font string: " << buffer << endl;
+        while ((*b == ' ') || (*b == ',')) b++;
+        if (*b == 0) break;
+        d = buffer;
+        while ((*b != ' ') && (*b != ',') && (*b != 0))
+        {
+            *d++ = *b++;
+        }
+        *d++ = 0;
+        w = atoi(buffer);
+        if (w != 0) fontSize = w;
+        else
+        {
+            if ((w = rviewLookupKeyword(buffer, fontNameTab, fontNameSize, FALSE)) >= 0)
+                fontName = w;
+            else if ((w = rviewLookupKeyword(buffer, fontStyleTab, fontStyleSize, FALSE)) >= 0)
+                fontStyle = w;
+            else if ((w = rviewLookupKeyword(buffer, fontWeightTab, fontWeightSize, FALSE)) >= 0)
+                fontWeight = w;
+            else
+                cerr << "Bad identifier in font string: " << buffer << endl;
+        }
     }
-  }
-  //cout << "size " << fontSize << ", name " << fontName << ", style " << fontStyle << ", weight " << fontWeight << endl;
+    //cout << "size " << fontSize << ", name " << fontName << ", style " << fontStyle << ", weight " << fontWeight << endl;
 
-  font = new wxFont(fontSize, fontName, fontStyle, fontWeight);
-  //font = ::wxTheFontList->FindOrCreateFont(fontSize, fontName, fontStyle, fontWeight);
-  //cout << "Font " << font->GetPointSize() << ',' << font->GetFamily() << ',' << font->GetStyle() << endl;
+    font = new wxFont(fontSize, fontName, fontStyle, fontWeight);
+    //font = ::wxTheFontList->FindOrCreateFont(fontSize, fontName, fontStyle, fontWeight);
+    //cout << "Font " << font->GetPointSize() << ',' << font->GetFamily() << ',' << font->GetStyle() << endl;
 
-  GetClientSize(&w, &h);
+    GetClientSize(&w, &h);
 
-  // Set identifier
-  qwindowID = queryCounter++;
-  updateID = -1;	// no update object
+    // Set identifier
+    qwindowID = queryCounter++;
+    updateID = -1;    // no update object
 
-  w -= 2*query_border; h -= query_bottom;
-  twin = new wxTextWindow((wxWindow*)this, query_border, query_border, w, h - 2*query_border, wxBORDER | wxNATIVE_IMPL);
+    w -= 2*query_border;
+    h -= query_bottom;
+    twin = new wxTextWindow((wxWindow*)this, query_border, query_border, w, h - 2*query_border, wxBORDER | wxNATIVE_IMPL);
 
-  twin->SetFont(font);
+    twin->SetFont(font);
 
-  panel = new wxPanel((wxWindow*)this, query_border, h, w, query_bottom);
-  butClear = new rviewButton(panel);
-  butExec = new rviewButton(panel);
-  butUpdt = new rviewButton(panel);
+    panel = new wxPanel((wxWindow*)this, query_border, h, w, query_bottom);
+    butClear = new rviewButton(panel);
+    butExec = new rviewButton(panel);
+    butUpdt = new rviewButton(panel);
 
-  if (query != NULL)
-  {
-    twin->WriteText(query);
-  }
+    if (query != NULL)
+    {
+        twin->WriteText(query);
+    }
 
-  buildMenubar();
+    buildMenubar();
 
-  newDBState(rmanClientApp::theApp()->ReadDBState());
+    newDBState(rmanClientApp::theApp()->ReadDBState());
 
-  label();
+    label();
 
-  OnSize(w, h);
+    OnSize(w, h);
 
-  Show(TRUE);
+    Show(TRUE);
 }
 
 
 rviewQuery::~rviewQuery(void)
 {
-  // If an update window is open notify it.
-  if (updateDisplay != NULL)
-  {
-    updateDisplay->noLongerUpdate();
-  }
+    // If an update window is open notify it.
+    if (updateDisplay != NULL)
+    {
+        updateDisplay->noLongerUpdate();
+    }
 }
 
 
 const char *rviewQuery::getFrameName(void) const
 {
-  return "rviewQuery";
+    return "rviewQuery";
 }
 
 rviewFrameType rviewQuery::getFrameType(void) const
 {
-  return rviewFrameTypeQuery;
+    return rviewFrameTypeQuery;
 }
 
 
 void rviewQuery::OnSize(int w, int h)
 {
-  int x, y;
+    int x, y;
 
-  GetClientSize(&x, &y);
-  if ((frameWidth == x) && (frameHeight == y)) return;
-  frameWidth = x; frameHeight = y;
+    GetClientSize(&x, &y);
+    if ((frameWidth == x) && (frameHeight == y)) return;
+    frameWidth = x;
+    frameHeight = y;
 
-  x -= 2*query_border; y -= query_bottom;
-  twin->SetSize(query_border, query_border, x, y - 2*query_border);
+    x -= 2*query_border;
+    y -= query_bottom;
+    twin->SetSize(query_border, query_border, x, y - 2*query_border);
 
-  panel->SetSize(query_border, y, x, query_bottom);
+    panel->SetSize(query_border, y, x, query_bottom);
 
-  y = (query_bottom - query_bheight) / 2;
+    y = (query_bottom - query_bheight) / 2;
 
-  x = (x - 3*query_bwidth) / 3;
-  butClear->SetSize(x/2, y, query_bwidth, query_bheight);
-  butExec->SetSize((3*x)/2 + query_bwidth, y, query_bwidth, query_bheight);
-  butUpdt->SetSize((5*x)/2 + 2*query_bwidth, y, query_bwidth, query_bheight);
+    x = (x - 3*query_bwidth) / 3;
+    butClear->SetSize(x/2, y, query_bwidth, query_bheight);
+    butExec->SetSize((3*x)/2 + query_bwidth, y, query_bwidth, query_bheight);
+    butUpdt->SetSize((5*x)/2 + 2*query_bwidth, y, query_bwidth, query_bheight);
 
-  // doesn't work, unfortunately
-  /*if (mbar != NULL)
-  {
-    int hw, hh;
+    // doesn't work, unfortunately
+    /*if (mbar != NULL)
+    {
+      int hw, hh;
 
-    mbar->GetSize(&x, &y);
-    mbarMenus[3]->GetSize(&hw, &hh);
-    mbarMenus[3]->SetSize(x-hw, (y-hh)/2, hw, hh);
-  }*/
+      mbar->GetSize(&x, &y);
+      mbarMenus[3]->GetSize(&hw, &hh);
+      mbarMenus[3]->SetSize(x-hw, (y-hh)/2, hw, hh);
+    }*/
 }
 
 
 void rviewQuery::OnMenuCommand(int id)
 {
-  // Load query from hotlist?
-  if ((id >= MENU_QUERY_HOTLIST) && (id < MENU_QUERY_HOTLIST + hotNumber))
-  {
-    char buffer[STRINGSIZE];
+    // Load query from hotlist?
+    if ((id >= MENU_QUERY_HOTLIST) && (id < MENU_QUERY_HOTLIST + hotNumber))
+    {
+        char buffer[STRINGSIZE];
 
-    sprintf(buffer, "%s"DIR_SEPARATOR"%s%s", hotPath.ptr(), mbar->GetLabel(id), query_extension);
-    loadQuery(buffer);
-    return;
-  }
+        sprintf(buffer, "%s"DIR_SEPARATOR"%s%s", hotPath.ptr(), mbar->GetLabel(id), query_extension);
+        loadQuery(buffer);
+        return;
+    }
 
-  switch (id)
-  {
+    switch (id)
+    {
     case MENU_QUERY_FILE_OPEN:
     case MENU_QUERY_FILE_SAVE:
-      {
-	char *name, *aux;
-	char *prefDir = (char*)(hotPath.ptr());
-	char filter[16];
+    {
+        char *name, *aux;
+        char *prefDir = (char*)(hotPath.ptr());
+        char filter[16];
 
-	sprintf(filter, "*%s", query_extension);
-	if (::wxDirExists(prefDir)) name = prefDir; else name = ".";
-	name = ::wxFileSelector(lman->lookup((id == MENU_QUERY_FILE_OPEN) ? "titleQueryLoad" : "titleQuerySave"), name, NULL, NULL, filter, 0 , this);
-	if (name != NULL)
-	{
-	  aux = ::wxFileNameFromPath(name);
-	  if (strlen(aux) > 0)
-	  {
-	    if (id == MENU_QUERY_FILE_OPEN)
-	    {
-	      RMDBGONCE(3, RMDebug::module_applications, "rviewQuery", "loadQuery()");
-	      loadQuery(name);
-	    }
-	    else
-	    {
-	      RMDBGONCE(3, RMDebug::module_applications, "rviewQuery", "saveQuery()");
-	      saveQuery(name);
-	    }
-	    hotPath = ::wxPathOnly(name);
-	    prefs->queryPath = hotPath;
-	    prefs->markModified();
-	    buildMenubar();
-	  }
-	}
-      }
-      break;
-    case MENU_QUERY_FILE_EXIT: this->Close(TRUE); break;
-    case MENU_QUERY_EDIT_CUT: twin->Cut(); break;
-    case MENU_QUERY_EDIT_COPY: twin->Copy(); break;
-    case MENU_QUERY_EDIT_PASTE: twin->Paste(); break;
-    default: break;
-  }
+        sprintf(filter, "*%s", query_extension);
+        if (::wxDirExists(prefDir)) name = prefDir;
+        else name = ".";
+        name = ::wxFileSelector(lman->lookup((id == MENU_QUERY_FILE_OPEN) ? "titleQueryLoad" : "titleQuerySave"), name, NULL, NULL, filter, 0 , this);
+        if (name != NULL)
+        {
+            aux = ::wxFileNameFromPath(name);
+            if (strlen(aux) > 0)
+            {
+                if (id == MENU_QUERY_FILE_OPEN)
+                {
+                    RMDBGONCE(3, RMDebug::module_applications, "rviewQuery", "loadQuery()");
+                    loadQuery(name);
+                }
+                else
+                {
+                    RMDBGONCE(3, RMDebug::module_applications, "rviewQuery", "saveQuery()");
+                    saveQuery(name);
+                }
+                hotPath = ::wxPathOnly(name);
+                prefs->queryPath = hotPath;
+                prefs->markModified();
+                buildMenubar();
+            }
+        }
+    }
+    break;
+    case MENU_QUERY_FILE_EXIT:
+        this->Close(TRUE);
+        break;
+    case MENU_QUERY_EDIT_CUT:
+        twin->Cut();
+        break;
+    case MENU_QUERY_EDIT_COPY:
+        twin->Copy();
+        break;
+    case MENU_QUERY_EDIT_PASTE:
+        twin->Paste();
+        break;
+    default:
+        break;
+    }
 }
 
 
 
 void rviewQuery::buildMenubar(void)
 {
-  char pattern[STRINGSIZE], leaf[STRINGSIZE];
-  char *f;
-  char *qhots[MENU_QUERY_HOTRANGE];
-  int i;
-  wxMenu *hotList;
+    char pattern[STRINGSIZE], leaf[STRINGSIZE];
+    char *f;
+    char *qhots[MENU_QUERY_HOTRANGE];
+    int i;
+    wxMenu *hotList;
 
-  // Do we actually need to rebuild the menu?
-  if ((mbar != NULL) && (strcmp(hotPath, lastHotPath) == 0)) return;
+    // Do we actually need to rebuild the menu?
+    if ((mbar != NULL) && (strcmp(hotPath, lastHotPath) == 0)) return;
 
-  // build hotlist menu
-  hotList = new wxMenu;
-  sprintf(pattern, "%s"DIR_SEPARATOR"*%s", hotPath.ptr(), query_extension);
+    // build hotlist menu
+    hotList = new wxMenu;
+    sprintf(pattern, "%s"DIR_SEPARATOR"*%s", hotPath.ptr(), query_extension);
 
-  // Sort the hotlist alphabetically
-  f = ::wxFindFirstFile(pattern); hotNumber = 0;
-  while (f && (hotNumber < MENU_QUERY_HOTRANGE))
-  {
-    strcpy(leaf, ::wxFileNameFromPath(f));
-    f = strstr(leaf, query_extension);
-    if (f != NULL) *f = '\0';
-    if ((qhots[hotNumber] = new char[strlen(leaf) + 1]) == NULL) break;
-    strcpy(qhots[hotNumber], leaf);
-    hotNumber++;
-    f = wxFindNextFile();
-  }
+    // Sort the hotlist alphabetically
+    f = ::wxFindFirstFile(pattern);
+    hotNumber = 0;
+    while (f && (hotNumber < MENU_QUERY_HOTRANGE))
+    {
+        strcpy(leaf, ::wxFileNameFromPath(f));
+        f = strstr(leaf, query_extension);
+        if (f != NULL) *f = '\0';
+        if ((qhots[hotNumber] = new char[strlen(leaf) + 1]) == NULL) break;
+        strcpy(qhots[hotNumber], leaf);
+        hotNumber++;
+        f = wxFindNextFile();
+    }
 
-  rviewQuicksortStrings(qhots, 0, hotNumber-1);
+    rviewQuicksortStrings(qhots, 0, hotNumber-1);
 
-  for (i=0; i<hotNumber; i++)
-  {
-    //cout << "Item " << i << ": " << qhots[i] << endl;
-    hotList->Append(MENU_QUERY_HOTLIST + i, qhots[i]);
-    delete [] qhots[i];
-  }
+    for (i=0; i<hotNumber; i++)
+    {
+        //cout << "Item " << i << ": " << qhots[i] << endl;
+        hotList->Append(MENU_QUERY_HOTLIST + i, qhots[i]);
+        delete [] qhots[i];
+    }
 
-  if (mbar == NULL)
-  {
-    mbarMenus[0] = new wxMenu;
-    mbarMenus[0]->Append(MENU_QUERY_FILE_OPEN, "");
-    mbarMenus[0]->Append(MENU_QUERY_FILE_SAVE, "");
-    mbarMenus[0]->Append(MENU_QUERY_FILE_EXIT, "");
+    if (mbar == NULL)
+    {
+        mbarMenus[0] = new wxMenu;
+        mbarMenus[0]->Append(MENU_QUERY_FILE_OPEN, "");
+        mbarMenus[0]->Append(MENU_QUERY_FILE_SAVE, "");
+        mbarMenus[0]->Append(MENU_QUERY_FILE_EXIT, "");
 
-    mbarMenus[1] = new wxMenu;
-    mbarMenus[1]->Append(MENU_QUERY_EDIT_CUT, "");
-    mbarMenus[1]->Append(MENU_QUERY_EDIT_COPY, "");
-    mbarMenus[1]->Append(MENU_QUERY_EDIT_PASTE, "");
+        mbarMenus[1] = new wxMenu;
+        mbarMenus[1]->Append(MENU_QUERY_EDIT_CUT, "");
+        mbarMenus[1]->Append(MENU_QUERY_EDIT_COPY, "");
+        mbarMenus[1]->Append(MENU_QUERY_EDIT_PASTE, "");
 
-    mbarMenus[2] = hotList;
+        mbarMenus[2] = hotList;
 
 
-    mbar = new wxMenuBar;
-    sprintf(pattern, "&%s", lman->lookup("menQueryFile"));
-    mbar->Append(mbarMenus[0], pattern);
-    sprintf(pattern, "&%s", lman->lookup("menQueryEdit"));
-    mbar->Append(mbarMenus[1], pattern);
-    sprintf(pattern, "&%s", lman->lookup("menQueryHotlist"));
-    mbar->Append(mbarMenus[2], pattern);
+        mbar = new wxMenuBar;
+        sprintf(pattern, "&%s", lman->lookup("menQueryFile"));
+        mbar->Append(mbarMenus[0], pattern);
+        sprintf(pattern, "&%s", lman->lookup("menQueryEdit"));
+        mbar->Append(mbarMenus[1], pattern);
+        sprintf(pattern, "&%s", lman->lookup("menQueryHotlist"));
+        mbar->Append(mbarMenus[2], pattern);
 
-    SetMenuBar(mbar);
-  }
-  else
-  {
-    mbar->Delete(mbarMenus[2], 2);
-    sprintf(pattern, "&%s", lman->lookup("menQueryHotlist"));
-    mbar->Append(hotList, pattern);
-    delete mbarMenus[2];
-    mbarMenus[2] = hotList;
-  }
+        SetMenuBar(mbar);
+    }
+    else
+    {
+        mbar->Delete(mbarMenus[2], 2);
+        sprintf(pattern, "&%s", lman->lookup("menQueryHotlist"));
+        mbar->Append(hotList, pattern);
+        delete mbarMenus[2];
+        mbarMenus[2] = hotList;
+    }
 }
 
 
 
 void rviewQuery::label(void)
 {
-  updateTitle();
+    updateTitle();
 
-  mbar->SetLabel(MENU_QUERY_FILE_OPEN, lman->lookup("menQueryFileOpen"));
-  mbar->SetLabel(MENU_QUERY_FILE_SAVE, lman->lookup("menQueryFileSave"));
-  mbar->SetLabel(MENU_QUERY_FILE_EXIT, lman->lookup("menQueryFileClose"));
-  mbar->SetHelpString(MENU_QUERY_FILE_OPEN, lman->lookup("helpQueryFileOpen"));
-  mbar->SetHelpString(MENU_QUERY_FILE_SAVE, lman->lookup("helpQueryFileSave"));
-  mbar->SetHelpString(MENU_QUERY_FILE_EXIT, lman->lookup("helpQueryFileClose"));
+    mbar->SetLabel(MENU_QUERY_FILE_OPEN, lman->lookup("menQueryFileOpen"));
+    mbar->SetLabel(MENU_QUERY_FILE_SAVE, lman->lookup("menQueryFileSave"));
+    mbar->SetLabel(MENU_QUERY_FILE_EXIT, lman->lookup("menQueryFileClose"));
+    mbar->SetHelpString(MENU_QUERY_FILE_OPEN, lman->lookup("helpQueryFileOpen"));
+    mbar->SetHelpString(MENU_QUERY_FILE_SAVE, lman->lookup("helpQueryFileSave"));
+    mbar->SetHelpString(MENU_QUERY_FILE_EXIT, lman->lookup("helpQueryFileClose"));
 
-  mbar->SetLabel(MENU_QUERY_EDIT_CUT, lman->lookup("menQueryEditCut"));
-  mbar->SetLabel(MENU_QUERY_EDIT_COPY, lman->lookup("menQueryEditCopy"));
-  mbar->SetLabel(MENU_QUERY_EDIT_PASTE, lman->lookup("menQueryEditPaste"));
-  mbar->SetHelpString(MENU_QUERY_EDIT_CUT, lman->lookup("helpQueryEditCut"));
-  mbar->SetHelpString(MENU_QUERY_EDIT_COPY, lman->lookup("helpQueryEditCopy"));
-  mbar->SetHelpString(MENU_QUERY_EDIT_PASTE, lman->lookup("helpQueryEditPaste"));
+    mbar->SetLabel(MENU_QUERY_EDIT_CUT, lman->lookup("menQueryEditCut"));
+    mbar->SetLabel(MENU_QUERY_EDIT_COPY, lman->lookup("menQueryEditCopy"));
+    mbar->SetLabel(MENU_QUERY_EDIT_PASTE, lman->lookup("menQueryEditPaste"));
+    mbar->SetHelpString(MENU_QUERY_EDIT_CUT, lman->lookup("helpQueryEditCut"));
+    mbar->SetHelpString(MENU_QUERY_EDIT_COPY, lman->lookup("helpQueryEditCopy"));
+    mbar->SetHelpString(MENU_QUERY_EDIT_PASTE, lman->lookup("helpQueryEditPaste"));
 
-  mbar->SetLabelTop(0, lman->lookup("menQueryFile"));
-  mbar->SetLabelTop(1, lman->lookup("menQueryEdit"));
-  mbar->SetLabelTop(2, lman->lookup("menQueryHotlist"));
+    mbar->SetLabelTop(0, lman->lookup("menQueryFile"));
+    mbar->SetLabelTop(1, lman->lookup("menQueryEdit"));
+    mbar->SetLabelTop(2, lman->lookup("menQueryHotlist"));
 
-  butClear->SetLabel(lman->lookup("textClear"));
-  butExec->SetLabel(lman->lookup("textExec"));
-  butUpdt->SetLabel(lman->lookup("textUpdt"));
+    butClear->SetLabel(lman->lookup("textClear"));
+    butExec->SetLabel(lman->lookup("textExec"));
+    butUpdt->SetLabel(lman->lookup("textUpdt"));
 }
 
 
 void rviewQuery::updateTitle(void)
 {
-  if (updateID == -1)
-  {
-    SetTitle(lman->lookup("titleQuery"));
-  }
-  else
-  {
-    char buffer[STRINGSIZE];
-    sprintf(buffer, "%s q%dd%d", lman->lookup("titleQuery"), qwindowID, updateID);
-    SetTitle(buffer);
-  }
+    if (updateID == -1)
+    {
+        SetTitle(lman->lookup("titleQuery"));
+    }
+    else
+    {
+        char buffer[STRINGSIZE];
+        sprintf(buffer, "%s q%dd%d", lman->lookup("titleQuery"), qwindowID, updateID);
+        SetTitle(buffer);
+    }
 }
 
 
 int rviewQuery::process(wxObject &obj, wxEvent &evt)
 {
-  int type = evt.GetEventType();
+    int type = evt.GetEventType();
 
-  if (type == wxEVENT_TYPE_BUTTON_COMMAND)
-  {
-    if (&obj == (wxObject*)butClear)
+    if (type == wxEVENT_TYPE_BUTTON_COMMAND)
     {
-      twin->Clear();
-      return 1;
+        if (&obj == (wxObject*)butClear)
+        {
+            twin->Clear();
+            return 1;
+        }
+        if (&obj == (wxObject*)butExec)
+        {
+            int numl = twin->GetNumberOfLines();
+            int i, totalLength = 1;
+            char *b, *query;
+
+            query = twin->GetContents();
+
+            // Execute query.
+            i = rmanClientApp::theApp()->executeQuery(query, (updateDisplay == NULL) ? NULL : &updateMddObj);
+            // Did it fail?
+            if (i == 0)
+            {
+                int line, column;
+
+                // Was it a query error?
+                if (queryDb->getErrorInfo(line, column) != 0)
+                {
+                    long offset = twin->XYToPosition(column-1, line-1);
+
+                    // query was big enough to hold the entore query, so it's definitely
+                    // big enough to hold one line
+                    twin->GetLineText(line-1, query);
+                    b = query + column-1;
+                    while ((*b != ' ') && (!iscntrl(*b))) b++;
+                    twin->SetSelection(offset, offset + (long)(b - (query + column-1)));
+                }
+            }
+            delete [] query;
+            // Notify that we did something, not whether it was a success
+            return 1;
+        }
+        if (&obj == (wxObject*)butUpdt)
+        {
+            rviewDisplay *newDisplay;
+
+            // Don't set updateDisplay directly. We might have a valid update image and
+            // issued a cancel from the file selection box.
+            if ((newDisplay = (rviewDisplay*)rmanClientApp::theApp()->OpenFile(rviewDisplay::display_flag_update, &updateMddObj, FALSE)) != NULL)
+            {
+                if (updateDisplay != NULL)
+                {
+                    updateDisplay->noLongerUpdate();
+                }
+                updateDisplay = newDisplay;
+                updateDisplay->setQueryWindow(qwindowID);
+                updateID = updateDisplay->getIdentifier();
+                updateTitle();
+                return 1;
+            }
+        }
     }
-    if (&obj == (wxObject*)butExec)
-    {
-      int numl = twin->GetNumberOfLines();
-      int i, totalLength = 1;
-      char *b, *query;
-
-      query = twin->GetContents();
-
-      // Execute query.
-      i = rmanClientApp::theApp()->executeQuery(query, (updateDisplay == NULL) ? NULL : &updateMddObj);
-      // Did it fail?
-      if (i == 0)
-      {
-	int line, column;
-
-	// Was it a query error?
-	if (queryDb->getErrorInfo(line, column) != 0)
-	{
-	  long offset = twin->XYToPosition(column-1, line-1);
-
-	  // query was big enough to hold the entore query, so it's definitely
-	  // big enough to hold one line
-	  twin->GetLineText(line-1, query);
-	  b = query + column-1;
-	  while ((*b != ' ') && (!iscntrl(*b))) b++;
-	  twin->SetSelection(offset, offset + (long)(b - (query + column-1)));
-	}
-      }
-      delete [] query;
-      // Notify that we did something, not whether it was a success
-      return 1;
-    }
-    if (&obj == (wxObject*)butUpdt)
-    {
-      rviewDisplay *newDisplay;
-
-      // Don't set updateDisplay directly. We might have a valid update image and
-      // issued a cancel from the file selection box.
-      if ((newDisplay = (rviewDisplay*)rmanClientApp::theApp()->OpenFile(rviewDisplay::display_flag_update, &updateMddObj, FALSE)) != NULL)
-      {
-	if (updateDisplay != NULL)
-	{
-	  updateDisplay->noLongerUpdate();
-	}
-	updateDisplay = newDisplay;
-	updateDisplay->setQueryWindow(qwindowID);
-	updateID = updateDisplay->getIdentifier();
-	updateTitle();
-        return 1;
-      }
-    }
-  }
-  return 0;
+    return 0;
 }
 
 
 int rviewQuery::getIdentifier(void) const
 {
-  return qwindowID;
+    return qwindowID;
 }
 
 int rviewQuery::getQueryCounter(void) const
 {
-  return queryCounter;
+    return queryCounter;
 }
 
 
 
 int rviewQuery::userEvent(const user_event &ue)
 {
-  if ((ue.type == usr_db_opened) || (ue.type == usr_db_closed))
-  {
-    newDBState((ue.type == usr_db_opened));
-    return 1;
-  }
-  if ((updateDisplay != NULL) && (ue.type == usr_update_closed))
-  {
-    r_Ref<r_GMarray> *whichMdd = (r_Ref<r_GMarray>*)(ue.data);
-    if (*whichMdd == updateMddObj)
+    if ((ue.type == usr_db_opened) || (ue.type == usr_db_closed))
     {
-      updateDisplay = NULL; updateID = -1;
-      updateTitle();
-      return 1;
+        newDBState((ue.type == usr_db_opened));
+        return 1;
     }
-  }
-  return 0;
+    if ((updateDisplay != NULL) && (ue.type == usr_update_closed))
+    {
+        r_Ref<r_GMarray> *whichMdd = (r_Ref<r_GMarray>*)(ue.data);
+        if (*whichMdd == updateMddObj)
+        {
+            updateDisplay = NULL;
+            updateID = -1;
+            updateTitle();
+            return 1;
+        }
+    }
+    return 0;
 }
 
 
 void rviewQuery::newDBState(bool newState)
 {
-  butExec->Enable(newState);
+    butExec->Enable(newState);
 }
 
 
 bool rviewQuery::loadQuery(char *file)
 {
-  size_t length;
-  int idlength;
-  char *buffer, *b;
-  FILE *fp;
+    size_t length;
+    int idlength;
+    char *buffer, *b;
+    FILE *fp;
 
-  if ((fp = fopen(file, "rb")) == NULL)
-  {
-    char msg[STRINGSIZE];
-    sprintf(msg, "%s %s", lman->lookup("errorFileOpen"), file);
-    rviewErrorbox::reportError(msg, rviewQuery::getFrameName(), "loadQuery");
-    return FALSE;
-  }
+    if ((fp = fopen(file, "rb")) == NULL)
+    {
+        char msg[STRINGSIZE];
+        sprintf(msg, "%s %s", lman->lookup("errorFileOpen"), file);
+        rviewErrorbox::reportError(msg, rviewQuery::getFrameName(), "loadQuery");
+        return FALSE;
+    }
 
-  fseek(fp, 0, SEEK_END);
-  length = ftell(fp);
-  if ((buffer = new char[length+1]) == NULL)
-  {
-    rviewErrorbox::reportError(lman->lookup("errorMemory"), rviewQuery::getFrameName(), "loadQuery");
-    fclose(fp); return FALSE;
-  }
-  fseek(fp, 0, SEEK_SET);
+    fseek(fp, 0, SEEK_END);
+    length = ftell(fp);
+    if ((buffer = new char[length+1]) == NULL)
+    {
+        rviewErrorbox::reportError(lman->lookup("errorMemory"), rviewQuery::getFrameName(), "loadQuery");
+        fclose(fp);
+        return FALSE;
+    }
+    fseek(fp, 0, SEEK_SET);
 
-  b = buffer;
-  for (idlength=0; idlength<(int)length; idlength++)
-  {
-    int c;
+    b = buffer;
+    for (idlength=0; idlength<(int)length; idlength++)
+    {
+        int c;
 
-	if ((c = fgetc(fp)) == EOF) break;
+        if ((c = fgetc(fp)) == EOF) break;
 #ifdef __VISUALC__
-	if (c != '\r')
+        if (c != '\r')
 #endif
-	*b++ = c;
-  }
-  *b++ = '\0';
+            *b++ = c;
+    }
+    *b++ = '\0';
 
-  if (idlength < (int)length)
-  {
-    char msg[STRINGSIZE];
-    sprintf(msg, "%s %s", lman->lookup("errorFileRead"), file);
-    rviewErrorbox::reportError(msg, rviewQuery::getFrameName(), "loadQuery");
+    if (idlength < (int)length)
+    {
+        char msg[STRINGSIZE];
+        sprintf(msg, "%s %s", lman->lookup("errorFileRead"), file);
+        rviewErrorbox::reportError(msg, rviewQuery::getFrameName(), "loadQuery");
+        fclose(fp);
+        return FALSE;
+    }
+
     fclose(fp);
-    return FALSE;
-  }
 
-  fclose(fp);
-
-  idlength = strlen("RasDaView-Query");
-  if (strncmp(buffer, "RasDaView-Query", idlength) != 0)
-  {
-    idlength = strlen(query_firstline);
-    if (strncmp(buffer,query_firstline, idlength) != 0) idlength = -1;
-  }
-  if (idlength < 0)
-  {
-    rviewErrorbox::reportError(lman->lookup("errorQueryFile"), rviewQuery::getFrameName(), "loadQuery");
+    idlength = strlen("RasDaView-Query");
+    if (strncmp(buffer, "RasDaView-Query", idlength) != 0)
+    {
+        idlength = strlen(query_firstline);
+        if (strncmp(buffer,query_firstline, idlength) != 0) idlength = -1;
+    }
+    if (idlength < 0)
+    {
+        rviewErrorbox::reportError(lman->lookup("errorQueryFile"), rviewQuery::getFrameName(), "loadQuery");
+        delete [] buffer;
+        return FALSE;
+    }
+    twin->Clear();
+    twin->WriteText(buffer + idlength + 1);
     delete [] buffer;
-    return FALSE;
-  }
-  twin->Clear();
-  twin->WriteText(buffer + idlength + 1);
-  delete [] buffer;
-  return TRUE;
+    return TRUE;
 }
 
 
 bool rviewQuery::saveQuery(char *file)
 {
-  FILE *fp;
-  char *buffer, *b, *upper;
+    FILE *fp;
+    char *buffer, *b, *upper;
 
-  if ((fp = fopen(file, "wb")) == NULL)
-  {
-    char msg[STRINGSIZE];
-    sprintf(msg, "%s %s", lman->lookup("errorFileOpen"), file);
-    rviewErrorbox::reportError(msg, rviewQuery::getFrameName(), "saveQuery");
-    return FALSE;
-  }
+    if ((fp = fopen(file, "wb")) == NULL)
+    {
+        char msg[STRINGSIZE];
+        sprintf(msg, "%s %s", lman->lookup("errorFileOpen"), file);
+        rviewErrorbox::reportError(msg, rviewQuery::getFrameName(), "saveQuery");
+        return FALSE;
+    }
 
-  fprintf(fp, query_firstline); fputc('\n', fp);
-  buffer = twin->GetContents();
-  b = buffer; upper = buffer + strlen(buffer);
+    fprintf(fp, query_firstline);
+    fputc('\n', fp);
+    buffer = twin->GetContents();
+    b = buffer;
+    upper = buffer + strlen(buffer);
 
-  while (b < upper)
-  {
+    while (b < upper)
+    {
 #ifdef __VISUALC__
-    if (*b != '\r')
+        if (*b != '\r')
 #endif
-    if (fputc(*b, fp) != *b) break;
-    b++;
-  }
-  if (b != upper)
-  {
-    char msg[STRINGSIZE];
-    sprintf(msg, "%s %s", lman->lookup("errorFileWrite"), file);
-    rviewErrorbox::reportError(msg, rviewQuery::getFrameName(), "saveQuery");
+            if (fputc(*b, fp) != *b) break;
+        b++;
+    }
+    if (b != upper)
+    {
+        char msg[STRINGSIZE];
+        sprintf(msg, "%s %s", lman->lookup("errorFileWrite"), file);
+        rviewErrorbox::reportError(msg, rviewQuery::getFrameName(), "saveQuery");
+        fclose(fp);
+        return FALSE;
+    }
+
     fclose(fp);
-    return FALSE;
-  }
 
-  fclose(fp);
+    delete [] buffer;
 
-  delete [] buffer;
-
-  return TRUE;
+    return TRUE;
 }

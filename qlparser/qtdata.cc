@@ -34,49 +34,49 @@ static const char rcsid[] = "@(#)qlparser, QtData: $Id: qtdata.cc,v 1.17 2002/06
 
 
 QtData::QtData()
-  :  referenceCounter(1),
-     persistent( QT_TRANSIENT ),
-     parseInfo(NULL)
+    :  referenceCounter(1),
+       persistent( QT_TRANSIENT ),
+       parseInfo(NULL)
 {
-  RMDBGONCE( 10, RMDebug::module_qlparser, "QtData", "QtData::QtData() Obj: " << this )
+    RMDBGONCE( 10, RMDebug::module_qlparser, "QtData", "QtData::QtData() Obj: " << this )
 }
 
 
 
 QtData::QtData( const std::string name )
-  : iteratorName( name ),
-    referenceCounter(1),
-    persistent( QT_TRANSIENT ),
-    parseInfo(NULL)
+    : iteratorName( name ),
+      referenceCounter(1),
+      persistent( QT_TRANSIENT ),
+      parseInfo(NULL)
 {
-  RMDBGONCE( 10, RMDebug::module_qlparser, "QtData", "QtData::QtData( const std::string ) Obj: " << this )
+    RMDBGONCE( 10, RMDebug::module_qlparser, "QtData", "QtData::QtData( const std::string ) Obj: " << this )
 }
 
 
 
 QtData::QtData( const QtData &obj )
-  : iteratorName( obj.iteratorName ),
-    persistent( obj.persistent ),
-    referenceCounter(1),
-    parseInfo(NULL)
+    : iteratorName( obj.iteratorName ),
+      persistent( obj.persistent ),
+      referenceCounter(1),
+      parseInfo(NULL)
 {
-  RMDBGONCE( 10, RMDebug::module_qlparser, "QtData", "QtData::QtData( QtData& ) Obj: " << this )
+    RMDBGONCE( 10, RMDebug::module_qlparser, "QtData", "QtData::QtData( QtData& ) Obj: " << this )
 
-  if( obj.parseInfo )
-    parseInfo = new ParseInfo( *(obj.parseInfo) );
+    if( obj.parseInfo )
+        parseInfo = new ParseInfo( *(obj.parseInfo) );
 }
 
 
 
 QtData::~QtData()
 {
-  RMDBGONCE( 10, RMDebug::module_qlparser, "QtData", "QtData::~QtData() Obj: " << this )
+    RMDBGONCE( 10, RMDebug::module_qlparser, "QtData", "QtData::~QtData() Obj: " << this )
 
-  if( parseInfo ) 
-  {
-    delete parseInfo; 
-    parseInfo=NULL;
-  }
+    if( parseInfo )
+    {
+        delete parseInfo;
+        parseInfo=NULL;
+    }
 }
 
 
@@ -84,8 +84,8 @@ QtData::~QtData()
 bool
 QtData::isScalarData() const
 {
-  // default implementation returns false
-  return false;
+    // default implementation returns false
+    return false;
 }
 
 
@@ -93,25 +93,25 @@ QtData::isScalarData() const
 const QtData&
 QtData::operator=( const QtData& obj )
 {
-  RMDBGONCE( 10, RMDebug::module_qlparser, "QtData", "QtData::operator=" )
+    RMDBGONCE( 10, RMDebug::module_qlparser, "QtData", "QtData::operator=" )
 
-  if( this != &obj )
-  {
-    iteratorName     = obj.iteratorName;
-    persistent       = obj.persistent;
-    referenceCounter = 1;
-
-    if( parseInfo )
+    if( this != &obj )
     {
-      delete parseInfo;
-      parseInfo = NULL;
+        iteratorName     = obj.iteratorName;
+        persistent       = obj.persistent;
+        referenceCounter = 1;
+
+        if( parseInfo )
+        {
+            delete parseInfo;
+            parseInfo = NULL;
+        }
+
+        if( obj.parseInfo )
+            parseInfo = new ParseInfo( *(obj.parseInfo) );
     }
 
-    if( obj.parseInfo )
-      parseInfo = new ParseInfo( *(obj.parseInfo) );
-  }
-
-  return *this;
+    return *this;
 }
 
 
@@ -119,9 +119,9 @@ QtData::operator=( const QtData& obj )
 void
 QtData::printStatus( std::ostream& stream ) const
 {
-  if( iteratorName.size() )
-    stream << ", iter name: " << iteratorName.c_str() << std::flush;
-  
-  stream << ", ref#: " << referenceCounter
-         << ( persistent == QT_TRANSIENT ? " trans " : " pers " )  << std::flush;
+    if( iteratorName.size() )
+        stream << ", iter name: " << iteratorName.c_str() << std::flush;
+
+    stream << ", ref#: " << referenceCounter
+           << ( persistent == QT_TRANSIENT ? " trans " : " pers " )  << std::flush;
 }

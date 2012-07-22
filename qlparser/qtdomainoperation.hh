@@ -52,12 +52,12 @@ The class represents a spatial domain operation, e.g. trimming or projections.
 
 class QtDomainOperation : public QtUnaryOperation
 {
-  public:
+public:
 
     /// constructor getting an minterval expression
     QtDomainOperation( QtOperation* mintOp );
 
-    /// constructor 
+    /// constructor
     QtDomainOperation( r_Minterval domainNew, const vector<bool>* newTrimFlags );
 
     /// destructor
@@ -81,7 +81,7 @@ class QtDomainOperation : public QtUnaryOperation
     /// evaluates the node
     QtData* evaluate( QtDataList* inputList );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -91,12 +91,12 @@ class QtDomainOperation : public QtUnaryOperation
     //@{
     ///
 
-      ///
-      inline virtual void setInput( QtOperation* newInput );
-      ///
-      inline virtual void setMintervalOp(QtOperation* miop); 
-      ///
-      inline QtOperation*  getMintervalOp();
+    ///
+    inline virtual void setInput( QtOperation* newInput );
+    ///
+    inline virtual void setMintervalOp(QtOperation* miop);
+    ///
+    inline QtOperation*  getMintervalOp();
 
     ///
     //@}
@@ -107,7 +107,7 @@ class QtDomainOperation : public QtUnaryOperation
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /// pointer to an minterval expression
     QtOperation* mintervalOp;
 

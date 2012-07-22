@@ -46,7 +46,7 @@ rasdaman GmbH.
 
 class QtStringData : public QtData
 {
-  public:
+public:
     /// constructor getting the string
     QtStringData( const std::string& str );
 
@@ -54,16 +54,16 @@ class QtStringData : public QtData
     //@{
     ///
 
-      ///
-      inline const std::string& getStringData() const;
-      /// 
-      inline void          setStringData( const std::string& str );
+    ///
+    inline const std::string& getStringData() const;
+    ///
+    inline void          setStringData( const std::string& str );
 
-      /// returns a null-terminated string describing the type structure
-      virtual char* getTypeStructure() const;
-      /**
-        The string pointer has to be free using free() by the caller.
-      */
+    /// returns a null-terminated string describing the type structure
+    virtual char* getTypeStructure() const;
+    /**
+      The string pointer has to be free using free() by the caller.
+    */
 
     ///
     //@}
@@ -74,15 +74,15 @@ class QtStringData : public QtData
     /// compares data content
     virtual bool equal( const QtData* obj ) const;
 
-    /// returns content dependent string representation 
+    /// returns content dependent string representation
     virtual std::string getSpelling() const;
 
     /// print status of the object to the specified stream
     virtual void printStatus( std::ostream& stream = std::cout ) const;
 
-  private:
+private:
     /// prevents from using the default constructor
-    QtStringData(){};
+    QtStringData() {};
 
     ///
     std::string stringData;

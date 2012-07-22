@@ -23,10 +23,10 @@ rasdaman GmbH.
 #ifndef RASSERVER_ENTRY_HH
 #define RASSERVER_ENTRY_HH
 
-/* 
+/*
   This class is the entry point of the rasdaman server. It's the interface of the server to the outside world
   It's functions are called by the communication level.
-  
+
   For now the class inherites HttpServer which inherites ServerComm, but only to have nice acces to the stuff
   found there. Later we will drop both of them and make the life easier.
 */
@@ -38,106 +38,106 @@ rasdaman GmbH.
   * \ingroup Servers
   */
 class RasServerEntry : public HttpServer
-  {
-    private:
-      RasServerEntry();
-      static RasServerEntry* myself;
-    public:
-      static RasServerEntry& getInstance();
+{
+private:
+    RasServerEntry();
+    static RasServerEntry* myself;
+public:
+    static RasServerEntry& getInstance();
 
-      ~RasServerEntry();
-      
-      //### inherited stuff - we have to keep them for now
-      void startRpcServer() throw( r_Error );
-      void stopRpcServer();
-      //###
-	
-	void compat_connectToDBMS() throw( r_Error );
-	
-	// All "compat_" functions use old ServerComm and HttpServer stuff to do their job
-	// Later, the new functions will do the job proper and this old functions will be dropped!
-	void compat_connectNewClient(const char *capability);
-	    unsigned long currentClientIdx;
-	    ClientTblElt* getClientContext( unsigned long ClientId ); // inherited...
-	    ClientTblElt* currentClientContext;
+    ~RasServerEntry();
 
-	void compat_disconnectClient();	
-	
-	void compat_openDB(const char* databaseName);
-	
-	void compat_closeDB();
-	
-	void compat_beginTA(bool rw);
-	
-	void compat_commitTA();
-	
-	void compat_abortTA();
-	
-	bool compat_isOpenTA();
-	
-	// provided for temporary compatibility with the encoding of the java interface
-	// resultBuffer will be allocated and it's address stored in the given pointer
-	// result is the length of the result
-	int compat_executeQueryHttp(const char* httpParams, int httpParamsLen, char*& resultBuffer);
-	
-	r_OId compat_getNewOId(unsigned short objType); // 1 - mddType, 2 -collType
-	
-	int  compat_executeQueryRpc(const char* query, ExecuteQueryRes &queryResult);
+    //### inherited stuff - we have to keep them for now
+    void startRpcServer() throw( r_Error );
+    void stopRpcServer();
+    //###
 
-	int  compat_getNextElement(char* &buffer, unsigned int  &bufferSize );
-	
-	int  compat_endTransfer();
-        
-	int  compat_getNextMDD(r_Minterval &mddDomain, char* &typeName, char* &typeStructure, r_OId &oid,unsigned short &currentFormat);
+    void compat_connectToDBMS() throw( r_Error );
 
-        int  compat_getNextTile(RPCMarray** rpcMarray);
+    // All "compat_" functions use old ServerComm and HttpServer stuff to do their job
+    // Later, the new functions will do the job proper and this old functions will be dropped!
+    void compat_connectNewClient(const char *capability);
+    unsigned long currentClientIdx;
+    ClientTblElt* getClientContext( unsigned long ClientId ); // inherited...
+    ClientTblElt* currentClientContext;
 
-	int  compat_ExecuteUpdateQuery(const char *query, ExecuteUpdateRes &returnStructure);
+    void compat_disconnectClient();
 
-	int  compat_InitUpdate();
-        
-	int  compat_StartInsertTransMDD(const char *domain, int typeLength, const char *typeName);
-	
-        int  compat_InsertTile(int persistent, RPCMarray*);
-	
-        int  compat_EndInsertMDD(int persistent);
-        
-	int  compat_GetTypeStructure(const char *typeName, int typeType, char* &typeStructure);
-	
-        int  compat_StartInsertPersMDD(const char *collName, r_Minterval &mddDomain, int typeLength, const char *typeName, r_OId &oid);
-        
-	int  compat_InsertMDD(const char *collName, RPCMarray *rpcMarray, const char *typeName, r_OId &oid);
-	
-	int  compat_InsertCollection(const char *collName, const char *typeName, r_OId &oid);
+    void compat_openDB(const char* databaseName);
 
-        int  compat_DeleteCollByName(const char *collName);
-	
-        int  compat_DeleteObjByOId(r_OId &oid);
-	
-        int  compat_RemoveObjFromColl(const char *collName, r_OId &oid);
-	
-	int  compat_GetCollectionByName(const char* collName, char* &typeName, char* &typeStructure, r_OId &oid);
-	
-	int  compat_GetCollectionByName(r_OId oid, char* &typeName, char* &typeStructure, char* &collName);	
+    void compat_closeDB();
 
-	int  compat_GetCollectionOidsByName(const char* collName, char* &typeName, char* &typeStructure, r_OId &oid, RPCOIdEntry* &oidTable, unsigned int &oidTableSize);
-	
-	int  compat_GetCollectionOidsByOId(r_OId oid, char* &typeName, char* &typeStructure, RPCOIdEntry* &oidTable, unsigned int &oidTableSize, char* &collName);
-	
-	int  compat_GetObjectType(r_OId &oid, unsigned short &objType);
+    void compat_beginTA(bool rw);
 
-	int  compat_SetTransferFormat(int format, const char* params);
-    
-        int  compat_SetStorageFormat(int format, const char* params);
-	
-	
-	r_OId createCollection(const char* collName, const char* collTypeName);
-	
-	r_OId createMDD(const char* collName, const char* mddTypeName, const char* definitionDomain, const char* tileDomain, bool rcindex);
-	
-	void  extendMDD(r_OId mddOId, const char *stripeDomain, const char* tileDomain);
-	
-	vector<r_Minterval> getTileDomains(r_OId mddOId, const char *stripeDomain);
+    void compat_commitTA();
 
-   };
+    void compat_abortTA();
+
+    bool compat_isOpenTA();
+
+    // provided for temporary compatibility with the encoding of the java interface
+    // resultBuffer will be allocated and it's address stored in the given pointer
+    // result is the length of the result
+    int compat_executeQueryHttp(const char* httpParams, int httpParamsLen, char*& resultBuffer);
+
+    r_OId compat_getNewOId(unsigned short objType); // 1 - mddType, 2 -collType
+
+    int  compat_executeQueryRpc(const char* query, ExecuteQueryRes &queryResult);
+
+    int  compat_getNextElement(char* &buffer, unsigned int  &bufferSize );
+
+    int  compat_endTransfer();
+
+    int  compat_getNextMDD(r_Minterval &mddDomain, char* &typeName, char* &typeStructure, r_OId &oid,unsigned short &currentFormat);
+
+    int  compat_getNextTile(RPCMarray** rpcMarray);
+
+    int  compat_ExecuteUpdateQuery(const char *query, ExecuteUpdateRes &returnStructure);
+
+    int  compat_InitUpdate();
+
+    int  compat_StartInsertTransMDD(const char *domain, int typeLength, const char *typeName);
+
+    int  compat_InsertTile(int persistent, RPCMarray*);
+
+    int  compat_EndInsertMDD(int persistent);
+
+    int  compat_GetTypeStructure(const char *typeName, int typeType, char* &typeStructure);
+
+    int  compat_StartInsertPersMDD(const char *collName, r_Minterval &mddDomain, int typeLength, const char *typeName, r_OId &oid);
+
+    int  compat_InsertMDD(const char *collName, RPCMarray *rpcMarray, const char *typeName, r_OId &oid);
+
+    int  compat_InsertCollection(const char *collName, const char *typeName, r_OId &oid);
+
+    int  compat_DeleteCollByName(const char *collName);
+
+    int  compat_DeleteObjByOId(r_OId &oid);
+
+    int  compat_RemoveObjFromColl(const char *collName, r_OId &oid);
+
+    int  compat_GetCollectionByName(const char* collName, char* &typeName, char* &typeStructure, r_OId &oid);
+
+    int  compat_GetCollectionByName(r_OId oid, char* &typeName, char* &typeStructure, char* &collName);
+
+    int  compat_GetCollectionOidsByName(const char* collName, char* &typeName, char* &typeStructure, r_OId &oid, RPCOIdEntry* &oidTable, unsigned int &oidTableSize);
+
+    int  compat_GetCollectionOidsByOId(r_OId oid, char* &typeName, char* &typeStructure, RPCOIdEntry* &oidTable, unsigned int &oidTableSize, char* &collName);
+
+    int  compat_GetObjectType(r_OId &oid, unsigned short &objType);
+
+    int  compat_SetTransferFormat(int format, const char* params);
+
+    int  compat_SetStorageFormat(int format, const char* params);
+
+
+    r_OId createCollection(const char* collName, const char* collTypeName);
+
+    r_OId createMDD(const char* collName, const char* mddTypeName, const char* definitionDomain, const char* tileDomain, bool rcindex);
+
+    void  extendMDD(r_OId mddOId, const char *stripeDomain, const char* tileDomain);
+
+    vector<r_Minterval> getTileDomains(r_OId mddOId, const char *stripeDomain);
+
+};
 #endif

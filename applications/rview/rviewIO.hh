@@ -26,17 +26,17 @@ rasdaman GmbH.
  *
  *  rView data exchange interface for storing MDD to the filing system
  *  or loading from it. Currently supported operations are:
- *  	- Load TIFF file.
- *  	- Save wxPixmap as TIFF to file.
+ *      - Load TIFF file.
+ *      - Save wxPixmap as TIFF to file.
  *
- *	COMMENTS:
- * 			None
+ *  COMMENTS:
+ *          None
  */
 
 /**
-*	@file rviewIO.hh
+*   @file rviewIO.hh
 *
-*	@ingroup Applications
+*   @ingroup Applications
 */
 
 #ifndef _RVIEW_IO_H_
@@ -58,12 +58,13 @@ rasdaman GmbH.
 
 
 // Return status
-enum rviewIoStates {
-  RVIEW_IO_OK,
-  RVIEW_IO_NOTFOUND,
-  RVIEW_IO_MEMORY,
-  RVIEW_IO_UNSUPP,
-  RVIEW_IO_FORMAT
+enum rviewIoStates
+{
+    RVIEW_IO_OK,
+    RVIEW_IO_NOTFOUND,
+    RVIEW_IO_MEMORY,
+    RVIEW_IO_UNSUPP,
+    RVIEW_IO_FORMAT
 };
 
 
@@ -76,50 +77,50 @@ class r_Parse_Params;
 
 class rviewIO
 {
-  public:
+public:
 
-  rviewIO(void);
-  ~rviewIO(void);
+    rviewIO(void);
+    ~rviewIO(void);
 
-  static void terminate(void);
+    static void terminate(void);
 
-  static int isTIFF(const char *filename);
-  static int loadTIFF(const char *filename, r_Ref<r_GMarray> &mddPtr, const char *params=NULL);
-  static int saveTIFF(const char *filename, r_Ref<r_GMarray> &mddPtr, const char *params=NULL);
-  static int PixmapToTIFF(wxPixmap *pixmap, const char *filename, const char *params=NULL);
-  static int isVFF(const char *filename);
-  static int loadVFF(const char *filename, r_Ref<r_GMarray> &mddPtr, const char *params=NULL);
-  static int saveVFF(const char *filename, r_Ref<r_GMarray> &mddPtr, const char *params=NULL);
+    static int isTIFF(const char *filename);
+    static int loadTIFF(const char *filename, r_Ref<r_GMarray> &mddPtr, const char *params=NULL);
+    static int saveTIFF(const char *filename, r_Ref<r_GMarray> &mddPtr, const char *params=NULL);
+    static int PixmapToTIFF(wxPixmap *pixmap, const char *filename, const char *params=NULL);
+    static int isVFF(const char *filename);
+    static int loadVFF(const char *filename, r_Ref<r_GMarray> &mddPtr, const char *params=NULL);
+    static int saveVFF(const char *filename, r_Ref<r_GMarray> &mddPtr, const char *params=NULL);
 
 
-  private:
+private:
 
-  static void ensureParams(void);
-  static void processParams(const char *params);
+    static void ensureParams(void);
+    static void processParams(const char *params);
 
-  static r_Parse_Params *dfltParams;
-  static char *tiffCompStr;
-  static int tiffCompression;
+    static r_Parse_Params *dfltParams;
+    static char *tiffCompStr;
+    static int tiffCompression;
 
-  static const char *getExtension(const char *filename);
+    static const char *getExtension(const char *filename);
 
-  // tiff compression keywords
-  static const char param_KeyTiffComp[];
-  static const char param_TiffCompNone[];
-  static const char param_TiffCompPack[];
-  static const char param_TiffCompLZW[];
-  static const char param_TiffCompZLib[];
-  static const char param_TiffCompJPEG[];
+    // tiff compression keywords
+    static const char param_KeyTiffComp[];
+    static const char param_TiffCompNone[];
+    static const char param_TiffCompPack[];
+    static const char param_TiffCompLZW[];
+    static const char param_TiffCompZLib[];
+    static const char param_TiffCompJPEG[];
 
-  // TIFF formats
-  static const char structure_format_mono[];
-  static const char structure_format_grey[];
-  static const char structure_format_rgb[];
+    // TIFF formats
+    static const char structure_format_mono[];
+    static const char structure_format_grey[];
+    static const char structure_format_rgb[];
 
-  // VFF formats
-  static const char structure_format_cube8[];
-  static const char structure_format_cube16[];
-  static const char structure_format_cube32[];
+    // VFF formats
+    static const char structure_format_cube8[];
+    static const char structure_format_cube16[];
+    static const char structure_format_cube32[];
 };
 
 #endif

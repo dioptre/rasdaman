@@ -27,59 +27,59 @@ rasdaman GmbH.
  * CLASS:  RasMgrTester
  *
  * COMMENTS:
- * 
+ *
  *
 */
 
-#ifndef RASMGR_TESTER_HH 
+#ifndef RASMGR_TESTER_HH
 #define RASMGR_TESTER_HH
 
 #include "rasmgr_utils_comm.hh"
 #include <fstream>
 
 class RasMgrTester
-  {
-    public:
-      RasMgrTester();
-      ~RasMgrTester();
-      void setRasMgrHost(const char *rasmgrHost, int port);
-      bool mayWeDoTest();
-      
-      // load command from string
-      bool loadCommand(const char*);
-      
-      // load command from file, one line only
-      bool loadCommand(std::ifstream&);
-      
-      // load expected from string
-      bool loadExpected(const char*);
-      
-      // load expected from file, until delim, without it
-      // if delim==0, until EOF
-      bool loadExpected(std::ifstream&,char delim);
-      
-      bool sendCommandGetAnswer();
-      
-      bool isAnswerOK();
-      
-      const char* getCommand();
-      const char* getExpected();
-      const char* getAnswer();
-      
-      bool saveCommand(std::ofstream&);
-      bool saveExpected(std::ofstream&);
-      bool saveAnswer(std::ofstream&);
-      
-    private:
-      // STL ifstream::getline() drops the '\n', but let's a '\r' live
-      // so this function clears this stupid '\r'
-      void clearCR(char *line);
-      void clearFinalCRLF(char *string);
-      UserLogin  userLogin;
-      RasMgrClientComm rasmgrClient;
-      
-      char *command;
-      char *expected;
-      
-   };
+{
+public:
+    RasMgrTester();
+    ~RasMgrTester();
+    void setRasMgrHost(const char *rasmgrHost, int port);
+    bool mayWeDoTest();
+
+    // load command from string
+    bool loadCommand(const char*);
+
+    // load command from file, one line only
+    bool loadCommand(std::ifstream&);
+
+    // load expected from string
+    bool loadExpected(const char*);
+
+    // load expected from file, until delim, without it
+    // if delim==0, until EOF
+    bool loadExpected(std::ifstream&,char delim);
+
+    bool sendCommandGetAnswer();
+
+    bool isAnswerOK();
+
+    const char* getCommand();
+    const char* getExpected();
+    const char* getAnswer();
+
+    bool saveCommand(std::ofstream&);
+    bool saveExpected(std::ofstream&);
+    bool saveAnswer(std::ofstream&);
+
+private:
+    // STL ifstream::getline() drops the '\n', but let's a '\r' live
+    // so this function clears this stupid '\r'
+    void clearCR(char *line);
+    void clearFinalCRLF(char *string);
+    UserLogin  userLogin;
+    RasMgrClientComm rasmgrClient;
+
+    char *command;
+    char *expected;
+
+};
 #endif

@@ -27,7 +27,7 @@ rasdaman GmbH.
  *
  *
  * PURPOSE:
- *   
+ *
  *
  * COMMENTS:
  *
@@ -63,162 +63,162 @@ using std::ostream;
 /**
   * \ingroup Reladminifs
   */
-class DatabaseIf              
-	{
-	public:
-		friend std::ostream& operator<< (std::ostream& stream, DatabaseIf& db);
-		/*@Doc: 
-		prints the status of the database (connected, online, offline, name)
-		*/
-		
-		/// opens database with name {\tt dbName}.
-		void open( const char* dbName ) throw(r_Error);
-		/*@Doc: 
-			Precondition: not opened, not connected, db exists
-			Postcondition: open, not connected, db exists
-			If last opened database was not closed (throw r_Error::r_Error_DatabaseOpen)),
-			If database does not exist (throw r_Error::r_Error_DatabaseUnknown). 
-			In the current implementation this value is returned, when dbName is not RASBASE,
-			regardles if the db exists or not.
-		*/
+class DatabaseIf
+{
+public:
+    friend std::ostream& operator<< (std::ostream& stream, DatabaseIf& db);
+    /*@Doc:
+    prints the status of the database (connected, online, offline, name)
+    */
 
-		void close();
-		/*@Doc: 
-			Precondition: open, not connected, db exists
-			Postcondition: not open, not connected, db exists
-			closes currently opened database.  only frees name and sets connected/opened to false.
-		*/
+    /// opens database with name {\tt dbName}.
+    void open( const char* dbName ) throw(r_Error);
+    /*@Doc:
+        Precondition: not opened, not connected, db exists
+        Postcondition: open, not connected, db exists
+        If last opened database was not closed (throw r_Error::r_Error_DatabaseOpen)),
+        If database does not exist (throw r_Error::r_Error_DatabaseUnknown).
+        In the current implementation this value is returned, when dbName is not RASBASE,
+        regardles if the db exists or not.
+    */
 
-		static void createDB( const char* dbName, const char* schemaName, const char* volumeName=0 ) throw(r_Error);
-		/*@Doc: 
-			Precondition: not open, not connected, db does not exist
-			Postcondition: not open, not connected, db exists
-			creates a new database.  schemaName and volumeName are ignored.
-			only successful if dbName is RASBASE
-		*/
+    void close();
+    /*@Doc:
+        Precondition: open, not connected, db exists
+        Postcondition: not open, not connected, db exists
+        closes currently opened database.  only frees name and sets connected/opened to false.
+    */
 
-		static void destroyDB(const char* dbName) throw(r_Error); 
-		/*@Doc:
-			Precondition: not open, not connected, db exists
-			Postcondition: not open, not connected, db does not exist
-			destroys an existing database with name {\tt dbName}.
-			Database must not be open in order to be destroyed.
-			A transaction must not be opened.  
-			Returns -1 if database does not exist.
-		*/
+    static void createDB( const char* dbName, const char* schemaName, const char* volumeName=0 ) throw(r_Error);
+    /*@Doc:
+        Precondition: not open, not connected, db does not exist
+        Postcondition: not open, not connected, db exists
+        creates a new database.  schemaName and volumeName are ignored.
+        only successful if dbName is RASBASE
+    */
 
-		
-		void garbage();
-		/*@Doc: 
-		this method does not do anything
-		*/
-		
-		const char* getName() const;
-		/*@Doc: 
-		returns a pointer to the name of the db.
-		*/
-		
-		DatabaseIf();
-		/*@Doc: 
-		constructor.  Initializes opened, myName and connected to 0
-		*/
+    static void destroyDB(const char* dbName) throw(r_Error);
+    /*@Doc:
+        Precondition: not open, not connected, db exists
+        Postcondition: not open, not connected, db does not exist
+        destroys an existing database with name {\tt dbName}.
+        Database must not be open in order to be destroyed.
+        A transaction must not be opened.
+        Returns -1 if database does not exist.
+    */
 
-		bool isConnected() const;
-		/*@Doc: 
-		true when there has been an EXEC SQL CONNECT
-		*/
 
-		bool isOpen() const;
-		/*@Doc: 
-		true when it was opened by a transaction
-		*/
+    void garbage();
+    /*@Doc:
+    this method does not do anything
+    */
 
-		~DatabaseIf();
-		/*@Doc: 
-		executes a baseDBMSClose() if it is still connected.
-		*/
-		
-		static bool databaseExists(const char* dbname) throw (r_Error);
-		/*@Doc: 
-			Precondition: none checked.  db must be open and connected.
-			Postcondition: none
-			basedbms error thrown.
-			checks if a database has been created.
-		*/
+    const char* getName() const;
+    /*@Doc:
+    returns a pointer to the name of the db.
+    */
 
-		static bool isConsistent() throw (r_Error);
-		/*@Doc: 
-			Precondition: none checked.  db must be open and connected.
-			Postcondition: none
-			basedbms error thrown if something really bad happens.
-			checks if counters are ok.
-		*/
+    DatabaseIf();
+    /*@Doc:
+    constructor.  Initializes opened, myName and connected to 0
+    */
 
-	protected:
-		friend class TransactionIf;
+    bool isConnected() const;
+    /*@Doc:
+    true when there has been an EXEC SQL CONNECT
+    */
 
-		void baseDBMSOpen() throw (r_Error);
-		/*@Doc: 
-		Precondition: current database = 0
-		Postcondition: current database = this
-		issues a CONNECT.
-		sets the DatabaseIf object in AdminIf to this.
-		*/
+    bool isOpen() const;
+    /*@Doc:
+    true when it was opened by a transaction
+    */
 
-		void baseDBMSClose();
-		/*@Doc: 
-			Precondition: current database = this
-			Postcondition: current database = 0
-			issues a ROLLBACK WORK RELEASE in oracle.
-			issues a DISCONNECT in db2.
-			sets the DatabaseIf object in AdminIf to 0, if it was the same.
-		*/
+    ~DatabaseIf();
+    /*@Doc:
+    executes a baseDBMSClose() if it is still connected.
+    */
 
-		static void connect() throw (r_Error);
-		/*@Doc:
-			Precondition: none checked.
-			Postcondition: none.
-			issues a CONNECT.
-			throws r_Error if there is a problem during connection.
-		*/
-		
-		static void disconnect() throw (r_Error);
-		/*@Doc:
-			Precondition: none checked.
-			Postcondition: none.
-			issues a CONNECT.
-			throws r_Error if there is a problem during disconnection.
-		*/
-		
-		void checkCompatibility() throw (r_Error);
-		/*@Doc:
-			Precondition: none checked.
-			Postcondition: none.
-			throws r_Error if the current rasdaman system does not match the database.
-		*/
+    static bool databaseExists(const char* dbname) throw (r_Error);
+    /*@Doc:
+        Precondition: none checked.  db must be open and connected.
+        Postcondition: none
+        basedbms error thrown.
+        checks if a database has been created.
+    */
 
-	private:
-		bool opened;
-		/*@Doc: 
-		TRUE only if database is open.
-		*/
+    static bool isConsistent() throw (r_Error);
+    /*@Doc:
+        Precondition: none checked.  db must be open and connected.
+        Postcondition: none
+        basedbms error thrown if something really bad happens.
+        checks if counters are ok.
+    */
 
-		char* myName;
-		/*@Doc: 
-		Valid only if opened.
-		*/
+protected:
+    friend class TransactionIf;
 
-		bool connected;
-		/*@Doc: 
-		TRUE only if database connection exists ; )
-		*/
+    void baseDBMSOpen() throw (r_Error);
+    /*@Doc:
+    Precondition: current database = 0
+    Postcondition: current database = this
+    issues a CONNECT.
+    sets the DatabaseIf object in AdminIf to this.
+    */
 
-		static const char* DefaultDatabaseName;
-		/*@Doc: 
-		only one database is supported.  any database name given is compared to this string.
-		access to the db is only granted if the name of the database is the same as this string.
-		*/
+    void baseDBMSClose();
+    /*@Doc:
+        Precondition: current database = this
+        Postcondition: current database = 0
+        issues a ROLLBACK WORK RELEASE in oracle.
+        issues a DISCONNECT in db2.
+        sets the DatabaseIf object in AdminIf to 0, if it was the same.
+    */
 
-	};
+    static void connect() throw (r_Error);
+    /*@Doc:
+        Precondition: none checked.
+        Postcondition: none.
+        issues a CONNECT.
+        throws r_Error if there is a problem during connection.
+    */
+
+    static void disconnect() throw (r_Error);
+    /*@Doc:
+        Precondition: none checked.
+        Postcondition: none.
+        issues a CONNECT.
+        throws r_Error if there is a problem during disconnection.
+    */
+
+    void checkCompatibility() throw (r_Error);
+    /*@Doc:
+        Precondition: none checked.
+        Postcondition: none.
+        throws r_Error if the current rasdaman system does not match the database.
+    */
+
+private:
+    bool opened;
+    /*@Doc:
+    TRUE only if database is open.
+    */
+
+    char* myName;
+    /*@Doc:
+    Valid only if opened.
+    */
+
+    bool connected;
+    /*@Doc:
+    TRUE only if database connection exists ; )
+    */
+
+    static const char* DefaultDatabaseName;
+    /*@Doc:
+    only one database is supported.  any database name given is compared to this string.
+    access to the db is only granted if the name of the database is the same as this string.
+    */
+
+};
 
 #endif

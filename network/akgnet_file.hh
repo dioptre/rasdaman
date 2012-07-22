@@ -28,7 +28,7 @@ rasdaman GmbH.
  *
  * COMMENTS:
  * Namespace akg
- * 
+ *
 */
 
 #ifndef AKGNET_FILE_HH
@@ -37,8 +37,8 @@ rasdaman GmbH.
 #include "akgnet_fdescr.hh"
 
 namespace akg
-  {
-  
+{
+
 /** This class represents the files in the file descriptor hierarchie.
     Since this is a network library, our concearn is only for the
     descriptor of the files. The primary use of this class is access
@@ -47,31 +47,31 @@ namespace akg
 
 /**
   * \ingroup Networks
-  */ 
-  
+  */
+
 class File : public FileDescriptor
-  {
-    public:
-      /// Default constructor
-      File() throw();
-      
-      /** Constructor taking an already opened file descriptor
-          Assert: osFileDescriptor > 0
-      */
-      File(int osFileDescriptor) throw();
-      
-      /** Connect to an already opened file descriptor
-          Assert: osFileDescriptor > 0
-      */
-      void connectToDescriptor(int osFileDescriptor) throw();
-    
-    private:
-      /// unimplemented, objects of this type can't be copied
-      File(const File&);
-      
-      /// unimplemented, objects of this type can't be copied
-      File& operator=(const File&);
-   };
+{
+public:
+    /// Default constructor
+    File() throw();
+
+    /** Constructor taking an already opened file descriptor
+        Assert: osFileDescriptor > 0
+    */
+    File(int osFileDescriptor) throw();
+
+    /** Connect to an already opened file descriptor
+        Assert: osFileDescriptor > 0
+    */
+    void connectToDescriptor(int osFileDescriptor) throw();
+
+private:
+    /// unimplemented, objects of this type can't be copied
+    File(const File&);
+
+    /// unimplemented, objects of this type can't be copied
+    File& operator=(const File&);
+};
 
 } //namespace
 #endif

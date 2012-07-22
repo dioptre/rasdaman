@@ -27,10 +27,10 @@ rasdaman GmbH.
  *
  * PURPOSE:
  * Provides interface to convert data between TIFF and internal format.
- * The convertFrom() and convertTo() methods accept a null-terminated 
+ * The convertFrom() and convertTo() methods accept a null-terminated
  * option string of the following syntax:
- * 	optionString ::= ( option )*
- *	option       ::= "comptype=" string
+ *  optionString ::= ( option )*
+ *  option       ::= "comptype=" string
  *                       "quality=" int
  *                       "bpp=" int
  *                       "bps=" int
@@ -99,51 +99,51 @@ rasdaman GmbH.
 
 class r_Conv_TIFF : public r_Convert_Memory
 {
-  public:
-  /// constructor using an r_Type object
-  r_Conv_TIFF( const char *src, const r_Minterval &interv, const r_Type *tp ) throw(r_Error);
-  /// constructor using convert_type_e shortcut
-  r_Conv_TIFF( const char *src, const r_Minterval &interv, int type ) throw(r_Error);
-  /// destructor
-  ~r_Conv_TIFF( void );
+public:
+    /// constructor using an r_Type object
+    r_Conv_TIFF( const char *src, const r_Minterval &interv, const r_Type *tp ) throw(r_Error);
+    /// constructor using convert_type_e shortcut
+    r_Conv_TIFF( const char *src, const r_Minterval &interv, int type ) throw(r_Error);
+    /// destructor
+    ~r_Conv_TIFF( void );
 
-  /// convert to TIFF
-  virtual r_convDesc &convertTo( const char *options=NULL) throw(r_Error);
-  /// convert from TIFF
-  virtual r_convDesc &convertFrom( const char *options=NULL ) throw(r_Error);
-  /// cloning
-  virtual r_Convertor *clone( void ) const;
-  /// identification
-  virtual const char *get_name( void ) const;
-  virtual r_Data_Format get_data_format( void ) const;
+    /// convert to TIFF
+    virtual r_convDesc &convertTo( const char *options=NULL) throw(r_Error);
+    /// convert from TIFF
+    virtual r_convDesc &convertFrom( const char *options=NULL ) throw(r_Error);
+    /// cloning
+    virtual r_Convertor *clone( void ) const;
+    /// identification
+    virtual const char *get_name( void ) const;
+    virtual r_Data_Format get_data_format( void ) const;
 
-  /// translate string compression type to libtiff compression type
-  static int get_compression_from_name(const char* strComp);
-  
-  /// translate string resolution unit type to libtiff resolution unit type
-  static int get_resunit_from_name(const char* strComp);  
+    /// translate string compression type to libtiff compression type
+    static int get_compression_from_name(const char* strComp);
 
-  private:
-  /// init TIFF class
-  void initTIFF( void );
-  /// parameters
-  char *compType;
-  int quality;
-  int override_bpp;
-  int override_bps;
-  int override_depth;
-  char *sampleType;
-  /// connection between string compression type and libtiff compression type
-  static const convert_string_t compNames[];
-  /// connection between string resolution unit type and libtiff resolution unit type
-  static const convert_string_t resunitNames[];
-  /// default rows per strip (32)
-  static const int defaultRPS;
-  /// temporary dummy file
-  static const char dummyFileFmt[];
+    /// translate string resolution unit type to libtiff resolution unit type
+    static int get_resunit_from_name(const char* strComp);
 
-  /// default quality factor (0..100) for lossy compression
-  static const unsigned int TIFF_DEFAULT_QUALITY;
+private:
+    /// init TIFF class
+    void initTIFF( void );
+    /// parameters
+    char *compType;
+    int quality;
+    int override_bpp;
+    int override_bps;
+    int override_depth;
+    char *sampleType;
+    /// connection between string compression type and libtiff compression type
+    static const convert_string_t compNames[];
+    /// connection between string resolution unit type and libtiff resolution unit type
+    static const convert_string_t resunitNames[];
+    /// default rows per strip (32)
+    static const int defaultRPS;
+    /// temporary dummy file
+    static const char dummyFileFmt[];
+
+    /// default quality factor (0..100) for lossy compression
+    static const unsigned int TIFF_DEFAULT_QUALITY;
 
 };
 

@@ -40,161 +40,161 @@ rasdaman GmbH.
 
 YSymbol::YSymbol()
 {
-	TALK( "YSymbol::YSymbol default constructor" );
+    TALK( "YSymbol::YSymbol default constructor" );
 
-	name            =NULL;
-	next            =NULL;
-	owned_by_symbol=true;   // by default symbols owned by symbols
+    name            =NULL;
+    next            =NULL;
+    owned_by_symbol=true;   // by default symbols owned by symbols
 
-	scope            =NULL;
-	defines         =NULL;
+    scope            =NULL;
+    defines         =NULL;
 };
 
 YSymbol::YSymbol(const char*_name)
 {
-	TALK( "YSymbol::YSymbol constructor, name=" << _name );
+    TALK( "YSymbol::YSymbol constructor, name=" << _name );
 
-	name            =_name;
-	next            =NULL;
-	owned_by_symbol=true;   // by default symbols owned by symbols
+    name            =_name;
+    next            =NULL;
+    owned_by_symbol=true;   // by default symbols owned by symbols
 
-	scope            =NULL;
-	defines         =NULL;
+    scope            =NULL;
+    defines         =NULL;
 };
 
 YSymbolTable::YSymbolTable()
 {
-	TALK( "YSymbolTable::YSymbolTable default constructor" );
+    TALK( "YSymbolTable::YSymbolTable default constructor" );
 
-	scope            =NULL;
-	global_scope   =NULL;
+    scope            =NULL;
+    global_scope   =NULL;
 };
 
 void YSymbolTable::push_scope(YSymbol*owner)
 {
-	Scope   *new_scope=new Scope;
+    Scope   *new_scope=new Scope;
 
-	new_scope->up            =scope;
-	new_scope->son            =NULL;
-	new_scope->symbols      =NULL;
-	new_scope->last_symbol   =NULL;
-	new_scope->owner         =owner;
+    new_scope->up            =scope;
+    new_scope->son            =NULL;
+    new_scope->symbols      =NULL;
+    new_scope->last_symbol   =NULL;
+    new_scope->owner         =owner;
 
-	if(scope!=NULL)
-	{
-		new_scope->next    =scope->son;
-		scope->son         =new_scope;
+    if(scope!=NULL)
+    {
+        new_scope->next    =scope->son;
+        scope->son         =new_scope;
 
-		owner->defines      =new_scope;
-	}
-	else
-	{
-		new_scope->next   =NULL;
-	};
+        owner->defines      =new_scope;
+    }
+    else
+    {
+        new_scope->next   =NULL;
+    };
 
-	if(owner==NULL)
-		global_scope=new_scope;
+    if(owner==NULL)
+        global_scope=new_scope;
 
-	scope=new_scope;
+    scope=new_scope;
 };
 
 const YSymbol *YSymbolTable::pop_scope()
 {
-	const YSymbol  *old_symbol   =scope->owner;
-	scope                        =scope->up;
+    const YSymbol  *old_symbol   =scope->owner;
+    scope                        =scope->up;
 
-	return(old_symbol);
+    return(old_symbol);
 };
 
 void   YSymbolTable::insert_symbol(YSymbol*symbol)const
 {
-	ENTER( "YSymbolTable::insert_symbol" );
+    ENTER( "YSymbolTable::insert_symbol" );
 
-	if(scope!=NULL)
-	{
-		TALK( "adding symbol " << symbol->get_name() );
-		if(scope->last_symbol==NULL)
-			scope->symbols=symbol;
-		else
-			scope->last_symbol->next=symbol;
+    if(scope!=NULL)
+    {
+        TALK( "adding symbol " << symbol->get_name() );
+        if(scope->last_symbol==NULL)
+            scope->symbols=symbol;
+        else
+            scope->last_symbol->next=symbol;
 
-		scope->last_symbol = symbol;
+        scope->last_symbol = symbol;
 
-		symbol->next = NULL;
-		symbol->scope = scope;
-	}
+        symbol->next = NULL;
+        symbol->scope = scope;
+    }
 
-	LEAVE( "YSymbolTable::insert_symbol" );
+    LEAVE( "YSymbolTable::insert_symbol" );
 };
 
 bool  YSymbolTable::search_this_scope(const char*name,const Scope*this_scope,YSymbol*&result)const
 {
-	ENTER( "YSymbolTable::search_this_scope" );
+    ENTER( "YSymbolTable::search_this_scope" );
 
-	bool found = false;
+    bool found = false;
 
-	if((name==NULL)||(this_scope==NULL))
-		found = false;		/* no name or no scope */
-	else
-	{
-		for(YSymbol*scan=this_scope->symbols;scan!=NULL && found!=true;scan=scan->next)
-		{
-			if(!strcmp(name,scan->name))
-			{
-				result=scan;
-				found = true;
-			}
-		}
-	}
+    if((name==NULL)||(this_scope==NULL))
+        found = false;      /* no name or no scope */
+    else
+    {
+        for(YSymbol*scan=this_scope->symbols; scan!=NULL && found!=true; scan=scan->next)
+        {
+            if(!strcmp(name,scan->name))
+            {
+                result=scan;
+                found = true;
+            }
+        }
+    }
 
-	LEAVE( "YSymbolTable::search_this_scope -> " << found );
-	return( found );
+    LEAVE( "YSymbolTable::search_this_scope -> " << found );
+    return( found );
 };
 
 bool  YSymbolTable::search_scope(const char*name,YSymbol*&result)const
 {
-	return(search_this_scope(name,scope,result));
+    return(search_this_scope(name,scope,result));
 };
 
 bool  YSymbolTable::search_scopes(const char*name,YSymbol*&result)const
 {
-	for(Scope*scan=scope;scan!=NULL;scan=scan->up)
-	{
-		if(search_this_scope(name,scan,result))
-		return(true);
-	};
-	return(false);
+    for(Scope*scan=scope; scan!=NULL; scan=scan->up)
+    {
+        if(search_this_scope(name,scan,result))
+            return(true);
+    };
+    return(false);
 };
 
 bool  YSymbolTable::search_scopes_above(const YSymbol*symbol,YSymbol*&result)const
 {
-	const char*name=symbol->get_name();
-	if(symbol->scope==NULL)
-		return(false);
+    const char*name=symbol->get_name();
+    if(symbol->scope==NULL)
+        return(false);
 
-	for(Scope*scan=scope->up;scan!=NULL;scan=scan->up)
-	{
-		if(search_this_scope(name,scan,result))
-			return(true);
-	};
-	return(false);
+    for(Scope*scan=scope->up; scan!=NULL; scan=scan->up)
+    {
+        if(search_this_scope(name,scan,result))
+            return(true);
+    };
+    return(false);
 };
 
 bool  YSymbolTable::search_my_scope(const char*name,const YSymbol*symbol,YSymbol*&result)const
 {
-	return(search_this_scope(name,symbol->defines,result));
+    return(search_this_scope(name,symbol->defines,result));
 };
 
 bool  YSymbolTable::search_global_scope(const char*name,YSymbol*&result)const
 {
-	if(scope==NULL)
-		return(false);                                 /* no scope at all */
+    if(scope==NULL)
+        return(false);                                 /* no scope at all */
 
-	Scope*global;
-	for(global=scope;global->up!=NULL;global=global->up)
-		;   /* get up to the global scope */
+    Scope*global;
+    for(global=scope; global->up!=NULL; global=global->up)
+        ;   /* get up to the global scope */
 
-	return(search_this_scope(name,global,result));
+    return(search_this_scope(name,global,result));
 };
 
 //****************************************************************************
@@ -206,11 +206,11 @@ bool  YSymbolTable::search_global_scope(const char*name,YSymbol*&result)const
 //****************************************************************************
 const YSymbol  *YSymbolTable::get_symbol(const char*name)const
 {
-	YSymbol*result;
-	if(search_scope(name,result))
-		return(result);
-	else
-		return(NULL);
+    YSymbol*result;
+    if(search_scope(name,result))
+        return(result);
+    else
+        return(NULL);
 };
 
 //****************************************************************************
@@ -223,83 +223,83 @@ const YSymbol  *YSymbolTable::get_symbol(const char*name)const
 //****************************************************************************
 bool YSymbolTable::scoped_symbol(YSymbol**result,const char*name,const YWhere&where)
 {
-	if(search_scope(name,*result))
-		return(false);   // duplicate identifier
+    if(search_scope(name,*result))
+        return(false);   // duplicate identifier
 
-	*result=new YSymbol(name);
-	(*result)->where   =where;
+    *result=new YSymbol(name);
+    (*result)->where   =where;
 
-	insert_symbol(*result);
-	return(true);
+    insert_symbol(*result);
+    return(true);
 };
 
 const YSymbol   *YSymbolTable::get_defining_symbol()const
 {
-	if(scope==NULL)
-		return(NULL);
-	else
-		return(scope->owner);
+    if(scope==NULL)
+        return(NULL);
+    else
+        return(scope->owner);
 };
 
 
 
 void YSymbolTable::Scope::output(FILE*out)const
 {
-	ENTER( "YSymbolTable::Scope::output" );
+    ENTER( "YSymbolTable::Scope::output" );
 
-	YSymbol   *scan=symbols;
+    YSymbol   *scan=symbols;
 
-	while (scan!=NULL)
-	{
-		if(!scan->owned_by_symbol)
-		{
-			fprintf(out,"/*[%li,%i]*/",scan->where.line,scan->where.column);
+    while (scan!=NULL)
+    {
+        if(!scan->owned_by_symbol)
+        {
+            fprintf(out,"/*[%li,%i]*/",scan->where.line,scan->where.column);
 
-			switch(scan->type)
-			{
-				case YSymbol::dParse_Type:
-					scan->Type->output(out);
-					break;            
-				case YSymbol::dParse_Enumerator:
-					scan->enumerator->output(out);
-					break;            
-				default:
-					RMDBGONCE(0, RMDebug::module_rasdl, "YSymbolTable::Scope", "output()  bad YSymbol_type " << scan->type);            
-					break;
-			}
-		}
-		scan=(YSymbol*)scan->next;
-	}
+            switch(scan->type)
+            {
+            case YSymbol::dParse_Type:
+                scan->Type->output(out);
+                break;
+            case YSymbol::dParse_Enumerator:
+                scan->enumerator->output(out);
+                break;
+            default:
+                RMDBGONCE(0, RMDebug::module_rasdl, "YSymbolTable::Scope", "output()  bad YSymbol_type " << scan->type);
+                break;
+            }
+        }
+        scan=(YSymbol*)scan->next;
+    }
 
-	LEAVE( "YSymbolTable::Scope::output" );
+    LEAVE( "YSymbolTable::Scope::output" );
 };
 
 
 void YSymbolTable::Scope::insertData() const
 {
-	ENTER( "YSymbolTable::Scope::insertData" );
+    ENTER( "YSymbolTable::Scope::insertData" );
 
-	YSymbol   *scan=symbols;
+    YSymbol   *scan=symbols;
 
-	while(scan!=NULL)
-	{
-		if(!scan->owned_by_symbol)
-		{
-			switch(scan->type)
-			{
-				case YSymbol::dParse_Type:
-					scan->Type->insertData();
-					break;            
-				case YSymbol::dParse_Enumerator:
-					// scan->enumerator->output(out);
-					break;            
-				default:
-					RMDBGONCE(0, RMDebug::module_rasdl, "YSymbolTable::Scope", "output()  bad YSymbol_type " << scan->type);            
-					break;
-			}
-		}
-		scan=(YSymbol*)scan->next;
-	}
+    while(scan!=NULL)
+    {
+        if(!scan->owned_by_symbol)
+        {
+            switch(scan->type)
+            {
+            case YSymbol::dParse_Type:
+                scan->Type->insertData();
+                break;
+            case YSymbol::dParse_Enumerator:
+                // scan->enumerator->output(out);
+                break;
+            default:
+                RMDBGONCE(0, RMDebug::module_rasdl, "YSymbolTable::Scope", "output()  bad YSymbol_type " << scan->type);
+                break;
+            }
+        }
+        scan=(YSymbol*)scan->next;
+    }
 
-	LEAVE( "YSymbolTable::Scope::insertData" );
+    LEAVE( "YSymbolTable::Scope::insertData" );
 };

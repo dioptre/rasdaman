@@ -60,119 +60,119 @@ they can only be inlined by a dbtcindex.
 /**
   * \ingroup Relblobifs
   */
-class InlineTile	: public BLOBTile
-	{
-	public:
+class InlineTile    : public BLOBTile
+{
+public:
 
-	//@Man:	constructors
-	//@{
-		InlineTile(const OId& id, char*& thecells);
-			/*@Doc:
-				construct a new inline tile with the oid of
-				the dbtilecontainerindex and the array which
-				holds the contents of the tile.
-				thecells will be automagically forwarded to the beginning of the next inline tile.
-			*/
+    //@Man: constructors
+    //@{
+    InlineTile(const OId& id, char*& thecells);
+    /*@Doc:
+        construct a new inline tile with the oid of
+        the dbtilecontainerindex and the array which
+        holds the contents of the tile.
+        thecells will be automagically forwarded to the beginning of the next inline tile.
+    */
 
-		InlineTile(r_Data_Format dataformat = r_Array);
-			/*@Doc:
-			constructs a new empty InlineTile and gets an id for it.
-			*/
-		
-		InlineTile(const OId& BlobId) throw (r_Error);
-			/*@Doc:
-			constructs a InlineTile out of the database
-			*/
-		
-		InlineTile(r_Bytes newSize, char c = 0, r_Data_Format dataformat = r_Array);
-			/*@Doc:
-			constructs a new InlineTile of size newSize filled with c.
-			*/
-		
-		InlineTile(r_Bytes newSize, r_Bytes patSize, const char* pat, r_Data_Format dataformat = r_Array);
-			/*@Doc:
-			 Constructs a new InlineTile of size newSize filled with the repeated
-			 char array pat of size patSize. If after filling some chars are
-			 left, they are filled with 0
-			*/
-			/*@ManMemo: constructs a new InlineTile with the char array newCells 
-				    with newSize elements as contents. */
-			    
-		InlineTile(r_Bytes newSize, const char* newCells, r_Data_Format dataformat = r_Array);
-			/*@Doc:
-			constructs a new InlineTile of size newSize filled with the contents of newCells.
-			*/
+    InlineTile(r_Data_Format dataformat = r_Array);
+    /*@Doc:
+    constructs a new empty InlineTile and gets an id for it.
+    */
 
-	//@}
-		virtual void destroy();
-			/*@Doc:
-			may not destroy the object because it is inlined and therefore depending on its parent index.
-			*/
+    InlineTile(const OId& BlobId) throw (r_Error);
+    /*@Doc:
+    constructs a InlineTile out of the database
+    */
 
-		const OId& getIndexOId() const;
-			/*@Doc:
-			returns the oid of the index which contains the inlined tile.  if the tile is outlined then this oid is invalid.
-			*/
+    InlineTile(r_Bytes newSize, char c = 0, r_Data_Format dataformat = r_Array);
+    /*@Doc:
+    constructs a new InlineTile of size newSize filled with c.
+    */
 
-		void setIndexOId(const OId& oid);
-			/*@Doc:
-			make the inlinetile use this index as its parent and storage structure.
-			*/
+    InlineTile(r_Bytes newSize, r_Bytes patSize, const char* pat, r_Data_Format dataformat = r_Array);
+    /*@Doc:
+     Constructs a new InlineTile of size newSize filled with the repeated
+     char array pat of size patSize. If after filling some chars are
+     left, they are filled with 0
+    */
+    /*@ManMemo: constructs a new InlineTile with the char array newCells
+            with newSize elements as contents. */
 
-		r_Bytes getStorageSize() const;
-			/*@Doc:
-			returns the size this tile will consume in as an inlined array.
-			*/
+    InlineTile(r_Bytes newSize, const char* newCells, r_Data_Format dataformat = r_Array);
+    /*@Doc:
+    constructs a new InlineTile of size newSize filled with the contents of newCells.
+    */
 
-		virtual char* insertInMemBlock(char* test);
-			/*@Doc:
-				inserts the Blob into the char.
-				the returned pointer is after the end of this tiles data.
-			*/
+    //@}
+    virtual void destroy();
+    /*@Doc:
+    may not destroy the object because it is inlined and therefore depending on its parent index.
+    */
 
-		virtual void setModified() throw(r_Error);
-			/*@Doc:
-				does not only set itself modified but also informs its parent of changes.
-			*/
+    const OId& getIndexOId() const;
+    /*@Doc:
+    returns the oid of the index which contains the inlined tile.  if the tile is outlined then this oid is invalid.
+    */
 
-		virtual bool isCached() const;
-			/*@Doc:
-				returns true if it is inlined.
-			*/
+    void setIndexOId(const OId& oid);
+    /*@Doc:
+    make the inlinetile use this index as its parent and storage structure.
+    */
 
-		virtual void inlineTile(const OId& ixOId);
-			/*@Doc:
-				do everything so that this tile is inlined and uses ixOId as its index parent.
-				it will not check if this tile is already inlined.
-			*/
+    r_Bytes getStorageSize() const;
+    /*@Doc:
+    returns the size this tile will consume in as an inlined array.
+    */
 
-		virtual void outlineTile();
-			/*@Doc:
-				does everything necessary to act as a blobtile:
-				remove it from the index parent.
-			*/
+    virtual char* insertInMemBlock(char* test);
+    /*@Doc:
+        inserts the Blob into the char.
+        the returned pointer is after the end of this tiles data.
+    */
 
-		virtual bool isInlined() const;
-			/*@Doc:
-				checks if it has a valid index parent.
-			*/
+    virtual void setModified() throw(r_Error);
+    /*@Doc:
+        does not only set itself modified but also informs its parent of changes.
+    */
 
-		virtual ~InlineTile();
-			/*@Doc:
-				no functionality.  if it is inlined the dbtcindex will take care of storing it.
-				if it is not inlined the blobtile functionality will take over. 
-			*/
+    virtual bool isCached() const;
+    /*@Doc:
+        returns true if it is inlined.
+    */
 
-		virtual void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
+    virtual void inlineTile(const OId& ixOId);
+    /*@Doc:
+        do everything so that this tile is inlined and uses ixOId as its index parent.
+        it will not check if this tile is already inlined.
+    */
 
-	protected:
+    virtual void outlineTile();
+    /*@Doc:
+        does everything necessary to act as a blobtile:
+        remove it from the index parent.
+    */
 
-		OId myIndexOId;
-			/*@Doc:
-				when this inlinetile is in inlined mode the myIndexOId points to the parent index.
-				if this oid is invalid the inlinetile is not in inline mode.
-			*/
+    virtual bool isInlined() const;
+    /*@Doc:
+        checks if it has a valid index parent.
+    */
 
-	};
+    virtual ~InlineTile();
+    /*@Doc:
+        no functionality.  if it is inlined the dbtcindex will take care of storing it.
+        if it is not inlined the blobtile functionality will take over.
+    */
+
+    virtual void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
+
+protected:
+
+    OId myIndexOId;
+    /*@Doc:
+        when this inlinetile is in inlined mode the myIndexOId points to the parent index.
+        if this oid is invalid the inlinetile is not in inline mode.
+    */
+
+};
 
 #endif

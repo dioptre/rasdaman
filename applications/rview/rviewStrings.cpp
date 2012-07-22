@@ -26,8 +26,8 @@ rasdaman GmbH.
  *
  *  rView string viewer. Can display 1D MDD objects as strings
  *
- *	COMMENTS:
- *		None
+ *  COMMENTS:
+ *      None
  */
 
 
@@ -87,130 +87,130 @@ const int rviewStringViewer::strview_totaly = rviewStringViewer::strview_ctrly +
 
 
 rviewStringViewer::rviewStringViewer(mdd_frame *mf, unsigned int flags) :
-  rviewDisplay(mf, strview_ctrly, flags)
+    rviewDisplay(mf, strview_ctrly, flags)
 {
-  RMDBGONCE( 3, RMDebug::module_applications, "rviewStringViewer", "rviewStringViewer()" );
-  
-  msgString = new wxMessage(ctrlPanel, "");
-    
-  // init projection string -- this viewer works for 1D only!
-  strcpy(projString, "*:*");
-  project->SetValue(projString);
-  
-  setModeDimension(1);
-    
-  setMinimumViewerSize(strview_minwidth, strview_minheight);
+    RMDBGONCE( 3, RMDebug::module_applications, "rviewStringViewer", "rviewStringViewer()" );
+
+    msgString = new wxMessage(ctrlPanel, "");
+
+    // init projection string -- this viewer works for 1D only!
+    strcpy(projString, "*:*");
+    project->SetValue(projString);
+
+    setModeDimension(1);
+
+    setMinimumViewerSize(strview_minwidth, strview_minheight);
 }
 
 
 int rviewStringViewer::openViewer(void)
 {
-  RMDBGONCE( 3, RMDebug::module_applications, "rviewStringViewer", "openViewer()" );
+    RMDBGONCE( 3, RMDebug::module_applications, "rviewStringViewer", "openViewer()" );
 
-  if (dimMDD == 1)
-  {
-    if (baseSize == 1)
+    if (dimMDD == 1)
     {
-      if (rviewDisplay::openViewer() == 0)
-      {
-        int w, h;
-      
-        newProjection();
-	
-        label();
-        frameWidth = -1;
-        frameHeight = -1;
-      
-        GetClientSize(&w, &h);
-      
-        SetSize(w, strview_totaly);
-        OnSize(w, h);
-      
-        Show(TRUE);
-      
-        return 0;
-      }
+        if (baseSize == 1)
+        {
+            if (rviewDisplay::openViewer() == 0)
+            {
+                int w, h;
+
+                newProjection();
+
+                label();
+                frameWidth = -1;
+                frameHeight = -1;
+
+                GetClientSize(&w, &h);
+
+                SetSize(w, strview_totaly);
+                OnSize(w, h);
+
+                Show(TRUE);
+
+                return 0;
+            }
+        }
+        else
+        {
+            rviewErrorbox::reportError(lman->lookup("errorBaseType"), getFrameName(), "openViewer()");
+        }
     }
     else
     {
-      rviewErrorbox::reportError(lman->lookup("errorBaseType"), getFrameName(), "openViewer()");
+        rviewErrorbox::reportError(lman->lookup("errorModeDim"), getFrameName(), "openViewer()");
     }
-  }
-  else
-  {
-    rviewErrorbox::reportError(lman->lookup("errorModeDim"), getFrameName(), "openViewer()");
-  }
-  return -1;
+    return -1;
 }
 
 
 const char *rviewStringViewer::getFrameName(void) const
 {
-  return "rviewStringViewer";
+    return "rviewStringViewer";
 }
 
 rviewFrameType rviewStringViewer::getFrameType(void) const
 {
-  return rviewFrameTypeStringViewer;
+    return rviewFrameTypeStringViewer;
 }
 
 int rviewStringViewer::getViewerType(void) const
 {
-  return RVIEW_RESDISP_STRVIEW;
+    return RVIEW_RESDISP_STRVIEW;
 }
 
 
 rviewStringViewer::~rviewStringViewer(void)
 {
-  RMDBGONCE( 3, RMDebug::module_applications, "rviewStringViewer", "~rviewStringViewer()" );
-  closeViewer();
+    RMDBGONCE( 3, RMDebug::module_applications, "rviewStringViewer", "~rviewStringViewer()" );
+    closeViewer();
 }
 
 
 void rviewStringViewer::OnSize(int w, int h)
 {
-  int x, y;
+    int x, y;
 
-  GetClientSize(&x, &y);
+    GetClientSize(&x, &y);
 
-  msgString->SetSize(display_border, display_border + display_cheight, x - 2*display_border, strview_msgheight);
+    msgString->SetSize(display_border, display_border + display_cheight, x - 2*display_border, strview_msgheight);
 
-  rviewDisplay::OnSize(w, h);
+    rviewDisplay::OnSize(w, h);
 }
 
 
 int rviewStringViewer::newProjection(void)
 {
-  unsigned int len, i;
-  const char *b;
-  char *newMsg;
+    unsigned int len, i;
+    const char *b;
+    char *newMsg;
 
-  mapIndex = r_Point(dimMDD);
-  if (rviewParseProjection(getVirtualDomain(), pt1, pt2, projString, &freeDims, &mapIndex) != dimMDD)
-  {
-    rviewErrorbox::reportError(lman->lookup("errorProjection"), getFrameName(), "newProjection");
-    return -1;
-  }
-  if ((freeDims & 1) == 0)
-  {
-    rviewErrorbox::reportError(lman->lookup("errorProjectFree"), getFrameName(), "newProjection");
-    return -1;
-  }
-  len = pt2[0] - pt1[0] + 1;
-  newMsg = new char[len + 1];
-  b = mddObj->get_array() + pt1[0];
-  // make sure the message is printable
-  for (i=0; i<len; i++)
-  {
-    if (isprint(b[i]))
-      newMsg[i] = b[i];
-    else
-      newMsg[i] = ' ';
-  }
-  newMsg[i] = '\0';
-  //cout << "MSG: " << newMsg << endl;
-  msgString->SetLabel(newMsg);
-  delete [] newMsg;
-  
-  return 0;
+    mapIndex = r_Point(dimMDD);
+    if (rviewParseProjection(getVirtualDomain(), pt1, pt2, projString, &freeDims, &mapIndex) != dimMDD)
+    {
+        rviewErrorbox::reportError(lman->lookup("errorProjection"), getFrameName(), "newProjection");
+        return -1;
+    }
+    if ((freeDims & 1) == 0)
+    {
+        rviewErrorbox::reportError(lman->lookup("errorProjectFree"), getFrameName(), "newProjection");
+        return -1;
+    }
+    len = pt2[0] - pt1[0] + 1;
+    newMsg = new char[len + 1];
+    b = mddObj->get_array() + pt1[0];
+    // make sure the message is printable
+    for (i=0; i<len; i++)
+    {
+        if (isprint(b[i]))
+            newMsg[i] = b[i];
+        else
+            newMsg[i] = ' ';
+    }
+    newMsg[i] = '\0';
+    //cout << "MSG: " << newMsg << endl;
+    msgString->SetLabel(newMsg);
+    delete [] newMsg;
+
+    return 0;
 }

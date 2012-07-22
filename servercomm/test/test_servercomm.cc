@@ -26,7 +26,7 @@ rasdaman GmbH.
  * MODULE: servercomm
  *
  * COMMENTS:
- *			None
+ *          None
 */
 
 
@@ -52,9 +52,9 @@ extern unsigned long maxTransferBufferSize = 4000000;
 extern int           globalOptimizationLevel = 4;
 extern char*         dbSchema = 0;
 extern int           noTimeOut = 0;
-char	     globalConnectId[255] = {0};
-char	     globalDbUser[255] = {0};
-char	     globalDbPasswd[255] = {0};
+char         globalConnectId[255] = {0};
+char         globalDbUser[255] = {0};
+char         globalDbPasswd[255] = {0};
 bool udfEnabled = true;
 
 RMINITGLOBALS('C');
@@ -64,67 +64,67 @@ RMINITGLOBALS('C');
 
 int checkArguments( int argc, char** argv, const char* searchText, int& optionValueIndex )
 {
-  int found = 0;
-  int i=1;
+    int found = 0;
+    int i=1;
 
-  while( !found && i<argc )
-    found = !strcmp( searchText, argv[i++] );   
+    while( !found && i<argc )
+        found = !strcmp( searchText, argv[i++] );
 
-  if( found && i<argc && !strchr(argv[i],'-') )
-    optionValueIndex = i;
-  else
-    optionValueIndex = 0;
-  
-  return found;
+    if( found && i<argc && !strchr(argv[i],'-') )
+        optionValueIndex = i;
+    else
+        optionValueIndex = 0;
+
+    return found;
 }
 
 
-int main( int argc, char** argv ) 
+int main( int argc, char** argv )
 {
-  strcpy(globalConnectId, "tcp:postgresql://localhost:5432/RASBASE");
-  
-  ServerComm server(300, 120, 7013, "rasmgr", 7001, "N1");
-  ExecuteQueryRes result;
+    strcpy(globalConnectId, "tcp:postgresql://localhost:5432/RASBASE");
 
-  DatabaseIf database;
-  TransactionIf ta;
-  AdminIf* myAdmin = AdminIf::instance();
-  database.open( "RASSERVICE");
-  ta.begin( &database );
+    ServerComm server(300, 120, 7013, "rasmgr", 7001, "N1");
+    ExecuteQueryRes result;
 
-  ServerComm::ClientTblElt *r = new ServerComm::ClientTblElt("testclient", 2);
-    
-  server.addClientTblEntry (r);
+    DatabaseIf database;
+    TransactionIf ta;
+    AdminIf* myAdmin = AdminIf::instance();
+    database.open( "RASSERVICE");
+    ta.begin( &database );
 
-  accessControl.setServerName("NT1");
-  accessControl.crunchCapability("$I1$ER.$BRASBASE$T1:3:2008:23:39:24$NNT1$D983893f406445a922cba0301bc5a85ec$K");  
-  server.openDB(2, "RASBASE", "costea");
-  SET_OUTPUT(TRUE);
+    ServerComm::ClientTblElt *r = new ServerComm::ClientTblElt("testclient", 2);
 
-  char *buff = new char[1000];  
-  unsigned int size;
-  
-  QtScalarData* t;
-  
-  try
-  {
-    server.executeQuery(2, "SELECT a from RAS_COLLECTIONNAMES as a", result );
-    vector<QtData*>::iterator i;
-    /*    for (i=r->transferData->begin(); i!=r->transferData->end(); ++i) {
-      // t = (QtScalarData*)(*i);
-      // t->printStatus();
-      }*/
-  }
-  catch ( r_Error& errorObj )
-  {
-    cerr << errorObj.what() << endl;
-    return -1;
-  }
-  catch ( ... )
-  {
-    cerr << "Unknown exception caught in main." << endl;
-    return -1;
-  }  
-  
-  return 0;
+    server.addClientTblEntry (r);
+
+    accessControl.setServerName("NT1");
+    accessControl.crunchCapability("$I1$ER.$BRASBASE$T1:3:2008:23:39:24$NNT1$D983893f406445a922cba0301bc5a85ec$K");
+    server.openDB(2, "RASBASE", "costea");
+    SET_OUTPUT(TRUE);
+
+    char *buff = new char[1000];
+    unsigned int size;
+
+    QtScalarData* t;
+
+    try
+    {
+        server.executeQuery(2, "SELECT a from RAS_COLLECTIONNAMES as a", result );
+        vector<QtData*>::iterator i;
+        /*    for (i=r->transferData->begin(); i!=r->transferData->end(); ++i) {
+          // t = (QtScalarData*)(*i);
+          // t->printStatus();
+          }*/
+    }
+    catch ( r_Error& errorObj )
+    {
+        cerr << errorObj.what() << endl;
+        return -1;
+    }
+    catch ( ... )
+    {
+        cerr << "Unknown exception caught in main." << endl;
+        return -1;
+    }
+
+    return 0;
 }

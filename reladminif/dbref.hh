@@ -38,7 +38,7 @@ rasdaman GmbH.
 
 class DBHierIndex;
 class DBRCIndexDS;
-class DBTCIndex; 
+class DBTCIndex;
 class BLOBTile;
 class InlineTile;
 class DBTile;
@@ -52,7 +52,7 @@ class DBMDDObj;
 template <class T> class DBRef;
 
 #include "oidif.hh"
- 
+
 //@ManMemo: Module: {\bf reladminif}.
 /*@Doc:
 DBRef is a smart pointer class operating on classes derived from DbObject. A smart
@@ -62,242 +62,242 @@ operator.
 All access methods may throw database related r_Errors.
 */
 
-#define DBOBJID_NONE	OId()
+#define DBOBJID_NONE    OId()
 /**
   * \ingroup Reladminifs
   */
 template <class T>
 class DBRef
-	{
-	public:
+{
+public:
 
-		DBRef(void);
-		/*@Doc: 
-		Default constructor. Object must be assigned a value before the first dereferencing.
-		*/
-		
-		DBRef(const OId &id);
-		/*@Doc: 
-		Id-constructor, binds smart pointer to object with the given id (must only be unique
-		within class T, not within all classes derived from DbObject).
-		*/
-		
-		DBRef(OId::OIdPrimitive id);
-		/*@Doc: 
-		Id-constructor, binds smart pointer to object with the given id (must only be unique
-		within class T, not within all classes derived from DbObject).
-		*/
-		
-		DBRef(const DBRef<T> &src);
-		/*@Doc: 
-		Copy-constructor, binds smart pointer to the same object src is bound to.
-		*/
-		
-		DBRef(T *ptr);
-		/*@Doc: 
-		Object-constructor, binds smart pointer explicitly to the object ptr.
-		*/
-		
-		~DBRef(void);
-		/*@Doc: 
-		Destructor: decrements reference count for the object that was managed by this
-		smart pointer.
-		*/
+    DBRef(void);
+    /*@Doc:
+    Default constructor. Object must be assigned a value before the first dereferencing.
+    */
 
-		bool operator<(const DBRef<T>& other) const;
-		/*@Doc: 
-		Returns true if me.operator==(other) returns -1
-		*/
+    DBRef(const OId &id);
+    /*@Doc:
+    Id-constructor, binds smart pointer to object with the given id (must only be unique
+    within class T, not within all classes derived from DbObject).
+    */
 
-		int operator==(const DBRef<T> &src) const;
-		/*@Doc: 
-		Comparison operator:
-		Returns:
-			-1 if this is not initialised and src is initialised
-			-1 if persistent and objId < src.objId
-			-1 if transient and src is persistent
-			-1 if transient and object < src.object
-			0 if persistent and src persistent and myOId == src.myOId
-			0 if transient and src transient and object == src.object
-			0 if this is not initialised and src is not initialised
-			+1 if persistent and objId > src.objId
-			+1 if persistent and src is transient
-			+1 if transient and object > src.object
-			-1 if this is initialised and src is not initialised
-		*/
-		
-		DBRef<T> &operator=(const DBRef<T> &src);
-		/*@Doc: 
-		Assignment operator: removes old binding and rebinds to the same object managed by src.
-		*/
-		
-		DBRef<T> &operator=(T *ptr);
-		/*@Doc: 
-		Assignment operator: removes old binding and rebinds to object ptr.
-		*/
+    DBRef(OId::OIdPrimitive id);
+    /*@Doc:
+    Id-constructor, binds smart pointer to object with the given id (must only be unique
+    within class T, not within all classes derived from DbObject).
+    */
 
-		T *operator->(void) throw (r_Error);
-		/*@Doc: 
-		Dereferencing operator -> for accessing the managed object's members.
-		*/
-		
-		const T *operator->(void) const throw (r_Error);
-		/*@Doc: 
-		Dereferencing operator -> for accessing the managed object's members.
-		*/
-		
-		T &operator*(void) throw (r_Error);
-		/*@Doc: 
-		Dereferencing operator * for accessing the managed object.
-		*/
-		
-		const T &operator*(void) const throw (r_Error);
-		/*@Doc: 
-		Dereferencing operator * for accessing the managed object.
-		*/
-		
+    DBRef(const DBRef<T> &src);
+    /*@Doc:
+    Copy-constructor, binds smart pointer to the same object src is bound to.
+    */
+
+    DBRef(T *ptr);
+    /*@Doc:
+    Object-constructor, binds smart pointer explicitly to the object ptr.
+    */
+
+    ~DBRef(void);
+    /*@Doc:
+    Destructor: decrements reference count for the object that was managed by this
+    smart pointer.
+    */
+
+    bool operator<(const DBRef<T>& other) const;
+    /*@Doc:
+    Returns true if me.operator==(other) returns -1
+    */
+
+    int operator==(const DBRef<T> &src) const;
+    /*@Doc:
+    Comparison operator:
+    Returns:
+        -1 if this is not initialised and src is initialised
+        -1 if persistent and objId < src.objId
+        -1 if transient and src is persistent
+        -1 if transient and object < src.object
+        0 if persistent and src persistent and myOId == src.myOId
+        0 if transient and src transient and object == src.object
+        0 if this is not initialised and src is not initialised
+        +1 if persistent and objId > src.objId
+        +1 if persistent and src is transient
+        +1 if transient and object > src.object
+        -1 if this is initialised and src is not initialised
+    */
+
+    DBRef<T> &operator=(const DBRef<T> &src);
+    /*@Doc:
+    Assignment operator: removes old binding and rebinds to the same object managed by src.
+    */
+
+    DBRef<T> &operator=(T *ptr);
+    /*@Doc:
+    Assignment operator: removes old binding and rebinds to object ptr.
+    */
+
+    T *operator->(void) throw (r_Error);
+    /*@Doc:
+    Dereferencing operator -> for accessing the managed object's members.
+    */
+
+    const T *operator->(void) const throw (r_Error);
+    /*@Doc:
+    Dereferencing operator -> for accessing the managed object's members.
+    */
+
+    T &operator*(void) throw (r_Error);
+    /*@Doc:
+    Dereferencing operator * for accessing the managed object.
+    */
+
+    const T &operator*(void) const throw (r_Error);
+    /*@Doc:
+    Dereferencing operator * for accessing the managed object.
+    */
+
 #ifndef __GNUG__
-		T &operator[](int idx) const throw (r_Error);
-		/*@Doc: 
-		Dereferencing operator [] for accessing array objects.
-		*/
+    T &operator[](int idx) const throw (r_Error);
+    /*@Doc:
+    Dereferencing operator [] for accessing array objects.
+    */
 #endif
 
-		T *ptr(void) throw (r_Error);
-		/*@Doc: 
-		Returns pointer to managed object.
-		*/
-		
-		const T *ptr(void) const throw (r_Error);
-		/*@Doc: 
-		Returns pointer to managed object.
-		*/
-		
-		OId getOId(void) const;
-		/*@Doc: 
-		Returns id of managed object
-		*/
+    T *ptr(void) throw (r_Error);
+    /*@Doc:
+    Returns pointer to managed object.
+    */
 
-		void delete_object(void);
-		/*@Doc: 
-		deletes the object from database if it is valid else throws an exception.
-		*/
+    const T *ptr(void) const throw (r_Error);
+    /*@Doc:
+    Returns pointer to managed object.
+    */
 
-		bool is_null(void) const;
-		/*@Doc: 
-		Returns false if valid binding exists, true otherwise.
-		this method may instantiate an object from the database
-		*/
-		
-		bool is_valid(void) const;
-		/*@Doc: 
-		Returns true if valid binding exists, false otherwise
-		*/
+    OId getOId(void) const;
+    /*@Doc:
+    Returns id of managed object
+    */
 
-		bool isInitialised() const;
-		/*@Doc: 
-		Returns true if OId is valid or the pointer is valid, false otherwise
-		*/
+    void delete_object(void);
+    /*@Doc:
+    deletes the object from database if it is valid else throws an exception.
+    */
 
-		void release();
-		/*@Doc: 
-		releases this DBRef pointer and refcount to its object
-		*/
+    bool is_null(void) const;
+    /*@Doc:
+    Returns false if valid binding exists, true otherwise.
+    this method may instantiate an object from the database
+    */
 
-		operator DBRef<DBObject>() const;
-		/*@Doc: 
-		cast operator. works allways.
-		*/
+    bool is_valid(void) const;
+    /*@Doc:
+    Returns true if valid binding exists, false otherwise
+    */
 
-		operator DBRef<BLOBTile>() const throw (r_Error);
-		/*@Doc: 
-		cast operator.  checks it the objects type is of OId::BLOBOID.
-		*/
+    bool isInitialised() const;
+    /*@Doc:
+    Returns true if OId is valid or the pointer is valid, false otherwise
+    */
 
-		operator DBRef<DBTile>() const throw (r_Error);
-		/*@Doc: 
-		cast operator.  checks it the objects type is of OId::BLOBOID or OId::INLINETILEOID.
-		*/
+    void release();
+    /*@Doc:
+    releases this DBRef pointer and refcount to its object
+    */
 
- 		operator DBRef<InlineTile>() const throw (r_Error);
-                /*@Doc:
-                cast operator.  checks it the objects type is of OId::INLINETILEOID.
-                */
+    operator DBRef<DBObject>() const;
+    /*@Doc:
+    cast operator. works allways.
+    */
 
-		operator DBRef<DBHierIndex>() const throw (r_Error);
-		/*@Doc: 
-		cast operator.  checks it the objects type is of OId::MDDHIERIXOID.
-		*/
+    operator DBRef<BLOBTile>() const throw (r_Error);
+    /*@Doc:
+    cast operator.  checks it the objects type is of OId::BLOBOID.
+    */
 
-                operator DBRef<DBTCIndex>() const throw (r_Error);
-                /*@Doc:
-                cast operator.  checks it the objects type is of OId::INLINEIXOID.
-                */
+    operator DBRef<DBTile>() const throw (r_Error);
+    /*@Doc:
+    cast operator.  checks it the objects type is of OId::BLOBOID or OId::INLINETILEOID.
+    */
 
-                operator DBRef<DBRCIndexDS>() const throw (r_Error);
-                /*@Doc:
-                cast operator.  checks it the objects type is of OId::MDDRCIXOID.
-                */
+    operator DBRef<InlineTile>() const throw (r_Error);
+    /*@Doc:
+    cast operator.  checks it the objects type is of OId::INLINETILEOID.
+    */
 
-		operator IndexDS*() const throw (r_Error);
-                /*@Doc:
-                cast operator.  checks it the objects type is of any valid index.
-                */
+    operator DBRef<DBHierIndex>() const throw (r_Error);
+    /*@Doc:
+    cast operator.  checks it the objects type is of OId::MDDHIERIXOID.
+    */
 
-		operator HierIndexDS*() const throw (r_Error);
-                /*@Doc:
-                cast operator.  checks it the objects type is of any valid hierarchical index.
-                */
+    operator DBRef<DBTCIndex>() const throw (r_Error);
+    /*@Doc:
+    cast operator.  checks it the objects type is of OId::INLINEIXOID.
+    */
 
-		operator T*() throw (r_Error);
-		/*@Doc: 
-		*/
+    operator DBRef<DBRCIndexDS>() const throw (r_Error);
+    /*@Doc:
+    cast operator.  checks it the objects type is of OId::MDDRCIXOID.
+    */
 
-		operator const T*() const throw (r_Error);
-		/*@Doc: 
-		*/
+    operator IndexDS*() const throw (r_Error);
+    /*@Doc:
+    cast operator.  checks it the objects type is of any valid index.
+    */
 
-		static void setPointerCaching(bool useIt);
-		/*@Doc: 
-		Make the dbref store and use pointers.
-		If set to false the DBRef will always ask the objectbroker.
-		May be set at any time to false.
-		Only between transactions may it be set to true.
-		*/
+    operator HierIndexDS*() const throw (r_Error);
+    /*@Doc:
+    cast operator.  checks it the objects type is of any valid hierarchical index.
+    */
 
-		static bool getPointerCaching();
-		/*@Doc: 
-		returns pointerCaching 
-		*/
+    operator T*() throw (r_Error);
+    /*@Doc:
+    */
 
-	private:
+    operator const T*() const throw (r_Error);
+    /*@Doc:
+    */
+
+    static void setPointerCaching(bool useIt);
+    /*@Doc:
+    Make the dbref store and use pointers.
+    If set to false the DBRef will always ask the objectbroker.
+    May be set at any time to false.
+    Only between transactions may it be set to true.
+    */
+
+    static bool getPointerCaching();
+    /*@Doc:
+    returns pointerCaching
+    */
+
+private:
 
 
-		mutable T *object;
-		/*@Doc: 
-		Pointer to the managed object or 0 if no binding exists.
-		*/
-		
-		OId objId;
-		/*@Doc: 
-		id of managed object.
-		*/
+    mutable T *object;
+    /*@Doc:
+    Pointer to the managed object or 0 if no binding exists.
+    */
 
-		bool pointerValid;
-		/*@Doc:
-		whenever a smartpointer is initiaised by a pointer, this attribute is set to true.
-		this is neccessary for disabled pointer caching.
-		*/
+    OId objId;
+    /*@Doc:
+    id of managed object.
+    */
 
-		static bool pointerCaching;
-	};
+    bool pointerValid;
+    /*@Doc:
+    whenever a smartpointer is initiaised by a pointer, this attribute is set to true.
+    this is neccessary for disabled pointer caching.
+    */
+
+    static bool pointerCaching;
+};
 
 template <class T> bool operator< (const DBRef<T> &me, const DBRef<T> &him);
 
 #ifdef EARLY_TEMPLATE
 #ifdef __EXECUTABLE__
 #include "dbref.cc"
-#endif 
+#endif
 #endif
 
 #endif

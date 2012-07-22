@@ -28,7 +28,7 @@ rasdaman GmbH.
  * PURPOSE:
  *
  * COMMENTS:
- *			None
+ *          None
 */
 
 #ifdef EARLY_TEMPLATE
@@ -46,39 +46,39 @@ rasdaman GmbH.
 
 int main()
 {
-  try
-  {
-     ClientComm a( "sunwibas15" );
+    try
+    {
+        ClientComm a( "sunwibas15" );
 
-      cout << "Opening db ..." << flush;
-      a.openDB( "RolandBase" );
-      cout << "OK" << endl; 
+        cout << "Opening db ..." << flush;
+        a.openDB( "RolandBase" );
+        cout << "OK" << endl;
 
-      cout << "Starting ta ..." << flush;
-      a.openTA();
-      cout << "OK" << endl; 
+        cout << "Starting ta ..." << flush;
+        a.openTA();
+        cout << "OK" << endl;
 
-      cout << "Getting type structure RGBImage ..." << flush;
-      char* ts = a.getTypeStructure( "RGBImage", ClientComm::r_MDDType_Type );
-      cout << "OK" << endl;
+        cout << "Getting type structure RGBImage ..." << flush;
+        char* ts = a.getTypeStructure( "RGBImage", ClientComm::r_MDDType_Type );
+        cout << "OK" << endl;
 
-      cout << "Type Structure " << ts << endl;
+        cout << "Type Structure " << ts << endl;
 
-      free( ts );
+        free( ts );
 
-      cout << "Comitting ta ..." << flush;
-      a.commitTA();
-      cout << "OK" << endl; 
+        cout << "Comitting ta ..." << flush;
+        a.commitTA();
+        cout << "OK" << endl;
 
-      cout << "Closing db ..." << flush;
-      a.closeDB();
-      cout << "OK" << endl;
-  }
-  catch ( ... )
-  {
-    cout << "Exception occured: Server or connection problems." << endl;
-    return -1;
-  }
-	
-  return 0;
+        cout << "Closing db ..." << flush;
+        a.closeDB();
+        cout << "OK" << endl;
+    }
+    catch ( ... )
+    {
+        cout << "Exception occured: Server or connection problems." << endl;
+        return -1;
+    }
+
+    return 0;
 }

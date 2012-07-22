@@ -43,92 +43,92 @@ rasdaman GmbH.
 #include "debug-srv.hh"
 
 // only for access control
-#include "servercomm/servercomm.hh" 
+#include "servercomm/servercomm.hh"
 
 #include "server/rasserver_entry.hh"
 
 RnpRasDaManComm rnpServerComm;
-RasserverCommunicator communicator(&rnpServerComm); 
+RasserverCommunicator communicator(&rnpServerComm);
 
 extern "C"
 {
-void rnpSignalHandler(int sig);
+    void rnpSignalHandler(int sig);
 }
 
 void startRnpServer()
 {
-	ENTER( "startRnpServer" );
+    ENTER( "startRnpServer" );
 
-	signal (SIGTERM, rnpSignalHandler);
+    signal (SIGTERM, rnpSignalHandler);
 
-	RMInit::logOut << "Initializing control connections..." << flush;
-	rasmgrComm.init(configuration.getTimeout(), configuration.getServerName(), configuration.getRasmgrHost(), configuration.getRasmgrPort());
-	
-	accessControl.setServerName(configuration.getServerName());
-	
-	RMInit::logOut << "informing rasmgr: server available..." << flush;
-	rasmgrComm.informRasmgrServerAvailable();
-	RMInit::logOut << "ok" << endl;
+    RMInit::logOut << "Initializing control connections..." << flush;
+    rasmgrComm.init(configuration.getTimeout(), configuration.getServerName(), configuration.getRasmgrHost(), configuration.getRasmgrPort());
 
-	//##################
-	
-	RMInit::logOut << "Initializing job control..." << flush;
-	communicator.initJobs(1);
-	communicator.setTimeout(RNP_TIMEOUT_LISTEN,0); // the select loop!
-	
-	communicator.setListenPort(configuration.getListenPort());
-	
-	rnpServerComm.setServerJobs(1);
-	rnpServerComm.connectToCommunicator(communicator);
-	rnpServerComm.setTransmitterBufferSize(configuration.getMaxTransferBufferSize());
+    accessControl.setServerName(configuration.getServerName());
 
-	RMInit::logOut<<"setting timeout to "<<configuration.getTimeout()<< " secs..." << flush;
+    RMInit::logOut << "informing rasmgr: server available..." << flush;
+    rasmgrComm.informRasmgrServerAvailable();
+    RMInit::logOut << "ok" << endl;
 
-	rnpServerComm.setTimeoutInterval(configuration.getTimeout());
-	NbJob::setTimeoutInterval(configuration.getTimeout());
+    //##################
 
-	RMInit::logOut << "connecting to base DBMS..." << flush;
-	RasServerEntry &rasserver = RasServerEntry::getInstance();
-	rasserver.compat_connectToDBMS();
-	
-	RMInit::logOut<<"ok, waiting for clients."<<endl<<endl;
-	communicator.runServer();
-	    
-	RMInit::logOut<<"RNP server shutdown in progress..."<<flush;
-	rnpServerComm.disconnectFromCommunicator();
+    RMInit::logOut << "Initializing job control..." << flush;
+    communicator.initJobs(1);
+    communicator.setTimeout(RNP_TIMEOUT_LISTEN,0); // the select loop!
 
-	//##################
+    communicator.setListenPort(configuration.getListenPort());
 
-	RMInit::logOut<<"informing rasmgr..."<<flush;
-	rasmgrComm.informRasmgrServerDown();
-	
-	RMInit::logOut<<"server stopped."<<endl;
-	LEAVE( "startRnpServer" );
+    rnpServerComm.setServerJobs(1);
+    rnpServerComm.connectToCommunicator(communicator);
+    rnpServerComm.setTransmitterBufferSize(configuration.getMaxTransferBufferSize());
+
+    RMInit::logOut<<"setting timeout to "<<configuration.getTimeout()<< " secs..." << flush;
+
+    rnpServerComm.setTimeoutInterval(configuration.getTimeout());
+    NbJob::setTimeoutInterval(configuration.getTimeout());
+
+    RMInit::logOut << "connecting to base DBMS..." << flush;
+    RasServerEntry &rasserver = RasServerEntry::getInstance();
+    rasserver.compat_connectToDBMS();
+
+    RMInit::logOut<<"ok, waiting for clients."<<endl<<endl;
+    communicator.runServer();
+
+    RMInit::logOut<<"RNP server shutdown in progress..."<<flush;
+    rnpServerComm.disconnectFromCommunicator();
+
+    //##################
+
+    RMInit::logOut<<"informing rasmgr..."<<flush;
+    rasmgrComm.informRasmgrServerDown();
+
+    RMInit::logOut<<"server stopped."<<endl;
+    LEAVE( "startRnpServer" );
 }
 
 void stopRnpServer()
 {
-	ENTER( "stopRnpServer" );
+    ENTER( "stopRnpServer" );
 
-	communicator.shouldExit();
+    communicator.shouldExit();
 
-	LEAVE( "stopRnpServer" );
+    LEAVE( "stopRnpServer" );
 }
 
 
 void rnpSignalHandler(int sig)
 {
-	static int in_progress=0;	// sema for signal-in-signal
-	
-	if (in_progress)		// routine already active?
-		return;			// ...then don't interfere
-	
-	in_progress = 1;		// block further signals
-	
-	for(long j=0;j<1000000;j++)  	// make sure server notices shutdown
-		;			// NB: why this large number? doesn't seem to be thought over carefully -- PB 2003-nov-23
+    static int in_progress=0;   // sema for signal-in-signal
 
-	stopRnpServer();		// send shutdown request
+    if (in_progress)        // routine already active?
+        return;         // ...then don't interfere
+
+    in_progress = 1;        // block further signals
+
+    for(long j=0; j<1000000; j++)   // make sure server notices shutdown
+        ;           // NB: why this large number? doesn't seem to be thought over carefully -- PB 2003-nov-23
+
+    stopRnpServer();        // send shutdown request
 }
 
 

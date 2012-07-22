@@ -33,21 +33,21 @@ rasdaman GmbH.
 inline QtNode*
 QtNode::getParent() const
 {
-  return parent;
+    return parent;
 };
 
 
 inline void
 QtNode::setParent( QtNode* node )
 {
-  parent = node;
+    parent = node;
 };
 
 
 inline const QtNode::QtNodeType
 QtNode::getNodeType() const
 {
-  return nodeType;
+    return nodeType;
 }
 
 
@@ -55,39 +55,39 @@ QtNode::getNodeType() const
 inline void
 QtNode::setInput( QtOperation* , QtOperation* )
 {
-  RMInit::logOut << "Error: Method setInput(...) is undefined for node type " << getNodeType() << " in the query tree." << endl;
+    RMInit::logOut << "Error: Method setInput(...) is undefined for node type " << getNodeType() << " in the query tree." << endl;
 }
 
 
 inline const ParseInfo&
 QtNode::getParseInfo()
 {
-  return parseInfo;
+    return parseInfo;
 }
 
 
 inline void
 QtNode::setParseInfo( const ParseInfo &info )
 {
-  parseInfo = info;
+    parseInfo = info;
 }
 
 
 
-inline void 
+inline void
 QtTypeElement::setName( const char* newName )
 {
-  if( name ) free( name );
-  name = strdup( newName );
+    if( name ) free( name );
+    name = strdup( newName );
 }
 
 
 
 
-inline const QtDataType 
+inline const QtDataType
 QtTypeElement::getDataType() const
 {
-  return dataType;
+    return dataType;
 }
 
 
@@ -95,26 +95,26 @@ QtTypeElement::getDataType() const
 inline const Type*
 QtTypeElement::getType() const
 {
-  return type;
+    return type;
 }
 
 
 inline const char*
 QtTypeElement::getName() const
 {
-  return name;
+    return name;
 }
 
 
 inline bool
 QtTypeElement::isBaseType() const
 {
-  return dataType == QT_BOOL         || dataType == QT_COMPLEX ||
-         dataType == QT_CHAR         || dataType == QT_OCTET   ||
-         dataType == QT_USHORT       || dataType == QT_SHORT   ||
-         dataType == QT_ULONG        || dataType == QT_LONG    ||
-         dataType == QT_FLOAT        || dataType == QT_DOUBLE  || 
-         dataType == QT_COMPLEXTYPE1 || dataType == QT_COMPLEXTYPE2;
+    return dataType == QT_BOOL         || dataType == QT_COMPLEX ||
+           dataType == QT_CHAR         || dataType == QT_OCTET   ||
+           dataType == QT_USHORT       || dataType == QT_SHORT   ||
+           dataType == QT_ULONG        || dataType == QT_LONG    ||
+           dataType == QT_FLOAT        || dataType == QT_DOUBLE  ||
+           dataType == QT_COMPLEXTYPE1 || dataType == QT_COMPLEXTYPE2;
 }
 
 
@@ -122,9 +122,9 @@ QtTypeElement::isBaseType() const
 inline bool
 QtTypeElement::isInteger() const
 {
-  return dataType == QT_CHAR    || dataType == QT_OCTET   ||
-         dataType == QT_USHORT  || dataType == QT_SHORT   ||
-         dataType == QT_ULONG   || dataType == QT_LONG;
+    return dataType == QT_CHAR    || dataType == QT_OCTET   ||
+           dataType == QT_USHORT  || dataType == QT_SHORT   ||
+           dataType == QT_ULONG   || dataType == QT_LONG;
 }
 
 

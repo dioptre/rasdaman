@@ -54,11 +54,11 @@ This class has just QtNot as subclass which represents the not operations
 
 class QtUnaryInduce : public QtUnaryOperation
 {
-  public:
+public:
     /// constructor getting the operand
     QtUnaryInduce( QtOperation* input );
 
-  protected:
+protected:
     /// computes the unary operation
     QtData* computeOp( QtData* operand, Ops::OpType operation );
 
@@ -85,9 +85,9 @@ class QtUnaryInduce : public QtUnaryOperation
       The method carries out the unary operation specified by {\tt operation} on the operand.
     */
 
-  private:
-	/// attribute for identification of nodes
-	static const QtNodeType nodeType;
+private:
+    /// attribute for identification of nodes
+    static const QtNodeType nodeType;
 };
 
 
@@ -100,7 +100,7 @@ class QtUnaryInduce : public QtUnaryOperation
 
 class QtNot : public QtUnaryInduce
 {
-  public:
+public:
     /// constructor getting the operand
     QtNot( QtOperation* input );
 
@@ -124,7 +124,7 @@ class QtNot : public QtUnaryInduce
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };
@@ -139,7 +139,7 @@ class QtNot : public QtUnaryInduce
 
 class QtDot : public QtUnaryInduce
 {
-  public:
+public:
     /// constructor getting operand and element name
     QtDot( const std::string& elementName );
 
@@ -159,7 +159,7 @@ class QtDot : public QtUnaryInduce
       operation as an additional argument to compute the result of the node.
     */
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -171,7 +171,7 @@ class QtDot : public QtUnaryInduce
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 
@@ -181,7 +181,7 @@ class QtDot : public QtUnaryInduce
     /// attribute storing selection element number
     int elementNo;
     /**
-      The number is either positive, which means that the number 
+      The number is either positive, which means that the number
       is valid, or -1 saying that the element name is valid for
       selection.
     */
@@ -197,17 +197,19 @@ class QtDot : public QtUnaryInduce
 QtCast provides type conversions
 */
 
-class QtCast : public QtUnaryInduce {
+class QtCast : public QtUnaryInduce
+{
 public:
-    enum cast_types {
-    	t_bool, t_octet, t_char, t_short, t_ushort,
+    enum cast_types
+    {
+        t_bool, t_octet, t_char, t_short, t_ushort,
         t_long, t_ulong, t_float, t_double
     };
-                        
+
     QtCast(QtOperation*, cast_types);
     /// method for evaluating the node
     QtData* evaluate(QtDataList*);
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES);
     /// prints the algebraic expression
     virtual void printAlgebraicExpression(std::ostream& = std::cout);
@@ -215,50 +217,52 @@ public:
     inline virtual const QtNodeType getNodeType() const;
     /// semantics check
     virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
-                                                   
-private:
-	Ops::OpType getOp(cast_types);
 
-    static const QtNodeType nodeType;                                                            
-    cast_types castType;  
+private:
+    Ops::OpType getOp(cast_types);
+
+    static const QtNodeType nodeType;
+    cast_types castType;
 };
-                                                                
+
 
 //--------------------------------------------
 //  QtRealPartOp
 //--------------------------------------------
 
-class QtRealPartOp : public QtUnaryInduce {
+class QtRealPartOp : public QtUnaryInduce
+{
 public:
-	QtRealPartOp(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES);
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL);
-                            
+    QtRealPartOp(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES);
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL);
+
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
-                                                                   
+
 //--------------------------------------------
 //  QtImaginarPartOp
 //--------------------------------------------
 
-class QtImaginarPartOp : public QtUnaryInduce {
+class QtImaginarPartOp : public QtUnaryInduce
+{
 public:
-	QtImaginarPartOp(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES);
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL);
-                            
+    QtImaginarPartOp(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES);
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL);
+
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
-                                                                   
-#include "autogen_qtui.hh"	
+
+#include "autogen_qtui.hh"
 #include "qlparser/qtunaryinduce.icc"
 #include "autogen_qtui.icc"
 

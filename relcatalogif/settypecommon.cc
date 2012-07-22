@@ -37,57 +37,57 @@ rasdaman GmbH.
 
 
 SetType::SetType(const OId& id) throw (r_Error)
-	:	CollectionType(id)
-	{
-	objecttype = OId::SETTYPEOID;
-	readFromDb();
-	}
+    :   CollectionType(id)
+{
+    objecttype = OId::SETTYPEOID;
+    readFromDb();
+}
 
-char* 
+char*
 SetType::getTypeStructure() const
-	{
-	char* dummy = myMDDType->getTypeStructure();
-	char* result = (char*)mymalloc(5 + strlen(dummy) + 2);
-	
-	strcpy(result, "set <");
-	strcat(result, dummy);
-	strcat(result, ">");
+{
+    char* dummy = myMDDType->getTypeStructure();
+    char* result = (char*)mymalloc(5 + strlen(dummy) + 2);
 
-	free(dummy);
-	return result;
-	}
+    strcpy(result, "set <");
+    strcat(result, dummy);
+    strcat(result, ">");
 
-SetType::SetType(const char* newTypeName, const MDDType* newMDDType) 
-	:	CollectionType(newTypeName, newMDDType)
-	{
-	myType = SETTYPE;
-	objecttype = OId::SETTYPEOID;
-	}
+    free(dummy);
+    return result;
+}
+
+SetType::SetType(const char* newTypeName, const MDDType* newMDDType)
+    :   CollectionType(newTypeName, newMDDType)
+{
+    myType = SETTYPE;
+    objecttype = OId::SETTYPEOID;
+}
 
 SetType::SetType(const SetType& old)
-	:	CollectionType(old)
-	{
-	}
+    :   CollectionType(old)
+{
+}
 
 SetType& SetType::operator=(const SetType& old)
-	{
-	// Gracefully handle self assignment
-	if (this == &old)
-		return *this;
-	CollectionType::operator=(old);
-	return *this;
-	}
+{
+    // Gracefully handle self assignment
+    if (this == &old)
+        return *this;
+    CollectionType::operator=(old);
+    return *this;
+}
 
 SetType::SetType()
-	:	CollectionType("unnamed settype")
-	{
-	myType = SETTYPE;
-	objecttype = OId::SETTYPEOID;
-	}
+    :   CollectionType("unnamed settype")
+{
+    myType = SETTYPE;
+    objecttype = OId::SETTYPEOID;
+}
 
 SetType::~SetType()
-	{
-	RMDBGENTER(4, RMDebug::module_catalogif, "SetType", "~SetType() " << myOId);
-	validate();
-	RMDBGEXIT(4, RMDebug::module_catalogif, "SetType", "~SetType() " << myOId);
-	}
+{
+    RMDBGENTER(4, RMDebug::module_catalogif, "SetType", "~SetType() " << myOId);
+    validate();
+    RMDBGEXIT(4, RMDebug::module_catalogif, "SetType", "~SetType() " << myOId);
+}

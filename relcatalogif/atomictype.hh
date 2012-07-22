@@ -27,7 +27,7 @@ rasdaman GmbH.
  *
  * PURPOSE:
  *   The AtomicType class is the superclass for all for
- *   atomic types (e.g. Octet, ULong) describing the type of a 
+ *   atomic types (e.g. Octet, ULong) describing the type of a
  *   cell
  *
  *
@@ -43,7 +43,7 @@ rasdaman GmbH.
 
 //@ManMemo: Module: {\bf relcatalogif}.
 
-/*@Doc: 
+/*@Doc:
 AtomicType is the abstract base class for all non-structured
 \Ref{BaseType} subclasses, i.e. base types like \Ref{ULongType} or
 \Ref{BoolType}.
@@ -57,44 +57,44 @@ AtomicType is the abstract base class for all non-structured
   */
 
 class AtomicType : public BaseType
-	{
-	public:
-		virtual unsigned int getSize() const;
-		/*@Doc:
-		get size of cells of this base type.
-		*/
-		
-		AtomicType(unsigned int newSize);
-		/*@Doc:
-		constructor.
-		*/
+{
+public:
+    virtual unsigned int getSize() const;
+    /*@Doc:
+    get size of cells of this base type.
+    */
 
-		AtomicType(const AtomicType& old);
-		/*@Doc:
-		copy constructor.
-		*/
+    AtomicType(unsigned int newSize);
+    /*@Doc:
+    constructor.
+    */
 
-		AtomicType(const OId& id) throw (r_Error);
-		/*@Doc:
-		*/
+    AtomicType(const AtomicType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-		AtomicType& operator=(const AtomicType& old);
-		/*@Doc:
-		*/
+    AtomicType(const OId& id) throw (r_Error);
+    /*@Doc:
+    */
 
-		virtual ~AtomicType();
-		/*@Doc:
-		*/
+    AtomicType& operator=(const AtomicType& old);
+    /*@Doc:
+    */
 
-	protected:
-		unsigned int size;
-		/*@Doc:
-		size of one cell of this base type in number of chars.
-		*/
+    virtual ~AtomicType();
+    /*@Doc:
+    */
 
-		AtomicType(const char* name, unsigned int newSize);
-		/*@Doc:
-		*/
-	};
+protected:
+    unsigned int size;
+    /*@Doc:
+    size of one cell of this base type in number of chars.
+    */
+
+    AtomicType(const char* name, unsigned int newSize);
+    /*@Doc:
+    */
+};
 
 #endif

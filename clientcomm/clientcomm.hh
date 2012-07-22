@@ -27,8 +27,8 @@ rasdaman GmbH.
  * CLASS:   ClientComm
  *
  * COMMENTS:
- * 		ClientComm is now an abstract class, with two subclasses: RpcClintComm and RnpClientComm
- * 		This will change again when RPC will be dropped forever
+ *      ClientComm is now an abstract class, with two subclasses: RpcClintComm and RnpClientComm
+ *      This will change again when RPC will be dropped forever
  *
 */
 
@@ -50,113 +50,113 @@ class r_Parse_Params;
 
 
 /**
-*	@defgroup ClientComm ClientComm
+*   @defgroup ClientComm ClientComm
 *
-*	@file clientcomm.hh	
+*   @file clientcomm.hh
 *
-*	@ingroup ClientComm
+*   @ingroup ClientComm
 */
-//	@Doc
-	
-/*	The class ClientComm represents {\bf one} connection between
-	{\bf one} client entity (e.g. an object of class \Ref{r_Database}) and
-	the server. Therefore, the host name has to be provided at
-	the constructor.
+//  @Doc
+
+/*  The class ClientComm represents {\bf one} connection between
+    {\bf one} client entity (e.g. an object of class \Ref{r_Database}) and
+    the server. Therefore, the host name has to be provided at
+    the constructor.
 */
 
 class ClientComm
 {
-  public:
-    
+public:
+
     /// destructor (closes the connection and releases resources)
     virtual ~ClientComm() throw();
 
     // the class is not necessary singleton, but the type of the actual object depends on the environment
     static ClientComm* createObject(const char* rasmgrName, int rasmgrPort);
-    
-    /** Methods for setting the protocol. Default will be RNP, but until release 5.2 it is RPC, 
+
+    /** Methods for setting the protocol. Default will be RNP, but until release 5.2 it is RPC,
         unless you compile with -DDEFAULTRNP
         Also, if the environment variable RMANPROTOCOL is set, it's value is used to set the protocol
-	and the 'in-code' setting is ignored
-	RMANPROTOCOL can be:
-		- RNP 		-> RNP is used
-		- COMPAT 	-> raslib uses RPC, rasj uses HTTP
-		- RPC		-> raslib uses RPC, rasj uses RNP
-		- HTTP		-> raslib uses RNP, rasj uses HTTP
-		every other value is ignored and the 'in-code' setting is used 
-		
-	NOTE: This methods will be removed in the next version
+    and the 'in-code' setting is ignored
+    RMANPROTOCOL can be:
+        - RNP       -> RNP is used
+        - COMPAT    -> raslib uses RPC, rasj uses HTTP
+        - RPC       -> raslib uses RPC, rasj uses RNP
+        - HTTP      -> raslib uses RNP, rasj uses HTTP
+        every other value is ignored and the 'in-code' setting is used
+
+    NOTE: This methods will be removed in the next version
       */
-      
+
     static  void useRNP() throw();
     static  void useRPC() throw();
     static  bool internalSettingIsRNP() throw();
-    
+
     virtual bool effectivTypeIsRNP() throw() = 0;
-        
+
     //@Man: Database methods
     //@{
     ///
-       //RNP: all made pure
-       
-      /// open database
-      virtual int openDB( const char* database ) = 0;
-      /// close current database
-      virtual int closeDB() = 0;
-      /// create a database
-      virtual int createDB( const char* name ) throw(r_Error) = 0;
-      /// destroy a database
-      virtual int destroyDB( const char* name ) throw(r_Error) = 0;
+    //RNP: all made pure
+
+    /// open database
+    virtual int openDB( const char* database ) = 0;
+    /// close current database
+    virtual int closeDB() = 0;
+    /// create a database
+    virtual int createDB( const char* name ) throw(r_Error) = 0;
+    /// destroy a database
+    virtual int destroyDB( const char* name ) throw(r_Error) = 0;
 
     ///
     //@}
-    
+
     //@Man: Transaction methods
     //@{
     ///
 
-      /// begin transaction
-      virtual int openTA( unsigned short readOnly = 0 ) throw(r_Error) =0;
-      /// commit current transaction
-      virtual int commitTA() throw(r_Error) =0;
-      /// abort current transaction
-      virtual int abortTA() =0;
+    /// begin transaction
+    virtual int openTA( unsigned short readOnly = 0 ) throw(r_Error) =0;
+    /// commit current transaction
+    virtual int commitTA() throw(r_Error) =0;
+    /// abort current transaction
+    virtual int abortTA() =0;
 
     ///
     //@}
-    
+
     //@Man: MDD methods
     //@{
     ///
 
-      /// inserts a MDD object in an existing MDD collection on the server
-      virtual void insertMDD( const char* collName, r_GMarray* mar ) throw( r_Error ) =0;
-      /// gets MDD object by oid
-      virtual r_Ref_Any getMDDByOId( const r_OId& oid ) throw( r_Error ) =0;
+    /// inserts a MDD object in an existing MDD collection on the server
+    virtual void insertMDD( const char* collName, r_GMarray* mar ) throw( r_Error ) =0;
+    /// gets MDD object by oid
+    virtual r_Ref_Any getMDDByOId( const r_OId& oid ) throw( r_Error ) =0;
 
     ///
     //@}
-    
+
     //@Man: Collection methods
     //@{
     ///
 
-      /// creates an empty MDD collection on the server
-      virtual void insertColl( const char* collName, const char* typeName, const r_OId& oid ) throw( r_Error ) =0;
-      /// deletes an MDD collection by name
-      virtual void deleteCollByName( const char* collName ) throw( r_Error ) =0;
-      /// deletes an object by oid (right now, objects are collection only)
-      virtual void deleteObjByOId( const r_OId& oid ) throw( r_Error ) =0;
-      /// removes an object from a collection
-      virtual void removeObjFromColl( const char* name, const r_OId& oid ) throw ( r_Error ) =0;
-      /// gets collection by name
-      virtual r_Ref_Any getCollByName( const char* name ) throw( r_Error ) =0;
-      /// gets collection by oid
-      virtual r_Ref_Any getCollByOId ( const r_OId& oid ) throw( r_Error ) =0;
-      /// gets collection references by name
-      virtual r_Ref_Any getCollOIdsByName( const char* name ) throw( r_Error ) =0;
-      /// gets collection references by oid
-      virtual r_Ref_Any getCollOIdsByOId ( const r_OId& oid ) throw( r_Error ) =0;
+    /// creates an empty MDD collection on the server
+    virtual void insertColl( const char* collName, const char* typeName, const r_OId& oid ) throw( r_Error ) =0;
+    /// deletes an MDD collection by name
+    virtual void deleteCollByName( const char* collName ) throw( r_Error ) =0;
+    /// deletes an object by oid (right now, objects are collection only)
+    virtual void deleteObjByOId( const r_OId& oid ) throw( r_Error ) =0;
+    /// removes an object from a collection
+    virtual void removeObjFromColl( const char* name, const r_OId& oid ) throw ( r_Error ) =0;
+    /// gets collection by name
+    virtual r_Ref_Any getCollByName( const char* name ) throw( r_Error ) =0;
+    /// gets collection by oid
+    virtual r_Ref_Any getCollByOId ( const r_OId& oid ) throw( r_Error ) =0;
+    /// gets collection references by name
+    virtual r_Ref_Any getCollOIdsByName( const char* name ) throw( r_Error ) =0;
+    /// gets collection references by oid
+    virtual r_Ref_Any getCollOIdsByOId ( const r_OId& oid ) throw( r_Error ) =0;
 
     ///
     //@}
@@ -165,19 +165,19 @@ class ClientComm
     //@{
     ///
 
-      /// query execution
-      virtual void executeQuery( const r_OQL_Query& query, r_Set< r_Ref_Any >& result ) throw( r_Error ) =0;
-      /*@Doc:
-        Executes a retrieval query of type \Ref{r_OQL_Query} and returns the result. Every
-        MDD object of the MDD collection is fetched from the server and inserted
-        in the resulting \Ref{r_Set}.
-      */
-    
-      /// update execution
-      virtual void executeQuery( const r_OQL_Query& query ) throw( r_Error ) =0;
-      /*@Doc:
-        Executes an update query of type \Ref{r_OQL_Query}. 
-      */
+    /// query execution
+    virtual void executeQuery( const r_OQL_Query& query, r_Set< r_Ref_Any >& result ) throw( r_Error ) =0;
+    /*@Doc:
+      Executes a retrieval query of type \Ref{r_OQL_Query} and returns the result. Every
+      MDD object of the MDD collection is fetched from the server and inserted
+      in the resulting \Ref{r_Set}.
+    */
+
+    /// update execution
+    virtual void executeQuery( const r_OQL_Query& query ) throw( r_Error ) =0;
+    /*@Doc:
+      Executes an update query of type \Ref{r_OQL_Query}.
+    */
 
     ///
     //@}
@@ -187,21 +187,21 @@ class ClientComm
     //@{
     ///
 
-      /// get new oid    
-      virtual r_OId getNewOId( unsigned short objType ) throw(r_Error) = 0;
+    /// get new oid
+    virtual r_OId getNewOId( unsigned short objType ) throw(r_Error) = 0;
 
-      /// get oid type
-      virtual unsigned short getObjectType( const r_OId& oid ) throw(r_Error) = 0;
+    /// get oid type
+    virtual unsigned short getObjectType( const r_OId& oid ) throw(r_Error) = 0;
 
-	enum r_Type_Type
-		{
-		r_SetType_Type = 1,
-		r_MDDType_Type = 2
-		};
+    enum r_Type_Type
+    {
+        r_SetType_Type = 1,
+        r_MDDType_Type = 2
+    };
 
-      /// get type structure
-      /// deallocate using delete []
-      virtual char* getTypeStructure( const char* typeName, r_Type_Type typeType ) throw(r_Error) =0;
+    /// get type structure
+    /// deallocate using delete []
+    virtual char* getTypeStructure( const char* typeName, r_Type_Type typeType ) throw(r_Error) =0;
 
     ///
     //@}
@@ -213,23 +213,23 @@ class ClientComm
 
     /// provides read access to my clientID
     virtual unsigned long getClientID() const  = 0;
-			
+
 
     //@Man: Methods for asynchronious alive signal concept
     //@{
-    
+
     /// triggers an alive signal
     virtual void triggerAliveSignal() = 0;
-    /** 
+    /**
       First, it sets the switch {\tt aliveSignalRemaining} saying that an alive signal
       should be send to the server. Then it calls {\tt sendAliveSignal()} to send it
       immediately if possible.
     */
-    
+
     /// send an alive signal if necessary and possible
     virtual void sendAliveSignal() = 0;
-    /** 
-      Sends an alive signal to the server if the switch {\tt aliveSignalRemaining} is 
+    /**
+      Sends an alive signal to the server if the switch {\tt aliveSignalRemaining} is
       set and no other RPC is active. If a signal can be sent, {\tt aliveSignalRemaining}
       is set to 0 again.
     */
@@ -239,36 +239,36 @@ class ClientComm
 
     /// set the preferred storage format
     virtual int setStorageFormat( r_Data_Format format, const char *formatParams=NULL ) =0;
-    
+
     /// get extended error information
     virtual const char *getExtendedErrorInfo() throw(r_Error)  =0;
-    
+
     /// get real server name (the dinamic one, assigned by the RasMGR)
     const char* getServerName();
-    
+
     /// user identification for RasMGR
-    virtual void setUserIdentification(const char *userName, const char *plainTextPassword) =0;    
+    virtual void setUserIdentification(const char *userName, const char *plainTextPassword) =0;
 
     /// set maximum retry to get a server
     virtual void setMaxRetry(unsigned int newMaxRetry) = 0;
-    
+
     /// get maximum retry to get a server
     virtual unsigned int  getMaxRetry() = 0;
-    
+
     /// set and get communication timeout interval. Only RNP really uses it
     virtual void setTimeoutInterval(int seconds) = 0;
     virtual int  getTimeoutInterval() = 0;
 
     ///
     //@}
-   
-  protected:  
+
+protected:
     /// constructor getting nothing
     ClientComm() throw( r_Error );
-        
-  private:
-    
+
+private:
+
     static bool currentProtocolIsRNP;
-   };
+};
 
 #endif

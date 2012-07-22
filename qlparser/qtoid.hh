@@ -48,14 +48,14 @@ rasdaman GmbH.
 
 class QtOId : public QtUnaryOperation
 {
-  public:
+public:
     /// constructor getting operand
     QtOId( QtVariable* newInput );
 
     /// evaluates the node
     QtData* evaluate( QtDataList* inputList );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -67,7 +67,7 @@ class QtOId : public QtUnaryOperation
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };

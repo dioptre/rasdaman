@@ -42,340 +42,343 @@ rasdaman GmbH.
 EXEC SQL include "../reladminif/sqlglobals.h";
 
 DBMinterval::DBMinterval()
-	:	r_Minterval(),
-		DBObject()
+    :   r_Minterval(),
+        DBObject()
 {
-	objecttype = OId::DBMINTERVALOID;
+    objecttype = OId::DBMINTERVALOID;
 }
 
 DBMinterval::DBMinterval(const OId& id) throw (r_Error)
-	:	r_Minterval(),
-		DBObject(id)
+    :   r_Minterval(),
+        DBObject(id)
 {
-	objecttype = OId::DBMINTERVALOID;
-	readFromDb();
+    objecttype = OId::DBMINTERVALOID;
+    readFromDb();
 }
 
 DBMinterval::DBMinterval(r_Dimension dim)
-	:	r_Minterval(dim),
-		DBObject()
+    :   r_Minterval(dim),
+        DBObject()
 {
-	objecttype = OId::DBMINTERVALOID;
+    objecttype = OId::DBMINTERVALOID;
 }
 
 DBMinterval::DBMinterval(const char* dom)
-	:	r_Minterval((char*)dom),
-		DBObject()
+    :   r_Minterval((char*)dom),
+        DBObject()
 {
-	objecttype = OId::DBMINTERVALOID;
+    objecttype = OId::DBMINTERVALOID;
 }
 
 DBMinterval::DBMinterval(const DBMinterval& old)
-	:	r_Minterval(old),
-		DBObject(old)
+    :   r_Minterval(old),
+        DBObject(old)
 {
-	objecttype = OId::DBMINTERVALOID;
+    objecttype = OId::DBMINTERVALOID;
 }
 
 DBMinterval::DBMinterval(const r_Minterval& old)
-	:	r_Minterval(old),
-		DBObject()
+    :   r_Minterval(old),
+        DBObject()
 {
-	objecttype = OId::DBMINTERVALOID;
+    objecttype = OId::DBMINTERVALOID;
 }
 
 DBMinterval::~DBMinterval()
 {
-	RMDBGENTER(4, RMDebug::module_catalogif, "DBMinterval", "~DBMinterval() " << myOId);
-	validate();
-	RMDBGEXIT(4, RMDebug::module_catalogif, "DBMinterval", "~DBMinterval() " << myOId);
+    RMDBGENTER(4, RMDebug::module_catalogif, "DBMinterval", "~DBMinterval() " << myOId);
+    validate();
+    RMDBGEXIT(4, RMDebug::module_catalogif, "DBMinterval", "~DBMinterval() " << myOId);
 }
 
 DBMinterval&
 DBMinterval::operator=(const DBMinterval& old)
 {
-	RMDBGENTER(11, RMDebug::module_catalogif, "DBMinterval", "operator=(" << old.getOId() << ") with me " << myOId);
-	if (this == &old)
-		return *this;
-	r_Minterval::operator=(old);
-	setModified();
-	RMDBGEXIT(11, RMDebug::module_catalogif, "DBMinterval", "operator=(" << old.getOId() << ") with me " << myOId);
-	return *this;
+    RMDBGENTER(11, RMDebug::module_catalogif, "DBMinterval", "operator=(" << old.getOId() << ") with me " << myOId);
+    if (this == &old)
+        return *this;
+    r_Minterval::operator=(old);
+    setModified();
+    RMDBGEXIT(11, RMDebug::module_catalogif, "DBMinterval", "operator=(" << old.getOId() << ") with me " << myOId);
+    return *this;
 }
 
 DBMinterval&
 DBMinterval::operator=(const r_Minterval& old)
 {
-	if (this == &old)
-		return *this;
-	r_Minterval::operator=(old);
-	setModified();
-	return *this;
+    if (this == &old)
+        return *this;
+    r_Minterval::operator=(old);
+    setModified();
+    return *this;
 }
 
 r_Bytes
 DBMinterval::getMemorySize() const
 {
-	return DBObject::getMemorySize() + sizeof(r_Minterval) + dimensionality * (4 + 4 + 1 + 1); 
+    return DBObject::getMemorySize() + sizeof(r_Minterval) + dimensionality * (4 + 4 + 1 + 1);
 }
 
 void
 DBMinterval::insertInDb() throw (r_Error)
 {
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	domainid;
-		long	count;
-		long	low;
-		short	lowind;
-		long	high;
-		short	highind;
-		long	dimension;
-	EXEC SQL END DECLARE SECTION;
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    domainid;
+        long    count;
+        long    low;
+        short   lowind;
+        long    high;
+        short   highind;
+        long    dimension;
+    EXEC SQL END DECLARE SECTION;
 
-	domainid = myOId.getCounter();
-	dimension = dimensionality;
+    domainid = myOId.getCounter();
+    dimension = dimensionality;
 
-	EXEC SQL INSERT INTO RAS_DOMAINS	( DomainId, Dimension)
-			VALUES	( :domainid, :dimension);
-	if (SQLCODE != SQLOK)
-	{
-		check("DBMinterval::insertInDb() INSERT INTO RAS_DOMAINS");
-		generateException();
-	}
+    EXEC SQL INSERT INTO RAS_DOMAINS    ( DomainId, Dimension)
+        VALUES  ( :domainid, :dimension);
+    if (SQLCODE != SQLOK)
+    {
+        check("DBMinterval::insertInDb() INSERT INTO RAS_DOMAINS");
+        generateException();
+    }
 
-	for (count = 0; count < dimensionality; count++)
-	{
-		if (intervals[count].is_low_fixed())
-		{
-			low = intervals[count].low();
-			lowind = 0;
-		}
-		else
-		{
-			lowind = -1;
-		}
-		if (intervals[count].is_high_fixed())
-		{
-			high = intervals[count].high();
-			highind = 0;
-		}
-		else
-		{
-			highind = -1;
-		}
-		
-		EXEC SQL INSERT INTO RAS_DOMAINVALUES	( DomainId, DimensionCount, Low, High)
-				VALUES	( :domainid, :count, :low INDICATOR :lowind, :high INDICATOR :highind);
-		if (SQLCODE != SQLOK)
-		{
-			check("DBMinterval::insertInDb() INSERT INTO RAS_DOMAINVALUES");
-			generateException();
-		}
-	}
+    for (count = 0; count < dimensionality; count++)
+    {
+        if (intervals[count].is_low_fixed())
+        {
+            low = intervals[count].low();
+            lowind = 0;
+        }
+        else
+        {
+            lowind = -1;
+        }
+        if (intervals[count].is_high_fixed())
+        {
+            high = intervals[count].high();
+            highind = 0;
+        }
+        else
+        {
+            highind = -1;
+        }
 
-	DBObject::insertInDb();
+        EXEC SQL INSERT INTO RAS_DOMAINVALUES   ( DomainId, DimensionCount, Low, High)
+          VALUES    ( :domainid, :count, :low INDICATOR :lowind, :high INDICATOR :highind);
+        if (SQLCODE != SQLOK)
+        {
+            check("DBMinterval::insertInDb() INSERT INTO RAS_DOMAINVALUES");
+            generateException();
+        }
+    }
+
+    DBObject::insertInDb();
 }
 
 void
 DBMinterval::updateInDb() throw (r_Error)
 {
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	domainid1;
-		long	count1;
-		long	low1;
-		short	lowind1;
-		long	high1;
-		short	highind1;
-		long	dimension1;
-	EXEC SQL END DECLARE SECTION;
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    domainid1;
+        long    count1;
+        long    low1;
+        short   lowind1;
+        long    high1;
+        short   highind1;
+        long    dimension1;
+    EXEC SQL END DECLARE SECTION;
 
-	domainid1 = myOId.getCounter();
-	
-	EXEC SQL SELECT Dimension
-		INTO :dimension1
-		FROM RAS_DOMAINS
-		WHERE DomainId = :domainid1;
+    domainid1 = myOId.getCounter();
 
-	if (dimension1 < dimensionality)
-	{	//insert more rows in RAS_DOMAINVALUES 
-		for (count1 = dimension1; count1 < dimensionality; count1++)
-		{
-			EXEC SQL INSERT INTO RAS_DOMAINVALUES	( DomainId, DimensionCount)
-					VALUES	( :domainid1, :count1);
-			if (SQLCODE != SQLOK)
-			{
-				check("DBMinterval::updateInDb() INSERT INTO RAS_DOMAINVALUES");
-				generateException();
-			}
-		}
-		dimension1 = dimensionality;
-		EXEC SQL UPDATE RAS_DOMAINS SET Dimension = :dimension1
-			WHERE DomainId = :domainid1;
-		
-		if (check("DBMinterval::updateInDb() UPDATE RAS_DOMAINS"))
-			generateException();
-	}
-	else
-	{
-		if (dimension1 > dimensionality)
-		{	//delete superfluous dimensions
-			for (count1 = dimension1; count1 > dimensionality; count1--)
-			{
-				EXEC SQL DELETE
-					FROM RAS_DOMAINVALUES
-					WHERE DomainId = :domainid1 AND DimensionCount =  :count1;
-				if (SQLCODE != SQLOK)
-				{
-					check("DBMinterval::updateInDb() DELETE FROM RAS_DOMAINVALUES");
-					generateException();
-				}
-			}
-			dimension1 = dimensionality;
-			EXEC SQL UPDATE RAS_DOMAINS
-					SET Dimension = :dimension1
-					WHERE DomainId = :domainid1;
-			if (SQLCODE != SQLOK)
-			{
-				check("DBMinterval::updateInDb() UPDATE RAS_DOMAINS");
-				generateException();
-			}
-		}
-		else
-		{	//only update dimension boundaries
-		}
-	}
-	
-	for (count1 = 0; count1 < dimensionality; count1++)
-	{
-		if (intervals[count1].is_low_fixed())
-		{
-			low1 = intervals[count1].low();
-			lowind1 = 0;
-		}
-		else
-		{
-			lowind1 = -1;
-		}
-		if (intervals[count1].is_high_fixed())
-		{
-			high1 = intervals[count1].high();
-			highind1 = 0;
-		}
-		else
-		{
-			highind1 = -1;
-		}
-		
-		EXEC SQL UPDATE RAS_DOMAINVALUES
-				SET Low = :low1 INDICATOR :lowind1, High = :high1 INDICATOR :highind1
-				WHERE DomainId = :domainid1 AND DimensionCount = :count1;
-		if (SQLCODE != SQLOK)
-		{
-			check("DBMinterval::updateInDb() UPDATE RAS_DOMAINVALUES");
-			generateException();
-		}
-	}
+    EXEC SQL SELECT Dimension
+       INTO :dimension1
+       FROM RAS_DOMAINS
+       WHERE DomainId = :domainid1;
 
-	DBObject::updateInDb();
+    if (dimension1 < dimensionality)
+    {
+        //insert more rows in RAS_DOMAINVALUES
+        for (count1 = dimension1; count1 < dimensionality; count1++)
+        {
+            EXEC SQL INSERT INTO RAS_DOMAINVALUES   ( DomainId, DimensionCount)
+            VALUES  ( :domainid1, :count1);
+            if (SQLCODE != SQLOK)
+            {
+                check("DBMinterval::updateInDb() INSERT INTO RAS_DOMAINVALUES");
+                generateException();
+            }
+        }
+        dimension1 = dimensionality;
+        EXEC SQL UPDATE RAS_DOMAINS SET Dimension = :dimension1
+        WHERE DomainId = :domainid1;
+
+        if (check("DBMinterval::updateInDb() UPDATE RAS_DOMAINS"))
+            generateException();
+    }
+    else
+    {
+        if (dimension1 > dimensionality)
+        {
+            //delete superfluous dimensions
+            for (count1 = dimension1; count1 > dimensionality; count1--)
+            {
+                EXEC SQL DELETE
+                FROM RAS_DOMAINVALUES
+                WHERE DomainId = :domainid1 AND DimensionCount =  :count1;
+                if (SQLCODE != SQLOK)
+                {
+                    check("DBMinterval::updateInDb() DELETE FROM RAS_DOMAINVALUES");
+                    generateException();
+                }
+            }
+            dimension1 = dimensionality;
+            EXEC SQL UPDATE RAS_DOMAINS
+            SET Dimension = :dimension1
+            WHERE DomainId = :domainid1;
+            if (SQLCODE != SQLOK)
+            {
+                check("DBMinterval::updateInDb() UPDATE RAS_DOMAINS");
+                generateException();
+            }
+        }
+        else
+        {
+            //only update dimension boundaries
+        }
+    }
+
+    for (count1 = 0; count1 < dimensionality; count1++)
+    {
+        if (intervals[count1].is_low_fixed())
+        {
+            low1 = intervals[count1].low();
+            lowind1 = 0;
+        }
+        else
+        {
+            lowind1 = -1;
+        }
+        if (intervals[count1].is_high_fixed())
+        {
+            high1 = intervals[count1].high();
+            highind1 = 0;
+        }
+        else
+        {
+            highind1 = -1;
+        }
+
+        EXEC SQL UPDATE RAS_DOMAINVALUES
+          SET Low = :low1 INDICATOR :lowind1, High = :high1 INDICATOR :highind1
+          WHERE DomainId = :domainid1 AND DimensionCount = :count1;
+        if (SQLCODE != SQLOK)
+        {
+            check("DBMinterval::updateInDb() UPDATE RAS_DOMAINVALUES");
+            generateException();
+        }
+    }
+
+    DBObject::updateInDb();
 }
 
 void
 DBMinterval::deleteFromDb() throw (r_Error)
 {
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	domainid2;
-	EXEC SQL END DECLARE SECTION;
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    domainid2;
+    EXEC SQL END DECLARE SECTION;
 
-	domainid2 = myOId.getCounter();
+    domainid2 = myOId.getCounter();
 
-	EXEC SQL DELETE FROM RAS_DOMAINS
-		WHERE DomainId = :domainid2;
-	if (SQLCODE != SQLOK)
-	{
-		check("DBMinterval::deleteFromDb() DELETE FROM RAS_DOMAINS");
-		generateException();
-	}
-	
-	EXEC SQL DELETE FROM RAS_DOMAINVALUES
-		WHERE DomainId = :domainid2;
-	if (SQLCODE != SQLOK)
-	{
-		check("DBMinterval::deleteFromDb() DELETE FROM RAS_DOMAINVALUES");
-		generateException();
-	}
+    EXEC SQL DELETE FROM RAS_DOMAINS
+       WHERE DomainId = :domainid2;
+    if (SQLCODE != SQLOK)
+    {
+        check("DBMinterval::deleteFromDb() DELETE FROM RAS_DOMAINS");
+        generateException();
+    }
 
-	DBObject::deleteFromDb();
+    EXEC SQL DELETE FROM RAS_DOMAINVALUES
+       WHERE DomainId = :domainid2;
+    if (SQLCODE != SQLOK)
+    {
+        check("DBMinterval::deleteFromDb() DELETE FROM RAS_DOMAINVALUES");
+        generateException();
+    }
+
+    DBObject::deleteFromDb();
 }
 
 void
 DBMinterval::readFromDb() throw (r_Error)
 {
-	char undefined = '*';
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	domainid3;
-		long	count3;
-		long	low3;
-		short	lowind3;
-		long	high3;
-		short	highind3;
-		long	dimension3;
-	EXEC SQL END DECLARE SECTION;
+    char undefined = '*';
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    domainid3;
+        long    count3;
+        long    low3;
+        short   lowind3;
+        long    high3;
+        short   highind3;
+        long    dimension3;
+    EXEC SQL END DECLARE SECTION;
 
-	domainid3 = myOId.getCounter();
-	
-	EXEC SQL SELECT Dimension
-		INTO :dimension3
-		FROM RAS_DOMAINS
-		WHERE DomainId = :domainid3;
-	if (SQLCODE != SQLOK)
-	{
-		check("DBMinterval::readFromDb() SELECT FROM RAS_DOMAINS");
-		if (SQLCODE == 100)
-		{
-			throw r_Error(r_Error::r_Error_ObjectUnknown);
-		}
-		else
-		{
-			generateException();
-		}
-	}
-	
-	dimensionality = dimension3;
-	delete[] intervals;
-	intervals = new r_Sinterval[dimensionality];
-	streamInitCnt = 0;
+    domainid3 = myOId.getCounter();
 
-	for (count3 = 0; count3 < dimension3; count3++)
-	{
-		EXEC SQL SELECT Low, High
-			INTO :low3 INDICATOR :lowind3, :high3 INDICATOR :highind3
-			FROM RAS_DOMAINVALUES
-			WHERE DimensionCount = :count3 AND DomainId = :domainid3;
-		if (SQLCODE != SQLOK)
-		{
-			check("DBMinterval::readFromDb() SELECT FROM RAS_DOMAINVALUES");
-			generateException();
-		}
+    EXEC SQL SELECT Dimension
+       INTO :dimension3
+       FROM RAS_DOMAINS
+       WHERE DomainId = :domainid3;
+    if (SQLCODE != SQLOK)
+    {
+        check("DBMinterval::readFromDb() SELECT FROM RAS_DOMAINS");
+        if (SQLCODE == 100)
+        {
+            throw r_Error(r_Error::r_Error_ObjectUnknown);
+        }
+        else
+        {
+            generateException();
+        }
+    }
 
-		if (!lowind3)
-		{
-			intervals[count3].set_low((r_Range)low3);
-		}
-		else
-		{
-			intervals[count3].set_low(undefined);
-		}
-		if (!highind3)
-		{
-			intervals[count3].set_high((r_Range)high3);
-		}
-		else
-		{
-			intervals[count3].set_high(undefined);
-		}
-		streamInitCnt++;
-	}
+    dimensionality = dimension3;
+    delete[] intervals;
+    intervals = new r_Sinterval[dimensionality];
+    streamInitCnt = 0;
 
-	DBObject::readFromDb();
+    for (count3 = 0; count3 < dimension3; count3++)
+    {
+        EXEC SQL SELECT Low, High
+        INTO :low3 INDICATOR :lowind3, :high3 INDICATOR :highind3
+        FROM RAS_DOMAINVALUES
+        WHERE DimensionCount = :count3 AND DomainId = :domainid3;
+        if (SQLCODE != SQLOK)
+        {
+            check("DBMinterval::readFromDb() SELECT FROM RAS_DOMAINVALUES");
+            generateException();
+        }
+
+        if (!lowind3)
+        {
+            intervals[count3].set_low((r_Range)low3);
+        }
+        else
+        {
+            intervals[count3].set_low(undefined);
+        }
+        if (!highind3)
+        {
+            intervals[count3].set_high((r_Range)high3);
+        }
+        else
+        {
+            intervals[count3].set_high(undefined);
+        }
+        streamInitCnt++;
+    }
+
+    DBObject::readFromDb();
 }
 

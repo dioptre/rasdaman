@@ -33,7 +33,7 @@ rasdaman GmbH.
 //@ManMemo: Module: {\bf qlparser}
 
 /*@Doc:
- 
+
   The class represents the root of a fake marray expression.
 
 */
@@ -54,18 +54,20 @@ rasdaman GmbH.
 #include "qlparser/qtpointop.hh"
 #include "qlparser/qtconst.hh"
 
-class QtMarrayOp2 {
-  public:
+class QtMarrayOp2
+{
+public:
     /// variables to pass to old marray
-    r_Dimension greatDimension; 
+    r_Dimension greatDimension;
     r_Minterval greatDomain;
     std::string      greatIterator;
-    
+
     /// pair (Identifier, Interval)
-    typedef struct {
-      std::string       variable;
-      QtOperation* tree;
-      ParseInfo    parseInfo;
+    typedef struct
+    {
+        std::string       variable;
+        QtOperation* tree;
+        ParseInfo    parseInfo;
     } mddIntervalType;
 
     /// list storing pairs (Identifier, Interval)
@@ -73,35 +75,35 @@ class QtMarrayOp2 {
 
     /// constructor getting iterator, minterval expression, and cell expression
     QtMarrayOp2( mddIntervalListType* & aList, QtOperation* & cellExp );
-    
-    /// destructor 
-    virtual ~QtMarrayOp2();    
+
+    /// destructor
+    virtual ~QtMarrayOp2();
 
     /// optimizing load access
     virtual bool concatenateIntervals();
     virtual void rewriteVars();
     inline QtOperation *getInput() const;
-      ///
-      inline const ParseInfo&     getParseInfo();
-      ///
-      inline void                 setParseInfo( const ParseInfo &info );
-      ///
-      inline void                 setOldMarray( bool value );
+    ///
+    inline const ParseInfo&     getParseInfo();
+    ///
+    inline void                 setParseInfo( const ParseInfo &info );
+    ///
+    inline void                 setOldMarray( bool value );
 
-  protected:
+protected:
     /// attribute for parser info
     ParseInfo parseInfo;
 
-  private:
+private:
     /// attribute storing the iterators
-    mddIntervalListType iterators; 
+    mddIntervalListType iterators;
 
     /// attribute storing the cellExp
-    QtOperation *qtOperation; 
+    QtOperation *qtOperation;
 
     /// tree traversal
     virtual void traverse(QtOperation *&node);
-    
+
     /// replace Iterator name if this is false
     bool oldMarray;
 

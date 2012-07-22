@@ -47,25 +47,25 @@ rasdaman GmbH.
 
 enum QtDataType
 {
-      QT_TYPE_UNKNOWN,
-      QT_BOOL,
-      QT_CHAR,
-      QT_OCTET,
-      QT_USHORT,
-      QT_SHORT,
-      QT_ULONG,
-      QT_LONG,
-      QT_FLOAT,
-      QT_DOUBLE,
-      QT_COMPLEXTYPE1,	// with float members
-      QT_COMPLEXTYPE2,	// with double 
-      QT_MDD,
-	  QT_MDD_CONFIG,
-      QT_COMPLEX,
-      QT_STRING,
-      QT_INTERVAL,
-      QT_MINTERVAL,
-      QT_POINT
+    QT_TYPE_UNKNOWN,
+    QT_BOOL,
+    QT_CHAR,
+    QT_OCTET,
+    QT_USHORT,
+    QT_SHORT,
+    QT_ULONG,
+    QT_LONG,
+    QT_FLOAT,
+    QT_DOUBLE,
+    QT_COMPLEXTYPE1,  // with float members
+    QT_COMPLEXTYPE2,  // with double
+    QT_MDD,
+    QT_MDD_CONFIG,
+    QT_COMPLEX,
+    QT_STRING,
+    QT_INTERVAL,
+    QT_MINTERVAL,
+    QT_POINT
 };
 
 
@@ -82,7 +82,7 @@ specific data type handled by the query tree.
 
 class QtData
 {
-  public:
+public:
     // construktor
     QtData();
 
@@ -100,8 +100,8 @@ class QtData
 
     enum QtLifetime
     {
-      QT_PERSISTENT,
-      QT_TRANSIENT
+        QT_PERSISTENT,
+        QT_TRANSIENT
     };
 
     /// returns type of data represented by the QtData object
@@ -122,7 +122,7 @@ class QtData
       QtInterval&&QT_INTERVAL\\
       QtMinterval&&QT_MINTERVAL\\
       QtPoint&&QT_POINT\\
-      \end{tabular}      
+      \end{tabular}
     */
 
     /// returns a null-terminated string describing the type structure
@@ -137,35 +137,35 @@ class QtData
     /// compares data content
     virtual bool equal( const QtData* obj ) const = 0;
 
-    /// returns content dependent string representation 
+    /// returns content dependent string representation
     virtual std::string getSpelling() const = 0;
 
     //@Man: Read/Write methods:
     //@{
     ///
 
-      /// get the iterator name
-      inline std::string const getIteratorName() const;
-      ///
-      inline void setIteratorName( const std::string & iteratorNameNew );
-      ///
-      inline QtLifetime const getLifetime() const;
-      ///
-      inline void setLifetime( QtLifetime flag );
-      /// return number of references to the self object
-      inline unsigned int getRefNo() const;
-      /// increases the reference counter by one
-      inline void incRef();
-      /// deletes one reference and the object if it was the last one
-      inline int  deleteRef();
-      /**
-         In case the object is deleted, 1 is returned, 0 otherwise.
-      */
+    /// get the iterator name
+    inline std::string const getIteratorName() const;
+    ///
+    inline void setIteratorName( const std::string & iteratorNameNew );
+    ///
+    inline QtLifetime const getLifetime() const;
+    ///
+    inline void setLifetime( QtLifetime flag );
+    /// return number of references to the self object
+    inline unsigned int getRefNo() const;
+    /// increases the reference counter by one
+    inline void incRef();
+    /// deletes one reference and the object if it was the last one
+    inline int  deleteRef();
+    /**
+       In case the object is deleted, 1 is returned, 0 otherwise.
+    */
 
-      ///
-      inline ParseInfo getParseInfo();
-      ///
-      inline void      setParseInfo( const ParseInfo &info );
+    ///
+    inline ParseInfo getParseInfo();
+    ///
+    inline void      setParseInfo( const ParseInfo &info );
 
     ///
     //@}
@@ -173,11 +173,11 @@ class QtData
     /// print status of the object to the specified stream
     virtual void printStatus( std::ostream& stream = std::cout ) const;
 
-  protected:
+protected:
     /// pointer to an optional parser info
     ParseInfo* parseInfo;
 
-  private:
+private:
     /// decreases the reference counter by one and returns the new value
     inline unsigned int decRef();
 

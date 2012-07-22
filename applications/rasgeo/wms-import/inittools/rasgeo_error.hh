@@ -56,18 +56,18 @@
 
 class InitError // : public std::exception
 {
-  public:
+public:
 
     /// constructor receiving an error number
     InitError( unsigned int e );
-    
+
     /// destructor
     virtual ~InitError();
-  
-    /// get an error description
-    virtual const char * what(); 
 
-  private:
+    /// get an error description
+    virtual const char * what();
+
+private:
     /// error information
     unsigned int errorCode;
 };

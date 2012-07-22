@@ -55,55 +55,55 @@ values. The value of a Long is stored in four chars.
   * \ingroup Relcatalogifs
   */
 class LongType : public IntegralType
-	{
-	public:
-		LongType(const OId& id) throw (r_Error);
-		/*@Doc:
-		*/
-		
-		LongType();
-		/*@Doc:
-		default constructor, sets type name to "Long".
-		*/
+{
+public:
+    LongType(const OId& id) throw (r_Error);
+    /*@Doc:
+    */
 
-		LongType(const LongType& old);
-		/*@Doc:
-		copy constructor.
-		*/
+    LongType();
+    /*@Doc:
+    default constructor, sets type name to "Long".
+    */
 
-		LongType& operator=(const LongType& old);
-		/*@Doc:
-		assignment operator.
-		*/
+    LongType(const LongType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-		virtual ~LongType();
-		/*@Doc:
-		virtual destructor.
-		*/
+    LongType& operator=(const LongType& old);
+    /*@Doc:
+    assignment operator.
+    */
 
-		virtual void printCell(ostream& stream, const char* cell) const;
-		/*@Doc:
-		there is concern about the MSB..LSB problem in the source code.
-		*/
-		
-		virtual r_Long* convertToCLong(const char* cell, r_Long* value) const;
-		/*@Doc:
-		*/
-		
-		virtual char* makeFromCLong(char* cell, const r_Long* value) const;
-		/*@Doc:
-		*/
+    virtual ~LongType();
+    /*@Doc:
+    virtual destructor.
+    */
 
-		static const char* Name;
+    virtual void printCell(ostream& stream, const char* cell) const;
+    /*@Doc:
+    there is concern about the MSB..LSB problem in the source code.
+    */
 
-	protected:
+    virtual r_Long* convertToCLong(const char* cell, r_Long* value) const;
+    /*@Doc:
+    */
 
-		virtual void readFromDb() throw (r_Error);
-		/*@Doc:
-		initializes the attributes of this type.
-		there is no database activity.  this is hard coded.
-		*/
+    virtual char* makeFromCLong(char* cell, const r_Long* value) const;
+    /*@Doc:
+    */
 
-	};
+    static const char* Name;
+
+protected:
+
+    virtual void readFromDb() throw (r_Error);
+    /*@Doc:
+    initializes the attributes of this type.
+    there is no database activity.  this is hard coded.
+    */
+
+};
 
 #endif

@@ -26,16 +26,16 @@ rasdaman GmbH.
 #include <iostream>
 #include <vector>
 
-template <class T> 
+template <class T>
 std::ostream& operator<< (std::ostream& os, const std::vector<T>& list);
 
-template <class T> 
+template <class T>
 std::ostream& operator<< (const std::vector<T>& list, std::ostream& os);
 
 #ifdef EARLY_TEMPLATE
 #ifdef __EXECUTABLE__
 #include "raslib/dlist.cc"
-#endif 
+#endif
 #endif
 
 #endif

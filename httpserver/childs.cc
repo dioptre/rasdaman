@@ -24,7 +24,7 @@ rasdaman GmbH.
 #include "mymalloc/mymalloc.h"
 /*------------------------------------------------------------------------*/
 /*  childs.c - child process handling.                                    */
-/*                                                  					  */
+/*                                                                        */
 /*------------------------------------------------------------------------*/
 /*  Comments:                                                             */
 /*      - intended purpose:                                               */
@@ -40,7 +40,7 @@ rasdaman GmbH.
 /*
  * RCS:
  *   $RCSfile: childs.c,v $ $Revision: 1.6 $ $State: Exp $
- *   $Locker:  $ 
+ *   $Locker:  $
  */
 
 
@@ -55,192 +55,192 @@ extern struct ServerBase Server;
 
 
 /****** childs/InitChild *****************************************************
-*                                                                             
-*   NAME                                                                      
-*       InitChild -- data initializition after forking the child process.     
-*                                                                             
-*   SYNOPSIS                                                                  
-*       int InitChild( struct ClientBase *Client );                           
-*                                                                             
-*   FUNCTION                                                                  
-*                                                                             
-*   RESULT                                                                    
-*                                                                             
-*   NOTES                                                                     
-*                                                                             
-*   BUGS                                                                      
-*                                                                             
-*   SEE ALSO                                                                  
-*                                                                             
+*
+*   NAME
+*       InitChild -- data initializition after forking the child process.
+*
+*   SYNOPSIS
+*       int InitChild( struct ClientBase *Client );
+*
+*   FUNCTION
+*
+*   RESULT
+*
+*   NOTES
+*
+*   BUGS
+*
+*   SEE ALSO
+*
 ******************************************************************************
 *
 */
 
 rc_t InitChild( struct ClientBase *Client )
 {
-  char *UnknownIP = "0.0.0.0";
+    char *UnknownIP = "0.0.0.0";
 
-  /* Init ClientBase  */
-  strcpy( Client->Host.IPAddrString, inet_ntoa( Client->Socket.sin_addr ) );
-  if( Client->Host.IPAddrString == NULL )
-    strcpy( Client->Host.IPAddrString, UnknownIP );
-  Client->Host.IPAddress = inet_addr( Client->Host.IPAddrString );
+    /* Init ClientBase  */
+    strcpy( Client->Host.IPAddrString, inet_ntoa( Client->Socket.sin_addr ) );
+    if( Client->Host.IPAddrString == NULL )
+        strcpy( Client->Host.IPAddrString, UnknownIP );
+    Client->Host.IPAddress = inet_addr( Client->Host.IPAddrString );
 
-  Client->Comm.ConnStatus      = CONN_UNDEFINED;
-  InitHTTPMsg( &Client->Response );
-  InitReqInfo( &Client->Request );
+    Client->Comm.ConnStatus      = CONN_UNDEFINED;
+    InitHTTPMsg( &Client->Response );
+    InitReqInfo( &Client->Request );
 
-  return( OK );
+    return( OK );
 }
 
 
 
 /****** childs/NewChild ******************************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*      ###  Temporary fork() wrapper.                                         
-*           Will be later expanded into something more usefull...             
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*      ###  Temporary fork() wrapper.
+*           Will be later expanded into something more usefull...
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 pid_t NewChild( struct ChildBase *List, struct FDsets *PDSets, struct ClientBase *Client )
 {
-  struct ChildBase *Child;
+    struct ChildBase *Child;
 
-  Child = (struct ChildBase*)mymalloc( sizeof( struct ChildBase ) );
-  if( Child == NULL )  // Failure? => QUIT.
-    ErrorMsg( E_SYS, FAIL, "FAIL:  NewChild(): malloc() failed!" );
- 
-  // Open pipe
-  if( pipe( Child->PD ) < 0 ) 
+    Child = (struct ChildBase*)mymalloc( sizeof( struct ChildBase ) );
+    if( Child == NULL )  // Failure? => QUIT.
+        ErrorMsg( E_SYS, FAIL, "FAIL:  NewChild(): malloc() failed!" );
+
+    // Open pipe
+    if( pipe( Child->PD ) < 0 )
     {
-	  ErrorMsg( E_SYS, ERROR, "ERROR: NewChild(): pipe() failed." );
-	  Child->PipeStatus = PIPE_CLOSED;
+        ErrorMsg( E_SYS, ERROR, "ERROR: NewChild(): pipe() failed." );
+        Child->PipeStatus = PIPE_CLOSED;
     }
-  else
+    else
     {
-          Child->PipeStatus = PIPE_OPEN;
+        Child->PipeStatus = PIPE_OPEN;
     }
-    	
-  Child->PId = fork();
-  
-  if( Child->PId < 0 )  // fork() Error? => QUIT.
-    ErrorMsg( E_SYS, FAIL, "FAIL:  NewChild(): fork() failed!" );
-    
-  if( Child->PId > 0 )  // parent process?
+
+    Child->PId = fork();
+
+    if( Child->PId < 0 )  // fork() Error? => QUIT.
+        ErrorMsg( E_SYS, FAIL, "FAIL:  NewChild(): fork() failed!" );
+
+    if( Child->PId > 0 )  // parent process?
     {
-      // Add Pipe-Descriptors to PipeSets
-      if( Child->PipeStatus == PIPE_OPEN )
-       {
-	      FD_SET( Child->PD[0], &PDSets->Read );
-	      if( Child->PD[0] > PDSets->MaxFD )
-		PDSets->MaxFD = Child->PD[0];
-	      close( Child->PD[1] );
-       }
-	// Add Child to List
-	AddChild( List, Child );
+        // Add Pipe-Descriptors to PipeSets
+        if( Child->PipeStatus == PIPE_OPEN )
+        {
+            FD_SET( Child->PD[0], &PDSets->Read );
+            if( Child->PD[0] > PDSets->MaxFD )
+                PDSets->MaxFD = Child->PD[0];
+            close( Child->PD[1] );
+        }
+        // Add Child to List
+        AddChild( List, Child );
     }
-  else  // child process
+    else  // child process
     {
-	  InitChild( Client );
-	  // Remember PD to parent
-	  Client->Pipe = Child->PD[1];
-	  close( Child->PD[0] );
-	  free( Child );
+        InitChild( Client );
+        // Remember PD to parent
+        Client->Pipe = Child->PD[1];
+        close( Child->PD[0] );
+        free( Child );
     }
-    
-  return( Child->PId );
+
+    return( Child->PId );
 }
 
 
 void CleanupChild( struct ChildBase *List, struct FDsets *PDSets, pid_t PId )
 {
-  struct ChildBase *Ptr;
-  struct ChildBase *Tmp;
+    struct ChildBase *Ptr;
+    struct ChildBase *Tmp;
 
-  LogMsg( LG_SERVER, DEBUG, "DEBUG: Begin CleanupChild ..." ); 
+    LogMsg( LG_SERVER, DEBUG, "DEBUG: Begin CleanupChild ..." );
 
-  if(PDSets == NULL)
-    LogMsg( LG_SERVER, DEBUG, "DEBUG: ########### PDSets is NULL!" );
-  if(PId == (pid_t)0)
-    LogMsg( LG_SERVER, DEBUG, "DEBUG: ########### ChildPid is NULL!" );
-  if(List == NULL)
-    LogMsg( LG_SERVER, DEBUG, "DEBUG: ########### ChildBase is NULL!" );
+    if(PDSets == NULL)
+        LogMsg( LG_SERVER, DEBUG, "DEBUG: ########### PDSets is NULL!" );
+    if(PId == (pid_t)0)
+        LogMsg( LG_SERVER, DEBUG, "DEBUG: ########### ChildPid is NULL!" );
+    if(List == NULL)
+        LogMsg( LG_SERVER, DEBUG, "DEBUG: ########### ChildBase is NULL!" );
 
-  if( List->PId > 0 )
+    if( List->PId > 0 )
     {
-      for( Ptr = List; Ptr->next != List; Ptr = Ptr->next )
-	{
-	  if( Ptr->next->PId == PId )
-	    {
-	      Tmp = Ptr->next;
-	      break;
-	    }
-	}
-      // Close pipe
-      close( Tmp->PD[0] );
-      // Remove Pipe-Descriptors from PipeSets
-      FD_CLR( Tmp->PD[0], &PDSets->Read );
-      RemChild( List, Tmp ); 
+        for( Ptr = List; Ptr->next != List; Ptr = Ptr->next )
+        {
+            if( Ptr->next->PId == PId )
+            {
+                Tmp = Ptr->next;
+                break;
+            }
+        }
+        // Close pipe
+        close( Tmp->PD[0] );
+        // Remove Pipe-Descriptors from PipeSets
+        FD_CLR( Tmp->PD[0], &PDSets->Read );
+        RemChild( List, Tmp );
     }
 }
 
 
 void AddChild( struct ChildBase *List, struct ChildBase *Child )
 {
-  Child->next = List->next;
-  Child->prev = List;
-  List->next->prev = Child;
-  List->next  = Child;
-  List->PId++;
+    Child->next = List->next;
+    Child->prev = List;
+    List->next->prev = Child;
+    List->next  = Child;
+    List->PId++;
 }
 
 
 void RemChild( struct ChildBase *List, struct ChildBase *Child )
 {
-  Child->prev->next = Child->next;
-  Child->next->prev = Child->prev;
-  List->PId--;
-  free( Child );
+    Child->prev->next = Child->next;
+    Child->next->prev = Child->prev;
+    List->PId--;
+    free( Child );
 }
 
 
 struct ChildBase *GetChild( struct ChildBase *List, pid_t PId )
 {
-  struct ChildBase *Ptr;
-  
-  if( List->PId > 0 )
+    struct ChildBase *Ptr;
+
+    if( List->PId > 0 )
     {
-      for( Ptr = List; Ptr->next != List; Ptr = Ptr->next )
-	{
-	  if( Ptr->next->PId == PId )
-	    return( Ptr->next );
-	}
-      return( NULL );
+        for( Ptr = List; Ptr->next != List; Ptr = Ptr->next )
+        {
+            if( Ptr->next->PId == PId )
+                return( Ptr->next );
+        }
+        return( NULL );
     }
-  else
-    return( NULL );
+    else
+        return( NULL );
 }

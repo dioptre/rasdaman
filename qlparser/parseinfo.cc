@@ -39,64 +39,67 @@ using namespace std;
 
 
 ParseInfo::ParseInfo()
-  : errorNo( 0 ),
-    token( "" ),
-    lineNo( 0 ),
-    columnNo( 0 )
+    : errorNo( 0 ),
+      token( "" ),
+      lineNo( 0 ),
+      columnNo( 0 )
 {
 }
 
 ParseInfo::ParseInfo(const ParseInfo& old)
-  : errorNo( 0 ),
-    token( "" ),
-    lineNo( 0 ),
-    columnNo( 0 )
+    : errorNo( 0 ),
+      token( "" ),
+      lineNo( 0 ),
+      columnNo( 0 )
 {
-  errorNo=old.errorNo;
-  lineNo=old.lineNo;
-  columnNo=old.columnNo;
-  token=old.token;
+    errorNo=old.errorNo;
+    lineNo=old.lineNo;
+    columnNo=old.columnNo;
+    token=old.token;
 }
 
 ParseInfo::ParseInfo( const char* initToken, unsigned int initLineNo, unsigned initColumnNo )
-  : errorNo( 0 ),
-    token( "" ),
-    lineNo( initLineNo ),
-    columnNo( initColumnNo )
+    : errorNo( 0 ),
+      token( "" ),
+      lineNo( initLineNo ),
+      columnNo( initColumnNo )
 {
- if(initToken) {
-  token=initToken;
- }
+    if(initToken)
+    {
+        token=initToken;
+    }
 }
 
 
 
 ParseInfo::ParseInfo( unsigned long initErrorNo, const char* initToken, unsigned int initLineNo, unsigned initColumnNo )
-  : errorNo( initErrorNo ),
-    token( "" ),
-    lineNo( initLineNo ),
-    columnNo( initColumnNo )
+    : errorNo( initErrorNo ),
+      token( "" ),
+      lineNo( initLineNo ),
+      columnNo( initColumnNo )
 {
- if(initToken) {
-  token=initToken;
- }
+    if(initToken)
+    {
+        token=initToken;
+    }
 }
 
-ParseInfo& 
+ParseInfo&
 ParseInfo::operator=(const ParseInfo& old)
 {
- if(this != &old) {
-   errorNo=old.errorNo;
-   lineNo=old.lineNo;
-   columnNo=old.columnNo;
-   token=old.token;
- }
- return *this;
+    if(this != &old)
+    {
+        errorNo=old.errorNo;
+        lineNo=old.lineNo;
+        columnNo=old.columnNo;
+        token=old.token;
+    }
+    return *this;
 }
 
 void
 ParseInfo::printStatus( ostream& s ) const
 {
-  s << "Error number: " << errorNo << " Token: " << token.c_str() << " Line: " << lineNo << " Column: " << columnNo << endl;
+    s << "Error number: " << errorNo << " Token: " << token.c_str() << " Line: " << lineNo << " Column: " << columnNo << endl;
 }
 

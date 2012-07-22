@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   r_OId
  *
  * COMMENTS:
- * 		The class represents an object identifier (OId).
+ *      The class represents an object identifier (OId).
  *
 */
 
@@ -41,15 +41,15 @@ rasdaman GmbH.
 /*@Doc:
 
  Class \Ref{r_OId} represents an object identifier.
- 
+
 */
- 
+
 class r_OId
 {
-  public:
+public:
     /// default constructor
     r_OId();
- 
+
     /// constructs an OId from the string representation
     r_OId( const char* );
 
@@ -75,28 +75,28 @@ class r_OId
     //@{
     ///
 
-      /// operator for equality
-      bool operator==( const r_OId& ) const;
+    /// operator for equality
+    bool operator==( const r_OId& ) const;
 
-      /// operator for not equal
-      bool operator!=( const r_OId& ) const;
+    /// operator for not equal
+    bool operator!=( const r_OId& ) const;
 
-      /// operator for greater than
-      bool operator> ( const r_OId& ) const;
+    /// operator for greater than
+    bool operator> ( const r_OId& ) const;
 
-      /// operator for less than
-      bool operator< ( const r_OId& ) const;
+    /// operator for less than
+    bool operator< ( const r_OId& ) const;
 
-      /// operator for greater or equal than
-      bool operator>=( const r_OId& ) const;
+    /// operator for greater or equal than
+    bool operator>=( const r_OId& ) const;
 
-      /// operator for less than or equal
-      bool operator<=( const r_OId& ) const;
+    /// operator for less than or equal
+    bool operator<=( const r_OId& ) const;
 
     ///
     //@}
 
-    /// gets the oid's string representation 
+    /// gets the oid's string representation
     inline const char* get_string_representation() const;
 
     /// get system name
@@ -111,7 +111,7 @@ class r_OId
     /// determines if oid is valid
     inline bool is_valid() const;
 
-  private:
+private:
     /// string representation
     char* oidString;
 
@@ -130,7 +130,7 @@ class r_OId
 //@ManMemo: Module: {\bf raslib}
 /**
   Output stream operator for objects of type {\tt const} \Ref{r_Oid}.
-*/  
+*/
 extern std::ostream& operator<<( std::ostream& s, const r_OId& oid );
 
 #include "raslib/oid.icc"

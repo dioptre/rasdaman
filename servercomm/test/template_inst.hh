@@ -40,7 +40,7 @@ using std::vector;
 using std::pair;
 
 // commented by Constantin Jucovschi (gcc 3.4+ no longer supports __default_alloc_template)
-//using std::__default_alloc_template;			
+//using std::__default_alloc_template;
 using std::fill_n;
 
 #include "qlparser/symtab.hh"
@@ -78,7 +78,7 @@ using std::fill_n;
 #include "relstorageif/dbudfpackageds.hh"
 #include "relstorageif/dbstoragelayout.hh"
 
-template class SymbolTable<int>; 
+template class SymbolTable<int>;
 
 template class r_IterType<r_Attribute>;
 

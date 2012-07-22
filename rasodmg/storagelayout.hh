@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   r_Storage_Layout, r_Domain_Storage_Layout
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 #ifndef _R_STORAGELAYOUT_HH_
@@ -50,73 +50,73 @@ class r_Minterval;
 //@ManMemo: Module: {\bf rasodmg}
 
 /*@Doc:
-    
-    The {\tt r_Storage_Layout} class is used to express the storage options 
-    for {\tt r_Marray} objects. This is the superclass of different storage 
+
+    The {\tt r_Storage_Layout} class is used to express the storage options
+    for {\tt r_Marray} objects. This is the superclass of different storage
     layout classes which may be used for different types of storage layout
     schemes. It is also used directly by the rasdaman client for
-    default storage layout, i.e., for the storage layout for objects for 
-    which absolutely none has been defined.    
-  
-  Notice: the tiling options are invalid if the rasdaman client is running 
-          with the option notiling. In that case, no tiling is done, 
-	  independently of the storage layout chosen.
-	  For the time being, compression does not work.
+    default storage layout, i.e., for the storage layout for objects for
+    which absolutely none has been defined.
+
+  Notice: the tiling options are invalid if the rasdaman client is running
+          with the option notiling. In that case, no tiling is done,
+      independently of the storage layout chosen.
+      For the time being, compression does not work.
 */
 
 /**
   * \ingroup Rasodmgs
   */
-class r_Storage_Layout 
+class r_Storage_Layout
 {
-  public:
-  
-  /// the dataformat is not used.  please use the database methods for this purpose.
-  r_Storage_Layout(r_Data_Format init_format = r_Array, const char* formatParams = NULL);
+public:
 
-  /// the dataformat is not used.  please use the database methods for this purpose.
-  r_Storage_Layout(r_Tiling* ts, r_Data_Format init_format = r_Array, const char* formatParams = NULL); 
-    
-  /// Copy constructor.
-  r_Storage_Layout(const r_Storage_Layout& sl);
-  
-  ///
-  virtual r_Storage_Layout* clone() const;
-  
-  /// virtual destructor
-  virtual ~r_Storage_Layout();
+    /// the dataformat is not used.  please use the database methods for this purpose.
+    r_Storage_Layout(r_Data_Format init_format = r_Array, const char* formatParams = NULL);
 
-  ///  
-  const r_Tiling* get_tiling() const;
-  
-  /// this does not do anything important.  please use the database methods for this purpose.
-  r_Data_Format get_storage_format() const;
-  
-  /// this does not do anything important.  please use the database methods for this purpose.
-  const char* get_storage_format_params() const;
-  
-  /// Function for decomposing large MDDs into a set of smaller tiles
-  virtual r_Set< r_GMarray* >* decomposeMDD(const r_GMarray* mar) const throw (r_Error);
-  
-  /// writes the state of the object to the specified stream
-  void print_status(std::ostream& s = cout) const;
-  
-  /// 
-  virtual bool is_compatible(const r_Minterval& obj_domain, r_Bytes celltypesize) const;
-	
-  protected:
-  
-  friend class ClientComm;
-  friend class r_GMArray;
+    /// the dataformat is not used.  please use the database methods for this purpose.
+    r_Storage_Layout(r_Tiling* ts, r_Data_Format init_format = r_Array, const char* formatParams = NULL);
 
-  char* storage_params;
- 
-  /// the dataformat is not used.  please use the database methods for this purpose.
-  r_Data_Format storage_format;
-  
-  /// Tiling scheme
-  r_Tiling*  til;
-    
+    /// Copy constructor.
+    r_Storage_Layout(const r_Storage_Layout& sl);
+
+    ///
+    virtual r_Storage_Layout* clone() const;
+
+    /// virtual destructor
+    virtual ~r_Storage_Layout();
+
+    ///
+    const r_Tiling* get_tiling() const;
+
+    /// this does not do anything important.  please use the database methods for this purpose.
+    r_Data_Format get_storage_format() const;
+
+    /// this does not do anything important.  please use the database methods for this purpose.
+    const char* get_storage_format_params() const;
+
+    /// Function for decomposing large MDDs into a set of smaller tiles
+    virtual r_Set< r_GMarray* >* decomposeMDD(const r_GMarray* mar) const throw (r_Error);
+
+    /// writes the state of the object to the specified stream
+    void print_status(std::ostream& s = cout) const;
+
+    ///
+    virtual bool is_compatible(const r_Minterval& obj_domain, r_Bytes celltypesize) const;
+
+protected:
+
+    friend class ClientComm;
+    friend class r_GMArray;
+
+    char* storage_params;
+
+    /// the dataformat is not used.  please use the database methods for this purpose.
+    r_Data_Format storage_format;
+
+    /// Tiling scheme
+    r_Tiling*  til;
+
 };
 
 //@ManMemo: Module: {\bf rasodmg }
@@ -126,10 +126,10 @@ class r_Storage_Layout
 extern std::ostream& operator<<(std::ostream& s, const r_Storage_Layout& sl);
 
 #if (defined(__VISUALC__) && !defined(__EXECUTABLE__))
-  #define __EXECUTABLE__
-  #include "raslib/dlist.hh"
-  #undef  __EXECUTABLE__
+#define __EXECUTABLE__
+#include "raslib/dlist.hh"
+#undef  __EXECUTABLE__
 #else
-  #include "raslib/dlist.hh"
+#include "raslib/dlist.hh"
 #endif
 #endif

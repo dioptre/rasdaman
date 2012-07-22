@@ -26,31 +26,31 @@ static const char rcsid[] = "@(#)raslib, r_Oid_Type: $Header: /home/rasdev/CVS-r
 #include "raslib/oidtype.hh"
 
 r_Oid_Type::r_Oid_Type()
-  : r_Type()
+    : r_Type()
 {
 }
 
 bool
 r_Oid_Type::isOidType() const
-	{
-	return true;
-	}
+{
+    return true;
+}
 
 r_Oid_Type::r_Oid_Type( const r_Oid_Type& oldObj )
-  : r_Type(oldObj)
+    : r_Type(oldObj)
 {
 }
 
 r_Type*
 r_Oid_Type::clone() const
 {
-   return new r_Oid_Type( *this ); 
+    return new r_Oid_Type( *this );
 }
 
-r_Type::r_Type_Id 
+r_Type::r_Type_Id
 r_Oid_Type::type_id() const
 {
-  return OIDTYPE;
+    return OIDTYPE;
 }
 
 void
@@ -63,11 +63,11 @@ r_Oid_Type::convertToBigEndian(char* cells, r_Area noCells) const
 {
 }
 
-void 
+void
 r_Oid_Type::print_status( std::ostream& s ) const
 {
-    s << "oid"; 
-} 
+    s << "oid";
+}
 
 r_Oid_Type::~r_Oid_Type()
 {
@@ -75,6 +75,6 @@ r_Oid_Type::~r_Oid_Type()
 
 std::ostream &operator<<( std::ostream &str, const r_Oid_Type &type )
 {
-  type.print_status(str);
-  return str;
+    type.print_status(str);
+    return str;
 }

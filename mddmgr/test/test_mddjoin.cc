@@ -62,7 +62,7 @@ static BaseType* boolType;
 /*************************************************************
  * Function name.: int main( int argc, char** argv)
  *
- * Arguments.....: 
+ * Arguments.....:
  *   argc: number of arguments given to program
  *   argv: array of char* with arguments
  * Return value..: exit status
@@ -72,70 +72,70 @@ static BaseType* boolType;
 int
 main( int /* argc */, char** argv)
 {
-  // variables representing O2 database, ta and session
-  DatabaseIf database;
-  TransactionIf ta;
+    // variables representing O2 database, ta and session
+    DatabaseIf database;
+    TransactionIf ta;
 
-  // don't forget to initialize before using AdminIf!
-  myExecArgv0 = argv[0];
-  AdminIf* myAdmin = AdminIf::instance();
+    // don't forget to initialize before using AdminIf!
+    myExecArgv0 = argv[0];
+    AdminIf* myAdmin = AdminIf::instance();
 
-  // connect to the database
-  cout << "Connecting to database " << O2BenchDBName 
-       << "..." << endl;
-  database.open( O2BenchDBName );
-  ta.begin(&database);
+    // connect to the database
+    cout << "Connecting to database " << O2BenchDBName
+         << "..." << endl;
+    database.open( O2BenchDBName );
+    ta.begin(&database);
 
-  // only possible after AdminIf::instance on Sun!
-  myType = TypeFactory::mapType("ULong");
-  boolType = TypeFactory::mapType("Bool");
+    // only possible after AdminIf::instance on Sun!
+    myType = TypeFactory::mapType("ULong");
+    boolType = TypeFactory::mapType("Bool");
 
-  testOperations( database );
+    testOperations( database );
 
-  ta.commit();
-  cout << "Ending O2 session..." << endl;
-  database.close();
-  delete myAdmin;
+    ta.commit();
+    cout << "Ending O2 session..." << endl;
+    database.close();
+    delete myAdmin;
 }
 
 void
 printAllTiles(const MDDObj* mdd)
 {
-  // contains all tiles of MDD
-  vector<Tile*>* allTiles;
-  // iterator
-  vector<Tile*>::iterator tileIt;
-  // domains of a  tile
-  r_Minterval tileDom;
+    // contains all tiles of MDD
+    vector<Tile*>* allTiles;
+    // iterator
+    vector<Tile*>::iterator tileIt;
+    // domains of a  tile
+    r_Minterval tileDom;
 
-  // domain of MDD object
-  r_Minterval dom;
-  dom = mdd->getCurrentDomain();
+    // domain of MDD object
+    r_Minterval dom;
+    dom = mdd->getCurrentDomain();
 
-  // get all tiles of result MDD
-  allTiles = mdd->intersect(dom);
+    // get all tiles of result MDD
+    allTiles = mdd->intersect(dom);
 
-  // and iterate over them
-  tileIt = allTiles->begin();
-  while (tileIt !=  allTiles->end())
-  {
-    tileDom = (*tileIt)->getDomain();
-    cout << "Domain of Tile: ";
-    tileDom.print_status();
-    cout << endl;
+    // and iterate over them
+    tileIt = allTiles->begin();
+    while (tileIt !=  allTiles->end())
+    {
+        tileDom = (*tileIt)->getDomain();
+        cout << "Domain of Tile: ";
+        tileDom.print_status();
+        cout << endl;
 
-    cout << "Tile: " << endl;
-    (*tileIt)->printStatus();
-    cout << endl;    
+        cout << "Tile: " << endl;
+        (*tileIt)->printStatus();
+        cout << endl;
 
-    tileIt++;
-  }
+        tileIt++;
+    }
 }
 
 /*************************************************************
  * Function......: testConstructors( DatabaseIf myDB )
  *
- * Arguments.....: 
+ * Arguments.....:
  *   myDB: database to use (should be opened)
  * Return value..: none
  * Description...: constructs BLOBTiles and inserts them
@@ -144,85 +144,85 @@ printAllTiles(const MDDObj* mdd)
 
 static void testOperations( DatabaseIf /* myDB */)
 {
-  unsigned long cell = 1000;
+    unsigned long cell = 1000;
 
-  ULongType ulongtype;
-  BaseType* type = &ulongtype;
-  Tile* res;
-  Tile* boolTile;
+    ULongType ulongtype;
+    BaseType* type = &ulongtype;
+    Tile* res;
+    Tile* boolTile;
 
-  vector<Tile*>* result = new vector<Tile*>;
-  vector<Tile*>::iterator tileIt;
-  Tile* bigTile;
+    vector<Tile*>* result = new vector<Tile*>;
+    vector<Tile*>::iterator tileIt;
+    Tile* bigTile;
 
-  cout << "Creating Tile: ";
-  r_Minterval bigDom = 
-    r_Minterval(3) << r_Sinterval(1l,10l) << r_Sinterval(1l,10l) 
-		   << r_Sinterval(1l,10l);
-  bigDom.print_status();
-  cout << endl;
-  
-  bigTile = new PersTile(bigDom, type, (char*)&cell);
-
-  r_Minterval smallDom 
-    = r_Minterval(3) << r_Sinterval(1l,6l) << r_Sinterval(1l,6l)
-		     << r_Sinterval(1l,6l);
-
-  cout << "Splitting it into ";
-  smallDom.print_status();
-  cout << " tiles." << endl;
-
-  result = bigTile->splitTile(smallDom);
-
-  cout << "Result tiles: " << endl;
-  // and iterate over them
-  tileIt = result->begin();
-  while (tileIt !=  result->end())
-  {
-    cout << "  Domain of Tile " << (tileIt - result->begin()) << ": ";
-    ((*tileIt)->getDomain()).print_status();
+    cout << "Creating Tile: ";
+    r_Minterval bigDom =
+        r_Minterval(3) << r_Sinterval(1l,10l) << r_Sinterval(1l,10l)
+        << r_Sinterval(1l,10l);
+    bigDom.print_status();
     cout << endl;
 
-    tileIt++;
-  }
+    bigTile = new PersTile(bigDom, type, (char*)&cell);
 
-  cout << "Joining the Tiles again:" << endl;
+    r_Minterval smallDom
+    = r_Minterval(3) << r_Sinterval(1l,6l) << r_Sinterval(1l,6l)
+      << r_Sinterval(1l,6l);
 
-  r_Minterval proj = 
-    r_Minterval(3) << r_Sinterval(2l,9l) << r_Sinterval(2l,9l)
-		   << r_Sinterval(2l,9l);
+    cout << "Splitting it into ";
+    smallDom.print_status();
+    cout << " tiles." << endl;
 
-  res = new TransTile(result, proj );
+    result = bigTile->splitTile(smallDom);
 
-  cout << "  Result MDD equals original MDD: ";
-  boolTile = new TransTile(res->getDomain(), boolType);
-  cout << "Domain of result Tile: ";
-  (res->getDomain()).print_status();
-  cout << endl;
-  res->printStatus();
-  boolTile->execBinaryOp(Ops::OP_EQUAL, proj, 
-			 res, proj,
-			 bigTile, proj);
+    cout << "Result tiles: " << endl;
+    // and iterate over them
+    tileIt = result->begin();
+    while (tileIt !=  result->end())
+    {
+        cout << "  Domain of Tile " << (tileIt - result->begin()) << ": ";
+        ((*tileIt)->getDomain()).print_status();
+        cout << endl;
 
-  char init = 1;
+        tileIt++;
+    }
 
-  cout << "Checking if Tile are equal: ";
-  cout << (int)(*(boolTile->execCondenseOp(Ops::OP_ALL, 
-					   res->getDomain(), 
-					   &init ))) << endl;
+    cout << "Joining the Tiles again:" << endl;
 
-  cout << "Creating a trimmed, projected 2-D Tile out of the Tile:" << endl;
-  set<r_Dimension, less<r_Dimension> >* projSet = 
-    new set<r_Dimension, less<r_Dimension> >;
-  projSet->insert(1);
+    r_Minterval proj =
+        r_Minterval(3) << r_Sinterval(2l,9l) << r_Sinterval(2l,9l)
+        << r_Sinterval(2l,9l);
 
-  r_Minterval projDom = 
-    r_Minterval(3) << r_Sinterval(2l, 9l) << r_Sinterval(5l, 5l) 
-		   << r_Sinterval(2l, 9l);
+    res = new TransTile(result, proj );
 
-  Tile* projectedTile = new TransTile(res, projDom, projSet);
+    cout << "  Result MDD equals original MDD: ";
+    boolTile = new TransTile(res->getDomain(), boolType);
+    cout << "Domain of result Tile: ";
+    (res->getDomain()).print_status();
+    cout << endl;
+    res->printStatus();
+    boolTile->execBinaryOp(Ops::OP_EQUAL, proj,
+                           res, proj,
+                           bigTile, proj);
 
-  projectedTile->printStatus();
-  
-  cout << endl;
+    char init = 1;
+
+    cout << "Checking if Tile are equal: ";
+    cout << (int)(*(boolTile->execCondenseOp(Ops::OP_ALL,
+                    res->getDomain(),
+                    &init ))) << endl;
+
+    cout << "Creating a trimmed, projected 2-D Tile out of the Tile:" << endl;
+    set<r_Dimension, less<r_Dimension> >* projSet =
+        new set<r_Dimension, less<r_Dimension> >;
+    projSet->insert(1);
+
+    r_Minterval projDom =
+        r_Minterval(3) << r_Sinterval(2l, 9l) << r_Sinterval(5l, 5l)
+        << r_Sinterval(2l, 9l);
+
+    Tile* projectedTile = new TransTile(res, projDom, projSet);
+
+    projectedTile->printStatus();
+
+    cout << endl;
 }

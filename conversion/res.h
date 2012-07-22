@@ -28,29 +28,30 @@ rasdaman GmbH.
 #include <iostream>
 #include <fstream>
 
-namespace RasNITF 
+namespace RasNITF
 {
 
-class res {
+class res
+{
 
     char m_re[2];
     char m_restag[25];
     char m_resver[2];
     char m_ressg[167];
-    char m_resshl[4];    
+    char m_resshl[4];
     char* m_resshf;
     char* m_resdata;
-  
+
     long n_resshl;
-    long data_length;	 
-    long header_length; 
+    long data_length;
+    long header_length;
 
     std::string res_hl;
-    std::string res_dl;	
- public:
+    std::string res_dl;
+public:
 
     res();
-    ~res();		            
+    ~res();
 
     int read_file(std::istream &,long,long);
     int write_file(std::ofstream &);

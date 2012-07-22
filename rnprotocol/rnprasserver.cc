@@ -29,36 +29,36 @@ const RnpQuark RnpRasserver::serverID = 3072002;
 
 
 const char* RnpRasserver::parameterTypeNames[pmt_HowMany] =
-  {
+{
     "(pmt_none)", "pmt_clientid"
-   };
-   
+};
+
 const char* RnpRasserver::commandNames[cmd_HowMany] =
-  {
+{
     "(cmd_none)",        "cmd_connect",           "cmd_disconnect",
-    "cmd_opendb",        "cmd_closedb",           "cmd_beginta", 
-    "cmd_committa",      "cmd_abortta",           "cmd_istaopen", 
-    "cmd_queryhttp",     "cmd_getnewoid",         "cmd_queryrpc", 
-    "cmd_getnextelem",   "cmd_endtransfer",       "cmd_getnextmdd", 
-    "cmd_getnexttile",   "cmd_updaterpc",         "cmd_startinsTmdd", 
-    "cmd_inserttile",    "cmd_endinsmdd",         "cmd_initupdate", 
-    "cmd_gettypestruct", "cmd_startinsPmdd",      "cmd_insertmdd", 
-    "cmd_insertcoll",    "cmd_removeobjfromcoll", "cmd_delobjbyoid", 
-    "cmd_delcollbyname", "cmd_getcoll",           "cmd_getcolloids", 
-    "cmd_getobjecttype", "cmd_setformat", 
-    
+    "cmd_opendb",        "cmd_closedb",           "cmd_beginta",
+    "cmd_committa",      "cmd_abortta",           "cmd_istaopen",
+    "cmd_queryhttp",     "cmd_getnewoid",         "cmd_queryrpc",
+    "cmd_getnextelem",   "cmd_endtransfer",       "cmd_getnextmdd",
+    "cmd_getnexttile",   "cmd_updaterpc",         "cmd_startinsTmdd",
+    "cmd_inserttile",    "cmd_endinsmdd",         "cmd_initupdate",
+    "cmd_gettypestruct", "cmd_startinsPmdd",      "cmd_insertmdd",
+    "cmd_insertcoll",    "cmd_removeobjfromcoll", "cmd_delobjbyoid",
+    "cmd_delcollbyname", "cmd_getcoll",           "cmd_getcolloids",
+    "cmd_getobjecttype", "cmd_setformat",
+
     "cmd_createcollection", "cmd_createmdd", "cmd_extendmdd",
-    "cmd_gettiledomains"   
-   };
+    "cmd_gettiledomains"
+};
 
 const char* RnpRasserver::getParameterTypeName(RnpQuark pType) const throw()
-  {
+{
     if(0<= pType && pType < pmt_HowMany) return parameterTypeNames[pType];
     return undefValue;
-   }
-   
+}
+
 const char* RnpRasserver::getCommandName(RnpQuark cmd) const throw()
-  {
+{
     const char *result = NULL;
 
     if(0<= cmd && cmd < cmd_HowMany)
@@ -68,5 +68,5 @@ const char* RnpRasserver::getCommandName(RnpQuark cmd) const throw()
 
     TALK( "RnpRasserver::getCommandName( " << cmd << " ) -> " << result );
     return result;
-   }
+}
 

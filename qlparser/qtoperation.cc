@@ -40,13 +40,13 @@ static const char rcsid[] = "@(#)qlparser, QtOperation: $Id: qtoperation.cc,v 1.
 const QtNode::QtNodeType QtOperation::nodeType = QtNode::QT_OPERATION;
 
 QtOperation::QtOperation()
-  :  QtNode()
+    :  QtNode()
 {
 }
 
 
 QtOperation::QtOperation( QtNode* node )
-  :  QtNode( node )
+    :  QtNode( node )
 {
 }
 
@@ -54,36 +54,36 @@ QtOperation::QtOperation( QtNode* node )
 QtOperation*
 QtOperation::getUniqueOrder( const QtNode::QtNodeType )
 {
-  // default method;
+    // default method;
 
-  return this;
+    return this;
 }
 
 
 QtData*
 QtOperation::evaluate( QtDataList* /*inputList*/ )
 {
-  RMInit::logOut << "Error: Method evaluate(...) is undefined for a node in the query tree." << std::endl;
-  return NULL;
+    RMInit::logOut << "Error: Method evaluate(...) is undefined for a node in the query tree." << std::endl;
+    return NULL;
 }
 
 
 void
 QtOperation::optimizeLoad( QtTrimList* trimList )
 {
-  if( trimList )
-  {
-    std::vector<QtNode::QtTrimElement*>::iterator iter;
-    for( iter=trimList->begin(); iter!=trimList->end(); iter++ )
+    if( trimList )
     {
-      delete *iter;
-      *iter=NULL;
+        std::vector<QtNode::QtTrimElement*>::iterator iter;
+        for( iter=trimList->begin(); iter!=trimList->end(); iter++ )
+        {
+            delete *iter;
+            *iter=NULL;
+        }
+        delete trimList;
+        trimList=NULL;
     }
-    delete trimList;
-    trimList=NULL;
-  }
 
-  RMInit::logOut << "Error: Method optimizeLoad(...) is undefined for a QtOperation node in the query tree." << std::endl;
+    RMInit::logOut << "Error: Method optimizeLoad(...) is undefined for a QtOperation node in the query tree." << std::endl;
 }
 
 
@@ -91,25 +91,25 @@ QtOperation::optimizeLoad( QtTrimList* trimList )
 const QtTypeElement&
 QtOperation::checkType( QtTypeTuple* typeTuple )
 {
-  RMDBCLASS( "QtOperation", "checkType( QtTypeElement, QtTypeTuple* )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtOperation", "checkType( QtTypeElement, QtTypeTuple* )", "qlparser", __FILE__, __LINE__ )
 
-  dataStreamType.setDataType( QT_TYPE_UNKNOWN );
+    dataStreamType.setDataType( QT_TYPE_UNKNOWN );
 
-  return dataStreamType;
+    return dataStreamType;
 }
 
 
 void
 QtOperation::printTree( int tab, std::ostream& s, QtChildType mode )
 {
-  s << SPACE_STR(tab).c_str() << "QtOperation Object: type " << std::flush;
-  dataStreamType.printStatus( s );
-  s << std::endl;
+    s << SPACE_STR(tab).c_str() << "QtOperation Object: type " << std::flush;
+    dataStreamType.printStatus( s );
+    s << std::endl;
 
-  if( mode != QtNode::QT_DIRECT_CHILDS )
-  {
-      s << SPACE_STR(tab).c_str() << "no operation" << std::endl;
-  }
+    if( mode != QtNode::QT_DIRECT_CHILDS )
+    {
+        s << SPACE_STR(tab).c_str() << "no operation" << std::endl;
+    }
 
 }
 
@@ -118,9 +118,9 @@ QtOperation::printTree( int tab, std::ostream& s, QtChildType mode )
 void
 QtOperation::printAlgebraicExpression( std::ostream& s )
 {
-  s << "op<";
+    s << "op<";
 
-    s << "no ops"; 
+    s << "no ops";
 
-  s << ">";
+    s << ">";
 }

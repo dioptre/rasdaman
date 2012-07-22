@@ -24,16 +24,16 @@ rasdaman GmbH.
  * SOURCE: test_hostcmp.cc
  *
  * MODULE: rasmgr
- * CLASS:  
+ * CLASS:
  *
  * SYNOPSIS:
- *	test_hostcmp hostname1 hostname2
+ *  test_hostcmp hostname1 hostname2
  *
  * PURPOSE:
  * test hostname comparison function of rasmgr, Configuration::hostCmp().
  *
  * COMMENTS:
- * 			None
+ *          None
  *
 */
 
@@ -42,15 +42,15 @@ using namespace std;
 #include <iostream>
 
 extern int hostCmp( const char *h1, const char *h2 );
- 
+
 int main(int argc, char** argv)
 {
-	if (argc != 3)
-	{
-		cout << "usage: " << argv[0] << " hostname1 hostname2" << endl;
-		return -2;
-	}
+    if (argc != 3)
+    {
+        cout << "usage: " << argv[0] << " hostname1 hostname2" << endl;
+        return -2;
+    }
 
-	cout << argv[0] << ": hostCmp( " << argv[1] << ", " << argv[2] << " ) -> " << (hostCmp( argv[1], argv[2]) ? "true" : "false") << endl;
-	return 0;
+    cout << argv[0] << ": hostCmp( " << argv[1] << ", " << argv[2] << " ) -> " << (hostCmp( argv[1], argv[2]) ? "true" : "false") << endl;
+    return 0;
 }

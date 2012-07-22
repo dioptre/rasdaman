@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   r_Complex_Type
  *
  * COMMENTS:
- * 		None
+ *      None
 */
 
 #ifndef _D_COMPLEXTYPE_TYPE_
@@ -37,33 +37,33 @@ rasdaman GmbH.
 #include "raslib/odmgtypes.hh"
 #include "raslib/mddtypes.hh"
 
-class r_Complex_Type :	public r_Primitive_Type
-	{
-	public:
-		r_Complex_Type();
-		r_Complex_Type(const char* newTypeName, const r_Type::r_Type_Id newTypeId);
-		r_Complex_Type(const r_Complex_Type& oldObj);
-		const r_Complex_Type& operator=(const r_Complex_Type& oldObj);
-		virtual ~r_Complex_Type();
+class r_Complex_Type :  public r_Primitive_Type
+{
+public:
+    r_Complex_Type();
+    r_Complex_Type(const char* newTypeName, const r_Type::r_Type_Id newTypeId);
+    r_Complex_Type(const r_Complex_Type& oldObj);
+    const r_Complex_Type& operator=(const r_Complex_Type& oldObj);
+    virtual ~r_Complex_Type();
 
-		virtual r_Type* clone() const;
-		virtual void print_status(std::ostream& s = std::cout) const;  
-		virtual void print_value(const char* storage, std::ostream& s = std::cout) const;
+    virtual r_Type* clone() const;
+    virtual void print_status(std::ostream& s = std::cout) const;
+    virtual void print_value(const char* storage, std::ostream& s = std::cout) const;
 
-		r_Double get_re(const char* cell) const throw(r_Error);		
-		r_Double get_im(const char* cell) const throw(r_Error);
-		
-		void set_re(char* cell, r_Double re) throw(r_Error);		
-		void set_im(char* cell, r_Double im) throw(r_Error);
+    r_Double get_re(const char* cell) const throw(r_Error);
+    r_Double get_im(const char* cell) const throw(r_Error);
+
+    void set_re(char* cell, r_Double re) throw(r_Error);
+    void set_im(char* cell, r_Double im) throw(r_Error);
 
 
-		virtual void convertToLittleEndian(char* cells, r_Area noCells) const;
-		virtual void convertToBigEndian(char* cells, r_Area noCells) const;
-		virtual bool isComplexType() const;
+    virtual void convertToLittleEndian(char* cells, r_Area noCells) const;
+    virtual void convertToBigEndian(char* cells, r_Area noCells) const;
+    virtual bool isComplexType() const;
 
-	private:
-		r_Bytes imOff;
-	};
+private:
+    r_Bytes imOff;
+};
 
 //@Doc: write the status of a complex type to a stream
 extern std::ostream &operator<<( std::ostream &str, const r_Complex_Type &type );

@@ -23,7 +23,7 @@ rasdaman GmbH.
 /*************************************************************
  *
  *
- * COMMENTS:	Automaticaly generated
+ * COMMENTS:    Automaticaly generated
  *
  ************************************************************/
 
@@ -34,17 +34,18 @@ rasdaman GmbH.
 
 */
 
-class QtAbs : public QtUnaryInduce {
+class QtAbs : public QtUnaryInduce
+{
 public:
-	QtAbs(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtAbs(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 
 //@ManMemo: Module: {\bf qlparser}
@@ -53,17 +54,18 @@ private:
 
 */
 
-class QtSqrt : public QtUnaryInduce {
+class QtSqrt : public QtUnaryInduce
+{
 public:
-	QtSqrt(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtSqrt(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 
 //@ManMemo: Module: {\bf qlparser}
@@ -72,17 +74,18 @@ private:
 
 */
 
-class QtExp : public QtUnaryInduce {
+class QtExp : public QtUnaryInduce
+{
 public:
-	QtExp(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtExp(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 
 //@ManMemo: Module: {\bf qlparser}
@@ -91,17 +94,18 @@ private:
 
 */
 
-class QtLog : public QtUnaryInduce {
+class QtLog : public QtUnaryInduce
+{
 public:
-	QtLog(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtLog(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 
 //@ManMemo: Module: {\bf qlparser}
@@ -110,17 +114,18 @@ private:
 
 */
 
-class QtLn : public QtUnaryInduce {
+class QtLn : public QtUnaryInduce
+{
 public:
-	QtLn(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtLn(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 
 //@ManMemo: Module: {\bf qlparser}
@@ -129,17 +134,18 @@ private:
 
 */
 
-class QtSin : public QtUnaryInduce {
+class QtSin : public QtUnaryInduce
+{
 public:
-	QtSin(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtSin(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 
 //@ManMemo: Module: {\bf qlparser}
@@ -148,17 +154,18 @@ private:
 
 */
 
-class QtCos : public QtUnaryInduce {
+class QtCos : public QtUnaryInduce
+{
 public:
-	QtCos(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtCos(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 
 //@ManMemo: Module: {\bf qlparser}
@@ -167,17 +174,18 @@ private:
 
 */
 
-class QtTan : public QtUnaryInduce {
+class QtTan : public QtUnaryInduce
+{
 public:
-	QtTan(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtTan(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 
 //@ManMemo: Module: {\bf qlparser}
@@ -186,17 +194,18 @@ private:
 
 */
 
-class QtSinh : public QtUnaryInduce {
+class QtSinh : public QtUnaryInduce
+{
 public:
-	QtSinh(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtSinh(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 
 //@ManMemo: Module: {\bf qlparser}
@@ -205,17 +214,18 @@ private:
 
 */
 
-class QtCosh : public QtUnaryInduce {
+class QtCosh : public QtUnaryInduce
+{
 public:
-	QtCosh(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtCosh(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 
 //@ManMemo: Module: {\bf qlparser}
@@ -224,17 +234,18 @@ private:
 
 */
 
-class QtTanh : public QtUnaryInduce {
+class QtTanh : public QtUnaryInduce
+{
 public:
-	QtTanh(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtTanh(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 
 //@ManMemo: Module: {\bf qlparser}
@@ -243,17 +254,18 @@ private:
 
 */
 
-class QtArcsin : public QtUnaryInduce {
+class QtArcsin : public QtUnaryInduce
+{
 public:
-	QtArcsin(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtArcsin(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 
 //@ManMemo: Module: {\bf qlparser}
@@ -262,17 +274,18 @@ private:
 
 */
 
-class QtArccos : public QtUnaryInduce {
+class QtArccos : public QtUnaryInduce
+{
 public:
-	QtArccos(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtArccos(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 
 //@ManMemo: Module: {\bf qlparser}
@@ -281,16 +294,17 @@ private:
 
 */
 
-class QtArctan : public QtUnaryInduce {
+class QtArctan : public QtUnaryInduce
+{
 public:
-	QtArctan(QtOperation*);
-	QtData* evaluate(QtDataList*);
-	virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
-	virtual void printAlgebraicExpression(std::ostream& = std::cout);
-	inline virtual const QtNodeType getNodeType() const;
-	virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
+    QtArctan(QtOperation*);
+    QtData* evaluate(QtDataList*);
+    virtual void printTree(int, std::ostream& = std::cout, QtChildType = QT_ALL_NODES );
+    virtual void printAlgebraicExpression(std::ostream& = std::cout);
+    inline virtual const QtNodeType getNodeType() const;
+    virtual const QtTypeElement& checkType(QtTypeTuple* = NULL );
 
 private:
-	static const QtNodeType nodeType;
+    static const QtNodeType nodeType;
 };
 

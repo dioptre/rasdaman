@@ -39,66 +39,66 @@ rasdaman GmbH.
 
 r_Tile_Comp_None::r_Tile_Comp_None( const r_Minterval &dom, const r_Base_Type *type ) : r_Tile_Compression(dom, type)
 {
-  RMDBGONCE( 2, RMDebug::module_compression, "r_Tile_Comp_None", "r_Tile_Comp_None(dom,type)" );
+    RMDBGONCE( 2, RMDebug::module_compression, "r_Tile_Comp_None", "r_Tile_Comp_None(dom,type)" );
 }
 
 
 r_Tile_Comp_None::r_Tile_Comp_None( const r_Tile_Comp_None &src) : r_Tile_Compression(src)
 {
-  RMDBGONCE( 2, RMDebug::module_compression, "r_Tile_Comp_None", "r_Tile_Comp_None(src)" );
+    RMDBGONCE( 2, RMDebug::module_compression, "r_Tile_Comp_None", "r_Tile_Comp_None(src)" );
 }
 
 
 r_Tile_Comp_None::~r_Tile_Comp_None( void )
 {
-  RMDBGONCE( 2, RMDebug::module_compression, "r_Tile_Comp_None", "~r_Tile_Comp_None()" );
+    RMDBGONCE( 2, RMDebug::module_compression, "r_Tile_Comp_None", "~r_Tile_Comp_None()" );
 }
 
 
 void *r_Tile_Comp_None::compress( const void *src, r_ULong &size, const char *options )
 {
-  void *result;
+    void *result;
 
-  RMDBGONCE( 2, RMDebug::module_compression, "r_Tile_Comp_None", "compress()" );
+    RMDBGONCE( 2, RMDebug::module_compression, "r_Tile_Comp_None", "compress()" );
 
-  size = get_tile_size();
-  if ((result = mystore.storage_alloc(size)) != NULL)
-    memcpy(result, src, get_tile_size());
-  else
-    RMInit::logOut << "r_Tile_Comp_None::compress(): unable to allocate memory" << endl;
+    size = get_tile_size();
+    if ((result = mystore.storage_alloc(size)) != NULL)
+        memcpy(result, src, get_tile_size());
+    else
+        RMInit::logOut << "r_Tile_Comp_None::compress(): unable to allocate memory" << endl;
 
-  return result;
+    return result;
 }
 
 
 void *r_Tile_Comp_None::decompress( const void *src, r_ULong size, const char *options )
 {
-  void *result;
+    void *result;
 
-  RMDBGONCE( 2, RMDebug::module_compression, "r_Tile_Comp_None", "decompress()" );
+    RMDBGONCE( 2, RMDebug::module_compression, "r_Tile_Comp_None", "decompress()" );
 
-  if ((result = mystore.storage_alloc(get_tile_size())) != NULL)
-    memcpy(result, src, get_tile_size());
-  else
-    RMInit::logOut << "r_Tile_Comp_None::decompress(): unable to allocate memory" << endl;
+    if ((result = mystore.storage_alloc(get_tile_size())) != NULL)
+        memcpy(result, src, get_tile_size());
+    else
+        RMInit::logOut << "r_Tile_Comp_None::decompress(): unable to allocate memory" << endl;
 
-  return result;
+    return result;
 }
 
 
 const char *r_Tile_Comp_None::get_name( void ) const
 {
-  return format_name_array;
+    return format_name_array;
 }
 
 
 r_Data_Format r_Tile_Comp_None::get_data_format( void ) const
 {
-  return r_Array;
+    return r_Array;
 }
 
 
 r_Tile_Compression *r_Tile_Comp_None::clone( void ) const
 {
-  return new r_Tile_Comp_None(*this);
+    return new r_Tile_Comp_None(*this);
 }

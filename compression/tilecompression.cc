@@ -52,78 +52,79 @@ rasdaman GmbH.
  *  r_Tile_Compression class
  */
 
-const r_Tile_Compression::tile_comp_format_t r_Tile_Compression::all_formats[] = {
-  { r_Array, format_name_array },
+const r_Tile_Compression::tile_comp_format_t r_Tile_Compression::all_formats[] =
+{
+    { r_Array, format_name_array },
 };
 
 
 r_Tile_Compression::r_Tile_Compression( const r_Minterval &dom, const r_Base_Type *type ) : mydomain(dom)
 {
-  mytype = (r_Base_Type*)(type->clone());
-  compParams = NULL;
-  decompParams = NULL;
-  myTimer = NULL;
+    mytype = (r_Base_Type*)(type->clone());
+    compParams = NULL;
+    decompParams = NULL;
+    myTimer = NULL;
 }
 
 
 r_Tile_Compression::r_Tile_Compression( const r_Tile_Compression &src ) : mydomain(src.mydomain)
 {
-  mytype = (r_Base_Type*)(src.mytype->clone());
-  compParams = NULL;
-  decompParams = NULL;
-  myTimer = NULL;
-  mystore = src.mystore;
+    mytype = (r_Base_Type*)(src.mytype->clone());
+    compParams = NULL;
+    decompParams = NULL;
+    myTimer = NULL;
+    mystore = src.mystore;
 }
 
 
 r_Tile_Compression::~r_Tile_Compression( void )
 {
-  delete mytype;
+    delete mytype;
 
-  if (compParams != NULL)
-    delete compParams;
-  if (decompParams != NULL)
-    delete decompParams;
+    if (compParams != NULL)
+        delete compParams;
+    if (decompParams != NULL)
+        delete decompParams;
 }
 
 
 bool r_Tile_Compression::converts_endianness( void ) const
 {
-  return false;
+    return false;
 }
 
 
 r_Bytes r_Tile_Compression::get_type_size( void ) const
 {
-  return mytype->size();
+    return mytype->size();
 }
 
 
 r_ULong r_Tile_Compression::get_tile_size( void ) const
 {
-  unsigned int size;
+    unsigned int size;
 
-  if ((size = get_type_size()) == 0) return 0;
+    if ((size = get_type_size()) == 0) return 0;
 
-  return size * mydomain.cell_count();
+    return size * mydomain.cell_count();
 }
 
 
 const r_Minterval &r_Tile_Compression::get_domain( void ) const
 {
-  return mydomain;
+    return mydomain;
 }
 
 
 const r_Base_Type *r_Tile_Compression::get_base_type( void ) const
 {
-  return mytype;
+    return mytype;
 }
 
 
 void r_Tile_Compression::set_storage_handler( const r_Storage_Man &newStore )
 {
-  mystore = newStore;
+    mystore = newStore;
 }
 
 
@@ -144,180 +145,180 @@ void r_Tile_Compression::pause_timer( void )
 
 void r_Tile_Compression::write_short( void *dest, r_Short val )
 {
-  unsigned char *dptr = (unsigned char*)dest;
-  
-  dptr[0] = (val & 0xff);
-  dptr[1] = ((val >> 8) & 0xff);
+    unsigned char *dptr = (unsigned char*)dest;
+
+    dptr[0] = (val & 0xff);
+    dptr[1] = ((val >> 8) & 0xff);
 }
 
 
 void r_Tile_Compression::write_long( void *dest, r_Long val )
 {
-  unsigned char *dptr = (unsigned char*)dest;
+    unsigned char *dptr = (unsigned char*)dest;
 
-  dptr[0] = (val & 0xff);
-  dptr[1] = ((val >> 8) & 0xff);
-  dptr[2] = ((val >> 16) & 0xff);
-  dptr[3] = ((val >> 24) & 0xff);
+    dptr[0] = (val & 0xff);
+    dptr[1] = ((val >> 8) & 0xff);
+    dptr[2] = ((val >> 16) & 0xff);
+    dptr[3] = ((val >> 24) & 0xff);
 }
 
 
 void r_Tile_Compression::read_short( const void *src, r_Short &val )
 {
-  const unsigned char *sptr = (const unsigned char *)src;
+    const unsigned char *sptr = (const unsigned char *)src;
 
-  val = (r_Short)(sptr[0] | (sptr[1] << 8));
+    val = (r_Short)(sptr[0] | (sptr[1] << 8));
 }
 
 
 void r_Tile_Compression::read_long( const void *src, r_Long &val )
 {
-  const unsigned char *sptr = (const unsigned char *)src;
+    const unsigned char *sptr = (const unsigned char *)src;
 
-  val = (r_Long)(sptr[0] | (sptr[1] << 8) | (sptr[2] << 16) | (sptr[3] << 24));
+    val = (r_Long)(sptr[0] | (sptr[1] << 8) | (sptr[2] << 16) | (sptr[3] << 24));
 }
 
 
 r_Data_Format r_Tile_Compression::get_decomp_format( void ) const
 {
-  return r_Array;
+    return r_Array;
 }
 
 
 unsigned int r_Tile_Compression::get_atom_info( const r_Base_Type* baseType, unsigned int* sizes, unsigned int* idxptr )
 {
-  unsigned int sum;
-  unsigned int idx;
+    unsigned int sum;
+    unsigned int idx;
 
-  RMDBGONCE( 3, RMDebug::module_compression, "r_Tile_Compression", "get_atom_info()" );
+    RMDBGONCE( 3, RMDebug::module_compression, "r_Tile_Compression", "get_atom_info()" );
 
-  if (idxptr == NULL)
-    idx = 0;
-  else
-    idx = *idxptr;
+    if (idxptr == NULL)
+        idx = 0;
+    else
+        idx = *idxptr;
 
-  if (baseType->isStructType())
-  {
-    r_Structure_Type* structType = (r_Structure_Type*)baseType;
-    r_Structure_Type::attribute_iterator iter(structType->defines_attribute_begin());
-
-    sum = 0;
-    while (iter != structType->defines_attribute_end())
+    if (baseType->isStructType())
     {
-      r_Base_Type *newType = (r_Base_Type*)((*iter).type_of().clone());
-      if (newType->isStructType())
-	sum += get_atom_info(newType, sizes);
-      else
-      {
-	sum++;
-	if (sizes != NULL)
-	  sizes[idx++] = newType->size();
-      }
-      delete newType;
-      iter++;
-    }
-  }
-  else
-  {
-    sum = 1;
-    if (sizes != NULL)
-      sizes[idx++] = baseType->size();
-  }
-  
-  if (idxptr != NULL)
-    *idxptr = idx;
+        r_Structure_Type* structType = (r_Structure_Type*)baseType;
+        r_Structure_Type::attribute_iterator iter(structType->defines_attribute_begin());
 
-  return sum;
+        sum = 0;
+        while (iter != structType->defines_attribute_end())
+        {
+            r_Base_Type *newType = (r_Base_Type*)((*iter).type_of().clone());
+            if (newType->isStructType())
+                sum += get_atom_info(newType, sizes);
+            else
+            {
+                sum++;
+                if (sizes != NULL)
+                    sizes[idx++] = newType->size();
+            }
+            delete newType;
+            iter++;
+        }
+    }
+    else
+    {
+        sum = 1;
+        if (sizes != NULL)
+            sizes[idx++] = baseType->size();
+    }
+
+    if (idxptr != NULL)
+        *idxptr = idx;
+
+    return sum;
 }
 
 
 const char *r_Tile_Compression::get_format_info( unsigned int number, r_Data_Format &fmt )
 {
-  unsigned int numFormats = sizeof(all_formats) / sizeof(tile_comp_format_t);
+    unsigned int numFormats = sizeof(all_formats) / sizeof(tile_comp_format_t);
 
-  if (number >= numFormats)
-    return NULL;
+    if (number >= numFormats)
+        return NULL;
 
-  fmt = all_formats[number].format;
-  return all_formats[number].name;
+    fmt = all_formats[number].format;
+    return all_formats[number].name;
 }
 
 
 r_Tile_Compression::Support_Format r_Tile_Compression::check_data_format( r_Data_Format fmt )
 {
-	switch (fmt)
-	{
-		// the image formats
-		case r_TIFF:
-		case r_JPEG:
-		case r_HDF:
-		case r_PNG:
-		case r_BMP:
-		case r_VFF:
-		case r_TOR:
-		case r_DEM:    
-		case r_NETCDF:
-			return r_Tile_Compression::CONVERSION;
-		default:
-  			return r_Tile_Compression::COMPRESSION;
-	}
+    switch (fmt)
+    {
+        // the image formats
+    case r_TIFF:
+    case r_JPEG:
+    case r_HDF:
+    case r_PNG:
+    case r_BMP:
+    case r_VFF:
+    case r_TOR:
+    case r_DEM:
+    case r_NETCDF:
+        return r_Tile_Compression::CONVERSION;
+    default:
+        return r_Tile_Compression::COMPRESSION;
+    }
 }
 
 
 r_Tile_Compression *r_Tile_Compression::create( r_Data_Format fmt, const r_Minterval &dom, const r_Base_Type *type ) throw(r_Error)
 {
-  r_Tile_Compression *result;
+    r_Tile_Compression *result;
 
-  switch (fmt)
+    switch (fmt)
     {
     case r_Array:
-      result = new r_Tile_Comp_None(dom, type);
-      break;
-	// the image formats used primarily for format conversions
-	case r_TIFF:
-	case r_JPEG:
-	case r_HDF:
-	case r_PNG:
-	case r_BMP:
-	case r_VFF:
-	case r_TOR:
-	case r_DEM:    
-	case r_CSV:
-		result = new r_Tile_Comp_Other(fmt, dom, type);
-		break;
+        result = new r_Tile_Comp_None(dom, type);
+        break;
+        // the image formats used primarily for format conversions
+    case r_TIFF:
+    case r_JPEG:
+    case r_HDF:
+    case r_PNG:
+    case r_BMP:
+    case r_VFF:
+    case r_TOR:
+    case r_DEM:
+    case r_CSV:
+        result = new r_Tile_Comp_Other(fmt, dom, type);
+        break;
     default:
-      RMInit::logOut << "Error: r_Tile_Compression::create(): Unknown or unsupported tile compression " << fmt << endl;
-      r_Error err(r_Error::r_Error_General, COMPRESSIONFAILED );
-      throw(err);
-      break;
+        RMInit::logOut << "Error: r_Tile_Compression::create(): Unknown or unsupported tile compression " << fmt << endl;
+        r_Error err(r_Error::r_Error_General, COMPRESSIONFAILED );
+        throw(err);
+        break;
     }
 
-  return result;
+    return result;
 }
 
 
 r_Tile_Compression *r_Tile_Compression::create( const char *name, const r_Minterval &dom, const r_Base_Type *type) throw(r_Error)
 {
-  return create(get_format_from_name(name), dom, type);
+    return create(get_format_from_name(name), dom, type);
 }
 
 
 r_Data_Format r_Tile_Compression::get_format_from_name( const char *name ) throw(r_Error)
 {
-  unsigned int numFormats = sizeof(all_formats) / sizeof(tile_comp_format_t);
-  unsigned int i;
+    unsigned int numFormats = sizeof(all_formats) / sizeof(tile_comp_format_t);
+    unsigned int i;
 
-  for (i=0; i<numFormats; i++)
-  {
-    if (strcasecmp(name, all_formats[i].name) == 0)
-      break;
-  }
-  if (i >= numFormats)
-  {
-    RMInit::logOut << "Error: r_Tile_Compression::create(): Unknown compression algorithm: " << name << endl;
-    r_Error err(r_Error::r_Error_General, COMPRESSIONFAILED );
-    throw(err);
-  }
-  return all_formats[i].format;
+    for (i=0; i<numFormats; i++)
+    {
+        if (strcasecmp(name, all_formats[i].name) == 0)
+            break;
+    }
+    if (i >= numFormats)
+    {
+        RMInit::logOut << "Error: r_Tile_Compression::create(): Unknown compression algorithm: " << name << endl;
+        r_Error err(r_Error::r_Error_General, COMPRESSIONFAILED );
+        throw(err);
+    }
+    return all_formats[i].format;
 }
 

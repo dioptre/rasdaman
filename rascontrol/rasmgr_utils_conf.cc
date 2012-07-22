@@ -28,7 +28,7 @@ rasdaman GmbH.
  *
  * PURPOSE:
  *   Base class for other configuration classes, to interpret commandline arguments and environment settings
- *    
+ *
  * COMMENTS:
  *
 */
@@ -38,34 +38,34 @@ rasdaman GmbH.
 #include "rasmgr_utils_conf.hh"
 
 ConfigurationBase::ConfigurationBase()
-  {
-   }
-      
+{
+}
+
 bool ConfigurationBase::interpretArguments(int argc, char **argv)
-  {
+{
     return false;
-   }
-      
-    
+}
+
+
 int ConfigurationBase::checkArguments( int argc, char** argv, const char* searchText, int& optionValueIndex )
 {
-  int found = 0;
-  int i=1;
+    int found = 0;
+    int i=1;
 
-  while( !found && i<argc )
-    found = !strcmp( searchText, argv[i++] );
+    while( !found && i<argc )
+        found = !strcmp( searchText, argv[i++] );
 
-  if( found && i<argc && !strchr(argv[i],'-') )
-    optionValueIndex = i;
-  else
-    optionValueIndex = 0;
+    if( found && i<argc && !strchr(argv[i],'-') )
+        optionValueIndex = i;
+    else
+        optionValueIndex = 0;
 
-  return found;
+    return found;
 }
-  
+
 
 void ConfigurationBase::printHelp()
-  {
+{
     std::cout<<"Help not available..."<< std::endl;
-   }
+}
 

@@ -39,132 +39,135 @@ rasdaman GmbH.
 
 r_Bytes
 MDDDimensionType::getMemorySize() const
-	{
-	return MDDBaseType::getMemorySize() + sizeof(r_Dimension);
-	}
+{
+    return MDDBaseType::getMemorySize() + sizeof(r_Dimension);
+}
 
 MDDDimensionType::MDDDimensionType(const OId& id) throw (r_Error)
-	:	MDDBaseType(id),
-		myDimension(0)
-	{
-	RMDBGENTER(4, RMDebug::module_catalogif, "MDDDimensionType", "MDDDimensionType(" << myOId << ")");
-	if (objecttype == OId::MDDDIMTYPEOID)
-		{
-		mySubclass = MDDDIMENSIONTYPE;
-		readFromDb();
-		}
-	RMDBGEXIT(4, RMDebug::module_catalogif, "MDDDimensionType", "MDDDimensionType(" << myOId << ")");
-	}
+    :   MDDBaseType(id),
+        myDimension(0)
+{
+    RMDBGENTER(4, RMDebug::module_catalogif, "MDDDimensionType", "MDDDimensionType(" << myOId << ")");
+    if (objecttype == OId::MDDDIMTYPEOID)
+    {
+        mySubclass = MDDDIMENSIONTYPE;
+        readFromDb();
+    }
+    RMDBGEXIT(4, RMDebug::module_catalogif, "MDDDimensionType", "MDDDimensionType(" << myOId << ")");
+}
 
 MDDDimensionType::MDDDimensionType(const char* newTypeName, const BaseType* newBaseType, r_Dimension newDimension)
-	:	MDDBaseType(newTypeName, newBaseType),
-		myDimension(newDimension)
-	{
-	objecttype = OId::MDDDIMTYPEOID;
-	mySubclass = MDDDIMENSIONTYPE;
-	}
+    :   MDDBaseType(newTypeName, newBaseType),
+        myDimension(newDimension)
+{
+    objecttype = OId::MDDDIMTYPEOID;
+    mySubclass = MDDDIMENSIONTYPE;
+}
 
 MDDDimensionType::MDDDimensionType()
-	:	MDDBaseType("unnamed mdddimensiontype"),
-		myDimension(0)
-	{
-	objecttype = OId::MDDDIMTYPEOID;
-	mySubclass = MDDDIMENSIONTYPE;
-	}
+    :   MDDBaseType("unnamed mdddimensiontype"),
+        myDimension(0)
+{
+    objecttype = OId::MDDDIMTYPEOID;
+    mySubclass = MDDDIMENSIONTYPE;
+}
 
 MDDDimensionType::MDDDimensionType(const MDDDimensionType& old)
-	:	MDDBaseType(old)
-	{
-	objecttype = OId::MDDDIMTYPEOID;
-	myDimension = old.myDimension; 
-	}
+    :   MDDBaseType(old)
+{
+    objecttype = OId::MDDDIMTYPEOID;
+    myDimension = old.myDimension;
+}
 
 MDDDimensionType&
 MDDDimensionType::operator=(const MDDDimensionType& old)
-	{
-	// Gracefully handle self assignment
-	if (this == &old)
-		return *this;
-	MDDBaseType::operator=(old);
-	myDimension = old.myDimension; 
-	return *this;
-	}
+{
+    // Gracefully handle self assignment
+    if (this == &old)
+        return *this;
+    MDDBaseType::operator=(old);
+    myDimension = old.myDimension;
+    return *this;
+}
 
-char* 
+char*
 MDDDimensionType::getTypeStructure() const
-	{
-	char dimBuf[255];
-	sprintf(dimBuf, "%d", myDimension);
-	RMDBGENTER(10, RMDebug::module_catalogif, "MDDDimensionType", "getTypeStructure()");
-	RMDBGMIDDLE(10, RMDebug::module_catalogif, "MDDDimensionType", "myBaseType at " << myBaseType);
-	char* baseType = myBaseType->getTypeStructure();
-	RMDBGMIDDLE(10, RMDebug::module_catalogif, "MDDDimensionType", "basetype at " << baseType);
-	char* result = (char*)mymalloc(12 + strlen(baseType) + strlen(dimBuf));
+{
+    char dimBuf[255];
+    sprintf(dimBuf, "%d", myDimension);
+    RMDBGENTER(10, RMDebug::module_catalogif, "MDDDimensionType", "getTypeStructure()");
+    RMDBGMIDDLE(10, RMDebug::module_catalogif, "MDDDimensionType", "myBaseType at " << myBaseType);
+    char* baseType = myBaseType->getTypeStructure();
+    RMDBGMIDDLE(10, RMDebug::module_catalogif, "MDDDimensionType", "basetype at " << baseType);
+    char* result = (char*)mymalloc(12 + strlen(baseType) + strlen(dimBuf));
 
-	strcpy(result, "marray <");
-	strcat(result, baseType);
-	strcat(result, ", ");
-	strcat(result, dimBuf);
-	strcat(result, ">");
+    strcpy(result, "marray <");
+    strcat(result, baseType);
+    strcat(result, ", ");
+    strcat(result, dimBuf);
+    strcat(result, ">");
 
-	free(baseType);
-	RMDBGEXIT(10, RMDebug::module_catalogif, "MDDDimensionType", "getTypeStructure() " << result);
-	return result;
-	}
+    free(baseType);
+    RMDBGEXIT(10, RMDebug::module_catalogif, "MDDDimensionType", "getTypeStructure() " << result);
+    return result;
+}
 
 void
 MDDDimensionType::print_status( ostream& s ) const
-	{
-	s << "\tr_Marray" << "<" << myBaseType->getTypeName() << "\t, " << myDimension << ">";
-	}
+{
+    s << "\tr_Marray" << "<" << myBaseType->getTypeName() << "\t, " << myDimension << ">";
+}
 
 r_Dimension
 MDDDimensionType::getDimension() const
-	{
-	return myDimension;
-	}
+{
+    return myDimension;
+}
 
 MDDDimensionType::~MDDDimensionType()
-	{
-	RMDBGENTER(4, RMDebug::module_catalogif, "MDDDimensionType", "~MDDDimensionType() " << myOId);
-	validate();
-	RMDBGEXIT(4, RMDebug::module_catalogif, "MDDDimensionType", "~MDDDimensionType() " << myOId);
-	}
+{
+    RMDBGENTER(4, RMDebug::module_catalogif, "MDDDimensionType", "~MDDDimensionType() " << myOId);
+    validate();
+    RMDBGEXIT(4, RMDebug::module_catalogif, "MDDDimensionType", "~MDDDimensionType() " << myOId);
+}
 
 int
 MDDDimensionType::compatibleWith(const Type* aType) const
-	{
-	RMDBGENTER(5, RMDebug::module_catalogif, "MDDDimensionType", "compatibleWith(" << aType->getName() << ") " << getName());
-	int retval;
-	if( ((MDDType*)aType)->getSubtype() != MDDDOMAINTYPE && ((MDDType*)aType)->getSubtype() != MDDDIMENSIONTYPE )
-		{
-		RMDBGMIDDLE(6, RMDebug::module_catalogif, "MDDDimensionType", "not a domain- or dimensiontype");
-		retval = 0;
-		}
-	else	{
-		// check BaseType first
-		if( ! (myBaseType->compatibleWith(((MDDBaseType*)aType)->getBaseType())) )
-			{
-			RMDBGMIDDLE(6, RMDebug::module_catalogif, "MDDDimensionType", "basetypes are not compatible");
-			retval = 0;
-			}
-		else	{
-			// check dimensionality
-			if( ((MDDType*)aType)->getSubtype() == MDDDIMENSIONTYPE )
-				{
-				RMDBGMIDDLE(6, RMDebug::module_catalogif, "MDDDimensionType", "check for dimension equality");
-				retval = (myDimension == ((MDDDimensionType*)aType)->getDimension());
-				}
-			else	{
-				if( ((MDDType*)aType)->getSubtype() == MDDDOMAINTYPE )
-					{
-					RMDBGMIDDLE(6, RMDebug::module_catalogif, "MDDDimensionType", "check for dimension equality");
-					retval = ( ((MDDDimensionType*)this)->myDimension == ((MDDDomainType*)aType)->getDomain()->dimension() );
-					}
-				}
-			}
-		}
-	RMDBGEXIT(5, RMDebug::module_catalogif, "MDDDimensionType", "compatibleWith(" << aType->getName() << ") " << getName() << " " << retval);
-	return retval;
-	}
+{
+    RMDBGENTER(5, RMDebug::module_catalogif, "MDDDimensionType", "compatibleWith(" << aType->getName() << ") " << getName());
+    int retval;
+    if( ((MDDType*)aType)->getSubtype() != MDDDOMAINTYPE && ((MDDType*)aType)->getSubtype() != MDDDIMENSIONTYPE )
+    {
+        RMDBGMIDDLE(6, RMDebug::module_catalogif, "MDDDimensionType", "not a domain- or dimensiontype");
+        retval = 0;
+    }
+    else
+    {
+        // check BaseType first
+        if( ! (myBaseType->compatibleWith(((MDDBaseType*)aType)->getBaseType())) )
+        {
+            RMDBGMIDDLE(6, RMDebug::module_catalogif, "MDDDimensionType", "basetypes are not compatible");
+            retval = 0;
+        }
+        else
+        {
+            // check dimensionality
+            if( ((MDDType*)aType)->getSubtype() == MDDDIMENSIONTYPE )
+            {
+                RMDBGMIDDLE(6, RMDebug::module_catalogif, "MDDDimensionType", "check for dimension equality");
+                retval = (myDimension == ((MDDDimensionType*)aType)->getDimension());
+            }
+            else
+            {
+                if( ((MDDType*)aType)->getSubtype() == MDDDOMAINTYPE )
+                {
+                    RMDBGMIDDLE(6, RMDebug::module_catalogif, "MDDDimensionType", "check for dimension equality");
+                    retval = ( ((MDDDimensionType*)this)->myDimension == ((MDDDomainType*)aType)->getDomain()->dimension() );
+                }
+            }
+        }
+    }
+    RMDBGEXIT(5, RMDebug::module_catalogif, "MDDDimensionType", "compatibleWith(" << aType->getName() << ") " << getName() << " " << retval);
+    return retval;
+}
 

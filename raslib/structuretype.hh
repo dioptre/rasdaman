@@ -34,11 +34,11 @@
 #define _D_STRUCTURE_TYPE_
 
 #if (defined(__VISUALC__) && !defined(__EXECUTABLE__))
-  #define __EXECUTABLE__
-  #include "raslib/itertype.hh"
-  #undef  __EXECUTABLE__
+#define __EXECUTABLE__
+#include "raslib/itertype.hh"
+#undef  __EXECUTABLE__
 #else
-  #include "raslib/itertype.hh"
+#include "raslib/itertype.hh"
 #endif
 
 class r_Error;
@@ -49,67 +49,67 @@ class r_Error;
 //@ManMemo: Module: {\bf raslib}
 
 /*@Doc:
-  This class represents all user defined structured types in the 
+  This class represents all user defined structured types in the
   ODMG conformant representation of the RasDaMan type system.
 */
 
 class r_Structure_Type : public r_Base_Type
 {
 public:
-  /// typedef for iterator iterating through all attributes;
-  typedef r_IterType<r_Attribute> attribute_iterator;
-  /// default constructor.
-  r_Structure_Type();
-  /// constructor getting name of type and type id.
-  r_Structure_Type( char* newTypeName, unsigned int newNumAttrs, r_Attribute* newAttrs, int offset = 0 );
-  /// copy constructor
-  r_Structure_Type( const r_Structure_Type& oldObj );
-  /// assignment operator.
-  const r_Structure_Type& operator=( const r_Structure_Type& oldObj );
-  /// destructor.
-  virtual ~r_Structure_Type();
- 
-  /// clone operation
-  virtual r_Type* clone() const;
+    /// typedef for iterator iterating through all attributes;
+    typedef r_IterType<r_Attribute> attribute_iterator;
+    /// default constructor.
+    r_Structure_Type();
+    /// constructor getting name of type and type id.
+    r_Structure_Type( char* newTypeName, unsigned int newNumAttrs, r_Attribute* newAttrs, int offset = 0 );
+    /// copy constructor
+    r_Structure_Type( const r_Structure_Type& oldObj );
+    /// assignment operator.
+    const r_Structure_Type& operator=( const r_Structure_Type& oldObj );
+    /// destructor.
+    virtual ~r_Structure_Type();
 
-  /// retrieve id of the type.
-  virtual r_Type::r_Type_Id type_id() const;
+    /// clone operation
+    virtual r_Type* clone() const;
 
-  /// check, if type is primitive or structured.
-  virtual bool isStructType() const;
-  
-  /// check, if this type is compatible with myType (e.g. check the structure ignoring then names of atributtes)
-  virtual bool compatibleWith(const r_Structure_Type* myType) const;  
+    /// retrieve id of the type.
+    virtual r_Type::r_Type_Id type_id() const;
 
-  /// returns attribute iterator at begin position.
-  attribute_iterator defines_attribute_begin() const;
-  /// returns attribute iterator at end position (behind last attribute).
-  attribute_iterator defines_attribute_end() const;
-  /// return attribute specified by name.
-  r_Attribute resolve_attribute(const char* name) const throw( r_Error );
-  /// return attribute specified by number starting with zero.
-  r_Attribute resolve_attribute(unsigned int number) const throw( r_Error );
-  /// subscript operator to access attributes by index 
-  r_Attribute operator[]( unsigned int number ) const throw( r_Error );
+    /// check, if type is primitive or structured.
+    virtual bool isStructType() const;
 
-  /// get number of attributes
-  unsigned int count_elements() const;
+    /// check, if this type is compatible with myType (e.g. check the structure ignoring then names of atributtes)
+    virtual bool compatibleWith(const r_Structure_Type* myType) const;
 
-  /// converts array of cells from NT byte order to Unix byte order.
-  virtual void convertToLittleEndian(char* cells, r_Area noCells) const;
+    /// returns attribute iterator at begin position.
+    attribute_iterator defines_attribute_begin() const;
+    /// returns attribute iterator at end position (behind last attribute).
+    attribute_iterator defines_attribute_end() const;
+    /// return attribute specified by name.
+    r_Attribute resolve_attribute(const char* name) const throw( r_Error );
+    /// return attribute specified by number starting with zero.
+    r_Attribute resolve_attribute(unsigned int number) const throw( r_Error );
+    /// subscript operator to access attributes by index
+    r_Attribute operator[]( unsigned int number ) const throw( r_Error );
 
-  /// converts array of cells from Unix byte order to NT byte order.
-  virtual void convertToBigEndian(char* cells, r_Area noCells) const;
+    /// get number of attributes
+    unsigned int count_elements() const;
 
-  /// writes state of object to specified stream
-  virtual void print_status( std::ostream& s = std::cout ) const;  
+    /// converts array of cells from NT byte order to Unix byte order.
+    virtual void convertToLittleEndian(char* cells, r_Area noCells) const;
 
-  /// prints values of a structured type
-  virtual void print_value( const char* storage,  std::ostream& s = std::cout  ) const;   
+    /// converts array of cells from Unix byte order to NT byte order.
+    virtual void convertToBigEndian(char* cells, r_Area noCells) const;
+
+    /// writes state of object to specified stream
+    virtual void print_status( std::ostream& s = std::cout ) const;
+
+    /// prints values of a structured type
+    virtual void print_value( const char* storage,  std::ostream& s = std::cout  ) const;
 
 protected:
-  unsigned int numAttrs;
-  r_Attribute* myAttributes;
+    unsigned int numAttrs;
+    r_Attribute* myAttributes;
 };
 
 //@Doc: write the status of a structure type to a stream

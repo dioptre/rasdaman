@@ -37,11 +37,11 @@ class CollectionType;
 
 //@ManMemo: Module: {\bf mddif}
 /*@Doc:
-  MDDSet is the persistent class for collections of MDD objects. 
+  MDDSet is the persistent class for collections of MDD objects.
 
-  Each instance of MDDSet represents a collection stored in the base 
+  Each instance of MDDSet represents a collection stored in the base
   DBMS.
-  
+
   This class should only be used by DBMDDColl.
 */
 
@@ -49,132 +49,132 @@ class CollectionType;
   * \ingroup Relmddifs
   */
 
-class DBMDDSet	:	public DBNamedObject
-	{
-	public:	
-		DBMDDSet(const char* name, const CollectionType* type) throw (r_Error);
-		/*@Doc:
-			creates a new set
-		*/
+class DBMDDSet  :   public DBNamedObject
+{
+public:
+    DBMDDSet(const char* name, const CollectionType* type) throw (r_Error);
+    /*@Doc:
+        creates a new set
+    */
 
-		DBMDDSet(const char* name, const OId& id, const CollectionType* type) throw (r_Error);
-		/*@Doc:
-			creates a new set
-		*/
+    DBMDDSet(const char* name, const OId& id, const CollectionType* type) throw (r_Error);
+    /*@Doc:
+        creates a new set
+    */
 
-		static DBMDDSetId getDBMDDSet(const char* name) throw (r_Error);
+    static DBMDDSetId getDBMDDSet(const char* name) throw (r_Error);
 
-		static DBMDDSetId getDBMDDSet(const OId& id) throw (r_Error);
+    static DBMDDSetId getDBMDDSet(const OId& id) throw (r_Error);
 
-		static bool deleteDBMDDSet(const OId& id);
-		/*@Doc:
-			returns succes
-		*/
-		
-		static bool deleteDBMDDSet(const char* name);
-		/*@Doc:
-			returns succes
-		*/
+    static bool deleteDBMDDSet(const OId& id);
+    /*@Doc:
+        returns succes
+    */
 
-		virtual void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
+    static bool deleteDBMDDSet(const char* name);
+    /*@Doc:
+        returns succes
+    */
 
-		virtual void setPersistent(bool state) throw (r_Error);
-		/*@Doc:
-			throws r_Error when the mdd set may not be made persistent.
-		*/
+    virtual void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
 
-		void insert(DBMDDObjId newObj);
-		/*@Doc:
-			Inserts an object into the MDD Collection.
-			The persistent reference count of this DBMDDObj is updated.
-		*/
-		
-		DBMDDObjIdIter* newIterator() const;
-		/*@Doc:
-			Returns a new iterator for this collection.
-		*/
-		
-		unsigned int getCardinality() const;  
-		/*@Doc:
-			Returns the number of elements in the collection.
-		*/
-		
-		void remove(DBMDDObjId& obj);
-		/*@Doc:
-			Removes an object from the MDD Collection.
-			The persistent reference count of this DBMDDObj is updated.
-		*/
-		
-		void removeAll();  
-		/*@Doc:
-			Removes all objects from the MDD Collection.
-			The persistent reference count of the DBMDDObjs is updated.
-		*/
+    virtual void setPersistent(bool state) throw (r_Error);
+    /*@Doc:
+        throws r_Error when the mdd set may not be made persistent.
+    */
 
-		void releaseAll();
-		/*@Doc:
-			Releases all dynamic memory used by this collection.
-		*/
+    void insert(DBMDDObjId newObj);
+    /*@Doc:
+        Inserts an object into the MDD Collection.
+        The persistent reference count of this DBMDDObj is updated.
+    */
 
-		bool contains_element(const DBMDDObjId& elem) const;
-		/*@Doc:
-		*/
+    DBMDDObjIdIter* newIterator() const;
+    /*@Doc:
+        Returns a new iterator for this collection.
+    */
 
-		virtual ~DBMDDSet( );
-		/*@Doc:
-		*/
+    unsigned int getCardinality() const;
+    /*@Doc:
+        Returns the number of elements in the collection.
+    */
 
-		void deleteName();
-		/*@Doc:
-			sets the name of this object to a null string.
-			used by DatabaseIf::destroyRoot
-		*/
+    void remove(DBMDDObjId& obj);
+    /*@Doc:
+        Removes an object from the MDD Collection.
+        The persistent reference count of this DBMDDObj is updated.
+    */
 
-		virtual r_Bytes getMemorySize() const;
-		/*@Doc:
-		*/
+    void removeAll();
+    /*@Doc:
+        Removes all objects from the MDD Collection.
+        The persistent reference count of the DBMDDObjs is updated.
+    */
 
-		const CollectionType* getCollType() const;
-		/*@Doc:
-			Returns the collectiontype of this entry.
-		*/
-		
-	protected:
-		friend class ObjectBroker;
+    void releaseAll();
+    /*@Doc:
+        Releases all dynamic memory used by this collection.
+    */
 
-		typedef std::set<DBMDDObjId, std::less<DBMDDObjId> > DBMDDObjIdSet;
+    bool contains_element(const DBMDDObjId& elem) const;
+    /*@Doc:
+    */
 
-		DBMDDSet(const OId& id) throw (r_Error);
-		/*@Doc:
-			gets an existing coll from the db
-		*/
+    virtual ~DBMDDSet( );
+    /*@Doc:
+    */
 
-		virtual void updateInDb() throw(r_Error);
-		/*@Doc:
-		*/
+    void deleteName();
+    /*@Doc:
+        sets the name of this object to a null string.
+        used by DatabaseIf::destroyRoot
+    */
 
-		virtual void insertInDb() throw(r_Error);
-		/*@Doc:
-		*/
+    virtual r_Bytes getMemorySize() const;
+    /*@Doc:
+    */
 
-		virtual void readFromDb() throw(r_Error);
-		/*@Doc:
-		*/
+    const CollectionType* getCollType() const;
+    /*@Doc:
+        Returns the collectiontype of this entry.
+    */
 
-		virtual void deleteFromDb() throw(r_Error);
-		/*@Doc:
-		*/
+protected:
+    friend class ObjectBroker;
 
-	private:
-		DBMDDObjIdSet mySet;
-		/*@Doc:
-			Memory representation of the list of oids of DBMDDObjs.
-		*/
+    typedef std::set<DBMDDObjId, std::less<DBMDDObjId> > DBMDDObjIdSet;
 
-		const CollectionType* collType;
-		/*@Doc:
-			Pointer to the collectiontype.
-		*/
-	};
-   
+    DBMDDSet(const OId& id) throw (r_Error);
+    /*@Doc:
+        gets an existing coll from the db
+    */
+
+    virtual void updateInDb() throw(r_Error);
+    /*@Doc:
+    */
+
+    virtual void insertInDb() throw(r_Error);
+    /*@Doc:
+    */
+
+    virtual void readFromDb() throw(r_Error);
+    /*@Doc:
+    */
+
+    virtual void deleteFromDb() throw(r_Error);
+    /*@Doc:
+    */
+
+private:
+    DBMDDObjIdSet mySet;
+    /*@Doc:
+        Memory representation of the list of oids of DBMDDObjs.
+    */
+
+    const CollectionType* collType;
+    /*@Doc:
+        Pointer to the collectiontype.
+    */
+};
+
 #endif

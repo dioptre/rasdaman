@@ -50,22 +50,22 @@ See indexmgr/indexds.hh for documentation.
 
 Data to store:
 RAS_RCINDEXDYN
-	OId	NUMBER(15,0),
-	Count	NUMBER(3,0),
-	DynData	VARCHAR(3990)
+    OId NUMBER(15,0),
+    Count   NUMBER(3,0),
+    DynData VARCHAR(3990)
 NB: under Oracle 9i, Dyndata is defined as:
-	DynData	BLOB NOT NULL
+    DynData BLOB NOT NULL
 This should be done for the other systems too,
 as VARCHAR usually is subject to charset translation
 which we don't want on our binary data.
 
 DynData holds: r_Dimension, OId::OIdType, OId::OIdCounter, InlineMinterval, InlineMinterval
 As:
-	r_Dimension	dimension	4
-	OId::OIdType	myBaseOIdType	2
-	OId::OIdCounter	myBaseCounter	4
-	unsigned int	mySize		4
-	InlineMinterval	myDomain	10 * dim
+    r_Dimension dimension   4
+    OId::OIdType    myBaseOIdType   2
+    OId::OIdCounter myBaseCounter   4
+    unsigned int    mySize      4
+    InlineMinterval myDomain    10 * dim
 
 */
 /**
@@ -76,143 +76,143 @@ As:
   * \ingroup Relindexifs
   */
 
-class DBRCIndexDS	:	public IndexDS
-	{
-	public:
-		DBRCIndexDS(const r_Minterval& definedDomain, unsigned int numberTiles, OId::OIdType theEntryType = OId::BLOBOID);
-		/*@Doc:
-			Create a new index which handles the domain definedDomain, with tiles of domain
-			tileConfig.  As soon as you create this index it will check if the tileConfig fits
-			the definedDomain (the tileConfig must completely cover the definedDomain) and then
-			allocate as many oids as are neccessary to fill the definedDomain.
-		*/
+class DBRCIndexDS   :   public IndexDS
+{
+public:
+    DBRCIndexDS(const r_Minterval& definedDomain, unsigned int numberTiles, OId::OIdType theEntryType = OId::BLOBOID);
+    /*@Doc:
+        Create a new index which handles the domain definedDomain, with tiles of domain
+        tileConfig.  As soon as you create this index it will check if the tileConfig fits
+        the definedDomain (the tileConfig must completely cover the definedDomain) and then
+        allocate as many oids as are neccessary to fill the definedDomain.
+    */
 
-		virtual r_Minterval getCoveredDomain() const;
-		/// return defined domain
-		
-		virtual r_Minterval getAssignedDomain() const;	
-		/// return defined domain
+    virtual r_Minterval getCoveredDomain() const;
+    /// return defined domain
 
-		virtual r_Minterval getObjectDomain(unsigned int pos) const;
-		/// throw r_Error_FeatureNotSupported
-		
-		virtual r_Dimension getDimension() const;
-		
-		virtual void setAssignedDomain(const r_Minterval& domain);
-		/// throw r_Error_FeatureNotSupported
-		
-		virtual unsigned int getSize() const;
-		/// this will return the maximum number of tiles that can be stored in the definedDomain.
-		
-		virtual r_Bytes getTotalStorageSize() const;
-		
-		virtual bool isValid() const;
-		/// returns true
+    virtual r_Minterval getAssignedDomain() const;
+    /// return defined domain
 
-		virtual bool isUnderFull() const;
-		/// returns false
+    virtual r_Minterval getObjectDomain(unsigned int pos) const;
+    /// throw r_Error_FeatureNotSupported
 
-		virtual bool isOverFull() const;
-		/// returns false
+    virtual r_Dimension getDimension() const;
 
-		virtual bool isSameAs(const IndexDS* pix) const; 
-		
-		virtual bool removeObject(unsigned int pos);
-		/// throw r_Error_FeatureNotSupported
-		
-		virtual bool removeObject(const KeyObject& theKey);
-		/// throw r_Error_FeatureNotSupported
+    virtual void setAssignedDomain(const r_Minterval& domain);
+    /// throw r_Error_FeatureNotSupported
 
-		virtual void insertObject(const KeyObject& theKey, unsigned int pos);
-		/// throw r_Error_FeatureNotSupported
+    virtual unsigned int getSize() const;
+    /// this will return the maximum number of tiles that can be stored in the definedDomain.
 
-		virtual void setObject(const KeyObject& theKey, unsigned int pos);
-		/// throw r_Error_FeatureNotSupported
+    virtual r_Bytes getTotalStorageSize() const;
 
-		virtual void setObjectDomain(const r_Minterval& dom, unsigned int pos);
-		/// throw r_Error_FeatureNotSupported
+    virtual bool isValid() const;
+    /// returns true
 
-		virtual const KeyObject& getObject(unsigned int pos) const;
-		/// throw r_Error_FeatureNotSupported
+    virtual bool isUnderFull() const;
+    /// returns false
 
-		virtual void getObjects(KeyObjectVector& objs) const;
-		/// throw r_Error_FeatureNotSupported
+    virtual bool isOverFull() const;
+    /// returns false
 
-		virtual unsigned int getOptimalSize() const;
-		/// returns the maximum number of entries that can be stored in this index
+    virtual bool isSameAs(const IndexDS* pix) const;
 
-		virtual void freeDS();
-		
-		virtual OId::OIdPrimitive getIdentifier() const;
-		
-		static r_Bytes BytesPerTupel; 
-		/*@Doc:
-			tuning parameter.  used to calculate the optimal size of
-			an index.  this is also the number of bytes written to the
-			database.
-		*/
+    virtual bool removeObject(unsigned int pos);
+    /// throw r_Error_FeatureNotSupported
 
-		virtual void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
+    virtual bool removeObject(const KeyObject& theKey);
+    /// throw r_Error_FeatureNotSupported
 
-		virtual ~DBRCIndexDS();
+    virtual void insertObject(const KeyObject& theKey, unsigned int pos);
+    /// throw r_Error_FeatureNotSupported
 
-		virtual void destroy();
+    virtual void setObject(const KeyObject& theKey, unsigned int pos);
+    /// throw r_Error_FeatureNotSupported
 
-		virtual IndexDS* getNewInstance() const;
-		/// throw r_Error_FeatureNotSupported
+    virtual void setObjectDomain(const r_Minterval& dom, unsigned int pos);
+    /// throw r_Error_FeatureNotSupported
 
-		virtual OId::OIdType getBaseOIdType() const;
-		
-		virtual OId::OIdCounter getBaseCounter() const;
+    virtual const KeyObject& getObject(unsigned int pos) const;
+    /// throw r_Error_FeatureNotSupported
 
-	protected:
-		friend class ObjectBroker;
-		/*@Doc:
-			ObjectBroker needs to access OId constructor
-		*/
+    virtual void getObjects(KeyObjectVector& objs) const;
+    /// throw r_Error_FeatureNotSupported
 
-		DBRCIndexDS(const OId& id);
-		/*@Doc:
-		*/
-	
-		virtual void readFromDb() throw (r_Error);
-		/*@Doc:
-		*/
+    virtual unsigned int getOptimalSize() const;
+    /// returns the maximum number of entries that can be stored in this index
 
-		virtual void updateInDb() throw (r_Error);
-		/*@Doc:
-		*/
+    virtual void freeDS();
 
-		virtual void deleteFromDb() throw (r_Error);
-		/*@Doc:
-		*/
+    virtual OId::OIdPrimitive getIdentifier() const;
 
-		virtual void insertInDb() throw (r_Error);
-		/*@Doc:
-		*/
+    static r_Bytes BytesPerTupel;
+    /*@Doc:
+        tuning parameter.  used to calculate the optimal size of
+        an index.  this is also the number of bytes written to the
+        database.
+    */
 
-		OId::OIdCounter myBaseCounter;
-		/*@Doc:
-			The first oid that will be used to store entries.
-		*/
+    virtual void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
 
-		OId::OIdType myBaseOIdType;
-		/*@Doc:
-			The type of objects to store in this index (most of the time this will be OId::BLOBOID).
-		*/
+    virtual ~DBRCIndexDS();
 
-		OId::OIdCounter mySize;
+    virtual void destroy();
 
-		InlineMinterval myDomain;
-		/*@Doc:
-			Defined domain of this index.
-		*/
+    virtual IndexDS* getNewInstance() const;
+    /// throw r_Error_FeatureNotSupported
 
-		short currentDbRows;
-		/*@Doc:
-			is needed to support update of index in database
-			keeps the number of rows currently taken up in the db by
-			this instance
-		*/
-	};
+    virtual OId::OIdType getBaseOIdType() const;
+
+    virtual OId::OIdCounter getBaseCounter() const;
+
+protected:
+    friend class ObjectBroker;
+    /*@Doc:
+        ObjectBroker needs to access OId constructor
+    */
+
+    DBRCIndexDS(const OId& id);
+    /*@Doc:
+    */
+
+    virtual void readFromDb() throw (r_Error);
+    /*@Doc:
+    */
+
+    virtual void updateInDb() throw (r_Error);
+    /*@Doc:
+    */
+
+    virtual void deleteFromDb() throw (r_Error);
+    /*@Doc:
+    */
+
+    virtual void insertInDb() throw (r_Error);
+    /*@Doc:
+    */
+
+    OId::OIdCounter myBaseCounter;
+    /*@Doc:
+        The first oid that will be used to store entries.
+    */
+
+    OId::OIdType myBaseOIdType;
+    /*@Doc:
+        The type of objects to store in this index (most of the time this will be OId::BLOBOID).
+    */
+
+    OId::OIdCounter mySize;
+
+    InlineMinterval myDomain;
+    /*@Doc:
+        Defined domain of this index.
+    */
+
+    short currentDbRows;
+    /*@Doc:
+        is needed to support update of index in database
+        keeps the number of rows currently taken up in the db by
+        this instance
+    */
+};
 #endif

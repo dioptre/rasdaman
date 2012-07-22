@@ -36,145 +36,145 @@ rasdaman GmbH.
  */
 void releaseClientBase(struct ClientBase *cb)
 {
-  // free Host
-  free(cb->Host.Name);
+    // free Host
+    free(cb->Host.Name);
 
-  // free Socket
-  //  struct sockaddr_in Socket;
+    // free Socket
+    //  struct sockaddr_in Socket;
 
-  // free TimeOut
-  //  struct timeval     TimeOut;
+    // free TimeOut
+    //  struct timeval     TimeOut;
 
-  // free Request
-  free(cb->Request.HeadBuff);
-  free(cb->Request.BodyBuff);
-  struct MsgHeader *dummy = NULL;
-  while(cb->Request.First != NULL)
+    // free Request
+    free(cb->Request.HeadBuff);
+    free(cb->Request.BodyBuff);
+    struct MsgHeader *dummy = NULL;
+    while(cb->Request.First != NULL)
     {
-       dummy = cb->Request.First->Next;
-       //free(cb->Request.First->Content);
-       free(cb->Request.First);
-       cb->Request.First = dummy;
+        dummy = cb->Request.First->Next;
+        //free(cb->Request.First->Content);
+        free(cb->Request.First);
+        cb->Request.First = dummy;
     }
-  free(cb->Request.Body);
-  free(cb->Request.Line.Vanilla);
+    free(cb->Request.Body);
+    free(cb->Request.Line.Vanilla);
 
-  // free Response
-  free(cb->Response.Head);
-  free(cb->Response.Body);
+    // free Response
+    free(cb->Response.Head);
+    free(cb->Response.Body);
 
 }
 
 
 /****** http/HandleRequest ***************************************************
-*                                                                             
-*   NAME                                                                      
-*       HandleRequest -- main function for communication processing.          
-*                                                                             
-*   SYNOPSIS                                                                  
-*       void HandleRequest( struct ClientBase *Client,                        
-*                         SubServerPtr SubServerList );                       
-*                                                                             
-*   FUNCTION                                                                  
-*       This is the main function which handles the HTTP communication.       
-*       It calls successivley the functions for handling the request from     
-*       the client, opening the sockets to the sub-servers and sending        
-*       the rewritten requests to them, handling the responses and finally    
-*       sending a response to the client.                                     
-*                                                                             
-*   INPUTS                                                                    
-*       Client - Data structure which holds various informations about        
-*           the client.                                                       
-*       SubServerList - The head to a list of all sub-server data structures. 
-*                                                                             
-*   NOTES                                                                     
-*       "Client" and "SubServerList" must be valid - they will not be         
-*       checked. Since "Client" have to be valid in the previous call to      
-*       "Accept()" this shouldn't be much of a problem...                     
-*                                                                             
-*       This is "rewritten from scratch" version of "HandleRequest()"         
-*       since the old version seemed not suitable enough for expansion        
-*       to handle more error conditions in the communication, and for         
-*       integration of more features.                                         
-*                                                                             
-*   BUGS                                                                      
-*       Various left. Especially the authorization mechanism doesn't work     
-*       (yet). Also, some aspects of the HTTP aren't handled gracefully       
-*       (HTTP/0.9 messages, handling of other methods than GET, HEAD and      
-*       POST, etc.).                                                          
-*                                                                             
+*
+*   NAME
+*       HandleRequest -- main function for communication processing.
+*
+*   SYNOPSIS
+*       void HandleRequest( struct ClientBase *Client,
+*                         SubServerPtr SubServerList );
+*
+*   FUNCTION
+*       This is the main function which handles the HTTP communication.
+*       It calls successivley the functions for handling the request from
+*       the client, opening the sockets to the sub-servers and sending
+*       the rewritten requests to them, handling the responses and finally
+*       sending a response to the client.
+*
+*   INPUTS
+*       Client - Data structure which holds various informations about
+*           the client.
+*       SubServerList - The head to a list of all sub-server data structures.
+*
+*   NOTES
+*       "Client" and "SubServerList" must be valid - they will not be
+*       checked. Since "Client" have to be valid in the previous call to
+*       "Accept()" this shouldn't be much of a problem...
+*
+*       This is "rewritten from scratch" version of "HandleRequest()"
+*       since the old version seemed not suitable enough for expansion
+*       to handle more error conditions in the communication, and for
+*       integration of more features.
+*
+*   BUGS
+*       Various left. Especially the authorization mechanism doesn't work
+*       (yet). Also, some aspects of the HTTP aren't handled gracefully
+*       (HTTP/0.9 messages, handling of other methods than GET, HEAD and
+*       POST, etc.).
+*
 ******************************************************************************
 *
 */
 void HandleRequest( struct ClientBase *Client )
 {
-  struct ToDoArgs ToDo;
-  int             RespState;
+    struct ToDoArgs ToDo;
+    int             RespState;
 
-  ToDo.What       = DO_NOTHING;
-  ToDo.Which.Code = REALLY_NOTHING;
-  Client->Comm.ConnStatus = CONN_OPEN;
+    ToDo.What       = DO_NOTHING;
+    ToDo.Which.Code = REALLY_NOTHING;
+    Client->Comm.ConnStatus = CONN_OPEN;
 
-  while( Client->Comm.ConnStatus == CONN_OPEN )
+    while( Client->Comm.ConnStatus == CONN_OPEN )
     {
-      //LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): Reading Request.");
-      GetRequest( Client );
-      //LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): Parsing Request.");
-      ParseReqHeader( &Client->Request );
+        //LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): Reading Request.");
+        GetRequest( Client );
+        //LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): Parsing Request.");
+        ParseReqHeader( &Client->Request );
 
-      //LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): Interpreting Request.");
-      InterpreteRequest( Client, &ToDo );
-      switch( ToDo.What )
-	{
-	case DO_SEND_RESPONSE:
-	  //LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): doing InterpreteRequest.");
-          InterpretePOSTRequest( Client );
+        //LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): Interpreting Request.");
+        InterpreteRequest( Client, &ToDo );
+        switch( ToDo.What )
+        {
+        case DO_SEND_RESPONSE:
+            //LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): doing InterpreteRequest.");
+            InterpretePOSTRequest( Client );
 
-	  //LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): doing CreateRasResponse.");
-	  CreateRasResponse( &Client->Comm, Client );
-	  /*          
-          LogMsg( LG_SERVER, DEBUG, "DEBUG:   SendResponse() for Request: \"%s\".", 
-	          Client->Request.Line.Vanilla );
-	  */
-          
-          SendHTTPMsg( Client->SockFD, &Client->Response );
-	  WriteAccessLog( Client );
-	  LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): SEND_RESPONSE done.");
-	  break;
+            //LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): doing CreateRasResponse.");
+            CreateRasResponse( &Client->Comm, Client );
+            /*
+                LogMsg( LG_SERVER, DEBUG, "DEBUG:   SendResponse() for Request: \"%s\".",
+                    Client->Request.Line.Vanilla );
+            */
 
-	case DO_SEND_ERROR:
-	  LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): doing SEND_ERROR." );
-	  Client->RespStatus = ToDo.Which.Code;
-	  LogMsg( LG_SERVER, DEBUG, "DEBUG:   CreateHTTPError( %d, -, %p )...",
-		  Client->RespStatus, &Client->Response );
-	  CreateHTTPError( Client->RespStatus, &Client->Comm, &Client->Response );
-	  LogMsg( LG_SERVER, DEBUG, "DEBUG:   CreateHTTPError() done." );
-	  LogMsg( LG_SERVER, DEBUG, "DEBUG:   SendResponse()..." );
-	  SendResponse( Client );
-	  LogMsg( LG_SERVER, DEBUG, "DEBUG:   SendResponse() done." );
-	  LogMsg( LG_SERVER, DEBUG, "DEBUG:   Write*Log()..." );	  
-	  WriteAccessLog( Client );
-	  LogMsg( LG_SERVER, DEBUG, "DEBUG:   WriteLog() done." );
-	  LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): SEND_ERROR done.");
-	  break;
+            SendHTTPMsg( Client->SockFD, &Client->Response );
+            WriteAccessLog( Client );
+            LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): SEND_RESPONSE done.");
+            break;
 
-	case DO_SHUTDOWN:
-	  LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): doing SHUTDOWN.");
-	  close( Client->SockFD );
-	  LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): SHUTDOWN done.");
-	  break;
+        case DO_SEND_ERROR:
+            LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): doing SEND_ERROR." );
+            Client->RespStatus = ToDo.Which.Code;
+            LogMsg( LG_SERVER, DEBUG, "DEBUG:   CreateHTTPError( %d, -, %p )...",
+                    Client->RespStatus, &Client->Response );
+            CreateHTTPError( Client->RespStatus, &Client->Comm, &Client->Response );
+            LogMsg( LG_SERVER, DEBUG, "DEBUG:   CreateHTTPError() done." );
+            LogMsg( LG_SERVER, DEBUG, "DEBUG:   SendResponse()..." );
+            SendResponse( Client );
+            LogMsg( LG_SERVER, DEBUG, "DEBUG:   SendResponse() done." );
+            LogMsg( LG_SERVER, DEBUG, "DEBUG:   Write*Log()..." );
+            WriteAccessLog( Client );
+            LogMsg( LG_SERVER, DEBUG, "DEBUG:   WriteLog() done." );
+            LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): SEND_ERROR done.");
+            break;
 
-	default:
-	  LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): doing UNDEFINED ACTION.");
-	  ErrorMsg( E_PRIV, ERROR, "ERROR: HandleRequest(): Undefined action!" );
-	  Client->RespStatus = STATUS_Internal_Server_Error;
-	  CreateHTTPError( Client->RespStatus, &Client->Comm, &Client->Response );
-	  SendResponse( Client );
-	  WriteAccessLog( Client );
-	  LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): UNDEFINED ACTION done.");
-	  break;
-	}
-    releaseClientBase(Client);
+        case DO_SHUTDOWN:
+            LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): doing SHUTDOWN.");
+            close( Client->SockFD );
+            LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): SHUTDOWN done.");
+            break;
+
+        default:
+            LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): doing UNDEFINED ACTION.");
+            ErrorMsg( E_PRIV, ERROR, "ERROR: HandleRequest(): Undefined action!" );
+            Client->RespStatus = STATUS_Internal_Server_Error;
+            CreateHTTPError( Client->RespStatus, &Client->Comm, &Client->Response );
+            SendResponse( Client );
+            WriteAccessLog( Client );
+            LogMsg( LG_SERVER, DEBUG, "DEBUG: HandleRequest(): UNDEFINED ACTION done.");
+            break;
+        }
+        releaseClientBase(Client);
 
     }
 }

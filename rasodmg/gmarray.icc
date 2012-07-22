@@ -27,39 +27,39 @@ rasdaman GmbH.
  * CLASS:   r_GMarray
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
- 
- 
+
+
 inline const r_Minterval&
 r_GMarray::spatial_domain() const
 {
-  return domain;
+    return domain;
 };
 
 
 
 inline char*
-r_GMarray::get_array() 
+r_GMarray::get_array()
 {
-  return data;
+    return data;
 };
 
 
 inline const char*
 r_GMarray::get_array() const
 {
-  return data;
+    return data;
 }
 
 
 inline void
 r_GMarray::set_array( char* newData )
 {
-  // In case the array already has an array allocated, free it first.
+    // In case the array already has an array allocated, free it first.
 //  if (data != NULL) delete [] data;
-  data = newData;
+    data = newData;
 };
 
 
@@ -67,7 +67,7 @@ r_GMarray::set_array( char* newData )
 inline void
 r_GMarray::set_current_format( r_Data_Format newFormat )
 {
-  current_format = newFormat;
+    current_format = newFormat;
 };
 
 
@@ -75,7 +75,7 @@ r_GMarray::set_current_format( r_Data_Format newFormat )
 inline r_Bytes
 r_GMarray::get_type_length() const
 {
-  return type_length;
+    return type_length;
 };
 
 
@@ -83,7 +83,7 @@ r_GMarray::get_type_length() const
 inline r_Bytes
 r_GMarray::get_array_size() const
 {
-  return data_size;
+    return data_size;
 };
 
 
@@ -91,7 +91,7 @@ r_GMarray::get_array_size() const
 inline r_Data_Format
 r_GMarray::get_current_format() const
 {
-  return current_format;
+    return current_format;
 };
 
 
@@ -99,7 +99,7 @@ r_GMarray::get_current_format() const
 inline void
 r_GMarray::set_spatial_domain( const r_Minterval& dom )
 {
-  domain = dom;
+    domain = dom;
 };
 
 
@@ -107,7 +107,7 @@ r_GMarray::set_spatial_domain( const r_Minterval& dom )
 inline void
 r_GMarray::set_type_length( r_Bytes newValue )
 {
-  type_length = newValue;
+    type_length = newValue;
 }
 
 
@@ -115,5 +115,5 @@ r_GMarray::set_type_length( r_Bytes newValue )
 inline void
 r_GMarray::set_array_size( r_Bytes newValue )
 {
-  data_size = newValue;
+    data_size = newValue;
 }

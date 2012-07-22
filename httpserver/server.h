@@ -42,7 +42,7 @@ rasdaman GmbH.
 #include    <sys/wait.h>
 
 #ifndef AIX
-	#include    <sys/fcntl.h>
+#include    <sys/fcntl.h>
 #endif
 
 #include    <fcntl.h>
@@ -61,129 +61,129 @@ rasdaman GmbH.
 
 struct HTTPRequest
 {
-  char *Database;
-  int   Command;
-  char *QueryString;
-  int   ClientType;
-  char *ClientID;
-  int   Endianess;
-  int   NumberOfQueryParams;
-  char *BinData;
-  int   BinDataSize;
-  char *Capability;
+    char *Database;
+    int   Command;
+    char *QueryString;
+    int   ClientType;
+    char *ClientID;
+    int   Endianess;
+    int   NumberOfQueryParams;
+    char *BinData;
+    int   BinDataSize;
+    char *Capability;
 };
 
 union WhichArg
 {
-  int          Code;
+    int          Code;
 };
 
 struct ToDoArgs
 {
-  int            What;
-  union WhichArg Which;
+    int            What;
+    union WhichArg Which;
 };
 
 struct FDsets
 {
-  int       MaxFD;
-  fd_set    Read;
-  fd_set    Write;
+    int       MaxFD;
+    fd_set    Read;
+    fd_set    Write;
 };
 
 struct LogFile
 {
-  char     *Filename;
-  int       FD;
-  int       State;
+    char     *Filename;
+    int       FD;
+    int       State;
 };
 
 
 struct Logging
 {
-  int                Mode;
-  struct LogFile     Server;
-  struct LogFile     Access;
-  struct LogFile     Comm;
+    int                Mode;
+    struct LogFile     Server;
+    struct LogFile     Access;
+    struct LogFile     Comm;
 };
 
 struct ChildBase
 {
-  struct ChildBase *next;
-  struct ChildBase *prev;
-  pid_t             PId;
-  int               PD[2];
-  int               PipeStatus;
+    struct ChildBase *next;
+    struct ChildBase *prev;
+    pid_t             PId;
+    int               PD[2];
+    int               PipeStatus;
 };
 
 
 struct Host
 {
-  char             *Name;
-  char              IPAddrString[ 16 ];
+    char             *Name;
+    char              IPAddrString[ 16 ];
 #ifdef NO_in_addr_t
-  unsigned long     IPAddress;
+    unsigned long     IPAddress;
 #else
-  in_addr_t         IPAddress; 
+    in_addr_t         IPAddress;
 #endif
 };
 
 
 struct HTTPMode
 {
-  int Protocol;
-  int ConnStatus;
+    int Protocol;
+    int ConnStatus;
 };
 
 
 struct ClientBase
 {
-  /*   Client Host Infos    */
-  struct Host        Host;
-  int                ClientType;
-  /*        Socket          */
-  int                SockFD;
-  struct sockaddr_in Socket;
-  int                SockSize;
-  /*    select() timeout    */
-  struct timeval     TimeOut;
+    /*   Client Host Infos    */
+    struct Host        Host;
+    int                ClientType;
+    /*        Socket          */
+    int                SockFD;
+    struct sockaddr_in Socket;
+    int                SockSize;
+    /*    select() timeout    */
+    struct timeval     TimeOut;
 
-  struct HTTPMode    Comm;
-  /*        Request         */
-  struct ReqInfo     Request;
-  /*        Response        */
-  struct HTTPMsg     Response;
-  int                RespStatus;
-  /* Pipe to Parent process */
-  int                Pipe;
-  char               PipeBuffer[PIPE_BUFFSIZE];
+    struct HTTPMode    Comm;
+    /*        Request         */
+    struct ReqInfo     Request;
+    /*        Response        */
+    struct HTTPMsg     Response;
+    int                RespStatus;
+    /* Pipe to Parent process */
+    int                Pipe;
+    char               PipeBuffer[PIPE_BUFFSIZE];
 };
 
 
 struct ServerBase
 {
-  pid_t              PId;
-  /* -- Config.Information  */
-  struct Host        Host;
-  int                Port;
-  char              *AdminMailAddress;
-  char              *Directory;
-  char              *ConfigFile;
-  char              *PidFile;
-  //char              *CacheFile;
-  size_t             MaxURLLength;
-  /* -- Status Information  */
-  int                Status;
-  struct ChildBase  *ChildList;
-  struct FDsets      PipeSets;
-  /* -- Global Data         */
-  struct Logging     Log;
-  struct CacheNode  *Cache;
-  /* -- Server Socket       */
-  int                SockFD;
-  struct sockaddr_in Socket;
-  /* -- Client Information  */
-  struct ClientBase  Client;
+    pid_t              PId;
+    /* -- Config.Information  */
+    struct Host        Host;
+    int                Port;
+    char              *AdminMailAddress;
+    char              *Directory;
+    char              *ConfigFile;
+    char              *PidFile;
+    //char              *CacheFile;
+    size_t             MaxURLLength;
+    /* -- Status Information  */
+    int                Status;
+    struct ChildBase  *ChildList;
+    struct FDsets      PipeSets;
+    /* -- Global Data         */
+    struct Logging     Log;
+    struct CacheNode  *Cache;
+    /* -- Server Socket       */
+    int                SockFD;
+    struct sockaddr_in Socket;
+    /* -- Client Information  */
+    struct ClientBase  Client;
 };
 
 

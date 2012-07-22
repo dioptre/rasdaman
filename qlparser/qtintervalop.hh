@@ -41,14 +41,14 @@ rasdaman GmbH.
 //@ManMemo: Module: {\bf qlparser}
 
 /*@Doc:
- 
+
   The class represents the root of an interval expression.
 
 */
 
 class QtIntervalOp : public QtBinaryOperation
 {
-  public:
+public:
     /// constructor getting the two operands
     QtIntervalOp( QtOperation* input1, QtOperation* input2 );
 
@@ -60,7 +60,7 @@ class QtIntervalOp : public QtBinaryOperation
     /**
      */
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -72,7 +72,7 @@ class QtIntervalOp : public QtBinaryOperation
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };

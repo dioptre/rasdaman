@@ -24,7 +24,7 @@ rasdaman GmbH.
  *
  *
  * COMMENTS:
- * 
+ *
  *
  *
  ************************************************************/
@@ -66,244 +66,247 @@ extern QueryTree* parseQueryTree;
 
 int checkArguments( int argc, char** argv, const char* searchText, int& optionValueIndex )
 {
-  int found = 0;
-  int i=1;
+    int found = 0;
+    int i=1;
 
-  while( !found && i<argc )
-    found = !strcmp( searchText, argv[i++] );
+    while( !found && i<argc )
+        found = !strcmp( searchText, argv[i++] );
 
-  if( found && i<argc && !strchr(argv[i],'-') )
-    optionValueIndex = i;
-  else
-    optionValueIndex = 0;
+    if( found && i<argc && !strchr(argv[i],'-') )
+        optionValueIndex = i;
+    else
+        optionValueIndex = 0;
 
-  return found;
+    return found;
 }
 
 
 int main( int argc, char** argv )
 {
-  FILE*  inFile;
-  char   baseName[255];
-  char   query[4096];
-  struct timezone tzp;
-  struct timeval  startTime, stopTime, deltaTime;
-  int    timeTest;
-  int    optionValueIndex;
-  int    noOutput;
+    FILE*  inFile;
+    char   baseName[255];
+    char   query[4096];
+    struct timezone tzp;
+    struct timeval  startTime, stopTime, deltaTime;
+    int    timeTest;
+    int    optionValueIndex;
+    int    noOutput;
 
-  if( checkArguments( argc, argv, "-h", optionValueIndex ) )
-  {
-    cout << "Usage: test_evaluate basename queryfile [options]" << endl;
-    cout << "Options: -h             ... this help" << endl;
-    cout << "         -l <file>      ... log is printed to <file> (default: server.log)" << endl;
-    cout << "         -l                 log is printed to standard out" << endl;
-    cout << "         -d <file>      ... debug output is printed to <file> (default: server.dbg)" << endl;
-    cout << "         -d                 debug output is printed to standard out" << endl;
-    cout << "         -dl n          ... debug level is set to n (0-4, default: 0)" << endl;
-    cout << "                            - 0 = no / 4 = maximal debug information" << endl;
-    cout << "         -t                 time test is enabled" << endl;
-    cout << "         -nooutput      ... no output of result" << endl;
-    cout << endl;
-    return 0;
-  }
-
-  strcpy( baseName, argv[1] );
-
-  if( checkArguments( argc, argv, "-l", optionValueIndex ) )
-    if( optionValueIndex )
+    if( checkArguments( argc, argv, "-h", optionValueIndex ) )
     {
-      RMInit::logFileOut.open( argv[optionValueIndex] );
-      //      RMInit::logOut = RMInit::logFileOut;
+        cout << "Usage: test_evaluate basename queryfile [options]" << endl;
+        cout << "Options: -h             ... this help" << endl;
+        cout << "         -l <file>      ... log is printed to <file> (default: server.log)" << endl;
+        cout << "         -l                 log is printed to standard out" << endl;
+        cout << "         -d <file>      ... debug output is printed to <file> (default: server.dbg)" << endl;
+        cout << "         -d                 debug output is printed to standard out" << endl;
+        cout << "         -dl n          ... debug level is set to n (0-4, default: 0)" << endl;
+        cout << "                            - 0 = no / 4 = maximal debug information" << endl;
+        cout << "         -t                 time test is enabled" << endl;
+        cout << "         -nooutput      ... no output of result" << endl;
+        cout << endl;
+        return 0;
     }
-    else {
-      //     RMInit::logOut = cout.rdbuf();
-    }
-  else
-  {
-    // default
-    RMInit::logFileOut.open("server.log");
-    // RMInit::logOut = RMInit::logFileOut;
-  }
 
-  if( checkArguments( argc, argv, "-d", optionValueIndex ) )
-    if( optionValueIndex )
+    strcpy( baseName, argv[1] );
+
+    if( checkArguments( argc, argv, "-l", optionValueIndex ) )
+        if( optionValueIndex )
+        {
+            RMInit::logFileOut.open( argv[optionValueIndex] );
+            //      RMInit::logOut = RMInit::logFileOut;
+        }
+        else
+        {
+            //     RMInit::logOut = cout.rdbuf();
+        }
+    else
     {
-      RMInit::dbgFileOut.open( argv[optionValueIndex] );
-      // RMInit::dbgOut = RMInit::dbgFileOut;
+        // default
+        RMInit::logFileOut.open("server.log");
+        // RMInit::logOut = RMInit::logFileOut;
     }
-    else {
-      // RMInit::logOut = cout.rdbuf();
-    }
-  else
-  {
-    // default
-    RMInit::dbgFileOut.open("server.dbg");
-    // RMInit::dbgOut = RMInit::dbgFileOut;
-  }
 
-  if( checkArguments( argc, argv, "-dl", optionValueIndex ) )
-    if( optionValueIndex )
-      RManDebug = (int)strtoul( argv[optionValueIndex], (char **)NULL, 10);
-
-  timeTest = checkArguments( argc, argv, "-t", optionValueIndex );
-  noOutput = checkArguments( argc, argv, "-nooutput", optionValueIndex );
-
-  inFile = fopen( argv[2], "r" );
-
-  if( inFile == NULL )
-  {
-    cout << "Error opening query file " << argv[2] << endl;
-    return -1;
-  }
-
-  fread( &query, 1, 4095, inFile );
-  fclose( inFile );
-
-  cout << endl << "Query:" << endl << endl << query << endl;
-
-  //
-  // open database, start transaction
-  //
-
-  // variables representing O2 database, ta and session
-  DatabaseIf    db;
-  TransactionIf ta;
-
-  // don't forget to initialize before using AdminIf!
-  cout << "Connecting to O2 ..." << flush; 
-  myExecArgv0 = argv[0];
-  AdminIf* myAdmin = AdminIf::instance();
-  cout << "OK" << endl;
-
-  // connect to the database
-  cout << "Opening database " << baseName << "... " << flush;
-  db.open( baseName );
-  cout << "OK" << endl;
-
-  cout << "Starting transaction ... " << flush;
-  ta.begin(&db);
-  cout << "OK" << endl;
-
-  //
-  // body of test program
-  //
-
-  beginParseString = query;
-  iterParseString  = query;
-
-  parseQueryTree = new QueryTree();   // create a query tree object...
-
-  if( timeTest )
-   gettimeofday (&startTime, &tzp);
-
-  RMInit::logOut << "Parsing..." << flush;
-
-  if( yyparse() == 0 )
-  {
-    RMInit::logOut << "OK" << endl << endl;
-
-    parseQueryTree->printTree( 2, RMInit::logOut );
-    RMInit::logOut << endl;
-
-    parseQueryTree->getRoot()->printAlgebraicExpression();
-    cout << endl << endl;
-
-    RMInit::logOut << "Evaluating... " << flush;
-
-    vector<QtData*>*    transColl = 0;
-
-    try
+    if( checkArguments( argc, argv, "-d", optionValueIndex ) )
+        if( optionValueIndex )
+        {
+            RMInit::dbgFileOut.open( argv[optionValueIndex] );
+            // RMInit::dbgOut = RMInit::dbgFileOut;
+        }
+        else
+        {
+            // RMInit::logOut = cout.rdbuf();
+        }
+    else
     {
-      transColl = parseQueryTree->evaluateRetrieval();
+        // default
+        RMInit::dbgFileOut.open("server.dbg");
+        // RMInit::dbgOut = RMInit::dbgFileOut;
     }
-    catch( ParseInfo& info )
+
+    if( checkArguments( argc, argv, "-dl", optionValueIndex ) )
+        if( optionValueIndex )
+            RManDebug = (int)strtoul( argv[optionValueIndex], (char **)NULL, 10);
+
+    timeTest = checkArguments( argc, argv, "-t", optionValueIndex );
+    noOutput = checkArguments( argc, argv, "-nooutput", optionValueIndex );
+
+    inFile = fopen( argv[2], "r" );
+
+    if( inFile == NULL )
     {
-      RMInit::logOut << endl << "Query Execution Error" << endl;
-      info.printStatus();
-      cout << endl;
-
-      return 0;
+        cout << "Error opening query file " << argv[2] << endl;
+        return -1;
     }
 
-    RMInit::logOut << "OK" << endl << endl;
+    fread( &query, 1, 4095, inFile );
+    fclose( inFile );
+
+    cout << endl << "Query:" << endl << endl << query << endl;
+
+    //
+    // open database, start transaction
+    //
+
+    // variables representing O2 database, ta and session
+    DatabaseIf    db;
+    TransactionIf ta;
+
+    // don't forget to initialize before using AdminIf!
+    cout << "Connecting to O2 ..." << flush;
+    myExecArgv0 = argv[0];
+    AdminIf* myAdmin = AdminIf::instance();
+    cout << "OK" << endl;
+
+    // connect to the database
+    cout << "Opening database " << baseName << "... " << flush;
+    db.open( baseName );
+    cout << "OK" << endl;
+
+    cout << "Starting transaction ... " << flush;
+    ta.begin(&db);
+    cout << "OK" << endl;
+
+    //
+    // body of test program
+    //
+
+    beginParseString = query;
+    iterParseString  = query;
+
+    parseQueryTree = new QueryTree();   // create a query tree object...
 
     if( timeTest )
+        gettimeofday (&startTime, &tzp);
+
+    RMInit::logOut << "Parsing..." << flush;
+
+    if( yyparse() == 0 )
     {
-      gettimeofday(&stopTime, &tzp);
+        RMInit::logOut << "OK" << endl << endl;
 
-      if(startTime.tv_usec > stopTime.tv_usec) {
-        stopTime.tv_usec += 1000000;
-        stopTime.tv_sec--;
-      }
+        parseQueryTree->printTree( 2, RMInit::logOut );
+        RMInit::logOut << endl;
 
-      deltaTime.tv_usec = stopTime.tv_usec - startTime.tv_usec;
-      deltaTime.tv_sec  = stopTime.tv_sec  - startTime.tv_sec;
+        parseQueryTree->getRoot()->printAlgebraicExpression();
+        cout << endl << endl;
 
-      cout << "Time for query processing " << deltaTime.tv_sec << " sec " << deltaTime.tv_usec << " msec " << endl;
-    }
+        RMInit::logOut << "Evaluating... " << flush;
 
-    vector<QtData*>::iterator  transIter;
-    int collNum;
-    collNum = transColl->size();
+        vector<QtData*>*    transColl = 0;
 
-    cout << "The result collection has " << collNum << " entries." << endl;
-
-    if( transColl != 0 && !noOutput )
-    {
-      int i;
-
-      for( transIter = transColl->begin(), i=0; transIter != transColl->end(); transIter++, i++ )
-      {
-        QtData* mddObj = *transIter;
-
-        cout << endl << "    --" << i << ". MDD object in set:" << endl << "   ";
-        mddObj->printStatus();
-
-        /*vector<Tile* >* tiles = mddObj->getTiles();
-        vector<Tile* >::iterator tileIter;
-
-        for( tileIter = tiles->begin(); tileIter!=tiles->end(); tileIter++ )
+        try
         {
-          cout << endl << "   Tile" << endl;
-          (*tileIter)->printStatus();
+            transColl = parseQueryTree->evaluateRetrieval();
+        }
+        catch( ParseInfo& info )
+        {
+            RMInit::logOut << endl << "Query Execution Error" << endl;
+            info.printStatus();
+            cout << endl;
+
+            return 0;
         }
 
-        // delete the Tile elements of the vector and the vector itself
-        // release( tiles->begin(), tiles->end() );
-        for( tileIter = tiles->begin(); tileIter!=tiles->end(); tileIter++ )
-          delete *tileIter;
-       
-	  delete tiles;*/
-	}
+        RMInit::logOut << "OK" << endl << endl;
 
-      // release dynamic memory for the collection (delete MDDObjs)
-      // transColl->eraseAll();
-      delete transColl;
+        if( timeTest )
+        {
+            gettimeofday(&stopTime, &tzp);
 
-      // delete transIter;
-    };
+            if(startTime.tv_usec > stopTime.tv_usec)
+            {
+                stopTime.tv_usec += 1000000;
+                stopTime.tv_sec--;
+            }
 
-  }
-  else
-    RMInit::logOut << "  failed" << endl;
+            deltaTime.tv_usec = stopTime.tv_usec - startTime.tv_usec;
+            deltaTime.tv_sec  = stopTime.tv_sec  - startTime.tv_sec;
 
-  delete parseQueryTree;
+            cout << "Time for query processing " << deltaTime.tv_sec << " sec " << deltaTime.tv_usec << " msec " << endl;
+        }
 
-  //
-  // end of body
-  //
-   
-  cout << "Committing transaction ... " << flush;
-  ta.commit();
-  cout << "OK" << endl;
+        vector<QtData*>::iterator  transIter;
+        int collNum;
+        collNum = transColl->size();
 
-  cout << "Closing database ..." << flush;
-  db.close();
-  cout << "OK" << endl;
-  cout << "Ending O2 session ..." << endl;
-  delete myAdmin;
-  cout << "OK" << endl;
+        cout << "The result collection has " << collNum << " entries." << endl;
 
-  return 0;
-}   
+        if( transColl != 0 && !noOutput )
+        {
+            int i;
+
+            for( transIter = transColl->begin(), i=0; transIter != transColl->end(); transIter++, i++ )
+            {
+                QtData* mddObj = *transIter;
+
+                cout << endl << "    --" << i << ". MDD object in set:" << endl << "   ";
+                mddObj->printStatus();
+
+                /*vector<Tile* >* tiles = mddObj->getTiles();
+                vector<Tile* >::iterator tileIter;
+
+                for( tileIter = tiles->begin(); tileIter!=tiles->end(); tileIter++ )
+                {
+                  cout << endl << "   Tile" << endl;
+                  (*tileIter)->printStatus();
+                }
+
+                // delete the Tile elements of the vector and the vector itself
+                // release( tiles->begin(), tiles->end() );
+                for( tileIter = tiles->begin(); tileIter!=tiles->end(); tileIter++ )
+                  delete *tileIter;
+
+                delete tiles;*/
+            }
+
+            // release dynamic memory for the collection (delete MDDObjs)
+            // transColl->eraseAll();
+            delete transColl;
+
+            // delete transIter;
+        };
+
+    }
+    else
+        RMInit::logOut << "  failed" << endl;
+
+    delete parseQueryTree;
+
+    //
+    // end of body
+    //
+
+    cout << "Committing transaction ... " << flush;
+    ta.commit();
+    cout << "OK" << endl;
+
+    cout << "Closing database ..." << flush;
+    db.close();
+    cout << "OK" << endl;
+    cout << "Ending O2 session ..." << endl;
+    delete myAdmin;
+    cout << "OK" << endl;
+
+    return 0;
+}

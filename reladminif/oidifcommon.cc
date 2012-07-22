@@ -25,7 +25,7 @@ rasdaman GmbH.
  *
  *
  * PURPOSE:
- *	code common to all database interface implementations
+ *  code common to all database interface implementations
  *
  *
  * COMMENTS:
@@ -89,324 +89,331 @@ OId::maxCounter = 20;
 
 const char*
 OId::counterNames[] = { "INVALID",
-			"MDDOID",
-			"MDDCOLLOID",
-			"MDDTYPEOID",
-			"MDDBASETYPEOID",
-			"MDDDIMTYPEOID",
-			"MDDDOMTYPEOID",
-			"STRUCTTYPEOID",
-			"SETTYPEOID",
-			"BLOBOID",
-			"DBMINTERVALOID",
-			"STORAGEOID",
-			"MDDHIERIXOID",
-			"INLINEINDEXOID",
-			"INLINETILEOID",
-			"INNEROID",
-			"ATOMICTYPEOID",
-			"UDFOID",
-			"UDFPACKAGEOID",
-			"MDDRCIXOID"
-			};
+                        "MDDOID",
+                        "MDDCOLLOID",
+                        "MDDTYPEOID",
+                        "MDDBASETYPEOID",
+                        "MDDDIMTYPEOID",
+                        "MDDDOMTYPEOID",
+                        "STRUCTTYPEOID",
+                        "SETTYPEOID",
+                        "BLOBOID",
+                        "DBMINTERVALOID",
+                        "STORAGEOID",
+                        "MDDHIERIXOID",
+                        "INLINEINDEXOID",
+                        "INLINETILEOID",
+                        "INNEROID",
+                        "ATOMICTYPEOID",
+                        "UDFOID",
+                        "UDFPACKAGEOID",
+                        "MDDRCIXOID"
+                      };
 
 OId::OIdCounter*
-OId::counterIds[] = {
-			NULL,
-			&nextMDDOID,
-			&nextMDDCOLLOID,
-			&nextMDDTYPEOID,
-			&nextMDDBASETYPEOID,
-			&nextMDDDIMTYPEOID,
-			&nextMDDDOMTYPEOID,
-			&nextSTRUCTTYPEOID,
-			&nextSETTYPEOID,
-			&nextBLOBOID,
-			&nextDBMINTERVALOID,
-			&nextSTORAGEOID,
-			&nextMDDHIERIXOID,
-			&nextMDDHIERIXOID,
-			&nextBLOBOID,
-			&nextBLOBOID,
-			&nextATOMICTYPEOID,
-			&nextUDFOID,
-			&nextUDFPACKAGEOID,
-			&nextMDDRCIXOID
-			};
+OId::counterIds[] =
+{
+    NULL,
+    &nextMDDOID,
+    &nextMDDCOLLOID,
+    &nextMDDTYPEOID,
+    &nextMDDBASETYPEOID,
+    &nextMDDDIMTYPEOID,
+    &nextMDDDOMTYPEOID,
+    &nextSTRUCTTYPEOID,
+    &nextSETTYPEOID,
+    &nextBLOBOID,
+    &nextDBMINTERVALOID,
+    &nextSTORAGEOID,
+    &nextMDDHIERIXOID,
+    &nextMDDHIERIXOID,
+    &nextBLOBOID,
+    &nextBLOBOID,
+    &nextATOMICTYPEOID,
+    &nextUDFOID,
+    &nextUDFPACKAGEOID,
+    &nextMDDRCIXOID
+};
 
 bool OId::loadedOk = false;
 
 void
 OId::allocateOId(OId& id, OIdType type, OIdCounter howMany)
-	{
-	RMDBGENTER(4, RMDebug::module_adminif, "OId", "allocateOId(" << id << ", " << (OIdType)type << ")");
-	if (howMany == 0)
-		{
-		RMInit::logOut << "OId::allocateOId(" << id << ", " << type << ", " << howMany << ") allocation of zero oids not supported" << endl;
-		throw r_Error(r_Error::r_Error_CreatingOIdFailed);
-		}
-	if (type == INVALID || type == INNEROID || type == ATOMICTYPEOID || type > maxCounter)
-		{
-		RMInit::logOut << "OIDs of the specified type (" << type << " cannot be allocated." << endl;
-		throw r_Error(r_Error::r_Error_CreatingOIdFailed);
-		}
-	else	{
-		id.oid = *counterIds[type];
-		*counterIds[type] = *counterIds[type] + howMany;
-		}
-	id.oidtype = type;
-	RMDBGEXIT(4, RMDebug::module_adminif, "OId", "allocateOId(" << id << ", " << type << ") ");
-	}
+{
+    RMDBGENTER(4, RMDebug::module_adminif, "OId", "allocateOId(" << id << ", " << (OIdType)type << ")");
+    if (howMany == 0)
+    {
+        RMInit::logOut << "OId::allocateOId(" << id << ", " << type << ", " << howMany << ") allocation of zero oids not supported" << endl;
+        throw r_Error(r_Error::r_Error_CreatingOIdFailed);
+    }
+    if (type == INVALID || type == INNEROID || type == ATOMICTYPEOID || type > maxCounter)
+    {
+        RMInit::logOut << "OIDs of the specified type (" << type << " cannot be allocated." << endl;
+        throw r_Error(r_Error::r_Error_CreatingOIdFailed);
+    }
+    else
+    {
+        id.oid = *counterIds[type];
+        *counterIds[type] = *counterIds[type] + howMany;
+    }
+    id.oidtype = type;
+    RMDBGEXIT(4, RMDebug::module_adminif, "OId", "allocateOId(" << id << ", " << type << ") ");
+}
 
 OId::OId(const OId& oldOId)
-	{
-	RMDBGENTER(4, RMDebug::module_adminif, "OId", "OId(" << oldOId << ")");
-	oid = oldOId.oid;
-	oidtype = oldOId.oidtype; 
-	RMDBGEXIT(4, RMDebug::module_adminif, "OId", "OId(" << oldOId << ")");
-	}
+{
+    RMDBGENTER(4, RMDebug::module_adminif, "OId", "OId(" << oldOId << ")");
+    oid = oldOId.oid;
+    oidtype = oldOId.oidtype;
+    RMDBGEXIT(4, RMDebug::module_adminif, "OId", "OId(" << oldOId << ")");
+}
 
 OId::OId()
-	{
-	RMDBGENTER(4, RMDebug::module_adminif, "OId", "OId()");
-	oidtype = INVALID;
-	oid = 0;
-	RMDBGEXIT(4, RMDebug::module_adminif, "OId", "OId()");
-	}
-	
+{
+    RMDBGENTER(4, RMDebug::module_adminif, "OId", "OId()");
+    oidtype = INVALID;
+    oid = 0;
+    RMDBGEXIT(4, RMDebug::module_adminif, "OId", "OId()");
+}
+
 OId::OId(OIdPrimitive newId)
-	{
-	RMDBGENTER(4, RMDebug::module_adminif, "OId", "OId(OIdPrimitive " << newId << ")");
-	oid = newId / OId::ID_MULTIPLIER;
-	oidtype = (OId::OIdType)(newId - (OIdPrimitive)((OIdPrimitive)oid * OId::ID_MULTIPLIER));
-	RMDBGEXIT(4, RMDebug::module_adminif, "OId", "OId(OIdPrimitive " << newId << ") ID " << oid << " TYPE " << oidtype);
-	}
+{
+    RMDBGENTER(4, RMDebug::module_adminif, "OId", "OId(OIdPrimitive " << newId << ")");
+    oid = newId / OId::ID_MULTIPLIER;
+    oidtype = (OId::OIdType)(newId - (OIdPrimitive)((OIdPrimitive)oid * OId::ID_MULTIPLIER));
+    RMDBGEXIT(4, RMDebug::module_adminif, "OId", "OId(OIdPrimitive " << newId << ") ID " << oid << " TYPE " << oidtype);
+}
 
 OId::OId(OIdCounter newId, OIdType type)
-	{
-	RMDBGENTER(4, RMDebug::module_adminif, "OId", "OId(" << newId << "," << type << ")");
-	oidtype = type;
-	oid = newId;
-	RMDBGEXIT(4, RMDebug::module_adminif, "OId", "OId(" << newId << "," << type << ")");
-	}
+{
+    RMDBGENTER(4, RMDebug::module_adminif, "OId", "OId(" << newId << "," << type << ")");
+    oidtype = type;
+    oid = newId;
+    RMDBGEXIT(4, RMDebug::module_adminif, "OId", "OId(" << newId << "," << type << ")");
+}
 
 OId::OIdType
 OId::getType() const
-	{
-	RMDBGONCE(4, RMDebug::module_adminif, "OId", "getType() " << oidtype);
-	return oidtype;
-	}
+{
+    RMDBGONCE(4, RMDebug::module_adminif, "OId", "getType() " << oidtype);
+    return oidtype;
+}
 
 void
 OId::print_status(ostream& s) const
-	{
-	s << this;
-	}
+{
+    s << this;
+}
 
 OId::OIdCounter
 OId::getCounter() const
-	{
-	RMDBGONCE(4, RMDebug::module_adminif, "OId", "getCounter() " << oid);
-	return oid;
-	}
+{
+    RMDBGONCE(4, RMDebug::module_adminif, "OId", "getCounter() " << oid);
+    return oid;
+}
 
 OId::operator double() const
-	{
-	RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator() " << oid);
-	return oid * OId::ID_MULTIPLIER + oidtype;
-	}
+{
+    RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator() " << oid);
+    return oid * OId::ID_MULTIPLIER + oidtype;
+}
 
 bool
 OId::operator!= (const OId& one) const
-	{
-	RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator!=(" << one << ") " << *this);
-	return !(OId::operator==(one));
-	}
+{
+    RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator!=(" << one << ") " << *this);
+    return !(OId::operator==(one));
+}
 
 bool
 OId::operator== (const OId& one) const
-	{
-	bool retval = false;
-	if (oidtype == one.oidtype)
-		{
-		retval = (oid == one.oid);
-		}
-	else	{
-		retval = false;
-		}
-        RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator==(" << one << ") " << *this << " retval=" << retval);  
-	return retval;
-	}
+{
+    bool retval = false;
+    if (oidtype == one.oidtype)
+    {
+        retval = (oid == one.oid);
+    }
+    else
+    {
+        retval = false;
+    }
+    RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator==(" << one << ") " << *this << " retval=" << retval);
+    return retval;
+}
 
 OId&
 OId::operator=(const OId& old)
-	{ 
-	RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator=(" << old << ") "<< *this);  
-	if (this != &old)
-		{
-		oid = old.oid;
-		oidtype = old.oidtype;
-		}
-	return *this;
-	}
+{
+    RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator=(" << old << ") "<< *this);
+    if (this != &old)
+    {
+        oid = old.oid;
+        oidtype = old.oidtype;
+    }
+    return *this;
+}
 
 bool
 OId::operator<(const OId& old) const
-	{
-	bool retval = false;
-	if (oidtype == old.oidtype)
-		{
-		retval = (oid < old.oid); 
-		}
-	else	{
-		retval = (oidtype < old.oidtype);
-		}
-	RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator<(" << old << ") " << *this << " retval=" << retval);
-	return retval;
-	}
+{
+    bool retval = false;
+    if (oidtype == old.oidtype)
+    {
+        retval = (oid < old.oid);
+    }
+    else
+    {
+        retval = (oidtype < old.oidtype);
+    }
+    RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator<(" << old << ") " << *this << " retval=" << retval);
+    return retval;
+}
 
 bool
 OId::operator>(const OId& old) const
-	{
-	bool retval = false;
-	if (oidtype == old.oidtype)
-		{
-		retval = (oid > old.oid); 
-		}
-	else	{
-		retval = (oidtype > old.oidtype);
-		}
-	RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator>(" << old << ") " << *this << " retval=" << retval);
-	return retval;
-	}
+{
+    bool retval = false;
+    if (oidtype == old.oidtype)
+    {
+        retval = (oid > old.oid);
+    }
+    else
+    {
+        retval = (oidtype > old.oidtype);
+    }
+    RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator>(" << old << ") " << *this << " retval=" << retval);
+    return retval;
+}
 
 bool
 OId::operator<=(const OId& old) const
-	{
-	bool retval = false;
-	if (oidtype == old.oidtype)
-		{
-		retval = (oid <= old.oid); 
-		}
-	else	{
-		retval = (oidtype < old.oidtype);
-		}
-	RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator<=(" << old << ") " << *this << " retval=" << retval);
-	return retval;
-	}
+{
+    bool retval = false;
+    if (oidtype == old.oidtype)
+    {
+        retval = (oid <= old.oid);
+    }
+    else
+    {
+        retval = (oidtype < old.oidtype);
+    }
+    RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator<=(" << old << ") " << *this << " retval=" << retval);
+    return retval;
+}
 
 bool
 OId::operator>=(const OId& old) const
-	{
-	bool retval = false;
-	if (oidtype == old.oidtype)
-		{
-		retval = (oid >= old.oid); 
-		}
-	else	{
-		retval = (oidtype > old.oidtype);
-		}
-	RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator>=(" << old << ") " << *this << " retval=" << retval);
-	return retval;
-	}
+{
+    bool retval = false;
+    if (oidtype == old.oidtype)
+    {
+        retval = (oid >= old.oid);
+    }
+    else
+    {
+        retval = (oidtype > old.oidtype);
+    }
+    RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator>=(" << old << ") " << *this << " retval=" << retval);
+    return retval;
+}
 
 bool
 operator== (const double one, const OId& two)
-	{
-	RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator==(" << one << "," << two << ")");
-	bool retval=false;
-	if (((double)two) == one)
-		retval=true;
-	return retval;
-	}
+{
+    RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator==(" << one << "," << two << ")");
+    bool retval=false;
+    if (((double)two) == one)
+        retval=true;
+    return retval;
+}
 
 bool
 operator== (const OId& two, const double one)
-	{
-	RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator==(" << two << "," << one << ")");
-	bool retval=false;
-	if (((double)two) == one)
-		retval=true;
-	return retval;
-	}
+{
+    RMDBGONCE(4, RMDebug::module_adminif, "OId", "operator==(" << two << "," << one << ")");
+    bool retval=false;
+    if (((double)two) == one)
+        retval=true;
+    return retval;
+}
 
 std::ostream&
 operator<<(std::ostream& s, const OId& d)
-	{
-	s << "OId(" << d.getCounter() << ":" << d.getType() << ")";
-	return s;
-	}
+{
+    s << "OId(" << d.getCounter() << ":" << d.getType() << ")";
+    return s;
+}
 
 std::ostream&
 operator<<(std::ostream& s, OId::OIdType d)
-	{
-	switch (d)
-		{
-		case OId::INVALID:
-			s << "INVALID";
-			break;
-		case OId::MDDOID:
-			s << "MDDOID";
-			break;
-		case OId::MDDCOLLOID:
-			s << "MDDCOLLOID";
-			break;
-		case OId::MDDTYPEOID:
-			s << "MDDTYPEOID";
-			break;
-		case OId::MDDBASETYPEOID:
-			s << "MDDBASETYPEOID";
-			break;
-		case OId::MDDDIMTYPEOID:
-			s << "MDDDIMTYPEOID";
-			break;
-		case OId::MDDDOMTYPEOID:
-			s << "MDDDOMTYPEOID";
-			break;
-		case OId::STRUCTTYPEOID:
-			s << "STRUCTTYPEOID";
-			break;
-		case OId::SETTYPEOID:
-			s << "SETTYPEOID";
-			break;
-		case OId::BLOBOID:
-			s << "BLOBOID";
-			break;
-		case OId::DBMINTERVALOID:
-			s << "DBMINTERVALOID";
-			break;
-		case OId::STORAGEOID:
-			s << "STORAGEOID";
-			break;
-		case OId::MDDHIERIXOID:
-			s << "MDDHIERIXOID";
-			break;
-		case OId::DBTCINDEXOID:
-			s << "DBTCINDEXOID";
-			break;
-		case OId::INLINETILEOID:
-			s << "INLINETILEOID";
-			break;
-		case OId::INNEROID:
-			s << "INNEROIDOID";
-			break;
-		case OId::ATOMICTYPEOID:
-			s << "ATOMICTYPEOID";
-			break;
-		case OId::UDFOID:
-			s << "UDFOID";
-			break;
-		case OId::UDFPACKAGEOID:
-			s << "UDFPACKAGEOID";
-			break;
-		case OId::MDDRCIXOID:
-			s << "MDDRCIXOID";
-			break;
-		default:
-			s << "UNKNOWN: " << (int)d;
-			break;
-		}
-	return s;
-	}
+{
+    switch (d)
+    {
+    case OId::INVALID:
+        s << "INVALID";
+        break;
+    case OId::MDDOID:
+        s << "MDDOID";
+        break;
+    case OId::MDDCOLLOID:
+        s << "MDDCOLLOID";
+        break;
+    case OId::MDDTYPEOID:
+        s << "MDDTYPEOID";
+        break;
+    case OId::MDDBASETYPEOID:
+        s << "MDDBASETYPEOID";
+        break;
+    case OId::MDDDIMTYPEOID:
+        s << "MDDDIMTYPEOID";
+        break;
+    case OId::MDDDOMTYPEOID:
+        s << "MDDDOMTYPEOID";
+        break;
+    case OId::STRUCTTYPEOID:
+        s << "STRUCTTYPEOID";
+        break;
+    case OId::SETTYPEOID:
+        s << "SETTYPEOID";
+        break;
+    case OId::BLOBOID:
+        s << "BLOBOID";
+        break;
+    case OId::DBMINTERVALOID:
+        s << "DBMINTERVALOID";
+        break;
+    case OId::STORAGEOID:
+        s << "STORAGEOID";
+        break;
+    case OId::MDDHIERIXOID:
+        s << "MDDHIERIXOID";
+        break;
+    case OId::DBTCINDEXOID:
+        s << "DBTCINDEXOID";
+        break;
+    case OId::INLINETILEOID:
+        s << "INLINETILEOID";
+        break;
+    case OId::INNEROID:
+        s << "INNEROIDOID";
+        break;
+    case OId::ATOMICTYPEOID:
+        s << "ATOMICTYPEOID";
+        break;
+    case OId::UDFOID:
+        s << "UDFOID";
+        break;
+    case OId::UDFPACKAGEOID:
+        s << "UDFPACKAGEOID";
+        break;
+    case OId::MDDRCIXOID:
+        s << "MDDRCIXOID";
+        break;
+    default:
+        s << "UNKNOWN: " << (int)d;
+        break;
+    }
+    return s;
+}
 
 

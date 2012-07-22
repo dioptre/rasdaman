@@ -36,82 +36,82 @@ rasdaman GmbH.
 
 
 r_MiterDirect::r_MiterDirect(void *data, const r_Minterval &total, const r_Minterval &iter, unsigned int tlen, unsigned int step)
-	:	done(false),
-		dim(total.dimension()),
-		length(step),
-		id(NULL),
-		baseAddress(data)
+    :   done(false),
+        dim(total.dimension()),
+        length(step),
+        id(NULL),
+        baseAddress(data)
 {
-  int i = 0;
-  r_Range s = tlen;
-  r_Range offset = 0;
+    int i = 0;
+    r_Range s = tlen;
+    r_Range offset = 0;
 
-  id=new r_miter_direct_data[dim];
+    id=new r_miter_direct_data[dim];
 
-  for (i=(int)dim-1; i>=0; i--)
-  {
-    id[i].low = iter[i].low();
-    id[i].high = iter[i].high();
-    id[i].pos = id[i].low;
-    id[i].origin = total[i].low();
-    id[i].extent = (total[i].high() - total[i].low() + 1);
-    id[i].baseStep = s;
-    id[i].step = s * step;
-    offset += s * (id[i].pos - id[i].origin);
-    s *= id[i].extent;
-  }
-  for (i=0; i<(int)dim; i++)
-  {
-    id[i].data = (void*)(((r_Octet*)data) + offset);
-  }
+    for (i=(int)dim-1; i>=0; i--)
+    {
+        id[i].low = iter[i].low();
+        id[i].high = iter[i].high();
+        id[i].pos = id[i].low;
+        id[i].origin = total[i].low();
+        id[i].extent = (total[i].high() - total[i].low() + 1);
+        id[i].baseStep = s;
+        id[i].step = s * step;
+        offset += s * (id[i].pos - id[i].origin);
+        s *= id[i].extent;
+    }
+    for (i=0; i<(int)dim; i++)
+    {
+        id[i].data = (void*)(((r_Octet*)data) + offset);
+    }
 }
 
 r_MiterDirect::~r_MiterDirect(void)
 {
-  delete [] id;
+    delete [] id;
 }
 
 
 void r_MiterDirect::reset(void)
 {
-  r_Dimension i = 0;
-  r_ULong offset = 0;
+    r_Dimension i = 0;
+    r_ULong offset = 0;
 
-  for (i=0; i<dim; i++)
-  {
-    id[i].pos = id[i].low;
-    offset += id[i].step * (id[i].low - id[i].origin);
-  }
-  for (i=0; i<dim; i++)
-  {
-    id[i].data = (void*)(((r_Octet*)baseAddress) + offset);
-  }
-  done = false;
+    for (i=0; i<dim; i++)
+    {
+        id[i].pos = id[i].low;
+        offset += id[i].step * (id[i].low - id[i].origin);
+    }
+    for (i=0; i<dim; i++)
+    {
+        id[i].data = (void*)(((r_Octet*)baseAddress) + offset);
+    }
+    done = false;
 }
 
 
 void
 r_MiterDirect::print_pos(std::ostream &str) const
 {
-  str << '[' << id[0].pos;
-  for (r_Dimension i=1; i<dim; i++) str << ',' << id[i].pos;
-  str << ']';
+    str << '[' << id[0].pos;
+    for (r_Dimension i=1; i<dim; i++) str << ',' << id[i].pos;
+    str << ']';
 }
 
 
 
 std::ostream &operator<<(std::ostream &str, const r_MiterDirect &iter)
 {
-  iter.print_pos(str);
-  return str;
+    iter.print_pos(str);
+    return str;
 }
 
 r_miter_direct_data::r_miter_direct_data()
-:data(NULL), pos(0), low(0), high(0),
- step(0), baseStep(0), extent(0), origin(0)
+    :data(NULL), pos(0), low(0), high(0),
+     step(0), baseStep(0), extent(0), origin(0)
 {
 }
 
 r_miter_direct_data::~r_miter_direct_data()
-{ 
+{
 }

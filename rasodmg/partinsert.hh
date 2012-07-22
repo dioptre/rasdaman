@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   r_Partial_Insert
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 #ifndef _R_PARTIAL_INSERT_
@@ -57,56 +57,56 @@ class r_Database;
   */
 class r_Partial_Insert
 {
-  public:
-  /// constructor receiving all necessary parameters. The storage layout is copied
-  r_Partial_Insert( r_Database &usedb, const char *collname, const char *mddtype,
-		    const char *settype, const r_Storage_Layout &stl );
-  /// alternative constructor for regular tiling
-  r_Partial_Insert( r_Database &usedb, const char *collname, const char *mddtype,
-		    const char *settype, const r_Minterval &dom, unsigned int tsize );
-  /// copy constructor
-  r_Partial_Insert( const r_Partial_Insert &src );
-  /// destructor
-  ~r_Partial_Insert( void );
+public:
+    /// constructor receiving all necessary parameters. The storage layout is copied
+    r_Partial_Insert( r_Database &usedb, const char *collname, const char *mddtype,
+                      const char *settype, const r_Storage_Layout &stl );
+    /// alternative constructor for regular tiling
+    r_Partial_Insert( r_Database &usedb, const char *collname, const char *mddtype,
+                      const char *settype, const r_Minterval &dom, unsigned int tsize );
+    /// copy constructor
+    r_Partial_Insert( const r_Partial_Insert &src );
+    /// destructor
+    ~r_Partial_Insert( void );
 
-  /// update the marray; no transaction should be activated, this is done internally.
-  int update( r_GMarray *mddPtr, 
-  	      r_Data_Format transferFormat = r_Array,
-  	      const char* transferFormatParams = NULL,  	      
-  	      r_Data_Format storageFormat = r_Array,  	      
-  	      const char* storageFormatParams = NULL
-  	      );
-  /*
-    The marray may be modified in small aspects such as base type name and storage layout.
-    The "transferFormat, transferFormatParams" are used to set the transfer compression used 
-	for the communications of client with the server.
-    The "storageFormat, storageFormatParams" are used to set the storage format used for 
-	MDD created by the client in the RasDaMan database.
-  */
+    /// update the marray; no transaction should be activated, this is done internally.
+    int update( r_GMarray *mddPtr,
+                r_Data_Format transferFormat = r_Array,
+                const char* transferFormatParams = NULL,
+                r_Data_Format storageFormat = r_Array,
+                const char* storageFormatParams = NULL
+              );
+    /*
+      The marray may be modified in small aspects such as base type name and storage layout.
+      The "transferFormat, transferFormatParams" are used to set the transfer compression used
+    for the communications of client with the server.
+      The "storageFormat, storageFormatParams" are used to set the storage format used for
+    MDD created by the client in the RasDaMan database.
+    */
 
-  protected:
-  /// shared init code
-  void init_share( const char *collname, const char *mddtype, const char *settype );
+protected:
+    /// shared init code
+    void init_share( const char *collname, const char *mddtype, const char *settype );
 
-  /// the marray's OId
-  r_OId myOId;
-  /// the collection name
-  char *collName;
-  /// the MDD type name
-  char *mddType;
-  /// the set type name
-  char *setType;
-  /// the database
-  r_Database &mydb;
-  /// the storage layout
-  r_Storage_Layout *mystl;
-  /// the transaction object
-  r_Transaction myta;
-  /// do we have to do an insert or an update?
-  int doUpdate;
-  /// format strings for queries
-  static const char *format_create;
-  static const char *format_update;
+    /// the marray's OId
+    r_OId myOId;
+    /// the collection name
+    char *collName;
+    /// the MDD type name
+    char *mddType;
+    /// the set type name
+    char *setType;
+    /// the database
+    r_Database &mydb;
+    /// the storage layout
+    r_Storage_Layout *mystl;
+    /// the transaction object
+    r_Transaction myta;
+    /// do we have to do an insert or an update?
+    int doUpdate;
+    /// format strings for queries
+    static const char *format_create;
+    static const char *format_update;
 };
 
 #endif

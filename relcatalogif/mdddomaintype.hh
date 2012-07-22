@@ -43,7 +43,7 @@ class MDDDomainType;
 #include "raslib/minterval.hh"
 #include "catalogmgr/ops.hh"
 #include "mddbasetype.hh"
-#include "raslib/mddtypes.hh"		//for r_Range
+#include "raslib/mddtypes.hh"       //for r_Range
 
 class DBMinterval;
 class OId;
@@ -59,82 +59,82 @@ class OId;
   * \ingroup Relcatalogifs
   */
 class MDDDomainType : public MDDBaseType
-	{
-	public:
-		virtual char* getTypeStructure() const;
-		/*@Doc:
-		looks like:
-			marray <myBaseType->getTypeStructure(), myDomain->get_string_representation()>
-		*/
+{
+public:
+    virtual char* getTypeStructure() const;
+    /*@Doc:
+    looks like:
+        marray <myBaseType->getTypeStructure(), myDomain->get_string_representation()>
+    */
 
-		MDDDomainType(const OId& id) throw (r_Error);
+    MDDDomainType(const OId& id) throw (r_Error);
 
-		MDDDomainType(const char* newTypeName, const BaseType* newBaseType, const r_Minterval& newDomain);
+    MDDDomainType(const char* newTypeName, const BaseType* newBaseType, const r_Minterval& newDomain);
 
-		MDDDomainType();
-		/*@Doc:
-		default constructor, cannot be used.
-		*/
+    MDDDomainType();
+    /*@Doc:
+    default constructor, cannot be used.
+    */
 
-		MDDDomainType(const MDDDomainType& old);
-		/*@Doc:
-		copy constructor.
-		*/
+    MDDDomainType(const MDDDomainType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-		MDDDomainType& operator=(const MDDDomainType& old);
-		/*@Doc:
-		assignment operator.
-		*/
+    MDDDomainType& operator=(const MDDDomainType& old);
+    /*@Doc:
+    assignment operator.
+    */
 
-		const r_Minterval* getDomain() const;
-		/*@Doc:
-		returns domain.
-		*/
+    const r_Minterval* getDomain() const;
+    /*@Doc:
+    returns domain.
+    */
 
-		virtual void print_status( ostream& s ) const;
-		/*@Doc:
-		writes the state of the object to the specified stream.
-		looks like: \tr_Marray<myBaseType->getTypeName(), myDomain->print_status()\t>
-		*/
+    virtual void print_status( ostream& s ) const;
+    /*@Doc:
+    writes the state of the object to the specified stream.
+    looks like: \tr_Marray<myBaseType->getTypeName(), myDomain->print_status()\t>
+    */
 
-		virtual ~MDDDomainType();
-		/*@Doc:
-		virtual destructor.
-		calls validate and deletes myDomain
-		*/
+    virtual ~MDDDomainType();
+    /*@Doc:
+    virtual destructor.
+    calls validate and deletes myDomain
+    */
 
-		virtual void setPersistent(bool t) throw (r_Error);
-		/*@Doc:
-			this method from DBObject is overridden to make sure that
-			the dbminterval is also made persistent/deleted from db.
-		*/
+    virtual void setPersistent(bool t) throw (r_Error);
+    /*@Doc:
+        this method from DBObject is overridden to make sure that
+        the dbminterval is also made persistent/deleted from db.
+    */
 
-		virtual int compatibleWith(const Type* aType) const;
-		/*@Doc:
-		aType is compatible if:
-			aType is a MDDDomainType and
-			the basetypes are compatible
-		*/
+    virtual int compatibleWith(const Type* aType) const;
+    /*@Doc:
+    aType is compatible if:
+        aType is a MDDDomainType and
+        the basetypes are compatible
+    */
 
-		virtual r_Bytes getMemorySize() const;
-		/*@Doc:
-		memory space is computed by
-			MDDBaseType::getMemorySize() + sizeof(DBMinterval*)
-				+ myDomain->getMemorySize();
-		*/
+    virtual r_Bytes getMemorySize() const;
+    /*@Doc:
+    memory space is computed by
+        MDDBaseType::getMemorySize() + sizeof(DBMinterval*)
+            + myDomain->getMemorySize();
+    */
 
-	protected:
+protected:
 
-		DBMinterval* myDomain;
-		/*@Doc:
-		persistent domain.
-		*/
+    DBMinterval* myDomain;
+    /*@Doc:
+    persistent domain.
+    */
 
-		virtual void insertInDb() throw (r_Error);
+    virtual void insertInDb() throw (r_Error);
 
-		virtual void readFromDb() throw (r_Error);
+    virtual void readFromDb() throw (r_Error);
 
-		virtual void deleteFromDb() throw (r_Error);
-	};
+    virtual void deleteFromDb() throw (r_Error);
+};
 
 #endif

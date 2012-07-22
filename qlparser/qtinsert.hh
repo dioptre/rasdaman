@@ -54,11 +54,11 @@ rasdaman GmbH.
 
 class QtInsert : public QtExecute
 {
-  public:
+public:
     /// constructor getting name of collection and insert expression
     QtInsert( const std::string& initCollectionName, QtOperation* initSource );
 
-	QtInsert(const std::string& initCollectionName, QtOperation* initSource, QtOperation* storage);
+    QtInsert(const std::string& initCollectionName, QtOperation* initSource, QtOperation* storage);
 
     /// virtual destructor
     virtual ~QtInsert();
@@ -69,7 +69,7 @@ class QtInsert : public QtExecute
     /// return childs of the node
     virtual QtNodeList* getChilds( QtChildType flag );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -81,17 +81,17 @@ class QtInsert : public QtExecute
     /// method for query rewrite
     inline virtual void setInput( QtOperation* child, QtOperation* input);
 
-	/// returns source
-	QtOperation* getSource();
+    /// returns source
+    QtOperation* getSource();
 
-	/// tiling functions
-	r_Data_Format getDataFormat(QtMDDConfig* config);
-	r_Index_Type getIndexType(QtMDDConfig* config);
-	r_Tiling_Scheme getTilingScheme(QtMDDConfig* cfg);
-	vector<r_Minterval> getIntervals(QtMDDConfig* cfg);
-	r_Minterval getTileConfig(QtMDDConfig* cfg);
+    /// tiling functions
+    r_Data_Format getDataFormat(QtMDDConfig* config);
+    r_Index_Type getIndexType(QtMDDConfig* config);
+    r_Tiling_Scheme getTilingScheme(QtMDDConfig* cfg);
+    vector<r_Minterval> getIntervals(QtMDDConfig* cfg);
+    r_Minterval getTileConfig(QtMDDConfig* cfg);
 
-	void setStorageLayout(StorageLayout* layout);
+    void setStorageLayout(StorageLayout* layout);
 
     /// pre optimization
 //    virtual void preOptimize();
@@ -101,13 +101,13 @@ class QtInsert : public QtExecute
 
     /// type checking
     virtual void checkType();
-    
-  private:
+
+private:
     /// insert expression
     QtOperation* source;
 
-	// Storage and Tiling type
-	QtOperation* stgLayout;
+    // Storage and Tiling type
+    QtOperation* stgLayout;
 
     /// collection name
     std::string collectionName;

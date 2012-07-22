@@ -33,81 +33,86 @@ rasdaman GmbH.
 #include <akgnet_fdescr.hh>
 
 akg::FileDescriptor::FileDescriptor() throw()
-  { 
+{
     fileDescriptor = -1;
     savedErrno = 0;
-   }   
-   
+}
+
 akg::FileDescriptor::~FileDescriptor() throw()
-  {
+{
     close();
-   }
-   
+}
+
 int akg::FileDescriptor::operator()() throw()
-  {
+{
     return fileDescriptor;
-   }
+}
 
 bool akg::FileDescriptor::isOpen() throw()
-  {
+{
     return fileDescriptor == -1 ? false:true;
-   }
+}
 
 void akg::FileDescriptor::close() throw()
-  {
-    if(isOpen()) 
-      { ::close(fileDescriptor);
+{
+    if(isOpen())
+    {
+        ::close(fileDescriptor);
         saveErrno();
-       }	
+    }
     fileDescriptor = -1;
-   }
+}
 
 int akg::FileDescriptor::write(const void *buffer, int count) throw()
-  { 
+{
     savedErrno = 0;
     DBTALK("FileDescriptor write: "<<buffer<<" count="<<count);
     int nbytes = ::write(fileDescriptor,buffer,count);
-    if(nbytes < 0) saveErrno(); 
+    if(nbytes < 0) saveErrno();
     return nbytes;
-   }
-   
+}
+
 int akg::FileDescriptor::read (void *buffer, int count) throw()
-  {
+{
     savedErrno = 0;
     DBTALK("FileDescriptor read: "<<buffer<<" count="<<count);
     int nbytes = ::read(fileDescriptor,buffer,count);
-    if(nbytes < 0) saveErrno(); 
-    return nbytes;  
-   }
+    if(nbytes < 0) saveErrno();
+    return nbytes;
+}
 
 bool akg::FileDescriptor::setNonBlocking(bool  nonBlocking) throw()
-  {
+{
     if(isOpen())
-      { int val  = fcntl(fileDescriptor,F_GETFL,0);
-        
-	if( nonBlocking) val |= O_NONBLOCK;
-	else             val &=~O_NONBLOCK;
-	
+    {
+        int val  = fcntl(fileDescriptor,F_GETFL,0);
+
+        if( nonBlocking) val |= O_NONBLOCK;
+        else             val &=~O_NONBLOCK;
+
         fcntl(fileDescriptor,F_SETFL,val);
-        return true; 
-       }
-    
-    return false;   
-   }
+        return true;
+    }
+
+    return false;
+}
 bool akg::FileDescriptor::isNonBlocking() throw()
-  {
+{
     if(isOpen())
-      { int val = fcntl(fileDescriptor,F_GETFL,0);
+    {
+        int val = fcntl(fileDescriptor,F_GETFL,0);
         return (val & O_NONBLOCK) ? true:false;
-       }
-    return false;   
-   }
+    }
+    return false;
+}
 
 int akg::FileDescriptor::getErrno() throw()
-  { return savedErrno;
-   }
+{
+    return savedErrno;
+}
 void akg::FileDescriptor::saveErrno() throw()
-  { savedErrno=errno;
-   }
-   
+{
+    savedErrno=errno;
+}
+
 

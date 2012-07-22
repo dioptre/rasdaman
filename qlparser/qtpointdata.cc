@@ -43,7 +43,7 @@ using namespace std;
 
 
 QtPointData::QtPointData( const r_Point& point )
-  : pointData(point), QtData()
+    : pointData(point), QtData()
 {
 }
 
@@ -56,59 +56,59 @@ QtPointData::~QtPointData()
 QtDataType
 QtPointData::getDataType() const
 {
-  return QT_POINT;
+    return QT_POINT;
 }
 
 
 bool
 QtPointData::equal( const QtData* obj ) const
 {
-  int returnValue = false;  // not equal by initialization
+    int returnValue = false;  // not equal by initialization
 
-  if( obj->getDataType() == QT_POINT )
-  {
-    QtPointData* pt = (QtPointData*)obj;
+    if( obj->getDataType() == QT_POINT )
+    {
+        QtPointData* pt = (QtPointData*)obj;
 
-    // check domains
-    returnValue = (pointData == pt->getPointData());
-  }
+        // check domains
+        returnValue = (pointData == pt->getPointData());
+    }
 
-  return returnValue;
+    return returnValue;
 }
 
 
 std::string
 QtPointData::getSpelling() const
 {
-  std::string result;
+    std::string result;
 
-  // buffer
-  int        bufferLen = pointData.dimension() * 50; // on the save side for one integers per dimension plus colon and brackets
-  char*      buffer    = new char[ bufferLen ];
-  // replaced deprecated ostrstream -- PB 2005-jan-14
-  // ostrstream bufferStream( buffer, bufferLen );
-  ostringstream bufferStream( buffer );
+    // buffer
+    int        bufferLen = pointData.dimension() * 50; // on the save side for one integers per dimension plus colon and brackets
+    char*      buffer    = new char[ bufferLen ];
+    // replaced deprecated ostrstream -- PB 2005-jan-14
+    // ostrstream bufferStream( buffer, bufferLen );
+    ostringstream bufferStream( buffer );
 
-  bufferStream << pointData << std::ends; 
+    bufferStream << pointData << std::ends;
 
-  result.append( std::string( buffer ) );
+    result.append( std::string( buffer ) );
 
-  delete[] buffer;
-  buffer=NULL;
-  return result;
+    delete[] buffer;
+    buffer=NULL;
+    return result;
 }
 
 
 char* QtPointData::getTypeStructure() const
 {
-  return strdup("point");
+    return strdup("point");
 }
 
 
 void
 QtPointData::printStatus( std::ostream& stream ) const
 {
-  stream << "point, value: " << std::flush;
-  stream << pointData << std::flush; 
-  QtData::printStatus( stream );
+    stream << "point, value: " << std::flush;
+    stream << pointData << std::flush;
+    QtData::printStatus( stream );
 }

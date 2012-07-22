@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   r_Set
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 #ifndef _D_SET_
@@ -42,7 +42,7 @@ rasdaman GmbH.
   The class implements a set container. It inherits most of the
   functionality from {\tt r_Collection}. The set can not have
   any duplicates and it is not ordered.
-  
+
 */
 
 /**
@@ -51,14 +51,14 @@ rasdaman GmbH.
 template <class T>
 class r_Set : public r_Collection<T>
 {
-  public:
+public:
     /// default constructor
     r_Set() throw(r_Error);
     /// copy constructor
     r_Set( const r_Set<T>& set ) throw(r_Error);
     /// virtual destructor
     virtual ~r_Set();
-    
+
     /// inserts an element at the beginning (no duplicates)
     virtual void insert_element( const T& element, int no_modification = 0 );
     /**
@@ -76,7 +76,7 @@ class r_Set : public r_Collection<T>
 #else
 #include "rasodmg/set.cc"
 #endif
-#endif 
+#endif
 #endif
 
 #endif

@@ -56,7 +56,8 @@ rasdaman GmbH.
   No compression method is supported yet
 
  */
-class r_Conv_NETCDF : public r_Convert_Memory {
+class r_Conv_NETCDF : public r_Convert_Memory
+{
 public:
     /// constructor using an r_Type object. Exception if the type isn't atomic.
     r_Conv_NETCDF(const char *src, const r_Minterval &interv, const r_Type *tp) throw (r_Error);

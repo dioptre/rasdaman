@@ -45,9 +45,9 @@
 #	-connect c	server connect information (RDBMS login, database
 #			name, or similar - depends on the base DBMS used;
 #			eg, can be "/" for Oracle, "RASBASE" for PostgreSQL)
-# -user u     database username (optional), mainly needed for connecting to
-#             PostgreSQL on a remote machine
-# -passwd p   database password
+#	-user u		database username (optional), mainly needed for connecting to
+#			PostgreSQL on a remote machine
+#	-passwd p	database password
 define dbh rasdaman_host -connect RASBASE
 
 # define database

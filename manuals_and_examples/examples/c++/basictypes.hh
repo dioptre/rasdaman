@@ -48,10 +48,11 @@ typedef r_Marray<r_Boolean>  BoolImage;
 typedef r_Set<r_Ref<BoolImage> > BoolSet;
 
 /*[10,1]*//* STRUCT -------------------------- RGBPixel */
-struct RGBPixel {
-   r_Char    red;
-   r_Char    green;
-   r_Char    blue;
+struct RGBPixel
+{
+    r_Char    red;
+    r_Char    green;
+    r_Char    blue;
 };
 /*[11,29]*//* TYPEDEF ------------------------- RGBImage */
 typedef r_Marray<RGBPixel>  RGBImage;

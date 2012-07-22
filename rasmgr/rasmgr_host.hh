@@ -46,81 +46,81 @@ rasdaman GmbH.
 /**
   * \ingroup Rasmgrs
   */
-class ServerHost 
-  {
-    public:
-      ServerHost();
-      ~ServerHost();
-      void  init(const char* hostName,const char *netwName,int listenport,bool isInternal);      
-      const char *getName();
-      const char *getNetworkName();
-      long        getListenPort();
-      bool  isInternal();
-      bool  checkStatus();
+class ServerHost
+{
+public:
+    ServerHost();
+    ~ServerHost();
+    void  init(const char* hostName,const char *netwName,int listenport,bool isInternal);
+    const char *getName();
+    const char *getNetworkName();
+    long        getListenPort();
+    bool  isInternal();
+    bool  checkStatus();
 
-      int   getStartedServers();
-      int   getLicensedServers();
+    int   getStartedServers();
+    int   getLicensedServers();
 
-      bool  isUp();
-      bool  downHost();
-      
-      static char* getDescriptionHeader(char *destBuffer);
-      char* getDescription(char *destBuffer);
-      
-      int   countDefinedServers();
-      int   getConnectionSocket();
-      void  regStartServer();
-      void  regDownServer();
-      void  setIsUp(bool);
-      
-      void  useLocalHost(bool);
-      bool  useLocalHost();
-      
-      void  changeName(const char*);
-      void  changeNetName(const char*);
-      void  changeListenPort(int);
+    bool  isUp();
+    bool  downHost();
 
-      bool  isValid();
-      bool  reset();
-    private:
-      void setNotUp();
-      char hostName[100];
-      char netwName[100];
-      int  listenPort;
-      int  startedServers;
-      bool isup;
-      bool isinternal;
-      bool isuseLocalHost; // if internal, use localhost instead of network name, default on!
-            
-      bool valid;
-   };
+    static char* getDescriptionHeader(char *destBuffer);
+    char* getDescription(char *destBuffer);
+
+    int   countDefinedServers();
+    int   getConnectionSocket();
+    void  regStartServer();
+    void  regDownServer();
+    void  setIsUp(bool);
+
+    void  useLocalHost(bool);
+    bool  useLocalHost();
+
+    void  changeName(const char*);
+    void  changeNetName(const char*);
+    void  changeListenPort(int);
+
+    bool  isValid();
+    bool  reset();
+private:
+    void setNotUp();
+    char hostName[100];
+    char netwName[100];
+    int  listenPort;
+    int  startedServers;
+    bool isup;
+    bool isinternal;
+    bool isuseLocalHost; // if internal, use localhost instead of network name, default on!
+
+    bool valid;
+};
 
 /**
   * \ingroup Rasmgrs
   */
 class HostManager
-  { 
-    public:
-      HostManager();
-      ~HostManager();
-      bool insertInternalHost();
-      bool checkAcceptAnotherHost();
-      bool insertNewHost(const char* hostName,const char *netwName,int listenport);
-      bool removeHost(const char *hostName);
-      int  countHosts();
-      int countUpHosts();
-      ServerHost& operator[](int);
-      ServerHost& operator[](const char* hostName);
-      
-      int postSlaveMGR(char *body,char *outBuffer); 
-      bool reset(); 
-      bool acceptChangeName(const char *oldName,const char *newName);
-    private:
-      bool testUniqueness(const char* srvName);
-      list<ServerHost> hostList;      
-      ServerHost       protElem;
-   };
-   
+{
+public:
+    HostManager();
+    ~HostManager();
+    bool insertInternalHost();
+    bool checkAcceptAnotherHost();
+    bool insertNewHost(const char* hostName,const char *netwName,int listenport);
+    bool removeHost(const char *hostName);
+    int  countHosts();
+    int countUpHosts();
+    ServerHost& operator[](int);
+    ServerHost& operator[](const char* hostName);
+
+    int postSlaveMGR(char *body,char *outBuffer);
+    bool reset();
+    bool acceptChangeName(const char *oldName,const char *newName);
+private:
+    bool testUniqueness(const char* srvName);
+    list<ServerHost> hostList;
+    ServerHost       protElem;
+};
+
 extern HostManager hostmanager;
 
 

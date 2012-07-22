@@ -44,14 +44,14 @@ rasdaman GmbH.
 //@ManMemo: Module: {\bf qlparser}
 
 /*@Doc:
- 
+
   The class represents a shift operation on MDD objects.
 
 */
 
 class QtShift : public QtBinaryOperation
 {
-  public:
+public:
     /// constructor getting the two operands
     QtShift( QtOperation* mddOp, QtOperation* pointOp );
 
@@ -63,7 +63,7 @@ class QtShift : public QtBinaryOperation
     /**
      */
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -78,7 +78,7 @@ class QtShift : public QtBinaryOperation
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };
@@ -95,7 +95,7 @@ class QtShift : public QtBinaryOperation
 
 class QtExtend : public QtBinaryOperation
 {
-  public:
+public:
     /// constructor getting the two operands
     QtExtend( QtOperation* mddOp, QtOperation* mintervalOp );
     /**
@@ -125,7 +125,7 @@ class QtExtend : public QtBinaryOperation
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /**
     aux function for QtExtend::evaluate(): build up (recursing the dimension) a list of all spatial domains that sit in the corners between outerDomain and innerDomain; at the recursion bottom the resulting domain is added to the cornerList.
     Preconditions:
@@ -150,14 +150,14 @@ class QtExtend : public QtBinaryOperation
 //@ManMemo: Module: {\bf qlparser}
 
 /*@Doc:
- 
+
   The class represents a scale operation on MDD objects.
 
 */
 
 class QtScale : public QtBinaryOperation
 {
-  public:
+public:
     /// constructor getting the two operands
     QtScale( QtOperation* mddOp, QtOperation* pointOp );
 
@@ -169,7 +169,7 @@ class QtScale : public QtBinaryOperation
     /**
      */
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -190,7 +190,7 @@ class QtScale : public QtBinaryOperation
     /// scale domains - the used version
     virtual int scaleDomain( const r_Minterval& areaOp, const vector<double>& scaleFactors, r_Minterval &areaScaled );
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };

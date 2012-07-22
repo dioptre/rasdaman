@@ -24,10 +24,10 @@ rasdaman GmbH.
  * SOURCE: persmddcolliter.cc
  *
  * MODULE: cachetamgr
- * CLASS:	MDDCollIter
+ * CLASS:   MDDCollIter
  *
  * COMMENTS:
- *	none
+ *  none
  *
 */
 
@@ -42,69 +42,69 @@ rasdaman GmbH.
 #include "raslib/rmdebug.hh"
 
 MDDCollIter::MDDCollIter(MDDColl* targetColl)
-	:	dbIter(0), 
-		persColl(targetColl)
-	{
-	RMDBGONCE(2, RMDebug::module_mddmgr, "MDDCollIter", "MDDCollIter(" << targetColl->getName() << ")");
-	dbColl = targetColl->getDBMDDSet();
-	dbIter = dbColl->newIterator();
-	}
+    :   dbIter(0),
+        persColl(targetColl)
+{
+    RMDBGONCE(2, RMDebug::module_mddmgr, "MDDCollIter", "MDDCollIter(" << targetColl->getName() << ")");
+    dbColl = targetColl->getDBMDDSet();
+    dbIter = dbColl->newIterator();
+}
 
 void
 MDDCollIter::printStatus(unsigned int level, ostream& stream) const
-	{
-	stream << "   MDDCollIter printStatus:  " ;
-	}
+{
+    stream << "   MDDCollIter printStatus:  " ;
+}
 
 MDDObj*
 MDDCollIter::getElement() const
-	{
-	RMDBGENTER(2, RMDebug::module_mddmgr, "MDDCollIter", "getElement()");
-	// Initialization to null: make sure null pointer is returned if the 
-	// collection is empty or if the iterator has come to the end already
-	
-	MDDObj* persEl = NULL;   
-	
-	if (dbIter->not_done())     
-		{
-		DBMDDObjId el = dbIter->get_element();
-		
-		if (!el.is_null())
-			{
-			persEl = persColl->getMDDObj((DBMDDObj*)el); 
-			}
-		}
-	
-	// persEl is null if there is nothing to return
-	RMDBGEXIT(2, RMDebug::module_mddmgr, "MDDCollIter", "getElement() " << (r_Ptr)persEl);
-	return persEl; 
-	}
+{
+    RMDBGENTER(2, RMDebug::module_mddmgr, "MDDCollIter", "getElement()");
+    // Initialization to null: make sure null pointer is returned if the
+    // collection is empty or if the iterator has come to the end already
+
+    MDDObj* persEl = NULL;
+
+    if (dbIter->not_done())
+    {
+        DBMDDObjId el = dbIter->get_element();
+
+        if (!el.is_null())
+        {
+            persEl = persColl->getMDDObj((DBMDDObj*)el);
+        }
+    }
+
+    // persEl is null if there is nothing to return
+    RMDBGEXIT(2, RMDebug::module_mddmgr, "MDDCollIter", "getElement() " << (r_Ptr)persEl);
+    return persEl;
+}
 
 void
 MDDCollIter::reset()
-	{
-	RMDBGONCE(2, RMDebug::module_mddmgr, "MDDCollIter", "reset()");
-	dbIter->reset();
-	}
+{
+    RMDBGONCE(2, RMDebug::module_mddmgr, "MDDCollIter", "reset()");
+    dbIter->reset();
+}
 
 bool
 MDDCollIter::notDone() const
-	{	
-	RMDBGONCE(2, RMDebug::module_mddmgr, "MDDCollIter", "notDone()");
-	return dbIter->not_done();
-	}
+{
+    RMDBGONCE(2, RMDebug::module_mddmgr, "MDDCollIter", "notDone()");
+    return dbIter->not_done();
+}
 
 void
-MDDCollIter::advance() 
-	{
-	RMDBGONCE(2, RMDebug::module_mddmgr, "MDDCollIter", "advance()");
-	dbIter->advance();
-	}
+MDDCollIter::advance()
+{
+    RMDBGONCE(2, RMDebug::module_mddmgr, "MDDCollIter", "advance()");
+    dbIter->advance();
+}
 
 MDDCollIter::~MDDCollIter()
-	{
-	RMDBGONCE(2, RMDebug::module_mddmgr, "MDDCollIter", "~MDDCollIter()");
-	delete dbIter;
-	dbIter = NULL;
-	}
+{
+    RMDBGONCE(2, RMDebug::module_mddmgr, "MDDCollIter", "~MDDCollIter()");
+    delete dbIter;
+    dbIter = NULL;
+}
 

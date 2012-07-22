@@ -27,84 +27,84 @@ rasdaman GmbH.
 #include "raslib/complextype.hh"
 
 r_Complex::r_Complex(const char* newBuffer, const r_Complex_Type* newType)
-	:	r_Primitive(newBuffer, newType)
-	{
-	}
+    :   r_Primitive(newBuffer, newType)
+{
+}
 
 r_Complex::r_Complex(const r_Complex& obj)
-	:	r_Primitive(obj)
-	{
-	}
+    :   r_Primitive(obj)
+{
+}
 
 r_Complex::~r_Complex()
-	{
-	}
+{
+}
 
 r_Scalar*
 r_Complex::clone() const
-	{
-	return new r_Complex(*this);
-	}
+{
+    return new r_Complex(*this);
+}
 
 const r_Complex&
 r_Complex::operator=(const r_Complex& obj)
-	{ 
-	r_Primitive::operator=(obj); 
-	return *this;
-	}
+{
+    r_Primitive::operator=(obj);
+    return *this;
+}
 
 r_Double
 r_Complex::get_re() const throw (r_Error)
-	{
-	if (!get_buffer() || !valueType || !valueType->isComplexType())
-		{
-		RMInit::logOut << "r_Complex::get_re() value type is not a complex, not initialised or not buffered" << endl;
-		r_Error err(r_Error::r_Error_TypeInvalid);
-		throw err;
-		}
-	return ((r_Complex_Type *)valueType)->get_re(get_buffer());
-	}
+{
+    if (!get_buffer() || !valueType || !valueType->isComplexType())
+    {
+        RMInit::logOut << "r_Complex::get_re() value type is not a complex, not initialised or not buffered" << endl;
+        r_Error err(r_Error::r_Error_TypeInvalid);
+        throw err;
+    }
+    return ((r_Complex_Type *)valueType)->get_re(get_buffer());
+}
 
 r_Double
 r_Complex::get_im() const throw (r_Error)
-	{
-	if(!get_buffer() || !valueType || !valueType->isComplexType())
-		{
-		RMInit::logOut << "r_Complex::get_im() value type is not a complex, not initialised or not buffered" << endl;
-		r_Error err(r_Error::r_Error_TypeInvalid);
-		throw err;
-		}
-	return ((r_Complex_Type *)valueType)->get_im(get_buffer());
-	}
+{
+    if(!get_buffer() || !valueType || !valueType->isComplexType())
+    {
+        RMInit::logOut << "r_Complex::get_im() value type is not a complex, not initialised or not buffered" << endl;
+        r_Error err(r_Error::r_Error_TypeInvalid);
+        throw err;
+    }
+    return ((r_Complex_Type *)valueType)->get_im(get_buffer());
+}
 
 void
 r_Complex::set_re(r_Double re) throw (r_Error)
-	{
-	if (!valueType || !valueType->isComplexType())
-		{
-		RMInit::logOut << "r_Complex::set_re(" << re << ") value type is not a complex or not initialised" << endl;
-		r_Error err(r_Error::r_Error_TypeInvalid);
-		throw err;
-		}
-	((r_Complex_Type *)valueType)->set_re((char*)get_buffer(), re);
-	}
+{
+    if (!valueType || !valueType->isComplexType())
+    {
+        RMInit::logOut << "r_Complex::set_re(" << re << ") value type is not a complex or not initialised" << endl;
+        r_Error err(r_Error::r_Error_TypeInvalid);
+        throw err;
+    }
+    ((r_Complex_Type *)valueType)->set_re((char*)get_buffer(), re);
+}
 
 void
 r_Complex::set_im(r_Double im) throw (r_Error)
-	{
-	if(!valueType || !valueType->isComplexType())
-		{
-		RMInit::logOut << "r_Complex::get_im() value type is not a complex or not initialised" << endl;
-		r_Error err(r_Error::r_Error_TypeInvalid);
-		throw err;
-		}
-	((r_Complex_Type *)valueType)->set_im((char*)get_buffer(), im);
-	}
+{
+    if(!valueType || !valueType->isComplexType())
+    {
+        RMInit::logOut << "r_Complex::get_im() value type is not a complex or not initialised" << endl;
+        r_Error err(r_Error::r_Error_TypeInvalid);
+        throw err;
+    }
+    ((r_Complex_Type *)valueType)->set_im((char*)get_buffer(), im);
+}
 
 
 bool
 r_Complex::isComplex() const
-	{
-	return true;
-	}
+{
+    return true;
+}
 

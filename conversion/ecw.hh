@@ -33,7 +33,7 @@ rasdaman GmbH.
 */
 
 #ifndef _R_CONV_ECW_HH_
-#define _R_CONV_ECW_HH_ 
+#define _R_CONV_ECW_HH_
 #include "conversion/convertor.hh"
 
 //@ManMemo: Module {\bf conversion}
@@ -50,28 +50,28 @@ rasdaman GmbH.
 */
 
 
-class r_Conv_ECW	:	public r_Convertor
-	{
-	public:
-		r_Conv_ECW(const char* source, const r_Minterval& lengthordomain, const r_Type* tp) throw(r_Error);
+class r_Conv_ECW    :   public r_Convertor
+{
+public:
+    r_Conv_ECW(const char* source, const r_Minterval& lengthordomain, const r_Type* tp) throw(r_Error);
 
-		r_Conv_ECW(const char* source, const r_Minterval& lengthordomain, int tp) throw(r_Error);
+    r_Conv_ECW(const char* source, const r_Minterval& lengthordomain, int tp) throw(r_Error);
 
-		r_convDesc& convertFrom(const char* options = NULL) throw (r_Error);
+    r_convDesc& convertFrom(const char* options = NULL) throw (r_Error);
 
-		r_convDesc& convertTo(const char* options = NULL) throw (r_Error);
+    r_convDesc& convertTo(const char* options = NULL) throw (r_Error);
 
-		const char* get_name() const;
+    const char* get_name() const;
 
-		r_Data_Format get_data_format() const;
+    r_Data_Format get_data_format() const;
 
-		r_Convertor* clone() const;
+    r_Convertor* clone() const;
 
 
-	private:
-		void initECW();
-		
-	};
+private:
+    void initECW();
+
+};
 
 #endif
 

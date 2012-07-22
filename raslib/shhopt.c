@@ -133,24 +133,29 @@ static int optMatch(optStruct opt[], const char *s, int lng)
     char *p;
 
     nopt = optStructCount(opt);
-    if (lng) {
-	if ((p = (char*)strchr(s, '=')) != NULL)
-	    matchlen = p - s;
-	else
-	    matchlen = strlen(s);
+    if (lng)
+    {
+        if ((p = (char*)strchr(s, '=')) != NULL)
+            matchlen = p - s;
+        else
+            matchlen = strlen(s);
     }
-    for (q = 0; q < nopt; q++) {
-	if (lng) {
-	    if (!opt[q].longName)
-		continue;
-	    if (strncmp(s, opt[q].longName, matchlen) == 0)
-		return q;
-	} else {
-	    if (!opt[q].shortName)
-		continue;
-	    if (*s == opt[q].shortName)
-		return q;
-	}
+    for (q = 0; q < nopt; q++)
+    {
+        if (lng)
+        {
+            if (!opt[q].longName)
+                continue;
+            if (strncmp(s, opt[q].longName, matchlen) == 0)
+                return q;
+        }
+        else
+        {
+            if (!opt[q].shortName)
+                continue;
+            if (*s == opt[q].shortName)
+                return q;
+        }
     }
     return -1;
 }
@@ -173,13 +178,16 @@ static char *optString(optStruct *opt, int lng)
 {
     static char ret[31];
 
-    if (lng) {
-	strcpy(ret, "--");
-	strncpy(ret + 2, opt->longName, 28);
-    } else {
-	ret[0] = '-';
-	ret[1] = opt->shortName;
-	ret[2] = '\0';
+    if (lng)
+    {
+        strcpy(ret, "--");
+        strncpy(ret + 2, opt->longName, 28);
+    }
+    else
+    {
+        ret[0] = '-';
+        ret[1] = opt->shortName;
+        ret[2] = '\0';
     }
     return ret;
 }
@@ -200,10 +208,10 @@ static char *optString(optStruct *opt, int lng)
 static int optNeedsArgument(optStruct *opt)
 {
     return opt->type == OPT_STRING
-	|| opt->type == OPT_INT
-	|| opt->type == OPT_UINT
-	|| opt->type == OPT_LONG
-	|| opt->type == OPT_ULONG;
+           || opt->type == OPT_INT
+           || opt->type == OPT_UINT
+           || opt->type == OPT_LONG
+           || opt->type == OPT_ULONG;
 }
 
 
@@ -248,75 +256,84 @@ static void argvRemove(int *argc, char *argv[], int i)
  */
 void optExecute(optStruct *opt, char *arg, int lng)
 {
-    switch (opt->type) {
-      case OPT_FLAG:
-	if (opt->flags & OPT_CALLFUNC)
-	    ((void (*)(void)) opt->arg)();
-	else
-	    *((int *) opt->arg) = 1;
-	break;
+    switch (opt->type)
+    {
+    case OPT_FLAG:
+        if (opt->flags & OPT_CALLFUNC)
+            ((void (*)(void)) opt->arg)();
+        else
+            *((int *) opt->arg) = 1;
+        break;
 
-      case OPT_STRING:
-	if (opt->flags & OPT_CALLFUNC)
-	    ((void (*)(char *)) opt->arg)(arg);
-	else
-	    *((char **) opt->arg) = arg;
-	break;
+    case OPT_STRING:
+        if (opt->flags & OPT_CALLFUNC)
+            ((void (*)(char *)) opt->arg)(arg);
+        else
+            *((char **) opt->arg) = arg;
+        break;
 
-      case OPT_INT:
-      case OPT_LONG: {
-	  long tmp;
-	  char *e;
-	  
-	  tmp = strtol(arg, &e, 10);
-	  if (*e)
-	      optFatal("invalid number `%s'\n", arg);
-	  if (errno == ERANGE
-	      || (opt->type == OPT_INT && (tmp > INT_MAX || tmp < INT_MIN)))
-	      optFatal("number `%s' to `%s' out of range\n",
-		       arg, optString(opt, lng));
-	  if (opt->type == OPT_INT) {
-	      if (opt->flags & OPT_CALLFUNC)
-		  ((void (*)(int)) opt->arg)((int) tmp);
-	      else
-		  *((int *) opt->arg) = (int) tmp;
-	  } else /* OPT_LONG */ {
-	      if (opt->flags & OPT_CALLFUNC)
-		  ((void (*)(long)) opt->arg)(tmp);
-	      else
-		  *((long *) opt->arg) = tmp;
-	  }
-	  break;
-      }
-	
-      case OPT_UINT:
-      case OPT_ULONG: {
-	  unsigned long tmp;
-	  char *e;
-	  
-	  tmp = strtoul(arg, &e, 10);
-	  if (*e)
-	      optFatal("invalid number `%s'\n", arg);
-	  if (errno == ERANGE
-	      || (opt->type == OPT_UINT && tmp > UINT_MAX))
-	      optFatal("number `%s' to `%s' out of range\n",
-		       arg, optString(opt, lng));
-	  if (opt->type == OPT_UINT) {
-	      if (opt->flags & OPT_CALLFUNC)
-		  ((void (*)(unsigned)) opt->arg)((unsigned) tmp);
-	      else
-		  *((unsigned *) opt->arg) = (unsigned) tmp;
-	  } else /* OPT_ULONG */ {
-	      if (opt->flags & OPT_CALLFUNC)
-		  ((void (*)(unsigned long)) opt->arg)(tmp);
-	      else
-		  *((unsigned long *) opt->arg) = tmp;
-	  }
-	  break;
-      }
+    case OPT_INT:
+    case OPT_LONG:
+    {
+        long tmp;
+        char *e;
 
-      default:
-	break;
+        tmp = strtol(arg, &e, 10);
+        if (*e)
+            optFatal("invalid number `%s'\n", arg);
+        if (errno == ERANGE
+                || (opt->type == OPT_INT && (tmp > INT_MAX || tmp < INT_MIN)))
+            optFatal("number `%s' to `%s' out of range\n",
+                     arg, optString(opt, lng));
+        if (opt->type == OPT_INT)
+        {
+            if (opt->flags & OPT_CALLFUNC)
+                ((void (*)(int)) opt->arg)((int) tmp);
+            else
+                *((int *) opt->arg) = (int) tmp;
+        }
+        else /* OPT_LONG */
+        {
+            if (opt->flags & OPT_CALLFUNC)
+                ((void (*)(long)) opt->arg)(tmp);
+            else
+                *((long *) opt->arg) = tmp;
+        }
+        break;
+    }
+
+    case OPT_UINT:
+    case OPT_ULONG:
+    {
+        unsigned long tmp;
+        char *e;
+
+        tmp = strtoul(arg, &e, 10);
+        if (*e)
+            optFatal("invalid number `%s'\n", arg);
+        if (errno == ERANGE
+                || (opt->type == OPT_UINT && tmp > UINT_MAX))
+            optFatal("number `%s' to `%s' out of range\n",
+                     arg, optString(opt, lng));
+        if (opt->type == OPT_UINT)
+        {
+            if (opt->flags & OPT_CALLFUNC)
+                ((void (*)(unsigned)) opt->arg)((unsigned) tmp);
+            else
+                *((unsigned *) opt->arg) = (unsigned) tmp;
+        }
+        else /* OPT_ULONG */
+        {
+            if (opt->flags & OPT_CALLFUNC)
+                ((void (*)(unsigned long)) opt->arg)(tmp);
+            else
+                *((unsigned long *) opt->arg) = tmp;
+        }
+        break;
+    }
+
+    default:
+        break;
     }
 }
 
@@ -395,91 +412,108 @@ void optParseOptions(int *argc, char *argv[], optStruct opt[], int allowNegNum)
     /*
      *  Loop through all arguments.
      */
-    for (ai = 0; ai < *argc; ) {
-	/*
-	 *  "--" indicates that the rest of the argv-array does not
-	 *  contain options.
-	 */
-	if (strcmp(argv[ai], "--") == 0) {
+    for (ai = 0; ai < *argc; )
+    {
+        /*
+         *  "--" indicates that the rest of the argv-array does not
+         *  contain options.
+         */
+        if (strcmp(argv[ai], "--") == 0)
+        {
             argvRemove(argc, argv, ai);
-	    break;
-	}
+            break;
+        }
 
-	if (allowNegNum && argv[ai][0] == '-' && isdigit(argv[ai][1])) {
-	    ++ai;
-	    continue;
-	} else if (strncmp(argv[ai], "--", 2) == 0) {
-	    /* long option */
-	    /* find matching option */
-	    if ((mi = optMatch(opt, argv[ai] + 2, 1)) < 0)
-		optFatal("unrecognized option `%s'\n", argv[ai]);
+        if (allowNegNum && argv[ai][0] == '-' && isdigit(argv[ai][1]))
+        {
+            ++ai;
+            continue;
+        }
+        else if (strncmp(argv[ai], "--", 2) == 0)
+        {
+            /* long option */
+            /* find matching option */
+            if ((mi = optMatch(opt, argv[ai] + 2, 1)) < 0)
+                optFatal("unrecognized option `%s'\n", argv[ai]);
 
-	    /* possibly locate the argument to this option. */
-	    arg = NULL;
-	    if ((p = strchr(argv[ai], '=')) != NULL)
-		arg = p + 1;
-	    
-	    /* does this option take an argument? */
-	    optarg = -1;
-	    if (optNeedsArgument(&opt[mi])) {
-		/* option needs an argument. find it. */
-		if (!arg) {
-		    if ((optarg = ai + 1) == *argc)
-			optFatal("option `%s' requires an argument\n",
-				 optString(&opt[mi], 1));
-		    arg = argv[optarg];
-		}
-	    } else {
-		if (arg)
-		    optFatal("option `%s' doesn't allow an argument\n",
-			     optString(&opt[mi], 1));
-	    }
-	    /* perform the action of this option. */
-	    optExecute(&opt[mi], arg, 1);
-	    /* remove option and any argument from the argv-array. */
+            /* possibly locate the argument to this option. */
+            arg = NULL;
+            if ((p = strchr(argv[ai], '=')) != NULL)
+                arg = p + 1;
+
+            /* does this option take an argument? */
+            optarg = -1;
+            if (optNeedsArgument(&opt[mi]))
+            {
+                /* option needs an argument. find it. */
+                if (!arg)
+                {
+                    if ((optarg = ai + 1) == *argc)
+                        optFatal("option `%s' requires an argument\n",
+                                 optString(&opt[mi], 1));
+                    arg = argv[optarg];
+                }
+            }
+            else
+            {
+                if (arg)
+                    optFatal("option `%s' doesn't allow an argument\n",
+                             optString(&opt[mi], 1));
+            }
+            /* perform the action of this option. */
+            optExecute(&opt[mi], arg, 1);
+            /* remove option and any argument from the argv-array. */
             if (optarg >= 0)
                 argvRemove(argc, argv, ai);
             argvRemove(argc, argv, ai);
-	} else if (*argv[ai] == '-') {
-	    /* A dash by itself is not considered an option. */
-	    if (argv[ai][1] == '\0') {
-		++ai;
-		continue;
-	    }
-	    /* Short option(s) following */
-	    o = argv[ai] + 1;
-	    done = 0;
-	    optarg = -1;
-	    while (*o && !done) {
-		/* find matching option */
-		if ((mi = optMatch(opt, o, 0)) < 0)
-		    optFatal("unrecognized option `-%c'\n", *o);
+        }
+        else if (*argv[ai] == '-')
+        {
+            /* A dash by itself is not considered an option. */
+            if (argv[ai][1] == '\0')
+            {
+                ++ai;
+                continue;
+            }
+            /* Short option(s) following */
+            o = argv[ai] + 1;
+            done = 0;
+            optarg = -1;
+            while (*o && !done)
+            {
+                /* find matching option */
+                if ((mi = optMatch(opt, o, 0)) < 0)
+                    optFatal("unrecognized option `-%c'\n", *o);
 
-		/* does this option take an argument? */
-		optarg = -1;
-		arg = NULL;
-		if (optNeedsArgument(&opt[mi])) {
-		    /* option needs an argument. find it. */
-		    arg = o + 1;
-		    if (!*arg) {
-			if ((optarg = ai + 1) == *argc)
-			    optFatal("option `%s' requires an argument\n",
-				     optString(&opt[mi], 0));
-			arg = argv[optarg];
-		    }
-		    done = 1;
-		}
-		/* perform the action of this option. */
-		optExecute(&opt[mi], arg, 0);
-		++o;
-	    }
-	    /* remove option and any argument from the argv-array. */
+                /* does this option take an argument? */
+                optarg = -1;
+                arg = NULL;
+                if (optNeedsArgument(&opt[mi]))
+                {
+                    /* option needs an argument. find it. */
+                    arg = o + 1;
+                    if (!*arg)
+                    {
+                        if ((optarg = ai + 1) == *argc)
+                            optFatal("option `%s' requires an argument\n",
+                                     optString(&opt[mi], 0));
+                        arg = argv[optarg];
+                    }
+                    done = 1;
+                }
+                /* perform the action of this option. */
+                optExecute(&opt[mi], arg, 0);
+                ++o;
+            }
+            /* remove option and any argument from the argv-array. */
             if (optarg >= 0)
                 argvRemove(argc, argv, ai);
             argvRemove(argc, argv, ai);
-	} else {
-	    /* a non-option argument */
-	    ++ai;
-	}
+        }
+        else
+        {
+            /* a non-option argument */
+            ++ai;
+        }
     }
 }

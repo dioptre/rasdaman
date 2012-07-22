@@ -44,65 +44,65 @@ this object gets a set of oids.  when an oid is accessed the iterator returns a 
   */
 template<class T>
 class DBObjectIdIterator
-	{
-	public:
-		DBObjectIdIterator(const std::set<DBRef<T>, std::less<DBRef<T> > >& oidlist);
-		/*@Doc: 
-		constructs a new Iterator.  the OIdSet will be deleted by the DBOBjectIdIterator.
-		there may be oids of objects with other classes present.  you should be carefull
-		when using this feature - as in mddtypes/mddbasetypes/mdddim/domtypes 
-		*/
+{
+public:
+    DBObjectIdIterator(const std::set<DBRef<T>, std::less<DBRef<T> > >& oidlist);
+    /*@Doc:
+    constructs a new Iterator.  the OIdSet will be deleted by the DBOBjectIdIterator.
+    there may be oids of objects with other classes present.  you should be carefull
+    when using this feature - as in mddtypes/mddbasetypes/mdddim/domtypes
+    */
 
-		DBObjectIdIterator(const DBObjectIdIterator<T>& it);
-		/*@Doc: 
-		*/
+    DBObjectIdIterator(const DBObjectIdIterator<T>& it);
+    /*@Doc:
+    */
 
-		~DBObjectIdIterator();
-		/*@Doc: 
-		deletes the OIdSet passed to it in the constructor
-		*/
+    ~DBObjectIdIterator();
+    /*@Doc:
+    deletes the OIdSet passed to it in the constructor
+    */
 
-		void reset();
-		/*@Doc: 
-		resets the iterator to the beginning
-		*/
+    void reset();
+    /*@Doc:
+    resets the iterator to the beginning
+    */
 
-		bool not_done() const;
-		/*@Doc: 
-		checks if there are more elements
-		*/
+    bool not_done() const;
+    /*@Doc:
+    checks if there are more elements
+    */
 
-		void advance();
-		/*@Doc: 
-		advances the iterator one entry
-		*/
+    void advance();
+    /*@Doc:
+    advances the iterator one entry
+    */
 
-		DBRef<T> get_element() const;
-		/*@Doc: 
-		returns an dbref<object>
-		*/
-		
-	private:
-		typename std::set<DBRef<T>, std::less<DBRef<T> > >::iterator myIter;
-		/*@Doc: 
-		internal pointer where the iterator is
-		*/
+    DBRef<T> get_element() const;
+    /*@Doc:
+    returns an dbref<object>
+    */
 
-		std::set<DBRef<T>, std::less<DBRef<T> > >* mySet;
-		/*@Doc: 
-		the actual list which is used to lookup objects by the objectbroker
-		*/
+private:
+    typename std::set<DBRef<T>, std::less<DBRef<T> > >::iterator myIter;
+    /*@Doc:
+    internal pointer where the iterator is
+    */
 
-		unsigned int counter;
-		/*@Doc: 
-		holds the actual position in set
-		*/
-	};
+    std::set<DBRef<T>, std::less<DBRef<T> > >* mySet;
+    /*@Doc:
+    the actual list which is used to lookup objects by the objectbroker
+    */
+
+    unsigned int counter;
+    /*@Doc:
+    holds the actual position in set
+    */
+};
 
 #ifdef EARLY_TEMPLATE
 #ifdef __EXECUTABLE__
 #include "dbobjectiditerator.cc"
-#endif 
+#endif
 #endif
 
 #endif

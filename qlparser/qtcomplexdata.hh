@@ -44,7 +44,7 @@ rasdaman GmbH.
 
 class QtComplexData : public QtScalarData
 {
-  public:
+public:
     /// list of \Ref{QtScalarData} objects
     typedef std::list<QtScalarData*> QtScalarDataList;
 
@@ -55,7 +55,7 @@ class QtComplexData : public QtScalarData
     QtComplexData( QtScalarDataList* &scalarDataList );
     /**
       Construct an object with \Ref{QtScalarData} elements of the list and
-      destroy the list afterwards. {\ttscalarDataList} is set to zero.    
+      destroy the list afterwards. {\ttscalarDataList} is set to zero.
     */
 
     /// copy constructor

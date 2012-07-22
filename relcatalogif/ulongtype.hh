@@ -54,51 +54,51 @@ values. The value of a ULong is stored in four chars.
   * \ingroup Relcatalogifs
   */
 class ULongType : public UIntegralType
-	{
-	public:
-		ULongType(const OId& id) throw (r_Error);
-		
-		ULongType();
-		/*@Doc:
-		default constructor, sets type name to "ULong".
-		*/
+{
+public:
+    ULongType(const OId& id) throw (r_Error);
 
-		ULongType(const ULongType& old);
-		/*@Doc:
-		copy constructor.
-		*/
+    ULongType();
+    /*@Doc:
+    default constructor, sets type name to "ULong".
+    */
 
-		ULongType& operator=(const ULongType& old);
-		/*@Doc:
-		assignment operator.
-		*/
+    ULongType(const ULongType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-		virtual ~ULongType();
-		/*@Doc:
-		virtual destructor.
-		*/
+    ULongType& operator=(const ULongType& old);
+    /*@Doc:
+    assignment operator.
+    */
 
-		virtual void printCell(ostream& stream, const char* cell) const;
-		/*@Doc:
-		*/
+    virtual ~ULongType();
+    /*@Doc:
+    virtual destructor.
+    */
 
-		virtual r_ULong* convertToCULong(const char* cell, r_ULong* value) const;
-		/*@Doc:
-		*/
+    virtual void printCell(ostream& stream, const char* cell) const;
+    /*@Doc:
+    */
 
-		virtual char* makeFromCULong(char* cell, const r_ULong* value) const;
-		/*@Doc:
-		*/
+    virtual r_ULong* convertToCULong(const char* cell, r_ULong* value) const;
+    /*@Doc:
+    */
 
-		static const char* Name;
+    virtual char* makeFromCULong(char* cell, const r_ULong* value) const;
+    /*@Doc:
+    */
 
-	protected:
+    static const char* Name;
 
-		virtual void readFromDb() throw (r_Error);
-		/*@Doc:
-		initializes the attributes of this type.
-		there is no database activity.  this is hard coded.
-		*/
-	};
+protected:
+
+    virtual void readFromDb() throw (r_Error);
+    /*@Doc:
+    initializes the attributes of this type.
+    there is no database activity.  this is hard coded.
+    */
+};
 
 #endif

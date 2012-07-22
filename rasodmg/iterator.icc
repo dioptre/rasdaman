@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   r_Iterator
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 
@@ -35,5 +35,5 @@ template<class T>
 inline int
 r_Iterator<T>::not_done() const
 {
-  return ndone;
+    return ndone;
 }

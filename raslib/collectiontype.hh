@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   r_Collection_Type
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 #ifndef _D_COLLECTION_TYPE_
@@ -41,65 +41,65 @@ class r_Error;
 
 /*@Doc:
   This class represents the collection type in the ODMG conformant
-  representation of the RasDaMan type system. 
+  representation of the RasDaMan type system.
 */
 
 
 class r_Collection_Type : public r_Type
-	{
-	public:
-		/// Set type in the only one needed right now.
-		typedef enum { SET } r_Kind;
+{
+public:
+    /// Set type in the only one needed right now.
+    typedef enum { SET } r_Kind;
 
-		/// copy constructor
-		/// the exception is only raised when the element type of the copied type is NULL.
-		/// (this can not happen)
-		r_Collection_Type(const r_Collection_Type&) throw (r_Error);
+    /// copy constructor
+    /// the exception is only raised when the element type of the copied type is NULL.
+    /// (this can not happen)
+    r_Collection_Type(const r_Collection_Type&) throw (r_Error);
 
-		/// constructor getting element type
-		r_Collection_Type(r_Type& newType);  
+    /// constructor getting element type
+    r_Collection_Type(r_Type& newType);
 
-		/// returns identifier SET of enumeration r_Kind
-		r_Kind kind() const;
+    /// returns identifier SET of enumeration r_Kind
+    r_Kind kind() const;
 
-		/// assignment operator
-		/// the exception is only raised when the element type of the copied type is NULL.
-		/// (this can not happen)
-		const r_Collection_Type& operator=(const r_Collection_Type& oldObj) throw (r_Error);
+    /// assignment operator
+    /// the exception is only raised when the element type of the copied type is NULL.
+    /// (this can not happen)
+    const r_Collection_Type& operator=(const r_Collection_Type& oldObj) throw (r_Error);
 
-		/// get element type
-		/// the exception is only raised when the element type of the copied type is NULL.
-		/// (this can not happen)
-		const r_Type& element_type() const throw (r_Error);
+    /// get element type
+    /// the exception is only raised when the element type of the copied type is NULL.
+    /// (this can not happen)
+    const r_Type& element_type() const throw (r_Error);
 
-		/// clone operation
-		virtual r_Type* clone() const;
+    /// clone operation
+    virtual r_Type* clone() const;
 
-		/// retrieve id of the type.
-		virtual r_Type::r_Type_Id type_id() const;
+    /// retrieve id of the type.
+    virtual r_Type::r_Type_Id type_id() const;
 
-		virtual bool isCollectionType() const;
+    virtual bool isCollectionType() const;
 
-		/// converts array of cells from NT byte order to Unix byte order.
-		virtual void convertToLittleEndian(char* cells, r_Area noCells) const;
+    /// converts array of cells from NT byte order to Unix byte order.
+    virtual void convertToLittleEndian(char* cells, r_Area noCells) const;
 
-		/// converts array of cells from Unix byte order to NT byte order.
-		virtual void convertToBigEndian(char* cells, r_Area noCells) const;
+    /// converts array of cells from Unix byte order to NT byte order.
+    virtual void convertToBigEndian(char* cells, r_Area noCells) const;
 
-		/// writes state of object to specified stream
-		virtual void print_status(std::ostream& s = std::cout) const;  
+    /// writes state of object to specified stream
+    virtual void print_status(std::ostream& s = std::cout) const;
 
-		/// destructor
-		~r_Collection_Type();
+    /// destructor
+    ~r_Collection_Type();
 
-	protected:
-		/// default constructor
-		/// no one should use that
-		r_Collection_Type();
+protected:
+    /// default constructor
+    /// no one should use that
+    r_Collection_Type();
 
-		/// element type
-		r_Type* elementType;
-	};
+    /// element type
+    r_Type* elementType;
+};
 
 //@Doc: write the status of a collection type to a stream
 extern std::ostream &operator<<( std::ostream &str, const r_Collection_Type &type );

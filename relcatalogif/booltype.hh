@@ -56,52 +56,52 @@ stored in one char. BoolType is a persistence capable class.
   * \ingroup Relcatalogifs
   */
 class BoolType : public UIntegralType
-	{
-	public:
-		BoolType(const OId& id) throw (r_Error);
+{
+public:
+    BoolType(const OId& id) throw (r_Error);
 
-		BoolType();
-		/*@Doc:
-		default constructor, no initialization needed for BoolType.
-		*/
-		
-		BoolType(const BoolType& old);
-		/*@Doc:
-		copy constructor.
-		*/
+    BoolType();
+    /*@Doc:
+    default constructor, no initialization needed for BoolType.
+    */
 
-		BoolType& operator=(const BoolType& old);
-		/*@Doc:
-		assignment operator.
-		*/
+    BoolType(const BoolType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-		virtual ~BoolType();
-		/*@Doc:
-		virtual destructor.
-		*/
+    BoolType& operator=(const BoolType& old);
+    /*@Doc:
+    assignment operator.
+    */
 
-		virtual void printCell(ostream& stream, const char* cell) const;
-		/*@Doc:
-		*/
+    virtual ~BoolType();
+    /*@Doc:
+    virtual destructor.
+    */
 
-		virtual r_ULong* convertToCULong(const char* cell, r_ULong* value) const;
-		/*@Doc:
-		*/
+    virtual void printCell(ostream& stream, const char* cell) const;
+    /*@Doc:
+    */
 
-		virtual char* makeFromCULong(char* cell, const r_ULong* value) const;
-		/*@Doc:
-		*/
+    virtual r_ULong* convertToCULong(const char* cell, r_ULong* value) const;
+    /*@Doc:
+    */
 
-		static const char* Name;
+    virtual char* makeFromCULong(char* cell, const r_ULong* value) const;
+    /*@Doc:
+    */
 
-	protected:
-	
-		virtual void readFromDb() throw (r_Error);
-		/*@Doc:
-		initializes the attributes of this type.
-		there is no database activity.  this is hard coded.
-		*/
+    static const char* Name;
 
-	};
+protected:
+
+    virtual void readFromDb() throw (r_Error);
+    /*@Doc:
+    initializes the attributes of this type.
+    there is no database activity.  this is hard coded.
+    */
+
+};
 
 #endif

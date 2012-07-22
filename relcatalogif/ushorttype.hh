@@ -53,51 +53,51 @@ values. The value of a UShort is stored in four chars.
   * \ingroup Relcatalogifs
   */
 class UShortType : public UIntegralType
-	{
-	public:
-		UShortType(const OId& id) throw (r_Error);
+{
+public:
+    UShortType(const OId& id) throw (r_Error);
 
-		UShortType();
-		/*@Doc:
-		default constructor, sets type name to "UShort".
-		*/
+    UShortType();
+    /*@Doc:
+    default constructor, sets type name to "UShort".
+    */
 
-		UShortType(const UShortType& old);
-		/*@Doc:
-		copy constructor.
-		*/
+    UShortType(const UShortType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-		UShortType& operator=(const UShortType& old);
-		/*@Doc:
-		assignment operator.
-		*/
+    UShortType& operator=(const UShortType& old);
+    /*@Doc:
+    assignment operator.
+    */
 
-		virtual ~UShortType();
-		/*@Doc:
-		virtual destructor.
-		*/
+    virtual ~UShortType();
+    /*@Doc:
+    virtual destructor.
+    */
 
-		virtual void printCell(ostream& stream, const char* cell) const;
-		/*@Doc:
-		*/
+    virtual void printCell(ostream& stream, const char* cell) const;
+    /*@Doc:
+    */
 
-		virtual r_ULong* convertToCULong(const char* cell, r_ULong* value) const;
-		/*@Doc:
-		*/
+    virtual r_ULong* convertToCULong(const char* cell, r_ULong* value) const;
+    /*@Doc:
+    */
 
-		virtual char* makeFromCULong(char* cell, const r_ULong* value) const;
-		/*@Doc:
-		*/
+    virtual char* makeFromCULong(char* cell, const r_ULong* value) const;
+    /*@Doc:
+    */
 
-		static const char* Name;
+    static const char* Name;
 
-	protected:
+protected:
 
-		virtual void readFromDb() throw (r_Error);
-		/*@Doc:
-		initializes the attributes of this type.
-		there is no database activity.  this is hard coded.
-		*/
-	};
+    virtual void readFromDb() throw (r_Error);
+    /*@Doc:
+    initializes the attributes of this type.
+    there is no database activity.  this is hard coded.
+    */
+};
 
 #endif

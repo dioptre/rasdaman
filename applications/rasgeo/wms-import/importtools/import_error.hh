@@ -35,7 +35,7 @@
 */
 
 
-    /// valid error codes:
+/// valid error codes:
 #define ALLDONE                         -1
 #define OK                              0
 #define CREATEANDNOCREATE               1
@@ -107,7 +107,7 @@
 #define INVALIDSKIP                     67
 #define INVALIDHEX                      68
 #define INVALIDBUFSIZ                   69
-#define LAYERLISTNOTDEFINED	        70
+#define LAYERLISTNOTDEFINED         70
 #define TOOMANYWILDCARDS                71
 #define NOWILDCARD                      72
 #define TKLAYERMISMATCH                 73
@@ -130,18 +130,18 @@
 
 class ImportError // : public std::exception
 {
-  public:
+public:
 
     /// constructor receiving an error number
     ImportError( unsigned int e );
-    
+
     /// destructor
     virtual ~ImportError();
-  
-    /// get an error description
-    virtual const char * what(); 
 
-  private:
+    /// get an error description
+    virtual const char * what();
+
+private:
     /// error information
     unsigned int importErrno;
 };

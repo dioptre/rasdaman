@@ -37,7 +37,7 @@ using namespace std;
  * CHANGE HISTORY (append further entries):
  * when         who        what
  * -----------------------------------------------------------------------
- * 17-Aug-09	aaiordachi	create class (for adding rasql tiling options)
+ * 17-Aug-09    aaiordachi  create class (for adding rasql tiling options)
  * COMMENTS:
  *
  ****************************************************************************/
@@ -47,70 +47,70 @@ StgMddConfig::StgMddConfig()
 StgMddConfig::~StgMddConfig()
 {}
 
-// Setter functions 
+// Setter functions
 void StgMddConfig::setBBoxes(const vector<r_Minterval>& input)
 {
-	bboxes = input;
+    bboxes = input;
 }
 
 void StgMddConfig::setSubTiling()
 {
-	subTiling = true;
+    subTiling = true;
 }
 
 void StgMddConfig::resetSubTiling()
 {
-	subTiling = false;
+    subTiling = false;
 }
 
 void StgMddConfig::setInterestThreshold(double i)
 {
-	interestThreshold = i;
+    interestThreshold = i;
 }
 
 void StgMddConfig::setBorderThreshold(unsigned int b)
 {
-	borderThreshold = b;
+    borderThreshold = b;
 }
 
 void StgMddConfig::setCellSize(int size)
 {
-	cellSize = size;
+    cellSize = size;
 }
 
 void StgMddConfig::setDirDecompose(const vector<r_Dir_Decompose>& input)
 {
-	dirDecomp = input;
+    dirDecomp = input;
 }
 
-// Getter functions 
+// Getter functions
 vector<r_Minterval>& StgMddConfig::getBBoxes()
 {
-	return bboxes;
+    return bboxes;
 }
 
 bool StgMddConfig::getSubTiling()
 {
-	return subTiling;
+    return subTiling;
 }
 
 double StgMddConfig::getInterestThreshold()
 {
-	return interestThreshold;
+    return interestThreshold;
 }
 
 unsigned int StgMddConfig::getBorderThreshold()
 {
-	return borderThreshold;
+    return borderThreshold;
 }
 
 int StgMddConfig::getCellSize()
 {
-	return cellSize;
+    return cellSize;
 }
 
 vector<r_Dir_Decompose>& StgMddConfig::getDirDecompose()
 {
-	return dirDecomp;
+    return dirDecomp;
 }
-	
+

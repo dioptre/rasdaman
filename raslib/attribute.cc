@@ -24,234 +24,234 @@ rasdaman GmbH.
 static const char rcsid[] = "@(#) raslib, r_Attribute: $Header: /home/rasdev/CVS-repository/rasdaman/raslib/attribute.cc,v 1.11 2003/12/27 23:01:21 rasdev Exp $";
 
 #include "raslib/attribute.hh"
-#include "raslib/basetype.hh" 
-#include "raslib/structuretype.hh" 
+#include "raslib/basetype.hh"
+#include "raslib/structuretype.hh"
 #include "raslib/rminit.hh"
 #include "raslib/error.hh"
 
-r_Attribute::r_Attribute() 
-	:	r_Property(),
-		localOffset(0),
-		globalOffset(0)
-	{
-	}
+r_Attribute::r_Attribute()
+    :   r_Property(),
+        localOffset(0),
+        globalOffset(0)
+{
+}
 
-r_Attribute::r_Attribute(const char* newTypeName, const r_Base_Type& newType) 
-	:	r_Property(newTypeName, newType),
-		localOffset(0),
-		globalOffset(0) 
-	{
-	}
+r_Attribute::r_Attribute(const char* newTypeName, const r_Base_Type& newType)
+    :   r_Property(newTypeName, newType),
+        localOffset(0),
+        globalOffset(0)
+{
+}
 
-r_Attribute::r_Attribute(const r_Attribute& oldObj) 
-	:	r_Property(oldObj) ,
-		localOffset(oldObj.localOffset),
-		globalOffset(oldObj.globalOffset) 
-	{
-	}
+r_Attribute::r_Attribute(const r_Attribute& oldObj)
+    :   r_Property(oldObj) ,
+        localOffset(oldObj.localOffset),
+        globalOffset(oldObj.globalOffset)
+{
+}
 
-const r_Attribute& 
-r_Attribute::operator=(const r_Attribute& oldObj) 
-	{
-	// Gracefully handle self assignment
-	if (this != &oldObj)
-		{
-		r_Property::operator=(oldObj) ;
-		localOffset = oldObj.localOffset;
-		globalOffset = oldObj.globalOffset;
-		}
+const r_Attribute&
+r_Attribute::operator=(const r_Attribute& oldObj)
+{
+    // Gracefully handle self assignment
+    if (this != &oldObj)
+    {
+        r_Property::operator=(oldObj) ;
+        localOffset = oldObj.localOffset;
+        globalOffset = oldObj.globalOffset;
+    }
 
-	return *this;
-	}
+    return *this;
+}
 
-r_Attribute::~r_Attribute() 
-	{
-	}
+r_Attribute::~r_Attribute()
+{
+}
 
 r_Bytes
 r_Attribute::offset() const
-	{
-	return localOffset;
-	}
+{
+    return localOffset;
+}
 
 void
-r_Attribute::set_offset(r_Bytes newOffset) 
-	{
-	localOffset = newOffset;
-	}
+r_Attribute::set_offset(r_Bytes newOffset)
+{
+    localOffset = newOffset;
+}
 
 r_Bytes
 r_Attribute::global_offset() const
-	{
-	return globalOffset;
-	}
+{
+    return globalOffset;
+}
 
 void
-r_Attribute::set_global_offset(r_Bytes newOffset) 
-	{
-	globalOffset = newOffset;
-	}
+r_Attribute::set_global_offset(r_Bytes newOffset)
+{
+    globalOffset = newOffset;
+}
 
-void 
+void
 r_Attribute::print_status(std::ostream& s) const
-	{
-	type_of().print_status(s);
-	s << " " << name() << std::flush;
-	}
+{
+    type_of().print_status(s);
+    s << " " << name() << std::flush;
+}
 
 
 
-r_Attribute 
-r_Attribute::operator[](unsigned int number) const throw(r_Error) 
-	{
-	if (type_of().type_id() != r_Type::STRUCTURETYPE) 
-		{
-		RMInit::logOut << "r_Attribute::operator[](" << number << ") not a struct type" << endl;
-		throw r_Error(r_Error::r_Error_TypeInvalid) ;
-		}
-		
-	const r_Structure_Type& structValue = (const r_Structure_Type&)type_of();
+r_Attribute
+r_Attribute::operator[](unsigned int number) const throw(r_Error)
+{
+    if (type_of().type_id() != r_Type::STRUCTURETYPE)
+    {
+        RMInit::logOut << "r_Attribute::operator[](" << number << ") not a struct type" << endl;
+        throw r_Error(r_Error::r_Error_TypeInvalid) ;
+    }
 
-	return structValue[number];
-	}
+    const r_Structure_Type& structValue = (const r_Structure_Type&)type_of();
 
-
-
-r_Boolean 
-r_Attribute::get_boolean(const char* cell) const throw(r_Error) 
-	{
-	if (type_of().type_id() != r_Type::BOOL) 
-		{
-		RMInit::logOut << "r_Attribute::get_boolean(data) not a boolean" << endl;
-		r_Error err(r_Error::r_Error_TypeInvalid) ;
-		throw(err) ;		 
-		}
-
-	return *((r_Boolean*) (cell+globalOffset) ) ;
-	}
+    return structValue[number];
+}
 
 
 
-r_Char	 
-r_Attribute::get_char(const char* cell) const throw(r_Error) 
-	{
-	if (type_of() .type_id() != r_Type::CHAR) 
-		{
-		RMInit::logOut << "r_Attribute::get_char(data) not a char" << endl;
-		r_Error err(r_Error::r_Error_TypeInvalid) ;
-		throw(err) ;		 
-		}
+r_Boolean
+r_Attribute::get_boolean(const char* cell) const throw(r_Error)
+{
+    if (type_of().type_id() != r_Type::BOOL)
+    {
+        RMInit::logOut << "r_Attribute::get_boolean(data) not a boolean" << endl;
+        r_Error err(r_Error::r_Error_TypeInvalid) ;
+        throw(err) ;
+    }
 
-	return *((r_Char*) (cell+globalOffset) ) ;
-	}
-
-
-
-r_Octet	 
-r_Attribute::get_octet(const char* cell) const throw(r_Error) 
-	{
-	if (type_of() .type_id() != r_Type::OCTET) 
-		{
-		RMInit::logOut << "r_Attribute::get_octet(data) not a octet" << endl;
-		r_Error err(r_Error::r_Error_TypeInvalid) ;
-		throw(err) ;		 
-		}
-
-	return *((r_Octet*) (cell+globalOffset) ) ;
-	}
+    return *((r_Boolean*) (cell+globalOffset) ) ;
+}
 
 
 
-r_Short	 
-r_Attribute::get_short(const char* cell) const throw(r_Error) 
-	{
-	if (type_of() .type_id() != r_Type::SHORT) 
-		{
-		RMInit::logOut << "r_Attribute::get_short(data) not a short" << endl;
-		r_Error err(r_Error::r_Error_TypeInvalid) ;
-		throw(err) ;		 
-		}
+r_Char
+r_Attribute::get_char(const char* cell) const throw(r_Error)
+{
+    if (type_of() .type_id() != r_Type::CHAR)
+    {
+        RMInit::logOut << "r_Attribute::get_char(data) not a char" << endl;
+        r_Error err(r_Error::r_Error_TypeInvalid) ;
+        throw(err) ;
+    }
 
-	return *((r_Short*) (cell+globalOffset) ) ;
-	}
-
-
-
-r_UShort	
-r_Attribute::get_ushort(const char* cell) const throw(r_Error) 
-	{
-	if (type_of() .type_id() != r_Type::USHORT) 
-		{
-		RMInit::logOut << "r_Attribute::get_ushort(data) not a ushort" << endl;
-		r_Error err(r_Error::r_Error_TypeInvalid) ;
-		throw(err) ;		 
-		}
-
-	return *((r_UShort*) (cell+globalOffset) ) ;
-	}
+    return *((r_Char*) (cell+globalOffset) ) ;
+}
 
 
 
-r_Long		
-r_Attribute::get_long(const char* cell) const throw(r_Error) 
-	{
-	if (type_of() .type_id() != r_Type::LONG) 
-		{
-		RMInit::logOut << "r_Attribute::get_long(data) not a long" << endl;
-		r_Error err(r_Error::r_Error_TypeInvalid) ;
-		throw(err) ;		 
-		}
+r_Octet
+r_Attribute::get_octet(const char* cell) const throw(r_Error)
+{
+    if (type_of() .type_id() != r_Type::OCTET)
+    {
+        RMInit::logOut << "r_Attribute::get_octet(data) not a octet" << endl;
+        r_Error err(r_Error::r_Error_TypeInvalid) ;
+        throw(err) ;
+    }
 
-	return *((r_Long*) (cell+globalOffset) ) ;
-	}
-
-
-
-r_ULong	 
-r_Attribute::get_ulong(const char* cell) const throw(r_Error) 
-	{
-	if (type_of() .type_id() != r_Type::ULONG) 
-		{
-		RMInit::logOut << "r_Attribute::get_ulong(data) not a ulong" << endl;
-		r_Error err(r_Error::r_Error_TypeInvalid) ;
-		throw(err) ;		 
-		}
-
-	return *((r_ULong*) (cell+globalOffset) ) ;
-	}
+    return *((r_Octet*) (cell+globalOffset) ) ;
+}
 
 
 
-r_Float	 
-r_Attribute::get_float(const char* cell) const throw(r_Error) 
-	{
-	if (type_of() .type_id() != r_Type::FLOAT) 
-		{
-		RMInit::logOut << "r_Attribute::get_float(data) not a float" << endl;
-		r_Error err(r_Error::r_Error_TypeInvalid) ;
-		throw(err) ;		 
-		}
+r_Short
+r_Attribute::get_short(const char* cell) const throw(r_Error)
+{
+    if (type_of() .type_id() != r_Type::SHORT)
+    {
+        RMInit::logOut << "r_Attribute::get_short(data) not a short" << endl;
+        r_Error err(r_Error::r_Error_TypeInvalid) ;
+        throw(err) ;
+    }
 
-	return *((r_Float*) (cell+globalOffset) ) ;
-	}
+    return *((r_Short*) (cell+globalOffset) ) ;
+}
 
 
 
-r_Double	
-r_Attribute::get_double(const char* cell) const throw(r_Error) 
-	{
-	if (type_of() .type_id() != r_Type::DOUBLE) 
-		{
-		RMInit::logOut << "r_Attribute::get_double(data) not a double" << endl;
-		r_Error err(r_Error::r_Error_TypeInvalid) ;
-		throw(err) ;		 
-		}
+r_UShort
+r_Attribute::get_ushort(const char* cell) const throw(r_Error)
+{
+    if (type_of() .type_id() != r_Type::USHORT)
+    {
+        RMInit::logOut << "r_Attribute::get_ushort(data) not a ushort" << endl;
+        r_Error err(r_Error::r_Error_TypeInvalid) ;
+        throw(err) ;
+    }
 
-	return *((r_Double*) (cell+globalOffset) ) ;
-	}
+    return *((r_UShort*) (cell+globalOffset) ) ;
+}
+
+
+
+r_Long
+r_Attribute::get_long(const char* cell) const throw(r_Error)
+{
+    if (type_of() .type_id() != r_Type::LONG)
+    {
+        RMInit::logOut << "r_Attribute::get_long(data) not a long" << endl;
+        r_Error err(r_Error::r_Error_TypeInvalid) ;
+        throw(err) ;
+    }
+
+    return *((r_Long*) (cell+globalOffset) ) ;
+}
+
+
+
+r_ULong
+r_Attribute::get_ulong(const char* cell) const throw(r_Error)
+{
+    if (type_of() .type_id() != r_Type::ULONG)
+    {
+        RMInit::logOut << "r_Attribute::get_ulong(data) not a ulong" << endl;
+        r_Error err(r_Error::r_Error_TypeInvalid) ;
+        throw(err) ;
+    }
+
+    return *((r_ULong*) (cell+globalOffset) ) ;
+}
+
+
+
+r_Float
+r_Attribute::get_float(const char* cell) const throw(r_Error)
+{
+    if (type_of() .type_id() != r_Type::FLOAT)
+    {
+        RMInit::logOut << "r_Attribute::get_float(data) not a float" << endl;
+        r_Error err(r_Error::r_Error_TypeInvalid) ;
+        throw(err) ;
+    }
+
+    return *((r_Float*) (cell+globalOffset) ) ;
+}
+
+
+
+r_Double
+r_Attribute::get_double(const char* cell) const throw(r_Error)
+{
+    if (type_of() .type_id() != r_Type::DOUBLE)
+    {
+        RMInit::logOut << "r_Attribute::get_double(data) not a double" << endl;
+        r_Error err(r_Error::r_Error_TypeInvalid) ;
+        throw(err) ;
+    }
+
+    return *((r_Double*) (cell+globalOffset) ) ;
+}
 
 std::ostream &operator<<( std::ostream &str, const r_Attribute &type )
 {
-  type.print_status(str);
-  return str;
+    type.print_status(str);
+    return str;
 }

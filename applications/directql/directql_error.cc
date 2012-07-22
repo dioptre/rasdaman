@@ -22,12 +22,12 @@ rasdaman GmbH.
 /
 
 /**
-*	SOURCE: 	rasql_error.cc
+*   SOURCE:     rasql_error.cc
 *
-*	CLASS: 		RasqlError
+*   CLASS:      RasqlError
 *
-*  	COMMENTS:
-*				No comments
+*   COMMENTS:
+*               No comments
 */
 
 
@@ -49,8 +49,8 @@ static const char rcsid[] = "@(#)raslib, RasqlError: $Id: rasql_error.cc,v 1.1 2
 /// error object, carrying int error code
 RasqlError::RasqlError( unsigned int e )
 {
-	TALK( "Exception: " << e );
-	errno = e;
+    TALK( "Exception: " << e );
+    errno = e;
 }
 
 /// default destructor
@@ -63,57 +63,57 @@ RasqlError::~RasqlError()
 const char*
 RasqlError::what()
 {
-	char *errorMsg;
-	switch (errno)
-	{
-		case  NOQUERY:
-			errorMsg = "Mandatory parameter '--query' missing.";
-			break;
-		case  ERRORPARSINGCOMMANDLINE:
-			errorMsg = "Command line syntax error.";
-			break;
-		case  ILLEGALOUTPUTTYPE:
-			errorMsg = "Illegal output type specifier, must be one of none, file, formatted, string, hex.";
-			break;
-		case  FILEINACCESSIBLE:
-			errorMsg = "Cannot read input file.";
-			break;
-		case  UNABLETOCLAIMRESOURCEFORFILE:
-			errorMsg = "Cannot allocate memory for file read.";
-			break;
-		case  NOVALIDDOMAIN:
-			errorMsg = "Syntax error in mdddomain specification, must be [x0:x1,y0:y1] (forgot to quote or escape?)";
-			break;
-		case  MDDTYPEINVALID:
-			errorMsg = "MDD type invalid.";
-			break;
-		case  FILESIZEMISMATCH:
-			errorMsg = "Input file size does not correspond with MDD domain specified.";
-			break;
-		default :
-			errorMsg = "Unknown error code.";
-			break;
-		case  ALLDONE:
-		case 0:
-			errorMsg = "No errors.";
-	}
+    char *errorMsg;
+    switch (errno)
+    {
+    case  NOQUERY:
+        errorMsg = "Mandatory parameter '--query' missing.";
+        break;
+    case  ERRORPARSINGCOMMANDLINE:
+        errorMsg = "Command line syntax error.";
+        break;
+    case  ILLEGALOUTPUTTYPE:
+        errorMsg = "Illegal output type specifier, must be one of none, file, formatted, string, hex.";
+        break;
+    case  FILEINACCESSIBLE:
+        errorMsg = "Cannot read input file.";
+        break;
+    case  UNABLETOCLAIMRESOURCEFORFILE:
+        errorMsg = "Cannot allocate memory for file read.";
+        break;
+    case  NOVALIDDOMAIN:
+        errorMsg = "Syntax error in mdddomain specification, must be [x0:x1,y0:y1] (forgot to quote or escape?)";
+        break;
+    case  MDDTYPEINVALID:
+        errorMsg = "MDD type invalid.";
+        break;
+    case  FILESIZEMISMATCH:
+        errorMsg = "Input file size does not correspond with MDD domain specified.";
+        break;
+    default :
+        errorMsg = "Unknown error code.";
+        break;
+    case  ALLDONE:
+    case 0:
+        errorMsg = "No errors.";
+    }
 
 // size of error text buffer below
 #define ERRTEXT_BUFSIZ 200
 
-	static char errorText[ERRTEXT_BUFSIZ];
+    static char errorText[ERRTEXT_BUFSIZ];
 
 // text constants for error msg
 #define MODULE_TAG "IO"
 #define ERROR_TEXT " Error: "
 
-	// check for buffer overflow
-	if (strlen(MODULE_TAG) + 3 + strlen(ERROR_TEXT) + strlen(errorMsg) + 1 > ERRTEXT_BUFSIZ)
-		sprintf( errorText, "%s%03d%s", MODULE_TAG, errno, "(error message too long, cannot display)" );
-	else
-		sprintf( errorText, "%s%03d%s%s", MODULE_TAG, errno, ERROR_TEXT, errorMsg );
+    // check for buffer overflow
+    if (strlen(MODULE_TAG) + 3 + strlen(ERROR_TEXT) + strlen(errorMsg) + 1 > ERRTEXT_BUFSIZ)
+        sprintf( errorText, "%s%03d%s", MODULE_TAG, errno, "(error message too long, cannot display)" );
+    else
+        sprintf( errorText, "%s%03d%s%s", MODULE_TAG, errno, ERROR_TEXT, errorMsg );
 
-	return errorText;
+    return errorText;
 } // what()
 
- 
+

@@ -50,82 +50,82 @@
 
 
 r_Structure::r_Structure( const char* newBuffer, const r_Structure_Type* newType )
-  : r_Scalar( newType ),
-    numElements(0),
-    elements(NULL),
-    valueBuffer(NULL)
+    : r_Scalar( newType ),
+      numElements(0),
+      elements(NULL),
+      valueBuffer(NULL)
 {
-  if( newType )
-  {
-  
-    numElements = newType->count_elements(); 
-    elements = new r_Scalar*[numElements];
-
-    valueBuffer = (char*)mymalloc(newType->size());
-  
-    if(newBuffer)
-      memcpy(valueBuffer, newBuffer, newType->size());
-    else
-      memset(valueBuffer, 0, newType->size());
-      
-    r_Structure_Type::attribute_iterator iter( newType->defines_attribute_begin() );
-
-    for( int i=0; iter != newType->defines_attribute_end(); iter++, i++ )
+    if( newType )
     {
-      if( (*iter).type_of().type_id() == r_Type::STRUCTURETYPE )     
-        elements[i] = new r_Structure( valueBuffer + (*iter).offset(), (r_Structure_Type*)&((*iter).type_of()) );
-      else
-        elements[i] = new r_Primitive( valueBuffer + (*iter).offset(), (r_Primitive_Type*)&((*iter).type_of()) );
+
+        numElements = newType->count_elements();
+        elements = new r_Scalar*[numElements];
+
+        valueBuffer = (char*)mymalloc(newType->size());
+
+        if(newBuffer)
+            memcpy(valueBuffer, newBuffer, newType->size());
+        else
+            memset(valueBuffer, 0, newType->size());
+
+        r_Structure_Type::attribute_iterator iter( newType->defines_attribute_begin() );
+
+        for( int i=0; iter != newType->defines_attribute_end(); iter++, i++ )
+        {
+            if( (*iter).type_of().type_id() == r_Type::STRUCTURETYPE )
+                elements[i] = new r_Structure( valueBuffer + (*iter).offset(), (r_Structure_Type*)&((*iter).type_of()) );
+            else
+                elements[i] = new r_Primitive( valueBuffer + (*iter).offset(), (r_Primitive_Type*)&((*iter).type_of()) );
+        }
     }
-  }
 }
 
 
 
 r_Structure::r_Structure( const r_Structure& obj )
-  : r_Scalar( obj ),
-    numElements(obj.numElements),
-    elements(NULL),
-    valueBuffer(NULL)
+    : r_Scalar( obj ),
+      numElements(obj.numElements),
+      elements(NULL),
+      valueBuffer(NULL)
 {
-  if( numElements )
-  {
-    elements = new r_Scalar*[numElements];
+    if( numElements )
+    {
+        elements = new r_Scalar*[numElements];
 
-    for( unsigned int i=0; i < numElements; i++ )
-      elements[i] = obj.elements[i]->clone();
-  }
-  
-  valueBuffer = (char*) mymalloc(valueType->size());
-  
-  if(obj.valueBuffer)
-    memcpy(valueBuffer, obj.valueBuffer, valueType->size());
-  else
-    memset(valueBuffer, 0, valueType->size());
+        for( unsigned int i=0; i < numElements; i++ )
+            elements[i] = obj.elements[i]->clone();
+    }
+
+    valueBuffer = (char*) mymalloc(valueType->size());
+
+    if(obj.valueBuffer)
+        memcpy(valueBuffer, obj.valueBuffer, valueType->size());
+    else
+        memset(valueBuffer, 0, valueType->size());
 }
 
 
 
-r_Structure::~r_Structure() 
+r_Structure::~r_Structure()
 {
-  if( numElements )
-  {
-    for( unsigned int i =0; i < numElements; i++ )
-      delete elements[i];
+    if( numElements )
+    {
+        for( unsigned int i =0; i < numElements; i++ )
+            delete elements[i];
 
-    delete[] elements;
-  }  
-  
-  if(valueBuffer)
-    free(valueBuffer);
+        delete[] elements;
+    }
+
+    if(valueBuffer)
+        free(valueBuffer);
 }
 
 
 
-r_Scalar* 
+r_Scalar*
 r_Structure::clone() const
 {
-  return new r_Structure( *this );
+    return new r_Structure( *this );
 }
 
 
@@ -133,41 +133,41 @@ r_Structure::clone() const
 const r_Structure&
 r_Structure::operator=( const r_Structure& obj )
 {
-  if( this != &obj )
-  {
-    // assign scalar
-    r_Scalar::operator=( obj );
-
-    if( numElements )
+    if( this != &obj )
     {
-      for( unsigned int i =0; i < numElements; i++ )
-        delete elements[i];
+        // assign scalar
+        r_Scalar::operator=( obj );
 
-      delete[] elements;
-    }    
+        if( numElements )
+        {
+            for( unsigned int i =0; i < numElements; i++ )
+                delete elements[i];
 
-    if( obj.numElements )
-    {
-      numElements = obj.numElements;
-      elements = new r_Scalar*[numElements];
+            delete[] elements;
+        }
 
-      for( unsigned int i =0; i < numElements; i++ )
-        elements[i] = obj.elements[i]->clone();
+        if( obj.numElements )
+        {
+            numElements = obj.numElements;
+            elements = new r_Scalar*[numElements];
+
+            for( unsigned int i =0; i < numElements; i++ )
+                elements[i] = obj.elements[i]->clone();
+        }
+
+        if(valueBuffer)
+            free(valueBuffer);
+
+        valueBuffer = (char*) mymalloc(valueType->size());
+
+        if(obj.valueBuffer)
+            memcpy(valueBuffer, obj.valueBuffer, valueType->size());
+        else
+            memset(valueBuffer, 0, valueType->size());
+
     }
-    
-    if(valueBuffer)
-      free(valueBuffer);
-    
-    valueBuffer = (char*) mymalloc(valueType->size());
 
-    if(obj.valueBuffer)
-       memcpy(valueBuffer, obj.valueBuffer, valueType->size());
-    else
-       memset(valueBuffer, 0, valueType->size());
-      
-  }
-
-  return *this;
+    return *this;
 }
 
 
@@ -175,30 +175,30 @@ r_Structure::operator=( const r_Structure& obj )
 unsigned int
 r_Structure::count_elements() const
 {
-  return numElements;
+    return numElements;
 }
 
-const char* 
+const char*
 r_Structure::get_buffer() const
 {
- memset(valueBuffer, 0, valueType->size());
- 
- r_Structure_Type::attribute_iterator iter( ((r_Structure_Type*)valueType)->defines_attribute_begin() );
-  
- for( int i=0; iter != ((r_Structure_Type*)valueType)->defines_attribute_end(); iter++, i++ )
- if( (*iter).type_of().type_id() == r_Type::STRUCTURETYPE )
-  memcpy( valueBuffer + (*iter).offset(), ((r_Structure*)elements[i])->get_buffer(), elements[i]->get_type()->size());
- else
-  memcpy( valueBuffer + (*iter).offset(), ((r_Primitive*)elements[i])->get_buffer(), elements[i]->get_type()->size());
- 
- return valueBuffer;
+    memset(valueBuffer, 0, valueType->size());
+
+    r_Structure_Type::attribute_iterator iter( ((r_Structure_Type*)valueType)->defines_attribute_begin() );
+
+    for( int i=0; iter != ((r_Structure_Type*)valueType)->defines_attribute_end(); iter++, i++ )
+        if( (*iter).type_of().type_id() == r_Type::STRUCTURETYPE )
+            memcpy( valueBuffer + (*iter).offset(), ((r_Structure*)elements[i])->get_buffer(), elements[i]->get_type()->size());
+        else
+            memcpy( valueBuffer + (*iter).offset(), ((r_Primitive*)elements[i])->get_buffer(), elements[i]->get_type()->size());
+
+    return valueBuffer;
 }
 
 
 bool
 r_Structure::isStructure() const
 {
-  return true;
+    return true;
 }
 
 
@@ -206,19 +206,19 @@ r_Structure::isStructure() const
 const r_Scalar&
 r_Structure::operator[]( unsigned int index ) const throw( r_Error )
 {
-  if( !valueType )
-	{
-	RMInit::logOut << "r_Structure::operator[](" << index << ") const value type is NULL" << endl;
-    throw r_Error( r_Error::r_Error_TypeInvalid );
-	}
+    if( !valueType )
+    {
+        RMInit::logOut << "r_Structure::operator[](" << index << ") const value type is NULL" << endl;
+        throw r_Error( r_Error::r_Error_TypeInvalid );
+    }
 
-  if( index > numElements )
-	{
-	RMInit::logOut << "r_Structure::operator[](" << index << ") const index is out of bounds (" << numElements - 1 << ")" << endl;
-    throw r_Eindex_violation( 0, numElements, index );
-	}
+    if( index > numElements )
+    {
+        RMInit::logOut << "r_Structure::operator[](" << index << ") const index is out of bounds (" << numElements - 1 << ")" << endl;
+        throw r_Eindex_violation( 0, numElements, index );
+    }
 
-  return *(elements[index]);
+    return *(elements[index]);
 }
 
 
@@ -226,57 +226,57 @@ r_Structure::operator[]( unsigned int index ) const throw( r_Error )
 const r_Scalar&
 r_Structure::operator[]( const char* name ) const throw( r_Error )
 {
-  if( !valueType )
-  {
-	RMInit::logOut << "r_Structure::operator[](" << name << ") value type is NULL" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );     
-    throw( err );     
-  }
+    if( !valueType )
+    {
+        RMInit::logOut << "r_Structure::operator[](" << name << ") value type is NULL" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw( err );
+    }
 
-  r_Structure_Type* structType = (r_Structure_Type*)valueType;
+    r_Structure_Type* structType = (r_Structure_Type*)valueType;
 
-  r_Structure_Type::attribute_iterator iter( structType->defines_attribute_begin() );
+    r_Structure_Type::attribute_iterator iter( structType->defines_attribute_begin() );
 
-  int index = 0;
-  for( ; iter != structType->defines_attribute_end() && strcmp((*iter).name(), name); iter++, index++ );
-  
-  if( iter == structType->defines_attribute_end() )
-  {
-	RMInit::logOut << "r_Structure::operator[](" << name << ") name is not valid" << endl;
-    r_Error err( r_Error::r_Error_NameInvalid );     
-    throw( err );     
-  }
+    int index = 0;
+    for( ; iter != structType->defines_attribute_end() && strcmp((*iter).name(), name); iter++, index++ );
 
-  return *(elements[index]);
+    if( iter == structType->defines_attribute_end() )
+    {
+        RMInit::logOut << "r_Structure::operator[](" << name << ") name is not valid" << endl;
+        r_Error err( r_Error::r_Error_NameInvalid );
+        throw( err );
+    }
+
+    return *(elements[index]);
 }
 
 
 void
 r_Structure::print_status( std::ostream& s ) const
 {
-  if( valueType )
-  {
-    s << "{ " << std::flush;
-
-    for( unsigned int i =0; i < numElements; i++ )
+    if( valueType )
     {
-      s << *(elements[i]) << std::flush;
+        s << "{ " << std::flush;
 
-      if( i < numElements-1 )
-        s << ", " << std::flush;
+        for( unsigned int i =0; i < numElements; i++ )
+        {
+            s << *(elements[i]) << std::flush;
+
+            if( i < numElements-1 )
+                s << ", " << std::flush;
+        }
+
+        s << " }" << std::flush;
     }
-
-    s << " }" << std::flush;
-  }
-  else
-    s << "<nn>" << std::flush;
+    else
+        s << "<nn>" << std::flush;
 }
 
 
 
 std::ostream& operator<<( std::ostream& s, const r_Structure& obj )
 {
-  obj.print_status( s );
-  return s;
+    obj.print_status( s );
+    return s;
 }
 

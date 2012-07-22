@@ -27,7 +27,7 @@ class DBTile;
 class BLOBTile;
 class InlineTile;
 
-template <class T> class DBRef; 
+template <class T> class DBRef;
 
 typedef DBRef<BLOBTile> BLOBTileId;
 typedef DBRef<InlineTile> InlineTileId;

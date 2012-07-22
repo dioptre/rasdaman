@@ -42,36 +42,36 @@ class r_Type_Id;
 //@ManMemo: Module: {\bf raslib}
 
 /*@Doc:
-  This class the superclass for properties of classes in the ODMG 
+  This class the superclass for properties of classes in the ODMG
   conformant representation of the RasDaMan type system.
 */
- 
+
 class r_Property : public r_Meta_Object
-	{
-	public:
+{
+public:
 
-		/// constructor getting name and type of property.
-		r_Property( const char* newTypeName, const r_Base_Type& newType );
+    /// constructor getting name and type of property.
+    r_Property( const char* newTypeName, const r_Base_Type& newType );
 
-		/// copy constructor.
-		r_Property( const r_Property& oldObj );
+    /// copy constructor.
+    r_Property( const r_Property& oldObj );
 
-		/// assignment operator.
-		const r_Property& operator=( const r_Property& oldObj );
+    /// assignment operator.
+    const r_Property& operator=( const r_Property& oldObj );
 
-		/// destructor.
-		virtual ~r_Property();
+    /// destructor.
+    virtual ~r_Property();
 
-		/// retrieve type of property.
-		const r_Base_Type& type_of() const;
+    /// retrieve type of property.
+    const r_Base_Type& type_of() const;
 
-	protected:
+protected:
 
-		r_Base_Type* myType;
+    r_Base_Type* myType;
 
-		/// default constructor.
-		r_Property();
+    /// default constructor.
+    r_Property();
 
-	};
+};
 
 #endif

@@ -56,52 +56,52 @@ values. The value of a Short is stored in four chars.
   * \ingroup Relcatalogifs
   */
 class ShortType : public IntegralType
-	{
-	public:
-		ShortType(const OId& id) throw (r_Error);
+{
+public:
+    ShortType(const OId& id) throw (r_Error);
 
-		ShortType();
-		/*@Doc:
-		default constructor, sets type name to "Short".
-		*/
+    ShortType();
+    /*@Doc:
+    default constructor, sets type name to "Short".
+    */
 
-		ShortType(const ShortType& old);
-		/*@Doc:
-		copy constructor.
-		*/
+    ShortType(const ShortType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-		ShortType& operator=(const ShortType& old);
-		/*@Doc:
-		assignment operator.
-		*/
+    ShortType& operator=(const ShortType& old);
+    /*@Doc:
+    assignment operator.
+    */
 
-		virtual ~ShortType();
-		/*@Doc:
-		virtual destructor.
-		*/
+    virtual ~ShortType();
+    /*@Doc:
+    virtual destructor.
+    */
 
-		virtual void printCell(ostream& stream, const char* cell) const;
-		/*@Doc:
-		*/
+    virtual void printCell(ostream& stream, const char* cell) const;
+    /*@Doc:
+    */
 
-		virtual r_Long* convertToCLong(const char* cell, r_Long* value) const;
-		/*@Doc:
-		*/
+    virtual r_Long* convertToCLong(const char* cell, r_Long* value) const;
+    /*@Doc:
+    */
 
-		virtual char* makeFromCLong(char* cell, const r_Long* value) const;
-		/*@Doc:
-		*/
+    virtual char* makeFromCLong(char* cell, const r_Long* value) const;
+    /*@Doc:
+    */
 
-		static const char* Name;
+    static const char* Name;
 
-	protected:
+protected:
 
-		virtual void readFromDb() throw (r_Error);
-		/*@Doc:
-		initializes the attributes of this type.
-		there is no database activity.  this is hard coded.
-		*/
+    virtual void readFromDb() throw (r_Error);
+    /*@Doc:
+    initializes the attributes of this type.
+    there is no database activity.  this is hard coded.
+    */
 
-	};
+};
 
 #endif

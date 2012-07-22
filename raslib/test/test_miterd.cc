@@ -43,36 +43,36 @@ using namespace std;
 
 int
 main(int i, char** argv)
-	{
-	unsigned short src[][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
-	for (r_Dimension i = 0; i < 4; i++)
-		{
-		for (r_Dimension c = 0; c < 4; c++)
-			{
-			cout << src[i][c] << " ";
-			}
-		cout << endl;
-		}
-	for (r_Dimension i = 0; i < 4; i++)
-		{
-		for (r_Dimension c = 0; c < 4; c++)
-			{
-			cout << src[c][i] << " ";
-			}
-		cout << endl;
-		}
-	/*
-	r_MiterDirect iter(src, r_Minterval("[0:3,0:3]"), r_Minterval("[0:3,0:3]"), 2, 0);
-	r_Dimension order[] = {1,1};
-	unsigned int step[] = {1,0};
-	r_Dimension order2[] = {0};
-	while (!iter.isDone())
-		{
-		iter.iterateUserOrder(order, step);
-		cout << *(unsigned short*)(iter.getData()) << " " << endl;;
-		cout << "pos " << iter << endl;
-	//	cout << *(unsigned short*)(iter.getData()) << " ";
-		iter.operator++();
-		}
-	*/
-	}
+{
+    unsigned short src[][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+    for (r_Dimension i = 0; i < 4; i++)
+    {
+        for (r_Dimension c = 0; c < 4; c++)
+        {
+            cout << src[i][c] << " ";
+        }
+        cout << endl;
+    }
+    for (r_Dimension i = 0; i < 4; i++)
+    {
+        for (r_Dimension c = 0; c < 4; c++)
+        {
+            cout << src[c][i] << " ";
+        }
+        cout << endl;
+    }
+    /*
+    r_MiterDirect iter(src, r_Minterval("[0:3,0:3]"), r_Minterval("[0:3,0:3]"), 2, 0);
+    r_Dimension order[] = {1,1};
+    unsigned int step[] = {1,0};
+    r_Dimension order2[] = {0};
+    while (!iter.isDone())
+        {
+        iter.iterateUserOrder(order, step);
+        cout << *(unsigned short*)(iter.getData()) << " " << endl;;
+        cout << "pos " << iter << endl;
+    //  cout << *(unsigned short*)(iter.getData()) << " ";
+        iter.operator++();
+        }
+    */
+}

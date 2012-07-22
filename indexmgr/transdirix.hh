@@ -37,110 +37,110 @@ rasdaman GmbH.
 #include "reladminif/lists.h"
 
 /**
- *	@file transdirix.hh
+ *  @file transdirix.hh
  *
- *	@ingroup indexmgr
+ *  @ingroup indexmgr
  */
 
 /*@Doc:
 
-A TransDirIx object is the data structure for an index of a transient MDD 
+A TransDirIx object is the data structure for an index of a transient MDD
 object. It is to be used with DirIndexLogic.
 A transient directory index keeps track of the current domain of the object.
-It is a very simple structure, consisting of the current domain of the object 
+It is a very simple structure, consisting of the current domain of the object
 and a set of entries, one for each object belonging to the mdd object.
 
 For documentation on methods see IndexDS.
 */
 
-class TransDirIx	:	 public IndexDS  
-	{
-		
-	public:
-		
-		TransDirIx(r_Dimension dim); 
-		/*@Doc:
-		Creates a new transient index for an object with dimensionality
-		{\tt dim}.
-		*/
-		  
-		void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;		 
-				
-		void insertObject(const KeyObject& newKeyObject, unsigned int pos);
-		/*@Doc:
-		Inserts a new tile in the index at position {\tt pos}, which must be 
-		between 0 and {\tt getNumberElems()} (that is, {\tt pos } is 
-		interpreted as an index in the new list. If {\tt pos} is getNumberElems(), 
-		the element is put at the end of the list. All elements at following 
-		positions are shifted to the right. The new tile to insert ({\tt newKeyObject})
-		must be transient (of type TransKeyObject). The current domain is updated.
-		*/
-		
-		virtual void setObject(const KeyObject& theKey, unsigned int pos);
-		
-		virtual void setObjectDomain(const r_Minterval& dom, unsigned int pos);
+class TransDirIx    :    public IndexDS
+{
 
-		bool removeObject(unsigned int pos);
-		
-		bool removeObject(const KeyObject& theKey);
-		
-		virtual bool isValid() const;
+public:
 
-		virtual bool isUnderFull() const;
+    TransDirIx(r_Dimension dim);
+    /*@Doc:
+    Creates a new transient index for an object with dimensionality
+    {\tt dim}.
+    */
 
-		virtual bool isOverFull() const;
+    void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
 
-		virtual bool isSameAs(const IndexDS* pix) const;
-		
-		const KeyObject& getObject(unsigned int pos) const;
-		
-		r_Minterval getObjectDomain(unsigned int pos) const;
-		
-		DomainPVector* getObjectDomains() const;
+    void insertObject(const KeyObject& newKeyObject, unsigned int pos);
+    /*@Doc:
+    Inserts a new tile in the index at position {\tt pos}, which must be
+    between 0 and {\tt getNumberElems()} (that is, {\tt pos } is
+    interpreted as an index in the new list. If {\tt pos} is getNumberElems(),
+    the element is put at the end of the list. All elements at following
+    positions are shifted to the right. The new tile to insert ({\tt newKeyObject})
+    must be transient (of type TransKeyObject). The current domain is updated.
+    */
 
-		void getObjects(KeyObjectVector&) const;
+    virtual void setObject(const KeyObject& theKey, unsigned int pos);
 
-		r_Minterval getCoveredDomain() const;   
+    virtual void setObjectDomain(const r_Minterval& dom, unsigned int pos);
 
-		r_Minterval getAssignedDomain() const;
-		
-		r_Dimension getDimension() const; 
+    bool removeObject(unsigned int pos);
 
-		void setAssignedDomain(const r_Minterval& domain);
-		
-		unsigned int getSize() const;
+    bool removeObject(const KeyObject& theKey);
 
-		r_Bytes getTotalStorageSize() const;
+    virtual bool isValid() const;
 
-		bool isPersistent() const;
+    virtual bool isUnderFull() const;
 
-		virtual ~TransDirIx();
-		/*@Doc:
-			Destructor - deletes tiles from main memory.
-		*/
+    virtual bool isOverFull() const;
 
-		virtual unsigned int getOptimalSize() const;
+    virtual bool isSameAs(const IndexDS* pix) const;
 
-		virtual void freeDS();
-		/*@Doc:
-			does not do anything - there is no persistent data structure
-		*/
-		
-		virtual OId::OIdPrimitive getIdentifier() const;
+    const KeyObject& getObject(unsigned int pos) const;
 
-		virtual IndexDS* getNewInstance() const;
-	private:
-		
-		r_Minterval currDomain; 
-		/**
-		Always set automatically to the MBR of the tiles in {\tt tiles}. 
-		If the number of tiles is zero, the currDomain is invalid (may have any
-		values). All methods dealing with the currDomain must then check whether
-		the object has tiles in order to operate on the currDomain. 
-		*/
-		
-		KeyObjectVector tiles;
-	};
+    r_Minterval getObjectDomain(unsigned int pos) const;
+
+    DomainPVector* getObjectDomains() const;
+
+    void getObjects(KeyObjectVector&) const;
+
+    r_Minterval getCoveredDomain() const;
+
+    r_Minterval getAssignedDomain() const;
+
+    r_Dimension getDimension() const;
+
+    void setAssignedDomain(const r_Minterval& domain);
+
+    unsigned int getSize() const;
+
+    r_Bytes getTotalStorageSize() const;
+
+    bool isPersistent() const;
+
+    virtual ~TransDirIx();
+    /*@Doc:
+        Destructor - deletes tiles from main memory.
+    */
+
+    virtual unsigned int getOptimalSize() const;
+
+    virtual void freeDS();
+    /*@Doc:
+        does not do anything - there is no persistent data structure
+    */
+
+    virtual OId::OIdPrimitive getIdentifier() const;
+
+    virtual IndexDS* getNewInstance() const;
+private:
+
+    r_Minterval currDomain;
+    /**
+    Always set automatically to the MBR of the tiles in {\tt tiles}.
+    If the number of tiles is zero, the currDomain is invalid (may have any
+    values). All methods dealing with the currDomain must then check whether
+    the object has tiles in order to operate on the currDomain.
+    */
+
+    KeyObjectVector tiles;
+};
 
 
 #endif

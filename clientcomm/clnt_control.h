@@ -35,12 +35,12 @@ typedef enum { ntxdr_ExecuteQueryRes,
                ntxdr_GetMDDRes,
                ntxdr_GetTileRes,
                ntxdr_GetCollRes,
-			   ntxdr_GetCollOIdsRes,
-			   ntxdr_OIdRes,
-			   ntxdr_ObjectTypeRes,
-			   ntxdr_GetTypeStructureRes,
-			   ntxdr_GetElementRes,
+               ntxdr_GetCollOIdsRes,
+               ntxdr_OIdRes,
+               ntxdr_ObjectTypeRes,
+               ntxdr_GetTypeStructureRes,
+               ntxdr_GetElementRes,
                ntxdr_ServerStatRes
              } ntxdr_Type;
- 
+
 void xdrfree( ntxdr_Type xdrType, char *objp );

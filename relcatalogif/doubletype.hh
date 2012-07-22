@@ -54,53 +54,53 @@ values. The value of a Double is stored in four chars.
   * \ingroup Relcatalogifs
   */
 class DoubleType : public RealType
-	{
-	public:
-		DoubleType();
-		/*@Doc:
-		default constructor, sets type name to "Double".
-		*/
+{
+public:
+    DoubleType();
+    /*@Doc:
+    default constructor, sets type name to "Double".
+    */
 
-		DoubleType(const OId& id) throw (r_Error);
-		/*@Doc:
-		*/
+    DoubleType(const OId& id) throw (r_Error);
+    /*@Doc:
+    */
 
-		DoubleType(const DoubleType& old);
-		/*@Doc:
-		copy constructor.
-		*/
+    DoubleType(const DoubleType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-		DoubleType& operator=(const DoubleType& old);
-		/*@Doc:
-		assignment operator.
-		*/
+    DoubleType& operator=(const DoubleType& old);
+    /*@Doc:
+    assignment operator.
+    */
 
-		virtual ~DoubleType();
-		/*@Doc:
-		virtual destructor.
-		*/
+    virtual ~DoubleType();
+    /*@Doc:
+    virtual destructor.
+    */
 
-		virtual void printCell(ostream& stream, const char* cell) const;
-		/*@Doc:
-		*/
-		
-		virtual double* convertToCDouble(const char* cell, double* value) const;
-		/*@Doc:
-		*/
+    virtual void printCell(ostream& stream, const char* cell) const;
+    /*@Doc:
+    */
 
-		virtual char* makeFromCDouble(char* cell, const double* value) const;
-		/*@Doc:
-		*/
+    virtual double* convertToCDouble(const char* cell, double* value) const;
+    /*@Doc:
+    */
 
-		static const char* Name;
-	
-	protected:
+    virtual char* makeFromCDouble(char* cell, const double* value) const;
+    /*@Doc:
+    */
 
-		virtual void readFromDb() throw (r_Error);
-		/*@Doc:
-		initializes the attributes of this type.
-		there is no database activity.  this is hard coded.
-		*/
-	};
+    static const char* Name;
+
+protected:
+
+    virtual void readFromDb() throw (r_Error);
+    /*@Doc:
+    initializes the attributes of this type.
+    there is no database activity.  this is hard coded.
+    */
+};
 
 #endif

@@ -54,7 +54,7 @@ The operations greater and greater equal are mapped to QtLess and QtLessEqual.
 
 class QtBinaryInduce : public QtBinaryOperation
 {
-  public:
+public:
     /// constructor getting the two operands
     QtBinaryInduce( QtOperation* input1, QtOperation* input2, Ops::OpType initOpType );
 
@@ -64,7 +64,7 @@ class QtBinaryInduce : public QtBinaryOperation
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  protected:
+protected:
     /// computes the binary operation
     QtData* computeOp( QtData* operand1, QtData* operand2 );
 
@@ -95,10 +95,10 @@ class QtBinaryInduce : public QtBinaryOperation
     // type of operation
     Ops::OpType opType;
 
-	private:
-	/// atribute for identification of nodes
-	static const QtNodeType nodeType;
-		
+private:
+    /// atribute for identification of nodes
+    static const QtNodeType nodeType;
+
 };
 
 
@@ -110,14 +110,14 @@ class QtBinaryInduce : public QtBinaryOperation
 
 class QtPlus : public QtBinaryInduce
 {
-  public:
+public:
     /// constructor getting the two operands
     QtPlus( QtOperation* input1, QtOperation* input2 );
 
     ///for associative law
     virtual QtOperation* getUniqueOrder( const QtNode::QtNodeType ID );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -126,7 +126,7 @@ class QtPlus : public QtBinaryInduce
     /// method for identification of nodes
     inline virtual const QtNodeType getNodeType() const;
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };
@@ -140,11 +140,11 @@ class QtPlus : public QtBinaryInduce
 
 class QtMinus : public QtBinaryInduce
 {
-  public:
+public:
     /// constructor getting the two operands
     QtMinus( QtOperation* input1, QtOperation* input2 );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -156,7 +156,7 @@ class QtMinus : public QtBinaryInduce
     /// returns FALSE saying that the operation IS NOT commutative
     virtual bool isCommutative() const;
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };
@@ -170,14 +170,14 @@ class QtMinus : public QtBinaryInduce
 
 class QtMult : public QtBinaryInduce
 {
-  public:
+public:
     /// constructor getting the two operands
     QtMult( QtOperation* input1, QtOperation* input2 );
 
     /// optimizes the tree
     virtual QtOperation* getUniqueOrder( const QtNode::QtNodeType ID );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -186,7 +186,7 @@ class QtMult : public QtBinaryInduce
     /// method for identification of nodes
     inline virtual const QtNodeType getNodeType() const;
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };
@@ -200,11 +200,11 @@ class QtMult : public QtBinaryInduce
 
 class QtDiv : public QtBinaryInduce
 {
-  public:
+public:
     /// constructor getting the two operands
     QtDiv( QtOperation* input1, QtOperation* input2 );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -216,7 +216,7 @@ class QtDiv : public QtBinaryInduce
     /// returns FALSE saying that the operation IS NOT commutative
     virtual bool isCommutative() const;
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };

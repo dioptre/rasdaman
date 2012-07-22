@@ -27,7 +27,7 @@
 *
 * COMMENTS:
 *
-* 		No comments
+*       No comments
 */
 
 //@ManMemo: Module: {\bf raslib}
@@ -37,7 +37,7 @@
 
 #include <signal.h>
 
-//signalCleanup function is called when a signal is received by the program. 
+//signalCleanup function is called when a signal is received by the program.
 //You should write your function in order to have signal management
 void signalCleanup();
 

@@ -40,65 +40,65 @@ this object gets a set of oids.  when an oid is accessed the iterator returns a 
   */
 template<class T>
 class DBObjectIterator
-	{
-	public:
-		DBObjectIterator(const OIdSet& oidlist);
-		/*@Doc: 
-		constructs a new Iterator.  the OIdSet will be deleted by the DBOBjectIterator.
-		there may be oids of objects with other classes present.  you should be carefull
-		when using this feature - as in mddtypes/mddbasetypes/mdddim/domtypes 
-		*/
+{
+public:
+    DBObjectIterator(const OIdSet& oidlist);
+    /*@Doc:
+    constructs a new Iterator.  the OIdSet will be deleted by the DBOBjectIterator.
+    there may be oids of objects with other classes present.  you should be carefull
+    when using this feature - as in mddtypes/mddbasetypes/mdddim/domtypes
+    */
 
-		DBObjectIterator(const DBObjectIterator<T>& it);
-		/*@Doc: 
-		*/
+    DBObjectIterator(const DBObjectIterator<T>& it);
+    /*@Doc:
+    */
 
-		~DBObjectIterator();
-		/*@Doc: 
-		deletes the OIdSet passed to it in the constructor
-		*/
+    ~DBObjectIterator();
+    /*@Doc:
+    deletes the OIdSet passed to it in the constructor
+    */
 
-		void reset();
-		/*@Doc: 
-		resets the iterator to the beginning
-		*/
+    void reset();
+    /*@Doc:
+    resets the iterator to the beginning
+    */
 
-		bool not_done() const;
-		/*@Doc: 
-		checks if there are more elements
-		*/
+    bool not_done() const;
+    /*@Doc:
+    checks if there are more elements
+    */
 
-		void advance();
-		/*@Doc: 
-		advances the iterator one entry
-		*/
+    void advance();
+    /*@Doc:
+    advances the iterator one entry
+    */
 
-		DBRef<T> get_element() const;
-		/*@Doc: 
-		returns an dbref<object>
-		*/
-		
-	private:
-		OIdSet::iterator myIter;
-		/*@Doc: 
-		internal pointer where the iterator is
-		*/
+    DBRef<T> get_element() const;
+    /*@Doc:
+    returns an dbref<object>
+    */
 
-		OIdSet* mySet;
-		/*@Doc: 
-		the actual list which is used to lookup objects by the objectbroker
-		*/
+private:
+    OIdSet::iterator myIter;
+    /*@Doc:
+    internal pointer where the iterator is
+    */
 
-		unsigned int counter;
-		/*@Doc: 
-		holds the actual position in set
-		*/
-	};
+    OIdSet* mySet;
+    /*@Doc:
+    the actual list which is used to lookup objects by the objectbroker
+    */
+
+    unsigned int counter;
+    /*@Doc:
+    holds the actual position in set
+    */
+};
 
 #ifdef EARLY_TEMPLATE
 #ifdef __EXECUTABLE__
 #include "dbobjectiterator.cc"
-#endif 
+#endif
 #endif
 
 #endif

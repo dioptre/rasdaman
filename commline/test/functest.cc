@@ -29,31 +29,31 @@ using std::endl;
 
 
 int main()
-  {
-    CommandLineParser &cmlp = CommandLineParser::getInstance();  
+{
+    CommandLineParser &cmlp = CommandLineParser::getInstance();
 
     try
     {
-     cmlp.addFlagParameter('f', "fragmented", "fragment file until there is no file any more");
-     cmlp.addFlagParameter(0  , "delete", "delete root directory");
-     cmlp.addFlagParameter('s', NULL, "use server for crushing system");
-    
-     cmlp.addStringParameter('u', "user", "<name> user name\n\t\tcucubau", "rasguest");
-     cmlp.addStringParameter( CommandLineParser::noShortName, "passwd", "<password> user password", "rasguest");
-     cmlp.addStringParameter('d', CommandLineParser::noLongName, "<databasename> database name");
+        cmlp.addFlagParameter('f', "fragmented", "fragment file until there is no file any more");
+        cmlp.addFlagParameter(0  , "delete", "delete root directory");
+        cmlp.addFlagParameter('s', NULL, "use server for crushing system");
+
+        cmlp.addStringParameter('u', "user", "<name> user name\n\t\tcucubau", "rasguest");
+        cmlp.addStringParameter( CommandLineParser::noShortName, "passwd", "<password> user password", "rasguest");
+        cmlp.addStringParameter('d', CommandLineParser::noLongName, "<databasename> database name");
     }
     catch(CmlException e)
     {
-     cout << "Error defining options:" << endl;
-     cout << e.what() << endl;
-     return EXIT_FAILURE;
-    }    
-   
+        cout << "Error defining options:" << endl;
+        cout << e.what() << endl;
+        return EXIT_FAILURE;
+    }
+
     cmlp.printHelp();
-    
+
     return EXIT_SUCCESS;
-   }
-   
+}
 
 
-   
+
+

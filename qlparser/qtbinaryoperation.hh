@@ -51,7 +51,7 @@ arguments.
 
 class QtBinaryOperation : public QtOperation
 {
-  public:
+public:
     /// default constructor
     QtBinaryOperation();
 
@@ -64,7 +64,7 @@ class QtBinaryOperation : public QtOperation
     /// virtual destructor
     virtual ~QtBinaryOperation();
 
-    /// simplifies the tree 
+    /// simplifies the tree
     virtual void simplify();
 
     /// test if the two nodes have an equal meaning in the query tree
@@ -101,21 +101,21 @@ class QtBinaryOperation : public QtOperation
     //@Man: read/write methods for the operands
     //@{
     ///
-      ///
-      inline void         setInput1( QtOperation* input );
-      ///
-      inline void         setInput2( QtOperation* input );
-      ///
-      inline QtOperation* getInput1();
-      ///
-      inline QtOperation* getInput2();
+    ///
+    inline void         setInput1( QtOperation* input );
+    ///
+    inline void         setInput2( QtOperation* input );
+    ///
+    inline QtOperation* getInput1();
+    ///
+    inline QtOperation* getInput2();
     ///
     //@}
 
     /// returns commutativity information (by default, an operation IS commutative)
     virtual bool isCommutative() const;
 
-  protected:
+protected:
     /// method for testing and evaluating the input branches
     bool getOperands( QtDataList* inputList, QtData* &operand1, QtData* &operand2 );
     /**

@@ -47,7 +47,7 @@ class BaseType;
 
 //@ManMemo: Module: {\bf relcatalogif}.
 
-/*@Doc: 
+/*@Doc:
 StructType is the base type used for user defined structures. It
 stores the names and BaseTypes of the elements. The size of a
 StructType in chars depends on the elements.
@@ -66,111 +66,111 @@ struct.
   * \ingroup Relcatalogifs
   */
 class StructType : public CompositeType
-	{
-	//	friend ostream& operator << (ostream& stream, StructType& b);
+{
+    //  friend ostream& operator << (ostream& stream, StructType& b);
 
-	public:
-		virtual void printCell(ostream& stream, const char* cell) const;
+public:
+    virtual void printCell(ostream& stream, const char* cell) const;
 
-		virtual char* getTypeStructure() const;
+    virtual char* getTypeStructure() const;
 
-		/// add new element to struct
-		unsigned int addElement(const char* elemName, const char* elemType);
+    /// add new element to struct
+    unsigned int addElement(const char* elemName, const char* elemType);
 
-		/// add new element to struct using pointer to BaseType
-		unsigned int addElement(const char* elemName, const BaseType* elemType);
+    /// add new element to struct using pointer to BaseType
+    unsigned int addElement(const char* elemName, const BaseType* elemType);
 
-		/// get offset for an element by name of element.
-		unsigned int getOffset(const char* elemName) const;
+    /// get offset for an element by name of element.
+    unsigned int getOffset(const char* elemName) const;
 
-		/// get offset for an element by number of element (0 based).
-		unsigned int getOffset(unsigned int num) const;
+    /// get offset for an element by number of element (0 based).
+    unsigned int getOffset(unsigned int num) const;
 
-		/// get type of an element by name of element.
-		const BaseType* getElemType(const char* elemName) const;
+    /// get type of an element by name of element.
+    const BaseType* getElemType(const char* elemName) const;
 
-		/// get name of an element by number of element (0 based).
-		const char* const getElemName(unsigned int num) const;
+    /// get name of an element by number of element (0 based).
+    const char* const getElemName(unsigned int num) const;
 
-		/// get type of an element by number of element (0 based).
-		const BaseType* getElemType(unsigned int num) const;
+    /// get type of an element by number of element (0 based).
+    const BaseType* getElemType(unsigned int num) const;
 
-		/// get number of elements.
-		unsigned int getNumElems() const;
+    /// get number of elements.
+    unsigned int getNumElems() const;
 
-		/// get alignment needed for structure to be embedded in another structure.
-		unsigned int getAlignment() const;
+    /// get alignment needed for structure to be embedded in another structure.
+    unsigned int getAlignment() const;
 
-		/// checks if a certain StructType is contained in this StructType
-		int contains(const StructType* aStruct) const;
+    /// checks if a certain StructType is contained in this StructType
+    int contains(const StructType* aStruct) const;
 
-		StructType(const OId& structtypeid) throw (r_Error);
-		
-		/// default constructor, sets type name to "".
-		StructType();
+    StructType(const OId& structtypeid) throw (r_Error);
 
-		/// constructor getting type name and number of elements.
-		StructType(const char* newTypeName, unsigned int numElem );
+    /// default constructor, sets type name to "".
+    StructType();
 
-		/// copy constructor.
-		StructType( const StructType& old );
+    /// constructor getting type name and number of elements.
+    StructType(const char* newTypeName, unsigned int numElem );
 
-		/// assignment operator.
-		StructType& operator=( const StructType& old );
+    /// copy constructor.
+    StructType( const StructType& old );
 
-		/// virtual destructor.
-		virtual ~StructType();
+    /// assignment operator.
+    StructType& operator=( const StructType& old );
 
-		virtual int compatibleWith(const Type* aType) const;
+    /// virtual destructor.
+    virtual ~StructType();
 
-		virtual r_Bytes getMemorySize() const;
+    virtual int compatibleWith(const Type* aType) const;
+
+    virtual r_Bytes getMemorySize() const;
 
 private:
-	// those inherited from BaseType aren't useful at all for StructType
-	// made them private to preven calling them
-	virtual r_ULong* convertToCULong(const char* cell, r_ULong* value) const;
-	virtual char* makeFromCULong(char* cell, const r_ULong* value) const;
-	virtual r_Long* convertToCLong(const char* cell, r_Long* value) const;
-	virtual char* makeFromCLong(char* cell, const r_Long* value) const;
-	virtual double* convertToCDouble(const char* cell, double* value) const;
-	virtual char* makeFromCDouble(char* cell, const double* value) const;
+    // those inherited from BaseType aren't useful at all for StructType
+    // made them private to preven calling them
+    virtual r_ULong* convertToCULong(const char* cell, r_ULong* value) const;
+    virtual char* makeFromCULong(char* cell, const r_ULong* value) const;
+    virtual r_Long* convertToCLong(const char* cell, r_Long* value) const;
+    virtual char* makeFromCLong(char* cell, const r_Long* value) const;
+    virtual double* convertToCDouble(const char* cell, double* value) const;
+    virtual char* makeFromCDouble(char* cell, const double* value) const;
 
-		
-	protected:
 
-		virtual void insertInDb() throw (r_Error);
+protected:
 
-		virtual void deleteFromDb() throw (r_Error);
-		
-		virtual void readFromDb() throw (r_Error);
+    virtual void insertInDb() throw (r_Error);
 
-		// moves back one step all elements all elements behind pos
-		void moveBack(int pos);
+    virtual void deleteFromDb() throw (r_Error);
 
-		// calculates and sets current size of type with alignment
-		void calcSize();
+    virtual void readFromDb() throw (r_Error);
 
-		/// Array containing references to base types of elements.
-		std::vector< const BaseType* > elements;
+    // moves back one step all elements all elements behind pos
+    void moveBack(int pos);
 
-		/// Array containing names of elements.
-		std::vector< char* > elementNames;
+    // calculates and sets current size of type with alignment
+    void calcSize();
 
-		/// Array containing offsets to elements 
-		std::vector< unsigned int > elementOffsets;
+    /// Array containing references to base types of elements.
+    std::vector< const BaseType* > elements;
 
-		/// The number of elements.
-		unsigned int numElems;
+    /// Array containing names of elements.
+    std::vector< char* > elementNames;
 
-		/// Alignment needed for structure if embedded in other structures.
-		unsigned int align;
-		
-		/// add new element to struct using pointer to BaseType
-		/// does the actuall adding.  the public method will not let a persitent type
-		/// be changed
-		unsigned int addElementPriv(const char* elemName, const BaseType* elemType);
-	};
-                                                                                               
+    /// Array containing offsets to elements
+    std::vector< unsigned int > elementOffsets;
+
+    /// The number of elements.
+    unsigned int numElems;
+
+    /// Alignment needed for structure if embedded in other structures.
+    unsigned int align;
+
+    /// add new element to struct using pointer to BaseType
+    /// does the actuall adding.  the public method will not let a persitent type
+    /// be changed
+    unsigned int addElementPriv(const char* elemName, const BaseType* elemType);
+};
+
 #include "structtype.icc"
 
 #endif

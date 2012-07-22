@@ -45,25 +45,27 @@ DatabaseIf* TransactionIf::lastBase = NULL;
 
 DatabaseIf*
 TransactionIf::getDatabaseIf()
-	{
-	RMDBGONCE(2, RMDebug::module_adminif, "TransactionIf", "getDatabaseIf() " << lastBase << endl);
-	return lastBase;
-	}
+{
+    RMDBGONCE(2, RMDebug::module_adminif, "TransactionIf", "getDatabaseIf() " << lastBase << endl);
+    return lastBase;
+}
 
-void 
+void
 TransactionIf::begin( DatabaseIf* currBase, bool readOnly ) throw ( r_Error )
-	{
-	RMDBGENTER(4, RMDebug::module_adminif, "TransactionIf", "begin(" << currBase->getName() << ", " << readOnly << ")");
-	try {
-	  currBase->baseDBMSOpen();
-	}
-	catch(r_Error& err) {
-	  currBase->baseDBMSClose();
-	  throw err;
-	}
-	lastBase = currBase;
-	begin(readOnly);
-	RMDBGEXIT(4, RMDebug::module_adminif, "TransactionIf", "begin(" << currBase->getName() << ", " << readOnly << ") ");
-	}
+{
+    RMDBGENTER(4, RMDebug::module_adminif, "TransactionIf", "begin(" << currBase->getName() << ", " << readOnly << ")");
+    try
+    {
+        currBase->baseDBMSOpen();
+    }
+    catch(r_Error& err)
+    {
+        currBase->baseDBMSClose();
+        throw err;
+    }
+    lastBase = currBase;
+    begin(readOnly);
+    RMDBGEXIT(4, RMDebug::module_adminif, "TransactionIf", "begin(" << currBase->getName() << ", " << readOnly << ") ");
+}
 
 

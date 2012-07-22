@@ -36,97 +36,97 @@ rasdaman GmbH.
 
 r_Bytes
 MDDType::getMemorySize() const
-	{
-	return sizeof(MDDType::MDDTypeEnum) + DBNamedObject::getMemorySize();
-	}
+{
+    return sizeof(MDDType::MDDTypeEnum) + DBNamedObject::getMemorySize();
+}
 
 MDDType::MDDType(const OId& id) throw (r_Error)
-	:	Type(id)
-	{
-	if (objecttype == OId::MDDTYPEOID)
-		{
-		readFromDb();
-		mySubclass = MDDONLYTYPE;
-		}
-	myType = MDDTYPE;
-	}
+    :   Type(id)
+{
+    if (objecttype == OId::MDDTYPEOID)
+    {
+        readFromDb();
+        mySubclass = MDDONLYTYPE;
+    }
+    myType = MDDTYPE;
+}
 
 MDDType::MDDType()
-	:	Type("unnamed mddtype")
-	{
-	myType = MDDTYPE;
-	mySubclass = MDDONLYTYPE;
-	objecttype = OId::MDDTYPEOID;
-	}
+    :   Type("unnamed mddtype")
+{
+    myType = MDDTYPE;
+    mySubclass = MDDONLYTYPE;
+    objecttype = OId::MDDTYPEOID;
+}
 
 MDDType::MDDType(const char* newTypeName)
-	:	Type(newTypeName)
-	{
-	myType = MDDTYPE;
-	mySubclass = MDDONLYTYPE;
-	objecttype = OId::MDDTYPEOID;
-	}
+    :   Type(newTypeName)
+{
+    myType = MDDTYPE;
+    mySubclass = MDDONLYTYPE;
+    objecttype = OId::MDDTYPEOID;
+}
 
 MDDType::MDDType(const MDDType& old)
-	:	Type(old)
-	{
-	myType = old.myType;
-	mySubclass = old.mySubclass;
-	}
+    :   Type(old)
+{
+    myType = old.myType;
+    mySubclass = old.mySubclass;
+}
 
 MDDType& MDDType::operator=(const MDDType& old)
-	{
-	// Gracefully handle self assignment
-	if (this == &old)
-		return *this;
-	Type::operator=(old);
-	myType = old.myType;
-	mySubclass = old.mySubclass;
-	return *this;
-	}
+{
+    // Gracefully handle self assignment
+    if (this == &old)
+        return *this;
+    Type::operator=(old);
+    myType = old.myType;
+    mySubclass = old.mySubclass;
+    return *this;
+}
 
 MDDType::~MDDType()
-	{
-	RMDBGENTER(6, RMDebug::module_catalogif, "MDDType", "~MDDType() " << myOId);
-	validate();
-	RMDBGEXIT(6, RMDebug::module_catalogif, "MDDType", "~MDDType() " << myOId);
-	}
+{
+    RMDBGENTER(6, RMDebug::module_catalogif, "MDDType", "~MDDType() " << myOId);
+    validate();
+    RMDBGEXIT(6, RMDebug::module_catalogif, "MDDType", "~MDDType() " << myOId);
+}
 
-char* 
+char*
 MDDType::getTypeStructure() const
-	{
-	char* result = (char*)mymalloc(10);
+{
+    char* result = (char*)mymalloc(10);
 
-	strcpy(result, "marray <>");
-	return result;
-	}
+    strcpy(result, "marray <>");
+    return result;
+}
 
 void
 MDDType::print_status( ostream& s ) const
-	{
-	s << "\tr_Marray" << "<" << ">";
-	}
+{
+    s << "\tr_Marray" << "<" << ">";
+}
 
 int
 MDDType::compatibleWith(const Type* aType) const
-	{
-	RMDBGONCE(11, RMDebug::module_catalogif, "MDDType", "compatibleWith(" << aType->getName() << ") " << (aType->getType() != MDDTYPE));
-	if(aType->getType() != MDDTYPE)
-		return 0;
-	else
-		return 1;
-	}
+{
+    RMDBGONCE(11, RMDebug::module_catalogif, "MDDType", "compatibleWith(" << aType->getName() << ") " << (aType->getType() != MDDTYPE));
+    if(aType->getType() != MDDTYPE)
+        return 0;
+    else
+        return 1;
+}
 
 int
 MDDType::compatibleWithDomain(const r_Minterval* aDomain ) const
-	{
-	RMDBGONCE(11, RMDebug::module_catalogif, "MDDType", "compatibleWithDomain(" << *aDomain << ") " << 1);
-	return 1;
-	}
+{
+    RMDBGONCE(11, RMDebug::module_catalogif, "MDDType", "compatibleWithDomain(" << *aDomain << ") " << 1);
+    return 1;
+}
 
-MDDType::MDDTypeEnum 
+MDDType::MDDTypeEnum
 MDDType::getSubtype() const
-	{
-	return mySubclass;
-	}
+{
+    return mySubclass;
+}
 

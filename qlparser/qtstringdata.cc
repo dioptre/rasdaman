@@ -37,7 +37,7 @@ static const char rcsid[] = "@(#)qlparser, QtStringData: $Header: /home/rasdev/C
 
 
 QtStringData::QtStringData( const std::string& str )
-  : stringData(str), QtData()
+    : stringData(str), QtData()
 {
 }
 
@@ -46,7 +46,7 @@ QtStringData::QtStringData( const std::string& str )
 QtDataType
 QtStringData::getDataType() const
 {
-  return QT_STRING;
+    return QT_STRING;
 }
 
 
@@ -54,12 +54,12 @@ QtStringData::getDataType() const
 bool
 QtStringData::equal( const QtData* obj ) const
 {
-  bool returnValue = false;  // not equal by initialization
+    bool returnValue = false;  // not equal by initialization
 
-  if( obj->getDataType() == QT_STRING )
-    returnValue = (stringData == ((QtStringData*)obj)->getStringData());
+    if( obj->getDataType() == QT_STRING )
+        returnValue = (stringData == ((QtStringData*)obj)->getStringData());
 
-  return returnValue;
+    return returnValue;
 }
 
 
@@ -67,14 +67,14 @@ QtStringData::equal( const QtData* obj ) const
 std::string
 QtStringData::getSpelling() const
 {
-  return stringData;
+    return stringData;
 }
 
 
 
 char* QtStringData::getTypeStructure() const
 {
-  return strdup("string");
+    return strdup("string");
 }
 
 
@@ -82,7 +82,7 @@ char* QtStringData::getTypeStructure() const
 void
 QtStringData::printStatus( std::ostream& stream ) const
 {
-  stream << "string, value: " << stringData.c_str() << std::flush; 
+    stream << "string, value: " << stringData.c_str() << std::flush;
 
-  QtData::printStatus( stream );
+    QtData::printStatus( stream );
 }

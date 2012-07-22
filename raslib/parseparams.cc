@@ -51,233 +51,239 @@ const unsigned int r_Parse_Params::granularity = 4;
 
 r_Parse_Params::r_Parse_Params( void )
 {
-  params = NULL;
-  number = 0;
-  maxnum = 0;
+    params = NULL;
+    number = 0;
+    maxnum = 0;
 }
 
 
 r_Parse_Params::r_Parse_Params( unsigned int num )
 {
-  number = 0;
-  maxnum = num;
-  params = (parse_params_t*)mymalloc(maxnum * sizeof(parse_params_t));
+    number = 0;
+    maxnum = num;
+    params = (parse_params_t*)mymalloc(maxnum * sizeof(parse_params_t));
 }
 
 
 r_Parse_Params::~r_Parse_Params( void )
 {
-  if (params != NULL)
-    free(params);
+    if (params != NULL)
+        free(params);
 }
 
 
 int r_Parse_Params::add( const char *key, void *store, parse_param_type type )
 {
 
-  RMDBGONCE(2, RMDebug::module_raslib, "r_Parse_Params", "add('" 
-  	   << (key?key:"NULL") << "', "
-  	   << (store?store:"NULL") << "," 
-  	   << type << ")");
+    RMDBGONCE(2, RMDebug::module_raslib, "r_Parse_Params", "add('"
+              << (key?key:"NULL") << "', "
+              << (store?store:"NULL") << ","
+              << type << ")");
 
-  if (number >= maxnum)
-  {
-    maxnum += granularity;
-    if (params == NULL)
-      params = (parse_params_t*)mymalloc(maxnum * sizeof(parse_params_t));
-    else
-      params = (parse_params_t*)realloc(params, maxnum * sizeof(parse_params_t));
-
-    if (params == NULL)
+    if (number >= maxnum)
     {
-      maxnum = 0; return -1;
-    }
-  }
-  params[number].key = key;
-  params[number].store = store;
-  params[number].type = type;
-  number++;
+        maxnum += granularity;
+        if (params == NULL)
+            params = (parse_params_t*)mymalloc(maxnum * sizeof(parse_params_t));
+        else
+            params = (parse_params_t*)realloc(params, maxnum * sizeof(parse_params_t));
 
-  return 0;
+        if (params == NULL)
+        {
+            maxnum = 0;
+            return -1;
+        }
+    }
+    params[number].key = key;
+    params[number].store = store;
+    params[number].type = type;
+    number++;
+
+    return 0;
 }
 
 
 int r_Parse_Params::process( const char *str ) const
 {
-  static const int lenBuff=256;
-  static char buff[lenBuff];
-  int numkeys = 0;
-  const char *b = str;
-  
-  RMDBGONCE(2, RMDebug::module_raslib, "r_Parse_Params", "process('" << (str?str:"NULL") << ")");
-  
-  if ( (number == 0)     || 
-       (str == NULL)     ||
-       (!strcmp(str,"")) )  {
-     return 0;
-  }
+    static const int lenBuff=256;
+    static char buff[lenBuff];
+    int numkeys = 0;
+    const char *b = str;
 
-  while (*b != '\0')
-  {
-    //cout << numkeys << '(' << b << ')' << std::endl;
-    while ((isspace((unsigned int)(*b))) || (*b == ',')) b++;
-    if (*b == '\0') break;
-    if (isalpha((unsigned int)(*b)))
+    RMDBGONCE(2, RMDebug::module_raslib, "r_Parse_Params", "process('" << (str?str:"NULL") << ")");
+
+    if ( (number == 0)     ||
+            (str == NULL)     ||
+            (!strcmp(str,"")) )
     {
-      const char *key = b;
-      unsigned int klen;
-      int knum;
-      int inquotes;
-
-      while (isalnum((unsigned int)(*b))) b++;
-
-      //store current item
-      klen = (b - key);
-      memset(buff,0, lenBuff);
-      memcpy(buff, key, klen);
-      for (knum=0; knum<number; knum++)
-      {
-	if (strcmp(buff, params[knum].key) == 0)
-	  break;
-      }
-      // we actually understand this key
-      if (knum < number)
-      {
-	int statval = 0;	// status: -1 error, 0 not found, 1 OK
-
-	while (isspace((unsigned int)(*b))) b++;
-	if (*b == '=')
-	{
-	  b++;
-	  while (isspace((unsigned int)(*b))) b++;
-	  if ((*b != ',') && (*b != '\0'))
-	  {
-	    const char *aux=b;
-
-	    switch (params[knum].type)
-	    {
-	      case param_type_int:
-		{
-		  int val=0;
-
-		  errno=0;
-		  val = strtol(b, (char**)&aux, 10);
-		  if ((b == aux) || errno)
-		    statval = -1;
-		  else
-		  {
-		    int *vptr = (int*)(params[knum].store);
-		    *vptr = val;
-		    b = aux; statval = 1;
-		  }
-		}
-		break;
-	      case param_type_double:
-		{
-		  double val=0.;
-		 
-		  errno=0;
-		  val = strtod(b, (char**)&aux);
-		  if ((b == aux) || errno)
-		    statval = -1;
-		  else
-		  {
-		    double *vptr = (double*)(params[knum].store);
-		    *vptr = val;
-		    b = aux; statval = 1;
-		  }
-		}
-		break;
-	      case param_type_string:
-		{
-		  unsigned int vlen = 0;
-
-		  if (*b == '\"')
-		  {
-		    aux = ++b;
-		    while ((*b != '\"') && (*b != '\0')) b++;
-		    if (*b == '\0')
-		      statval = -1;
-		    else
-		    {
-		      vlen = (b - aux);
-		      b++; statval = 1;
-		    }
-		  }
-		  else
-		  {
-		    aux = b;
-		    while ((!isspace((unsigned int)(*b))) && (*b != '\0') && (*b != ',')) b++;
-		    vlen = (b - aux); statval = 1;
-		  }
-		  if (vlen > 0)
-		  {
-		    char **vptr = (char**)(params[knum].store);
-		    if (*vptr != NULL)
-		      delete [] *vptr;
-		    *vptr = new char[vlen+1];
-		    strncpy(*vptr, aux, vlen);
-		    (*vptr)[vlen] = '\0';
-		  }
-		}
-		break;
-	    }
-	  }
-	}
-	switch (statval)
-	{
-	  case -1:
-	    RMInit::logOut << "r_Parse_Params::process('" << str << "'): error parsing value for keyword " << params[knum].key << std::endl;
-	    return -1;
-	  case 0:
-	    RMInit::logOut << "r_Parse_Params::process('" << str << "'): keyword " << params[knum].key << " without value" << std::endl;
-	    return -1;
-	  case 1:
-	    numkeys++;
-	    break;
-	  default:
-	    break;
-	}
-      }
-      inquotes = 0;
-      while (((*b != ',') || (inquotes != 0)) && (*b != '\0'))
-      {
-	if (*b == '\"')
-	  inquotes ^= 1;
-	b++;
-      }
-      if (inquotes != 0)
-      {
-	RMInit::logOut << "r_Parse_Params::process('" << str << "'): unterminated string" << std::endl;
-	return -1;
-      }
+        return 0;
     }
-    else
+
+    while (*b != '\0')
     {
-      RMInit::logOut << "r_Parse_Params::process('" << str << "'): the string must start with alphabetic character" << std::endl;
-      return -1;
-    }
-  }
+        //cout << numkeys << '(' << b << ')' << std::endl;
+        while ((isspace((unsigned int)(*b))) || (*b == ',')) b++;
+        if (*b == '\0') break;
+        if (isalpha((unsigned int)(*b)))
+        {
+            const char *key = b;
+            unsigned int klen;
+            int knum;
+            int inquotes;
 
-  return numkeys;
+            while (isalnum((unsigned int)(*b))) b++;
+
+            //store current item
+            klen = (b - key);
+            memset(buff,0, lenBuff);
+            memcpy(buff, key, klen);
+            for (knum=0; knum<number; knum++)
+            {
+                if (strcmp(buff, params[knum].key) == 0)
+                    break;
+            }
+            // we actually understand this key
+            if (knum < number)
+            {
+                int statval = 0;    // status: -1 error, 0 not found, 1 OK
+
+                while (isspace((unsigned int)(*b))) b++;
+                if (*b == '=')
+                {
+                    b++;
+                    while (isspace((unsigned int)(*b))) b++;
+                    if ((*b != ',') && (*b != '\0'))
+                    {
+                        const char *aux=b;
+
+                        switch (params[knum].type)
+                        {
+                        case param_type_int:
+                        {
+                            int val=0;
+
+                            errno=0;
+                            val = strtol(b, (char**)&aux, 10);
+                            if ((b == aux) || errno)
+                                statval = -1;
+                            else
+                            {
+                                int *vptr = (int*)(params[knum].store);
+                                *vptr = val;
+                                b = aux;
+                                statval = 1;
+                            }
+                        }
+                        break;
+                        case param_type_double:
+                        {
+                            double val=0.;
+
+                            errno=0;
+                            val = strtod(b, (char**)&aux);
+                            if ((b == aux) || errno)
+                                statval = -1;
+                            else
+                            {
+                                double *vptr = (double*)(params[knum].store);
+                                *vptr = val;
+                                b = aux;
+                                statval = 1;
+                            }
+                        }
+                        break;
+                        case param_type_string:
+                        {
+                            unsigned int vlen = 0;
+
+                            if (*b == '\"')
+                            {
+                                aux = ++b;
+                                while ((*b != '\"') && (*b != '\0')) b++;
+                                if (*b == '\0')
+                                    statval = -1;
+                                else
+                                {
+                                    vlen = (b - aux);
+                                    b++;
+                                    statval = 1;
+                                }
+                            }
+                            else
+                            {
+                                aux = b;
+                                while ((!isspace((unsigned int)(*b))) && (*b != '\0') && (*b != ',')) b++;
+                                vlen = (b - aux);
+                                statval = 1;
+                            }
+                            if (vlen > 0)
+                            {
+                                char **vptr = (char**)(params[knum].store);
+                                if (*vptr != NULL)
+                                    delete [] *vptr;
+                                *vptr = new char[vlen+1];
+                                strncpy(*vptr, aux, vlen);
+                                (*vptr)[vlen] = '\0';
+                            }
+                        }
+                        break;
+                        }
+                    }
+                }
+                switch (statval)
+                {
+                case -1:
+                    RMInit::logOut << "r_Parse_Params::process('" << str << "'): error parsing value for keyword " << params[knum].key << std::endl;
+                    return -1;
+                case 0:
+                    RMInit::logOut << "r_Parse_Params::process('" << str << "'): keyword " << params[knum].key << " without value" << std::endl;
+                    return -1;
+                case 1:
+                    numkeys++;
+                    break;
+                default:
+                    break;
+                }
+            }
+            inquotes = 0;
+            while (((*b != ',') || (inquotes != 0)) && (*b != '\0'))
+            {
+                if (*b == '\"')
+                    inquotes ^= 1;
+                b++;
+            }
+            if (inquotes != 0)
+            {
+                RMInit::logOut << "r_Parse_Params::process('" << str << "'): unterminated string" << std::endl;
+                return -1;
+            }
+        }
+        else
+        {
+            RMInit::logOut << "r_Parse_Params::process('" << str << "'): the string must start with alphabetic character" << std::endl;
+            return -1;
+        }
+    }
+
+    return numkeys;
 }
 
 std::ostream& operator<<( std::ostream& s, const r_Parse_Params::parse_param_type& d )
 {
-  switch( d )
+    switch( d )
     {
-      case r_Parse_Params::param_type_int:
-         s << "param_type_int";
-         break;
-      case r_Parse_Params::param_type_double:
-         s << "param_type_double";
-         break;
-      case r_Parse_Params::param_type_string:
-         s << "param_type_string";
-         break;
-      default:
-         s << "UNKNOWN r_Parse_Params::parse_paramt_type" << d;
-         break;      
+    case r_Parse_Params::param_type_int:
+        s << "param_type_int";
+        break;
+    case r_Parse_Params::param_type_double:
+        s << "param_type_double";
+        break;
+    case r_Parse_Params::param_type_string:
+        s << "param_type_string";
+        break;
+    default:
+        s << "UNKNOWN r_Parse_Params::parse_paramt_type" << d;
+        break;
     }
-  return s;
+    return s;
 }

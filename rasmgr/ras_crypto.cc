@@ -24,13 +24,13 @@ rasdaman GmbH.
  * SOURCE: ras_crypto.hh
  *
  * MODULE: rasmgr
- * CLASS:  
+ * CLASS:
  *
  * PURPOSE:
  *   Interface to OpenSSL MD5 - functions
- *    
+ *
  * COMMENTS:
- *  		None
+ *          None
 */
 
 #include "ras_crypto.hh"
@@ -43,20 +43,20 @@ rasdaman GmbH.
 
 
 bool testIsMessageDigestAvailable(const char *mdName)
-  {
+{
     EVP_MD_CTX mdctx;
     const EVP_MD *md;
-    
+
     OpenSSL_add_all_digests();
 
     md = EVP_get_digestbyname(mdName);//"MD5");
-    
+
     if(!md) return false;
     return true;
-   }         
+}
 
 int messageDigest(const char *input,char *output,const char *mdName)
-  {      
+{
     EVP_MD_CTX mdctx;
     const EVP_MD *md;
     unsigned int md_len, i;
@@ -65,15 +65,15 @@ int messageDigest(const char *input,char *output,const char *mdName)
     OpenSSL_add_all_digests();
 
     md = EVP_get_digestbyname(mdName);
-    
+
     if(!md) return 0;
-               
+
     EVP_DigestInit(&mdctx, md);
     EVP_DigestUpdate(&mdctx,input, strlen(input));
     EVP_DigestFinal(&mdctx, md_value, &md_len);
 
     for(i = 0; i < md_len; i++) sprintf(output+i+i,"%02x", md_value[i]);
-   
+
     return strlen(output);
-   }
+}
 

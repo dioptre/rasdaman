@@ -27,13 +27,13 @@ rasdaman GmbH.
  * CLASS:   r_Stat_Tiling r_Access
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 #ifndef _R_STATTILING_HH_
 #define _R_STATTILING_HH_
 
-// Include statements 
+// Include statements
 
 class r_Access;
 class r_Stat_Tiling;
@@ -41,7 +41,7 @@ class r_Stat_Tiling;
 //@ManMemo: Module: {\bf rasodmg}
 
 /*@Doc:
-  
+
   This class represents an access pattern to a certain object.
   {\tt r_Stat_Tiling} receives a list of this objects so that
   an appropriate tiling can be defined.
@@ -52,7 +52,7 @@ class r_Stat_Tiling;
   */
 class r_Access
 {
-  public:
+public:
 
     /// Class constructor
     r_Access(const r_Minterval& pattern, r_ULong accesses = 1);
@@ -69,7 +69,7 @@ class r_Access
 
     /// Gets the number of times the pattern was accessed
     r_ULong get_times() const;
-    
+
     /// Sets the number of times the pattern was accessed
     void set_times(r_ULong accesses);
 
@@ -89,11 +89,11 @@ class r_Access
     /// Operator different
     bool operator!=(const r_Access& other) const;
 
-  private:
+private:
 
     /// The user can't use the default constructor
     r_Access();
-  
+
     /// The actual stored pattern
     r_Minterval interval;
 
@@ -129,9 +129,9 @@ extern std::ostream& operator<<(std::ostream& os, const r_Access& access);
   */
 class r_Stat_Tiling : public r_Dimension_Tiling
 {
-  // ******************* PUBLIC SECTION *******************
+    // ******************* PUBLIC SECTION *******************
 
-  public: // constants
+public: // constants
 
     /// Default threshold for two borders being considered the same
     const static r_Area DEF_BORDER_THR;
@@ -140,15 +140,15 @@ class r_Stat_Tiling : public r_Dimension_Tiling
     const static r_Double DEF_INTERESTING_THR;
 
     /// read everything from an encoded string
-    /// e.g. "2;[0:9,0:9],3;[100:109,0:9],2;2;0.3;100"     
+    /// e.g. "2;[0:9,0:9],3;[100:109,0:9],2;2;0.3;100"
     r_Stat_Tiling(const char* encoded) throw (r_Error);
 
     /// Class constructor
     r_Stat_Tiling(r_Dimension dim,
                   const std::vector<r_Access>& stat_info,
-		  r_Bytes ts = RMInit::clientTileSize,
-                  r_Area border_threshold = DEF_BORDER_THR, 
-		  r_Double interesting_threshold = DEF_INTERESTING_THR) throw (r_Error);
+                  r_Bytes ts = RMInit::clientTileSize,
+                  r_Area border_threshold = DEF_BORDER_THR,
+                  r_Double interesting_threshold = DEF_INTERESTING_THR) throw (r_Error);
     /**
       This is the "Statistic Tiling" class constructor.
       It takes as parameters the threshold for, when performing filtering,
@@ -169,7 +169,7 @@ class r_Stat_Tiling : public r_Dimension_Tiling
     /// Gets the threshold at which to intervals are considered the same
     r_Area get_border_threshold() const;
     /**
-      This method gets the number of points (pixels/cells) at which two 
+      This method gets the number of points (pixels/cells) at which two
       intervals are considered to be the same, in the access patterns.
     */
 
@@ -191,7 +191,7 @@ class r_Stat_Tiling : public r_Dimension_Tiling
 
     static const char* description;
 
-  protected:  // methods
+protected:  // methods
 
     /// Filters and access pattern table (list)
     /// throws exception if dimensions of access patterns are not the same
@@ -208,7 +208,7 @@ class r_Stat_Tiling : public r_Dimension_Tiling
 
     /// Current interest areas
     std::vector<r_Minterval> iareas;
-    
+
     /// Statistical data
     std::vector<r_Access> stat_info;
 };

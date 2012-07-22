@@ -31,7 +31,7 @@ rasdaman GmbH.
 /*
  * RCS:
  *   $RCSfile: http-support.c,v $ $Revision: 1.5 $ $State: Exp $
- *   $Locker:  $ 
+ *   $Locker:  $
  */
 
 
@@ -44,460 +44,460 @@ rasdaman GmbH.
 
 
 /****** http-support/InitClientBase ******************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 rc_t InitClientBase( struct ClientBase *Client )
 {
-  return( ERROR );
+    return( ERROR );
 }
 
 
 /****** http-support/InitReqInfo *********************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 rc_t InitReqInfo( struct ReqInfo *Request )
 {
-  Request->HeadBuff             = NULL;
-  Request->HeadSize             = 0;
-  Request->BodyBuff             = NULL;
-  Request->BodySize             = 0;
-  Request->Line.Method          = 0;
-  Request->Line.URL.Protocol    = NULL;
-  Request->Line.URL.Servername  = NULL;
-  Request->Line.URL.Path        = NULL;
-  Request->Line.URL.Extra       = NULL;
-  Request->Line.Version.Major   = 0;
-  Request->Line.Version.Minor   = 0;
-  Request->First                = NULL;
-  Request->Last                 = NULL;
-  Request->Body                 = NULL;
-  return( OK );
+    Request->HeadBuff             = NULL;
+    Request->HeadSize             = 0;
+    Request->BodyBuff             = NULL;
+    Request->BodySize             = 0;
+    Request->Line.Method          = 0;
+    Request->Line.URL.Protocol    = NULL;
+    Request->Line.URL.Servername  = NULL;
+    Request->Line.URL.Path        = NULL;
+    Request->Line.URL.Extra       = NULL;
+    Request->Line.Version.Major   = 0;
+    Request->Line.Version.Minor   = 0;
+    Request->First                = NULL;
+    Request->Last                 = NULL;
+    Request->Body                 = NULL;
+    return( OK );
 }
 
 
 /****** http-support/InitRespInfo ********************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 rc_t InitRespInfo( struct RespInfo *Response )
 {
-  Response->HeadBuff            = NULL;
-  Response->HeadSize            = 0;
-  Response->BodyBuff            = NULL;
-  Response->BodySize            = 0;
-  Response->Line.Version.Major  = 0;
-  Response->Line.Version.Minor  = 0;
-  Response->Line.Status         = 0;
-  Response->Line.Reason         = NULL;
-  Response->First               = NULL;
-  Response->Last                = NULL;
-  Response->Body                = NULL;
-  return( OK );
+    Response->HeadBuff            = NULL;
+    Response->HeadSize            = 0;
+    Response->BodyBuff            = NULL;
+    Response->BodySize            = 0;
+    Response->Line.Version.Major  = 0;
+    Response->Line.Version.Minor  = 0;
+    Response->Line.Status         = 0;
+    Response->Line.Reason         = NULL;
+    Response->First               = NULL;
+    Response->Last                = NULL;
+    Response->Body                = NULL;
+    return( OK );
 }
 
 
 /****** http-support/InitHTTPMsg *********************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 void InitHTTPMsg( struct HTTPMsg *Msg )
 {
-  Msg->Head        = NULL;
-  Msg->Body        = NULL;
-  Msg->BodySize    = 0;
+    Msg->Head        = NULL;
+    Msg->Body        = NULL;
+    Msg->BodySize    = 0;
 }
 
 
 /****** http-support/NewMsgHeader ********************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 struct MsgHeader *NewMsgHeader( int Key, char *String )
 {
-  struct MsgHeader *NewHeader;
+    struct MsgHeader *NewHeader;
 
-  NewHeader = (struct MsgHeader*)mymalloc( sizeof( struct MsgHeader ) );
-  if( NewHeader == NULL )
-    return( NULL );
-  NewHeader->Next    = NULL;
-  NewHeader->Field   = Key;
-  NewHeader->Content = String;
-  return( NewHeader );
+    NewHeader = (struct MsgHeader*)mymalloc( sizeof( struct MsgHeader ) );
+    if( NewHeader == NULL )
+        return( NULL );
+    NewHeader->Next    = NULL;
+    NewHeader->Field   = Key;
+    NewHeader->Content = String;
+    return( NewHeader );
 }
 
 
 /****** http-support/AppendMsgHeader *****************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 struct MsgHeader *AppendMsgHeader( struct MsgHeader *Last, int Key, char *String )
 {
-  struct MsgHeader *NewHeader;
+    struct MsgHeader *NewHeader;
 
-  NewHeader = NewMsgHeader( Key, String );
-  if( NewHeader == NULL )
+    NewHeader = NewMsgHeader( Key, String );
+    if( NewHeader == NULL )
     {
-      ErrorMsg( E_SYS, ERROR, "ERROR: malloc error for MsgHeader structure." );
-      return( NULL );
+        ErrorMsg( E_SYS, ERROR, "ERROR: malloc error for MsgHeader structure." );
+        return( NULL );
     }
-  if( Last != NULL )
+    if( Last != NULL )
     {
-      Last->Next = NewHeader;
+        Last->Next = NewHeader;
     }
-  return( NewHeader );
+    return( NewHeader );
 }
 
 
 /****** http-support/DeleteMsgHeader *****************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 void DeleteMsgHeader( struct MsgHeader *First )
 {
-  struct MsgHeader *Tmp;
-  
-  if( First != NULL )
+    struct MsgHeader *Tmp;
+
+    if( First != NULL )
     {
-      Tmp = First->Next;
-      free( First );
-      First = Tmp;
+        Tmp = First->Next;
+        free( First );
+        First = Tmp;
     }
-  return;
+    return;
 }
 
 
 /****** http-support/PrintReqInfo ********************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 void PrintReqInfo( struct ReqInfo *Request )
 {
-  struct MsgHeader *Ptr;
+    struct MsgHeader *Ptr;
 
-  printf( ">> %s %s HTTP/%d.%d\n", 
-	  HTTP_GetMethodName( Request->Line.Method ),
-	  Request->Line.URL.Protocol ? Request->Line.URL.Protocol : "",
-	  Request->Line.URL.Servername ? Request->Line.URL.Servername : "",
-	  Request->Line.URL.Path ? Request->Line.URL.Path : "",
-	  Request->Line.URL.Extra ? Request->Line.URL.Extra : "",
-	  Request->Line.Version.Major, Request->Line.Version.Minor );
+    printf( ">> %s %s HTTP/%d.%d\n",
+            HTTP_GetMethodName( Request->Line.Method ),
+            Request->Line.URL.Protocol ? Request->Line.URL.Protocol : "",
+            Request->Line.URL.Servername ? Request->Line.URL.Servername : "",
+            Request->Line.URL.Path ? Request->Line.URL.Path : "",
+            Request->Line.URL.Extra ? Request->Line.URL.Extra : "",
+            Request->Line.Version.Major, Request->Line.Version.Minor );
 
-  Ptr = Request->First;
-  while( Ptr != NULL )
+    Ptr = Request->First;
+    while( Ptr != NULL )
     {
-      printf( ">> %s: %s\n", HTTP_GetFieldName( Ptr->Field ), Ptr->Content );
-      Ptr = Ptr->Next;
+        printf( ">> %s: %s\n", HTTP_GetFieldName( Ptr->Field ), Ptr->Content );
+        Ptr = Ptr->Next;
     }
-  return;
+    return;
 }
 
 
 /****** http-support/PrintRespInfo *******************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 void PrintRespInfo( struct RespInfo *Response )
 {
-  struct MsgHeader *Ptr;
+    struct MsgHeader *Ptr;
 
-  printf( ">> HTTP/%d.%d %d %s\n", 
-	  Response->Line.Version.Major, Response->Line.Version.Minor ,
-	  Response->Line.Status,
-	  Response->Line.Reason );
+    printf( ">> HTTP/%d.%d %d %s\n",
+            Response->Line.Version.Major, Response->Line.Version.Minor ,
+            Response->Line.Status,
+            Response->Line.Reason );
 
-  Ptr = Response->First;
-  while( Ptr != NULL )
+    Ptr = Response->First;
+    while( Ptr != NULL )
     {
-      printf( ">> %s: %s\n", HTTP_GetFieldName( Ptr->Field ), Ptr->Content );
-      Ptr = Ptr->Next;
+        printf( ">> %s: %s\n", HTTP_GetFieldName( Ptr->Field ), Ptr->Content );
+        Ptr = Ptr->Next;
     }
-  return;
+    return;
 }
 
 
 /****** http-support/CheckSockError ******************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 rc_t CheckSockError( int SockFD, int Level, int OptName )
 {
-  int    error;
-  size_t len = sizeof( error );
+    int    error;
+    size_t len = sizeof( error );
 
 #ifdef DECALPHA
-  if( getsockopt( SockFD, Level, OptName, (char *)&error, (int*)&len ) < 0 )
+    if( getsockopt( SockFD, Level, OptName, (char *)&error, (int*)&len ) < 0 )
 #else
-  if( getsockopt( SockFD, Level, OptName, (char *)&error, (socklen_t*)&len ) < 0 )
+    if( getsockopt( SockFD, Level, OptName, (char *)&error, (socklen_t*)&len ) < 0 )
 #endif
-    return( FAIL );
-  if( error )
+        return( FAIL );
+    if( error )
     {
-      errno = error;
-      return( ERROR );
+        errno = error;
+        return( ERROR );
     }
-  return( OK );
+    return( OK );
 }
 
 

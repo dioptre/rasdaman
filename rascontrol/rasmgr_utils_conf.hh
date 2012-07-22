@@ -28,9 +28,9 @@ rasdaman GmbH.
  *
  * PURPOSE:
  *   Base class for other configuration classes, to interpret commandline arguments and environment settings
- *    
+ *
  * COMMENTS:
- * 
+ *
  *
 */
 #ifndef RASMGR_UTILS_CONF_HH
@@ -43,19 +43,19 @@ rasdaman GmbH.
 #include <iostream>
 
 class ConfigurationBase
-  {
-    public:
-      ConfigurationBase();
-      
-      // false means program shouldn't continue
-      virtual bool interpretArguments(int argc, char **argv);
-      
-    protected:
-    
-      int checkArguments( int argc, char** argv, const char* searchText, int& optionValueIndex );
+{
+public:
+    ConfigurationBase();
 
-      virtual void printHelp();
+    // false means program shouldn't continue
+    virtual bool interpretArguments(int argc, char **argv);
 
-   };
-   
+protected:
+
+    int checkArguments( int argc, char** argv, const char* searchText, int& optionValueIndex );
+
+    virtual void printHelp();
+
+};
+
 #endif

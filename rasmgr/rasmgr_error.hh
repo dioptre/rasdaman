@@ -40,70 +40,70 @@ rasdaman GmbH.
   * \ingroup Rasmgrs
   */
 class RCError
-  {
-    public:
-      RCError();
-      virtual const char* getString(char *destBuffer)=0;
-    
-   };
+{
+public:
+    RCError();
+    virtual const char* getString(char *destBuffer)=0;
+
+};
 
 /**
   * \ingroup Rasmgrs
-  */   
+  */
 class RCErrorUnexpToken : public RCError
-  {
-    public:
-     RCErrorUnexpToken(const char*);
-     const char* getString(char *destBuffer);
-    private:
-     const char *pcc;   
-   };   
+{
+public:
+    RCErrorUnexpToken(const char*);
+    const char* getString(char *destBuffer);
+private:
+    const char *pcc;
+};
 
 /**
   * \ingroup Rasmgrs
   */
 class RCErrorNoPermission : public RCError
-  {
-    public:
-     RCErrorNoPermission();
-     const char* getString(char *destBuffer);
-    private:
-   };   
+{
+public:
+    RCErrorNoPermission();
+    const char* getString(char *destBuffer);
+private:
+};
 
 /**
   * \ingroup Rasmgrs
   */
 class RCErrorInvalidName : public RCError
-  {
-    public:
-     RCErrorInvalidName(const char*);
-     const char* getString(char *destBuffer);
-    private:
-     const char *pcc;   
-   };   
+{
+public:
+    RCErrorInvalidName(const char*);
+    const char* getString(char *destBuffer);
+private:
+    const char *pcc;
+};
 
 /**
   * \ingroup Rasmgrs
   */
 class RCErrorMissingParam : public RCError
-  {
-    public:
-     RCErrorMissingParam(const char*);
-     const char* getString(char *destBuffer);
-    private:
-     const char *pcc;   
-   };   
+{
+public:
+    RCErrorMissingParam(const char*);
+    const char* getString(char *destBuffer);
+private:
+    const char *pcc;
+};
 
 /**
   * \ingroup Rasmgrs
   */
 class RCErrorIncorNumberValue : public RCError
-  {
-    public:
-     RCErrorIncorNumberValue(const char*);
-     const char* getString(char *destBuffer);
-    private:
-     const char *pcc;   
-   };   
-	                
+{
+public:
+    RCErrorIncorNumberValue(const char*);
+    const char* getString(char *destBuffer);
+private:
+    const char *pcc;
+};
+
 #endif

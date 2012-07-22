@@ -26,7 +26,7 @@ rasdaman GmbH.
  * MODULE:  rasodmg
  *
  * PURPOSE:
- * 		The file contains ODMG type definitions.
+ *      The file contains ODMG type definitions.
  *
  * COMMENTS:
  *  For further porting please adapt the typedef for r_Long and r_Ulong
@@ -97,7 +97,7 @@ typedef unsigned short r_UShort;
 //@Args: as long (4 bytes)
 //@Memo: Module: {\bf rasodmg}.
 
-typedef int r_Long; 
+typedef int r_Long;
 /**
   {\tt typedef int r_Long;}
 */
@@ -111,7 +111,7 @@ typedef int r_Long;
 //@Args: as unsigned long (4 bytes)
 //@Memo: Module: {\bf rasodmg}.
 
-typedef unsigned int r_ULong; 
+typedef unsigned int r_ULong;
 /**
   {\tt typedef unsigned long r_ULong;}
 */
@@ -163,42 +163,50 @@ typedef unsigned char r_Boolean;
 
 inline void get_limits( const r_Octet *tptr, double &min, double &max )
 {
-  min = (double)SCHAR_MIN; max = (double)SCHAR_MAX;
+    min = (double)SCHAR_MIN;
+    max = (double)SCHAR_MAX;
 }
 
 inline void get_limits( const r_Char *tptr, double &min, double &max )
 {
-  min = (double)0.0; max = (double)UCHAR_MAX;
+    min = (double)0.0;
+    max = (double)UCHAR_MAX;
 }
 
 inline void get_limits( const r_Short *tptr, double &min, double &max )
 {
-  min = (double)SHRT_MIN; max = (double)SHRT_MAX;
+    min = (double)SHRT_MIN;
+    max = (double)SHRT_MAX;
 }
 
 inline void get_limits( const r_UShort *tptr, double &min, double &max )
 {
-  min = (double)0.0; max = (double)USHRT_MAX;
+    min = (double)0.0;
+    max = (double)USHRT_MAX;
 }
 
 inline void get_limits( const r_Long *tptr, double &min, double &max )
 {
-  min = (double)INT_MIN; max = (double)INT_MAX;
+    min = (double)INT_MIN;
+    max = (double)INT_MAX;
 }
 
 inline void get_limits( const r_ULong *tptr, double &min, double &max )
 {
-  min = (double)0.0; max = (double)UINT_MAX;
+    min = (double)0.0;
+    max = (double)UINT_MAX;
 }
 
 inline void get_limits( const r_Float *tptr, double &min, double &max )
 {
-  min = -((double)FLT_MAX); max = (double)FLT_MAX;
+    min = -((double)FLT_MAX);
+    max = (double)FLT_MAX;
 }
 
 inline void get_limits( const r_Double *tptr, double &min, double &max )
 {
-  min = -((double)DBL_MAX); max = (double)DBL_MAX;
+    min = -((double)DBL_MAX);
+    max = (double)DBL_MAX;
 }
 
 #endif

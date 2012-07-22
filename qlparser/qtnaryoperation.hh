@@ -51,7 +51,7 @@ rasdaman GmbH.
 
 class QtNaryOperation : public QtOperation
 {
-  public:
+public:
     /// default constructor
     QtNaryOperation();
 
@@ -64,7 +64,7 @@ class QtNaryOperation : public QtOperation
     /// virtual destructor
     virtual ~QtNaryOperation();
 
-    /// simplifies the tree 
+    /// simplifies the tree
     virtual void simplify();
 
     /// test if the two nodes have an equal meaning in the query tree
@@ -102,14 +102,14 @@ class QtNaryOperation : public QtOperation
     //@Man: read/write methods for the operands
     //@{
     ///
-      ///
-      inline void                     setInputs( QtOperationList* opList );
-      ///
-      inline QtNode::QtOperationList* getInputs();
+    ///
+    inline void                     setInputs( QtOperationList* opList );
+    ///
+    inline QtNode::QtOperationList* getInputs();
     ///
     //@}
 
-  protected:
+protected:
     /// method for testing and evaluating the input branches
     bool getOperands( QtDataList* inputList, QtDataList* &operandList );
     /**
@@ -122,9 +122,9 @@ class QtNaryOperation : public QtOperation
     /// operation trees
     QtOperationList* operationList;
 
-  private:
-	/// atribute for identification of nodes
-	static const QtNodeType nodeType;
+private:
+    /// atribute for identification of nodes
+    static const QtNodeType nodeType;
 };
 
 #include "qlparser/qtnaryoperation.icc"

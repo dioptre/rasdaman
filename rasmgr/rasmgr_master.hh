@@ -28,9 +28,9 @@ rasdaman GmbH.
  *
  * PURPOSE:
  *   Main loop of master rasmgr
- *    
+ *
  * COMMENTS:
- *   		None
+ *          None
  *
 */
 
@@ -45,101 +45,101 @@ rasdaman GmbH.
   * \ingroup Rasmgrs
   */
 class ClientID
-  {
-    public:
-      ClientID();
-      void init(const char*);
-      
-      bool operator==(const ClientID&);
-      bool operator!=(const ClientID&);
-      
-      std::string  getID() const;
-      bool    isValid() const;
-    private:
-      std::string idstring;
-      bool valid;
-      friend std::ostream& operator<<(std::ostream&, const ClientID&);
-   };
+{
+public:
+    ClientID();
+    void init(const char*);
+
+    bool operator==(const ClientID&);
+    bool operator!=(const ClientID&);
+
+    std::string  getID() const;
+    bool    isValid() const;
+private:
+    std::string idstring;
+    bool valid;
+    friend std::ostream& operator<<(std::ostream&, const ClientID&);
+};
 
 
 /**
   * \ingroup Rasmgrs
-  */      
+  */
 class ClientQueue
-  {
-    public:
-      ClientQueue();
-      ~ClientQueue();
-      
-      void put(ClientID&, const char *dbName, char serverType, int errorCode);
-      
-      // the answer is 0 or the errorcode 
-      int  canBeServed(ClientID&, const char *dbName, char serverType, bool fake);
-      
-    private:
-      struct ClientEntry
-        {
-	  bool      activ;
-	  ClientID  clientID;
-	  std::string    dbName;
-	  char      serverType;
-	  int       errorCode;
-	  time_t    lastAction;
-	  time_t    timeLimit;
-	  
-	  bool      wasfake;
-	  
-	  ClientEntry();
-	  ClientEntry(ClientID &client, const char *dbName, char serverType, int errorCode);
-	  
-	  bool shouldWeCleanup(bool fake);
-	  void updateTime();
-	  
-	  bool isTimeout();
-	 }; 
-     
-     std::deque<ClientEntry> clients;
-      
-   };
+{
+public:
+    ClientQueue();
+    ~ClientQueue();
+
+    void put(ClientID&, const char *dbName, char serverType, int errorCode);
+
+    // the answer is 0 or the errorcode
+    int  canBeServed(ClientID&, const char *dbName, char serverType, bool fake);
+
+private:
+    struct ClientEntry
+    {
+        bool      activ;
+        ClientID  clientID;
+        std::string    dbName;
+        char      serverType;
+        int       errorCode;
+        time_t    lastAction;
+        time_t    timeLimit;
+
+        bool      wasfake;
+
+        ClientEntry();
+        ClientEntry(ClientID &client, const char *dbName, char serverType, int errorCode);
+
+        bool shouldWeCleanup(bool fake);
+        void updateTime();
+
+        bool isTimeout();
+    };
+
+    std::deque<ClientEntry> clients;
+
+};
 
 /**
   * \ingroup Rasmgrs
-  */   
+  */
 class MasterComm:public NbServerComm
-  {
-    public:
-      MasterComm();
-      ~MasterComm();
-      void Run();
-      void commitChanges();
-      void commitAuthFile();
-    private:
-      bool isMessage(const char *messageStart);
-      int  getFreeServer(bool fake);
-      	const char* convertAnswerCode(int code);
-	
-//      int  getFakeFreeServer();
-      int  answerAccessDenied();
-      int  answerAccessDeniedCode(); 
-      void doCommit();
-      
-      bool commit;
-      bool commitAuthOnly;
-      
-      void processJob( NbJob &currentJob );
-      int  processRequest( NbJob &currentJob );
+{
+public:
+    MasterComm();
+    ~MasterComm();
+    void Run();
+    void commitChanges();
+    void commitAuthFile();
+private:
+    bool isMessage(const char *messageStart);
+    int  getFreeServer(bool fake);
+    const char* convertAnswerCode(int code);
 
-      bool fillInBuffer(const char*);
-      char *header;
-      char *body;
-      char inBuffer[MAXMSG];
-      char outBuffer[MAXMSGOUTBUFF];
-      
-      bool allowMultipleWriteTransactions;
-      
-      ClientQueue clientQueue;
-   };		  	       
-   
+//      int  getFakeFreeServer();
+    int  answerAccessDenied();
+    int  answerAccessDeniedCode();
+    void doCommit();
+
+    bool commit;
+    bool commitAuthOnly;
+
+    void processJob( NbJob &currentJob );
+    int  processRequest( NbJob &currentJob );
+
+    bool fillInBuffer(const char*);
+    char *header;
+    char *body;
+    char inBuffer[MAXMSG];
+    char outBuffer[MAXMSGOUTBUFF];
+
+    bool allowMultipleWriteTransactions;
+
+    ClientQueue clientQueue;
+};
+
 extern MasterComm masterCommunicator;
 
 #endif

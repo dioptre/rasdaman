@@ -27,7 +27,7 @@
  * CLASS:   r_Scalar
  *
  * COMMENTS:
- * 
+ *
  * The class represents a scalar type value.
  *
 */
@@ -40,19 +40,19 @@
 #include "raslib/error.hh"
 
 class r_Base_Type;
- 
+
 //@ManMemo: Module: {\bf raslib}
 
 /*@Doc:
 
- Class \Ref{r_Scalar} represents a scalar type value which 
+ Class \Ref{r_Scalar} represents a scalar type value which
  is either \Ref{r_Primitive} or \Ref{r_Structure}.
- 
+
 */
 
 class r_Scalar
 {
-  public:
+public:
     /// constructs a scalar value
     r_Scalar( const r_Base_Type* newType );
 
@@ -72,9 +72,9 @@ class r_Scalar
     virtual void print_status(std::ostream& s) const = 0;
 
     /// get type
-    virtual const r_Base_Type* get_type() const; 
+    virtual const r_Base_Type* get_type() const;
 
-    /// 
+    ///
     virtual bool isStructure() const;
 
     ///
@@ -83,7 +83,7 @@ class r_Scalar
     ///
     virtual bool isPrimitive() const;
 
-  protected:
+protected:
     /// type
     r_Base_Type* valueType;
 };
@@ -93,7 +93,7 @@ class r_Scalar
 //@ManMemo: Module: {\bf raslib}
 /**
   Output stream operator for objects of type {\tt const} \Ref{r_Scalar}.
-*/  
+*/
 extern std::ostream& operator<<(std::ostream& s, const r_Scalar& obj );
 
 #endif

@@ -22,15 +22,15 @@ rasdaman GmbH.
 */
 
 //------------------------------------------------------------
-//                 RasDaMan Standard Include  
+//                 RasDaMan Standard Include
 //
 //                       DO NOT EDIT
 //------------------------------------------------------------
 
 /**
-*	@file rasdaman.hh
+*   @file rasdaman.hh
 *
-*	@ingroup Include
+*   @ingroup Include
 */
 
 #ifndef __RASDAMAN_HH_

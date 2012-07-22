@@ -66,75 +66,75 @@ are also used in subclasses of \Ref{MDDObject}.
   * \ingroup Relcatalogifs
   */
 class Type : public DBNamedObject
-	{
-	public:
-		virtual void destroy();
-		/*@Doc:
-		does nothing.  is neccessary to stop types from being deleted by ~DBRef<Type>
-		*/
-	
-		/// returns the name of the type as a C string.
-		virtual const char* getTypeName() const;
-		/*@Doc:
-		  The name of the type is the class name without the Type suffix.
-		  e.g. "Bool" for \Ref{BoolType}, or "ULong" for \Ref{ULongType},
-		  or "Set" for \Ref{SetType}, or "Dimension" for \Ref{DimensionType}.
-		*/
+{
+public:
+    virtual void destroy();
+    /*@Doc:
+    does nothing.  is neccessary to stop types from being deleted by ~DBRef<Type>
+    */
 
-		/// returns the structure of the type as a C string.
-		virtual char* getTypeStructure() const;
-		/*@Doc:
-		  Returns a copy of getTypeName() for non-structured base types. For
-		  structured types a list of the elements in the form of #struct {
-		  ulong elemName1, ushort elemName2 }# is returned. MDDTypes are
-		  printed in the form #marray< RGBPixel, [10:20]# (less information,
-		  if domain is not specified). Sets are printed in the form
-		  #set<setName>#. The char* has to be freed by the caller!
-		*/
+    /// returns the name of the type as a C string.
+    virtual const char* getTypeName() const;
+    /*@Doc:
+      The name of the type is the class name without the Type suffix.
+      e.g. "Bool" for \Ref{BoolType}, or "ULong" for \Ref{ULongType},
+      or "Set" for \Ref{SetType}, or "Dimension" for \Ref{DimensionType}.
+    */
 
-		const TypeEnum getType() const;
-		/*@Doc:
-		returns the type as a TypeEnum.
-		*/
+    /// returns the structure of the type as a C string.
+    virtual char* getTypeStructure() const;
+    /*@Doc:
+      Returns a copy of getTypeName() for non-structured base types. For
+      structured types a list of the elements in the form of #struct {
+      ulong elemName1, ushort elemName2 }# is returned. MDDTypes are
+      printed in the form #marray< RGBPixel, [10:20]# (less information,
+      if domain is not specified). Sets are printed in the form
+      #set<setName>#. The char* has to be freed by the caller!
+    */
 
-		virtual int compatibleWith(const Type* aType) const;
-		/*@Doc:
-		checks, if two types are compatible (see also \Ref{MDDType}).
-		*/
+    const TypeEnum getType() const;
+    /*@Doc:
+    returns the type as a TypeEnum.
+    */
 
-		Type();
-		/*@Doc:
-		default constructor, cannot be used.
-		*/
+    virtual int compatibleWith(const Type* aType) const;
+    /*@Doc:
+    checks, if two types are compatible (see also \Ref{MDDType}).
+    */
 
-		Type(const OId& id) throw (r_Error);
-		/*@Doc:
-		*/
+    Type();
+    /*@Doc:
+    default constructor, cannot be used.
+    */
 
-		Type(const Type& old);
-		/*@Doc:
-		*/
+    Type(const OId& id) throw (r_Error);
+    /*@Doc:
+    */
 
-		Type& operator=(const Type& old);
-		/*@Doc:
-		*/
+    Type(const Type& old);
+    /*@Doc:
+    */
 
-		virtual ~Type();
-		/*@Doc:
-		virtual destructor.
-		*/
-		
-	protected:
-		TypeEnum myType;
-		/*@Doc:
-		enum for type.  this can be ULONG, USHORT, CHAR,
-			BOOLTYPE, LONG, SHORT, OCTET, DOUBLE,
-			FLOAT, STRUCT, CLASSTYPE, SETTYPE, MDDTYPE
-		*/
+    Type& operator=(const Type& old);
+    /*@Doc:
+    */
 
-		Type(const char* name);
-		/*@Doc:
-		*/
-	};
+    virtual ~Type();
+    /*@Doc:
+    virtual destructor.
+    */
+
+protected:
+    TypeEnum myType;
+    /*@Doc:
+    enum for type.  this can be ULONG, USHORT, CHAR,
+        BOOLTYPE, LONG, SHORT, OCTET, DOUBLE,
+        FLOAT, STRUCT, CLASSTYPE, SETTYPE, MDDTYPE
+    */
+
+    Type(const char* name);
+    /*@Doc:
+    */
+};
 
 #endif

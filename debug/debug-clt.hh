@@ -31,11 +31,11 @@ rasdaman GmbH.
 */
 
 /**
-*	@defgroup Debug Debug
+*   @defgroup Debug Debug
 *
-*	@file debug-clt.hh
+*   @file debug-clt.hh
 *
-*	@ingroup Debug
+*   @ingroup Debug
 */
 
 #define OSTREAM cout

@@ -24,7 +24,7 @@ rasdaman GmbH.
  *
  *
  * PURPOSE:
- * The interface used by the file storage modules. 
+ * The interface used by the file storage modules.
  *
  *
  * COMMENTS:
@@ -36,7 +36,7 @@ rasdaman GmbH.
 /**
   * \ingroup Relblobifs
   */
-class FileStorageException 
+class FileStorageException
 {
 
 };  // class FileStorageException

@@ -44,7 +44,7 @@ rasdaman GmbH.
 
 class QtCondense : public QtUnaryOperation
 {
-  public:
+public:
     /// constructor getting operation
     QtCondense( Ops::OpType newOpType);
 
@@ -69,7 +69,7 @@ class QtCondense : public QtUnaryOperation
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -81,13 +81,13 @@ class QtCondense : public QtUnaryOperation
     /// method returning algebraic identifier
     inline virtual const char* getAlgebraicName() const;
 
-  protected:
+protected:
     /// operation type
     Ops::OpType opType;
 
-  private:
-	/// attribute for identification of nodes
-	static const QtNodeType nodeType;
+private:
+    /// attribute for identification of nodes
+    static const QtNodeType nodeType;
 };
 
 
@@ -103,7 +103,7 @@ class QtCondense : public QtUnaryOperation
 
 class QtSome : public QtCondense
 {
-  public:
+public:
     /// default constructor
     QtSome();
 
@@ -122,7 +122,7 @@ class QtSome : public QtCondense
     /// method returning algebraic identifier
     inline virtual const char* getAlgebraicName() const;
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };
@@ -139,7 +139,7 @@ class QtSome : public QtCondense
 
 class QtAll : public QtCondense
 {
-  public:
+public:
     /// default constructor
     QtAll();
 
@@ -158,7 +158,7 @@ class QtAll : public QtCondense
     /// method returning algebraic identifier
     inline virtual const char* getAlgebraicName() const;
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };
@@ -175,7 +175,7 @@ class QtAll : public QtCondense
 
 class QtCountCells : public QtCondense
 {
-  public:
+public:
     /// default constructor
     QtCountCells();
 
@@ -194,7 +194,7 @@ class QtCountCells : public QtCondense
     /// method returning algebraic identifier
     inline virtual const char* getAlgebraicName() const;
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };
@@ -210,7 +210,7 @@ class QtCountCells : public QtCondense
 
 class QtAddCells : public QtCondense
 {
-  public:
+public:
     /// default constructor
     QtAddCells();
 
@@ -229,7 +229,7 @@ class QtAddCells : public QtCondense
     /// method returning algebraic identifier
     inline virtual const char* getAlgebraicName() const;
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };
@@ -245,7 +245,7 @@ class QtAddCells : public QtCondense
 
 class QtAvgCells : public QtCondense
 {
-  public:
+public:
     /// default constructor
     QtAvgCells();
 
@@ -264,7 +264,7 @@ class QtAvgCells : public QtCondense
     /// method returning algebraic identifier
     inline virtual const char* getAlgebraicName() const;
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };
@@ -280,7 +280,7 @@ class QtAvgCells : public QtCondense
 
 class QtMinCells : public QtCondense
 {
-  public:
+public:
     /// default constructor
     QtMinCells();
 
@@ -299,7 +299,7 @@ class QtMinCells : public QtCondense
     /// method returning algebraic identifier
     inline virtual const char* getAlgebraicName() const;
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };
@@ -315,7 +315,7 @@ class QtMinCells : public QtCondense
 
 class QtMaxCells : public QtCondense
 {
-  public:
+public:
     /// default constructor
     QtMaxCells();
 
@@ -334,7 +334,7 @@ class QtMaxCells : public QtCondense
     /// method returning algebraic identifier
     inline virtual const char* getAlgebraicName() const;
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };

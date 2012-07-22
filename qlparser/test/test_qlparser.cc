@@ -28,7 +28,7 @@ rasdaman GmbH.
  *
  *
  * COMMENTS:
- * 
+ *
  *
  ************************************************************/
 
@@ -78,118 +78,118 @@ extern QueryTree* parseQueryTree;
 
 int main( int ac, char** av )
 {
-  FILE* inFile;
-  char  baseName[255];
-  char  query[4096];
+    FILE* inFile;
+    char  baseName[255];
+    char  query[4096];
 
-  //
-  // read program arguments
-  //
+    //
+    // read program arguments
+    //
 
-  if( ac <= 2 )
-  {
-    cout << "usage: test_qlparser basename queryfile" << endl;
-    return -1;
-  }
+    if( ac <= 2 )
+    {
+        cout << "usage: test_qlparser basename queryfile" << endl;
+        return -1;
+    }
 
-  strcpy( baseName, av[1] );
+    strcpy( baseName, av[1] );
 
-  inFile = fopen( av[2], "r" );
-   
-  if( inFile == NULL )
-  {
-    cout << "Error opening file " << av[1] << endl;
-    return -1;
-  }
-   
-  fread( &query, 1, 4095, inFile );
-  fclose( inFile );
+    inFile = fopen( av[2], "r" );
 
-  cout << "Query:" << endl << endl << query << endl;
-   
-  //
-  // open database, start transaction
-  //
+    if( inFile == NULL )
+    {
+        cout << "Error opening file " << av[1] << endl;
+        return -1;
+    }
 
-  // variables representing O2 database, ta and session
-  DatabaseIf    db;
-  TransactionIf ta;
+    fread( &query, 1, 4095, inFile );
+    fclose( inFile );
 
-  // don't forget to initialize before using AdminIf!
-  cout << "Connecting to O2 ..." << flush;
-  myExecArgv0 = av[0];
-  AdminIf* myAdmin = AdminIf::instance();
-  cout << "OK" << endl;
+    cout << "Query:" << endl << endl << query << endl;
 
-  // connect to the database
-  cout << "Opening database " << baseName << "... " << flush;
-  db.open( baseName );
-  cout << "OK" << endl;
+    //
+    // open database, start transaction
+    //
 
-  cout << "Starting transaction ... " << flush;
-  ta.begin(&db);
-  cout << "OK" << endl;
+    // variables representing O2 database, ta and session
+    DatabaseIf    db;
+    TransactionIf ta;
 
-  //
-  // body of test program
-  //
+    // don't forget to initialize before using AdminIf!
+    cout << "Connecting to O2 ..." << flush;
+    myExecArgv0 = av[0];
+    AdminIf* myAdmin = AdminIf::instance();
+    cout << "OK" << endl;
 
-  beginParseString = query;
-  iterParseString = query;
-   
-  parseQueryTree = new QueryTree();   // create a query tree object...
-   
-  cout << endl << "Parsing ..." << flush;
-   
-  if( !yyparse() )
-    cout << "  worked" << endl;
-  else
-    cout << "  failed" << endl;
-   
-  cout << endl;
-  parseQueryTree->printTree(2);
-  cout << endl;
-  parseQueryTree->getRoot()->printAlgebraicExpression();
-  cout << endl;
+    // connect to the database
+    cout << "Opening database " << baseName << "... " << flush;
+    db.open( baseName );
+    cout << "OK" << endl;
 
-  cout << "Simplifying ..." << flush;
-  try
-  {
-    parseQueryTree->getRoot()->simplify();
-  }
-  catch( ParseInfo& info )
-  {
-    info.printStatus( RMInit::logOut );
-    cout << "FAILED" << endl;
-  }
+    cout << "Starting transaction ... " << flush;
+    ta.begin(&db);
+    cout << "OK" << endl;
 
-  cout << "OK" << endl;  
+    //
+    // body of test program
+    //
 
-  cout << endl;
-  parseQueryTree->printTree(2);
-  cout << endl;
-  parseQueryTree->getRoot()->printAlgebraicExpression();
-  cout << endl;
+    beginParseString = query;
+    iterParseString = query;
 
-  delete parseQueryTree;
+    parseQueryTree = new QueryTree();   // create a query tree object...
 
-  //
-  // end of body
-  //
-   
-  cout << "Committing transaction ... " << flush;
-  ta.commit();
-  cout << "OK" << endl;
+    cout << endl << "Parsing ..." << flush;
 
-  cout << "Closing database ..." << flush;
-  db.close();
-  cout << "OK" << endl;
-  cout << "Ending O2 session ..." << endl;
-  delete myAdmin;
-  cout << "OK" << endl;
+    if( !yyparse() )
+        cout << "  worked" << endl;
+    else
+        cout << "  failed" << endl;
 
-  return 0;
-}   
+    cout << endl;
+    parseQueryTree->printTree(2);
+    cout << endl;
+    parseQueryTree->getRoot()->printAlgebraicExpression();
+    cout << endl;
+
+    cout << "Simplifying ..." << flush;
+    try
+    {
+        parseQueryTree->getRoot()->simplify();
+    }
+    catch( ParseInfo& info )
+    {
+        info.printStatus( RMInit::logOut );
+        cout << "FAILED" << endl;
+    }
+
+    cout << "OK" << endl;
+
+    cout << endl;
+    parseQueryTree->printTree(2);
+    cout << endl;
+    parseQueryTree->getRoot()->printAlgebraicExpression();
+    cout << endl;
+
+    delete parseQueryTree;
+
+    //
+    // end of body
+    //
+
+    cout << "Committing transaction ... " << flush;
+    ta.commit();
+    cout << "OK" << endl;
+
+    cout << "Closing database ..." << flush;
+    db.close();
+    cout << "OK" << endl;
+    cout << "Ending O2 session ..." << endl;
+    delete myAdmin;
+    cout << "OK" << endl;
+
+    return 0;
+}
 
 
 

@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:  r_Set
  *
  * COMMENTS:
- *			None
+ *          None
 */
 
 
@@ -38,7 +38,7 @@ static const char rcsidset[] = "@(#)rasodmg, r_Set: $Id: set.cc,v 1.17 2002/08/2
 class r_GMarray;
 
 #ifdef __VISUALC__
-  template class r_Set< r_GMarray *>;
+template class r_Set< r_GMarray *>;
 #endif
 
 #ifndef __GNUG__
@@ -47,11 +47,11 @@ class r_GMarray;
 
 template<class T>
 r_Set<T>::r_Set() throw(r_Error)
-  : r_Collection<T>()
+    : r_Collection<T>()
 {
-  this->allowsDuplicates = 0;
-  this->isOrdered = 0;
-  this->card = 0;
+    this->allowsDuplicates = 0;
+    this->isOrdered = 0;
+    this->card = 0;
 }
 
 /* OBSOLETE
@@ -67,10 +67,10 @@ r_Set<T>::r_Set( const char* name )
 
 template<class T>
 r_Set<T>::r_Set( const r_Set<T>& set ) throw(r_Error)
-  : r_Collection<T>( set )
+    : r_Collection<T>( set )
 {
-  this->allowsDuplicates = 0;
-  this->isOrdered = 0;
+    this->allowsDuplicates = 0;
+    this->isOrdered = 0;
 }
 
 template<class T>
@@ -82,11 +82,11 @@ template<class T>
 void
 r_Set<T>::insert_element( const T& element, int no_modification )
 {
-  typename r_Collection<T>::CNode* ptr = (typename r_Collection<T>::CNode*)this->coll;
-  
-  while ( ptr->next != NULL && *((T*)(ptr->elem)) != element )
-    ptr = ptr->next;
-  
-  if ( ptr->elem == NULL || *((T*)(ptr->elem)) != element )
-     r_Collection<T>::insert_element( element, no_modification );
+    typename r_Collection<T>::CNode* ptr = (typename r_Collection<T>::CNode*)this->coll;
+
+    while ( ptr->next != NULL && *((T*)(ptr->elem)) != element )
+        ptr = ptr->next;
+
+    if ( ptr->elem == NULL || *((T*)(ptr->elem)) != element )
+        r_Collection<T>::insert_element( element, no_modification );
 }

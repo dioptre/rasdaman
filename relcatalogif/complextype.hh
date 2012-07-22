@@ -53,86 +53,89 @@ class OId;
 /**
   * \ingroup Relcatalogifs
   */
-class GenericComplexType : public AtomicType {
+class GenericComplexType : public AtomicType
+{
 
 public:
-	GenericComplexType(const char *name, unsigned int size): AtomicType(name, size) {}
-	GenericComplexType(const OId& id) throw (r_Error): AtomicType(id) {}
-	virtual ~GenericComplexType() {}
-	virtual unsigned int getReOffset() const = 0;
-	virtual unsigned int getImOffset() const = 0;
+    GenericComplexType(const char *name, unsigned int size): AtomicType(name, size) {}
+    GenericComplexType(const OId& id) throw (r_Error): AtomicType(id) {}
+    virtual ~GenericComplexType() {}
+    virtual unsigned int getReOffset() const = 0;
+    virtual unsigned int getImOffset() const = 0;
 
 protected:
-	virtual void readFromDb() throw (r_Error) = 0;
+    virtual void readFromDb() throw (r_Error) = 0;
 };
 
 
 /**
   * \ingroup Relcatalogifs
   */
-class ComplexType1 : public GenericComplexType {
+class ComplexType1 : public GenericComplexType
+{
 
 public:
-	ComplexType1();
-	ComplexType1(const OId& id) throw (r_Error);
-	ComplexType1(const ComplexType1& old);
-	ComplexType1& operator=(const ComplexType1& old);
-	virtual ~ComplexType1();
-	virtual void printCell(ostream& stream, const char* cell) const;
-	unsigned int getReOffset() const;
-	unsigned int getImOffset() const;
-	virtual const char* getTypeName() const;
-	static const char* Name;
+    ComplexType1();
+    ComplexType1(const OId& id) throw (r_Error);
+    ComplexType1(const ComplexType1& old);
+    ComplexType1& operator=(const ComplexType1& old);
+    virtual ~ComplexType1();
+    virtual void printCell(ostream& stream, const char* cell) const;
+    unsigned int getReOffset() const;
+    unsigned int getImOffset() const;
+    virtual const char* getTypeName() const;
+    static const char* Name;
 
 
 protected:
-	virtual void readFromDb() throw (r_Error);
+    virtual void readFromDb() throw (r_Error);
 
-private:			
-	unsigned int reOffset, imOffset;
+private:
+    unsigned int reOffset, imOffset;
 
-//	static const char* complexTypeName;
+//  static const char* complexTypeName;
 
-	r_ULong* convertToCULong(const char*, r_ULong*) const;	
-	char* makeFromCULong(char*, const r_ULong*) const;
-	r_Long* convertToCLong(const char*, r_Long*) const;
-	char* makeFromCLong(char*, const r_Long*) const;
-	double* convertToCDouble(const char* cell, double* value) const;
-	char* makeFromCDouble(char* cell, const double* value) const;	
-	
+    r_ULong* convertToCULong(const char*, r_ULong*) const;
+    char* makeFromCULong(char*, const r_ULong*) const;
+    r_Long* convertToCLong(const char*, r_Long*) const;
+    char* makeFromCLong(char*, const r_Long*) const;
+    double* convertToCDouble(const char* cell, double* value) const;
+    char* makeFromCDouble(char* cell, const double* value) const;
+
 };
 
 /**
   * \ingroup Relcatalogifs
   */
-class ComplexType2 : public GenericComplexType {
+class ComplexType2 : public GenericComplexType
+{
 
 public:
-	ComplexType2();
-	ComplexType2(const OId& id) throw (r_Error);
-	ComplexType2(const ComplexType2& old);
-	ComplexType2& operator=(const ComplexType2& old);
-	virtual ~ComplexType2();
-	virtual void printCell(ostream& stream, const char* cell) const;
-	unsigned int getReOffset() const;
-	unsigned int getImOffset() const;
-	virtual const char* getTypeName() const;
-	static const char* Name;
+    ComplexType2();
+    ComplexType2(const OId& id) throw (r_Error);
+    ComplexType2(const ComplexType2& old);
+    ComplexType2& operator=(const ComplexType2& old);
+    virtual ~ComplexType2();
+    virtual void printCell(ostream& stream, const char* cell) const;
+    unsigned int getReOffset() const;
+    unsigned int getImOffset() const;
+    virtual const char* getTypeName() const;
+    static const char* Name;
 
 protected:
-	virtual void readFromDb() throw (r_Error);
+    virtual void readFromDb() throw (r_Error);
 
-private:			
-	unsigned int reOffset, imOffset;
-	
-//	static const char* complexTypeName;
+private:
+    unsigned int reOffset, imOffset;
 
-	r_ULong* convertToCULong(const char*, r_ULong*) const;	
-	char* makeFromCULong(char*, const r_ULong*) const;
-	r_Long* convertToCLong(const char*, r_Long*) const;
-	char* makeFromCLong(char*, const r_Long*) const;
-	double* convertToCDouble(const char* cell, double* value) const;
-	char* makeFromCDouble(char* cell, const double* value) const;	
+//  static const char* complexTypeName;
+
+    r_ULong* convertToCULong(const char*, r_ULong*) const;
+    char* makeFromCULong(char*, const r_ULong*) const;
+    r_Long* convertToCLong(const char*, r_Long*) const;
+    char* makeFromCLong(char*, const r_Long*) const;
+    double* convertToCDouble(const char* cell, double* value) const;
+    char* makeFromCDouble(char* cell, const double* value) const;
 
 };
 

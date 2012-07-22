@@ -26,7 +26,7 @@ rasdaman GmbH.
  *
  *
  * PURPOSE:
- *	code common to all database interface implementations
+ *  code common to all database interface implementations
  *
  * CHANGE HISTORY (append further entries):
  */
@@ -48,131 +48,133 @@ rasdaman GmbH.
 
 r_Bytes
 MDDBaseType::getMemorySize() const
-	{
-	return MDDType::getMemorySize() + myBaseType->getMemorySize() + sizeof(BaseType*);
-	}
+{
+    return MDDType::getMemorySize() + myBaseType->getMemorySize() + sizeof(BaseType*);
+}
 
 MDDBaseType::MDDBaseType(const OId& id) throw (r_Error)
-	:	MDDType(id)
-	{
-	RMDBGENTER(5, RMDebug::module_catalogif, "MDDBaseType", "MDDBaseType(" << myOId << ")");
-	if (objecttype == OId::MDDBASETYPEOID)
-		{
-		mySubclass = MDDBASETYPE;
-		readFromDb();
-		}
-	RMDBGEXIT(5, RMDebug::module_catalogif, "MDDBaseType", "MDDBaseType(" << myOId << ")");
-	}
+    :   MDDType(id)
+{
+    RMDBGENTER(5, RMDebug::module_catalogif, "MDDBaseType", "MDDBaseType(" << myOId << ")");
+    if (objecttype == OId::MDDBASETYPEOID)
+    {
+        mySubclass = MDDBASETYPE;
+        readFromDb();
+    }
+    RMDBGEXIT(5, RMDebug::module_catalogif, "MDDBaseType", "MDDBaseType(" << myOId << ")");
+}
 
 MDDBaseType::MDDBaseType(const char* newTypeName, const BaseType* newBaseType)
-	:	MDDType(newTypeName)
-	{
-	objecttype = OId::MDDBASETYPEOID;
-	myBaseType = newBaseType; 
-	mySubclass = MDDBASETYPE;
-	}
+    :   MDDType(newTypeName)
+{
+    objecttype = OId::MDDBASETYPEOID;
+    myBaseType = newBaseType;
+    mySubclass = MDDBASETYPE;
+}
 
 MDDBaseType::MDDBaseType()
-	:	MDDType("unnamed mddbasetype")
-	{
-	objecttype = OId::MDDBASETYPEOID;
-	myBaseType = 0;
-	mySubclass = MDDBASETYPE;
-	}
+    :   MDDType("unnamed mddbasetype")
+{
+    objecttype = OId::MDDBASETYPEOID;
+    myBaseType = 0;
+    mySubclass = MDDBASETYPE;
+}
 
 MDDBaseType::MDDBaseType(const char* tname)
-	:	MDDType(tname)
-	{
-	objecttype = OId::MDDBASETYPEOID;
-	myBaseType = 0;
-	mySubclass = MDDBASETYPE;
-	}
+    :   MDDType(tname)
+{
+    objecttype = OId::MDDBASETYPEOID;
+    myBaseType = 0;
+    mySubclass = MDDBASETYPE;
+}
 
 MDDBaseType::MDDBaseType(const MDDBaseType& old)
-	:	MDDType(old)
-	{
-	myBaseType = old.myBaseType; 
-	}
+    :   MDDType(old)
+{
+    myBaseType = old.myBaseType;
+}
 
 MDDBaseType& MDDBaseType::operator=(const MDDBaseType& old)
-	{
-	// Gracefully handle self assignment
-	if (this == &old)
-		return *this;
-	MDDType::operator=(old);
-	myBaseType = old.myBaseType;
-	return *this;
-	}
+{
+    // Gracefully handle self assignment
+    if (this == &old)
+        return *this;
+    MDDType::operator=(old);
+    myBaseType = old.myBaseType;
+    return *this;
+}
 
-char* 
+char*
 MDDBaseType::getTypeStructure() const
-	{
-	char* baseType = myBaseType->getTypeStructure();
-	char* result = (char*)mymalloc(10 + strlen(baseType));
+{
+    char* baseType = myBaseType->getTypeStructure();
+    char* result = (char*)mymalloc(10 + strlen(baseType));
 
-	strcpy(result, "marray <");
-	strcat(result, baseType);
-	strcat(result, ">");
+    strcpy(result, "marray <");
+    strcat(result, baseType);
+    strcat(result, ">");
 
-	free(baseType);
-	return result;
-	}
+    free(baseType);
+    return result;
+}
 
 void
 MDDBaseType::print_status( ostream& s ) const
-	{
-	s << "\tr_Marray" << "<" << myBaseType->getTypeName() << "\t>";
-	}
+{
+    s << "\tr_Marray" << "<" << myBaseType->getTypeName() << "\t>";
+}
 
-const BaseType* 
+const BaseType*
 MDDBaseType::getBaseType() const
-	{
-	return myBaseType;
-	}
+{
+    return myBaseType;
+}
 
 MDDBaseType::~MDDBaseType()
-	{
-	RMDBGENTER(5, RMDebug::module_catalogif, "MDDBaseType", "~MDDBaseType() " << myOId);
-	validate();
-	RMDBGEXIT(5, RMDebug::module_catalogif, "MDDBaseType", "~MDDBaseType() " << myOId);
-	}
+{
+    RMDBGENTER(5, RMDebug::module_catalogif, "MDDBaseType", "~MDDBaseType() " << myOId);
+    validate();
+    RMDBGEXIT(5, RMDebug::module_catalogif, "MDDBaseType", "~MDDBaseType() " << myOId);
+}
 
 int
 MDDBaseType::compatibleWith(const Type* aType) const
-	{
-	RMDBGENTER(11, RMDebug::module_catalogif, "MDDBaseType", "compatibleWith(" << aType->getName() << ") " << getName());
-	int retval;
-	if( ((MDDType*)aType)->getSubtype() != MDDBASETYPE && ((MDDType*)aType)->getSubtype() != MDDDOMAINTYPE && ((MDDType*)aType)->getSubtype() != MDDDIMENSIONTYPE )
-		{
-		RMDBGMIDDLE(11, RMDebug::module_catalogif, "MDDBaseType", "not mddbasetype or subclass");
-		retval = 0;
-		}
-	else	{
-		// myBaseType has to be specified
-		if( myBaseType->compatibleWith(((MDDBaseType*)aType)->getBaseType()) )
-			{
-			retval = 1;
-			}
-		else	{
-			RMDBGMIDDLE(11, RMDebug::module_catalogif, "MDDBaseType", "basetypes not compatible");
-			retval = 0;
-			}
-		}
-	RMDBGEXIT(11, RMDebug::module_catalogif, "MDDBaseType", "compatibleWith(" << aType->getName() << ") " << getName() << " retval " << retval);
-	return retval;
-	}
+{
+    RMDBGENTER(11, RMDebug::module_catalogif, "MDDBaseType", "compatibleWith(" << aType->getName() << ") " << getName());
+    int retval;
+    if( ((MDDType*)aType)->getSubtype() != MDDBASETYPE && ((MDDType*)aType)->getSubtype() != MDDDOMAINTYPE && ((MDDType*)aType)->getSubtype() != MDDDIMENSIONTYPE )
+    {
+        RMDBGMIDDLE(11, RMDebug::module_catalogif, "MDDBaseType", "not mddbasetype or subclass");
+        retval = 0;
+    }
+    else
+    {
+        // myBaseType has to be specified
+        if( myBaseType->compatibleWith(((MDDBaseType*)aType)->getBaseType()) )
+        {
+            retval = 1;
+        }
+        else
+        {
+            RMDBGMIDDLE(11, RMDebug::module_catalogif, "MDDBaseType", "basetypes not compatible");
+            retval = 0;
+        }
+    }
+    RMDBGEXIT(11, RMDebug::module_catalogif, "MDDBaseType", "compatibleWith(" << aType->getName() << ") " << getName() << " retval " << retval);
+    return retval;
+}
 
 int
 MDDBaseType::compatibleWithDomain(const r_Minterval* aDomain ) const
-	{
-	RMDBGENTER(11, RMDebug::module_catalogif, "MDDBaseType", "compatibleWithDomain(" << *aDomain << ") " << getName());
-	int retval;
+{
+    RMDBGENTER(11, RMDebug::module_catalogif, "MDDBaseType", "compatibleWithDomain(" << *aDomain << ") " << getName());
+    int retval;
 
-	// create an MDDDomainType with aDomain and myBaseType
-	MDDDomainType tempType( "tempType", myBaseType, *aDomain );
-	// use normal compatibleWith
-	retval = this->compatibleWith( &tempType );
-	RMDBGEXIT(11, RMDebug::module_catalogif, "MDDBaseType", "compatibleWithDomain(" << aDomain << ") " << getName() << " retval " << retval);
-	return retval;
-	}
+    // create an MDDDomainType with aDomain and myBaseType
+    MDDDomainType tempType( "tempType", myBaseType, *aDomain );
+    // use normal compatibleWith
+    retval = this->compatibleWith( &tempType );
+    RMDBGEXIT(11, RMDebug::module_catalogif, "MDDBaseType", "compatibleWithDomain(" << aDomain << ") " << getName() << " retval " << retval);
+    return retval;
+}
 

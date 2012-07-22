@@ -30,13 +30,13 @@ rasdaman GmbH.
  *  queries.
  *
  *  COMMENTS:
- *  		none
+ *          none
  */
 
 /**
-*	@file rviewDb.hh
+*   @file rviewDb.hh
 *
-*	@ingroup Applications
+*   @ingroup Applications
 */
 
 
@@ -70,46 +70,46 @@ class r_Fast_Base_Scale;
 
 class rviewDatabase
 {
-  public:
+public:
 
-  rviewDatabase(void);
-  ~rviewDatabase(void);
-  int  open(const char *srvname, int srvport, const char *dbname,
-	    const char *username, const char *userpassword);
-  void close(void);
-  bool isOpen(void);
-  int  createCollection(const char *collName, rviewBaseType bt);
-  int  deleteCollection(const char *collName);
-  int  lookupCollection(collection_desc *desc);
-  static r_Ref<r_GMarray> getScaledObject(r_Fast_Base_Scale *scaler, const r_Minterval &trimDom, double scale);
-  r_Fast_Base_Scale *lookupScaledObject(collection_desc *desc, double scale);
-  int  insertObject(const char *collName, r_Ref<r_GMarray> mddObj, r_Minterval *domain=NULL);
-  int  executeQuery(collection_desc *desc, const char *query, r_Ref<r_GMarray> *updateMdd=NULL, bool showProgress=TRUE);
-  int  getMinterval(r_Minterval &dom, const char *collName, const double *loid=NULL);
-  const r_Database *getDatabase(void) const;
-  int getErrorInfo(int &line, int &col) const;
+    rviewDatabase(void);
+    ~rviewDatabase(void);
+    int  open(const char *srvname, int srvport, const char *dbname,
+              const char *username, const char *userpassword);
+    void close(void);
+    bool isOpen(void);
+    int  createCollection(const char *collName, rviewBaseType bt);
+    int  deleteCollection(const char *collName);
+    int  lookupCollection(collection_desc *desc);
+    static r_Ref<r_GMarray> getScaledObject(r_Fast_Base_Scale *scaler, const r_Minterval &trimDom, double scale);
+    r_Fast_Base_Scale *lookupScaledObject(collection_desc *desc, double scale);
+    int  insertObject(const char *collName, r_Ref<r_GMarray> mddObj, r_Minterval *domain=NULL);
+    int  executeQuery(collection_desc *desc, const char *query, r_Ref<r_GMarray> *updateMdd=NULL, bool showProgress=TRUE);
+    int  getMinterval(r_Minterval &dom, const char *collName, const double *loid=NULL);
+    const r_Database *getDatabase(void) const;
+    int getErrorInfo(int &line, int &col) const;
 
 
-  protected:
+protected:
 
-  int collectionToDesc(r_Set<r_Ref<r_GMarray> > &mddColl, collection_desc *desc);
+    int collectionToDesc(r_Set<r_Ref<r_GMarray> > &mddColl, collection_desc *desc);
 
-  int ensureDatabase(void);
+    int ensureDatabase(void);
 
-  DynamicString server;
-  int port;
-  DynamicString database;
-  DynamicString username;
-  DynamicString userpassword;
-  DynamicString lastTransferParams;
-  DynamicString lastStorageParams;
-  r_Data_Format lastTransferFormat;
-  r_Data_Format lastStorageFormat;
+    DynamicString server;
+    int port;
+    DynamicString database;
+    DynamicString username;
+    DynamicString userpassword;
+    DynamicString lastTransferParams;
+    DynamicString lastStorageParams;
+    r_Data_Format lastTransferFormat;
+    r_Data_Format lastStorageFormat;
 
-  bool dbOpen;
-  r_Database dbase;
-  // For errors in queries
-  int line, col;
+    bool dbOpen;
+    r_Database dbase;
+    // For errors in queries
+    int line, col;
 };
 
 #endif

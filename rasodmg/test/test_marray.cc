@@ -26,7 +26,7 @@ rasdaman GmbH.
  * MODULE: raslib
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 #ifdef EARLY_TEMPLATE
@@ -47,64 +47,64 @@ static int INIT = 0;
 
 int initFunction( const r_Point& /*pt*/ )
 {
-   /*
-  int value=0;
-  
-  for( int i=0; i< pt.dimension(); i++ )
-    value += pt[i];
-  
-  return value;
-  */
-   return INIT++;
+    /*
+    int value=0;
+
+    for( int i=0; i< pt.dimension(); i++ )
+     value += pt[i];
+
+    return value;
+    */
+    return INIT++;
 }
 
 
 int main()
-{   
-  cout << endl << endl;
-  cout << "Marray Examples" << endl;
-  cout << "===============" << endl << endl;
-        
-  cout << "Initialization of Marray<int, [0:2,3:5,6:8]> with init function:" << endl;
-  r_Minterval domain(3);
-  domain << r_Sinterval(0,2) << r_Sinterval(3,5) << r_Sinterval(6,8);
-  r_Marray<int> a( domain, &initFunction );
-  cout << "OK" << endl;
-  a.print_status( cout );
+{
+    cout << endl << endl;
+    cout << "Marray Examples" << endl;
+    cout << "===============" << endl << endl;
 
-  cout << "Value [0,3,6] = " << a[r_Point(0,3,6)] << endl;
-  cout << "Changing to 99" << endl;
-  a[r_Point(0,3,6)] = 99;
-  cout << "New value [0,3,6] = " << a[r_Point(0,3,6)] << endl;
-  
-  cout << endl << "Projection operator:" << endl;
-  cout << "project a[1]" << endl;
-  r_Marray<int> b = a[1];
-  b.print_status( cout );
+    cout << "Initialization of Marray<int, [0:2,3:5,6:8]> with init function:" << endl;
+    r_Minterval domain(3);
+    domain << r_Sinterval(0,2) << r_Sinterval(3,5) << r_Sinterval(6,8);
+    r_Marray<int> a( domain, &initFunction );
+    cout << "OK" << endl;
+    a.print_status( cout );
 
-  cout << endl << "Projection and cast operator a[r_Point(1,4,7)] :" << endl;
-  cout << "a[1][4][7] = " << (int)(a[ r_Point(1,4,7) ]) << endl;
-  
-  cout << endl << "Projection and cast operator a[1][4][7] :" << endl;
-  cout << "a[1][4][7] = " << (int)(a[1][4][7]) << endl;
-  
-  cout << endl << "Triming operator:" << endl;
-  cout << "trim a[1:3, 4:6, 7:9]" << endl;
-  r_Marray<int> c = a[ r_Minterval(3) << r_Sinterval(1,3) << r_Sinterval(4,6) << r_Sinterval(7,9) ];
-  c.print_status( cout );
+    cout << "Value [0,3,6] = " << a[r_Point(0,3,6)] << endl;
+    cout << "Changing to 99" << endl;
+    a[r_Point(0,3,6)] = 99;
+    cout << "New value [0,3,6] = " << a[r_Point(0,3,6)] << endl;
 
-  cout << "Initialization of Marray<char, [0:2,0:2,0:2]> with 'A'" << endl;
-  r_Minterval domain2(3);
-  domain2 << r_Sinterval(0,2) << r_Sinterval(0,2) << r_Sinterval(0,2);
-  r_Marray<char> a_char( domain2, 'A' );
-  cout << "OK" << endl;
-  a_char.print_status( cout );
+    cout << endl << "Projection operator:" << endl;
+    cout << "project a[1]" << endl;
+    r_Marray<int> b = a[1];
+    b.print_status( cout );
 
-  cout << "Transforming the object GMarray( [0:2,0:2,0:2], 4 ) to Marray<int>( [...] )" << endl;
-  r_GMarray     genMDD( domain2, 4 );
-  r_Marray<int> specMDD( genMDD );
-  
-  cout << specMDD.spatial_domain() << endl;  
-  
-  return 0;
+    cout << endl << "Projection and cast operator a[r_Point(1,4,7)] :" << endl;
+    cout << "a[1][4][7] = " << (int)(a[ r_Point(1,4,7) ]) << endl;
+
+    cout << endl << "Projection and cast operator a[1][4][7] :" << endl;
+    cout << "a[1][4][7] = " << (int)(a[1][4][7]) << endl;
+
+    cout << endl << "Triming operator:" << endl;
+    cout << "trim a[1:3, 4:6, 7:9]" << endl;
+    r_Marray<int> c = a[ r_Minterval(3) << r_Sinterval(1,3) << r_Sinterval(4,6) << r_Sinterval(7,9) ];
+    c.print_status( cout );
+
+    cout << "Initialization of Marray<char, [0:2,0:2,0:2]> with 'A'" << endl;
+    r_Minterval domain2(3);
+    domain2 << r_Sinterval(0,2) << r_Sinterval(0,2) << r_Sinterval(0,2);
+    r_Marray<char> a_char( domain2, 'A' );
+    cout << "OK" << endl;
+    a_char.print_status( cout );
+
+    cout << "Transforming the object GMarray( [0:2,0:2,0:2], 4 ) to Marray<int>( [...] )" << endl;
+    r_GMarray     genMDD( domain2, 4 );
+    r_Marray<int> specMDD( genMDD );
+
+    cout << specMDD.spatial_domain() << endl;
+
+    return 0;
 }

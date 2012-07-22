@@ -27,16 +27,16 @@ rasdaman GmbH.
  *
  *
  * PURPOSE:
- *   
+ *
  *
  * COMMENTS:
  *
  ***********************************************************************/
- 
+
 //@ManMemo: Module: {\bf reladminif}.
 
 /*@Doc:
-  
+
   SQL Errors Handling
 
 */
@@ -57,11 +57,11 @@ generates a new r_Ebase_dbms exception and throws it.
 
 #define check(msg) checkk(msg, sqlca)
 int checkk(const char* msg, struct sqlca& mysql) throw( r_Error );
-	/*@Doc: 
-	returns sqlcode, prints error messages when appropriate.
-	the msg is inserted in the error message.
-	changes are not rolledback, nothing is done to the connection.
-	*/
+/*@Doc:
+returns sqlcode, prints error messages when appropriate.
+the msg is inserted in the error message.
+changes are not rolledback, nothing is done to the connection.
+*/
 
 #endif
 
@@ -72,7 +72,7 @@ generates a new r_Ebase_dbms exception and throws it.
 */
 
 int check(const char* msg) throw (r_Error);
-/*@Doc: 
+/*@Doc:
 returns sqlcode, prints error messages when appropriate.
 the msg is inserted in the error message.
 changes are not rolledback, nothing is done to the connection.
@@ -80,36 +80,36 @@ changes are not rolledback, nothing is done to the connection.
 
 void printSQLError(void* err, int status);
 void printSQLError(void* err) throw (r_Error);
-/*@Doc: 
+/*@Doc:
 This diplays cli errors.
 */
 #endif
 
 #ifdef BASEDB_INFORMIX
 void generateException() throw (r_Error);
-/*@Doc: 
+/*@Doc:
 This generates exceptions.
 */
 
 int check(const char* msg, bool displayWarning = false) throw (r_Error);
-/*@Doc: 
+/*@Doc:
 This diplays esql errors.
 */
 
 void printSQLError(int error, const char*);
-/*@Doc: 
+/*@Doc:
 This diplays cli errors.
 */
 #endif
 
 #ifdef BASEDB_PGSQL
 void generateException() throw (r_Error);
-/*@Doc: 
+/*@Doc:
 This generates exceptions.
 */
 
 int check(const char* msg) throw (r_Error);
-/*@Doc: 
+/*@Doc:
 Display error message if SQL errors have occurred.
 */
 #endif

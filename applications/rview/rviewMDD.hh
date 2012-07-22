@@ -49,14 +49,14 @@ rasdaman GmbH.
  *    endianness is inverted compared to the source object, or changes
  *    the object itself.
  *
- *	COMMENTS:
- * 			None
+ *  COMMENTS:
+ *          None
  */
 
 /**
-*	@file rviewMDD.hh
+*   @file rviewMDD.hh
 *
-*	@ingroup Applications
+*   @ingroup Applications
 */
 
 #ifndef _RVIEW_MDD_H_
@@ -89,16 +89,17 @@ rasdaman GmbH.
 // 1) Data types
 
 // A descriptor of the mdd iteration
-typedef struct mdd_function_desc {
-  double step;
-  long lstep;
-  long srcoff;
-  long low;	// Entire domain of source cube
-  long high;
-  long useLow;	// Domain that should be used, must be wholly contained in source cube
-  long useHigh;
-  long newLow;	// Domain of resulting cube
-  long newHigh;
+typedef struct mdd_function_desc
+{
+    double step;
+    long lstep;
+    long srcoff;
+    long low; // Entire domain of source cube
+    long high;
+    long useLow;  // Domain that should be used, must be wholly contained in source cube
+    long useHigh;
+    long newLow;  // Domain of resulting cube
+    long newHigh;
 } mdd_function_desc;
 
 
@@ -121,16 +122,17 @@ typedef int (*mdd_func_float)MDD_FUNCTION_SIGNATURE(r_Float);
 typedef int (*mdd_func_double)MDD_FUNCTION_SIGNATURE(r_Double);
 
 // A structure of mdd functions for all atomic base types
-typedef struct mdd_function_pointers {
-  mdd_func_bool mddf_bool;
-  mdd_func_char mddf_char;
-  mdd_func_octet mddf_octet;
-  mdd_func_short mddf_short;
-  mdd_func_ushort mddf_ushort;
-  mdd_func_long mddf_long;
-  mdd_func_ulong mddf_ulong;
-  mdd_func_float mddf_float;
-  mdd_func_double mddf_double;
+typedef struct mdd_function_pointers
+{
+    mdd_func_bool mddf_bool;
+    mdd_func_char mddf_char;
+    mdd_func_octet mddf_octet;
+    mdd_func_short mddf_short;
+    mdd_func_ushort mddf_ushort;
+    mdd_func_long mddf_long;
+    mdd_func_ulong mddf_ulong;
+    mdd_func_float mddf_float;
+    mdd_func_double mddf_double;
 } mdd_function_pointers;
 
 // Init a mdd_function_pointers structure with a mdd function template (therefore the
@@ -157,8 +159,8 @@ extern int mdd_objectFunctionStruct(const mdd_function_pointers *mfp, r_Structur
 extern int mdd_objectFunctionType(const mdd_function_pointers *mfp, const r_Type *baseType, const char *src, char *dest, const mdd_function_desc *mfd, int dim, int tpsize, void *auxData);
 
 // Initialising mdd functions
-#define MDD_OBJECT_INIT_NEWIV	1
-#define MDD_OBJECT_INIT_FPSTEP	(2 | MDD_OBJECT_INIT_NEWIV)
+#define MDD_OBJECT_INIT_NEWIV   1
+#define MDD_OBJECT_INIT_FPSTEP  (2 | MDD_OBJECT_INIT_NEWIV)
 extern char *mdd_objectFunctionInitMdd(r_Ref<r_GMarray> mddPtr, r_Ref<r_GMarray> &newMddPtr, r_Minterval &newInterv, int tpsize, r_Dimension dim, r_Database *db=NULL);
 extern mdd_function_desc *mdd_objectFunctionInitData(r_Minterval &interv, r_Minterval &useInterv, r_Minterval &newInterv, int tpsize, unsigned int flags=0);
 

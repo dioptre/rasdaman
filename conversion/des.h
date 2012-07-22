@@ -29,10 +29,11 @@ rasdaman GmbH.
 #include <iostream>
 #include <fstream>
 
-namespace RasNITF 
+namespace RasNITF
 {
 
-class des {
+class des
+{
 
     char m_de[2];
     char m_destag[25];
@@ -43,16 +44,16 @@ class des {
     char m_desshl[4];
     char *m_desshf;
     char *m_desdata;
-    
+
     int header_length;
     long n_desshl;
-    int data_length;	 
+    int data_length;
     int des_header_length;
 
     std::string des_hl ;
     std::string des_dl ;
-		
- public:
+
+public:
 
     des();
     ~des();

@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   r_GMarray
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 #ifndef _D_GMARRAY_
@@ -56,19 +56,19 @@ class r_Storage_Layout;
   available is the length in bytes of the base type.
   More specific MDDs including base type information for more
   type safety are represented by the template subclass \Ref{r_Marray}.
-  Class \Ref{r_Marray} provides a constructor to convert to the base 
+  Class \Ref{r_Marray} provides a constructor to convert to the base
   type specific class.
-*/ 
+*/
 
 /**
   * \ingroup Rasodmgs
-  */ 
+  */
 class r_GMarray : public r_Object
 {
-  public:
+public:
     /// default constructor (no memory is allocated!)
     r_GMarray() throw(r_Error);
-    
+
     /// constructor for uninitialized MDD objects
     r_GMarray(const r_Minterval& init_domain, r_Bytes type_length, r_Storage_Layout* stl = 0) throw (r_Error);
     /**
@@ -83,45 +83,45 @@ class r_GMarray : public r_Object
     r_GMarray(const r_GMarray&) throw(r_Error);
 
     /// constructor which doesn't copy the data
-    r_GMarray(r_GMarray&) throw(r_Error);      
+    r_GMarray(r_GMarray&) throw(r_Error);
 
     /// destructor
     virtual ~r_GMarray();
 
     /// it is called when an object leaves transient memory (internal use only)
     virtual void r_deactivate();
-    
+
     /// assignment: cleanup + copy
-    const r_GMarray& operator= (const r_GMarray&); 
+    const r_GMarray& operator= (const r_GMarray&);
 
     /// subscript operator for read access of a cell
     const char* operator[](const r_Point&) const
-      throw(r_Edim_mismatch, r_Eindex_violation);
-      
+    throw(r_Edim_mismatch, r_Eindex_violation);
+
     /// Returns a r_GMarray that is the intersection of the current domain with the specified interval
     r_GMarray* intersect(r_Minterval where) const;
-    
+
     //@Man: Read methods
     //@{
     ///
 
-      /// gets a pointer to the storage layout object
-      const r_Storage_Layout* get_storage_layout() const;
-      /// getting the spatial domain
-      inline const r_Minterval& spatial_domain() const;
-      /// get the internal representation of the array
-      inline char*         get_array(); 
-      /// get the internal representation of the array for reading
-      inline const char*   get_array() const;
-      /// get size of internal array representation in byets
-      inline r_Bytes get_array_size() const; 
-      /// get length of cell type in bytes
-      inline r_Bytes get_type_length() const; 
-      /// get current data format
-      inline r_Data_Format get_current_format() const;
+    /// gets a pointer to the storage layout object
+    const r_Storage_Layout* get_storage_layout() const;
+    /// getting the spatial domain
+    inline const r_Minterval& spatial_domain() const;
+    /// get the internal representation of the array
+    inline char*         get_array();
+    /// get the internal representation of the array for reading
+    inline const char*   get_array() const;
+    /// get size of internal array representation in byets
+    inline r_Bytes get_array_size() const;
+    /// get length of cell type in bytes
+    inline r_Bytes get_type_length() const;
+    /// get current data format
+    inline r_Data_Format get_current_format() const;
 
-      /// get base type schema
-      const r_Base_Type* get_base_type_schema();
+    /// get base type schema
+    const r_Base_Type* get_base_type_schema();
 
     ///
     //@}
@@ -129,18 +129,18 @@ class r_GMarray : public r_Object
     //@Man: Write methods
     //@{
     ///
-      /// sets the storage layout object and checks compatibility with the domain
-      void set_storage_layout(r_Storage_Layout *) throw (r_Error);
-      /// set spatial domain
-      inline void  set_spatial_domain(const r_Minterval& domain);
-      /// set the internal representation of the array
-      inline void  set_array(char*);
-      /// set size of internal memory representation in bytes
-      inline void  set_array_size(r_Bytes);
-      /// set length of cell type in bytes
-      inline void  set_type_length(r_Bytes);
-      /// set current data format
-      inline void  set_current_format(r_Data_Format);
+    /// sets the storage layout object and checks compatibility with the domain
+    void set_storage_layout(r_Storage_Layout *) throw (r_Error);
+    /// set spatial domain
+    inline void  set_spatial_domain(const r_Minterval& domain);
+    /// set the internal representation of the array
+    inline void  set_array(char*);
+    /// set size of internal memory representation in bytes
+    inline void  set_array_size(r_Bytes);
+    /// set length of cell type in bytes
+    inline void  set_type_length(r_Bytes);
+    /// set current data format
+    inline void  set_current_format(r_Data_Format);
 
     ///
     //@}
@@ -149,27 +149,27 @@ class r_GMarray : public r_Object
     //@{
     ///
 
-      /// inserts an object into the database
-      virtual void insert_obj_into_db();
-      /// insert myself into a specific collection in the database
-      void insert_obj_into_db(const char* collName);
+    /// inserts an object into the database
+    virtual void insert_obj_into_db();
+    /// insert myself into a specific collection in the database
+    void insert_obj_into_db(const char* collName);
 
     ///
     //@}
-    
+
     /// writes the state of the object to the specified stream
     virtual void print_status(std::ostream& s = std::cout) const;
- 
+
     /// writes the state of the object to the specified stream
     void print_status(std::ostream& s, int hexoutput) const;
 
-  protected:
+protected:
     /// spatial domain
     r_Minterval domain;
-    
+
     /// pointer to the internal array representation
     char* data;
-    
+
     /// size of internal array representation in bytes
     r_Bytes data_size;
 

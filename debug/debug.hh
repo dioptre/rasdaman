@@ -26,13 +26,13 @@ rasdaman GmbH.
  * MODULE: rasmgr/test (prelim)
  *
  * COMMENTS:
- * 		- needs RMInit
+ *      - needs RMInit
 */
 
 /**
-*	@file debug.hh
+*   @file debug.hh
 *
-*	@ingroup Debug
+*   @ingroup Debug
 */
 
 #ifndef DEBUG_HH
@@ -62,61 +62,61 @@ in the target code; needs one main! */
 /// for C it's like always
 /// --- well nice, but doesn't work for now, so we set it back
 #ifdef __cplusplus
-#	define EXTERN extern // "C"
+#   define EXTERN extern // "C"
 #else
-#	define EXTERN extern
+#   define EXTERN extern
 #endif
 
 /// variables are allocated in the main module (i.e., the source where main() resides),
 ///  and referened from all other places
 #ifdef DEBUG_MAIN
-	int indentLevel = 0;
-	bool debugOutput = DEBUG_OUTPUT_DEFAULT;
+int indentLevel = 0;
+bool debugOutput = DEBUG_OUTPUT_DEFAULT;
 #else
-	EXTERN int indentLevel;
-	EXTERN bool debugOutput;
+EXTERN int indentLevel;
+EXTERN bool debugOutput;
 #endif // DEBUG_MAIN
 
 /// enable/disable debug output from program
-///	b == true: switch on output
-///	b == false: switch off output
+/// b == true: switch on output
+/// b == false: switch off output
 #define SET_OUTPUT(b) { debugOutput = b; }
 
 /// ENTER(a): write trace line for entering a function (increases indentation)
-#define ENTER(a) 				\
-  {						\
-    if (debugOutput)				\
-    {						\
-      for (int i = 0; i < indentLevel; i++)	\
-          OSTREAM << INDENT;			\
-      OSTREAM << "ENTER " << a << std::endl << std::flush;	\
-      indentLevel++;				\
-    }						\
+#define ENTER(a)                \
+  {                     \
+    if (debugOutput)                \
+    {                       \
+      for (int i = 0; i < indentLevel; i++) \
+          OSTREAM << INDENT;            \
+      OSTREAM << "ENTER " << a << std::endl << std::flush;  \
+      indentLevel++;                \
+    }                       \
   }
 
 /// LEAVE(a): write trace line for leaving a function (decreases indentation)
-#define LEAVE(a) 				\
-  {						\
-    if (debugOutput)				\
-    {						\
-      if (indentLevel > 0 )			\
-          indentLevel--;			\
-      for (int i = 0; i < indentLevel; i++)	\
-          OSTREAM << INDENT;			\
-      OSTREAM << "LEAVE " << a << std::endl << std::flush;	\
-    }						\
+#define LEAVE(a)                \
+  {                     \
+    if (debugOutput)                \
+    {                       \
+      if (indentLevel > 0 )         \
+          indentLevel--;            \
+      for (int i = 0; i < indentLevel; i++) \
+          OSTREAM << INDENT;            \
+      OSTREAM << "LEAVE " << a << std::endl << std::flush;  \
+    }                       \
   }
 
 
 /// TALK(a): write trace line from within a function (leaves indentation unchanged)
-#define TALK(a)  				\
-  {						\
-    if (debugOutput)				\
-    {						\
-      for (int i = 0; i < indentLevel; i++)	\
-          OSTREAM << INDENT;			\
-      OSTREAM << a << std::endl << std::flush;		\
-    }						\
+#define TALK(a)                 \
+  {                     \
+    if (debugOutput)                \
+    {                       \
+      for (int i = 0; i < indentLevel; i++) \
+          OSTREAM << INDENT;            \
+      OSTREAM << a << std::endl << std::flush;      \
+    }                       \
   }
 
 #else

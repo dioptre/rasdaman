@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:  r_Iterator
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 static const char rcsiditerator[] = "@(#)rasodmg, r_Iterator: $Id: iterator.cc,v 1.18 2002/08/23 11:18:44 schatz Exp $";
@@ -53,32 +53,32 @@ using namespace std;
 template<class T>
 r_Iterator<T>::r_Iterator()
 {
-   // use default constructor only with assignment operator!
-   collection = 0;
-   ptr = 0;
-   ndone = 0;
+    // use default constructor only with assignment operator!
+    collection = 0;
+    ptr = 0;
+    ndone = 0;
 }
 
 template<class T>
 r_Iterator<T>::r_Iterator( const r_Iterator<T>& iter )
 {
-   collection = iter.collection;
-   ptr = iter.ptr;
-   ndone = iter.ndone;
+    collection = iter.collection;
+    ptr = iter.ptr;
+    ndone = iter.ndone;
 }
 
 template<class T>
 r_Iterator<T>::r_Iterator( r_Collection<T>& source, int removed_objects )
 {
-  collection = &source;
-  // sorry for this awful cast but there is
-  // no standard conversion of r_Collection<T>::CNode* to r_Collection::CNode*
-  if( removed_objects )
-    ptr = (typename r_Collection<T>::CNode*)source.removed_objects;    
-  else
-    ptr = (typename r_Collection<T>::CNode*)source.coll;
+    collection = &source;
+    // sorry for this awful cast but there is
+    // no standard conversion of r_Collection<T>::CNode* to r_Collection::CNode*
+    if( removed_objects )
+        ptr = (typename r_Collection<T>::CNode*)source.removed_objects;
+    else
+        ptr = (typename r_Collection<T>::CNode*)source.coll;
 
-  ndone = (ptr->elem != 0);
+    ndone = (ptr->elem != 0);
 }
 
 template<class T>
@@ -90,127 +90,127 @@ template<class T>
 r_Iterator<T>&
 r_Iterator<T>::operator=( const r_Iterator<T>& iter )
 {
-  if( this != &iter )
-  {
-    collection = iter.collection;
-    ptr        = iter.ptr;
-    ndone      = iter.ndone;
-  }
-  
-  return *this;
+    if( this != &iter )
+    {
+        collection = iter.collection;
+        ptr        = iter.ptr;
+        ndone      = iter.ndone;
+    }
+
+    return *this;
 }
 
 template<class T>
 int
 r_Iterator<T>::is_equal(const r_Iterator<T>& iter) const
 {
-  if ( collection == iter.collection)
-    if ( ptr == iter.ptr )
-      return 1;
-  return 0;
+    if ( collection == iter.collection)
+        if ( ptr == iter.ptr )
+            return 1;
+    return 0;
 }
 
 
 template<class T>
-int 
+int
 operator==( const r_Iterator<T>& iter1, const r_Iterator<T>& iter2 )
 {
-  return iter1.is_equal(iter2);
+    return iter1.is_equal(iter2);
 }
 
 template<class T>
-int 
+int
 operator!=( const r_Iterator<T>& iter1, const r_Iterator<T>& iter2 )
 {
-  return !iter1.is_equal(iter2);
+    return !iter1.is_equal(iter2);
 }
 
 template<class T>
-r_Iterator<T>& 
+r_Iterator<T>&
 r_Iterator<T>::operator++()
 {
-  // ++prefix operator
-  
-  if ( !ndone )
-    throw r_Error( r_Error::r_Error_IteratorExhausted );
-  if ( ptr->next != 0 )
-    ptr = ptr->next;
-  else
-    ndone = 0;
-  
-  return *this;
+    // ++prefix operator
+
+    if ( !ndone )
+        throw r_Error( r_Error::r_Error_IteratorExhausted );
+    if ( ptr->next != 0 )
+        ptr = ptr->next;
+    else
+        ndone = 0;
+
+    return *this;
 }
 
 template<class T>
 r_Iterator<T>
 r_Iterator<T>::operator++( int )
 {
-  // postfix++ operator
-  // create a copy of this, increment the original and return the copy
-  r_Iterator<T> result( *this );
-  
-  operator++();
+    // postfix++ operator
+    // create a copy of this, increment the original and return the copy
+    r_Iterator<T> result( *this );
 
-  return result;
+    operator++();
+
+    return result;
 }
 
 template<class T>
-T 
+T
 r_Iterator<T>::operator*()
-  throw( r_Error )
+throw( r_Error )
 {
-  if ( !ndone || ptr->elem == 0 )
-  {
-    r_Error err = r_Error( r_Error::r_Error_IteratorExhausted );
-	throw err;
-  }
+    if ( !ndone || ptr->elem == 0 )
+    {
+        r_Error err = r_Error( r_Error::r_Error_IteratorExhausted );
+        throw err;
+    }
 
-  // The following line was return *(ptr->elem) but the HP compiler had problems 
-  // while instantiating the code. CNode::elem was of a different type than T.
-  return *((T*)ptr->elem);
+    // The following line was return *(ptr->elem) but the HP compiler had problems
+    // while instantiating the code. CNode::elem was of a different type than T.
+    return *((T*)ptr->elem);
 }
 
 template<class T>
 T
 r_Iterator<T>::get_element() const
-  throw( r_Error )
+throw( r_Error )
 {
-  if ( !ndone || ptr->elem == 0 )
-    throw r_Error( r_Error::r_Error_IteratorExhausted );
-  else
-    return *(ptr->elem);
+    if ( !ndone || ptr->elem == 0 )
+        throw r_Error( r_Error::r_Error_IteratorExhausted );
+    else
+        return *(ptr->elem);
 }
 
 template<class T>
 int
 r_Iterator<T>::next( T& element )
 {
-  if ( !ndone || ptr->elem == 0 ) return 0;
-  element = *(ptr->elem);
-  advance();
-  return 1;
+    if ( !ndone || ptr->elem == 0 ) return 0;
+    element = *(ptr->elem);
+    advance();
+    return 1;
 }
 
 template<class T>
 void
 r_Iterator<T>::reset( int removed_objects )
 {
-  if( removed_objects )
-    ptr = (typename r_Collection<T>::CNode*)collection->removed_objects;
-  else
-    ptr = (typename r_Collection<T>::CNode*)collection->coll;
+    if( removed_objects )
+        ptr = (typename r_Collection<T>::CNode*)collection->removed_objects;
+    else
+        ptr = (typename r_Collection<T>::CNode*)collection->coll;
 
-  ndone = (ptr->elem != 0);
+    ndone = (ptr->elem != 0);
 }
 
 template<class T>
 void
 r_Iterator<T>::advance()
 {
-  if ( !ndone )
-    throw r_Error( r_Error::r_Error_IteratorExhausted );
-  if ( ptr->next != 0 )
-    ptr = ptr->next;
-  else
-    ndone = 0;
+    if ( !ndone )
+        throw r_Error( r_Error::r_Error_IteratorExhausted );
+    if ( ptr->next != 0 )
+        ptr = ptr->next;
+    else
+        ndone = 0;
 }

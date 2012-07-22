@@ -31,34 +31,42 @@ rasdaman GmbH.
 
 extern "C" int beep(int, int);
 
-ReadLn::ReadLn(bool (*f)(char*), char* p, bool useTab): worker(f), prompt(p), line(0) {
-	if(!useTab)
-		rl_bind_key((int)'\t', beep);
+ReadLn::ReadLn(bool (*f)(char*), char* p, bool useTab): worker(f), prompt(p), line(0)
+{
+    if(!useTab)
+        rl_bind_key((int)'\t', beep);
 }
 
 ReadLn::~ReadLn() {}
 
-void ReadLn::loop() {
-	do {
-		initLn();
-                                                                                                                                                                         
-		if((line = readline(prompt)) != 0  && *line) {
-			add_history(line);
-			if(!worker(line))
-				break;
-		}
-		
-	} while(line);
+void ReadLn::loop()
+{
+    do
+    {
+        initLn();
+
+        if((line = readline(prompt)) != 0  && *line)
+        {
+            add_history(line);
+            if(!worker(line))
+                break;
+        }
+
+    }
+    while(line);
 }
 
-void ReadLn::initLn() {
-	if(line) {
-		free(line);
-		line = 0;
-	}
+void ReadLn::initLn()
+{
+    if(line)
+    {
+        free(line);
+        line = 0;
+    }
 }
 
-int beep(int, int) {
-	putchar( '\a');
-	return 1; 	// meaningless, just for prototype
+int beep(int, int)
+{
+    putchar( '\a');
+    return 1;   // meaningless, just for prototype
 }

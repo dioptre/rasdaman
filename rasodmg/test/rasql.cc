@@ -26,7 +26,7 @@ rasdaman GmbH.
  * MODULE: rasodmg/test
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 static const char rcsid[] = "@(#)rasodmg/test,rasql: $Id: rasql.cc,v 1.5 2002/05/25 14:29:15 coman Exp $";
@@ -43,84 +43,96 @@ static const char rcsid[] = "@(#)rasodmg/test,rasql: $Id: rasql.cc,v 1.5 2002/05
 static bool noMore = false;
 
 
-void logo() {
-	std::cout << "RasQL v0.1, (c) 2001 active knowledge GmbH." << std::endl;
-	if(noMore)
-		std::cout << "Option: no more" << std::endl;
-	std::cout << std::endl; 
+void logo()
+{
+    std::cout << "RasQL v0.1, (c) 2001 active knowledge GmbH." << std::endl;
+    if(noMore)
+        std::cout << "Option: no more" << std::endl;
+    std::cout << std::endl;
 }
 
-bool toFile(char *s) {
-	std::ofstream os(file_name);
-	if(!os) 
-		return false;
-	os << s;
-	return true;
+bool toFile(char *s)
+{
+    std::ofstream os(file_name);
+    if(!os)
+        return false;
+    os << s;
+    return true;
 }
 
-void filter(void) {
-	execlp(filter_prog, filter_prog, filter_params, 0);
-	perror("exec");	
-	exit(1);
+void filter(void)
+{
+    execlp(filter_prog, filter_prog, filter_params, 0);
+    perror("exec");
+    exit(1);
 }
 
 
-void query(void) {
-	execlp(query_prog, query_prog, 
-	       server_param, server_name, 
-	       base_param, base_name, 
-	       file_param, file_name, 
-	       0);
-	perror("exec");
-	exit(1);
+void query(void)
+{
+    execlp(query_prog, query_prog,
+           server_param, server_name,
+           base_param, base_name,
+           file_param, file_name,
+           0);
+    perror("exec");
+    exit(1);
 }
 
-bool process(char* s) {
-	int p[2];	
-	if(strcmp(s, "exit") == 0)		
-		return false;
-	if(strcmp(s, "quit") == 0)		
-		return false;
+bool process(char* s)
+{
+    int p[2];
+    if(strcmp(s, "exit") == 0)
+        return false;
+    if(strcmp(s, "quit") == 0)
+        return false;
 
-	if(!toFile(s)) {
-		std::cerr << "toFile: error opening file " << file_name << std::endl;
-		return true;			
-	}
+    if(!toFile(s))
+    {
+        std::cerr << "toFile: error opening file " << file_name << std::endl;
+        return true;
+    }
 
-	if(noMore) {
-		if(!fork())
-			query();
-	}
-	else {
-		pipe(p);	
-		if(!fork()) {
-			close(p[1]);	
-			dup2(p[0], 0);
-			filter();		
-		}
-		else if(!fork()) {
-			close(p[0]);
-			dup2(p[1], 1);
-			query();	
-		}	
-		else {
-			close(p[0]);
-			close(p[1]);		
-		}
-	}
+    if(noMore)
+    {
+        if(!fork())
+            query();
+    }
+    else
+    {
+        pipe(p);
+        if(!fork())
+        {
+            close(p[1]);
+            dup2(p[0], 0);
+            filter();
+        }
+        else if(!fork())
+        {
+            close(p[0]);
+            dup2(p[1], 1);
+            query();
+        }
+        else
+        {
+            close(p[0]);
+            close(p[1]);
+        }
+    }
 
-	while(wait(0) > 0);
-	return true;
+    while(wait(0) > 0);
+    return true;
 }
 
-int main(int argc, char **argv) {	
-	if(--argc && strcmp(*(++argv), "-nomore") == 0) 
-		noMore = true;
+int main(int argc, char **argv)
+{
+    if(--argc && strcmp(*(++argv), "-nomore") == 0)
+        noMore = true;
 
-	logo();
-		
-	ReadLn l(process, "RasQL> ");
-	l.loop();
-	std::cout << std::endl;
-	return 0;
+    logo();
+
+    ReadLn l(process, "RasQL> ");
+    l.loop();
+    std::cout << std::endl;
+    return 0;
 }

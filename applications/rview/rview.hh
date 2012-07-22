@@ -29,13 +29,13 @@ rasdaman GmbH.
  *  through rView-member functions.
  *
  *  COMMENTS:
- *  		none 
+ *          none
  */
 
 /**
-*	@file rview.hh
+*   @file rview.hh
 *
-*	@ingroup Applications
+*   @ingroup Applications
 */
 
 #ifndef _RVIEW_H_
@@ -66,53 +66,53 @@ rasdaman GmbH.
  */
 class rviewMainFrame: public rviewFrame
 {
-  public:
+public:
 
-  rviewMainFrame(wxFrame *frame, char *title, int x, int y, int w, int h);
-  ~rviewMainFrame(void);
-  void OnMenuCommand(int id);
-  void OnSize(int w, int h);
-  void SetDatabaseInfo(const char *srvName, int srvPort, 
-  		       const char *dbName, const char*usrName);
-  void GetDatabaseInfo(DynamicString &srvName, int& srvPort, DynamicString &dbName,
-		       DynamicString &usrName, DynamicString &usrPassword) const;
-  void newDBState(bool newState);
-  bool OnClose();
+    rviewMainFrame(wxFrame *frame, char *title, int x, int y, int w, int h);
+    ~rviewMainFrame(void);
+    void OnMenuCommand(int id);
+    void OnSize(int w, int h);
+    void SetDatabaseInfo(const char *srvName, int srvPort,
+                         const char *dbName, const char*usrName);
+    void GetDatabaseInfo(DynamicString &srvName, int& srvPort, DynamicString &dbName,
+                         DynamicString &usrName, DynamicString &usrPassword) const;
+    void newDBState(bool newState);
+    bool OnClose();
 
-  // Implementations of the rviewFrame virtual functions
-  void label(void);
-  int process(wxObject &obj, wxEvent &evt);
+    // Implementations of the rviewFrame virtual functions
+    void label(void);
+    int process(wxObject &obj, wxEvent &evt);
 
-  int userEvent(const user_event &ue);
+    int userEvent(const user_event &ue);
 
-  virtual const char *getFrameName(void) const;
-  virtual rviewFrameType getFrameType(void) const;
+    virtual const char *getFrameName(void) const;
+    virtual rviewFrameType getFrameType(void) const;
 
-  // constants
-  // Width and height of main window
-  static const int main_width;
-  static const int main_height; 
-  // Border around panel in main frame
-  static const int main_border;
-  // Height of server / database text widgets
-  static const int main_theight;
-  // Dimensions of button(s)
-  static const int main_bwidth;
-  static const int main_bheight;
+    // constants
+    // Width and height of main window
+    static const int main_width;
+    static const int main_height;
+    // Border around panel in main frame
+    static const int main_border;
+    // Height of server / database text widgets
+    static const int main_theight;
+    // Dimensions of button(s)
+    static const int main_bwidth;
+    static const int main_bheight;
 
 
-  protected:
+protected:
 
-  rviewText *server;
-  rviewText *port;  
-  rviewText *database;
-  rviewText *username;
-  rviewText *userpassword;
-  rviewButton *openBut;
-  wxPanel *panel;
-  wxMenuBar *mBar;
-  bool dbOpen;
-  rviewAbout *aboutWindow;
+    rviewText *server;
+    rviewText *port;
+    rviewText *database;
+    rviewText *username;
+    rviewText *userpassword;
+    rviewButton *openBut;
+    wxPanel *panel;
+    wxMenuBar *mBar;
+    bool dbOpen;
+    rviewAbout *aboutWindow;
 };
 
 
@@ -122,22 +122,22 @@ class rviewMainFrame: public rviewFrame
  */
 class rView: public rmanClientApp
 {
-  public:
+public:
 
-  rView(void);
-  virtual ~rView(void);
-  wxFrame *OnInit(void);
-  void OpenCloseServer(void);
-  void OpenQueryWindow(void);
+    rView(void);
+    virtual ~rView(void);
+    wxFrame *OnInit(void);
+    void OpenCloseServer(void);
+    void OpenQueryWindow(void);
 
 
-  private:
+private:
 
-  rviewMainFrame *mainFrame;
+    rviewMainFrame *mainFrame;
 
-  static const char labels_filename[];
-  static const char prefs_filename[];
-  static const double version;
+    static const char labels_filename[];
+    static const char prefs_filename[];
+    static const double version;
 };
 
 #endif

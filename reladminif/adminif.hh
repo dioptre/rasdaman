@@ -27,7 +27,7 @@ rasdaman GmbH.
  *
 = *
  * PURPOSE:
- *   
+ *
  *
  * COMMENTS:
  *
@@ -66,7 +66,7 @@ before using a persistence capable class.
 ...
 
 {\tt delete myAdmin;}
-    
+
 */
 
 const int SYSTEMNAME_MAXLEN=256;
@@ -78,104 +78,104 @@ const int SYSTEMNAME_MAXLEN=256;
   * \ingroup Reladminifs
   */
 
-class AdminIf              
-	{
-	public:
-		static AdminIf* instance();
-		/*@Doc: 
-		satic function used to access instance of AdminIf and start session.
-		*/
+class AdminIf
+{
+public:
+    static AdminIf* instance();
+    /*@Doc:
+    satic function used to access instance of AdminIf and start session.
+    */
 
-		static DatabaseIf* getCurrentDatabaseIf();
-		/*@Doc: 
-		static function used to access the current databaseif object
-		*/
+    static DatabaseIf* getCurrentDatabaseIf();
+    /*@Doc:
+    static function used to access the current databaseif object
+    */
 
-		static void setCurrentDatabaseIf(DatabaseIf* db);
-		/*@Doc: 
-		static function used to store the current databaseif object in AdminIf
-		this function should only be called by DatabaseIf, DatabasIf
-		is responsible for setting the databaseif object to
-		NULL at destruction time.
-		*/
+    static void setCurrentDatabaseIf(DatabaseIf* db);
+    /*@Doc:
+    static function used to store the current databaseif object in AdminIf
+    this function should only be called by DatabaseIf, DatabasIf
+    is responsible for setting the databaseif object to
+    NULL at destruction time.
+    */
 
-		~AdminIf();
-		/*@Doc: 
-		issues a ROLLBACK WORK RELEASE
-		deinitializes the ObjectBroker
-		deinitializes benchmark timers
-		*/
+    ~AdminIf();
+    /*@Doc:
+    issues a ROLLBACK WORK RELEASE
+    deinitializes the ObjectBroker
+    deinitializes benchmark timers
+    */
 
-		static char* getSystemName();
-		/*@Doc: 
-		returns Oracle on oracle
-		*/
+    static char* getSystemName();
+    /*@Doc:
+    returns Oracle on oracle
+    */
 
-		static void setReadOnlyTA(bool newReadOnlyTA);
-		/*@Doc: 
-		sets readOnlyTA, should only be used by \Ref{TransactionIf}
-		*/
+    static void setReadOnlyTA(bool newReadOnlyTA);
+    /*@Doc:
+    sets readOnlyTA, should only be used by \Ref{TransactionIf}
+    */
 
-		static bool isReadOnlyTA();
-		/*@Doc: 
-		checks for read only TA.
-		*/
-	
-		static bool isAborted();
-		/*@Doc: 
-		used by DBObject::validate() to determine if it should execute the persistency functions
-		*/
+    static bool isReadOnlyTA();
+    /*@Doc:
+    checks for read only TA.
+    */
 
-		static void setAborted(bool newAborted);
-		/*@Doc: 
-		used by transactionif to set the aborted status of the transaction
-		*/
-		
-	protected:
-		AdminIf() throw (r_Error);
-		/*@Doc: 
-		constructor, can not be used from outside.
-		initializes the objectbroker
-		does a CONNECT,  when successful sets validConnection to true else false,
-		then a ROLLBACK WORK RELEASE
-		throws exception if connection fails
-		*/
+    static bool isAborted();
+    /*@Doc:
+    used by DBObject::validate() to determine if it should execute the persistency functions
+    */
 
-	private:
-		static AdminIf* myInstance;
-		/*@Doc: 
-		pointer to instance (just needed for Singleton pattern).
-		*/
+    static void setAborted(bool newAborted);
+    /*@Doc:
+    used by transactionif to set the aborted status of the transaction
+    */
 
-		static DatabaseIf* myDatabaseIf;
-		/*@Doc: 
-		pointer to the current DatabaseIf object
-		*/
+protected:
+    AdminIf() throw (r_Error);
+    /*@Doc:
+    constructor, can not be used from outside.
+    initializes the objectbroker
+    does a CONNECT,  when successful sets validConnection to true else false,
+    then a ROLLBACK WORK RELEASE
+    throws exception if connection fails
+    */
 
-		static bool validConnection;
-		/*@Doc: 
-		flag for error when opening session: false if error.
-		*/
+private:
+    static AdminIf* myInstance;
+    /*@Doc:
+    pointer to instance (just needed for Singleton pattern).
+    */
 
-		static bool readOnlyTA;
-		/*@Doc: 
-		flag for read only transactions
-		*/
+    static DatabaseIf* myDatabaseIf;
+    /*@Doc:
+    pointer to the current DatabaseIf object
+    */
 
-		static const char dbmsName[SYSTEMNAME_MAXLEN];
-	 	/*@Doc:
-		holds the specific name of dbms
-		*/
+    static bool validConnection;
+    /*@Doc:
+    flag for error when opening session: false if error.
+    */
 
-		static char systemName[SYSTEMNAME_MAXLEN+1];
-                /*@Doc:
-                Store the dbms name using dbmsName
-                */
+    static bool readOnlyTA;
+    /*@Doc:
+    flag for read only transactions
+    */
 
-		static bool _isAborted;
-		/*@Doc: 
-		flag for aborted transactions
-		*/
-	};
+    static const char dbmsName[SYSTEMNAME_MAXLEN];
+    /*@Doc:
+    holds the specific name of dbms
+    */
+
+    static char systemName[SYSTEMNAME_MAXLEN+1];
+    /*@Doc:
+    Store the dbms name using dbmsName
+    */
+
+    static bool _isAborted;
+    /*@Doc:
+    flag for aborted transactions
+    */
+};
 
 #endif

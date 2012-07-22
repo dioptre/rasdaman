@@ -26,30 +26,30 @@ static const char rcsid[] = "@(#)raslib, r_Point_Type: $Header: /home/rasdev/CVS
 #include "raslib/pointtype.hh"
 
 r_Point_Type::r_Point_Type()
-  : r_Type()
+    : r_Type()
 {
 }
 
 r_Point_Type::r_Point_Type( const r_Point_Type& oldObj )
-  : r_Type(oldObj)
+    : r_Type(oldObj)
 {
 }
 
 r_Type*
 r_Point_Type::clone() const
 {
-   return new r_Point_Type( *this ); 
+    return new r_Point_Type( *this );
 }
 
-r_Type::r_Type_Id 
+r_Type::r_Type_Id
 r_Point_Type::type_id() const
 {
-  return POINTTYPE;
+    return POINTTYPE;
 }
 
 void
-r_Point_Type::convertToLittleEndian(char* cells, unsigned int noCells) 
-  const
+r_Point_Type::convertToLittleEndian(char* cells, unsigned int noCells)
+const
 {
 }
 
@@ -58,11 +58,11 @@ r_Point_Type::convertToBigEndian(char* cells, unsigned int noCells) const
 {
 }
 
-void 
+void
 r_Point_Type::print_status( std::ostream& s ) const
 {
-    s << "point"; 
-} 
+    s << "point";
+}
 
 r_Point_Type::~r_Point_Type()
 {
@@ -70,12 +70,12 @@ r_Point_Type::~r_Point_Type()
 
 bool
 r_Point_Type::isPointType() const
-	{
-	return true;
-	}
+{
+    return true;
+}
 
 std::ostream &operator<<( std::ostream &str, const r_Point_Type &type )
 {
-  type.print_status(str);
-  return str;
+    type.print_status(str);
+    return str;
 }

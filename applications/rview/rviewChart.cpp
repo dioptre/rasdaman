@@ -21,18 +21,18 @@ rasdaman GmbH.
 * or contact Peter Baumann via <baumann@rasdaman.com>.
 /
 
-/** 
+/**
  * SOURCE: rviewChart.cpp
  *
  * MODULE: applications/rview
  *
  * PURPOSE:
- *	 rView chart viewer. Can display MDD objects of any dimension in a time
- *	 series fashion. Possible modes are bar charts, line and spline function
- *	 plots.
+ *   rView chart viewer. Can display MDD objects of any dimension in a time
+ *   series fashion. Possible modes are bar charts, line and spline function
+ *   plots.
  *
  * COMMENTS:
- * 		No comments
+ *      No comments
  */
 
 
@@ -98,115 +98,118 @@ const int rviewChart::chart_totaly = rviewDisplay::display_cheight + rviewChart:
 
 chartCanvas::chartCanvas(wxWindow *parent, int x, int y, int w, int h, long style) : wxCanvas(parent, x, y, w, h, style)
 {
-  brush.SetStyle(wxSOLID);
-  brush.SetColour((char)0x80, (char)0x80, (char)0x80);
-  back.SetStyle(wxSOLID);
-  back.SetColour((char)0xe0, (char)0xe0, (char)0xe0);
-  pen.SetStyle(wxSOLID);
-  pen.SetColour(0,0,0);
-  SetBackground(&back);
-  font = new wxFont(12, wxROMAN, wxNORMAL, wxNORMAL);
-  scroll = 0;
+    brush.SetStyle(wxSOLID);
+    brush.SetColour((char)0x80, (char)0x80, (char)0x80);
+    back.SetStyle(wxSOLID);
+    back.SetColour((char)0xe0, (char)0xe0, (char)0xe0);
+    pen.SetStyle(wxSOLID);
+    pen.SetColour(0,0,0);
+    SetBackground(&back);
+    font = new wxFont(12, wxROMAN, wxNORMAL, wxNORMAL);
+    scroll = 0;
 }
 
 
 chartCanvas::~chartCanvas(void)
 {
-  SetBackground(NULL);
-  delete font;
+    SetBackground(NULL);
+    delete font;
 }
 
 
 
 void chartCanvas::setData(mdd_frame *mf, rviewBaseType bt)
 {
-  mddObj = mf->mdd;
-  dimMDD = (int)(mddObj->spatial_domain().dimension());
-  baseType = bt;
-  if (baseType == rbt_rgb)
-  {
-    brush_r.SetStyle(wxSOLID);
-    brush_r.SetColour((char)0xff, 0, 0);
-    brush_g.SetStyle(wxSOLID);
-    brush_g.SetColour(0, (char)0xff, 0);
-    brush_b.SetStyle(wxSOLID);
-    brush_b.SetColour(0, 0, (char)0xff);
-    pen_r.SetColour((char)0xff, 0, 0);
-    pen_g.SetColour(0, (char)0xff, 0);
-    pen_b.SetColour(0, 0, (char)0xff);
-  }
+    mddObj = mf->mdd;
+    dimMDD = (int)(mddObj->spatial_domain().dimension());
+    baseType = bt;
+    if (baseType == rbt_rgb)
+    {
+        brush_r.SetStyle(wxSOLID);
+        brush_r.SetColour((char)0xff, 0, 0);
+        brush_g.SetStyle(wxSOLID);
+        brush_g.SetColour(0, (char)0xff, 0);
+        brush_b.SetStyle(wxSOLID);
+        brush_b.SetColour(0, 0, (char)0xff);
+        pen_r.SetColour((char)0xff, 0, 0);
+        pen_g.SetColour(0, (char)0xff, 0);
+        pen_b.SetColour(0, 0, (char)0xff);
+    }
 }
 
 
 
 int chartCanvas::setProjection(r_Point &p1, r_Point &p2)
 {
-  int i, j;
-  char buffer[STRINGSIZE];
-  float twidth, theight, taux;
-  r_Minterval useInterv;
+    int i, j;
+    char buffer[STRINGSIZE];
+    float twidth, theight, taux;
+    r_Minterval useInterv;
 
-  pt1 = p1; pt2 = p2; min = 0.0; max = 1.0;
+    pt1 = p1;
+    pt2 = p2;
+    min = 0.0;
+    max = 1.0;
 
-  useInterv= r_Minterval(dimMDD);
-  for (i=0; i<dimMDD; i++)
-  {
-    useInterv << r_Sinterval(pt1[i], pt2[i]);
-  }
-  if (mdd_objectRange(mddObj, useInterv, min, max) == 0)
-  {
-    cerr << lman->lookup("errorBaseType") << endl;
-    return 0;
-  }
+    useInterv= r_Minterval(dimMDD);
+    for (i=0; i<dimMDD; i++)
+    {
+        useInterv << r_Sinterval(pt1[i], pt2[i]);
+    }
+    if (mdd_objectRange(mddObj, useInterv, min, max) == 0)
+    {
+        cerr << lman->lookup("errorBaseType") << endl;
+        return 0;
+    }
 
-  RMDBGONCE(3, RMDebug::module_applications, "chartCanvas", "setProjection(...) min = " << min << ", max = " << max );
+    RMDBGONCE(3, RMDebug::module_applications, "chartCanvas", "setProjection(...) min = " << min << ", max = " << max );
 
-  // Determine format to use for numbering the vertical axis
-  taux = fabs(min);
-  if (taux <= pow(10.,(double)-chcanv_exponents)) i = chcanv_exponents;
-  else i = (int)(log(taux)/log(10.));
-  taux = fabs(max);
-  if (taux <= pow(10.,(double)-chcanv_exponents)) j = chcanv_exponents;
-  else j = (int)(log(taux)/log(10.));
-  if (i < j) i = j;
-  if (abs(i) >= chcanv_exponents)
-  {
-    strcpy(format, "%g");
-  }
-  else if (i >= 0)
-  {
-    strcpy(format, "%.0f");
-  }
-  else
-  {
-    sprintf(format, "%%.%df", -i);
-  }
+    // Determine format to use for numbering the vertical axis
+    taux = fabs(min);
+    if (taux <= pow(10.,(double)-chcanv_exponents)) i = chcanv_exponents;
+    else i = (int)(log(taux)/log(10.));
+    taux = fabs(max);
+    if (taux <= pow(10.,(double)-chcanv_exponents)) j = chcanv_exponents;
+    else j = (int)(log(taux)/log(10.));
+    if (i < j) i = j;
+    if (abs(i) >= chcanv_exponents)
+    {
+        strcpy(format, "%g");
+    }
+    else if (i >= 0)
+    {
+        strcpy(format, "%.0f");
+    }
+    else
+    {
+        sprintf(format, "%%.%df", -i);
+    }
 
-  if (cosys)
-  {
-    SetFont(font);
-    sprintf(buffer, format, min);
-    GetTextExtent(buffer, &twidth, &theight);
-    sprintf(buffer, format, max);
-    GetTextExtent(buffer, &taux, &theight);
-    if (twidth < taux) twidth = taux;
-    coleft = (int)(twidth + chcanv_colength/2);
-  }
-  else
-    coleft = chcanv_cospace;
+    if (cosys)
+    {
+        SetFont(font);
+        sprintf(buffer, format, min);
+        GetTextExtent(buffer, &twidth, &theight);
+        sprintf(buffer, format, max);
+        GetTextExtent(buffer, &taux, &theight);
+        if (twidth < taux) twidth = taux;
+        coleft = (int)(twidth + chcanv_colength/2);
+    }
+    else
+        coleft = chcanv_cospace;
 
-  return coleft;
+    return coleft;
 }
 
 
 
 void chartCanvas::setVars(int s, double cs, int ds, bool cy, rviewChartMode cm)
 {
-  step = s;
-  costep = cs;
-  datastep = ds;
-  cosys = cy;
-  cmode = cm;
+    step = s;
+    costep = cs;
+    datastep = ds;
+    cosys = cy;
+    cmode = cm;
 }
 
 
@@ -237,80 +240,82 @@ void chartCanvas::setVars(int s, double cs, int ds, bool cy, rviewChartMode cm)
 
 void chartCanvas::redrawBar(wxDC *cdc, int height, int dim, int startOff, int endOff, float scale, float posx, float stepx, float orgy)
 {
-  float top, bot;
-  r_Point prun = pt1;
-  long value;
+    float top, bot;
+    r_Point prun = pt1;
+    long value;
 
-  switch (baseType)
-  {
+    switch (baseType)
+    {
     case rbt_bool:
-      {
+    {
         r_Ref <r_Marray <r_Boolean> > mddPtr = (r_Ref < r_Marray <r_Boolean> >)(mddObj);
         for (prun[dim]=pt1[dim]+startOff; prun[dim] <= pt1[dim]+endOff; prun[dim]++, posx+= stepx)
         {
-          // This can only be 0 or 1, so don't bother with the sign
-          value = (long)(scale * (*mddPtr)[prun]);
-          cdc->DrawRectangle(posx, chcanv_cospace + orgy - (float)value, stepx, (float)value);
+            // This can only be 0 or 1, so don't bother with the sign
+            value = (long)(scale * (*mddPtr)[prun]);
+            cdc->DrawRectangle(posx, chcanv_cospace + orgy - (float)value, stepx, (float)value);
         }
-      }
-      break;
+    }
+    break;
     case rbt_char:
-      {
-	REDCHARTBAR(r_Char);
-      }
-      break;
+    {
+        REDCHARTBAR(r_Char);
+    }
+    break;
     case rbt_uchar:
-      {
-	REDCHARTBAR(r_Octet);
-      }
-      break;
+    {
+        REDCHARTBAR(r_Octet);
+    }
+    break;
     case rbt_short:
-      {
-	REDCHARTBAR(r_Short);
-      }
-      break;
+    {
+        REDCHARTBAR(r_Short);
+    }
+    break;
     case rbt_ushort:
-      {
-	REDCHARTBAR(r_UShort);
-      }
-      break;
+    {
+        REDCHARTBAR(r_UShort);
+    }
+    break;
     case rbt_long:
-      {
-	REDCHARTBAR(r_Long);
-      }
-      break;
+    {
+        REDCHARTBAR(r_Long);
+    }
+    break;
     case rbt_ulong:
-      {
-	REDCHARTBAR(r_ULong);
-      }
-      break;
+    {
+        REDCHARTBAR(r_ULong);
+    }
+    break;
     case rbt_rgb:
-      {
+    {
         r_Ref <r_Marray <RGBPixel> > mddPtr = (r_Ref < r_Marray <RGBPixel> >)(mddObj);
-	double oldPosx = posx;
+        double oldPosx = posx;
 
-	cdc->SetBrush(&brush_r);
-	_REDCHARTBARLOOP(stepx/3, .red);
-	cdc->SetBrush(&brush_g); posx = oldPosx + stepx/3;
-	_REDCHARTBARLOOP(stepx/3, .green);
-	cdc->SetBrush(&brush_b); posx = oldPosx + 2*stepx/3;
-	_REDCHARTBARLOOP(stepx/3, .blue);
-	cdc->SetBrush(&brush);
-      }
-      break;
+        cdc->SetBrush(&brush_r);
+        _REDCHARTBARLOOP(stepx/3, .red);
+        cdc->SetBrush(&brush_g);
+        posx = oldPosx + stepx/3;
+        _REDCHARTBARLOOP(stepx/3, .green);
+        cdc->SetBrush(&brush_b);
+        posx = oldPosx + 2*stepx/3;
+        _REDCHARTBARLOOP(stepx/3, .blue);
+        cdc->SetBrush(&brush);
+    }
+    break;
     case rbt_float:
-      {
-	REDCHARTBAR(r_Float);
-      }
-      break;
+    {
+        REDCHARTBAR(r_Float);
+    }
+    break;
     case rbt_double:
-      {
-	REDCHARTBAR(r_Double);
-      }
-      break;
+    {
+        REDCHARTBAR(r_Double);
+    }
+    break;
     default:
-      break;
-  }
+        break;
+    }
 }
 
 
@@ -331,74 +336,77 @@ void chartCanvas::redrawBar(wxDC *cdc, int height, int dim, int startOff, int en
 
 void chartCanvas::redrawLine(wxDC *cdc, int dim, int startOff, int endOff, float scale, float posx, float stepx, float orgy)
 {
-  r_Point prun = pt1;
-  float newVal, lastVal;
+    r_Point prun = pt1;
+    float newVal, lastVal;
 
-  if (pt1[dim] + endOff < pt2[dim]) endOff++;
+    if (pt1[dim] + endOff < pt2[dim]) endOff++;
 
-  switch (baseType)
-  {
+    switch (baseType)
+    {
     case rbt_bool:
-      {
-	REDCHARTLINE(r_Boolean);
-      }
-      break;
+    {
+        REDCHARTLINE(r_Boolean);
+    }
+    break;
     case rbt_char:
-      {
-	REDCHARTLINE(r_Char);
-      }
-      break;
+    {
+        REDCHARTLINE(r_Char);
+    }
+    break;
     case rbt_uchar:
-      {
-	REDCHARTLINE(r_Octet);
-      }
-      break;
+    {
+        REDCHARTLINE(r_Octet);
+    }
+    break;
     case rbt_short:
-      {
-	REDCHARTLINE(r_Short);
-      }
-      break;
+    {
+        REDCHARTLINE(r_Short);
+    }
+    break;
     case rbt_ushort:
-      {
-	REDCHARTLINE(r_UShort);
-      }
-      break;
+    {
+        REDCHARTLINE(r_UShort);
+    }
+    break;
     case rbt_long:
-      {
-	REDCHARTLINE(r_Long);
-      }
-      break;
+    {
+        REDCHARTLINE(r_Long);
+    }
+    break;
     case rbt_ulong:
-      {
-	REDCHARTLINE(r_ULong);
-      }
-      break;
+    {
+        REDCHARTLINE(r_ULong);
+    }
+    break;
     case rbt_rgb:
-      {
-	r_Ref<r_Marray<RGBPixel> > mddPtr = (r_Ref<r_Marray<RGBPixel> >)(mddObj);
-	double oldPosx = posx;
+    {
+        r_Ref<r_Marray<RGBPixel> > mddPtr = (r_Ref<r_Marray<RGBPixel> >)(mddObj);
+        double oldPosx = posx;
 
-	cdc->SetPen(&pen_r);
-	_REDCHARTLINELOOP(.red);
-	cdc->SetPen(&pen_g); posx = oldPosx + stepx/3;
-	_REDCHARTLINELOOP(.green);
-	cdc->SetPen(&pen_b); posx = oldPosx + 2*stepx/3;
-	_REDCHARTLINELOOP(.blue);
-	cdc->SetPen(&pen);
-      }
-      break;
+        cdc->SetPen(&pen_r);
+        _REDCHARTLINELOOP(.red);
+        cdc->SetPen(&pen_g);
+        posx = oldPosx + stepx/3;
+        _REDCHARTLINELOOP(.green);
+        cdc->SetPen(&pen_b);
+        posx = oldPosx + 2*stepx/3;
+        _REDCHARTLINELOOP(.blue);
+        cdc->SetPen(&pen);
+    }
+    break;
     case rbt_float:
-      {
-	REDCHARTLINE(r_Float);
-      }
-      break;
+    {
+        REDCHARTLINE(r_Float);
+    }
+    break;
     case rbt_double:
-      {
-	REDCHARTLINE(r_Double);
-      }
-      break;
-    default: break;
-  }
+    {
+        REDCHARTLINE(r_Double);
+    }
+    break;
+    default:
+        break;
+    }
 }
 
 
@@ -418,228 +426,252 @@ void chartCanvas::redrawLine(wxDC *cdc, int dim, int startOff, int endOff, float
 
 void chartCanvas::redrawSpline(wxDC *cdc, int dim, int startOff, int endOff, float scale, float posx, float stepx, float orgy)
 {
-  wxPoint *vertices;
-  wxList vlist;
-  wxPoint point;
-  r_Point prun = pt1;
-  float clipx, clipwidth;
-  int i;
+    wxPoint *vertices;
+    wxList vlist;
+    wxPoint point;
+    r_Point prun = pt1;
+    float clipx, clipwidth;
+    int i;
 
-  clipx = posx; clipwidth = (endOff - startOff) * stepx;
+    clipx = posx;
+    clipwidth = (endOff - startOff) * stepx;
 
-  // Need additional vertices left (1) and right (2) for splines
-  if (startOff > 0) {startOff--; posx -= stepx;}
-  endOff += 2; if (pt1[dim] + endOff > pt2[dim]) endOff = pt2[dim] - pt1[dim];
+    // Need additional vertices left (1) and right (2) for splines
+    if (startOff > 0)
+    {
+        startOff--;
+        posx -= stepx;
+    }
+    endOff += 2;
+    if (pt1[dim] + endOff > pt2[dim]) endOff = pt2[dim] - pt1[dim];
 
-  if ((vertices = new wxPoint[endOff - startOff + 1]) == NULL)
-  {
-    cerr << lman->lookup("errorMemory") << endl;
-    return;
-  }
+    if ((vertices = new wxPoint[endOff - startOff + 1]) == NULL)
+    {
+        cerr << lman->lookup("errorMemory") << endl;
+        return;
+    }
 
-  // Do not delete the contents of the nodes when the list is killed!
-  vlist.DeleteContents(FALSE);
+    // Do not delete the contents of the nodes when the list is killed!
+    vlist.DeleteContents(FALSE);
 
-  // It is _vitally_ important to set the clipping region here, because the boundary vertices
-  // are only there to get curvature right. If you don't set the clipping region you get
-  // redraw errors.
-  cdc->SetClippingRegion(clipx, 0, clipwidth, 10000);
+    // It is _vitally_ important to set the clipping region here, because the boundary vertices
+    // are only there to get curvature right. If you don't set the clipping region you get
+    // redraw errors.
+    cdc->SetClippingRegion(clipx, 0, clipwidth, 10000);
 
-  i = 0;
-  switch (baseType)
-  {
+    i = 0;
+    switch (baseType)
+    {
     case rbt_bool:
-      {
-	REDCHARTSPLINE(r_Boolean);
-      }
-      break;
+    {
+        REDCHARTSPLINE(r_Boolean);
+    }
+    break;
     case rbt_char:
-      {
-	REDCHARTSPLINE(r_Char);
-      }
-      break;
+    {
+        REDCHARTSPLINE(r_Char);
+    }
+    break;
     case rbt_uchar:
-      {
-	REDCHARTSPLINE(r_Octet);
-      }
-      break;
+    {
+        REDCHARTSPLINE(r_Octet);
+    }
+    break;
     case rbt_short:
-      {
-	REDCHARTSPLINE(r_Short);
-      }
-      break;
+    {
+        REDCHARTSPLINE(r_Short);
+    }
+    break;
     case rbt_ushort:
-      {
-	REDCHARTSPLINE(r_UShort);
-      }
-      break;
+    {
+        REDCHARTSPLINE(r_UShort);
+    }
+    break;
     case rbt_long:
-      {
-	REDCHARTSPLINE(r_Long);
-      }
-      break;
+    {
+        REDCHARTSPLINE(r_Long);
+    }
+    break;
     case rbt_ulong:
-      {
-	REDCHARTSPLINE(r_ULong);
-      }
-      break;
+    {
+        REDCHARTSPLINE(r_ULong);
+    }
+    break;
     case rbt_rgb:
-      {
-	r_Ref<r_Marray<RGBPixel> > mddPtr = (r_Ref<r_Marray<RGBPixel> >) (mddObj);
-	double oldPosx = posx;
-	cdc->SetPen(&pen_r);
-	_REDCHARTSPLINELOOP(.red);
-	cdc->DrawSpline(&vlist); vlist.Clear();
-	cdc->SetPen(&pen_g); posx = oldPosx + stepx/3; i = 0;
-	_REDCHARTSPLINELOOP(.green);
-	cdc->DrawSpline(&vlist); vlist.Clear();
-	cdc->SetPen(&pen_b); posx = oldPosx + 2*stepx/3; i = 0;
-	_REDCHARTSPLINELOOP(.blue);
-      }
-      break;
+    {
+        r_Ref<r_Marray<RGBPixel> > mddPtr = (r_Ref<r_Marray<RGBPixel> >) (mddObj);
+        double oldPosx = posx;
+        cdc->SetPen(&pen_r);
+        _REDCHARTSPLINELOOP(.red);
+        cdc->DrawSpline(&vlist);
+        vlist.Clear();
+        cdc->SetPen(&pen_g);
+        posx = oldPosx + stepx/3;
+        i = 0;
+        _REDCHARTSPLINELOOP(.green);
+        cdc->DrawSpline(&vlist);
+        vlist.Clear();
+        cdc->SetPen(&pen_b);
+        posx = oldPosx + 2*stepx/3;
+        i = 0;
+        _REDCHARTSPLINELOOP(.blue);
+    }
+    break;
     case rbt_float:
-      {
-	REDCHARTSPLINE(r_Float);
-      }
-      break;
+    {
+        REDCHARTSPLINE(r_Float);
+    }
+    break;
     case rbt_double:
-      {
-	REDCHARTSPLINE(r_Double);
-      }
-      break;
-    default: break;
-  }
-  RMDBGONCE(3, RMDebug::module_applications, "chartCanvas", "redrawSpline() vertices " << (void*)vertices );
+    {
+        REDCHARTSPLINE(r_Double);
+    }
+    break;
+    default:
+        break;
+    }
+    RMDBGONCE(3, RMDebug::module_applications, "chartCanvas", "redrawSpline() vertices " << (void*)vertices );
 
-  cdc->DrawSpline(&vlist);
+    cdc->DrawSpline(&vlist);
 
-  if (baseType == rbt_rgb)
-    cdc->SetPen(&pen);
+    if (baseType == rbt_rgb)
+        cdc->SetPen(&pen);
 
-  cdc->DestroyClippingRegion();
+    cdc->DestroyClippingRegion();
 
-  // ... we delete the data ourselves.
-  delete [] vertices;
+    // ... we delete the data ourselves.
+    delete [] vertices;
 }
 
 
 
 void chartCanvas::OnPaint(void)
 {
-  wxUpdateIterator upd(this);
-  wxRect rect;
-  int w, h, dim, i, x;
-  float scale, orgy, posx, stepx, cm, y;
-  float twidth, theight;
-  wxCanvasDC *cdc;
-  r_Range startOff, endOff;
-  char buffer[STRINGSIZE];
-  bool redrawAll = FALSE;
+    wxUpdateIterator upd(this);
+    wxRect rect;
+    int w, h, dim, i, x;
+    float scale, orgy, posx, stepx, cm, y;
+    float twidth, theight;
+    wxCanvasDC *cdc;
+    r_Range startOff, endOff;
+    char buffer[STRINGSIZE];
+    bool redrawAll = FALSE;
 
-  //cout << "chartCanvas::OnPaint()" << endl;
-  for (dim=0; dim<dimMDD; dim++) if (pt1[dim] != pt2[dim]) break;
-  if (dim >= dimMDD) return;
+    //cout << "chartCanvas::OnPaint()" << endl;
+    for (dim=0; dim<dimMDD; dim++) if (pt1[dim] != pt2[dim]) break;
+    if (dim >= dimMDD) return;
 
-  GetClientSize(&w, &h);
-  // Reserve space for co system
-  h -= 2*chcanv_cospace;
+    GetClientSize(&w, &h);
+    // Reserve space for co system
+    h -= 2*chcanv_cospace;
 
-  if (fabs(max-min) < 10*DBL_MIN)
-  {
-    scale = (float)h; orgy = h;
-  }
-  else
-  {
-    scale = ((float)h) / (max - min); orgy = max*scale;
-  }
-  if (scale <= 0) return;
-
-  cdc = GetDC();
-  cdc->BeginDrawing();
-  cdc->SetMapMode(MM_TEXT); // 1 unit = 1 pixel
-  cdc->SetBrush(&brush);
-  cdc->SetPen(&pen);
-  cdc->SetFont(font);
-
-  w = GetScrollPos(wxHORIZONTAL);
-  x = rviewDisplay::display_scrstep * w;
-
-  // On the necessity to redraw everything in case of scroll events see rviewTable.cpp
-  if (w != scroll)
-  {
-    redrawAll = TRUE;
-    GetClientSize(&rect.width, &rect.height);
-    rect.x = 0; rect.y = 0;
-    scroll = w;
-  }
-
-  stepx = (float)step;
-
-  // It's important to use for, not while here, due to continue in the loop body
-  for (; upd ; upd++)
-  {
-    if (!redrawAll) upd.GetRect(&rect);
-
-    // Leave space to the left for co-system
-    startOff = (x + rect.x - coleft) / step;
-    if (startOff < 0) startOff = 0;
-    if (pt1[dim] + startOff > pt2[dim])
-      continue;
-    endOff = (x + rect.x - coleft + rect.width + step - 1) / step;
-    if (pt1[dim] + endOff > pt2[dim]) endOff = (r_Range)(pt2[dim] - pt1[dim]);
-    posx = startOff * stepx + coleft;
-
-    switch (cmode)
+    if (fabs(max-min) < 10*DBL_MIN)
     {
-      case rcm_bar: redrawBar(cdc, h, dim, startOff, endOff, scale, posx, stepx, orgy); break;
-      case rcm_line: redrawLine(cdc, dim, startOff, endOff, scale, posx, stepx, orgy); break;
-      case rcm_spline: redrawSpline(cdc, dim, startOff, endOff, scale, posx, stepx, orgy); break;
-      default: break;
+        scale = (float)h;
+        orgy = h;
+    }
+    else
+    {
+        scale = ((float)h) / (max - min);
+        orgy = max*scale;
+    }
+    if (scale <= 0) return;
+
+    cdc = GetDC();
+    cdc->BeginDrawing();
+    cdc->SetMapMode(MM_TEXT); // 1 unit = 1 pixel
+    cdc->SetBrush(&brush);
+    cdc->SetPen(&pen);
+    cdc->SetFont(font);
+
+    w = GetScrollPos(wxHORIZONTAL);
+    x = rviewDisplay::display_scrstep * w;
+
+    // On the necessity to redraw everything in case of scroll events see rviewTable.cpp
+    if (w != scroll)
+    {
+        redrawAll = TRUE;
+        GetClientSize(&rect.width, &rect.height);
+        rect.x = 0;
+        rect.y = 0;
+        scroll = w;
     }
 
-    // Draw coordinate system?
-    if (cosys)
-    {
-      // co-system
-      y = (min*max < 0) ? orgy : h;
-      // Only draw visible portion of horizontal line to avoid overflows
-      cdc->DrawLine(coleft + startOff * stepx, chcanv_cospace + y, coleft + (endOff+1)*stepx, chcanv_cospace + y);
+    stepx = (float)step;
 
-      // vertical axis
-      if (coleft + chcanv_colength/2 >= rect.x)
-      {
-        cdc->DrawLine(coleft, chcanv_cospace, coleft, chcanv_cospace + h);
-        i = (int)(min / costep);
-        for (cm=i*costep; cm <= (float)max; cm += costep)
+    // It's important to use for, not while here, due to continue in the loop body
+    for (; upd ; upd++)
+    {
+        if (!redrawAll) upd.GetRect(&rect);
+
+        // Leave space to the left for co-system
+        startOff = (x + rect.x - coleft) / step;
+        if (startOff < 0) startOff = 0;
+        if (pt1[dim] + startOff > pt2[dim])
+            continue;
+        endOff = (x + rect.x - coleft + rect.width + step - 1) / step;
+        if (pt1[dim] + endOff > pt2[dim]) endOff = (r_Range)(pt2[dim] - pt1[dim]);
+        posx = startOff * stepx + coleft;
+
+        switch (cmode)
         {
-          posx = orgy - cm*scale;
-          if (posx > h) continue;
-          posx += chcanv_cospace;
-          cdc->DrawLine(coleft - chcanv_colength/2, posx, coleft + chcanv_colength/2, posx);
-          sprintf(buffer, format, cm);
-          cdc->GetTextExtent(buffer, &twidth, &theight);
-          cdc->DrawText(buffer, coleft - chcanv_colength/2 - twidth, posx - theight/2);
+        case rcm_bar:
+            redrawBar(cdc, h, dim, startOff, endOff, scale, posx, stepx, orgy);
+            break;
+        case rcm_line:
+            redrawLine(cdc, dim, startOff, endOff, scale, posx, stepx, orgy);
+            break;
+        case rcm_spline:
+            redrawSpline(cdc, dim, startOff, endOff, scale, posx, stepx, orgy);
+            break;
+        default:
+            break;
         }
-      }
 
-      // horizontal axis
-      i = startOff/datastep; i *= datastep;
-      for (; i <= endOff; i += datastep)
-      {
-        posx = i*stepx + coleft;
-        cdc->DrawLine(posx, chcanv_cospace + y - chcanv_colength, posx, chcanv_cospace + y + chcanv_colength/2);
-        sprintf(buffer, "%ld", i + pt1[dim]);
-        cdc->GetTextExtent(buffer, &twidth, &theight);
-        cdc->DrawText(buffer, posx - twidth/2, y + chcanv_cospace + chcanv_colength/2);
-      }
+        // Draw coordinate system?
+        if (cosys)
+        {
+            // co-system
+            y = (min*max < 0) ? orgy : h;
+            // Only draw visible portion of horizontal line to avoid overflows
+            cdc->DrawLine(coleft + startOff * stepx, chcanv_cospace + y, coleft + (endOff+1)*stepx, chcanv_cospace + y);
+
+            // vertical axis
+            if (coleft + chcanv_colength/2 >= rect.x)
+            {
+                cdc->DrawLine(coleft, chcanv_cospace, coleft, chcanv_cospace + h);
+                i = (int)(min / costep);
+                for (cm=i*costep; cm <= (float)max; cm += costep)
+                {
+                    posx = orgy - cm*scale;
+                    if (posx > h) continue;
+                    posx += chcanv_cospace;
+                    cdc->DrawLine(coleft - chcanv_colength/2, posx, coleft + chcanv_colength/2, posx);
+                    sprintf(buffer, format, cm);
+                    cdc->GetTextExtent(buffer, &twidth, &theight);
+                    cdc->DrawText(buffer, coleft - chcanv_colength/2 - twidth, posx - theight/2);
+                }
+            }
+
+            // horizontal axis
+            i = startOff/datastep;
+            i *= datastep;
+            for (; i <= endOff; i += datastep)
+            {
+                posx = i*stepx + coleft;
+                cdc->DrawLine(posx, chcanv_cospace + y - chcanv_colength, posx, chcanv_cospace + y + chcanv_colength/2);
+                sprintf(buffer, "%ld", i + pt1[dim]);
+                cdc->GetTextExtent(buffer, &twidth, &theight);
+                cdc->DrawText(buffer, posx - twidth/2, y + chcanv_cospace + chcanv_colength/2);
+            }
+        }
     }
-  }
-  cdc->SetBrush(NULL);
-  cdc->SetPen(NULL);
-  cdc->SetFont(NULL);
-  cdc->EndDrawing();
+    cdc->SetBrush(NULL);
+    cdc->SetPen(NULL);
+    cdc->SetFont(NULL);
+    cdc->EndDrawing();
 
-  //cout << "Leaving OnPaint..." << endl;
+    //cout << "Leaving OnPaint..." << endl;
 }
 
 
@@ -654,104 +686,107 @@ const char *rviewChart::view_ChartMode = "chartMode";
 
 rviewChart::rviewChart(mdd_frame *mf, unsigned int flags) : rviewDisplay(mf, chart_ctrly, flags)
 {
-  int w, h, i;
-  char *b;
+    int w, h, i;
+    char *b;
 
-  RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "rviewChart()");
+    RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "rviewChart()");
 
-  // Chart mode defaults, put into prefs later
-  cmode = prefs->chartMode;
-  if ((cmode != rcm_bar) && (cmode != rcm_line) && (cmode != rcm_spline)) cmode = rcm_bar;
-  step = prefs->chartStep; cosys = prefs->chartCosys;
-  datastep = prefs->chartMarkx; costep = prefs->chartMarky;
+    // Chart mode defaults, put into prefs later
+    cmode = prefs->chartMode;
+    if ((cmode != rcm_bar) && (cmode != rcm_line) && (cmode != rcm_spline)) cmode = rcm_bar;
+    step = prefs->chartStep;
+    cosys = prefs->chartCosys;
+    datastep = prefs->chartMarkx;
+    costep = prefs->chartMarky;
 
-  GetClientSize(&w, &h);
-  w -= 2*display_cnvborder; h -= 2*display_cnvborder + chart_totaly;
-  canvas = new chartCanvas((wxWindow*)this, display_cnvborder, display_cnvborder + chart_totaly, w, h);
+    GetClientSize(&w, &h);
+    w -= 2*display_cnvborder;
+    h -= 2*display_cnvborder + chart_totaly;
+    canvas = new chartCanvas((wxWindow*)this, display_cnvborder, display_cnvborder + chart_totaly, w, h);
 
-  stText = new rviewText(ctrlPanel, step);
-  coText = new rviewText(ctrlPanel, costep);
-  dataText = new rviewText(ctrlPanel, datastep);
-  csBox = new rviewCheckBox(ctrlPanel);
-  csBox->SetValue(cosys);
+    stText = new rviewText(ctrlPanel, step);
+    coText = new rviewText(ctrlPanel, costep);
+    dataText = new rviewText(ctrlPanel, datastep);
+    csBox = new rviewCheckBox(ctrlPanel);
+    csBox->SetValue(cosys);
 
-  canvas->setData(mf, baseType);
+    canvas->setData(mf, baseType);
 
-  canvas->setVars(step, costep, datastep, cosys, cmode);
+    canvas->setVars(step, costep, datastep, cosys, cmode);
 
-  b = projString;
-  b += sprintf(b, "*:*");
-  for (i=1; i<dimMDD; i++)
-  {
-    b += sprintf(b, ", %ld", interv[i].low());
-  }
-  project->SetValue(projString);
+    b = projString;
+    b += sprintf(b, "*:*");
+    for (i=1; i<dimMDD; i++)
+    {
+        b += sprintf(b, ", %ld", interv[i].low());
+    }
+    project->SetValue(projString);
 
-  scroll = -1;
-  newProjection();
+    scroll = -1;
+    newProjection();
 
-  setModeDimension(1);
+    setModeDimension(1);
 
-  setMinimumViewerSize(chart_minwidth, chart_minheight);
+    setMinimumViewerSize(chart_minwidth, chart_minheight);
 }
 
 
 int rviewChart::openViewer(void)
 {
-  RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "openViewer()"); 
+    RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "openViewer()");
 
-  if (baseType == rbt_none)
-  {
-    rviewErrorbox::reportError(lman->lookup("errorModeBase"), rviewChart::getFrameName(), "openViewer");
-    objectInitializedOK = FALSE;
+    if (baseType == rbt_none)
+    {
+        rviewErrorbox::reportError(lman->lookup("errorModeBase"), rviewChart::getFrameName(), "openViewer");
+        objectInitializedOK = FALSE;
+        return -1;
+    }
+
+    if (rviewDisplay::openViewer() == 0)
+    {
+        int w, h;
+        wxMenu *modes;
+        char buffer[STRINGSIZE];
+
+        modes = new wxMenu;
+        modes->Append(MENU_CHART_MODE_BAR, "", NULL, TRUE);
+        modes->Append(MENU_CHART_MODE_LINE, "", NULL, TRUE);
+        modes->Append(MENU_CHART_MODE_SPLINE, "", NULL, TRUE);
+
+        sprintf(buffer, "&%s", lman->lookup("menChartMode"));
+        mBar->Append(modes, buffer);
+
+        checkModeMenu();
+
+        GetClientSize(&w, &h);
+        label();
+
+        frameWidth=-1;
+        frameHeight=-1;
+
+        OnSize(w, h);
+
+        Show(TRUE);
+
+        return 0;
+    }
     return -1;
-  }
-
-  if (rviewDisplay::openViewer() == 0)
-  {
-    int w, h;
-    wxMenu *modes;
-    char buffer[STRINGSIZE];
-
-    modes = new wxMenu;
-    modes->Append(MENU_CHART_MODE_BAR, "", NULL, TRUE);
-    modes->Append(MENU_CHART_MODE_LINE, "", NULL, TRUE);
-    modes->Append(MENU_CHART_MODE_SPLINE, "", NULL, TRUE);
-
-    sprintf(buffer, "&%s", lman->lookup("menChartMode"));
-    mBar->Append(modes, buffer);
-
-    checkModeMenu();
-
-    GetClientSize(&w, &h);
-    label();
-
-    frameWidth=-1;
-    frameHeight=-1;
-
-    OnSize(w, h);
-
-    Show(TRUE);
-
-    return 0;
-  }
-  return -1;
 }
 
 
 const char *rviewChart::getFrameName(void) const
 {
-  return "rviewChart";
+    return "rviewChart";
 }
 
 rviewFrameType rviewChart::getFrameType(void) const
 {
-  return rviewFrameTypeChart;
+    return rviewFrameTypeChart;
 }
 
 int rviewChart::getViewerType(void) const
 {
-  return RVIEW_RESDISP_CHART;
+    return RVIEW_RESDISP_CHART;
 }
 
 
@@ -759,266 +794,285 @@ int rviewChart::getViewerType(void) const
 // We don't own the mdd object. rviewResult does, so don't delete it!!!
 rviewChart::~rviewChart(void)
 {
-  RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "~rviewChart()"); 
-  closeViewer();
+    RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "~rviewChart()");
+    closeViewer();
 }
 
 
 
 void rviewChart::checkModeMenu(void)
 {
-  // tick the right mode in the display window.
-  switch (cmode)
-  {
-    case rcm_bar: lastMode = MENU_CHART_MODE_BAR; break;
-    case rcm_line: lastMode = MENU_CHART_MODE_LINE; break;
-    case rcm_spline: lastMode = MENU_CHART_MODE_SPLINE; break;
-    default: lastMode = MENU_CHART_MODE_BAR; break;
-  }
-  mBar->Check(lastMode, TRUE);
+    // tick the right mode in the display window.
+    switch (cmode)
+    {
+    case rcm_bar:
+        lastMode = MENU_CHART_MODE_BAR;
+        break;
+    case rcm_line:
+        lastMode = MENU_CHART_MODE_LINE;
+        break;
+    case rcm_spline:
+        lastMode = MENU_CHART_MODE_SPLINE;
+        break;
+    default:
+        lastMode = MENU_CHART_MODE_BAR;
+        break;
+    }
+    mBar->Check(lastMode, TRUE);
 }
 
 
 void rviewChart::label(void)
 {
-  setDisplayTitle(lman->lookup("titleChart"));
+    setDisplayTitle(lman->lookup("titleChart"));
 
-  stText->SetLabel(lman->lookup("textStepC"));
-  csBox->SetLabel(lman->lookup("textCosys"));
-  coText->SetLabel(lman->lookup("textCoStep"));
-  dataText->SetLabel(lman->lookup("textDataStep"));
+    stText->SetLabel(lman->lookup("textStepC"));
+    csBox->SetLabel(lman->lookup("textCosys"));
+    coText->SetLabel(lman->lookup("textCoStep"));
+    dataText->SetLabel(lman->lookup("textDataStep"));
 
-  mBar->SetLabel(MENU_CHART_MODE_BAR, lman->lookup("menChartModeBar"));
-  mBar->SetLabel(MENU_CHART_MODE_LINE, lman->lookup("menChartModeLine"));
-  mBar->SetLabel(MENU_CHART_MODE_SPLINE, lman->lookup("menChartModeSpline"));
-  mBar->SetLabelTop(fixedNumberOfMenus, lman->lookup("menChartMode"));
+    mBar->SetLabel(MENU_CHART_MODE_BAR, lman->lookup("menChartModeBar"));
+    mBar->SetLabel(MENU_CHART_MODE_LINE, lman->lookup("menChartModeLine"));
+    mBar->SetLabel(MENU_CHART_MODE_SPLINE, lman->lookup("menChartModeSpline"));
+    mBar->SetLabelTop(fixedNumberOfMenus, lman->lookup("menChartMode"));
 
-  rviewDisplay::label();
+    rviewDisplay::label();
 }
 
 
 
 void rviewChart::OnSize(int w, int h)
 {
-  int x, y, i, j;
+    int x, y, i, j;
 
-  RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "OnSize(" << w << ", " << h << " )"); 
+    RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "OnSize(" << w << ", " << h << " )");
 
-  GetClientSize(&x, &y);
-  i = 2*display_border + chart_totaly + 2*chartCanvas::chcanv_cospace;
-  if (y < i)
-  {
-    y = i;
-    SetClientSize(x, i);
-  }
-  x -= 2*display_border;
-  i = x - 3*chart_twidth - chart_cwidth;
-  j = display_border + display_cheight;
-  stText->SetSize(display_border + i/8, j, chart_twidth - display_border, chart_theight);
-  coText->SetSize(display_border + (3*i)/8 + chart_twidth, j, chart_twidth - display_border, chart_theight);
-  dataText->SetSize(display_border + (5*i)/8 + 2*chart_twidth, j, chart_twidth - display_border, chart_theight);
-  csBox->SetSize(display_border + (7*i)/8 + 3*chart_twidth, j, chart_cwidth, chart_cheight);
+    GetClientSize(&x, &y);
+    i = 2*display_border + chart_totaly + 2*chartCanvas::chcanv_cospace;
+    if (y < i)
+    {
+        y = i;
+        SetClientSize(x, i);
+    }
+    x -= 2*display_border;
+    i = x - 3*chart_twidth - chart_cwidth;
+    j = display_border + display_cheight;
+    stText->SetSize(display_border + i/8, j, chart_twidth - display_border, chart_theight);
+    coText->SetSize(display_border + (3*i)/8 + chart_twidth, j, chart_twidth - display_border, chart_theight);
+    dataText->SetSize(display_border + (5*i)/8 + 2*chart_twidth, j, chart_twidth - display_border, chart_theight);
+    csBox->SetSize(display_border + (7*i)/8 + 3*chart_twidth, j, chart_cwidth, chart_cheight);
 
-  y -= 2*display_border + chart_totaly;
-  canvas->SetSize(display_border, display_border + chart_totaly, x, y);
-  rviewDisplay::OnSize(w, h);
+    y -= 2*display_border + chart_totaly;
+    canvas->SetSize(display_border, display_border + chart_totaly, x, y);
+    rviewDisplay::OnSize(w, h);
 }
 
 
 
 void rviewChart::OnMenuCommand(int id)
 {
-  rviewChartMode cm;
+    rviewChartMode cm;
 
-  RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "OnMenuCommand()"); 
+    RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "OnMenuCommand()");
 
-  switch (id)
-  {
-    case MENU_CHART_MODE_BAR: cm = rcm_bar; break;
-    case MENU_CHART_MODE_LINE: cm = rcm_line; break;
-    case MENU_CHART_MODE_SPLINE: cm = rcm_spline; break;
-    default: cm = rcm_none; break;
-  }
+    switch (id)
+    {
+    case MENU_CHART_MODE_BAR:
+        cm = rcm_bar;
+        break;
+    case MENU_CHART_MODE_LINE:
+        cm = rcm_line;
+        break;
+    case MENU_CHART_MODE_SPLINE:
+        cm = rcm_spline;
+        break;
+    default:
+        cm = rcm_none;
+        break;
+    }
 
-  if (cm != rcm_none)
-  {
-    mBar->Check(lastMode, FALSE);
-    mBar->Check(id, TRUE);
-    lastMode = id; cmode = cm;
-    newProjection();
-  }
-  else
-    rviewDisplay::OnMenuCommand(id);
+    if (cm != rcm_none)
+    {
+        mBar->Check(lastMode, FALSE);
+        mBar->Check(id, TRUE);
+        lastMode = id;
+        cmode = cm;
+        newProjection();
+    }
+    else
+        rviewDisplay::OnMenuCommand(id);
 }
 
 
 
 int rviewChart::process(wxObject &obj, wxEvent &evt)
 {
-  int type = evt.GetEventType();
-  int h;
-  double hd;
+    int type = evt.GetEventType();
+    int h;
+    double hd;
 
-  RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "process()"); 
+    RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "process()");
 
-  if (type == wxEVENT_TYPE_TEXT_ENTER_COMMAND)
-  {
-    if (&obj == (wxObject*)stText)
+    if (type == wxEVENT_TYPE_TEXT_ENTER_COMMAND)
     {
-      if ((h = atoi(stText->GetValue())) > 0)
-      {
-        step = h;
+        if (&obj == (wxObject*)stText)
+        {
+            if ((h = atoi(stText->GetValue())) > 0)
+            {
+                step = h;
+                newProjection();
+                return 1;
+            }
+        }
+        else if (&obj == (wxObject*)coText)
+        {
+            if ((hd = atof(coText->GetValue())) > 0.0)
+            {
+                costep = hd;
+                newProjection();
+                return 1;
+            }
+        }
+        else if (&obj == (wxObject*)dataText)
+        {
+            if ((h = atoi(dataText->GetValue())) > 0)
+            {
+                datastep = h;
+                newProjection();
+                return 1;
+            }
+        }
+    }
+
+    if ((&obj == (wxObject*)csBox) && (type == wxEVENT_TYPE_CHECKBOX_COMMAND))
+    {
+        cosys = csBox->GetValue();
+        // to force a redraw.
         newProjection();
+    }
+
+    if (rviewDisplay::process(obj, evt) != 0)
+    {
         return 1;
-      }
     }
-    else if (&obj == (wxObject*)coText)
-    {
-      if ((hd = atof(coText->GetValue())) > 0.0)
-      {
-	costep = hd;
-	newProjection();
-	return 1;
-      }
-    }
-    else if (&obj == (wxObject*)dataText)
-    {
-      if ((h = atoi(dataText->GetValue())) > 0)
-      {
-	datastep = h;
-	newProjection();
-	return 1;
-      }
-    }
-  }
 
-  if ((&obj == (wxObject*)csBox) && (type == wxEVENT_TYPE_CHECKBOX_COMMAND))
-  {
-    cosys = csBox->GetValue();
-    // to force a redraw.
-    newProjection();
-  }
-
-  if (rviewDisplay::process(obj, evt) != 0)
-  {
-    return 1;
-  }
-
-  return 0;
+    return 0;
 }
 
 
 
 int rviewChart::newProjection(void)
 {
-  int dim, i;
+    int dim, i;
 
-  RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "newProjection()"); 
+    RMDBGONCE(3, RMDebug::module_applications, "rviewChart", "newProjection()");
 
-  if (rviewParseProjection(getVirtualDomain(), pt1, pt2, projString) != dimMDD)
-  {
-    rviewErrorbox::reportError(lman->lookup("errorProjection"), rviewChart::getFrameName(), "newProjection");
-    return -1;
-  }
-
-  dim = -1;
-  for (i=0; i<dimMDD; i++)
-  {
-    if (pt1[i] != pt2[i])
+    if (rviewParseProjection(getVirtualDomain(), pt1, pt2, projString) != dimMDD)
     {
-      if (dim < 0) dim = i;
-      else dim = dimMDD;
+        rviewErrorbox::reportError(lman->lookup("errorProjection"), rviewChart::getFrameName(), "newProjection");
+        return -1;
     }
-  }
-  if ((dim < 0) || (dim >= dimMDD))
-  {
-    rviewErrorbox::reportError(lman->lookup("errorProjectFree"), rviewChart::getFrameName(), "newProjection");
-    return -1;
-  }
-  canvas->setVars(step, costep, datastep, cosys, cmode);
 
-  i = canvas->setProjection(pt1, pt2);	// returns coleft
+    dim = -1;
+    for (i=0; i<dimMDD; i++)
+    {
+        if (pt1[i] != pt2[i])
+        {
+            if (dim < 0) dim = i;
+            else dim = dimMDD;
+        }
+    }
+    if ((dim < 0) || (dim >= dimMDD))
+    {
+        rviewErrorbox::reportError(lman->lookup("errorProjectFree"), rviewChart::getFrameName(), "newProjection");
+        return -1;
+    }
+    canvas->setVars(step, costep, datastep, cosys, cmode);
 
-  if (scroll >= 0)
-    scroll = canvas->GetScrollPos(wxHORIZONTAL);
-  else
-    scroll = 0;
+    i = canvas->setProjection(pt1, pt2);  // returns coleft
 
-  canvas->SetScrollbars(display_scrstep, 0, (int)(((pt2[dim] - pt1[dim] + 1)*step + i + display_scrstep - 1) / display_scrstep), 0, display_pgstep, 0, scroll);
-  //canvas->GetVirtualSize(&dim, &i);
-  //cout << "step = " << step << "virtual size = " << dim << " x " << i << endl;
+    if (scroll >= 0)
+        scroll = canvas->GetScrollPos(wxHORIZONTAL);
+    else
+        scroll = 0;
 
-  return 0;
+    canvas->SetScrollbars(display_scrstep, 0, (int)(((pt2[dim] - pt1[dim] + 1)*step + i + display_scrstep - 1) / display_scrstep), 0, display_pgstep, 0, scroll);
+    //canvas->GetVirtualSize(&dim, &i);
+    //cout << "step = " << step << "virtual size = " << dim << " x " << i << endl;
+
+    return 0;
 }
 
 
 int rviewChart::saveView(FILE *fp)
 {
-  int status = rviewDisplay::saveView(fp);
+    int status = rviewDisplay::saveView(fp);
 
-  writeViewParam(fp, view_StepSize, (long)step);
-  long mvals[2];
-  mvals[0] = (long)costep; mvals[1] = (long)datastep;
-  writeViewParam(fp, view_Markers, 2, mvals);
-  writeViewParam(fp, view_ScrollPos, (long)(canvas->GetScrollPos(wxHORIZONTAL)));
-  writeViewParam(fp, view_CoSys, (long)cosys);
-  writeViewParam(fp, view_ChartMode, (long)cmode);
+    writeViewParam(fp, view_StepSize, (long)step);
+    long mvals[2];
+    mvals[0] = (long)costep;
+    mvals[1] = (long)datastep;
+    writeViewParam(fp, view_Markers, 2, mvals);
+    writeViewParam(fp, view_ScrollPos, (long)(canvas->GetScrollPos(wxHORIZONTAL)));
+    writeViewParam(fp, view_CoSys, (long)cosys);
+    writeViewParam(fp, view_ChartMode, (long)cmode);
 
-  return status;
+    return status;
 }
 
 
 int rviewChart::readView(const char *key, const char *value)
 {
-  int status = rviewDisplay::readView(key, value);
+    int status = rviewDisplay::readView(key, value);
 
-  if (status == 0)
-  {
-    if (strcmp(key, view_StepSize) == 0)
+    if (status == 0)
     {
-      step = atoi(value);
-      return 1;
+        if (strcmp(key, view_StepSize) == 0)
+        {
+            step = atoi(value);
+            return 1;
+        }
+        else if (strcmp(key, view_Markers) == 0)
+        {
+            long mvals[2];
+            if (readVector(value, 2, mvals) == 0)
+            {
+                costep = (int)mvals[0];
+                datastep = (int)mvals[1];
+            }
+            return 1;
+        }
+        else if (strcmp(key, view_ScrollPos) == 0)
+        {
+            scroll = atoi(value);
+            return 1;
+        }
+        else if (strcmp(key, view_CoSys) == 0)
+        {
+            cosys = (bool)atoi(value);
+            return 1;
+        }
+        else if (strcmp(key, view_ChartMode) == 0)
+        {
+            cmode = (rviewChartMode)atoi(value);
+            return 1;
+        }
+        return 0;
     }
-    else if (strcmp(key, view_Markers) == 0)
-    {
-      long mvals[2];
-      if (readVector(value, 2, mvals) == 0)
-      {
-	costep = (int)mvals[0]; datastep = (int)mvals[1];
-      }
-      return 1;
-    }
-    else if (strcmp(key, view_ScrollPos) == 0)
-    {
-      scroll = atoi(value);
-      return 1;
-    }
-    else if (strcmp(key, view_CoSys) == 0)
-    {
-      cosys = (bool)atoi(value);
-      return 1;
-    }
-    else if (strcmp(key, view_ChartMode) == 0)
-    {
-      cmode = (rviewChartMode)atoi(value);
-      return 1;
-    }
-    return 0;
-  }
-  return status;
+    return status;
 }
 
 
 void rviewChart::loadViewFinished(void)
 {
-  stText->SetValue(step);
-  coText->SetValue(costep);
-  dataText->SetValue(datastep);
+    stText->SetValue(step);
+    coText->SetValue(costep);
+    dataText->SetValue(datastep);
 
-  csBox->SetValue(cosys);
+    csBox->SetValue(cosys);
 
-  mBar->Check(lastMode, FALSE);
-  checkModeMenu();
+    mBar->Check(lastMode, FALSE);
+    checkModeMenu();
 
-  canvas->SetScrollPos(wxHORIZONTAL, scroll);
+    canvas->SetScrollPos(wxHORIZONTAL, scroll);
 }

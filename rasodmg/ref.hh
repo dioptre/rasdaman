@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:    r_Ref, r_Ref_Any
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 #ifndef _D_REF_
@@ -55,7 +55,7 @@ class r_Structure;
   and \Ref{r_Ref}<Y> where X and Y are different types. A \Ref{r_Ref}<T> can
   always be converted to a \Ref{r_Ref_Any}; there is a function to perform
   the conversion in the \Ref{r_Ref}<T> template. Each \Ref{r_Ref}<T> class
-  has a constructor and assignment operator that takes a reference to a 
+  has a constructor and assignment operator that takes a reference to a
   \Ref{r_Ref_Any}.
 */
 
@@ -64,7 +64,7 @@ class r_Structure;
   */
 class r_Ref_Any
 {
-  public:
+public:
     /// default constructor
     r_Ref_Any();
 
@@ -88,38 +88,38 @@ class r_Ref_Any
 
     /// assignment operator for assigning a \Ref{r_Ref_Any} pointer
     r_Ref_Any& operator=( const r_Ref_Any& );
-    
+
     /// assignment operator for assigning a pointer to a persistent capable object
     r_Ref_Any& operator=( r_Object* );
-    
+
     /// delete from main memory
     void destroy();
 
     /// deletes referenced object from main memory and database
     void delete_object();
-    
+
     //@Man: Cast operators:
     //@{
     ///
 
-      /// 
-      operator const void*() const;
-      /// 
-      operator void*();
-      ///
-      operator r_Point*();
-      ///
-      operator r_Sinterval*();
-      ///
-      operator r_Minterval*();
-      ///
-      operator r_OId*();
-      ///
-      operator r_Scalar*();
-      ///
-      operator r_Structure*();
-      ///
-      operator r_Primitive*();
+    ///
+    operator const void*() const;
+    ///
+    operator void*();
+    ///
+    operator r_Point*();
+    ///
+    operator r_Sinterval*();
+    ///
+    operator r_Minterval*();
+    ///
+    operator r_OId*();
+    ///
+    operator r_Scalar*();
+    ///
+    operator r_Structure*();
+    ///
+    operator r_Primitive*();
 
     ///
     //@}
@@ -127,45 +127,45 @@ class r_Ref_Any
 
     /// operator for validity test
     int operator!() const;
-    
+
     /// method for reference validity test
     int is_null() const;
     /**
       The method delivers true iff the oid and/or the memory pointer are valid.
     */
-    
+
     //@Man: Comparison operators:
     //@{
     ///
 
-      ///
-      int operator==( const r_Ref_Any& ) const;
-      ///
-      int operator!=( const r_Ref_Any& ) const;
-      /// compares the memory pointer (does not load the object)
-      int operator==( const r_Object* ) const;
-      /// compares the memory pointer (does not load the object)
-      int operator!=( const r_Object* ) const;
+    ///
+    int operator==( const r_Ref_Any& ) const;
+    ///
+    int operator!=( const r_Ref_Any& ) const;
+    /// compares the memory pointer (does not load the object)
+    int operator==( const r_Object* ) const;
+    /// compares the memory pointer (does not load the object)
+    int operator!=( const r_Object* ) const;
 
     ///
     //@}
-    
+
     /// get oid
     inline const r_OId& get_oid() const;
 
     //@Man: Methods for internal use only
     //@{
     ///
-      /// constructor getting oid and memory pointer
-      r_Ref_Any( const r_OId&, r_Object* ); 
-      ///
-      inline unsigned int is_oid_valid() const;
-      /// get memory pointer (without loading the object)
-      void* get_memory_ptr() const;
+    /// constructor getting oid and memory pointer
+    r_Ref_Any( const r_OId&, r_Object* );
+    ///
+    inline unsigned int is_oid_valid() const;
+    /// get memory pointer (without loading the object)
+    void* get_memory_ptr() const;
     ///
     //@}
 
-  private:
+private:
     /// main memory pointer
     void* memptr;
 
@@ -175,7 +175,7 @@ class r_Ref_Any
 
 
 
- 
+
 //@ManMemo: Module: {\bf rasodmg}
 
 /**
@@ -196,7 +196,7 @@ class r_Ref_Any
 template<class T>
 class r_Ref
 {
-  public:
+public:
     /// default constructor
     r_Ref();
 
@@ -211,7 +211,7 @@ class r_Ref
 
     /// copy constructor
     r_Ref( const r_Ref<T>& );
-    
+
     /// destructor deletes referenced object from main memory and database
     ~r_Ref();
 
@@ -220,22 +220,22 @@ class r_Ref
 
     // cast to const \Ref{r_Ref_Any}
     // operator const r_Ref_Any() const;
-    
+
     /// assignment operator for assigning a \Ref{r_Ref_Any}
     r_Ref<T>& operator=( const r_Ref_Any& );
-    
+
     /// assignment operator for assigning a C pointer
     r_Ref<T>& operator=( T* );
-    
+
     // assignment operator for assigning a r_Ref pointer
     // r_Ref<T>& operator=( r_Ref<T>& );
-    
+
     /// assignment operator for assigning a r_Ref pointer
     r_Ref<T>& operator=( const r_Ref<T>& );
 
     /// dereference operator (error kinds: r_Error_RefNull, r_Error_RefInvalid)
     const T& operator*() const throw (r_Error);
-    
+
     /// dereference operator (error kinds: r_Error_RefNull, r_Error_RefInvalid)
     T& operator*() throw( r_Error );
     /**
@@ -244,7 +244,7 @@ class r_Ref
     */
 
     const T* operator->() const throw (r_Error);
-    
+
     /// operator for dereferencing the reference (error kinds: r_Error_RefNull, r_Error_RefInvalid)
     T* operator->() throw( r_Error );
     /**
@@ -253,67 +253,67 @@ class r_Ref
     */
 
     const T* ptr() const throw (r_Error);
-    
+
     /// method for dereferencing the reference (error kinds: r_Error_RefNull, r_Error_RefInvalid)
     T* ptr() throw( r_Error );
     /**
       If the memory pointer is zero and the oid is valid, the object is loaded from the server
       and the new memory location is returned.
     */
-    
+
     /// operator for validity test
     int operator!() const;
-    
+
     /// method for reference validity test
     int is_null() const;
     /**
       The method delivers true iff the oid and/or the memory pointer are valid.
     */
-    
+
     //@Man: Comparison operators:
     //@{
     ///
 
-      ///
-      int operator==( const r_Ref<T>& refR ) const;
-      ///
-      int operator!=( const r_Ref<T>& refR ) const;
-      /// compares the memory pointer (does not load the object)
-      int operator==( const T* ) const;
-      /// compares the memory pointer (does not load the object)
-      int operator!=( const T* ) const;
+    ///
+    int operator==( const r_Ref<T>& refR ) const;
+    ///
+    int operator!=( const r_Ref<T>& refR ) const;
+    /// compares the memory pointer (does not load the object)
+    int operator==( const T* ) const;
+    /// compares the memory pointer (does not load the object)
+    int operator!=( const T* ) const;
 
     ///
     //@}
-    
+
     /// delete from main memory
     void destroy();
-    
+
     /// deletes referenced object from main memory and database
     void delete_object();
-    
+
     /// get oid
     inline const r_OId& get_oid() const;
 
     //@Man: Methods for internal use only
     //@{
     ///
-      /// constructor getting memory pointer
-      r_Ref( T* );
+    /// constructor getting memory pointer
+    r_Ref( T* );
 
-      /// constructor getting oid and memory pointer
-      r_Ref( const r_OId&, T* ); 
+    /// constructor getting oid and memory pointer
+    r_Ref( const r_OId&, T* );
 
-      /// get memory pointer (without loading the object)
-      T* get_memory_ptr() const;
+    /// get memory pointer (without loading the object)
+    T* get_memory_ptr() const;
 
-      ///
-      inline unsigned int is_oid_valid() const;
+    ///
+    inline unsigned int is_oid_valid() const;
 
     ///
     //@}
 
-  private:
+private:
     /// loads an object from database
     void load_object() const;
 

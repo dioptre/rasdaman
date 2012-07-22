@@ -28,61 +28,61 @@ rasdaman GmbH.
 
 void client_control(CLIENT *cl, unsigned int rq, char *in)
 {
-	clnt_control(cl, rq, in);
+    clnt_control(cl, rq, in);
 }
 
 void client_destroy(CLIENT *cl)
 {
-	clnt_destroy(cl);
+    clnt_destroy(cl);
 }
 
 CLIENT* client_create(char *host, u_long prog, u_long vers, char *prot)
 {
-	return clnt_create(host, prog, vers, prot);
+    return clnt_create(host, prog, vers, prot);
 }
 
 extern void xdr_free(xdrproc_t proc, char *objp );
 
 void xdrfree( ntxdr_Type xdrType, char *objp )
 {
-  switch( xdrType )
-  {
+    switch( xdrType )
+    {
     case ntxdr_ExecuteQueryRes:
-      xdr_free( xdr_ExecuteQueryRes, objp );
-	  break;
+        xdr_free( xdr_ExecuteQueryRes, objp );
+        break;
     case ntxdr_ExecuteUpdateRes:
-      xdr_free( xdr_ExecuteUpdateRes, objp );
-	  break;
+        xdr_free( xdr_ExecuteUpdateRes, objp );
+        break;
     case ntxdr_GetMDDRes:
-      xdr_free( xdr_GetMDDRes, objp );
-	  break;
+        xdr_free( xdr_GetMDDRes, objp );
+        break;
     case ntxdr_GetTileRes:
-      xdr_free( xdr_GetTileRes, objp );
-	  break;
+        xdr_free( xdr_GetTileRes, objp );
+        break;
     case ntxdr_GetCollRes:
-      xdr_free( xdr_GetCollRes, objp );
-	  break;
+        xdr_free( xdr_GetCollRes, objp );
+        break;
     case ntxdr_GetCollOIdsRes:
-      xdr_free( xdr_GetCollOIdsRes, objp );
-	  break;
+        xdr_free( xdr_GetCollOIdsRes, objp );
+        break;
     case ntxdr_OIdRes:
-      xdr_free( xdr_OIdRes, objp );
-	  break;
+        xdr_free( xdr_OIdRes, objp );
+        break;
     case ntxdr_ObjectTypeRes:
-      xdr_free( xdr_ObjectTypeRes, objp );
-	  break;
+        xdr_free( xdr_ObjectTypeRes, objp );
+        break;
     case ntxdr_GetTypeStructureRes:
-      xdr_free( xdr_GetTypeStructureRes, objp );
-	  break;
+        xdr_free( xdr_GetTypeStructureRes, objp );
+        break;
     case ntxdr_GetElementRes:
-      xdr_free( xdr_GetElementRes, objp );
-	  break;
+        xdr_free( xdr_GetElementRes, objp );
+        break;
     case ntxdr_ServerStatRes:
-      xdr_free( xdr_ServerStatRes, objp );
-	  break;
+        xdr_free( xdr_ServerStatRes, objp );
+        break;
     default:
-      printf( "Error: xdr_free of a unknown type." );
-  }
+        printf( "Error: xdr_free of a unknown type." );
+    }
 }
 
 
@@ -90,11 +90,11 @@ void xdrfree( ntxdr_Type xdrType, char *objp )
 // Looks like ntohl and htonl are missing in all libs on our NT versions...
 u_long PASCAL FAR ntohl(u_long x)
 {
-  return (u_long)((x & 0xff) << 24) | ((x & 0xff00) << 8) | ((x >> 8) & 0xff00) | ((x >> 24) & 0xff);
+    return (u_long)((x & 0xff) << 24) | ((x & 0xff00) << 8) | ((x >> 8) & 0xff00) | ((x >> 24) & 0xff);
 }
 
 u_long PASCAL FAR htonl(u_long x)
 {
-  // swapping the endianness works either way...
-  return ntohl(x);
+    // swapping the endianness works either way...
+    return ntohl(x);
 }

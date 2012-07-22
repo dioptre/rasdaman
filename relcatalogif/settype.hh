@@ -57,29 +57,29 @@ class OId;
 class SetType : public CollectionType
 {
 public:
-  SetType(const OId& id) throw (r_Error);
+    SetType(const OId& id) throw (r_Error);
 
-  virtual char* getTypeStructure() const;
+    virtual char* getTypeStructure() const;
 
-  /// constructor receiving pointer to an MDDType (or subclass).
-  SetType(const char* newTypeName, const MDDType* newMDDType);
-  /// default constructor, cannot be used.
-  SetType();
-  /// copy constructor.
-  SetType(const SetType& old);
-  /// assignment operator.
-  SetType& operator=(const SetType& old);
+    /// constructor receiving pointer to an MDDType (or subclass).
+    SetType(const char* newTypeName, const MDDType* newMDDType);
+    /// default constructor, cannot be used.
+    SetType();
+    /// copy constructor.
+    SetType(const SetType& old);
+    /// assignment operator.
+    SetType& operator=(const SetType& old);
 
-  /// virtual destructor.
-  virtual ~SetType();
+    /// virtual destructor.
+    virtual ~SetType();
 
 protected:
 
-  virtual void deleteFromDb() throw (r_Error);
+    virtual void deleteFromDb() throw (r_Error);
 
-  virtual void insertInDb() throw (r_Error);
+    virtual void insertInDb() throw (r_Error);
 
-  virtual void readFromDb() throw (r_Error);
+    virtual void readFromDb() throw (r_Error);
 };
 
 #endif

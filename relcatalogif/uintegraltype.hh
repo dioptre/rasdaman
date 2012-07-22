@@ -24,8 +24,8 @@ rasdaman GmbH.
  *
  *
  * PURPOSE:
- *   The UIntegralType class is the superclass for all unsigned 
- *   integral types (Char, Short, Long) describing the type of a 
+ *   The UIntegralType class is the superclass for all unsigned
+ *   integral types (Char, Short, Long) describing the type of a
  *   cell
  *
  *
@@ -40,51 +40,52 @@ rasdaman GmbH.
 
 //@ManMemo: Module: {\bf relcatalogif}.
 
-/*@Doc: 
+/*@Doc:
 UIntegralType is the abstract base class for all integral
 \Ref{BaseType} subclasses, i.e. base types like \Ref{ULongType} or
-\Ref{BoolType}. It provides conversions to/from long and 
-double. It's subclasses must implement conversions to/from unsigned 
+\Ref{BoolType}. It provides conversions to/from long and
+double. It's subclasses must implement conversions to/from unsigned
 long.
 */
 
 /**
   * \ingroup Relcatalogifs
   */
-class UIntegralType : public AtomicType {
+class UIntegralType : public AtomicType
+{
 public:
-	UIntegralType(unsigned int newSize):
-		AtomicType(newSize) {}
-	/*@Doc:
-	constructor.
-	*/
+    UIntegralType(unsigned int newSize):
+        AtomicType(newSize) {}
+    /*@Doc:
+    constructor.
+    */
 
-	UIntegralType(const UIntegralType& old):
-		AtomicType(old) {}
-	/*@Doc:
-	copy constructor.
-	*/
+    UIntegralType(const UIntegralType& old):
+        AtomicType(old) {}
+    /*@Doc:
+    copy constructor.
+    */
 
-	UIntegralType(const OId& id) throw (r_Error):
-		AtomicType(id) {}
-	/*@Doc:
-	*/
+    UIntegralType(const OId& id) throw (r_Error):
+        AtomicType(id) {}
+    /*@Doc:
+    */
 
-	virtual ~UIntegralType() {}
-	/*@Doc:
-	*/
+    virtual ~UIntegralType() {}
+    /*@Doc:
+    */
 
-	virtual r_Long* convertToCLong(const char*, r_Long*) const;
-	virtual char* makeFromCLong(char*, const r_Long*) const;
+    virtual r_Long* convertToCLong(const char*, r_Long*) const;
+    virtual char* makeFromCLong(char*, const r_Long*) const;
 
-	virtual double* convertToCDouble(const char*, double*) const; 
-	virtual char* makeFromCDouble(char*, const double*) const;
+    virtual double* convertToCDouble(const char*, double*) const;
+    virtual char* makeFromCDouble(char*, const double*) const;
 
 protected:
-	UIntegralType(const char* name, unsigned int newSize):
-		AtomicType(name, newSize) {}
-	/*@Doc:
-	*/
+    UIntegralType(const char* name, unsigned int newSize):
+        AtomicType(name, newSize) {}
+    /*@Doc:
+    */
 
 };
 

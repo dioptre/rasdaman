@@ -31,7 +31,8 @@ rasdaman GmbH.
 using namespace std;
 using namespace RasNITF;
 
-des::des(){
+des::des()
+{
 
     m_desshf = NULL;
     m_desdata = NULL;
@@ -39,80 +40,92 @@ des::des(){
     header_length = 0;
 }
 
-des::~des(){
-    
-    if(m_desshf != NULL){
-	delete m_desshf;
-	m_desshf = NULL;
+des::~des()
+{
+
+    if(m_desshf != NULL)
+    {
+        delete m_desshf;
+        m_desshf = NULL;
     }
 
-    if(m_desdata != NULL){
-	delete m_desdata;
+    if(m_desdata != NULL)
+    {
+        delete m_desdata;
         m_desdata = NULL;
     }
 
 }
-		
-int des::read_file(istream &hNITF, long desh_length, long des_length){
+
+int des::read_file(istream &hNITF, long desh_length, long des_length)
+{
 
     int charsread = 0;
-    
+
     header_length=desh_length;
-    
+
     charsread += read_verify2(hNITF, m_de, 2 + 25 + 2 + 167);
 
     //if TRE_OF read teh next two
-    if(strncmp(m_destag,"TRE_OVERFLOW",12)==0) {
-	charsread += read_verify2(hNITF, m_desoflw, 6+3);
+    if(strncmp(m_destag,"TRE_OVERFLOW",12)==0)
+    {
+        charsread += read_verify2(hNITF, m_desoflw, 6+3);
     }
 
     charsread += read_verify2(hNITF, m_desshl, 4);
     n_desshl = charptrtolong(m_desshl,4);
 
-    if (n_desshl > 0) {
-	m_desshf = new char[n_desshl];
-	if(m_desshf == NULL) cerr<<"ERROR: could not allocate memory";
-	charsread += read_verify2(hNITF, m_desshf, n_desshl);
-    } 
+    if (n_desshl > 0)
+    {
+        m_desshf = new char[n_desshl];
+        if(m_desshf == NULL) cerr<<"ERROR: could not allocate memory";
+        charsread += read_verify2(hNITF, m_desshf, n_desshl);
+    }
 
-    m_desdata = new char[des_length];	    
+    m_desdata = new char[des_length];
     charsread += read_verify2(hNITF, m_desdata, des_length);
     data_length = des_length;
-	
-    return charsread; 
-} 
 
-int des::write_file(ofstream &fNITF){
+    return charsread;
+}
 
-    fNITF.write(m_de, 2); 
-    fNITF.write(m_destag, 25); 
-    fNITF.write(m_desver, 2); 
-    fNITF.write(m_dessg, 167); 
-    
-    if(strncmp(m_destag,"TRE_OVERFLOW",12)==0) {
-	fNITF.write(m_desoflw, 6); 
-	fNITF.write(m_desitem, 3); 
+int des::write_file(ofstream &fNITF)
+{
+
+    fNITF.write(m_de, 2);
+    fNITF.write(m_destag, 25);
+    fNITF.write(m_desver, 2);
+    fNITF.write(m_dessg, 167);
+
+    if(strncmp(m_destag,"TRE_OVERFLOW",12)==0)
+    {
+        fNITF.write(m_desoflw, 6);
+        fNITF.write(m_desitem, 3);
     }
-    
+
     fNITF.write( m_desshl, 4);
-    
-    if (n_desshl > 0) {
-	fNITF.write(m_desshf, n_desshl);
+
+    if (n_desshl > 0)
+    {
+        fNITF.write(m_desshf, n_desshl);
     }
-    
-    if( m_desdata != NULL) { 
-	fNITF.write( m_desdata, data_length);
+
+    if( m_desdata != NULL)
+    {
+        fNITF.write( m_desdata, data_length);
     }
-    
+
     //TODO
     return 0;
-    
+
 }
 
-string des::get_ld() const {
-   return des_dl;
+string des::get_ld() const
+{
+    return des_dl;
 }
 
-string des::get_ldsh() const {
-   return des_hl;
+string des::get_ldsh() const
+{
+    return des_hl;
 }

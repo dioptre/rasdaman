@@ -31,9 +31,9 @@ rasdaman GmbH.
 */
 
 /**
-*	@file debug-srv.hh
+*   @file debug-srv.hh
 *
-*	@ingroup Debug
+*   @ingroup Debug
 */
 
 #include "raslib/rminit.hh"

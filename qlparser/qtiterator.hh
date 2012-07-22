@@ -49,7 +49,7 @@ in the input streams in class QtOperationIterator.
 
 class QtIterator : public QtONCStream
 {
-  public:
+public:
     /// list of QtONCStream objects
     typedef std::vector<QtONCStream*> QtONCStreamList;
 
@@ -65,7 +65,7 @@ class QtIterator : public QtONCStream
     /// return childs of the node
     virtual QtNodeList* getChilds( QtChildType flag );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -86,8 +86,8 @@ class QtIterator : public QtONCStream
     ///
     inline void setStreamInputs( QtONCStreamList* inputs );
 
-	/// Returns inputs
-	QtONCStreamList* getStreamInputs();
+    /// Returns inputs
+    QtONCStreamList* getStreamInputs();
     /// exchange the stream input {\tt oldInput} with {\tt newInput}
     void setStreamInput( QtONCStream* oldInput, QtONCStream* newInput );
     ///
@@ -103,13 +103,13 @@ class QtIterator : public QtONCStream
     /// get input type tuple
     void getInputTypeTuple( QtTypeTuple& typeTuple );
 
-  protected:
+protected:
     /// list of input streams
     QtONCStreamList* inputs;
 
-  private:
-	/// atribute for identification of nodes
-	static const QtNodeType nodeType;	
+private:
+    /// atribute for identification of nodes
+    static const QtNodeType nodeType;
 };
 
 #include "qlparser/qtiterator.icc"

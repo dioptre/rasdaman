@@ -43,18 +43,20 @@ long RasNITF::read_verify(std::istream &fNITF, char *destination, long length, c
     fNITF.read(destination, length);
     rc = fNITF.gcount();
 
-    if (!fNITF.good()){
-	cout<<sErrorMessage<<endl;
-	exit(1);
+    if (!fNITF.good())
+    {
+        cout<<sErrorMessage<<endl;
+        exit(1);
     }
 
-    if (rc != length) {
- 	cout<<sErrorMessage<<endl;
-	exit(1);
+    if (rc != length)
+    {
+        cout<<sErrorMessage<<endl;
+        exit(1);
     }
 
-    if (nullify) 
-	destination[length] = '\0';
+    if (nullify)
+        destination[length] = '\0';
 
     return rc;
 }
@@ -67,27 +69,31 @@ long RasNITF::read_verify2(std::istream &fNITF, char *destination, long length)
     fNITF.read(destination, length);
     rc = fNITF.gcount();
 
-    if (!fNITF.good()){
-	exit(3);
+    if (!fNITF.good())
+    {
+        exit(3);
     }
 
-    if (rc != length) {
-	exit(4);
+    if (rc != length)
+    {
+        exit(4);
     }
 
     return rc;
 }
 
 
-int RasNITF::charptrtoint(const char *str, int length){
+int RasNITF::charptrtoint(const char *str, int length)
+{
 
     int num;
     string temp;
 
-    if (length > 5) {
-	
-	cout << "WARNING LOSING DATA from long to int conversion" << endl;
-	
+    if (length > 5)
+    {
+
+        cout << "WARNING LOSING DATA from long to int conversion" << endl;
+
     }
 
 
@@ -97,7 +103,8 @@ int RasNITF::charptrtoint(const char *str, int length){
     return num;
 }
 
-long RasNITF::charptrtolong(const char *str, int length){
+long RasNITF::charptrtolong(const char *str, int length)
+{
 
     long num;
     string temp;

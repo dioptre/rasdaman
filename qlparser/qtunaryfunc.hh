@@ -46,14 +46,14 @@ rasdaman GmbH.
 
 class QtIntervalLoOp : public QtUnaryOperation
 {
-  public:
+public:
     /// constructor getting operand
     QtIntervalLoOp( QtOperation* newInput );
 
     /// evaluates the node
     QtData* evaluate( QtDataList* inputList );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -65,7 +65,7 @@ class QtIntervalLoOp : public QtUnaryOperation
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };
@@ -84,14 +84,14 @@ class QtIntervalLoOp : public QtUnaryOperation
 
 class QtIntervalHiOp : public QtUnaryOperation
 {
-  public:
+public:
     /// constructor getting operand
     QtIntervalHiOp( QtOperation* newInput );
 
     /// evaluates the node
     QtData* evaluate( QtDataList* inputList );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -103,7 +103,7 @@ class QtIntervalHiOp : public QtUnaryOperation
     /// type checking of the subtree
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };
@@ -121,7 +121,7 @@ class QtIntervalHiOp : public QtUnaryOperation
 
 class QtSDom : public QtUnaryOperation
 {
-  public:
+public:
     /// constructor getting operand
     QtSDom( QtOperation* newInput );
 
@@ -137,7 +137,7 @@ class QtSDom : public QtUnaryOperation
       Optimization process enters a new MDD area.
     */
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -146,10 +146,10 @@ class QtSDom : public QtUnaryOperation
     /// method for identification of nodes
     inline virtual const QtNodeType getNodeType() const;
 
-    /// type checking 
+    /// type checking
     virtual const QtTypeElement& checkType( QtTypeTuple* typeTuple = NULL );
 
-  private:
+private:
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 };

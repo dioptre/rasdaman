@@ -39,7 +39,7 @@ rasdaman GmbH.
 
 static const char rcsid[] = "@(#)reladminif,SQLError: $Id: sqlerror.ec,v 1.4 2003/12/27 23:11:43 rasdev Exp $";
 
-// #define SQLCA_STORAGE_CLASS extern 
+// #define SQLCA_STORAGE_CLASS extern
 
 #include <stdlib.h>
 #include <string.h>
@@ -65,7 +65,7 @@ EXEC SQL define NODATA 100;
 EXEC SQL define RTERROR -1;
 
 // general message buffer size
-#define BUFFER_SIZE	4000
+#define BUFFER_SIZE 4000
 
 // SQL error message max size
 // FIXME: is this really enough?
@@ -81,26 +81,26 @@ char lastErrorMsg[LASTERRORMSGLEN];
  */
 int sqlstate_err()
 {
-	int err_code = RTERROR;
+    int err_code = RTERROR;
 
-	if (SQLSTATE[0] == '0') /* trap '00', '01', '02' */
-	{
-		switch(SQLSTATE[1])
-		{
-			case '0': /* success - return 0 */
-				err_code = SUCCESS;
-				break;
-			case '1': /* warning - return 1 */
-				err_code = WARNING;
-				break;
-			case '2': /* end of data - return 100 */
-				err_code = NODATA;
-				break;
-			default: /* error - return SQLCODE */
-				break;
-		}
-	}
-	return err_code;
+    if (SQLSTATE[0] == '0') /* trap '00', '01', '02' */
+    {
+        switch(SQLSTATE[1])
+        {
+        case '0': /* success - return 0 */
+            err_code = SUCCESS;
+            break;
+        case '1': /* warning - return 1 */
+            err_code = WARNING;
+            break;
+        case '2': /* end of data - return 100 */
+            err_code = NODATA;
+            break;
+        default: /* error - return SQLCODE */
+            break;
+        }
+    }
+    return err_code;
 } // sqlstate_err()
 
 
@@ -109,19 +109,19 @@ int sqlstate_err()
  */
 void disp_sqlstate_err(char* msgbuf, size_t length)
 {
-	char error_buffer[BUFFER_SIZE];
-	size_t characters_written = 0;
+    char error_buffer[BUFFER_SIZE];
+    size_t characters_written = 0;
 
-	snprintf(error_buffer, BUFFER_SIZE, "SQLSTATE: %5s SQLCODE: %ld\n", SQLSTATE, SQLCODE);
-	characters_written = strlen(error_buffer);
-	if (characters_written > length)
-	{
-		RMInit::logOut << "error message didn't fit into buffer: " << error_buffer << endl;
-	}
-	else
-	{
-		strcat(msgbuf, error_buffer);
-	}
+    snprintf(error_buffer, BUFFER_SIZE, "SQLSTATE: %5s SQLCODE: %ld\n", SQLSTATE, SQLCODE);
+    characters_written = strlen(error_buffer);
+    if (characters_written > length)
+    {
+        RMInit::logOut << "error message didn't fit into buffer: " << error_buffer << endl;
+    }
+    else
+    {
+        strcat(msgbuf, error_buffer);
+    }
 } // disp_sqlstate_err()
 
 /*
@@ -129,19 +129,19 @@ void disp_sqlstate_err(char* msgbuf, size_t length)
  */
 void disp_error(const char* stmt, char* msgbuf, size_t length)
 {
-	char error_buffer[BUFFER_SIZE];
-	snprintf(error_buffer, BUFFER_SIZE, "Warning/error in %s:\n", stmt);
+    char error_buffer[BUFFER_SIZE];
+    snprintf(error_buffer, BUFFER_SIZE, "Warning/error in %s:\n", stmt);
 
-	size_t error_len = strlen(error_buffer);
+    size_t error_len = strlen(error_buffer);
 
-	if (error_len > length)
-		RMInit::logOut << "error message didn't fit into buffer: " << error_buffer << endl;
-	else
-	{
-		strcat(msgbuf, error_buffer);
-		length = length - error_len;
-	}
-	disp_sqlstate_err(msgbuf, length);
+    if (error_len > length)
+        RMInit::logOut << "error message didn't fit into buffer: " << error_buffer << endl;
+    else
+    {
+        strcat(msgbuf, error_buffer);
+        length = length - error_len;
+    }
+    disp_sqlstate_err(msgbuf, length);
 } // disp_error()
 
 /*
@@ -150,23 +150,23 @@ void disp_error(const char* stmt, char* msgbuf, size_t length)
  */
 char* disp_exception(const char* stmt, int sqlerr_code)
 {
-	char* msgbuf = NULL;
-	switch (sqlerr_code)
-	{
-		case SUCCESS:
-		case NODATA:
-			break;
-		case WARNING:
-		case RTERROR:
-			msgbuf = new char[BUFFER_SIZE];
-			memset(msgbuf, 0, BUFFER_SIZE);
-			disp_error(stmt, msgbuf, BUFFER_SIZE);
-			break;
-		default:
-			RMInit::logOut << "Invalid exception state for " << stmt << " " << sqlerr_code << endl;
-		break;
-	}
-	return msgbuf;
+    char* msgbuf = NULL;
+    switch (sqlerr_code)
+    {
+    case SUCCESS:
+    case NODATA:
+        break;
+    case WARNING:
+    case RTERROR:
+        msgbuf = new char[BUFFER_SIZE];
+        memset(msgbuf, 0, BUFFER_SIZE);
+        disp_error(stmt, msgbuf, BUFFER_SIZE);
+        break;
+    default:
+        RMInit::logOut << "Invalid exception state for " << stmt << " " << sqlerr_code << endl;
+        break;
+    }
+    return msgbuf;
 } // disp_exception()
 
 /*
@@ -176,23 +176,23 @@ char* disp_exception(const char* stmt, int sqlerr_code)
 int
 check(const char* stmt) throw (r_Error)
 {
-	char* msg = disp_exception(stmt, sqlstate_err());
-	if (msg != NULL)
-	{
-		RMInit::logOut << msg << endl;
-		snprintf(lastErrorMsg, LASTERRORMSGLEN,"%s\n" , msg);
-		delete [] msg;
-		msg = NULL;
-	}
-	return SQLCODE;
+    char* msg = disp_exception(stmt, sqlstate_err());
+    if (msg != NULL)
+    {
+        RMInit::logOut << msg << endl;
+        snprintf(lastErrorMsg, LASTERRORMSGLEN,"%s\n" , msg);
+        delete [] msg;
+        msg = NULL;
+    }
+    return SQLCODE;
 }
 
 // generate r_Ebase_dbms exception using SQL error code and message
 void
 generateException() throw (r_Error)
 {
-	TALK( "Throwing Exception (SQLCODE=" << SQLCODE << "): " << lastErrorMsg );
-	RMInit::dbgOut << "Throwing Exception (SQLCODE=" << SQLCODE << "): " << lastErrorMsg << endl;
-	throw r_Ebase_dbms( SQLCODE, lastErrorMsg );
+    TALK( "Throwing Exception (SQLCODE=" << SQLCODE << "): " << lastErrorMsg );
+    RMInit::dbgOut << "Throwing Exception (SQLCODE=" << SQLCODE << "): " << lastErrorMsg << endl;
+    throw r_Ebase_dbms( SQLCODE, lastErrorMsg );
 } // generateException()
 

@@ -62,7 +62,7 @@ template class r_Iterator<r_Ref_Any>;
 template class r_Ref<r_GMarray>;
 template class r_Collection<r_Ref_Any>;
 template class std::vector<r_Minterval>;
-template class r_Iterator<r_Transaction::GenRefElement *>; 
+template class r_Iterator<r_Transaction::GenRefElement *>;
 template class r_Set<r_Ref<r_GMarray> >;
 template class r_Ref<r_Set<r_Ref<r_GMarray> > >;
 template class r_Set<r_Ref_Any>;

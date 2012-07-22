@@ -28,7 +28,7 @@ class DBTCIndex;
 //class DBIndexDS;
 class DBRCIndexDS;
 
-template <class T> class DBRef; 
+template <class T> class DBRef;
 
 typedef DBRef<DBHierIndex> DBHierIndexId;
 typedef DBRef<DBTCIndex> DBTCIndexId;

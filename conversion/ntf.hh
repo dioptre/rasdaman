@@ -47,33 +47,33 @@ rasdaman GmbH.
 
 class r_Conv_NTF : public r_Convert_Memory
 {
-  public:
+public:
 
-  /// constructor using an r_Type object
-  r_Conv_NTF( const char *src, const r_Minterval &interv, const r_Type *tp ) throw(r_Error);
+    /// constructor using an r_Type object
+    r_Conv_NTF( const char *src, const r_Minterval &interv, const r_Type *tp ) throw(r_Error);
 
-  /// constructor using convert_type_e shortcut
-  r_Conv_NTF( const char *src, const r_Minterval &interv, int tp ) throw(r_Error);
+    /// constructor using convert_type_e shortcut
+    r_Conv_NTF( const char *src, const r_Minterval &interv, int tp ) throw(r_Error);
 
-  /// destructor
-  ~r_Conv_NTF( void );
+    /// destructor
+    ~r_Conv_NTF( void );
 
-  /// convert to NTF
-  virtual r_convDesc &convertTo( const char *options=NULL ) throw(r_Error);
+    /// convert to NTF
+    virtual r_convDesc &convertTo( const char *options=NULL ) throw(r_Error);
 
-  /// convert from NTF
-  virtual r_convDesc &convertFrom( const char *options=NULL ) throw(r_Error);
+    /// convert from NTF
+    virtual r_convDesc &convertFrom( const char *options=NULL ) throw(r_Error);
 
-  /// cloning
-  virtual r_Convertor *clone( void ) const;
+    /// cloning
+    virtual r_Convertor *clone( void ) const;
 
-  /// identification
-  virtual const char *get_name( void ) const;
-  virtual r_Data_Format get_data_format( void ) const;
-  private:
+    /// identification
+    virtual const char *get_name( void ) const;
+    virtual r_Data_Format get_data_format( void ) const;
+private:
 
-  ///keeps the block index
-  char *bl_num, *bl_size, *d_offset;
+    ///keeps the block index
+    char *bl_num, *bl_size, *d_offset;
 
 };
 

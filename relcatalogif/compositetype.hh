@@ -27,7 +27,7 @@ rasdaman GmbH.
  *
  * PURPOSE:
  *   The CompositeType class is the superclass for all for
- *   composite types (e.g. Octet, ULong) describing the type of a 
+ *   composite types (e.g. Octet, ULong) describing the type of a
  *   cell
  *
  *
@@ -43,7 +43,7 @@ rasdaman GmbH.
 
 //@ManMemo: Module: {\bf relcatalogif}.
 
-/*@Doc: 
+/*@Doc:
 CompositeType is the abstract base class for all structured
 \Ref{BaseType} subclasses, at the moment only \Ref{StructType}.
 */
@@ -54,49 +54,49 @@ CompositeType is the abstract base class for all structured
 class CompositeType : public BaseType
 {
 public:
-  virtual unsigned int getSize() const;
-		/*@Doc:
-  		get size of cells of this base type.
-		*/
+    virtual unsigned int getSize() const;
+    /*@Doc:
+    get size of cells of this base type.
+    */
 
-  CompositeType();
-		/*@Doc:
-  		constructor.
-		*/
+    CompositeType();
+    /*@Doc:
+    constructor.
+    */
 
-  CompositeType(const OId& id) throw (r_Error);
-		/*@Doc:
-  		constructor.
-		*/
+    CompositeType(const OId& id) throw (r_Error);
+    /*@Doc:
+    constructor.
+    */
 
-  CompositeType(const CompositeType& old);
-		/*@Doc:
-  		constructor.
-		*/
+    CompositeType(const CompositeType& old);
+    /*@Doc:
+    constructor.
+    */
 
-  CompositeType(unsigned int newSize);
-		/*@Doc:
-  		constructor.
-		*/
+    CompositeType(unsigned int newSize);
+    /*@Doc:
+    constructor.
+    */
 
-  virtual ~CompositeType();
-		/*@Doc:
-		virtual destructor needed because of subclasses
-		*/
+    virtual ~CompositeType();
+    /*@Doc:
+    virtual destructor needed because of subclasses
+    */
 
-  CompositeType& operator=(const CompositeType& old);
-		/*@Doc:
-		*/
+    CompositeType& operator=(const CompositeType& old);
+    /*@Doc:
+    */
 
 protected:
-  unsigned int size;
-		/*@Doc:
-		size of one cell of this base type in number of chars.
-		*/
+    unsigned int size;
+    /*@Doc:
+    size of one cell of this base type in number of chars.
+    */
 
-  CompositeType(const char* name, unsigned int newSize);
-		/*@Doc:
-		*/
+    CompositeType(const char* name, unsigned int newSize);
+    /*@Doc:
+    */
 };
 
 #endif

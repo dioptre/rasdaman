@@ -39,37 +39,37 @@ rasdaman GmbH.
 
 /*@Doc:
   This class represents the oid type in the ODMG conformant
-  representation of the RasDaMan type system. 
+  representation of the RasDaMan type system.
 */
 
 class r_Oid_Type : public r_Type
 {
 public:
-   /// default constructor
-   r_Oid_Type();
+    /// default constructor
+    r_Oid_Type();
 
-  /// copy constructor
-  r_Oid_Type( const r_Oid_Type& oldObj );
+    /// copy constructor
+    r_Oid_Type( const r_Oid_Type& oldObj );
 
-  /// clone operation
-  virtual r_Type* clone() const;
+    /// clone operation
+    virtual r_Type* clone() const;
 
-  /// retrieve id of the type.
-  virtual r_Type::r_Type_Id type_id() const;
+    /// retrieve id of the type.
+    virtual r_Type::r_Type_Id type_id() const;
 
-  /// converts array of cells from NT byte order to Unix byte order.
-  virtual void convertToLittleEndian(char* cells, r_Area noCells) const;
+    /// converts array of cells from NT byte order to Unix byte order.
+    virtual void convertToLittleEndian(char* cells, r_Area noCells) const;
 
-  /// converts array of cells from Unix byte order to NT byte order.
-  virtual void convertToBigEndian(char* cells, r_Area noCells) const;
+    /// converts array of cells from Unix byte order to NT byte order.
+    virtual void convertToBigEndian(char* cells, r_Area noCells) const;
 
-  /// writes state of object to specified stream
-  virtual void print_status( std::ostream& s = std::cout ) const;  
+    /// writes state of object to specified stream
+    virtual void print_status( std::ostream& s = std::cout ) const;
 
-  virtual bool isOidType() const;
+    virtual bool isOidType() const;
 
-   /// destructor
-   ~r_Oid_Type();
+    /// destructor
+    ~r_Oid_Type();
 };
 
 //@Doc: write the status of a oid type to a stream

@@ -55,136 +55,138 @@ extern ServerComm::ClientTblElt* currentClientTblElt;
 const QtNode::QtNodeType QtMDDAccess::nodeType = QT_MDD_ACCESS;
 
 QtMDDAccess::QtMDDAccess( const string& collectionNameNew )
-  :  QtONCStream(),
-     collectionName( collectionNameNew ),
-     mddColl(NULL),
-     mddIter(NULL)
+    :  QtONCStream(),
+       collectionName( collectionNameNew ),
+       mddColl(NULL),
+       mddIter(NULL)
 {
 }
 
 
 QtMDDAccess::QtMDDAccess( const string& collectionNameNew, const string& initName )
-  :  QtONCStream(),
-     collectionName( collectionNameNew ),
-     iteratorName( initName ),
-     mddColl(NULL),
-     mddIter(NULL)
+    :  QtONCStream(),
+       collectionName( collectionNameNew ),
+       iteratorName( initName ),
+       mddColl(NULL),
+       mddIter(NULL)
 {
 }
 
 
 QtMDDAccess::~QtMDDAccess()
 {
- //just to be on the safe side
- close();
+//just to be on the safe side
+    close();
 }
 
 
 void
 QtMDDAccess::open()
 {
-  RMDBCLASS( "QtMDDAccess", "open()", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtMDDAccess", "open()", "qlparser", __FILE__, __LINE__ )
 
-  // delete an existing iterator
-  if( mddIter ) 
-  {
-    delete mddIter;
-    mddIter=NULL;
-  }
+    // delete an existing iterator
+    if( mddIter )
+    {
+        delete mddIter;
+        mddIter=NULL;
+    }
 
-  // create the iterator
-  mddIter = mddColl->createIterator();
+    // create the iterator
+    mddIter = mddColl->createIterator();
 
-  //for( mddIter->reset(); mddIter->notDone(); mddIter->advance() )
-  //  mddIter->getElement()->printStatus();
+    //for( mddIter->reset(); mddIter->notDone(); mddIter->advance() )
+    //  mddIter->getElement()->printStatus();
 
-  mddIter->reset();
+    mddIter->reset();
 }
 
 
 QtNode::QtDataList*
 QtMDDAccess::next()
 {
-  RMDBCLASS( "QtMDDAccess", "next()", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtMDDAccess", "next()", "qlparser", __FILE__, __LINE__ )
 
-  QtDataList* returnValue = NULL;
-  MDDObj* ptr = NULL;
+    QtDataList* returnValue = NULL;
+    MDDObj* ptr = NULL;
 
-  if( mddColl && mddIter && mddIter->notDone() )
-  {
-    //
-    // create a list with a pointer to the next element of the mdd collection
-    //
+    if( mddColl && mddIter && mddIter->notDone() )
+    {
+        //
+        // create a list with a pointer to the next element of the mdd collection
+        //
 
-    // encapsulate the next MDDObj in an QtMDD object
-    ptr =  mddIter->getElement();
-    QtMDD*  elem = new QtMDD( ptr, iteratorName );
-    
+        // encapsulate the next MDDObj in an QtMDD object
+        ptr =  mddIter->getElement();
+        QtMDD*  elem = new QtMDD( ptr, iteratorName );
 
-    
-    // create the list
-    QtNode::QtDataList* dataList = new QtNode::QtDataList(1); // create container to contain one element
 
-    // insert the element into the list
-    (*dataList)[0] = elem;
 
-    // if mddColl is not persistent delete thist from 
-    // collection to avoid multiple destruction
-    if(!mddColl->isPersistent()) {
-       mddColl->remove(ptr);
-       mddIter->reset();
+        // create the list
+        QtNode::QtDataList* dataList = new QtNode::QtDataList(1); // create container to contain one element
+
+        // insert the element into the list
+        (*dataList)[0] = elem;
+
+        // if mddColl is not persistent delete thist from
+        // collection to avoid multiple destruction
+        if(!mddColl->isPersistent())
+        {
+            mddColl->remove(ptr);
+            mddIter->reset();
+        }
+        else
+        {
+            // increment the iterator
+            mddIter->advance();
+        }
+
+        returnValue = dataList;
     }
-    else {
-      // increment the iterator
-      mddIter->advance();
-    }
 
-    returnValue = dataList;
-  }
-
-  return returnValue;
+    return returnValue;
 }
 
 
 void
 QtMDDAccess::close()
 {
-  RMDBCLASS( "QtMDDAccess", "close()", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtMDDAccess", "close()", "qlparser", __FILE__, __LINE__ )
 
-  // delete the mdd iterator
-  if( mddIter ) 
-  {
-    delete mddIter; 
-    mddIter=NULL;
-  }
+    // delete the mdd iterator
+    if( mddIter )
+    {
+        delete mddIter;
+        mddIter=NULL;
+    }
 
-  // This is now done in ServerComm::ClientTblElt::releaseTransferStructures().
-  //
-  // delete the mdd objects and the mdd collection
-  // if( mddColl )
-  //  {
-  //    mddColl->releaseAll();
-  //    delete mddColl;
-  //  }
+    // This is now done in ServerComm::ClientTblElt::releaseTransferStructures().
+    //
+    // delete the mdd objects and the mdd collection
+    // if( mddColl )
+    //  {
+    //    mddColl->releaseAll();
+    //    delete mddColl;
+    //  }
 }
 
 
 void
 QtMDDAccess::reset()
 {
-  if( mddIter ) mddIter->reset();
+    if( mddIter ) mddIter->reset();
 }
 
 
 void
 QtMDDAccess::printTree( int tab, ostream& s, QtChildType /*mode*/ )
 {
-  s << SPACE_STR(tab).c_str() << "QtMDDAccess Object: type " << flush;
-  dataStreamType.printStatus( s );
-  s << endl;
+    s << SPACE_STR(tab).c_str() << "QtMDDAccess Object: type " << flush;
+    dataStreamType.printStatus( s );
+    s << endl;
 
-  s << SPACE_STR(tab).c_str() << collectionName.c_str()
-    << " <- " << iteratorName.c_str() << endl;
+    s << SPACE_STR(tab).c_str() << collectionName.c_str()
+      << " <- " << iteratorName.c_str() << endl;
 }
 
 
@@ -192,7 +194,7 @@ QtMDDAccess::printTree( int tab, ostream& s, QtChildType /*mode*/ )
 void
 QtMDDAccess::printAlgebraicExpression( ostream& s )
 {
-  s << collectionName.c_str() << " as " << iteratorName.c_str() << flush;
+    s << collectionName.c_str() << " as " << iteratorName.c_str() << flush;
 }
 
 
@@ -200,51 +202,53 @@ QtMDDAccess::printAlgebraicExpression( ostream& s )
 const QtTypeTuple&
 QtMDDAccess::checkType()
 {
-  RMDBCLASS( "QtMDDAccess", "checkType()", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtMDDAccess", "checkType()", "qlparser", __FILE__, __LINE__ )
 
-  dataStreamType = QtTypeTuple(0);
+    dataStreamType = QtTypeTuple(0);
 
-  //
-  // create the collection and add it to the list in the client table entry
-  //
+    //
+    // create the collection and add it to the list in the client table entry
+    //
 
-  try
-  {
-    mddColl = MDDColl::getMDDCollection( collectionName.c_str() );
+    try
+    {
+        mddColl = MDDColl::getMDDCollection( collectionName.c_str() );
 
-	if( currentClientTblElt )
-		{
-		if (mddColl->isPersistent())
-			{
-			if( !(currentClientTblElt->persMDDCollections) )
-				currentClientTblElt->persMDDCollections = new vector<MDDColl*>();
+        if( currentClientTblElt )
+        {
+            if (mddColl->isPersistent())
+            {
+                if( !(currentClientTblElt->persMDDCollections) )
+                    currentClientTblElt->persMDDCollections = new vector<MDDColl*>();
 
-			currentClientTblElt->persMDDCollections->push_back( (MDDColl*)mddColl );
-			}
-		else	{
-			currentClientTblElt->transferColl = mddColl;
-			}
-		}
-	else	{
-		RMInit::logOut << "Internal Error in QtMDDAccess::open(): No client context available" << endl;
-		}
-  }
-  catch(...)
-  {
-    RMInit::logOut << "Error: QtMDDAccess::open() collection: " << collectionName.c_str() << " is unknown" << endl;
-    parseInfo.setErrorNo(355);
-    throw parseInfo;
-  }
+                currentClientTblElt->persMDDCollections->push_back( (MDDColl*)mddColl );
+            }
+            else
+            {
+                currentClientTblElt->transferColl = mddColl;
+            }
+        }
+        else
+        {
+            RMInit::logOut << "Internal Error in QtMDDAccess::open(): No client context available" << endl;
+        }
+    }
+    catch(...)
+    {
+        RMInit::logOut << "Error: QtMDDAccess::open() collection: " << collectionName.c_str() << " is unknown" << endl;
+        parseInfo.setErrorNo(355);
+        throw parseInfo;
+    }
 
-  CollectionType* collType = (CollectionType*) mddColl->getCollectionType();
+    CollectionType* collType = (CollectionType*) mddColl->getCollectionType();
 
-  if( !collType )
-    RMInit::logOut << "Internal error in QtMDDAccess::checkType() - no collection type available" << endl;
+    if( !collType )
+        RMInit::logOut << "Internal error in QtMDDAccess::checkType() - no collection type available" << endl;
 
-  dataStreamType = QtTypeTuple( 1 );
- 
-  dataStreamType.tuple[0].setType( collType->getMDDType() );
-  dataStreamType.tuple[0].setName( iteratorName.c_str() );  
+    dataStreamType = QtTypeTuple( 1 );
 
-  return dataStreamType;
+    dataStreamType.tuple[0].setType( collType->getMDDType() );
+    dataStreamType.tuple[0].setName( iteratorName.c_str() );
+
+    return dataStreamType;
 }

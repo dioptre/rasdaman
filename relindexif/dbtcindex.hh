@@ -36,161 +36,161 @@ for further information on the methods of this class see hierindexds and indexds
   * \ingroup Relindexifs
   */
 
-class DBTCIndex	:	public DBHierIndex
-	{
-	public:
-		DBTCIndex(r_Dimension dim, bool isNode);
-		/*@Doc:
-			constructs a new index with dimension dim.
-			instance is imediately persistent
-		*/
-	
-		virtual void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
-		/*@Doc:
-			Prints current status of index, in hierarchical format.
-		*/
+class DBTCIndex :   public DBHierIndex
+{
+public:
+    DBTCIndex(r_Dimension dim, bool isNode);
+    /*@Doc:
+        constructs a new index with dimension dim.
+        instance is imediately persistent
+    */
 
-		~DBTCIndex();
-		/*@Doc:
-		*/
+    virtual void printStatus(unsigned int level = 0, std::ostream& stream = std::cout) const;
+    /*@Doc:
+        Prints current status of index, in hierarchical format.
+    */
 
-		virtual bool removeObject(const KeyObject& entry);
-			/*@Doc:
-				will take care of inlined tiles when they are removed.
-			*/
+    ~DBTCIndex();
+    /*@Doc:
+    */
 
-		virtual bool removeObject(unsigned int pos);
-			/*@Doc:
-				will take care of inlined tiles when they are removed.
-			*/
+    virtual bool removeObject(const KeyObject& entry);
+    /*@Doc:
+        will take care of inlined tiles when they are removed.
+    */
 
-		virtual void removeInlineTile(InlineTile*);
-			/*@Doc:
-				this method is called by inlinetile to removeitselve from the index when it is outlined.  the oid of this tile is still stored in the index.  do not confuse with removeObejct!
-			*/
-			
-		virtual void addInlineTile(InlineTile*);
-			/*@Doc:
-				this method is called by inlinetile when it is told to inline itself into this index.
-			*/
-			
-		void setInlineTileHasChanged();
-			/*@Doc:
-				called by an inlined inlinetile when it is modified.  the index must know about this in order to update the inlinetile in the database.
-			*/
+    virtual bool removeObject(unsigned int pos);
+    /*@Doc:
+        will take care of inlined tiles when they are removed.
+    */
 
-		virtual IndexDS* getNewInstance() const;
-			/*@Doc:
-				used by indexmgr index logic classes to generate new nodes/leaves without knowing what kind of index structure it is operating with.  in essence a clone() pattern.
-			*/
-	
-	protected:
-		friend class ObjectBroker;
-			/*@Doc:
-				ObjectBroker needs to access OId constructor and getInlineTile
-			*/
+    virtual void removeInlineTile(InlineTile*);
+    /*@Doc:
+        this method is called by inlinetile to removeitselve from the index when it is outlined.  the oid of this tile is still stored in the index.  do not confuse with removeObejct!
+    */
 
-		InlineTile* getInlineTile(const OId& itid);
-			/*@Doc:
-				returns the specified inline tile.
-				memory management is done by the DBTCIndex object.
-			*/
+    virtual void addInlineTile(InlineTile*);
+    /*@Doc:
+        this method is called by inlinetile when it is told to inline itself into this index.
+    */
 
+    void setInlineTileHasChanged();
+    /*@Doc:
+        called by an inlined inlinetile when it is modified.  the index must know about this in order to update the inlinetile in the database.
+    */
 
-		void changeIOIdToBOId();
-			/*@Doc:
-				changes all inlineoids to bloboids.  needed in order to be able to use dbhierindex database functionality.
-			*/
+    virtual IndexDS* getNewInstance() const;
+    /*@Doc:
+        used by indexmgr index logic classes to generate new nodes/leaves without knowing what kind of index structure it is operating with.  in essence a clone() pattern.
+    */
+
+protected:
+    friend class ObjectBroker;
+    /*@Doc:
+        ObjectBroker needs to access OId constructor and getInlineTile
+    */
+
+    InlineTile* getInlineTile(const OId& itid);
+    /*@Doc:
+        returns the specified inline tile.
+        memory management is done by the DBTCIndex object.
+    */
 
 
-		void readyForRemoval(const OId& id);
-			/*@Doc:
-				inlined inlinetiles must be loaded previous to removing them in order to get them outlined.
-			*/
+    void changeIOIdToBOId();
+    /*@Doc:
+        changes all inlineoids to bloboids.  needed in order to be able to use dbhierindex database functionality.
+    */
 
-		void changeBOIdToIOId();
-			/*@Doc:
-				changes the bloboids of the inlinetiles which are stored in this index into inlineoids.  also neccessary to be able to use dbhierindex functionality.
-			*/
 
-		void registerIOIds();
-			/*@Doc:
-				registers all inline oids with the objectbroker.  changeIOIdToBOId is supposed to be called afterwards.
-			*/
+    void readyForRemoval(const OId& id);
+    /*@Doc:
+        inlined inlinetiles must be loaded previous to removing them in order to get them outlined.
+    */
 
-		void readInlineTiles() throw (r_Error);
-			/*
-				loads the tiles from the blob tablespace.
-				errors are database errors.
-			*/
+    void changeBOIdToIOId();
+    /*@Doc:
+        changes the bloboids of the inlinetiles which are stored in this index into inlineoids.  also neccessary to be able to use dbhierindex functionality.
+    */
 
-		void decideForInlining();
-			/*
-				makes blobtiles to inlinetiles and vice versa.
-			*/
+    void registerIOIds();
+    /*@Doc:
+        registers all inline oids with the objectbroker.  changeIOIdToBOId is supposed to be called afterwards.
+    */
 
-		void insertBlob();
-			/*@Doc:
-				insert empty blob into db
-			*/
-			
-		void storeTiles();
-			/*@Doc:
-				write the tiles into the blob space if neccessary.
-			*/
+    void readInlineTiles() throw (r_Error);
+    /*
+        loads the tiles from the blob tablespace.
+        errors are database errors.
+    */
 
-		void writeInlineTiles(char* cells, r_Bytes blobSize) throw (r_Error);
-			/*
-				writes the tiles into the blob tablespace.
-				errors are database errors.
-			*/
-		
-		void updateTileIndexMappings() throw (r_Error);
-			/*
-				writes the mappings among dbtcindex and inlinetiles into the database for objectbroker to see.
-				errors are database errors.
-			*/
+    void decideForInlining();
+    /*
+        makes blobtiles to inlinetiles and vice versa.
+    */
 
-		DBTCIndex(const OId& id);
+    void insertBlob();
+    /*@Doc:
+        insert empty blob into db
+    */
 
-		void setMappingHasChanged();
-			/*@Doc:
-				tells the index that it has to update the table for mapping inlined inlinetile oids to dbtcindexes.
-			*/
+    void storeTiles();
+    /*@Doc:
+        write the tiles into the blob space if neccessary.
+    */
 
-		virtual void readFromDb() throw (r_Error);
-	
-		virtual void updateInDb() throw (r_Error);
+    void writeInlineTiles(char* cells, r_Bytes blobSize) throw (r_Error);
+    /*
+        writes the tiles into the blob tablespace.
+        errors are database errors.
+    */
 
-		virtual void deleteFromDb() throw (r_Error);
+    void updateTileIndexMappings() throw (r_Error);
+    /*
+        writes the mappings among dbtcindex and inlinetiles into the database for objectbroker to see.
+        errors are database errors.
+    */
 
-		virtual void insertInDb() throw (r_Error);
+    DBTCIndex(const OId& id);
 
-		bool mappingHasChanged;
-		/*@Doc:
-			is true when an inlinetile has been added or removed.
-		*/
-		
-		bool inlineTileHasChanged;
-		/*@Doc:
-			is true when the inlined tiles need to be updated.
-		*/
+    void setMappingHasChanged();
+    /*@Doc:
+        tells the index that it has to update the table for mapping inlined inlinetile oids to dbtcindexes.
+    */
 
-		bool _isLoaded;
-		/*@Doc:
-			transient, tells if the object has loaded its inlined tiles.
-		*/
+    virtual void readFromDb() throw (r_Error);
 
-		bool hasBlob;
-		/*@Doc:
-			transient, tells if the object has already a blob in the database or not. 
-		*/
+    virtual void updateInDb() throw (r_Error);
 
-		DBObjectPMap inlineTiles;
-		/*@Doc:
-			transient, contains pointers to materialised inlinetiles.
-			is filled on demand by loadInlineTiles.
-		*/
-		
-	};
+    virtual void deleteFromDb() throw (r_Error);
+
+    virtual void insertInDb() throw (r_Error);
+
+    bool mappingHasChanged;
+    /*@Doc:
+        is true when an inlinetile has been added or removed.
+    */
+
+    bool inlineTileHasChanged;
+    /*@Doc:
+        is true when the inlined tiles need to be updated.
+    */
+
+    bool _isLoaded;
+    /*@Doc:
+        transient, tells if the object has loaded its inlined tiles.
+    */
+
+    bool hasBlob;
+    /*@Doc:
+        transient, tells if the object has already a blob in the database or not.
+    */
+
+    DBObjectPMap inlineTiles;
+    /*@Doc:
+        transient, contains pointers to materialised inlinetiles.
+        is filled on demand by loadInlineTiles.
+    */
+
+};
 #endif

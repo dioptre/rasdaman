@@ -27,7 +27,7 @@ rasdaman GmbH.
  *
  *
  * PURPOSE:
- *   
+ *
  *
  * COMMENTS:
  *
@@ -49,61 +49,61 @@ class DatabaseIf;
 /**
   * \ingroup Reladminifs
   */
-class TransactionIf              
-	{
-	public:
-		void begin(DatabaseIf* currBase, bool readOnly = false) throw ( r_Error );
-		/*@Doc: 
-		begin a TA.
-		By default, the TA started is a write TA. If {\tt readOnly} is set to 1, 
-		the TA will be read only.
-		*/
+class TransactionIf
+{
+public:
+    void begin(DatabaseIf* currBase, bool readOnly = false) throw ( r_Error );
+    /*@Doc:
+    begin a TA.
+    By default, the TA started is a write TA. If {\tt readOnly} is set to 1,
+    the TA will be read only.
+    */
 
-		void commit() throw ( r_Error );
-		/*@Doc: 
-		commit a transaction.  make all changes permanent.
-		r_Error is thrown when any objects have problems
-		writting themselves to the database.
-		AdminIf::compCompTiles(), TypeFactory::freeTempTypes,
-		ObjectBroker::clearBroker, OId::deinitialize are called.
-		COMMIT is issued.  the database is closed.
-		the benchmark timers are stopped.
-		*/
-		
-		void abort();
-		/*@Doc: 
-		abort a TA.  don't make changes permanent.
-		AdminIf::compCompTiles(), TypeFactory::freeTempTypes,
-		ObjectBroker::clearBroker, OId::deinitialize are called.
-		ROLLBACK is issued.  the database is closed.
-		the benchmark timers are stopped.
-		*/
-		
-		DatabaseIf* getDatabaseIf();
-		/*@Doc: 
-		returns the DatabaseIf object associated with this transaction.
-		*/
-		
-	private:
-		void begin( bool readOnly = false ) throw ( r_Error );
-		/*@Doc: 
-		begin a TA. Internal usage only.
-		This function does not work if the appropriate initializations have'nt 
-		been done. For that reason, it is only appropriate for internal usage.
-		By default, the TA started is a write TA. If {\tt readOnly} is set to 1, 
-		the TA will be read only. 
-		benchmark timers are started.
-		*/
-		
-		bool isReadOnly;
-		/*@Doc: 
-		keeps track if the current TA is read only or not
-		*/
-		
-		static DatabaseIf* lastBase;
-		/*@Doc: 
-		stores the last base used in begin();
-		*/
-	};
+    void commit() throw ( r_Error );
+    /*@Doc:
+    commit a transaction.  make all changes permanent.
+    r_Error is thrown when any objects have problems
+    writting themselves to the database.
+    AdminIf::compCompTiles(), TypeFactory::freeTempTypes,
+    ObjectBroker::clearBroker, OId::deinitialize are called.
+    COMMIT is issued.  the database is closed.
+    the benchmark timers are stopped.
+    */
+
+    void abort();
+    /*@Doc:
+    abort a TA.  don't make changes permanent.
+    AdminIf::compCompTiles(), TypeFactory::freeTempTypes,
+    ObjectBroker::clearBroker, OId::deinitialize are called.
+    ROLLBACK is issued.  the database is closed.
+    the benchmark timers are stopped.
+    */
+
+    DatabaseIf* getDatabaseIf();
+    /*@Doc:
+    returns the DatabaseIf object associated with this transaction.
+    */
+
+private:
+    void begin( bool readOnly = false ) throw ( r_Error );
+    /*@Doc:
+    begin a TA. Internal usage only.
+    This function does not work if the appropriate initializations have'nt
+    been done. For that reason, it is only appropriate for internal usage.
+    By default, the TA started is a write TA. If {\tt readOnly} is set to 1,
+    the TA will be read only.
+    benchmark timers are started.
+    */
+
+    bool isReadOnly;
+    /*@Doc:
+    keeps track if the current TA is read only or not
+    */
+
+    static DatabaseIf* lastBase;
+    /*@Doc:
+    stores the last base used in begin();
+    */
+};
 
 #endif

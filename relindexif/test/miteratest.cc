@@ -34,20 +34,20 @@ RMINITGLOBALS('C')
 
 void
 main(unsigned int argc, const char** argv)
-	{
-	r_Minterval indexDomain("[0:99,0:99]");
-	cout << "index " << indexDomain << endl;
-	r_Minterval iterationDomain("[0:0,0:0]");
-	cout << "iterd " << iterationDomain << endl;
-	r_Minterval iterationResult(2);
-	//r_MiterArea iter(&indexDomain, &iterationDomain);
-	r_MiterArea iter(&iterationDomain, &indexDomain);
-	unsigned int i = 0;
-	while (!iter.isDone())
-		{
-		i++;
-		cout << iter.nextArea() << endl;
-		}
-	cout << " i is " << i << endl;
-	}
+{
+    r_Minterval indexDomain("[0:99,0:99]");
+    cout << "index " << indexDomain << endl;
+    r_Minterval iterationDomain("[0:0,0:0]");
+    cout << "iterd " << iterationDomain << endl;
+    r_Minterval iterationResult(2);
+    //r_MiterArea iter(&indexDomain, &iterationDomain);
+    r_MiterArea iter(&iterationDomain, &indexDomain);
+    unsigned int i = 0;
+    while (!iter.isDone())
+    {
+        i++;
+        cout << iter.nextArea() << endl;
+    }
+    cout << " i is " << i << endl;
+}
 

@@ -29,7 +29,7 @@ rasdaman GmbH.
  * Memory Filing System used by some of the convertor modules.
  *
  * COMMENTS:
- *			None
+ *          None
 */
 
 #ifndef _MEMFS_HH_
@@ -45,11 +45,12 @@ const int MEMFS_LD_BLOCKSIZE = 12;
 /* Initially preserve enough room for 16 blocks */
 const int MEMFS_MAM_ENTRIES = 16;
 
-typedef struct memFSContext {
-  r_Long pos, high;
-  int mamSize, mamHighest;
-  char **mam;
-  char *chunk;
+typedef struct memFSContext
+{
+    r_Long pos, high;
+    int mamSize, mamHighest;
+    char **mam;
+    char *chunk;
 } memFSContext;
 
 
@@ -57,26 +58,26 @@ typedef struct memFSContext {
 extern "C" {
 #endif
 
-/* Flexible, read-write memFS */
-int memfs_initfs(thandle_t handle);
-void memfs_killfs(thandle_t handle);
-void memfs_newfile(thandle_t handle);
-tsize_t memfs_read(thandle_t handle, tdata_t mem, tsize_t size);
-tsize_t memfs_write(thandle_t handle, tdata_t mem, tsize_t size);
-toff_t memfs_seek(thandle_t handle, toff_t offset, int mode);
-int memfs_close(thandle_t handle);
-toff_t memfs_size(thandle_t handle);
-int memfs_map(thandle_t handle, tdata_t *memp, toff_t *top);
-void memfs_unmap(thandle_t handle, tdata_t mem, toff_t top);
+    /* Flexible, read-write memFS */
+    int memfs_initfs(thandle_t handle);
+    void memfs_killfs(thandle_t handle);
+    void memfs_newfile(thandle_t handle);
+    tsize_t memfs_read(thandle_t handle, tdata_t mem, tsize_t size);
+    tsize_t memfs_write(thandle_t handle, tdata_t mem, tsize_t size);
+    toff_t memfs_seek(thandle_t handle, toff_t offset, int mode);
+    int memfs_close(thandle_t handle);
+    toff_t memfs_size(thandle_t handle);
+    int memfs_map(thandle_t handle, tdata_t *memp, toff_t *top);
+    void memfs_unmap(thandle_t handle, tdata_t mem, toff_t top);
 
-/* Simple, read-only memFS */
-void memfs_chunk_initfs(thandle_t handle, char *src, r_Long size);
-tsize_t memfs_chunk_read(thandle_t handle, tdata_t mem, tsize_t size);
-toff_t memfs_chunk_seek(thandle_t handle, toff_t offset, int mode);
-int memfs_chunk_close(thandle_t handle);
-toff_t memfs_chunk_size(thandle_t handle);
-int memfs_chunk_map(thandle_t handle, tdata_t *memp, toff_t *top);
-void memfs_chunk_unmap(thandle_t handle, tdata_t mem, toff_t to);
+    /* Simple, read-only memFS */
+    void memfs_chunk_initfs(thandle_t handle, char *src, r_Long size);
+    tsize_t memfs_chunk_read(thandle_t handle, tdata_t mem, tsize_t size);
+    toff_t memfs_chunk_seek(thandle_t handle, toff_t offset, int mode);
+    int memfs_chunk_close(thandle_t handle);
+    toff_t memfs_chunk_size(thandle_t handle);
+    int memfs_chunk_map(thandle_t handle, tdata_t *memp, toff_t *top);
+    void memfs_chunk_unmap(thandle_t handle, tdata_t mem, toff_t to);
 
 #ifdef __cplusplus
 }

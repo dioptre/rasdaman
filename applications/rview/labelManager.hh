@@ -36,11 +36,11 @@ rasdaman GmbH.
  */
 
 /**
-*	@defgroup Applications Applications
+*   @defgroup Applications Applications
 *
-*	@file labelManager.hh
+*   @file labelManager.hh
 *
-*	@ingroup Applications
+*   @ingroup Applications
 */
 
 #ifndef _LABEL_MANAGER_H_
@@ -50,24 +50,24 @@ rasdaman GmbH.
 
 class labelManager
 {
-  public:
+public:
 
-  labelManager(const char *resourceFile);
-  ~labelManager(void);
-  char *lookup(const char *symbol);
-  // These two should be handled with care.
-  int numberOfLabels(void);
-  char *returnLabelNumber(unsigned int index);
+    labelManager(const char *resourceFile);
+    ~labelManager(void);
+    char *lookup(const char *symbol);
+    // These two should be handled with care.
+    int numberOfLabels(void);
+    char *returnLabelNumber(unsigned int index);
 
 
-  private:
+private:
 
-  void sortResources(int from, int to);
+    void sortResources(int from, int to);
 
-  char *buffer;
-  char **lineTable;
-  unsigned int lines;
-  char badSymbol[4];
+    char *buffer;
+    char **lineTable;
+    unsigned int lines;
+    char badSymbol[4];
 };
 
 

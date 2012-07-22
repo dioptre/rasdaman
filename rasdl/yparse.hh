@@ -33,11 +33,11 @@ rasdaman GmbH.
 */
 struct rINT_list
 {
-  ///
-  int               data;
+    ///
+    int               data;
 
-  ///
-  rINT_list  *next;
+    ///
+    rINT_list  *next;
 };
 
 
@@ -48,12 +48,12 @@ struct rINT_list
 */
 struct YDeclarator
 {
-  ///
-  YSymbol      *symbol;
-  ///
-  rINT_list    *array_size;
-  ///
-  YDeclarator  *next;
+    ///
+    YSymbol      *symbol;
+    ///
+    rINT_list    *array_size;
+    ///
+    YDeclarator  *next;
 };
 
 #endif

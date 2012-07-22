@@ -34,22 +34,22 @@ using std::ostream;
 
 class HexCodec
 {
- public:
-   static string convertTo(const string& figureStr) throw(ImportError);
-   static string convertFrom(const string& hexaStr) throw(ImportError);
-   void printStatus(ostream& s);
- 
- private:
-   //class members
-   static char hexVal[16];
-   static const string hexFig;
-   static const string hexId;
-   static const string emptyStr;
-   static const char   hexBase;
-   static const char   hexPerByte;   
-   static string hexStr;
-   static string figStr;
-   
+public:
+    static string convertTo(const string& figureStr) throw(ImportError);
+    static string convertFrom(const string& hexaStr) throw(ImportError);
+    void printStatus(ostream& s);
+
+private:
+    //class members
+    static char hexVal[16];
+    static const string hexFig;
+    static const string hexId;
+    static const string emptyStr;
+    static const char   hexBase;
+    static const char   hexPerByte;
+    static string hexStr;
+    static string figStr;
+
 };
 
 #endif

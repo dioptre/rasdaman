@@ -29,112 +29,114 @@ static const char rcsid[] = "@(#)raslib, r_Collection_Type: $Header: /home/rasde
 
 
 r_Collection_Type::r_Collection_Type()
-	:	r_Type(),
-		elementType(NULL)
-	{
-	}
+    :   r_Type(),
+        elementType(NULL)
+{
+}
 
-r_Collection_Type::r_Collection_Type(r_Type& newElementType)	
-	:	r_Type(),
-		elementType(newElementType.clone())
-	{
-	}
+r_Collection_Type::r_Collection_Type(r_Type& newElementType)
+    :   r_Type(),
+        elementType(newElementType.clone())
+{
+}
 
 r_Collection_Type::r_Collection_Type(const r_Collection_Type& oldObj) throw (r_Error)
-	:	r_Type(oldObj),
-		elementType(NULL)
-	{ 
-	if (oldObj.elementType) 
-		elementType = oldObj.elementType->clone();
-	else	{
-		RMInit::logOut << "r_Collection_Type::r_Collection_Type( oldObj ) the element type is NULL." << endl;
-		throw r_Error(COLLECTIONTYPEHASNOELEMENTTYPE);
-		}
-	}
+    :   r_Type(oldObj),
+        elementType(NULL)
+{
+    if (oldObj.elementType)
+        elementType = oldObj.elementType->clone();
+    else
+    {
+        RMInit::logOut << "r_Collection_Type::r_Collection_Type( oldObj ) the element type is NULL." << endl;
+        throw r_Error(COLLECTIONTYPEHASNOELEMENTTYPE);
+    }
+}
 
 bool
 r_Collection_Type::isCollectionType() const
-	{
-	return true;
-	}
+{
+    return true;
+}
 
-const r_Collection_Type& 
+const r_Collection_Type&
 r_Collection_Type::operator=(const r_Collection_Type& oldObj) throw (r_Error)
-	{
-	// Gracefully handle self assignment
-	if (this == &oldObj)
-		return *this;
+{
+    // Gracefully handle self assignment
+    if (this == &oldObj)
+        return *this;
 
-	r_Type::operator=(oldObj);
-	delete elementType;
-	elementType = NULL;
-	if (oldObj.elementType)
-		elementType = oldObj.elementType->clone();
-	else	{
-		RMInit::logOut << "r_Collection_Type::operator=( oldObj ) the element type is NULL." << endl;
-		throw r_Error(COLLECTIONTYPEHASNOELEMENTTYPE);
-		}
-	return *this;
-	}
+    r_Type::operator=(oldObj);
+    delete elementType;
+    elementType = NULL;
+    if (oldObj.elementType)
+        elementType = oldObj.elementType->clone();
+    else
+    {
+        RMInit::logOut << "r_Collection_Type::operator=( oldObj ) the element type is NULL." << endl;
+        throw r_Error(COLLECTIONTYPEHASNOELEMENTTYPE);
+    }
+    return *this;
+}
 
 const r_Type&
 r_Collection_Type::element_type() const throw (r_Error)
-	{
-	if (elementType == NULL)
-		{
-		RMInit::logOut << "r_Collection_Type::element_type() the element type is NULL." << endl;
-		throw r_Error(COLLECTIONTYPEHASNOELEMENTTYPE);
-		}
-	return *elementType;
-	}
+{
+    if (elementType == NULL)
+    {
+        RMInit::logOut << "r_Collection_Type::element_type() the element type is NULL." << endl;
+        throw r_Error(COLLECTIONTYPEHASNOELEMENTTYPE);
+    }
+    return *elementType;
+}
 
 r_Type*
 r_Collection_Type::clone() const
-	{
-	return new r_Collection_Type(*this); 
-	}
+{
+    return new r_Collection_Type(*this);
+}
 
 r_Collection_Type::r_Kind
 r_Collection_Type::kind() const
-	{
-	return SET;
-	}
+{
+    return SET;
+}
 
-r_Type::r_Type_Id 
+r_Type::r_Type_Id
 r_Collection_Type::type_id() const
-	{
-	return COLLECTIONTYPE;
-	}
+{
+    return COLLECTIONTYPE;
+}
 
 void
 r_Collection_Type::convertToLittleEndian(char* cells, r_Area noCells) const
-	{
-	}
+{
+}
 
 void
 r_Collection_Type::convertToBigEndian(char* cells, r_Area noCells) const
-	{
-	}
+{
+}
 
-void 
+void
 r_Collection_Type::print_status(std::ostream& s) const
-	{
-	s << "set< "; 
-	elementType->print_status(s);
-	s << " >";
-	} 
+{
+    s << "set< ";
+    elementType->print_status(s);
+    s << " >";
+}
 
 
 
 r_Collection_Type::~r_Collection_Type()
-	{
-	if (elementType) 
-		delete elementType;
-	elementType = NULL;
-	}
+{
+    if (elementType)
+        delete elementType;
+    elementType = NULL;
+}
 
 std::ostream &operator<<( std::ostream &str, const r_Collection_Type &type )
 {
-  type.print_status(str);
-  return str;
+    type.print_status(str);
+    return str;
 }

@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:  r_StorageLayout, r_Domain_Storage_Layout
  *
  * COMMENTS:
- *   		None
+ *          None
  *
 */
 
@@ -51,132 +51,132 @@ rasdaman GmbH.
 #include "rasodmg/gmarray.hh"
 
 r_Storage_Layout::r_Storage_Layout(r_Data_Format init_format, const char* formatParams)
-	:	til(0),
-		storage_format(init_format),
-		storage_params(0)
+    :   til(0),
+        storage_format(init_format),
+        storage_params(0)
 {
-  til = new r_Size_Tiling();
-  if (formatParams != NULL)
-    storage_params = strdup(formatParams);
+    til = new r_Size_Tiling();
+    if (formatParams != NULL)
+        storage_params = strdup(formatParams);
 }
 
 r_Storage_Layout::r_Storage_Layout(r_Tiling* ts, r_Data_Format init_format, const char* formatParams)
-	:	til(ts),
-		storage_format(init_format),
-		storage_params(0)
+    :   til(ts),
+        storage_format(init_format),
+        storage_params(0)
 {
-  if (til == NULL)
-    til = new r_Size_Tiling();
-  if (formatParams != NULL)
-    storage_params = strdup(formatParams);
+    if (til == NULL)
+        til = new r_Size_Tiling();
+    if (formatParams != NULL)
+        storage_params = strdup(formatParams);
 }
 
 r_Storage_Layout::r_Storage_Layout(const r_Storage_Layout& sl)
-	:	til(sl.get_tiling()->clone()),
-		storage_format(sl.get_storage_format()),
-		storage_params(0)
+    :   til(sl.get_tiling()->clone()),
+        storage_format(sl.get_storage_format()),
+        storage_params(0)
 {
-  if (sl.storage_params != NULL)
-    storage_params = strdup(sl.storage_params);
+    if (sl.storage_params != NULL)
+        storage_params = strdup(sl.storage_params);
 }
 
 r_Storage_Layout*
 r_Storage_Layout::clone() const
 {
-  r_Storage_Layout* newSL = new r_Storage_Layout(til->clone(), storage_format, storage_params);
-  return newSL;
+    r_Storage_Layout* newSL = new r_Storage_Layout(til->clone(), storage_format, storage_params);
+    return newSL;
 }
 
 r_Storage_Layout::~r_Storage_Layout()
 {
-  if(til)
-  {
-    delete til;
-    til = NULL;
-  }
-  if (storage_params)
-  {
-    free(storage_params);
-    storage_params = NULL;
-  }
+    if(til)
+    {
+        delete til;
+        til = NULL;
+    }
+    if (storage_params)
+    {
+        free(storage_params);
+        storage_params = NULL;
+    }
 }
 
 const r_Tiling*
 r_Storage_Layout::get_tiling() const
 {
-  return til;
+    return til;
 }
 
 r_Data_Format
 r_Storage_Layout::get_storage_format() const
 {
-  return storage_format;
+    return storage_format;
 }
 
 const char*
 r_Storage_Layout::get_storage_format_params() const
 {
-  return storage_params;
+    return storage_params;
 }
 
-r_Set< r_GMarray* >* 
+r_Set< r_GMarray* >*
 r_Storage_Layout::decomposeMDD(const r_GMarray* mar) const throw (r_Error)
 {
-  r_Bytes cell_size = mar->get_type_length();
-  std::vector<r_Minterval>* tiles=NULL;
-  r_Set<r_GMarray*>* result=NULL;
-  
-  if (!til->is_compatible(mar->spatial_domain(), cell_size))
+    r_Bytes cell_size = mar->get_type_length();
+    std::vector<r_Minterval>* tiles=NULL;
+    r_Set<r_GMarray*>* result=NULL;
+
+    if (!til->is_compatible(mar->spatial_domain(), cell_size))
     {
-    RMInit::logOut << "r_Storage_Layout::decomposeMDD() gmarray is not compatible with tiling" << endl;
-    RMInit::logOut << "\tgmarray domain   : " << mar->spatial_domain() << endl;
-    RMInit::logOut << "\tgmarray type size: " << mar->get_type_length() << endl;
-    RMInit::logOut << "\tstorage layout   : " << *this << endl;
-    throw r_Error(STORAGERLAYOUTINCOMPATIBLEWITHGMARRAY);
+        RMInit::logOut << "r_Storage_Layout::decomposeMDD() gmarray is not compatible with tiling" << endl;
+        RMInit::logOut << "\tgmarray domain   : " << mar->spatial_domain() << endl;
+        RMInit::logOut << "\tgmarray type size: " << mar->get_type_length() << endl;
+        RMInit::logOut << "\tstorage layout   : " << *this << endl;
+        throw r_Error(STORAGERLAYOUTINCOMPATIBLEWITHGMARRAY);
     }
 
 
 
-  try
-  {
-   tiles = til->compute_tiles(mar->spatial_domain(), cell_size);
-  }
-  catch(r_Error& err)
-  {
-   throw;
-  }
-  
-  result = new r_Set<r_GMarray*>;
-  
-  for (std::vector<r_Minterval>::iterator it = tiles->begin(); it != tiles->end(); it++)
-    result->insert_element(mar->intersect(*it));
+    try
+    {
+        tiles = til->compute_tiles(mar->spatial_domain(), cell_size);
+    }
+    catch(r_Error& err)
+    {
+        throw;
+    }
 
-  delete tiles;
-  return result;
+    result = new r_Set<r_GMarray*>;
+
+    for (std::vector<r_Minterval>::iterator it = tiles->begin(); it != tiles->end(); it++)
+        result->insert_element(mar->intersect(*it));
+
+    delete tiles;
+    return result;
 }
 
-void 
+void
 r_Storage_Layout::print_status(std::ostream& os) const
 {
-  os << "r_Storage_Layout[ tiling = "<< *til << " storage format = " << storage_format << " storage parameters = ";
-  if (storage_params != NULL)
-    os << "upps, not here";
+    os << "r_Storage_Layout[ tiling = "<< *til << " storage format = " << storage_format << " storage parameters = ";
+    if (storage_params != NULL)
+        os << "upps, not here";
     //os << storage_params;
-  else
-    os << "none defined";
-  os << " ]";
+    else
+        os << "none defined";
+    os << " ]";
 }
-  
+
 bool
 r_Storage_Layout::is_compatible(const r_Minterval& obj_domain, r_Bytes cellTypeSize) const
 {
-  return til->is_compatible(obj_domain, cellTypeSize);
+    return til->is_compatible(obj_domain, cellTypeSize);
 }
-     
-std::ostream& 
+
+std::ostream&
 operator<<(std::ostream& s, const r_Storage_Layout& sl)
 {
-  sl.print_status(s);
-  return s;
+    sl.print_status(s);
+    return s;
 }
 

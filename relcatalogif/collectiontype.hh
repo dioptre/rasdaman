@@ -27,7 +27,7 @@ rasdaman GmbH.
  *
  * PURPOSE:
  *   The CollectionType class is the superclass for the class
- *   SetType. 
+ *   SetType.
  *
  *
  * COMMENTS:
@@ -57,76 +57,76 @@ class MDDType;
   * \ingroup Relcatalogifs
   */
 class CollectionType : public Type
-	{
-	public:
-		const MDDType* getMDDType() const;
-		/*@Doc:
-		returns MDDType of collection.
-		*/
-	/*
-		MDDType* getMDDType() const;
-	*/
+{
+public:
+    const MDDType* getMDDType() const;
+    /*@Doc:
+    returns MDDType of collection.
+    */
+    /*
+        MDDType* getMDDType() const;
+    */
 
-	 
-		void print_status( ostream& s ) const;
-		/*@Doc:
-		writes the state of the object to the specified stream:
-		d_MYNAME <MYMDDTYPE->printStatus >
-		*/
 
-		CollectionType(const MDDType* newMDDType);
-		/*@Doc:
-		constructor receiving pointer to an MDDType (or subclass).
-		*/
+    void print_status( ostream& s ) const;
+    /*@Doc:
+    writes the state of the object to the specified stream:
+    d_MYNAME <MYMDDTYPE->printStatus >
+    */
 
-		CollectionType();
-		/*@Doc:
-		default constructor, cannot be used.
-		*/
+    CollectionType(const MDDType* newMDDType);
+    /*@Doc:
+    constructor receiving pointer to an MDDType (or subclass).
+    */
 
-		CollectionType(const OId& id) throw (r_Error);
-		/*@Doc:
-		*/
-		
-		CollectionType(const CollectionType& old);
-		/*@Doc:
-		*/
-	 
-		CollectionType& operator=(const CollectionType& old);
-		/*@Doc:
-		*/
+    CollectionType();
+    /*@Doc:
+    default constructor, cannot be used.
+    */
 
-		virtual ~CollectionType();
-		/*@Doc:
-		virtual destructor.
-		*/
+    CollectionType(const OId& id) throw (r_Error);
+    /*@Doc:
+    */
 
-		virtual int compatibleWith(const Type* aType) const;
-		/*@Doc:
-		overloaded from Type.
-		returns true if myMDDType is compatible with the type.
-		*/
+    CollectionType(const CollectionType& old);
+    /*@Doc:
+    */
 
-		virtual r_Bytes getMemorySize() const;
-		/*@Doc:
-		returns DBNamedObject::getMemorySize() +
-			myMDDType->getMemorySize() + sizeof(MDDType*);
-		*/
+    CollectionType& operator=(const CollectionType& old);
+    /*@Doc:
+    */
 
-	protected:
-		const MDDType* myMDDType;
-		/*@Doc:
-		persistent pointer to MDDType of collection.
-		*/
+    virtual ~CollectionType();
+    /*@Doc:
+    virtual destructor.
+    */
 
-		CollectionType(const char* name);
-		/*@Doc:
-		*/
+    virtual int compatibleWith(const Type* aType) const;
+    /*@Doc:
+    overloaded from Type.
+    returns true if myMDDType is compatible with the type.
+    */
 
-		CollectionType(const char* name,const MDDType* newMDDType);
-		/*@Doc:
-		*/
-	};
+    virtual r_Bytes getMemorySize() const;
+    /*@Doc:
+    returns DBNamedObject::getMemorySize() +
+        myMDDType->getMemorySize() + sizeof(MDDType*);
+    */
+
+protected:
+    const MDDType* myMDDType;
+    /*@Doc:
+    persistent pointer to MDDType of collection.
+    */
+
+    CollectionType(const char* name);
+    /*@Doc:
+    */
+
+    CollectionType(const char* name,const MDDType* newMDDType);
+    /*@Doc:
+    */
+};
 
 #endif
 

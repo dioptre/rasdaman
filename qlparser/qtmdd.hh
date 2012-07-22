@@ -57,7 +57,7 @@ rasdaman GmbH.
 
 class QtMDD : public QtData
 {
-  public:
+public:
     // list of lists of \Ref{QtScalarData} objects
     // typedef list< list<QtScalarData*>* > QtDimensionList;
 
@@ -85,20 +85,20 @@ class QtMDD : public QtData
     //@Man: Read/Write methods:
     //@{
     ///
-      /// gets the pointer to the MDDObj object
-      inline MDDObj* getMDDObject() const;
-      /// sets the pointer to the MDDObj object and it does not care about the old pointer
-      inline void setMDDObject( MDDObj* ptr );
-      /// read method for loadDomain
-      inline const r_Minterval& getLoadDomain() const;
-      /// write method for loadDomain
-      inline void setLoadDomain( r_Minterval& newLoadDomain );
+    /// gets the pointer to the MDDObj object
+    inline MDDObj* getMDDObject() const;
+    /// sets the pointer to the MDDObj object and it does not care about the old pointer
+    inline void setMDDObject( MDDObj* ptr );
+    /// read method for loadDomain
+    inline const r_Minterval& getLoadDomain() const;
+    /// write method for loadDomain
+    inline void setLoadDomain( r_Minterval& newLoadDomain );
 
-      /// returns a null-terminated string describing the type structure
-      virtual char* getTypeStructure() const;
-      /**
-        The string pointer has to be free using free() by the caller.
-      */
+    /// returns a null-terminated string describing the type structure
+    virtual char* getTypeStructure() const;
+    /**
+      The string pointer has to be free using free() by the caller.
+    */
     ///
     ///
     //@}
@@ -115,15 +115,15 @@ class QtMDD : public QtData
     /// compares data content
     virtual bool equal( const QtData* obj ) const;
 
-    /// returns content dependent string representation 
+    /// returns content dependent string representation
     virtual std::string getSpelling() const;
 
     /// print status of the object to the specified stream
     virtual void printStatus( std::ostream& stream = std::cout ) const;
 
-  private:
+private:
     /// prevents from using the default constructor
-    QtMDD(){};
+    QtMDD() {};
 
     /// pointer to the MDDObj object
     MDDObj* mddObject;

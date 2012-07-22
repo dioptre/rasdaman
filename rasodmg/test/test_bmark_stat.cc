@@ -28,10 +28,10 @@ rasdaman GmbH.
  * PURPOSE: Load database for statistic tiling benchmark
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
-/* 
+/*
    ATENTION: The format of the input file for using with this program is:
 
      border_threshold accesses_threshold tilesize domain
@@ -41,7 +41,7 @@ rasdaman GmbH.
      ...
 
    Example:
-   
+
      50 0.20 1000 [0:799, 0:599]
      [10:20, 30:40]
      [12:20, 35:39]
@@ -95,228 +95,228 @@ r_Minterval*     domain;
 
 void parse(int argc, char* argv[])
 {
-  if (argc != 6)
-  {
-    cout << "Usage: " << argv[0] << " server db collec ptfile cube" << endl;
-    cout << endl;
-    cout << "  server ............. server to use" << endl;
-    cout << "  db ................. database" << endl;
-    cout << "  collec ............. collection" << endl;
-    cout << "  ptfile ............. pattern file" << endl;
-    cout << "  cube ............... datacube to create" << endl;
+    if (argc != 6)
+    {
+        cout << "Usage: " << argv[0] << " server db collec ptfile cube" << endl;
+        cout << endl;
+        cout << "  server ............. server to use" << endl;
+        cout << "  db ................. database" << endl;
+        cout << "  collec ............. collection" << endl;
+        cout << "  ptfile ............. pattern file" << endl;
+        cout << "  cube ............... datacube to create" << endl;
 
-    exit(1);
-  }
+        exit(1);
+    }
 
-  server_name = argv[1];
-  dbase_name  = argv[2];
-  colect_name = argv[3];
-  filename    = argv[4];
-  cube_i      = atoi(argv[5]);
+    server_name = argv[1];
+    dbase_name  = argv[2];
+    colect_name = argv[3];
+    filename    = argv[4];
+    cube_i      = atoi(argv[5]);
 
-  if ((cube_i<0) || (cube_i>7))
-  {
-    cout << "Invalid datacube. Must be in 0..7" << endl;
-    exit(0);
-  }
+    if ((cube_i<0) || (cube_i>7))
+    {
+        cout << "Invalid datacube. Must be in 0..7" << endl;
+        exit(0);
+    }
 }
 
 void read_data()
 {
-  const unsigned int BUF_SIZE = 256;
-  char buf[BUF_SIZE], buf2[BUF_SIZE];
+    const unsigned int BUF_SIZE = 256;
+    char buf[BUF_SIZE], buf2[BUF_SIZE];
 
-  cout << "Opening " << filename << " for reading... ";
+    cout << "Opening " << filename << " for reading... ";
 
-  ifstream is(filename, ios::in);
-  if (!is)
-  {
-    cout << "Couldn't open!!!" << endl;
-    exit(1);
-  }
-  else
-    cout << "done." << endl;
-
-  cout << "Reading parameters... ";
-
-  is >> border_threshold;
-  is >> interesting_threshold;
-  is >> tile_size;
-
-  is.getline(buf, BUF_SIZE);
-  domain = new r_Minterval(buf);
-
-  cout << "done." << endl;
-  cout << "Geting the accesses... ";
-
-  unsigned long count = 0;
-
-  while (!is.eof())
-  {
-    is.getline(buf, BUF_SIZE);
-    if (sscanf(buf, "%s", buf2) == 1)
+    ifstream is(filename, ios::in);
+    if (!is)
     {
-      r_Minterval inter(buf);    
-      stat_info += inter;
-      ++count;
-    
-      cout << "*";
+        cout << "Couldn't open!!!" << endl;
+        exit(1);
     }
-  }
+    else
+        cout << "done." << endl;
 
-  is.close();
+    cout << "Reading parameters... ";
 
-  cout << endl;
-  cout << "Geting the accesses... done." << endl << endl;
+    is >> border_threshold;
+    is >> interesting_threshold;
+    is >> tile_size;
 
-  cout << "Border threshold      = " << border_threshold << endl;
-  cout << "Interesting threshold = " << interesting_threshold << endl;
-  cout << "Tile size             = " << tile_size << endl;
-  cout << "Domain                = " << *domain << endl;
-  cout << "Number of accesses    = " << count << endl << endl;
+    is.getline(buf, BUF_SIZE);
+    domain = new r_Minterval(buf);
+
+    cout << "done." << endl;
+    cout << "Geting the accesses... ";
+
+    unsigned long count = 0;
+
+    while (!is.eof())
+    {
+        is.getline(buf, BUF_SIZE);
+        if (sscanf(buf, "%s", buf2) == 1)
+        {
+            r_Minterval inter(buf);
+            stat_info += inter;
+            ++count;
+
+            cout << "*";
+        }
+    }
+
+    is.close();
+
+    cout << endl;
+    cout << "Geting the accesses... done." << endl << endl;
+
+    cout << "Border threshold      = " << border_threshold << endl;
+    cout << "Interesting threshold = " << interesting_threshold << endl;
+    cout << "Tile size             = " << tile_size << endl;
+    cout << "Domain                = " << *domain << endl;
+    cout << "Number of accesses    = " << count << endl << endl;
 }
 
 
 void insert_datacube()
 {
 
-  r_Ref< r_Set< r_Ref< r_Marray<r_ULong> > > >  cube_set;
-  r_Minterval                                   domain;
-  
-  domain = r_Minterval(3);
-  domain << r_Sinterval(0L, SIZE_X)
-         << r_Sinterval(0L, SIZE_Y)
-         << r_Sinterval(0L, SIZE_Z);
+    r_Ref< r_Set< r_Ref< r_Marray<r_ULong> > > >  cube_set;
+    r_Minterval                                   domain;
+
+    domain = r_Minterval(3);
+    domain << r_Sinterval(0L, SIZE_X)
+           << r_Sinterval(0L, SIZE_Y)
+           << r_Sinterval(0L, SIZE_Z);
 
 
-  // For alligned tiling (Regular tiling)
-  
-  r_Minterval block_config(3);
-  block_config << r_Sinterval(0L, SIZE_X)
-               << r_Sinterval(0L, SIZE_Y)
-               << r_Sinterval(0L, SIZE_Z);
+    // For alligned tiling (Regular tiling)
 
-  unsigned long ts;
-  switch (cube_i)
-  {
+    r_Minterval block_config(3);
+    block_config << r_Sinterval(0L, SIZE_X)
+                 << r_Sinterval(0L, SIZE_Y)
+                 << r_Sinterval(0L, SIZE_Z);
+
+    unsigned long ts;
+    switch (cube_i)
+    {
     case 0:
-      ts = S_32K;
-      break;
+        ts = S_32K;
+        break;
     case 1:
-      ts = S_64K;
-      break;
+        ts = S_64K;
+        break;
     case 2:
-      ts = S_128K;
-      break;
+        ts = S_128K;
+        break;
     case 3:
-      ts = S_256K;
-      break;
+        ts = S_256K;
+        break;
     default:  // Irrelevant, not used.
-      ts = S_32K; 
-      break;
-  }
-  
-  r_Aligned_Tiling til_reg(block_config, ts);
-  r_Stat_Tiling til_stat(border_threshold, interesting_threshold, tile_size);
+        ts = S_32K;
+        break;
+    }
 
-  if (cube_i > 3)
-  {
-    til_stat.update_stat_information(stat_info);
-  }
+    r_Aligned_Tiling til_reg(block_config, ts);
+    r_Stat_Tiling til_stat(border_threshold, interesting_threshold, tile_size);
+
+    if (cube_i > 3)
+    {
+        til_stat.update_stat_information(stat_info);
+    }
 
 
-  // Domain storage layout
+    // Domain storage layout
 
     // This is a hack due to problems with the pointers
-  r_Domain_Storage_Layout* dsl[2];
-  r_Domain_Storage_Layout* use;
+    r_Domain_Storage_Layout* dsl[2];
+    r_Domain_Storage_Layout* use;
 
-  dsl[0] = new r_Domain_Storage_Layout(domain, &til_reg);
-  dsl[1] = new r_Domain_Storage_Layout(domain, &til_stat);
+    dsl[0] = new r_Domain_Storage_Layout(domain, &til_reg);
+    dsl[1] = new r_Domain_Storage_Layout(domain, &til_stat);
 
-  if (cube_i<4)
-    use = dsl[0];
-  else
-    use = dsl[1];
-  
-  // Create cube
+    if (cube_i<4)
+        use = dsl[0];
+    else
+        use = dsl[1];
 
-  r_Database db;
-  db.set_servername(server_name);
-  r_Transaction trans;
-  r_Ref< r_Marray<r_ULong> > cube;
+    // Create cube
 
-  try
-  {
-    cout << "Opening database " << dbase_name << " on " << server_name
-         << "... " << flush;
-    
-    db.open(dbase_name);
-      
-    cout << "Ok" << endl;   
-    cout << "Starting transaction... " << flush;
-    
-    trans.begin();
-
-    cout << "Ok" << endl;
-    cout << "Opening the set... " << flush;
+    r_Database db;
+    db.set_servername(server_name);
+    r_Transaction trans;
+    r_Ref< r_Marray<r_ULong> > cube;
 
     try
     {
-      cube_set = db.lookup_object(colect_name);
+        cout << "Opening database " << dbase_name << " on " << server_name
+             << "... " << flush;
+
+        db.open(dbase_name);
+
+        cout << "Ok" << endl;
+        cout << "Starting transaction... " << flush;
+
+        trans.begin();
+
+        cout << "Ok" << endl;
+        cout << "Opening the set... " << flush;
+
+        try
+        {
+            cube_set = db.lookup_object(colect_name);
+        }
+        catch (...)
+        {
+            cout << "*Failed*" << endl;
+            cout << "Creating the set... " << flush;
+
+            cube_set =
+                new(&db, "RGB_3D_Set") r_Set< r_Ref< r_Marray<RGBPixel> > >;
+
+            db.set_object_name(*cube_set, colect_name);
+        }
+
+        cout << "Ok" << endl;
+        cout << "Creating the datacube... " << flush;
+
+        cube =
+            new(&db, "RGB_3D_Cube") r_Marray<RGBPixel>(domain, use);
+
+        cube_set->insert_element(cube);
+
+        cout << "*" << flush;
+        cout << " ... Ok" << endl;
+        cout << "Commiting transaction... " << flush;
+
+        trans.commit();
+
+        cout << "Ok" << endl;
+        cout << "Closing database... " << flush;
+
+        db.close();
+
+        cout << " Ok" << endl << flush;
+    }
+    catch (r_Error& e)
+    {
+        cout << e.what() << endl;
+        exit(0);
     }
     catch (...)
     {
-      cout << "*Failed*" << endl;      
-      cout << "Creating the set... " << flush;
-      
-      cube_set =
-          new(&db, "RGB_3D_Set") r_Set< r_Ref< r_Marray<RGBPixel> > >;
-
-      db.set_object_name(*cube_set, colect_name);
-    } 
-
-    cout << "Ok" << endl;
-    cout << "Creating the datacube... " << flush;
-
-    cube =
-        new(&db, "RGB_3D_Cube") r_Marray<RGBPixel>(domain, use);
-
-    cube_set->insert_element(cube);
-      
-    cout << "*" << flush;
-    cout << " ... Ok" << endl;
-    cout << "Commiting transaction... " << flush;    
-
-    trans.commit();
-    
-    cout << "Ok" << endl; 
-    cout << "Closing database... " << flush;
-    
-    db.close();
-
-    cout << " Ok" << endl << flush;
-  }   
-  catch (r_Error& e)
-  {
-    cout << e.what() << endl;
-    exit(0);
-  }
-  catch (...)
-  {
-    cout << "Undefined error..." << endl;
-    exit(0);
-  }
+        cout << "Undefined error..." << endl;
+        exit(0);
+    }
 }
 
 
 int main(int argc, char* argv[])
 {
-  parse(argc, argv);
-  read_data();
-  insert_datacube();
+    parse(argc, argv);
+    read_data();
+    insert_datacube();
 
-  return 0;
+    return 0;
 }
 
 

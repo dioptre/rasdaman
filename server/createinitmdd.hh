@@ -31,7 +31,7 @@ rasdaman GmbH.
  * The main purpose is speeding up initialization and import operations
  *
  ************************************************************/
- 
+
 
 #include "mddmgr/mddcoll.hh"
 #include "mddmgr/mddobj.hh"
@@ -54,60 +54,60 @@ rasdaman GmbH.
   * \ingroup Servers
   */
 class FastCollectionCreator
-  {
-    public:
-      FastCollectionCreator(const char *collName, const char* collTypeName);
-      
-      r_OId createCollection();
-    
-    private:
-      // allow only [A-Z,a-z,_]
-      void verifyName( const char* name ) throw(r_Error);
-    
-      const char *collectionName;
-      const char *collectionTypeName;
+{
+public:
+    FastCollectionCreator(const char *collName, const char* collTypeName);
 
-   };
+    r_OId createCollection();
+
+private:
+    // allow only [A-Z,a-z,_]
+    void verifyName( const char* name ) throw(r_Error);
+
+    const char *collectionName;
+    const char *collectionTypeName;
+
+};
 
 
 /**
   * \ingroup Servers
-  */   
+  */
 class FastMDDCreator
-  {
-    public:
-      FastMDDCreator();
-      ~FastMDDCreator();
-      
-      void  setCollectionName(const char *collName);
-      void  setMDDTypeName(const char* mddTypeName);
-      
-      r_OId createMDD(const char *domain);
-      r_OId createRCxMDD(const char *domain, const char *tileDomain);
-      
-      void addStripe(r_OId mddOId, const char *stripeDomain, const char *tileDomain);
-      
-      vector<r_Minterval> getTileDomains(r_OId mddOId, const char *stripeDomain);
-    private:
-      void verifyCompatibility(MDDColl *collection) throw(r_Error);
-      
-      void createCompressedTileData(r_Minterval&, const BaseType* baseType);
-      
-      std::string collectionName;
-      std::string mddTypeName;
-      
-      r_Minterval definitionInterval;
-      
-      r_Data_Format storageFormat;
-      const char *formatParams;
-      
-      r_OId mddOId;
-      int   cellSize;
-      
-      char *comprData;
-      int   comprDataSize;
-      
-      MDDObj      *mymdd;      
-   };
+{
+public:
+    FastMDDCreator();
+    ~FastMDDCreator();
 
-#endif      
+    void  setCollectionName(const char *collName);
+    void  setMDDTypeName(const char* mddTypeName);
+
+    r_OId createMDD(const char *domain);
+    r_OId createRCxMDD(const char *domain, const char *tileDomain);
+
+    void addStripe(r_OId mddOId, const char *stripeDomain, const char *tileDomain);
+
+    vector<r_Minterval> getTileDomains(r_OId mddOId, const char *stripeDomain);
+private:
+    void verifyCompatibility(MDDColl *collection) throw(r_Error);
+
+    void createCompressedTileData(r_Minterval&, const BaseType* baseType);
+
+    std::string collectionName;
+    std::string mddTypeName;
+
+    r_Minterval definitionInterval;
+
+    r_Data_Format storageFormat;
+    const char *formatParams;
+
+    r_OId mddOId;
+    int   cellSize;
+
+    char *comprData;
+    int   comprDataSize;
+
+    MDDObj      *mymdd;
+};
+
+#endif

@@ -64,24 +64,27 @@ rasdaman GmbH.
 
 using namespace std;
 
-void r_Conv_NETCDF::initNETCDF(void) {
+void r_Conv_NETCDF::initNETCDF(void)
+{
     RMInit::logOut << "initializing netcdf...";
     Conventions = "CF-1.4";
     Institution = "rasdaman.org, Jacobs University Bremen";
-    
+
     variable = NULL;
     if (params == NULL)
-      params = new r_Parse_Params();
+        params = new r_Parse_Params();
     params->add("var", &variable, r_Parse_Params::param_type_string);
     RMInit::logOut << " done." << endl;
 }
 
 /// constructor using an r_Type object. Exception if the type isn't atomic.
 r_Conv_NETCDF::r_Conv_NETCDF(const char *src, const r_Minterval &interv, const r_Type *tp) throw (r_Error)
-: r_Convert_Memory(src, interv, tp, true) {
+    : r_Convert_Memory(src, interv, tp, true)
+{
     initNETCDF();
     /// ToDo: Can be hacked by dividing it to its basic component. Or by using CXX-4 which is in the development phase
-    if (tp->isStructType()) {
+    if (tp->isStructType())
+    {
         RMInit::logOut << "r_Conv_NETCD::r_Conv_NETCDF(): structured types not supported." << endl;
         throw r_Error(r_Error::r_Error_General);
     }
@@ -89,22 +92,25 @@ r_Conv_NETCDF::r_Conv_NETCDF(const char *src, const r_Minterval &interv, const r
 
 /// constructor using convert_type_e shortcut
 r_Conv_NETCDF::r_Conv_NETCDF(const char *src, const r_Minterval &interv, int tp) throw (r_Error)
-: r_Convert_Memory(src, interv, tp) {
+    : r_Convert_Memory(src, interv, tp)
+{
     initNETCDF();
 }
 
 
 /// destructor
-r_Conv_NETCDF::~r_Conv_NETCDF(void) {
+r_Conv_NETCDF::~r_Conv_NETCDF(void)
+{
     if (variable != NULL)
     {
-      delete [] variable;
-      variable = NULL;
+        delete [] variable;
+        variable = NULL;
     }
 }
 
 /// convert to NETCDF
-r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
+r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error)
+{
     char fileName[256];
     string dimNamePrefix = "dim_";
     int dimNo = 0;
@@ -115,10 +121,11 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
     const char *src = desc.src;
 
     RMInit::logOut << "r_Conv_NETCDF::convertTo" << endl;
-    
-    if (options != NULL) {
-      RMInit::logOut << "options: " << options << endl;
-      params->process(options);
+
+    if (options != NULL)
+    {
+        RMInit::logOut << "options: " << options << endl;
+        params->process(options);
     }
 
     strncpy(fileName, tmpnam(NULL), 256);
@@ -126,7 +133,8 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
     // Create the file. The Replace parameter tells netCDF to overwrite
     // this file, if it already exists.
     NcFile dataFile(fileName, NcFile::Replace);
-    if (!dataFile.is_valid()) {
+    if (!dataFile.is_valid())
+    {
         RMInit::logOut << "r_Conv_NETCDF::convertTo(): unable to open output file." << endl;
         throw r_Error(r_Error::r_Error_General);
     }
@@ -135,18 +143,21 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
     dimNo = desc.srcInterv.dimension();
     dimSizes = new long[dimNo];
     const NcDim* dims[dimNo];
-    if (dimSizes == NULL) {
+    if (dimSizes == NULL)
+    {
         RMInit::logOut << "r_Conv_NETCDF::convertTo(): out of memory error!" << endl;
         throw r_Error(r_Error::r_Error_MemoryAllocation);
     }
-    for (int i = 0; i < dimNo; i++) {
+    for (int i = 0; i < dimNo; i++)
+    {
         dimSizes[i] = desc.srcInterv[i].high() - desc.srcInterv[i].low() + 1;
         dataSize *= dimSizes[i];
     }
 
     // Add the dimensions to the netcdf file, the dimension names are
     // Dimension_0, ..,Dimension_rank-1. Add also the dimension interval
-    for (int i = 0; i < dimNo; i++) {
+    for (int i = 0; i < dimNo; i++)
+    {
         stringstream s;
         s << dimNamePrefix << i;
         NcDim* dim = dataFile.add_dim(s.str().c_str(), dimSizes[i]);
@@ -155,116 +166,124 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
 
     // Define a netCDF variable. The type of the variable depends on rasdaman type
     char* varName = DEFAULT_VAR;
-    if (variable != NULL) {
-      varName = variable;
+    if (variable != NULL)
+    {
+        varName = variable;
     }
-    switch (desc.baseType) {
-        case ctype_int8:
+    switch (desc.baseType)
+    {
+    case ctype_int8:
+    {
+        r_Octet *val = (r_Octet* &) src;
+        NcVar *ncVar = dataFile.add_var(varName, ncByte, dimNo, dims);
+        // Write the data to the file.
+        ncVar->put(val, dimSizes);
+        break;
+    }
+    case ctype_char:
+    case ctype_uint8:
+    {
+        // unsigned data has to be transformed to data of 2x more bytes
+        // as NetCDF only supports exporting signed data..
+        // so unsigned char is transformed to short, and we add the
+        // valid_min/valid_max attributes to describe the range -- DM 2012-may-24
+
+        r_Char *val = (r_Char* &) src;
+        short *data = new short[dataSize];
+        if (data == NULL)
         {
-            r_Octet *val = (r_Octet* &) src;
-            NcVar *ncVar = dataFile.add_var(varName, ncByte, dimNo, dims);
-            // Write the data to the file.
-            ncVar->put(val, dimSizes);
-            break;
+            RMInit::logOut << "r_Conv_NETCDF::convertTo(): out of memory error!" << endl;
+            throw r_Error(r_Error::r_Error_MemoryAllocation);
         }
-        case ctype_char:
-        case ctype_uint8:
+        for (int i = 0; i < dataSize; i++, val++)
         {
-            // unsigned data has to be transformed to data of 2x more bytes
-            // as NetCDF only supports exporting signed data..
-            // so unsigned char is transformed to short, and we add the
-            // valid_min/valid_max attributes to describe the range -- DM 2012-may-24
-          
-            r_Char *val = (r_Char* &) src;
-            short *data = new short[dataSize];
-            if (data == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertTo(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            for (int i = 0; i < dataSize; i++, val++) {
-                data[i] = (short) ((r_Char) val[0]);
-            }
-            NcVar *ncVar = dataFile.add_var(varName, ncShort, dimNo, dims);
-            ncVar->put(&data[0], dimSizes);
-            ncVar->add_att(VALID_MIN, VALID_MIN_BYTE);
-            ncVar->add_att(VALID_MAX, VALID_MAX_BYTE);
-            delete [] data;
-            break;
+            data[i] = (short) ((r_Char) val[0]);
         }
-        case ctype_int16:
+        NcVar *ncVar = dataFile.add_var(varName, ncShort, dimNo, dims);
+        ncVar->put(&data[0], dimSizes);
+        ncVar->add_att(VALID_MIN, VALID_MIN_BYTE);
+        ncVar->add_att(VALID_MAX, VALID_MAX_BYTE);
+        delete [] data;
+        break;
+    }
+    case ctype_int16:
+    {
+        r_Short *val = (r_Short* &) src;
+        NcVar *ncVar = dataFile.add_var(varName, ncShort, dimNo, dims);
+        ncVar->put(val, dimSizes);
+        break;
+    }
+    case ctype_uint16:
+    {
+        r_UShort *val = (r_UShort* &) src;
+        int *data = new int[dataSize];
+        if (data == NULL)
         {
-            r_Short *val = (r_Short* &) src;
-            NcVar *ncVar = dataFile.add_var(varName, ncShort, dimNo, dims);
-            ncVar->put(val, dimSizes);
-            break;
+            RMInit::logOut << "r_Conv_NETCDF::convertTo(): out of memory error!" << endl;
+            throw r_Error(r_Error::r_Error_MemoryAllocation);
         }
-        case ctype_uint16:
+        for (int i = 0; i < dataSize; i++, val++)
         {
-            r_UShort *val = (r_UShort* &) src;
-            int *data = new int[dataSize];
-            if (data == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertTo(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            for (int i = 0; i < dataSize; i++, val++) {
-                data[i] = (int) ((r_UShort) val[0]);
-            }
-            NcVar *ncVar = dataFile.add_var(varName, ncInt, dimNo, dims);
-            ncVar->put(&data[0], dimSizes);
-            ncVar->add_att(VALID_MIN, VALID_MIN_SHORT);
-            ncVar->add_att(VALID_MAX, VALID_MAX_SHORT);
-            delete [] data;
-            break;
+            data[i] = (int) ((r_UShort) val[0]);
         }
-        case ctype_int32:
+        NcVar *ncVar = dataFile.add_var(varName, ncInt, dimNo, dims);
+        ncVar->put(&data[0], dimSizes);
+        ncVar->add_att(VALID_MIN, VALID_MIN_SHORT);
+        ncVar->add_att(VALID_MAX, VALID_MAX_SHORT);
+        delete [] data;
+        break;
+    }
+    case ctype_int32:
+    {
+        r_Long *val = (r_Long* &) src;
+        NcVar *ncVar = dataFile.add_var(varName, ncInt, dimNo, dims);
+        ncVar->put(val, dimSizes);
+        break;
+    }
+    case ctype_uint32:
+    {
+        // upscale unsigned long to float, as it can't be exported directly as uint
+        r_ULong *val = (r_ULong* &) src;
+        float *data = new float[dataSize];
+        if (data == NULL)
         {
-            r_Long *val = (r_Long* &) src;
-            NcVar *ncVar = dataFile.add_var(varName, ncInt, dimNo, dims);
-            ncVar->put(val, dimSizes);
-            break;
+            RMInit::logOut << "r_Conv_NETCDF::convertTo(): out of memory error!" << endl;
+            throw r_Error(r_Error::r_Error_MemoryAllocation);
         }
-        case ctype_uint32:
+        for (int i = 0; i < dataSize; i++, val++)
         {
-            // upscale unsigned long to float, as it can't be exported directly as uint
-            r_ULong *val = (r_ULong* &) src;
-            float *data = new float[dataSize];
-            if (data == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertTo(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            for (int i = 0; i < dataSize; i++, val++) {
-                data[i] = (float) ((r_ULong) val[0]);
-            }
-            NcVar *ncVar = dataFile.add_var(varName, ncFloat, dimNo, dims);
-            ncVar->put(&data[0], dimSizes);
-            ncVar->add_att(VALID_MIN, VALID_MIN_INT);
-            ncVar->add_att(VALID_MAX, VALID_MAX_INT);
-            delete [] data;
-            break;
+            data[i] = (float) ((r_ULong) val[0]);
         }
-        case ctype_float32:
-        {
-            r_Float *val = (r_Float* &) src;
-            NcVar *ncVar = dataFile.add_var(varName, ncFloat, dimNo, dims);
-            ncVar->put(val, dimSizes);
-            ncVar->add_att("missing_value", "NaNf");
-            break;
-        }
-        case ctype_int64:
-        case ctype_uint64:
-        case ctype_float64:
-        {
-            r_Double *val = (r_Double* &) src;
-            NcVar *ncVar = dataFile.add_var(varName, ncDouble, dimNo, dims);
-            ncVar->put(val, dimSizes);
-            ncVar->add_att("missing_value", "NaN");
-            break;
-        }
-        default:
-        {
-            RMInit::logOut << "This Type is not supported" << desc.baseType << endl;
-            throw r_Error(r_Error::r_Error_General);
-        }
+        NcVar *ncVar = dataFile.add_var(varName, ncFloat, dimNo, dims);
+        ncVar->put(&data[0], dimSizes);
+        ncVar->add_att(VALID_MIN, VALID_MIN_INT);
+        ncVar->add_att(VALID_MAX, VALID_MAX_INT);
+        delete [] data;
+        break;
+    }
+    case ctype_float32:
+    {
+        r_Float *val = (r_Float* &) src;
+        NcVar *ncVar = dataFile.add_var(varName, ncFloat, dimNo, dims);
+        ncVar->put(val, dimSizes);
+        ncVar->add_att("missing_value", "NaNf");
+        break;
+    }
+    case ctype_int64:
+    case ctype_uint64:
+    case ctype_float64:
+    {
+        r_Double *val = (r_Double* &) src;
+        NcVar *ncVar = dataFile.add_var(varName, ncDouble, dimNo, dims);
+        ncVar->put(val, dimSizes);
+        ncVar->add_att("missing_value", "NaN");
+        break;
+    }
+    default:
+    {
+        RMInit::logOut << "This Type is not supported" << desc.baseType << endl;
+        throw r_Error(r_Error::r_Error_General);
+    }
     }
 
     dataFile.add_att("Conventions", Conventions);
@@ -273,7 +292,8 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
     // The data file is written and closed
 
     // Pass the NetCDF file as a stream of char
-    if ((fp = fopen(fileName, "rb")) == NULL) {
+    if ((fp = fopen(fileName, "rb")) == NULL)
+    {
         RMInit::logOut << "r_Conv_NETCDF::convertTo(): unable to read back file." << endl;
         throw r_Error(r_Error::r_Error_General);
     }
@@ -281,7 +301,8 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
     fseek(fp, 0, SEEK_END);
     filesize = ftell(fp);
 
-    if ((desc.dest = (char*) mystore.storage_alloc(filesize)) == NULL) {
+    if ((desc.dest = (char*) mystore.storage_alloc(filesize)) == NULL)
+    {
         RMInit::logOut << "Error:  out of memory." << endl;
         throw r_Error(r_Error::r_Error_MemoryAllocation);
     }
@@ -302,22 +323,25 @@ r_convDesc &r_Conv_NETCDF::convertTo(const char *options) throw (r_Error) {
 }
 
 /// convert from NETCDF
-r_convDesc &r_Conv_NETCDF::convertFrom(const char *options) throw (r_Error) {
+r_convDesc &r_Conv_NETCDF::convertFrom(const char *options) throw (r_Error)
+{
     long dataSize = 1;
     long *dimSizes;
     char tmpFile [] = "/tmp/tmp.nc";
 
     RMInit::logOut << "r_Conv_NETCDF::convertFrom" << endl;
-    
-    if (options != NULL) {
-      params->process(options);
+
+    if (options != NULL)
+    {
+        params->process(options);
     }
 
     const char* src = desc.src;
     // Just write the data to temp file.
     ofstream file;
     file.open(tmpFile);
-    for (int i = 0; i < desc.srcInterv[0].high() - desc.srcInterv[0].low() + 1; i++, src++) {
+    for (int i = 0; i < desc.srcInterv[0].high() - desc.srcInterv[0].low() + 1; i++, src++)
+    {
         file << *src;
     }
     file.close();
@@ -325,7 +349,8 @@ r_convDesc &r_Conv_NETCDF::convertFrom(const char *options) throw (r_Error) {
     // Open the file. The ReadOnly parameter tells netCDF we want
     // read-only access to the file.
     NcFile dataFile(tmpFile, NcFile::ReadOnly);
-    if (!dataFile.is_valid()) {
+    if (!dataFile.is_valid())
+    {
         RMInit::logOut << "r_Conv_NETCDF::convertFrom(): Can not open the file" << endl;
         throw r_Error(r_Error::r_Error_General);
     }
@@ -338,26 +363,31 @@ r_convDesc &r_Conv_NETCDF::convertFrom(const char *options) throw (r_Error) {
     set<string> dimNames;
     set<string> varNames;
     set<string>::iterator it;
-    for (int i = 0; i < numDims; i++) {
+    for (int i = 0; i < numDims; i++)
+    {
         NcDim *dim = dataFile.get_dim(i);
         dimNames.insert(dim->name());
     }
 
     // Get a set of variable names that are not dimensions. and defined by all dimensions
-    for (int i = 0; i < numVars; i++) {
+    for (int i = 0; i < numVars; i++)
+    {
         NcVar *var = dataFile.get_var(i);
         it = dimNames.find(var->name());
-        if (it == dimNames.end() && var->num_dims() > 0) {
-          if (variable == NULL || strcmp(var->name(), variable) == 0) {
-            varNames.insert(var->name());
-            if (variable != NULL)
-              break;
-          }
+        if (it == dimNames.end() && var->num_dims() > 0)
+        {
+            if (variable == NULL || strcmp(var->name(), variable) == 0)
+            {
+                varNames.insert(var->name());
+                if (variable != NULL)
+                    break;
+            }
         }
     }
-    if (varNames.empty()) {
-      RMInit::logOut << "r_Conv_NETCDF::convertFrom(): no variable found to import." << endl;
-      throw r_Error(r_Error::r_Error_General);
+    if (varNames.empty())
+    {
+        RMInit::logOut << "r_Conv_NETCDF::convertFrom(): no variable found to import." << endl;
+        throw r_Error(r_Error::r_Error_General);
     }
 
     it = varNames.begin();
@@ -365,163 +395,180 @@ r_convDesc &r_Conv_NETCDF::convertFrom(const char *options) throw (r_Error) {
     NcVar *var = dataFile.get_var(varName.c_str());
     numDims = var->num_dims();
     dimSizes = new long[numDims];
-    for (int i = 0; i < numDims; i++) {
+    for (int i = 0; i < numDims; i++)
+    {
         NcDim *dim = var->get_dim(i);
-        if (dim->is_unlimited()) {
+        if (dim->is_unlimited())
+        {
             RMInit::logOut << "r_Conv_NETCDF::convertFrom(): unlimited dimensions can not be handled" << endl;
             throw r_Error(r_Error::r_Error_General);
         }
         dimSizes[i] = dim->size();
         dataSize *= dim->size();
     }
-    switch (var->type()) {
-        case ncByte:
-        case ncChar:
+    switch (var->type())
+    {
+    case ncByte:
+    case ncChar:
+    {
+        char *data = new char[dataSize];
+        if (data == NULL)
         {
-            char *data = new char[dataSize];
-            if (data == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            var->get(&data[0], dimSizes);
-
-            desc.destInterv = r_Minterval(numDims);
-            // Ignor NetCDF dim interval and assume it always starts at zero
-            // ToDo: Add a parse object to allow the user to control the dim interval, i.e. start at 0 or not
-            for (int i = 0; i < numDims; i++)
-                desc.destInterv << r_Sinterval((r_Range) 0, (r_Range) dimSizes[i] - 1);
-
-            if ((desc.dest = (char*) mystore.storage_alloc(dataSize)) == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            memcpy(desc.dest, data, dataSize * sizeof (char));
-            desc.destType = get_external_type(ctype_char);
-            delete [] data;
-            break;
+            RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
+            throw r_Error(r_Error::r_Error_MemoryAllocation);
         }
-        case ncShort:
+        var->get(&data[0], dimSizes);
+
+        desc.destInterv = r_Minterval(numDims);
+        // Ignor NetCDF dim interval and assume it always starts at zero
+        // ToDo: Add a parse object to allow the user to control the dim interval, i.e. start at 0 or not
+        for (int i = 0; i < numDims; i++)
+            desc.destInterv << r_Sinterval((r_Range) 0, (r_Range) dimSizes[i] - 1);
+
+        if ((desc.dest = (char*) mystore.storage_alloc(dataSize)) == NULL)
         {
-            short *data = new short[dataSize];
-            if (data == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            var->get(&data[0], dimSizes);
-
-            desc.destInterv = r_Minterval(numDims);
-            for (int i = 0; i < numDims; i++)
-                desc.destInterv << r_Sinterval((r_Range) 0, (r_Range) dimSizes[i] - 1);
-
-            if ((desc.dest = (char*) mystore.storage_alloc(dataSize * sizeof (short))) == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            memcpy(desc.dest, data, dataSize * sizeof (short));
-            desc.destType = get_external_type(ctype_int16);
-            delete [] data;
-            break;
+            RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
+            throw r_Error(r_Error::r_Error_MemoryAllocation);
         }
-        case ncInt:
+        memcpy(desc.dest, data, dataSize * sizeof (char));
+        desc.destType = get_external_type(ctype_char);
+        delete [] data;
+        break;
+    }
+    case ncShort:
+    {
+        short *data = new short[dataSize];
+        if (data == NULL)
         {
-            int *data = new int[dataSize];
-            if (data == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            var->get(&data[0], dimSizes);
-
-            desc.destInterv = r_Minterval(numDims);
-            for (int i = 0; i < numDims; i++)
-                desc.destInterv << r_Sinterval((r_Range) 0, (r_Range) dimSizes[i] - 1);
-
-            if ((desc.dest = (char*) mystore.storage_alloc(dataSize * sizeof (int))) == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            memcpy(desc.dest, data, dataSize * sizeof (int));
-            desc.destType = get_external_type(ctype_int32);
-            delete [] data;
-            break;
+            RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
+            throw r_Error(r_Error::r_Error_MemoryAllocation);
         }
-        case ncFloat:
+        var->get(&data[0], dimSizes);
+
+        desc.destInterv = r_Minterval(numDims);
+        for (int i = 0; i < numDims; i++)
+            desc.destInterv << r_Sinterval((r_Range) 0, (r_Range) dimSizes[i] - 1);
+
+        if ((desc.dest = (char*) mystore.storage_alloc(dataSize * sizeof (short))) == NULL)
         {
-            float *data = new float[dataSize];
-            if (data == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            var->get(&data[0], dimSizes);
-
-            desc.destInterv = r_Minterval(numDims);
-            for (int i = 0; i < numDims; i++)
-                desc.destInterv << r_Sinterval((r_Range) 0, (r_Range) dimSizes[i] - 1);
-
-            if ((desc.dest = (char*) mystore.storage_alloc(dataSize * sizeof (float))) == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            memcpy(desc.dest, data, dataSize * sizeof (float));
-            desc.destType = get_external_type(ctype_float32);
-            delete [] data;
-            break;
+            RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
+            throw r_Error(r_Error::r_Error_MemoryAllocation);
         }
-        case ncDouble:
+        memcpy(desc.dest, data, dataSize * sizeof (short));
+        desc.destType = get_external_type(ctype_int16);
+        delete [] data;
+        break;
+    }
+    case ncInt:
+    {
+        int *data = new int[dataSize];
+        if (data == NULL)
         {
-            double *data = new double[dataSize];
-            if (data == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            var->get(&data[0], dimSizes);
-
-            desc.destInterv = r_Minterval(numDims);
-            for (int i = 0; i < numDims; i++)
-                desc.destInterv << r_Sinterval((r_Range) 0, (r_Range) dimSizes[i] - 1);
-
-            if ((desc.dest = (char*) mystore.storage_alloc(dataSize * sizeof (double))) == NULL) {
-                RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
-                throw r_Error(r_Error::r_Error_MemoryAllocation);
-            }
-            memcpy(desc.dest, data, dataSize * sizeof (double));
-            desc.destType = get_external_type(ctype_float64);
-            delete [] data;
-            break;
+            RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
+            throw r_Error(r_Error::r_Error_MemoryAllocation);
         }
-        default:
+        var->get(&data[0], dimSizes);
+
+        desc.destInterv = r_Minterval(numDims);
+        for (int i = 0; i < numDims; i++)
+            desc.destInterv << r_Sinterval((r_Range) 0, (r_Range) dimSizes[i] - 1);
+
+        if ((desc.dest = (char*) mystore.storage_alloc(dataSize * sizeof (int))) == NULL)
         {
-            RMInit::logOut << "This Type is not supported" << desc.baseType << endl;
-            throw r_Error(r_Error::r_Error_General);
+            RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
+            throw r_Error(r_Error::r_Error_MemoryAllocation);
         }
+        memcpy(desc.dest, data, dataSize * sizeof (int));
+        desc.destType = get_external_type(ctype_int32);
+        delete [] data;
+        break;
+    }
+    case ncFloat:
+    {
+        float *data = new float[dataSize];
+        if (data == NULL)
+        {
+            RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
+            throw r_Error(r_Error::r_Error_MemoryAllocation);
+        }
+        var->get(&data[0], dimSizes);
+
+        desc.destInterv = r_Minterval(numDims);
+        for (int i = 0; i < numDims; i++)
+            desc.destInterv << r_Sinterval((r_Range) 0, (r_Range) dimSizes[i] - 1);
+
+        if ((desc.dest = (char*) mystore.storage_alloc(dataSize * sizeof (float))) == NULL)
+        {
+            RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
+            throw r_Error(r_Error::r_Error_MemoryAllocation);
+        }
+        memcpy(desc.dest, data, dataSize * sizeof (float));
+        desc.destType = get_external_type(ctype_float32);
+        delete [] data;
+        break;
+    }
+    case ncDouble:
+    {
+        double *data = new double[dataSize];
+        if (data == NULL)
+        {
+            RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
+            throw r_Error(r_Error::r_Error_MemoryAllocation);
+        }
+        var->get(&data[0], dimSizes);
+
+        desc.destInterv = r_Minterval(numDims);
+        for (int i = 0; i < numDims; i++)
+            desc.destInterv << r_Sinterval((r_Range) 0, (r_Range) dimSizes[i] - 1);
+
+        if ((desc.dest = (char*) mystore.storage_alloc(dataSize * sizeof (double))) == NULL)
+        {
+            RMInit::logOut << "r_Conv_NETCDF::convertFrom(): out of memory error!" << endl;
+            throw r_Error(r_Error::r_Error_MemoryAllocation);
+        }
+        memcpy(desc.dest, data, dataSize * sizeof (double));
+        desc.destType = get_external_type(ctype_float64);
+        delete [] data;
+        break;
+    }
+    default:
+    {
+        RMInit::logOut << "This Type is not supported" << desc.baseType << endl;
+        throw r_Error(r_Error::r_Error_General);
+    }
 
     }
-    
+
     if (desc.srcInterv.dimension() == 2)
-      // this means it was explicitly specified, so we shouldn't override it
-      desc.destInterv = desc.srcInterv;
-    
+        // this means it was explicitly specified, so we shouldn't override it
+        desc.destInterv = desc.srcInterv;
+
     RMInit::logOut << "r_Conv_NETCDF::convertFrom EXIT" << endl;
     return desc;
 }
 
 /// cloning
 
-r_Convertor *r_Conv_NETCDF::clone(void) const {
+r_Convertor *r_Conv_NETCDF::clone(void) const
+{
     return new r_Conv_NETCDF(desc.src, desc.srcInterv, desc.baseType);
 }
 
 /// identification
 
-const char *r_Conv_NETCDF::get_name(void) const {
+const char *r_Conv_NETCDF::get_name(void) const
+{
     return format_name_netcdf;
 }
 
-r_Data_Format r_Conv_NETCDF::get_data_format(void) const {
+r_Data_Format r_Conv_NETCDF::get_data_format(void) const
+{
     return r_NETCDF;
 }
 /// For test purpose
 
-template <class baseType, class castType> void r_Conv_NETCDF::print(baseType* val, int bufferZise) {
+template <class baseType, class castType> void r_Conv_NETCDF::print(baseType* val, int bufferZise)
+{
 
     for (int i = 0; i < bufferZise; ++i, val++)
         RMInit::logOut << (castType) val[0] << endl;
@@ -530,12 +577,12 @@ template <class baseType, class castType> void r_Conv_NETCDF::print(baseType* va
 #endif
 
 /* NcType is defined as enum as follows
-Name			size		Comments
-ncByte			1		8-bit signed integer
-ncChar			1		8-bit unsigned integer
-ncShort			2		signed 2 byte integer
-ncInt			4		32-bit signed integer
-ncLong			4		Deprecated
-ncFloat			4		32-bit floating point
-ncDouble		8		64-bit floating point
+Name            size        Comments
+ncByte          1       8-bit signed integer
+ncChar          1       8-bit unsigned integer
+ncShort         2       signed 2 byte integer
+ncInt           4       32-bit signed integer
+ncLong          4       Deprecated
+ncFloat         4       32-bit floating point
+ncDouble        8       64-bit floating point
  */

@@ -27,13 +27,13 @@ rasdaman GmbH.
  * CLASS:   r_Dir_Decompose
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 #ifndef _R_DIRDECOMPOSE_HH_
 #define _R_DIRDECOMPOSE_HH_
 
-// Include statements 
+// Include statements
 
 #include <iostream>
 #include <vector>
@@ -47,18 +47,18 @@ using std::vector;
 
 /*@Doc:
 
-  The {\tt r_Dir_Decompose} class is used to specify a decomposition on 
-  an n-dimensional cube (for use in {\tt r_Dir_Tiling}). For instance, to 
-  specify a tiling restriction on a dimension with the form: [0, 2, 4, 5], 
+  The {\tt r_Dir_Decompose} class is used to specify a decomposition on
+  an n-dimensional cube (for use in {\tt r_Dir_Tiling}). For instance, to
+  specify a tiling restriction on a dimension with the form: [0, 2, 4, 5],
   the following code would apply:
 
     r_Dir_Decompose decomp;
-    
+
     decomp << 0 << 2 << 4 << 5;
 
-  Note that the first and the last elements input into the object must be 
-  the origin and limit of that dimension or else a cross-section of the domain 
-  will occur (as if the elements outside the specification wouldn't mind). 
+  Note that the first and the last elements input into the object must be
+  the origin and limit of that dimension or else a cross-section of the domain
+  will occur (as if the elements outside the specification wouldn't mind).
 
   If one dimension is considered to be a prefered access direction, then
   the r_Dir_Decompose should be empty, this is, no restriction should be
@@ -70,18 +70,18 @@ using std::vector;
   */
 class r_Dir_Decompose
 {
-  public:
+public:
 
     r_Dir_Decompose();
 
     virtual ~r_Dir_Decompose();
-		
+
     /// Copy constructor
     r_Dir_Decompose(const r_Dir_Decompose& other);
 
     /// Assigment operator
     const r_Dir_Decompose& operator=(const r_Dir_Decompose& other);
-    
+
     /// Reads a new limit for the current dimension
     r_Dir_Decompose& operator<<(r_Range limit);
 
@@ -95,7 +95,7 @@ class r_Dir_Decompose
     virtual void print_status(std::ostream& os = cout ) const;
 
 protected:
-   r_Sinterval get_total_interval( );
+    r_Sinterval get_total_interval( );
 
     /// Initial number of intervals of the buffer
     const static r_Dimension DEFAULT_INTERVALS;

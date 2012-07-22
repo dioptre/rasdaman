@@ -24,11 +24,11 @@ rasdaman GmbH.
   * \ingroup Reladminifs
   */
 class BinaryRepresentation
-	{
-	public:
-		char* binaryName;
-		char* binaryData;
-		size_t binaryLength;
-		static const char* fileTag;
-	};
+{
+public:
+    char* binaryName;
+    char* binaryData;
+    size_t binaryLength;
+    static const char* fileTag;
+};
 

@@ -44,7 +44,7 @@ rasdaman GmbH.
 
 class QtUpdate : public QtExecute
 {
-  public:
+public:
     /// constructor getting target, domain, and source expressions of the update
     QtUpdate( QtOperation* initUpdateTarget, QtOperation* initUpdateDomain, QtOperation* initUpdateSource );
 
@@ -57,7 +57,7 @@ class QtUpdate : public QtExecute
     /// return childs of the node
     virtual QtNodeList* getChilds( QtChildType flag );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -69,15 +69,15 @@ class QtUpdate : public QtExecute
     ///
     void setStreamInput( QtONCStream* newInput );
     ///
- 	/// returns updateTarget
-	QtOperation* getUpdateTarget();
-	/// returns updateDomain
-	QtOperation* getUpdateDomain();
-	///returns updateSource
-	QtOperation* getUpdateSource();
-	///returns input
-	QtONCStream* getInput();
-   	//@}
+    /// returns updateTarget
+    QtOperation* getUpdateTarget();
+    /// returns updateDomain
+    QtOperation* getUpdateDomain();
+    ///returns updateSource
+    QtOperation* getUpdateSource();
+    ///returns input
+    QtONCStream* getInput();
+    //@}
 
     /// method for identification of nodes
     inline virtual const QtNodeType getNodeType() const;
@@ -94,7 +94,7 @@ class QtUpdate : public QtExecute
     /// type checking
     virtual void checkType();
 
-  private:
+private:
     /// one input stream
     QtONCStream* input;
 

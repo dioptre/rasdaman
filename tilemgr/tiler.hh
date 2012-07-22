@@ -38,59 +38,59 @@ typedef std::pair<const r_Range,const r_Range> ConstRangePair;
 
 /**
   * \ingroup Tilemgrs
-  */ 
+  */
 class r_Tiler
-	{
-	public:
-		r_Tiler(std::vector<r_Minterval>& sourceDomains, const std::vector<r_Minterval>& targetDomains);
-			/*
-			sourceDomains will be splitted.
-			targetDomains will not be touched.
-			*/
-		
-		void split();
-			/*
-			will split the source domains.
-			*/
+{
+public:
+    r_Tiler(std::vector<r_Minterval>& sourceDomains, const std::vector<r_Minterval>& targetDomains);
+    /*
+    sourceDomains will be splitted.
+    targetDomains will not be touched.
+    */
 
-		void removeCoveredDomains();
-			/*
-			removes those splited domains which are covered by target domains.
-			*/
+    void split();
+    /*
+    will split the source domains.
+    */
 
-		void removeDoubleDomains();
-			/*
-			removes those splited domains which are covered by other splited domains.
-			*/
+    void removeCoveredDomains();
+    /*
+    removes those splited domains which are covered by target domains.
+    */
 
-		void mergeDomains();
-			/*
-			tries to merge splited domains into larger domains.
-			*/
+    void removeDoubleDomains();
+    /*
+    removes those splited domains which are covered by other splited domains.
+    */
 
-		std::vector<r_Minterval> getTiledDomains() const;
-			/*
-			returns the computed domains.  you must call split() first.
-			*/
-		
-		std::vector<Tile*> generateTiles(const std::vector<Tile*>& sourceTiles) const;
-			/*
-			uses the previously computed tiled domains to generate the output.
-			call split, removeCoveredDomains, removeDoubleDomains, mergeDomains first!
-			memory must be freed by the caller!
-			*/
-		
-	private:
+    void mergeDomains();
+    /*
+    tries to merge splited domains into larger domains.
+    */
 
-		std::vector<r_Minterval> splitMinterval(const r_Minterval& sourceDomain, std::vector<RangePair>& splitDimensions);
+    std::vector<r_Minterval> getTiledDomains() const;
+    /*
+    returns the computed domains.  you must call split() first.
+    */
 
-		std::vector<RangePair> computeSplitDimensions(const r_Minterval& sourceDomain) const;
+    std::vector<Tile*> generateTiles(const std::vector<Tile*>& sourceTiles) const;
+    /*
+    uses the previously computed tiled domains to generate the output.
+    call split, removeCoveredDomains, removeDoubleDomains, mergeDomains first!
+    memory must be freed by the caller!
+    */
 
-		std::vector<r_Minterval> splitedDomains;
+private:
 
-		std::vector<r_Minterval> sourceDomains;
+    std::vector<r_Minterval> splitMinterval(const r_Minterval& sourceDomain, std::vector<RangePair>& splitDimensions);
 
-		std::vector<r_Minterval> targetDomains;
-	};
+    std::vector<RangePair> computeSplitDimensions(const r_Minterval& sourceDomain) const;
+
+    std::vector<r_Minterval> splitedDomains;
+
+    std::vector<r_Minterval> sourceDomains;
+
+    std::vector<r_Minterval> targetDomains;
+};
 #endif
 

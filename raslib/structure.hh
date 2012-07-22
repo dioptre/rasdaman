@@ -27,7 +27,7 @@
  * CLASS:   r_Structure
  *
  * COMMENTS:
- * 
+ *
  * The class represents a structured value.
  *
 */
@@ -48,12 +48,12 @@ class r_Structure_Type;
 /*@Doc:
 
  Class \Ref{r_Structure} represents a structured value.
- 
+
 */
- 
+
 class r_Structure : public r_Scalar
 {
-  public:
+public:
     /// constructs a structured type value
     r_Structure( const char* newBuffer, const r_Structure_Type* newType );
 
@@ -83,19 +83,19 @@ class r_Structure : public r_Scalar
 
     /// access an element by name
     /// throws TypeInvalid and r_Eindex_violation
-    const r_Scalar& operator[]( const char* name ) const throw( r_Error );    
+    const r_Scalar& operator[]( const char* name ) const throw( r_Error );
 
     /// access an element by number
     /// throws TypeInvalid and NameInvalid
-    const r_Scalar& operator[]( unsigned int ) const throw( r_Error );    
+    const r_Scalar& operator[]( unsigned int ) const throw( r_Error );
 
-  private:
+private:
     /// number of elements
     unsigned int numElements;
 
     /// array of pointers to elements
     r_Scalar** elements;
-    
+
     /// char representation
     char* valueBuffer;
 };
@@ -105,7 +105,7 @@ class r_Structure : public r_Scalar
 //@ManMemo: Module: {\bf raslib}
 /**
   Output stream operator for objects of type {\tt const} \Ref{r_Structure}.
-*/  
+*/
 extern std::ostream& operator<<( std::ostream& s, const r_Structure& oid );
 #endif
 

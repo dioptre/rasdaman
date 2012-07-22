@@ -53,10 +53,10 @@ typedef std::vector<DBObject*> DBObjectPVector;
 //used to hold DBObject*.  e.g. in objectbroker to temporarily store them before deletion
 typedef std::vector<const DBObject*> DBObjectPConstVector;
 
-//used to hold oids for indexes, blobs, and dbmintervals 
+//used to hold oids for indexes, blobs, and dbmintervals
 typedef std::vector<OId> OIdVector;
 
-//used to hold oids for indexes, blobs, and dbmintervals 
+//used to hold oids for indexes, blobs, and dbmintervals
 typedef std::vector<const OId> OIdConstVector;
 
 //holds type information on specific blobs which are stored in above oidlists

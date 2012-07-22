@@ -49,97 +49,97 @@ statements in the operator"<" and ">" must be changed.
 /**
   * \ingroup Reladminifs
   */
-class EOId :	public OId
-	{
-	public:
-		EOId(const char* systemname, const char* dbname, OId::OIdCounter id, OIdType type);
-		/*@Doc: 
-		constructs a complete EOId.
-		*/
-	
-		EOId(const OId& id);
-		/*@Doc: 
-		uses the currently open database to get system and db name 
-		systemname and database name will be null string when the
-		database is not really open.
-		*/
-		
-		EOId();
-		/*@Doc: 
-		uses the currently open database to get system and db name
-		systemname and database name will be null string when the
-		database is not really open.
-		*/
-		
-		
-		~EOId();
-		/*@Doc: 
-		does not do anything.
-		*/
-		
-		EOId& operator=(const EOId& old);
-		/*@Doc: 
-		assignes all atributes.
-		*/
-		
-		
-		const char* getSystemName() const;
-		/*@Doc: 
-		returns the system name, which is the same as the
-		one returned by databaseif.
-		*/
-		
-		
-		const char* getBaseName() const;
-		/*@Doc: 
-		returns the database name, which is the same as the
-		one returned by databaseif
-		*/
-		
-		
-		OId getOId() const;
-		/*@Doc: 
-		returns the oid of this eoid
-		*/
-		
-		
-		void print_status(std::ostream& o) const;
-		/*@Doc: 
-		returns the systemname|databasename|oid
-		*/
+class EOId :    public OId
+{
+public:
+    EOId(const char* systemname, const char* dbname, OId::OIdCounter id, OIdType type);
+    /*@Doc:
+    constructs a complete EOId.
+    */
 
-		static void allocateEOId(EOId& eoid, OId::OIdType t) throw (r_Error);
-		/*@Doc: 
-		Allocates a new logical MDD EOid in the currently opened base.
-		throws an r_Error_DatabaseClosed when the database is not really open.
-		*/
+    EOId(const OId& id);
+    /*@Doc:
+    uses the currently open database to get system and db name
+    systemname and database name will be null string when the
+    database is not really open.
+    */
 
-		bool operator<(const EOId& old) const;
+    EOId();
+    /*@Doc:
+    uses the currently open database to get system and db name
+    systemname and database name will be null string when the
+    database is not really open.
+    */
 
-		bool operator>(const EOId& old) const;
 
-		bool operator<=(const EOId& old) const;
+    ~EOId();
+    /*@Doc:
+    does not do anything.
+    */
 
-		bool operator>=(const EOId& old) const;
+    EOId& operator=(const EOId& old);
+    /*@Doc:
+    assignes all atributes.
+    */
 
-		bool operator== (const EOId& one) const;
-		
-		bool operator!= (const EOId& one) const;
 
-	private:
-	
-		std::string databaseName;
-		/*@Doc: 
-		the name of the database the oid of this eoid is valid for.
-		stl std::string was used because of the compare functionality.
-		*/
-		
-		std::string systemName;
-		/*@Doc: 
-		the name of the system above mentioned database runs on
-		stl std::string was used because of the compare functionality.
-		*/
-	};
+    const char* getSystemName() const;
+    /*@Doc:
+    returns the system name, which is the same as the
+    one returned by databaseif.
+    */
+
+
+    const char* getBaseName() const;
+    /*@Doc:
+    returns the database name, which is the same as the
+    one returned by databaseif
+    */
+
+
+    OId getOId() const;
+    /*@Doc:
+    returns the oid of this eoid
+    */
+
+
+    void print_status(std::ostream& o) const;
+    /*@Doc:
+    returns the systemname|databasename|oid
+    */
+
+    static void allocateEOId(EOId& eoid, OId::OIdType t) throw (r_Error);
+    /*@Doc:
+    Allocates a new logical MDD EOid in the currently opened base.
+    throws an r_Error_DatabaseClosed when the database is not really open.
+    */
+
+    bool operator<(const EOId& old) const;
+
+    bool operator>(const EOId& old) const;
+
+    bool operator<=(const EOId& old) const;
+
+    bool operator>=(const EOId& old) const;
+
+    bool operator== (const EOId& one) const;
+
+    bool operator!= (const EOId& one) const;
+
+private:
+
+    std::string databaseName;
+    /*@Doc:
+    the name of the database the oid of this eoid is valid for.
+    stl std::string was used because of the compare functionality.
+    */
+
+    std::string systemName;
+    /*@Doc:
+    the name of the system above mentioned database runs on
+    stl std::string was used because of the compare functionality.
+    */
+};
 
 extern std::ostream& operator<<(std::ostream& s, EOId& d);
 

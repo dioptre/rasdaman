@@ -53,7 +53,7 @@ next() method returns a tupel of QtData or any subclass of QtData.
 
 class QtONCStream : public QtNode
 {
-  public:
+public:
     /// default constructor
     QtONCStream();
 
@@ -76,26 +76,26 @@ class QtONCStream : public QtNode
     virtual const QtTypeTuple& checkType() = 0;
     /**
       The method triggers type checking of the node's subtree. If an error occurs, an exception
-      is raised. 
+      is raised.
     */
 
     //@Man: Read/Write methods
     //@{
     ///
-      /// 
-      inline void               setDataStreamType( const QtTypeTuple& type );
-      ///
-      inline const QtTypeTuple& getDataStreamType() const;
+    ///
+    inline void               setDataStreamType( const QtTypeTuple& type );
+    ///
+    inline const QtTypeTuple& getDataStreamType() const;
     ///
     //@}
 
-  protected:
+protected:
     /// result type of the node
     QtTypeTuple dataStreamType;
 
-  private:
-	/// atribute for identification of nodes
-	static const QtNodeType nodeType;	
+private:
+    /// atribute for identification of nodes
+    static const QtNodeType nodeType;
 };
 
 #endif

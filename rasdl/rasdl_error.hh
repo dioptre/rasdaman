@@ -42,7 +42,7 @@ rasdaman GmbH.
 */
 
 
-    /// valid error codes:
+/// valid error codes:
 #define ALLDONE                         -1
 #define OK                              0
 #define CANNOTALLOC                     1
@@ -61,18 +61,18 @@ rasdaman GmbH.
   */
 class RasdlError // : public std::exception
 {
-  public:
+public:
 
     /// constructor receiving an error number
     RasdlError( unsigned int e );
-    
+
     /// destructor
     virtual ~RasdlError();
-  
-    /// get an error description
-    virtual const char * what(); 
 
-  private:
+    /// get an error description
+    virtual const char * what();
+
+private:
     /// error information
     unsigned int error_code;
 };

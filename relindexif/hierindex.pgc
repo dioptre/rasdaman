@@ -57,651 +57,651 @@ extern PGconn *pgConn;
 void
 DBHierIndex::insertInDb() throw (r_Error)
 {
-	RMDBGENTER(5, RMDebug::module_indexif, "DBHierIndex", "insertInDb() " << myOId);
-	ENTER( "DBHierIndex::insertInDb(), myOId=" << myOId );
+    RMDBGENTER(5, RMDebug::module_indexif, "DBHierIndex", "insertInDb() " << myOId);
+    ENTER( "DBHierIndex::insertInDb(), myOId=" << myOId );
 
 #ifdef NOTYET   // should be in future
-/*
-	EXEC SQL BEGIN DECLARE SECTION;
-*/
+    /*
+        EXEC SQL BEGIN DECLARE SECTION;
+    */
 #endif // NOTYET
-		double	id2;
-		long	dimension2;
-		long	size2;
-		double	parentid2;
-		short	indexsubtype2;
-		Oid	blobOid;
-		char	pgQuery[SQL_QUERY_BUFFER_SIZE];		// prelim
-		PGresult *pgResult = NULL;			// prelim
+    double  id2;
+    long    dimension2;
+    long    size2;
+    double  parentid2;
+    short   indexsubtype2;
+    Oid blobOid;
+    char    pgQuery[SQL_QUERY_BUFFER_SIZE];     // prelim
+    PGresult *pgResult = NULL;          // prelim
 #ifdef NOTYET   // should be in future
-/*
-	EXEC SQL END DECLARE SECTION;
-*/
+    /*
+        EXEC SQL END DECLARE SECTION;
+    */
 #endif // NOTYET
 
-	// (0) --- prepare variables
-	id2 = myOId;
-	dimension2 = myDomain.dimension();
-	// size2 = myKeyObjects.size();
-	size2 = getSize();
-	indexsubtype2 = _isNode;
-	
-	if (parent.getType() == OId::INVALID)
-		parentid2 = 0;
-	else
-		parentid2 = parent;
+    // (0) --- prepare variables
+    id2 = myOId;
+    dimension2 = myDomain.dimension();
+    // size2 = myKeyObjects.size();
+    size2 = getSize();
+    indexsubtype2 = _isNode;
 
-	// (1) -­- set all buffers
-	//number of bytes for bounds for "size" entries and mydomain
-	r_Bytes boundssize = sizeof(r_Range) * (size2 + 1) * dimension2;
-	//number of bytes for fixes for "size" entries and mydomain
-	r_Bytes fixessize = sizeof(char) * (size2 + 1) * dimension2;
-	//number of bytes for ids of entries
-	r_Bytes idssize = sizeof(OId::OIdCounter) * size2;
-	//number of bytes for types of entries
-	r_Bytes typessize = sizeof(char) * size2;
-	//number of bytes for the dynamic data, plus 1 starter byte (see below)
-	r_Bytes completesize = 1 + boundssize * 2 + fixessize * 2 + idssize + typessize;
+    if (parent.getType() == OId::INVALID)
+        parentid2 = 0;
+    else
+        parentid2 = parent;
 
-	char* completebuffer = (char*)mymalloc(completesize);
-	if (completebuffer == NULL)
-	{
-		RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
-		LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
-		throw r_Error( r_Error::r_Error_MemoryAllocation );
-	}
-	r_Range* upperboundsbuf = (r_Range*)mymalloc(boundssize);
-	if (upperboundsbuf == NULL)
-	{
-		RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
-		LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
-		throw r_Error( r_Error::r_Error_MemoryAllocation );
-	}
-	r_Range* lowerboundsbuf = (r_Range*)mymalloc(boundssize);
-	if (lowerboundsbuf == NULL)
-	{
-		RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
-		LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
-		throw r_Error( r_Error::r_Error_MemoryAllocation );
-	}
-	char* upperfixedbuf = (char*)mymalloc(fixessize);
-	if (upperfixedbuf == NULL)
-	{
-		RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
-		LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
-		throw r_Error( r_Error::r_Error_MemoryAllocation );
-	}
-	char* lowerfixedbuf = (char*)mymalloc(fixessize);
-	if (lowerfixedbuf == NULL)
-	{
-		RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
-		LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
-		throw r_Error( r_Error::r_Error_MemoryAllocation );
-	}
-	OId::OIdCounter* entryidsbuf = (OId::OIdCounter*)mymalloc(idssize);
-	if (entryidsbuf == NULL)
-	{
-		RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
-		LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
-		throw r_Error( r_Error::r_Error_MemoryAllocation );
-	}
-	char* entrytypesbuf = (char*)mymalloc(typessize);
-	if (entrytypesbuf == NULL)
-	{
-		RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
-		LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
-		throw r_Error( r_Error::r_Error_MemoryAllocation );
-	}
+    // (1) -­- set all buffers
+    //number of bytes for bounds for "size" entries and mydomain
+    r_Bytes boundssize = sizeof(r_Range) * (size2 + 1) * dimension2;
+    //number of bytes for fixes for "size" entries and mydomain
+    r_Bytes fixessize = sizeof(char) * (size2 + 1) * dimension2;
+    //number of bytes for ids of entries
+    r_Bytes idssize = sizeof(OId::OIdCounter) * size2;
+    //number of bytes for types of entries
+    r_Bytes typessize = sizeof(char) * size2;
+    //number of bytes for the dynamic data, plus 1 starter byte (see below)
+    r_Bytes completesize = 1 + boundssize * 2 + fixessize * 2 + idssize + typessize;
 
-	RMDBGMIDDLE(8, RMDebug::module_indexif, "DBHierIndex", "complete=" << completesize << " bounds=" << boundssize << " fixes=" << fixessize << " ids=" << idssize << " types=" << typessize << ", size=" << size2 << " dimension=" << dimension2 );
+    char* completebuffer = (char*)mymalloc(completesize);
+    if (completebuffer == NULL)
+    {
+        RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
+        LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
+        throw r_Error( r_Error::r_Error_MemoryAllocation );
+    }
+    r_Range* upperboundsbuf = (r_Range*)mymalloc(boundssize);
+    if (upperboundsbuf == NULL)
+    {
+        RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
+        LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
+        throw r_Error( r_Error::r_Error_MemoryAllocation );
+    }
+    r_Range* lowerboundsbuf = (r_Range*)mymalloc(boundssize);
+    if (lowerboundsbuf == NULL)
+    {
+        RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
+        LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
+        throw r_Error( r_Error::r_Error_MemoryAllocation );
+    }
+    char* upperfixedbuf = (char*)mymalloc(fixessize);
+    if (upperfixedbuf == NULL)
+    {
+        RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
+        LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
+        throw r_Error( r_Error::r_Error_MemoryAllocation );
+    }
+    char* lowerfixedbuf = (char*)mymalloc(fixessize);
+    if (lowerfixedbuf == NULL)
+    {
+        RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
+        LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
+        throw r_Error( r_Error::r_Error_MemoryAllocation );
+    }
+    OId::OIdCounter* entryidsbuf = (OId::OIdCounter*)mymalloc(idssize);
+    if (entryidsbuf == NULL)
+    {
+        RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
+        LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
+        throw r_Error( r_Error::r_Error_MemoryAllocation );
+    }
+    char* entrytypesbuf = (char*)mymalloc(typessize);
+    if (entrytypesbuf == NULL)
+    {
+        RMInit::logOut << "DBHierIndex::insertInDb() cannot malloc buffer" << endl;
+        LEAVE( "DBHierIndex::insertInDb() cannot malloc buffer" );
+        throw r_Error( r_Error::r_Error_MemoryAllocation );
+    }
 
-	myDomain.insertInDb(&(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[0]));
-	RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "domain " << myDomain << " stored as " << InlineMinterval(dimension2, &(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[0])));
-	//populate the buffers with data
-	KeyObjectVector::iterator it = myKeyObjects.begin();
-	InlineMinterval indom;
-	for (unsigned int i = 0; i < size2; i++, it++)
-	{
-		indom = (*it).getDomain();
-		indom.insertInDb(&(lowerboundsbuf[(i+1)*dimension2]), &(upperboundsbuf[(i+1)*dimension2]), &(lowerfixedbuf[(i+1)*dimension2]), &(upperfixedbuf[(i+1)*dimension2]));
-		entryidsbuf[i] = (*it).getObject().getOId().getCounter();
-		entrytypesbuf[i] = (char)(*it).getObject().getOId().getType();
-		RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "entry " << entryidsbuf[i] << " " << (OId::OIdType)entrytypesbuf[i] << " at " << InlineMinterval(dimension2, &(lowerboundsbuf[(i+1)*dimension2]), &(upperboundsbuf[(i+1)*dimension2]), &(lowerfixedbuf[(i+1)*dimension2]), &(upperfixedbuf[(i+1)*dimension2])));
-	}
+    RMDBGMIDDLE(8, RMDebug::module_indexif, "DBHierIndex", "complete=" << completesize << " bounds=" << boundssize << " fixes=" << fixessize << " ids=" << idssize << " types=" << typessize << ", size=" << size2 << " dimension=" << dimension2 );
 
-	// write the buffers in the complete buffer, free all unnecessary buffers
-	// this indirection is neccessary because of memory alignement of longs...
-	completebuffer[0] = 13;		//the first char must not be a \0
-	(void) memcpy( &completebuffer[1], lowerboundsbuf, boundssize);
-	free(lowerboundsbuf);
-	(void) memcpy( &completebuffer[boundssize + 1], upperboundsbuf, boundssize);
-	free(upperboundsbuf);
-	(void) memcpy( &completebuffer[boundssize * 2 + 1], lowerfixedbuf, fixessize);
-	free(lowerfixedbuf);
-	(void) memcpy( &completebuffer[boundssize * 2 + fixessize + 1], upperfixedbuf, fixessize);
-	free(upperfixedbuf);
-	(void) memcpy( &completebuffer[boundssize * 2 + fixessize * 2 + 1], entryidsbuf, idssize);
-	free(entryidsbuf);
-	(void) memcpy( &completebuffer[boundssize * 2 + fixessize * 2 + idssize + 1], entrytypesbuf, typessize);
-	free(entrytypesbuf);
+    myDomain.insertInDb(&(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[0]));
+    RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "domain " << myDomain << " stored as " << InlineMinterval(dimension2, &(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[0])));
+    //populate the buffers with data
+    KeyObjectVector::iterator it = myKeyObjects.begin();
+    InlineMinterval indom;
+    for (unsigned int i = 0; i < size2; i++, it++)
+    {
+        indom = (*it).getDomain();
+        indom.insertInDb(&(lowerboundsbuf[(i+1)*dimension2]), &(upperboundsbuf[(i+1)*dimension2]), &(lowerfixedbuf[(i+1)*dimension2]), &(upperfixedbuf[(i+1)*dimension2]));
+        entryidsbuf[i] = (*it).getObject().getOId().getCounter();
+        entrytypesbuf[i] = (char)(*it).getObject().getOId().getType();
+        RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "entry " << entryidsbuf[i] << " " << (OId::OIdType)entrytypesbuf[i] << " at " << InlineMinterval(dimension2, &(lowerboundsbuf[(i+1)*dimension2]), &(upperboundsbuf[(i+1)*dimension2]), &(lowerfixedbuf[(i+1)*dimension2]), &(upperfixedbuf[(i+1)*dimension2])));
+    }
+
+    // write the buffers in the complete buffer, free all unnecessary buffers
+    // this indirection is neccessary because of memory alignement of longs...
+    completebuffer[0] = 13;     //the first char must not be a \0
+    (void) memcpy( &completebuffer[1], lowerboundsbuf, boundssize);
+    free(lowerboundsbuf);
+    (void) memcpy( &completebuffer[boundssize + 1], upperboundsbuf, boundssize);
+    free(upperboundsbuf);
+    (void) memcpy( &completebuffer[boundssize * 2 + 1], lowerfixedbuf, fixessize);
+    free(lowerfixedbuf);
+    (void) memcpy( &completebuffer[boundssize * 2 + fixessize + 1], upperfixedbuf, fixessize);
+    free(upperfixedbuf);
+    (void) memcpy( &completebuffer[boundssize * 2 + fixessize * 2 + 1], entryidsbuf, idssize);
+    free(entryidsbuf);
+    (void) memcpy( &completebuffer[boundssize * 2 + fixessize * 2 + idssize + 1], entrytypesbuf, typessize);
+    free(entrytypesbuf);
 
 
-	// (2) --- create, open, write, close blob; generates new 'oid' for subsequent storage in tuple
-	TALK( "lo_creat()" );
-	blobOid = lo_creat( pgConn, INV_READ|INV_WRITE );      // create -- not clear what INV_* here means so indicate all
-	if (blobOid == 0)
-	{
-		RMInit::logOut << "DBHierIndex::insertInDb() cannot create blob, error: " << PQerrorMessage(pgConn) << endl;
-		LEAVE( "DBHierIndex::insertInDb(pgConn)" );
-		generateException();
-	}
-	TALK( "lo_open() for oid " << blobOid );
-	int fd = lo_open( pgConn, blobOid, INV_WRITE );	 // no error code indicated, 0 seems to be no error
-	TALK( "lo_write() for fd " << fd << " with " << completesize << " bytes" );
-	int loResult = lo_write( pgConn, fd, completebuffer, completesize );
-	if (loResult < 0)
-	{
-		RMInit::logOut << "DBHierIndex::insertInDb() cannot write blob, error: " << PQerrorMessage(pgConn) << endl;
-		LEAVE( "DBHierIndex::insertInDb() cannot write blob, error " << PQerrorMessage(pgConn) );
-		generateException();
-	}
-	else if (loResult != completesize)		// did not get all
-	{
-		RMInit::dbgOut << "BLOB (" << myOId << ") insert: wrote " << loResult << " instead of " << completesize << " bytes" << endl;
-		LEAVE( "DBHierIndex::insertInDb() wrote " << loResult << " instead of " << completesize << " bytes" );
-		generateException();
-	}
-	TALK( "lo_close()" );
-	loResult = lo_close( pgConn, fd );
-	if (loResult < 0)				// can't close, don't know if data are written
-	{
-		RMInit::logOut << "DBHierIndex::insertInDb() ignoring lo_close() error: " << PQerrorMessage(pgConn) << endl;
-		LEAVE( "DBHierIndex::insertInDb() cannot lo_close(): " << PQerrorMessage(pgConn) );
-		generateException();
-	}
+    // (2) --- create, open, write, close blob; generates new 'oid' for subsequent storage in tuple
+    TALK( "lo_creat()" );
+    blobOid = lo_creat( pgConn, INV_READ|INV_WRITE );      // create -- not clear what INV_* here means so indicate all
+    if (blobOid == 0)
+    {
+        RMInit::logOut << "DBHierIndex::insertInDb() cannot create blob, error: " << PQerrorMessage(pgConn) << endl;
+        LEAVE( "DBHierIndex::insertInDb(pgConn)" );
+        generateException();
+    }
+    TALK( "lo_open() for oid " << blobOid );
+    int fd = lo_open( pgConn, blobOid, INV_WRITE );  // no error code indicated, 0 seems to be no error
+    TALK( "lo_write() for fd " << fd << " with " << completesize << " bytes" );
+    int loResult = lo_write( pgConn, fd, completebuffer, completesize );
+    if (loResult < 0)
+    {
+        RMInit::logOut << "DBHierIndex::insertInDb() cannot write blob, error: " << PQerrorMessage(pgConn) << endl;
+        LEAVE( "DBHierIndex::insertInDb() cannot write blob, error " << PQerrorMessage(pgConn) );
+        generateException();
+    }
+    else if (loResult != completesize)      // did not get all
+    {
+        RMInit::dbgOut << "BLOB (" << myOId << ") insert: wrote " << loResult << " instead of " << completesize << " bytes" << endl;
+        LEAVE( "DBHierIndex::insertInDb() wrote " << loResult << " instead of " << completesize << " bytes" );
+        generateException();
+    }
+    TALK( "lo_close()" );
+    loResult = lo_close( pgConn, fd );
+    if (loResult < 0)               // can't close, don't know if data are written
+    {
+        RMInit::logOut << "DBHierIndex::insertInDb() ignoring lo_close() error: " << PQerrorMessage(pgConn) << endl;
+        LEAVE( "DBHierIndex::insertInDb() cannot lo_close(): " << PQerrorMessage(pgConn) );
+        generateException();
+    }
 
-	free(completebuffer);				// free main buffer
+    free(completebuffer);               // free main buffer
 
-	// (3) --- insert HIERIX tuple into db
+    // (3) --- insert HIERIX tuple into db
 #ifdef NOTYET   // should be in future
-/*
-	TALK( "EXEC SQL INSERT INTO RAS_HIERIX ( MDDObjIxOId, NumEntries, Dimension, ParentOId, IndexSubType, DynData ) VALUES ( " << id2 << "," << size2 << "," << dimension2 << "," << parentid2 << "," << indexsubtype2 << ", " << blobOid << " )" );
-	EXEC SQL INSERT INTO RAS_HIERIX ( MDDObjIxOId, NumEntries, Dimension, ParentOId, IndexSubType, DynData)
-		VALUES	( :id2, :size2, :dimension2, :parentid2, :indexsubtype2, :blobOid);
-	if (SQLCODE != SQLOK)
-	{
-		check("DBHierIndex::insertInDb() insert into RAS_HIERIX\0");
-		LEAVE( "DBHierIndex::insertInDb(): db access error: " << SQLCODE );
-		generateException();
-	}
-*/
+    /*
+        TALK( "EXEC SQL INSERT INTO RAS_HIERIX ( MDDObjIxOId, NumEntries, Dimension, ParentOId, IndexSubType, DynData ) VALUES ( " << id2 << "," << size2 << "," << dimension2 << "," << parentid2 << "," << indexsubtype2 << ", " << blobOid << " )" );
+        EXEC SQL INSERT INTO RAS_HIERIX ( MDDObjIxOId, NumEntries, Dimension, ParentOId, IndexSubType, DynData)
+            VALUES  ( :id2, :size2, :dimension2, :parentid2, :indexsubtype2, :blobOid);
+        if (SQLCODE != SQLOK)
+        {
+            check("DBHierIndex::insertInDb() insert into RAS_HIERIX\0");
+            LEAVE( "DBHierIndex::insertInDb(): db access error: " << SQLCODE );
+            generateException();
+        }
+    */
 #endif // NOTYET
-	// alternative solution for now:
-	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "INSERT INTO RAS_HIERIX ( MDDObjIxOId, NumEntries, Dimension, ParentOId, IndexSubType, DynData ) VALUES ( %f, %ld, %ld, %f, %d, %d )", id2, size2, dimension2, parentid2, indexsubtype2, blobOid );
-	TALK( pgQuery );
-	pgResult = PQexec( pgConn, pgQuery );
-	if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
-	{
-		LEAVE( "DBHierIndex::insertInDb() libpq 'insert RAS_HIERIX' error: " << PQerrorMessage(pgConn) );
-		PQclear( pgResult );
-		generateException();
-	}
-	PQclear( pgResult );
+    // alternative solution for now:
+    (void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "INSERT INTO RAS_HIERIX ( MDDObjIxOId, NumEntries, Dimension, ParentOId, IndexSubType, DynData ) VALUES ( %f, %ld, %ld, %f, %d, %d )", id2, size2, dimension2, parentid2, indexsubtype2, blobOid );
+    TALK( pgQuery );
+    pgResult = PQexec( pgConn, pgQuery );
+    if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
+    {
+        LEAVE( "DBHierIndex::insertInDb() libpq 'insert RAS_HIERIX' error: " << PQerrorMessage(pgConn) );
+        PQclear( pgResult );
+        generateException();
+    }
+    PQclear( pgResult );
 
-	// (4) --- dbobject insert
-	DBObject::insertInDb();
+    // (4) --- dbobject insert
+    DBObject::insertInDb();
 
-	RMDBGEXIT(5, RMDebug::module_indexif, "DBHierIndex", "insertInDb() " << myOId);
-	LEAVE( "DBHierIndex::insertInDb(), myOId=" << myOId );
+    RMDBGEXIT(5, RMDebug::module_indexif, "DBHierIndex", "insertInDb() " << myOId);
+    LEAVE( "DBHierIndex::insertInDb(), myOId=" << myOId );
 } // insertInDb()
 
 void
 DBHierIndex::readFromDb() throw (r_Error)
 {
-	RMDBGENTER(5, RMDebug::module_indexif, "DBHierIndex", "readFromDb() " << myOId);
-	ENTER( "DBHierIndex::readFromDb(), myOId=" << myOId );
+    RMDBGENTER(5, RMDebug::module_indexif, "DBHierIndex", "readFromDb() " << myOId);
+    ENTER( "DBHierIndex::readFromDb(), myOId=" << myOId );
 
 #ifdef RMANBENCHMARK
-	DBObject::readTimer.resume();
+    DBObject::readTimer.resume();
 #endif
 #ifdef NOTYET   // should be in future
-/*
-	EXEC SQL BEGIN DECLARE SECTION;
-*/
+    /*
+        EXEC SQL BEGIN DECLARE SECTION;
+    */
 #endif // NOTYET
-		double	id1;
-		double	parentid1;
-		long	dimension1;
-		long	size1;
-		short	indexsubtype1;
-		short	lowerfind;
-		Oid	blobOid;
-		char pgQuery[SQL_QUERY_BUFFER_SIZE];		// prelim
-		PGresult *pgResult = NULL;	// prelim
+    double  id1;
+    double  parentid1;
+    long    dimension1;
+    long    size1;
+    short   indexsubtype1;
+    short   lowerfind;
+    Oid blobOid;
+    char pgQuery[SQL_QUERY_BUFFER_SIZE];        // prelim
+    PGresult *pgResult = NULL;  // prelim
 #ifdef NOTYET   // should be in future
-/*
-	EXEC SQL END DECLARE SECTION;
-*/
+    /*
+        EXEC SQL END DECLARE SECTION;
+    */
 #endif // NOTYET
 
-	// (0) --- prepare variables
-	id1 = myOId;
+    // (0) --- prepare variables
+    id1 = myOId;
 
-	// (1) --- fetch tuple from database
+    // (1) --- fetch tuple from database
 #ifdef NOTYET   // should be in future
-/*
-	TALK( "EXEC SQL SELECT NumEntries, Dimension, ParentOId, IndexSubType, DynData INTO :size1, :dimension1, :parentid1, :indexsubtype1, blobOid FROM RAS_HIERIX WHERE MDDObjIxOId = " << id1 );
-	EXEC SQL SELECT NumEntries, Dimension, ParentOId, IndexSubType, DynData
-		INTO :size1, :dimension1, :parentid1, :indexsubtype1, :blobOid 
-		FROM RAS_HIERIX
-		WHERE MDDObjIxOId = :id1;
-	if (SQLCODE != SQLOK)
-	{
-		check("DBHierIndex::readFromDb() select from RAS_HIERIX");
-		LEAVE( "DBHierIndex::insertInDb() 'select from RAS_HIERIX' error: " << SQLCODE );
-		generateException();
-	}
-*/
+    /*
+        TALK( "EXEC SQL SELECT NumEntries, Dimension, ParentOId, IndexSubType, DynData INTO :size1, :dimension1, :parentid1, :indexsubtype1, blobOid FROM RAS_HIERIX WHERE MDDObjIxOId = " << id1 );
+        EXEC SQL SELECT NumEntries, Dimension, ParentOId, IndexSubType, DynData
+            INTO :size1, :dimension1, :parentid1, :indexsubtype1, :blobOid
+            FROM RAS_HIERIX
+            WHERE MDDObjIxOId = :id1;
+        if (SQLCODE != SQLOK)
+        {
+            check("DBHierIndex::readFromDb() select from RAS_HIERIX");
+            LEAVE( "DBHierIndex::insertInDb() 'select from RAS_HIERIX' error: " << SQLCODE );
+            generateException();
+        }
+    */
 #endif // NOTYET
-	// alternative solution for now:
-	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "SELECT NumEntries, Dimension, ParentOId, IndexSubType, DynData FROM RAS_HIERIX WHERE MDDObjIxOId = %f", id1 );
-	TALK( pgQuery );
-	pgResult = PQexec( pgConn, pgQuery );
-	if (PQresultStatus(pgResult) != PGRES_TUPLES_OK)
-	{
-		LEAVE( "DBHierIndex::insertInDb() libpq 'select RAS_HIERIX' error: " << PQerrorMessage(pgConn) );
-		PQclear( pgResult );
-		generateException();
-	}
-	size1         = atoi( PQgetvalue( pgResult, 0, 0 ) ); // extract value #1 from result
-	dimension1    = atoi( PQgetvalue( pgResult, 0, 1 ) ); // extract value #2 from result
-	parentid1     = atoi( PQgetvalue( pgResult, 0, 2 ) ); // extract value #3 from result
-	indexsubtype1 = atoi( PQgetvalue( pgResult, 0, 3 ) ); // extract value #4 from result
-	blobOid       = atoi( PQgetvalue( pgResult, 0, 4 ) ); // extract value #5 from result
-	PQclear( pgResult );
+    // alternative solution for now:
+    (void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "SELECT NumEntries, Dimension, ParentOId, IndexSubType, DynData FROM RAS_HIERIX WHERE MDDObjIxOId = %f", id1 );
+    TALK( pgQuery );
+    pgResult = PQexec( pgConn, pgQuery );
+    if (PQresultStatus(pgResult) != PGRES_TUPLES_OK)
+    {
+        LEAVE( "DBHierIndex::insertInDb() libpq 'select RAS_HIERIX' error: " << PQerrorMessage(pgConn) );
+        PQclear( pgResult );
+        generateException();
+    }
+    size1         = atoi( PQgetvalue( pgResult, 0, 0 ) ); // extract value #1 from result
+    dimension1    = atoi( PQgetvalue( pgResult, 0, 1 ) ); // extract value #2 from result
+    parentid1     = atoi( PQgetvalue( pgResult, 0, 2 ) ); // extract value #3 from result
+    indexsubtype1 = atoi( PQgetvalue( pgResult, 0, 3 ) ); // extract value #4 from result
+    blobOid       = atoi( PQgetvalue( pgResult, 0, 4 ) ); // extract value #5 from result
+    PQclear( pgResult );
 
-	// (2) --- fill variables and buffers
+    // (2) --- fill variables and buffers
 
-	_isNode = indexsubtype1;
+    _isNode = indexsubtype1;
 
-	if (parentid1)
-		parent = OId(parentid1);
-	else
-		parent = OId(0, OId::INVALID);
+    if (parentid1)
+        parent = OId(parentid1);
+    else
+        parent = OId(0, OId::INVALID);
 
-	//number of bytes for bounds for "size" entries and mydomain
-	r_Bytes boundssize = sizeof(r_Range) * (size1 + 1) * dimension1;
-	//number of bytes for fixes for "size" entries and mydomain
-	r_Bytes fixessize = sizeof(char) * (size1 + 1) * dimension1;
-	//number of bytes for ids of entries
-	r_Bytes idssize = sizeof(OId::OIdCounter) * size1;
-	//number of bytes for types of entries
-	r_Bytes typessize = sizeof(char) * size1;
-	//number of bytes for the dynamic data (1 starter byte!)
-	r_Bytes completesize = 1 + boundssize * 2 + fixessize * 2 + idssize + typessize;
+    //number of bytes for bounds for "size" entries and mydomain
+    r_Bytes boundssize = sizeof(r_Range) * (size1 + 1) * dimension1;
+    //number of bytes for fixes for "size" entries and mydomain
+    r_Bytes fixessize = sizeof(char) * (size1 + 1) * dimension1;
+    //number of bytes for ids of entries
+    r_Bytes idssize = sizeof(OId::OIdCounter) * size1;
+    //number of bytes for types of entries
+    r_Bytes typessize = sizeof(char) * size1;
+    //number of bytes for the dynamic data (1 starter byte!)
+    r_Bytes completesize = 1 + boundssize * 2 + fixessize * 2 + idssize + typessize;
 
-	RMDBGMIDDLE(8, RMDebug::module_indexif, "DBHierIndex", "complete=" << completesize << " bounds=" << boundssize << " fixes=" << fixessize << " ids=" << idssize << " types=" << typessize << ", size=" << size1 << " dimension=" << dimension1 );
+    RMDBGMIDDLE(8, RMDebug::module_indexif, "DBHierIndex", "complete=" << completesize << " bounds=" << boundssize << " fixes=" << fixessize << " ids=" << idssize << " types=" << typessize << ", size=" << size1 << " dimension=" << dimension1 );
 
-	char* completebuffer = (char*)mymalloc(completesize);
-	r_Range* upperboundsbuf = (r_Range*)mymalloc(boundssize);
-	r_Range* lowerboundsbuf = (r_Range*)mymalloc(boundssize);
-	char* upperfixedbuf = (char*)mymalloc(fixessize);
-	char* lowerfixedbuf = (char*)mymalloc(fixessize);
-	OId::OIdCounter* entryidsbuf = (OId::OIdCounter*)mymalloc(idssize);
-	char* entrytypesbuf = (char*)mymalloc(typessize);
+    char* completebuffer = (char*)mymalloc(completesize);
+    r_Range* upperboundsbuf = (r_Range*)mymalloc(boundssize);
+    r_Range* lowerboundsbuf = (r_Range*)mymalloc(boundssize);
+    char* upperfixedbuf = (char*)mymalloc(fixessize);
+    char* lowerfixedbuf = (char*)mymalloc(fixessize);
+    OId::OIdCounter* entryidsbuf = (OId::OIdCounter*)mymalloc(idssize);
+    char* entrytypesbuf = (char*)mymalloc(typessize);
 
-	// (3) --- open, read, close blob
-	TALK( "lo_open()" );
-	int fd = lo_open( pgConn, blobOid, INV_READ );		// open; manual tells no error indication
-	TALK( "lo_lseek() end" );
-	int bytesToDo = lo_lseek( pgConn, fd, 0, SEEK_END );	// determine blob size; FIXME: more efficient method??
-	TALK( "lo_lseek() start" );
-	(void) lo_lseek( pgConn, fd, 0, SEEK_SET );		// rewind for reading
-	TALK( "lo_read() for " << completesize << " bytes" );	// read blob
-	int loResult = lo_read( pgConn, fd, completebuffer, completesize );
-	if (loResult < 0)
-	{
-		RMInit::logOut << "DBHierIndex::readFromDb() cannot read blob, error: " << pgResult << endl;
-		LEAVE( "DBHierIndex::readFromDb: cannot read blob, error " << pgResult );
-		throw r_Error( r_Error::r_Error_BaseDBMSFailed );
-	}
-	else if (loResult != bytesToDo)				// did not get all
-	{
-		RMInit::dbgOut << "BLOB (" << myOId << ") read: want to read (" << bytesToDo << " bytes, but got " << loResult << " bytes" << endl;
-		LEAVE( "DBHierIndex::readFromDb: want to read " << bytesToDo << " bytes, but got " << loResult << " bytes" );
-		throw r_Error( r_Error::r_Error_LimitsMismatch );
-	}
-	else if (completesize != bytesToDo)				// this because I don't trust computations
-	{
-		RMInit::dbgOut << "BLOB (" << myOId << ") read: completesize=" << completesize << ", but bytesToDo=" << bytesToDo << endl;
-		LEAVE( "DBHierIndex::readFromDb: completesize=" << completesize << ", but bytesToDo=" << bytesToDo );
-		throw r_Error( r_Error::r_Error_LimitsMismatch );
-	}
-	TALK( "lo_close()" );
-	int ignoredPgResult = lo_close( pgConn, fd );		// close blob
-	if (ignoredPgResult < 0)				// we note, but ignore errors, as we have the data
-	{
-		RMInit::logOut << "DBHierIndex::readFromDb() ignoring lo_close() error: " << ignoredPgResult << endl;
-		TALK( "DBHierIndex::readFromDb: ignoring lo_close() error: " << ignoredPgResult );
-	}
+    // (3) --- open, read, close blob
+    TALK( "lo_open()" );
+    int fd = lo_open( pgConn, blobOid, INV_READ );      // open; manual tells no error indication
+    TALK( "lo_lseek() end" );
+    int bytesToDo = lo_lseek( pgConn, fd, 0, SEEK_END );    // determine blob size; FIXME: more efficient method??
+    TALK( "lo_lseek() start" );
+    (void) lo_lseek( pgConn, fd, 0, SEEK_SET );     // rewind for reading
+    TALK( "lo_read() for " << completesize << " bytes" );   // read blob
+    int loResult = lo_read( pgConn, fd, completebuffer, completesize );
+    if (loResult < 0)
+    {
+        RMInit::logOut << "DBHierIndex::readFromDb() cannot read blob, error: " << pgResult << endl;
+        LEAVE( "DBHierIndex::readFromDb: cannot read blob, error " << pgResult );
+        throw r_Error( r_Error::r_Error_BaseDBMSFailed );
+    }
+    else if (loResult != bytesToDo)             // did not get all
+    {
+        RMInit::dbgOut << "BLOB (" << myOId << ") read: want to read (" << bytesToDo << " bytes, but got " << loResult << " bytes" << endl;
+        LEAVE( "DBHierIndex::readFromDb: want to read " << bytesToDo << " bytes, but got " << loResult << " bytes" );
+        throw r_Error( r_Error::r_Error_LimitsMismatch );
+    }
+    else if (completesize != bytesToDo)             // this because I don't trust computations
+    {
+        RMInit::dbgOut << "BLOB (" << myOId << ") read: completesize=" << completesize << ", but bytesToDo=" << bytesToDo << endl;
+        LEAVE( "DBHierIndex::readFromDb: completesize=" << completesize << ", but bytesToDo=" << bytesToDo );
+        throw r_Error( r_Error::r_Error_LimitsMismatch );
+    }
+    TALK( "lo_close()" );
+    int ignoredPgResult = lo_close( pgConn, fd );       // close blob
+    if (ignoredPgResult < 0)                // we note, but ignore errors, as we have the data
+    {
+        RMInit::logOut << "DBHierIndex::readFromDb() ignoring lo_close() error: " << ignoredPgResult << endl;
+        TALK( "DBHierIndex::readFromDb: ignoring lo_close() error: " << ignoredPgResult );
+    }
 
 
-	// (4) --- copy data into buffers
-	// all dynamic data ( plus starter byte) is in completebuffer, put that stuff in the correct buffers
-	memcpy(lowerboundsbuf, &completebuffer[1], boundssize);
-	memcpy(upperboundsbuf, &completebuffer[boundssize + 1], boundssize);
-	memcpy(lowerfixedbuf,  &completebuffer[boundssize * 2 + 1], fixessize);
-	memcpy(upperfixedbuf,  &completebuffer[boundssize * 2 + fixessize + 1], fixessize);
-	memcpy(entryidsbuf,    &completebuffer[boundssize * 2 + fixessize * 2 + 1], idssize);
-	memcpy(entrytypesbuf,  &completebuffer[boundssize * 2 + fixessize * 2 + idssize + 1], typessize);
-	// now all dynamic data is in its private buffer
-	free (completebuffer);
-	completebuffer = NULL;
+    // (4) --- copy data into buffers
+    // all dynamic data ( plus starter byte) is in completebuffer, put that stuff in the correct buffers
+    memcpy(lowerboundsbuf, &completebuffer[1], boundssize);
+    memcpy(upperboundsbuf, &completebuffer[boundssize + 1], boundssize);
+    memcpy(lowerfixedbuf,  &completebuffer[boundssize * 2 + 1], fixessize);
+    memcpy(upperfixedbuf,  &completebuffer[boundssize * 2 + fixessize + 1], fixessize);
+    memcpy(entryidsbuf,    &completebuffer[boundssize * 2 + fixessize * 2 + 1], idssize);
+    memcpy(entrytypesbuf,  &completebuffer[boundssize * 2 + fixessize * 2 + idssize + 1], typessize);
+    // now all dynamic data is in its private buffer
+    free (completebuffer);
+    completebuffer = NULL;
 
-	// rebuild the attributes from the buffers
-	int i = 0;
-	myDomain = InlineMinterval(dimension1, &(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[i*dimension1]));
-	RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "domain " << myDomain << " constructed from " << InlineMinterval(dimension1, &(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[0])));
-	KeyObject theKey = KeyObject(DBObjectId(), myDomain);
-	for (i = 0; i < size1; i++)
-	{
-		theKey.setDomain(InlineMinterval(dimension1, &(lowerboundsbuf[(i+1)*dimension1]), &(upperboundsbuf[(i+1)*dimension1]), &(lowerfixedbuf[(i+1)*dimension1]), &(upperfixedbuf[(i+1)*dimension1])));
-		theKey.setObject(OId(entryidsbuf[i], (OId::OIdType)entrytypesbuf[i]));
-		myKeyObjects.push_back(theKey);
-		RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "entry " << entryidsbuf[i] << " " << (OId::OIdType)entrytypesbuf[i] << " at " << InlineMinterval(dimension1, &(lowerboundsbuf[(i+1)*dimension1]), &(upperboundsbuf[(i+1)*dimension1]), &(lowerfixedbuf[(i+1)*dimension1]), &(upperfixedbuf[(i+1)*dimension1])));
-	}
+    // rebuild the attributes from the buffers
+    int i = 0;
+    myDomain = InlineMinterval(dimension1, &(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[i*dimension1]));
+    RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "domain " << myDomain << " constructed from " << InlineMinterval(dimension1, &(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[0])));
+    KeyObject theKey = KeyObject(DBObjectId(), myDomain);
+    for (i = 0; i < size1; i++)
+    {
+        theKey.setDomain(InlineMinterval(dimension1, &(lowerboundsbuf[(i+1)*dimension1]), &(upperboundsbuf[(i+1)*dimension1]), &(lowerfixedbuf[(i+1)*dimension1]), &(upperfixedbuf[(i+1)*dimension1])));
+        theKey.setObject(OId(entryidsbuf[i], (OId::OIdType)entrytypesbuf[i]));
+        myKeyObjects.push_back(theKey);
+        RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "entry " << entryidsbuf[i] << " " << (OId::OIdType)entrytypesbuf[i] << " at " << InlineMinterval(dimension1, &(lowerboundsbuf[(i+1)*dimension1]), &(upperboundsbuf[(i+1)*dimension1]), &(lowerfixedbuf[(i+1)*dimension1]), &(upperfixedbuf[(i+1)*dimension1])));
+    }
 
-	free(upperboundsbuf);
-	free(lowerboundsbuf);
-	free(upperfixedbuf);
-	free(lowerfixedbuf);
-	free(entryidsbuf);
-	free(entrytypesbuf);
+    free(upperboundsbuf);
+    free(lowerboundsbuf);
+    free(upperfixedbuf);
+    free(lowerfixedbuf);
+    free(entryidsbuf);
+    free(entrytypesbuf);
 
 #ifdef RMANBENCHMARK
-	DBObject::readTimer.pause();
+    DBObject::readTimer.pause();
 #endif
 
-	// (5) --- fill dbobject
-	DBObject::readFromDb();
+    // (5) --- fill dbobject
+    DBObject::readFromDb();
 
-	RMDBGEXIT(5, RMDebug::module_indexif, "DBHierIndex", "readFromDb() " << myOId);
-	LEAVE( "DBHierIndex::readFromDb(), myOId=" << myOId );
+    RMDBGEXIT(5, RMDebug::module_indexif, "DBHierIndex", "readFromDb() " << myOId);
+    LEAVE( "DBHierIndex::readFromDb(), myOId=" << myOId );
 } // readFromDb()
 
 void
 DBHierIndex::updateInDb() throw (r_Error)
 {
-	RMDBGENTER(5, RMDebug::module_indexif, "DBHierIndex", "updateInDb() " << myOId);
-	ENTER( "DBHierIndex::updateInDb(), myOId=" << myOId );
+    RMDBGENTER(5, RMDebug::module_indexif, "DBHierIndex", "updateInDb() " << myOId);
+    ENTER( "DBHierIndex::updateInDb(), myOId=" << myOId );
 
 #ifdef NOTYET   // should be in future
-/*
-	EXEC SQL BEGIN DECLARE SECTION;
-*/
+    /*
+        EXEC SQL BEGIN DECLARE SECTION;
+    */
 #endif // NOTYET
-		double	id4;
-		long	dimension4;
-		long	size4;
-		double	parentid4;
-		short	count4;
-		short	indexsubtype4;
-		Oid	blobOid;
-		char pgQuery[SQL_QUERY_BUFFER_SIZE];		// prelim
-		PGresult *pgResult = NULL;	// prelim
+    double  id4;
+    long    dimension4;
+    long    size4;
+    double  parentid4;
+    short   count4;
+    short   indexsubtype4;
+    Oid blobOid;
+    char pgQuery[SQL_QUERY_BUFFER_SIZE];        // prelim
+    PGresult *pgResult = NULL;  // prelim
 #ifdef NOTYET   // should be in future
-/*
-	EXEC SQL END DECLARE SECTION;
-*/
+    /*
+        EXEC SQL END DECLARE SECTION;
+    */
 #endif // NOTYET
 
-	// (0) --- prepare variables
-	id4 = myOId;
-	indexsubtype4 = _isNode; 
-	dimension4 = myDomain.dimension();
-	size4 = myKeyObjects.size();
-	if (parent.getType() == OId::INVALID)
-		parentid4 = 0;
-	else
-		parentid4 = parent;
+    // (0) --- prepare variables
+    id4 = myOId;
+    indexsubtype4 = _isNode;
+    dimension4 = myDomain.dimension();
+    size4 = myKeyObjects.size();
+    if (parent.getType() == OId::INVALID)
+        parentid4 = 0;
+    else
+        parentid4 = parent;
 
-	// (1) --- prepare buffer
-	//number of bytes for bounds for "size" entries and mydomain
-	r_Bytes boundssize = sizeof(r_Range) * (size4 + 1) * dimension4;
-	//number of bytes for fixes for "size" entries and mydomain
-	r_Bytes fixessize = sizeof(char) * (size4 + 1) * dimension4;
-	//number of bytes for ids of entries
-	r_Bytes idssize = sizeof(OId::OIdCounter) * size4;
-	//number of bytes for types of entries
-	r_Bytes typessize = sizeof(char) * size4;
-	//number of bytes for the dynamic data; 1 starter byte!
-	r_Bytes completesize = 1 + boundssize * 2 + fixessize * 2 + idssize + typessize;
+    // (1) --- prepare buffer
+    //number of bytes for bounds for "size" entries and mydomain
+    r_Bytes boundssize = sizeof(r_Range) * (size4 + 1) * dimension4;
+    //number of bytes for fixes for "size" entries and mydomain
+    r_Bytes fixessize = sizeof(char) * (size4 + 1) * dimension4;
+    //number of bytes for ids of entries
+    r_Bytes idssize = sizeof(OId::OIdCounter) * size4;
+    //number of bytes for types of entries
+    r_Bytes typessize = sizeof(char) * size4;
+    //number of bytes for the dynamic data; 1 starter byte!
+    r_Bytes completesize = 1 + boundssize * 2 + fixessize * 2 + idssize + typessize;
 
-	char* completebuffer = (char*)mymalloc(completesize);
-	r_Range* upperboundsbuf = (r_Range*)mymalloc(boundssize);
-	r_Range* lowerboundsbuf = (r_Range*)mymalloc(boundssize);
-	char* upperfixedbuf = (char*)mymalloc(fixessize);
-	char* lowerfixedbuf = (char*)mymalloc(fixessize);
-	OId::OIdCounter* entryidsbuf = (OId::OIdCounter*)mymalloc(idssize);
-	char* entrytypesbuf = (char*)mymalloc(typessize);
+    char* completebuffer = (char*)mymalloc(completesize);
+    r_Range* upperboundsbuf = (r_Range*)mymalloc(boundssize);
+    r_Range* lowerboundsbuf = (r_Range*)mymalloc(boundssize);
+    char* upperfixedbuf = (char*)mymalloc(fixessize);
+    char* lowerfixedbuf = (char*)mymalloc(fixessize);
+    OId::OIdCounter* entryidsbuf = (OId::OIdCounter*)mymalloc(idssize);
+    char* entrytypesbuf = (char*)mymalloc(typessize);
 
-	// populate the buffers with data
-	myDomain.insertInDb(&(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[0]));
-	RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "domain " << myDomain << " stored as " << InlineMinterval(dimension4, &(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[0])));
+    // populate the buffers with data
+    myDomain.insertInDb(&(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[0]));
+    RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "domain " << myDomain << " stored as " << InlineMinterval(dimension4, &(lowerboundsbuf[0]), &(upperboundsbuf[0]), &(lowerfixedbuf[0]), &(upperfixedbuf[0])));
 
-	KeyObjectVector::iterator it = myKeyObjects.begin();
-	InlineMinterval indom;
-	for (unsigned int i = 0; i < size4; i++, it++)
-	{
-		indom = (*it).getDomain();
-		indom.insertInDb(&(lowerboundsbuf[(i+1)*dimension4]), &(upperboundsbuf[(i+1)*dimension4]), &(lowerfixedbuf[(i+1)*dimension4]), &(upperfixedbuf[(i+1)*dimension4]));
-		entryidsbuf[i] = (*it).getObject().getOId().getCounter();
-		entrytypesbuf[i] = (char)(*it).getObject().getOId().getType();
-		RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "entry " << entryidsbuf[i] << " " << (OId::OIdType)entrytypesbuf[i] << " at " << InlineMinterval(dimension4, &(lowerboundsbuf[(i+1)*dimension4]), &(upperboundsbuf[(i+1)*dimension4]), &(lowerfixedbuf[(i+1)*dimension4]), &(upperfixedbuf[(i+1)*dimension4])));
-	}
-	
-	RMDBGMIDDLE(8, RMDebug::module_indexif, "DBHierIndex", "complete=" << completesize << " bounds=" << boundssize << " fixes=" << fixessize << " ids=" << idssize << " types=" << typessize << ", size=" << size4 << " dimension=" << dimension4 );
+    KeyObjectVector::iterator it = myKeyObjects.begin();
+    InlineMinterval indom;
+    for (unsigned int i = 0; i < size4; i++, it++)
+    {
+        indom = (*it).getDomain();
+        indom.insertInDb(&(lowerboundsbuf[(i+1)*dimension4]), &(upperboundsbuf[(i+1)*dimension4]), &(lowerfixedbuf[(i+1)*dimension4]), &(upperfixedbuf[(i+1)*dimension4]));
+        entryidsbuf[i] = (*it).getObject().getOId().getCounter();
+        entrytypesbuf[i] = (char)(*it).getObject().getOId().getType();
+        RMDBGMIDDLE(5, RMDebug::module_indexif, "DBHierIndex", "entry " << entryidsbuf[i] << " " << (OId::OIdType)entrytypesbuf[i] << " at " << InlineMinterval(dimension4, &(lowerboundsbuf[(i+1)*dimension4]), &(upperboundsbuf[(i+1)*dimension4]), &(lowerfixedbuf[(i+1)*dimension4]), &(upperfixedbuf[(i+1)*dimension4])));
+    }
 
-	// write the buffers in the complete buffer, plus starter byte
-	// this indirection is neccessary because of memory alignement of longs...
-	completebuffer[0] = 13;			// write dummy starter byte
-	memcpy( &completebuffer[1], lowerboundsbuf, boundssize);
-	free(lowerboundsbuf);
-	memcpy( &completebuffer[boundssize + 1], upperboundsbuf, boundssize);
-	free(upperboundsbuf);
-	memcpy( &completebuffer[boundssize * 2 + 1], lowerfixedbuf, fixessize);
-	free(lowerfixedbuf);
-	memcpy( &completebuffer[boundssize * 2 + fixessize + 1], upperfixedbuf, fixessize);
-	free(upperfixedbuf);
-	memcpy( &completebuffer[boundssize * 2 + fixessize * 2 + 1], entryidsbuf, idssize);
-	free(entryidsbuf);
-	memcpy( &completebuffer[boundssize * 2 + fixessize * 2 + idssize + 1], entrytypesbuf, typessize);
-	free(entrytypesbuf);
+    RMDBGMIDDLE(8, RMDebug::module_indexif, "DBHierIndex", "complete=" << completesize << " bounds=" << boundssize << " fixes=" << fixessize << " ids=" << idssize << " types=" << typessize << ", size=" << size4 << " dimension=" << dimension4 );
+
+    // write the buffers in the complete buffer, plus starter byte
+    // this indirection is neccessary because of memory alignement of longs...
+    completebuffer[0] = 13;         // write dummy starter byte
+    memcpy( &completebuffer[1], lowerboundsbuf, boundssize);
+    free(lowerboundsbuf);
+    memcpy( &completebuffer[boundssize + 1], upperboundsbuf, boundssize);
+    free(upperboundsbuf);
+    memcpy( &completebuffer[boundssize * 2 + 1], lowerfixedbuf, fixessize);
+    free(lowerfixedbuf);
+    memcpy( &completebuffer[boundssize * 2 + fixessize + 1], upperfixedbuf, fixessize);
+    free(upperfixedbuf);
+    memcpy( &completebuffer[boundssize * 2 + fixessize * 2 + 1], entryidsbuf, idssize);
+    free(entryidsbuf);
+    memcpy( &completebuffer[boundssize * 2 + fixessize * 2 + idssize + 1], entrytypesbuf, typessize);
+    free(entrytypesbuf);
 
 
-	// (2) --- write complete buffer to new database blob
-	// create, open, write, close blob; generates new 'oid' for subsequent storage in tuple
-	TALK( "lo_creat()" );
-	blobOid = lo_creat( pgConn, INV_READ|INV_WRITE );      // create -- not clear what INV_* here means so indicate all
-	if (blobOid == 0)
-	{
-		RMInit::logOut << "DBHierIndex::updateInDb() cannot create blob, error: " << PQerrorMessage(pgConn) << endl;
-		LEAVE( "DBHierIndex::updateInDb(pgConn)" );
-		generateException();
-	}
-	TALK( "lo_open() for oid " << blobOid );
-	int fd = lo_open( pgConn, blobOid, INV_WRITE );	 // no error code indicated, 0 seems to be no error
-	TALK( "lo_write() for fd " << fd << " for " << completesize << " bytes" );
-	int loResult = lo_write( pgConn, fd, completebuffer, completesize );
-	if (loResult < 0)
-	{
-		RMInit::logOut << "DBHierIndex::updateInDb() cannot write blob, error: " << PQerrorMessage(pgConn) << endl;
-		LEAVE( "DBHierIndex::updateInDb() cannot write blob, error " << PQerrorMessage(pgConn) );
-		generateException();
-	}
-	else if (loResult != completesize)		// did not get all
-	{
-		RMInit::dbgOut << "BLOB (" << myOId << ") update: wrote " << loResult << " instead of " << completesize << " bytes" << endl;
-		LEAVE( "DBHierIndex::updateInDb() wrote " << loResult << " instead of " << completesize << " bytes" );
-		generateException();
-	}
-	TALK( "lo_close()" );
-	loResult = lo_close( pgConn, fd );
-	if (loResult < 0)				// can't close, don't know if data are written
-	{
-		RMInit::logOut << "DBHierIndex::updateInDb() ignoring lo_close() error: " << PQerrorMessage(pgConn) << endl;
-		LEAVE( "DBHierIndex::updateInDb() cannot lo_close(): " << PQerrorMessage(pgConn) );
-		generateException();
-	}
-	free(completebuffer);
-	completebuffer = NULL;
+    // (2) --- write complete buffer to new database blob
+    // create, open, write, close blob; generates new 'oid' for subsequent storage in tuple
+    TALK( "lo_creat()" );
+    blobOid = lo_creat( pgConn, INV_READ|INV_WRITE );      // create -- not clear what INV_* here means so indicate all
+    if (blobOid == 0)
+    {
+        RMInit::logOut << "DBHierIndex::updateInDb() cannot create blob, error: " << PQerrorMessage(pgConn) << endl;
+        LEAVE( "DBHierIndex::updateInDb(pgConn)" );
+        generateException();
+    }
+    TALK( "lo_open() for oid " << blobOid );
+    int fd = lo_open( pgConn, blobOid, INV_WRITE );  // no error code indicated, 0 seems to be no error
+    TALK( "lo_write() for fd " << fd << " for " << completesize << " bytes" );
+    int loResult = lo_write( pgConn, fd, completebuffer, completesize );
+    if (loResult < 0)
+    {
+        RMInit::logOut << "DBHierIndex::updateInDb() cannot write blob, error: " << PQerrorMessage(pgConn) << endl;
+        LEAVE( "DBHierIndex::updateInDb() cannot write blob, error " << PQerrorMessage(pgConn) );
+        generateException();
+    }
+    else if (loResult != completesize)      // did not get all
+    {
+        RMInit::dbgOut << "BLOB (" << myOId << ") update: wrote " << loResult << " instead of " << completesize << " bytes" << endl;
+        LEAVE( "DBHierIndex::updateInDb() wrote " << loResult << " instead of " << completesize << " bytes" );
+        generateException();
+    }
+    TALK( "lo_close()" );
+    loResult = lo_close( pgConn, fd );
+    if (loResult < 0)               // can't close, don't know if data are written
+    {
+        RMInit::logOut << "DBHierIndex::updateInDb() ignoring lo_close() error: " << PQerrorMessage(pgConn) << endl;
+        LEAVE( "DBHierIndex::updateInDb() cannot lo_close(): " << PQerrorMessage(pgConn) );
+        generateException();
+    }
+    free(completebuffer);
+    completebuffer = NULL;
 
-	// (3) -- update HierIx entry
+    // (3) -- update HierIx entry
 #ifdef NOTYET   // should be in future
-/*
-	TALK( "EXEC SQL UPDATE RAS_HIERIX SET NumEntries = " << size4 << ", Dimension = " << dimension4 << ", ParentOId = " << parentid4 << ", IndexSubType = " << indexsubtype4 << ", DynData = " << blobOid );
-	EXEC SQL UPDATE RAS_HIERIX
-		SET NumEntries = :size4, Dimension = :dimension4, ParentOId = :parentid4, IndexSubType = :indexsubtype4, DynData = :blobOid
-		WHERE MDDObjIxOId = :id4;
-	if (SQLCODE != SQLOK)
-	{
-		check("DBHierIndex::updateInDb() update RAS_HIERIX");
-		LEAVE( "DBHierIndex::updateInDb(): db access error: " << SQLCODE );
-		generateException();
-	}
-*/
+    /*
+        TALK( "EXEC SQL UPDATE RAS_HIERIX SET NumEntries = " << size4 << ", Dimension = " << dimension4 << ", ParentOId = " << parentid4 << ", IndexSubType = " << indexsubtype4 << ", DynData = " << blobOid );
+        EXEC SQL UPDATE RAS_HIERIX
+            SET NumEntries = :size4, Dimension = :dimension4, ParentOId = :parentid4, IndexSubType = :indexsubtype4, DynData = :blobOid
+            WHERE MDDObjIxOId = :id4;
+        if (SQLCODE != SQLOK)
+        {
+            check("DBHierIndex::updateInDb() update RAS_HIERIX");
+            LEAVE( "DBHierIndex::updateInDb(): db access error: " << SQLCODE );
+            generateException();
+        }
+    */
 #endif // NOTYET
-	// alternative solution for now:
-	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "UPDATE RAS_HIERIX SET NumEntries = %ld, Dimension = %ld, ParentOId = %f, IndexSubType = %d, DynData = %d WHERE MDDObjIxOId = %f", size4, dimension4, parentid4, indexsubtype4, blobOid, id4 );
-	TALK( pgQuery );
-	pgResult = PQexec( pgConn, pgQuery );
-	if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
-	{
-		LEAVE( "DBHierIndex::updateInDb() libpq 'UPDATE HierIx' error: " << PQerrorMessage(pgConn) );
-		PQclear( pgResult );
-		generateException();
-	}
-	PQclear( pgResult );
+    // alternative solution for now:
+    (void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "UPDATE RAS_HIERIX SET NumEntries = %ld, Dimension = %ld, ParentOId = %f, IndexSubType = %d, DynData = %d WHERE MDDObjIxOId = %f", size4, dimension4, parentid4, indexsubtype4, blobOid, id4 );
+    TALK( pgQuery );
+    pgResult = PQexec( pgConn, pgQuery );
+    if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
+    {
+        LEAVE( "DBHierIndex::updateInDb() libpq 'UPDATE HierIx' error: " << PQerrorMessage(pgConn) );
+        PQclear( pgResult );
+        generateException();
+    }
+    PQclear( pgResult );
 
-	// (4) --- dbobject update
-	DBObject::updateInDb();
+    // (4) --- dbobject update
+    DBObject::updateInDb();
 
-	RMDBGEXIT(5, RMDebug::module_indexif, "DBHierIndex", "updateInDb() " << myOId);
-	LEAVE( "DBHierIndex::updateInDb(), myOId=" << myOId );
+    RMDBGEXIT(5, RMDebug::module_indexif, "DBHierIndex", "updateInDb() " << myOId);
+    LEAVE( "DBHierIndex::updateInDb(), myOId=" << myOId );
 } // updateInDb()
 
 void
 DBHierIndex::deleteFromDb() throw (r_Error)
 {
-	RMDBGENTER(8, RMDebug::module_indexif, "DBHierIndex", "deleteFromDb() " << myOId);
-	ENTER( "DBHierIndex::deleteFromDb(), myOId=" << myOId );
+    RMDBGENTER(8, RMDebug::module_indexif, "DBHierIndex", "deleteFromDb() " << myOId);
+    ENTER( "DBHierIndex::deleteFromDb(), myOId=" << myOId );
 
 #ifdef NOTYET   // should be in future
-/*
-	EXEC SQL BEGIN DECLARE SECTION;
-*/
+    /*
+        EXEC SQL BEGIN DECLARE SECTION;
+    */
 #endif // NOTYET
-		double	id3;
-		Oid	blobOid;
-		char pgQuery[SQL_QUERY_BUFFER_SIZE];		// prelim
-		PGresult *pgResult = NULL;	// prelim
+    double  id3;
+    Oid blobOid;
+    char pgQuery[SQL_QUERY_BUFFER_SIZE];        // prelim
+    PGresult *pgResult = NULL;  // prelim
 #ifdef NOTYET   // should be in future
-/*
-	EXEC SQL END DECLARE SECTION;
-*/
+    /*
+        EXEC SQL END DECLARE SECTION;
+    */
 #endif // NOTYET
 
-	OId oi;
-	DBObjectId dbo;
-	while (!myKeyObjects.empty())
-	{
-		oi = myKeyObjects.begin()->getObject().getOId();
-		DBObjectId dbo;
-		if ((oi.getType() == OId::BLOBOID) || (oi.getType() == OId::INLINETILEOID))
-		{
-			BLOBTile::kill(oi);
-		}
-		else
-		{
-			dbo = DBObjectId(oi);
-			if (!dbo.is_null())
-			{
-				dbo->setCached(false);
-				dbo->setPersistent(false);
-				dbo = (unsigned int)0;
-			}
-		}
-		myKeyObjects.erase(myKeyObjects.begin());
-	}
+    OId oi;
+    DBObjectId dbo;
+    while (!myKeyObjects.empty())
+    {
+        oi = myKeyObjects.begin()->getObject().getOId();
+        DBObjectId dbo;
+        if ((oi.getType() == OId::BLOBOID) || (oi.getType() == OId::INLINETILEOID))
+        {
+            BLOBTile::kill(oi);
+        }
+        else
+        {
+            dbo = DBObjectId(oi);
+            if (!dbo.is_null())
+            {
+                dbo->setCached(false);
+                dbo->setPersistent(false);
+                dbo = (unsigned int)0;
+            }
+        }
+        myKeyObjects.erase(myKeyObjects.begin());
+    }
 
-	id3 = myOId;
+    id3 = myOId;
 
-	// (1) --- get blob oid
+    // (1) --- get blob oid
 #ifdef NOTYET   // should be in future
-/*
-	TALK( "EXEC SQL SELECT DynData INTO :blobOid FROM RAS_HIERIX WHERE MDDObjIxOId = " << id3 );
-	EXEC SQL SELECT DynData
-		INTO :blobOid
-		FROM RAS_HIERIX
-		WHERE MDDObjIxOId = :id3;
-	if (SQLCODE != SQLOK)
-	{
-		check("DBHierIndex::deleteFromDb() select from RAS_HIERIX");
-		LEAVE( "DBHierIndex::deleteFromDb() select from RAS_HIERIX: error: " << SQLCODE );
-		generateException();
-	}
-*/
+    /*
+        TALK( "EXEC SQL SELECT DynData INTO :blobOid FROM RAS_HIERIX WHERE MDDObjIxOId = " << id3 );
+        EXEC SQL SELECT DynData
+            INTO :blobOid
+            FROM RAS_HIERIX
+            WHERE MDDObjIxOId = :id3;
+        if (SQLCODE != SQLOK)
+        {
+            check("DBHierIndex::deleteFromDb() select from RAS_HIERIX");
+            LEAVE( "DBHierIndex::deleteFromDb() select from RAS_HIERIX: error: " << SQLCODE );
+            generateException();
+        }
+    */
 #endif // NOTYET
-	// alternative solution for now:
-	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "SELECT DynData FROM RAS_HIERIX WHERE MDDObjIxOId = %f", id3 );
-	TALK( pgQuery );
-	pgResult = PQexec( pgConn, pgQuery );
-	if (PQresultStatus(pgResult) != PGRES_TUPLES_OK)
-	{
-		LEAVE( "DBHierIndex::deleteFromDb() libpq 'select RAS_HIERIX' error: " << PQerrorMessage(pgConn) );
-		PQclear( pgResult );
-		generateException();
-	}
-	blobOid = atoi( PQgetvalue( pgResult, 0, 0 ) ); // extract value from result
-	PQclear( pgResult );
+    // alternative solution for now:
+    (void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "SELECT DynData FROM RAS_HIERIX WHERE MDDObjIxOId = %f", id3 );
+    TALK( pgQuery );
+    pgResult = PQexec( pgConn, pgQuery );
+    if (PQresultStatus(pgResult) != PGRES_TUPLES_OK)
+    {
+        LEAVE( "DBHierIndex::deleteFromDb() libpq 'select RAS_HIERIX' error: " << PQerrorMessage(pgConn) );
+        PQclear( pgResult );
+        generateException();
+    }
+    blobOid = atoi( PQgetvalue( pgResult, 0, 0 ) ); // extract value from result
+    PQclear( pgResult );
 
-	// (2) --- delete blob
-	int loResult = lo_unlink( pgConn, blobOid );
-	if (loResult < 0)					// no disaster if we can't so no exception
-	{
-		TALK( "DBHierIndex::deleteFromDb() warning: libpq 'unlink blob' error: " << PQerrorMessage(pgConn) );
-	}
+    // (2) --- delete blob
+    int loResult = lo_unlink( pgConn, blobOid );
+    if (loResult < 0)                   // no disaster if we can't so no exception
+    {
+        TALK( "DBHierIndex::deleteFromDb() warning: libpq 'unlink blob' error: " << PQerrorMessage(pgConn) );
+    }
 
-	// (3) --- delete tuple
+    // (3) --- delete tuple
 #ifdef NOTYET   // should be in future
-/*
-	TALK( "EXEC SQL DELETE FROM RAS_HIERIX WHERE MDDObjIxOId = " << id3 );
-	EXEC SQL DELETE FROM RAS_HIERIX
-		WHERE MDDObjIxOId = :id3;
-	if (SQLCODE != SQLOK)
-	{
-		check("DBHierIndex::deleteFromDb() RAS_HIERIX");
-		LEAVE( "DBHierIndex::deleteFromDb(): db access error: " << SQLCODE );
-		generateException();
-	}
-*/
+    /*
+        TALK( "EXEC SQL DELETE FROM RAS_HIERIX WHERE MDDObjIxOId = " << id3 );
+        EXEC SQL DELETE FROM RAS_HIERIX
+            WHERE MDDObjIxOId = :id3;
+        if (SQLCODE != SQLOK)
+        {
+            check("DBHierIndex::deleteFromDb() RAS_HIERIX");
+            LEAVE( "DBHierIndex::deleteFromDb(): db access error: " << SQLCODE );
+            generateException();
+        }
+    */
 #endif // NOTYET
-	// alternative solution for now:
-	(void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "DELETE FROM RAS_HIERIX WHERE MDDObjIxOId = %f", id3 );
-	TALK( pgQuery );
-	pgResult = PQexec( pgConn, pgQuery );
-	if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
-	{
-		LEAVE( "DBHierIndex::updateInDb() libpq 'DELETE HierIx' error: " << PQerrorMessage(pgConn) );
-		PQclear( pgResult );
-		generateException();
-	}
-	PQclear( pgResult );
+    // alternative solution for now:
+    (void) snprintf( pgQuery, (size_t) sizeof(pgQuery), "DELETE FROM RAS_HIERIX WHERE MDDObjIxOId = %f", id3 );
+    TALK( pgQuery );
+    pgResult = PQexec( pgConn, pgQuery );
+    if (PQresultStatus(pgResult) != PGRES_COMMAND_OK)
+    {
+        LEAVE( "DBHierIndex::updateInDb() libpq 'DELETE HierIx' error: " << PQerrorMessage(pgConn) );
+        PQclear( pgResult );
+        generateException();
+    }
+    PQclear( pgResult );
 
-	// (4) --- dbobject delete
-	DBObject::deleteFromDb();
+    // (4) --- dbobject delete
+    DBObject::deleteFromDb();
 
-	RMDBGEXIT(8, RMDebug::module_indexif, "DBHierIndex", "deleteFromDb() " << myOId);
-	LEAVE( "DBHierIndex::deleteFromDb(), myOId=" << myOId );
+    RMDBGEXIT(8, RMDebug::module_indexif, "DBHierIndex", "deleteFromDb() " << myOId);
+    LEAVE( "DBHierIndex::deleteFromDb(), myOId=" << myOId );
 } // deleteFromDb()
 

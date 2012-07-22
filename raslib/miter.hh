@@ -36,14 +36,14 @@ class r_Minterval;
 //@ManMemo: Module: {\bf raslib}
 
 /*@Doc:
-  r_Miter is used for iterating through parts of 
+  r_Miter is used for iterating through parts of
   multidimensional intervals. It is given the domain of
   the object to be iterated through, the size of the base
   base type, the address of the first cell in the Tile and
   an Minterval specifying the area to be iterated through.
 
-  Going to the next cell is done with nextCell() which 
-  returns the adress of the next cell. Test for the end 
+  Going to the next cell is done with nextCell() which
+  returns the adress of the next cell. Test for the end
   is done with isDone(). The iterator can be reset with
   reset().
 */
@@ -51,47 +51,48 @@ class r_Minterval;
 class r_Miter
 {
 public:
-  /// constructor.
-  inline r_Miter( const r_Minterval* newAreaIter, 
-		  const r_Minterval* newAreaTile, r_Bytes newCellSize, 
-		  const char* newFirstCell );
-  /**
-    The pointers are stored, do not delete the objects as long
-    as the iterator is used!
-  */
-  
-  /// destructor.
-  inline ~r_Miter();                    
-  /// resets iterator to first cell.
-  inline void reset();
-  /// returns current cell and sets iterator to next cell.
-  inline char* nextCell();
-  /// returns TRUE if iteration is finished.
-  inline bool isDone();
+    /// constructor.
+    inline r_Miter( const r_Minterval* newAreaIter,
+                    const r_Minterval* newAreaTile, r_Bytes newCellSize,
+                    const char* newFirstCell );
+    /**
+      The pointers are stored, do not delete the objects as long
+      as the iterator is used!
+    */
+
+    /// destructor.
+    inline ~r_Miter();
+    /// resets iterator to first cell.
+    inline void reset();
+    /// returns current cell and sets iterator to next cell.
+    inline char* nextCell();
+    /// returns TRUE if iteration is finished.
+    inline bool isDone();
 protected:
-  // structure storing information on iteration for each dimension
-  // (perhaps add dimension for reordering later)
-  typedef struct {
-    int repeat; // total number of repeats
-    int inc;    // increment per repeat
-    int curr;   // current repeat
-  } incArrElem;
-  /// area to be iterated through
-  const r_Minterval* areaIter;
-  /// area of tile.
-  const r_Minterval* areaTile;
-  /// size of base type.
-  r_Bytes cellSize;
-  /// offset of first cell in tile.
-  const char* firstCell;
-  /// array with increments
-  incArrElem* incArrIter;
-  /// flag set if iteration is finished.
-  bool done;
-  /// current cell for iteration;
-  char* currCell;
-  /// counter for position in lowest dimension.
-  int lowCount;
+    // structure storing information on iteration for each dimension
+    // (perhaps add dimension for reordering later)
+    typedef struct
+    {
+        int repeat; // total number of repeats
+        int inc;    // increment per repeat
+        int curr;   // current repeat
+    } incArrElem;
+    /// area to be iterated through
+    const r_Minterval* areaIter;
+    /// area of tile.
+    const r_Minterval* areaTile;
+    /// size of base type.
+    r_Bytes cellSize;
+    /// offset of first cell in tile.
+    const char* firstCell;
+    /// array with increments
+    incArrElem* incArrIter;
+    /// flag set if iteration is finished.
+    bool done;
+    /// current cell for iteration;
+    char* currCell;
+    /// counter for position in lowest dimension.
+    int lowCount;
 };
 
 #include "miter.icc"

@@ -55,77 +55,77 @@ class OId;
   * \ingroup Relcatalogifs
   */
 class MDDDimensionType : public MDDBaseType
-	{
-	public:
-		virtual char* getTypeStructure() const;
-		/*@Doc:
-		*/
+{
+public:
+    virtual char* getTypeStructure() const;
+    /*@Doc:
+    */
 
-		virtual r_Bytes getMemorySize() const;
-		/*@Doc:
-		the memory size is computed by:
-		MDDBaseType::getMemorySize() + sizeof(r_Dimension);
-		*/
+    virtual r_Bytes getMemorySize() const;
+    /*@Doc:
+    the memory size is computed by:
+    MDDBaseType::getMemorySize() + sizeof(r_Dimension);
+    */
 
-		MDDDimensionType(const OId& id) throw (r_Error);
-		/*@Doc:
-		*/
+    MDDDimensionType(const OId& id) throw (r_Error);
+    /*@Doc:
+    */
 
-		MDDDimensionType(const char* newTypeName, const BaseType* newBaseType, r_Dimension newDimension);
-		/*@Doc:
-		constructor.
-		*/
+    MDDDimensionType(const char* newTypeName, const BaseType* newBaseType, r_Dimension newDimension);
+    /*@Doc:
+    constructor.
+    */
 
-		MDDDimensionType();
-		/*@Doc:
-		default constructor, cannot be used.
-		*/
+    MDDDimensionType();
+    /*@Doc:
+    default constructor, cannot be used.
+    */
 
-		MDDDimensionType(const MDDDimensionType& old);
-		/*@Doc:
-		copy constructor.
-		*/
+    MDDDimensionType(const MDDDimensionType& old);
+    /*@Doc:
+    copy constructor.
+    */
 
-		MDDDimensionType& operator=(const MDDDimensionType& old);
-		/*@Doc:
-		assignment operator.
-		*/
+    MDDDimensionType& operator=(const MDDDimensionType& old);
+    /*@Doc:
+    assignment operator.
+    */
 
-		virtual void print_status( ostream& s ) const;
-		/*@Doc:
-		writes the state of the object to the specified stream
-		*/
+    virtual void print_status( ostream& s ) const;
+    /*@Doc:
+    writes the state of the object to the specified stream
+    */
 
-		r_Dimension getDimension() const;
-		/*@Doc:
-		return dimensionality
-		*/
+    r_Dimension getDimension() const;
+    /*@Doc:
+    return dimensionality
+    */
 
-		virtual ~MDDDimensionType();
-		/*@Doc:
-		virtual destructor.
-		*/
+    virtual ~MDDDimensionType();
+    /*@Doc:
+    virtual destructor.
+    */
 
-		virtual int compatibleWith(const Type* aType) const;
-		/*@Doc:
-		is compatible if:
-			aType is MDDDimType or MDDDomType and
-			the basetypes are compatible
-			and dimensionality is the same
-		*/
+    virtual int compatibleWith(const Type* aType) const;
+    /*@Doc:
+    is compatible if:
+        aType is MDDDimType or MDDDomType and
+        the basetypes are compatible
+        and dimensionality is the same
+    */
 
-	protected:
+protected:
 
-		virtual void insertInDb() throw (r_Error);
+    virtual void insertInDb() throw (r_Error);
 
-		virtual void readFromDb() throw (r_Error);
+    virtual void readFromDb() throw (r_Error);
 
-		virtual void deleteFromDb() throw (r_Error);
-		
-		r_Dimension myDimension;
-		/*@Doc:
-		dimensionality.
-		*/
-	};
+    virtual void deleteFromDb() throw (r_Error);
+
+    r_Dimension myDimension;
+    /*@Doc:
+    dimensionality.
+    */
+};
 
 #endif

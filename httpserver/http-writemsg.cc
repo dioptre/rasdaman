@@ -32,7 +32,7 @@ rasdaman GmbH.
 /*
  * RCS:
  *   $RCSfile: http-writemsg.c,v $ $Revision: 1.3 $ $State: Exp $
- *   $Locker:  $ 
+ *   $Locker:  $
  */
 
 
@@ -47,268 +47,268 @@ extern struct HTTPError HTTPErrorTable[];
 
 
 /****** http-writemsg/AddField ***********************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 rc_t AddField( struct MsgHeader *Ptr, int Field, char *Content )
 {
-  struct MsgHeader *NewHeader;
+    struct MsgHeader *NewHeader;
 
-  if( Ptr != NULL )
-    while( Ptr->Next != NULL )
-      Ptr = Ptr->Next;
+    if( Ptr != NULL )
+        while( Ptr->Next != NULL )
+            Ptr = Ptr->Next;
 
-  NewHeader = AppendMsgHeader( Ptr, Field, Content );
-  if( NewHeader != NULL )
-    return( OK );
-  else
-    return( WARN );
+    NewHeader = AppendMsgHeader( Ptr, Field, Content );
+    if( NewHeader != NULL )
+        return( OK );
+    else
+        return( WARN );
 }
 
 
 /****** http-writemsg/CreateStatusLine ***************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 rc_t CreateStatusLine( char *Buffer, size_t *BuffSize, int Code, int Protocol )
 {
-  int Entry;
+    int Entry;
 
-  Entry = GetHTTPErrorTableEntry( Code );
-  switch( Protocol )
+    Entry = GetHTTPErrorTableEntry( Code );
+    switch( Protocol )
     {
-      case HTTP_1_0:
-	{
-	  if( Entry != 0 )
-	    SNPrintf( Buffer, BuffSize, "HTTP/1.0 %d %s\r\n", Code, HTTPErrorTable[Entry].Reason );
-	  else
-	    SNPrintf( Buffer, BuffSize, "HTTP/1.0 %d Statuscode %d\r\n", Code, Code );
-	  return( OK );
-	}
-	break;
-      case HTTP_1_1:
-	{
-	  if( Entry != 0 )
-	    SNPrintf( Buffer, BuffSize, "HTTP/1.1 %d %s\r\n", Code, HTTPErrorTable[Entry].Reason );
-	  else
-	    SNPrintf( Buffer, BuffSize, "HTTP/1.1 %d Statuscode %d\r\n", Code, Code );
-	  return( OK );
-	}	  
-	break;
-      default:
-	{
-	  return( ERROR );
-	}
+    case HTTP_1_0:
+    {
+        if( Entry != 0 )
+            SNPrintf( Buffer, BuffSize, "HTTP/1.0 %d %s\r\n", Code, HTTPErrorTable[Entry].Reason );
+        else
+            SNPrintf( Buffer, BuffSize, "HTTP/1.0 %d Statuscode %d\r\n", Code, Code );
+        return( OK );
+    }
+    break;
+    case HTTP_1_1:
+    {
+        if( Entry != 0 )
+            SNPrintf( Buffer, BuffSize, "HTTP/1.1 %d %s\r\n", Code, HTTPErrorTable[Entry].Reason );
+        else
+            SNPrintf( Buffer, BuffSize, "HTTP/1.1 %d Statuscode %d\r\n", Code, Code );
+        return( OK );
+    }
+    break;
+    default:
+    {
+        return( ERROR );
+    }
     }
 }
 
 
 /****** http-writemsg/CreateHTTPMsg ******************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 struct HTTPMsg *CreateHTTPMsg( char *Header, char *Body, size_t BodySize )
 {
-  struct HTTPMsg *Msg;
+    struct HTTPMsg *Msg;
 
-  /*  printf( "###  CreateHTTPMsg(+)\n" );  */
-  Msg = (struct HTTPMsg*)mymalloc( sizeof( struct HTTPMsg ) );
-  if( Msg != NULL )
+    /*  printf( "###  CreateHTTPMsg(+)\n" );  */
+    Msg = (struct HTTPMsg*)mymalloc( sizeof( struct HTTPMsg ) );
+    if( Msg != NULL )
     {
-      /*      printf( "###      Header[%d]:\n%s", strlen( Header ), Header );  */
-      /*      printf( "###      Body[%d]:\n", BodySize );  */
+        /*      printf( "###      Header[%d]:\n%s", strlen( Header ), Header );  */
+        /*      printf( "###      Body[%d]:\n", BodySize );  */
 
-      Msg->Body        = Body;
-      Msg->BodySize    = BodySize;
+        Msg->Body        = Body;
+        Msg->BodySize    = BodySize;
 
-      if( ( Msg->Head  = (char*)mymalloc( strlen( Header ) + 1 ) ) != NULL )
-	strcpy( Msg->Head, Header );
-      else
-	{
-	  free( Msg );
-	  return( NULL );
-	}
-      /*      printf( "###    Done!\n" );  */
+        if( ( Msg->Head  = (char*)mymalloc( strlen( Header ) + 1 ) ) != NULL )
+            strcpy( Msg->Head, Header );
+        else
+        {
+            free( Msg );
+            return( NULL );
+        }
+        /*      printf( "###    Done!\n" );  */
     }
-  /*  printf( "###  CreateHTTPMsg(-)\n" ); */
-  return( Msg );
+    /*  printf( "###  CreateHTTPMsg(-)\n" ); */
+    return( Msg );
 }
 
 
 /****** http-writemsg/SendHTTPMsg ********************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 rc_t SendHTTPMsg( int SockFD, struct HTTPMsg *Msg )
 {
-  size_t Check;
+    size_t Check;
 
-  if( ( Msg != NULL ) && ( Msg->Head != NULL ) )
+    if( ( Msg != NULL ) && ( Msg->Head != NULL ) )
     {
-      Check = WriteN( SockFD, Msg->Head, strlen(Msg->Head) );
-      if( Check < 0 )
-	ErrorMsg( E_SYS, ERROR, "ERROR: WriteN(): write() failed." );
-      else if( Check != strlen(Msg->Head) )
-	LogMsg( LG_SERVER, WARN, 
-		"WARN:  SendHTTPMsg(): %d of %d Bytes of Header written!", 
-		Check, strlen(Msg->Head) );
-	
-      if( ( Msg->Body != NULL ) && ( Msg->BodySize > 0 ) )
-	{
-	  Check = WriteN( SockFD, Msg->Body, Msg->BodySize );
-	  if( Check < 0 )
-	    ErrorMsg( E_SYS, ERROR, "ERROR: WriteN(): write() failed." );
-	  else if( Check != Msg->BodySize )
-	    LogMsg( LG_SERVER, WARN, 
-		    "WARN:  SendHTTPMsg(): %d of %d Bytes of Body written!", 
-		    Check, Msg->BodySize );
-	}
-      return( OK );
+        Check = WriteN( SockFD, Msg->Head, strlen(Msg->Head) );
+        if( Check < 0 )
+            ErrorMsg( E_SYS, ERROR, "ERROR: WriteN(): write() failed." );
+        else if( Check != strlen(Msg->Head) )
+            LogMsg( LG_SERVER, WARN,
+                    "WARN:  SendHTTPMsg(): %d of %d Bytes of Header written!",
+                    Check, strlen(Msg->Head) );
+
+        if( ( Msg->Body != NULL ) && ( Msg->BodySize > 0 ) )
+        {
+            Check = WriteN( SockFD, Msg->Body, Msg->BodySize );
+            if( Check < 0 )
+                ErrorMsg( E_SYS, ERROR, "ERROR: WriteN(): write() failed." );
+            else if( Check != Msg->BodySize )
+                LogMsg( LG_SERVER, WARN,
+                        "WARN:  SendHTTPMsg(): %d of %d Bytes of Body written!",
+                        Check, Msg->BodySize );
+        }
+        return( OK );
     }
-  else
+    else
     {
-      return( ERROR );
+        return( ERROR );
     }
 }
 
 
 /****** http-writemsg/FreeHTTPMsg ********************************************
-*                                                                             
-*   NAME                                                                      
-*       
-*                                                                             
-*   SYNOPSIS                                                                  
-*       
-*                                                                             
-*   FUNCTION                                                                  
-*       
-*                                                                             
-*   INPUTS                                                                    
-*       
-*                                                                             
-*   RESULT                                                                    
-*       
-*                                                                             
-*   NOTES                                                                     
-*       
-*                                                                             
-*   BUGS                                                                      
-*       
-*                                                                             
-*   SEE ALSO                                                                  
-*       
-*                                                                             
+*
+*   NAME
+*
+*
+*   SYNOPSIS
+*
+*
+*   FUNCTION
+*
+*
+*   INPUTS
+*
+*
+*   RESULT
+*
+*
+*   NOTES
+*
+*
+*   BUGS
+*
+*
+*   SEE ALSO
+*
+*
 ******************************************************************************
 *
 */
 
 rc_t FreeHTTPMsg( struct HTTPMsg *Ptr )
 {
-  free( Ptr->Head );
-  free( Ptr );
-  return( OK );
+    free( Ptr->Head );
+    free( Ptr );
+    return( OK );
 }

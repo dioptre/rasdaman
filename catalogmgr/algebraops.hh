@@ -22,7 +22,7 @@ rasdaman GmbH.
 /
 /*************************************************************
  *
- * 
+ *
  *
  *
  * COMMENTS:
@@ -46,7 +46,7 @@ class QtData;
 //@ManMemo: Module: {\bf catalogif}
 
 /*@Doc:
- 
+
   Operation object for marray contstructor of the query language.
 
 */
@@ -59,7 +59,7 @@ class QtData;
   */
 class QLMarrayOp: public MarrayOp
 {
-  public:
+public:
     /// constructor
     QLMarrayOp( QtOperation* newCellExpression, std::vector<QtData*>* newDataList,
                 std::string       &newIteratorName,
@@ -75,7 +75,7 @@ class QLMarrayOp: public MarrayOp
     /// operator that carries out the cell expression on point {\tt p}.
     virtual void operator() ( char* result, const r_Point& p );
 
-  private:
+private:
     /// pointer to the cell expression
     QtOperation* cellExpression;
 
@@ -92,25 +92,25 @@ class QLMarrayOp: public MarrayOp
 //@ManMemo: Module: {\bf catalogif}
 
 /*@Doc:
- 
+
   Operation object for condenser operation of the query language.
 
 */
 
 class QLCondenseOp: public GenCondenseOp
 {
-  public:
+public:
     /// constructor
     QLCondenseOp( QtOperation*     newCellExpression,
                   QtOperation*     newCondExpression,
                   std::vector<QtData*>* newDataList,
                   std::string           &newIteratorName,
                   BaseType*        newResType,
-	          unsigned int     newResOff,
+                  unsigned int     newResOff,
                   BinaryOp*        newAccuOp,
                   char*            newInitVal = 0 );
     /**
-      Constructor gets cell expression pointer, cell condition expression pointer, 
+      Constructor gets cell expression pointer, cell condition expression pointer,
       data vector for bounded variables, cell type, and type offset
     */
 
@@ -120,7 +120,7 @@ class QLCondenseOp: public GenCondenseOp
     /// operator that carries out the cell expression on point {\tt p}.
     virtual void operator() ( const r_Point& p );
 
-  private:
+private:
     /// pointer to the cell expression
     QtOperation* cellExpression;
 

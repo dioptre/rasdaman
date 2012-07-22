@@ -34,67 +34,67 @@ static const char rcsid[] = "@(#)qlparser, QtComplexData: $Header: /home/rasdev/
 
 #include "qlparser/qtcomplexdata.hh"
 #include "relcatalogif/structtype.hh"
-#include <stdio.h> 
+#include <stdio.h>
 #include <cstring>
 
 QtComplexData::QtComplexData()
-  : QtScalarData()
+    : QtScalarData()
 {
 }
 
 
 
 QtComplexData::QtComplexData( QtComplexData::QtScalarDataList* &scalarDataList )
-  : QtScalarData()
+    : QtScalarData()
 {
-  char                          elementName[256];
-  unsigned int                  i=0;
-  std::list<QtScalarData*>::iterator iter;
+    char                          elementName[256];
+    unsigned int                  i=0;
+    std::list<QtScalarData*>::iterator iter;
 
-  // Take care of dynamic memory management:
-  //
-  // Types, which are not in the typeFactory, have to be deleted. This means that, in general,
-  // all complex types have to be deleted because they are constructed temporarily. 
+    // Take care of dynamic memory management:
+    //
+    // Types, which are not in the typeFactory, have to be deleted. This means that, in general,
+    // all complex types have to be deleted because they are constructed temporarily.
 
-  // create a new struct type
-  StructType* structType = new StructType( "", scalarDataList->size() );
+    // create a new struct type
+    StructType* structType = new StructType( "", scalarDataList->size() );
 
-  // add type elements, the first element inserted has no 0, the second no 1, and so on
-  for( iter=scalarDataList->begin(), i=0; iter!=scalarDataList->end(); iter++, i++ )
-  {
-    sprintf( elementName, "%d", i );
-    structType->addElement( elementName, (*iter)->getValueType() );
-  }
+    // add type elements, the first element inserted has no 0, the second no 1, and so on
+    for( iter=scalarDataList->begin(), i=0; iter!=scalarDataList->end(); iter++, i++ )
+    {
+        sprintf( elementName, "%d", i );
+        structType->addElement( elementName, (*iter)->getValueType() );
+    }
 
-  // add type to typeFactory
-  TypeFactory::addTempType( structType );
+    // add type to typeFactory
+    TypeFactory::addTempType( structType );
 
-  valueBuffer = new char[ structType->getSize() ];
-  valueType   = structType;
+    valueBuffer = new char[ structType->getSize() ];
+    valueType   = structType;
 
-  // copy data 
-  for( iter=scalarDataList->begin(), i=0; iter!=scalarDataList->end(); iter++, i++ )
-  {
-    char* destination = ((char*)valueBuffer) + structType->getOffset( i );
+    // copy data
+    for( iter=scalarDataList->begin(), i=0; iter!=scalarDataList->end(); iter++, i++ )
+    {
+        char* destination = ((char*)valueBuffer) + structType->getOffset( i );
 
-    memcpy( (void*)destination, (void*)((*iter)->getValueBuffer()), (*iter)->getValueType()->getSize() );
-  }
+        memcpy( (void*)destination, (void*)((*iter)->getValueBuffer()), (*iter)->getValueType()->getSize() );
+    }
 
-  // delete the list of type elements
-  // release( scalarDataList->begin(), scalarDataList->end() );
-  for( iter=scalarDataList->begin(); iter!=scalarDataList->end(); iter++ )
-  {  
-    delete *iter;
-    *iter=NULL;
-  }
-  delete scalarDataList;
-  scalarDataList = NULL;
+    // delete the list of type elements
+    // release( scalarDataList->begin(), scalarDataList->end() );
+    for( iter=scalarDataList->begin(); iter!=scalarDataList->end(); iter++ )
+    {
+        delete *iter;
+        *iter=NULL;
+    }
+    delete scalarDataList;
+    scalarDataList = NULL;
 }
 
 
 
 QtComplexData::QtComplexData( const QtComplexData& obj )
-  : QtScalarData( obj )
+    : QtScalarData( obj )
 {
 }
 
@@ -103,7 +103,7 @@ QtComplexData::QtComplexData( const QtComplexData& obj )
 void
 QtComplexData::printStatus( ostream& stream ) const
 {
-  stream << "complex, " << std::flush;
-  QtScalarData::printStatus( stream );
-  stream << std::endl;
+    stream << "complex, " << std::flush;
+    QtScalarData::printStatus( stream );
+    stream << std::endl;
 }

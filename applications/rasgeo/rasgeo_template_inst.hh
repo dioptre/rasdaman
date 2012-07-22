@@ -1,6 +1,6 @@
-/*                    
-	template instantiation for rmanman utilities 
-	
+/*
+    template instantiation for rmanman utilities
+
 */
 
 #ifndef __RMANMAN_TEMPLATE_INST_

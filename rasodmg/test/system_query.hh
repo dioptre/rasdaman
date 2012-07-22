@@ -26,12 +26,12 @@ rasdaman GmbH.
 
 #include "system_basic.hh"
 
-class SystemQuery	:	public SystemBasic
-	{
-	public:
-		static int doStuff(int argc, char** argv);
+class SystemQuery   :   public SystemBasic
+{
+public:
+    static int doStuff(int argc, char** argv);
 
-		static void printScalar(const r_Scalar& scalar);
-	};
+    static void printScalar(const r_Scalar& scalar);
+};
 
 #endif

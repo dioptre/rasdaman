@@ -25,10 +25,10 @@ rasdaman GmbH.
  *
  * MODULE:   rasodmg
  * CLASS:    r_OQL_Query
- * FUNCTION: r_oql_execute() 
+ * FUNCTION: r_oql_execute()
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 #ifndef _D_OQL_QUERY_
@@ -56,23 +56,23 @@ class r_Ref_Any;
  The constructor gets a parameterized query string where #$i#
  indicates the i-th parameter. The overloaded stream input
  operators allows to insert the parameter values to the query, at
- the same time preserving their respective types. If any of the 
+ the same time preserving their respective types. If any of the
  #$i# are not followed by a right operant construction argument at
- the point \Ref{r_oql_execute} is called, a \Ref{r_Error} exception object 
+ the point \Ref{r_oql_execute} is called, a \Ref{r_Error} exception object
  of kind {\tt r_Error_QueryParameterCountInvalid} is thrown.
  Once a query has been executed via \Ref{r_oql_execute}, the arguments
  associated with the #$i# parameters are cleared and new arguments
  must be supplied.
- 
+
  The copy constructor and assignment operator copy all the underlying
  data structures associated with the query, based upon the parameters
  that have been passed to the query at the point the operation is
  performed.
- 
- The stream operators raise a \Ref{r_Error} exception of type 
- {\tt r_Error_QueryParameterCountInvalid} if the number of arguments is 
+
+ The stream operators raise a \Ref{r_Error} exception of type
+ {\tt r_Error_QueryParameterCountInvalid} if the number of arguments is
  exceeded.
- 
+
 */
 
 /**
@@ -80,22 +80,22 @@ class r_Ref_Any;
   */
 class r_OQL_Query
 {
-  public:
+public:
     /// default constructor
     r_OQL_Query();
-    
+
     /// constructor getting the query string
     r_OQL_Query( const char* s );
-    
+
     /// copy constructor
     r_OQL_Query( const r_OQL_Query& q );
-    
+
     /// destructor
     ~r_OQL_Query();
-    
+
     /// assignment operator
     const r_OQL_Query& operator=( const r_OQL_Query& q );
-    
+
     //@Man: Stream input operators for every parameter type:
     //@{
     ///
@@ -126,7 +126,7 @@ class r_OQL_Query
 
     /// returns true if the current query is an update one
     int is_retrieval_query() const;
-    
+
     //@Man: Methods for internal use:
     //@{
     /// resets the expandation of the query string
@@ -139,14 +139,14 @@ class r_OQL_Query
     inline const char* get_parameterized_query() const;
     ///
     //@}
-    
-  private:
+
+private:
     /// method replaces the next argument with the delivered valueString
     void replaceNextArgument( const char* valueString ) throw( r_Error );
 
     /// storage for the expanded query string
     char* queryString;
-    
+
     /// storage for the parameterized query string
     char* parameterizedQueryString;
 
@@ -160,17 +160,17 @@ class r_OQL_Query
 //@ManMemo: Module: {\bf rasodmg}
 
 /*@Doc:
-  The free standing function \Ref{r_oql_execute} is called to execute a retrieval query. 
+  The free standing function \Ref{r_oql_execute} is called to execute a retrieval query.
   The first parameter, {\tt query}, is a reference to a \Ref{r_OQL_Query} object specifying
   the query to execute. The second parameter, {\tt result}, is used for returning the
-  result of the query. The query result is of type {\tt r_Set< r_Ref_Any >}. 
-  
+  result of the query. The query result is of type {\tt r_Set< r_Ref_Any >}.
+
   If the function is not called within the scope of an opened database, a \Ref{r_Error}
   exception of kind {\tt r_Error_DatabaseClosed} is raised. If it is called outside any
   transaction, the exception is of kind {\tt r_Error_TransactionNotOpen}.
-  
+
   A complete list of all possible error kinds is given by the following table.
-  
+
   \begin{tabular}{lll}
   r_Error_ClientUnknown              && Client is not known by the server (earlier communication problems).\\
   r_Error_DatabaseClosed             && No database is not opened.\\
@@ -180,7 +180,7 @@ class r_OQL_Query
   r_Error_QueryExecutionFailed       && The execution of the query failed (further information is available
   in an error object of type {\tt r_Equery_execution}).\\
   r_Error_TypeInvalid                && Result base type doesn't match the template type. \\
-  \end{tabular}      
+  \end{tabular}
 */
 
 void r_oql_execute( r_OQL_Query& query, r_Set< r_Ref_Any > &result )
@@ -191,8 +191,8 @@ throw( r_Error );
 
 /*@Doc:
   The funcetion is used to execute retrieval queries with the result set being
-  of type {\tt r_Set< r_Ref< r_GMarray > >}. The function is supported for 
-  compatibility reasons only. We suggest to use the general function 
+  of type {\tt r_Set< r_Ref< r_GMarray > >}. The function is supported for
+  compatibility reasons only. We suggest to use the general function
   \Ref{r_oql_execute} able to maintain query results of any type.
 */
 void r_oql_execute( r_OQL_Query& query, r_Set< r_Ref< r_GMarray > > &result )
@@ -202,16 +202,16 @@ throw( r_Error );
 //@ManMemo: Module: {\bf rasodmg}
 
 /*@Doc:
-  The free standing function \Ref{r_oql_execute} is called to execute an update query. 
+  The free standing function \Ref{r_oql_execute} is called to execute an update query.
   The first parameter, {\tt query}, is a reference to a \Ref{r_OQL_Query} object specifying
   the query to execute.
-  
+
   If the function is not called within the scope of an opened database, a \Ref{r_Error}
   exception of kind {\tt r_Error_DatabaseClosed} is raised. If it is called outside any
   transaction, the exception is of kind {\tt r_Error_TransactionNotOpen}.
-  
+
   A complete list of all possible error kinds is given by the following table.
-  
+
   \begin{tabular}{lll}
   r_Error_ClientUnknown              && Client is not known by the server (earlier communication problems).\\
   r_Error_DatabaseClosed             && No database is not opened.\\
@@ -220,7 +220,7 @@ throw( r_Error );
   r_Error_TransferFailed             && Other communication problem. \\
   r_Error_QueryExecutionFailed       && The execution of the query failed (further information is available
   in an error object of type {\tt r_Equery_execution}).\\
-  \end{tabular}      
+  \end{tabular}
 */
 
 void r_oql_execute( r_OQL_Query& query )

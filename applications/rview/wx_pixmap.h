@@ -22,11 +22,11 @@ rasdaman GmbH.
 /
 
 /**
- *  PURPOSE:	
- *		Efficient bitmaps of colour depths 1, 2, 4, 8, 16, 24 and 32bpp
- *  
+ *  PURPOSE:
+ *      Efficient bitmaps of colour depths 1, 2, 4, 8, 16, 24 and 32bpp
+ *
  *  COMMENTS:
- *     		None
+ *          None
  */
 
 
@@ -54,26 +54,27 @@ typedef unsigned long COLORREF;
 
 
 /* Weights for colour matching */
-#define COLOUR_WEIGHT_RED	4
-#define COLOUR_WEIGHT_GREEN	9
-#define COLOUR_WEIGHT_BLUE	1
+#define COLOUR_WEIGHT_RED   4
+#define COLOUR_WEIGHT_GREEN 9
+#define COLOUR_WEIGHT_BLUE  1
 
 
 /* No changes below this line should be necessary. */
 
 
 /* Flag bits for initialising functions*/
-#define WX_PIXFLAG_TRANSLATE		1	/* class-resident mode translation enabled? */
-#define WX_PIXFLAG_DITHER		2	/* Dither image. Overrides WX_PIXFLAG_TRANSLATE. */
-#define WX_PIXFLAG_SAMEPALETTE		4	/* The palette is the same as the old one */
-#define WX_PIXFLAG_FASTDITHER		8	/* Fast rather than best ditherer */
-#define WX_PIXMODE_PALETTE		1	/* force making new colour tables on a mode change */
+#define WX_PIXFLAG_TRANSLATE        1   /* class-resident mode translation enabled? */
+#define WX_PIXFLAG_DITHER       2   /* Dither image. Overrides WX_PIXFLAG_TRANSLATE. */
+#define WX_PIXFLAG_SAMEPALETTE      4   /* The palette is the same as the old one */
+#define WX_PIXFLAG_FASTDITHER       8   /* Fast rather than best ditherer */
+#define WX_PIXMODE_PALETTE      1   /* force making new colour tables on a mode change */
 
 
 
 /* Structure for a permuted colour map (for more efficient colour matching) */
-typedef struct wx_permute_cmap {
-  unsigned char red, green, blue, number;
+typedef struct wx_permute_cmap
+{
+    unsigned char red, green, blue, number;
 } wx_permute_cmap;
 
 
@@ -112,108 +113,112 @@ typedef int (wxPixmap::*pixmap_colour_match)(unsigned char r, unsigned char g, u
 
 class WXDLLEXPORT wxPixmap : public wxObject
 {
-  public:
-  /* Public member functions */
-  wxPixmap(void);
-  wxPixmap(wxWindow *Win, int Width, int Height, int Depth, int Pad, char *Data, unsigned int Flags=WX_PIXFLAG_TRANSLATE, wxColour *Palette=NULL);
-  ~wxPixmap(void);
-  int newPixmap(wxWindow *Win, int Width, int Height, int Depth, int Pad, char *Data, unsigned int Flags=WX_PIXFLAG_TRANSLATE, wxColour *Palette=NULL);
-  int plotPixmap(int PosX, int PosY);
-  void invalidatePixmap(void);
-  int getWidth(void);
-  int getHeight(void);
-  int getDepth(void);
-  int getPitch(void);
-  char *getData(void);
-  wxColour *getPalette(void);
-  int getModeDepth(void);
-  int getModePitch(void);
-  char *getModeData(void);
-  unsigned char *getTranslationTable(void);
-  void modeChange(unsigned int Flags);
-  void buildTranslationTable(void);
-  void refreshGlobalTables(void);
-  bool setBusyCursor(bool newMode);
+public:
+    /* Public member functions */
+    wxPixmap(void);
+    wxPixmap(wxWindow *Win, int Width, int Height, int Depth, int Pad, char *Data, unsigned int Flags=WX_PIXFLAG_TRANSLATE, wxColour *Palette=NULL);
+    ~wxPixmap(void);
+    int newPixmap(wxWindow *Win, int Width, int Height, int Depth, int Pad, char *Data, unsigned int Flags=WX_PIXFLAG_TRANSLATE, wxColour *Palette=NULL);
+    int plotPixmap(int PosX, int PosY);
+    void invalidatePixmap(void);
+    int getWidth(void);
+    int getHeight(void);
+    int getDepth(void);
+    int getPitch(void);
+    char *getData(void);
+    wxColour *getPalette(void);
+    int getModeDepth(void);
+    int getModePitch(void);
+    char *getModeData(void);
+    unsigned char *getTranslationTable(void);
+    void modeChange(unsigned int Flags);
+    void buildTranslationTable(void);
+    void refreshGlobalTables(void);
+    bool setBusyCursor(bool newMode);
 #ifndef wx_pixmap_alloc_cols
-  void processParentPalette(bool forceUpdate=FALSE);
-  void processPixmapPalette(void);
-  wx_permute_cmap *getParentPalette(void);
-  int findBestColour(unsigned char red, unsigned char green, unsigned char blue);
-  int findFastColour(unsigned char red, unsigned char green, unsigned char blue);
-  /* Include auto-generated ditherer headers; these need the colour maps set up
-     correctly, so it only works with wx_pixmap_alloc_cols not defined. */
+    void processParentPalette(bool forceUpdate=FALSE);
+    void processPixmapPalette(void);
+    wx_permute_cmap *getParentPalette(void);
+    int findBestColour(unsigned char red, unsigned char green, unsigned char blue);
+    int findFastColour(unsigned char red, unsigned char green, unsigned char blue);
+    /* Include auto-generated ditherer headers; these need the colour maps set up
+       correctly, so it only works with wx_pixmap_alloc_cols not defined. */
 #include "wx_pixmap_dither.h"
 #endif
 
-  protected:
-  /* protected member functions */
-  void errorMemory(void);
-  void errorGeneric(char *message);
-  void initVariables(void);
-  void freeResources(int Depth, unsigned int Flags);
-  void translateToMode(void);
-  void ditherToMode(void);
-  void getDisplayAttributes(void);
-  void initColoursForMode(bool forceUpdate=FALSE);
-  void setupTranslators(void);
+protected:
+    /* protected member functions */
+    void errorMemory(void);
+    void errorGeneric(char *message);
+    void initVariables(void);
+    void freeResources(int Depth, unsigned int Flags);
+    void translateToMode(void);
+    void ditherToMode(void);
+    void getDisplayAttributes(void);
+    void initColoursForMode(bool forceUpdate=FALSE);
+    void setupTranslators(void);
 #ifndef wx_pixmap_alloc_cols
-  void sortParentPalette(int from, int to);	/* Quicksorter */
-  void buildInverseTable(void);
+    void sortParentPalette(int from, int to); /* Quicksorter */
+    void buildInverseTable(void);
 #endif
 
-  /* protected variables */
-  int width, height, depth, pad, pitch;		/* parameters for image */
-  int displayDepth, displayPitch, displayPad;	/* parameters for current display */
-  char *data;		/* Raw source data */
-  char *modeData;	/* Translated data suitable for plotting */
-  union {unsigned char *c; COLORREF *l;} TransTab;	/* Colour translation table. */
-							/* COLORREF is defined in wxWindows */
-  int TransTabSize;
-  wxColour *palette;	/* Source data palette */
-  wxWindow *parentWin;	/* The parent window date should be plotted to */
-  unsigned int pixFlags;
+    /* protected variables */
+    int width, height, depth, pad, pitch;     /* parameters for image */
+    int displayDepth, displayPitch, displayPad;   /* parameters for current display */
+    char *data;       /* Raw source data */
+    char *modeData;   /* Translated data suitable for plotting */
+    union
+    {
+        unsigned char *c;
+        COLORREF *l;
+    } TransTab;  /* Colour translation table. */
+    /* COLORREF is defined in wxWindows */
+    int TransTabSize;
+    wxColour *palette;    /* Source data palette */
+    wxWindow *parentWin;  /* The parent window date should be plotted to */
+    unsigned int pixFlags;
 #ifdef wx_pixmap_alloc_cols
-  char ColourAlloc[32];	/* bitfield (256 bits). Bit i set ==> X-colour #i allocated OK. */
-			/* only used for displayDepth <= 8. */
+    char ColourAlloc[32]; /* bitfield (256 bits). Bit i set ==> X-colour #i allocated OK. */
+    /* only used for displayDepth <= 8. */
 #else
-  int parentPaletteDepth;
-  wx_permute_cmap *parentPalette, *pixmapPalette;
-  unsigned char parentInverse[256];
+    int parentPaletteDepth;
+    wx_permute_cmap *parentPalette, *pixmapPalette;
+    unsigned char parentInverse[256];
 #endif
-  bool validDisplay;
-  bool busyCursorMode;
-  // wxDebugStreamBuf streamBuf; -- PB 2006-jan-01
-  wxOutputStream streamBuf;
-  std::ostream *errorstr;
-  int destBitorder, destByteorder, rgbOrder;
-  wx_pixmap_translate pixtrans1, pixtrans2, pixtrans4, pixtrans8, pixtrans12;
-  wx_pixmap_translate pixtrans15, pixtrans24, pixtrans32;
-  wx_pixmap_dither pixdither1, pixdither2, pixdither4, pixdither8, pixdither12;
-  wx_pixmap_dither pixdither15, pixdither24, pixdither32;
-  pixmap_colour_match colour_matcher;
+    bool validDisplay;
+    bool busyCursorMode;
+    // wxDebugStreamBuf streamBuf; -- PB 2006-jan-01
+    wxOutputStream streamBuf;
+    std::ostream *errorstr;
+    int destBitorder, destByteorder, rgbOrder;
+    wx_pixmap_translate pixtrans1, pixtrans2, pixtrans4, pixtrans8, pixtrans12;
+    wx_pixmap_translate pixtrans15, pixtrans24, pixtrans32;
+    wx_pixmap_dither pixdither1, pixdither2, pixdither4, pixdither8, pixdither12;
+    wx_pixmap_dither pixdither15, pixdither24, pixdither32;
+    pixmap_colour_match colour_matcher;
 
 #ifdef wx_x
-  /* System Specifics */
-  Display *display;
-  XVisualInfo visualInfo;
-  XImage *xim;
-  XGCValues xgcvals;
-  XWindowAttributes xat;
-  GC myGC;
-  int screen;
-  Window rootwin, windowHandle;
+    /* System Specifics */
+    Display *display;
+    XVisualInfo visualInfo;
+    XImage *xim;
+    XGCValues xgcvals;
+    XWindowAttributes xat;
+    GC myGC;
+    int screen;
+    Window rootwin, windowHandle;
 #endif
 
 #ifdef wx_msw
-  void win_translate_24_to_24(unsigned char *dest);
+    void win_translate_24_to_24(unsigned char *dest);
 
-  BITMAP bmDesc;
-  HBITMAP bitmap;
-  HWND windowHandle;
-  HWND desktop;
-  HDC rootDC, winDC, srcDC;
-  HGDIOBJ oldDCObject;
-  HPALETTE currentPal;
+    BITMAP bmDesc;
+    HBITMAP bitmap;
+    HWND windowHandle;
+    HWND desktop;
+    HDC rootDC, winDC, srcDC;
+    HGDIOBJ oldDCObject;
+    HPALETTE currentPal;
 #endif
 };
 

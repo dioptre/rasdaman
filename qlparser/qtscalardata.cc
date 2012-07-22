@@ -54,41 +54,41 @@ using namespace std;
 // #include <strstream.h>
 
 QtScalarData::QtScalarData()
-  : valueBuffer(NULL),
-    valueType(NULL)
+    : valueBuffer(NULL),
+      valueType(NULL)
 {
 }
 
 
 
 QtScalarData::QtScalarData( const QtScalarData& obj )
-  : QtData( obj )
+    : QtData( obj )
 {
-  setLifetime( obj.getLifetime() );
+    setLifetime( obj.getLifetime() );
 
-  // Pointer received from TypeFactory just can be copied.
-  valueType = obj.valueType; 
+    // Pointer received from TypeFactory just can be copied.
+    valueType = obj.valueType;
 
-  if( valueType && obj.valueBuffer )
-  {
-    valueBuffer = new char[ valueType->getSize() ];
-    memcpy( (void*)valueBuffer, (void*)obj.valueBuffer, valueType->getSize() );
-  }  
-  else
-    valueBuffer = NULL;
+    if( valueType && obj.valueBuffer )
+    {
+        valueBuffer = new char[ valueType->getSize() ];
+        memcpy( (void*)valueBuffer, (void*)obj.valueBuffer, valueType->getSize() );
+    }
+    else
+        valueBuffer = NULL;
 }
 
 
 
 QtScalarData::~QtScalarData()
 {
-  // valueType is not deleted because it is maintained by the typeFactory
+    // valueType is not deleted because it is maintained by the typeFactory
 
-  if( valueBuffer )
-  {
-    delete[] valueBuffer;
-    valueBuffer=NULL;
-  }
+    if( valueBuffer )
+    {
+        delete[] valueBuffer;
+        valueBuffer=NULL;
+    }
 }
 
 
@@ -96,27 +96,47 @@ QtScalarData::~QtScalarData()
 QtDataType
 QtScalarData::getDataType() const
 {
-  QtDataType returnValue = QT_BOOL;
+    QtDataType returnValue = QT_BOOL;
 
-  if( valueType )
-    switch( valueType->getType() )
-    {
-      case BOOLTYPE: returnValue = QT_BOOL; break;
-      case CHAR:     returnValue = QT_CHAR; break;
-      case OCTET:    returnValue = QT_OCTET; break;
-      case USHORT:   returnValue = QT_USHORT; break;
-      case SHORT:    returnValue = QT_SHORT; break;
-      case ULONG:    returnValue = QT_ULONG; break;
-      case LONG:     returnValue = QT_LONG; break;
-      case FLOAT:    returnValue = QT_FLOAT; break;
-      case DOUBLE:   returnValue = QT_DOUBLE; break;
-      case STRUCT:   returnValue = QT_COMPLEX; break;
-      default:
-	RMDBGONCE(0, RMDebug::module_qlparser, "r_QtScalarData", "getDataType() bad type " <<  valueType->getType());          	
-	break;
-    }
+    if( valueType )
+        switch( valueType->getType() )
+        {
+        case BOOLTYPE:
+            returnValue = QT_BOOL;
+            break;
+        case CHAR:
+            returnValue = QT_CHAR;
+            break;
+        case OCTET:
+            returnValue = QT_OCTET;
+            break;
+        case USHORT:
+            returnValue = QT_USHORT;
+            break;
+        case SHORT:
+            returnValue = QT_SHORT;
+            break;
+        case ULONG:
+            returnValue = QT_ULONG;
+            break;
+        case LONG:
+            returnValue = QT_LONG;
+            break;
+        case FLOAT:
+            returnValue = QT_FLOAT;
+            break;
+        case DOUBLE:
+            returnValue = QT_DOUBLE;
+            break;
+        case STRUCT:
+            returnValue = QT_COMPLEX;
+            break;
+        default:
+            RMDBGONCE(0, RMDebug::module_qlparser, "r_QtScalarData", "getDataType() bad type " <<  valueType->getType());
+            break;
+        }
 
-  return returnValue;
+    return returnValue;
 }
 
 
@@ -124,26 +144,26 @@ QtScalarData::getDataType() const
 bool
 QtScalarData::isScalarData() const
 {
-  return true;
+    return true;
 }
 
 
 bool
 QtScalarData::equal( const QtData* obj ) const
 {
-  int returnValue = false;  // not equal by initialization
+    int returnValue = false;  // not equal by initialization
 
-  if( obj->isScalarData() )
-  {
-    QtScalarData* scalarObj = (QtScalarData*)obj;
+    if( obj->isScalarData() )
+    {
+        QtScalarData* scalarObj = (QtScalarData*)obj;
 
-    if( getDataType() == scalarObj->getDataType() )  // Attention: this is not correct for structs
-      // compare value buffers
-      returnValue = (memcmp( (void*)valueBuffer, (void*)scalarObj->valueBuffer, valueType->getSize() ) == 0); 
+        if( getDataType() == scalarObj->getDataType() )  // Attention: this is not correct for structs
+            // compare value buffers
+            returnValue = (memcmp( (void*)valueBuffer, (void*)scalarObj->valueBuffer, valueType->getSize() ) == 0);
 
-  }
+    }
 
-  return returnValue;
+    return returnValue;
 }
 
 
@@ -151,54 +171,54 @@ QtScalarData::equal( const QtData* obj ) const
 string
 QtScalarData::getSpelling() const
 {
-  string result;
+    string result;
 
-  // buffer for hex representation of chars
-  int        bufferLen = valueType->getSize() * 2 + 1  + 2; // added final "+2" to remove memleak -- PB 2006-aug-17
-  char*      buffer    = new char[ bufferLen ];
-  // replaced deprecated ostrstream -- PB 2005-jan-14
-  // ostrstream bufferStream( buffer, bufferLen );
-  ostringstream bufferStream( buffer );
+    // buffer for hex representation of chars
+    int        bufferLen = valueType->getSize() * 2 + 1  + 2; // added final "+2" to remove memleak -- PB 2006-aug-17
+    char*      buffer    = new char[ bufferLen ];
+    // replaced deprecated ostrstream -- PB 2005-jan-14
+    // ostrstream bufferStream( buffer, bufferLen );
+    ostringstream bufferStream( buffer );
 
-  for( int i=0; i<valueType->getSize(); i++ )
-    bufferStream << hex << valueBuffer[i];
+    for( int i=0; i<valueType->getSize(); i++ )
+        bufferStream << hex << valueBuffer[i];
 
-  bufferStream << ends;
+    bufferStream << ends;
 
-  result.append( string( buffer ) );
+    result.append( string( buffer ) );
 
-  delete[] buffer;
-  buffer = NULL;
-  return result;
+    delete[] buffer;
+    buffer = NULL;
+    return result;
 }
 
 
 char* QtScalarData::getTypeStructure() const
 {
-  if( valueType )
-    return valueType->getTypeStructure();
-  else
-    return NULL;
+    if( valueType )
+        return valueType->getTypeStructure();
+    else
+        return NULL;
 }
 
 
 void
 QtScalarData::printStatus( ostream& stream ) const
 {
-  if( valueType )
-  {
-    char* typeStructure = valueType->getTypeStructure();
+    if( valueType )
+    {
+        char* typeStructure = valueType->getTypeStructure();
 
-    stream << "type: "        << flush << valueType->getTypeName() 
-           << ", structure: " << flush << typeStructure
-           << ", value: "     << flush;
+        stream << "type: "        << flush << valueType->getTypeName()
+               << ", structure: " << flush << typeStructure
+               << ", value: "     << flush;
 
-    valueType->printCell( stream, valueBuffer );
+        valueType->printCell( stream, valueBuffer );
 
-    free( typeStructure );
-    typeStructure=NULL;
-    QtData::printStatus( stream );
-  }
-  else
-    stream << "<no type>";
+        free( typeStructure );
+        typeStructure=NULL;
+        QtData::printStatus( stream );
+    }
+    else
+        stream << "<no type>";
 }

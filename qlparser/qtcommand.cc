@@ -49,19 +49,19 @@ const QtNode::QtNodeType QtCommand::nodeType = QtNode::QT_COMMAND;
 
 
 QtCommand::QtCommand( QtCommandType initCommand, const std::string& initCollection, const std::string& initType )
-  : QtExecute(), 
-    command( initCommand ),
-    collectionName( initCollection ),
-    typeName( initType )
+    : QtExecute(),
+      command( initCommand ),
+      collectionName( initCollection ),
+      typeName( initType )
 {
 }
 
 
 
 QtCommand::QtCommand( QtCommandType initCommand, const std::string& initCollection )
-  : QtExecute(), 
-    command( initCommand ),
-    collectionName( initCollection )
+    : QtExecute(),
+      command( initCommand ),
+      collectionName( initCollection )
 {
 }
 
@@ -72,70 +72,70 @@ QtCommand::evaluate()
 {
     RMDBGENTER(2, RMDebug::module_qlparser, "QtCommand", "evaluate()")
 
-  switch( command )
-  {
+    switch( command )
+    {
     case QT_DROP_COLLECTION:
-      if( currentClientTblElt )
-        if (!MDDColl::dropMDDCollection(collectionName.c_str()))
-        {
-          RMInit::logOut << "Error during query evaluation: collection name not found: " << collectionName.c_str() << std::endl;
-          parseInfo.setErrorNo(957);
-          throw parseInfo;
-        }       
+        if( currentClientTblElt )
+            if (!MDDColl::dropMDDCollection(collectionName.c_str()))
+            {
+                RMInit::logOut << "Error during query evaluation: collection name not found: " << collectionName.c_str() << std::endl;
+                parseInfo.setErrorNo(957);
+                throw parseInfo;
+            }
         break;
     case QT_CREATE_COLLECTION:
-      if( currentClientTblElt )
-      {
-        // get collection type
-        CollectionType* collType = (CollectionType*)TypeFactory::mapSetType( (char*)typeName.c_str() );
-
-        if( collType )
+        if( currentClientTblElt )
         {
-          // allocate a new oid within the current db
-          OId oid;
+            // get collection type
+            CollectionType* collType = (CollectionType*)TypeFactory::mapSetType( (char*)typeName.c_str() );
+
+            if( collType )
+            {
+                // allocate a new oid within the current db
+                OId oid;
 #ifdef BASEDB_O2
-          if( !OId::allocateMDDCollOId( &oid ) )
-	  {
+                if( !OId::allocateMDDCollOId( &oid ) )
+                {
 #else
-          OId::allocateOId(oid, OId::MDDCOLLOID);
+                OId::allocateOId(oid, OId::MDDCOLLOID);
 #endif
-            try
-            {
-              MDDColl* coll = MDDColl::createMDDCollection(collectionName.c_str(), oid, collType);
-              delete coll;
-              coll=NULL;
-            }
-            catch( r_Error& obj )
-            {
-              RMInit::logOut << "Error during query evaluation: collection name exists already: " << collectionName.c_str() << std::endl;
-              if (obj.get_kind() != r_Error::r_Error_NameNotUnique)
-              	RMInit::logOut << "Exception: " << obj.what() << std::endl;;
-              parseInfo.setErrorNo(955);
-              throw parseInfo;
-            }    
+                    try
+                    {
+                        MDDColl* coll = MDDColl::createMDDCollection(collectionName.c_str(), oid, collType);
+                        delete coll;
+                        coll=NULL;
+                    }
+                    catch( r_Error& obj )
+                    {
+                        RMInit::logOut << "Error during query evaluation: collection name exists already: " << collectionName.c_str() << std::endl;
+                        if (obj.get_kind() != r_Error::r_Error_NameNotUnique)
+                            RMInit::logOut << "Exception: " << obj.what() << std::endl;;
+                        parseInfo.setErrorNo(955);
+                        throw parseInfo;
+                    }
 #ifdef BASEDB_O2
-          }
-          else
-          {
-            RMInit::logOut << "Error: QtCommand::evaluate() - oid allocation failed" << std::endl;
-            parseInfo.setErrorNo(958);
-            throw parseInfo;
-          }    
+                }
+                else
+                {
+                    RMInit::logOut << "Error: QtCommand::evaluate() - oid allocation failed" << std::endl;
+                    parseInfo.setErrorNo(958);
+                    throw parseInfo;
+                }
 #endif
+            }
+            else
+            {
+                RMInit::logOut << "Error during query evaluation: collection type not found: " << (char*)typeName.c_str() << std::endl;
+                parseInfo.setErrorNo(956);
+                throw parseInfo;
+            }
+            break;
         }
-        else
-        {
-          RMInit::logOut << "Error during query evaluation: collection type not found: " << (char*)typeName.c_str() << std::endl;
-          parseInfo.setErrorNo(956);
-          throw parseInfo;
-        }
-        break;
-      }
-  }
-  
-  RMDBGEXIT(2, RMDebug::module_qlparser, "QtCommand", "evaluate()")
+    }
 
-  return 0;
+    RMDBGEXIT(2, RMDebug::module_qlparser, "QtCommand", "evaluate()")
+
+    return 0;
 }
 
 
@@ -143,16 +143,21 @@ QtCommand::evaluate()
 void
 QtCommand::printTree( int tab, std::ostream& s, QtChildType mode )
 {
-  s << SPACE_STR(tab).c_str() << "QtCommand Object" << std::endl;
+    s << SPACE_STR(tab).c_str() << "QtCommand Object" << std::endl;
 
-  switch( command )
-  {
-    case QT_DROP_COLLECTION:   s << SPACE_STR(tab).c_str() << "  drop collection("   << collectionName.c_str() << ")"; break;
-    case QT_CREATE_COLLECTION: s << SPACE_STR(tab).c_str() << "  create collection(" << collectionName.c_str() << ", " << typeName.c_str() <<")"; break;
-    default: s << "<command unknown>";
-  }
-  
-  s << std::endl;    
+    switch( command )
+    {
+    case QT_DROP_COLLECTION:
+        s << SPACE_STR(tab).c_str() << "  drop collection("   << collectionName.c_str() << ")";
+        break;
+    case QT_CREATE_COLLECTION:
+        s << SPACE_STR(tab).c_str() << "  create collection(" << collectionName.c_str() << ", " << typeName.c_str() <<")";
+        break;
+    default:
+        s << "<command unknown>";
+    }
+
+    s << std::endl;
 }
 
 
@@ -160,16 +165,21 @@ QtCommand::printTree( int tab, std::ostream& s, QtChildType mode )
 void
 QtCommand::printAlgebraicExpression( std::ostream& s )
 {
-  s << "command<";
+    s << "command<";
 
-  switch( command )
-  {
-    case QT_DROP_COLLECTION:   s << "drop collection("   << collectionName.c_str() << ")"; break;
-    case QT_CREATE_COLLECTION: s << "create collection(" << collectionName.c_str() << ", " << typeName.c_str() <<")"; break;
-    default: s << "unknown";
-  }
-    
-  s << ">";
+    switch( command )
+    {
+    case QT_DROP_COLLECTION:
+        s << "drop collection("   << collectionName.c_str() << ")";
+        break;
+    case QT_CREATE_COLLECTION:
+        s << "create collection(" << collectionName.c_str() << ", " << typeName.c_str() <<")";
+        break;
+    default:
+        s << "unknown";
+    }
+
+    s << ">";
 }
 
 
@@ -177,6 +187,6 @@ QtCommand::printAlgebraicExpression( std::ostream& s )
 void
 QtCommand::checkType()
 {
-  // nothing to do here
+    // nothing to do here
 }
 

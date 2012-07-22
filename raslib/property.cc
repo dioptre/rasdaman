@@ -36,67 +36,69 @@ static const char rcsid[] = "@(#)raslib, r_Meta_Object: $Header: /home/rasdev/CV
 #include <string.h>
 
 r_Property::r_Property()
-	:	r_Meta_Object(),
-		myType(NULL)
-	{
-	}
+    :   r_Meta_Object(),
+        myType(NULL)
+{
+}
 
-r_Property::r_Property(const char* newTypeName, const r_Base_Type& newType) 
-	:	r_Meta_Object(newTypeName),
-		myType((r_Base_Type*)newType.clone())
-	{
-	}
+r_Property::r_Property(const char* newTypeName, const r_Base_Type& newType)
+    :   r_Meta_Object(newTypeName),
+        myType((r_Base_Type*)newType.clone())
+{
+}
 
 r_Property::r_Property(const r_Property& oldObj)
-	:	r_Meta_Object(oldObj)
-	{
-	if (oldObj.myType)
-		myType = (r_Base_Type*)oldObj.myType->clone();
-	else	{
-		RMInit::logOut << "r_Property::r_Property(oldObj) property does not have a base type" << endl;
-		throw r_Error(PROPERTYTYPEHASNOELEMENTTYPE);
-		}
-	}
+    :   r_Meta_Object(oldObj)
+{
+    if (oldObj.myType)
+        myType = (r_Base_Type*)oldObj.myType->clone();
+    else
+    {
+        RMInit::logOut << "r_Property::r_Property(oldObj) property does not have a base type" << endl;
+        throw r_Error(PROPERTYTYPEHASNOELEMENTTYPE);
+    }
+}
 
-const r_Property& 
+const r_Property&
 r_Property::operator=(const r_Property& oldObj)
-	{
-	// Gracefully handle self assignment
-	if (this != &oldObj)
-		{
-		r_Meta_Object::operator=(oldObj);
-		if (myType) 
-			{
-			delete myType;
-			myType = 0;
-			}
+{
+    // Gracefully handle self assignment
+    if (this != &oldObj)
+    {
+        r_Meta_Object::operator=(oldObj);
+        if (myType)
+        {
+            delete myType;
+            myType = 0;
+        }
 
-		if (oldObj.myType)
-			myType = (r_Base_Type*)oldObj.myType->clone();
-		else	{
-			RMInit::logOut << "r_Property::operator=(oldObj) property does not have a base type" << endl;
-			throw r_Error(PROPERTYTYPEHASNOELEMENTTYPE);
-			}
-		}
+        if (oldObj.myType)
+            myType = (r_Base_Type*)oldObj.myType->clone();
+        else
+        {
+            RMInit::logOut << "r_Property::operator=(oldObj) property does not have a base type" << endl;
+            throw r_Error(PROPERTYTYPEHASNOELEMENTTYPE);
+        }
+    }
 
-	return *this;
-	}
+    return *this;
+}
 
 r_Property::~r_Property()
-	{
-	if (myType)
-		delete myType;
-	}
+{
+    if (myType)
+        delete myType;
+}
 
 const r_Base_Type&
 r_Property::type_of() const
-	{
-	if (!myType)
-		{
-		RMInit::logOut << "r_Property::type_of() property does not have a base type" << endl;
-		throw r_Error(PROPERTYTYPEHASNOELEMENTTYPE);
-		}
+{
+    if (!myType)
+    {
+        RMInit::logOut << "r_Property::type_of() property does not have a base type" << endl;
+        throw r_Error(PROPERTYTYPEHASNOELEMENTTYPE);
+    }
 
-	return *myType;
-	}
+    return *myType;
+}
 

@@ -24,13 +24,13 @@ rasdaman GmbH.
  * SOURCE: raspasswd.hh
  *
  * MODULE: rascontrol
- * CLASS:  
+ * CLASS:
  *
  * PURPOSE:
  *   RasDaMan password utility
- *    
+ *
  * COMMENTS:
- * 
+ *
 */
 
 #ifndef RASPASSWD_HH
@@ -56,34 +56,34 @@ rasdaman GmbH.
 using namespace std;
 
 void printCommandLineHelp();
-     
+
 bool exitbyerror(char*);
 
 const char* getPasswdKeyboard(const char*text,char*dest);
 bool  execute(const char *message);
 
 class RasPasswdConfig:public ConfigurationBase
-  {
-    public:
-      RasPasswdConfig();
-      
-      // false means program shouldn't continue
-      bool interpretArguments(int argc, char **argv);
-      
-      const char* getRasMgrHost();
-      int         getRasMgrPort();
-      // void printDebugInfo();
-    private:
+{
+public:
+    RasPasswdConfig();
 
-      void printHelp();
-      //bool paramError();
-      
-      char rasmgrHost[100];
-      int  rasmgrPort;
-      
-      //-- parameters of this program
-      CommandLineParser    &cmlInter;
-      CommandLineParameter &cmlHost, &cmlPort, &cmlHelp;
-   };
+    // false means program shouldn't continue
+    bool interpretArguments(int argc, char **argv);
+
+    const char* getRasMgrHost();
+    int         getRasMgrPort();
+    // void printDebugInfo();
+private:
+
+    void printHelp();
+    //bool paramError();
+
+    char rasmgrHost[100];
+    int  rasmgrPort;
+
+    //-- parameters of this program
+    CommandLineParser    &cmlInter;
+    CommandLineParameter &cmlHost, &cmlPort, &cmlHelp;
+};
 
 #endif

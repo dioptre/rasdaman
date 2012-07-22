@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   r_Base_Type
  *
  * COMMENTS:
- *			None
+ *          None
 */
 
 #ifndef _D_BASETYPE_
@@ -43,38 +43,38 @@ rasdaman GmbH.
   This class is the superclass of the types r_Structure_Type and r_Primitive_Type in the
   representation of the RasDaMan type system.
 */
- 
+
 class r_Base_Type : public r_Type
-	{
-	public:
-		/// default constructor.
-		r_Base_Type();
+{
+public:
+    /// default constructor.
+    r_Base_Type();
 
-		/// constructor getting name of basetype.
-		r_Base_Type(const char* newTypeName, r_Bytes newSize);
+    /// constructor getting name of basetype.
+    r_Base_Type(const char* newTypeName, r_Bytes newSize);
 
-		/// copy constructor
-		r_Base_Type(const r_Base_Type& oldObj);
+    /// copy constructor
+    r_Base_Type(const r_Base_Type& oldObj);
 
-		/// assignment operator.
-		const r_Base_Type& operator=(const r_Base_Type& oldObj);
+    /// assignment operator.
+    const r_Base_Type& operator=(const r_Base_Type& oldObj);
 
-		/// destructor.
-		virtual ~r_Base_Type();
+    /// destructor.
+    virtual ~r_Base_Type();
 
-		/// check, if type is a base type (primitive type or structure type).
-		virtual bool isBaseType() const;
+    /// check, if type is a base type (primitive type or structure type).
+    virtual bool isBaseType() const;
 
-		/// retrieve size of the type.
-		r_Bytes size() const;
+    /// retrieve size of the type.
+    r_Bytes size() const;
 
-		/// prints value of a primitive type or values of a structured type
-		virtual void print_value(const char* storage, std::ostream& s = std::cout) const = 0;
+    /// prints value of a primitive type or values of a structured type
+    virtual void print_value(const char* storage, std::ostream& s = std::cout) const = 0;
 
-	protected:
-		/// storing size of type in bytes
-		r_Bytes typeSize;
+protected:
+    /// storing size of type in bytes
+    r_Bytes typeSize;
 
-	};
+};
 
 #endif

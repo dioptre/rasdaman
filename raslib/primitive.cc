@@ -47,44 +47,44 @@ rasdaman GmbH.
 #include <stdlib.h>
 
 r_Primitive::r_Primitive( const char* newBuffer, const r_Primitive_Type* newType )
-  : r_Scalar( newType )
+    : r_Scalar( newType )
 {
-  if( valueType )
-  {
-    valueBuffer = (char*)mymalloc( valueType->size() );
-    if( newBuffer)
-       memcpy( (void*)valueBuffer, (void*)newBuffer, valueType->size() );
-    else
-       memset( (void*)valueBuffer, 0, valueType->size() );
-  }
+    if( valueType )
+    {
+        valueBuffer = (char*)mymalloc( valueType->size() );
+        if( newBuffer)
+            memcpy( (void*)valueBuffer, (void*)newBuffer, valueType->size() );
+        else
+            memset( (void*)valueBuffer, 0, valueType->size() );
+    }
 }
 
 r_Primitive::r_Primitive( const r_Primitive& obj )
-  : r_Scalar( obj ),
-    valueBuffer(NULL)
+    : r_Scalar( obj ),
+      valueBuffer(NULL)
 {
-  valueBuffer = (char*)mymalloc( valueType->size() );
-  if( obj.valueBuffer )
-    memcpy( (void*)valueBuffer, (void*)obj.valueBuffer, valueType->size() );
-  else
-    memset( (void*)valueBuffer, 0, valueType->size());
+    valueBuffer = (char*)mymalloc( valueType->size() );
+    if( obj.valueBuffer )
+        memcpy( (void*)valueBuffer, (void*)obj.valueBuffer, valueType->size() );
+    else
+        memset( (void*)valueBuffer, 0, valueType->size());
 }
 
-r_Primitive::~r_Primitive() 
+r_Primitive::~r_Primitive()
 {
-  if( valueBuffer ) free( valueBuffer );
+    if( valueBuffer ) free( valueBuffer );
 }
 
 bool
 r_Primitive::isPrimitive() const
-	{
-	return true;
-	}
+{
+    return true;
+}
 
-r_Scalar* 
+r_Scalar*
 r_Primitive::clone() const
 {
-  return new r_Primitive( *this );
+    return new r_Primitive( *this );
 }
 
 
@@ -92,36 +92,36 @@ r_Primitive::clone() const
 const r_Primitive&
 r_Primitive::operator=( const r_Primitive& obj )
 {
-  if( this != &obj )
-  {
-    // assign scalar
-    r_Scalar::operator=( obj );
-
-    if( valueBuffer )
+    if( this != &obj )
     {
-      free( valueBuffer );
-      valueBuffer = NULL;
-    }    
+        // assign scalar
+        r_Scalar::operator=( obj );
 
-    if( valueType )
-    {
-      valueBuffer = (char*)mymalloc( valueType->size() );
-      if( obj.valueBuffer )
-        memcpy( (void*)valueBuffer, (void*)obj.valueBuffer, valueType->size() );
-      else
-        memset((void*)valueBuffer, 0, valueType->size());
-    }    
-  }
+        if( valueBuffer )
+        {
+            free( valueBuffer );
+            valueBuffer = NULL;
+        }
 
-  return *this;
+        if( valueType )
+        {
+            valueBuffer = (char*)mymalloc( valueType->size() );
+            if( obj.valueBuffer )
+                memcpy( (void*)valueBuffer, (void*)obj.valueBuffer, valueType->size() );
+            else
+                memset((void*)valueBuffer, 0, valueType->size());
+        }
+    }
+
+    return *this;
 }
 
 
 
-const char* 
+const char*
 r_Primitive::get_buffer() const
 {
-  return valueBuffer;
+    return valueBuffer;
 }
 
 
@@ -129,130 +129,130 @@ r_Primitive::get_buffer() const
 void
 r_Primitive::print_status( std::ostream& s ) const
 {
-  if( valueType && valueBuffer )
-    valueType->print_value( valueBuffer, s );
-  else
-    s << "<nn>" << std::flush;
+    if( valueType && valueBuffer )
+        valueType->print_value( valueBuffer, s );
+    else
+        s << "<nn>" << std::flush;
 }
 
 
 
-r_Boolean 
+r_Boolean
 r_Primitive::get_boolean() const throw( r_Error )
 {
-  if( !valueBuffer || !valueType ) 
-  {
-    RMInit::logOut << "r_Primitive::get_boolean() buffer null or type null " << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueBuffer || !valueType )
+    {
+        RMInit::logOut << "r_Primitive::get_boolean() buffer null or type null " << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  return ((r_Primitive_Type*)valueType)->get_boolean(valueBuffer);
+    return ((r_Primitive_Type*)valueType)->get_boolean(valueBuffer);
 }
 
 
 
-r_Char 
+r_Char
 r_Primitive::get_char() const throw( r_Error )
 {
-  if( !valueBuffer || !valueType) 
-  {
-    RMInit::logOut << "r_Primitive::get_char() buffer null or type null" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueBuffer || !valueType)
+    {
+        RMInit::logOut << "r_Primitive::get_char() buffer null or type null" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  return ((r_Primitive_Type*)valueType)->get_char(valueBuffer);
+    return ((r_Primitive_Type*)valueType)->get_char(valueBuffer);
 }
 
 
 
-r_Octet 
+r_Octet
 r_Primitive::get_octet() const throw( r_Error )
 {
-  if( !valueBuffer || !valueType ) 
-  {
-    RMInit::logOut << "r_Primitive::get_octet() buffer null or type null" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueBuffer || !valueType )
+    {
+        RMInit::logOut << "r_Primitive::get_octet() buffer null or type null" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  return ((r_Primitive_Type*)valueType)->get_octet(valueBuffer);
+    return ((r_Primitive_Type*)valueType)->get_octet(valueBuffer);
 }
 
 
 
-r_Short 
+r_Short
 r_Primitive::get_short() const throw( r_Error )
 {
-  if( !valueBuffer || !valueType ) 
-  {
-    RMInit::logOut << "r_Primitive::get_short() buffer null or type null" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueBuffer || !valueType )
+    {
+        RMInit::logOut << "r_Primitive::get_short() buffer null or type null" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  return ((r_Primitive_Type*)valueType)->get_short(valueBuffer);
+    return ((r_Primitive_Type*)valueType)->get_short(valueBuffer);
 }
 
 
 
-r_UShort 
+r_UShort
 r_Primitive::get_ushort() const throw( r_Error )
 {
-  if( !valueBuffer || !valueType ) 
-  {
-    RMInit::logOut << "r_Primitive::get_ushort() buffer null or type null" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueBuffer || !valueType )
+    {
+        RMInit::logOut << "r_Primitive::get_ushort() buffer null or type null" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  return ((r_Primitive_Type*)valueType)->get_ushort(valueBuffer);
+    return ((r_Primitive_Type*)valueType)->get_ushort(valueBuffer);
 }
 
 
 
-r_Long 
+r_Long
 r_Primitive::get_long() const throw( r_Error )
 {
-  if( !valueBuffer || !valueType ) 
-  {
-    RMInit::logOut << "r_Primitive::get_long() buffer null or type null" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueBuffer || !valueType )
+    {
+        RMInit::logOut << "r_Primitive::get_long() buffer null or type null" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  return ((r_Primitive_Type*)valueType)->get_long(valueBuffer);
+    return ((r_Primitive_Type*)valueType)->get_long(valueBuffer);
 }
 
 
 
-r_ULong 
+r_ULong
 r_Primitive::get_ulong() const throw( r_Error )
 {
-  if( !valueBuffer || !valueType ) 
-  {
-    RMInit::logOut << "r_Primitive::get_ulong() buffer null or type null" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueBuffer || !valueType )
+    {
+        RMInit::logOut << "r_Primitive::get_ulong() buffer null or type null" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  return ((r_Primitive_Type*)valueType)->get_ulong(valueBuffer);
+    return ((r_Primitive_Type*)valueType)->get_ulong(valueBuffer);
 }
 
 
 
-r_Float 
+r_Float
 r_Primitive::get_float() const throw( r_Error )
 {
-  if( !valueBuffer || !valueType ) 
-  {
-    RMInit::logOut << "r_Primitive::get_float() buffer null or type null" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueBuffer || !valueType )
+    {
+        RMInit::logOut << "r_Primitive::get_float() buffer null or type null" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  return ((r_Primitive_Type*)valueType)->get_float(valueBuffer);
+    return ((r_Primitive_Type*)valueType)->get_float(valueBuffer);
 }
 
 
@@ -260,49 +260,49 @@ r_Primitive::get_float() const throw( r_Error )
 r_Double
 r_Primitive::get_double() const throw( r_Error )
 {
-  if( !valueBuffer || !valueType ) 
-  {
-    RMInit::logOut << "r_Primitive::get_double() buffer null or type null" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueBuffer || !valueType )
+    {
+        RMInit::logOut << "r_Primitive::get_double() buffer null or type null" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  return ((r_Primitive_Type*)valueType)->get_double(valueBuffer);
+    return ((r_Primitive_Type*)valueType)->get_double(valueBuffer);
 }
 
 
-void 
+void
 r_Primitive::set_boolean(r_Boolean val) throw( r_Error )
 {
-  if( !valueType || valueType->type_id() != r_Type::BOOL ) 
-  {
-    RMInit::logOut << "r_Primitive::set_boolean(" << val << ") not a boolean" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
-  
-  if( !valueBuffer )
-     valueBuffer = (char*)mymalloc( valueType->size());	
-	
-  memmove(valueBuffer, &val, valueType->size());	
+    if( !valueType || valueType->type_id() != r_Type::BOOL )
+    {
+        RMInit::logOut << "r_Primitive::set_boolean(" << val << ") not a boolean" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
+
+    if( !valueBuffer )
+        valueBuffer = (char*)mymalloc( valueType->size());
+
+    memmove(valueBuffer, &val, valueType->size());
 }
 
 
 
-void 
+void
 r_Primitive::set_char(r_Char val) throw( r_Error )
 {
-  if( !valueType || valueType->type_id() != r_Type::CHAR ) 
-  {
-    RMInit::logOut << "r_Primitive::set_char(" << val << ") not a char" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueType || valueType->type_id() != r_Type::CHAR )
+    {
+        RMInit::logOut << "r_Primitive::set_char(" << val << ") not a char" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  if( !valueBuffer )
-     valueBuffer = (char*)mymalloc( valueType->size());	
-     
-  memmove(valueBuffer, &val, valueType->size());	
+    if( !valueBuffer )
+        valueBuffer = (char*)mymalloc( valueType->size());
+
+    memmove(valueBuffer, &val, valueType->size());
 }
 
 
@@ -310,53 +310,53 @@ r_Primitive::set_char(r_Char val) throw( r_Error )
 void
 r_Primitive::set_octet(r_Octet val) throw( r_Error )
 {
-  if( !valueType || valueType->type_id() != r_Type::OCTET ) 
-  {
-    RMInit::logOut << "r_Primitive::set_octet(" << val << ") not a octet" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueType || valueType->type_id() != r_Type::OCTET )
+    {
+        RMInit::logOut << "r_Primitive::set_octet(" << val << ") not a octet" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  if( !valueBuffer )
-     valueBuffer = (char*)mymalloc( valueType->size());	
+    if( !valueBuffer )
+        valueBuffer = (char*)mymalloc( valueType->size());
 
-  memmove(valueBuffer, &val, valueType->size());	
+    memmove(valueBuffer, &val, valueType->size());
 }
 
 
 
-void 
+void
 r_Primitive::set_short(r_Short val) throw( r_Error )
 {
-  if( !valueType || valueType->type_id() != r_Type::SHORT ) 
-  {
-    RMInit::logOut << "r_Primitive::set_short(" << val << ") not a short" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueType || valueType->type_id() != r_Type::SHORT )
+    {
+        RMInit::logOut << "r_Primitive::set_short(" << val << ") not a short" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  if( !valueBuffer )
-     valueBuffer = (char*)mymalloc( valueType->size());	
-     
-  memmove(valueBuffer, &val, valueType->size());	
+    if( !valueBuffer )
+        valueBuffer = (char*)mymalloc( valueType->size());
+
+    memmove(valueBuffer, &val, valueType->size());
 }
 
 
 
-void 
+void
 r_Primitive::set_ushort(r_UShort val) throw( r_Error )
 {
-  if( !valueType || valueType->type_id() != r_Type::USHORT ) 
-  {
-    RMInit::logOut << "r_Primitive::set_ushort(" << val << ") not a ushort" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueType || valueType->type_id() != r_Type::USHORT )
+    {
+        RMInit::logOut << "r_Primitive::set_ushort(" << val << ") not a ushort" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  if( !valueBuffer )
-     valueBuffer = (char*)mymalloc( valueType->size());	
+    if( !valueBuffer )
+        valueBuffer = (char*)mymalloc( valueType->size());
 
-  memmove(valueBuffer, &val, valueType->size());	
+    memmove(valueBuffer, &val, valueType->size());
 }
 
 
@@ -364,35 +364,35 @@ r_Primitive::set_ushort(r_UShort val) throw( r_Error )
 void
 r_Primitive::set_long(r_Long val) throw( r_Error )
 {
-  if( !valueType || valueType->type_id() != r_Type::LONG ) 
-  {
-    RMInit::logOut << "r_Primitive::set_long(" << val << ") not a long" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueType || valueType->type_id() != r_Type::LONG )
+    {
+        RMInit::logOut << "r_Primitive::set_long(" << val << ") not a long" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  if( !valueBuffer )
-     valueBuffer = (char*)mymalloc( valueType->size());	
-     
-  memmove(valueBuffer, &val, valueType->size());	
+    if( !valueBuffer )
+        valueBuffer = (char*)mymalloc( valueType->size());
+
+    memmove(valueBuffer, &val, valueType->size());
 }
 
 
 
-void 
+void
 r_Primitive::set_ulong(r_ULong val) throw( r_Error )
 {
-  if( !valueType || valueType->type_id() != r_Type::ULONG ) 
-  {
-    RMInit::logOut << "r_Primitive::set_ulong(" << val << ") not a ulong" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueType || valueType->type_id() != r_Type::ULONG )
+    {
+        RMInit::logOut << "r_Primitive::set_ulong(" << val << ") not a ulong" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  if( !valueBuffer )
-     valueBuffer = (char*)mymalloc( valueType->size());	
-     
-  memmove(valueBuffer, &val, valueType->size());	
+    if( !valueBuffer )
+        valueBuffer = (char*)mymalloc( valueType->size());
+
+    memmove(valueBuffer, &val, valueType->size());
 }
 
 
@@ -400,17 +400,17 @@ r_Primitive::set_ulong(r_ULong val) throw( r_Error )
 void
 r_Primitive::set_float(r_Float val) throw( r_Error )
 {
-  if( !valueType || valueType->type_id() != r_Type::FLOAT ) 
-  {
-    RMInit::logOut << "r_Primitive::set_float(" << val << ") not a float" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueType || valueType->type_id() != r_Type::FLOAT )
+    {
+        RMInit::logOut << "r_Primitive::set_float(" << val << ") not a float" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  if( !valueBuffer )
-     valueBuffer = (char*)mymalloc( valueType->size());	
-     
-  memmove(valueBuffer, &val, valueType->size());	
+    if( !valueBuffer )
+        valueBuffer = (char*)mymalloc( valueType->size());
+
+    memmove(valueBuffer, &val, valueType->size());
 }
 
 
@@ -418,22 +418,22 @@ r_Primitive::set_float(r_Float val) throw( r_Error )
 void
 r_Primitive::set_double(r_Double val) throw( r_Error )
 {
-  if( !valueType || valueType->type_id() != r_Type::DOUBLE ) 
-  {
-    RMInit::logOut << "r_Primitive::set_double(" << val << ") not a double" << endl;
-    r_Error err( r_Error::r_Error_TypeInvalid );
-    throw err; 
-  }
+    if( !valueType || valueType->type_id() != r_Type::DOUBLE )
+    {
+        RMInit::logOut << "r_Primitive::set_double(" << val << ") not a double" << endl;
+        r_Error err( r_Error::r_Error_TypeInvalid );
+        throw err;
+    }
 
-  if( !valueBuffer )
-     valueBuffer = (char*)mymalloc( valueType->size());	
-  memmove(valueBuffer, &val, valueType->size());	
+    if( !valueBuffer )
+        valueBuffer = (char*)mymalloc( valueType->size());
+    memmove(valueBuffer, &val, valueType->size());
 }
 
 
 std::ostream& operator<<( std::ostream& s, const r_Primitive& obj )
 {
-  obj.print_status( s );
-  return s;
+    obj.print_status( s );
+    return s;
 }
 

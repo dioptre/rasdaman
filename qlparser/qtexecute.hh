@@ -40,7 +40,7 @@ rasdaman GmbH.
 
 class QtExecute : public QtNode
 {
-  public:
+public:
     /// method for evaluating the execute node node
     virtual int evaluate() = 0;
 
@@ -48,7 +48,7 @@ class QtExecute : public QtNode
     virtual void checkType() = 0;
     /**
       The method triggers type checking of the node's subtree. If an error occurs, an exception
-      is raised. 
+      is raised.
     */
 };
 

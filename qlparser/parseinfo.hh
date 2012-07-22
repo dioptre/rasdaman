@@ -22,7 +22,7 @@ rasdaman GmbH.
 */
 #ifndef _PARSEINFO_
 #define _PARSEINFO_
- 
+
 #ifndef CPPSTDLIB
 #include <ospace/string.h> // STL<ToolKit>
 #else
@@ -36,34 +36,34 @@ rasdaman GmbH.
  *
  ************************************************************/
 
- 
+
 //@ManMemo: Module: {\bf qlparser}
 
 /*@Doc:
 
- This class holds some information about a token and its 
+ This class holds some information about a token and its
  location in the parse string. Additionally, it can keep
  an error number which is used in the query tree to report
  error with some context information within the query string.
- 
+
 */
- 
+
 class ParseInfo
 {
-  public:
-  
+public:
+
     /// default constructor
     ParseInfo();
-    
+
     /// constructor getting error number, token and location information
     ParseInfo( unsigned long errorNo, const char* token, unsigned int lineNo, unsigned columnNo );
-    
+
     /// copy constructor
     ParseInfo( const ParseInfo& old);
-    
+
     /// constructor getting token and location information
     ParseInfo( const char* token, unsigned int lineNo, unsigned columnNo );
-    
+
     //@Man: Read/Write methods
     //@{
     ///
@@ -86,12 +86,12 @@ class ParseInfo
     inline void          setColumnNo( unsigned int columnNo );
     ///
     //@}
-    
+
     void printStatus(  std::ostream& s= std::cout ) const;
-    
+
     ParseInfo& operator=(const ParseInfo& old);
-    
-  private:
+
+private:
     //@Man: Attributes
     //@{
     ///

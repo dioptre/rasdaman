@@ -23,7 +23,7 @@ rasdaman GmbH.
 /*************************************************************
  *
  *
- * PURPOSE: 
+ * PURPOSE:
  *
  *
  * COMMENTS:
@@ -74,9 +74,9 @@ using namespace std;
 #include <stdlib.h>    // for atol()
 #include <string.h>
 #include <ctype.h>
-#include <sys/times.h>	// time(), ctime()
+#include <sys/times.h>  // time(), ctime()
 
-#include "globals.hh"	// DEFAULT_DBNAME
+#include "globals.hh"   // DEFAULT_DBNAME
 
 #include "reladminif/adminif.hh"
 #include "reladminif/databaseif.hh"
@@ -88,7 +88,7 @@ using namespace std;
 #include "relcatalogif/alltypes.hh"
 #include "catalogmgr/typefactory.hh"
 #ifndef BASEDB_O2
-  #include "reladminif/dbref.hh"
+#include "reladminif/dbref.hh"
 #endif
 
 #include "raslib/rminit.hh"
@@ -100,7 +100,7 @@ using namespace std;
 
 // error texts
 #define      ERROR_NOACTION "EDL000 Error: no action specified."
-#define ERROR_UNKNOWNACTION "EDL001 Error: unknown action type: " 
+#define ERROR_UNKNOWNACTION "EDL001 Error: unknown action type: "
 #define         ERROR_PANIC "EDL002 panic: unexpected internal exception."
 #define      ERROR_RASDAMAN "EDL003 rasdaman error: "
 
@@ -112,70 +112,70 @@ RMINITGLOBALS('S')
 
 // command line flags and options
 
-#define FLAG_DATABASE	'd'
-#define PARAM_DATABASE	"database"
-#define HELP_DATABASE	"<db-name> name of the database"
+#define FLAG_DATABASE   'd'
+#define PARAM_DATABASE  "database"
+#define HELP_DATABASE   "<db-name> name of the database"
 
-#define PARAM_BASENAME	"basename"
-#define HELP_BASENAME	"<db-name> name of the database (deprecated, use --database)"
+#define PARAM_BASENAME  "basename"
+#define HELP_BASENAME   "<db-name> name of the database (deprecated, use --database)"
 #define DEFAULT_BASENAME DEFAULT_DBNAME
 
-#define FLAG_CREATE	'c'
-#define PARAM_CREATE	"createdatabase"
-#define HELP_CREATE	"create database and initialize schema information"
+#define FLAG_CREATE 'c'
+#define PARAM_CREATE    "createdatabase"
+#define HELP_CREATE "create database and initialize schema information"
 
-#define PARAM_DELDB	"deldatabase"
-#define HELP_DELDB	"delete database"
+#define PARAM_DELDB "deldatabase"
+#define HELP_DELDB  "delete database"
 
-#define FLAG_PRINT	'p'
-#define PARAM_PRINT	"print"
-#define HELP_PRINT	"print all types"
+#define FLAG_PRINT  'p'
+#define PARAM_PRINT "print"
+#define HELP_PRINT  "print all types"
 
-#define FLAG_READ	'r'
-#define PARAM_READ	"read"
-#define HELP_READ	"<file> read data definition file"
+#define FLAG_READ   'r'
+#define PARAM_READ  "read"
+#define HELP_READ   "<file> read data definition file"
 
-#define PARAM_DELBASETYPE	"delbasetype"
-#define HELP_DELBASETYPE	"<base-name> delete base type with name <base-name>"
+#define PARAM_DELBASETYPE   "delbasetype"
+#define HELP_DELBASETYPE    "<base-name> delete base type with name <base-name>"
 
-#define PARAM_DELMDDTYPE	"delmddtype"
-#define HELP_DELMDDTYPE		"<mdd-name> delete mdd type with name <mdd-name>"
+#define PARAM_DELMDDTYPE    "delmddtype"
+#define HELP_DELMDDTYPE     "<mdd-name> delete mdd type with name <mdd-name>"
 
-#define PARAM_DELSETTYPE	"delsettype"
-#define HELP_DELSETTYPE		"<set-name> delete set type with name <set-name>"
+#define PARAM_DELSETTYPE    "delsettype"
+#define HELP_DELSETTYPE     "<set-name> delete set type with name <set-name>"
 
-#define FLAG_INSERT	'i'
-#define PARAM_INSERT	"insert"
-#define HELP_INSERT	"insert types into database (requires -r)"
+#define FLAG_INSERT 'i'
+#define PARAM_INSERT    "insert"
+#define HELP_INSERT "insert types into database (requires -r)"
 
-#define PARAM_HH	"hh"
-#define HELP_HH		"<hh-file> print C++ header into <hh-file> (requires -r)"
+#define PARAM_HH    "hh"
+#define HELP_HH     "<hh-file> print C++ header into <hh-file> (requires -r)"
 
-#define PARAM_CONNECT	"connect"
-#define HELP_CONNECT	"<connect-str> connect string for underlying database (syntax depending on base DBMS, e.g., rasbase@serverhost)"
-#define DEFAULT_CONNECT	"RASBASE"
+#define PARAM_CONNECT   "connect"
+#define HELP_CONNECT    "<connect-str> connect string for underlying database (syntax depending on base DBMS, e.g., rasbase@serverhost)"
+#define DEFAULT_CONNECT "RASBASE"
 
-#define PARAM_DEBUG	"debug"
-#define HELP_DEBUG	"print diagnostic output"
+#define PARAM_DEBUG "debug"
+#define HELP_DEBUG  "print diagnostic output"
 
-#define FLAG_HELP	'h'
-#define PARAM_HELP	"help"
-#define HELP_HELP	"print this help"
+#define FLAG_HELP   'h'
+#define PARAM_HELP  "help"
+#define HELP_HELP   "print this help"
 
 
 #ifdef EXIT_SUCCESS
-    #undef EXIT_SUCCESS
+#undef EXIT_SUCCESS
 #endif
 #ifdef EXIT_FAILURE
-    #undef EXIT_FAILURE
+#undef EXIT_FAILURE
 #endif
 #ifdef EXIT_HELP
-    #undef EXIT_HELP
+#undef EXIT_HELP
 #endif
 // program return codes
-#define EXIT_SUCCESS	0
-#define EXIT_FAILURE	-1
-#define EXIT_HELP	2
+#define EXIT_SUCCESS    0
+#define EXIT_FAILURE    -1
+#define EXIT_HELP   2
 
 #include "rasdl/symbtbl.hh"
 #include "rasdl/yparse.hh"
@@ -193,15 +193,15 @@ TransactionIf* ta    = NULL;
 // command indicator (what to do)
 enum ProgModes
 {
-	M_INVALID, 
-	M_PRINT, 
-	M_READ, 
-	M_DELBASETYPE, 
-	M_DELSETTYPE, 
-	M_DELMDDTYPE,
-	M_CREATEDATABASE, 
-	M_DELDATABASE,
-	M_HELP
+    M_INVALID,
+    M_PRINT,
+    M_READ,
+    M_DELBASETYPE,
+    M_DELSETTYPE,
+    M_DELMDDTYPE,
+    M_CREATEDATABASE,
+    M_DELDATABASE,
+    M_HELP
 };
 
 ProgModes progMode = M_INVALID;
@@ -223,504 +223,504 @@ int         insertIntoDb = 0;
 bool        printToFile = false;
 
 
-void 
+void
 printNames()
 {
-	TypeIterator<StructType> structIter = TypeFactory::createStructIter();
+    TypeIterator<StructType> structIter = TypeFactory::createStructIter();
 
-	cout << endl;
-	cout << "// rasdaman database '" << baseName << "' type definitions" << endl;
-	time_t now = time(NULL);
-	cout << "// generated on: " << ctime( &now );
-	cout << endl;
+    cout << endl;
+    cout << "// rasdaman database '" << baseName << "' type definitions" << endl;
+    time_t now = time(NULL);
+    cout << "// generated on: " << ctime( &now );
+    cout << endl;
 
-	cout << "//" << endl;
-	cout << "// marray base types" << endl;
-	cout << "//" << endl;
+    cout << "//" << endl;
+    cout << "// marray base types" << endl;
+    cout << "//" << endl;
 
-	while(structIter.not_done()) 
-	{
-		StructType* typePtr       = structIter.get_element();
-		char*       typeStructure = typePtr->getTypeStructure();
+    while(structIter.not_done())
+    {
+        StructType* typePtr       = structIter.get_element();
+        char*       typeStructure = typePtr->getTypeStructure();
 
-		cout << "typedef " << typeStructure << " " << typePtr->getTypeName() << ";" << endl;
+        cout << "typedef " << typeStructure << " " << typePtr->getTypeName() << ";" << endl;
 
-		free( typeStructure );
-		typeStructure = NULL;
+        free( typeStructure );
+        typeStructure = NULL;
 
-		structIter.advance();
-	}
+        structIter.advance();
+    }
 
-	cout << endl;
-	cout << "//" << endl;
-	cout << "// marray types" << endl;
-	cout << "//" << endl;
+    cout << endl;
+    cout << "//" << endl;
+    cout << "// marray types" << endl;
+    cout << "//" << endl;
 
-	TypeIterator<MDDType> mddIter = TypeFactory::createMDDIter();
+    TypeIterator<MDDType> mddIter = TypeFactory::createMDDIter();
 
-	while(mddIter.not_done()) 
-	{
-		MDDType* typePtr       = mddIter.get_element();
-		char*    typeStructure = typePtr->getTypeStructure();
+    while(mddIter.not_done())
+    {
+        MDDType* typePtr       = mddIter.get_element();
+        char*    typeStructure = typePtr->getTypeStructure();
 
-		cout << "typedef " << typeStructure << " " << typePtr->getTypeName() << ";" << endl;
+        cout << "typedef " << typeStructure << " " << typePtr->getTypeName() << ";" << endl;
 
-		free( typeStructure );
-		typeStructure = NULL;
+        free( typeStructure );
+        typeStructure = NULL;
 
-		mddIter.advance();
-	}
+        mddIter.advance();
+    }
 
-	cout << endl;
-	cout << "//" << endl;
-	cout << "// set types" << endl;
-	cout << "//" << endl;
+    cout << endl;
+    cout << "//" << endl;
+    cout << "// set types" << endl;
+    cout << "//" << endl;
 
-	TypeIterator<SetType> setIter = TypeFactory::createSetIter();
+    TypeIterator<SetType> setIter = TypeFactory::createSetIter();
 
-	while(setIter.not_done()) 
-	{
-		SetType* typePtr       = setIter.get_element();
-    
-    // print the MDD type name instead of the whole type structure -- DM 2012-may-24
-    // ticket: http://rasdaman.eecs.jacobs-university.de/trac/rasdaman/ticket/140
-		cout << "typedef set <" << typePtr->getMDDType()->getTypeName() << "> " << typePtr->getTypeName() << ";" << endl;
+    while(setIter.not_done())
+    {
+        SetType* typePtr       = setIter.get_element();
 
-		setIter.advance();
-	}
+        // print the MDD type name instead of the whole type structure -- DM 2012-may-24
+        // ticket: http://rasdaman.eecs.jacobs-university.de/trac/rasdaman/ticket/140
+        cout << "typedef set <" << typePtr->getMDDType()->getTypeName() << "> " << typePtr->getTypeName() << ";" << endl;
 
-	cout << endl;
+        setIter.advance();
+    }
+
+    cout << endl;
 }
 
 
-void 
+void
 printHeader( const char* headerFileName )
 {
-	cout << "Generating header file " << headerFileName << "..." << flush;
+    cout << "Generating header file " << headerFileName << "..." << flush;
 
-	FILE   *file=fopen( headerFileName, "wt" );
-	if(!file)
-		throw RasdlError( CANNOTWRITEHDR );
+    FILE   *file=fopen( headerFileName, "wt" );
+    if(!file)
+        throw RasdlError( CANNOTWRITEHDR );
 
-	char* defName = new char[strlen(headerFileName)+1];
-	if (defName == NULL)
-		throw RasdlError( CANNOTALLOC );
+    char* defName = new char[strlen(headerFileName)+1];
+    if (defName == NULL)
+        throw RasdlError( CANNOTALLOC );
 
-	// generate upper case version for include guard
-	int i = 0;
-	while( headerFileName[i] != '.' && headerFileName[i] != '\0' )
-	{
-		defName[i] = toupper( headerFileName[i] );
-		i++;
-	}
-	defName[i] = '\0';
+    // generate upper case version for include guard
+    int i = 0;
+    while( headerFileName[i] != '.' && headerFileName[i] != '\0' )
+    {
+        defName[i] = toupper( headerFileName[i] );
+        i++;
+    }
+    defName[i] = '\0';
 
-	/* header description */
-	fprintf(file,"//------------------------------------------------------------\n");
-	fprintf(file,"//  This file is created automatically by the rasdl processor.\n");
-	fprintf(file,"//  better than modifying this file is to re-generate it.     \n");
-	fprintf(file,"//------------------------------------------------------------\n");
-	fprintf(file,"\n");
-	fprintf(file,"#ifndef __%s_HH_\n", defName );
-	fprintf(file,"#define __%s_HH_\n", defName );
-	fprintf(file,"\n");
-	fprintf(file,"//------------------------------------------------------------\n");
-	fprintf(file,"//  Includes\n");
-	fprintf(file,"//------------------------------------------------------------\n");
-	fprintf(file,"\n");
-	fprintf(file,"#include \"rasdaman.hh\"\n");
-	fprintf(file,"\n");
-	
-	Symbols->global_scope->output(file);
-	
-	fprintf(file,"#endif\n");
-	
-	fclose(file);
-	delete[] defName;
-	defName = NULL;
+    /* header description */
+    fprintf(file,"//------------------------------------------------------------\n");
+    fprintf(file,"//  This file is created automatically by the rasdl processor.\n");
+    fprintf(file,"//  better than modifying this file is to re-generate it.     \n");
+    fprintf(file,"//------------------------------------------------------------\n");
+    fprintf(file,"\n");
+    fprintf(file,"#ifndef __%s_HH_\n", defName );
+    fprintf(file,"#define __%s_HH_\n", defName );
+    fprintf(file,"\n");
+    fprintf(file,"//------------------------------------------------------------\n");
+    fprintf(file,"//  Includes\n");
+    fprintf(file,"//------------------------------------------------------------\n");
+    fprintf(file,"\n");
+    fprintf(file,"#include \"rasdaman.hh\"\n");
+    fprintf(file,"\n");
 
-	cout << "ok" << endl;  
+    Symbols->global_scope->output(file);
+
+    fprintf(file,"#endif\n");
+
+    fclose(file);
+    delete[] defName;
+    defName = NULL;
+
+    cout << "ok" << endl;
 }
 
-void 
+void
 disconnectDB( bool commitTa )
 {
-	ENTER( "disconnectDB, commitTa =" << commitTa  );
+    ENTER( "disconnectDB, commitTa =" << commitTa  );
 
-	if( ta )
-	{
-		if(commitTa )
-		{
-			ta->commit();
-			TALK( "TA committed." );
-		}
-		else
-		{
-			ta->abort();
-			TALK( "TA aborted." );
-		}
+    if( ta )
+    {
+        if(commitTa )
+        {
+            ta->commit();
+            TALK( "TA committed." );
+        }
+        else
+        {
+            ta->abort();
+            TALK( "TA aborted." );
+        }
 
-		delete ta;
-		ta = NULL;
+        delete ta;
+        ta = NULL;
 
-		if( db )
-		{
-			db->close();
-			TALK( "DB closed." );
-			delete db;
-			db = NULL;
-		}
-	
-		if( admin )
-		{
-			delete admin;
-			admin = NULL;
-		}
-	}
-	LEAVE( "disconnectDB" );
+        if( db )
+        {
+            db->close();
+            TALK( "DB closed." );
+            delete db;
+            db = NULL;
+        }
+
+        if( admin )
+        {
+            delete admin;
+            admin = NULL;
+        }
+    }
+    LEAVE( "disconnectDB" );
 }
 
-void 
+void
 connectDB( const char* baseName, bool openDb, bool openTa ) throw (r_Error, RasdlError)
 {
-	ENTER( "connectDB, basename=" << baseName );
+    ENTER( "connectDB, basename=" << baseName );
 
-	admin = AdminIf::instance();
-	if( !admin )
-	{
-		TALK( "cannot create adminIf instance" );
-		throw RasdlError( NOCONNECTION );
-	}
+    admin = AdminIf::instance();
+    if( !admin )
+    {
+        TALK( "cannot create adminIf instance" );
+        throw RasdlError( NOCONNECTION );
+    }
 
-	if ( openDb )
-	{
-		// connect to the database
-		db = new DatabaseIf();
-		// TALK( "adding dbf to adminif" );
-		// admin->setCurrentDatabaseIf( db );
-		TALK( "opening db" );
-		db->open( baseName );
-	}
+    if ( openDb )
+    {
+        // connect to the database
+        db = new DatabaseIf();
+        // TALK( "adding dbf to adminif" );
+        // admin->setCurrentDatabaseIf( db );
+        TALK( "opening db" );
+        db->open( baseName );
+    }
 
-	if ( openTa )
-	{
-		// start transaction
-		ta = new TransactionIf();
-		TALK( "opening ta" );
-		ta->begin( db );
-	}
+    if ( openTa )
+    {
+        // start transaction
+        ta = new TransactionIf();
+        TALK( "opening ta" );
+        ta->begin( db );
+    }
 
-	LEAVE( "connectDB" );
+    LEAVE( "connectDB" );
 }
 
 //analyse params
-void 
+void
 parseParams(int argc, char* argv[]) throw (r_Error, RasdlError)
 {
-	CommandLineParser    &cmlInter     	= CommandLineParser::getInstance();
+    CommandLineParser    &cmlInter      = CommandLineParser::getInstance();
 
-	CommandLineParameter &cmlHelp           = cmlInter.addFlagParameter( FLAG_HELP, PARAM_HELP, HELP_HELP );
+    CommandLineParameter &cmlHelp           = cmlInter.addFlagParameter( FLAG_HELP, PARAM_HELP, HELP_HELP );
 
-	CommandLineParameter &cmlDbName   	= cmlInter.addStringParameter( FLAG_DATABASE, PARAM_DATABASE, HELP_DATABASE, DEFAULT_BASENAME );
-	CommandLineParameter &cmlBaseName   	= cmlInter.addStringParameter(CommandLineParser::noShortName, PARAM_BASENAME, HELP_BASENAME, DEFAULT_BASENAME );
-	CommandLineParameter &cmlCreateDb   	= cmlInter.addFlagParameter( FLAG_CREATE, PARAM_CREATE, HELP_CREATE );
-	CommandLineParameter &cmlDelDb   	= cmlInter.addFlagParameter(CommandLineParser::noShortName, PARAM_DELDB, HELP_DELDB );
-	CommandLineParameter &cmlReadMeta    	= cmlInter.addStringParameter( FLAG_READ, PARAM_READ, HELP_READ );
-	CommandLineParameter &cmlInsertInDb   	= cmlInter.addFlagParameter( FLAG_INSERT, PARAM_INSERT, HELP_INSERT );
+    CommandLineParameter &cmlDbName     = cmlInter.addStringParameter( FLAG_DATABASE, PARAM_DATABASE, HELP_DATABASE, DEFAULT_BASENAME );
+    CommandLineParameter &cmlBaseName       = cmlInter.addStringParameter(CommandLineParser::noShortName, PARAM_BASENAME, HELP_BASENAME, DEFAULT_BASENAME );
+    CommandLineParameter &cmlCreateDb       = cmlInter.addFlagParameter( FLAG_CREATE, PARAM_CREATE, HELP_CREATE );
+    CommandLineParameter &cmlDelDb      = cmlInter.addFlagParameter(CommandLineParser::noShortName, PARAM_DELDB, HELP_DELDB );
+    CommandLineParameter &cmlReadMeta       = cmlInter.addStringParameter( FLAG_READ, PARAM_READ, HELP_READ );
+    CommandLineParameter &cmlInsertInDb     = cmlInter.addFlagParameter( FLAG_INSERT, PARAM_INSERT, HELP_INSERT );
 
-	CommandLineParameter &cmlHHGen    	= cmlInter.addStringParameter(CommandLineParser::noShortName, PARAM_HH, HELP_HH );
-	CommandLineParameter &cmlPrintMeta   	= cmlInter.addFlagParameter( FLAG_PRINT, PARAM_PRINT, HELP_PRINT );
+    CommandLineParameter &cmlHHGen      = cmlInter.addStringParameter(CommandLineParser::noShortName, PARAM_HH, HELP_HH );
+    CommandLineParameter &cmlPrintMeta      = cmlInter.addFlagParameter( FLAG_PRINT, PARAM_PRINT, HELP_PRINT );
 
-	CommandLineParameter &cmlDelBaseType 	= cmlInter.addStringParameter(CommandLineParser::noShortName, PARAM_DELBASETYPE, HELP_DELBASETYPE );
-	CommandLineParameter &cmlDelMddType  	= cmlInter.addStringParameter(CommandLineParser::noShortName, PARAM_DELMDDTYPE, HELP_DELMDDTYPE );
-	CommandLineParameter &cmlDelSetType   	= cmlInter.addStringParameter(CommandLineParser::noShortName, PARAM_DELSETTYPE, HELP_DELSETTYPE );
+    CommandLineParameter &cmlDelBaseType    = cmlInter.addStringParameter(CommandLineParser::noShortName, PARAM_DELBASETYPE, HELP_DELBASETYPE );
+    CommandLineParameter &cmlDelMddType     = cmlInter.addStringParameter(CommandLineParser::noShortName, PARAM_DELMDDTYPE, HELP_DELMDDTYPE );
+    CommandLineParameter &cmlDelSetType     = cmlInter.addStringParameter(CommandLineParser::noShortName, PARAM_DELSETTYPE, HELP_DELSETTYPE );
 
 #ifdef BASEDB_O2
-	CommandLineParameter &cmlSchemaDb   	= cmlInter.addStringParameter(CommandLineParser::noShortName, "schema", "<sch-name> name of o2 schema used for new bases", "RasDaSchema");
-	CommandLineParameter &cmlVolumeDb    	= cmlInter.addStringParameter(CommandLineParser::noShortName, "volume", "<vol-name> name of o2 volume used for new bases");
+    CommandLineParameter &cmlSchemaDb       = cmlInter.addStringParameter(CommandLineParser::noShortName, "schema", "<sch-name> name of o2 schema used for new bases", "RasDaSchema");
+    CommandLineParameter &cmlVolumeDb       = cmlInter.addStringParameter(CommandLineParser::noShortName, "volume", "<vol-name> name of o2 volume used for new bases");
 #endif
 
-	CommandLineParameter &cmlConnectStr     = cmlInter.addStringParameter(CommandLineParser::noShortName, PARAM_CONNECT, HELP_CONNECT, DEFAULT_CONNECT );
+    CommandLineParameter &cmlConnectStr     = cmlInter.addStringParameter(CommandLineParser::noShortName, PARAM_CONNECT, HELP_CONNECT, DEFAULT_CONNECT );
 
 #ifdef DEBUG
-	CommandLineParameter &cmlDebug          = cmlInter.addFlagParameter(CommandLineParser::noShortName, PARAM_DEBUG, HELP_DEBUG );
+    CommandLineParameter &cmlDebug          = cmlInter.addFlagParameter(CommandLineParser::noShortName, PARAM_DEBUG, HELP_DEBUG );
 #endif
 
-	try
-	{
-		cmlInter.processCommandLine(argc, argv);
-	
-		if (argc == 1 || cmlHelp.isPresent())
-		{
-			static const char* ExDbName      = DEFAULT_BASENAME;
-			static const char* ExBaseName    = "char";  
-			static const char* ExMddName     = "GreyImage";  
-			static const char* ExSetName     = "GreySet";  
-			static const char* ExMetaFile    = "basictypes.dl";
-			static const char* ExHHFile      = "basictypes.hh";
+    try
+    {
+        cmlInter.processCommandLine(argc, argv);
 
-			cout << "Usage: rasdl [options]" << endl;		
-			cout << "Options:" << endl;
-			cmlInter.printHelp();
+        if (argc == 1 || cmlHelp.isPresent())
+        {
+            static const char* ExDbName      = DEFAULT_BASENAME;
+            static const char* ExBaseName    = "char";
+            static const char* ExMddName     = "GreyImage";
+            static const char* ExSetName     = "GreySet";
+            static const char* ExMetaFile    = "basictypes.dl";
+            static const char* ExHHFile      = "basictypes.hh";
 
-			cout << "Examples:" << endl;
-			cout << "   create database:\trasdl " << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName   << " " << CommandLineParser::LongSign << cmlCreateDb.getLongName()    << endl;
-			cout << "   delete database:\trasdl "   << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName   << " " << CommandLineParser::LongSign << cmlDelDb.getLongName()       << endl;
-			cout << "   delete base type:\trasdl "   << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName   << " " << CommandLineParser::LongSign << cmlDelBaseType.getLongName() << " " << ExBaseName << endl;
-			cout << "   delete mdd type:\trasdl "   << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName   << " " << CommandLineParser::LongSign << cmlDelMddType.getLongName()  << " " << ExMddName << endl;  
-			cout << "   delete set type:\trasdl "   << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName   << " " << CommandLineParser::LongSign << cmlDelSetType.getLongName()  << " " << ExSetName  << endl;  
-			cout << "   print all types:\trasdl "   << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName << " " << CommandLineParser::LongSign << cmlPrintMeta.getLongName()   << endl;
-			cout << "   insert types:\trasdl " << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName << " " << CommandLineParser::LongSign << cmlReadMeta.getLongName() << " " << ExMetaFile << " " << CommandLineParser::LongSign << cmlInsertInDb.getLongName()  << endl;  
-			cout << "   generate C++ header from type file:\trasdl " << CommandLineParser::LongSign << cmlReadMeta.getLongName()    << " " << ExMetaFile << " " << CommandLineParser::LongSign << cmlHHGen.getLongName() << " " << ExHHFile   << endl;  
-			exit( EXIT_HELP );	// bash ret code for usage; FIXME: exit() no good style!
-		}
+            cout << "Usage: rasdl [options]" << endl;
+            cout << "Options:" << endl;
+            cmlInter.printHelp();
+
+            cout << "Examples:" << endl;
+            cout << "   create database:\trasdl " << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName   << " " << CommandLineParser::LongSign << cmlCreateDb.getLongName()    << endl;
+            cout << "   delete database:\trasdl "   << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName   << " " << CommandLineParser::LongSign << cmlDelDb.getLongName()       << endl;
+            cout << "   delete base type:\trasdl "   << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName   << " " << CommandLineParser::LongSign << cmlDelBaseType.getLongName() << " " << ExBaseName << endl;
+            cout << "   delete mdd type:\trasdl "   << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName   << " " << CommandLineParser::LongSign << cmlDelMddType.getLongName()  << " " << ExMddName << endl;
+            cout << "   delete set type:\trasdl "   << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName   << " " << CommandLineParser::LongSign << cmlDelSetType.getLongName()  << " " << ExSetName  << endl;
+            cout << "   print all types:\trasdl "   << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName << " " << CommandLineParser::LongSign << cmlPrintMeta.getLongName()   << endl;
+            cout << "   insert types:\trasdl " << CommandLineParser::LongSign << cmlDbName.getLongName() << " " << ExDbName << " " << CommandLineParser::LongSign << cmlReadMeta.getLongName() << " " << ExMetaFile << " " << CommandLineParser::LongSign << cmlInsertInDb.getLongName()  << endl;
+            cout << "   generate C++ header from type file:\trasdl " << CommandLineParser::LongSign << cmlReadMeta.getLongName()    << " " << ExMetaFile << " " << CommandLineParser::LongSign << cmlHHGen.getLongName() << " " << ExHHFile   << endl;
+            exit( EXIT_HELP );  // bash ret code for usage; FIXME: exit() no good style!
+        }
 
 #ifdef DEBUG
-		// debug
-		SET_OUTPUT( cmlDebug.isPresent() );
+        // debug
+        SET_OUTPUT( cmlDebug.isPresent() );
 #endif
 
-		if (cmlBaseName.isPresent())
-			baseName = cmlBaseName.getValueAsString();
+        if (cmlBaseName.isPresent())
+            baseName = cmlBaseName.getValueAsString();
 
-		if (cmlDbName.isPresent())
-			baseName = cmlDbName.getValueAsString();
+        if (cmlDbName.isPresent())
+            baseName = cmlDbName.getValueAsString();
 
-		//read mode
-		if( cmlReadMeta.isPresent())
-		{
-			progMode = M_READ;
-			odlFileName = cmlReadMeta.getValueAsString();
-		}
+        //read mode
+        if( cmlReadMeta.isPresent())
+        {
+            progMode = M_READ;
+            odlFileName = cmlReadMeta.getValueAsString();
+        }
 
-		//schema && volume
+        //schema && volume
 #ifdef BASEDB_O2
-		// to be done
-		dbSchema = cmlSchemaDb.getValueAsString());
-		if( cmlVolumeDb.isPresent())
-		{
-			if( cmlVolumeDb.getValueAsString())
-			  	dbVolume = cmlVolumeDb.getValueAsString());
-		}
+        // to be done
+        dbSchema = cmlSchemaDb.getValueAsString());
+        if( cmlVolumeDb.isPresent())
+        {
+            if( cmlVolumeDb.getValueAsString())
+                dbVolume = cmlVolumeDb.getValueAsString());
+            }
 #endif
 
-		//hhgen
-		if( cmlHHGen.isPresent())
-		{
-			if( cmlHHGen.getValueAsString())
-			{
-				headerFileName = cmlHHGen.getValueAsString();
-				printToFile = true;
-			}
-		}
+        //hhgen
+        if( cmlHHGen.isPresent())
+        {
+            if( cmlHHGen.getValueAsString())
+            {
+                headerFileName = cmlHHGen.getValueAsString();
+                printToFile = true;
+            }
+        }
 
-		//insertindb
-		insertIntoDb = cmlInsertInDb.isPresent();
+        //insertindb
+        insertIntoDb = cmlInsertInDb.isPresent();
 
-		//print mode
-		if( cmlPrintMeta.isPresent())
-			progMode = M_PRINT;
+        //print mode
+        if( cmlPrintMeta.isPresent())
+            progMode = M_PRINT;
 
-		//create mode
-		if( cmlCreateDb.isPresent())
-			progMode = M_CREATEDATABASE;
-	 
-		//delete mode
-		if( cmlDelDb.isPresent() )
-			progMode = M_DELDATABASE;
+            //create mode
+            if( cmlCreateDb.isPresent())
+                progMode = M_CREATEDATABASE;
 
-		//delbasetype mode
-		if( cmlDelBaseType.isPresent() )
-		{
-			progMode = M_DELBASETYPE;
-			if( cmlDelBaseType.getValueAsString() )
-				deleteName = cmlDelBaseType.getValueAsString();
-		}
+                //delete mode
+                if( cmlDelDb.isPresent() )
+                    progMode = M_DELDATABASE;
 
-		//delmddtype mode
-		if( cmlDelMddType.isPresent() )
-		{
-			progMode = M_DELMDDTYPE;
-			if( cmlDelMddType.getValueAsString())
-				deleteName = cmlDelMddType.getValueAsString();
-		}
+                    //delbasetype mode
+                    if( cmlDelBaseType.isPresent() )
+                    {
+                        progMode = M_DELBASETYPE;
+                        if( cmlDelBaseType.getValueAsString() )
+                            deleteName = cmlDelBaseType.getValueAsString();
+                    }
 
-		//delsettype mode
-		if( cmlDelSetType.isPresent() )
-		{
-			progMode = M_DELSETTYPE;
-			if( cmlDelSetType.getValueAsString() )
-				deleteName = cmlDelSetType.getValueAsString();
-		}
+        //delmddtype mode
+        if( cmlDelMddType.isPresent() )
+        {
+            progMode = M_DELMDDTYPE;
+            if( cmlDelMddType.getValueAsString())
+                deleteName = cmlDelMddType.getValueAsString();
+        }
 
-		// connectstr
-		if( cmlConnectStr.isPresent() )
-			strcpy( globalConnectId, cmlConnectStr.getValueAsString() );
-		else
-			strcpy( globalConnectId, DEFAULT_CONNECT );
-	}
-	catch ( CmlException & err)
-	{
-		throw RasdlError( CMDLINE );
-	}
+        //delsettype mode
+        if( cmlDelSetType.isPresent() )
+        {
+            progMode = M_DELSETTYPE;
+            if( cmlDelSetType.getValueAsString() )
+                deleteName = cmlDelSetType.getValueAsString();
+        }
 
-	// --- plausi checks ------------------------------------
-	// FIXME: to complete
+        // connectstr
+        if( cmlConnectStr.isPresent() )
+            strcpy( globalConnectId, cmlConnectStr.getValueAsString() );
+            else
+                strcpy( globalConnectId, DEFAULT_CONNECT );
+            }
+    catch ( CmlException & err)
+    {
+        throw RasdlError( CMDLINE );
+    }
 
-	// if something is to be deleted in the database, then a name must be specified
-	if ( cmlDelBaseType.isPresent() || cmlDelMddType.isPresent() || cmlDelSetType.isPresent() )
-	{
-		if ( deleteName == NULL || strlen(deleteName) == 0)
-			throw RasdlError( EMPTYTYPENAME );
-	}
+    // --- plausi checks ------------------------------------
+    // FIXME: to complete
 
-	// -r needs either -i or -hh
-	if( cmlReadMeta.isPresent() && ( !cmlInsertInDb.isPresent() && !cmlHHGen.isPresent() ) )
-		throw RasdlError( ILLEGALREADCOMBI );
-	if( ( cmlInsertInDb.isPresent() && cmlHHGen.isPresent() ) )
-		throw RasdlError( ILLEGALREADCOMBI );
+    // if something is to be deleted in the database, then a name must be specified
+    if ( cmlDelBaseType.isPresent() || cmlDelMddType.isPresent() || cmlDelSetType.isPresent() )
+    {
+        if ( deleteName == NULL || strlen(deleteName) == 0)
+            throw RasdlError( EMPTYTYPENAME );
+    }
 
-	if( cmlInsertInDb.isPresent() && !cmlReadMeta.isPresent() )
-		throw RasdlError( ILLEGALINSERTCOMBI );
+    // -r needs either -i or -hh
+    if( cmlReadMeta.isPresent() && ( !cmlInsertInDb.isPresent() && !cmlHHGen.isPresent() ) )
+        throw RasdlError( ILLEGALREADCOMBI );
+    if( ( cmlInsertInDb.isPresent() && cmlHHGen.isPresent() ) )
+        throw RasdlError( ILLEGALREADCOMBI );
 
-	if( cmlHHGen.isPresent() && !cmlReadMeta.isPresent() )
-		throw RasdlError( ILLEGALHHCOMBI );
+    if( cmlInsertInDb.isPresent() && !cmlReadMeta.isPresent() )
+        throw RasdlError( ILLEGALINSERTCOMBI );
 
-	TALK( "connect=" << globalConnectId );
+    if( cmlHHGen.isPresent() && !cmlReadMeta.isPresent() )
+        throw RasdlError( ILLEGALHHCOMBI );
+
+    TALK( "connect=" << globalConnectId );
 } // parseParams()
 
-void 
+void
 readMode() throw (r_Error, RasdlError)
 {
-	cout << "Reading rasdaman data definition file " << odlFileName << "..." << flush;
+    cout << "Reading rasdaman data definition file " << odlFileName << "..." << flush;
 
-	// yyin is used by yyparse()
-	yyin=fopen( odlFileName,"r" );
-	if( yyin==NULL )
-		throw RasdlError( ODLFILEFAILED );
+    // yyin is used by yyparse()
+    yyin=fopen( odlFileName,"r" );
+    if( yyin==NULL )
+        throw RasdlError( ODLFILEFAILED );
 
-	int parseResult = yyparse();
-	if(yyin && (yyin != stdin))
-	      fclose( yyin );
-	if( parseResult != 0)
-		throw RasdlError( ODLPARSEERROR );
+    int parseResult = yyparse();
+    if(yyin && (yyin != stdin))
+        fclose( yyin );
+    if( parseResult != 0)
+        throw RasdlError( ODLPARSEERROR );
 
-	if( insertIntoDb )
-	{
-		cout << "inserting symbols into database..." << flush;  
-		Symbols->global_scope->insertData();   
-		cout << "ok" << endl;  
-	}
-	if( printToFile )
-		printHeader( headerFileName );
+    if( insertIntoDb )
+    {
+        cout << "inserting symbols into database..." << flush;
+        Symbols->global_scope->insertData();
+        cout << "ok" << endl;
+    }
+    if( printToFile )
+        printHeader( headerFileName );
 
-	cout << "ok" << endl;
+    cout << "ok" << endl;
 }
 
 
 
-int 
+int
 main( int argc, char* argv[] )
 {
-	int result = EXIT_FAILURE;
+    int result = EXIT_FAILURE;
 
-	cout << "rasdl: rasdaman schema and database manipulation tool, rasdaman v" << RMANVERSION / 1000.0 << " on base DBMS "  << BASEDBSTRING << " -- generated on " << COMPDATE << "." << endl;
+    cout << "rasdl: rasdaman schema and database manipulation tool, rasdaman v" << RMANVERSION / 1000.0 << " on base DBMS "  << BASEDBSTRING << " -- generated on " << COMPDATE << "." << endl;
 
-	try
-	{
-		parseParams(argc,argv);
-	
-    // don't overwrite the value of the --connect!! -- DM 2012-jul-11
-		//strcpy(globalConnectId, baseName);
-		switch( progMode )
-		{
-			case M_READ:     
-				connectDB( baseName, true, true );
-				readMode();
-				disconnectDB( true );
-		        	break;
-			case M_DELBASETYPE:
-				cout << "Deleting basetype " << deleteName << "..." << flush;		       
-				connectDB( baseName, true, true );
-				TypeFactory::deleteStructType( deleteName );
-				disconnectDB( true );
-				cout << "ok" << endl;
-		        	break;
-			case M_DELMDDTYPE:
-				cout << "Deleting MDD type " << deleteName << "..." << flush;		       
-				connectDB( baseName, true, true );
-				TypeFactory::deleteMDDType( deleteName );
-				disconnectDB( true );
-				cout << "ok" << endl;
-		        	break;
-			case M_DELSETTYPE:
-				cout << "Deleting set type " << deleteName << "..." << flush;		       
-				connectDB( baseName, true, true );
-				TypeFactory::deleteSetType( deleteName );
-				disconnectDB( true );
-				cout << "ok" << endl;
-		        	break;
-			case M_CREATEDATABASE:
-		        	cout << "Creating base " << baseName;
+    try
+    {
+        parseParams(argc,argv);
+
+        // don't overwrite the value of the --connect!! -- DM 2012-jul-11
+        //strcpy(globalConnectId, baseName);
+        switch( progMode )
+        {
+        case M_READ:
+            connectDB( baseName, true, true );
+            readMode();
+            disconnectDB( true );
+            break;
+        case M_DELBASETYPE:
+            cout << "Deleting basetype " << deleteName << "..." << flush;
+            connectDB( baseName, true, true );
+            TypeFactory::deleteStructType( deleteName );
+            disconnectDB( true );
+            cout << "ok" << endl;
+            break;
+        case M_DELMDDTYPE:
+            cout << "Deleting MDD type " << deleteName << "..." << flush;
+            connectDB( baseName, true, true );
+            TypeFactory::deleteMDDType( deleteName );
+            disconnectDB( true );
+            cout << "ok" << endl;
+            break;
+        case M_DELSETTYPE:
+            cout << "Deleting set type " << deleteName << "..." << flush;
+            connectDB( baseName, true, true );
+            TypeFactory::deleteSetType( deleteName );
+            disconnectDB( true );
+            cout << "ok" << endl;
+            break;
+        case M_CREATEDATABASE:
+            cout << "Creating base " << baseName;
 #ifdef BASEDB_O2
-				cout << " with schema " << dbSchema;
+            cout << " with schema " << dbSchema;
 #endif
-		        	if( strcasecmp(dbVolume,"") )
-		        		cout << " on volume " << dbVolume;
-		        	cout << "..." << flush;
-				connectDB( baseName, false, false );
-		        	db = new DatabaseIf();
- 				if( !strlen(dbVolume) )
-					db->createDB( baseName, dbSchema, dbVolume );
-				else
-					db->createDB( baseName, dbSchema );
-				disconnectDB( true );
-				cout << "ok" << endl;
-		        	break;
-			case M_DELDATABASE:
-				cout << "Deleting database " << baseName << "...";
-				TALK( "connecting" );
-				connectDB( baseName, false, false );
-				TALK( "creating new DatabaseIf" );
-		        	db = new DatabaseIf();                      
-				TALK( "destroying db" );
-				db->destroyDB(baseName);
-				disconnectDB( true );
-				cout << "ok" << endl;
-		        	break;
-			case M_PRINT:
-				connectDB( baseName, true, true );
-				printNames();
-				disconnectDB( false );	// abort TA - we did only reading
-		        	break;
-			case M_INVALID:
-				cerr << ERROR_NOACTION << endl;
-				break;
-			default:
-				cerr << ERROR_UNKNOWNACTION << progMode << endl;
-		}
-		result = EXIT_SUCCESS;
-	}
-	catch ( RasdlError& e)
-	{
-		cout << argv[0] << ": " << e.what() << endl;
-		result = EXIT_FAILURE;
-	}
-	catch ( const r_Error& e )
-	{
-		cout << ERROR_RASDAMAN << e.get_errorno() << ": " << e.what() << endl;
-		result = EXIT_FAILURE;
-	}
-	catch (...)
-	{
-		cout << argv[0] << " " << ERROR_PANIC << endl;
-		result = EXIT_FAILURE;
-	}
+            if( strcasecmp(dbVolume,"") )
+                cout << " on volume " << dbVolume;
+            cout << "..." << flush;
+            connectDB( baseName, false, false );
+            db = new DatabaseIf();
+            if( !strlen(dbVolume) )
+                db->createDB( baseName, dbSchema, dbVolume );
+            else
+                db->createDB( baseName, dbSchema );
+            disconnectDB( true );
+            cout << "ok" << endl;
+            break;
+        case M_DELDATABASE:
+            cout << "Deleting database " << baseName << "...";
+            TALK( "connecting" );
+            connectDB( baseName, false, false );
+            TALK( "creating new DatabaseIf" );
+            db = new DatabaseIf();
+            TALK( "destroying db" );
+            db->destroyDB(baseName);
+            disconnectDB( true );
+            cout << "ok" << endl;
+            break;
+        case M_PRINT:
+            connectDB( baseName, true, true );
+            printNames();
+            disconnectDB( false );  // abort TA - we did only reading
+            break;
+        case M_INVALID:
+            cerr << ERROR_NOACTION << endl;
+            break;
+        default:
+            cerr << ERROR_UNKNOWNACTION << progMode << endl;
+        }
+        result = EXIT_SUCCESS;
+    }
+    catch ( RasdlError& e)
+    {
+        cout << argv[0] << ": " << e.what() << endl;
+        result = EXIT_FAILURE;
+    }
+    catch ( const r_Error& e )
+    {
+        cout << ERROR_RASDAMAN << e.get_errorno() << ": " << e.what() << endl;
+        result = EXIT_FAILURE;
+    }
+    catch (...)
+    {
+        cout << argv[0] << " " << ERROR_PANIC << endl;
+        result = EXIT_FAILURE;
+    }
 
-	if (result != EXIT_SUCCESS)
-		disconnectDB(false);
+    if (result != EXIT_SUCCESS)
+        disconnectDB(false);
 
-	cout << argv[0] << " done." << endl;
+    cout << argv[0] << " done." << endl;
 
-	return( result );
+    return( result );
 }

@@ -27,10 +27,10 @@ rasdaman GmbH.
  * CLASS:  TesterConf
  *
  * PURPOSE:
- *  Configuration from commandline and environment for rasmgrtest 
- *    
+ *  Configuration from commandline and environment for rasmgrtest
+ *
  * COMMENTS:
- * 
+ *
  *
 */
 
@@ -44,36 +44,36 @@ rasdaman GmbH.
 
 // This is the base class for every programs configuration class
 class TesterConf:public ConfigurationBase
-  {
-    public:
-      TesterConf();
-      
-      bool interpretArguments(int argc, char **argv);
-      
-      const char* getRasMgrHost();
-      int         getRasMgrPort();
-      
-      int         getWorkModus();
-      const char* getCommandListFile();
-      const char* getTestFile();
-      const char* getLogFile();
-      bool        beQuiet();
-    private:
-    
-      void printHelp();
-      
-      char rasmgrHost[MAXHOSTNAME];
-      int  rasmgrPort;
-      
-      char commandListFile[MAXFILENAME];
-      char testFile[MAXFILENAME];
-      char logFile[MAXFILENAME];
-      
-      int workModus;
-      bool quiet;
+{
+public:
+    TesterConf();
 
-   };
+    bool interpretArguments(int argc, char **argv);
+
+    const char* getRasMgrHost();
+    int         getRasMgrPort();
+
+    int         getWorkModus();
+    const char* getCommandListFile();
+    const char* getTestFile();
+    const char* getLogFile();
+    bool        beQuiet();
+private:
+
+    void printHelp();
+
+    char rasmgrHost[MAXHOSTNAME];
+    int  rasmgrPort;
+
+    char commandListFile[MAXFILENAME];
+    char testFile[MAXFILENAME];
+    char logFile[MAXFILENAME];
+
+    int workModus;
+    bool quiet;
+
+};
 
 extern TesterConf config;
-      
+
 #endif

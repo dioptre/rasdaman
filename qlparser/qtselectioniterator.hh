@@ -53,7 +53,7 @@ passed to its caller. The class represents the WHERE condition in the query
 
 class QtSelectionIterator : public QtIterator
 {
-  public:
+public:
     /// default constructor
     QtSelectionIterator();
 
@@ -72,11 +72,11 @@ class QtSelectionIterator : public QtIterator
     /// optimizing load access
 //    virtual void preOptimize();
     /**
-      Trigger load optimization in the condition tree and pass the optimization step to 
+      Trigger load optimization in the condition tree and pass the optimization step to
       the input streams.
     */
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -94,7 +94,7 @@ class QtSelectionIterator : public QtIterator
     //inline virtual void setParents();
     ///
     inline void setConditionTree( QtOperation* operation );
-	/// 
+    ///
     inline QtOperation* getConditionTree();
     //@}
 
@@ -104,7 +104,7 @@ class QtSelectionIterator : public QtIterator
     /// type checking
     virtual const QtTypeTuple& checkType();
 
-  private:
+private:
     /// pointer to a tree representing the where part of the query
     QtOperation* conditionTree;
 

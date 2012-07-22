@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:  CallBackManager
  *
  * COMMENTS:
- *		No Comments
+ *      No Comments
 */
 
 
@@ -47,130 +47,130 @@ rasdaman GmbH.
 
 CallBackManager::CallBackManager(unsigned int size)
 {
-  RMDBGONCE(1, RMDebug::module_servercomm, "CallBackManager", "CallBackManager(" << size << ")" )
+    RMDBGONCE(1, RMDebug::module_servercomm, "CallBackManager", "CallBackManager(" << size << ")" )
 
-  callbacks = new callback_desc_t[size];
-  maxCallbacks = size;
-  numPending = 0;
-  overflowDetected = 0;
+    callbacks = new callback_desc_t[size];
+    maxCallbacks = size;
+    numPending = 0;
+    overflowDetected = 0;
 }
 
 
 CallBackManager::~CallBackManager(void)
 {
-  RMDBGONCE(1, RMDebug::module_servercomm, "CallBackManager", "~CallBackManager()" )
+    RMDBGONCE(1, RMDebug::module_servercomm, "CallBackManager", "~CallBackManager()" )
 
-  delete [] callbacks;
+    delete [] callbacks;
 }
 
 
 void CallBackManager::setMaximumSize(unsigned int size)
 {
-  RMDBGONCE(1, RMDebug::module_servercomm, "CallBackManager", "setMaximumSize(" << size << ")" )
+    RMDBGONCE(1, RMDebug::module_servercomm, "CallBackManager", "setMaximumSize(" << size << ")" )
 
-  callback_desc_t *newcb = new callback_desc_t[size];
+    callback_desc_t *newcb = new callback_desc_t[size];
 
-  if (callbacks != NULL)
-  {
-    if (numPending != 0)
+    if (callbacks != NULL)
     {
-      unsigned int copysize = (numPending > size) ? size : numPending;
-      memcpy(newcb, callbacks, copysize * sizeof(callback_desc_t));
-      if (copysize < numPending)
-	overflowDetected = 1;
+        if (numPending != 0)
+        {
+            unsigned int copysize = (numPending > size) ? size : numPending;
+            memcpy(newcb, callbacks, copysize * sizeof(callback_desc_t));
+            if (copysize < numPending)
+                overflowDetected = 1;
+        }
+        delete [] callbacks;
     }
-    delete [] callbacks;
-  }
-  callbacks = newcb;
-  maxCallbacks = size;
+    callbacks = newcb;
+    maxCallbacks = size;
 }
 
 
 int CallBackManager::findCallback(callback_f function, void *context) const
 {
-  unsigned int i;
+    unsigned int i;
 
-  // No system calls from this function!
-  for (i=0; i<numPending; i++)
-  {
-    if ((callbacks[i].function == function) && (callbacks[i].context == context))
-      return (int)i;
-  }
-  return -1;
+    // No system calls from this function!
+    for (i=0; i<numPending; i++)
+    {
+        if ((callbacks[i].function == function) && (callbacks[i].context == context))
+            return (int)i;
+    }
+    return -1;
 }
 
 
 int CallBackManager::registerCallback(callback_f function, void *context)
 {
-  // No mallocs, debug output, system calls, ... in this function!!!
-  if (numPending >= maxCallbacks)
-  {
-    overflowDetected = 1;
-    return -1;
-  }
+    // No mallocs, debug output, system calls, ... in this function!!!
+    if (numPending >= maxCallbacks)
+    {
+        overflowDetected = 1;
+        return -1;
+    }
 
-  callbacks[numPending].function = function;
-  callbacks[numPending].context = context;
+    callbacks[numPending].function = function;
+    callbacks[numPending].context = context;
 
-  numPending++;
+    numPending++;
 
-  return 0;
+    return 0;
 }
 
 
 int CallBackManager::registerUniqueCallback(callback_f function, void *context)
 {
-  if (findCallback(function, context) == -1)
-    return registerCallback(function, context);
-  else
-    return -1;
+    if (findCallback(function, context) == -1)
+        return registerCallback(function, context);
+    else
+        return -1;
 }
 
 
 int CallBackManager::removeCallback(callback_f function, void *context)
 {
-  int i;
+    int i;
 
-  // restrictive environment here too, no system calls!
-  i = findCallback(function, context);
-  if (i != -1)
-  {
-    if (i < (int)numPending-1)
-      memmove(callbacks+i, callbacks+(i+1), (numPending-i-1)*sizeof(callback_desc_t));
-    numPending--;
-    return 0;
-  }
-  return -1;
+    // restrictive environment here too, no system calls!
+    i = findCallback(function, context);
+    if (i != -1)
+    {
+        if (i < (int)numPending-1)
+            memmove(callbacks+i, callbacks+(i+1), (numPending-i-1)*sizeof(callback_desc_t));
+        numPending--;
+        return 0;
+    }
+    return -1;
 }
 
 
 unsigned int CallBackManager::getNumCallbacks(void) const
 {
-  return numPending;
+    return numPending;
 }
 
 
 int CallBackManager::executePending(void)
 {
-  unsigned int i;
+    unsigned int i;
 
-  RMDBGENTER(2, RMDebug::module_servercomm, "CallBackManager", "executePending()" )
+    RMDBGENTER(2, RMDebug::module_servercomm, "CallBackManager", "executePending()" )
 
-  for (i=0; i<numPending; i++)
-  {
-    RMDBGMIDDLE(3, RMDebug::module_servercomm, "CallBackManager", "callback function " << i << "..." );
-    callbacks[i].function(callbacks[i].context);
-  }
+    for (i=0; i<numPending; i++)
+    {
+        RMDBGMIDDLE(3, RMDebug::module_servercomm, "CallBackManager", "callback function " << i << "..." );
+        callbacks[i].function(callbacks[i].context);
+    }
 
-  if (overflowDetected)
-  {
-    TALK( "CallBackManager::executePending(): overflow detected, number of pending calls: " << numPending );
-    RMInit::logOut << "Internal error: callback overflow." << endl;
-    overflowDetected = 0;
-  }
+    if (overflowDetected)
+    {
+        TALK( "CallBackManager::executePending(): overflow detected, number of pending calls: " << numPending );
+        RMInit::logOut << "Internal error: callback overflow." << endl;
+        overflowDetected = 0;
+    }
 
-  i = numPending;
-  numPending = 0;
+    i = numPending;
+    numPending = 0;
 
-  return i;
+    return i;
 }

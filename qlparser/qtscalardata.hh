@@ -46,19 +46,19 @@ rasdaman GmbH.
 
  The abstract class represents a scalar data handled by the
  query tree. It can either be atomic (\Ref{QtAtomicData})
- or complex (\Ref{QtComplexData}). 
+ or complex (\Ref{QtComplexData}).
 
 */
 
 class QtScalarData : public QtData
 {
-  public:
+public:
     /// default constructor
     QtScalarData();
 
     /// copy constructor
     QtScalarData( const QtScalarData& obj );
- 
+
     /// virtual destructor
     virtual ~QtScalarData();
 
@@ -66,29 +66,29 @@ class QtScalarData : public QtData
     //@{
     ///
 
-      /// returns data type
-      virtual QtDataType getDataType() const;
+    /// returns data type
+    virtual QtDataType getDataType() const;
 
-      /// returns true meaning that the data is of type scalar
-      virtual bool isScalarData() const;
+    /// returns true meaning that the data is of type scalar
+    virtual bool isScalarData() const;
 
-      /// returns a pointer to the value type
-      inline const BaseType* getValueType() const;
+    /// returns a pointer to the value type
+    inline const BaseType* getValueType() const;
 
-      /// sets the value type
-      inline void setValueType( const BaseType* newType );
+    /// sets the value type
+    inline void setValueType( const BaseType* newType );
 
-      /// returns a pointer to the internal character representation
-      inline const char* getValueBuffer() const;
+    /// returns a pointer to the internal character representation
+    inline const char* getValueBuffer() const;
 
-      /// sets the value buffer
-      inline void setValueBuffer( char* buffer );
+    /// sets the value buffer
+    inline void setValueBuffer( char* buffer );
 
-      /// returns a null-terminated string describing the type structure
-      virtual char* getTypeStructure() const;
-      /**
-        The string pointer has to be free using free() by the caller.
-      */
+    /// returns a null-terminated string describing the type structure
+    virtual char* getTypeStructure() const;
+    /**
+      The string pointer has to be free using free() by the caller.
+    */
 
     ///
     //@}
@@ -96,18 +96,18 @@ class QtScalarData : public QtData
     /// compares data content
     virtual bool equal( const QtData* obj ) const;
 
-    /// returns content dependent string representation 
+    /// returns content dependent string representation
     virtual std::string getSpelling() const;
 
     /// print status of the object to the specified stream
     virtual void printStatus( std::ostream& stream = std::cout ) const;
 
-  protected:
+protected:
     /// pointer to the value type
     const BaseType* valueType;
 
     /// pointer to the value buffer
-    char* valueBuffer; 
+    char* valueBuffer;
 };
 
 #include "qlparser/qtscalardata.icc"

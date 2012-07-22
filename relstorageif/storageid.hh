@@ -25,7 +25,7 @@ rasdaman GmbH.
 
 class DBStorageLayout;
 
-template <class T> class DBRef; 
+template <class T> class DBRef;
 
 typedef DBRef<DBStorageLayout> DBStorageLayoutId;
 

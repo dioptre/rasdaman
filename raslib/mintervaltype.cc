@@ -26,31 +26,31 @@ static const char rcsid[] = "@(#)raslib, r_Minterval_Type: $Header: /home/rasdev
 #include "raslib/mintervaltype.hh"
 
 r_Minterval_Type::r_Minterval_Type()
-  : r_Type()
+    : r_Type()
 {
 }
 
 r_Minterval_Type::r_Minterval_Type( const r_Minterval_Type& oldObj )
-  : r_Type(oldObj)
+    : r_Type(oldObj)
 {
 }
 
 bool
 r_Minterval_Type::isMintervalType() const
-	{
-	return true;
-	}
+{
+    return true;
+}
 
 r_Type*
 r_Minterval_Type::clone() const
 {
-   return new r_Minterval_Type( *this ); 
+    return new r_Minterval_Type( *this );
 }
 
-r_Type::r_Type_Id 
+r_Type::r_Type_Id
 r_Minterval_Type::type_id() const
 {
-   return MINTERVALTYPE;
+    return MINTERVALTYPE;
 }
 
 void
@@ -63,11 +63,11 @@ r_Minterval_Type::convertToBigEndian(char* cells, r_Area noCells) const
 {
 }
 
-void 
+void
 r_Minterval_Type::print_status( std::ostream& s ) const
 {
-   s << "minterval"; 
-} 
+    s << "minterval";
+}
 
 r_Minterval_Type::~r_Minterval_Type()
 {
@@ -75,6 +75,6 @@ r_Minterval_Type::~r_Minterval_Type()
 
 std::ostream &operator<<( std::ostream &str, const r_Minterval_Type &type )
 {
-  type.print_status(str);
-  return str;
+    type.print_status(str);
+    return str;
 }

@@ -57,7 +57,7 @@ rasdaman GmbH.
 #define TOTAL_CUBES         8
 #define SIZE_X              120L
 #define SIZE_Y              159L
-#define SIZE_Z              119L           
+#define SIZE_Z              119L
 
 char* server_name;
 char* dbase_name;
@@ -65,171 +65,171 @@ char* colect_name;
 
 void parse(int argc, char* argv[])
 {
-  if (argc != 4)
-  {
-    cout << "Usage: " << argv[0] << " [server name] [db name] [colection name]"
-         << endl;
+    if (argc != 4)
+    {
+        cout << "Usage: " << argv[0] << " [server name] [db name] [colection name]"
+             << endl;
 
-    exit(0);
-  }
+        exit(0);
+    }
 
-  server_name = argv[1];
-  dbase_name  = argv[2];
-  colect_name = argv[3];
+    server_name = argv[1];
+    dbase_name  = argv[2];
+    colect_name = argv[3];
 }
 
 void insert_datacube()
 {
 
-  r_Ref< r_Set< r_Ref< r_Marray<r_ULong> > > >  cube_set;
-  r_Minterval                                   domain;
-  r_Domain_Storage_Layout*                      dsl[TOTAL_CUBES];
-  r_OId                                         oid[TOTAL_CUBES];
-  
-  domain = r_Minterval(3);
-  domain << r_Sinterval(0L, SIZE_X)
-         << r_Sinterval(0L, SIZE_Y)
-         << r_Sinterval(0L, SIZE_Z);
+    r_Ref< r_Set< r_Ref< r_Marray<r_ULong> > > >  cube_set;
+    r_Minterval                                   domain;
+    r_Domain_Storage_Layout*                      dsl[TOTAL_CUBES];
+    r_OId                                         oid[TOTAL_CUBES];
+
+    domain = r_Minterval(3);
+    domain << r_Sinterval(0L, SIZE_X)
+           << r_Sinterval(0L, SIZE_Y)
+           << r_Sinterval(0L, SIZE_Z);
 
 
-  // For alligned tiling (Regular tiling)
-  
-  r_Minterval block_config(3);
-  block_config << r_Sinterval(0L, SIZE_X)
-               << r_Sinterval(0L, SIZE_Y)
-               << r_Sinterval(0L, SIZE_Z);
-  
-  r_Aligned_Tiling* til_reg_32k = new r_Aligned_Tiling(block_config, S_32K);
-  r_Aligned_Tiling* til_reg_64k = new r_Aligned_Tiling(block_config, S_64K);
-  r_Aligned_Tiling* til_reg_128k = new r_Aligned_Tiling(block_config, S_128K);
-  r_Aligned_Tiling* til_reg_256k = new r_Aligned_Tiling(block_config, S_256K);
+    // For alligned tiling (Regular tiling)
+
+    r_Minterval block_config(3);
+    block_config << r_Sinterval(0L, SIZE_X)
+                 << r_Sinterval(0L, SIZE_Y)
+                 << r_Sinterval(0L, SIZE_Z);
+
+    r_Aligned_Tiling* til_reg_32k = new r_Aligned_Tiling(block_config, S_32K);
+    r_Aligned_Tiling* til_reg_64k = new r_Aligned_Tiling(block_config, S_64K);
+    r_Aligned_Tiling* til_reg_128k = new r_Aligned_Tiling(block_config, S_128K);
+    r_Aligned_Tiling* til_reg_256k = new r_Aligned_Tiling(block_config, S_256K);
 
 
-  // For directional tiling
+    // For directional tiling
 
-  r_Minterval interest1(3);
-  interest1 << r_Sinterval(0L, SIZE_X)
-            << r_Sinterval(65L, 110L)
-            << r_Sinterval(35L, 75L);
+    r_Minterval interest1(3);
+    interest1 << r_Sinterval(0L, SIZE_X)
+              << r_Sinterval(65L, 110L)
+              << r_Sinterval(35L, 75L);
 
-  r_Minterval interest2(3);
-  interest2 << r_Sinterval(0L, SIZE_X)
-            << r_Sinterval(90L, 150L)
-            << r_Sinterval(45L, 105L);
+    r_Minterval interest2(3);
+    interest2 << r_Sinterval(0L, SIZE_X)
+              << r_Sinterval(90L, 150L)
+              << r_Sinterval(45L, 105L);
 
-  r_Minterval interest3(3);
-  interest3 << r_Sinterval(60L, 120L)
-            << r_Sinterval(0L, SIZE_Y)
-            << r_Sinterval(0L, SIZE_Z);
+    r_Minterval interest3(3);
+    interest3 << r_Sinterval(60L, 120L)
+              << r_Sinterval(0L, SIZE_Y)
+              << r_Sinterval(0L, SIZE_Z);
 
-  DList<r_Minterval> areas;
-  areas += interest1;
-  areas += interest2;
-  areas += interest3;
+    DList<r_Minterval> areas;
+    areas += interest1;
+    areas += interest2;
+    areas += interest3;
 
-  r_Interest_Tiling* til_int_32k =
-     new r_Interest_Tiling(areas, r_Interest_Tiling::SUB_TILING, S_32K);
-  r_Interest_Tiling* til_int_64k = 
-     new r_Interest_Tiling(areas, r_Interest_Tiling::SUB_TILING, S_64K);
-  r_Interest_Tiling* til_int_128k = 
-     new r_Interest_Tiling(areas, r_Interest_Tiling::SUB_TILING, S_128K);
-  r_Interest_Tiling* til_int_256k = 
-     new r_Interest_Tiling(areas, r_Interest_Tiling::SUB_TILING, S_256K);
-  
-  // Domain storage layouts
+    r_Interest_Tiling* til_int_32k =
+        new r_Interest_Tiling(areas, r_Interest_Tiling::SUB_TILING, S_32K);
+    r_Interest_Tiling* til_int_64k =
+        new r_Interest_Tiling(areas, r_Interest_Tiling::SUB_TILING, S_64K);
+    r_Interest_Tiling* til_int_128k =
+        new r_Interest_Tiling(areas, r_Interest_Tiling::SUB_TILING, S_128K);
+    r_Interest_Tiling* til_int_256k =
+        new r_Interest_Tiling(areas, r_Interest_Tiling::SUB_TILING, S_256K);
 
-  dsl[0] = new r_Domain_Storage_Layout(domain, til_reg_32k);
-  dsl[1] = new r_Domain_Storage_Layout(domain, til_reg_64k);
-  dsl[2] = new r_Domain_Storage_Layout(domain, til_reg_128k);
-  dsl[3] = new r_Domain_Storage_Layout(domain, til_reg_256k);
+    // Domain storage layouts
 
-  dsl[4] = new r_Domain_Storage_Layout(domain, til_int_32k);
-  dsl[5] = new r_Domain_Storage_Layout(domain, til_int_64k);
-  dsl[6] = new r_Domain_Storage_Layout(domain, til_int_128k);
-  dsl[7] = new r_Domain_Storage_Layout(domain, til_int_256k);
+    dsl[0] = new r_Domain_Storage_Layout(domain, til_reg_32k);
+    dsl[1] = new r_Domain_Storage_Layout(domain, til_reg_64k);
+    dsl[2] = new r_Domain_Storage_Layout(domain, til_reg_128k);
+    dsl[3] = new r_Domain_Storage_Layout(domain, til_reg_256k);
+
+    dsl[4] = new r_Domain_Storage_Layout(domain, til_int_32k);
+    dsl[5] = new r_Domain_Storage_Layout(domain, til_int_64k);
+    dsl[6] = new r_Domain_Storage_Layout(domain, til_int_128k);
+    dsl[7] = new r_Domain_Storage_Layout(domain, til_int_256k);
 
 
-  // Create cubes
+    // Create cubes
 
-  r_Database db;
-  db.set_servername(server_name);
-  
-  for (int i=0; i< TOTAL_CUBES ; i++)
-  {
-    r_Transaction trans;
+    r_Database db;
+    db.set_servername(server_name);
 
-    r_Ref< r_Marray<r_ULong> > cube;
-   
-    try
+    for (int i=0; i< TOTAL_CUBES ; i++)
     {
-      cout << "Opening database " << dbase_name << " on " << server_name
-           << "... " << flush;
-    
-      db.open(dbase_name);
-      
-      cout << "Ok" << endl;   
-      cout << "Starting transaction... " << flush;
-    
-      trans.begin();
+        r_Transaction trans;
 
-      cout << "Ok" << endl;
-      cout << "Opening the set... " << flush;
+        r_Ref< r_Marray<r_ULong> > cube;
 
-      try
-      {
-        cube_set = db.lookup_object(colect_name);
-      }
-      catch (...)
-      {
-        cout << "*Failed*" << endl;      
-        cout << "Creating the set... " << flush;
-        
-        cube_set =
-            new(&db, "RGB_3D_Set") r_Set< r_Ref< r_Marray<RGBPixel> > >;
+        try
+        {
+            cout << "Opening database " << dbase_name << " on " << server_name
+                 << "... " << flush;
 
-        db.set_object_name(*cube_set, colect_name);
-      } 
+            db.open(dbase_name);
 
-      cout << "Ok" << endl;
-      cout << "Creating the datacube... " << flush;
+            cout << "Ok" << endl;
+            cout << "Starting transaction... " << flush;
 
-      cube =
-          new(&db, "RGB_3D_Cube") r_Marray<RGBPixel>(domain, dsl[i]);
+            trans.begin();
 
-      cube_set->insert_element(cube);
+            cout << "Ok" << endl;
+            cout << "Opening the set... " << flush;
 
-      cout << "  Cube[" << i << "]:  " << cube->get_oid() << endl;
-      
-      cout << "*" << flush;
-      cout << " ... Ok" << endl;
-      cout << "Commiting transaction... " << flush;    
+            try
+            {
+                cube_set = db.lookup_object(colect_name);
+            }
+            catch (...)
+            {
+                cout << "*Failed*" << endl;
+                cout << "Creating the set... " << flush;
 
-      trans.commit();
-    
-      cout << "Ok" << endl; 
-      cout << "Closing database... " << flush;
+                cube_set =
+                    new(&db, "RGB_3D_Set") r_Set< r_Ref< r_Marray<RGBPixel> > >;
 
-      db.close();
-    }   
-    catch (r_Error& e)
-    {
-      cout << e.what() << endl;
-      exit(0);
+                db.set_object_name(*cube_set, colect_name);
+            }
+
+            cout << "Ok" << endl;
+            cout << "Creating the datacube... " << flush;
+
+            cube =
+                new(&db, "RGB_3D_Cube") r_Marray<RGBPixel>(domain, dsl[i]);
+
+            cube_set->insert_element(cube);
+
+            cout << "  Cube[" << i << "]:  " << cube->get_oid() << endl;
+
+            cout << "*" << flush;
+            cout << " ... Ok" << endl;
+            cout << "Commiting transaction... " << flush;
+
+            trans.commit();
+
+            cout << "Ok" << endl;
+            cout << "Closing database... " << flush;
+
+            db.close();
+        }
+        catch (r_Error& e)
+        {
+            cout << e.what() << endl;
+            exit(0);
+        }
+        catch (...)
+        {
+            cout << "Undefined error..." << endl;
+            exit(0);
+        }
     }
-    catch (...)
-    {
-      cout << "Undefined error..." << endl;
-      exit(0);
-    }
-  }
 }
 
 int main(int argc, char* argv[])
 {
-  parse(argc, argv);
-  insert_datacube();
-  
-  return 0;
+    parse(argc, argv);
+    insert_datacube();
+
+    return 0;
 }
 
 

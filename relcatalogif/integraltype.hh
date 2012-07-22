@@ -25,7 +25,7 @@ rasdaman GmbH.
  *
  * PURPOSE:
  *   The IntegralType class is the superclass for all signed integral
- *   types (e.g. Char, Long) describing the type of a 
+ *   types (e.g. Char, Long) describing the type of a
  *   cell
  *
  *
@@ -40,50 +40,51 @@ rasdaman GmbH.
 
 //@ManMemo: Module: {\bf relcatalogif}.
 
-/*@Doc: 
+/*@Doc:
 IntegralType is the abstract base class for all integral signed
 \Ref{BaseType} subclasses, i.e. base types like \Ref{LongType} or
-\Ref{ShortType}. It provides conversions to/from unsigned and 
+\Ref{ShortType}. It provides conversions to/from unsigned and
 double. It's subclasses must implement conversions to/from long.
 */
 
 /**
   * \ingroup Relcatalogifs
   */
-class IntegralType : public AtomicType {
+class IntegralType : public AtomicType
+{
 public:
-	IntegralType(unsigned int newSize):
-		AtomicType(newSize) {}
-	/*@Doc:
-	constructor.
-	*/
+    IntegralType(unsigned int newSize):
+        AtomicType(newSize) {}
+    /*@Doc:
+    constructor.
+    */
 
-	IntegralType(const IntegralType& old):
-		AtomicType(old) {}
-	/*@Doc:
-	copy constructor.
-	*/
+    IntegralType(const IntegralType& old):
+        AtomicType(old) {}
+    /*@Doc:
+    copy constructor.
+    */
 
-	IntegralType(const OId& id) throw (r_Error):
-		AtomicType(id) {}
-	/*@Doc:
-	*/
+    IntegralType(const OId& id) throw (r_Error):
+        AtomicType(id) {}
+    /*@Doc:
+    */
 
-	virtual ~IntegralType() {}
-	/*@Doc:
-	*/
+    virtual ~IntegralType() {}
+    /*@Doc:
+    */
 
-	virtual r_ULong* convertToCULong(const char*, r_ULong*) const;
-	virtual char* makeFromCULong(char*, const r_ULong*) const;
+    virtual r_ULong* convertToCULong(const char*, r_ULong*) const;
+    virtual char* makeFromCULong(char*, const r_ULong*) const;
 
-	virtual double* convertToCDouble(const char*, double*) const; 
-	virtual char* makeFromCDouble(char*, const double*) const;
+    virtual double* convertToCDouble(const char*, double*) const;
+    virtual char* makeFromCDouble(char*, const double*) const;
 
 protected:
-	IntegralType(const char* name, unsigned int newSize):
-		AtomicType(name, newSize) {}
-	/*@Doc:
-	*/
+    IntegralType(const char* name, unsigned int newSize):
+        AtomicType(name, newSize) {}
+    /*@Doc:
+    */
 
 };
 

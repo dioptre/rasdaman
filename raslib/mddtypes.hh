@@ -19,14 +19,14 @@ rasdaman GmbH.
 *
 * For more information please see <http://www.rasdaman.org>
 * or contact Peter Baumann via <baumann@rasdaman.com>.
-/ 
+/
 /**
  * INCLUDE: mddtypes.hh
  *
  * MODULE:  raslib
  *
  * PURPOSE:
- * 		The file cotains MDD type definitions.
+ *      The file cotains MDD type definitions.
  *
  * COMMENTS:
  * - always append new data formats to remain compatible with earlier compiled code
@@ -55,7 +55,7 @@ typedef unsigned int r_Bytes;
 
 /**
   {\tt typedef unsigned int r_Bytes;}
-  
+
   The typedef \Ref{r_Bytes} is used as type for the number of bytes in an tile or mdd or type.
 */
 
@@ -68,8 +68,8 @@ typedef unsigned long r_Ptr;
 
 /**
   {\tt typedef unsigned long r_Ptr;}
-  
-  The typedef \Ref{r_Ptr} was introduced to handle correctly convertions from 
+
+  The typedef \Ref{r_Ptr} was introduced to handle correctly convertions from
   pointers to integer variables on 64bit architectures.
 */
 
@@ -84,7 +84,7 @@ typedef unsigned int r_Area;
 
 /**
   {\tt typedef unsigned int r_Area;}
-  
+
   The typedef \Ref{r_Area} is used as type for the number of cells in an mdd object or tile.
 */
 
@@ -99,7 +99,7 @@ typedef int r_Range;
 
 /**
   {\tt typedef int r_Range;}
-  
+
   The typedef \Ref{r_Range} is used as type for the point set
   of one dimension of a spatial domain. This means that lower
   and upper bounds of \Ref{r_Sinterval}, the projection value,
@@ -117,7 +117,7 @@ typedef unsigned int r_Dimension;
 
 /**
   {\tt typedef unsigned int r_Dimension;}
-  
+
   This is used as type for the number of dimensions in
   \Ref{r_Point} and \Ref{r_Minterval}.
 */
@@ -125,56 +125,56 @@ typedef unsigned int r_Dimension;
 
 //@Man: r_Data_Format
 //@Type: enum
-//@Args: 
+//@Args:
 //@Memo: Module: {\bf raslib}.
 
 enum r_Data_Format
 {
-  r_Array,
-  r_TIFF,
-  r_JPEG,
-  r_HDF,
-  r_NETCDF,
-  r_CSV,
-  r_PNG,
-  r_ZLib,
-  r_Auto_Compression,
-  r_BMP,
-  r_RLE,
-  r_Wavelet_Haar,
-  r_Wavelet_Daubechies,	// = Daubechies 4 tap
-  r_Sep_ZLib,
-  r_Sep_RLE,
-  r_Wavelet_Daub6,
-  r_Wavelet_Daub8,
-  r_Wavelet_Daub10,
-  r_Wavelet_Daub12,
-  r_Wavelet_Daub14,
-  r_Wavelet_Daub16,
-  r_Wavelet_Daub18,
-  r_Wavelet_Daub20,
-  r_Wavelet_Least8,
-  r_Wavelet_Least10,
-  r_Wavelet_Least12,
-  r_Wavelet_Least14,
-  r_Wavelet_Least16,
-  r_Wavelet_Least18,
-  r_Wavelet_Least20,
-  r_Wavelet_Coiflet6,
-  r_Wavelet_Coiflet12,
-  r_Wavelet_Coiflet18,
-  r_Wavelet_Coiflet24,
-  r_Wavelet_Coiflet30,
-  r_VFF,
-  r_Wavelet_QHaar,
-  r_PPM,
-  r_TOR,
-  r_DEM,  
-  r_Pack_Bits,  
-  r_ECW,
-  r_TMC,  
-  r_NTF,  
-  r_Data_Format_NUMBER
+    r_Array,
+    r_TIFF,
+    r_JPEG,
+    r_HDF,
+    r_NETCDF,
+    r_CSV,
+    r_PNG,
+    r_ZLib,
+    r_Auto_Compression,
+    r_BMP,
+    r_RLE,
+    r_Wavelet_Haar,
+    r_Wavelet_Daubechies, // = Daubechies 4 tap
+    r_Sep_ZLib,
+    r_Sep_RLE,
+    r_Wavelet_Daub6,
+    r_Wavelet_Daub8,
+    r_Wavelet_Daub10,
+    r_Wavelet_Daub12,
+    r_Wavelet_Daub14,
+    r_Wavelet_Daub16,
+    r_Wavelet_Daub18,
+    r_Wavelet_Daub20,
+    r_Wavelet_Least8,
+    r_Wavelet_Least10,
+    r_Wavelet_Least12,
+    r_Wavelet_Least14,
+    r_Wavelet_Least16,
+    r_Wavelet_Least18,
+    r_Wavelet_Least20,
+    r_Wavelet_Coiflet6,
+    r_Wavelet_Coiflet12,
+    r_Wavelet_Coiflet18,
+    r_Wavelet_Coiflet24,
+    r_Wavelet_Coiflet30,
+    r_VFF,
+    r_Wavelet_QHaar,
+    r_PPM,
+    r_TOR,
+    r_DEM,
+    r_Pack_Bits,
+    r_ECW,
+    r_TMC,
+    r_NTF,
+    r_Data_Format_NUMBER
 };
 
 /**
@@ -188,17 +188,17 @@ enum r_Data_Format
   {\ttr_HDF}                && HDF  format (see \Ref{r_Conv_HDF})\\
   {\ttr_PNG}                && PNG  format (see \Ref{r_Conv_PNG})\\
   {\ttr_BMP}                && BMP  format (see \Ref{r_Conv_BMP})\\
-  {\ttr_VFF}                && VFF  format (see \Ref{r_Conv_VFF})\\ 
-  {\ttr_PPM}      	    && PPM  format (see \Ref{r_Conv_PPM})\\
-  {\ttr_TOR}      	    && TOR  format (see \Ref{r_Conv_TOR})\\
-  {\ttr_DEM}      	    && DEM  format (see \Ref{r_Conv_DEM})\\ 
-  {\ttr_ECW}      	    && ECW  format (see \Ref{r_Conv_ECW})\\ 
-  {\ttr_NTF}      	    && NITF  format (see \Ref{r_Conv_NTF})\\ 
-  {\ttr_NETCDF}      	    && NETCDF  format (see \Ref{r_Conv_NETCDF})\\ 
+  {\ttr_VFF}                && VFF  format (see \Ref{r_Conv_VFF})\\
+  {\ttr_PPM}            && PPM  format (see \Ref{r_Conv_PPM})\\
+  {\ttr_TOR}            && TOR  format (see \Ref{r_Conv_TOR})\\
+  {\ttr_DEM}            && DEM  format (see \Ref{r_Conv_DEM})\\
+  {\ttr_ECW}            && ECW  format (see \Ref{r_Conv_ECW})\\
+  {\ttr_NTF}            && NITF  format (see \Ref{r_Conv_NTF})\\
+  {\ttr_NETCDF}             && NETCDF  format (see \Ref{r_Conv_NETCDF})\\
 
   {\ttr_Auto_Compression}   && automatic compression\\
-  {\ttr_ZLib}               && ZLIB compresion  (see \Ref{r_Tile_Comp_RLE})\\  
-  {\ttr_Pack_Bits}          && Packbits rle compresion  (see \Ref{r_Tile_Comp_Packbits})\\  
+  {\ttr_ZLib}               && ZLIB compresion  (see \Ref{r_Tile_Comp_RLE})\\
+  {\ttr_Pack_Bits}          && Packbits rle compresion  (see \Ref{r_Tile_Comp_Packbits})\\
   {\ttr RLE}                && RLE compression  (see \Ref{r_Tile_Comp_RLE})\\
   {\ttr_Wavelet_Haar}       && Haar Wavelet compression  (see \Ref{r_Haar_Wavelet_Compression})\\
   {\ttr_Wavelet_Daubechies} && Daubechies 4-tap Wavelet compression  (see \Ref{r_Daubechies_Wavelet_Compression})\\
@@ -209,7 +209,7 @@ enum r_Data_Format
   {\ttr_Wavelet_Coiflet<n>} && Coiflet n-tap Wavelet compression, n=6,12,18,24,30  (see \Ref{r_Ortho_Wavelet_Factory})\\
   {\ttr_Wavelet_QHaar}      && Lossy Haar Wavelet compression  (see \Ref{r_Haar_QWavelet_Compression})\\
 
-  \end{tabular}      
+  \end{tabular}
 */
 
 //@ManMemo: Module: {\bf raslib}
@@ -264,7 +264,7 @@ extern const char *format_name_pack_bits;
 extern const char *format_name_wavelet_qhaar;
 extern const char *format_name_tmc;
 extern const char *format_name_ntf;
- 
+
 extern const char *all_data_format_names[r_Data_Format_NUMBER];
 
 //@ManMemo: Module: {\bf raslib}
@@ -283,7 +283,7 @@ r_Data_Format get_data_format_from_name ( const char *name );
 //@ManMemo: Module: {\bf raslib}
 /**
   Output stream operator for objects of type {\tt const} \Ref{r_Data_Format}.
-*/  
+*/
 extern std::ostream& operator<<( std::ostream& s, const r_Data_Format& d );
 
 
@@ -291,23 +291,24 @@ extern std::ostream& operator<<( std::ostream& s, const r_Data_Format& d );
 //@ManMemo: Module: {\bf raslib}
 /**
   Output stream operator for objects of type \Ref{r_Data_Format}.
-*/  
+*/
 extern std::ostream& operator<<( std::ostream& s, r_Data_Format& d );
 
 //@Man: r_Scale_Function
 //@Type: enum
-//@Args: 
+//@Args:
 //@Memo: Module: {\bf raslib}.
 
-enum r_Scale_Function	{
-			r_SubSampling,
-			r_BitAggregation,
-			r_Scale_Function_NUMBER
-			};
+enum r_Scale_Function
+{
+    r_SubSampling,
+    r_BitAggregation,
+    r_Scale_Function_NUMBER
+};
 
 extern const char *scale_function_name_subsampling;
 extern const char *scale_function_name_bitaggregation;
- 
+
 extern const char *all_scale_function_names[r_Scale_Function_NUMBER];
 
 //@ManMemo: Module: {\bf raslib}
@@ -326,27 +327,27 @@ r_Scale_Function get_scale_function_from_name(const char *name);
 //@ManMemo: Module: {\bf raslib}
 /**
   Output stream operator for objects of type {\tt const} \Ref{r_Scale_Function}.
-*/  
+*/
 extern std::ostream& operator<<( std::ostream& s, const r_Scale_Function& d );
 
 
 //@Man: r_Index_Type
 //@Type: enum
-//@Args: 
+//@Args:
 //@Memo: Module: {\bf raslib}.
 
 enum r_Index_Type
-	{
-	r_Invalid_Index = -1,
-	r_Auto_Index = 0,
-	r_Directory_Index = 1,
-	r_Reg_Directory_Index = 2,
-	r_RPlus_Tree_Index = 3,
-	r_Reg_RPlus_Tree_Index = 4,
-	r_Tile_Container_Index = 5,
-	r_Reg_Computed_Index = 6,
-	r_Index_Type_NUMBER = 7	
-	};
+{
+    r_Invalid_Index = -1,
+    r_Auto_Index = 0,
+    r_Directory_Index = 1,
+    r_Reg_Directory_Index = 2,
+    r_RPlus_Tree_Index = 3,
+    r_Reg_RPlus_Tree_Index = 4,
+    r_Tile_Container_Index = 5,
+    r_Reg_Computed_Index = 6,
+    r_Index_Type_NUMBER = 7
+};
 
 extern std::ostream& operator<<(std::ostream& in, r_Index_Type type);
 
@@ -358,7 +359,7 @@ extern std::ostream& operator<<(std::ostream& in, r_Index_Type type);
    index_name_auto.
    In addition there's an array of names all_index_type_names where the index type
    can be used as index to get the name.
-*/	
+*/
 
 extern const char *index_name_auto;
 extern const char *index_name_directory;
@@ -375,7 +376,7 @@ extern const char *all_index_type_names[r_Index_Type_NUMBER];
    Get a index type name for a index type
 */
 const char *get_name_from_index_type( r_Index_Type it );
-    
+
 //@ManMemo: Module: {\bf raslib}
 /**
    Get a index type  for a index type name
@@ -384,40 +385,40 @@ r_Index_Type get_index_type_from_name ( const char *name );
 
 //@Man: r_Tiling_Scheme
 //@Type: enum
-//@Args: 
+//@Args:
 //@Memo: Module: {\bf raslib}.
 
 enum r_Tiling_Scheme
-	{
-	r_NoTiling = 0,
-	r_RegularTiling = 1,
-	r_StatisticalTiling = 2,
-	r_InterestTiling = 3,
-	r_AlignedTiling = 4,
-	r_DirectionalTiling = 5,
-	r_SizeTiling = 6,
-	r_Tiling_Scheme_NUMBER = 7
-	};
+{
+    r_NoTiling = 0,
+    r_RegularTiling = 1,
+    r_StatisticalTiling = 2,
+    r_InterestTiling = 3,
+    r_AlignedTiling = 4,
+    r_DirectionalTiling = 5,
+    r_SizeTiling = 6,
+    r_Tiling_Scheme_NUMBER = 7
+};
 /**
-	Tiling of the object:
-		
-	\begin{tabular}{lll}
-	NoTiling && no tiling is done unless the object is too big; 
-	in that case, tiling is done along the first direction only;
-	for objects which are to be accessed always as a whole \\
-	{\bf Aligned} &&	aligned tiling, needs tileConfig \\
-	LowVariationAreas && according to areas of low cell value variation \\ 
-	BasedTilesStat && based on statistics regarding access	to this MDD object
-	\end{tabular}
-	
-	In addition, it is possible to have a tiling according to areas of 
-	interest, {\bf AreasInterest} mode. 
-	The {\tt AreasInterest} mode is indicated by a non - null value of the
-	{\tt areasInterestPath} attribute. 
-	This mode is not an alternative mode in {\tt TilingScheme} because it is
-	compatible with the other modes. For instance, an aligned tiling may be
-	adopted outside the areas of interest.
-	*/	
+    Tiling of the object:
+
+    \begin{tabular}{lll}
+    NoTiling && no tiling is done unless the object is too big;
+    in that case, tiling is done along the first direction only;
+    for objects which are to be accessed always as a whole \\
+    {\bf Aligned} &&    aligned tiling, needs tileConfig \\
+    LowVariationAreas && according to areas of low cell value variation \\
+    BasedTilesStat && based on statistics regarding access  to this MDD object
+    \end{tabular}
+
+    In addition, it is possible to have a tiling according to areas of
+    interest, {\bf AreasInterest} mode.
+    The {\tt AreasInterest} mode is indicated by a non - null value of the
+    {\tt areasInterestPath} attribute.
+    This mode is not an alternative mode in {\tt TilingScheme} because it is
+    compatible with the other modes. For instance, an aligned tiling may be
+    adopted outside the areas of interest.
+    */
 
 //@ManMemo: Module: {\bf raslib}
 /**
@@ -427,7 +428,7 @@ enum r_Tiling_Scheme
    tiling_name_sizetiling.
    In addition there's an array of names all_tiling_scheme_names where the tile scheme
    can be used as index to get the name.
-*/	
+*/
 
 extern const char *tiling_name_notiling;
 extern const char *tiling_name_regulartiling;
@@ -444,7 +445,7 @@ extern const char *all_tiling_scheme_names[r_Tiling_Scheme_NUMBER];
    Get a tiling scheme name for a tiling scheme
 */
 const char *get_name_from_tiling_scheme( r_Tiling_Scheme ts );
-    
+
 //@ManMemo: Module: {\bf raslib}
 /**
    Get a tiling scheme for a tiling scheme name
@@ -459,32 +460,32 @@ extern std::ostream& operator<<(std::ostream& in, r_Tiling_Scheme type);
 
 //@Man: r_Clustering_Scheme
 //@Type: enum
-//@Args: 
+//@Args:
 //@Memo: Module: {\bf raslib}.
-enum r_Clustering_Scheme 
-	{ 
-	r_Insertion_Order_Clustering = 1,
-	r_Coords_Order_Clustering = 2,
-	r_Index_Cluster_Clustering = 3,
-	r_Based_Cluster_Stat_Clustering = 4
-	};
-	/**
-	Clustering of the Tiles according to:
-	
-	\begin{tabular}{lll}
-	{\bf InsertionOrder } && the order of insertion of the tiles \\
-	CoordsOrder &&	the coordinates of the tiles \\
-	IndexCluster && the index structure \\ 
-	BasedClusterStat && statistics about access to the object
-	\end{tabular} 
-	
-	There is the additional {\bf PathCluster} mode, where clustering is 
-	done according to a path of access to areas of interest. 
-	The {\tt PathCluster} mode is indicated by setting the {\tt pathCluster}
-	attribute and a non - null value of the {\tt areasInterest}. 
-	This mode is not an alternative mode in {\tt ClusteringScheme} because 
-	it is compatible with the other modes.		
-	*/
+enum r_Clustering_Scheme
+{
+    r_Insertion_Order_Clustering = 1,
+    r_Coords_Order_Clustering = 2,
+    r_Index_Cluster_Clustering = 3,
+    r_Based_Cluster_Stat_Clustering = 4
+};
+/**
+Clustering of the Tiles according to:
+
+\begin{tabular}{lll}
+{\bf InsertionOrder } && the order of insertion of the tiles \\
+CoordsOrder &&  the coordinates of the tiles \\
+IndexCluster && the index structure \\
+BasedClusterStat && statistics about access to the object
+\end{tabular}
+
+There is the additional {\bf PathCluster} mode, where clustering is
+done according to a path of access to areas of interest.
+The {\tt PathCluster} mode is indicated by setting the {\tt pathCluster}
+attribute and a non - null value of the {\tt areasInterest}.
+This mode is not an alternative mode in {\tt ClusteringScheme} because
+it is compatible with the other modes.
+*/
 extern std::ostream& operator<<(std::ostream& in, r_Clustering_Scheme type);
 
 #ifdef __VISUALC__

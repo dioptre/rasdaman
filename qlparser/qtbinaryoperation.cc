@@ -45,48 +45,48 @@ using namespace std;
 
 // constructors
 
-QtBinaryOperation::QtBinaryOperation() : 
-	QtOperation(),
-	input1(NULL),
-	input2(NULL)
+QtBinaryOperation::QtBinaryOperation() :
+    QtOperation(),
+    input1(NULL),
+    input2(NULL)
 {
 }
 
 
 QtBinaryOperation::QtBinaryOperation( QtNode* node ) :
-	QtOperation( node ),
-	input1(NULL),
-	input2(NULL)
+    QtOperation( node ),
+    input1(NULL),
+    input2(NULL)
 {
 }
 
 
 QtBinaryOperation::QtBinaryOperation( QtOperation* initInput1, QtOperation* initInput2 ) :
-	QtOperation(),
-	input1( initInput1 ),
-	input2( initInput2 )
+    QtOperation(),
+    input1( initInput1 ),
+    input2( initInput2 )
 {
-  if ( input1 ) 
-    input1->setParent( this );
+    if ( input1 )
+        input1->setParent( this );
 
-  if ( input2 )
-    input2->setParent( this );
+    if ( input2 )
+        input2->setParent( this );
 }
 
 // destructor
 
 QtBinaryOperation::~QtBinaryOperation()
 {
-  if ( input1 )
-  {
-    delete input1;
-    input1=NULL;
-  }
-  if ( input2 )
-  {
-    delete input2;
-    input2=NULL;
-  }
+    if ( input1 )
+    {
+        delete input1;
+        input1=NULL;
+    }
+    if ( input2 )
+    {
+        delete input2;
+        input2=NULL;
+    }
 }
 
 
@@ -95,37 +95,37 @@ QtBinaryOperation::~QtBinaryOperation()
 void
 QtBinaryOperation::simplify()
 {
-  RMDBCLASS( "QtBinaryOperation", "simplify()", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtBinaryOperation", "simplify()", "qlparser", __FILE__, __LINE__ )
 
-  // In order to work bottom up, first inspect the descendants
-  QtNode::simplify();
+    // In order to work bottom up, first inspect the descendants
+    QtNode::simplify();
 
-  // Test, if both operands are available.
-  if( input1 && input2 )
-  {
-    // Test, if both operands are of const type.
-    if( input1->getNodeType() ==  QT_CONST && input2->getNodeType() == QT_CONST )
+    // Test, if both operands are available.
+    if( input1 && input2 )
     {
-      // evaluate the self node with no input list
-      QtData* newConst = this->evaluate( NULL );
+        // Test, if both operands are of const type.
+        if( input1->getNodeType() ==  QT_CONST && input2->getNodeType() == QT_CONST )
+        {
+            // evaluate the self node with no input list
+            QtData* newConst = this->evaluate( NULL );
 
-      if( newConst )
-      {
-        // create a new constant node and fill it with newConst
-        QtConst* newNode = new QtConst( newConst );
+            if( newConst )
+            {
+                // create a new constant node and fill it with newConst
+                QtConst* newNode = new QtConst( newConst );
 
-        // set its data stream type
-        newNode->checkType( NULL );
+                // set its data stream type
+                newNode->checkType( NULL );
 
-        // link it to the parent 
-        getParent()->setInput( this, newNode );
+                // link it to the parent
+                getParent()->setInput( this, newNode );
 
-        // delete the self node and its descendants
-        delete this; 
-      }
+                // delete the self node and its descendants
+                delete this;
+            }
+        }
     }
-  }
-  
+
 }
 
 
@@ -134,30 +134,31 @@ QtBinaryOperation::simplify()
 bool
 QtBinaryOperation::equalMeaning( QtNode* node )
 {
-  RMDBCLASS( "QtBinaryOperation", "equalMeaning( QtNode* )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtBinaryOperation", "equalMeaning( QtNode* )", "qlparser", __FILE__, __LINE__ )
 
-  bool result = false;
+    bool result = false;
 
-  // are the nodes of the same type?
-  if ( getNodeType() == node->getNodeType() )
-  {
-    QtBinaryOperation* binNode = (QtBinaryOperation *) node; // by force
+    // are the nodes of the same type?
+    if ( getNodeType() == node->getNodeType() )
+    {
+        QtBinaryOperation* binNode = (QtBinaryOperation *) node; // by force
 
-    if ( input1 && input2 ) {
-      if ( isCommutative() ) 
-        // operation is commutative
-        result = ( input1->equalMeaning( binNode->getInput1() ) &&
-                   input2->equalMeaning( binNode->getInput2() )     ) ||
-                 ( input1->equalMeaning( binNode->getInput2() ) &&
-                   input2->equalMeaning( binNode->getInput1() )     );
-      else 
-        // not commutative    
-        result = input1->equalMeaning( binNode->getInput1() ) &&
-                 input2->equalMeaning( binNode->getInput2() );
-    };           
-  };
+        if ( input1 && input2 )
+        {
+            if ( isCommutative() )
+                // operation is commutative
+                result = ( input1->equalMeaning( binNode->getInput1() ) &&
+                           input2->equalMeaning( binNode->getInput2() )     ) ||
+                         ( input1->equalMeaning( binNode->getInput2() ) &&
+                           input2->equalMeaning( binNode->getInput1() )     );
+            else
+                // not commutative
+                result = input1->equalMeaning( binNode->getInput1() ) &&
+                         input2->equalMeaning( binNode->getInput2() );
+        };
+    };
 
-  return result;
+    return result;
 }
 
 
@@ -166,36 +167,40 @@ QtBinaryOperation::equalMeaning( QtNode* node )
 QtNode::QtNodeList*
 QtBinaryOperation::getChilds( QtChildType flag )
 {
-  RMDBCLASS( "QtBinaryOperation", "getChilds( QtChildType )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtBinaryOperation", "getChilds( QtChildType )", "qlparser", __FILE__, __LINE__ )
 
-  QtNodeList* resultList = new QtNodeList();
+    QtNodeList* resultList = new QtNodeList();
 
-  if ( flag == QT_LEAF_NODES || flag == QT_ALL_NODES ) {
-    QtNodeList* subList=NULL;
-    
-    if ( input1 ) {
-      subList = input1->getChilds( flag );
-      resultList->splice(resultList->begin(), *subList);
-      delete subList;
-      subList=NULL;
-    };    
-    
-    if ( input2 ) {
-      subList = input2->getChilds( flag );
-      resultList->splice(resultList->begin(), *subList);
-      delete subList;
-      subList=NULL;
-    };      
-  };
+    if ( flag == QT_LEAF_NODES || flag == QT_ALL_NODES )
+    {
+        QtNodeList* subList=NULL;
 
-  if ( flag == QT_DIRECT_CHILDS || flag == QT_ALL_NODES ) {
-    if ( input1 ) 
-      resultList->push_back( input1 );
-    if ( input2 ) 
-      resultList->push_back( input2 );
-  };
+        if ( input1 )
+        {
+            subList = input1->getChilds( flag );
+            resultList->splice(resultList->begin(), *subList);
+            delete subList;
+            subList=NULL;
+        };
 
-  return resultList;
+        if ( input2 )
+        {
+            subList = input2->getChilds( flag );
+            resultList->splice(resultList->begin(), *subList);
+            delete subList;
+            subList=NULL;
+        };
+    };
+
+    if ( flag == QT_DIRECT_CHILDS || flag == QT_ALL_NODES )
+    {
+        if ( input1 )
+            resultList->push_back( input1 );
+        if ( input2 )
+            resultList->push_back( input2 );
+    };
+
+    return resultList;
 }
 
 
@@ -204,54 +209,57 @@ QtBinaryOperation::getChilds( QtChildType flag )
 bool
 QtBinaryOperation::getOperands( QtDataList* inputList, QtData* &operand1, QtData* &operand2 )
 {
-  RMDBCLASS( "QtBinaryOperation", "getOperands( QtDataList*, QtData*, QtData* )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtBinaryOperation", "getOperands( QtDataList*, QtData*, QtData* )", "qlparser", __FILE__, __LINE__ )
 
-  bool success = false;
+    bool success = false;
 
-  // get the operands
-  try {
-    if ( input1 ) operand1 = input1->evaluate( inputList );
-    if ( input2 ) operand2 = input2->evaluate( inputList );
-  }
-  catch(...)
-  {
-    //clean up code
-    if( operand1 ) {
-      operand1->deleteRef();
-      operand1 = NULL;
-    }
-
-    if( operand2 ){
-      operand2->deleteRef();
-      operand2 = NULL;
-    }
-  
-    throw;
-  }
-  
-  // test if the operands are valid
-  success = operand1 && operand2;
-
-  if( !success )
-  {
-  
-    if( operand1 ) 
+    // get the operands
+    try
     {
-      operand1->deleteRef();
-      operand1 = NULL;
+        if ( input1 ) operand1 = input1->evaluate( inputList );
+        if ( input2 ) operand2 = input2->evaluate( inputList );
     }
-
-    if( operand2 ) 
+    catch(...)
     {
-      operand2->deleteRef();
-      operand2 = NULL;
+        //clean up code
+        if( operand1 )
+        {
+            operand1->deleteRef();
+            operand1 = NULL;
+        }
+
+        if( operand2 )
+        {
+            operand2->deleteRef();
+            operand2 = NULL;
+        }
+
+        throw;
     }
 
-    RMDBGONCE( 1, RMDebug::module_qlparser, "QtBinaryOperation", "Error: QtBinaryOperation::getOperands() - at least one operand is not provided." )
-  
-  }
+    // test if the operands are valid
+    success = operand1 && operand2;
 
-  return success;
+    if( !success )
+    {
+
+        if( operand1 )
+        {
+            operand1->deleteRef();
+            operand1 = NULL;
+        }
+
+        if( operand2 )
+        {
+            operand2->deleteRef();
+            operand2 = NULL;
+        }
+
+        RMDBGONCE( 1, RMDebug::module_qlparser, "QtBinaryOperation", "Error: QtBinaryOperation::getOperands() - at least one operand is not provided." )
+
+    }
+
+    return success;
 }
 
 
@@ -260,31 +268,38 @@ QtBinaryOperation::getOperands( QtDataList* inputList, QtData* &operand1, QtData
 bool
 QtBinaryOperation::getOperand( QtDataList* inputList, QtData* &operand, int number )
 {
-  RMDBCLASS( "QtBinaryOperation", "getOperand( QtDataList*, QtData*, int )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtBinaryOperation", "getOperand( QtDataList*, QtData*, int )", "qlparser", __FILE__, __LINE__ )
 
-  bool success = false;
+    bool success = false;
 
-  // get the operand
-  if ( number == 1 ) {
-     if ( input1 ) {
-       operand = input1->evaluate( inputList );
-     } else { 
-       if ( input2 )
-         operand = input2->evaluate( inputList );
-     }	 
-  } else {
-    if ( input2 )
-      operand = input2->evaluate( inputList );
-  }
+    // get the operand
+    if ( number == 1 )
+    {
+        if ( input1 )
+        {
+            operand = input1->evaluate( inputList );
+        }
+        else
+        {
+            if ( input2 )
+                operand = input2->evaluate( inputList );
+        }
+    }
+    else
+    {
+        if ( input2 )
+            operand = input2->evaluate( inputList );
+    }
 
-  // test if the operands are valid
-  if ( operand )
-    success = true;
-  else {
-    RMDBGONCE( 1, RMDebug::module_qlparser, "QtBinaryOperation", "Error: QtBinaryOperation::getOperand() - operand is not provided." )
-  }
+    // test if the operands are valid
+    if ( operand )
+        success = true;
+    else
+    {
+        RMDBGONCE( 1, RMDebug::module_qlparser, "QtBinaryOperation", "Error: QtBinaryOperation::getOperand() - operand is not provided." )
+    }
 
-  return success;
+    return success;
 }
 
 
@@ -293,32 +308,33 @@ QtBinaryOperation::getOperand( QtDataList* inputList, QtData* &operand, int numb
 string
 QtBinaryOperation::getSpelling()
 {
-  char tempStr[20];
-  sprintf(tempStr, "%ud", (unsigned long)getNodeType());
-  string result  = string(tempStr);
-  result.append( "(" );
-  
-  if ( input1 && input2 ) {  
-    string result1 = input1->getSpelling();
-    string result2 = input2->getSpelling();
+    char tempStr[20];
+    sprintf(tempStr, "%ud", (unsigned long)getNodeType());
+    string result  = string(tempStr);
+    result.append( "(" );
 
-    if( result1.compare( result2 ) < 0 || !isCommutative() )
+    if ( input1 && input2 )
     {
-      result.append( result1 );
-      result.append( "," );
-      result.append( result2 );
-    }
-    else
-    {
-      result.append( result2 );
-      result.append( "," );
-      result.append( result1 );
+        string result1 = input1->getSpelling();
+        string result2 = input2->getSpelling();
+
+        if( result1.compare( result2 ) < 0 || !isCommutative() )
+        {
+            result.append( result1 );
+            result.append( "," );
+            result.append( result2 );
+        }
+        else
+        {
+            result.append( result2 );
+            result.append( "," );
+            result.append( result1 );
+        };
     };
-  };
-  
-  result.append( ")" );
-  RMDBGONCE(2, RMDebug::module_qlparser, "QtBinaryOperation", "Result:" << result.c_str())
-  return result;
+
+    result.append( ")" );
+    RMDBGONCE(2, RMDebug::module_qlparser, "QtBinaryOperation", "Result:" << result.c_str())
+    return result;
 }
 
 
@@ -327,14 +343,14 @@ QtBinaryOperation::getSpelling()
 QtNode::QtAreaType
 QtBinaryOperation::getAreaType()
 {
-  QtNode::QtAreaType result = QT_AREA_MDD;
+    QtNode::QtAreaType result = QT_AREA_MDD;
 
-  if ( input1 && input2 )
-    if ( input1->getAreaType() == QtNode::QT_AREA_SCALAR &&
-         input2->getAreaType() == QtNode::QT_AREA_SCALAR )
-    result = QT_AREA_SCALAR;
+    if ( input1 && input2 )
+        if ( input1->getAreaType() == QtNode::QT_AREA_SCALAR &&
+                input2->getAreaType() == QtNode::QT_AREA_SCALAR )
+            result = QT_AREA_SCALAR;
 
-  return result;
+    return result;
 }
 
 
@@ -343,67 +359,67 @@ QtBinaryOperation::getAreaType()
 void
 QtBinaryOperation::optimizeLoad( QtTrimList* trimList )
 {
-  RMDBCLASS( "QtBinaryOperation", "optimizeLoad( QtTrimList* )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtBinaryOperation", "optimizeLoad( QtTrimList* )", "qlparser", __FILE__, __LINE__ )
 
-  QtNode::QtTrimList *list1=NULL; 
-  QtNode::QtTrimList *list2=NULL;
+    QtNode::QtTrimList *list1=NULL;
+    QtNode::QtTrimList *list2=NULL;
 
-  if( input1 && input2 )
-  {
-    list1 = trimList;
-
-    // for list2 make a copy of list1
-    list2 = new QtNode::QtTrimList();
-
-    for( QtNode::QtTrimList::iterator iter=trimList->begin(); iter!=trimList->end(); iter++ )
+    if( input1 && input2 )
     {
-      QtTrimElement* elem = new QtTrimElement;
-      *elem = **iter;
-      list2->push_back( elem );
-    }
+        list1 = trimList;
 
-    if ( input1 ) 
-      input1->optimizeLoad( list1 );
-    
-    if ( input2 ) 
-      input2->optimizeLoad( list2 );
-      
-  }
-  else 
-  {
-    // release( trimList->begin(), trimList->end() );
-    for( QtNode::QtTrimList::iterator iter=trimList->begin(); iter!=trimList->end(); iter++ )
-    { 
-      delete *iter;
-      *iter=NULL;
+        // for list2 make a copy of list1
+        list2 = new QtNode::QtTrimList();
+
+        for( QtNode::QtTrimList::iterator iter=trimList->begin(); iter!=trimList->end(); iter++ )
+        {
+            QtTrimElement* elem = new QtTrimElement;
+            *elem = **iter;
+            list2->push_back( elem );
+        }
+
+        if ( input1 )
+            input1->optimizeLoad( list1 );
+
+        if ( input2 )
+            input2->optimizeLoad( list2 );
+
     }
-    delete trimList;
-    trimList=NULL;
-  }
+    else
+    {
+        // release( trimList->begin(), trimList->end() );
+        for( QtNode::QtTrimList::iterator iter=trimList->begin(); iter!=trimList->end(); iter++ )
+        {
+            delete *iter;
+            *iter=NULL;
+        }
+        delete trimList;
+        trimList=NULL;
+    }
 }
 
 
 void
 QtBinaryOperation::printTree( int tab, ostream& s, QtChildType mode )
 {
-  if( mode != QT_DIRECT_CHILDS )
-  {
-    if( input1 )
+    if( mode != QT_DIRECT_CHILDS )
     {
-      s << SPACE_STR(tab).c_str() << "input1: " << endl;
-      input1->printTree( tab+2, s, mode );
-    }
-    else
-      s << SPACE_STR(tab).c_str() << "no input1" << endl;
+        if( input1 )
+        {
+            s << SPACE_STR(tab).c_str() << "input1: " << endl;
+            input1->printTree( tab+2, s, mode );
+        }
+        else
+            s << SPACE_STR(tab).c_str() << "no input1" << endl;
 
-    if( input2 )
-    { 
-      s << SPACE_STR(tab).c_str() << "input2: " << endl;
-      input2->printTree( tab+2, s, mode );
+        if( input2 )
+        {
+            s << SPACE_STR(tab).c_str() << "input2: " << endl;
+            input2->printTree( tab+2, s, mode );
+        }
+        else
+            s << SPACE_STR(tab).c_str() << "no input2" << endl;
     }
-    else
-      s << SPACE_STR(tab).c_str() << "no input2" << endl;
-  }
 }
 
 
@@ -411,7 +427,7 @@ QtBinaryOperation::printTree( int tab, ostream& s, QtChildType mode )
 bool
 QtBinaryOperation::isCommutative() const
 {
-  return true; // by default, a binary operation is commutative
+    return true; // by default, a binary operation is commutative
 }
 
 

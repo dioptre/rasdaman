@@ -45,97 +45,97 @@ class r_Error;
   representation of the RasDaMan type system. Examples are ULONG or
   BOOL.
 */
- 
+
 class r_Primitive_Type : public r_Base_Type
 {
 public:
-  /// constructor getting name of type, size of type and type id.
-  r_Primitive_Type( const char* newTypeName, const r_Type::r_Type_Id newTypeId );
-  /// copy constructor
-  r_Primitive_Type( const r_Primitive_Type& oldObj );
-  /// assignment operator.
-  const r_Primitive_Type& operator=( const r_Primitive_Type& oldObj );
-  /// destructor.
-  virtual ~r_Primitive_Type();
+    /// constructor getting name of type, size of type and type id.
+    r_Primitive_Type( const char* newTypeName, const r_Type::r_Type_Id newTypeId );
+    /// copy constructor
+    r_Primitive_Type( const r_Primitive_Type& oldObj );
+    /// assignment operator.
+    const r_Primitive_Type& operator=( const r_Primitive_Type& oldObj );
+    /// destructor.
+    virtual ~r_Primitive_Type();
 
-  /// clone operation
-  virtual r_Type* clone() const;
+    /// clone operation
+    virtual r_Type* clone() const;
 
-  /// retrieve id of the type.
-  virtual r_Type::r_Type_Id type_id() const;
+    /// retrieve id of the type.
+    virtual r_Type::r_Type_Id type_id() const;
 
-  /// converts array of cells from NT byte order to Unix byte order.
-  virtual void convertToLittleEndian(char* cells, r_Area noCells) const;
+    /// converts array of cells from NT byte order to Unix byte order.
+    virtual void convertToLittleEndian(char* cells, r_Area noCells) const;
 
-  /// converts array of cells from Unix byte order to NT byte order.
-  virtual void convertToBigEndian(char* cells, r_Area noCells) const;
+    /// converts array of cells from Unix byte order to NT byte order.
+    virtual void convertToBigEndian(char* cells, r_Area noCells) const;
 
-  /// writes state of object to specified stream
-  virtual void print_status( std::ostream& s = std::cout ) const;  
-  
-  /// check, if type is primitive.
-  virtual bool isPrimitiveType() const;
+    /// writes state of object to specified stream
+    virtual void print_status( std::ostream& s = std::cout ) const;
 
-  /// prints value of a primitive type
-  virtual void print_value( const char* storage,  std::ostream& s = std::cout  ) const;
+    /// check, if type is primitive.
+    virtual bool isPrimitiveType() const;
+
+    /// prints value of a primitive type
+    virtual void print_value( const char* storage,  std::ostream& s = std::cout  ) const;
 
     //@Man: Type-safe value access methods. In case of type mismatch, an exception is raised.
     //@{
     ///
 
-      /// 
-      r_Double get_value( const char* cell ) const throw( r_Error );
-      /// 
-      void  set_value( char* cell, r_Double ) throw( r_Error );      
-      ///
-      void  get_limits( r_Double&,  r_Double& ) throw( r_Error );            
-      
+    ///
+    r_Double get_value( const char* cell ) const throw( r_Error );
+    ///
+    void  set_value( char* cell, r_Double ) throw( r_Error );
+    ///
+    void  get_limits( r_Double&,  r_Double& ) throw( r_Error );
 
-      /// 
-      r_Boolean get_boolean( const char* cell ) const throw( r_Error );
-      /// 
-      r_Char    get_char( const char* cell )    const throw( r_Error );
-      ///  
-      r_Octet   get_octet( const char* cell )   const throw( r_Error );
-      /// 
-      r_Short   get_short( const char* cell )   const throw( r_Error );
-      /// 
-      r_UShort  get_ushort( const char* cell )  const throw( r_Error );
-      /// 
-      r_Long    get_long( const char* cell )    const throw( r_Error );
-      /// 
-      r_ULong   get_ulong( const char* cell )   const throw( r_Error );
-      /// 
-      r_Float   get_float( const char* cell )   const throw( r_Error );
-      /// 
-      r_Double  get_double( const char* cell )  const throw( r_Error );
 
-      /// 
-      void  set_boolean( char* cell, r_Boolean ) throw( r_Error );
-      /// 
-      void  set_char( char* cell, r_Char )       throw( r_Error );
-      ///  
-      void  set_octet( char* cell, r_Octet )     throw( r_Error );
-      /// 
-      void  set_short( char* cell, r_Short )     throw( r_Error );
-      /// 
-      void  set_ushort( char* cell, r_UShort )   throw( r_Error );
-      /// 
-      void  set_long( char* cell, r_Long )       throw( r_Error );
-      /// 
-      void  set_ulong( char* cell, r_ULong )     throw( r_Error );
-      /// 
-      void  set_float( char* cell, r_Float )     throw( r_Error );
-      /// 
-      void  set_double( char* cell, r_Double )   throw( r_Error );
-            
+    ///
+    r_Boolean get_boolean( const char* cell ) const throw( r_Error );
+    ///
+    r_Char    get_char( const char* cell )    const throw( r_Error );
+    ///
+    r_Octet   get_octet( const char* cell )   const throw( r_Error );
+    ///
+    r_Short   get_short( const char* cell )   const throw( r_Error );
+    ///
+    r_UShort  get_ushort( const char* cell )  const throw( r_Error );
+    ///
+    r_Long    get_long( const char* cell )    const throw( r_Error );
+    ///
+    r_ULong   get_ulong( const char* cell )   const throw( r_Error );
+    ///
+    r_Float   get_float( const char* cell )   const throw( r_Error );
+    ///
+    r_Double  get_double( const char* cell )  const throw( r_Error );
+
+    ///
+    void  set_boolean( char* cell, r_Boolean ) throw( r_Error );
+    ///
+    void  set_char( char* cell, r_Char )       throw( r_Error );
+    ///
+    void  set_octet( char* cell, r_Octet )     throw( r_Error );
+    ///
+    void  set_short( char* cell, r_Short )     throw( r_Error );
+    ///
+    void  set_ushort( char* cell, r_UShort )   throw( r_Error );
+    ///
+    void  set_long( char* cell, r_Long )       throw( r_Error );
+    ///
+    void  set_ulong( char* cell, r_ULong )     throw( r_Error );
+    ///
+    void  set_float( char* cell, r_Float )     throw( r_Error );
+    ///
+    void  set_double( char* cell, r_Double )   throw( r_Error );
+
 
     ///
     //@}
 
-  protected:
-  /// default constructor.
-  r_Primitive_Type();
+protected:
+    /// default constructor.
+    r_Primitive_Type();
 
     r_Type::r_Type_Id typeId;
 };

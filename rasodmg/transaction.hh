@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:    r_Transaction
  *
  * COMMENTS:
- *			None
+ *          None
 */
 
 //@ManMemo: Module: {\bf rasodmg}
@@ -45,8 +45,8 @@ class r_Object;
 
 /*@Doc:
 
-  Transactions can be started, committed, aborted, and checkpointed. 
-  It is important to note that all access, creation, modification, 
+  Transactions can be started, committed, aborted, and checkpointed.
+  It is important to note that all access, creation, modification,
   and deletion of persistent objects must be done within a transaction.
   Right now, only one transaction can be active at a time.
 
@@ -57,19 +57,19 @@ class r_Object;
   */
 class r_Transaction
 {
-  public:
+public:
     /// possible states of the transaction
     enum r_TAStatus { active, inactive, comiting, aborting };
-  
+
     /// possible transaction modes
     enum r_TAMode { read_write, read_only };
 
     /// default constructor
     r_Transaction();
-    
+
     /// destructor, an active transaction is aborted
     ~r_Transaction();
-    
+
     /// start the transaction
     void begin( r_TAMode mode = read_write ) throw( r_Error );
     /**
@@ -86,7 +86,7 @@ class r_Transaction
     /// commit transaction and make changes persistent
     void commit() throw( r_Error );
     /**
-      The transaction is committed and changes are made persistent 
+      The transaction is committed and changes are made persistent
       in the database.
       While committing, the following errors can occur:
 
@@ -97,50 +97,54 @@ class r_Transaction
       r_Error_CollectionElementTypeMismatch && Collection and MDD type mismatch.\\
       \end{tabular}
     */
-    
+
     /// abort transaction and forget changes within transaction
     void abort();
-    
+
     /// returns the current state
     inline r_TAStatus get_status() const;
-    
+
     /// returns current mode
     inline r_TAMode get_mode() const;
-    
+
     //@Man: Methods and types for internal use only:
     //@{
     ///
-    
-      /// store a pointer to the actual transaction
-      static r_Transaction* actual_transaction;
 
-      /// load an object (internal use only)
-      r_Ref_Any load_object( const r_OId& oid );
-   
-      /// possible non-r_Object values maintained by the transaction
-      enum GenRefType { MINTERVAL, SINTERVAL, POINT, OID, SCALAR };
+    /// store a pointer to the actual transaction
+    static r_Transaction* actual_transaction;
 
-      /// adds a non-r_Object to the list of persistent objects
-      void add_object_list( GenRefType type, void* ref );
+    /// load an object (internal use only)
+    r_Ref_Any load_object( const r_OId& oid );
+
+    /// possible non-r_Object values maintained by the transaction
+    enum GenRefType { MINTERVAL, SINTERVAL, POINT, OID, SCALAR };
+
+    /// adds a non-r_Object to the list of persistent objects
+    void add_object_list( GenRefType type, void* ref );
 
     ///
-    //@} 
+    //@}
 
-  private:
+private:
     /// adds an object of type \Ref{r_Object} to the list of persistent objects
     void add_object_list( const r_Ref<r_Object>& );
-  
+
     /// current transaction state
     r_TAStatus ta_state;
 
     /// current transaction mode (just valid if transaction is active)
-    r_TAMode ta_mode;    
+    r_TAMode ta_mode;
 
     /// list of \Ref{r_Object} references which have been created within the transaction
     r_Set< r_Ref<r_Object> > object_list;
-    
+
     // element type of non \Ref{r_Object} list maintained by the transaction
-    typedef struct{ GenRefType type; void* ref; } GenRefElement;
+    typedef struct
+    {
+        GenRefType type;
+        void* ref;
+    } GenRefElement;
 
     /// list of non \Ref{r_Object} references which have been created within the transaction
     r_Set< GenRefElement* > non_object_list;
@@ -151,7 +155,7 @@ class r_Transaction
 #define DEF_TRANSACTION
 
 #include "rasodmg/iterator.hh"
-// For HP cfront compiler each template instantiation used in a library 
+// For HP cfront compiler each template instantiation used in a library
 // must be defined in an included header.
 typedef r_Iterator<r_Object*> r_Iterator_r_Object_dummy;
 #include "rasodmg/transaction.icc"
@@ -163,7 +167,7 @@ typedef r_Iterator<r_Object*> r_Iterator_r_Object_dummy;
 #else
 #include "rasodmg/ref.cc"
 #endif
-#endif 
+#endif
 #endif
 
 

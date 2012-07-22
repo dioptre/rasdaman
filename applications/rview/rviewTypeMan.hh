@@ -22,14 +22,14 @@ rasdaman GmbH.
 /
 
 /**
- *	COMMENTS:
- *		None
+ *  COMMENTS:
+ *      None
  */
 
 /**
-*	@file rviewTypeMan.hh
+*   @file rviewTypeMan.hh
 *
-*	@ingroup Applications
+*   @ingroup Applications
 */
 
 #ifndef _RVIEW_TYPE_MAN_H_
@@ -48,65 +48,65 @@ rasdaman GmbH.
 
 class rviewTypeMan: public rviewFrame
 {
-  public:
+public:
 
-  rviewTypeMan(rviewFrame *parentWindow);
-  rviewTypeMan(rviewFrame *parentWindow, const r_Type *type);
-  ~rviewTypeMan(void);
+    rviewTypeMan(rviewFrame *parentWindow);
+    rviewTypeMan(rviewFrame *parentWindow, const r_Type *type);
+    ~rviewTypeMan(void);
 
-  void unlinkParent(void);
+    void unlinkParent(void);
 
-  void setType(const r_Type *type);
-  void label(void);
-  int  process(wxObject &obj, wxEvent &evt);
-  void OnSize(int w, int h);
-  int convert(r_Ref<r_GMarray> &src, r_Ref<r_GMarray> &dest);
-
-
-  protected:
-
-  void clearData(void);
-
-  wxPanel *panel;
-  wxGroupBox **structures;
-  rviewCheckBox **members;
-  unsigned int *offsets;
-  unsigned char *primtypes;
-  unsigned int numStruct, numMembers, typeDepth;
-  unsigned int baseTypeLength;
-  r_Type *myType;
-  rviewFrame *parent;
-  rviewButton *closeBut, *convertBut;
-  const char **typeNames;
-  DynamicString baseTypeName;
+    void setType(const r_Type *type);
+    void label(void);
+    int  process(wxObject &obj, wxEvent &evt);
+    void OnSize(int w, int h);
+    int convert(r_Ref<r_GMarray> &src, r_Ref<r_GMarray> &dest);
 
 
-  private:
+protected:
 
-  void initShare(rviewFrame *parentWindow);
-  void parseStructType(const r_Structure_Type *tp, unsigned int &nums, unsigned int &numm, unsigned int depth, unsigned int offset=0, wxRect *bbox=NULL);
-  void parsePrimitiveType(const r_Primitive_Type *tp, const char *name, unsigned int &numm, unsigned int offset=0, wxRect *bbox=NULL);
+    void clearData(void);
 
-  static const char structName[];
-  static const char marrayName[];
-  static const char typeBool[];
-  static const char typeChar[];
-  static const char typeOctet[];
-  static const char typeShort[];
-  static const char typeUShort[];
-  static const char typeLong[];
-  static const char typeULong[];
-  static const char typeFloat[];
-  static const char typeDouble[];
+    wxPanel *panel;
+    wxGroupBox **structures;
+    rviewCheckBox **members;
+    unsigned int *offsets;
+    unsigned char *primtypes;
+    unsigned int numStruct, numMembers, typeDepth;
+    unsigned int baseTypeLength;
+    r_Type *myType;
+    rviewFrame *parent;
+    rviewButton *closeBut, *convertBut;
+    const char **typeNames;
+    DynamicString baseTypeName;
 
-  // constants
-  static const int tman_width;
-  static const int tman_height;
-  static const int tman_border;
-  static const int tman_basewidth;
-  static const int tman_cheight;
-  static const int tman_bheight;
-  static const int tman_bwidth;
+
+private:
+
+    void initShare(rviewFrame *parentWindow);
+    void parseStructType(const r_Structure_Type *tp, unsigned int &nums, unsigned int &numm, unsigned int depth, unsigned int offset=0, wxRect *bbox=NULL);
+    void parsePrimitiveType(const r_Primitive_Type *tp, const char *name, unsigned int &numm, unsigned int offset=0, wxRect *bbox=NULL);
+
+    static const char structName[];
+    static const char marrayName[];
+    static const char typeBool[];
+    static const char typeChar[];
+    static const char typeOctet[];
+    static const char typeShort[];
+    static const char typeUShort[];
+    static const char typeLong[];
+    static const char typeULong[];
+    static const char typeFloat[];
+    static const char typeDouble[];
+
+    // constants
+    static const int tman_width;
+    static const int tman_height;
+    static const int tman_border;
+    static const int tman_basewidth;
+    static const int tman_cheight;
+    static const int tman_bheight;
+    static const int tman_bwidth;
 };
 
 #endif

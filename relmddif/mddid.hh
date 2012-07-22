@@ -26,8 +26,8 @@ rasdaman GmbH.
 class DBMDDObj;
 class DBMDDSet;
 
-template <class T> class DBRef; 
-template <class T> class DBObjectIdIterator; 
+template <class T> class DBRef;
+template <class T> class DBObjectIdIterator;
 
 typedef DBRef<DBMDDObj> DBMDDObjId;
 typedef DBRef<DBMDDSet> DBMDDSetId;

@@ -51,7 +51,7 @@ argument.
 
 class QtUnaryOperation : public QtOperation
 {
-  public:
+public:
     /// default constructor
     QtUnaryOperation();
 
@@ -64,7 +64,7 @@ class QtUnaryOperation : public QtOperation
     /// creates a unique name for a common subexpression
     virtual std::string getSpelling();
 
-    /// simplifies the tree 
+    /// simplifies the tree
     virtual void simplify();
 
     /// return childs of the node
@@ -93,14 +93,14 @@ class QtUnaryOperation : public QtOperation
     //@{
     ///
 
-      ///
-      inline virtual void setInput( QtOperation* input );
-      ///
-      inline QtOperation* getInput();
+    ///
+    inline virtual void setInput( QtOperation* input );
+    ///
+    inline QtOperation* getInput();
 
     //@}
 
-  protected:
+protected:
     /// operation operand
     QtOperation* input;
 };

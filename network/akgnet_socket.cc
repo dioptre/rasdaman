@@ -34,54 +34,57 @@ rasdaman GmbH.
 #include <akgnet_socket.hh>
 
 akg::Socket::Socket() throw()
-  { 
-   }
-   
+{
+}
+
 bool akg::Socket::createTcpSocket() throw()
-  {
+{
     struct protoent *getprotoptr = getprotobyname("tcp");
     fileDescriptor= socket(PF_INET,SOCK_STREAM,getprotoptr->p_proto);
-    if(fileDescriptor<0) 
-       { saveErrno();return false;}
-    return true;   
-   }
-   
+    if(fileDescriptor<0)
+    {
+        saveErrno();
+        return false;
+    }
+    return true;
+}
+
 akg::SocketAddress akg::Socket::getAddress() throw()
-  {
+{
     akgSocklen_t size = sizeof(sockaddr_in);
     sockaddr_in buffer;
-    
+
     getsockname(fileDescriptor, (sockaddr*)&buffer,&size);
-    
+
     return SocketAddress(buffer);
-   }
+}
 
 akg::SocketAddress akg::Socket::getPeerAddress() throw()
-  {
+{
     akgSocklen_t size = sizeof(sockaddr_in);
     sockaddr_in buffer;
-    
+
     int rasp=getpeername(fileDescriptor, (sockaddr*)&buffer,&size);
     saveErrno();
     return rasp != -1 ? SocketAddress(buffer) : SocketAddress();
-   }
+}
 
 //###########################################################
 
 akg::ListenSocket::ListenSocket() throw()
-  { 
-    queuesize = SOMAXCONN; 
-   }
-   
+{
+    queuesize = SOMAXCONN;
+}
+
 akg::ListenSocket::~ListenSocket() throw()
-  {
-   }
-   
+{
+}
+
 bool akg::ListenSocket::open(int port) throw()
-  {
-    close(); 
+{
+    close();
     if(createTcpSocket() == false) return false;
-    
+
     struct sockaddr_in internetAddress;
     internetAddress.sin_family     = AF_INET;
     internetAddress.sin_port       = htons(port);
@@ -91,84 +94,99 @@ bool akg::ListenSocket::open(int port) throw()
     int val = 1;
     int len = sizeof( val );
     if(setsockopt( fileDescriptor, SOL_SOCKET, SO_REUSEADDR, (char*)&val, len ))
-      {
+    {
         DBTALK("Can't set address reusable: "<<strerror(errno));
-       }
+    }
 #endif
-    
+
     if(bind(fileDescriptor,(sockaddr*)&internetAddress,sizeof(sockaddr_in)) <0)
-      { saveErrno();return false;}
-    
+    {
+        saveErrno();
+        return false;
+    }
+
     if(listen(fileDescriptor,queuesize) < 0)
-      { saveErrno();return false;}
-      
+    {
+        saveErrno();
+        return false;
+    }
+
     return true;
-   }
-   
+}
+
 void akg::ListenSocket::setQueueSize(int newSize) throw()
-  {
+{
     assert(newSize > 0);
     queuesize = newSize < SOMAXCONN ? newSize : SOMAXCONN;
-   }
-   
+}
+
 int  akg::ListenSocket::getQueueSize() throw()
-  { return queuesize; 
-   }
-      
-      
+{
+    return queuesize;
+}
+
+
 //###########################################################
 akg::ServerSocket::ServerSocket() throw()
-  {
-   }
-   
+{
+}
+
 akg::ServerSocket::~ServerSocket() throw()
-  {
-   }
-   
+{
+}
+
 bool akg::ServerSocket::acceptFrom(ListenSocket& listenSocket) throw()
-  {
+{
     close();
     struct sockaddr_in internetAddress;
     akgSocklen_t size=sizeof(sockaddr_in);
-    
+
     savedErrno = 0;
     fileDescriptor=accept(listenSocket(),(struct sockaddr*)&internetAddress,&size);
-    if(fileDescriptor < 0) { saveErrno();return false;}
-    
+    if(fileDescriptor < 0)
+    {
+        saveErrno();
+        return false;
+    }
+
     return true;
-   }
-      
+}
+
 //###########################################################
-      
+
 akg::ClientSocket::ClientSocket() throw()
-  {
-   }
+{
+}
 akg::ClientSocket::~ClientSocket() throw()
-  {
-   }
-   
+{
+}
+
 bool akg::ClientSocket::open(const char *serverHost,int serverPort) throw()
-  {
-    
+{
+
     close();
     savedErrno=0;
-    
+
     if(createTcpSocket() == false) return false;
-    
+
     struct hostent *hostinfo=gethostbyname(serverHost);
     if(hostinfo==NULL)
-      { saveErrno();return false;
-       }
-  
+    {
+        saveErrno();
+        return false;
+    }
+
     sockaddr_in internetAddress;
-    
+
     internetAddress.sin_family = AF_INET;
     internetAddress.sin_port   = htons(serverPort);
-    internetAddress.sin_addr   = *(struct in_addr*)hostinfo->h_addr; 
-    
+    internetAddress.sin_addr   = *(struct in_addr*)hostinfo->h_addr;
+
     if(connect(fileDescriptor,(struct sockaddr*)&internetAddress,sizeof(sockaddr_in)) < 0)
-      { saveErrno();return false;
-       }
+    {
+        saveErrno();
+        return false;
+    }
     return true;
-   }
+}
 

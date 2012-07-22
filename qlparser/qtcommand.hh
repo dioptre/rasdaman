@@ -47,11 +47,11 @@ rasdaman GmbH.
 
 class QtCommand : public QtExecute
 {
-  public:
+public:
     enum QtCommandType
     {
-      QT_DROP_COLLECTION,
-      QT_CREATE_COLLECTION
+        QT_DROP_COLLECTION,
+        QT_CREATE_COLLECTION
     };
 
     /// constructor getting command, collection and type name (create collection)
@@ -63,7 +63,7 @@ class QtCommand : public QtExecute
     /// method for evaluating the node
     virtual int evaluate();
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -75,7 +75,7 @@ class QtCommand : public QtExecute
     /// type checking
     virtual void checkType();
 
-  private:
+private:
     /// command type
     QtCommandType command;
 

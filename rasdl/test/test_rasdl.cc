@@ -34,47 +34,47 @@ extern YSymbolTable    *Symbols;
 
 int main(int argc,char *argv[])
 {
-   if(argc!=3)
-   {
-      cerr<<"USAGE: odl odl-script cpp-header";
-      exit(-1);
-   };
+    if(argc!=3)
+    {
+        cerr<<"USAGE: odl odl-script cpp-header";
+        exit(-1);
+    };
 
-   cout<<"--BEGIN-------------------------------------------------------------------------";
-   cout<<"opening \""<<argv[1]<<"\"...";
-   yyin=fopen(argv[1],"r");
+    cout<<"--BEGIN-------------------------------------------------------------------------";
+    cout<<"opening \""<<argv[1]<<"\"...";
+    yyin=fopen(argv[1],"r");
 
-   if(yyin==NULL)
-   {
-      cout<<"fail!\n";
-      cerr<<"\nfailed to open "<<argv[1]<<".\n";
+    if(yyin==NULL)
+    {
+        cout<<"fail!\n";
+        cerr<<"\nfailed to open "<<argv[1]<<".\n";
 
-      exit(-1);
-   };
+        exit(-1);
+    };
 
-   cout<<"ok!\n";
+    cout<<"ok!\n";
 
-   cout<<"parsing...";
-   yyparse();
-   cout<<"done!\n";
+    cout<<"parsing...";
+    yyparse();
+    cout<<"done!\n";
 
-   cout<<"output...";
+    cout<<"output...";
 
-   FILE   *file=fopen(argv[2],"wt");
+    FILE   *file=fopen(argv[2],"wt");
 
-   /* header description */
-   fprintf(file,"//------------------------------------------------------------\n");
-   fprintf(file,"//  automatic created C++-header                               \n");
-   fprintf(file,"//------------------------------------------------------------\n");
-   fprintf(file,"\n");
+    /* header description */
+    fprintf(file,"//------------------------------------------------------------\n");
+    fprintf(file,"//  automatic created C++-header                               \n");
+    fprintf(file,"//------------------------------------------------------------\n");
+    fprintf(file,"\n");
 
-   Symbols->global_scope->output(file);
+    Symbols->global_scope->output(file);
 
-   fclose(file);
+    fclose(file);
 
-   cout<<"done!\n";
-   cout<<"--END---------------------------------------------------------------------------";
+    cout<<"done!\n";
+    cout<<"--END---------------------------------------------------------------------------";
 
-   return(0);
+    return(0);
 };
 

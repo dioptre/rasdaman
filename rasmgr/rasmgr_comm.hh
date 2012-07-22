@@ -28,7 +28,7 @@ rasdaman GmbH.
  *
  * PURPOSE:
  *   Performs reliable, but blocking HTTP communication. used by the slave rasmgr
- *    
+ *
  * COMMENTS:
  *   Will be removed, the plan is to have only non-blocking communication
  *
@@ -40,7 +40,7 @@ rasdaman GmbH.
 #include "rasmgr.hh"
 
 #define MAXMSG 1024
-#define MAXMSGOUTBUFF 20000 
+#define MAXMSGOUTBUFF 20000
 
 /**
   * \defgroup Rasmgrs Rasmgr Classes
@@ -50,43 +50,43 @@ rasdaman GmbH.
   * \ingroup Rasmgrs
   */
 class HTTPComm
-  {
-    public:
-      HTTPComm();
-      ~HTTPComm();
-      void closeListenSocket();
-      void shouldExit();
-      char *decodeFlag(int statusFlag);
-    protected:
-      int initListenSocket(int port);
-      int makeSocket(int port);
-      int sendAnswer(int socket,int len);
-      int getMessage();
-            
-    protected:
-      bool isMessage(const char *messageStart);
-     // pid_t parentPID;
-      int listen_socket;
-      fd_set active_fd_set,read_fd_set;
-   
-      struct timeval tv;
-      timeval *tvptr;
-      char *header;
-      char *body;
-      char inBuffer[MAXMSG];
-      char outBuffer[MAXMSGOUTBUFF];
-            
-      bool exitRequest;
-    private:
-      int realGetMessage();  
-   };	
+{
+public:
+    HTTPComm();
+    ~HTTPComm();
+    void closeListenSocket();
+    void shouldExit();
+    char *decodeFlag(int statusFlag);
+protected:
+    int initListenSocket(int port);
+    int makeSocket(int port);
+    int sendAnswer(int socket,int len);
+    int getMessage();
 
-// status flags that rasmgr understands 
-// - these come from rasserver   
+protected:
+    bool isMessage(const char *messageStart);
+    // pid_t parentPID;
+    int listen_socket;
+    fd_set active_fd_set,read_fd_set;
+
+    struct timeval tv;
+    timeval *tvptr;
+    char *header;
+    char *body;
+    char inBuffer[MAXMSG];
+    char outBuffer[MAXMSGOUTBUFF];
+
+    bool exitRequest;
+private:
+    int realGetMessage();
+};
+
+// status flags that rasmgr understands
+// - these come from rasserver
 #define SERVER_DOWN         0
 #define SERVER_AVAILABLE    1
 #define SERVER_REGULARSIG   3
-// - this comes from slave rasmgr and LSM  
+// - this comes from slave rasmgr and LSM
 #define SERVER_CRASHED      2
 
 // textual representation of the above status flags -- PB 2004-jul-16
@@ -95,12 +95,12 @@ class HTTPComm
 #define SERVER_REGULARSIG_TXT "server alive"
 #define SERVER_CRASHED_TXT    "server aborted"
 
-   
- /* This two functions where written late in the night, when we came back from BLVA
-    (Bayerisches Landesvermessungsamt), where we had problems on DEC+CompaqTrue64
-     this &@$! operating system wasn't able to send a message in one piece which was written in one piece
- */
+
+/* This two functions where written late in the night, when we came back from BLVA
+   (Bayerisches Landesvermessungsamt), where we had problems on DEC+CompaqTrue64
+    this &@$! operating system wasn't able to send a message in one piece which was written in one piece
+*/
 int readWholeMessage(int socket,char *destBuffer,int buffSize);
 int writeWholeMessage(int socket,char *destBuffer,int buffSize);
-   
-#endif   
+
+#endif

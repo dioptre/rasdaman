@@ -37,13 +37,13 @@ static const char rcsid[] = "@(#)qlparser, QtONCStream: $Id: qtoncstream.cc,v 1.
 const QtNode::QtNodeType QtONCStream::nodeType = QtNode::QT_ONC_STREAM;
 
 QtONCStream::QtONCStream()
-  :  QtNode()
+    :  QtNode()
 {
 }
 
 
 QtONCStream::QtONCStream( QtNode* node )
-  :  QtNode( node )
+    :  QtNode( node )
 {
 }
 

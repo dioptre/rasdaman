@@ -68,100 +68,100 @@ highly dependent on the base DBMS used.
   * \ingroup Relblobifs
   */
 
-class BLOBTile	: public DBTile
-	{
-	public:
-	//@Man:	constructors
-	//@{
-		BLOBTile(r_Data_Format dataformat = r_Array);
-			/*@Doc:
-			constructs a new empty BLOBTile and gets an id for it.
-			*/
-		
-		BLOBTile(const OId& BlobId) throw (r_Error);
-			/*@Doc:
-			constructs a BlobTile out of the database
-			*/
-		
-		BLOBTile(r_Bytes newSize, char c = 0, r_Data_Format dataformat = r_Array);
-			/*@Doc:
-			constructs a new BLOBTile of size newSize filled with c.
-			*/
-		
-		BLOBTile(r_Bytes newSize, r_Bytes patSize, const char* pat, r_Data_Format dataformat = r_Array);
-			/*@Doc:
-			 Constructs a new BLOB Tile of size newSize filled with the repeated
-			 char array pat of size patSize. If after filling some chars are
-			 left, they are filled with 0
-			*/
-			/*@ManMemo: constructs a new BLOB Tile with the char array newCells 
-				    with newSize elements as contents. */
-			    
-		BLOBTile(r_Bytes newSize, const char* newCells, r_Data_Format dataformat = r_Array);
-			/*@Doc:
-			constructs a new BLOBTile of size newSize filled with the contents of newCells.
-			*/
+class BLOBTile  : public DBTile
+{
+public:
+    //@Man: constructors
+    //@{
+    BLOBTile(r_Data_Format dataformat = r_Array);
+    /*@Doc:
+    constructs a new empty BLOBTile and gets an id for it.
+    */
 
-		BLOBTile(r_Bytes newSize, const char* newCells, r_Data_Format dataformat, const OId& myOId);
-			/*@Doc:
-			constructs a new BLOBTile of size newSize filled with the contents of newCells.
-			the oid will be assigned to this blob.  used by regular computed index.
-			*/
+    BLOBTile(const OId& BlobId) throw (r_Error);
+    /*@Doc:
+    constructs a BlobTile out of the database
+    */
 
-		BLOBTile(const OId& BlobId, r_Bytes newSize, r_Data_Format newFmt);
-			/*@Doc:
-			constructs a new BLOBTile of size newSize filled with zeros.
-			the tile will think it is not modified and also not in the db but persistent.
-			this is used by the rc index.
-			*/
+    BLOBTile(r_Bytes newSize, char c = 0, r_Data_Format dataformat = r_Array);
+    /*@Doc:
+    constructs a new BLOBTile of size newSize filled with c.
+    */
 
-	//@}
+    BLOBTile(r_Bytes newSize, r_Bytes patSize, const char* pat, r_Data_Format dataformat = r_Array);
+    /*@Doc:
+     Constructs a new BLOB Tile of size newSize filled with the repeated
+     char array pat of size patSize. If after filling some chars are
+     left, they are filled with 0
+    */
+    /*@ManMemo: constructs a new BLOB Tile with the char array newCells
+            with newSize elements as contents. */
 
-		virtual ~BLOBTile();
-			/*@Doc:
-			validates the object.  deletes it cells.
-			*/
+    BLOBTile(r_Bytes newSize, const char* newCells, r_Data_Format dataformat = r_Array);
+    /*@Doc:
+    constructs a new BLOBTile of size newSize filled with the contents of newCells.
+    */
 
-		static void kill(const OId& target, unsigned int range = 0);
-			/*@Doc:
-			delete a blobtile without loading it first into memory.
-			is used by the indexes.
-			delete the blobtile and range consecutive tiles.
-			*/
+    BLOBTile(r_Bytes newSize, const char* newCells, r_Data_Format dataformat, const OId& myOId);
+    /*@Doc:
+    constructs a new BLOBTile of size newSize filled with the contents of newCells.
+    the oid will be assigned to this blob.  used by regular computed index.
+    */
 
-		static r_Bytes BLOBBufferLength;
-			/*@Doc:
-			info on the length of the BLOBBuffer
-			*/
+    BLOBTile(const OId& BlobId, r_Bytes newSize, r_Data_Format newFmt);
+    /*@Doc:
+    constructs a new BLOBTile of size newSize filled with zeros.
+    the tile will think it is not modified and also not in the db but persistent.
+    this is used by the rc index.
+    */
 
-	protected:
+    //@}
 
-		virtual void updateInDb() throw (r_Error);
-			/*@Doc:
-			update the contents of a Tile in the db
-			*/
+    virtual ~BLOBTile();
+    /*@Doc:
+    validates the object.  deletes it cells.
+    */
 
-		virtual void insertInDb() throw (r_Error);
-			/*@Doc:
-			inserts the Blob into the db.
-			*/
+    static void kill(const OId& target, unsigned int range = 0);
+    /*@Doc:
+    delete a blobtile without loading it first into memory.
+    is used by the indexes.
+    delete the blobtile and range consecutive tiles.
+    */
 
-		virtual void readFromDb() throw (r_Error);
-			/*@Doc:
-			read blob from db into blobtile
-			*/
+    static r_Bytes BLOBBufferLength;
+    /*@Doc:
+    info on the length of the BLOBBuffer
+    */
 
-		virtual void deleteFromDb() throw (r_Error);
-			/*@Doc:
-			deletes a blob from TILES, sets size to 0 and flags to -1
-			*/
+protected:
 
-	private:
-		static char* BLOBBuffer;
-			/*@Doc:
-			for writing into the DB.  currently not needed by oracle.
-			*/
+    virtual void updateInDb() throw (r_Error);
+    /*@Doc:
+    update the contents of a Tile in the db
+    */
 
-	};
+    virtual void insertInDb() throw (r_Error);
+    /*@Doc:
+    inserts the Blob into the db.
+    */
+
+    virtual void readFromDb() throw (r_Error);
+    /*@Doc:
+    read blob from db into blobtile
+    */
+
+    virtual void deleteFromDb() throw (r_Error);
+    /*@Doc:
+    deletes a blob from TILES, sets size to 0 and flags to -1
+    */
+
+private:
+    static char* BLOBBuffer;
+    /*@Doc:
+    for writing into the DB.  currently not needed by oracle.
+    */
+
+};
 
 #endif

@@ -70,16 +70,16 @@ rasdaman GmbH.
 
 class QtNode
 {
-  public:
+public:
     /// list of QtData pointers
     typedef std::vector<QtData*> QtDataList;
 
     /// struct containing dimension and triming information
     struct QtTrimElement
     {
-      r_Dimension dimension;
-      r_Sinterval interval;
-      bool intervalFlag;
+        r_Dimension dimension;
+        r_Sinterval interval;
+        bool intervalFlag;
     };
 
     /// list of QtTrimData structures
@@ -90,98 +90,98 @@ class QtNode
 
     enum QtNodeType
     {
-      QT_UNDEFINED_NODE,
-      QT_MDD_ACCESS,
-      QT_OPERATION_ITERATOR,
-      QT_SELECTION_ITERATOR,
-      QT_JOIN_ITERATOR,
-      QT_UPDATE,
-      QT_INSERT,
-      QT_DELETE,
-      QT_COMMAND,
-      QT_PLUS,
-      QT_MINUS,
-      QT_MULT,
-      QT_DIV,
-      QT_OR,
-      QT_AND,
-      QT_XOR,
-      QT_IS,
-      QT_EQUAL,
-      QT_NOT_EQUAL,
-      QT_LESS,
-      QT_LESS_EQUAL,
-      QT_NOT,
-      QT_SQRT,
+        QT_UNDEFINED_NODE,
+        QT_MDD_ACCESS,
+        QT_OPERATION_ITERATOR,
+        QT_SELECTION_ITERATOR,
+        QT_JOIN_ITERATOR,
+        QT_UPDATE,
+        QT_INSERT,
+        QT_DELETE,
+        QT_COMMAND,
+        QT_PLUS,
+        QT_MINUS,
+        QT_MULT,
+        QT_DIV,
+        QT_OR,
+        QT_AND,
+        QT_XOR,
+        QT_IS,
+        QT_EQUAL,
+        QT_NOT_EQUAL,
+        QT_LESS,
+        QT_LESS_EQUAL,
+        QT_NOT,
+        QT_SQRT,
 // added by CStancuMara
-	  QT_EXECUTE,
-	  QT_ONC_STREAM,
-	  QT_ITERATOR,
-	  QT_OPERATION,
-	  QT_BINARY_OPERATION,
-	  QT_BINARY_INDUCE,
-	  QT_GROUP_ITERATOR,
-	  QT_IDENT,
-	  QT_NARY_OPERATION,
-	  QT_UNARY_OPERATION,
-	  QT_CONDENSE,
-	  QT_UNARY_INDUCE,
-	  
+        QT_EXECUTE,
+        QT_ONC_STREAM,
+        QT_ITERATOR,
+        QT_OPERATION,
+        QT_BINARY_OPERATION,
+        QT_BINARY_INDUCE,
+        QT_GROUP_ITERATOR,
+        QT_IDENT,
+        QT_NARY_OPERATION,
+        QT_UNARY_OPERATION,
+        QT_CONDENSE,
+        QT_UNARY_INDUCE,
+
 //**************
-      QT_ABS, QT_EXP, QT_LOG, QT_LN, QT_SIN, QT_COS, 
-      QT_TAN, QT_SINH, QT_COSH, QT_TANH, QT_ARCSIN, 
-      QT_ARCCOS, QT_ARCTAN,
-      QT_REALPART,
-      QT_IMAGINARPART,
-      QT_CAST,
+        QT_ABS, QT_EXP, QT_LOG, QT_LN, QT_SIN, QT_COS,
+        QT_TAN, QT_SINH, QT_COSH, QT_TANH, QT_ARCSIN,
+        QT_ARCCOS, QT_ARCTAN,
+        QT_REALPART,
+        QT_IMAGINARPART,
+        QT_CAST,
 //**************
 
-      QT_CSE_ROOT,
-      QT_DOMAIN_OPERATION,
-      QT_ALL,
-      QT_SOME,
-      QT_COUNTCELLS,
-      QT_ADDCELLS,
-      QT_AVGCELLS,
-      QT_MINCELLS,
-      QT_MAXCELLS,
-      QT_MDD_VAR,
-      QT_MDD_STREAM,
-      QT_CONST,
-      QT_DOT,
-      QT_CONVERSION,
-      QT_OID,
-      QT_INTERVALOP,
-      QT_MINTERVALOP,
-      QT_POINTOP,
-      QT_LO,
-      QT_HI,
-      QT_SDOM,
-      QT_SHIFT,
-      QT_EXTEND,
-      //QT_MINTERVAL_SELECT,
-      QT_MARRAYOP,
-      QT_CONDENSEOP,
-      QT_SCALE,
-      QT_OVERLAY,
-      QT_BIT,
-      QT_PYRAMID,
-      QT_LAST_NODE_TYPE
+        QT_CSE_ROOT,
+        QT_DOMAIN_OPERATION,
+        QT_ALL,
+        QT_SOME,
+        QT_COUNTCELLS,
+        QT_ADDCELLS,
+        QT_AVGCELLS,
+        QT_MINCELLS,
+        QT_MAXCELLS,
+        QT_MDD_VAR,
+        QT_MDD_STREAM,
+        QT_CONST,
+        QT_DOT,
+        QT_CONVERSION,
+        QT_OID,
+        QT_INTERVALOP,
+        QT_MINTERVALOP,
+        QT_POINTOP,
+        QT_LO,
+        QT_HI,
+        QT_SDOM,
+        QT_SHIFT,
+        QT_EXTEND,
+        //QT_MINTERVAL_SELECT,
+        QT_MARRAYOP,
+        QT_CONDENSEOP,
+        QT_SCALE,
+        QT_OVERLAY,
+        QT_BIT,
+        QT_PYRAMID,
+        QT_LAST_NODE_TYPE
     };
 
 
 
     enum QtAreaType
     {
-      QT_AREA_MDD,
-      QT_AREA_SCALAR
+        QT_AREA_MDD,
+        QT_AREA_SCALAR
     };
 
     enum QtChildType
     {
-      QT_DIRECT_CHILDS,
-      QT_LEAF_NODES,
-      QT_ALL_NODES
+        QT_DIRECT_CHILDS,
+        QT_LEAF_NODES,
+        QT_ALL_NODES
     };
 
     /// list of QtOperation pointers
@@ -196,9 +196,9 @@ class QtNode
     /// destructor
     virtual ~QtNode();
 
-	/// returns weather class b is a subtype of class a
-	bool subtype( enum QtNodeType a, enum QtNodeType b );
-	
+    /// returns weather class b is a subtype of class a
+    bool subtype( enum QtNodeType a, enum QtNodeType b );
+
     /// return childs of the node
     virtual QtNodeList* getChilds( QtChildType flag );
     /**
@@ -248,7 +248,7 @@ class QtNode
       The method evaluates constant expressions.
     */
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES )=0;
 
     /// prints the algebraic expression
@@ -258,16 +258,16 @@ class QtNode
     //@{
     ///
 
-      /// 
-      inline virtual void         setInput( QtOperation* inputOld, QtOperation* inputNew);
-      ///
-      inline QtNode*              getParent() const;
-      ///
-      inline void                 setParent( QtNode* node );
-      ///
-      inline const ParseInfo&     getParseInfo();
-      ///
-      inline void                 setParseInfo( const ParseInfo &info );
+    ///
+    inline virtual void         setInput( QtOperation* inputOld, QtOperation* inputNew);
+    ///
+    inline QtNode*              getParent() const;
+    ///
+    inline void                 setParent( QtNode* node );
+    ///
+    inline const ParseInfo&     getParseInfo();
+    ///
+    inline void                 setParseInfo( const ParseInfo &info );
 
     ///
     //@}
@@ -292,58 +292,59 @@ class QtNode
 
       Defined empty to do nothing in case it is not defined for a subclass.
     */
- 
-   /// returns the QtNodeType parent of the argument (do not use for the root)	
-	enum QtNodeType getQtNodeTypeParent(enum QtNodeType);
 
-	/// number of QtNodeTypes
-	static const int QtNodes;
-	
-	/// the root of the inheritance tree
-	static const QtNodeType QtRoot;
-	
-	/// the inheritance relations list	
-	static const QtNodeType QtInheritance[][2];
+    /// returns the QtNodeType parent of the argument (do not use for the root)
+    enum QtNodeType getQtNodeTypeParent(enum QtNodeType);
+
+    /// number of QtNodeTypes
+    static const int QtNodes;
+
+    /// the root of the inheritance tree
+    static const QtNodeType QtRoot;
+
+    /// the inheritance relations list
+    static const QtNodeType QtInheritance[][2];
 
 
-  protected:
+protected:
     /// attribute for parser info
     ParseInfo parseInfo;
 
-  private:
+private:
     /// pointer to its parent
     QtNode* parent;
 
     /// attribute for identification of nodes
     static const QtNodeType nodeType;
 
-	/// (base_class, derived_class) pair	
-	struct QtNodePair {
-		enum QtNodeType base, deriv;
-	};
+    /// (base_class, derived_class) pair
+    struct QtNodePair
+    {
+        enum QtNodeType base, deriv;
+    };
 
-	
-	///operator overload for QtNodePair struct
-	friend bool operator<( const QtNodePair a, const QtNodePair b);
-	
-	/// starting point of elements having node as base class
-	static int child_range[];
 
-	/// sets up the child_range[] array
-	void set_child_range(const QtNodePair *arr);
-	
-	/// minim and maxim labels to determine subtypes
-	static int minim[], maxim[];
- 
-	/// keeps track if SetMinMax was already called
-	static bool MinMaxDone;
+    ///operator overload for QtNodePair struct
+    friend bool operator<( const QtNodePair a, const QtNodePair b);
 
-	/// sets minim and maxim values for each QtNodeType
-	void SetMinMax();
+    /// starting point of elements having node as base class
+    static int child_range[];
 
-	/// sets min max values once child_range is set up, for subtree with x as root
-	void num_node (const QtNodePair *arr, enum QtNodeType x);
-	
+    /// sets up the child_range[] array
+    void set_child_range(const QtNodePair *arr);
+
+    /// minim and maxim labels to determine subtypes
+    static int minim[], maxim[];
+
+    /// keeps track if SetMinMax was already called
+    static bool MinMaxDone;
+
+    /// sets minim and maxim values for each QtNodeType
+    void SetMinMax();
+
+    /// sets min max values once child_range is set up, for subtree with x as root
+    void num_node (const QtNodePair *arr, enum QtNodeType x);
+
 };
 
 
@@ -360,19 +361,19 @@ class QtNode
  This is necessary because not all types are supported by
  subclasses of \Ref{Type}, e.g. not all types are persistent ones.
 
- In case of QT_MDD and QT_COMPLEX, further type information 
+ In case of QT_MDD and QT_COMPLEX, further type information
  can be optained from {\tt type}.
 
 */
 
 class QtTypeElement
 {
-  public:
+public:
     ///
     QtTypeElement();
 
     ///
-    QtTypeElement( const QtDataType initDataType, const char* initName = NULL ); 
+    QtTypeElement( const QtDataType initDataType, const char* initName = NULL );
 
     ///
     QtTypeElement( const Type* initType, const char* initName = NULL );
@@ -382,29 +383,29 @@ class QtTypeElement
 
     ///
     ~QtTypeElement();
-    
+
     /// assignment: cleanup + copy
     const QtTypeElement& operator= ( const QtTypeElement& );
-    
+
     //@Man: Read/Write methods
     //@{
     ///
-      ///
-             void  setDataType( const QtDataType newDataType );
-      ///
-             void  setType( const Type* newType );
-      ///
-      inline void  setName( const char* newName );
-      /// 
-      inline const QtDataType getDataType() const;
-      ///
-      inline const Type*      getType() const;
-      ///
-      inline const char*      getName() const;
-      ///
-      inline       bool        isBaseType() const;
-      ///
-      inline       bool        isInteger() const;
+    ///
+    void  setDataType( const QtDataType newDataType );
+    ///
+    void  setType( const Type* newType );
+    ///
+    inline void  setName( const char* newName );
+    ///
+    inline const QtDataType getDataType() const;
+    ///
+    inline const Type*      getType() const;
+    ///
+    inline const char*      getName() const;
+    ///
+    inline       bool        isBaseType() const;
+    ///
+    inline       bool        isInteger() const;
     ///
     //@}
     ///
@@ -412,7 +413,7 @@ class QtTypeElement
     /// print type
     void printStatus( std::ostream& s = std::cout ) const;
 
-  private:
+private:
     ///
     QtDataType dataType;
 
@@ -420,7 +421,7 @@ class QtTypeElement
     const Type*      type;
 
     ///
-    char*      name;      
+    char*      name;
 };
 
 
@@ -436,7 +437,7 @@ class QtTypeElement
 
 class QtTypeTuple
 {
-  public:
+public:
     ///
     QtTypeTuple( unsigned int length = 0 );
 

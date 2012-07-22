@@ -35,64 +35,64 @@ rasdaman GmbH.
 
 #include "raslib/type.hh"
 
-class r_Base_Type; 
+class r_Base_Type;
 class r_Error;
 
 //@ManMemo: Module: {\bf raslib}
 
 /*@Doc:
   This class represents the marray type in the ODMG conformant
-  representation of the RasDaMan type system. 
+  representation of the RasDaMan type system.
 */
 
 
 class r_Marray_Type : public r_Type
-	{
-	public:
-		/// constructor getting basetype
-		r_Marray_Type(const r_Base_Type&);  
+{
+public:
+    /// constructor getting basetype
+    r_Marray_Type(const r_Base_Type&);
 
-		/// copy constructor
-		/// if base type is NULL an exception will be raised.
-		/// this is possible
-		r_Marray_Type(const r_Marray_Type&) throw (r_Error);
+    /// copy constructor
+    /// if base type is NULL an exception will be raised.
+    /// this is possible
+    r_Marray_Type(const r_Marray_Type&) throw (r_Error);
 
-		/// assignment operator
-		/// if base type is NULL an exception will be raised.
-		/// this is possible
-		const r_Marray_Type& operator=(const r_Marray_Type&) throw (r_Error);
+    /// assignment operator
+    /// if base type is NULL an exception will be raised.
+    /// this is possible
+    const r_Marray_Type& operator=(const r_Marray_Type&) throw (r_Error);
 
-		bool isMarrayType() const;
+    bool isMarrayType() const;
 
-		/// get base type
-		const r_Base_Type& base_type() const;
+    /// get base type
+    const r_Base_Type& base_type() const;
 
-		/// clone operation
-		virtual r_Type* clone() const;
+    /// clone operation
+    virtual r_Type* clone() const;
 
-		/// retrieve id of the type.
-		virtual r_Type::r_Type_Id type_id() const;
+    /// retrieve id of the type.
+    virtual r_Type::r_Type_Id type_id() const;
 
-		/// converts array of cells from NT byte order to Unix byte order.
-		virtual void convertToLittleEndian(char* cells, r_Area noCells) const;
+    /// converts array of cells from NT byte order to Unix byte order.
+    virtual void convertToLittleEndian(char* cells, r_Area noCells) const;
 
-		/// converts array of cells from Unix byte order to NT byte order.
-		virtual void convertToBigEndian(char* cells, r_Area noCells) const;
+    /// converts array of cells from Unix byte order to NT byte order.
+    virtual void convertToBigEndian(char* cells, r_Area noCells) const;
 
-		/// writes state of object to specified stream
-		virtual void print_status(std::ostream& s = std::cout) const;  
+    /// writes state of object to specified stream
+    virtual void print_status(std::ostream& s = std::cout) const;
 
-		/// destructor
-		~r_Marray_Type();
+    /// destructor
+    ~r_Marray_Type();
 
-	protected:
-		/// default constructor
-		/// should be used by noone
-		r_Marray_Type();
+protected:
+    /// default constructor
+    /// should be used by noone
+    r_Marray_Type();
 
-		/// base type
-		r_Base_Type* baseType;
-	};
+    /// base type
+    r_Base_Type* baseType;
+};
 
 //@Doc: write the status of a marray type to a stream
 extern std::ostream &operator<<( std::ostream &str, const r_Marray_Type &type );

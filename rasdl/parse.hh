@@ -45,12 +45,12 @@ typedef Type CType;
 */
 struct YWhere
 {
-   ///
-   long        line;
-   ///
-   int         column;
-   ///
-   const char* file;
+    ///
+    long        line;
+    ///
+    int         column;
+    ///
+    const char* file;
 };
 
 
@@ -66,10 +66,10 @@ struct YWhere
 
 /**
   * \ingroup Rasdls
-  */ 
+  */
 class Parse_info
 {
-  public:
+public:
     ///
     Parse_info();
 
@@ -85,7 +85,7 @@ class Parse_info
     /// destructor
     ~Parse_info();
 
-    /// assignment operator 
+    /// assignment operator
     const Parse_info& operator=( const Parse_info& obj );
 
     ///
@@ -94,7 +94,7 @@ class Parse_info
     int         column;
     ///
     char* file;
-    /// 
+    ///
     char* token;
 };
 
@@ -108,7 +108,7 @@ class Parse_info
 
 /**
   * \ingroup Rasdls
-  */ 
+  */
 class Parse_number
 {
 };
@@ -123,58 +123,60 @@ class Parse_number
 
 /**
   * \ingroup Rasdls
-  */ 
-class Parse_atom {
+  */
+class Parse_atom
+{
 public:
-   ///
-   Parse_atom();
-   ///
-   virtual ~Parse_atom();
-   ///
-   virtual   void   output(FILE*)const=0;  
-   ///
-   virtual void insertData() const throw( r_Equery_execution_failed );
+    ///
+    Parse_atom();
+    ///
+    virtual ~Parse_atom();
+    ///
+    virtual   void   output(FILE*)const=0;
+    ///
+    virtual void insertData() const throw( r_Equery_execution_failed );
 
-   ///
-   void setParseInfo( const Parse_info &token );
+    ///
+    void setParseInfo( const Parse_info &token );
 
-   ///
-   const Parse_info& getParseInfo();
+    ///
+    const Parse_info& getParseInfo();
 
-   ///
-   enum Kind {
-      Atom,Type,
-      Typedefinition,
-      Typereference,
+    ///
+    enum Kind
+    {
+        Atom,Type,
+        Typedefinition,
+        Typereference,
 
-      Composite,
-      Struct,Union,Interface,
+        Composite,
+        Struct,Union,Interface,
 
-      Function,
-      Operation,
+        Function,
+        Operation,
 
-      Pointer,
-      Array,
-      Alias,
+        Pointer,
+        Array,
+        Alias,
 
-      Enum,
+        Enum,
 
-      Atomic,
-      Any,Void,Boolean,Float,Integer,Char,Octet,Complex1,Complex2,String,
+        Atomic,
+        Any,Void,Boolean,Float,Integer,Char,Octet,Complex1,Complex2,String,
 
-      Atomic_template,
-      Domain,Set,MDD
-   };
+        Atomic_template,
+        Domain,Set,MDD
+    };
 
-   ///
-   Kind            kind;
-   ///
-   const char      *name;
-   ///
-   YSymbol         *symbol;
+    ///
+    Kind            kind;
+    ///
+    const char      *name;
+    ///
+    YSymbol         *symbol;
 
-   /// definition of corresponding token
-   Parse_info parseInfo;
+    /// definition of corresponding token
+    Parse_info parseInfo;
 };
 
 
@@ -187,21 +189,22 @@ public:
 
 /**
   * \ingroup Rasdls
-  */ 
-class Parse_type : public Parse_atom {
+  */
+class Parse_type : public Parse_atom
+{
 public:
-   ///
-   Parse_type();
-   ///
-   virtual ~Parse_type();   
-   ///
-   Parse_type(char*);
+    ///
+    Parse_type();
+    ///
+    virtual ~Parse_type();
+    ///
+    Parse_type(char*);
 
-   ///
-   virtual const CType* getType( const char* typeName = NULL ) const;
+    ///
+    virtual const CType* getType( const char* typeName = NULL ) const;
 
-   /// this type is defined as forward   {should be moved into YSymbol}
-   bool   forward;
+    /// this type is defined as forward   {should be moved into YSymbol}
+    bool   forward;
 };
 
 
@@ -215,7 +218,7 @@ public:
 
 /**
   * \ingroup Rasdls
-  */ 
+  */
 class Parse_typedefinition : public Parse_type
 {
 };
@@ -230,22 +233,22 @@ class Parse_typedefinition : public Parse_type
 
 /**
   * \ingroup Rasdls
-  */ 
+  */
 class Parse_typereference : public Parse_type
 {
 public:
-   ///
-   Parse_typereference();
-   ///
-   virtual ~Parse_typereference();   
-   ///
-   virtual void output(FILE*)const;
+    ///
+    Parse_typereference();
+    ///
+    virtual ~Parse_typereference();
+    ///
+    virtual void output(FILE*)const;
 
-   ///
-   virtual const CType* getType( const char* typeName = NULL ) const;
+    ///
+    virtual const CType* getType( const char* typeName = NULL ) const;
 
-   ///
-   const Parse_type   *type;
+    ///
+    const Parse_type   *type;
 };
 
 
@@ -258,39 +261,40 @@ public:
 
 /**
   * \ingroup Rasdls
-  */ 
-class Parse_composite : public Parse_typedefinition {
+  */
+class Parse_composite : public Parse_typedefinition
+{
 public:
-   ///
-   Parse_composite();
+    ///
+    Parse_composite();
 
-   ///
-   enum Access_mode {Private,Public,Protected};
+    ///
+    enum Access_mode {Private,Public,Protected};
 
-   ///
-   class Element : public Parse_atom
-   {
-   public:
-      ///
-      Element();
-      ///
-      virtual ~Element();
-      ///
-      virtual void output(FILE*)const;
+    ///
+    class Element : public Parse_atom
+    {
+    public:
+        ///
+        Element();
+        ///
+        virtual ~Element();
+        ///
+        virtual void output(FILE*)const;
 
-      ///
-      bool         readonly;
-      ///
-      const Parse_type   *type;
-      ///
-      Access_mode   access;
+        ///
+        bool         readonly;
+        ///
+        const Parse_type   *type;
+        ///
+        Access_mode   access;
 
-      ///
-      Element      *next;
-   };
+        ///
+        Element      *next;
+    };
 
-   ///
-   Element   *elements;
+    ///
+    Element   *elements;
 };
 
 
@@ -303,19 +307,20 @@ public:
 
 /**
   * \ingroup Rasdls
-  */ 
-class Parse_struct : public Parse_composite {
+  */
+class Parse_struct : public Parse_composite
+{
 public:
-   ///
-   Parse_struct();
-   ///
-   virtual ~Parse_struct();
-   ///
-   virtual void output(FILE*)const;
-   ///
-   virtual void insertData() const throw( r_Equery_execution_failed );
-   ///
-   virtual const CType* getType( const char* typeName = NULL ) const;
+    ///
+    Parse_struct();
+    ///
+    virtual ~Parse_struct();
+    ///
+    virtual void output(FILE*)const;
+    ///
+    virtual void insertData() const throw( r_Equery_execution_failed );
+    ///
+    virtual const CType* getType( const char* typeName = NULL ) const;
 };
 
 
@@ -328,17 +333,18 @@ public:
 
 /**
   * \ingroup Rasdls
-  */ 
-class Parse_union : public Parse_composite {
-   ///
-   Parse_union();
-   ///
-   virtual ~Parse_union();   
-   ///
-   virtual void output(FILE*)const;
+  */
+class Parse_union : public Parse_composite
+{
+    ///
+    Parse_union();
+    ///
+    virtual ~Parse_union();
+    ///
+    virtual void output(FILE*)const;
 };
 
- 
+
 class Parse_operation;
 
 
@@ -351,69 +357,70 @@ class Parse_operation;
 /**
   * \ingroup Rasdls
   */
-class Parse_interface : public Parse_composite {
+class Parse_interface : public Parse_composite
+{
 public:
-   ///
-   Parse_interface();
-   ///
-   virtual void output(FILE*)const;
+    ///
+    Parse_interface();
+    ///
+    virtual void output(FILE*)const;
 
-   ///
-   enum Lifetime{persistend,transient,undefined};
+    ///
+    enum Lifetime {persistend,transient,undefined};
 
-   ///
-   
-/**
-  * \ingroup Rasdls
-  */	
-   class Base_class : public Parse_atom
-   {
-   public:
-      ///
-      Base_class();
-      ///
-      virtual void output(FILE*)const;
+    ///
 
-      ///
-      Parse_interface   *base_class;
-      ///
-      Access_mode           access;
+    /**
+      * \ingroup Rasdls
+      */
+    class Base_class : public Parse_atom
+    {
+    public:
+        ///
+        Base_class();
+        ///
+        virtual void output(FILE*)const;
 
-      ///
-      Base_class         *next;
-   };
+        ///
+        Parse_interface   *base_class;
+        ///
+        Access_mode           access;
 
-   ///
-   
-/**
-  * \ingroup Rasdls
-  */
-   class Method : public Parse_atom
-   {
-   public:
-      ///
-      Method();
-     ///
-      virtual   void   output(FILE*)const;
+        ///
+        Base_class         *next;
+    };
 
-      ///
-      Parse_operation   *function;
+    ///
 
-      ///
-      Access_mode               access;
+    /**
+      * \ingroup Rasdls
+      */
+    class Method : public Parse_atom
+    {
+    public:
+        ///
+        Method();
+        ///
+        virtual   void   output(FILE*)const;
 
-      ///
-      Method                  *next;
-   };
+        ///
+        Parse_operation   *function;
 
-   ///
-   Base_class         *base_classes;
-   ///
-   Lifetime            lifetime;
-   ///
-   Method            *methods;
-   ///
-   void                 *relationships;
+        ///
+        Access_mode               access;
+
+        ///
+        Method                  *next;
+    };
+
+    ///
+    Base_class         *base_classes;
+    ///
+    Lifetime            lifetime;
+    ///
+    Method            *methods;
+    ///
+    void                 *relationships;
 };
 
 
@@ -427,39 +434,40 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_function : public Parse_atom {
+class Parse_function : public Parse_atom
+{
 public:
-   ///
-   Parse_function();
-   ///
-   virtual   void   output(FILE*)const;
+    ///
+    Parse_function();
+    ///
+    virtual   void   output(FILE*)const;
 
-   ///
-   
-/**
-  * \ingroup Rasdls
-  */
-   class Parameter : public Parse_atom
-   {
-   public:
-      ///
-      Parameter();
-      ///
-      virtual   void   output(FILE*)const;
+    ///
 
-      ///
-      Parse_typereference      *type;
-      ///
-      enum   {In,Out,Unknown}   state;
+    /**
+      * \ingroup Rasdls
+      */
+    class Parameter : public Parse_atom
+    {
+    public:
+        ///
+        Parameter();
+        ///
+        virtual   void   output(FILE*)const;
 
-      ///
-      Parameter               *next;
-   };
+        ///
+        Parse_typereference      *type;
+        ///
+        enum   {In,Out,Unknown}   state;
 
-   ///
-   Parameter            *parameters;
-   ///
-   Parse_typereference   *return_type;
+        ///
+        Parameter               *next;
+    };
+
+    ///
+    Parameter            *parameters;
+    ///
+    Parse_typereference   *return_type;
 };
 
 
@@ -473,13 +481,14 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_operation : public Parse_function {
+class Parse_operation : public Parse_function
+{
 public:
-   ///
-   Parse_operation();
+    ///
+    Parse_operation();
 
-   ///
-   Parse_interface   *scope_class;
+    ///
+    Parse_interface   *scope_class;
 };
 
 
@@ -493,15 +502,16 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_pointer : public Parse_typedefinition {
+class Parse_pointer : public Parse_typedefinition
+{
 public:
-   ///
-   Parse_pointer();
-   ///
-   virtual void output(FILE*)const;
+    ///
+    Parse_pointer();
+    ///
+    virtual void output(FILE*)const;
 
-   ///
-   const Parse_type   *type;
+    ///
+    const Parse_type   *type;
 };
 
 
@@ -515,14 +525,15 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_array : public Parse_pointer {
+class Parse_array : public Parse_pointer
+{
 public:
-   ///
-   Parse_array();
-   ///
-   virtual void output(FILE*)const;
-   ///
-   int         size;
+    ///
+    Parse_array();
+    ///
+    virtual void output(FILE*)const;
+    ///
+    int         size;
 };
 
 
@@ -536,16 +547,17 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_alias : public Parse_typedefinition {
+class Parse_alias : public Parse_typedefinition
+{
 public:
-   ///
-   Parse_alias();
-   ///
-   virtual void output(FILE*)const;
-   ///
-   virtual void insertData() const throw( r_Equery_execution_failed );
-   ///
-   const Parse_type   *type;
+    ///
+    Parse_alias();
+    ///
+    virtual void output(FILE*)const;
+    ///
+    virtual void insertData() const throw( r_Equery_execution_failed );
+    ///
+    const Parse_type   *type;
 };
 
 
@@ -561,32 +573,32 @@ public:
 class Parse_enum : public Parse_typedefinition,public Parse_number
 {
 public:
-   ///
-   Parse_enum();
-   ///
-   virtual void output(FILE*)const;
+    ///
+    Parse_enum();
+    ///
+    virtual void output(FILE*)const;
 
-   ///
-   
-/**
-  * \ingroup Rasdls
-  */
-   class Enumerator : public Parse_atom
-   {
-   public:
-      ///
-      virtual void output(FILE*)const;
+    ///
 
-      ///
-      const char    *name;
-      ///
-      int         value;
-      ///
-      Enumerator   *next;
-   };
+    /**
+      * \ingroup Rasdls
+      */
+    class Enumerator : public Parse_atom
+    {
+    public:
+        ///
+        virtual void output(FILE*)const;
 
-   ///
-   Enumerator   *enumerators;
+        ///
+        const char    *name;
+        ///
+        int         value;
+        ///
+        Enumerator   *next;
+    };
+
+    ///
+    Enumerator   *enumerators;
 };
 
 
@@ -599,10 +611,11 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_atomic : public Parse_typedefinition {
+class Parse_atomic : public Parse_typedefinition
+{
 public:
-   ///
-   virtual void output(FILE*)const;
+    ///
+    virtual void output(FILE*)const;
 };
 
 
@@ -615,10 +628,11 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_any : public Parse_atomic {
+class Parse_any : public Parse_atomic
+{
 public:
-   ///
-   Parse_any();
+    ///
+    Parse_any();
 };
 
 
@@ -631,10 +645,11 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_void : public Parse_atomic {
+class Parse_void : public Parse_atomic
+{
 public:
-   ///
-   Parse_void();
+    ///
+    Parse_void();
 };
 
 
@@ -650,11 +665,11 @@ public:
 class Parse_string : public Parse_atomic
 {
 public:
-   ///
-   Parse_string();
+    ///
+    Parse_string();
 
-   ///
-   int   length;
+    ///
+    int   length;
 };
 
 
@@ -668,17 +683,18 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_float : public Parse_atomic,public Parse_number {
+class Parse_float : public Parse_atomic,public Parse_number
+{
 public:
-   ///
-   Parse_float();
-   ///
-   virtual void output(FILE*)const;
-   ///
-   virtual const CType* getType( const char* typeName = NULL ) const;
+    ///
+    Parse_float();
+    ///
+    virtual void output(FILE*)const;
+    ///
+    virtual const CType* getType( const char* typeName = NULL ) const;
 
-   ///
-   enum {Double,Single}   accurance;
+    ///
+    enum {Double,Single}   accurance;
 };
 
 
@@ -692,19 +708,20 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_int : public Parse_atomic,public Parse_number {
+class Parse_int : public Parse_atomic,public Parse_number
+{
 public:
-   ///
-   Parse_int();
-   ///
-   virtual void output(FILE*)const;
-   ///
-   virtual const CType* getType( const char* typeName = NULL ) const;
+    ///
+    Parse_int();
+    ///
+    virtual void output(FILE*)const;
+    ///
+    virtual const CType* getType( const char* typeName = NULL ) const;
 
-   ///
-   enum {Short,Long}       width;
-   ///
-   enum {Unsigned,Signed}   sign;
+    ///
+    enum {Short,Long}       width;
+    ///
+    enum {Unsigned,Signed}   sign;
 };
 
 
@@ -721,10 +738,10 @@ public:
 class Parse_octet : public Parse_atomic,public Parse_number
 {
 public:
-   ///
-   Parse_octet();
-   ///
-   virtual const CType* getType( const char* typeName = NULL ) const;
+    ///
+    Parse_octet();
+    ///
+    virtual const CType* getType( const char* typeName = NULL ) const;
 };
 
 //@ManMemo: Module: {\bf rasdl}
@@ -736,10 +753,10 @@ public:
 class Parse_complex1 : public Parse_atomic,public Parse_number
 {
 public:
-   ///
-   Parse_complex1();
-   ///
-   virtual const CType* getType( const char* typeName = NULL ) const;
+    ///
+    Parse_complex1();
+    ///
+    virtual const CType* getType( const char* typeName = NULL ) const;
 };
 
 
@@ -749,10 +766,10 @@ public:
 class Parse_complex2 : public Parse_atomic,public Parse_number
 {
 public:
-   ///
-   Parse_complex2();
-   ///
-   virtual const CType* getType( const char* typeName = NULL ) const;
+    ///
+    Parse_complex2();
+    ///
+    virtual const CType* getType( const char* typeName = NULL ) const;
 };
 
 
@@ -767,12 +784,13 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_char : public Parse_atomic,public Parse_number {
+class Parse_char : public Parse_atomic,public Parse_number
+{
 public:
-   ///
-   Parse_char();
-   ///
-   virtual const CType* getType( const char* typeName = NULL ) const;
+    ///
+    Parse_char();
+    ///
+    virtual const CType* getType( const char* typeName = NULL ) const;
 };
 
 
@@ -785,12 +803,13 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_boolean : public Parse_atomic,public Parse_number {
+class Parse_boolean : public Parse_atomic,public Parse_number
+{
 public:
-   ///
-   Parse_boolean();
-   ///
-   virtual const CType* getType( const char* typeName = NULL ) const;
+    ///
+    Parse_boolean();
+    ///
+    virtual const CType* getType( const char* typeName = NULL ) const;
 };
 
 
@@ -803,12 +822,13 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_atomic_templates : public Parse_atomic {
+class Parse_atomic_templates : public Parse_atomic
+{
 public:
-   ///
-   Parse_atomic_templates();
-   ///
-   const Parse_type   *base_type;
+    ///
+    Parse_atomic_templates();
+    ///
+    const Parse_type   *base_type;
 };
 
 
@@ -821,14 +841,15 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_set : public Parse_atomic_templates {
+class Parse_set : public Parse_atomic_templates
+{
 public:
-   ///
-   Parse_set();
-   ///
-   virtual void output(FILE*)const;
-   ///
-   virtual const CType* getType( const char* typeName = NULL ) const;
+    ///
+    Parse_set();
+    ///
+    virtual void output(FILE*)const;
+    ///
+    virtual const CType* getType( const char* typeName = NULL ) const;
 };
 
 
@@ -841,22 +862,23 @@ public:
 /**
   * \ingroup Rasdls
   */
-class Parse_MDD : public Parse_atomic_templates {
+class Parse_MDD : public Parse_atomic_templates
+{
 public:
-   ///
-   Parse_MDD();
+    ///
+    Parse_MDD();
 
-   ///
-   virtual void output(FILE*)const;
+    ///
+    virtual void output(FILE*)const;
 
-   ///
-   virtual const CType* getType( const char* typeName = NULL ) const;
+    ///
+    virtual const CType* getType( const char* typeName = NULL ) const;
 
-   ///
-   r_Minterval* domain;
+    ///
+    r_Minterval* domain;
 
-   ///
-   unsigned long dimensionality;
+    ///
+    unsigned long dimensionality;
 };
 #endif
 

@@ -53,69 +53,72 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-  r_Dimension dim = 3;
-  r_Minterval iv(dim);
-  r_Dimension i;
-  double *iterMin, *iterMax, *iterStep;
-  int typeLength = 1;
-  long totalSize = typeLength;
-  long totalSteps = 1;
-  double stepBy = 1.5;
+    r_Dimension dim = 3;
+    r_Minterval iv(dim);
+    r_Dimension i;
+    double *iterMin, *iterMax, *iterStep;
+    int typeLength = 1;
+    long totalSize = typeLength;
+    long totalSteps = 1;
+    double stepBy = 1.5;
 
-  i = 1;
-  while (i < argc)
-  {
-    if (strcmp(argv[i], "-s") == 0)
+    i = 1;
+    while (i < argc)
     {
-      stepBy = atof(argv[++i]);
+        if (strcmp(argv[i], "-s") == 0)
+        {
+            stepBy = atof(argv[++i]);
+        }
+        i++;
     }
-    i++;
-  }
 
-  cout << "Step by " << stepBy << endl;
+    cout << "Step by " << stepBy << endl;
 
-  iterMin = new double[dim]; iterMax = new double[dim];
-  iterStep = new double[dim];
-  for (i=0; i<dim; i++)
-  {
-    int steps;
-
-    iterStep[i] = stepBy;
-    iterMin[i] = 0;
-    iterMax[i] = (1<<(4+i)) - 1;
-    iv << r_Sinterval((r_Range)(iterMin[i]), (r_Range)(iterMax[i]));
-    totalSize *= (r_Range)(iterMax[i]) - (r_Range)(iterMin[i]) + 1;
-    steps = (int)((iterMax[i] - iterMin[i]) / iterStep[i]);
-    totalSteps *= (steps + 1);
-    iterMax[i] = iterMin[i] + (steps + 0.5)*iterStep[i]; // rounding effects
-  }
-  
-  char *srcData = new char[totalSize];
-
-  cout << "Total size: 0x" << hex << totalSize
-       << ", base address " << (void*)srcData << endl;
-
-  r_MiterFloat iter(&iv, iterMin, iterMax, iterStep, typeLength, srcData);
-
-  long steps = 0;
-  while (!iter.isDone())
-  {
-    char *cell = iter.nextCell();
-
-    if (cell + typeLength > srcData + totalSize)
+    iterMin = new double[dim];
+    iterMax = new double[dim];
+    iterStep = new double[dim];
+    for (i=0; i<dim; i++)
     {
-      cout << dec << "Overflow by " << (cell - srcData) - totalSize << endl;
+        int steps;
+
+        iterStep[i] = stepBy;
+        iterMin[i] = 0;
+        iterMax[i] = (1<<(4+i)) - 1;
+        iv << r_Sinterval((r_Range)(iterMin[i]), (r_Range)(iterMax[i]));
+        totalSize *= (r_Range)(iterMax[i]) - (r_Range)(iterMin[i]) + 1;
+        steps = (int)((iterMax[i] - iterMin[i]) / iterStep[i]);
+        totalSteps *= (steps + 1);
+        iterMax[i] = iterMin[i] + (steps + 0.5)*iterStep[i]; // rounding effects
     }
-    steps++;
-  }
 
-  cout << dec << "Did " << steps << " steps out of " << totalSteps << endl;
-  if (steps != totalSteps)
-    cout << "!!! WRONG NUMBER OF STEPS !!!" << endl;
+    char *srcData = new char[totalSize];
 
-  delete [] srcData;
+    cout << "Total size: 0x" << hex << totalSize
+         << ", base address " << (void*)srcData << endl;
 
-  delete [] iterMin; delete [] iterMax; delete [] iterStep;
+    r_MiterFloat iter(&iv, iterMin, iterMax, iterStep, typeLength, srcData);
 
-  return 0;
+    long steps = 0;
+    while (!iter.isDone())
+    {
+        char *cell = iter.nextCell();
+
+        if (cell + typeLength > srcData + totalSize)
+        {
+            cout << dec << "Overflow by " << (cell - srcData) - totalSize << endl;
+        }
+        steps++;
+    }
+
+    cout << dec << "Did " << steps << " steps out of " << totalSteps << endl;
+    if (steps != totalSteps)
+        cout << "!!! WRONG NUMBER OF STEPS !!!" << endl;
+
+    delete [] srcData;
+
+    delete [] iterMin;
+    delete [] iterMax;
+    delete [] iterStep;
+
+    return 0;
 }

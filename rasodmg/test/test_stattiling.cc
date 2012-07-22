@@ -28,10 +28,10 @@ rasdaman GmbH.
  * PURPOSE: test class r_StatTiling.
  *
  * COMMENTS:
- * 		None
+ *      None
 */
 
-/* 
+/*
    ATENTION: The format of the input file for using with this program is:
 
      border_threshold accesses_threshold tilesize domain
@@ -41,7 +41,7 @@ rasdaman GmbH.
      ...
 
    Example:
-   
+
      50 0.20 1000 [0:799, 0:599]
      [10:20, 30:40]
      [12:20, 35:39]
@@ -70,95 +70,95 @@ r_Minterval* domain;
 
 void parse(int argc, char* argv[])
 {
-  if (argc != 2)
-  {
-    cout << "Usage: test_stattiling <filename>" << endl << endl;
-    exit(1);
-  }
+    if (argc != 2)
+    {
+        cout << "Usage: test_stattiling <filename>" << endl << endl;
+        exit(1);
+    }
 
-  filename = argv[1];
+    filename = argv[1];
 }
 
 void read_data()
 {
-  const unsigned int BUF_SIZE = 256;
-  char buf[BUF_SIZE], buf2[BUF_SIZE];
+    const unsigned int BUF_SIZE = 256;
+    char buf[BUF_SIZE], buf2[BUF_SIZE];
 
-  cout << "Opening " << filename << " for reading... ";
+    cout << "Opening " << filename << " for reading... ";
 
-  ifstream is(filename, ios::in);
-  if (!is)
-  {
-    cout << "Couldn't open!!!" << endl;
-    exit(1);
-  }
-  else
-    cout << "done." << endl;
-
-  cout << "Reading parameters... ";
-
-  is >> border_threshold;
-  is >> interesting_threshold;
-  is >> tile_size;
-
-  is.getline(buf, BUF_SIZE);
-  domain = new r_Minterval(buf);
-
-  cout << "done." << endl;
-  cout << "Geting the accesses... ";
-
-  unsigned long count = 0;
-
-  while (!is.eof())
-  {
-    is.getline(buf, BUF_SIZE);
-    if (sscanf(buf, "%s", buf2) == 1)
+    ifstream is(filename, ios::in);
+    if (!is)
     {
-      r_Minterval inter(buf);    
-      stat_info += inter;
-      ++count;
-    
-      cout << "*";
+        cout << "Couldn't open!!!" << endl;
+        exit(1);
     }
-  }
+    else
+        cout << "done." << endl;
 
-  is.close();
+    cout << "Reading parameters... ";
 
-  cout << endl;
-  cout << "Geting the accesses... done." << endl << endl;
+    is >> border_threshold;
+    is >> interesting_threshold;
+    is >> tile_size;
 
-  cout << "Border threshold      = " << border_threshold << endl;
-  cout << "Interesting threshold = " << interesting_threshold << endl;
-  cout << "Tile size             = " << tile_size << endl;
-  cout << "Domain                = " << *domain << endl;
-  cout << "Number of accesses    = " << count << endl << endl;
+    is.getline(buf, BUF_SIZE);
+    domain = new r_Minterval(buf);
+
+    cout << "done." << endl;
+    cout << "Geting the accesses... ";
+
+    unsigned long count = 0;
+
+    while (!is.eof())
+    {
+        is.getline(buf, BUF_SIZE);
+        if (sscanf(buf, "%s", buf2) == 1)
+        {
+            r_Minterval inter(buf);
+            stat_info += inter;
+            ++count;
+
+            cout << "*";
+        }
+    }
+
+    is.close();
+
+    cout << endl;
+    cout << "Geting the accesses... done." << endl << endl;
+
+    cout << "Border threshold      = " << border_threshold << endl;
+    cout << "Interesting threshold = " << interesting_threshold << endl;
+    cout << "Tile size             = " << tile_size << endl;
+    cout << "Domain                = " << *domain << endl;
+    cout << "Number of accesses    = " << count << endl << endl;
 }
 
 void test_tiling()
 {
-  r_Stat_Tiling tiling(border_threshold, interesting_threshold, tile_size);
-  tiling.update_stat_information(stat_info);
+    r_Stat_Tiling tiling(border_threshold, interesting_threshold, tile_size);
+    tiling.update_stat_information(stat_info);
 
-  DList<r_Minterval>* tiles = tiling.compute_tiles(*domain, 1);
+    DList<r_Minterval>* tiles = tiling.compute_tiles(*domain, 1);
 
-  cout << endl << "Tiles: " << endl;
-  while (!tiles->is_empty())
-  {
-    r_Minterval inter = tiles->get_first(TRUE);
-    cout << "  " << inter << endl;
-  }
+    cout << endl << "Tiles: " << endl;
+    while (!tiles->is_empty())
+    {
+        r_Minterval inter = tiles->get_first(TRUE);
+        cout << "  " << inter << endl;
+    }
 
-  delete tiles;
-  delete domain;
+    delete tiles;
+    delete domain;
 }
 
 int main(int argc, char* argv[])
 {
-  parse(argc, argv);
-  read_data();
-  test_tiling();
+    parse(argc, argv);
+    read_data();
+    test_tiling();
 
-  return 0;
+    return 0;
 }
 
 

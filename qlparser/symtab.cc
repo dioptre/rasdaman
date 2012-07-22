@@ -30,7 +30,7 @@ rasdaman GmbH.
  * COMMENTS:
  *   none
  *
- ***********************************************************************/                                                             
+ ***********************************************************************/
 
 //**************************************************************
 // Symbol Table class
@@ -44,116 +44,132 @@ rasdaman GmbH.
 
 // constructor
 template <class T>
-SymbolTable<T>::SymbolTable() {
-  initScope();
-  STVars.clear();
+SymbolTable<T>::SymbolTable()
+{
+    initScope();
+    STVars.clear();
 }
 
 // destructor
 template <class T>
-SymbolTable<T>::~SymbolTable() {
-  exitScope();
+SymbolTable<T>::~SymbolTable()
+{
+    exitScope();
 }
 
 // put symbol in keys and in the hash-table
 template <class T>
-bool SymbolTable<T>::putSymbol(const std::string& symbol, T value) {
-  bool retVal = false;
-  // if not locally declared
-  if ( (STVars.find(symbol) == STVars.end()) ) {
-    if (getSymbol(symbol) == 0) 
-      keys.push_back(symbol);
-    STVars[symbol] = value;
-    retVal = true;
-  } else 
-    retVal = false;
-  return retVal;  
+bool SymbolTable<T>::putSymbol(const std::string& symbol, T value)
+{
+    bool retVal = false;
+    // if not locally declared
+    if ( (STVars.find(symbol) == STVars.end()) )
+    {
+        if (getSymbol(symbol) == 0)
+            keys.push_back(symbol);
+        STVars[symbol] = value;
+        retVal = true;
+    }
+    else
+        retVal = false;
+    return retVal;
 }
 
 // store symbol into hash-table
 template <class T>
-void SymbolTable<T>::storeSymbol( const std::string& symbol, T value ) {
-  STVars[symbol] = value;
+void SymbolTable<T>::storeSymbol( const std::string& symbol, T value )
+{
+    STVars[symbol] = value;
 }
 
 // get symbol from table
 template <class T>
-T SymbolTable<T>::getSymbol( const std::string& symbol ) {
-  T retVal=NULL;
+T SymbolTable<T>::getSymbol( const std::string& symbol )
+{
+    T retVal=NULL;
 
-  // find if locally declared
-  if ( !(STVars.find(symbol) == STVars.end()) )
-  {
-    retVal=STVars[symbol];
-  } 
-  else
-  {
-    // find if declared in outer scopes
-    size_t idx=STScopes.size();  
-    while (idx > 0) {
-      idx--;
-      if ( !(STScopes[idx].find(symbol) == STScopes[idx].end()) )
-        retVal=STScopes[idx][symbol];      
+    // find if locally declared
+    if ( !(STVars.find(symbol) == STVars.end()) )
+    {
+        retVal=STVars[symbol];
     }
-  }
-  return retVal;
+    else
+    {
+        // find if declared in outer scopes
+        size_t idx=STScopes.size();
+        while (idx > 0)
+        {
+            idx--;
+            if ( !(STScopes[idx].find(symbol) == STScopes[idx].end()) )
+                retVal=STScopes[idx][symbol];
+        }
+    }
+    return retVal;
 }
 
 // lookup symbol in table
 template <class T>
-bool SymbolTable<T>::lookupSymbol( const std::string& symbol ) {
-  bool retVal=false;
+bool SymbolTable<T>::lookupSymbol( const std::string& symbol )
+{
+    bool retVal=false;
 
-  // find if locally declared
-  if ( !(STVars.find(symbol) == STVars.end()) )
-  {
-    retVal=true;
-  }
-  else
-  {  
-    // find if declared in outer scopes
-    size_t idx = STScopes.size();  
-    while (idx > 0) {
-      idx--;
-      if ( !(STScopes[idx].find(symbol) == STScopes[idx].end()) )
-        retVal=true;      
+    // find if locally declared
+    if ( !(STVars.find(symbol) == STVars.end()) )
+    {
+        retVal=true;
     }
-  }
-  return retVal;
+    else
+    {
+        // find if declared in outer scopes
+        size_t idx = STScopes.size();
+        while (idx > 0)
+        {
+            idx--;
+            if ( !(STScopes[idx].find(symbol) == STScopes[idx].end()) )
+                retVal=true;
+        }
+    }
+    return retVal;
 }
 
 // output the current scope
 template <class T>
-void SymbolTable<T>::outScope() {
-  RMInit::logOut << "Scope: " << STScopes.size() << endl;
+void SymbolTable<T>::outScope()
+{
+    RMInit::logOut << "Scope: " << STScopes.size() << endl;
 }
 
 // init scope by clearing inner symbols
 template <class T>
-void SymbolTable<T>::clearScope() {
-  STVars.clear();
+void SymbolTable<T>::clearScope()
+{
+    STVars.clear();
 }
 
 // enter new scope
 template <class T>
-void SymbolTable<T>::initScope() {
-  STScopes.push_back(STVars);
-  STVars.clear();
+void SymbolTable<T>::initScope()
+{
+    STScopes.push_back(STVars);
+    STVars.clear();
 }
 
 // exit current scope to previous one
 template <class T>
-void SymbolTable<T>::exitScope() {
-  if (!STScopes.empty()) {
-    STVars = STScopes[STScopes.size() - 1];
-    STScopes.pop_back();
-  }
+void SymbolTable<T>::exitScope()
+{
+    if (!STScopes.empty())
+    {
+        STVars = STScopes[STScopes.size() - 1];
+        STScopes.pop_back();
+    }
 }
 
 // wipe out everything from symbol table
 template <class T>
-void SymbolTable<T>::wipe() {
-  keys.clear();  
-  STVars.clear();
-  STScopes.clear();
+void SymbolTable<T>::wipe()
+{
+    keys.clear();
+    STVars.clear();
+    STScopes.clear();
 }

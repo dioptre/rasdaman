@@ -47,89 +47,89 @@ EXEC SQL include "sqlglobals.h";
 void
 OId::initialize()
 {
-	RMDBGENTER(4, RMDebug::module_adminif, "OId", "initialize()");
-	ENTER( "OId::initialize" );
-	
-	loadedOk = false;
-	
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	nextoid;
-		char name[STRING_MAXLEN];
-	EXEC SQL END DECLARE SECTION;
-	nextoid = 0;
-	for (int i = 1; i < maxCounter; i++)
-	{
-		(void) strncpy( name, (char*) counterNames[i], (size_t) sizeof(name) );
-		
-		TALK( "EXEC SQL SELECT NextValue INTO :nextoid FROM RAS_COUNTERS WHERE CounterName = " << name );
-		EXEC SQL SELECT NextValue INTO :nextoid
-			FROM RAS_COUNTERS
-			WHERE CounterName = :name;
-		TALK( "-> nextoid=" << nextoid );
-		if (check("OId::initialize() SELECT OId"))
-		{
-			RMInit::logOut << "OId::initialize() error reading " << name << endl;
-			generateException();
-		}
-		*counterIds[i] = nextoid;
-		RMDBGMIDDLE(4, RMDebug::module_adminif, "OIdIf", "read " << counterNames[i] << " " << *counterIds[i]);
-	}
+    RMDBGENTER(4, RMDebug::module_adminif, "OId", "initialize()");
+    ENTER( "OId::initialize" );
 
-	loadedOk = true;
-	
-	LEAVE( "OId::initialize" );
-	RMDBGEXIT(4, RMDebug::module_adminif, "OId", "initialize()");
+    loadedOk = false;
+
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    nextoid;
+        char name[STRING_MAXLEN];
+    EXEC SQL END DECLARE SECTION;
+    nextoid = 0;
+    for (int i = 1; i < maxCounter; i++)
+    {
+        (void) strncpy( name, (char*) counterNames[i], (size_t) sizeof(name) );
+
+        TALK( "EXEC SQL SELECT NextValue INTO :nextoid FROM RAS_COUNTERS WHERE CounterName = " << name );
+        EXEC SQL SELECT NextValue INTO :nextoid
+        FROM RAS_COUNTERS
+        WHERE CounterName = :name;
+        TALK( "-> nextoid=" << nextoid );
+        if (check("OId::initialize() SELECT OId"))
+        {
+            RMInit::logOut << "OId::initialize() error reading " << name << endl;
+            generateException();
+        }
+        *counterIds[i] = nextoid;
+        RMDBGMIDDLE(4, RMDebug::module_adminif, "OIdIf", "read " << counterNames[i] << " " << *counterIds[i]);
+    }
+
+    loadedOk = true;
+
+    LEAVE( "OId::initialize" );
+    RMDBGEXIT(4, RMDebug::module_adminif, "OId", "initialize()");
 }
 
 void
 OId::deinitialize()
 {
-	RMDBGENTER(4, RMDebug::module_adminif, "OId", "deinitialize()");
-	ENTER( "OId::deinitialize" );
+    RMDBGENTER(4, RMDebug::module_adminif, "OId", "deinitialize()");
+    ENTER( "OId::deinitialize" );
 
-	if (AdminIf::isReadOnlyTA())
-	{
-		RMDBGMIDDLE(4, RMDebug::module_adminif, "OIdIf", "do nothing is read only");
-	}
-	else
-	{
-		if (AdminIf::isAborted())
-		{
-			RMDBGMIDDLE(4, RMDebug::module_adminif, "OIdIf", "do nothing is aborted");
-		}
-		
-		else if(loadedOk==false)
-		{
-			 RMDBGMIDDLE(4, RMDebug::module_adminif, "OIdIf", "avoiding to write uninitialized counters into DB");
-		}
-		
-		else
-		{
-			EXEC SQL BEGIN DECLARE SECTION;
-				long	nextoid1;
-				char    name2[STRING_MAXLEN];
-			EXEC SQL END DECLARE SECTION;
+    if (AdminIf::isReadOnlyTA())
+    {
+        RMDBGMIDDLE(4, RMDebug::module_adminif, "OIdIf", "do nothing is read only");
+    }
+    else
+    {
+        if (AdminIf::isAborted())
+        {
+            RMDBGMIDDLE(4, RMDebug::module_adminif, "OIdIf", "do nothing is aborted");
+        }
 
-			for (int i = 1; i < maxCounter; i++)
-			{
-				nextoid1 = *counterIds[i];
-				(void) strncpy( name2, (char*) counterNames[i], (size_t) sizeof(name2) );
+        else if(loadedOk==false)
+        {
+            RMDBGMIDDLE(4, RMDebug::module_adminif, "OIdIf", "avoiding to write uninitialized counters into DB");
+        }
 
-				RMDBGMIDDLE(4, RMDebug::module_adminif, "OIdIf", "setting " << name2 << " to " << nextoid1)
-				TALK( "EXEC SQL UPDATE RAS_COUNTERS SET NextValue = " << nextoid1 << " WHERE CounterName = " << name2 );
-				EXEC SQL UPDATE RAS_COUNTERS SET NextValue = :nextoid1
-					WHERE CounterName = :name2;
-				if (check("OId::deinitialize() UPDATE OId"))
-				{
-					RMInit::logOut << "OId::deinitialize() error writing " << name2 << endl;
-				}
-			}
-		}
-	}
-	
-	loadedOk = false;
+        else
+        {
+            EXEC SQL BEGIN DECLARE SECTION;
+                long    nextoid1;
+                char    name2[STRING_MAXLEN];
+            EXEC SQL END DECLARE SECTION;
 
-	LEAVE( "OId::deinitialize" );
-	RMDBGEXIT(4, RMDebug::module_adminif, "OId", "deinitialize()");
+            for (int i = 1; i < maxCounter; i++)
+            {
+                nextoid1 = *counterIds[i];
+                (void) strncpy( name2, (char*) counterNames[i], (size_t) sizeof(name2) );
+
+                RMDBGMIDDLE(4, RMDebug::module_adminif, "OIdIf", "setting " << name2 << " to " << nextoid1)
+                TALK( "EXEC SQL UPDATE RAS_COUNTERS SET NextValue = " << nextoid1 << " WHERE CounterName = " << name2 );
+                EXEC SQL UPDATE RAS_COUNTERS SET NextValue = :nextoid1
+                WHERE CounterName = :name2;
+                if (check("OId::deinitialize() UPDATE OId"))
+                {
+                    RMInit::logOut << "OId::deinitialize() error writing " << name2 << endl;
+                }
+            }
+        }
+    }
+
+    loadedOk = false;
+
+    LEAVE( "OId::deinitialize" );
+    RMDBGEXIT(4, RMDebug::module_adminif, "OId", "deinitialize()");
 }
 

@@ -44,28 +44,28 @@ using namespace std;
 #endif
 
 QtUnaryOperation::QtUnaryOperation()
-  :  QtOperation(),
-     input(NULL)
+    :  QtOperation(),
+       input(NULL)
 {
 }
 
 
 QtUnaryOperation::QtUnaryOperation( QtOperation* inputInit )
-  :  QtOperation(),
-     input( inputInit )
+    :  QtOperation(),
+       input( inputInit )
 {
-  if( input )
-    input->setParent( this );
+    if( input )
+        input->setParent( this );
 }
 
 
 QtUnaryOperation::~QtUnaryOperation()
 {
-  if( input )
-  {
-    delete input;
-    input=NULL;
-  }
+    if( input )
+    {
+        delete input;
+        input=NULL;
+    }
 }
 
 
@@ -73,14 +73,14 @@ QtUnaryOperation::~QtUnaryOperation()
 string
 QtUnaryOperation::getSpelling()
 {
-  char tempStr[20];
-  sprintf(tempStr, "%ud", (unsigned long)getNodeType());
-  string result  = string(tempStr);
-  result.append( "(" );
-  result.append( input->getSpelling() );
-  result.append( ")" );
+    char tempStr[20];
+    sprintf(tempStr, "%ud", (unsigned long)getNodeType());
+    string result  = string(tempStr);
+    result.append( "(" );
+    result.append( input->getSpelling() );
+    result.append( ")" );
 
-  return result;
+    return result;
 }
 
 
@@ -88,36 +88,36 @@ QtUnaryOperation::getSpelling()
 void
 QtUnaryOperation::simplify()
 {
-  RMDBCLASS( "QtUnaryOperation", "simplify()", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtUnaryOperation", "simplify()", "qlparser", __FILE__, __LINE__ )
 
-  // In order to work bottom up, first inspect the descendants
-  QtNode::simplify();
+    // In order to work bottom up, first inspect the descendants
+    QtNode::simplify();
 
-  // Test, if operand is available.
-  if( input )
-  {
-    // Test, if operand is of const type.
-    if( input->getNodeType() ==  QT_CONST )
+    // Test, if operand is available.
+    if( input )
     {
-      // evaluate the self node with no input list
-      QtData* newConst = this->evaluate( NULL );
+        // Test, if operand is of const type.
+        if( input->getNodeType() ==  QT_CONST )
+        {
+            // evaluate the self node with no input list
+            QtData* newConst = this->evaluate( NULL );
 
-      if( newConst )
-      {
-        // create a new constant node and fill it with newConst
-        QtConst* newNode = new QtConst( newConst );
+            if( newConst )
+            {
+                // create a new constant node and fill it with newConst
+                QtConst* newNode = new QtConst( newConst );
 
-        // set its data stream type
-        newNode->checkType( NULL );
+                // set its data stream type
+                newNode->checkType( NULL );
 
-        // link it to the parent 
-        getParent()->setInput( this, newNode );
+                // link it to the parent
+                getParent()->setInput( this, newNode );
 
-        // delete the self node and its descendants
-        delete this; 
-      }
+                // delete the self node and its descendants
+                delete this;
+            }
+        }
     }
-  }
 }
 
 
@@ -125,18 +125,18 @@ QtUnaryOperation::simplify()
 bool
 QtUnaryOperation::equalMeaning( QtNode* node )
 {
-  RMDBCLASS( "QtUnaryOperation", "equalMeaning( QtNode* )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtUnaryOperation", "equalMeaning( QtNode* )", "qlparser", __FILE__, __LINE__ )
 
-  bool result = false;
+    bool result = false;
 
-  if( getNodeType() == node->getNodeType() )
-  {
-    QtUnaryOperation* unaryNode = (QtUnaryOperation*) node; // by force
+    if( getNodeType() == node->getNodeType() )
+    {
+        QtUnaryOperation* unaryNode = (QtUnaryOperation*) node; // by force
 
-    result = input->equalMeaning( unaryNode->getInput() );
-  };
+        result = input->equalMeaning( unaryNode->getInput() );
+    };
 
-  return ( result );
+    return ( result );
 }
 
 
@@ -144,57 +144,57 @@ QtUnaryOperation::equalMeaning( QtNode* node )
 QtNode::QtNodeList*
 QtUnaryOperation::getChilds( QtChildType flag )
 {
-  RMDBCLASS( "QtUnaryOperation", "getChilds( QtChildType )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtUnaryOperation", "getChilds( QtChildType )", "qlparser", __FILE__, __LINE__ )
 
-  QtNodeList* resultList=NULL;
+    QtNodeList* resultList=NULL;
 
-  if( flag == QT_DIRECT_CHILDS )
-    resultList = new QtNodeList();
+    if( flag == QT_DIRECT_CHILDS )
+        resultList = new QtNodeList();
 
-  if( flag == QT_LEAF_NODES || flag == QT_ALL_NODES )
-    resultList = input->getChilds( flag );
+    if( flag == QT_LEAF_NODES || flag == QT_ALL_NODES )
+        resultList = input->getChilds( flag );
 
-  if( flag == QT_DIRECT_CHILDS || flag == QT_ALL_NODES )
-    resultList->push_back( input );
+    if( flag == QT_DIRECT_CHILDS || flag == QT_ALL_NODES )
+        resultList->push_back( input );
 
-  return resultList;
+    return resultList;
 }
 
 
 QtNode::QtAreaType
 QtUnaryOperation::getAreaType()
 {
-  return( input->getAreaType() );
+    return( input->getAreaType() );
 }
 
 
 void
 QtUnaryOperation::optimizeLoad( QtTrimList* trimList )
 {
-  RMDBCLASS( "QtUnaryOperation", "optimizeLoad( QtTrimList* )", "qlparser", __FILE__, __LINE__ )
+    RMDBCLASS( "QtUnaryOperation", "optimizeLoad( QtTrimList* )", "qlparser", __FILE__, __LINE__ )
 
-  // by default, pass load domain to the input
-  if( input )
-    input->optimizeLoad( trimList );
-  else
-  {
-    delete trimList;
-    trimList=NULL;
-  }
+    // by default, pass load domain to the input
+    if( input )
+        input->optimizeLoad( trimList );
+    else
+    {
+        delete trimList;
+        trimList=NULL;
+    }
 }
 
 
 void
 QtUnaryOperation::printTree( int tab, ostream& s, QtChildType mode )
 {
-  if( mode != QtNode::QT_DIRECT_CHILDS )
-    if( input )
-    {
-      s << SPACE_STR(tab).c_str() << "input: " << endl;
-      input->printTree( tab+2, s, mode );
-    }
-    else
-      s << SPACE_STR(tab).c_str()  << "no input" << endl;
+    if( mode != QtNode::QT_DIRECT_CHILDS )
+        if( input )
+        {
+            s << SPACE_STR(tab).c_str() << "input: " << endl;
+            input->printTree( tab+2, s, mode );
+        }
+        else
+            s << SPACE_STR(tab).c_str()  << "no input" << endl;
 }
 
 

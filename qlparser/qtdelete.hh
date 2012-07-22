@@ -43,8 +43,8 @@ rasdaman GmbH.
 
 class QtDelete : public QtExecute
 {
-  public:
-    /// default constructor 
+public:
+    /// default constructor
     QtDelete();
 
     /// virtual destructor
@@ -56,7 +56,7 @@ class QtDelete : public QtExecute
     /// return childs of the node
     virtual QtNodeList* getChilds( QtChildType flag );
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -68,8 +68,8 @@ class QtDelete : public QtExecute
     ///
     void setStreamInput( QtONCStream* newInput );
     ///
-	/// returns input
-	QtONCStream* getStreamInput();
+    /// returns input
+    QtONCStream* getStreamInput();
     //@}
 
     /// method for identification of nodes
@@ -84,7 +84,7 @@ class QtDelete : public QtExecute
     /// type checking
     virtual void checkType();
 
-  private:
+private:
     /// one input stream
     QtONCStream* input;
 

@@ -22,7 +22,7 @@ rasdaman GmbH.
 */
 
 //
-//	wrapper for malloc on server side - throw bad_alloc if malloc fails
+//  wrapper for malloc on server side - throw bad_alloc if malloc fails
 //
 #include "mymalloc/mymalloc.h"
 #include "reladminif/objectbroker.hh"
@@ -36,43 +36,44 @@ using namespace std;
 // if impossible, try to free some, then retry allocation (by recursion)
 // if nothing can be freed & allocated, give up & throw exception
 
-void* mymalloc(size_t size) // throw(bad_alloc)	// FIXME: gcc3 doesn't like it, & can't do that unless other places are adapted too
+void* mymalloc(size_t size) // throw(bad_alloc) // FIXME: gcc3 doesn't like it, & can't do that unless other places are adapted too
 {
-	void* p = malloc(size);
+    void* p = malloc(size);
 
 #ifdef OLD_VERSION
 // replaced this weird coding by the following below which should be semantically equivalent -- PB 2005-feb-01
-	// ...except for more detailed error messages
-	// FIXME: And SITF resolve this totally screwed up recursion to a while loop.
-	if(!p) 
-		if(!ObjectBroker::freeMemory() || !(p = mymalloc(size))) {
-			RMInit::logOut << "mymalloc: memory allocation failed." << endl;
-			throw bad_alloc();				
-		}
-#else	// improved structure, same logic:
-	if (p == (void*) NULL) 
-	{
-		bool freePossible = ObjectBroker::freeMemory();
-		if (freePossible)
-		{
-			p = mymalloc(size);
-			if (p == (void*) NULL)
-			{
-				RMInit::logOut << "Error: mymalloc(): memory allocation failed." << endl;
-				throw bad_alloc();				
-			}
-			else
-			{
-				// all went fine, nothing to do, return p
-			}
-		}
-		else	// mem full, according to ObjectBroker, so throw alloc exception
-		{
-			RMInit::logOut << "Error: mymalloc(): ObjectBroker::freeMemory() failed." << endl;
-			throw bad_alloc();				
-		}
-	}
+    // ...except for more detailed error messages
+    // FIXME: And SITF resolve this totally screwed up recursion to a while loop.
+    if(!p)
+        if(!ObjectBroker::freeMemory() || !(p = mymalloc(size)))
+        {
+            RMInit::logOut << "mymalloc: memory allocation failed." << endl;
+            throw bad_alloc();
+        }
+#else   // improved structure, same logic:
+    if (p == (void*) NULL)
+    {
+        bool freePossible = ObjectBroker::freeMemory();
+        if (freePossible)
+        {
+            p = mymalloc(size);
+            if (p == (void*) NULL)
+            {
+                RMInit::logOut << "Error: mymalloc(): memory allocation failed." << endl;
+                throw bad_alloc();
+            }
+            else
+            {
+                // all went fine, nothing to do, return p
+            }
+        }
+        else    // mem full, according to ObjectBroker, so throw alloc exception
+        {
+            RMInit::logOut << "Error: mymalloc(): ObjectBroker::freeMemory() failed." << endl;
+            throw bad_alloc();
+        }
+    }
 #endif OLD_VERSION
 
-	return p;
+    return p;
 }

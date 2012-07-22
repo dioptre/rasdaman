@@ -26,15 +26,15 @@ rasdaman GmbH.
 
 #include "system_basic.hh"
 
-class SystemUpdate	:	public SystemBasic
-	{
-	public:
-		static int doStuff(int argc, char** argv);
+class SystemUpdate  :   public SystemBasic
+{
+public:
+    static int doStuff(int argc, char** argv);
 
-		static void printUsage();
+    static void printUsage();
 
-		static int doUpdate(const char* Query, const char* TransparentSelectQuery);
+    static int doUpdate(const char* Query, const char* TransparentSelectQuery);
 
-	};
+};
 
 #endif

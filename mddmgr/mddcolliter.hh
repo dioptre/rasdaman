@@ -49,49 +49,49 @@ rasdaman GmbH.
 //@ManMemo: Module: {\bf cachetamgr}
 /*@Doc:
     A MDDCollIter represents an iterator for a persistent MDD collection.
-    If a collection is changed (elements are removed or added to/from the 
+    If a collection is changed (elements are removed or added to/from the
     collection) between creation of an iterator for it and the execution of
-    other operations on the iterator, the behavior of the istent Iterator 
+    other operations on the iterator, the behavior of the istent Iterator
     is undefined.
-    The {\tt MDDColl::createIterator()} for the object to be scanned should 
-    be used to create a new iterator object. 
+    The {\tt MDDColl::createIterator()} for the object to be scanned should
+    be used to create a new iterator object.
 */
 
 class MDDCollIter
-	{
-	public:
-		void printStatus(unsigned int level = 0, ostream& stream = cout) const;
-		
-		void reset();
-		
-		bool notDone() const;
-		
-		void advance();
-		
-		MDDObj* getElement() const;
-		
-		~MDDCollIter();
-		  
-	protected:
+{
+public:
+    void printStatus(unsigned int level = 0, ostream& stream = cout) const;
 
-		friend class MDDColl;
+    void reset();
 
-		MDDCollIter(MDDColl*  targetColl);
-		/**
-			Constructor - to be used only by MDDColl
-			The iterator is reset after it is created.
-		*/
-		 
-	private:
+    bool notDone() const;
 
-		// Corresponding iterator in the base DBMS.
-		DBMDDObjIdIter* dbIter;
-		 
-		// dbColl has to be kept because of error control.
-		DBMDDSetId dbColl;  
-		
-		// Collection to iterate.
-		MDDColl* persColl;
-	};
+    void advance();
+
+    MDDObj* getElement() const;
+
+    ~MDDCollIter();
+
+protected:
+
+    friend class MDDColl;
+
+    MDDCollIter(MDDColl*  targetColl);
+    /**
+        Constructor - to be used only by MDDColl
+        The iterator is reset after it is created.
+    */
+
+private:
+
+    // Corresponding iterator in the base DBMS.
+    DBMDDObjIdIter* dbIter;
+
+    // dbColl has to be kept because of error control.
+    DBMDDSetId dbColl;
+
+    // Collection to iterate.
+    MDDColl* persColl;
+};
 
 #endif

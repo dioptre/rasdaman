@@ -27,18 +27,18 @@ rasdaman GmbH.
  * CLASS:   r_Object
  *
  * COMMENTS:
- *			None
+ *          None
 */
 
-#include <string.h> 
- 
- 
+#include <string.h>
+
+
 inline void
 r_Object::mark_modified()
 {
-  if( object_status == no_status ||
-      object_status == read         )
-    object_status = modified;
+    if( object_status == no_status ||
+            object_status == read         )
+        object_status = modified;
 };
 
 
@@ -46,106 +46,111 @@ r_Object::mark_modified()
 inline void
 r_Object::set_object_name( const char* name ) throw(r_Error)
 {
-  if(!name) {
-   //null pointer
-   RMInit::logOut << "r_Object::set_object_name(name) name is null!" << std::endl;
-   throw r_Error(INVALIDOBJECTNAME);
-  }
-  
-  const char* cptr=name;
-  
-  //check if the name contains only [a-zA-Z0-9_]
-  while(*cptr) {
-   if( ((*cptr >= 'a') && (*cptr <='z')) ||
-       ((*cptr >= 'A') && (*cptr <='Z')) ||
-       ((*cptr >= '0') && (*cptr <='9')) ||       
-       (*cptr == '_') 			 )
-       cptr++;
-   else 
-       break;
-  }
-  
-  if(*cptr) {
-   //invalid character in object name
-   RMInit::logOut << "r_Object::set_object_name(" << name << ") invalid name!" << std::endl;
-   throw r_Error(INVALIDOBJECTNAME);
-  }
+    if(!name)
+    {
+        //null pointer
+        RMInit::logOut << "r_Object::set_object_name(name) name is null!" << std::endl;
+        throw r_Error(INVALIDOBJECTNAME);
+    }
 
-  if( object_name )
-    free( object_name );
-    
-  object_name = strdup( name );
+    const char* cptr=name;
+
+    //check if the name contains only [a-zA-Z0-9_]
+    while(*cptr)
+    {
+        if( ((*cptr >= 'a') && (*cptr <='z')) ||
+                ((*cptr >= 'A') && (*cptr <='Z')) ||
+                ((*cptr >= '0') && (*cptr <='9')) ||
+                (*cptr == '_')            )
+            cptr++;
+        else
+            break;
+    }
+
+    if(*cptr)
+    {
+        //invalid character in object name
+        RMInit::logOut << "r_Object::set_object_name(" << name << ") invalid name!" << std::endl;
+        throw r_Error(INVALIDOBJECTNAME);
+    }
+
+    if( object_name )
+        free( object_name );
+
+    object_name = strdup( name );
 };
 
 
 inline void
 r_Object::set_type_by_name( const char* name ) throw(r_Error)
 {
-  if(!name) {
-   //null pointer
-   RMInit::logOut << "r_Object::set_type_by_name(name) name is null!" << std::endl;
-   throw r_Error(r_Error:: r_Error_NameInvalid);
-  }
+    if(!name)
+    {
+        //null pointer
+        RMInit::logOut << "r_Object::set_type_by_name(name) name is null!" << std::endl;
+        throw r_Error(r_Error:: r_Error_NameInvalid);
+    }
 
-  if( type_name )
-    free( type_name );
-    
-  type_name = strdup( name );
+    if( type_name )
+        free( type_name );
+
+    type_name = strdup( name );
 };
 
 
 inline void
 r_Object::set_type_structure( const char* name ) throw(r_Error)
 {
-  if(!name) {
-   //null pointer
-   RMInit::logOut << "r_Object::type_structure(name) name is null!" << std::endl;
-   throw r_Error(r_Error:: r_Error_NameInvalid);
-  }
+    if(!name)
+    {
+        //null pointer
+        RMInit::logOut << "r_Object::type_structure(name) name is null!" << std::endl;
+        throw r_Error(r_Error:: r_Error_NameInvalid);
+    }
 
-  if( type_structure )
-    delete [] type_structure;
-    
-  type_structure = new char[strlen(name) + 1];
-  strcpy(type_structure, name);
+    if( type_structure )
+        delete [] type_structure;
+
+    type_structure = new char[strlen(name) + 1];
+    strcpy(type_structure, name);
 };
 
 
 inline const char*
 r_Object::get_type_name() const
 {
-  return type_name;
+    return type_name;
 };
 
 
 inline const char*
 r_Object::get_object_name() const
 {
-  return object_name;
+    return object_name;
 }
 
 
 inline const char*
 r_Object::get_type_structure() const
 {
-  if (type_structure != NULL)
-    return type_structure;
-  else
-    return "";
+    if (type_structure != NULL)
+        return type_structure;
+    else
+        return "";
 };
 
 
 inline r_Object::ObjectStatus
 r_Object::get_status() const
 {
-  return object_status;
+    return object_status;
 };
 
 
 inline const r_OId&
 r_Object::get_oid() const
 {
-  return oid;
+    return oid;
 }
 
 

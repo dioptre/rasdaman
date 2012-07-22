@@ -26,18 +26,18 @@ rasdaman GmbH.
 
 #include "system_basic.hh"
 
-class SystemInsert	:	public SystemBasic
-	{
-	public:
-		static int doStuff(int argc, const char** argv);
+class SystemInsert  :   public SystemBasic
+{
+public:
+    static int doStuff(int argc, const char** argv);
 
-		static void printUsage();
+    static void printUsage();
 
-		static void createMDD();
+    static void createMDD();
 
-		static void createColl();
+    static void createColl();
 
-		static void insertMDDIntoColl();
-	};
+    static void insertMDDIntoColl();
+};
 
 #endif

@@ -37,90 +37,90 @@ class r_Minterval;
 #include "raslib/mddtypes.hh"
 
 class r_FixedPointNumber
-  {
-    public:
-      inline r_FixedPointNumber();
-      inline r_FixedPointNumber(const double&);
-      
-      inline r_FixedPointNumber& operator=(const r_FixedPointNumber&);
-      inline r_FixedPointNumber& operator=(const double&);
-      
-      // returns intPart_new - intPart_old -- used for tests
-      inline r_Range stepForward(const r_FixedPointNumber&);
-      
-      // returns carry of fracPart
-      inline bool    stepForwardFlag(const r_FixedPointNumber&);
-      
-      inline r_Range getIntPart();
-      
-    private:
-      inline void init(const double&);
-      
-      r_Range intPart;  
-      r_Range fracPart; 
-      
-      static const int FIXPREC;
-      static const r_Range carryPos;
-      static const r_Range fracMask;     
-      static const double fixOne;
-      
-      friend std::ostream& operator<<(std::ostream&,r_FixedPointNumber&);   
-   };
-   
+{
+public:
+    inline r_FixedPointNumber();
+    inline r_FixedPointNumber(const double&);
+
+    inline r_FixedPointNumber& operator=(const r_FixedPointNumber&);
+    inline r_FixedPointNumber& operator=(const double&);
+
+    // returns intPart_new - intPart_old -- used for tests
+    inline r_Range stepForward(const r_FixedPointNumber&);
+
+    // returns carry of fracPart
+    inline bool    stepForwardFlag(const r_FixedPointNumber&);
+
+    inline r_Range getIntPart();
+
+private:
+    inline void init(const double&);
+
+    r_Range intPart;
+    r_Range fracPart;
+
+    static const int FIXPREC;
+    static const r_Range carryPos;
+    static const r_Range fracMask;
+    static const double fixOne;
+
+    friend std::ostream& operator<<(std::ostream&,r_FixedPointNumber&);
+};
+
 
 
 //@ManMemo: Module: {\bf raslib}
 
 /*@Doc:
-  r_MiterFloat is used for iterating through parts of 
+  r_MiterFloat is used for iterating through parts of
   multidimensional intervals with arbitrary stepping size using
-  nearest neighbours. It is given the tile, the source domain 
+  nearest neighbours. It is given the tile, the source domain
   and the destination domain
   Apart from that behaviour is exactly as in r_Miter.
 
 */
 
 class r_MiterFloat
-  {
-    public:
-      /// Constructor getting the source tile, the source domain and the destination domain
-      inline r_MiterFloat(Tile *sourceTile, r_Minterval& sourceDomain, r_Minterval& destDomain);
-      
-      /// destructor
-      inline ~r_MiterFloat();
-      
-      /// iterator reset
-      inline void reset();
-      
-      /// get the next cell
-      inline char* nextCell();
-      
-      /// true if done
-      inline bool isDone();
-    
-    protected:
-      struct iter_desc
-        {
-	  r_FixedPointNumber min;
-	  r_FixedPointNumber pos;
-	  r_FixedPointNumber step;
-	  
-	  r_Range countSteps;
-	  r_Range maxSteps;
-	  
-	  r_Range dimStep;
-	  r_Range scaleStep;
-	  char    *cell;
-	 };  
-	 
-      r_Dimension dim;
-      char        *currentCell;
-      const char  *firstCell;
-      
-      iter_desc   *iterDesc;
-      
-      bool done;
-   };
+{
+public:
+    /// Constructor getting the source tile, the source domain and the destination domain
+    inline r_MiterFloat(Tile *sourceTile, r_Minterval& sourceDomain, r_Minterval& destDomain);
+
+    /// destructor
+    inline ~r_MiterFloat();
+
+    /// iterator reset
+    inline void reset();
+
+    /// get the next cell
+    inline char* nextCell();
+
+    /// true if done
+    inline bool isDone();
+
+protected:
+    struct iter_desc
+    {
+        r_FixedPointNumber min;
+        r_FixedPointNumber pos;
+        r_FixedPointNumber step;
+
+        r_Range countSteps;
+        r_Range maxSteps;
+
+        r_Range dimStep;
+        r_Range scaleStep;
+        char    *cell;
+    };
+
+    r_Dimension dim;
+    char        *currentCell;
+    const char  *firstCell;
+
+    iter_desc   *iterDesc;
+
+    bool done;
+};
 
 
 #include "miterf.icc"

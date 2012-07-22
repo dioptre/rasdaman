@@ -24,12 +24,12 @@ rasdaman GmbH.
  * INCLUDE: akgnetwork.hh
  *
  * MODULE:  akg network
- * CLASS:   
+ * CLASS:
  *
  * COMMENTS:
  * Namespace akg
  * Include this file if you need services from the akgnetwork package
- * 
+ *
  */
 
 #ifndef AKGNETWORK_HH

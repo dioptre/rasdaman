@@ -27,14 +27,14 @@ rasdaman GmbH.
  * CLASS:   r_Ref
  *
  * COMMENTS:
- *		None
+ *      None
 */
 
 
 inline const r_OId&
 r_Ref_Any::get_oid() const
 {
-  return oid;
+    return oid;
 }
 
 
@@ -42,7 +42,7 @@ r_Ref_Any::get_oid() const
 inline unsigned int
 r_Ref_Any::is_oid_valid() const
 {
-  return oid.is_valid();
+    return oid.is_valid();
 }
 
 
@@ -51,7 +51,7 @@ template<class T>
 inline const r_OId&
 r_Ref<T>::get_oid() const
 {
-  return oid;
+    return oid;
 }
 
 
@@ -60,5 +60,5 @@ template<class T>
 inline unsigned int
 r_Ref<T>::is_oid_valid() const
 {
-  return oid.is_valid();
+    return oid.is_valid();
 }

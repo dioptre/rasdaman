@@ -19,7 +19,7 @@
  * For more information please see <http://www.rasdaman.org>
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
- 
+
 /*
  * Contributed to rasdaman by Alexander Herzig, Landcare Research New Zealand
  */
@@ -55,8 +55,8 @@
 #ifdef __GNUG__
 #include "raslib/template_inst.hh"
 #include "rasgeo_template_inst.hh"
-#endif                                                     
-#endif              
+#endif
+#endif
 
 /// gdal
 #include "gdal_priv.h"
@@ -65,62 +65,62 @@
 /// postgresql
 #include "libpq-fe.h"
 
-/// RasdamanHelper                              
+/// RasdamanHelper
 #include "RasdamanHelper2.h"
 
 // required variables, if rasdaman is compiled with DEBUG enabled
 #ifdef RMANDEBUG
-	int indentLevel;
-	bool debugOutput;	
+int indentLevel;
+bool debugOutput;
 #endif
 
 /// DATA STRUCTURES
 struct NMsize
 {
-	double x;
-	double y;
-	double z;
+    double x;
+    double y;
+    double z;
 };
 
 struct Header
 {
-	NMsize origin;		// origin (upper left corner of the upper left pixel) (x,y)
-	long ncols;			// number of columns
-	long nrows;			// number of rows
-	long nlayers;		// number of layers (i.e. z-axis)
+    NMsize origin;      // origin (upper left corner of the upper left pixel) (x,y)
+    long ncols;         // number of columns
+    long nrows;         // number of rows
+    long nlayers;       // number of layers (i.e. z-axis)
 
-	NMsize cellsize; // cellsize (x,y,z)
-	// for the following it is assumed that the image is north oriented 
-	double xmin;		// minimum x coordinate (real world coordinate)
-									// -> x coord. of the left edge of the leftmost pixel 
-	double xmax;		// maximum ...
-									// -> x coord. of the fight edge of the rightmost pixel
-	double ymax;		// maximum y coordinate (real world coordinate)
-									// -> y coord. of the upper edge of the uppermost pixel
-	double ymin;		// minimum ....
-									// -> y coord. of the lower edge of the lowermost pixel
-	double zmin;
-	double zmax;
+    NMsize cellsize; // cellsize (x,y,z)
+    // for the following it is assumed that the image is north oriented
+    double xmin;        // minimum x coordinate (real world coordinate)
+    // -> x coord. of the left edge of the leftmost pixel
+    double xmax;        // maximum ...
+    // -> x coord. of the fight edge of the rightmost pixel
+    double ymax;        // maximum y coordinate (real world coordinate)
+    // -> y coord. of the upper edge of the uppermost pixel
+    double ymin;        // minimum ....
+    // -> y coord. of the lower edge of the lowermost pixel
+    double zmin;
+    double zmax;
 
-	// some statistics if avaialable
-	double stats_max;
-	double stats_min;
-	double stats_mean;
-	double stats_stddev;
+    // some statistics if avaialable
+    double stats_max;
+    double stats_min;
+    double stats_mean;
+    double stats_stddev;
 
-	int epsg_code;	// epsg coordinate reference system code 
-	std::string crs_name;	// string representation of the coordinate reference system
-	r_Type::r_Type_Id rmantype;	// the rasdaman pixel type of the image
-	GDALDataType gdaltype;			// the gdal pixel type of the image
-	int nbands;			// number of bands of the image
-	bool rat_avail;	// denotes whether a raster attribute table is available (true) or not (false)
+    int epsg_code;  // epsg coordinate reference system code
+    std::string crs_name;   // string representation of the coordinate reference system
+    r_Type::r_Type_Id rmantype; // the rasdaman pixel type of the image
+    GDALDataType gdaltype;          // the gdal pixel type of the image
+    int nbands;         // number of bands of the image
+    bool rat_avail; // denotes whether a raster attribute table is available (true) or not (false)
 };
 
 int getDirContent(string path, string suffix, vector<string>&);
 bool hasSuffix(string name, string suffix);
 void readImageInformation(vector<string>& vnames, Header& header,
-		vector<double>& bnd, vector<string>& vvalidtiles,
-		bool b3D, double cellsizez);
+                          vector<double>& bnd, vector<string>& vvalidtiles,
+                          bool b3D, double cellsizez);
 bool readTileInformation(string filename, Header& header);
 bool readTileInformation(GDALDataset* pDs, Header& header);
 void printImageInformation(Header& header, RasdamanHelper2& helper);
@@ -132,12 +132,12 @@ bool parseTypeString(std::string typestr, std::vector<std::string>& types);
 void showHelp();
 
 int importImage(RasdamanHelper2& helper, GDALDataset* pDs, string& collname, vector<double>& oids,
-		r_Minterval& readGDALImgDOM, r_Point& writeShift, Header& newGeoRegion,
-		bool asCube, std::string marraytypename = "");
+                r_Minterval& readGDALImgDOM, r_Point& writeShift, Header& newGeoRegion,
+                bool asCube, std::string marraytypename = "");
 
 int processImageFiles(vector<string>& filenames, string collname, vector<double>& oids,
-		Header& processRegion, string mode3D, r_Point& shiftPt, RasdamanHelper2& helper,
-		std::string marraytypename = "");
+                      Header& processRegion, string mode3D, r_Point& shiftPt, RasdamanHelper2& helper,
+                      std::string marraytypename = "");
 
 void intersectRegions2D(Header& inoutRegion, Header& intersectRegion);
 void intersectRegions2D(Header& inoutRegion, std::vector<double>& intersectRegions);

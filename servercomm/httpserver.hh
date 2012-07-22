@@ -27,7 +27,7 @@ rasdaman GmbH.
  * CLASS:   HttpServer
  *
  * COMMENTS:
- *		No Comments
+ *      No Comments
 */
 
 #ifndef _HTTPSERVER_
@@ -52,10 +52,10 @@ class HttpServer : public ServerComm
 {
 public:
 
-  /// the class represents an MDD in HTTP transfer encoding
-  class MDDEncoding
-  {
-      public:
+    /// the class represents an MDD in HTTP transfer encoding
+    class MDDEncoding
+    {
+    public:
 
         int      objectType;
         char    *objectTypeName;
@@ -67,12 +67,12 @@ public:
         int      dataSize;
         char    *binData;
         char    *stringRepresentation;
- 
+
         /// default constructor
-        MDDEncoding();	
+        MDDEncoding();
 
         /// destructor
-	~MDDEncoding();
+        ~MDDEncoding();
 
         // set objectType
         void setObjectType(int type);
@@ -89,7 +89,7 @@ public:
         // set domain
         void setDomain(char *dom);
 
-       // set oid
+        // set oid
         void setOID(char *o);
 
         // set tile size
@@ -103,69 +103,69 @@ public:
 
         // print Values
         const char* toString();
-  };
+    };
 
 
-  /// stores a pointer to the actual servercomm object, only one can exist at a time
-  static HttpServer* actual_httpserver; 
+    /// stores a pointer to the actual servercomm object, only one can exist at a time
+    static HttpServer* actual_httpserver;
 
-  // the class uses the class ClientTblElt from ServerComm because it is used
-  // in some other files of the server, e.g., qlparser/qtmddaccess.cc or
-  // qlparser/qtcommand.cc or qlparser/qtinsert.cc all include servercomm.hh
+    // the class uses the class ClientTblElt from ServerComm because it is used
+    // in some other files of the server, e.g., qlparser/qtmddaccess.cc or
+    // qlparser/qtcommand.cc or qlparser/qtinsert.cc all include servercomm.hh
 
-  /// default constructor
-  HttpServer();
-    
-  // the acual constructor
-  HttpServer( unsigned long timeOut, unsigned long managementInterval , unsigned long listenPort, char* rasmgrHost, unsigned int rasmgrPort,char* serverName);
+    /// default constructor
+    HttpServer();
 
-  /// destructor
-  virtual ~HttpServer();
+    // the acual constructor
+    HttpServer( unsigned long timeOut, unsigned long managementInterval , unsigned long listenPort, char* rasmgrHost, unsigned int rasmgrPort,char* serverName);
 
-  /// forces the server to listen for client calls
-  virtual void startRpcServer() throw( r_Error );
+    /// destructor
+    virtual ~HttpServer();
 
-  /// stops the server
-  virtual void stopRpcServer();
+    /// forces the server to listen for client calls
+    virtual void startRpcServer() throw( r_Error );
 
-  /// print server status to {\tt s}
-  virtual void printServerStatus( ostream& s=cout );
+    /// stops the server
+    virtual void stopRpcServer();
 
-  /// Executes a retrieval query and prepare the result for HTTP transer.
-  virtual long processRequest( unsigned long callingClientId, char* baseName, 
-                               int rascommand, char* query, int binDataSize, char *binData, 
-			       int Endianess, char* &result, char *capability );
-  /**
-     Executes a query and prepares the complete result for transfer via
-     HTTP. The length of the result is returned. The first parameter is 
-     the unique client id for which the query should be executed. The
-     second parameter The third parameter is the query itself represented 
-     as a string. {\tt result} will contain a pointer to the result as
-     needed for HTTP transfer. This pointer has to be freed by the caller
-     using free.
-     
-     Return values on Error:
-     \begin{tabular}{lll}
-     -1 && parse errror\\
-     -2 && execution error\\
-     -3 && unknown error\\
-     \end{tabular}    
+    /// print server status to {\tt s}
+    virtual void printServerStatus( ostream& s=cout );
 
-     Question: How to transfer the result? 
-  */
-    
-  /// returns a pointer to the context of the calling client, 0 it there is no context
-  virtual ClientTblElt* getClientContext( unsigned long ClientId );
-  /**
-     Returns a pointer to the context of the calling client. Currently always
-     the same global context is returned.
-  */
-  private:
+    /// Executes a retrieval query and prepare the result for HTTP transer.
+    virtual long processRequest( unsigned long callingClientId, char* baseName,
+                                 int rascommand, char* query, int binDataSize, char *binData,
+                                 int Endianess, char* &result, char *capability );
+    /**
+       Executes a query and prepares the complete result for transfer via
+       HTTP. The length of the result is returned. The first parameter is
+       the unique client id for which the query should be executed. The
+       second parameter The third parameter is the query itself represented
+       as a string. {\tt result} will contain a pointer to the result as
+       needed for HTTP transfer. This pointer has to be freed by the caller
+       using free.
+
+       Return values on Error:
+       \begin{tabular}{lll}
+       -1 && parse errror\\
+       -2 && execution error\\
+       -3 && unknown error\\
+       \end{tabular}
+
+       Question: How to transfer the result?
+    */
+
+    /// returns a pointer to the context of the calling client, 0 it there is no context
+    virtual ClientTblElt* getClientContext( unsigned long ClientId );
+    /**
+       Returns a pointer to the context of the calling client. Currently always
+       the same global context is returned.
+    */
+private:
     int   doIt_httpserver( int argc, char *argv[] );
 
-   
-  bool flagInformRasMgr; // used to trigger informRasMGR(SERVERAVAILABLE)
- 
+
+    bool flagInformRasMgr; // used to trigger informRasMGR(SERVERAVAILABLE)
+
 };
 
 #include "httpserver.icc"

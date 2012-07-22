@@ -32,106 +32,106 @@ class KeyObject;
 #include "reladminif/dbref.hh"
 
 /**
- *	@file keyobject.hh
+ *  @file keyobject.hh
  *
- *	@ingroup indexmgr
+ *  @ingroup indexmgr
  *
  * @Doc:
  * This class is a carrier structure which carries objects and their domains
  * through the different levels of the index.
 */
 class KeyObject
-	{
-	public:
-		KeyObject();
+{
+public:
+    KeyObject();
 
-		KeyObject(const KeyObject& old);
-		/*@Doc:
-			Copy constructor.  Copies the tile pointer.
-		*/
-	
-		KeyObject(const Tile* p);
-		/*@Doc:
-			Construccts a new KeyObject.  The type (persistent/transinet)
-			is deremined based on the Tile.  The domain also.
-			This constructor is sometimes misused by the compiler in statements like KeyObject p = 0.
-			This will cause a crash because the domain is read from the tile which is NULL : )
-		*/
+    KeyObject(const KeyObject& old);
+    /*@Doc:
+        Copy constructor.  Copies the tile pointer.
+    */
 
-		KeyObject(const DBObjectId& obj, const r_Minterval& dom);
-		/*@Doc:
-			Constructs a new KeyObject for a persistent object.
-		*/
+    KeyObject(const Tile* p);
+    /*@Doc:
+        Construccts a new KeyObject.  The type (persistent/transinet)
+        is deremined based on the Tile.  The domain also.
+        This constructor is sometimes misused by the compiler in statements like KeyObject p = 0.
+        This will cause a crash because the domain is read from the tile which is NULL : )
+    */
 
-		const DBObjectId& getObject() const;
-		/*@Doc:
-			Returns a smartpointer to the persistent object attribute.
-			If this is a transient object carrier the returned smart-
-			pointer is invalid.
-		*/
+    KeyObject(const DBObjectId& obj, const r_Minterval& dom);
+    /*@Doc:
+        Constructs a new KeyObject for a persistent object.
+    */
 
-		Tile* getTransObject() const;
-		/*@Doc:
-			Returns the transient object.  If this KeyObject carries
-			a persistent object a NULL is returned.
-		*/
+    const DBObjectId& getObject() const;
+    /*@Doc:
+        Returns a smartpointer to the persistent object attribute.
+        If this is a transient object carrier the returned smart-
+        pointer is invalid.
+    */
 
-		r_Minterval getDomain() const;
-		/*@Doc:
-			Returns the domain which is associated with the objects that
-			is carried.
-		*/
-	
-		~KeyObject();
-		/*@Doc:
-			Does not delete the TransTile!!
-		*/
+    Tile* getTransObject() const;
+    /*@Doc:
+        Returns the transient object.  If this KeyObject carries
+        a persistent object a NULL is returned.
+    */
 
-		bool isInitialised() const;
-		/*@Doc:
-			Returns true if trans object is initialised or the dbref is initialised.
-		*/
+    r_Minterval getDomain() const;
+    /*@Doc:
+        Returns the domain which is associated with the objects that
+        is carried.
+    */
 
-		bool isPersCarrier() const;
-		/*@Doc:
-			Returns true if the transobject attribute is NULL.
-		*/
+    ~KeyObject();
+    /*@Doc:
+        Does not delete the TransTile!!
+    */
 
-		void setDomain(const r_Minterval& dom);
-		/*@Doc:
-			Alters the domain the KeyObject carries.
-		*/
+    bool isInitialised() const;
+    /*@Doc:
+        Returns true if trans object is initialised or the dbref is initialised.
+    */
 
-		void setTransObject(const Tile* tile);
-		/*@Doc:
-			makes the KeyObject a transient carrier and copies the pointer.
-		*/
+    bool isPersCarrier() const;
+    /*@Doc:
+        Returns true if the transobject attribute is NULL.
+    */
 
-		void setObject(const DBObjectId& obj);
-		/*@Doc:
-			makes the KeyObject a persistent carrier and copies object.
-		*/
+    void setDomain(const r_Minterval& dom);
+    /*@Doc:
+        Alters the domain the KeyObject carries.
+    */
 
-	protected:
-		DBObjectId persobject;
-		/*@Doc:
-			A smartpointer to the carried object if it is persistent.
-		*/
+    void setTransObject(const Tile* tile);
+    /*@Doc:
+        makes the KeyObject a transient carrier and copies the pointer.
+    */
 
-		r_Minterval domain;
-		/*@Doc:
-			The domain which the carried object belongs to.
-		*/
+    void setObject(const DBObjectId& obj);
+    /*@Doc:
+        makes the KeyObject a persistent carrier and copies object.
+    */
 
-		Tile* transobject;
-		/*@Doc:
-			Attribute for storing a transtile.  is NULL if a persistent
-			object is carried.
-		*/
-	};
+protected:
+    DBObjectId persobject;
+    /*@Doc:
+        A smartpointer to the carried object if it is persistent.
+    */
+
+    r_Minterval domain;
+    /*@Doc:
+        The domain which the carried object belongs to.
+    */
+
+    Tile* transobject;
+    /*@Doc:
+        Attribute for storing a transtile.  is NULL if a persistent
+        object is carried.
+    */
+};
 
 /*@Doc:
-	Prints the status of KeyObject object.
+    Prints the status of KeyObject object.
 */
 extern std::ostream& operator<<(std::ostream& in,  const KeyObject& d);
 

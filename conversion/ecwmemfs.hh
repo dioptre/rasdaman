@@ -27,58 +27,58 @@ rasdaman GmbH.
 #include "raslib/mddtypes.hh"
 
 class MemoryFileSystem
-	{
-	public:
-		enum m_Error
-			{
-			No_Error = 0,
-			Error = 1
-			};
+{
+public:
+    enum m_Error
+    {
+        No_Error = 0,
+        Error = 1
+    };
 
-		MemoryFileSystem();
+    MemoryFileSystem();
 
-		///open file an read into memory - completely
-		m_Error open(const char* fileName);
+    ///open file an read into memory - completely
+    m_Error open(const char* fileName);
 
-		///use this memory chunk with mSize bytes length
-		m_Error open(const char* memorySource, r_Bytes mSize);
+    ///use this memory chunk with mSize bytes length
+    m_Error open(const char* memorySource, r_Bytes mSize);
 
-		///close and deinitialise (delete only my own data)
-		m_Error close();
+    ///close and deinitialise (delete only my own data)
+    m_Error close();
 
-		///call close
-		~MemoryFileSystem();
+    ///call close
+    ~MemoryFileSystem();
 
-		///read bSize bytes into buffer, only if bSize bytes are available
-		m_Error read(void* buffer, r_Bytes bSize);
+    ///read bSize bytes into buffer, only if bSize bytes are available
+    m_Error read(void* buffer, r_Bytes bSize);
 
-		///get current position
-		unsigned long long tell();
+    ///get current position
+    unsigned long long tell();
 
-		///go to offset bytes from begining of memory
-		m_Error seek(unsigned long long offset);
+    ///go to offset bytes from begining of memory
+    m_Error seek(unsigned long long offset);
 
-		///if you use open(const* char) and the pointer is memorySrcName then no file will be read but this pointer
-		static const char* memorySrc;
+    ///if you use open(const* char) and the pointer is memorySrcName then no file will be read but this pointer
+    static const char* memorySrc;
 
-		///file names which point to this will not read from file system but from memorySrc
-		static const char* memorySrcName;
+    ///file names which point to this will not read from file system but from memorySrc
+    static const char* memorySrcName;
 
-		///the length of the memorySrc chunk must be specified in memoryLength
-		static r_Bytes memorySrcLength;
+    ///the length of the memorySrc chunk must be specified in memoryLength
+    static r_Bytes memorySrcLength;
 
-	private:
+private:
 
-		///my memory block
-		char* source;
-		///my current position
-		char* current;
-		///am i closed
-		bool closed;
-		///do i own my memory data
-		bool owner;
-		///how long is my memory data
-		r_Bytes length;
-	};
+    ///my memory block
+    char* source;
+    ///my current position
+    char* current;
+    ///am i closed
+    bool closed;
+    ///do i own my memory data
+    bool owner;
+    ///how long is my memory data
+    r_Bytes length;
+};
 
 #endif

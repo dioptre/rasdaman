@@ -31,14 +31,14 @@ rasdaman GmbH.
 inline MDDObj*
 QtMDD::getMDDObject() const
 {
-  return mddObject;
+    return mddObject;
 }
 
 
 inline void
 QtMDD::setMDDObject( MDDObj* ptr )
 {
-  mddObject = ptr;
+    mddObject = ptr;
 }
 
 
@@ -46,14 +46,14 @@ QtMDD::setMDDObject( MDDObj* ptr )
 inline const r_Minterval&
 QtMDD::getLoadDomain() const
 {
-  return loadDomain;
+    return loadDomain;
 }
 
 
 inline void
 QtMDD::setLoadDomain( r_Minterval& newLoadDomain )
 {
-  loadDomain = newLoadDomain;
+    loadDomain = newLoadDomain;
 }
 
 

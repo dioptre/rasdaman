@@ -28,7 +28,7 @@ rasdaman GmbH.
  * PURPOSE: test class r_Interest_Tiling.
  *
  * COMMENTS:
- *			None
+ *          None
 */
 
 
@@ -45,53 +45,53 @@ rasdaman GmbH.
 
 int main()
 {
-  r_Minterval domain(2);
-  domain << r_Sinterval(0L, 500L) << r_Sinterval(0L, 600L);
+    r_Minterval domain(2);
+    domain << r_Sinterval(0L, 500L) << r_Sinterval(0L, 600L);
 
-  r_Minterval int1(2);
-  int1 << r_Sinterval(0L, 100L) << r_Sinterval(0L, 500L);
+    r_Minterval int1(2);
+    int1 << r_Sinterval(0L, 100L) << r_Sinterval(0L, 500L);
 
-  r_Minterval int2(2);
-  int2 << r_Sinterval(200L, 400L) << r_Sinterval(100L, 200L);
+    r_Minterval int2(2);
+    int2 << r_Sinterval(200L, 400L) << r_Sinterval(100L, 200L);
 
-  r_Minterval int3(2);
-  int3 << r_Sinterval(250L, 450L) << r_Sinterval(150L, 250L);
+    r_Minterval int3(2);
+    int3 << r_Sinterval(250L, 450L) << r_Sinterval(150L, 250L);
 
-  r_Minterval int4(2);
-  int4 << r_Sinterval(300L, 500L) << r_Sinterval(400L, 550L);
+    r_Minterval int4(2);
+    int4 << r_Sinterval(300L, 500L) << r_Sinterval(400L, 550L);
 
-  DList<r_Minterval> iareas;
-  iareas += int1;
-  iareas += int2;
-  iareas += int3;
-  iareas += int4;
+    DList<r_Minterval> iareas;
+    iareas += int1;
+    iareas += int2;
+    iareas += int3;
+    iareas += int4;
 
-  r_Interest_Tiling tiling(iareas, r_Interest_Tiling::REGROUP_AND_SUBTILING, 
-			   50000);
+    r_Interest_Tiling tiling(iareas, r_Interest_Tiling::REGROUP_AND_SUBTILING,
+                             50000);
 
-  DList<r_Minterval>* tiles = tiling.compute_tiles(domain, 1);
+    DList<r_Minterval>* tiles = tiling.compute_tiles(domain, 1);
 
-  cout << "Domain: " << domain << endl << endl;
-  cout << "Interest Areas: " << endl;
-  DListIterator<r_Minterval> it_areas = iareas.create_iterator();
-  for (; it_areas.not_done(); it_areas++)
-  {
-    r_Minterval inter = *it_areas;
-    cout << "   " << inter << endl;
-  }
+    cout << "Domain: " << domain << endl << endl;
+    cout << "Interest Areas: " << endl;
+    DListIterator<r_Minterval> it_areas = iareas.create_iterator();
+    for (; it_areas.not_done(); it_areas++)
+    {
+        r_Minterval inter = *it_areas;
+        cout << "   " << inter << endl;
+    }
 
-  cout << "Tiles:  " << endl;
+    cout << "Tiles:  " << endl;
 
-  DListIterator<r_Minterval> it = tiles->create_iterator();
-  for (; it.not_done(); it++)
-  {
-    r_Minterval inter = *it;
-    cout << "   " << inter << endl;
-  }
+    DListIterator<r_Minterval> it = tiles->create_iterator();
+    for (; it.not_done(); it++)
+    {
+        r_Minterval inter = *it;
+        cout << "   " << inter << endl;
+    }
 
-  delete tiles;
+    delete tiles;
 
-  return 0;
+    return 0;
 }
 
 

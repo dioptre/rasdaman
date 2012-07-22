@@ -49,7 +49,7 @@ rasdaman GmbH.
 
 class QtPointData : public QtData
 {
-  public:
+public:
     /// constructor getting a point
     QtPointData( const r_Point& point );
 
@@ -60,17 +60,17 @@ class QtPointData : public QtData
     //@{
     ///
 
-      ///
-      inline const r_Point&  getPointData() const;
-      /// 
-      inline void            setPointData( const r_Point& point );
+    ///
+    inline const r_Point&  getPointData() const;
+    ///
+    inline void            setPointData( const r_Point& point );
 
-      /// returns a null-terminated string describing the type structure
-      virtual char* getTypeStructure() const;
-      /**
-        The string pointer has to be free using free() by the caller.
-      */
-  
+    /// returns a null-terminated string describing the type structure
+    virtual char* getTypeStructure() const;
+    /**
+      The string pointer has to be free using free() by the caller.
+    */
+
     ///
     //@}
 
@@ -80,13 +80,13 @@ class QtPointData : public QtData
     /// compares data content
     virtual bool equal( const QtData* obj ) const;
 
-    /// returns content dependent string representation 
+    /// returns content dependent string representation
     virtual std::string getSpelling() const;
 
     /// print status of the object to the specified stream
     virtual void printStatus( std::ostream& stream = std::cout ) const;
 
-  private:
+private:
     /// attribute storing the minterval
     r_Point pointData;
 };

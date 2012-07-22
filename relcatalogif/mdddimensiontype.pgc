@@ -47,103 +47,103 @@ EXEC SQL include "../reladminif/sqlglobals.h";
 void
 MDDDimensionType::insertInDb() throw (r_Error)
 {
-	RMDBGENTER(5, RMDebug::module_catalogif, "MDDDimensionType", "insertInDb() " << myOId << " " << getTypeName());
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	mddtypeid;
-		short	dimension;
-		double	mddbasetypeid;
-		char	mddtypename[STRING_MAXLEN];
-	EXEC SQL END DECLARE SECTION;
+    RMDBGENTER(5, RMDebug::module_catalogif, "MDDDimensionType", "insertInDb() " << myOId << " " << getTypeName());
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    mddtypeid;
+        short   dimension;
+        double  mddbasetypeid;
+        char    mddtypename[STRING_MAXLEN];
+    EXEC SQL END DECLARE SECTION;
 
-	dimension = myDimension;
-	mddtypeid = myOId.getCounter();
-	(void) strncpy( mddtypename, (char*) getName(), (size_t) sizeof(mddtypename) );
-	DBObject* obj = (DBObject*)getBaseType();
-	mddbasetypeid = obj->getOId();
-	RMDBGMIDDLE(5, RMDebug::module_catalogif, "MDDDimensionType", " typeid " << mddtypeid << " name " << mddtypename << " basetypeoid " << mddbasetypeid << "dimension " << dimension)
+    dimension = myDimension;
+    mddtypeid = myOId.getCounter();
+    (void) strncpy( mddtypename, (char*) getName(), (size_t) sizeof(mddtypename) );
+    DBObject* obj = (DBObject*)getBaseType();
+    mddbasetypeid = obj->getOId();
+    RMDBGMIDDLE(5, RMDebug::module_catalogif, "MDDDimensionType", " typeid " << mddtypeid << " name " << mddtypename << " basetypeoid " << mddbasetypeid << "dimension " << dimension)
 
-	EXEC SQL INSERT INTO RAS_MDDDIMTYPES (
-			MDDDimTypeOId,
-			MDDTypeName,
-			BaseTypeId,
-			Dimension
-			)
-		VALUES	(
-			:mddtypeid,
-			:mddtypename,
-			:mddbasetypeid,
-			:dimension
-			);
-	if (check("MDDDimensionType::insertInDb()\0"))
-		generateException();
-	DBObject::insertInDb();	
-	RMDBGEXIT(5, RMDebug::module_catalogif, "MDDDimensionType", "insertInDb() " << myOId);
+    EXEC SQL INSERT INTO RAS_MDDDIMTYPES (
+        MDDDimTypeOId,
+        MDDTypeName,
+        BaseTypeId,
+        Dimension
+        )
+       VALUES   (
+        :mddtypeid,
+        :mddtypename,
+        :mddbasetypeid,
+        :dimension
+        );
+    if (check("MDDDimensionType::insertInDb()\0"))
+        generateException();
+    DBObject::insertInDb();
+    RMDBGEXIT(5, RMDebug::module_catalogif, "MDDDimensionType", "insertInDb() " << myOId);
 }
 
 void
 MDDDimensionType::readFromDb() throw (r_Error)
 {
-	RMDBGENTER(5, RMDebug::module_catalogif, "MDDDimensionType", "readFromDb() " << myOId);
+    RMDBGENTER(5, RMDebug::module_catalogif, "MDDDimensionType", "readFromDb() " << myOId);
 #ifdef RMANBENCHMARK
-	DBObject::readTimer.resume();
+    DBObject::readTimer.resume();
 #endif
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	mddtypeid1;
-		char	mddtypename1[STRING_MAXLEN];
-		double	mddbasetypeid1;
-		short	dimension1;
-	EXEC SQL END DECLARE SECTION;
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    mddtypeid1;
+        char    mddtypename1[STRING_MAXLEN];
+        double  mddbasetypeid1;
+        short   dimension1;
+    EXEC SQL END DECLARE SECTION;
 
-	mddtypeid1 = myOId.getCounter();
-	mddbasetypeid1 = 0;
-	dimension1 = 0;
-	
-	EXEC SQL SELECT
-			Dimension,
-			BaseTypeId,
-			MDDTypeName
-		INTO
-			:dimension1,
-			:mddbasetypeid1,
-			:mddtypename1
-		FROM
-			RAS_MDDDIMTYPES
-		WHERE
-			MDDDimTypeOId = :mddtypeid1;
-	if (check("MDDDimensionType::MDDDimensionType() SELECT FROM RAS_MDDDIMTYPES\0") != 0)
-		if (SQLCODE == 100)
-			throw r_Error(r_Error::r_Error_ObjectUnknown);
-		else
-			generateException();
-			
-	myDimension = dimension1;
-	setName(mddtypename1);
-	myBaseType = (BaseType*)ObjectBroker::getObjectByOId(OId(mddbasetypeid1)); 
+    mddtypeid1 = myOId.getCounter();
+    mddbasetypeid1 = 0;
+    dimension1 = 0;
+
+    EXEC SQL SELECT
+        Dimension,
+        BaseTypeId,
+        MDDTypeName
+       INTO
+        :dimension1,
+        :mddbasetypeid1,
+        :mddtypename1
+       FROM
+        RAS_MDDDIMTYPES
+       WHERE
+        MDDDimTypeOId = :mddtypeid1;
+    if (check("MDDDimensionType::MDDDimensionType() SELECT FROM RAS_MDDDIMTYPES\0") != 0)
+        if (SQLCODE == 100)
+            throw r_Error(r_Error::r_Error_ObjectUnknown);
+        else
+            generateException();
+
+    myDimension = dimension1;
+    setName(mddtypename1);
+    myBaseType = (BaseType*)ObjectBroker::getObjectByOId(OId(mddbasetypeid1));
 #ifdef RMANBENCHMARK
-	DBObject::readTimer.pause();
+    DBObject::readTimer.pause();
 #endif
-	RMDBGMIDDLE(6, RMDebug::module_catalogif, "MDDDimensionType", "myBaseType at " << myBaseType);
-	DBObject::readFromDb();
-	RMDBGEXIT(5, RMDebug::module_catalogif, "MDDDimensionType", "readFromDb() " << myOId);
+    RMDBGMIDDLE(6, RMDebug::module_catalogif, "MDDDimensionType", "myBaseType at " << myBaseType);
+    DBObject::readFromDb();
+    RMDBGEXIT(5, RMDebug::module_catalogif, "MDDDimensionType", "readFromDb() " << myOId);
 }
 
 void
 MDDDimensionType::deleteFromDb() throw (r_Error)
 {
-	RMDBGENTER(5, RMDebug::module_catalogif, "MDDDimensionType", "deleteFromDb() " << myOId << " " << getTypeName());
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	mddtypeid3;
-	EXEC SQL END DECLARE SECTION;
+    RMDBGENTER(5, RMDebug::module_catalogif, "MDDDimensionType", "deleteFromDb() " << myOId << " " << getTypeName());
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    mddtypeid3;
+    EXEC SQL END DECLARE SECTION;
 
-	mddtypeid3 = myOId.getCounter();
+    mddtypeid3 = myOId.getCounter();
 
-	EXEC SQL DELETE FROM
-			RAS_MDDDIMTYPES
-		WHERE
-			MDDDimTypeOId = :mddtypeid3;
-	if (check("MDDDimensionType::deleteFromDb()\0"))
-		generateException();
-	DBObject::deleteFromDb();	
-	RMDBGEXIT(5, RMDebug::module_catalogif, "MDDDimensionType", "deleteFromDb() " << myOId);
+    EXEC SQL DELETE FROM
+        RAS_MDDDIMTYPES
+       WHERE
+        MDDDimTypeOId = :mddtypeid3;
+    if (check("MDDDimensionType::deleteFromDb()\0"))
+        generateException();
+    DBObject::deleteFromDb();
+    RMDBGEXIT(5, RMDebug::module_catalogif, "MDDDimensionType", "deleteFromDb() " << myOId);
 }
 

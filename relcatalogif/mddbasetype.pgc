@@ -29,7 +29,7 @@ rasdaman GmbH.
  *
  *
  * COMMENTS:
- *   uses embedded SQL 
+ *   uses embedded SQL
  *
  ************************************************************/
 
@@ -47,80 +47,80 @@ EXEC SQL include "../reladminif/sqlglobals.h";
 void
 MDDBaseType::insertInDb() throw (r_Error)
 {
-	RMDBGENTER(6, RMDebug::module_catalogif, "MDDBaseType", "insertInDb() " << myOId << " " << getTypeName());
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	mddtypeid;
-		double	mddbasetypeid;
-		char	mddtypename[STRING_MAXLEN];
-	EXEC SQL END DECLARE SECTION;
+    RMDBGENTER(6, RMDebug::module_catalogif, "MDDBaseType", "insertInDb() " << myOId << " " << getTypeName());
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    mddtypeid;
+        double  mddbasetypeid;
+        char    mddtypename[STRING_MAXLEN];
+    EXEC SQL END DECLARE SECTION;
 
-	(void) strncpy( mddtypename, (char*) getName(), (size_t) sizeof(mddtypename) );
-	DBObject* obj = (DBObject*)getBaseType();
-	mddbasetypeid = obj->getOId();
-	mddtypeid = myOId.getCounter();
-	TALK( "EXEC SQL INSERT INTO RAS_MDDBASETYPES ( MDDBaseTypeOId, MDDTypeName, BaseTypeId)"
-		<< " VALUES ( " << mddtypeid << ", " << mddtypename << ", " << mddbasetypeid << ")" );
-	EXEC SQL INSERT INTO RAS_MDDBASETYPES ( MDDBaseTypeOId, MDDTypeName, BaseTypeId)
-		VALUES	( :mddtypeid, :mddtypename, :mddbasetypeid);
-	if (check("MDDBaseType::insertInDb()\0"))
-		generateException();
-	DBObject::insertInDb();
-	RMDBGEXIT(5, RMDebug::module_catalogif, "MDDBaseType", "insertInDb() " << myOId);
+    (void) strncpy( mddtypename, (char*) getName(), (size_t) sizeof(mddtypename) );
+    DBObject* obj = (DBObject*)getBaseType();
+    mddbasetypeid = obj->getOId();
+    mddtypeid = myOId.getCounter();
+    TALK( "EXEC SQL INSERT INTO RAS_MDDBASETYPES ( MDDBaseTypeOId, MDDTypeName, BaseTypeId)"
+          << " VALUES ( " << mddtypeid << ", " << mddtypename << ", " << mddbasetypeid << ")" );
+    EXEC SQL INSERT INTO RAS_MDDBASETYPES ( MDDBaseTypeOId, MDDTypeName, BaseTypeId)
+       VALUES   ( :mddtypeid, :mddtypename, :mddbasetypeid);
+    if (check("MDDBaseType::insertInDb()\0"))
+        generateException();
+    DBObject::insertInDb();
+    RMDBGEXIT(5, RMDebug::module_catalogif, "MDDBaseType", "insertInDb() " << myOId);
 }
 
 void
 MDDBaseType::readFromDb() throw (r_Error)
 {
-     	RMDBGENTER(5, RMDebug::module_catalogif, "MDDBaseType", "readFromDb() " << myOId);
+    RMDBGENTER(5, RMDebug::module_catalogif, "MDDBaseType", "readFromDb() " << myOId);
 #ifdef RMANBENCHMARK
-	DBObject::readTimer.resume();
+    DBObject::readTimer.resume();
 #endif
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	mddtypeid1;
-		char	mddtypename1[STRING_MAXLEN];
-		double	mddbasetypeid1;
-	EXEC SQL END DECLARE SECTION;
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    mddtypeid1;
+        char    mddtypename1[STRING_MAXLEN];
+        double  mddbasetypeid1;
+    EXEC SQL END DECLARE SECTION;
 
-	mddtypeid1 = myOId.getCounter();
-	mddbasetypeid1 = 0;
-	
-	TALK( "EXEC SQL SELECT BaseTypeId, MDDTypeName INTO :mddbasetypeid1, :mddtypename1 "
-		<< "FROM RAS_MDDBASETYPES "
-		<< "WHERE MDDBaseTypeOId = " << mddtypeid1 );
-	EXEC SQL SELECT BaseTypeId, MDDTypeName INTO :mddbasetypeid1, :mddtypename1
-		FROM RAS_MDDBASETYPES
-		WHERE MDDBaseTypeOId = :mddtypeid1;
-	if (check("MDDBaseType::readFromDb() SELECT FROM RAS_MDDBASETYPES\0") != 0)
-		if (SQLCODE == 100)
-			throw r_Error(r_Error::r_Error_ObjectUnknown);
-		else
-			generateException();
+    mddtypeid1 = myOId.getCounter();
+    mddbasetypeid1 = 0;
 
-	setName(mddtypename1);
-	myBaseType = (BaseType*)ObjectBroker::getObjectByOId(OId(mddbasetypeid1)); 
+    TALK( "EXEC SQL SELECT BaseTypeId, MDDTypeName INTO :mddbasetypeid1, :mddtypename1 "
+          << "FROM RAS_MDDBASETYPES "
+          << "WHERE MDDBaseTypeOId = " << mddtypeid1 );
+    EXEC SQL SELECT BaseTypeId, MDDTypeName INTO :mddbasetypeid1, :mddtypename1
+       FROM RAS_MDDBASETYPES
+       WHERE MDDBaseTypeOId = :mddtypeid1;
+    if (check("MDDBaseType::readFromDb() SELECT FROM RAS_MDDBASETYPES\0") != 0)
+        if (SQLCODE == 100)
+            throw r_Error(r_Error::r_Error_ObjectUnknown);
+        else
+            generateException();
+
+    setName(mddtypename1);
+    myBaseType = (BaseType*)ObjectBroker::getObjectByOId(OId(mddbasetypeid1));
 #ifdef RMANBENCHMARK
-	DBObject::readTimer.pause();
+    DBObject::readTimer.pause();
 #endif
-	DBObject::readFromDb();
-	RMDBGEXIT(5, RMDebug::module_catalogif, "MDDBaseType", "readFromDb() " << myOId);
+    DBObject::readFromDb();
+    RMDBGEXIT(5, RMDebug::module_catalogif, "MDDBaseType", "readFromDb() " << myOId);
 }
 
 void
 MDDBaseType::deleteFromDb() throw (r_Error)
 {
-	RMDBGENTER(5, RMDebug::module_catalogif, "MDDBaseType", "deleteFromDb() " << myOId << " " << getTypeName());
-	EXEC SQL BEGIN DECLARE SECTION;
-		long	mddtypeid2;
-	EXEC SQL END DECLARE SECTION;
+    RMDBGENTER(5, RMDebug::module_catalogif, "MDDBaseType", "deleteFromDb() " << myOId << " " << getTypeName());
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    mddtypeid2;
+    EXEC SQL END DECLARE SECTION;
 
-	mddtypeid2 = myOId.getCounter();
+    mddtypeid2 = myOId.getCounter();
 
-	TALK( "EXEC SQL DELETE FROM RAS_MDDBASETYPES WHERE MDDBaseTypeOId = " << mddtypeid2 );
-	EXEC SQL DELETE FROM RAS_MDDBASETYPES
-		WHERE MDDBaseTypeOId = :mddtypeid2;
-	if (check("MDDBaseType::deleteFromDb()\0"))
-		generateException();
-	DBObject::deleteFromDb();
-	RMDBGEXIT(5, RMDebug::module_catalogif, "MDDBaseType", "deleteFromDb() " << myOId);
+    TALK( "EXEC SQL DELETE FROM RAS_MDDBASETYPES WHERE MDDBaseTypeOId = " << mddtypeid2 );
+    EXEC SQL DELETE FROM RAS_MDDBASETYPES
+       WHERE MDDBaseTypeOId = :mddtypeid2;
+    if (check("MDDBaseType::deleteFromDb()\0"))
+        generateException();
+    DBObject::deleteFromDb();
+    RMDBGEXIT(5, RMDebug::module_catalogif, "MDDBaseType", "deleteFromDb() " << myOId);
 }
 

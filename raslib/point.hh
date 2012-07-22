@@ -53,15 +53,15 @@ class r_Edim_mismatch;
 /*@Doc:
 
  Class \Ref{r_Point} represents an n-dimensional point vector.
- 
+
 */
- 
+
 class r_Point
 {
-  public: 
+public:
     /// constructor getting dimensionality for stream initializing
     r_Point( r_Dimension );
-    
+
     /// stream-input operator for stream initializing
     r_Point& operator<<( r_Range ) throw( r_Einit_overflow );
 
@@ -81,75 +81,75 @@ class r_Point
     ///
     //@}
 
-    /// default constructor 
-    r_Point();              
-    
+    /// default constructor
+    r_Point();
+
     /// copy constructor
-    r_Point( const r_Point& );            
+    r_Point( const r_Point& );
 
     /// destructor: cleanup dynamic memory
-    ~r_Point();                             
+    ~r_Point();
 
     /// subscriptor for read access
-    r_Range  operator[]( r_Dimension ) const throw( r_Eindex_violation );     
+    r_Range  operator[]( r_Dimension ) const throw( r_Eindex_violation );
     /// subscriptor for write access
-    r_Range& operator[]( r_Dimension ) throw( r_Eindex_violation );    
-	     
+    r_Range& operator[]( r_Dimension ) throw( r_Eindex_violation );
+
     /// assignment: cleanup + copy
     const r_Point& operator= ( const r_Point& );
-    
+
     /// compares this point with the given point.
-    inline const int compare_with( const  r_Point& p ) const; 
+    inline const int compare_with( const  r_Point& p ) const;
     /**
-      Returns 0 if this == p, -1 if this < p, 1 if this > p (considering 
-      the coordinates in decreasing order of magnitude). 
+      Returns 0 if this == p, -1 if this < p, 1 if this > p (considering
+      the coordinates in decreasing order of magnitude).
     */
 
-    /// equal operator 
+    /// equal operator
     bool operator==( const r_Point& ) const;
-    
+
     /**
-      Two points are equal if they have the same number of dimensions and 
+      Two points are equal if they have the same number of dimensions and
       the same values.
     */
-    
+
     /// non equal operator - negation of equal operator
     bool operator!=( const r_Point& ) const;
 
     /// vector addition
-    r_Point operator+( const r_Point& ) const           
-             throw( r_Edim_mismatch );    
-    
+    r_Point operator+( const r_Point& ) const
+    throw( r_Edim_mismatch );
+
     /// vector subtraction
-    r_Point operator-( const r_Point& ) const           
-             throw( r_Edim_mismatch );    
-    
+    r_Point operator-( const r_Point& ) const
+    throw( r_Edim_mismatch );
+
     /// vector multiplication
-    r_Point operator*( const r_Point& ) const           
-             throw( r_Edim_mismatch );    
-    
-    /// get dimensionality       
-    inline r_Dimension dimension() const;   
+    r_Point operator*( const r_Point& ) const
+    throw( r_Edim_mismatch );
+
+    /// get dimensionality
+    inline r_Dimension dimension() const;
 
     /// writes the state of the object to the specified stream
     void print_status( std::ostream& s = std::cout ) const;
-    
+
     /// gives back the string representation
     char* get_string_representation() const;
     /**
       The string representation delivered by this method is allocated using {\tt malloc()} and
       has to be free unsing {\tt free()} in the end. It can be used to construct a {\tt r_Point}
-      again with a special constructor provided. The string representation is build using 
+      again with a special constructor provided. The string representation is build using
       {\tt print_status()}.
     */
 
-  private:
+private:
     /// array holding the point coordinates
     r_Range*    points;
     /// dimensionality of the point
     r_Dimension dimensionality;
     /// number of components initialized already
-    r_Dimension streamInitCnt; 
+    r_Dimension streamInitCnt;
 };
 
 
@@ -157,7 +157,7 @@ class r_Point
 //@ManMemo: Module: {\bf raslib}
 /**
   Output stream operator for objects of type {\tt const} \Ref{r_Point}.
-*/  
+*/
 extern std::ostream& operator<<( std::ostream& s, const r_Point& d );
 
 #include "raslib/point.icc"

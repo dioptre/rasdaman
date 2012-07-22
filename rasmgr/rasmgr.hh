@@ -24,11 +24,11 @@ rasdaman GmbH.
  * SOURCE: rasmgr.hh
  *
  * MODULE: rasmgr
- * CLASS:  
+ * CLASS:
  *
  * PURPOSE:
  *   Used for including system headers and general defines
- *    
+ *
  * COMMENTS:
  * - Beware using VLOG in: 'if (...) VLOG...;' !
  *   do it like this:      'if (...) { VLOG...; }'
@@ -56,7 +56,7 @@ rasdaman GmbH.
 #include<strings.h>
 #include<time.h>
 #endif
- 
+
 #include<stdlib.h>
 #include<fstream>
 #include <fcntl.h>
@@ -66,7 +66,7 @@ rasdaman GmbH.
 #include <list>
 #include <iterator>
 
-#include "rasmgr_protocol.hh"			// protocol keyword definitions
+#include "rasmgr_protocol.hh"           // protocol keyword definitions
 
 // clear this def for production release!
 // #define TALK(a) cout<<a<<endl << flush;
@@ -77,7 +77,7 @@ void exitbyerror(const char* text);
 char *strtolwr(char*); // should be somewhere in the C-library, but can't find it
 
 #ifdef RASMGR_IHC
-  #define INCLUDE_HIDDEN_COMMANDS
+#define INCLUDE_HIDDEN_COMMANDS
 #endif
 
 // global defs -- PB 2003-jun-05
@@ -92,23 +92,23 @@ char *strtolwr(char*); // should be somewhere in the C-library, but can't find i
 
 // rasmgr return codes
 // note: these were from -3 to +2 for errors, and none for OK from W.Schatz. I ordered them to 0 for ok, <0 for errors.
-#define RASMGR_RESULT_OK		0
-#define RASMGR_RESULT_NO_MD5		1
-#define RASMGR_RESULT_ILL_ARGS		2
-#define RASMGR_RESULT_LICENSE_FAIL	3
-#define RASMGR_RESULT_NOT_ALONE		4
-#define RASMGR_RESULT_AUTH_CORRUPT	5
-#define RASMGR_RESULT_AUTH_OTHERHOST	6
-#define RASMGR_RESULT_AUTH_INCOMPAT	7
-#define RASMGR_RESULT_NO_SLAVE_IN_TEST	8
-#define RASMGR_EXIT_FAILURE		9 // was: EXIT_FAILURE from stdlib.h
-#define RASMGR_RESULT_INTERNAL		10
+#define RASMGR_RESULT_OK        0
+#define RASMGR_RESULT_NO_MD5        1
+#define RASMGR_RESULT_ILL_ARGS      2
+#define RASMGR_RESULT_LICENSE_FAIL  3
+#define RASMGR_RESULT_NOT_ALONE     4
+#define RASMGR_RESULT_AUTH_CORRUPT  5
+#define RASMGR_RESULT_AUTH_OTHERHOST    6
+#define RASMGR_RESULT_AUTH_INCOMPAT 7
+#define RASMGR_RESULT_NO_SLAVE_IN_TEST  8
+#define RASMGR_EXIT_FAILURE     9 // was: EXIT_FAILURE from stdlib.h
+#define RASMGR_RESULT_INTERNAL      10
 
 // these should be still more global, they are part of the c/s protocol
 // indicator for server type
-#define SERVERTYPE_FLAG_RPC	'r'
-#define SERVERTYPE_FLAG_HTTP	'h'
-#define SERVERTYPE_FLAG_RNP	'n'
+#define SERVERTYPE_FLAG_RPC 'r'
+#define SERVERTYPE_FLAG_HTTP    'h'
+#define SERVERTYPE_FLAG_RNP 'n'
 
 // output depending on verbose cmd line flag
 #define VLOG if (config.isVerbose()) RMInit::logOut

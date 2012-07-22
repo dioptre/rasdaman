@@ -43,14 +43,14 @@ rasdaman GmbH.
 
 class QtAtomicData : public QtScalarData
 {
-  public:
+public:
     /// default constructor
     QtAtomicData();
 
     /// constructor getting signed integer data
     QtAtomicData( r_Long value, unsigned short byteLength );
     /**
-      The value for {\tt byteLength} specifies the type of the constant. 
+      The value for {\tt byteLength} specifies the type of the constant.
 
       \begin{tabular}{lll}
       1 && OCTET\\
@@ -58,11 +58,11 @@ class QtAtomicData : public QtScalarData
       4 && LONG\\
       \end{tabular}
     */
-    
+
     /// constructor getting unsigned integer data
     QtAtomicData( r_ULong value, unsigned short byteLength );
     /**
-      The value for {\tt byteLength} specifies the type of the constant. 
+      The value for {\tt byteLength} specifies the type of the constant.
 
       \begin{tabular}{lll}
       1 && CHAR\\
@@ -77,7 +77,7 @@ class QtAtomicData : public QtScalarData
     /// constructor getting float data
     QtAtomicData( double value, unsigned short byteLength );
     /**
-      The value for {\tt byteLength} specifies the type of the constant. 
+      The value for {\tt byteLength} specifies the type of the constant.
 
       \begin{tabular}{lll}
       4 && FLOAT\\
@@ -93,7 +93,7 @@ class QtAtomicData : public QtScalarData
 
     /// destructor
     virtual ~QtAtomicData();
- 
+
     /// returning unsigned value of an unsigned atomic type if it is one, 0 otherwise
     r_ULong getUnsignedValue() const;
 

@@ -28,9 +28,9 @@ rasdaman GmbH.
  *
  * PURPOSE:
  *   management of rasserver executables
- *    
+ *
  * COMMENTS:
- *  		None
+ *          None
  *
 */
 
@@ -44,44 +44,44 @@ rasdaman GmbH.
   * \ingroup Rasmgrs
   */
 class LocalServer
-  {
-    public:
-      LocalServer();
-      void  init(const char*,pid_t);
-      const char* getName();
-      pid_t getPID();
-      bool  isValid();
-    private: 
-      char  serverName[30];
-      pid_t serverPid;
-      bool  valid;
-   };	  
+{
+public:
+    LocalServer();
+    void  init(const char*,pid_t);
+    const char* getName();
+    pid_t getPID();
+    bool  isValid();
+private:
+    char  serverName[30];
+    pid_t serverPid;
+    bool  valid;
+};
 
 /**
   * \ingroup Rasmgrs
-  */   
+  */
 class LocalServerManager
-  {
-    public:
-      LocalServerManager();
-      ~LocalServerManager();
-      bool startNewServer(const char* commandline);
-      int  countStartedServers();
-      bool sendTerminateSignal(const char *serverName);
-      bool killServer(const char *serverName);
-      
-      LocalServer& operator[](int);
-      LocalServer& operator[](const char* srvName);
-      
-      void childSignalIn(); //only signal calls this
-      void cleanChild();
-    private:
-      void reportDeadServer(LocalServer &);
-      bool  wasSignal;
-      std::list<LocalServer> srvList;      
-      LocalServer       protElem;
+{
+public:
+    LocalServerManager();
+    ~LocalServerManager();
+    bool startNewServer(const char* commandline);
+    int  countStartedServers();
+    bool sendTerminateSignal(const char *serverName);
+    bool killServer(const char *serverName);
 
-   };
-   
+    LocalServer& operator[](int);
+    LocalServer& operator[](const char* srvName);
+
+    void childSignalIn(); //only signal calls this
+    void cleanChild();
+private:
+    void reportDeadServer(LocalServer &);
+    bool  wasSignal;
+    std::list<LocalServer> srvList;
+    LocalServer       protElem;
+
+};
+
 extern LocalServerManager localServerManager;
 #endif

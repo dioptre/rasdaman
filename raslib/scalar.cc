@@ -48,28 +48,29 @@
 
 
 r_Scalar::r_Scalar( const r_Base_Type* newType )
-  : valueType(NULL)
+    : valueType(NULL)
 {
-  if( newType )
-    valueType = (r_Base_Type*)newType->clone();
-  else	{
-	RMInit::logOut << "r_Scalar::r_Scalar(NULL) base type must be not NULL" << endl;
-	throw r_Error(SCALARWASPASSEDNULLTYPE);
-	}
+    if( newType )
+        valueType = (r_Base_Type*)newType->clone();
+    else
+    {
+        RMInit::logOut << "r_Scalar::r_Scalar(NULL) base type must be not NULL" << endl;
+        throw r_Error(SCALARWASPASSEDNULLTYPE);
+    }
 }
 
 
 
 r_Scalar::r_Scalar( const r_Scalar& obj )
-  : valueType(obj.valueType)
+    : valueType(obj.valueType)
 {
 }
 
 
 
-r_Scalar::~r_Scalar() 
+r_Scalar::~r_Scalar()
 {
-  delete valueType;
+    delete valueType;
 }
 
 
@@ -77,44 +78,44 @@ r_Scalar::~r_Scalar()
 const r_Scalar&
 r_Scalar::operator=( const r_Scalar& obj )
 {
-  if( this != &obj )
-  {
-      delete valueType;
-      valueType = (r_Base_Type*)obj.valueType->clone();
-  }
+    if( this != &obj )
+    {
+        delete valueType;
+        valueType = (r_Base_Type*)obj.valueType->clone();
+    }
 
-  return *this;
+    return *this;
 }
 
 bool
 r_Scalar::isStructure() const
-	{
-	return false;
-	}
+{
+    return false;
+}
 
 bool
 r_Scalar::isComplex() const
-	{
-	return false;
-	}
+{
+    return false;
+}
 
 bool
 r_Scalar::isPrimitive() const
-	{
-	return false;
-	}
+{
+    return false;
+}
 
-const r_Base_Type* 
+const r_Base_Type*
 r_Scalar::get_type() const
 {
-  return valueType;
+    return valueType;
 }
 
 
 std::ostream& operator<<( std::ostream& s, const r_Scalar& obj )
 {
-  obj.print_status( s );
-  return s;
+    obj.print_status( s );
+    return s;
 }
 
 

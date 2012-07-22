@@ -55,7 +55,7 @@ class.
 
 class QtOperationIterator : public QtIterator
 {
-  public:
+public:
     /// default constructor
     QtOperationIterator();
 
@@ -74,11 +74,11 @@ class QtOperationIterator : public QtIterator
     /// optimizing load access
     //virtual void preOptimize();
     /**
-      Trigger load optimization in the operation tree and pass the optimization step to 
+      Trigger load optimization in the operation tree and pass the optimization step to
       the input streams.
     */
 
-    /// prints the tree 
+    /// prints the tree
     virtual void printTree( int tab, std::ostream& s = std::cout, QtChildType mode = QT_ALL_NODES );
 
     /// prints the algebraic expression
@@ -106,7 +106,7 @@ class QtOperationIterator : public QtIterator
     /// type checking
     virtual const QtTypeTuple& checkType();
 
-  private:
+private:
     /// operation trees
     QtOperationList* operationTreeList;
 

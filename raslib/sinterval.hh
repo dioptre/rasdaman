@@ -52,41 +52,41 @@ class r_Eno_interval;
  The class represents an interval with lower and upper bound.
  Operations on the interval are defined according to the
  ODMG-93 standard.
- The operations union, difference, and intersection are 
+ The operations union, difference, and intersection are
  defined according to the following table:
- 
+
     | ...  fixed bound \\
     * ...  open bound
-    
-    
+
+
  \begin{verbatim}
-    
+
  class   orientation       union    difference  intersection
  -----------------------------------------------------------
-   1     |-a-| |-b-|       error    a           error        
+   1     |-a-| |-b-|       error    a           error
 
    2     |-a-|             [a1,b2]  [a1,b1]     [b1,a2]
             |-b-|
 
-   3     |--a--|           a        error       b 
+   3     |--a--|           a        error       b
           |-b-|
 
    4     |-b-|             [b1,a2]  [b2,a2]     [a1,b2]
             |-a-|
 
-   5     |--b--|           b        error       a       
+   5     |--b--|           b        error       a
           |-a-|
 
-   6     |-b-| |-a-|       error    a           error                 
+   6     |-b-| |-a-|       error    a           error
 
-   7     |-a-|-b-|         [a1,b2]  a           [a2,a2]            
-          
+   7     |-a-|-b-|         [a1,b2]  a           [a2,a2]
+
    8     |-b-|-a-|         [b1,a2]  a           [b2,b2]
 
    9     |--a--|           a        [a1,b1]     b
            |-b-|
 
-  10     |--a--|           a        [b2,a2]     b      
+  10     |--a--|           a        [b2,a2]     b
          |-b-|
 
   11     |-a-|             a        error       a
@@ -95,7 +95,7 @@ class r_Eno_interval;
   12     |--b--|           b        error       a
          |-a-|
 
-  13     |--b--|           b        error       a  
+  13     |--b--|           b        error       a
            |-a-|
 
   -----------------------------------------------------
@@ -103,14 +103,14 @@ class r_Eno_interval;
   14     |--a--*           a        error       b
           |-b-|
 
-  15     |--a--*           a        [b2,a2]     b 
+  15     |--a--*           a        [b2,a2]     b
          |-b-|
 
   16     |-b-| |-a-*       error    a           error
 
   17     |-b-|-a-*         [b1,a2]  a           [b2,b2]
 
-  18      |--a--*          [b1,a2]  [b2,a2]     [a1,b2]  
+  18      |--a--*          [b1,a2]  [b2,a2]     [a1,b2]
          |-b-|
 
   -----------------------------------------------------
@@ -118,130 +118,130 @@ class r_Eno_interval;
   19     *--a--|           a        error       b
           |-b-|
 
-  20     *--a--|           a        [a1,b1]     b 
+  20     *--a--|           a        [a1,b1]     b
            |-b-|
 
   21     *-a-| |-b-|       error    a           error
 
   22     *-a-|-b-|         [a1,b2]  a           [a2,a2]
 
-  23     *--a--|           [a1,b2]  [a1,b1]     [b1,a2]  
+  23     *--a--|           [a1,b2]  [a1,b1]     [b1,a2]
             |-b-|
- 
+
   -----------------------------------------------------
- 
+
   24     |--b--*           b        error       a
           |-a-|
- 
-  25     |--b--*           b        error       a 
+
+  25     |--b--*           b        error       a
          |-a-|
- 
+
   26     |-a-| |-b-*       error    a           error
- 
+
   27     |-a-|-b-*         [a1,b2]  a           [a2,a2]
- 
-  28      |--b--*          [a1,b2]  [a1,b1]     [b1,a2]  
+
+  28      |--b--*          [a1,b2]  [a1,b1]     [b1,a2]
          |-a-|
- 
+
   -----------------------------------------------------
- 
+
   29     *--b--|           b        error       a
           |-a-|
- 
+
   30     *--b--|           b        error       a
            |-a-|
- 
+
   31     *-b-| |-a-|       error    a           error
- 
+
   32     *-b-|-a-|         [b1,a2]  a           [b2,b2]
- 
-  33     *--b--|           [b1,a2]  [b2,a2]     [a1,b2]  
+
+  33     *--b--|           [b1,a2]  [b2,a2]     [a1,b2]
             |-a-|
- 
+
   -----------------------------------------------------
- 
+
   34     *-a-| |-b-*       error    a           error
- 
+
   35     *-a-|-b-*         [a1,b2]  a           [a2,a2]
- 
+
   36     *-a-|             [a1,b2]  [a1,b1]     [b1,a2]
             |-b-*
-         
+
   -----------------------------------------------------
- 
+
   37     *-b-| |-a-*       error    a           error
- 
+
   38     *-b-|-a-*         [b1,a2]  a           [b2,b2]
- 
+
   39     *-b-|             [b1,a2]  [a1,b1]     [a1,b2]
             |-a-*
-         
+
   -----------------------------------------------------
- 
+
   40     *-a-|             b        error       a
           *-b-|
- 
+
   41     *-a-|             a        error       a
          *-b-|
- 
+
   42     *-b-|             a        [b2,a2]     b
           *-a-|
- 
+
   -----------------------------------------------------
- 
+
   43     |-a-*             a        [a1,b1]     b
           |-b-*
- 
+
   44     |-a-*             a        error       a
          |-b-*
- 
+
   45     |-b-*             b        error       a
           |-a-*
- 
+
   -----------------------------------------------------
   46     *-a-* |-b-|       a        error       b
- 
+
   47     *-b-* |-a-|       b        error       a
- 
+
   48     *-a-*             a        [b2,a2]     b
           *-b-|
- 
+
   49     *-a-*             a        [a1,b1]     b
           |-b-*
- 
+
   50     *-b-*             b        error       a
           *-a-|
- 
+
   51     *-b-*             b        error       a
           |-a-*
- 
+
   52     *-a-*             a        error       a
          *-b-*
 
  \end{verbatim}
- 
- Attention: The difference operation has to be reconsidered in future 
+
+ Attention: The difference operation has to be reconsidered in future
  concerning a discrete interpretation of the intervals.
- 	  
+
  The closure operation defines an interval which is the smallest
  interval containing the two operands.
  The method {\tt intersects_with()} returns 0 in the error cases of the
  intersection operation and 1 otherwise.
- 
+
 */
 
 class r_Sinterval
 {
-  public:
+public:
     /// default constructor creates an interval with open bounds
     r_Sinterval();
-    
+
     /// constructor taking string representation (e.g. *:200 )
-    r_Sinterval( char* ) throw(r_Eno_interval); 
+    r_Sinterval( char* ) throw(r_Eno_interval);
 
     /// constructor for an interval with fixed bounds
     r_Sinterval( r_Range low, r_Range high ) throw( r_Eno_interval );
-    
+
     //@Man: Constructors for intervals with at least one open bound.
     //@{
     ///
@@ -252,17 +252,17 @@ class r_Sinterval
     r_Sinterval( char,        char         );
     ///
     //@}
-	 
-    /// equal operator 
+
+    /// equal operator
     bool operator==( const r_Sinterval& ) const;
-    
+
     /**
       Two intervals are equal if they have the same lower and upper bound.
     */
-    
+
     /// non equal operator - negation of equal operator
     bool operator!=( const r_Sinterval& ) const;
-    
+
     //@Man: Read/Write methods:
     //@{
     ///
@@ -273,22 +273,22 @@ class r_Sinterval
     inline bool      is_low_fixed() const;
     ///
     inline bool      is_high_fixed() const;
-     
+
     ///
     void set_low     ( r_Range low  ) throw( r_Eno_interval );
     ///
     void set_high    ( r_Range high ) throw( r_Eno_interval );
     ///
-    inline void set_low ( char );                   
+    inline void set_low ( char );
     ///
     inline void set_high( char );
-    
+
     /// get the size of one dimensional interval as range.
     r_Range get_extent() const throw(r_Error);
     /*@Doc:
       Returns a range with high() - low() + 1 of this interval.
     */
-    
+
     ///
     void set_interval( r_Range low, r_Range high ) throw( r_Eno_interval );
     ///
@@ -302,116 +302,116 @@ class r_Sinterval
 
     /// determines if the self interval intersects with the delivered one
     bool intersects_with( const r_Sinterval& ) const;
-    
+
     //@Man: Methods/Operators for the union operation:
     //@{
     ///
     r_Sinterval& union_of           ( const r_Sinterval&, const r_Sinterval& )
- 		     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
     r_Sinterval& union_with         ( const r_Sinterval& )
-		     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
-    r_Sinterval& operator+=         ( const r_Sinterval& ) 
-		     throw( r_Eno_interval );
+    r_Sinterval& operator+=         ( const r_Sinterval& )
+    throw( r_Eno_interval );
     ///
     r_Sinterval  create_union       ( const r_Sinterval& ) const
-		     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
     r_Sinterval  operator+          ( const r_Sinterval& ) const
-		     throw( r_Eno_interval );   	
+    throw( r_Eno_interval );
     ///
     //@}
-    
+
     //@Man: Methods/Operators for the difference operation:
     //@{
     ///
     r_Sinterval& difference_of       ( const r_Sinterval&, const r_Sinterval& )
-    		     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
     r_Sinterval& difference_with     ( const r_Sinterval& )
-                     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
     r_Sinterval& operator-=          ( const r_Sinterval& )
-                     throw( r_Eno_interval );        
+    throw( r_Eno_interval );
     ///
     r_Sinterval  create_difference   ( const r_Sinterval& ) const
-                     throw( r_Eno_interval );	
+    throw( r_Eno_interval );
     ///
-    r_Sinterval  operator-           ( const r_Sinterval& ) const 
-                     throw( r_Eno_interval );
+    r_Sinterval  operator-           ( const r_Sinterval& ) const
+    throw( r_Eno_interval );
     ///
     //@}
-    
+
     //@Man: Methods/Operators for the intersection operation:
     //@{
     ///
     r_Sinterval& intersection_of     ( const r_Sinterval&, const r_Sinterval& )
-                     throw( r_Eno_interval );		    
+    throw( r_Eno_interval );
     ///
     r_Sinterval& intersection_with   ( const r_Sinterval& )
-                     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
-    r_Sinterval& operator*=          ( const r_Sinterval&)	              
-                     throw( r_Eno_interval);
+    r_Sinterval& operator*=          ( const r_Sinterval&)
+    throw( r_Eno_interval);
     ///
     r_Sinterval  create_intersection ( const r_Sinterval& ) const
-                     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
     r_Sinterval  operator*           ( const r_Sinterval& ) const
-                     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
-    //@}    
-   
+    //@}
+
     //@Man: Methods/Operators for the closure operation:
     //@{
     ///
     r_Sinterval& closure_of          ( const r_Sinterval&, const r_Sinterval& )
-                     throw( r_Eno_interval );		    
+    throw( r_Eno_interval );
     ///
     r_Sinterval& closure_with        ( const r_Sinterval& )
-                     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
     r_Sinterval  create_closure      ( const r_Sinterval& ) const
-                     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
     //@}
-    
+
     /// writes the state of the object to the specified stream
     void print_status( std::ostream& s = std::cout ) const;
-    
+
     /// gives back the string representation
     char* get_string_representation() const;
     /**
       The string representation delivered by this method is allocated using {\tt malloc()} and
       has to be free unsing {\tt free()} in the end. It can be used to construct a {\tt r_Sinterval}
-      again with a special constructor provided. The string representation is build using 
+      again with a special constructor provided. The string representation is build using
       {\tt print_status()}.
     */
 
     //@Man: Methods for internal use only:
     //@{
-    /// calculate the size of the storage space occupied		     
+    /// calculate the size of the storage space occupied
     r_Bytes get_storage_size( ) const;
-    ///  
-    //@}  
-    
+    ///
+    //@}
+
 private:
 
     //@Man: Calculation methods for the operations:
     //@{
     ///
     r_Sinterval  calc_union       ( const r_Sinterval& a, const r_Sinterval& b ) const
-                     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
     r_Sinterval  calc_difference  ( const r_Sinterval& a, const r_Sinterval& b ) const
-                     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
     r_Sinterval  calc_intersection( const r_Sinterval& a, const r_Sinterval& b ) const
-                     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
     r_Sinterval  calc_closure     ( const r_Sinterval& a, const r_Sinterval& b ) const
-                     throw( r_Eno_interval );
+    throw( r_Eno_interval );
     ///
     //@}
 
@@ -426,7 +426,7 @@ private:
     r_Range upper_bound;
     ///
     //@}
-    
+
     //@Man: Attributes specifying wheter the lower/upper bound is fixed or not:
     //@{
     ///
@@ -443,7 +443,7 @@ private:
 //@ManMemo: Module: {\bf raslib}
 /**
   Output stream operator for objects of type {\tt const r_Sinterval}.
-*/  
+*/
 extern std::ostream& operator<<( std::ostream& s, const r_Sinterval& d );
 
 #include "raslib/sinterval.icc"

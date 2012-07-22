@@ -43,26 +43,26 @@ using namespace std;
 static const int repeat = 100000;
 
 RMINITGLOBALS('C')
-   
+
 void testFunc1()
 {
-   RMDebug localRMDebug = RMDebug("Class1", "testFunc1", "Module1",
-				  __FILE__, __LINE__);
+    RMDebug localRMDebug = RMDebug("Class1", "testFunc1", "Module1",
+                                   __FILE__, __LINE__);
 }
 
 void testFunc2(int reclevel)
 {
-   RMDebug localRMDebug = RMDebug("Class1", "testFunc2", "Module1",
-				  __FILE__, __LINE__);
+    RMDebug localRMDebug = RMDebug("Class1", "testFunc2", "Module1",
+                                   __FILE__, __LINE__);
 
-   if(reclevel > 1)
-     testFunc2(reclevel - 1);
+    if(reclevel > 1)
+        testFunc2(reclevel - 1);
 }
 
 void testFunc3(void)
 {
-  RMDebug localRMDebug("Class1", "testFunc3", "server",
-		       __FILE__, __LINE__);
+    RMDebug localRMDebug("Class1", "testFunc3", "server",
+                         __FILE__, __LINE__);
 
 //  RMDBGMOUT( 2, RMDebug::module_server, NULL, "D: testing 1" );
 //  RMDBGMOUT( 3, RMDebug::module_server, "Class1", "D: testing 2" );
@@ -71,79 +71,79 @@ void testFunc3(void)
 
 void testFunc4(int reclevel)
 {
-  RMDebug localRMDebug(1, "Class2", "testFunc4", RMDebug::module_raslib,
-		       __FILE__, __LINE__);
+    RMDebug localRMDebug(1, "Class2", "testFunc4", RMDebug::module_raslib,
+                         __FILE__, __LINE__);
 
-  if (reclevel > 1)
-    testFunc4(reclevel - 1);
+    if (reclevel > 1)
+        testFunc4(reclevel - 1);
 }
 
 // this was used to test correctness
 
 void oldMain()
 {
-  int i, busy;
+    int i, busy;
 
-  for(i = 1; i<=5; i++)
-    testFunc1();
+    for(i = 1; i<=5; i++)
+        testFunc1();
 
-  testFunc2(5);
+    testFunc2(5);
 
-  testFunc3();
+    testFunc3();
 
-  testFunc4(4);
+    testFunc4(4);
 
-  cout << "Test of RMTimer" << endl;
- 
-  cout << "The following should hold approximately: timer2 + timer3 = timer1" << endl << endl;
+    cout << "Test of RMTimer" << endl;
 
-  RMTimer* timer1 = new RMTimer("main","timer1");
-  RMTimer* timer2 = new RMTimer("main","timer2");
+    cout << "The following should hold approximately: timer2 + timer3 = timer1" << endl << endl;
 
-  timer2->pause();
+    RMTimer* timer1 = new RMTimer("main","timer1");
+    RMTimer* timer2 = new RMTimer("main","timer2");
 
-  RMTimer* timer3 = new RMTimer("main","timer3");
-  for( long busy=0; busy <= 50000000; busy++ );
-  delete timer3;
+    timer2->pause();
 
-  timer2->resume();
+    RMTimer* timer3 = new RMTimer("main","timer3");
+    for( long busy=0; busy <= 50000000; busy++ );
+    delete timer3;
 
-  for( busy=0; busy <= 30000000; busy++ );
+    timer2->resume();
 
-  delete timer2;
-  delete timer1;
+    for( busy=0; busy <= 30000000; busy++ );
 
-  cout << "Benchmark level set to " << RManBenchmark << endl;
+    delete timer2;
+    delete timer1;
 
-  RMInit::bmOut << "test output in benchmark stream" << endl;
+    cout << "Benchmark level set to " << RManBenchmark << endl;
+
+    RMInit::bmOut << "test output in benchmark stream" << endl;
 }
 
 double testStatic(double dummy)
 {
-  RMTIMER("test_rmdebug", "testStatic");
+    RMTIMER("test_rmdebug", "testStatic");
 
-  for(int i=0; i<repeat; i++)
-    dummy = dummy*4711.4712;
-  return dummy;
+    for(int i=0; i<repeat; i++)
+        dummy = dummy*4711.4712;
+    return dummy;
 }
 
 double testDynamic(double dummy)
 {
 #ifdef RMANBENCHMARK
-  RMTimer* localRMTimer = 0;
+    RMTimer* localRMTimer = 0;
 
-  if( RManBenchmark >= 3 )
-    localRMTimer = new RMTimer("test_rmdebug", "testDynamic");
+    if( RManBenchmark >= 3 )
+        localRMTimer = new RMTimer("test_rmdebug", "testDynamic");
 #endif
 
-  for(int i=0; i<repeat; i++)
-    dummy = dummy*4711.4712;
+    for(int i=0; i<repeat; i++)
+        dummy = dummy*4711.4712;
 
 #ifdef RMANBENCHMARK
-  if( localRMTimer ) delete localRMTimer;
+    if( localRMTimer ) delete localRMTimer;
 #endif
 
-  return dummy;
+    return dummy;
 }
 
 // Evaluating time needed for measurement with different uses
@@ -151,31 +151,31 @@ double testDynamic(double dummy)
 
 void testPerf()
 {
-  double dummy = 3.14;
+    double dummy = 3.14;
 
-  cout << "Testing dynamic RMTimer vs. static RMTimer." << endl;
+    cout << "Testing dynamic RMTimer vs. static RMTimer." << endl;
 
-  // to put in cache
-  dummy = testStatic(dummy);
-  cout << "Static:" << endl;
-  dummy = testStatic(dummy);
+    // to put in cache
+    dummy = testStatic(dummy);
+    cout << "Static:" << endl;
+    dummy = testStatic(dummy);
 
-  // to put in cache
-  dummy = testDynamic(dummy);
-  cout << "Dynamic:" << endl;
-  dummy = testDynamic(dummy);
+    // to put in cache
+    dummy = testDynamic(dummy);
+    cout << "Dynamic:" << endl;
+    dummy = testDynamic(dummy);
 }
 
 int main()
 {
-  RMDebug::initRMDebug();
-  RManBenchmark = 4;
+    RMDebug::initRMDebug();
+    RManBenchmark = 4;
 //  RMInit::bmOut = cout.rdbuf();
 
-  oldMain();
-  // testPerf();
+    oldMain();
+    // testPerf();
 
-  return 0;
+    return 0;
 }
 
 

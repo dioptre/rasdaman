@@ -24,7 +24,7 @@ rasdaman GmbH.
  *
  *
  * PURPOSE:
- * The interface used by the file storage modules. 
+ * The interface used by the file storage modules.
  *
  *
  * COMMENTS:
@@ -42,26 +42,26 @@ rasdaman GmbH.
   */
 class SimpleFileStorage : public IFileStorage
 {
-	public:
-                SimpleFileStorage(const std::string& storage_path) throw (r_Error);
-		// Update the content of a blob. The blob should exist already.
-		void update(const char* data, r_Bytes size, int BlobId) throw (r_Error);
-		// Store the content of a new blob.
-		virtual void insert(const char* data, r_Bytes size, int BlobId) throw (r_Error);
-		// Retrive the content of a previously stored blob
-		virtual void retrieve(int BlobId, char** data, r_Bytes* size) throw (r_Error);
-		// Delete a previously stored blob.
-		virtual void remove(int BlobId) throw (r_Error);
-		
-		virtual ~SimpleFileStorage();
-	private:
-		// Given on BlobId will return the path where the blob should be stored.
-		// It's returned as a vector so that other functions can iterate trough it and check
-		// or create the directories on each level.
-		void getPath(int BlobId, std::vector<std::string>* path);
-		// Similar to the one above but returns the agregated path
-		void getPath(int BlobId, std::string* path);
-		std::string root_path;
+public:
+    SimpleFileStorage(const std::string& storage_path) throw (r_Error);
+    // Update the content of a blob. The blob should exist already.
+    void update(const char* data, r_Bytes size, int BlobId) throw (r_Error);
+    // Store the content of a new blob.
+    virtual void insert(const char* data, r_Bytes size, int BlobId) throw (r_Error);
+    // Retrive the content of a previously stored blob
+    virtual void retrieve(int BlobId, char** data, r_Bytes* size) throw (r_Error);
+    // Delete a previously stored blob.
+    virtual void remove(int BlobId) throw (r_Error);
+
+    virtual ~SimpleFileStorage();
+private:
+    // Given on BlobId will return the path where the blob should be stored.
+    // It's returned as a vector so that other functions can iterate trough it and check
+    // or create the directories on each level.
+    void getPath(int BlobId, std::vector<std::string>* path);
+    // Similar to the one above but returns the agregated path
+    void getPath(int BlobId, std::string* path);
+    std::string root_path;
 
 };  // class SimpleFileStorage
 

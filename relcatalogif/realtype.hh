@@ -25,7 +25,7 @@ rasdaman GmbH.
  *
  * PURPOSE:
  *   The RealType class is the superclass for floating point
- *   types (Float, Double) describing the type of a 
+ *   types (Float, Double) describing the type of a
  *   cell
  *
  *
@@ -40,9 +40,9 @@ rasdaman GmbH.
 
 //@ManMemo: Module: {\bf relcatalogif}.
 
-/*@Doc: 
+/*@Doc:
 RealType is the abstract base class for floating point
-\Ref{BaseType} subclasses, \Ref{Float} or \Ref{Double}. 
+\Ref{BaseType} subclasses, \Ref{Float} or \Ref{Double}.
 It provides conversions to/from long and unsigned long
 It's subclasses must implement conversions to/from double
 */
@@ -50,40 +50,41 @@ It's subclasses must implement conversions to/from double
 /**
   * \ingroup Relcatalogifs
   */
-class RealType : public AtomicType {
+class RealType : public AtomicType
+{
 public:
-	RealType(unsigned int newSize):
-		AtomicType(newSize) {}
-	/*@Doc:
-	constructor.
-	*/
+    RealType(unsigned int newSize):
+        AtomicType(newSize) {}
+    /*@Doc:
+    constructor.
+    */
 
-	RealType(const RealType& old):
-		AtomicType(old) {}
-	/*@Doc:
-	copy constructor.
-	*/
+    RealType(const RealType& old):
+        AtomicType(old) {}
+    /*@Doc:
+    copy constructor.
+    */
 
-	RealType(const OId& id) throw (r_Error):
-		AtomicType(id) {}
-	/*@Doc:
-	*/
+    RealType(const OId& id) throw (r_Error):
+        AtomicType(id) {}
+    /*@Doc:
+    */
 
-	virtual ~RealType() {}
-	/*@Doc:
-	*/
+    virtual ~RealType() {}
+    /*@Doc:
+    */
 
-	virtual r_ULong* convertToCULong(const char*, r_ULong*) const;	
-	virtual char* makeFromCULong(char*, const r_ULong*) const;
+    virtual r_ULong* convertToCULong(const char*, r_ULong*) const;
+    virtual char* makeFromCULong(char*, const r_ULong*) const;
 
-	virtual r_Long* convertToCLong(const char*, r_Long*) const;
-	virtual char* makeFromCLong(char*, const r_Long*) const;
+    virtual r_Long* convertToCLong(const char*, r_Long*) const;
+    virtual char* makeFromCLong(char*, const r_Long*) const;
 
 protected:
-	RealType(const char* name, unsigned int newSize):
-		AtomicType(name, newSize) {}
-	/*@Doc:
-	*/
+    RealType(const char* name, unsigned int newSize):
+        AtomicType(name, newSize) {}
+    /*@Doc:
+    */
 };
 
 #include "realtype.icc"

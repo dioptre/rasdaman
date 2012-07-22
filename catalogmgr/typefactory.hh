@@ -103,163 +103,163 @@ before creating instances of types with mapType().
   * \ingroup Catalogmgrs
   */
 class TypeFactory
-	{
-	public:
-		static TypeFactory* instance();
-		/*@Doc:
-		used to access instance of TileFactory.
-		*/
+{
+public:
+    static TypeFactory* instance();
+    /*@Doc:
+    used to access instance of TileFactory.
+    */
 
-		static const BaseType* mapType(const char* typeName);
-		/*@Doc:
-		maps a string to a base type
-			e.g. #aTypeFactory->mapType("ULong")# returns a pointer to an
-			instance of ULongType. This also works for user defined type
-			like #aTypeFactory->mapType("myStruct")# returning a pointer
-			to a user defined StructType.
-		*/
-		
-		//static BaseType* mapType(char* typeName);
-		/*@Doc: 
-		maps a string to a base type
-		use the const char* version!!
-		*/
-		
-		static const SetType* mapSetType(const char* typeName);
-		/*@Doc:
-		maps a string to a set type
-		*/
+    static const BaseType* mapType(const char* typeName);
+    /*@Doc:
+    maps a string to a base type
+        e.g. #aTypeFactory->mapType("ULong")# returns a pointer to an
+        instance of ULongType. This also works for user defined type
+        like #aTypeFactory->mapType("myStruct")# returning a pointer
+        to a user defined StructType.
+    */
 
-		//static const SetType* mapSetType(char* typeName);
-		/*@Doc:
-		maps a string to a set type
-		use the const char* version!!
-		*/
-		
-		static const MDDType* mapMDDType(const char* typeName);
-		/*@Doc:
-		maps a string to a mdd type
-		*/
+    //static BaseType* mapType(char* typeName);
+    /*@Doc:
+    maps a string to a base type
+    use the const char* version!!
+    */
 
-		//static const MDDType* mapMDDType(char* typeName);
-		/*@Doc:
-		maps a string to a mdd type.
-		use the const char* version!!
-		*/
+    static const SetType* mapSetType(const char* typeName);
+    /*@Doc:
+    maps a string to a set type
+    */
 
-		static const StructType* addStructType(const StructType* type);
-		/*@Doc:
-		add a new struct type to the current DBMS.
-			After calling this function, a user defined type can be
-			retrieved with function #mapType()#. The type only becomes
-			persistent after commit.
-		*/
-		
-		static const SetType* addSetType(const SetType* type);
-		/*@Doc:
-		add a new set type to the current DBMS.
-			After calling this function, a user defined set type can be
-			retrieved with function #mapSetType()#. The type only becomes
-			persistent after commit.
-		*/
-		
-		static const MDDType* addMDDType(const MDDType* type);
-		/*@Doc:
-		add a new set type to the current DBMS.
-			After calling this function, a user defined mdd type can be
-			retrieved with function #mapMDDType()#. The type only becomes
-			persistent after commit.
-		*/
-		
-		static void deleteStructType(const char* typeName);
-		/*@Doc:
-		delete a struct type in the current DBMS.
-		*/
+    //static const SetType* mapSetType(char* typeName);
+    /*@Doc:
+    maps a string to a set type
+    use the const char* version!!
+    */
 
-		static void deleteSetType(const char* typeName);
-		/*@Doc:
-		delete a set type in the current DBMS.
-		*/
-		
-		static void deleteMDDType(const char* typeName);
-		/*@Doc:
-		delete a mdd type in the current DBMS.
-		*/
-		
-		static TypeIterator<StructType> createStructIter();
-		/*@Doc:
-			Note that get_element returns a pointer to a StructType!
-		returns an iterator for StructTypes.
-		*/
+    static const MDDType* mapMDDType(const char* typeName);
+    /*@Doc:
+    maps a string to a mdd type
+    */
 
-		static TypeIterator<SetType> createSetIter();
-		/*@Doc:
-			Note that get_element returns a pointer to a SetType!
-		returns an iterator for SetTypes.
-		*/
-		
-		static TypeIterator<MDDType> createMDDIter();
-		/*@Doc:
-			Note that get_element returns a pointer to a MDDType!
-		returns an iterator for MDDTypes.
-		*/
+    //static const MDDType* mapMDDType(char* typeName);
+    /*@Doc:
+    maps a string to a mdd type.
+    use the const char* version!!
+    */
+
+    static const StructType* addStructType(const StructType* type);
+    /*@Doc:
+    add a new struct type to the current DBMS.
+        After calling this function, a user defined type can be
+        retrieved with function #mapType()#. The type only becomes
+        persistent after commit.
+    */
+
+    static const SetType* addSetType(const SetType* type);
+    /*@Doc:
+    add a new set type to the current DBMS.
+        After calling this function, a user defined set type can be
+        retrieved with function #mapSetType()#. The type only becomes
+        persistent after commit.
+    */
+
+    static const MDDType* addMDDType(const MDDType* type);
+    /*@Doc:
+    add a new set type to the current DBMS.
+        After calling this function, a user defined mdd type can be
+        retrieved with function #mapMDDType()#. The type only becomes
+        persistent after commit.
+    */
+
+    static void deleteStructType(const char* typeName);
+    /*@Doc:
+    delete a struct type in the current DBMS.
+    */
+
+    static void deleteSetType(const char* typeName);
+    /*@Doc:
+    delete a set type in the current DBMS.
+    */
+
+    static void deleteMDDType(const char* typeName);
+    /*@Doc:
+    delete a mdd type in the current DBMS.
+    */
+
+    static TypeIterator<StructType> createStructIter();
+    /*@Doc:
+        Note that get_element returns a pointer to a StructType!
+    returns an iterator for StructTypes.
+    */
+
+    static TypeIterator<SetType> createSetIter();
+    /*@Doc:
+        Note that get_element returns a pointer to a SetType!
+    returns an iterator for SetTypes.
+    */
+
+    static TypeIterator<MDDType> createMDDIter();
+    /*@Doc:
+        Note that get_element returns a pointer to a MDDType!
+    returns an iterator for MDDTypes.
+    */
 
 
-		static Type* addTempType(Type* type);
-		/*@Doc:
-			Memory is freed at commit time of transaction in
-			TransactionIf::commit(), TransactionIf::validate() and
-			TransactionIf::abort().
+    static Type* addTempType(Type* type);
+    /*@Doc:
+        Memory is freed at commit time of transaction in
+        TransactionIf::commit(), TransactionIf::validate() and
+        TransactionIf::abort().
 
-			{\em Note:} You have to use addTempType() on a composite type
-			(e.g. \Ref{SetType}) first before calling addTempType() on a
-			component(e.g. \Ref{MDDType}). Otherwise the component may be
-			freed first sometimes leading to a crash.
-		registers a temporary type with the type factory.
-		*/
+        {\em Note:} You have to use addTempType() on a composite type
+        (e.g. \Ref{SetType}) first before calling addTempType() on a
+        component(e.g. \Ref{MDDType}). Otherwise the component may be
+        freed first sometimes leading to a crash.
+    registers a temporary type with the type factory.
+    */
 
-		static void initialize();
-		/*@Doc:	
-			Should only be called by \Ref{TransactionIf}).
-		initializes after a begin transaction.  theTempTypes are created.
-		 */
+    static void initialize();
+    /*@Doc:
+        Should only be called by \Ref{TransactionIf}).
+    initializes after a begin transaction.  theTempTypes are created.
+     */
 
-		static void freeTempTypes();
-		/*@Doc:	
-			Should only be called by \Ref{TransactionIf}).
-		frees temporary types.
-		 */
+    static void freeTempTypes();
+    /*@Doc:
+        Should only be called by \Ref{TransactionIf}).
+    frees temporary types.
+     */
 
-		static const Type* ensurePersistence(Type* type);
-		/*@Doc:
-			This function has to be called on all types registered as
-			temporary types but getting persistent during query execution. The
-			type is deleted from the tempTypes list, i.e. not freed on end of
-			transaction. If a structurally equivalent type is found in the
-			database it will be used and a pointer to it returned. Note that
-			this currently works only for StructTypes!
-		has to be called on temporary types getting persistent.
-		*/
+    static const Type* ensurePersistence(Type* type);
+    /*@Doc:
+        This function has to be called on all types registered as
+        temporary types but getting persistent during query execution. The
+        type is deleted from the tempTypes list, i.e. not freed on end of
+        transaction. If a structurally equivalent type is found in the
+        database it will be used and a pointer to it returned. Note that
+        this currently works only for StructTypes!
+    has to be called on temporary types getting persistent.
+    */
 
-		static const short MaxBuiltInId;
+    static const short MaxBuiltInId;
 
-	protected:
-		TypeFactory();
-		/*@Doc:
-		constructor, can not be used from outside.
-		*/
-		
-	private:
-		static TypeFactory* myInstance;
-		/*@Doc:
-		pointer to instance for Singleton pattern.
-		*/
+protected:
+    TypeFactory();
+    /*@Doc:
+    constructor, can not be used from outside.
+    */
 
-		static std::vector<Type*> *theTempTypes;
-		/*@Doc:
-		a vector containing pointers to temporary allocated types.
-		*/
-		
-	};
+private:
+    static TypeFactory* myInstance;
+    /*@Doc:
+    pointer to instance for Singleton pattern.
+    */
+
+    static std::vector<Type*> *theTempTypes;
+    /*@Doc:
+    a vector containing pointers to temporary allocated types.
+    */
+
+};
 
 #endif
