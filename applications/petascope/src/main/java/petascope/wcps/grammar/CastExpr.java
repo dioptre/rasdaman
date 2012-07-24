@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 /**
  * CastExpr
  * Creation date: (3/3/2003 2:28:43 AM)
@@ -39,10 +41,10 @@ public class CastExpr implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        result += "<cast>";
+        result += "<" + WCPSConstants.CAST + ">";
         result += coverageExpr.toXML();
-        result += "<type>" + castType + "</type>";
-        result += "</cast>";
+        result += "<" + WCPSConstants.TYPE + ">" + castType + "</" + WCPSConstants.TYPE + ">";
+        result += "</" + WCPSConstants.CAST + ">";
         return result;
     }
 }

@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 
 /**
  * DimensionIntervalElement
@@ -49,10 +51,10 @@ public class DimensionIntervalElement implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        result += "<axis>" + axis + "</axis>";
+        result += "<" + WCPSConstants.AXIS + ">" + axis + "</" + WCPSConstants.AXIS + ">";
 
         if (crs != null) {
-            result += "<srsName>" + crs + "</srsName>";
+            result += "<" + WCPSConstants.SRS_NAME + ">" + crs + "</" + WCPSConstants.SRS_NAME + ">";
         }
 
         result += expr.toXML();

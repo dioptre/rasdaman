@@ -23,6 +23,7 @@ package petascope.wcps.grammar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import petascope.util.WCPSConstants;
 
 /**
  * MetaDataExpr
@@ -39,7 +40,7 @@ public class MetaDataExpr implements IParseTreeNode {
     IParseTreeNode param;
 
     public MetaDataExpr(DomainExpr dom) {
-        function = "domain";
+        function = WCPSConstants.DOMAIN;
         param = dom;
     }
 
@@ -59,35 +60,37 @@ public class MetaDataExpr implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        if (function.equalsIgnoreCase("imageCrsDomain")) {
-            result += "<imageCrsDomain>";
+        if (function.equalsIgnoreCase(WCPSConstants.IMAGE_CRSDOMAIN)) {
+            result += "<" + WCPSConstants.IMAGE_CRSDOMAIN + ">";
             result += expr.toXML();
 
             if (field != null) {
-                result += "<axis>" + field + "</axis>";
+                result += "<" + WCPSConstants.AXIS + ">" + field + "</" + 
+                        WCPSConstants.AXIS + ">";
             }
 
-            result += "</imageCrsDomain>";
-        } else if (function.equalsIgnoreCase("domain")) {
-            result = "<DomainMetadata>" + param.toXML() + "</DomainMetadata>";
-        } else if (function.equalsIgnoreCase("interpolationDefault")) {
-            result += "<interpolationDefault>";
+            result += "</" + WCPSConstants.IMAGE_CRSDOMAIN + ">";
+        } else if (function.equalsIgnoreCase(WCPSConstants.DOMAIN)) {
+            result = "<" + WCPSConstants.DOMAIN_METADATA_CAMEL + ">" + param.toXML() + "</" + 
+                    WCPSConstants.DOMAIN_METADATA_CAMEL + ">";
+        } else if (function.equalsIgnoreCase(WCPSConstants.INTERPOLATION_DEFAULT)) {
+            result += "<" + WCPSConstants.INTERPOLATION_DEFAULT + ">";
             result += expr.toXML();
-            result += "<name>" + param + "</param>";
-            result += "</interpolationDefault>";
-        } else if (function.equalsIgnoreCase("interpolationSet")) {
-            result += "<interpolationSet>";
+            result += "<" + WCPSConstants.NAME + ">" + param + "</" + WCPSConstants.PARAM + ">";
+            result += "</" + WCPSConstants.INTERPOLATION_DEFAULT + ">";
+        } else if (function.equalsIgnoreCase(WCPSConstants.INTERPOLATION_SET)) {
+            result += "<" + WCPSConstants.INTERPOLATION_SET + ">";
             result += expr.toXML();
-            result += "<name>" + param + "</param>";
-            result += "</interpolationSet>";
-        } else if (function.equalsIgnoreCase("identifier")
-                || function.equalsIgnoreCase("imageCRS") || function.equalsIgnoreCase("crsSet")
-                || function.equalsIgnoreCase("nullSet")) {
+            result += "<" + WCPSConstants.NAME + ">" + param + "</" + WCPSConstants.PARAM + ">";
+            result += "</" + WCPSConstants.INTERPOLATION_SET + ">";
+        } else if (function.equalsIgnoreCase(WCPSConstants.IDENTIFIER)
+                || function.equalsIgnoreCase(WCPSConstants.IMAGE_CRS) || function.equalsIgnoreCase(WCPSConstants.CRS_SET)
+                || function.equalsIgnoreCase(WCPSConstants.NULL_SET)) {
             result += "<" + function + ">";
             result += expr.toXML();
             result += "</" + function + ">";
         } else {
-            log.error("Unknown MetadataExpr operation: " + function);
+            log.error(WCPSConstants.UNKNOWN_METADATAEXPR + ": " + function);
         }
 
         return result;

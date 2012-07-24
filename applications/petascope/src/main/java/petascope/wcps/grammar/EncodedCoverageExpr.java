@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 
 /**
  * EncodedCoverageExpr
@@ -60,19 +62,22 @@ public class EncodedCoverageExpr implements IParseTreeNode {
         String result = "";
 
         if (store) {
-            result = "<encode store=\"true\">";
+            result = "<" + WCPSConstants.ENCODE + " " + WCPSConstants.STORE + 
+                    "=\"" + WCPSConstants.TRUE + "\">";
         } else {
-            result = "<encode store=\"false\">";
+            result = "<" + WCPSConstants.ENCODE + " " + WCPSConstants.STORE + 
+                    "=\"" + WCPSConstants.FALSE + "\">";
         }
 
         result += expr.toXML();
-        result += "<format>" + format + "</format>";
+        result += "<" + WCPSConstants.FORMAT + ">" + format + "</" + WCPSConstants.FORMAT + ">";
 
         if (extraParams != null) {
-            result += "<extraParameters>" + extraParams + "</extraParameters>";
+            result += "<" + WCPSConstants.EXTRA_PARAMETERS + ">" + extraParams + "</" + 
+                    WCPSConstants.EXTRA_PARAMETERS + ">";
         }
 
-        result += "</encode>";
+        result += "</" + WCPSConstants.ENCODE + ">";
 
         return result;
     }

@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 /**
  * AxisIterator
  *
@@ -41,8 +43,9 @@ public class AxisIterator implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        result += "<iteratorVar>" + var + "</iteratorVar>";
-        result += "<axis>" + axis + "</axis>";
+        result += "<" + WCPSConstants.ITERATORVAR + ">" + var + "</" + 
+                WCPSConstants.ITERATORVAR + ">";
+        result += "<" + WCPSConstants.AXIS + ">" + axis + "</" + WCPSConstants.AXIS + ">";
         result += interval.toXML();
 
         return result;

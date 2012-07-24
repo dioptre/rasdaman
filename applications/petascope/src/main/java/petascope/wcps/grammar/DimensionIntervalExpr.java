@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 /**
  * DimensionIntervalExpr
  *
@@ -33,25 +35,27 @@ public class DimensionIntervalExpr implements IParseTreeNode {
     String str;
 
     public DimensionIntervalExpr(ScalarExpr exp1, ScalarExpr exp2) {
-        fun = "scalars";
+        fun = WCPSConstants.SCALARS;
         e1 = exp1;
         e2 = exp2;
     }
 
     public DimensionIntervalExpr(String cov, String axis, String crs) {
-        fun = "domain metadata";
-        str = "<coverage>" + cov + "</coverage>";
-        str += "<axis>" + axis + "</axis>";
-        str += "<crs>" + crs + "</crs>";
+        fun = WCPSConstants.DOMAIN_METADATA;
+        str = "<" + WCPSConstants.COVERAGE + ">" + cov + "</" + WCPSConstants.COVERAGE + ">";
+        str += "<" + WCPSConstants.AXIS + ">" + axis + "</" + WCPSConstants.AXIS + ">";
+        str += "<" + WCPSConstants.CRS + ">" + crs + "</" + WCPSConstants.CRS + ">";
     }
 
     public String toXML() {
         String result = "";
 
-        if (fun.equals("scalars")) {
-            result += "<lowerBound>" + e1.toXML() + "</lowerBound>";
-            result += "<upperBound>" + e2.toXML() + "</upperBound>";
-        } else if (fun.equals("domain metadata")) {
+        if (fun.equals(WCPSConstants.SCALARS)) {
+            result += "<" + WCPSConstants.LOWER_BOUND + ">" + e1.toXML() + "</" + 
+                    WCPSConstants.LOWER_BOUND + ">";
+            result += "<" + WCPSConstants.UPPER_BOUND + ">" + e2.toXML() + "</" + 
+                    WCPSConstants.UPPER_BOUND + ">";
+        } else if (fun.equals(WCPSConstants.DOMAIN_METADATA)) {
             result = str;
         }
 

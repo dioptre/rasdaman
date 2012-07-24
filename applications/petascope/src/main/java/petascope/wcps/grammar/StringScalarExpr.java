@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 /**
  * @author: Andrei Aiordachioaie
  */
@@ -33,21 +35,21 @@ public class StringScalarExpr implements IParseTreeNode {
 
     public StringScalarExpr(String val) {
         this.val = val;
-        this.function = "stringConstant";
+        this.function = WCPSConstants.STING_CONSTANT;
     }
 
     public StringScalarExpr(String op, CoverageExpr cov) {
         this.cov = cov;
-        function = "stringIdentifier";
+        function = WCPSConstants.STING_IDENTIFIER;
         this.op = op;
     }
 
     public String toXML() {
         String result = "<" + function + ">";
 
-        if (function.equals("stringConstant")) {
+        if (function.equals(WCPSConstants.STING_CONSTANT)) {
             result += val;
-        } else if (function.equals("stringIdentifier")) {
+        } else if (function.equals(WCPSConstants.STING_IDENTIFIER)) {
             result += cov.toXML();
         }
 

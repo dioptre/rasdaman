@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
 import petascope.exceptions.ExceptionCode;
+import petascope.util.WCPSConstants;
 
 public class AxisName implements IRasNode {
     
@@ -34,17 +35,17 @@ public class AxisName implements IRasNode {
     private String name;
 
     public AxisName(Node node, XmlQuery xq) throws WCPSException {
-        while ((node != null) && node.getNodeName().equals("#text")) {
+        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.TEXT)) {
             node = node.getNextSibling();
         }
 
-        if (node != null && node.getNodeName().equals("axis")) {
+        if (node != null && node.getNodeName().equals(WCPSConstants.AXIS)) {
             log.trace(node.getNodeName());
             String axis = node.getTextContent();
             this.name = axis;
-            log.trace("  axis name: " + name);
+            log.trace("  " + WCPSConstants.AXIS + " " + WCPSConstants.NAME + ": " + name);
         } else {
-            throw new WCPSException(ExceptionCode.InvalidRequest, "Could not find an axis node !");
+            throw new WCPSException(ExceptionCode.InvalidRequest, WCPSConstants.COULD_NOT_FIND_AXIS + " !");
         }
     }
 

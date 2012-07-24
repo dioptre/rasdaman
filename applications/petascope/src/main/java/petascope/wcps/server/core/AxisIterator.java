@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 import petascope.exceptions.ExceptionCode;
+import petascope.util.WCPSConstants;
 
 public class AxisIterator implements IRasNode {
     
@@ -37,7 +38,7 @@ public class AxisIterator implements IRasNode {
     private NumericScalarExpr hi, lo;
 
     public AxisIterator(Node node, XmlQuery xq, String newIteratorName) throws WCPSException {
-        while ((node != null) && node.getNodeName().equals("#text")) {
+        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.TEXT)) {
             node = node.getNextSibling();
         }
         
@@ -46,15 +47,15 @@ public class AxisIterator implements IRasNode {
         while (node != null) {
             String nodeName = node.getNodeName();
 
-            if (nodeName.equals("iteratorVar")) {
+            if (nodeName.equals(WCPSConstants.ITERATORVAR)) {
                 var = node.getTextContent();
                 // This variable will be referenced later on. Translate it.
                 xq.addReferenceVariable(var, newIteratorName);
                 varTranslation = xq.getReferenceVariableName(var);
-                log.trace("  iterator var: " + var);
-                log.trace("  reference to: " + newIteratorName);
-                log.trace("  var translation: " + varTranslation);
-            } else if (nodeName.equals("axis")) {
+                log.trace("  " + WCPSConstants.ITERATOR + " " + WCPSConstants.VAR + ": " + var);
+                log.trace("  " + WCPSConstants.REFERENCE_TO + ": " + newIteratorName);
+                log.trace("  " + WCPSConstants.VAR + " " + WCPSConstants.TRANSLATION + ": " + varTranslation);
+            } else if (nodeName.equals(WCPSConstants.AXIS)) {
                 axis = new AxisName(node, xq);
             } else {
                 // Should contain the limits
@@ -65,19 +66,19 @@ public class AxisIterator implements IRasNode {
                     hi = new NumericScalarExpr(node, xq);
                 } else {
                     throw new WCPSException(ExceptionCode.UnsupportedCombination,
-                            "Unknown node in AxisIterator: " + nodeName);
+                            WCPSConstants.UNKNOWN_NODE + ": " + nodeName);
                 }
             }
 
             node = node.getNextSibling();
-            while ((node != null) && node.getNodeName().equals("#text")) {
+            while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.TEXT)) {
                 node = node.getNextSibling();
             }
         }
     }
 
     public String toRasQL() {
-        String result = varTranslation + " in [" + lo.toRasQL() + ":" + hi.toRasQL() + "]";
+        String result = varTranslation + " " + WCPSConstants.IN + " [" + lo.toRasQL() + ":" + hi.toRasQL() + "]";
         return result;
     }
 

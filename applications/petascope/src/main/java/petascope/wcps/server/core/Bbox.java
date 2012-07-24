@@ -20,9 +20,6 @@
  * or contact Peter Baumann via <baumann@rasdaman.com>.
  */
 
-
-
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -36,6 +33,7 @@ import petascope.util.CrsUtil;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import petascope.util.WCPSConstants;
 
 /**
  *  Generalization of Wgs84Crs class (the source is almost cloned).
@@ -74,13 +72,13 @@ public class Bbox implements Cloneable {
     public Bbox(String crs, Double l1, Double h1, Double l2, Double h2, Double o1, Double o2) throws WCPSException, WCSException {
         if ((l1 == null) || (h1 == null) || (l2 == null) || (h2 == null)) {
             throw new WCPSException(ExceptionCode.InvalidMetadata,
-                    "Invalid bounding box: null element encountered.");
+                    WCPSConstants.INVALID_BOUNDING_BOX);
         }
         if ((o1 == null) || (o2 == null)) {
-            throw new WCPSException(ExceptionCode.InvalidMetadata, "Invalid offsets: null element encountered.");
+            throw new WCPSException(ExceptionCode.InvalidMetadata, WCPSConstants.INVALID_OFFSET);
         }
         if (crs == null) {
-            throw new WCPSException(ExceptionCode.InvalidMetadata, "Invalid CRS name: null element encountered");
+            throw new WCPSException(ExceptionCode.InvalidMetadata, WCPSConstants.INVALID_CRS);
         }
 
         crsName = crs;
@@ -131,9 +129,9 @@ public class Bbox implements Cloneable {
 
     @Override
     public String toString() {
-        String d = "CRS '" + getCrsName() + "' { Bounding Box [X(" + getLow1() + ", " + getHigh1() + "), "
-                + "Y(" + getLow2() + ", " + getHigh2() + ")], "
-                + "Offsets [X(" + getOffset1() + "), Y(" + getOffset2() + ")]}";
+        String d = WCPSConstants.CRS_C + " '" + getCrsName() + "' { " +  WCPSConstants.BOUNDING_BOX + " [" + WCPSConstants.X + "(" + getLow1() + ", " + getHigh1() + "), "
+                + WCPSConstants.Y + "(" + getLow2() + ", " + getHigh2() + ")], "
+                + WCPSConstants.OFFSETS + " [" + WCPSConstants.X + "(" + getOffset1() + "), " + WCPSConstants.Y + "(" + getOffset2() + ")]}";
         return d;
     }
 

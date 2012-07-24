@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
+import petascope.util.WCPSConstants;
 
 public class BooleanScalarExpr implements IRasNode {
     
@@ -37,31 +38,31 @@ public class BooleanScalarExpr implements IRasNode {
 
     public BooleanScalarExpr(Node node, XmlQuery xq) throws WCPSException {
         if (node == null) {
-            throw new WCPSException("Unexpected null node !");
+            throw new WCPSException(WCPSConstants.UNEXPECTED_NULL_NODE + " !");
         }
 
         String nodeName = node.getNodeName();
 
         simple = false;
 
-        if (nodeName.equals("booleanConstant")) {
+        if (nodeName.equals(WCPSConstants.BOOLEAN_CONSTANT)) {
             simple = true;
             value = node.getFirstChild().getNodeValue();
-        } else if (nodeName.equals("booleanAnd")
-                || nodeName.equals("booleanOr")
-                || nodeName.equals("booleanXor")
-                || nodeName.equals("booleanLessThan")
-                || nodeName.equals("booleanLessOrEqual")
-                || nodeName.equals("booleanGreaterThan")
-                || nodeName.equals("booleanGreaterOrEqual")
-                || nodeName.equals("booleanEqualNumeric")
-                || nodeName.equals("booleanNotEqualNumeric")
-                || nodeName.equals("booleanEqualString")
-                || nodeName.equals("booleanNotEqualString")) {
+        } else if (nodeName.equals(WCPSConstants.BOOLEAN_AND)
+                || nodeName.equals(WCPSConstants.BOOLEAN_OR)
+                || nodeName.equals(WCPSConstants.BOOLEAN_XOR)
+                || nodeName.equals(WCPSConstants.BOOLEAN_LESSTHAN)
+                || nodeName.equals(WCPSConstants.BOOLEAN_LESSOREQUAL)
+                || nodeName.equals(WCPSConstants.BOOLEAN_GREATERTHAN)
+                || nodeName.equals(WCPSConstants.BOOLEAN_GREATEROREQUAL)
+                || nodeName.equals(WCPSConstants.BOOLEAN_EQUALNUMERIC)
+                || nodeName.equals(WCPSConstants.BOOLEAN_NOTEQUALNUMERIC)
+                || nodeName.equals(WCPSConstants.BOOLEAN_EQUAL_STRING)
+                || nodeName.equals(WCPSConstants.BOOLEAN_NOT_EQUAL_STRING)) {
             // Logical operations
-            if (nodeName.equals("booleanAnd")
-                    || nodeName.equals("booleanOr")
-                    || nodeName.equals("booleanXor")) {
+            if (nodeName.equals(WCPSConstants.BOOLEAN_AND)
+                    || nodeName.equals(WCPSConstants.BOOLEAN_OR)
+                    || nodeName.equals(WCPSConstants.BOOLEAN_XOR)) {
                 // Remove the "boolean" in front
                 op = nodeName.substring(7).toLowerCase();
 
@@ -72,25 +73,25 @@ public class BooleanScalarExpr implements IRasNode {
                 second = new BooleanScalarExpr(child, xq);
             } else // Boolean Comparison operations between numbers or strings
             {
-                if (nodeName.equals("booleanLessThan") || nodeName.equals("booleanLessOrEqual")
-                        || nodeName.equals("booleanGreaterThan") || nodeName.equals("booleanGreaterOrEqual")
-                        || nodeName.equals("booleanEqualNumeric") || nodeName.equals("booleanNotEqualNumeric")) {
-                    if (nodeName.equals("booleanLessThan")) {
+                if (nodeName.equals(WCPSConstants.BOOLEAN_LESSTHAN) || nodeName.equals(WCPSConstants.BOOLEAN_LESSOREQUAL)
+                        || nodeName.equals(WCPSConstants.BOOLEAN_GREATERTHAN) || nodeName.equals(WCPSConstants.BOOLEAN_GREATEROREQUAL)
+                        || nodeName.equals(WCPSConstants.BOOLEAN_EQUALNUMERIC) || nodeName.equals(WCPSConstants.BOOLEAN_NOTEQUALNUMERIC)) {
+                    if (nodeName.equals(WCPSConstants.BOOLEAN_LESSTHAN)) {
                         op = "<";
                     }
-                    if (nodeName.equals("booleanLessOrEqual")) {
+                    if (nodeName.equals(WCPSConstants.BOOLEAN_LESSOREQUAL)) {
                         op = "<=";
                     }
-                    if (nodeName.equals("booleanGreaterThan")) {
+                    if (nodeName.equals(WCPSConstants.BOOLEAN_GREATERTHAN)) {
                         op = ">";
                     }
-                    if (nodeName.equals("booleanGreaterOrEqual")) {
+                    if (nodeName.equals(WCPSConstants.BOOLEAN_GREATEROREQUAL)) {
                         op = ">=";
                     }
-                    if (nodeName.equals("booleanEqualNumeric")) {
+                    if (nodeName.equals(WCPSConstants.BOOLEAN_EQUALNUMERIC)) {
                         op = "=";
                     }
-                    if (nodeName.equals("booleanNotEqualNumeric")) {
+                    if (nodeName.equals(WCPSConstants.BOOLEAN_NOTEQUALNUMERIC)) {
                         op = "!=";
                     }
 
@@ -100,10 +101,10 @@ public class BooleanScalarExpr implements IRasNode {
                     child = child.getNextSibling();
                     second = new NumericScalarExpr(child, xq);
                 } else {
-                    if (nodeName.equals("booleanEqualString")) {
+                    if (nodeName.equals(WCPSConstants.BOOLEAN_EQUAL_STRING)) {
                         op = "=";
                     }
-                    if (nodeName.equals("booleanNotEqualString")) {
+                    if (nodeName.equals(WCPSConstants.BOOLEAN_NOT_EQUAL_STRING)) {
                         op = "!=";
                     }
 
@@ -115,18 +116,18 @@ public class BooleanScalarExpr implements IRasNode {
                 }
             }
 
-        } else if (nodeName.equals("booleanNot")) {
-            op = "not";
+        } else if (nodeName.equals(WCPSConstants.BOOLEAN_NOT)) {
+            op = WCPSConstants.NOT;
             first = new BooleanScalarExpr(node.getFirstChild(), xq);
-        } else if (nodeName.equals("bit")) {
-            op = "bit";
+        } else if (nodeName.equals(WCPSConstants.BIT)) {
+            op = WCPSConstants.BIT;
             first = new CoverageExpr(node.getFirstChild(), xq);
             second = new NumericScalarExpr(node.getFirstChild().getNextSibling(), xq);
         } else {
-            throw new WCPSException("Unexpected Binary Expression node : "
+            throw new WCPSException(WCPSConstants.UNEXPECTED_BINARY_EXPR_NODE + " : "
                     + node.getNodeName());
         }
-        log.trace("Boolean Scalar Expr SUCCESS: " + node.getNodeName());
+        log.trace(WCPSConstants.BOOLEAN_SCALAR_EXPR + ": " + node.getNodeName());
     }
 
     public String toRasQL() {
@@ -134,10 +135,10 @@ public class BooleanScalarExpr implements IRasNode {
             return value;
         }
 
-        if (op.equals("not")) {
-            return "not(" + first.toRasQL() + ")";
-        } else if (op.equals("bit")) {
-            return "bit(" + first.toRasQL() + "," + second.toRasQL() + ")";
+        if (op.equals(WCPSConstants.NOT)) {
+            return WCPSConstants.NOT + "(" + first.toRasQL() + ")";
+        } else if (op.equals(WCPSConstants.BIT)) {
+            return WCPSConstants.BIT + "(" + first.toRasQL() + "," + second.toRasQL() + ")";
         }
 
         return "(" + first.toRasQL() + ")" + op + "(" + second.toRasQL() + ")";

@@ -23,6 +23,7 @@ package petascope.wcps.grammar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import petascope.util.WCPSConstants;
 
 /**
  * IntervalExpr
@@ -36,24 +37,25 @@ public class IntervalExpr implements IParseTreeNode {
     String function;
 
     public IntervalExpr(IndexExpr n1, IndexExpr n2) {
-        log.trace("Creating IntervalExpr of two indexes");
+        log.trace(WCPSConstants.CREATING_INTERVALEXPR);
         this.e1 = n1;
         this.e2 = n2;
-        function = "two indexes";
+        function = WCPSConstants.TWO_INDEXES;
     }
 
     public IntervalExpr(String coverage, String axis) {
-        log.trace("Creating IntervalExpr of coverage: " + coverage + " and axis: " + axis);
-        function = "crs metadata";
+        log.trace(WCPSConstants.CREATING_INTERVALEXPR + ": " + coverage + " " + WCPSConstants.AND + 
+                " " + WCPSConstants.AXIS + ": " + axis);
+        function = WCPSConstants.CRS_METADATA;
         this.e1 = new ImageCrsDomainMetadataExpr(coverage, axis);
     }
 
     public String toXML() {
         String result = "";
 
-        if (function.equals("two indexes")) {
+        if (function.equals(WCPSConstants.TWO_INDEXES)) {
             result = e1.toXML() + e2.toXML();
-        } else if (function.equals("crs metadata")) {
+        } else if (function.equals(WCPSConstants.CRS_METADATA)) {
             result = e1.toXML();
         }
 

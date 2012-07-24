@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 /*Author: Sorin Stancu-Mara, Andrei Aiordachioaie
  * Date: 8 Feb 2008
  */
@@ -47,9 +49,12 @@ public class VariableList implements IParseTreeNode {
     }
 
     public String toXML() {
-        String result = "<axisIterator><axisType>" + axisType + "</axisType>"
-                + "<iteratorVar>" + iteratorName + "</iteratorVar>" + "<coord>"
-                + lo + "</coord>" + "<coord>" + hi + "</coord></axisIterator>";
+        String result = "<" + WCPSConstants.AXIS_ITERATOR + "><" + WCPSConstants.AXIS_TYPE 
+                + ">" + axisType + "</" + WCPSConstants.AXIS_TYPE + ">"
+                + "<" + WCPSConstants.ITERATORVAR + ">" + iteratorName + "</" + 
+                WCPSConstants.ITERATORVAR + ">" + "<" + WCPSConstants.COORD + ">"
+                + lo + "</" + WCPSConstants.COORD + ">" + "<" + WCPSConstants.COORD 
+                + ">" + hi + "</" + WCPSConstants.COORD + "></" + WCPSConstants.AXIS_ITERATOR + ">";
 
         if (next != null) {
             result += next.toXML();

@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 /**
  * ReduceExpr
  *
@@ -37,7 +39,8 @@ public class ReduceExpr implements IParseTreeNode {
     }
 
     public String toXML() {
-        String result = "<reduce><" + op + ">" + expr.toXML() + "</" + op + "></reduce>";
+        String result = "<" + WCPSConstants.REDUCE + "><" + op + ">" + expr.toXML() + 
+                "</" + op + "></" + WCPSConstants.REDUCE + ">";
 
         return result;
     }

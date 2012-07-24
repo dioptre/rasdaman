@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
+import petascope.util.WCPSConstants;
 
 public class BinaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
     
@@ -42,51 +43,51 @@ public class BinaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
 
         boolean okay = false;    // will be true if the node is recognized
 
-        if (nodeName.equals("plus")) {
-            operation = "+";
+        if (nodeName.equals(WCPSConstants.PLUS_S)) {
+            operation = WCPSConstants.PLUS;
             okay = true;
-        } else if (nodeName.equals("minus")) {
-            operation = "-";
+        } else if (nodeName.equals(WCPSConstants.MINUS_S)) {
+            operation = WCPSConstants.MINUS;
             okay = true;
-        } else if (nodeName.equals("mult")) {
-            operation = "*";
+        } else if (nodeName.equals(WCPSConstants.MULT)) {
+            operation = WCPSConstants.STAR;
             okay = true;
-        } else if (nodeName.equals("div")) {
-            operation = "/";
+        } else if (nodeName.equals(WCPSConstants.DIV_S)) {
+            operation = WCPSConstants.DIV;
             okay = true;
-        } else if (nodeName.equals("and") || nodeName.equals("or") || nodeName.equals("xor")) {
+        } else if (nodeName.equals(WCPSConstants.AND) || nodeName.equals(WCPSConstants.OR) || nodeName.equals("xor")) {
             operation = nodeName;
             okay = true;
-        } else if (nodeName.equals("equals")) {
-            operation = "=";
+        } else if (nodeName.equals(WCPSConstants.EQUALS)) {
+            operation = WCPSConstants.EQUAL;
             okay = true;
-        } else if (nodeName.equals("lessThan")) {
+        } else if (nodeName.equals(WCPSConstants.LESS_THAN)) {
             operation = "<";
             okay = true;
-        } else if (nodeName.equals("greaterThan")) {
+        } else if (nodeName.equals(WCPSConstants.GREATER_THAN)) {
             operation = ">";
             okay = true;
-        } else if (nodeName.equals("lessOrEqual")) {
+        } else if (nodeName.equals(WCPSConstants.LESS_OR_EQUAL)) {
             operation = "<=";
             okay = true;
-        } else if (nodeName.equals("greaterOrEqual")) {
+        } else if (nodeName.equals(WCPSConstants.GREATER_OR_EQUAL)) {
             operation = ">=";
             okay = true;
-        } else if (nodeName.equals("notEqual")) {
+        } else if (nodeName.equals(WCPSConstants.NOT_EQUALS)) {
             operation = "!=";
             okay = true;
-        } else if (nodeName.equals("overlay")) {
-            operation = "overlay";
+        } else if (nodeName.equals(WCPSConstants.OVERLAY)) {
+            operation = WCPSConstants.OVERLAY;
             okay = true;
         }
 
         if (!okay) {
-            throw new WCPSException("Unexpected binary operation : " + nodeName);
+            throw new WCPSException(WCPSConstants.UNEXPECTED_BINARY + " : " + nodeName);
         }
-        log.trace("  operation: " + operation);
+        log.trace("  " + WCPSConstants.OPERATION + ": " + operation);
         
         Node operand = node.getFirstChild();
-        while (operand.getNodeName().equals("#text")) {
+        while (operand.getNodeName().equals("#" + WCPSConstants.TEXT)) {
             operand = operand.getNextSibling();
         }
 

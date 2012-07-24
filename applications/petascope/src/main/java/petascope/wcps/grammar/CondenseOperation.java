@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 /**
  * CondenseOperationType
  *
@@ -37,18 +39,18 @@ public class CondenseOperation implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        if (op.equalsIgnoreCase("+")) {
-            result = "opPlus";
-        } else if (op.equalsIgnoreCase("*")) {
-            result = "opMult";
-        } else if (op.equalsIgnoreCase("max")) {
-            result = "opMax";
-        } else if (op.equalsIgnoreCase("min")) {
-            result = "opMin";
-        } else if (op.equalsIgnoreCase("and")) {
-            result = "opAnd";
-        } else if (op.equalsIgnoreCase("or")) {
-            result = "opOr";
+        if (op.equalsIgnoreCase(WCPSConstants.PLUS)) {
+            result = WCPSConstants.OP_PLUS;
+        } else if (op.equalsIgnoreCase(WCPSConstants.STAR)) {
+            result = WCPSConstants.OP_MULT;
+        } else if (op.equalsIgnoreCase(WCPSConstants.MAX)) {
+            result = WCPSConstants.OP_MAX;
+        } else if (op.equalsIgnoreCase(WCPSConstants.MIN)) {
+            result = WCPSConstants.OP_MIN;
+        } else if (op.equalsIgnoreCase(WCPSConstants.AND)) {
+            result = WCPSConstants.OP_AND;
+        } else if (op.equalsIgnoreCase(WCPSConstants.OR)) {
+            result = WCPSConstants.OP_OR;
         }
 
         result = "<" + result + "/>";

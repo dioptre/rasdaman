@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 
 /**
  * WCPSRequest class represents a WCPSRequest.
@@ -53,12 +55,11 @@ public class WCPSRequest implements IParseTreeNode {
 
     @Override
     public String toXML() {
-        String result = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
+        String result = WCPSConstants.XML_HEADER + "\n";
 
         result +=
-                "<ProcessCoveragesRequest xmlns=\"http://www.opengis.net/wcps/1.0\" service=\"WCPS\" "
-                + "version=\"1.0.0\">\n";
-        result += "<query><xmlSyntax>";
+                "<" + WCPSConstants.PROCESS_COVERAGE_REQUEST + " " + WCPSConstants.XMLNS + ">\n";
+        result += "<" + WCPSConstants.QUERY + "><" + WCPSConstants.XML_SYNTAX + ">";
 
         result += forClause.toXML();
 
@@ -70,8 +71,8 @@ public class WCPSRequest implements IParseTreeNode {
             result += returnClause.toXML();
         }
 
-        result += "</xmlSyntax></query>";
-        result += "</ProcessCoveragesRequest>";
+        result += "</" + WCPSConstants.XML_SYNTAX + "></" + WCPSConstants.QUERY + ">";
+        result += "</" + WCPSConstants.PROCESS_COVERAGE_REQUEST + ">";
 
         return result;
     }

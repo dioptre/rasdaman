@@ -23,6 +23,7 @@ package petascope.wcps.grammar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import petascope.util.WCPSConstants;
 
 /**
  * SetMetaDataExpr
@@ -80,12 +81,13 @@ public class SetMetaDataExpr implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        if (function.equalsIgnoreCase("setIdentifier")) {
-            result += "<identifier>" + field + "</identifier>";
+        if (function.equalsIgnoreCase(WCPSConstants.SET_IDENTIFIER)) {
+            result += "<" + WCPSConstants.IDENTIFIER + ">" + field + "</" + WCPSConstants.IDENTIFIER + ">";
             result += expr.toXML();
 
-            result = "<setIdentifier>" + result + "</setIdentifier>";
-        } else if (function.equalsIgnoreCase("setCrsSet")) {
+            result = "<" + WCPSConstants.SET_IDENTIFIER + ">" + result + "</" + 
+                    WCPSConstants.SET_IDENTIFIER + ">";
+        } else if (function.equalsIgnoreCase(WCPSConstants.SET_CRSSET)) {
             result += expr.toXML();
 
             if (param != null) {

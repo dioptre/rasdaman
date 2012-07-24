@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 /**
  * InterpolationMethod
  *
@@ -38,8 +40,10 @@ public class InterpolationMethod implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        result += "<interpolationMethod>" + interp + "</interpolationMethod>";
-        result += "<nullResistance>" + resistance + "</nullResistance>";
+        result += "<" + WCPSConstants.INTERPOLATION_METHOD + ">" + interp + "</" + 
+                WCPSConstants.INTERPOLATION_METHOD + ">";
+        result += "<" + WCPSConstants.NULL_RESISTANCE + ">" + resistance + "</" + 
+                WCPSConstants.NULL_RESISTANCE + ">";
         return result;
     }
 }

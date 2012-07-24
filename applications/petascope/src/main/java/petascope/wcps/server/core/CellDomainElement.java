@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.WCPSException;
+import petascope.util.WCPSConstants;
 import petascope.wcs2.parsers.GetCoverageRequest;
 
 //A coverage axis in pixel coordinates. See the WCPS standard.
@@ -42,14 +43,14 @@ public class CellDomainElement implements Cloneable {
     public CellDomainElement(BigInteger lo, BigInteger hi, String dimname) throws WCPSException {
         if ((lo == null) || (hi == null)) {
             throw new WCPSException(ExceptionCode.InvalidMetadata, 
-                    "Invalid cell domain element: Bounds may not be null");
+                    WCPSConstants.INVALID_CELL_DOMAIN);
         }
 
         if (lo.compareTo(hi) == 1) {
             throw new WCPSException(ExceptionCode.InvalidMetadata, 
-                    "Invalid cell domain element: Lower bound " + lo + " cannot be larger than upper bound " + hi);
+                    WCPSConstants.INVALID_CELL_DOMAIN_LOWER + " " + lo + " " + WCPSConstants.CNNOT_BE_LARGER + " " + hi);
         }
-        log.trace("cell domain " + lo + ":" + hi);
+        log.trace(WCPSConstants.CELL_DOMAIN + " " + lo + ":" + hi);
 
         this.lo = lo;
         this.hi = hi;
@@ -64,7 +65,7 @@ public class CellDomainElement implements Cloneable {
                     BigInteger.ZERO.add(hi), name);
         } catch (WCPSException ime) {
             throw new RuntimeException(
-                    "Invalid metadata while cloning CellDomainElement. This is a software bug in WCPS.",
+                    WCPSConstants.INVALID_METADATA,
                     ime);
         }
 
@@ -90,7 +91,7 @@ public class CellDomainElement implements Cloneable {
 
     @Override
     public String toString() {
-        String result = "CellDomainElement [" + lo + ", " + hi + "]";
+        String result = WCPSConstants.CELL_DOMAIN_ELEMENT + " [" + lo + ", " + hi + "]";
         return result;
     }
 

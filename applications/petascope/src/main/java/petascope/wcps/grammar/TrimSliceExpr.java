@@ -25,6 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import petascope.util.WCPSConstants;
 
 /**
  * Subset containing mixed trim/slicing
@@ -39,13 +40,13 @@ public class TrimSliceExpr implements IParseTreeNode {
     List<IParseTreeNode> subsets;
 
     public TrimSliceExpr(CoverageExpr ce) {
-        log.trace("create");
+        log.trace(WCPSConstants.CREATE);
         expr = ce;
         subsets = new LinkedList<IParseTreeNode>();
     }
     
     public void add(IParseTreeNode n) {
-        log.trace("add subset");
+        log.trace(WCPSConstants.ADD_SUBSET);
         subsets.add(n);
     }
 
@@ -54,9 +55,9 @@ public class TrimSliceExpr implements IParseTreeNode {
         String type = null;
         for (IParseTreeNode n : subsets) {
             if (n instanceof DimensionPointElement) {
-                type = "slice";
+                type = WCPSConstants.SLICE;
             } else if (n instanceof DimensionIntervalElement) {
-                type = "trim";
+                type = WCPSConstants.TRIM;
             }
             ret = "<" + type + ">" + ret + n.toXML() + "</" + type + ">";
         }

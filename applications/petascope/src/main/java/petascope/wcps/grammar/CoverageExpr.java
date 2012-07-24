@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 
 /**
  * CoverageExpr
@@ -36,23 +38,23 @@ public class CoverageExpr implements IParseTreeNode {
 
     public CoverageExpr(IParseTreeNode n) {
         expr = n;
-        function = "child";
+        function = WCPSConstants.CHILD;
     }
 
     public CoverageExpr(String n) {
         coverageName = n;
-        function = "coverage";
+        function = WCPSConstants.COVERAGE;
     }
 
     /* Unary Induced Expressions */
     public CoverageExpr(String op, CoverageExpr ce) {
         expr = ce;
-        function = "unaryOp";
+        function = WCPSConstants.UNIARY_OP;
         this.op = op;
     }
 
     public CoverageExpr(String op, CoverageExpr e1, CoverageExpr e2) {
-        function = "binaryOp";
+        function = WCPSConstants.BINARY_OP;
         this.op = op;
         this.e1 = e1;
         this.e2 = e2;
@@ -62,21 +64,22 @@ public class CoverageExpr implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        if (function.equals("coverage")) {
-            result = "<coverage>" + coverageName + "</coverage>";
-        } else if (function.equals("binaryOp")) {
+        if (function.equals(WCPSConstants.COVERAGE)) {
+            result = "<" + WCPSConstants.COVERAGE + ">" + coverageName + "</" + 
+                    WCPSConstants.COVERAGE + ">";
+        } else if (function.equals(WCPSConstants.BINARY_OP)) {
             formatOperation();
             result = "<" + op + ">" + e1.toXML() + e2.toXML() + "</" + op + ">";
-        } else if (function.equals("unaryOp")) {
+        } else if (function.equals(WCPSConstants.UNIARY_OP)) {
             formatOperation();
-            if (op.equals("plus")) {
-                op = "unaryPlus";
+            if (op.equals(WCPSConstants.PLUS_S)) {
+                op = WCPSConstants.UNIARY_PLUS;
             }
-            if (op.equals("minus")) {
-                op = "unaryMinus";
+            if (op.equals(WCPSConstants.MINUS)) {
+                op = WCPSConstants.UNIARY_MINUS;
             }
             result = "<" + op + ">" + expr.toXML() + "</" + op + ">";
-        } else if (function.equals("child")) {
+        } else if (function.equals(WCPSConstants.CHILD)) {
             result = expr.toXML();
         }
 
@@ -84,17 +87,17 @@ public class CoverageExpr implements IParseTreeNode {
     }
 
     private void formatOperation() {
-        if (op.equals("+")) {
-            op = "plus";
+        if (op.equals(WCPSConstants.PLUS)) {
+            op = WCPSConstants.PLUS_S;
         }
-        if (op.equals("-")) {
-            op = "minus";
+        if (op.equals(WCPSConstants.MINUS)) {
+            op = WCPSConstants.MINUS_S;
         }
-        if (op.equals("*")) {
-            op = "mult";
+        if (op.equals(WCPSConstants.STAR)) {
+            op = WCPSConstants.MULT;
         }
-        if (op.equals("/")) {
-            op = "div";
+        if (op.equals(WCPSConstants.DIV)) {
+            op = WCPSConstants.DIV_S;
         }
 
         // AND, OR, XOR stay the same

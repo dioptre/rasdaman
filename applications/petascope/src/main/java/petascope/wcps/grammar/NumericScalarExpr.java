@@ -23,6 +23,7 @@ package petascope.wcps.grammar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import petascope.util.WCPSConstants;
 
 /**
  * NumericScalarExpr
@@ -39,82 +40,82 @@ public class NumericScalarExpr implements IParseTreeNode {
     NumericScalarExpr leftNumericScalarExpr, rightNumericScalarExpr;
 
     public NumericScalarExpr(CondenseExpr c) {
-        log.trace("NumericScalarExpr condense");
+        log.trace(WCPSConstants.NUMERIC_SCALAR_EXPR_CONDENSE);
         condense = c;
-        function = "condense";
+        function = WCPSConstants.CONDENSE;
     }
 
     public NumericScalarExpr(String val) {
-        log.trace("NumericScalarExpr " + val);
-        if (val.contains("+i")) {
+        log.trace(WCPSConstants.NUMERIC_SCALAR_EXPR + " " + val);
+        if (val.contains(WCPSConstants.PLUS_I)) {
             ComplexConst cc = new ComplexConst(val);
 
             constValue = cc.toXML();
-            function = "complexConstant";
+            function = WCPSConstants.COMPLEX_CONSTANT;
         } else {
             constValue = val;
-            function = "numericConstant";
+            function = WCPSConstants.NUMERIC_CONSTANT;
         }
     }
 
     public NumericScalarExpr(String op, NumericScalarExpr expr) {
-        log.trace("NumericScalarExpr " + op + " num");
+        log.trace(WCPSConstants.NUMERIC_SCALAR_EXPR + " " + op + " "+ WCPSConstants.NUM);
         leftNumericScalarExpr = expr;
 
         if (op.equals("-")) {
-            function = "numericUnaryMinus";
+            function = WCPSConstants.NUMERIC_UNARY_MINUS;
         } else
-        if (op.equals("sqrt")) {
-            function = "numericSqrt";
+        if (op.equals(WCPSConstants.SQRT)) {
+            function = WCPSConstants.NUMERIC_SQRT;
         } else
-        if (op.equals("abs")) {
-            function = "numericAbs";
+        if (op.equals(WCPSConstants.ABS)) {
+            function = WCPSConstants.NUMERIC_ABS;
         } else {
-            log.error("Unary Operator " + op + " is not recognized!");
+            log.error(WCPSConstants.UNIARY_OPERATOR + " " + op + " " + WCPSConstants.IS_NOT_RECOGNIZED);
         }
     }
 
     public NumericScalarExpr(String varOp, String varName) {
-        log.trace("NumericScalarExpr " + varOp + ", " + varName);
-        if (varOp.equals("var")) {
-            function = "variableRef";
+        log.trace(WCPSConstants.NUMERIC_SCALAR_EXPR + " " + varOp + ", " + varName);
+        if (varOp.equals(WCPSConstants.VAR)) {
+            function = WCPSConstants.VARIABLE_REF;
             constValue = varName;
         } else {
-            log.error("Internal error: this should have been a variable name:" + varName);
+            log.error(WCPSConstants.INTERNAL_ERROR_THIS + ":" + varName);
         }
     }
 
     public NumericScalarExpr(String op, NumericScalarExpr lbe, NumericScalarExpr rbe) {
-        log.trace("NumericScalarExpr a " + op + " b");
+        log.trace(WCPSConstants.NUMERIC_SCALAR_EXPR + " " + WCPSConstants.A + " " + op + " " + WCPSConstants.B);
         leftNumericScalarExpr = lbe;
         rightNumericScalarExpr = rbe;
 
-        if (op.equals("+")) {
-            function = "numericAdd";
-        } else if (op.equals("-")) {
-            function = "numericMinus";
-        } else if (op.equals("*")) {
-            function = "numericMult";
-        } else if (op.equals("/")) {
-            function = "numericDiv";
+        if (op.equals(WCPSConstants.PLUS)) {
+            function = WCPSConstants.NUMERIC_ADD;
+        } else if (op.equals(WCPSConstants.MINUS)) {
+            function = WCPSConstants.NUMERIC_MINUS;
+        } else if (op.equals(WCPSConstants.MULT)) {
+            function = WCPSConstants.NUMERIC_MULT;
+        } else if (op.equals(WCPSConstants.DIV)) {
+            function = WCPSConstants.NUMERIC_DIV;
         } else {
-            log.error("Operator " + op + " is not recognized!");
+            log.error(WCPSConstants.OPERATOR + " " + op + " " + WCPSConstants.IS_NOT_RECOGNIZED);
         }
     }
 
     public String toXML() {
         String result;
 
-        if (function.equals("complexConstant")) {
+        if (function.equals(WCPSConstants.COMPLEX_CONSTANT)) {
             return constValue;
         }
-        if (function.equals("condense")) {
+        if (function.equals(WCPSConstants.CONDENSE)) {
             return condense.toXML();
         }
 
         result = "<" + function + ">";
 
-        if (function.equals("numericConstant") || function.equals("variableRef")) {
+        if (function.equals(WCPSConstants.NUMERIC_CONSTANT) || function.equals(WCPSConstants.VARIABLE_REF)) {
             result += constValue;
         } else {
             result += leftNumericScalarExpr.toXML();

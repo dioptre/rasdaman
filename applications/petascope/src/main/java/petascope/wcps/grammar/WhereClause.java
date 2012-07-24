@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 /* Author: Sorin Stancu-Mara, Andrei Aiordachioaie
 Date: 7 Feb 2007
  */
@@ -33,6 +35,6 @@ public class WhereClause implements IParseTreeNode {
     }
 
     public String toXML() {
-        return "<where>" + expr.toXML() + "</where>";
+        return "<" + WCPSConstants.WHERE + ">" + expr.toXML() + "</" + WCPSConstants.WHERE + ">";
     }
 }

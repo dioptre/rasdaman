@@ -23,6 +23,7 @@ package petascope.wcps.grammar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import petascope.util.WCPSConstants;
 
 /**
  * IndexExpr
@@ -39,24 +40,24 @@ public class IndexExpr implements IParseTreeNode {
     String op;
 
     public IndexExpr(String constant) {
-        log.trace("IndexExpr: " + constant);
-        function = "constant";
+        log.trace(WCPSConstants.INDEX_EXPR + ": " + constant);
+        function = WCPSConstants.CONSTANT;
         this.constant = constant;
     }
 
     public IndexExpr(String op, NumericScalarExpr e1) {
-        log.trace("IndexExpr: " + op + " num");
+        log.trace(WCPSConstants.INDEX_EXPR + ": " + op + " " + WCPSConstants.NUM);
         this.op = op;
         this.e1 = e1;
-        function = "op1";
+        function = WCPSConstants.OP1;
     }
 
     public IndexExpr(String op, IndexExpr e1, IndexExpr e2) {
-        log.trace("IndexExpr: a " + op + " b");
+        log.trace(WCPSConstants.INDEX_EXPR + ": " + WCPSConstants.A + " " + op + " " + WCPSConstants.B);
         this.op = op;
         this.e1 = e1;
         this.e2 = e2;
-        function = "op2";
+        function = WCPSConstants.OP2;
     }
 
     public String toXML() {
@@ -64,11 +65,12 @@ public class IndexExpr implements IParseTreeNode {
         String tag1 = "<" + op + ">",
                 tag2 = "</" + op + ">";
 
-        if (function.equals("constant")) {
-            result = "<numericConstant>" + constant + "</numericConstant>";
-        } else if (function.equals("op1")) {
+        if (function.equals(WCPSConstants.CONSTANT)) {
+            result = "<" + WCPSConstants.NUMERIC_CONSTANT + ">" + constant + "</" + 
+                    WCPSConstants.NUMERIC_CONSTANT + ">";
+        } else if (function.equals(WCPSConstants.OP1)) {
             result = tag1 + e1.toXML() + tag2;
-        } else if (function.equals("op2")) {
+        } else if (function.equals(WCPSConstants.OP2)) {
             result = tag1 + e1.toXML() + e2.toXML() + tag2;
         }
 

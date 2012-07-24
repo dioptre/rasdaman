@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 /**
  * CoverageList class represents a CoverageList.
  * Creation date: (3/3/2003 2:52:55 AM)
@@ -42,7 +44,8 @@ public class CoverageList implements IParseTreeNode {
     }
 
     public String toXML() {
-        String result = "<coverageName>" + coverageName + "</coverageName>";
+        String result = "<" + WCPSConstants.COVERAGE_NAME + ">" + coverageName + "</" 
+                + WCPSConstants.COVERAGE_NAME +">";
 
         if (next != null) {
             result += next.toXML();

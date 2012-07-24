@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 /**
  * SelectExpr
  * Creation date: (3/3/2003 2:28:43 AM)
@@ -42,11 +44,12 @@ public class SelectExpr implements IParseTreeNode {
     }
 
     public String toXML() {
-        String result = "<fieldSelect>";
+        String result = "<" + WCPSConstants.FIELD_SELECT + ">";
 
         result += coverageExpr.toXML();
-        result += "<field><name>" + field + "</name></field>";
-        result += "</fieldSelect>";
+        result += "<" + WCPSConstants.FIELD + "><" + WCPSConstants.NAME + ">" + 
+                field + "</" + WCPSConstants.NAME + "></" + WCPSConstants.FIELD + ">";
+        result += "</" + WCPSConstants.FIELD_SELECT + ">";
         return result;
     }
 }

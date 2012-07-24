@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 /**
  * RangeExpr
  *
@@ -42,9 +44,9 @@ public class RangeExpr implements IParseTreeNode {
     public void add(String field, ScalarExpr expr) {
         String tmp = "";
 
-        tmp += "<field>" + field + "</field>";
+        tmp += "<" + WCPSConstants.FIELD + ">" + field + "</" + WCPSConstants.FIELD + ">";
         tmp += expr.toXML();
-        xml += "<component>" + tmp + "</component>";
+        xml += "<" + WCPSConstants.COMPONENT + ">" + tmp + "</" + WCPSConstants.COMPONENT + ">";
     }
 
     public String toXML() {

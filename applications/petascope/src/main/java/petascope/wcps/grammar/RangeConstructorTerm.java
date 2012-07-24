@@ -21,6 +21,8 @@
  */
 package petascope.wcps.grammar;
 
+import petascope.util.WCPSConstants;
+
 /**
  * RangeConstructorTerm, part of a RangeConstructorExpr
  *
@@ -39,10 +41,10 @@ public class RangeConstructorTerm implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        result += "<field>" + field + "</field>";
+        result += "<" + WCPSConstants.FIELD + ">" + field + "</" + WCPSConstants.FIELD + ">";
         result += expr.toXML();
 
-        result = "<component>" + result + "</component>";
+        result = "<" + WCPSConstants.COMPONENT + ">" + result + "</" + WCPSConstants.COMPONENT + ">";
         return result;
     }
 }
