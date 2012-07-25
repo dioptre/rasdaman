@@ -135,12 +135,7 @@ int main ( int argc, char** argv )
                    << "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
                    << "GNU General Public License for more details. \n\n";
 
-    RMInit::logOut << "This program contains software which is in the public domain:" << endl;
-    RMInit::logOut << "  zlib 1.1.4 (C) 1995-1998 Jean-loup Gailly and Mark Adler" << endl;
-    RMInit::logOut << "  libpng 1.2.1 (C) 2002 Glenn Randers-Pehrson" << endl;
-    RMInit::logOut << "  libtiff 3.8.0 (C) 1988-1997 Sam Leffler, (C) 1991-1997 Silicon Graphics, Inc." << endl;
-    RMInit::logOut << "  libjpeg 6b (C) 1991-1998, Thomas G. Lane." << endl;
-    RMInit::logOut << "  openssl 0.96c (C) 1998-2002 The OpenSSL Project, (C) 1995-1998 Eric A. Young, Tim J. Hudson" << endl;
+    RMInit::logOut << "To obtain a list of external packages used, please visit www.rasdaman.org." << endl;
 
     if(initialization() == false )
     {

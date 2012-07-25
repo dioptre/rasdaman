@@ -106,8 +106,7 @@ public class PetascopeInterface extends HttpServlet {
         log.info("Petascope {} starting", ConfigManager.PETASCOPE_VERSION);
         
         // External libraries licensing issues
-        log.info("This program contains software which is in the public domain:");
-        log.info("date4j (C) 2002-2011, Hirondelle Systems");
+        log.info("To obtain a list of external packages used, please visit www.rasdaman.org .");
         
         // Force GeoTools referencing libraries to X->Y ordered CRSs
         System.setProperty("org.geotools.referencing.forceXY", "true");
