@@ -45,6 +45,7 @@ AC_CHECK_LIB([jpeg], [main], , [AC_MSG_FAILURE([libjpeg.a not found! Please inst
 AC_CHECK_LIB([ncurses], [main], , [AC_MSG_FAILURE([libncurses.a not found! Please install.])])
 AC_CHECK_LIB([png], [png_write_row], , [AC_MSG_FAILURE([libpng.a not found! Please install.])])
 AC_CHECK_LIB([netpbm], [ppm_readppm], , [AC_MSG_FAILURE([libnetpbm.a not found! Please install.])])
+AC_CHECK_LIB([dfalt], [main], , [AC_MSG_FAILURE([libdf.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lreadline':
 AC_CHECK_LIB([readline], [main], , [AC_MSG_FAILURE([libreadline.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lsocket':
@@ -180,8 +181,8 @@ AC_ARG_WITH([hdf4],
 AC_MSG_NOTICE(using hdf4 library...$with_hdf4)
 
 if test "$with_hdf4" == yes; then
-  AC_CHECK_LIB([df], [main], ,[AC_MSG_FAILURE([--with-hdf4 was given but libdf.a was not found! Please install.])]) 
-  AC_CHECK_LIB([mfhdf], [main], ,[AC_MSG_FAILURE([--with-hdf4 was given but libmfhdf.a was not found! Please install.])])
+  AC_CHECK_LIB([df], [main], ,[AC_CHECK_LIB([dfalt], [main], ,[AC_MSG_FAILURE([--with-hdf4 was given but libhdf was not found! Please install libhdf or libhdf-alt.])])]) 
+  AC_CHECK_LIB([mfhdf], [main], ,[AC_CHECK_LIB([mfhdfalt], [main], ,[AC_MSG_FAILURE([--with-hdf4 was given but libhdf was not found! Please install libhdf or libhdf-alt.])])])
   AC_DEFINE([HAVE_HDF], [1]) 
 fi
 
