@@ -48,7 +48,7 @@ libraslib_a_SOURCES= sinterval.hh dlist.hh point.hh minterval.hh error.hh \
                      oid.cc scalar.cc primitive.cc structure.cc miter.cc mddtypes.cc \
                      miterd.cc mitera.cc memblockvec.cc parseparams.cc storageman.cc \
                      endian.cc flatbasetype.cc complex.cc complextype.cc shhopt.c \
-                     complex.icc complextype.icc error.icc minterval.icc miterd.icc miterf.icc \
+                     error.icc minterval.icc miterd.icc miterf.icc \
                      miter.icc oid.icc point.icc rmdebug.icc sinterval.icc \
                      rmdebug.hh rm.hh odmgtypes.hh miterf.hh template_inst.hh
 

@@ -1,7 +1,7 @@
 %global rasdir /var/lib/rasdaman
 Name:           rasdaman
-Version:        8.3.0
-Release:        0%{?dist}
+Version:        8.3.1
+Release:        1%{?dist}
 Summary:        rasdaman - Raster Data Manager
 
 Group:          Applications/Databases
@@ -15,11 +15,37 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %endif
 
-BuildRequires: bison libtiff-devel hdf-devel libjpeg-devel readline-devel zlib-devel libpng-devel netpbm-devel openssl-devel flex postgresql-devel doxygen netcdf-devel gdal-devel java-1.6.0-openjdk
+BuildRequires: bison
+BuildRequires: libtiff-devel
+BuildRequires: hdf-devel
+BuildRequires: libjpeg-devel
+BuildRequires: readline-devel
+BuildRequires: zlib-devel
+BuildRequires: libpng-devel
+BuildRequires: netpbm-devel
+BuildRequires: openssl-devel
+BuildRequires: flex
+BuildRequires: postgresql-devel
+BuildRequires: doxygen
+BuildRequires: netcdf-devel
+BuildRequires: gdal-devel
+BuildRequires: java-1.6.0-openjdk-devel
 
 Requires(pre): /usr/sbin/useradd
 Requires(post): chkconfig
-Requires:      libtiff hdf libjpeg ncurses readline zlib libpng netpbm openssl postgresql-server netcdf
+Requires: libtiff
+Requires: hdf
+Requires: libjpeg
+Requires: ncurses
+Requires: readline
+Requires: zlib
+Requires: libpng
+Requires: netpbm
+Requires: openssl
+Requires: postgresql-server
+Requires: netcdf
+Requires: gdal
+
 Provides: rasserver
 
 %description
@@ -114,8 +140,10 @@ allow developers to create user interfaces for displaying data from a raster dat
 %setup -q
 
 %build
+mv configure.ac configure.ac.dirty
+cat configure.ac.dirty | grep -v wms-import > configure.ac
 autoreconf -fi
-CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive" CXX="g++ -L%{_libdir}/hdf -I/usr/include/gdal -I/usr/include/netpbm -fpermissive" \
+CC="gcc -L%{_libdir}/hdf -I/usr/include/netpbm -fpermissive -g -O2" CXX="g++ -L%{_libdir}/hdf -I/usr/include/gdal -I/usr/include/netpbm -fpermissive -g -O2" \
 	./configure \
 		--prefix=/usr \
 		--docdir=%{_docdir}/rasdaman \
@@ -292,6 +320,10 @@ fi
 %{_datadir}/rasdaman/raswct
 
 %changelog
+
+* Mon Jul 26  2012 Konstantin Kozlov <mackoel@gmail.com> - 8.3.1
+
+- Added gdal to Requires
 
 * Wed Jul 11  2012 Dimitar Misev <misev@rasdaman.com> - 8.3.1
 

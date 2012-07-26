@@ -30,4 +30,4 @@
 ##################################################################
 
 lib_LIBRARIES = libtilemgr.a
-libtilemgr_a_SOURCES = tile.cc tile.hh tile.icc tiler.cc tiler.hh
+libtilemgr_a_SOURCES = tile.cc tile.hh tiler.cc tiler.hh

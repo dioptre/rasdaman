@@ -202,10 +202,11 @@ all: war
 	
 EXTRA_DIST = \
 	build.xml \
-	db \
 	INSTALL \
 	lib \
 	LICENCE \
+	Makefile.am \
+	Makefile.in \
 	Makefile \
 	nbproject \
 	README \

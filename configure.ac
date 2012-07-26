@@ -3,8 +3,8 @@
 
 AC_PREREQ(2.61)
 # CAVEAT: in the following two lines keep version numbers in sync!
-AC_INIT(Rasdaman, 8.3.0, baumann@rasdaman.com)
-RMANVERSION=8300
+AC_INIT(Rasdaman, 8.3.1, baumann@rasdaman.com)
+RMANVERSION=8310
 AM_INIT_AUTOMAKE([1.9 tar-pax])
 # Define CXXFLAGS before AC_PROG_CXX or it will automatically add -g -O2 on some systems
 CXXFLAGS=
@@ -45,7 +45,7 @@ AC_CHECK_LIB([jpeg], [main], , [AC_MSG_FAILURE([libjpeg.a not found! Please inst
 AC_CHECK_LIB([ncurses], [main], , [AC_MSG_FAILURE([libncurses.a not found! Please install.])])
 AC_CHECK_LIB([png], [png_write_row], , [AC_MSG_FAILURE([libpng.a not found! Please install.])])
 AC_CHECK_LIB([netpbm], [ppm_readppm], , [AC_MSG_FAILURE([libnetpbm.a not found! Please install.])])
-AC_CHECK_LIB([dfalt], [main], , [AC_MSG_FAILURE([libdf.a not found! Please install.])])
+# AC_CHECK_LIB([dfalt], [main], , [AC_MSG_FAILURE([libdf.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lreadline':
 AC_CHECK_LIB([readline], [main], , [AC_MSG_FAILURE([libreadline.a not found! Please install.])])
 # FIXME: Replace `main' with a function in `-lsocket':
@@ -119,7 +119,6 @@ AC_CONFIG_FILES([Makefile
                  raslib/Makefile
                  raslib/test/Makefile
                  clientcomm/Makefile
-		 compression/Makefile
                  servercomm/Makefile
                  rasodmg/Makefile
                  qlparser/Makefile
