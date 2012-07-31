@@ -67,14 +67,14 @@ public class BooleanScalarExpr implements IParseTreeNode {
 
     public String toXML() {
         if (op == null) {
-            return "<" + WCPSConstants.BOOLEAN_CONSTANT + ">" + booleanConstant + "</" +
-                    WCPSConstants.BOOLEAN_CONSTANT + ">";
-        } else if (op.equals(WCPSConstants.NOT)) {
-            return "<" + WCPSConstants.BOOLEAN_NOT + ">" + left.toXML() + "</" + 
-                    WCPSConstants.BOOLEAN_NOT + ">";
-        } else if (op.equals(WCPSConstants.BIT)) {
-            return "<" + WCPSConstants.BIT + ">" + left.toXML() + right.toXML() + 
-                    "</" + WCPSConstants.BIT + ">";
+            return "<" + WCPSConstants.MSG_BOOLEAN_CONSTANT + ">" + booleanConstant + "</" +
+                    WCPSConstants.MSG_BOOLEAN_CONSTANT + ">";
+        } else if (op.equals(WCPSConstants.MSG_NOT)) {
+            return "<" + WCPSConstants.MSG_BOOLEAN_NOT + ">" + left.toXML() + "</" + 
+                    WCPSConstants.MSG_BOOLEAN_NOT + ">";
+        } else if (op.equals(WCPSConstants.MSG_BIT)) {
+            return "<" + WCPSConstants.MSG_BIT + ">" + left.toXML() + right.toXML() + 
+                    "</" + WCPSConstants.MSG_BIT + ">";
         } else {
             if (this.left != null) {
                 node1 = this.left.toXML();
@@ -84,25 +84,25 @@ public class BooleanScalarExpr implements IParseTreeNode {
                 node2 = this.right.toXML();
             }
 
-            if (op.equals(WCPSConstants.AND)) {
-                op = WCPSConstants.BOOLEAN_AND;
-            } else if (op.equals(WCPSConstants.OR)) {
-                op = WCPSConstants.BOOLEAN_OR;
-            } else if (op.equals(WCPSConstants.XOR)) {
-                op = WCPSConstants.BOOLEAN_XOR;
+            if (op.equals(WCPSConstants.MSG_AND)) {
+                op = WCPSConstants.MSG_BOOLEAN_AND;
+            } else if (op.equals(WCPSConstants.MSG_OR)) {
+                op = WCPSConstants.MSG_BOOLEAN_OR;
+            } else if (op.equals(WCPSConstants.MSG_XOR)) {
+                op = WCPSConstants.MSG_BOOLEAN_XOR;
 
-            } else if (op.equals(WCPSConstants.EQUALS)) {
-                op = WCPSConstants.BOOLEAN_EQUALNUMERIC;
-            } else if (op.equals(WCPSConstants.NOT_EQUALS)) {
-                op = WCPSConstants.BOOLEAN_NOTEQUALNUMERIC;
-            } else if (op.equals(WCPSConstants.LESS_THAN)) {
-                op = WCPSConstants.BOOLEAN_LESSTHAN;
-            } else if (op.equals(WCPSConstants.GREATER_THAN)) {
-                op = WCPSConstants.BOOLEAN_GREATERTHAN;
-            } else if (op.equals(WCPSConstants.LESS_OR_EQUAL)) {
-                op = WCPSConstants.BOOLEAN_LESSOREQUAL;
-            } else if (op.equals(WCPSConstants.GREATER_OR_EQUAL)) {
-                op = WCPSConstants.BOOLEAN_GREATEROREQUAL;
+            } else if (op.equals(WCPSConstants.MSG_EQUALS)) {
+                op = WCPSConstants.MSG_BOOLEAN_EQUALNUMERIC;
+            } else if (op.equals(WCPSConstants.MSG_NOT_EQUALS)) {
+                op = WCPSConstants.MSG_BOOLEAN_NOTEQUALNUMERIC;
+            } else if (op.equals(WCPSConstants.MSG_LESS_THAN)) {
+                op = WCPSConstants.MSG_BOOLEAN_LESSTHAN;
+            } else if (op.equals(WCPSConstants.MSG_GREATER_THAN)) {
+                op = WCPSConstants.MSG_BOOLEAN_GREATERTHAN;
+            } else if (op.equals(WCPSConstants.MSG_LESS_OR_EQUAL)) {
+                op = WCPSConstants.MSG_BOOLEAN_LESSOREQUAL;
+            } else if (op.equals(WCPSConstants.MSG_GREATER_OR_EQUAL)) {
+                op = WCPSConstants.MSG_BOOLEAN_GREATEROREQUAL;
             }
 
             return "<" + op + ">" + node1 + node2 + "</" + op + ">";

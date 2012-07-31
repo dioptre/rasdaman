@@ -43,14 +43,14 @@ public class CellDomainElement implements Cloneable {
     public CellDomainElement(BigInteger lo, BigInteger hi, String dimname) throws WCPSException {
         if ((lo == null) || (hi == null)) {
             throw new WCPSException(ExceptionCode.InvalidMetadata, 
-                    WCPSConstants.INVALID_CELL_DOMAIN);
+                    WCPSConstants.ERRTXT_INVALID_CELL_DOMAIN);
         }
 
         if (lo.compareTo(hi) == 1) {
             throw new WCPSException(ExceptionCode.InvalidMetadata, 
-                    WCPSConstants.INVALID_CELL_DOMAIN_LOWER + " " + lo + " " + WCPSConstants.CNNOT_BE_LARGER + " " + hi);
+                    WCPSConstants.ERRTXT_INVALID_CELL_DOMAIN_LOWER + " " + lo + " " + WCPSConstants.ERRTXT_CANNOT_BE_LARGER + " " + hi);
         }
-        log.trace(WCPSConstants.CELL_DOMAIN + " " + lo + ":" + hi);
+        log.trace(WCPSConstants.MSG_CELL_DOMAIN + " " + lo + ":" + hi);
 
         this.lo = lo;
         this.hi = hi;
@@ -65,7 +65,7 @@ public class CellDomainElement implements Cloneable {
                     BigInteger.ZERO.add(hi), name);
         } catch (WCPSException ime) {
             throw new RuntimeException(
-                    WCPSConstants.INVALID_METADATA,
+                    WCPSConstants.ERRTXT_INVALID_METADATA,
                     ime);
         }
 
@@ -91,7 +91,7 @@ public class CellDomainElement implements Cloneable {
 
     @Override
     public String toString() {
-        String result = WCPSConstants.CELL_DOMAIN_ELEMENT + " [" + lo + ", " + hi + "]";
+        String result = WCPSConstants.MSG_CELL_DOMAIN_ELEMENT + " [" + lo + ", " + hi + "]";
         return result;
     }
 

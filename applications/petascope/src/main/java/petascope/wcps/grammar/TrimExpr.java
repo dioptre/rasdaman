@@ -39,6 +39,6 @@ public class TrimExpr implements IParseTreeNode {
     }
 
     public String toXML() {
-        return "<" + WCPSConstants.TRIM + ">" + expr.toXML() + list.toXML() + "</" + WCPSConstants.TRIM + ">";
+        return "<" + WCPSConstants.MSG_TRIM + ">" + expr.toXML() + list.toXML() + "</" + WCPSConstants.MSG_TRIM + ">";
     }
 }

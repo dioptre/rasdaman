@@ -62,22 +62,22 @@ public class EncodedCoverageExpr implements IParseTreeNode {
         String result = "";
 
         if (store) {
-            result = "<" + WCPSConstants.ENCODE + " " + WCPSConstants.STORE + 
-                    "=\"" + WCPSConstants.TRUE + "\">";
+            result = "<" + WCPSConstants.MSG_ENCODE + " " + WCPSConstants.MSG_STORE + 
+                    "=\"" + WCPSConstants.MSG_TRUE + "\">";
         } else {
-            result = "<" + WCPSConstants.ENCODE + " " + WCPSConstants.STORE + 
-                    "=\"" + WCPSConstants.FALSE + "\">";
+            result = "<" + WCPSConstants.MSG_ENCODE + " " + WCPSConstants.MSG_STORE + 
+                    "=\"" + WCPSConstants.MSG_FALSE + "\">";
         }
 
         result += expr.toXML();
-        result += "<" + WCPSConstants.FORMAT + ">" + format + "</" + WCPSConstants.FORMAT + ">";
+        result += "<" + WCPSConstants.MSG_FORMAT + ">" + format + "</" + WCPSConstants.MSG_FORMAT + ">";
 
         if (extraParams != null) {
-            result += "<" + WCPSConstants.EXTRA_PARAMETERS + ">" + extraParams + "</" + 
-                    WCPSConstants.EXTRA_PARAMETERS + ">";
+            result += "<" + WCPSConstants.MSG_EXTRA_PARAMETERS + ">" + extraParams + "</" + 
+                    WCPSConstants.MSG_EXTRA_PARAMETERS + ">";
         }
 
-        result += "</" + WCPSConstants.ENCODE + ">";
+        result += "</" + WCPSConstants.MSG_ENCODE + ">";
 
         return result;
     }

@@ -40,7 +40,7 @@ public class MetaDataExpr implements IParseTreeNode {
     IParseTreeNode param;
 
     public MetaDataExpr(DomainExpr dom) {
-        function = WCPSConstants.DOMAIN;
+        function = WCPSConstants.MSG_DOMAIN;
         param = dom;
     }
 
@@ -60,37 +60,37 @@ public class MetaDataExpr implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        if (function.equalsIgnoreCase(WCPSConstants.IMAGE_CRSDOMAIN)) {
-            result += "<" + WCPSConstants.IMAGE_CRSDOMAIN + ">";
+        if (function.equalsIgnoreCase(WCPSConstants.MSG_IMAGE_CRSDOMAIN)) {
+            result += "<" + WCPSConstants.MSG_IMAGE_CRSDOMAIN + ">";
             result += expr.toXML();
 
             if (field != null) {
-                result += "<" + WCPSConstants.AXIS + ">" + field + "</" + 
-                        WCPSConstants.AXIS + ">";
+                result += "<" + WCPSConstants.MSG_AXIS + ">" + field + "</" + 
+                        WCPSConstants.MSG_AXIS + ">";
             }
 
-            result += "</" + WCPSConstants.IMAGE_CRSDOMAIN + ">";
-        } else if (function.equalsIgnoreCase(WCPSConstants.DOMAIN)) {
-            result = "<" + WCPSConstants.DOMAIN_METADATA_CAMEL + ">" + param.toXML() + "</" + 
-                    WCPSConstants.DOMAIN_METADATA_CAMEL + ">";
-        } else if (function.equalsIgnoreCase(WCPSConstants.INTERPOLATION_DEFAULT)) {
-            result += "<" + WCPSConstants.INTERPOLATION_DEFAULT + ">";
+            result += "</" + WCPSConstants.MSG_IMAGE_CRSDOMAIN + ">";
+        } else if (function.equalsIgnoreCase(WCPSConstants.MSG_DOMAIN)) {
+            result = "<" + WCPSConstants.MSG_DOMAIN_METADATA_CAMEL + ">" + param.toXML() + "</" + 
+                    WCPSConstants.MSG_DOMAIN_METADATA_CAMEL + ">";
+        } else if (function.equalsIgnoreCase(WCPSConstants.MSG_INTERPOLATION_DEFAULT)) {
+            result += "<" + WCPSConstants.MSG_INTERPOLATION_DEFAULT + ">";
             result += expr.toXML();
-            result += "<" + WCPSConstants.NAME + ">" + param + "</" + WCPSConstants.PARAM + ">";
-            result += "</" + WCPSConstants.INTERPOLATION_DEFAULT + ">";
-        } else if (function.equalsIgnoreCase(WCPSConstants.INTERPOLATION_SET)) {
-            result += "<" + WCPSConstants.INTERPOLATION_SET + ">";
+            result += "<" + WCPSConstants.MSG_NAME + ">" + param + "</" + WCPSConstants.MSG_PARAM + ">";
+            result += "</" + WCPSConstants.MSG_INTERPOLATION_DEFAULT + ">";
+        } else if (function.equalsIgnoreCase(WCPSConstants.MSG_INTERPOLATION_SET)) {
+            result += "<" + WCPSConstants.MSG_INTERPOLATION_SET + ">";
             result += expr.toXML();
-            result += "<" + WCPSConstants.NAME + ">" + param + "</" + WCPSConstants.PARAM + ">";
-            result += "</" + WCPSConstants.INTERPOLATION_SET + ">";
-        } else if (function.equalsIgnoreCase(WCPSConstants.IDENTIFIER)
-                || function.equalsIgnoreCase(WCPSConstants.IMAGE_CRS) || function.equalsIgnoreCase(WCPSConstants.CRS_SET)
-                || function.equalsIgnoreCase(WCPSConstants.NULL_SET)) {
+            result += "<" + WCPSConstants.MSG_NAME + ">" + param + "</" + WCPSConstants.MSG_PARAM + ">";
+            result += "</" + WCPSConstants.MSG_INTERPOLATION_SET + ">";
+        } else if (function.equalsIgnoreCase(WCPSConstants.MSG_IDENTIFIER)
+                || function.equalsIgnoreCase(WCPSConstants.MSG_IMAGE_CRS) || function.equalsIgnoreCase(WCPSConstants.MSG_CRS_SET)
+                || function.equalsIgnoreCase(WCPSConstants.MSG_NULL_SET)) {
             result += "<" + function + ">";
             result += expr.toXML();
             result += "</" + function + ">";
         } else {
-            log.error(WCPSConstants.UNKNOWN_METADATAEXPR + ": " + function);
+            log.error(WCPSConstants.ERRTXT_UNKNOWN_METADATAEXPR + ": " + function);
         }
 
         return result;

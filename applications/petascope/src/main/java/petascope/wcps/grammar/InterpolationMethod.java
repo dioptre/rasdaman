@@ -40,10 +40,10 @@ public class InterpolationMethod implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        result += "<" + WCPSConstants.INTERPOLATION_METHOD + ">" + interp + "</" + 
-                WCPSConstants.INTERPOLATION_METHOD + ">";
-        result += "<" + WCPSConstants.NULL_RESISTANCE + ">" + resistance + "</" + 
-                WCPSConstants.NULL_RESISTANCE + ">";
+        result += "<" + WCPSConstants.MSG_INTERPOLATION_METHOD + ">" + interp + "</" + 
+                WCPSConstants.MSG_INTERPOLATION_METHOD + ">";
+        result += "<" + WCPSConstants.MSG_NULL_RESISTANCE + ">" + resistance + "</" + 
+                WCPSConstants.MSG_NULL_RESISTANCE + ">";
         return result;
     }
 }

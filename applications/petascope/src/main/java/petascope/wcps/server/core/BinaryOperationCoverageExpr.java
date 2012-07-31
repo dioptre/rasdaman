@@ -43,51 +43,51 @@ public class BinaryOperationCoverageExpr implements IRasNode, ICoverageInfo {
 
         boolean okay = false;    // will be true if the node is recognized
 
-        if (nodeName.equals(WCPSConstants.PLUS_S)) {
-            operation = WCPSConstants.PLUS;
+        if (nodeName.equals(WCPSConstants.MSG_PLUS_S)) {
+            operation = WCPSConstants.MSG_PLUS;
             okay = true;
-        } else if (nodeName.equals(WCPSConstants.MINUS_S)) {
-            operation = WCPSConstants.MINUS;
+        } else if (nodeName.equals(WCPSConstants.MSG_MINUS_S)) {
+            operation = WCPSConstants.MSG_MINUS;
             okay = true;
-        } else if (nodeName.equals(WCPSConstants.MULT)) {
-            operation = WCPSConstants.STAR;
+        } else if (nodeName.equals(WCPSConstants.MSG_MULT)) {
+            operation = WCPSConstants.MSG_STAR;
             okay = true;
-        } else if (nodeName.equals(WCPSConstants.DIV_S)) {
-            operation = WCPSConstants.DIV;
+        } else if (nodeName.equals(WCPSConstants.MSG_DIV_S)) {
+            operation = WCPSConstants.MSG_DIV;
             okay = true;
-        } else if (nodeName.equals(WCPSConstants.AND) || nodeName.equals(WCPSConstants.OR) || nodeName.equals("xor")) {
+        } else if (nodeName.equals(WCPSConstants.MSG_AND) || nodeName.equals(WCPSConstants.MSG_OR) || nodeName.equals("xor")) {
             operation = nodeName;
             okay = true;
-        } else if (nodeName.equals(WCPSConstants.EQUALS)) {
-            operation = WCPSConstants.EQUAL;
+        } else if (nodeName.equals(WCPSConstants.MSG_EQUALS)) {
+            operation = WCPSConstants.MSG_EQUAL;
             okay = true;
-        } else if (nodeName.equals(WCPSConstants.LESS_THAN)) {
+        } else if (nodeName.equals(WCPSConstants.MSG_LESS_THAN)) {
             operation = "<";
             okay = true;
-        } else if (nodeName.equals(WCPSConstants.GREATER_THAN)) {
+        } else if (nodeName.equals(WCPSConstants.MSG_GREATER_THAN)) {
             operation = ">";
             okay = true;
-        } else if (nodeName.equals(WCPSConstants.LESS_OR_EQUAL)) {
+        } else if (nodeName.equals(WCPSConstants.MSG_LESS_OR_EQUAL)) {
             operation = "<=";
             okay = true;
-        } else if (nodeName.equals(WCPSConstants.GREATER_OR_EQUAL)) {
+        } else if (nodeName.equals(WCPSConstants.MSG_GREATER_OR_EQUAL)) {
             operation = ">=";
             okay = true;
-        } else if (nodeName.equals(WCPSConstants.NOT_EQUALS)) {
+        } else if (nodeName.equals(WCPSConstants.MSG_NOT_EQUALS)) {
             operation = "!=";
             okay = true;
-        } else if (nodeName.equals(WCPSConstants.OVERLAY)) {
-            operation = WCPSConstants.OVERLAY;
+        } else if (nodeName.equals(WCPSConstants.MSG_OVERLAY)) {
+            operation = WCPSConstants.MSG_OVERLAY;
             okay = true;
         }
 
         if (!okay) {
-            throw new WCPSException(WCPSConstants.UNEXPECTED_BINARY + " : " + nodeName);
+            throw new WCPSException(WCPSConstants.ERRTXT_UNEXPECTED_BINARY + " : " + nodeName);
         }
-        log.trace("  " + WCPSConstants.OPERATION + ": " + operation);
+        log.trace("  " + WCPSConstants.MSG_OPERATION + ": " + operation);
         
         Node operand = node.getFirstChild();
-        while (operand.getNodeName().equals("#" + WCPSConstants.TEXT)) {
+        while (operand.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
             operand = operand.getNextSibling();
         }
 

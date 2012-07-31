@@ -41,10 +41,10 @@ public class CastExpr implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        result += "<" + WCPSConstants.CAST + ">";
+        result += "<" + WCPSConstants.MSG_CAST + ">";
         result += coverageExpr.toXML();
-        result += "<" + WCPSConstants.TYPE + ">" + castType + "</" + WCPSConstants.TYPE + ">";
-        result += "</" + WCPSConstants.CAST + ">";
+        result += "<" + WCPSConstants.MSG_TYPE + ">" + castType + "</" + WCPSConstants.MSG_TYPE + ">";
+        result += "</" + WCPSConstants.MSG_CAST + ">";
         return result;
     }
 }

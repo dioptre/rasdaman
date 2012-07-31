@@ -38,31 +38,31 @@ public class BooleanScalarExpr implements IRasNode {
 
     public BooleanScalarExpr(Node node, XmlQuery xq) throws WCPSException {
         if (node == null) {
-            throw new WCPSException(WCPSConstants.UNEXPECTED_NULL_NODE + " !");
+            throw new WCPSException(WCPSConstants.ERRTXT_UNEXPECTED_NULL_NODE + " !");
         }
 
         String nodeName = node.getNodeName();
 
         simple = false;
 
-        if (nodeName.equals(WCPSConstants.BOOLEAN_CONSTANT)) {
+        if (nodeName.equals(WCPSConstants.MSG_BOOLEAN_CONSTANT)) {
             simple = true;
             value = node.getFirstChild().getNodeValue();
-        } else if (nodeName.equals(WCPSConstants.BOOLEAN_AND)
-                || nodeName.equals(WCPSConstants.BOOLEAN_OR)
-                || nodeName.equals(WCPSConstants.BOOLEAN_XOR)
-                || nodeName.equals(WCPSConstants.BOOLEAN_LESSTHAN)
-                || nodeName.equals(WCPSConstants.BOOLEAN_LESSOREQUAL)
-                || nodeName.equals(WCPSConstants.BOOLEAN_GREATERTHAN)
-                || nodeName.equals(WCPSConstants.BOOLEAN_GREATEROREQUAL)
-                || nodeName.equals(WCPSConstants.BOOLEAN_EQUALNUMERIC)
-                || nodeName.equals(WCPSConstants.BOOLEAN_NOTEQUALNUMERIC)
-                || nodeName.equals(WCPSConstants.BOOLEAN_EQUAL_STRING)
-                || nodeName.equals(WCPSConstants.BOOLEAN_NOT_EQUAL_STRING)) {
+        } else if (nodeName.equals(WCPSConstants.MSG_BOOLEAN_AND)
+                || nodeName.equals(WCPSConstants.MSG_BOOLEAN_OR)
+                || nodeName.equals(WCPSConstants.MSG_BOOLEAN_XOR)
+                || nodeName.equals(WCPSConstants.MSG_BOOLEAN_LESSTHAN)
+                || nodeName.equals(WCPSConstants.MSG_BOOLEAN_LESSOREQUAL)
+                || nodeName.equals(WCPSConstants.MSG_BOOLEAN_GREATERTHAN)
+                || nodeName.equals(WCPSConstants.MSG_BOOLEAN_GREATEROREQUAL)
+                || nodeName.equals(WCPSConstants.MSG_BOOLEAN_EQUALNUMERIC)
+                || nodeName.equals(WCPSConstants.MSG_BOOLEAN_NOTEQUALNUMERIC)
+                || nodeName.equals(WCPSConstants.MSG_BOOLEAN_EQUAL_STRING)
+                || nodeName.equals(WCPSConstants.MSG_BOOLEAN_NOT_EQUAL_STRING)) {
             // Logical operations
-            if (nodeName.equals(WCPSConstants.BOOLEAN_AND)
-                    || nodeName.equals(WCPSConstants.BOOLEAN_OR)
-                    || nodeName.equals(WCPSConstants.BOOLEAN_XOR)) {
+            if (nodeName.equals(WCPSConstants.MSG_BOOLEAN_AND)
+                    || nodeName.equals(WCPSConstants.MSG_BOOLEAN_OR)
+                    || nodeName.equals(WCPSConstants.MSG_BOOLEAN_XOR)) {
                 // Remove the "boolean" in front
                 op = nodeName.substring(7).toLowerCase();
 
@@ -73,25 +73,25 @@ public class BooleanScalarExpr implements IRasNode {
                 second = new BooleanScalarExpr(child, xq);
             } else // Boolean Comparison operations between numbers or strings
             {
-                if (nodeName.equals(WCPSConstants.BOOLEAN_LESSTHAN) || nodeName.equals(WCPSConstants.BOOLEAN_LESSOREQUAL)
-                        || nodeName.equals(WCPSConstants.BOOLEAN_GREATERTHAN) || nodeName.equals(WCPSConstants.BOOLEAN_GREATEROREQUAL)
-                        || nodeName.equals(WCPSConstants.BOOLEAN_EQUALNUMERIC) || nodeName.equals(WCPSConstants.BOOLEAN_NOTEQUALNUMERIC)) {
-                    if (nodeName.equals(WCPSConstants.BOOLEAN_LESSTHAN)) {
+                if (nodeName.equals(WCPSConstants.MSG_BOOLEAN_LESSTHAN) || nodeName.equals(WCPSConstants.MSG_BOOLEAN_LESSOREQUAL)
+                        || nodeName.equals(WCPSConstants.MSG_BOOLEAN_GREATERTHAN) || nodeName.equals(WCPSConstants.MSG_BOOLEAN_GREATEROREQUAL)
+                        || nodeName.equals(WCPSConstants.MSG_BOOLEAN_EQUALNUMERIC) || nodeName.equals(WCPSConstants.MSG_BOOLEAN_NOTEQUALNUMERIC)) {
+                    if (nodeName.equals(WCPSConstants.MSG_BOOLEAN_LESSTHAN)) {
                         op = "<";
                     }
-                    if (nodeName.equals(WCPSConstants.BOOLEAN_LESSOREQUAL)) {
+                    if (nodeName.equals(WCPSConstants.MSG_BOOLEAN_LESSOREQUAL)) {
                         op = "<=";
                     }
-                    if (nodeName.equals(WCPSConstants.BOOLEAN_GREATERTHAN)) {
+                    if (nodeName.equals(WCPSConstants.MSG_BOOLEAN_GREATERTHAN)) {
                         op = ">";
                     }
-                    if (nodeName.equals(WCPSConstants.BOOLEAN_GREATEROREQUAL)) {
+                    if (nodeName.equals(WCPSConstants.MSG_BOOLEAN_GREATEROREQUAL)) {
                         op = ">=";
                     }
-                    if (nodeName.equals(WCPSConstants.BOOLEAN_EQUALNUMERIC)) {
+                    if (nodeName.equals(WCPSConstants.MSG_BOOLEAN_EQUALNUMERIC)) {
                         op = "=";
                     }
-                    if (nodeName.equals(WCPSConstants.BOOLEAN_NOTEQUALNUMERIC)) {
+                    if (nodeName.equals(WCPSConstants.MSG_BOOLEAN_NOTEQUALNUMERIC)) {
                         op = "!=";
                     }
 
@@ -101,10 +101,10 @@ public class BooleanScalarExpr implements IRasNode {
                     child = child.getNextSibling();
                     second = new NumericScalarExpr(child, xq);
                 } else {
-                    if (nodeName.equals(WCPSConstants.BOOLEAN_EQUAL_STRING)) {
+                    if (nodeName.equals(WCPSConstants.MSG_BOOLEAN_EQUAL_STRING)) {
                         op = "=";
                     }
-                    if (nodeName.equals(WCPSConstants.BOOLEAN_NOT_EQUAL_STRING)) {
+                    if (nodeName.equals(WCPSConstants.MSG_BOOLEAN_NOT_EQUAL_STRING)) {
                         op = "!=";
                     }
 
@@ -116,18 +116,18 @@ public class BooleanScalarExpr implements IRasNode {
                 }
             }
 
-        } else if (nodeName.equals(WCPSConstants.BOOLEAN_NOT)) {
-            op = WCPSConstants.NOT;
+        } else if (nodeName.equals(WCPSConstants.MSG_BOOLEAN_NOT)) {
+            op = WCPSConstants.MSG_NOT;
             first = new BooleanScalarExpr(node.getFirstChild(), xq);
-        } else if (nodeName.equals(WCPSConstants.BIT)) {
-            op = WCPSConstants.BIT;
+        } else if (nodeName.equals(WCPSConstants.MSG_BIT)) {
+            op = WCPSConstants.MSG_BIT;
             first = new CoverageExpr(node.getFirstChild(), xq);
             second = new NumericScalarExpr(node.getFirstChild().getNextSibling(), xq);
         } else {
-            throw new WCPSException(WCPSConstants.UNEXPECTED_BINARY_EXPR_NODE + " : "
+            throw new WCPSException(WCPSConstants.ERRTXT_UNEXPECTED_BINARY_EXPR_NODE + " : "
                     + node.getNodeName());
         }
-        log.trace(WCPSConstants.BOOLEAN_SCALAR_EXPR + ": " + node.getNodeName());
+        log.trace(WCPSConstants.MSG_BOOLEAN_SCALAR_EXPR + ": " + node.getNodeName());
     }
 
     public String toRasQL() {
@@ -135,10 +135,10 @@ public class BooleanScalarExpr implements IRasNode {
             return value;
         }
 
-        if (op.equals(WCPSConstants.NOT)) {
-            return WCPSConstants.NOT + "(" + first.toRasQL() + ")";
-        } else if (op.equals(WCPSConstants.BIT)) {
-            return WCPSConstants.BIT + "(" + first.toRasQL() + "," + second.toRasQL() + ")";
+        if (op.equals(WCPSConstants.MSG_NOT)) {
+            return WCPSConstants.MSG_NOT + "(" + first.toRasQL() + ")";
+        } else if (op.equals(WCPSConstants.MSG_BIT)) {
+            return WCPSConstants.MSG_BIT + "(" + first.toRasQL() + "," + second.toRasQL() + ")";
         }
 
         return "(" + first.toRasQL() + ")" + op + "(" + second.toRasQL() + ")";

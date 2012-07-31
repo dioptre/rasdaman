@@ -54,8 +54,8 @@ public class RangeConstructorExpr implements IParseTreeNode {
             result += it.next().toXML();
         }
 
-        result = "<" + WCPSConstants.RANGE_CONSTRUCTOR + ">" + result + "</" + 
-                WCPSConstants.RANGE_CONSTRUCTOR + ">";
+        result = "<" + WCPSConstants.MSG_RANGE_CONSTRUCTOR + ">" + result + "</" + 
+                WCPSConstants.MSG_RANGE_CONSTRUCTOR + ">";
         return result;
     }
 }

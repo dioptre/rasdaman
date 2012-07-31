@@ -81,43 +81,43 @@ public class SetMetaDataExpr implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        if (function.equalsIgnoreCase(WCPSConstants.SET_IDENTIFIER)) {
-            result += "<" + WCPSConstants.IDENTIFIER + ">" + field + "</" + WCPSConstants.IDENTIFIER + ">";
+        if (function.equalsIgnoreCase(WCPSConstants.MSG_SET_IDENTIFIER)) {
+            result += "<" + WCPSConstants.MSG_IDENTIFIER + ">" + field + "</" + WCPSConstants.MSG_IDENTIFIER + ">";
             result += expr.toXML();
 
-            result = "<" + WCPSConstants.SET_IDENTIFIER + ">" + result + "</" + 
-                    WCPSConstants.SET_IDENTIFIER + ">";
-        } else if (function.equalsIgnoreCase(WCPSConstants.SET_CRSSET)) {
-            result += expr.toXML();
-
-            if (param != null) {
-                result += param.toXML();
-            }
-
-            result = "<setCrsSet>" + result + "</setCrsSet>";
-        } else if (function.equalsIgnoreCase("setNullSet")) {
+            result = "<" + WCPSConstants.MSG_SET_IDENTIFIER + ">" + result + "</" + 
+                    WCPSConstants.MSG_SET_IDENTIFIER + ">";
+        } else if (function.equalsIgnoreCase(WCPSConstants.MSG_SET_CRSSET)) {
             result += expr.toXML();
 
             if (param != null) {
                 result += param.toXML();
             }
 
-            result = "<setNullSet>" + result + "</setNullSet>";
+            result = "<" + WCPSConstants.MSG_SET_CRSSET + ">" + result + "</" + WCPSConstants.MSG_SET_CRSSET + ">";
+        } else if (function.equalsIgnoreCase(WCPSConstants.MSG_SET_NULL_SET)) {
+            result += expr.toXML();
+
+            if (param != null) {
+                result += param.toXML();
+            }
+
+            result = "<" + WCPSConstants.MSG_SET_NULL_SET + ">" + result + "</" + WCPSConstants.MSG_SET_NULL_SET + ">";
         } else if (function.equalsIgnoreCase("setInterpolationDefault")) {
             result += expr.toXML();
-            result += "<field>" + field + "</field>";
+            result += "<" + WCPSConstants.MSG_FIELD + ">" + field + "</" + WCPSConstants.MSG_FIELD + ">";
             result += param.toXML();
 
-            result = "<setInterpolationDefault>" + result
-                    + "</setInterpolationDefault>";
-        } else if (function.equalsIgnoreCase("setInterpolationSet")) {
+            result = "<" + WCPSConstants.MSG_SET_INTERPOLATION_DEFAULT + ">" + result
+                    + "</" + WCPSConstants.MSG_SET_INTERPOLATION_DEFAULT + ">";
+        } else if (function.equalsIgnoreCase(WCPSConstants.MSG_SET_INTERPOLATION_SET)) {
             result += expr.toXML();
-            result += "<field>" + field + "</field>";
+            result += "<" + WCPSConstants.MSG_FIELD + ">" + field + "</" + WCPSConstants.MSG_FIELD + ">";
             result += param.toXML();
 
-            result = "<setInterpolationSet>" + result + "</setInterpolationSet>";
+            result = "<" + WCPSConstants.MSG_SET_INTERPOLATION_SET + ">" + result + "</" + WCPSConstants.MSG_SET_INTERPOLATION_SET + ">";
         } else {
-            log.error("Unknown SetMetadataExpr operation: " + function);
+            log.error(WCPSConstants.ERRTXT_UNKNOWN_SET_METADATA_EXPR+ ": " + function);
         }
 
         return result;

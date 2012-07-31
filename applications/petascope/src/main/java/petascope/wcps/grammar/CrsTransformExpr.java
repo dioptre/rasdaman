@@ -51,8 +51,8 @@ public class CrsTransformExpr implements IParseTreeNode {
             result += e3.toXML();
         // else: set default values?
 
-        result = "<" + WCPSConstants.CRS_TRANSFORM + ">" + result + "</" + 
-                WCPSConstants.CRS_TRANSFORM + ">";
+        result = "<" + WCPSConstants.MSG_CRS_TRANSFORM + ">" + result + "</" + 
+                WCPSConstants.MSG_CRS_TRANSFORM + ">";
         return result;
     }
 }

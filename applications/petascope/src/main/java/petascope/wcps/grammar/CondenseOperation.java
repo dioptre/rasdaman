@@ -39,18 +39,18 @@ public class CondenseOperation implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        if (op.equalsIgnoreCase(WCPSConstants.PLUS)) {
-            result = WCPSConstants.OP_PLUS;
-        } else if (op.equalsIgnoreCase(WCPSConstants.STAR)) {
-            result = WCPSConstants.OP_MULT;
-        } else if (op.equalsIgnoreCase(WCPSConstants.MAX)) {
-            result = WCPSConstants.OP_MAX;
-        } else if (op.equalsIgnoreCase(WCPSConstants.MIN)) {
-            result = WCPSConstants.OP_MIN;
-        } else if (op.equalsIgnoreCase(WCPSConstants.AND)) {
-            result = WCPSConstants.OP_AND;
-        } else if (op.equalsIgnoreCase(WCPSConstants.OR)) {
-            result = WCPSConstants.OP_OR;
+        if (op.equalsIgnoreCase(WCPSConstants.MSG_PLUS)) {
+            result = WCPSConstants.MSG_OP_PLUS;
+        } else if (op.equalsIgnoreCase(WCPSConstants.MSG_STAR)) {
+            result = WCPSConstants.MSG_OP_MULT;
+        } else if (op.equalsIgnoreCase(WCPSConstants.MSG_MAX)) {
+            result = WCPSConstants.MSG_OP_MAX;
+        } else if (op.equalsIgnoreCase(WCPSConstants.MSG_MIN)) {
+            result = WCPSConstants.MSG_OP_MIN;
+        } else if (op.equalsIgnoreCase(WCPSConstants.MSG_AND)) {
+            result = WCPSConstants.MSG_OP_AND;
+        } else if (op.equalsIgnoreCase(WCPSConstants.MSG_OR)) {
+            result = WCPSConstants.MSG_OP_OR;
         }
 
         result = "<" + result + "/>";

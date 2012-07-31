@@ -48,10 +48,10 @@ public class ForClauseElements implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        result += "<" + WCPSConstants.COVERAGE_ITERATOR + ">";
-        result += "<" + WCPSConstants.ITERATORVAR + ">" + var + "</" + WCPSConstants.ITERATORVAR + ">";
+        result += "<" + WCPSConstants.MSG_COVERAGE_ITERATOR + ">";
+        result += "<" + WCPSConstants.MSG_ITERATORVAR + ">" + var + "</" + WCPSConstants.MSG_ITERATORVAR + ">";
         result += coverageList.toXML();
-        result += "</" + WCPSConstants.COVERAGE_ITERATOR + ">";
+        result += "</" + WCPSConstants.MSG_COVERAGE_ITERATOR + ">";
 
         if (next != null) {
             result += next.toXML();

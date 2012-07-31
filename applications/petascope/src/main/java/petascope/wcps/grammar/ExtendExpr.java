@@ -39,7 +39,7 @@ public class ExtendExpr implements IParseTreeNode {
     }
 
     public String toXML() {
-        return "<" + WCPSConstants.EXTEND + ">" + coverageExpr.toXML() + intervalList.toXML() + 
-                "</" + WCPSConstants.EXTEND + ">";
+        return "<" + WCPSConstants.MSG_EXTEND + ">" + coverageExpr.toXML() + intervalList.toXML() + 
+                "</" + WCPSConstants.MSG_EXTEND + ">";
     }
 }

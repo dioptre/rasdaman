@@ -35,6 +35,6 @@ public class WhereClause implements IParseTreeNode {
     }
 
     public String toXML() {
-        return "<" + WCPSConstants.WHERE + ">" + expr.toXML() + "</" + WCPSConstants.WHERE + ">";
+        return "<" + WCPSConstants.MSG_WHERE + ">" + expr.toXML() + "</" + WCPSConstants.MSG_WHERE + ">";
     }
 }

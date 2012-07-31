@@ -39,7 +39,7 @@ public class ComplexConst {
     }
 
     public ComplexConst(String val) {
-        int pos = val.indexOf(WCPSConstants.PLUS_I, 0);
+        int pos = val.indexOf(WCPSConstants.MSG_PLUS_I, 0);
 
         if (pos != -1) {
             re = val.substring(0, pos - 1);
@@ -48,8 +48,8 @@ public class ComplexConst {
     }
 
     public String toXML() {
-        return "<" + WCPSConstants.COMPLEX_CONSTANT + "><" + WCPSConstants.RE + ">" + re + 
-                "</" + WCPSConstants.RE + "><" + WCPSConstants.IM + ">" + im + "</" + 
-                WCPSConstants.IM + "></" + WCPSConstants.COMPLEX_CONSTANT + ">";
+        return "<" + WCPSConstants.MSG_COMPLEX_CONSTANT + "><" + WCPSConstants.MSG_RE + ">" + re + 
+                "</" + WCPSConstants.MSG_RE + "><" + WCPSConstants.MSG_IM + ">" + im + "</" + 
+                WCPSConstants.MSG_IM + "></" + WCPSConstants.MSG_COMPLEX_CONSTANT + ">";
     }
 }

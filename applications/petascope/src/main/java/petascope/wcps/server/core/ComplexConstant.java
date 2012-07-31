@@ -23,6 +23,7 @@ package petascope.wcps.server.core;
 
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
+import petascope.util.WCPSConstants;
 
 public class ComplexConstant implements IRasNode {
 
@@ -44,7 +45,7 @@ public class ComplexConstant implements IRasNode {
             ok = false;
         }
         if (ok == false) {
-            throw new WCPSException("Could not parse Complex Constant !");
+            throw new WCPSException(WCPSConstants.ERRTXT_COULD_NOT_PARSE_COMPLEX_CONST + " !");
         }
 
         // parse the real part
@@ -54,8 +55,8 @@ public class ComplexConstant implements IRasNode {
             try {
                 Float real = Float.parseFloat(re);
             } catch (NumberFormatException e2) {
-                throw new WCPSException("Could not parse float or integer "
-                        + "number for real part of complex number:" + re);
+                throw new WCPSException(WCPSConstants.ERRTXT_COULD_NOT_PARSE_FLOAT+ " "
+                        + WCPSConstants.ERRTXT_COULD_NOT_PARSE_REAL_PART + ":" + re);
             }
         }
         // parse the imaginary part
@@ -65,25 +66,25 @@ public class ComplexConstant implements IRasNode {
             try {
                 Float imag = Float.parseFloat(im);
             } catch (NumberFormatException e2) {
-                throw new WCPSException("Could not parse float or integer "
-                        + "number for imaginary part of complex number" + im);
+                throw new WCPSException(WCPSConstants.ERRTXT_COULD_NOT_PARSE_FLOAT + " "
+                        + WCPSConstants.ERRTXT_COULD_NOT_PARSE_IMG_PART + im);
             }
         }
     }
 
     public ComplexConstant(Node node, XmlQuery xq) throws WCPSException {
-        while ((node != null) && node.getNodeName().equals("#text")) {
+        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
             node = node.getNextSibling();
         }
 
         while (node != null) {
             String name = node.getNodeName();
-            if (name.equals("re")) {
+            if (name.equals(WCPSConstants.MSG_RE)) {
                 re = node.getNodeValue();
-            } else if (name.equals("im")) {
+            } else if (name.equals(WCPSConstants.MSG_IM)) {
                 im = node.getNodeValue();
             } else {
-                throw new WCPSException("Unknown node while processing complex constant: " + name);
+                throw new WCPSException(WCPSConstants.ERRTXT_UNKNOWN_PROC_COMPLEX_CONST + ": " + name);
             }
 
             node = node.getNextSibling();
@@ -96,8 +97,8 @@ public class ComplexConstant implements IRasNode {
             try {
                 Float real = Float.parseFloat(re);
             } catch (NumberFormatException e2) {
-                throw new WCPSException("Could not parse float or integer "
-                        + "number for real part of complex number:" + re);
+                throw new WCPSException(WCPSConstants.ERRTXT_COULD_NOT_PARSE_FLOAT + " "
+                        + WCPSConstants.ERRTXT_COULD_NOT_PARSE_REAL_PART + ":" + re);
             }
         }
         // parse the imaginary part
@@ -107,13 +108,13 @@ public class ComplexConstant implements IRasNode {
             try {
                 Float imag = Float.parseFloat(im);
             } catch (NumberFormatException e2) {
-                throw new WCPSException("Could not parse float or integer "
-                        + "number for imaginary part of complex number" + im);
+                throw new WCPSException(WCPSConstants.ERRTXT_COULD_NOT_PARSE_FLOAT + " "
+                        + WCPSConstants.ERRTXT_COULD_NOT_PARSE_IMG_PART + im);
             }
         }
     }
 
     public String toRasQL() {
-        return "complex ( " + re + ", " + im + " ) ";
+        return WCPSConstants.MSG_COMPLEX + " ( " + re + ", " + im + " ) ";
     }
 }

@@ -23,13 +23,14 @@ package petascope.wcps.server.core;
 
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
+import petascope.util.WCPSConstants;
 
 public class CondenseOperation implements IRasNode {
 
     private String name;
 
     public CondenseOperation(Node node, XmlQuery xq) throws WCPSException {
-        while ((node != null) && node.getNodeName().equals("#text")) {
+        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
             node = node.getNextSibling();
         }
 
@@ -37,29 +38,29 @@ public class CondenseOperation implements IRasNode {
         this.name = formatOperation(text);
 
         if (name == null) {
-            throw new WCPSException("Unknown condense operation: " + text);
+            throw new WCPSException(WCPSConstants.ERRTXT_UNKNOWN_CONDENSE_OP + ": " + text);
         }
     }
 
     private String formatOperation(String name) {
         String shortOp = null;
-        if (name.equals("opPlus")) {
-            shortOp = "+";
+        if (name.equals(WCPSConstants.MSG_OP_PLUS)) {
+            shortOp = WCPSConstants.MSG_PLUS;
         }
-        if (name.equals("opMult")) {
-            shortOp = "*";
+        if (name.equals(WCPSConstants.MSG_OP_MULT)) {
+            shortOp = WCPSConstants.MSG_STAR;
         }
-        if (name.equals("opMin")) {
-            shortOp = "min";
+        if (name.equals(WCPSConstants.MSG_OP_MIN)) {
+            shortOp = WCPSConstants.MSG_MINUS_S;
         }
-        if (name.equals("opMax")) {
-            shortOp = "max";
+        if (name.equals(WCPSConstants.MSG_OP_MAX)) {
+            shortOp = WCPSConstants.MSG_MAX;
         }
-        if (name.equals("opAnd")) {
-            shortOp = "and";
+        if (name.equals(WCPSConstants.MSG_OP_AND)) {
+            shortOp = WCPSConstants.MSG_AND;
         }
-        if (name.equals("opOr")) {
-            shortOp = "or";
+        if (name.equals(WCPSConstants.MSG_OP_OR)) {
+            shortOp = WCPSConstants.MSG_OR;
         }
 
         return shortOp;

@@ -38,23 +38,23 @@ public class CoverageExpr implements IParseTreeNode {
 
     public CoverageExpr(IParseTreeNode n) {
         expr = n;
-        function = WCPSConstants.CHILD;
+        function = WCPSConstants.MSG_CHILD;
     }
 
     public CoverageExpr(String n) {
         coverageName = n;
-        function = WCPSConstants.COVERAGE;
+        function = WCPSConstants.MSG_COVERAGE;
     }
 
     /* Unary Induced Expressions */
     public CoverageExpr(String op, CoverageExpr ce) {
         expr = ce;
-        function = WCPSConstants.UNIARY_OP;
+        function = WCPSConstants.MSG_UNARY_OP;
         this.op = op;
     }
 
     public CoverageExpr(String op, CoverageExpr e1, CoverageExpr e2) {
-        function = WCPSConstants.BINARY_OP;
+        function = WCPSConstants.MSG_BINARY_OP;
         this.op = op;
         this.e1 = e1;
         this.e2 = e2;
@@ -64,22 +64,22 @@ public class CoverageExpr implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        if (function.equals(WCPSConstants.COVERAGE)) {
-            result = "<" + WCPSConstants.COVERAGE + ">" + coverageName + "</" + 
-                    WCPSConstants.COVERAGE + ">";
-        } else if (function.equals(WCPSConstants.BINARY_OP)) {
+        if (function.equals(WCPSConstants.MSG_COVERAGE)) {
+            result = "<" + WCPSConstants.MSG_COVERAGE + ">" + coverageName + "</" + 
+                    WCPSConstants.MSG_COVERAGE + ">";
+        } else if (function.equals(WCPSConstants.MSG_BINARY_OP)) {
             formatOperation();
             result = "<" + op + ">" + e1.toXML() + e2.toXML() + "</" + op + ">";
-        } else if (function.equals(WCPSConstants.UNIARY_OP)) {
+        } else if (function.equals(WCPSConstants.MSG_UNARY_OP)) {
             formatOperation();
-            if (op.equals(WCPSConstants.PLUS_S)) {
-                op = WCPSConstants.UNIARY_PLUS;
+            if (op.equals(WCPSConstants.MSG_PLUS_S)) {
+                op = WCPSConstants.MSG_UNARY_PLUS;
             }
-            if (op.equals(WCPSConstants.MINUS)) {
-                op = WCPSConstants.UNIARY_MINUS;
+            if (op.equals(WCPSConstants.MSG_MINUS)) {
+                op = WCPSConstants.MSG_UNARY_MINUS;
             }
             result = "<" + op + ">" + expr.toXML() + "</" + op + ">";
-        } else if (function.equals(WCPSConstants.CHILD)) {
+        } else if (function.equals(WCPSConstants.MSG_CHILD)) {
             result = expr.toXML();
         }
 
@@ -87,17 +87,17 @@ public class CoverageExpr implements IParseTreeNode {
     }
 
     private void formatOperation() {
-        if (op.equals(WCPSConstants.PLUS)) {
-            op = WCPSConstants.PLUS_S;
+        if (op.equals(WCPSConstants.MSG_PLUS)) {
+            op = WCPSConstants.MSG_PLUS_S;
         }
-        if (op.equals(WCPSConstants.MINUS)) {
-            op = WCPSConstants.MINUS_S;
+        if (op.equals(WCPSConstants.MSG_MINUS)) {
+            op = WCPSConstants.MSG_MINUS_S;
         }
-        if (op.equals(WCPSConstants.STAR)) {
-            op = WCPSConstants.MULT;
+        if (op.equals(WCPSConstants.MSG_STAR)) {
+            op = WCPSConstants.MSG_MULT;
         }
-        if (op.equals(WCPSConstants.DIV)) {
-            op = WCPSConstants.DIV_S;
+        if (op.equals(WCPSConstants.MSG_DIV)) {
+            op = WCPSConstants.MSG_DIV_S;
         }
 
         // AND, OR, XOR stay the same

@@ -72,13 +72,13 @@ public class Bbox implements Cloneable {
     public Bbox(String crs, Double l1, Double h1, Double l2, Double h2, Double o1, Double o2) throws WCPSException, WCSException {
         if ((l1 == null) || (h1 == null) || (l2 == null) || (h2 == null)) {
             throw new WCPSException(ExceptionCode.InvalidMetadata,
-                    WCPSConstants.INVALID_BOUNDING_BOX);
+                    WCPSConstants.ERRTXT_INVALID_BOUNDING_BOX);
         }
         if ((o1 == null) || (o2 == null)) {
-            throw new WCPSException(ExceptionCode.InvalidMetadata, WCPSConstants.INVALID_OFFSET);
+            throw new WCPSException(ExceptionCode.InvalidMetadata, WCPSConstants.ERRTXT_INVALID_OFFSET);
         }
         if (crs == null) {
-            throw new WCPSException(ExceptionCode.InvalidMetadata, WCPSConstants.INVALID_CRS);
+            throw new WCPSException(ExceptionCode.InvalidMetadata, WCPSConstants.ERRTXT_INVALID_CRS);
         }
 
         crsName = crs;
@@ -129,9 +129,9 @@ public class Bbox implements Cloneable {
 
     @Override
     public String toString() {
-        String d = WCPSConstants.CRS_C + " '" + getCrsName() + "' { " +  WCPSConstants.BOUNDING_BOX + " [" + WCPSConstants.X + "(" + getLow1() + ", " + getHigh1() + "), "
-                + WCPSConstants.Y + "(" + getLow2() + ", " + getHigh2() + ")], "
-                + WCPSConstants.OFFSETS + " [" + WCPSConstants.X + "(" + getOffset1() + "), " + WCPSConstants.Y + "(" + getOffset2() + ")]}";
+        String d = WCPSConstants.MSG_CRS_C + " '" + getCrsName() + "' { " +  WCPSConstants.MSG_BOUNDING_BOX + " [" + WCPSConstants.MSG_X + "(" + getLow1() + ", " + getHigh1() + "), "
+                + WCPSConstants.MSG_Y + "(" + getLow2() + ", " + getHigh2() + ")], "
+                + WCPSConstants.MSG_OFFSETS + " [" + WCPSConstants.MSG_X + "(" + getOffset1() + "), " + WCPSConstants.MSG_Y + "(" + getOffset2() + ")]}";
         return d;
     }
 

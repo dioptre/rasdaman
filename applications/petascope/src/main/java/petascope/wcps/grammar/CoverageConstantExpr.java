@@ -37,18 +37,18 @@ public class CoverageConstantExpr implements IParseTreeNode {
     public CoverageConstantExpr(String name, AxisIteratorList alist, ConstantList clist) {
         this.name = name;
         this.alist = alist;
-        alist.setTag(WCPSConstants.AXIS_ITERATOR);
+        alist.setTag(WCPSConstants.MSG_AXIS_ITERATOR);
         this.clist = clist;
     }
 
     public String toXML() {
         String result = "";
 
-        result += "<" + WCPSConstants.NAME + ">" + name + "</" + WCPSConstants.NAME + ">";
+        result += "<" + WCPSConstants.MSG_NAME + ">" + name + "</" + WCPSConstants.MSG_NAME + ">";
         result += alist.toXML();
         result += clist.toXML();
 
-        result = "<" + WCPSConstants.CONST + ">" + result + "</" + WCPSConstants.CONST + ">";
+        result = "<" + WCPSConstants.MSG_CONST + ">" + result + "</" + WCPSConstants.MSG_CONST + ">";
         return result;
     }
 }

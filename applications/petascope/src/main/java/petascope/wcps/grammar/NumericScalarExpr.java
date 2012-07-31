@@ -40,82 +40,82 @@ public class NumericScalarExpr implements IParseTreeNode {
     NumericScalarExpr leftNumericScalarExpr, rightNumericScalarExpr;
 
     public NumericScalarExpr(CondenseExpr c) {
-        log.trace(WCPSConstants.NUMERIC_SCALAR_EXPR_CONDENSE);
+        log.trace(WCPSConstants.MSG_NUMERIC_SCALAR_EXPR_CONDENSE);
         condense = c;
-        function = WCPSConstants.CONDENSE;
+        function = WCPSConstants.MSG_CONDENSE;
     }
 
     public NumericScalarExpr(String val) {
-        log.trace(WCPSConstants.NUMERIC_SCALAR_EXPR + " " + val);
-        if (val.contains(WCPSConstants.PLUS_I)) {
+        log.trace(WCPSConstants.MSG_NUMERIC_SCALAR_EXPR + " " + val);
+        if (val.contains(WCPSConstants.MSG_PLUS_I)) {
             ComplexConst cc = new ComplexConst(val);
 
             constValue = cc.toXML();
-            function = WCPSConstants.COMPLEX_CONSTANT;
+            function = WCPSConstants.MSG_COMPLEX_CONSTANT;
         } else {
             constValue = val;
-            function = WCPSConstants.NUMERIC_CONSTANT;
+            function = WCPSConstants.MSG_NUMERIC_CONSTANT;
         }
     }
 
     public NumericScalarExpr(String op, NumericScalarExpr expr) {
-        log.trace(WCPSConstants.NUMERIC_SCALAR_EXPR + " " + op + " "+ WCPSConstants.NUM);
+        log.trace(WCPSConstants.MSG_NUMERIC_SCALAR_EXPR + " " + op + " "+ WCPSConstants.MSG_NUM);
         leftNumericScalarExpr = expr;
 
         if (op.equals("-")) {
-            function = WCPSConstants.NUMERIC_UNARY_MINUS;
+            function = WCPSConstants.MSG_NUMERIC_UNARY_MINUS;
         } else
-        if (op.equals(WCPSConstants.SQRT)) {
-            function = WCPSConstants.NUMERIC_SQRT;
+        if (op.equals(WCPSConstants.MSG_SQRT)) {
+            function = WCPSConstants.MSG_NUMERIC_SQRT;
         } else
-        if (op.equals(WCPSConstants.ABS)) {
-            function = WCPSConstants.NUMERIC_ABS;
+        if (op.equals(WCPSConstants.MSG_ABS)) {
+            function = WCPSConstants.MSG_NUMERIC_ABS;
         } else {
-            log.error(WCPSConstants.UNIARY_OPERATOR + " " + op + " " + WCPSConstants.IS_NOT_RECOGNIZED);
+            log.error(WCPSConstants.MSG_UNARY_OPERATOR + " " + op + " " + WCPSConstants.ERRTXT_IS_NOT_RECOGNIZED);
         }
     }
 
     public NumericScalarExpr(String varOp, String varName) {
-        log.trace(WCPSConstants.NUMERIC_SCALAR_EXPR + " " + varOp + ", " + varName);
-        if (varOp.equals(WCPSConstants.VAR)) {
-            function = WCPSConstants.VARIABLE_REF;
+        log.trace(WCPSConstants.MSG_NUMERIC_SCALAR_EXPR + " " + varOp + ", " + varName);
+        if (varOp.equals(WCPSConstants.MSG_VAR)) {
+            function = WCPSConstants.MSG_VARIABLE_REF;
             constValue = varName;
         } else {
-            log.error(WCPSConstants.INTERNAL_ERROR_THIS + ":" + varName);
+            log.error(WCPSConstants.ERRTXT_INTERNAL_ERROR_THIS + ":" + varName);
         }
     }
 
     public NumericScalarExpr(String op, NumericScalarExpr lbe, NumericScalarExpr rbe) {
-        log.trace(WCPSConstants.NUMERIC_SCALAR_EXPR + " " + WCPSConstants.A + " " + op + " " + WCPSConstants.B);
+        log.trace(WCPSConstants.MSG_NUMERIC_SCALAR_EXPR + " " + WCPSConstants.MSG_A + " " + op + " " + WCPSConstants.MSG_B);
         leftNumericScalarExpr = lbe;
         rightNumericScalarExpr = rbe;
 
-        if (op.equals(WCPSConstants.PLUS)) {
-            function = WCPSConstants.NUMERIC_ADD;
-        } else if (op.equals(WCPSConstants.MINUS)) {
-            function = WCPSConstants.NUMERIC_MINUS;
-        } else if (op.equals(WCPSConstants.MULT)) {
-            function = WCPSConstants.NUMERIC_MULT;
-        } else if (op.equals(WCPSConstants.DIV)) {
-            function = WCPSConstants.NUMERIC_DIV;
+        if (op.equals(WCPSConstants.MSG_PLUS)) {
+            function = WCPSConstants.MSG_NUMERIC_ADD;
+        } else if (op.equals(WCPSConstants.MSG_MINUS)) {
+            function = WCPSConstants.MSG_NUMERIC_MINUS;
+        } else if (op.equals(WCPSConstants.MSG_MULT)) {
+            function = WCPSConstants.MSG_NUMERIC_MULT;
+        } else if (op.equals(WCPSConstants.MSG_DIV)) {
+            function = WCPSConstants.MSG_NUMERIC_DIV;
         } else {
-            log.error(WCPSConstants.OPERATOR + " " + op + " " + WCPSConstants.IS_NOT_RECOGNIZED);
+            log.error(WCPSConstants.MSG_OPERATOR + " " + op + " " + WCPSConstants.ERRTXT_IS_NOT_RECOGNIZED);
         }
     }
 
     public String toXML() {
         String result;
 
-        if (function.equals(WCPSConstants.COMPLEX_CONSTANT)) {
+        if (function.equals(WCPSConstants.MSG_COMPLEX_CONSTANT)) {
             return constValue;
         }
-        if (function.equals(WCPSConstants.CONDENSE)) {
+        if (function.equals(WCPSConstants.MSG_CONDENSE)) {
             return condense.toXML();
         }
 
         result = "<" + function + ">";
 
-        if (function.equals(WCPSConstants.NUMERIC_CONSTANT) || function.equals(WCPSConstants.VARIABLE_REF)) {
+        if (function.equals(WCPSConstants.MSG_NUMERIC_CONSTANT) || function.equals(WCPSConstants.MSG_VARIABLE_REF)) {
             result += constValue;
         } else {
             result += leftNumericScalarExpr.toXML();

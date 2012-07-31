@@ -41,9 +41,9 @@ public class DomainExpr implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        result += "<" + WCPSConstants.COVERAGE + ">" + var + "</" + WCPSConstants.COVERAGE + ">";
-        result += "<" + WCPSConstants.AXIS + ">" + axis + "</" + WCPSConstants.AXIS + ">";
-        result += "<" + WCPSConstants.CRS + ">" + crs + "</" + WCPSConstants.CRS + ">";
+        result += "<" + WCPSConstants.MSG_COVERAGE + ">" + var + "</" + WCPSConstants.MSG_COVERAGE + ">";
+        result += "<" + WCPSConstants.MSG_AXIS + ">" + axis + "</" + WCPSConstants.MSG_AXIS + ">";
+        result += "<" + WCPSConstants.MSG_CRS + ">" + crs + "</" + WCPSConstants.MSG_CRS + ">";
         return result;
     }
 }

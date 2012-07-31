@@ -39,6 +39,6 @@ public class SliceExpr implements IParseTreeNode {
     }
 
     public String toXML() {
-        return "<" + WCPSConstants.SLICE + ">" + expr.toXML() + list.toXML() + "</" + WCPSConstants.SLICE + ">";
+        return "<" + WCPSConstants.MSG_SLICE + ">" + expr.toXML() + list.toXML() + "</" + WCPSConstants.MSG_SLICE + ">";
     }
 }

@@ -52,7 +52,7 @@ public class ScaleExpr implements IParseTreeNode {
         if (interpMethods != null)
             result += interpMethods.toXML();
         
-        result = "<" + WCPSConstants.SCALE + ">" + result + "</" + WCPSConstants.SCALE + ">";
+        result = "<" + WCPSConstants.MSG_SCALE + ">" + result + "</" + WCPSConstants.MSG_SCALE + ">";
 
         return result;
     }

@@ -44,12 +44,12 @@ public class SelectExpr implements IParseTreeNode {
     }
 
     public String toXML() {
-        String result = "<" + WCPSConstants.FIELD_SELECT + ">";
+        String result = "<" + WCPSConstants.MSG_FIELD_SELECT + ">";
 
         result += coverageExpr.toXML();
-        result += "<" + WCPSConstants.FIELD + "><" + WCPSConstants.NAME + ">" + 
-                field + "</" + WCPSConstants.NAME + "></" + WCPSConstants.FIELD + ">";
-        result += "</" + WCPSConstants.FIELD_SELECT + ">";
+        result += "<" + WCPSConstants.MSG_FIELD + "><" + WCPSConstants.MSG_NAME + ">" + 
+                field + "</" + WCPSConstants.MSG_NAME + "></" + WCPSConstants.MSG_FIELD + ">";
+        result += "</" + WCPSConstants.MSG_FIELD_SELECT + ">";
         return result;
     }
 }

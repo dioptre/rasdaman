@@ -38,7 +38,7 @@ public class AxisIterator implements IRasNode {
     private NumericScalarExpr hi, lo;
 
     public AxisIterator(Node node, XmlQuery xq, String newIteratorName) throws WCPSException {
-        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.TEXT)) {
+        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
             node = node.getNextSibling();
         }
         
@@ -47,15 +47,15 @@ public class AxisIterator implements IRasNode {
         while (node != null) {
             String nodeName = node.getNodeName();
 
-            if (nodeName.equals(WCPSConstants.ITERATORVAR)) {
+            if (nodeName.equals(WCPSConstants.MSG_ITERATORVAR)) {
                 var = node.getTextContent();
                 // This variable will be referenced later on. Translate it.
                 xq.addReferenceVariable(var, newIteratorName);
                 varTranslation = xq.getReferenceVariableName(var);
-                log.trace("  " + WCPSConstants.ITERATOR + " " + WCPSConstants.VAR + ": " + var);
-                log.trace("  " + WCPSConstants.REFERENCE_TO + ": " + newIteratorName);
-                log.trace("  " + WCPSConstants.VAR + " " + WCPSConstants.TRANSLATION + ": " + varTranslation);
-            } else if (nodeName.equals(WCPSConstants.AXIS)) {
+                log.trace("  " + WCPSConstants.MSG_ITERATOR + " " + WCPSConstants.MSG_VAR + ": " + var);
+                log.trace("  " + WCPSConstants.MSG_REFERENCE_TO + ": " + newIteratorName);
+                log.trace("  " + WCPSConstants.MSG_VAR + " " + WCPSConstants.MSG_TRANSLATION + ": " + varTranslation);
+            } else if (nodeName.equals(WCPSConstants.MSG_AXIS)) {
                 axis = new AxisName(node, xq);
             } else {
                 // Should contain the limits
@@ -66,19 +66,19 @@ public class AxisIterator implements IRasNode {
                     hi = new NumericScalarExpr(node, xq);
                 } else {
                     throw new WCPSException(ExceptionCode.UnsupportedCombination,
-                            WCPSConstants.UNKNOWN_NODE + ": " + nodeName);
+                            WCPSConstants.ERRTXT_UNKNOWN_NODE + ": " + nodeName);
                 }
             }
 
             node = node.getNextSibling();
-            while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.TEXT)) {
+            while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
                 node = node.getNextSibling();
             }
         }
     }
 
     public String toRasQL() {
-        String result = varTranslation + " " + WCPSConstants.IN + " [" + lo.toRasQL() + ":" + hi.toRasQL() + "]";
+        String result = varTranslation + " " + WCPSConstants.MSG_IN + " [" + lo.toRasQL() + ":" + hi.toRasQL() + "]";
         return result;
     }
 

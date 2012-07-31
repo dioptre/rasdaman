@@ -40,7 +40,7 @@ public class ImageCrsDomainMetadataExpr implements IParseTreeNode {
     }
 
     public String toXML() {
-        String result = cov.toXML() + "<" + WCPSConstants.AXIS + ">" + axis + "</" + WCPSConstants.AXIS + ">";
+        String result = cov.toXML() + "<" + WCPSConstants.MSG_AXIS + ">" + axis + "</" + WCPSConstants.MSG_AXIS + ">";
 
         return result;
     }

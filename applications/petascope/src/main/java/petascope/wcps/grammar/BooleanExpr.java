@@ -47,9 +47,9 @@ public class BooleanExpr implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        if (op.equalsIgnoreCase(WCPSConstants.NOT)) {
+        if (op.equalsIgnoreCase(WCPSConstants.MSG_NOT)) {
             result = e1.toXML();
-        } else if (op.equalsIgnoreCase(WCPSConstants.BIT)) {
+        } else if (op.equalsIgnoreCase(WCPSConstants.MSG_BIT)) {
             result = e1.toXML() + e2.toXML();
         }
 

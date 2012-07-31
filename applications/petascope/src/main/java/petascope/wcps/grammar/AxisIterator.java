@@ -43,9 +43,9 @@ public class AxisIterator implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        result += "<" + WCPSConstants.ITERATORVAR + ">" + var + "</" + 
-                WCPSConstants.ITERATORVAR + ">";
-        result += "<" + WCPSConstants.AXIS + ">" + axis + "</" + WCPSConstants.AXIS + ">";
+        result += "<" + WCPSConstants.MSG_ITERATORVAR + ">" + var + "</" + 
+                WCPSConstants.MSG_ITERATORVAR + ">";
+        result += "<" + WCPSConstants.MSG_AXIS + ">" + axis + "</" + WCPSConstants.MSG_AXIS + ">";
         result += interval.toXML();
 
         return result;

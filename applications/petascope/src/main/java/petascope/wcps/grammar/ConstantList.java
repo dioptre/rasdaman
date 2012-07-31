@@ -47,7 +47,7 @@ public class ConstantList implements IParseTreeNode {
         Iterator<String> it = list.iterator();
 
         while (it.hasNext()) {
-            result += "<" + WCPSConstants.VALUE + ">" + it.next() + "</" + WCPSConstants.VALUE + ">";
+            result += "<" + WCPSConstants.MSG_VALUE + ">" + it.next() + "</" + WCPSConstants.MSG_VALUE + ">";
         }
 
         return result;

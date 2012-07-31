@@ -37,25 +37,25 @@ public class IntervalExpr implements IParseTreeNode {
     String function;
 
     public IntervalExpr(IndexExpr n1, IndexExpr n2) {
-        log.trace(WCPSConstants.CREATING_INTERVALEXPR);
+        log.trace(WCPSConstants.MSG_CREATING_INTERVALEXPR);
         this.e1 = n1;
         this.e2 = n2;
-        function = WCPSConstants.TWO_INDEXES;
+        function = WCPSConstants.MSG_TWO_INDEXES;
     }
 
     public IntervalExpr(String coverage, String axis) {
-        log.trace(WCPSConstants.CREATING_INTERVALEXPR + ": " + coverage + " " + WCPSConstants.AND + 
-                " " + WCPSConstants.AXIS + ": " + axis);
-        function = WCPSConstants.CRS_METADATA;
+        log.trace(WCPSConstants.MSG_CREATING_INTERVALEXPR + ": " + coverage + " " + WCPSConstants.MSG_AND + 
+                " " + WCPSConstants.MSG_AXIS + ": " + axis);
+        function = WCPSConstants.MSG_CRS_METADATA;
         this.e1 = new ImageCrsDomainMetadataExpr(coverage, axis);
     }
 
     public String toXML() {
         String result = "";
 
-        if (function.equals(WCPSConstants.TWO_INDEXES)) {
+        if (function.equals(WCPSConstants.MSG_TWO_INDEXES)) {
             result = e1.toXML() + e2.toXML();
-        } else if (function.equals(WCPSConstants.CRS_METADATA)) {
+        } else if (function.equals(WCPSConstants.MSG_CRS_METADATA)) {
             result = e1.toXML();
         }
 

@@ -26,6 +26,7 @@ import java.util.Vector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
+import petascope.util.WCPSConstants;
 
 public class CondenseScalarExpr implements IRasNode {
     
@@ -39,10 +40,10 @@ public class CondenseScalarExpr implements IRasNode {
     private String newIteratorName;
 
     public CondenseScalarExpr(Node node, XmlQuery xq) throws WCPSException {
-        if (node.getNodeName().equals("condense")) {
+        if (node.getNodeName().equals(WCPSConstants.MSG_CONDENSE)) {
             node = node.getFirstChild();
         }
-        while ((node != null) && node.getNodeName().equals("#text")) {
+        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
             node = node.getNextSibling();
         }
         
@@ -55,17 +56,17 @@ public class CondenseScalarExpr implements IRasNode {
             String name = node.getNodeName();
             if (op == null) {
                 op = new CondenseOperation(node, xq);
-            } else if (name.equals("iterator")) {
+            } else if (name.equals(WCPSConstants.MSG_ITERATOR)) {
                 AxisIterator it = new AxisIterator(node.getFirstChild(), xq, newIteratorName);
                 iterators.add(it);
-            } else if (name.equals("where")) {
+            } else if (name.equals(WCPSConstants.MSG_WHERE)) {
                 where = new BooleanScalarExpr(node.getFirstChild(), xq);
             } else {
                 using = new CoverageExpr(node, xq);
             }
 
             node = node.getNextSibling();
-            while ((node != null) && node.getNodeName().equals("#text")) {
+            while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
                 node = node.getNextSibling();
             }
         }
@@ -74,12 +75,12 @@ public class CondenseScalarExpr implements IRasNode {
     }
 
     public String toRasQL() {
-        String result = "condense " + op.toRasQL() + " over ";
+        String result = WCPSConstants.MSG_CONDENSE + " " + op.toRasQL() + " " + WCPSConstants.MSG_OVER;
         result += axisIteratorString;
         if (where != null) {
             result += where.toRasQL();
         }
-        result += " using " + using.toRasQL();
+        result += " " + WCPSConstants.MSG_USING + " " + using.toRasQL();
         return result;
     }
 
@@ -87,7 +88,7 @@ public class CondenseScalarExpr implements IRasNode {
      * that will be used to build to RasQL query */
     private void buildAxisIteratorDomain() {
         axisIteratorString = "";
-        axisIteratorString += newIteratorName + " in [";
+        axisIteratorString += newIteratorName + " " + WCPSConstants.MSG_IN + " [";
 
         for (int i = 0; i < iterators.size(); i++) {
             if (i > 0) {

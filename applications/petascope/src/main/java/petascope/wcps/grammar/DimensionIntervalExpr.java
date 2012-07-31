@@ -35,27 +35,27 @@ public class DimensionIntervalExpr implements IParseTreeNode {
     String str;
 
     public DimensionIntervalExpr(ScalarExpr exp1, ScalarExpr exp2) {
-        fun = WCPSConstants.SCALARS;
+        fun = WCPSConstants.MSG_SCALARS;
         e1 = exp1;
         e2 = exp2;
     }
 
     public DimensionIntervalExpr(String cov, String axis, String crs) {
-        fun = WCPSConstants.DOMAIN_METADATA;
-        str = "<" + WCPSConstants.COVERAGE + ">" + cov + "</" + WCPSConstants.COVERAGE + ">";
-        str += "<" + WCPSConstants.AXIS + ">" + axis + "</" + WCPSConstants.AXIS + ">";
-        str += "<" + WCPSConstants.CRS + ">" + crs + "</" + WCPSConstants.CRS + ">";
+        fun = WCPSConstants.MSG_DOMAIN_METADATA;
+        str = "<" + WCPSConstants.MSG_COVERAGE + ">" + cov + "</" + WCPSConstants.MSG_COVERAGE + ">";
+        str += "<" + WCPSConstants.MSG_AXIS + ">" + axis + "</" + WCPSConstants.MSG_AXIS + ">";
+        str += "<" + WCPSConstants.MSG_CRS + ">" + crs + "</" + WCPSConstants.MSG_CRS + ">";
     }
 
     public String toXML() {
         String result = "";
 
-        if (fun.equals(WCPSConstants.SCALARS)) {
-            result += "<" + WCPSConstants.LOWER_BOUND + ">" + e1.toXML() + "</" + 
-                    WCPSConstants.LOWER_BOUND + ">";
-            result += "<" + WCPSConstants.UPPER_BOUND + ">" + e2.toXML() + "</" + 
-                    WCPSConstants.UPPER_BOUND + ">";
-        } else if (fun.equals(WCPSConstants.DOMAIN_METADATA)) {
+        if (fun.equals(WCPSConstants.MSG_SCALARS)) {
+            result += "<" + WCPSConstants.MSG_LOWER_BOUND + ">" + e1.toXML() + "</" + 
+                    WCPSConstants.MSG_LOWER_BOUND + ">";
+            result += "<" + WCPSConstants.MSG_UPPER_BOUND + ">" + e2.toXML() + "</" + 
+                    WCPSConstants.MSG_UPPER_BOUND + ">";
+        } else if (fun.equals(WCPSConstants.MSG_DOMAIN_METADATA)) {
             result = str;
         }
 

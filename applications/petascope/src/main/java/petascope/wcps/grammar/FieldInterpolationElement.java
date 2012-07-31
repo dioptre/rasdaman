@@ -39,7 +39,7 @@ public class FieldInterpolationElement implements IParseTreeNode {
     }
 
     public String toXML() {
-        String result = "<" + WCPSConstants.NAME + ">" + name + "</" + WCPSConstants.NAME + ">" + node.toXML();
+        String result = "<" + WCPSConstants.MSG_NAME + ">" + name + "</" + WCPSConstants.MSG_NAME + ">" + node.toXML();
 
         return result;
     }

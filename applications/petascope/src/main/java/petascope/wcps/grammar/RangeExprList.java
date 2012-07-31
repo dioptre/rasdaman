@@ -47,7 +47,7 @@ public class RangeExprList implements IParseTreeNode {
         Iterator<RangeExpr> it = list.iterator();
 
         while (it.hasNext()) {
-            result += "<" + WCPSConstants.NULL + ">" + it.next().toXML() + "</" + WCPSConstants.NULL + ">";
+            result += "<" + WCPSConstants.MSG_NULL + ">" + it.next().toXML() + "</" + WCPSConstants.MSG_NULL + ">";
         }
 
         return result;

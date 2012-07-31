@@ -41,10 +41,10 @@ public class RangeConstructorTerm implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        result += "<" + WCPSConstants.FIELD + ">" + field + "</" + WCPSConstants.FIELD + ">";
+        result += "<" + WCPSConstants.MSG_FIELD + ">" + field + "</" + WCPSConstants.MSG_FIELD + ">";
         result += expr.toXML();
 
-        result = "<" + WCPSConstants.COMPONENT + ">" + result + "</" + WCPSConstants.COMPONENT + ">";
+        result = "<" + WCPSConstants.MSG_COMPONENT + ">" + result + "</" + WCPSConstants.MSG_COMPONENT + ">";
         return result;
     }
 }

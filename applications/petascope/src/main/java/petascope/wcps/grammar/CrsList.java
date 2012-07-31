@@ -51,7 +51,7 @@ public class CrsList implements IParseTreeNode {
         Iterator<String> it = list.iterator();
 
         while (it.hasNext()) {
-            result += "<" + WCPSConstants.CRS + ">" + it.next() + "</" + WCPSConstants.CRS + ">";
+            result += "<" + WCPSConstants.MSG_CRS + ">" + it.next() + "</" + WCPSConstants.MSG_CRS + ">";
         }
 
         return result;

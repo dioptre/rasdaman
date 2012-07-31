@@ -55,11 +55,11 @@ public class WCPSRequest implements IParseTreeNode {
 
     @Override
     public String toXML() {
-        String result = WCPSConstants.XML_HEADER + "\n";
+        String result = WCPSConstants.MSG_XML_HEADER + "\n";
 
         result +=
-                "<" + WCPSConstants.PROCESS_COVERAGE_REQUEST + " " + WCPSConstants.XMLNS + ">\n";
-        result += "<" + WCPSConstants.QUERY + "><" + WCPSConstants.XML_SYNTAX + ">";
+                "<" + WCPSConstants.MSG_PROCESS_COVERAGE_REQUEST + " " + WCPSConstants.MSG_XMLNS + ">\n";
+        result += "<" + WCPSConstants.MSG_QUERY + "><" + WCPSConstants.MSG_XML_SYNTAX + ">";
 
         result += forClause.toXML();
 
@@ -71,8 +71,8 @@ public class WCPSRequest implements IParseTreeNode {
             result += returnClause.toXML();
         }
 
-        result += "</" + WCPSConstants.XML_SYNTAX + "></" + WCPSConstants.QUERY + ">";
-        result += "</" + WCPSConstants.PROCESS_COVERAGE_REQUEST + ">";
+        result += "</" + WCPSConstants.MSG_XML_SYNTAX + "></" + WCPSConstants.MSG_QUERY + ">";
+        result += "</" + WCPSConstants.MSG_PROCESS_COVERAGE_REQUEST + ">";
 
         return result;
     }

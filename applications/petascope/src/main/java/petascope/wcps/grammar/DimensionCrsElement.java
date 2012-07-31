@@ -46,10 +46,10 @@ public class DimensionCrsElement implements IParseTreeNode {
     public String toXML() {
         String result = "";
 
-        result += "<" + WCPSConstants.AXIS + ">" + axis + "</" + WCPSConstants.AXIS + ">";
+        result += "<" + WCPSConstants.MSG_AXIS + ">" + axis + "</" + WCPSConstants.MSG_AXIS + ">";
 
         if (crs != null) {
-            result += "<" + WCPSConstants.SRS_NAME + ">" + crs + "</" + WCPSConstants.SRS_NAME + ">";
+            result += "<" + WCPSConstants.MSG_SRS_NAME + ">" + crs + "</" + WCPSConstants.MSG_SRS_NAME + ">";
         }
 
         return result;

@@ -44,9 +44,9 @@ public class RangeExpr implements IParseTreeNode {
     public void add(String field, ScalarExpr expr) {
         String tmp = "";
 
-        tmp += "<" + WCPSConstants.FIELD + ">" + field + "</" + WCPSConstants.FIELD + ">";
+        tmp += "<" + WCPSConstants.MSG_FIELD + ">" + field + "</" + WCPSConstants.MSG_FIELD + ">";
         tmp += expr.toXML();
-        xml += "<" + WCPSConstants.COMPONENT + ">" + tmp + "</" + WCPSConstants.COMPONENT + ">";
+        xml += "<" + WCPSConstants.MSG_COMPONENT + ">" + tmp + "</" + WCPSConstants.MSG_COMPONENT + ">";
     }
 
     public String toXML() {

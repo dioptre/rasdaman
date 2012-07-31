@@ -38,7 +38,7 @@ public class GeneralCondenseExpr implements IParseTreeNode {
     public GeneralCondenseExpr(CondenseOperation op, AxisIteratorList al) {
         this.op = op;
         alist = al;
-        alist.setTag(WCPSConstants.ITERATOR);
+        alist.setTag(WCPSConstants.MSG_ITERATOR);
         where = null;
         using = null;
     }
@@ -52,18 +52,18 @@ public class GeneralCondenseExpr implements IParseTreeNode {
     }
 
     public String toXML() {
-        String result = "<" + WCPSConstants.CONDENSE + ">";
+        String result = "<" + WCPSConstants.MSG_CONDENSE + ">";
 
         result += op.toXML();
         result += alist.toXML();
 
         if (where != null) {
-            result += "<" + WCPSConstants.WHERE + ">" + where.toXML() + "</" + 
-                    WCPSConstants.WHERE + ">";
+            result += "<" + WCPSConstants.MSG_WHERE + ">" + where.toXML() + "</" + 
+                    WCPSConstants.MSG_WHERE + ">";
         }
 
         result += using.toXML();
-        result += "</" + WCPSConstants.CONDENSE + ">";
+        result += "</" + WCPSConstants.MSG_CONDENSE + ">";
 
         return result;
     }

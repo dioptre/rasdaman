@@ -49,12 +49,12 @@ public class VariableList implements IParseTreeNode {
     }
 
     public String toXML() {
-        String result = "<" + WCPSConstants.AXIS_ITERATOR + "><" + WCPSConstants.AXIS_TYPE 
-                + ">" + axisType + "</" + WCPSConstants.AXIS_TYPE + ">"
-                + "<" + WCPSConstants.ITERATORVAR + ">" + iteratorName + "</" + 
-                WCPSConstants.ITERATORVAR + ">" + "<" + WCPSConstants.COORD + ">"
-                + lo + "</" + WCPSConstants.COORD + ">" + "<" + WCPSConstants.COORD 
-                + ">" + hi + "</" + WCPSConstants.COORD + "></" + WCPSConstants.AXIS_ITERATOR + ">";
+        String result = "<" + WCPSConstants.MSG_AXIS_ITERATOR + "><" + WCPSConstants.MSG_AXIS_TYPE 
+                + ">" + axisType + "</" + WCPSConstants.MSG_AXIS_TYPE + ">"
+                + "<" + WCPSConstants.MSG_ITERATORVAR + ">" + iteratorName + "</" + 
+                WCPSConstants.MSG_ITERATORVAR + ">" + "<" + WCPSConstants.MSG_COORD + ">"
+                + lo + "</" + WCPSConstants.MSG_COORD + ">" + "<" + WCPSConstants.MSG_COORD 
+                + ">" + hi + "</" + WCPSConstants.MSG_COORD + "></" + WCPSConstants.MSG_AXIS_ITERATOR + ">";
 
         if (next != null) {
             result += next.toXML();

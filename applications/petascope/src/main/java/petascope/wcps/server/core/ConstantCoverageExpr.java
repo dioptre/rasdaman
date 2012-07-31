@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 import petascope.util.CrsUtil;
+import petascope.util.WCPSConstants;
 
 public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
 
@@ -47,7 +48,7 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
 
     public ConstantCoverageExpr(Node node, XmlQuery xq)
             throws WCPSException {
-        while ((node != null) && node.getNodeName().equals("#text")) {
+        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
             node = node.getNextSibling();
         }
         log.trace(node.getNodeName());
@@ -56,21 +57,21 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
 
         while (node != null) {
             String name = node.getNodeName();
-            if (name.equals("name")) {
+            if (name.equals(WCPSConstants.MSG_NAME)) {
                 covName = node.getTextContent();
-                log.trace("  coverage " + covName);
-            } else if (name.equals("axisIterator")) {
-                log.trace("  over: add axis iterator");
-                AxisIterator it = new AxisIterator(node.getFirstChild(), xq, "temp");
+                log.trace("  " + WCPSConstants.MSG_COVERAGE + " " + covName);
+            } else if (name.equals(WCPSConstants.MSG_AXIS_ITERATOR )) {
+                log.trace("  " + WCPSConstants.MSG_ADD_AXIS_ITERATOR);
+                AxisIterator it = new AxisIterator(node.getFirstChild(), xq, WCPSConstants.MSG_TEMP);
                 iterators.add(it);
             } else {
-                log.trace("  value list");
+                log.trace("  " + WCPSConstants.MSG_VALUE_LISt);
                 valueList = new ConstantList(node, xq);
                 node = valueList.getLastNode();
             }
 
             node = node.getNextSibling();
-            while ((node != null) && node.getNodeName().equals("#text")) {
+            while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
                 node = node.getNextSibling();
             }
         }
@@ -78,18 +79,17 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
         try {
             buildMetadata(xq);
         } catch (PetascopeException ex) {
-            throw new WCPSException("Cannot build coverage metadata !!!");
+            throw new WCPSException(WCPSConstants.ERRTXT_CANNOT_BUILD_COVERAGE+ " !!!");
         }
         buildAxisIteratorDomain();
 
         // Sanity check: dimensions should match number of constants in the list
         if (valueList.getSize() != requiredListSize) {
-            throw new WCPSException("The number of constants in the list do "
-                    + "not match the dimensions specified !");
+            throw new WCPSException(WCPSConstants.ERRTXT_CONST_DIMS_DOESNOT_MATCH);
         }
         // Sanity check: metadata should have already been build
         if (info == null) {
-            throw new WCPSException("Could not build constant coverage metadata !!!");
+            throw new WCPSException(WCPSConstants.ERRTXT_COULD_BUILD_CONST_COVERAGE);
         }
     }
 
@@ -128,14 +128,14 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
 
     /** Builds full metadata for the newly constructed coverage **/
     private void buildMetadata(XmlQuery xq) throws WCPSException, PetascopeException {
-        log.trace("  building metadata...");
+        log.trace("  " + WCPSConstants.MSG_BUILDING_METADATA);
         List<CellDomainElement> cellDomainList = new LinkedList<CellDomainElement>();
         List<RangeElement> rangeList = new LinkedList<RangeElement>();
         HashSet<String> nullSet = new HashSet<String>();
         String nullDefault = "0";
         nullSet.add(nullDefault);
         HashSet<InterpolationMethod> interpolationSet = new HashSet<InterpolationMethod>();
-        InterpolationMethod interpolationDefault = new InterpolationMethod("none", "none");
+        InterpolationMethod interpolationDefault = new InterpolationMethod(WCPSConstants.MSG_NONE, WCPSConstants.MSG_NONE);
         interpolationSet.add(interpolationDefault);
         String coverageName = covName;
         List<DomainElement> domainList = new LinkedList<DomainElement>();
@@ -158,10 +158,10 @@ public class ConstantCoverageExpr implements IRasNode, ICoverageInfo {
 
         // TODO: check element datatypes and their consistency
         // "unsigned int" is default datatype
-        rangeList.add(new RangeElement("dynamic_type", "unsigned int", null));
+        rangeList.add(new RangeElement(WCPSConstants.MSG_DYNAMIC_TYPE, WCPSConstants.MSG_UNSIGNED_INT, null));
         Metadata metadata = new Metadata(cellDomainList, rangeList, nullSet,
                 nullDefault, interpolationSet, interpolationDefault,
-                coverageName, "GridCoverage", domainList, null); // FIXME
+                coverageName, WCPSConstants.MSG_GRID_COVERAGE, domainList, null); // FIXME
         // Let the top-level query know the full metadata about us
         xq.getMetadataSource().addDynamicMetadata(covName, metadata);
         info = new CoverageInfo(metadata);

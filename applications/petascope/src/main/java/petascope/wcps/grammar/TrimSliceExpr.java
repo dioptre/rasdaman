@@ -40,13 +40,13 @@ public class TrimSliceExpr implements IParseTreeNode {
     List<IParseTreeNode> subsets;
 
     public TrimSliceExpr(CoverageExpr ce) {
-        log.trace(WCPSConstants.CREATE);
+        log.trace(WCPSConstants.MSG_CREATE);
         expr = ce;
         subsets = new LinkedList<IParseTreeNode>();
     }
     
     public void add(IParseTreeNode n) {
-        log.trace(WCPSConstants.ADD_SUBSET);
+        log.trace(WCPSConstants.MSG_ADD_SUBSET);
         subsets.add(n);
     }
 
@@ -55,9 +55,9 @@ public class TrimSliceExpr implements IParseTreeNode {
         String type = null;
         for (IParseTreeNode n : subsets) {
             if (n instanceof DimensionPointElement) {
-                type = WCPSConstants.SLICE;
+                type = WCPSConstants.MSG_SLICE;
             } else if (n instanceof DimensionIntervalElement) {
-                type = WCPSConstants.TRIM;
+                type = WCPSConstants.MSG_TRIM;
             }
             ret = "<" + type + ">" + ret + n.toXML() + "</" + type + ">";
         }
