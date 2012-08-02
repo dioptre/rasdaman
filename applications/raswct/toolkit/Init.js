@@ -92,6 +92,13 @@ JS.Packages(function() {
     file(TOOLKIT_PATH + "Widgets/MapWidget.js")
     .provides("Rj.Widget.MapWidget").requires('Rj.Widget.LayerWidget', 'Rj.Widget.OutputWidget');                
     
+    file(TOOLKIT_PATH + "Widgets/Knob.js")
+    .provides("Rj.Widget.Knob").requires('Rj.Widget.InputWidget');    
     
+     file(TOOLKIT_PATH + "Widgets/LedDisplay.js")
+    .provides("Rj.Widget.LedDisplay").requires('Rj.Widget.OutputWidget');     
+    
+     file(TOOLKIT_PATH + "Widgets/Gauge.js")
+    .provides("Rj.Widget.Gauge").requires('Rj.Widget.OutputWidget');  
     }
 });
