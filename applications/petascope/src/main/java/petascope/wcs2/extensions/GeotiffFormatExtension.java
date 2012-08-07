@@ -49,6 +49,11 @@ public class GeotiffFormatExtension extends  AbstractFormatExtension {
     @Override
     public Response handle(GetCoverageRequest request, DbMetadataSource meta) throws WCSException {
         GetCoverageMetadata m = new GetCoverageMetadata(request, meta);
+
+        // First, transform possible non-native CRS subsets
+        CRSExtension crsExtension = (CRSExtension) ExtensionsRegistry.getExtension(ExtensionsRegistry.CRS_IDENTIFIER);
+        crsExtension.handle(request, m, meta);
+        
         setBounds(request, m, meta);
         if (m.getGridDimension() != 2 || !(
                 m.getCoverageType().equals(GetCoverageRequest.GRID_COVERAGE) ||
@@ -56,10 +61,6 @@ public class GeotiffFormatExtension extends  AbstractFormatExtension {
             throw new WCSException(ExceptionCode.NoApplicableCode, "The GeoTIFF format extension "
                     + "only supports GridCoverage and RectifiedGridCoverage with exactly two dimensions");
         }
-        
-        // First, transform possible non-native CRS subsets
-        CRSExtension crsExtension = (CRSExtension) ExtensionsRegistry.getExtension(ExtensionsRegistry.CRS_IDENTIFIER);
-        crsExtension.handle(request, m, meta);
         
         Pair<Object, String> p = null;
         if (m.getCoverageType().equals(GetCoverageRequest.GRID_COVERAGE)) {
