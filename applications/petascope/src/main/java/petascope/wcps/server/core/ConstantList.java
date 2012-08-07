@@ -22,11 +22,11 @@
 package petascope.wcps.server.core;
 
 import petascope.exceptions.WCPSException;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
+import petascope.util.WCPSConstants;
 
 public class ConstantList implements IRasNode {
     
@@ -39,7 +39,7 @@ public class ConstantList implements IRasNode {
     public ConstantList(Node node, XmlQuery xq) throws WCPSException {
         list = new ArrayList<String>();
 
-        while ((node != null) && node.getNodeName().equals("#text")) {
+        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
             node = node.getNextSibling();
         }
         
@@ -48,24 +48,24 @@ public class ConstantList implements IRasNode {
         while (node != null) {
             String nodeName = node.getNodeName();
 
-            if (nodeName.equals("value")) {
+            if (nodeName.equals(WCPSConstants.MSG_VALUE)) {
                 val = node.getTextContent();
                 checkConstant(val);
-                log.trace("  adding value: " + val);
+                log.trace("  " + WCPSConstants.MSG_ADDING_VALUES + ": " + val);
                 list.add(val);
                 lastNode = node;
             } else {
-                log.error("  unknown node in constant list: " + nodeName);
-                throw new WCPSException("Unknown node in ConstantList: " + nodeName);
+                log.error("  " + WCPSConstants.ERRTXT_UNKNOWN_NODE_CONST_LIST+ ": " + nodeName);
+                throw new WCPSException(WCPSConstants.ERRTXT_UNKNOWN_NODE_CONST_LIST + ": " + nodeName);
             }
 
             node = node.getNextSibling();
-            while ((node != null) && node.getNodeName().equals("#text")) {
+            while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
                 node = node.getNextSibling();
             }
         }
 
-        log.trace("  parsed constant list with " + list.size() + " elements");
+        log.trace("  " + WCPSConstants.MSG_PARSED_CONST_LIST + " " + list.size() + " " + WCPSConstants.MSG_ELEMENST);
     }
 
     private void checkConstant(String val) throws WCPSException {
@@ -87,7 +87,7 @@ public class ConstantList implements IRasNode {
         }
 
         if (ok == false) {
-            throw new WCPSException("'" + val + "' is not an integer, float, or complex constant !");
+            throw new WCPSException("'" + val + "' " + WCPSConstants.ERRTXT_NOT_INT_FLOAT_COMPLEX);
         }
     }
 

@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import petascope.util.WCPSConstants;
 
 public class CoverageIterator implements IRasNode {
 
@@ -42,28 +43,28 @@ public class CoverageIterator implements IRasNode {
     public CoverageIterator(Node x, XmlQuery xq) throws WCPSException, PetascopeException {
         log.trace(x.getNodeName());
         coverageNames = new ArrayList<String>();
-        if (!x.getNodeName().equals("coverageIterator")) {
-            log.error("Invalid cast from " + x.getNodeName() + " XML node to CoverageIterator node");
-            throw new WCPSException("Invalid cast from " + x.getNodeName()
-                    + " XML node to CoverageIterator node");
+        if (!x.getNodeName().equals(WCPSConstants.MSG_COVERAGE_ITERATOR)) {
+            log.error(WCPSConstants.ERRTXT_INVALID_CAST_FROM_Part1 + " " + x.getNodeName() + " " + WCPSConstants.ERRTXT_INVALID_CAST_FROM_PART2);
+            throw new WCPSException(WCPSConstants.ERRTXT_INVALID_CAST_FROM_Part1 + " " + x.getNodeName()
+                    + " " + WCPSConstants.ERRTXT_INVALID_CAST_FROM_PART2);
         }
 
         Node it = x.getFirstChild();
         while (it != null) {
-            if (it.getNodeName().equals("#text")) {
+            if (it.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
                 it = it.getNextSibling();
                 continue;
             }
 
-            if (it.getNodeName().equals("iteratorVar")) {
+            if (it.getNodeName().equals(WCPSConstants.MSG_ITERATORVAR)) {
                 iteratorName = it.getFirstChild().getNodeValue();
-                log.trace("  iterator variable : " + iteratorName);
-            } else if (it.getNodeName().equals("coverageName")) {
+                log.trace("  " + WCPSConstants.MSG_ITERATOR_VARIABLE + " : " + iteratorName);
+            } else if (it.getNodeName().equals(WCPSConstants.MSG_COVERAGE_NAME)) {
                 String cn = it.getFirstChild().getNodeValue();
-                log.trace("  coverage reference : " + cn);
+                log.trace("  " + WCPSConstants.MSG_COVERAGE_REFERENCE + " : " + cn);
                 if (!xq.getMetadataSource().coverages().contains(cn)) {
-                    log.error("  unknown coverage " + cn);
-                    throw new WCPSException("Unknown coverage " + cn);
+                    log.error("  " + WCPSConstants.ERRTXT_UNKNOWN_COVERAGE + " " + cn);
+                    throw new WCPSException(WCPSConstants.ERRTXT_UNKNOWN_COVERAGE + " " + cn);
                 }
 
                 coverageNames.add(cn);
@@ -74,7 +75,7 @@ public class CoverageIterator implements IRasNode {
     }
 
     public CoverageIterator(String iterator, String coverage) throws WCPSException {
-        log.trace("iterator: " + iterator + ", for coverage: " + coverage);
+        log.trace(WCPSConstants.MSG_ITERATOR + ": " + iterator + ", " + WCPSConstants.MSG_FOR_COVERAGE + ": " + coverage);
         coverageNames = new ArrayList<String>();
         iteratorName = iterator;
         coverageNames.add(coverage);
@@ -91,6 +92,6 @@ public class CoverageIterator implements IRasNode {
 
     public String toRasQL() {
         // TODO(andreia) : How to translate multiple coverages?
-        return coverageNames.get(0) + " AS " + iteratorName;
+        return coverageNames.get(0) + " " + WCPSConstants.MSG_AS + " " + iteratorName;
     }
 }

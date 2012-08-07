@@ -30,6 +30,7 @@ import org.w3c.dom.*;
 import petascope.exceptions.WCSException;
 import petascope.exceptions.ExceptionCode;
 import petascope.util.AxisTypes;
+import petascope.util.WCPSConstants;
 
 public class Crs implements IRasNode {
 
@@ -41,21 +42,21 @@ public class Crs implements IRasNode {
      }
 
     public Crs(Node node, XmlQuery xq) throws WCPSException {
-        while ((node != null) && node.getNodeName().equals("#text")) {
+        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
             node = node.getNextSibling();
         }
         log.trace(node.getNodeName());
 
-        if (node != null && node.getNodeName().equals("srsName")) {
+        if (node != null && node.getNodeName().equals(WCPSConstants.MSG_SRS_NAME)) {
             String val = node.getTextContent();
             this.crsName = val;
             //if (crsName.equals(DomainElement.IMAGE_CRS) || crsName.equals(DomainElement.WGS84_CRS)) {
-                log.trace("  found CRS: " + crsName);
+                log.trace("  " + WCPSConstants.MSG_FOUND_CRS + ": " + crsName);
             //} else {
             //    throw new WCPSException("Invalid CRS: '" + crsName + "'");
             //}
         } else {
-            throw new WCPSException("Could not find a 'srsName' node !");
+            throw new WCPSException(WCPSConstants.ERRTXT_COULD_NOT_FIND_SRSNAME);
         }
     }
 
@@ -78,14 +79,14 @@ public class Crs implements IRasNode {
         // Convert bounding box values to pixel coordinates
         //if (crsName.equals(DomainElement.WGS84_CRS)) {
             //log.trace("Converting WGS84 axis {} interval to pixel coordinates ...", axisName);
-            log.trace("Converting {} axis {} interval to pixel coordinates ...", bbox.getCrsName(), axisName);
+            log.trace(WCPSConstants.MSG_CONVERTING_CURELY_AXIS, bbox.getCrsName(), axisName);
             /* Image coordinates */
             Iterator<CellDomainElement> it = meta.getCellDomainIterator();
             CellDomainElement X = it.next();
             CellDomainElement Y = it.next();
             if (X == null || Y == null) {
-                log.error("Could not find the X or Y axis for coverage: " + meta.getCoverageName());
-                throw new WCSException(ExceptionCode.NoApplicableCode, "Could not find the X or Y axis for coverage: " + meta.getCoverageName());
+                log.error(WCPSConstants.ERRTXT_COULD_NOT_FIND_THE_X + ": " + meta.getCoverageName());
+                throw new WCSException(ExceptionCode.NoApplicableCode, WCPSConstants.ERRTXT_COULD_NOT_FIND_THE_X + ": " + meta.getCoverageName());
             }
             int x0 = X.getLo().intValue();
             int x1 = X.getHi().intValue();
@@ -94,7 +95,7 @@ public class Crs implements IRasNode {
             int W = x1-x0;
             int H = y1-y0;
 
-            log.trace("Pixel Coordinates: X01 (" + x0 + "," + x1 + ") + Y01 (" + y0 + "," + y1 + ")");
+            log.trace(WCPSConstants.MSG_PIXEL_COORDINATES_X01 + " (" + x0 + "," + x1 + ") + " + WCPSConstants.MSG_Y01 + " (" + y0 + "," + y1 + ")");
             /* BBOX span */
             double x2 = bbox.getLow1();
             double y2 = bbox.getLow2();
@@ -102,13 +103,13 @@ public class Crs implements IRasNode {
             double y3 = bbox.getHigh2();
             double bboxW = x3-x2;
             double bboxH = y3-y2;
-            log.trace("BBOX Coordinates: X23 (" + x2 + "," + x3 + ") + Y23 (" + y2 + "," + y3 + ")");
+            log.trace(WCPSConstants.MSG_BBOX_COORD_X23 + " (" + x2 + "," + x3 + ") + " + WCPSConstants.MSG_Y23 + " (" + y2 + "," + y3 + ")");
             /* For WGS84, the offset = (# pixels)/(CRS span) */
             double oX = bbox.getOffset1();
             double oY = bbox.getOffset2();
 
             /* The actual conversion is below: */
-            if (axisName.equals("X")) {
+            if (axisName.equals(WCPSConstants.MSG_X)) {
                 px0 = Math.round((u2 - x2) / oX) + x0;
                 //px0 = Math.round(W*(u2-x2)/bboxW);
                 px1 = Math.round((u3 - u2) / oX) + px0;
@@ -116,8 +117,8 @@ public class Crs implements IRasNode {
                 // Check outside bounds:
                 px0 = (px0<x0) ? (x0) : ((px0>x1)?x1:px0);
                 px1 = (px1<x0) ? (x0) : ((px1>x1)?x1:px1);
-                log.debug("CRS Coordinates on axis X: U23 (" + u2 + "," + u3 + ")");
-                log.debug("Pixel Coordinates on axis X: U01 (" + px0 + "," + px1 + ") ");
+                log.debug(WCPSConstants.MSG_CRS_COORD_ON_AXIS_X + " (" + u2 + "," + u3 + ")");
+                log.debug(WCPSConstants.MSG_PIXEL_COORD_ON_AXIS_X + " (" + px0 + "," + px1 + ") ");
             }
             if (axisName.equals("Y")) {
                 py0 = Math.round((y3 - v3) / oY) + y0;
@@ -127,8 +128,8 @@ public class Crs implements IRasNode {
                 // Check outside bounds:
                 py0 = (py0<y0) ? (y0) : ((py0>y1)?y1:py0);
                 py1 = (py1<y0) ? (y0) : ((py1>y1)?y1:py1);
-                log.debug("CRS Coordinates on axis Y:  V23 (" + v2 + "," + v3 + ")");
-                log.debug("Pixel Coordinates on axis Y: V01 (" + py0 + "," + py1 + ")");
+                log.debug(WCPSConstants.MSG_CRS_COORD_ON_AXIS_Y + " (" + v2 + "," + v3 + ")");
+                log.debug(WCPSConstants.MSG_PIXEL_COORD_ON_AXIS_Y + " (" + py0 + "," + py1 + ")");
             }
 
         //}
@@ -156,30 +157,30 @@ public class Crs implements IRasNode {
         
         // Put in order to prevent call error
         if (coordHi < coordLo) {
-            log.error("Argument \"high\" is lower than \"low\": " + coordHi + "<" + coordLo + " (rasql error 389 would be raised: \"in case of fixed bounds, the upper one can not be smaller than the lower one\")");
-            throw new WCSException(ExceptionCode.NoApplicableCode, "Could not find the \"" + axisName + "\" axis for coverage:" + meta.getCoverageName());
+            log.error(WCPSConstants.ERRTXT_ARGUMENT_HIGH_IS_LOWER_P1 + ": " + coordHi + "<" + coordLo + " " + WCPSConstants.ERRTXT_ARGUMENT_HIGH_IS_LOWER_P2);
+            throw new WCSException(ExceptionCode.NoApplicableCode, WCPSConstants.ERRTXT_COULD_NOT_FIND_COVERAGE_P1 + axisName + WCPSConstants.ERRTXT_COULD_NOT_FIND_COVERAGE_P2 + ":" + meta.getCoverageName());
         }
         
         // Convert domain-space values to cell-space indices
-        log.trace("Converting axis {} interval to pixel indices ...", axisName);
+        log.trace(WCPSConstants.MSG_CONVERTING_CURELY_AXIS_INDX, axisName);
         
         // Image coordinates
         DomainElement dom = meta.getDomainByName(axisName);
         CellDomainElement cdom = meta.getCellDomainByName(axisName);
         if (cdom == null || dom == null) {
-            log.error("Could not find the \"" + axisName + "\" axis for coverage: " + meta.getCoverageName());
-            throw new WCSException(ExceptionCode.NoApplicableCode, "Could not find the \"" + axisName + "\" axis for coverage:" + meta.getCoverageName());
+            log.error(WCPSConstants.ERRTXT_COULD_NOT_FIND_COVERAGE_P1 + axisName + WCPSConstants.ERRTXT_COULD_NOT_FIND_COVERAGE_P2 + ": " + meta.getCoverageName());
+            throw new WCSException(ExceptionCode.NoApplicableCode, WCPSConstants.ERRTXT_COULD_NOT_FIND_COVERAGE_P1 + axisName + WCPSConstants.ERRTXT_COULD_NOT_FIND_COVERAGE_P2 + ":" + meta.getCoverageName());
         }
         
         // Get cellDomain extremes
         int pxLo = cdom.getLo().intValue();
         int pxHi = cdom.getHi().intValue();
-        log.trace("CellDomain extremes values: LOW:" + pxLo + ", HIGH:" + pxHi);
+        log.trace(WCPSConstants.MSG_CELL_DOMAIN_EXTREMES + pxLo + ", " + WCPSConstants.MSG_HIGH_U + ":" + pxHi);
         
         // Get Domain extremes (real sdom)
         double domLo = dom.getNumLo();
         double domHi = dom.getNumHi();
-        log.trace("Domain extremes coordinates: (" + domLo + "," + domHi + ")");
+        log.trace(WCPSConstants.MSG_DOMAIN_EXTREMES_COORD + ": (" + domLo + "," + domHi + ")");
 
         // Get cell dimension 
         double cellWidth = (domHi-domLo)/(double)((pxHi-pxLo)+1);
@@ -198,12 +199,12 @@ public class Crs implements IRasNode {
                 (int)Math.floor((domHi - coordLo) / cellWidth) + pxLo
             };
         }
-        log.debug("Transformed coords indices (" + out[0] + "," + out[1] + ")");
+        log.debug(WCPSConstants.MSG_TRANSFORMED_COORDS_INDX + " (" + out[0] + "," + out[1] + ")");
         
         // Check outside bounds:
         out[0] = (out[0]<pxLo) ? pxLo : ((out[0]>pxHi)?pxHi:out[0]);
         out[1] = (out[1]<pxLo) ? pxLo : ((out[1]>pxHi)?pxHi:out[1]);
-        log.debug("Transformed rebounded coords indices (" + out[0] + "," + out[1] + ")");
+        log.debug(WCPSConstants.MSG_TRANSFORMED_REBOUNDED_COORDS + " (" + out[0] + "," + out[1] + ")");
 
         return out;
     }

@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
+import petascope.util.WCPSConstants;
 
 //TODO(smsorin): how do we do combine this ?
 
@@ -46,7 +47,7 @@ public class CrsTransformCoverageExpr implements IRasNode, ICoverageInfo {
             //      project(arr, bbox, s_crs, t_crs);
             //      replace it in the ...DOVE? data is returned in executeRasqlQuery..
             // end
-        throw new WCPSException(ExceptionCode.NoApplicableCode, "crsTransform expression not implemented.");
+        throw new WCPSException(ExceptionCode.NoApplicableCode, WCPSConstants.MSG_CRS_TRANSFORM_EXPR);
     }
 
     @Override

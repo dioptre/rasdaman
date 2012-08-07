@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
+import petascope.util.WCPSConstants;
 
 // This is the equivalent of the "ProcessingExprType" complex XML type.
 public class EncodeDataExpr implements IRasNode {
@@ -45,29 +46,29 @@ public class EncodeDataExpr implements IRasNode {
         for (child = node.getFirstChild(); child != null; child = child.getNextSibling()) {
             nodeName = child.getNodeName();
 
-            if (nodeName.equals("#text")) {
+            if (nodeName.equals("#" + WCPSConstants.MSG_TEXT)) {
                 continue;
             }
 
-            if (nodeName.equals("format")) {
+            if (nodeName.equals(WCPSConstants.MSG_FORMAT)) {
                 format = child.getFirstChild().getNodeValue();
                 mime = request.getMetadataSource().formatToMimetype(format);
-                log.trace("  format: " + format + ", mime: " + mime);
+                log.trace("  " + WCPSConstants.MSG_FORMAT + ": " + format + ", " + WCPSConstants.MSG_MIME + ": " + mime);
                 continue;
             }
 
-            if (nodeName.equals("extraParameters")) {
+            if (nodeName.equals(WCPSConstants.MSG_EXTRA_PARAMETERS)) {
                 extraParams = child.getFirstChild().getNodeValue();
-                log.trace("  extra params: " + extraParams);
+                log.trace("  " + WCPSConstants.MSG_EXTRA_PARAMS + ": " + extraParams);
                 continue;
             }
 
             coverageExprType = new CoverageExpr(child, request);
         }
 
-        Node _store = node.getAttributes().getNamedItem("store");
+        Node _store = node.getAttributes().getNamedItem(WCPSConstants.MSG_STORE);
         if (_store != null) {
-            store = _store.getNodeValue().equals("true");
+            store = _store.getNodeValue().equals(WCPSConstants.MSG_TRUE);
         }
     }
 
@@ -80,7 +81,7 @@ public class EncodeDataExpr implements IRasNode {
 
         String result;
 
-        if (format.equals("raw")) {
+        if (format.equals(WCPSConstants.MSG_RAW)) {
             result = coverageExprType.toRasQL();
         } else {
             result = format + "(" + coverageExprType.toRasQL();
@@ -93,7 +94,7 @@ public class EncodeDataExpr implements IRasNode {
             result = result + ")";
         }
 
-        log.trace("Returning EncodeExpression:" + result);
+        log.trace(WCPSConstants.MSG_RETURNING_ENCODE_EXPR + ":" + result);
         return result;
     }
 }

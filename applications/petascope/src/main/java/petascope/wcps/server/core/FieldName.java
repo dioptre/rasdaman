@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
+import petascope.util.WCPSConstants;
 
 public class FieldName implements IRasNode {
     
@@ -33,21 +34,21 @@ public class FieldName implements IRasNode {
     private String name;
 
     public FieldName(Node node, XmlQuery xq) throws WCPSException {
-        while ((node != null) && node.getNodeName().equals("#text")) {
+        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
             node = node.getNextSibling();
         }
 
         if (node == null) {
-            throw new WCPSException("FieldNameType parsing error!");
+            throw new WCPSException(WCPSConstants.ERRTXT_FIELDNAME_TYPE_PARSING_ERR);
         }
 
         String nodeName = node.getNodeName();
         log.trace(nodeName);
 
-        if (nodeName.equals("name")) {
+        if (nodeName.equals(WCPSConstants.MSG_NAME)) {
             this.name = node.getTextContent();
 
-            log.trace("  found field name: " + name);
+            log.trace("  " + WCPSConstants.MSG_FOUND_FIELD_NAME + ": " + name);
         }
     }
 

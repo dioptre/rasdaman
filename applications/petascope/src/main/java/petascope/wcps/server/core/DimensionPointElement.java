@@ -29,6 +29,7 @@ import org.w3c.dom.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.util.CrsUtil;
+import petascope.util.WCPSConstants;
 
 public class DimensionPointElement implements IRasNode {
 
@@ -47,7 +48,7 @@ public class DimensionPointElement implements IRasNode {
     public DimensionPointElement(Node node, XmlQuery xq, CoverageInfo covInfo)
             throws WCPSException {
 
-        while ((node != null) && node.getNodeName().equals("#text")) {
+        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
             node = node.getNextSibling();
         }
         
@@ -68,14 +69,14 @@ public class DimensionPointElement implements IRasNode {
         String name;
 
         while (node != null && finished == false) {
-            if (node.getNodeName().equals("#text")) {
+            if (node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
                 node = node.getNextSibling();
                 continue;
             }
 
             // Try Axis
             try {
-                log.trace("  matching axis name");
+                log.trace("  " + WCPSConstants.MSG_MATCHING_AXIS_NAME);
                 axis = new AxisName(node, xq);
                 node = node.getNextSibling();
                 continue;
@@ -84,11 +85,11 @@ public class DimensionPointElement implements IRasNode {
 
             // Try CRS name
             try {
-                log.trace("  matching crs");
+                log.trace("  " + WCPSConstants.MSG_MATCHING_CRS);
                 crs = new Crs(node, xq);
                 node = node.getNextSibling();
                 if (axis == null) {
-                    throw new WCPSException("Expected Axis node before CRS !");
+                    throw new WCPSException(WCPSConstants.ERRTXT_EXPECTED_AXIS_NODE);
                 }
                 continue;
             } catch (WCPSException e) {
@@ -109,14 +110,14 @@ public class DimensionPointElement implements IRasNode {
 //            }
 
             // Then it must be a "slicingPosition"
-            if (node.getNodeName().equals("slicingPosition")) {
-                log.trace("  slice position");
+            if (node.getNodeName().equals(WCPSConstants.MSG_SLICING_POSITION)) {
+                log.trace("  " + WCPSConstants.MSG_SLICE_POSITION);
                 domain = new ScalarExpr(node.getFirstChild(), xq);
                 if (axis == null) {
-                    throw new WCPSException("Expected <axis> node before <slicingPosition> !");
+                    throw new WCPSException(WCPSConstants.ERRTXT_EXPECTED_AXIS_NODE_SLICINGP);
                 }
             } else {
-                throw new WCPSException("Unexpected node: " + node.getFirstChild().getNodeName());
+                throw new WCPSException(WCPSConstants.ERRTXT_UNEXPETCTED_NODE + ": " + node.getFirstChild().getNodeName());
             }
 
             if (axis != null && domain != null) {
@@ -139,10 +140,10 @@ public class DimensionPointElement implements IRasNode {
               Iterator<String> crsIt = axisDomain.getCrsSet().iterator();
               if (crsIt.hasNext()) {
                 String crsname = crsIt.next();
-                log.info("Using native CRS: " + crsname);
+                log.info(WCPSConstants.MSG_USING_NATIVE_CRS + ": " + crsname);
                 crs = new Crs(crsname);
               } else {
-                log.warn("No native CRS specified for axis " + axisName + ", assuming pixel coordinates.");
+                log.warn(WCPSConstants.WARNTXT_NO_NATIVE_CRS_P1 + " " + axisName + ", " + WCPSConstants.WARNTXT_NO_NATIVE_CRS_P2);
                 crs = new Crs(CrsUtil.IMAGE_CRS);
               }
             }
@@ -158,14 +159,14 @@ public class DimensionPointElement implements IRasNode {
     private void convertToPixelCoordinate() {
         //if (meta.getCrs() == null && crs != null && crs.getName().equals(DomainElement.WGS84_CRS)) {
         if (meta.getBbox() == null && crs != null) {
-            throw new RuntimeException("Coverage '" + meta.getCoverageName()
+            throw new RuntimeException(WCPSConstants.MSG_COVERAGE + " '" + meta.getCoverageName()
                     //+ "' is not georeferenced with 'EPSG:4326' coordinate system.");
-                    + "' is not georeferenced.");
+                    + "' " + WCPSConstants.ERRTXT_IS_NOT_GEOREFERENCED);
         }        
         if (crs != null && domain.isSingleValue()) {
             //if (crs.getName().equals(DomainElement.WGS84_CRS)) {
                 //log.debug("CRS is '{}' and should be equal to '{}'", crs.getName(), DomainElement.WGS84_CRS);
-                log.debug("[Transformed] requested subsettingCrs is '{}', should match now native CRS is '{}'", crs.getName(), meta.getBbox().getCrsName());
+                log.debug(WCPSConstants.DEBUGTXT_REQUESTED_SUBSETTING, crs.getName(), meta.getBbox().getCrsName());
                 try {
                     this.transformedCoordinates = true;
                     // Convert to pixel coordinates
@@ -174,8 +175,7 @@ public class DimensionPointElement implements IRasNode {
                     coord = crs.convertToPixelIndices(meta, axisName, val);
                 } catch (WCSException e) {
                     this.transformedCoordinates = false;
-                    log.error("Error while transforming geo-coordinates to pixel coordinates."
-                            + "The metadata is probably not valid.");
+                    log.error(WCPSConstants.ERRTXT_ERROR_WHILE_TRANSFORMING);
                 }
             //}
         } // else no crs was embedded in the slice expression 

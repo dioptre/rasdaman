@@ -29,6 +29,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
+import petascope.util.WCPSConstants;
 
 public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
     
@@ -54,7 +55,7 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
         while (child != null) {
             nodeName = child.getNodeName();
 
-            if (nodeName.equals("#text")) {
+            if (nodeName.equals("#" + WCPSConstants.MSG_TEXT)) {
                 child = child.getNextSibling();
                 continue;
             }
@@ -70,20 +71,20 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
             try {
                 // Start a new axis and save it
                 elem = new DimensionIntervalElement(child, xq, coverageInfo);
-                log.trace("  added new axis to list: " + elem.getAxisName());
+                log.trace("  " + WCPSConstants.MSG_ADD_NEW_AXIS + ": " + elem.getAxisName());
                 axisList.add(elem);
                 child = elem.getNextNode();
                 continue;
             } catch (WCPSException e) {
-                log.error("This was no Dimension Interval ELement: " + child.getNodeName());
+                log.error(WCPSConstants.ERRTXT_THIS_WAS_NO_DIM + ": " + child.getNodeName());
             }
 
             // else unknown element
-            throw new WCPSException("Unknown node for ExtendCoverage expression:" + child.getNodeName());
+            throw new WCPSException(WCPSConstants.ERRTXT_UNKNOWN_NODE_EXTENDCOVERAGE + child.getNodeName());
         }
 
         dims = coverageInfo.getNumDimensions();
-        log.trace("  number of dimensions: " + dims);
+        log.trace("  " + WCPSConstants.MSG_NUMBER_OF_DIMENSIONS + ": " + dims);
         dim = new String[dims];
 
         for (int j = 0; j < dims; ++j) {
@@ -99,9 +100,9 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
         while (i.hasNext()) {
             axis = i.next();
             axisId = coverageInfo.getDomainIndexByName(axis.getAxisName());
-            log.trace("  axis ID: " + axisId);
-            log.trace("  axis name: " + axis.getAxisName());
-            log.trace("  axis coords: ");
+            log.trace("  " + WCPSConstants.MSG_AXIS + " " + WCPSConstants.MSG_ID + ": " + axisId);
+            log.trace("  " + WCPSConstants.MSG_AXIS + " " + WCPSConstants.MSG_NAME + ": " + axis.getAxisName());
+            log.trace("  " + WCPSConstants.MSG_AXIS + " " + WCPSConstants.MSG_COORDS + ": ");
 
             axisLo = Integer.parseInt(axis.getLowCoord());
             axisHi = Integer.parseInt(axis.getHighCoord());
@@ -120,7 +121,7 @@ public class ExtendCoverageExpr implements IRasNode, ICoverageInfo {
     }
 
     public String toRasQL() {
-        String result = "extend(" + coverageExprType.toRasQL() + ",[";
+        String result = WCPSConstants.MSG_EXTEND + "(" + coverageExprType.toRasQL() + ",[";
 
         for (int j = 0; j < dims; ++j) {
             if (j > 0) {

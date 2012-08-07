@@ -29,6 +29,7 @@ import petascope.exceptions.WCPSException;
 import petascope.exceptions.WCSException;
 import org.w3c.dom.*;
 import petascope.util.CrsUtil;
+import petascope.util.WCPSConstants;
 
 /**
  * @author <?>
@@ -60,7 +61,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
     public DimensionIntervalElement(Node node, XmlQuery xq, CoverageInfo covInfo)
             throws WCPSException {
 
-        while ((node != null) && node.getNodeName().equals("#text")) {
+        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
             node = node.getNextSibling();
         }
         log.trace(node.getNodeName());
@@ -78,7 +79,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
         }
 
         while (node != null && finished == false) {
-            if (node.getNodeName().equals("#text")) {
+            if (node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
                 node = node.getNextSibling();
                 continue;
             }
@@ -96,7 +97,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
                 crs = new Crs(node, xq);
                 node = node.getNextSibling();
                 if (axis == null) {
-                    throw new WCPSException("Expected Axis node before CRS !");
+                    throw new WCPSException(WCPSConstants.ERRTXT_EXPECTED_AXIS_NODE);
                 }
                 continue;
             } catch (WCPSException e) {
@@ -117,23 +118,23 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
 //            }
 
             // Then it must be a pair of nodes "lowerBound" + "upperBound"
-            if (node.getNodeName().equals("lowerBound")) {
+            if (node.getNodeName().equals(WCPSConstants.MSG_LOWER_BOUND)) {
                 counter = 2;
                 domain1 = new ScalarExpr(node.getFirstChild(), xq);
                 if (axis == null) {
-                    log.error("Expected <axis> node before <lowerBound> !");
-                    throw new WCPSException("Expected <axis> node before <lowerBound> !");
+                    log.error(WCPSConstants.ERRTXT_EXPECTED_AXIS_NODE_LOWERB);
+                    throw new WCPSException(WCPSConstants.ERRTXT_EXPECTED_AXIS_NODE_LOWERB);
                 }
-            } else if (node.getNodeName().equals("upperBound")) {
+            } else if (node.getNodeName().equals(WCPSConstants.MSG_UPPER_BOUND)) {
                 counter = 2;
                 domain2 = new ScalarExpr(node.getFirstChild(), xq);
                 if (axis == null) {
-                    log.error("Expected <lowerBound> node before <upperBound> !");
-                    throw new WCPSException("Expected <lowerBound> node before <upperBound> !");
+                    log.error(WCPSConstants.ERRTXT_EXPECTED_AXIS_NODE_UPPERB);
+                    throw new WCPSException(WCPSConstants.ERRTXT_EXPECTED_AXIS_NODE_UPPERB);
                 }
             } else {
-                log.error("  unexpected node: " + node.getFirstChild().getNodeName());
-                throw new WCPSException("Unexpected node: " + node.getFirstChild().getNodeName());
+                log.error("  " + WCPSConstants.ERRTXT_UNEXPETCTED_NODE + ": " + node.getFirstChild().getNodeName());
+                throw new WCPSException(WCPSConstants.ERRTXT_UNEXPETCTED_NODE + ": " + node.getFirstChild().getNodeName());
             }
 
             if (axis != null && counter == 1 && domain1 != null) {
@@ -178,14 +179,14 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
     private void convertToPixelCoordinates() {
         //if (meta.getCrs() == null && crs != null && crs.getName().equals(DomainElement.WGS84_CRS)) {
         if (meta.getBbox() == null && crs != null) {
-            throw new RuntimeException("Coverage '" + meta.getCoverageName()
+            throw new RuntimeException(WCPSConstants.MSG_COVERAGE + " '" + meta.getCoverageName()
                     //+ "' is not georeferenced with 'EPSG:4326' coordinate system.");
-                    + "' is not georeferenced.");
+                    + "' " + WCPSConstants.ERRTXT_IS_NOT_GEOREFERENCED);
         }
         if (counter == 2 && crs != null && domain1.isSingleValue() && domain2.isSingleValue()) {
             //if (crs.getName().equals(DomainElement.WGS84_CRS)) {
                 //log.debug("CRS is '{}' and should be equal to '{}'", crs.getName(), DomainElement.WGS84_CRS);
-                log.debug("[Transformed] requested subsettingCrs is '{}', should match now native CRS is '{}'", crs.getName(), meta.getBbox().getCrsName());
+                log.debug(WCPSConstants.DEBUGTXT_REQUESTED_SUBSETTING, crs.getName(), meta.getBbox().getCrsName());
                 try {
                     this.transformedCoordinates = true;
                     // Convert to pixel coordinates
@@ -197,8 +198,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
                     coord2 = pCoord[1];
                 } catch (WCSException e) {
                     this.transformedCoordinates = false;
-                    log.error("Error while transforming geo-coordinates to pixel coordinates."
-                            + "The metadata is probably not valid.");
+                    log.error(WCPSConstants.ERRTXT_ERROR_WHILE_TRANSFORMING);
                 }
             //}
         }
@@ -207,7 +207,7 @@ public class DimensionIntervalElement implements IRasNode, ICoverageInfo {
     /* Not used */
     @Override
     public String toRasQL() {
-        return "<DimensionIntervalElement Not Converted to RasQL>";
+        return WCPSConstants.MSG_DOMAIN_INTERVAL_ELEMENT_NOT;
     }
 
     @Override

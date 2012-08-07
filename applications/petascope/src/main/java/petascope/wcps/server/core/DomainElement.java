@@ -31,6 +31,7 @@ import petascope.exceptions.ExceptionCode;
 import petascope.exceptions.WCPSException;
 import petascope.util.AxisTypes;
 import petascope.util.CrsUtil;
+import petascope.util.WCPSConstants;
 
 /**
  * This is an axis in geographic coordinates. See the WCPS standard.
@@ -58,24 +59,24 @@ public class DomainElement implements Cloneable {
 
         if ((name == null) || (type == null)) {
             throw new WCPSException(ExceptionCode.InvalidMetadata, 
-                    "Invalid domain element: Element name and type cannot be null");
+                    WCPSConstants.ERRTXT_INVALID_DOMAIN_ELEMENT_NULL);
         }
 
         if (name.equals("")) {
             throw new WCPSException(ExceptionCode.InvalidMetadata, 
-                    "Invalid domain element: Element name cannot be empty");
+                    WCPSConstants.ERRTXT_INVALID_DOMAIN_ELEMENT_EMPTY);
         }
 
         if (allowedAxes.contains(type) == false) {
             throw new WCPSException(ExceptionCode.InvalidMetadata, 
-                    "Invalid domain element: Invalid element type: " + type
-                    + ". Allowed element types are: " + allowedAxes.toString());
+                    WCPSConstants.ERRTXT_INVALID_DOMAIN_ELEMENT_TYP_P1 + type
+                    + WCPSConstants.ERRTXT_INVALID_DOMAIN_ELEMENT_TYP_P2 + allowedAxes.toString());
         }
 
         if ((numLo != null) && (numHi != null) && (strLo == null) && (strHi == null)) {
             if (numLo.compareTo(numHi) == 1) {
                 throw new WCPSException(ExceptionCode.InvalidMetadata, 
-                        "Invalid domain element: Lower integer bound cannot be larger than upper integer bound");
+                        WCPSConstants.ERRTXT_INVALID_DOM_LOWER_INT_BOUND);
             }
 
             this.numLo = numLo;
@@ -83,7 +84,7 @@ public class DomainElement implements Cloneable {
         } else if ((strLo != null) && (numHi != null) && (numLo == null) && (numHi == null)) {
             if (strLo.equals("") || strHi.equals("")) {
                 throw new WCPSException(ExceptionCode.InvalidMetadata, 
-                        "Invalid domain element: String bounds cannot be empty");
+                        WCPSConstants.ERRTXT_INVALID_DOM_STRING_BOUND);
             }
 
             this.strLo = strLo;
@@ -97,16 +98,16 @@ public class DomainElement implements Cloneable {
                 this.numHi = numHi;
             } else {
                 throw new WCPSException(ExceptionCode.InvalidMetadata, 
-                        "Invalid domain element: Integer bounds must both be non-null if string bounds are null, and vice versa at "
+                        WCPSConstants.ERRTXT_INVALID_DOM_INT_BOUND_BOTH
                         + name + ":" + type);
             }
         }
 
         if ((type.equals(AxisTypes.X_AXIS) || type.equals(AxisTypes.Y_AXIS)) && (numLo == null)) {
             throw new WCPSException(ExceptionCode.InvalidMetadata, 
-                    "Invalid domain element: A spatial axis must have integer extent");
+                    WCPSConstants.ERRTXT_INVALID_DOM_SPATIAL_AXIS);
         } else if (type.equals(AxisTypes.T_AXIS) && (numLo == null) || (numHi == null)) {
-            throw new WCPSException(ExceptionCode.InvalidMetadata, "Invalid domain element: A \"t\" axis must have integer extent and optionally, string extent");
+            throw new WCPSException(ExceptionCode.InvalidMetadata, WCPSConstants.ERRTXT_INVALID_DOM_T_AXIS);
         }
 
         this.name = name;
@@ -144,7 +145,7 @@ public class DomainElement implements Cloneable {
             return new DomainElement(newName, newType, newNumLo, newNumHi, newStrLo, newStrHi, c, allowedAxes, newUom);
         } catch (WCPSException ime) {
             throw new RuntimeException(
-                    "Invalid metadata while cloning DomainElement. This is a software bug in WCPS.",
+                    WCPSConstants.ERRTXT_INVALID_METADAT_WHILE_CLONE,
                     ime);
         }
 
@@ -196,9 +197,9 @@ public class DomainElement implements Cloneable {
 
     @Override
     public String toString() {
-        String d = "Domain Element { Name: '" + name + "', Type: '" + type
-                + "', NumLow: '" + numLo + "', NumHi: '" + numHi + "', StrLow: '"
-                + strLo + "', StrHi: '" + strHi + "', CrsSet: '" + crss + "'}";
+        String d = WCPSConstants.MSG_DOMAIN_ELEMENT_NAME + name + "', " + WCPSConstants.MSG_TYPE_CAMEL + ": '" + type
+                + "', " + WCPSConstants.MSG_NUMLOW + ": '" + numLo + "', " + WCPSConstants.MSG_NUMHI + ": '" + numHi + "', " + WCPSConstants.MSG_STRLOW + ": '"
+                + strLo + "', " + WCPSConstants.MSG_STRHI + ": '" + strHi + "', " + WCPSConstants.MSG_CRS_SET_CAMEL + ": '" + crss + "'}";
         return d;
     }
 }

@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
+import petascope.util.WCPSConstants;
 
 public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo {
     
@@ -40,7 +41,7 @@ public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo {
         
         log.trace(nodeName);
 
-        if (nodeName.equals("rangeConstructor")) {
+        if (nodeName.equals(WCPSConstants.MSG_RANGE_CONSTRUCTOR)) {
             operation = nodeName;
             child = new RangeCoverageExpr(node, xq);
             info = new CoverageInfo((((ICoverageInfo) child).getCoverageInfo()));
@@ -51,10 +52,10 @@ public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo {
                 try {
                     child = new UnaryOperationCoverageExpr(node, xq);
                     info = new CoverageInfo((((ICoverageInfo) child).getCoverageInfo()));
-                    log.trace("  induced Operation SUCCESS: " + node.getNodeName());
+                    log.trace("  " + WCPSConstants.MSG_INDUCED_OP_SUCCESS + ": " + node.getNodeName());
                 } catch (WCPSException e) {
                     child = null;
-                    if (e.getMessage().equals("Method not implemented")) {
+                    if (e.getMessage().equals(WCPSConstants.MSG_METHOD_NOT_IMPL)) {
                         throw e;
                     }
                 }
@@ -64,14 +65,14 @@ public class InducedOperationCoverageExpr implements IRasNode, ICoverageInfo {
                 try {
                     child = new BinaryOperationCoverageExpr(node, xq);
                     info = new CoverageInfo((((ICoverageInfo) child).getCoverageInfo()));
-                    log.trace("  binary Operation SUCCESS: " + node.getNodeName());
+                    log.trace("  " + WCPSConstants.MSG_BINARY_OP_SUCCESS + ": " + node.getNodeName());
                 } catch (WCPSException e) {
                     child = null;
                 }
             }
 
             if (child == null) {
-                throw new WCPSException("Invalid induced coverage expression, next node: "
+                throw new WCPSException(WCPSConstants.ERRTXT_INVALID_INDUCED_COV_EXPR + ": "
                         + node.getNodeName());
             }
         }

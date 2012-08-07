@@ -26,6 +26,7 @@ import org.w3c.dom.*;
 import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import petascope.util.WCPSConstants;
 
 public class CoverageExpr implements IRasNode, ICoverageInfo {
     
@@ -39,12 +40,12 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
     private boolean simpleCoverage;    // True if the coverage is just a string
 
     public CoverageExpr(Node node, XmlQuery xq) throws WCPSException {
-        while ((node != null) && node.getNodeName().equals("#text")) {
+        while ((node != null) && node.getNodeName().equals("#" + WCPSConstants.MSG_TEXT)) {
             node = node.getNextSibling();
         }
 
         if (node == null) {
-            throw new WCPSException("CoverageExprType parsing error!");
+            throw new WCPSException(WCPSConstants.ERRTXT_COVERAGEEXPRTYPE_PASING_ERR);
         }
 
         String nodeName = node.getNodeName();
@@ -52,12 +53,12 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
 
         simpleCoverage = false;
 
-        if (nodeName.equals("coverage")) {
+        if (nodeName.equals(WCPSConstants.MSG_COVERAGE)) {
             simpleCoverage = true;
             childInfo = node.getFirstChild().getNodeValue();
 
             if (!xq.isIteratorDefined(childInfo)) {
-                throw new WCPSException("Iterator " + childInfo + " not defined!");
+                throw new WCPSException(WCPSConstants.MSG_ITERATOR + " " + childInfo + " " + WCPSConstants.ERRTXT_NOT_DEFINED);
             }
 
             Iterator<String> coverages = xq.getCoverages(childInfo);
@@ -72,23 +73,23 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
 
                     if (!tmp.isCompatible(info)) {
                         throw new WCPSException(
-                                "Incompatible coverages within the same iterator");
+                                WCPSConstants.ERRTXT_INCOMPATIBLE_COVERAGES);
                     }
                 }
             } catch (Exception ex) {
                 throw new WCPSException(ex.getMessage(), ex);
             }
 
-            log.trace("Found simple coverage definition: " + childInfo + ", "
+            log.trace(WCPSConstants.MSG_FOUND_SIMPLE_COVERAGE_DEF + ": " + childInfo + ", "
                     + info.toString());
-        } else if (nodeName.equals("crsTransform")) {
+        } else if (nodeName.equals(WCPSConstants.MSG_CRS_TRANSFORM)) {
             // TODO: implement CrsTransform class
             child = new CrsTransformCoverageExpr(node, xq);
-        } else if (nodeName.equals("scale")) {
+        } else if (nodeName.equals(WCPSConstants.MSG_SCALE)) {
             child = new ScaleCoverageExpr(node, xq);
-        } else if (nodeName.equals("construct")) {
+        } else if (nodeName.equals(WCPSConstants.MSG_CONSTRUCT)) {
             child = new ConstructCoverageExpr(node.getFirstChild(), xq);
-        } else if (nodeName.equals("const")) {
+        } else if (nodeName.equals(WCPSConstants.MSG_CONST)) {
             child = new ConstantCoverageExpr(node.getFirstChild(), xq);
         } //        else if (nodeName.equals("variableRef"))
         //        {
@@ -100,7 +101,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
             if (child == null) {
                 try {
                     child = new SetMetadataCoverageExpr(node, xq);
-                    log.trace("  matched set metadata operation.");
+                    log.trace("  " + WCPSConstants.MSG_MATCHED_SET_METADATA);
                 } catch (WCPSException e) {
                     child = null;
                 }
@@ -109,10 +110,10 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
             if (child == null) {
                 try {
                     child = new InducedOperationCoverageExpr(node, xq);
-                    log.trace("  matched induced coverage expression operation.");
+                    log.trace("  " + WCPSConstants.MSG_MATCHED_INDUCED_COVERAGE);
                 } catch (WCPSException e) {
                     child = null;
-                    if (e.getMessage().equals("Method not implemented")) {
+                    if (e.getMessage().equals(WCPSConstants.MSG_METHOD_NOT_IMPL)) {
                         throw e;
                     }
                 }
@@ -121,7 +122,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
             if (child == null) {
                 try {
                     child = new SubsetOperationCoverageExpr(node, xq);
-                    log.trace("  matched subset operation.");
+                    log.trace("  " + WCPSConstants.MSG_MATCHED_SUBSET_OP);
                 } catch (WCPSException e) {
                     child = null;
                 }
@@ -131,7 +132,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
                 try {
                     child = new ScalarExpr(node, xq);
                     this.scalarExpr = true;
-                    log.trace("Matched scalar expression.");
+                    log.trace(WCPSConstants.MSG_MATCHED_SCALAR_EXPR);
                 } catch (WCPSException e) {
                     child = null;
                 }
@@ -139,7 +140,7 @@ public class CoverageExpr implements IRasNode, ICoverageInfo {
         }
 
         if (!simpleCoverage && (child == null)) {
-            throw new WCPSException("Invalid coverage Expression, next node: "
+            throw new WCPSException(WCPSConstants.ERRTXT_INVALID_COVERAGE_EXPR + ": "
                     + node.getNodeName());
         }
 

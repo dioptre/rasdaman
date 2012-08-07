@@ -23,6 +23,7 @@ package petascope.wcps.server.core;
 
 import petascope.exceptions.WCPSException;
 import org.w3c.dom.*;
+import petascope.util.WCPSConstants;
 
 public class CoverageExprPairType implements IRasNode, ICoverageInfo {
 
@@ -65,7 +66,7 @@ public class CoverageExprPairType implements IRasNode, ICoverageInfo {
         if (ok == true) {
             return first.toRasQL() + second.toRasQL();
         } else {
-            return " error ";
+            return " " + WCPSConstants.ERRTXT_ERROR + " ";
         }
     }
 
