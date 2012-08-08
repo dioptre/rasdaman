@@ -178,8 +178,13 @@ log "executing updates:"
 updated=0
 while [ -f "$SCRIPT_DIR/update$counter.sql" ]; do
   logn "  update $counter... "
-	$PSQL < "$SCRIPT_DIR/update$counter.sql" > /dev/null 2>&1
-	feedback
+	$PSQL --set ON_ERROR_STOP=on < "$SCRIPT_DIR/update$counter.sql" > /dev/null 2>&1
+	# Check if the update was successful
+	ret=$?
+	if [ "$ret" -ne 0 ]; then
+		logn " FAILED (return value $ret)."
+		break # So that ps_dbupdates is updated to its partial update anyway.
+	fi
 	counter=$(($counter+1))
 	updated=1
 done
