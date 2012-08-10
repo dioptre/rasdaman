@@ -161,9 +161,9 @@ RascontrolConfig::RascontrolConfig() :
     cmlTestLogin    (cmlInter.addFlagParameter('t',"testlogin", "test if environment variable RASLOGIN is OK to login")),
     cmlInteractive  (cmlInter.addFlagParameter('e',"interactive", "interactive mode, login from environment variable RASLOGIN")),
     cmlQuiet        (cmlInter.addFlagParameter('q',"quiet", "quiet, don't print header (default on for -login and -testlogin)")),
-#ifdef NO_OFFICIAL_RELEASE
+//#ifdef NO_OFFICIAL_RELEASE
     cmlHist         (cmlInter.addStringParameter(CommandLineParser::noShortName, "hist", "<file-name> used to store your commands in file, as help for batch file.")),
-#endif
+//#endif
     cmlPrompt       (cmlInter.addStringParameter(CommandLineParser::noShortName, "prompt", "<nnn> change rascontrol prompt as following:\n\t\t 0 - prompt '>'\n\t\t 1 - prompt 'rasc>'\n\t\t 2 - prompt 'user:host>'","2")),
     cmlExecute      (cmlInter.addFlagParameter('x',"execute", "batch mode, login from environment variable RASLOGIN\n   <rasmgr-cmd>\ta rasmgr command (only in batch mode)\n\t\tif no command if provided, command is read from stdin\n\t\t(used for batch mode with '<inputfile')")),
     cmlHelp         (cmlInter.addFlagParameter('h',"help", "this help"))
@@ -282,13 +282,13 @@ bool RascontrolConfig::interpretArguments(int argc, char **argv)
         else return paramError();
     }
 
-#ifdef NO_OFFICIAL_RELEASE
+//#ifdef NO_OFFICIAL_RELEASE
     if( cmlHist.isPresent() )
     {
         reqHist = true;
         strcpy(histFileName, cmlHist.getValueAsString());
     }
-#endif
+//#endif
 
     try
     {
@@ -317,9 +317,9 @@ void RascontrolConfig::printHelp()
               << CommandLineParser::LongSign << cmlHelp.getLongName()  << "]["
               << CommandLineParser::LongSign << cmlHost.getLongName()  << "<mainhost>]["
               << CommandLineParser::LongSign << cmlPort.getLongName()  << " <nn>]["
-#ifdef NO_OFFICIAL_RELEASE
+//#ifdef NO_OFFICIAL_RELEASE
               << CommandLineParser::LongSign << cmlHist.getLongName()  << " <file>]["
-#endif
+//#endif
               << CommandLineParser::LongSign << cmlPrompt.getLongName()  << " <n>]["
               << CommandLineParser::LongSign << cmlQuiet.getLongName()  << "]\n\t\t\t["
               << CommandLineParser::LongSign << cmlLogin.getLongName() << "|"

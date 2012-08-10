@@ -153,9 +153,9 @@ private:
     //-- parameters of this program
     CommandLineParser    &cmlInter;
     CommandLineParameter &cmlHelp, &cmlHost, &cmlPort, &cmlLogin;
-#ifdef NO_OFFICIAL_RELEASE
+//#ifdef NO_OFFICIAL_RELEASE
     CommandLineParameter &cmlHist;
-#endif
+//#endif
     CommandLineParameter &cmlPrompt, &cmlTestLogin;
     CommandLineParameter &cmlInteractive, &cmlQuiet, &cmlExecute;
 
